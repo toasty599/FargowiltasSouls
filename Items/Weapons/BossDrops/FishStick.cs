@@ -10,31 +10,32 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Fish Stick");
             Tooltip.SetDefault("'The carcass of a defeated foe shoved violently on a stick..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "鱼杖");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'一个被打败的敌人的尸体,用棍子粗暴地串起来..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "鱼杖");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'一个被打败的敌人的尸体,用棍子粗暴地串起来..'");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 77;
-            item.ranged = true;
-            //item.mana = 10;
-            item.width = 24;
-            item.height = 24;
-            item.useTime = 16;
-            item.useAnimation = 16;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.noMelee = true;
-            item.knockBack = 2f;
-            item.UseSound = SoundID.Item1;
-            item.value = Item.sellPrice(0, 6);
-            item.rare = ItemRarityID.Yellow;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<FishStickProj>();
-            item.shootSpeed = 35f;
-            item.noUseGraphic = true;
+            Item.damage = 77;
+            Item.DamageType = DamageClass.Ranged;
+            //Item.mana = 10;
+            Item.width = 24;
+            Item.height = 24;
+            Item.useTime = 16;
+            Item.useAnimation = 16;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.noMelee = true;
+            Item.knockBack = 2f;
+            Item.UseSound = SoundID.Item1;
+            Item.value = Item.sellPrice(0, 6);
+            Item.rare = ItemRarityID.Yellow;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<FishStickProj>();
+            Item.shootSpeed = 35f;
+            Item.noUseGraphic = true;
         }
     }
 }

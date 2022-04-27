@@ -25,45 +25,54 @@ namespace FargowiltasSouls.Projectiles
             this.increment = increment;
         }
 
-        public override void SetDefaults() //MAKE SURE YOU CALL BASE.SETDEFAULTS IF OVERRIDING
+        public override void SetStaticDefaults()
         {
-            projectile.width = 60;
-            projectile.height = 60;
-            projectile.hostile = true;
-            projectile.alpha = 255;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.timeLeft = 600;
+            base.SetStaticDefaults();
 
-            cooldownSlot = 0;
-
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
-                projectile =>
-                {
-                    return CanDamage() && targetPlayer == Main.myPlayer && Math.Abs((Main.LocalPlayer.Center - projectile.Center).Length() - threshold) < projectile.width / 2 * projectile.scale + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius;
-                };
-
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 4;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-
-            projectile.hide = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 3;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
 
-        public override bool CanDamage()
+        public override void SetDefaults() //MAKE SURE YOU CALL BASE.SETDEFAULTS IF OVERRIDING
         {
-            return projectile.alpha == 0;
+            Projectile.width = 60;
+            Projectile.height = 60;
+            Projectile.hostile = true;
+            Projectile.alpha = 255;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 600;
+
+            Projectile.netImportant = true;
+
+            CooldownSlot = 0;
+
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
+                projectile =>
+                {
+                    return CanDamage() == true && targetPlayer == Main.myPlayer && Math.Abs((Main.LocalPlayer.Center - Projectile.Center).Length() - threshold) < Projectile.width / 2 * Projectile.scale + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius;
+                };
+
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+
+            Projectile.hide = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 3;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+        }
+
+        public override bool? CanDamage()
+        {
+            return Projectile.alpha == 0;
         }
 
         public override bool CanHitPlayer(Player target)
         {
-            return targetPlayer == target.whoAmI && target.hurtCooldowns[cooldownSlot] == 0;
+            return targetPlayer == target.whoAmI && target.hurtCooldowns[CooldownSlot] == 0;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return Math.Abs((targetHitbox.Center.ToVector2() - projHitbox.Center.ToVector2()).Length() - threshold) < projectile.width / 2 * projectile.scale;
+            return Math.Abs((targetHitbox.Center.ToVector2() - projHitbox.Center.ToVector2()).Length() - threshold) < Projectile.width / 2 * Projectile.scale;
         }
 
         protected virtual void Movement(NPC npc)
@@ -73,12 +82,12 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], npcType);
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], npcType);
             if (npc != null)
             {
-                projectile.alpha -= increment;
-                if (projectile.alpha < 0)
-                    projectile.alpha = 0;
+                Projectile.alpha -= increment;
+                if (Projectile.alpha < 0)
+                    Projectile.alpha = 0;
 
                 Movement(npc);
 
@@ -87,7 +96,7 @@ namespace FargowiltasSouls.Projectiles
                 Player player = Main.LocalPlayer;
                 if (player.active && !player.dead && !player.ghost)
                 {
-                    float distance = player.Distance(projectile.Center);
+                    float distance = player.Distance(Projectile.Center);
                     if (distance > threshold && distance < threshold * 4f)
                     {
                         if (distance > threshold * 2f)
@@ -106,7 +115,7 @@ namespace FargowiltasSouls.Projectiles
                             player.velocity.Y = -0.4f;
                         }
 
-                        Vector2 movement = projectile.Center - player.Center;
+                        Vector2 movement = Projectile.Center - player.Center;
                         float difference = movement.Length() - threshold;
                         movement.Normalize();
                         movement *= difference < 17f ? difference : 17f;
@@ -123,91 +132,91 @@ namespace FargowiltasSouls.Projectiles
             }
             else
             {
-                projectile.velocity = Vector2.Zero;
-                projectile.alpha += increment;
-                if (projectile.alpha > 255)
+                Projectile.velocity = Vector2.Zero;
+                Projectile.alpha += increment;
+                if (Projectile.alpha > 255)
                 {
-                    projectile.Kill();
+                    Projectile.Kill();
                     return;
                 }
             }
 
-            projectile.timeLeft = 2;
-            projectile.scale = (1f - projectile.alpha / 255f) * 2f;
-            projectile.ai[0] += rotationPerTick;
-            if (projectile.ai[0] > MathHelper.Pi)
+            Projectile.timeLeft = 2;
+            Projectile.scale = (1f - Projectile.alpha / 255f) * 2f;
+            Projectile.ai[0] += rotationPerTick;
+            if (Projectile.ai[0] > MathHelper.Pi)
             {
-                projectile.ai[0] -= 2f * MathHelper.Pi;
-                projectile.netUpdate = true;
+                Projectile.ai[0] -= 2f * MathHelper.Pi;
+                Projectile.netUpdate = true;
             }
-            else if (projectile.ai[0] < -MathHelper.Pi)
+            else if (Projectile.ai[0] < -MathHelper.Pi)
             {
-                projectile.ai[0] += 2f * MathHelper.Pi;
-                projectile.netUpdate = true;
+                Projectile.ai[0] += 2f * MathHelper.Pi;
+                Projectile.netUpdate = true;
             }
 
-            projectile.localAI[0] = threshold;
+            Projectile.localAI[0] = threshold;
         }
 
         public override void PostAI()
         {
-            projectile.hide = false;
+            Projectile.hide = false;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.velocity = target.DirectionTo(projectile.Center) * 4f;
+            target.velocity = target.DirectionTo(Projectile.Center) * 4f;
         }
 
         public override void Kill(int timeLeft)
         {
-            float modifier = (255f - projectile.alpha) / 255f;
+            float modifier = (255f - Projectile.alpha) / 255f;
             float offset = threshold * modifier;
             int max = (int)(300 * modifier);
             for (int i = 0; i < max; i++)
             {
-                int d = Dust.NewDust(projectile.Center, 0, 0, dustType, Scale: 4f);
+                int d = Dust.NewDust(Projectile.Center, 0, 0, dustType, Scale: 4f);
                 Main.dust[d].velocity *= 6f;
                 Main.dust[d].noGravity = true;
-                Main.dust[d].position = projectile.Center + offset * Vector2.UnitX.RotatedByRandom(2 * Math.PI);
+                Main.dust[d].position = Projectile.Center + offset * Vector2.UnitX.RotatedByRandom(2 * Math.PI);
             }
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity * (targetPlayer == Main.myPlayer ? 1f : 0.15f);
+            return Color.White * Projectile.Opacity * (targetPlayer == Main.myPlayer ? 1f : 0.15f);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
 
-            Color color26 = projectile.GetAlpha(lightColor);
+            Color color26 = Projectile.GetAlpha(lightColor);
 
             for (int x = 0; x < 32; x++)
             {
-                int frame = (projectile.frame + x) % Main.projFrames[projectile.type];
+                int frame = (Projectile.frame + x) % Main.projFrames[Projectile.type];
                 int y3 = num156 * frame; //ypos of upper left corner of sprite to draw
                 Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
                 Vector2 origin2 = rectangle.Size() / 2f;
 
-                float rotation = 2f * MathHelper.Pi / 32 * x + projectile.ai[0];
+                float rotation = 2f * MathHelper.Pi / 32 * x + Projectile.ai[0];
 
-                Vector2 drawOffset = new Vector2(threshold * projectile.scale / 2f, 0f).RotatedBy(projectile.ai[0]);
+                Vector2 drawOffset = new Vector2(threshold * Projectile.scale / 2f, 0f).RotatedBy(Projectile.ai[0]);
                 drawOffset = drawOffset.RotatedBy(2f * MathHelper.Pi / 32f * x);
                 const int max = 4;
                 for (int i = 0; i < max; i++)
                 {
                     Color color27 = color26;
                     color27 *= (float)(max - i) / max;
-                    Vector2 value4 = projectile.Center + drawOffset.RotatedBy(rotationPerTick * -i);
-                    float rot = rotation + projectile.rotation;
-                    Main.spriteBatch.Draw(texture2D13, value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, rot, origin2, projectile.scale, SpriteEffects.None, 0f);
+                    Vector2 value4 = Projectile.Center + drawOffset.RotatedBy(rotationPerTick * -i);
+                    float rot = rotation + Projectile.rotation;
+                    Main.EntitySpriteDraw(texture2D13, value4 - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, rot, origin2, Projectile.scale, SpriteEffects.None, 0);
                 }
 
-                float finalRot = rotation + projectile.rotation;
-                Main.spriteBatch.Draw(texture2D13, projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, finalRot, origin2, projectile.scale, SpriteEffects.None, 0f);
+                float finalRot = rotation + Projectile.rotation;
+                Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, finalRot, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
             return false;
         }

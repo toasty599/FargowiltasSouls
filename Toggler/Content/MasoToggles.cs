@@ -1,6 +1,6 @@
 ﻿using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Armor;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Toggler.Content
@@ -13,11 +13,14 @@ namespace FargowiltasSouls.Toggler.Content
 
         public int MasoHeader2 = ModContent.ItemType<DeviatingEnergy>();
         public string MasoAeolus;
+        public string MasoAeolusFlower;
         public string MasoIcon;
         public string MasoIconDrops;
         public string MasoGraze;
         public string MasoGrazeRing;
         public string MasoDevianttHearts;
+        public string DreadShellParry;
+        public string PrecisionSealHurtbox;
         public string MasoFishron;
 
         public int SupremeFairyHeader = ModContent.ItemType<SupremeDeathbringerFairy>();

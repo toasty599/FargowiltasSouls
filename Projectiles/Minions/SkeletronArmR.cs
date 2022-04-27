@@ -9,29 +9,30 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class SkeletronArmR : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_36";
+        public override string Texture => "Terraria/Images/NPC_36";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Skeletron Hand");
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.netImportant = true;
-            projectile.width = 52;
-            projectile.height = 52;
-            projectile.timeLeft *= 5;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
+            Projectile.netImportant = true;
+            Projectile.width = 52;
+            Projectile.height = 52;
+            Projectile.timeLeft *= 5;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
 
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 10;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override bool? CanCutTiles()
@@ -41,48 +42,48 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().SkeletronArms)
-                projectile.timeLeft = 2;
+            Player player = Main.player[Projectile.owner];
+            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().SkeletronArms)
+                Projectile.timeLeft = 2;
 
-            if (projectile.damage == 0)
-            {
-                projectile.damage = 18;
-                if (player.GetModPlayer<FargoPlayer>().SupremeDeathbringerFairy)
-                    projectile.damage = 24;
-                if (player.GetModPlayer<FargoPlayer>().MasochistSoul)
-                    projectile.damage = 48;
-                projectile.damage = (int)(projectile.damage * player.minionDamage);
-            }
+            //if (Projectile.damage == 0)
+            //{
+            //    Projectile.damage = 18;
+            //    if (player.GetModPlayer<FargoSoulsPlayer>().SupremeDeathbringerFairy)
+            //        Projectile.damage = 24;
+            //    if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
+            //        Projectile.damage = 48;
+            //    Projectile.damage = (int)(Projectile.damage * player.GetDamage(DamageClass.Summon));
+            //}
 
             //tentacle head movement (homing)
             Vector2 playerVel = player.position - player.oldPosition;
-            projectile.position += playerVel;
-            projectile.ai[0]++;
-            if (projectile.ai[0] >= 0f)
+            Projectile.position += playerVel;
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] >= 0f)
             {
                 Vector2 home = player.Center;
                 home.X += 200f;
                 home.Y -= 50f;
-                Vector2 distance = home - projectile.Center;
+                Vector2 distance = home - Projectile.Center;
                 float range = distance.Length();
                 distance.Normalize();
-                if (projectile.ai[0] == 0f)
+                if (Projectile.ai[0] == 0f)
                 {
                     if (range > 15f)
                     {
-                        projectile.ai[0] = -1f; //if in fast mode, stay fast until back in range
+                        Projectile.ai[0] = -1f; //if in fast mode, stay fast until back in range
                         if (range > 1300f)
                         {
-                            projectile.Kill();
+                            Projectile.Kill();
                             return;
                         }
                     }
                     else
                     {
-                        projectile.velocity.Normalize();
-                        projectile.velocity *= 3f + Main.rand.NextFloat(3f);
-                        projectile.netUpdate = true;
+                        Projectile.velocity.Normalize();
+                        Projectile.velocity *= 3f + Main.rand.NextFloat(3f);
+                        Projectile.netUpdate = true;
                     }
                 }
                 else
@@ -91,49 +92,49 @@ namespace FargowiltasSouls.Projectiles.Minions
                 }
                 if (range > 120f) //switch to fast return mode
                 {
-                    projectile.ai[0] = -1f;
-                    projectile.netUpdate = true;
+                    Projectile.ai[0] = -1f;
+                    Projectile.netUpdate = true;
                 }
-                projectile.velocity += distance;
+                Projectile.velocity += distance;
                 if (range > 30f)
-                    projectile.velocity *= 0.96f;
+                    Projectile.velocity *= 0.96f;
 
-                if (projectile.ai[0] > 90f) //attack nearby enemy
+                if (Projectile.ai[0] > 90f) //attack nearby enemy
                 {
-                    projectile.ai[0] = 20f;
-                    NPC npc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 400));
+                    Projectile.ai[0] = 20f;
+                    NPC npc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(Projectile, 400));
                     if (npc != null)
                     {
-                        projectile.velocity = npc.Center - projectile.Center;
-                        projectile.velocity.Normalize();
-                        projectile.velocity *= 16f;
-                        projectile.velocity += npc.velocity / 2f;
-                        projectile.velocity -= playerVel / 2f;
-                        projectile.ai[0] *= -1f;
+                        Projectile.velocity = npc.Center - Projectile.Center;
+                        Projectile.velocity.Normalize();
+                        Projectile.velocity *= 16f;
+                        Projectile.velocity += npc.velocity / 2f;
+                        Projectile.velocity -= playerVel / 2f;
+                        Projectile.ai[0] *= -1f;
                     }
-                    projectile.netUpdate = true;
+                    Projectile.netUpdate = true;
                 }
             }
 
-            Vector2 angle = player.Center - projectile.Center;
+            Vector2 angle = player.Center - Projectile.Center;
             angle.X += 200f;
             angle.Y += 180f;
-            projectile.rotation = (float)Math.Atan2(angle.Y, angle.X) + (float)Math.PI / 2f;
+            Projectile.rotation = (float)Math.Atan2(angle.Y, angle.X) + (float)Math.PI / 2f;
         }
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            hitDirection = Math.Sign(target.Center.X - Main.player[projectile.owner].Center.X);
+            hitDirection = Math.Sign(target.Center.X - Main.player[Projectile.owner].Center.X);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.FlipHorizontally, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
             return false;
         }
     }

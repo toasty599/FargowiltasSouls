@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.Masomode
@@ -15,8 +17,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.scale *= 0.75f;
-            cooldownSlot = -1;
+            Projectile.scale *= 0.75f;
+            CooldownSlot = -1;
         }
 
         public override bool CanHitPlayer(Player target)
@@ -28,90 +30,96 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             if (!firstTick)
             {
-                projectile.timeLeft = 150 + Main.rand.Next(10); //make them all die at slightly different times so no big audio pop on death
-                projectile.netUpdate = true; //sync timeleft on first tick
+                Projectile.timeLeft = 150 + Main.rand.Next(10); //make them all die at slightly different times so no big audio pop on death
+                Projectile.netUpdate = true; //sync timeleft on first tick
                 firstTick = true;
             }
-            if (projectile.localAI[0] > 85) //dust during dash
+            if (Projectile.localAI[0] > 85) //dust during dash
             {
                 int num22 = 7;
                 for (int index1 = 0; index1 < num22; ++index1)
                 {
-                    Vector2 vector2_1 = (Vector2.Normalize(projectile.velocity) * new Vector2((projectile.width + 50) / 2f, projectile.height) * 0.75f).RotatedBy((index1 - (num22 / 2 - 1)) * Math.PI / num22, new Vector2()) + projectile.Center;
+                    Vector2 vector2_1 = (Vector2.Normalize(Projectile.velocity) * new Vector2((Projectile.width + 50) / 2f, Projectile.height) * 0.75f).RotatedBy((index1 - (num22 / 2 - 1)) * Math.PI / num22, new Vector2()) + Projectile.Center;
                     Vector2 vector2_2 = ((float)(Main.rand.NextDouble() * 3.14159274101257) - 1.570796f).ToRotationVector2() * Main.rand.Next(3, 8);
                     Vector2 vector2_3 = vector2_2;
                     int index2 = Dust.NewDust(vector2_1 + vector2_3, 0, 0, 172, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].noLight = true;
                     Main.dust[index2].velocity /= 4f;
-                    Main.dust[index2].velocity -= projectile.velocity;
+                    Main.dust[index2].velocity -= Projectile.velocity;
                 }
             }
             return true;
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Defenseless"), 600);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
             //target.AddBuff(BuffID.WitheredWeapon, 600);
-            target.AddBuff(mod.BuffType("OceanicMaul"), 1800);
-            target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 20 * 60);
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
         }
 
         public override void Kill(int timeLeft)
         {
             for (int num249 = 0; num249 < 150; num249++)
             {
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 5, 2 * projectile.direction, -2f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 5, 2 * Projectile.direction, -2f);
             }
 
             int soundtype = (Main.rand.NextBool()) ? 17 : 30;
-            Main.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, soundtype, 0.75f, 0.2f);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, soundtype, 0.75f, 0.2f);
 
-            Gore.NewGore(projectile.Center - Vector2.UnitX * 20f * projectile.direction, projectile.velocity, mod.GetGoreSlot("Gores/Fishron/Gore_576"), projectile.scale);
-            Gore.NewGore(projectile.Center - Vector2.UnitY * 30f, projectile.velocity, mod.GetGoreSlot("Gores/Fishron/Gore_574"), projectile.scale);
-            Gore.NewGore(projectile.Center, projectile.velocity, mod.GetGoreSlot("Gores/Fishron/Gore_575"), projectile.scale);
-            Gore.NewGore(projectile.Center + Vector2.UnitX * 20f * projectile.direction, projectile.velocity, mod.GetGoreSlot("Gores/Fishron/Gore_573"), projectile.scale);
-            Gore.NewGore(projectile.Center - Vector2.UnitY * 30f, projectile.velocity, mod.GetGoreSlot("Gores/Fishron/Gore_574"), projectile.scale);
-            Gore.NewGore(projectile.Center, projectile.velocity, mod.GetGoreSlot("Gores/Fishron/Gore_575"), projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center - Vector2.UnitX * 20f * Projectile.direction, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_576").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center - Vector2.UnitY * 30f, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_574").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_575").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center + Vector2.UnitX * 20f * Projectile.direction, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_573").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center - Vector2.UnitY * 30f, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_574").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_575").Type, Projectile.scale);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects spriteEffects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            if (projectile.localAI[0] > 85)
+            if (Projectile.localAI[0] > 85)
             {
-                for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 2)
+                for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 2)
                 {
                     Color color27 = Color.Lerp(color26, Color.Blue, 0.5f);
-                    color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                    Vector2 value4 = projectile.oldPos[i];
-                    float num165 = projectile.oldRot[i];
-                    if (projectile.spriteDirection < 0)
+                    color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                    Vector2 value4 = Projectile.oldPos[i];
+                    float num165 = Projectile.oldRot[i];
+                    if (Projectile.spriteDirection < 0)
                         num165 += (float)Math.PI;
-                    Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, spriteEffects, 0f);
+                    Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, spriteEffects, 0);
                 }
             }
 
-            float drawRotation = projectile.rotation;
-            if (projectile.spriteDirection < 0)
+            float drawRotation = Projectile.rotation;
+            if (Projectile.spriteDirection < 0)
                 drawRotation += (float)Math.PI;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), drawRotation, origin2, projectile.scale, spriteEffects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), drawRotation, origin2, Projectile.scale, spriteEffects, 0);
             return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            float ratio = (255 - projectile.alpha) / 255f;
+            float ratio = (255 - Projectile.alpha) / 255f;
             float blue = MathHelper.Lerp(ratio, 1f, 0.25f);
             if (blue > 1f)
                 blue = 1f;

@@ -16,21 +16,22 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.MolotovFire);
-            aiType = ProjectileID.MolotovFire;
+            Projectile.CloneDefaults(ProjectileID.MolotovFire);
+            AIType = ProjectileID.MolotovFire;
 
-            projectile.width = 14;
-            projectile.height = 16;
-        }
+            Projectile.width = 14;
+            Projectile.height = 16;
+			Projectile.DamageType = DamageClass.Generic;
+		}
 
         public override void AI()
         {
-			if (projectile.wet)
+			if (Projectile.wet)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
-			int num199 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 1f);
+			int num199 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default(Color), 1f);
 			Dust expr_8956_cp_0 = Main.dust[num199];
 			expr_8956_cp_0.position.X = expr_8956_cp_0.position.X - 2f;
 			Dust expr_8974_cp_0 = Main.dust[num199];
@@ -41,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			expr_89C7_cp_0.velocity.Y = expr_89C7_cp_0.velocity.Y - 2f;
 			if (Main.rand.NextBool())
 			{
-				int num200 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 1f);
+				int num200 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default(Color), 1f);
 				Dust expr_8A2E_cp_0 = Main.dust[num200];
 				expr_8A2E_cp_0.position.X = expr_8A2E_cp_0.position.X - 2f;
 				Dust expr_8A4C_cp_0 = Main.dust[num200];
@@ -50,18 +51,18 @@ namespace FargowiltasSouls.Projectiles.Souls
 				Main.dust[num200].noGravity = true;
 				Main.dust[num200].velocity *= 0.1f;
 			}
-			if ((double)projectile.velocity.Y < 0.25 && (double)projectile.velocity.Y > 0.15)
+			if ((double)Projectile.velocity.Y < 0.25 && (double)Projectile.velocity.Y > 0.15)
 			{
-				projectile.velocity.X = projectile.velocity.X * 0.8f;
+				Projectile.velocity.X = Projectile.velocity.X * 0.8f;
 			}
-			projectile.rotation = -projectile.velocity.X * 0.05f;
+			Projectile.rotation = -Projectile.velocity.X * 0.05f;
 		}
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
-            fallThrough = false;
+			fallThrough = false;
 
-            return base.TileCollideStyle(ref width, ref height, ref fallThrough);
-        }
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+		}
     }
 }

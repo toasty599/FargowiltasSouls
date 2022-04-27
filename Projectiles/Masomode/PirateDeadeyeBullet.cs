@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,32 +15,31 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.MeteorShot);
-            aiType = ProjectileID.MeteorShot;
-            projectile.friendly = false;
-            projectile.ranged = false;
-            projectile.hostile = true;
-            projectile.penetrate = 6;
-            projectile.timeLeft = 600;
+            Projectile.CloneDefaults(ProjectileID.MeteorShot);
+            AIType = ProjectileID.MeteorShot;
+            Projectile.DamageType = DamageClass.Default;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.penetrate = 6; //used for bouncing
+            Projectile.timeLeft = 600;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Midas"), 600);
+            target.AddBuff(ModContent.BuffType<Midas>(), 600);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (projectile.penetrate > 1)
+            if (Projectile.penetrate-- > 1)
             {
-                Collision.HitTiles(projectile.position, projectile.velocity, projectile.width, projectile.height);
-                Main.PlaySound(SoundID.Item10, projectile.position);
-                projectile.penetrate--;
+                Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 
-                if (projectile.velocity.X != projectile.oldVelocity.X)
-                    projectile.velocity.X = -projectile.oldVelocity.X;
-                if (projectile.velocity.Y != projectile.oldVelocity.Y)
-                    projectile.velocity.Y = -projectile.oldVelocity.Y;
+                if (Projectile.velocity.X != Projectile.oldVelocity.X)
+                    Projectile.velocity.X = -Projectile.oldVelocity.X;
+                if (Projectile.velocity.Y != Projectile.oldVelocity.Y)
+                    Projectile.velocity.Y = -Projectile.oldVelocity.Y;
 
                 return false;
             }

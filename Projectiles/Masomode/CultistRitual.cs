@@ -1,19 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class CultistRitual : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_454";
+        public override string Texture => "Terraria/Images/Projectile_454";
 
         public CultistRitual() : base(MathHelper.Pi / -140f, 1600f, NPCID.CultistBoss) { }
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Cultist Ritual");
-            Main.projFrames[projectile.type] = 2;
+            Main.projFrames[Projectile.type] = 2;
         }
 
         protected override void Movement(NPC npc)
@@ -23,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 int ritual = (int)npc.ai[2];
                 if (ritual > -1 && ritual < Main.maxProjectiles && Main.projectile[ritual].active && Main.projectile[ritual].type == ProjectileID.CultistRitual)
                 {
-                    projectile.Center = Main.projectile[ritual].Center;
+                    Projectile.Center = Main.projectile[ritual].Center;
                 }
             }
         }
@@ -32,21 +36,27 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             base.AI();
 
-            projectile.frameCounter++;
-            if (projectile.frameCounter >= 6)
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 6)
             {
-                projectile.frameCounter = 0;
-                projectile.frame++;
-                if (projectile.frame > 1)
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame > 1)
+                    Projectile.frame = 0;
             }
+        }
+
+        public override void PostAI()
+        {
+            base.PostAI();
+            Projectile.hide = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             base.OnHitPlayer(target, damage, crit);
 
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 300);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 300);
         }
     }
 }

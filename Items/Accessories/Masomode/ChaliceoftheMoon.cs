@@ -3,6 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Minions;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -22,8 +25,8 @@ When you land after a jump, you create a burst of boulders
 You fire additional attacks depending on weapon type and erupt into Ancient Visions when injured
 Summons a friendly Cultist and plant to fight at your side
 'Consume it'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "月之杯");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"月亮的微笑
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "月之杯");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"月亮的微笑
 免疫毒液, 常春藤毒, 燃烧, 导火线, 低地和死亡标记
 免疫蜂群, 萎缩, 卡壳, 反魔力流和反社交
 增加生命回复
@@ -36,66 +39,66 @@ Summons a friendly Cultist and plant to fight at your side
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Cyan;
-            item.value = Item.sellPrice(0, 7);
-            item.defense = 8;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.sellPrice(0, 7);
+            Item.defense = 8;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             //magical bulb
             player.lifeRegen += 2;
             player.buffImmune[BuffID.Venom] = true;
-            player.buffImmune[mod.BuffType("IvyVenom")] = true;
-            player.buffImmune[mod.BuffType("Swarming")] = true;
+            player.buffImmune[ModContent.BuffType<IvyVenom>()] = true;
+            player.buffImmune[ModContent.BuffType<Swarming>()] = true;
 
             if (player.GetToggleValue("MasoPlant"))
-                player.AddBuff(mod.BuffType("PlanterasChild"), 2);
+                player.AddBuff(ModContent.BuffType<PlanterasChild>(), 2);
 
             //lihzahrd treasure
             player.buffImmune[BuffID.Burning] = true;
-            player.buffImmune[mod.BuffType("Fused")] = true;
-            player.buffImmune[mod.BuffType("LihzahrdCurse")] = true;
-            player.buffImmune[mod.BuffType("LowGround")] = true;
-            fargoPlayer.LihzahrdTreasureBox = true;
+            player.buffImmune[ModContent.BuffType<Fused>()] = true;
+            player.buffImmune[ModContent.BuffType<LihzahrdCurse>()] = true;
+            player.buffImmune[ModContent.BuffType<LowGround>()] = true;
+            fargoPlayer.LihzahrdTreasureBoxItem = Item;
 
             //celestial rune
-            player.buffImmune[mod.BuffType("MarkedforDeath")] = true;
-            fargoPlayer.CelestialRune = true;
+            player.buffImmune[ModContent.BuffType<MarkedforDeath>()] = true;
+            fargoPlayer.CelestialRuneItem = Item;
             fargoPlayer.AdditionalAttacks = true;
 
             //chalice
-            player.buffImmune[mod.BuffType("Atrophied")] = true;
-            player.buffImmune[mod.BuffType("Jammed")] = true;
-            player.buffImmune[mod.BuffType("ReverseManaFlow")] = true;
-            player.buffImmune[mod.BuffType("Antisocial")] = true;
+            player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
+            player.buffImmune[ModContent.BuffType<Jammed>()] = true;
+            player.buffImmune[ModContent.BuffType<ReverseManaFlow>()] = true;
+            player.buffImmune[ModContent.BuffType<Antisocial>()] = true;
             fargoPlayer.MoonChalice = true;
 
             if (player.GetToggleValue("MasoCultist"))
-                player.AddBuff(mod.BuffType("LunarCultist"), 2);
+                player.AddBuff(ModContent.BuffType<LunarCultist>(), 2);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("MagicalBulb"));
-            recipe.AddIngredient(mod.ItemType("LihzahrdTreasureBox"));
-            recipe.AddIngredient(mod.ItemType("CelestialRune"));
-            recipe.AddIngredient(ItemID.FragmentSolar, 1);
-            recipe.AddIngredient(ItemID.FragmentVortex, 1);
-            recipe.AddIngredient(ItemID.FragmentNebula, 1);
-            recipe.AddIngredient(ItemID.FragmentStardust, 1);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<MagicalBulb>())
+            .AddIngredient(ModContent.ItemType<LihzahrdTreasureBox>())
+            .AddIngredient(ModContent.ItemType<CelestialRune>())
+            .AddIngredient(ItemID.FragmentSolar, 1)
+            .AddIngredient(ItemID.FragmentVortex, 1)
+            .AddIngredient(ItemID.FragmentNebula, 1)
+            .AddIngredient(ItemID.FragmentStardust, 1)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.LunarCraftingStation)
+            
+            .Register();
         }
     }
 }

@@ -6,40 +6,35 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using FargowiltasSouls.Items;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Patreon.Sasha
 {
-    public class MissDrakovisFishingPole : SoulsItem
+    public class MissDrakovisFishingPole : PatreonModItem
     {
         private int mode = 1;
 
-        public override string Texture => "Terraria/Item_2296";
+        public override string Texture => "Terraria/Images/Item_2296";
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Miss Drakovi's Fishing Pole");
             Tooltip.SetDefault("Right click to cycle through options of attack\nEvery damage type has one");
-            DisplayName.AddTranslation(GameCulture.Chinese, "Drakovi小姐的钓竿");
-            Tooltip.AddTranslation(GameCulture.Chinese, "右键循环切换攻击模式\n每种伤害类型对应一种模式");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "Drakovi小姐的钓竿");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "右键循环切换攻击模式\n每种伤害类型对应一种模式");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 300;
-            item.width = 24;
-            item.height = 28;
-            item.value = Item.sellPrice(0, 15);
-            item.rare = 10;
-            item.autoReuse = true;
+            Item.damage = 300;
+            Item.width = 24;
+            Item.height = 28;
+            Item.value = Item.sellPrice(0, 15);
+            Item.rare = 10;
+            Item.autoReuse = true;
 
             SetUpItem();
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
         }
 
         public override bool AltFunctionUse(Player player)
@@ -47,14 +42,14 @@ namespace FargowiltasSouls.Patreon.Sasha
             return true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             //right click
             if (player.altFunctionUse == 2)
             {
                 mode++;
 
-                if (mode > 5)
+                if (mode > 4)
                 {
                     mode = 1;
                 }
@@ -68,13 +63,13 @@ namespace FargowiltasSouls.Patreon.Sasha
             {
                 //melee
                 case 1:
-                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), mod.ProjectileType("PufferRang"), damage, knockBack, player.whoAmI);
+                    Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<PufferRang>(), damage, knockback, player.whoAmI);
                     break;
 
                 //range
                 case 2:
                     {
-                        Vector2 speed = new Vector2(speedX, speedY);
+                        Vector2 speed = velocity;
 
                         int numBullets = 4;
                         for (int num130 = 0; num130 < numBullets; num130++) //shotgun blast
@@ -82,7 +77,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                             Vector2 bulletSpeed = speed;
                             bulletSpeed.X += Main.rand.NextFloat(-1f, 1f);
                             bulletSpeed.Y += Main.rand.NextFloat(-1f, 1f);
-                            Projectile.NewProjectile(position, bulletSpeed, type, damage, knockBack, player.whoAmI);
+                            Projectile.NewProjectile(source, position, bulletSpeed, type, damage, knockback, player.whoAmI);
                         }
 
                         for (int i = 0; i < Main.maxNPCs; i++) //shoot an extra bullet at every nearby enemy
@@ -90,7 +85,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                             if (Main.npc[i].active && Main.npc[i].CanBeChasedBy() && player.Distance(Main.npc[i].Center) < 1000f)
                             {
                                 Vector2 bulletSpeed = 2f * speed.Length() * player.DirectionTo(Main.npc[i].Center);
-                                Projectile.NewProjectile(position, bulletSpeed, type, damage / 2, knockBack, player.whoAmI);
+                                Projectile.NewProjectile(source, position, bulletSpeed, type, damage / 2, knockback, player.whoAmI);
                             }
                         }
                     }
@@ -99,26 +94,26 @@ namespace FargowiltasSouls.Patreon.Sasha
                 //magic
                 case 3:
                     {
-                        Vector2 speed = new Vector2(speedX, speedY);
+                        Vector2 speed = velocity;
                         for (int i = -2; i <= 2; i++)
                         {
                             float modifier = 1f - 0.75f / 2f * Math.Abs(i);
-                            Projectile.NewProjectile(position, modifier * speed.RotatedBy(MathHelper.ToRadians(9) * i),
-                                mod.ProjectileType("Bubble"), damage, knockBack, player.whoAmI);
+                            Projectile.NewProjectile(source, position, modifier * speed.RotatedBy(MathHelper.ToRadians(9) * i),
+                                ModContent.ProjectileType<Bubble>(), damage, knockback, player.whoAmI);
                         }
                     }
                     break;
 
                 //summon
                 case 4:
-                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), mod.ProjectileType("FishMinion"), damage, knockBack, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(source, position, velocity, ModContent.ProjectileType<FishMinion>(), Item.damage, knockback, player.whoAmI);
                     break;
 
                 //throwing
                 default:
                     for (int i = 0; i < 10; i++)
                     {
-                        Projectile.NewProjectile(position, 4f * new Vector2(speedX + Main.rand.Next(-2, 2), speedY + Main.rand.Next(-2, 2)), mod.ProjectileType("SpikyLure"), damage, knockBack, player.whoAmI);
+                        Projectile.NewProjectile(source, position, 4f * new Vector2(velocity.X + Main.rand.Next(-2, 2), velocity.Y + Main.rand.Next(-2, 2)), ModContent.ProjectileType<SpikyLure>(), damage, knockback, player.whoAmI);
                     }
                     break;
             }
@@ -134,113 +129,109 @@ namespace FargowiltasSouls.Patreon.Sasha
             {
                 //melee
                 case 1:
-                    item.melee = true;
-                    item.shoot = mod.ProjectileType("PufferRang");
+                    Item.DamageType = DamageClass.Melee;
+                    Item.shoot = ModContent.ProjectileType<PufferRang>();
 
-                    item.useStyle = 1;
-                    item.useTime = 12;
-                    item.useAnimation = 12;
-                    item.UseSound = SoundID.Item1;
-                    item.knockBack = 6;
-                    item.noMelee = false;
-                    item.shootSpeed = 15f;
+                    Item.useStyle = 1;
+                    Item.useTime = 12;
+                    Item.useAnimation = 12;
+                    Item.UseSound = SoundID.Item1;
+                    Item.knockBack = 6;
+                    Item.noMelee = false;
+                    Item.shootSpeed = 15f;
                     break;
 
                 //range
                 case 2:
-                    item.ranged = true;
-                    item.shoot = ProjectileID.Bullet;
+                    Item.DamageType = DamageClass.Ranged;
+                    Item.shoot = ProjectileID.Bullet;
 
-                    item.knockBack = 6.5f;
-                    item.useStyle = 5;
-                    item.useAnimation = 50;
-                    item.useTime = 50;
-                    item.useAmmo = AmmoID.Bullet;
-                    item.UseSound = SoundID.Item36;
-                    item.shootSpeed = 12f;
-                    item.noMelee = true;
+                    Item.knockBack = 6.5f;
+                    Item.useStyle = 5;
+                    Item.useAnimation = 50;
+                    Item.useTime = 50;
+                    Item.useAmmo = AmmoID.Bullet;
+                    Item.UseSound = SoundID.Item36;
+                    Item.shootSpeed = 12f;
+                    Item.noMelee = true;
                     break;
 
                 //magic
                 case 3:
-                    item.magic = true;
-                    item.mana = 15;
-                    item.shoot = mod.ProjectileType("Bubble");
+                    Item.DamageType = DamageClass.Magic;
+                    Item.mana = 15;
+                    Item.shoot = ModContent.ProjectileType<Bubble>();
 
-                    item.knockBack = 3f;
-                    item.useStyle = 5;
-                    item.useAnimation = 25;
-                    item.useTime = 25;
-                    item.UseSound = SoundID.Item85;
-                    item.shootSpeed = 30f;
-                    item.noMelee = true;
+                    Item.knockBack = 3f;
+                    Item.useStyle = 5;
+                    Item.useAnimation = 25;
+                    Item.useTime = 25;
+                    Item.UseSound = SoundID.Item85;
+                    Item.shootSpeed = 30f;
+                    Item.noMelee = true;
                     break;
 
                 //minion
                 case 4:
-                    item.summon = true;
-                    item.mana = 10;
-                    item.shoot = mod.ProjectileType("FishMinion");
+                    Item.DamageType = DamageClass.Summon;
+                    Item.mana = 10;
+                    Item.shoot = ModContent.ProjectileType<FishMinion>();
 
-                    item.useTime = 36;
-                    item.useAnimation = 36;
-                    item.useStyle = 1;
-                    item.noMelee = true;
-                    item.knockBack = 3;
-                    item.UseSound = SoundID.Item44;
-                    item.shootSpeed = 10f;
-                    item.buffType = mod.BuffType("FishMinionBuff");
-                    item.buffTime = 3600;
-                    item.autoReuse = true;
+                    Item.useTime = 36;
+                    Item.useAnimation = 36;
+                    Item.useStyle = 1;
+                    Item.noMelee = true;
+                    Item.knockBack = 3;
+                    Item.UseSound = SoundID.Item44;
+                    Item.shootSpeed = 10f;
+                    Item.buffType = ModContent.BuffType<FishMinionBuff>();
+                    Item.buffTime = 3600;
+                    Item.autoReuse = true;
                     break;
 
                 //throwing
                 case 5:
-                    item.thrown = true;
-                    item.shoot = mod.ProjectileType("SpikyLure");
+                    Item.DamageType = DamageClass.Throwing;
+                    Item.shoot = ModContent.ProjectileType<SpikyLure>();
 
-                    item.useStyle = 1;
-                    item.shootSpeed = 5f;
-                    item.knockBack = 1f;
-                    item.UseSound = SoundID.Item1;
-                    item.useAnimation = 15;
-                    item.useTime = 15;
-                    item.noMelee = true;
+                    Item.useStyle = 1;
+                    Item.shootSpeed = 5f;
+                    Item.knockBack = 1f;
+                    Item.UseSound = SoundID.Item1;
+                    Item.useAnimation = 15;
+                    Item.useTime = 15;
+                    Item.noMelee = true;
                     break;
             }
         }
 
         private void ResetDamageType()
         {
-            item.melee = false;
-            item.ranged = false;
-            item.magic = false;
-            item.summon = false;
-            item.ranged = false;
-            item.mana = 0;
-            item.useAmmo = AmmoID.None;
+            Item.DamageType = DamageClass.Generic;
+            Item.mana = 0;
+            Item.useAmmo = AmmoID.None;
         }
 
         public override void AddRecipes()
         {
             if (SoulConfig.Instance.PatreonFishingRod)
             {
-                ModRecipe recipe = new ModRecipe(mod);
-                recipe.AddIngredient(ItemID.GoldenFishingRod);
-                recipe.AddIngredient(ItemID.BalloonPufferfish);
-                recipe.AddIngredient(ItemID.PurpleClubberfish);
-                recipe.AddIngredient(ItemID.FrostDaggerfish, 500);
-                recipe.AddIngredient(ItemID.ZephyrFish);
-                recipe.AddIngredient(ItemID.Toxikarp);
-                recipe.AddIngredient(ItemID.Bladetongue);
-                recipe.AddIngredient(ItemID.CrystalSerpent);
-                recipe.AddIngredient(ItemID.ScalyTruffle);
-                recipe.AddIngredient(ItemID.ObsidianSwordfish);
+                CreateRecipe()
+                .AddIngredient(ItemID.GoldenFishingRod)
+                .AddIngredient(ItemID.BalloonPufferfish)
+                .AddIngredient(ItemID.PurpleClubberfish)
+                .AddIngredient(ItemID.FrostDaggerfish, 500)
+                .AddIngredient(ItemID.ZephyrFish)
+                .AddIngredient(ItemID.Toxikarp)
+                .AddIngredient(ItemID.Bladetongue)
+                .AddIngredient(ItemID.CrystalSerpent)
+                .AddIngredient(ItemID.ScalyTruffle)
+                .AddIngredient(ItemID.ObsidianSwordfish)
 
-                recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+                .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-                recipe.SetResult(this);
-                recipe.AddRecipe();
+                
+                .Register();
             }
         }
     }

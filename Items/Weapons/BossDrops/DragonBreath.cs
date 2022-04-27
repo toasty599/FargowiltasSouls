@@ -11,34 +11,34 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Dragon's Breath");
             Tooltip.SetDefault("Uses gel for ammo\n33% chance to not consume ammo\n'The shrunken body of a defeated foe..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "巨龙之息");
-            Tooltip.AddTranslation(GameCulture.Chinese, "使用凝胶作为弹药\n33%的几率不消耗弹药\n'一个被打败的敌人的缩小版尸体..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巨龙之息");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "使用凝胶作为弹药\n33%的几率不消耗弹药\n'一个被打败的敌人的缩小版尸体..'");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 55;
-            item.ranged = true;
-            //item.mana = 10;
-            item.width = 24;
-            item.height = 24;
-            item.useTime = 45;
-            item.useAnimation = 45;
-            item.channel = true;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true;
-            item.knockBack = 1.5f;
-            item.UseSound = SoundID.DD2_BetsyFlameBreath;
-            item.useAmmo = AmmoID.Gel;
-            //Item.staff[item.type] = true;
-            item.value = 50000;
-            item.rare = ItemRarityID.Yellow;
-            item.autoReuse = false;
-            item.shoot = ModContent.ProjectileType<DragonBreathProj>();
-            item.shootSpeed = 35f;
-            item.noUseGraphic = false;
+            Item.damage = 55;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 24;
+            Item.height = 24;
+            Item.useTime = 45;
+            Item.useAnimation = 45;
+            Item.channel = true;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 1.5f;
+            Item.UseSound = SoundID.DD2_BetsyFlameBreath;
+            Item.useAmmo = AmmoID.Gel;
+            //Item.staff[Item.type] = true;
+            Item.value = 50000;
+            Item.rare = ItemRarityID.Yellow;
+            Item.autoReuse = false;
+            Item.shoot = ModContent.ProjectileType<DragonBreathProj>();
+            Item.shootSpeed = 35f;
+            Item.noUseGraphic = false;
         }
 
         //make them hold it different
@@ -49,13 +49,13 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
 
         public override bool CanUseItem(Player player)
         {
-            if (player.ownedProjectileCounts[item.shoot] > 0)
+            if (player.ownedProjectileCounts[Item.shoot] > 0)
                 return false;
 
             return true;
         }
 
-        public override bool ConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Player player)
         {
             return Main.rand.Next(3) != 0;
         }

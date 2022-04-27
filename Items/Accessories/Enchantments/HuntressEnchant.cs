@@ -4,24 +4,35 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.Localization;
+using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class HuntressEnchant : SoulsItem
+    public class HuntressEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Huntress Enchantment");
             Tooltip.SetDefault(
-@"Arrows will periodically fall towards your cursor
+@"
+Arrows will stick in enemies and apply a stacking bleed debuff per arrow
+Hit the enemy with a melee attack to deal bonus damage per arrow
+
+
+
+
+Arrows will periodically fall towards your cursor
 The arrow type is based on the first arrow in your inventory
 Double tap down to create a localized rain of arrows at the cursor's position for a few seconds
 This has a cooldown of 15 seconds
-Explosive Traps recharge faster and oil enemies
-Set oiled enemies on fire for extra damage
+Boosts Explosive Traps
 'The Hunt is On'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "女猎人魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "女猎人魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"箭矢会定期落至你光标周围
 箭矢的种类取决于你背包中第一个箭矢
 双击'下'键后令箭雨倾斜在光标位置
@@ -31,50 +42,122 @@ Set oiled enemies on fire for extra damage
 '狩猎开始了'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(122, 192, 76);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(122, 192, 76);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = 200000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = 200000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().HuntressEffect();
+            HuntressEffect(player);
         }
+
+        public static void HuntressEffect(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            modPlayer.HuntressEnchantActive = true;
+
+
+            //if (player.GetToggleValue("Huntress") && player.whoAmI == Main.myPlayer)
+            //{
+            //    FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            //    modPlayer.HuntressCD++;
+
+            //    Item firstAmmo = PickAmmo(player);
+            //    int arrowType = firstAmmo.shoot;
+            //    int damage = FargoSoulsUtil.HighestDamageTypeScaling(player, (int)(firstAmmo.damage * 3f));
+
+            //    if (modPlayer.RedEnchantActive)
+            //    {
+            //        damage *= 2;
+            //    }
+
+            //    //fire arrow at nearby enemy
+            //    if (modPlayer.HuntressCD >= 30)
+            //    {
+            //        Vector2 mouse = Main.MouseWorld;
+            //        Vector2 pos = new Vector2(mouse.X - player.direction * 100, mouse.Y - 800);
+            //        Vector2 velocity = Vector2.Normalize(mouse - pos) * 25;
+
+            //        int p = Projectile.NewProjectile(player.GetProjectileSource_Misc(0), pos, velocity, arrowType, damage, 2, player.whoAmI);
+            //        Main.projectile[p].noDropItem = true;
+            //        //Main.projectile[p].extraUpdates = 2;
+
+            //        modPlayer.HuntressCD = 0;
+            //    }
+
+            //    //arrow rain ability
+            //    if (!player.HasBuff(ModContent.BuffType<HuntressCD>()) && modPlayer.DoubleTap)
+            //    {
+            //        Vector2 mouse = Main.MouseWorld;
+
+            //        int heatray = Projectile.NewProjectile(player.GetProjectileSource_Misc(0), player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
+            //        Main.projectile[heatray].tileCollide = false;
+            //        //proj spawns arrows all around it until it dies
+            //        Projectile.NewProjectile(player.GetProjectileSource_Misc(0), mouse.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(player, firstAmmo.damage), 0f, player.whoAmI, arrowType, player.direction);
+
+            //        player.AddBuff(ModContent.BuffType<HuntressCD>(), modPlayer.RedEnchantActive ? 600 : 900);
+            //    }
+            //}
+        }
+
+        private static Item PickAmmo(Player player)
+        {
+            Item item = new Item();
+            bool flag = false;
+            for (int i = 54; i < 58; i++)
+            {
+                if (player.inventory[i].ammo == AmmoID.Arrow && player.inventory[i].stack > 0)
+                {
+                    item = player.inventory[i];
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+            {
+                for (int j = 0; j < 54; j++)
+                {
+                    if (player.inventory[j].ammo == AmmoID.Arrow && player.inventory[j].stack > 0)
+                    {
+                        item = player.inventory[j];
+                        break;
+                    }
+                }
+            }
+
+            if (item.ammo != AmmoID.Arrow)
+            {
+                item.SetDefaults(ItemID.ChlorophyteArrow);
+            }
+
+            return item;
+        }
+
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.HuntressWig);
-            recipe.AddIngredient(ItemID.HuntressJerkin);
-            recipe.AddIngredient(ItemID.HuntressPants);
-            //recipe.AddIngredient(ItemID.HuntressBuckler);
-            recipe.AddIngredient(ItemID.DD2ExplosiveTrapT2Popper);
+            .AddIngredient(ItemID.HuntressWig)
+            .AddIngredient(ItemID.HuntressJerkin)
+            .AddIngredient(ItemID.HuntressPants)
+            .AddIngredient(ItemID.DD2ExplosiveTrapT2Popper)
             //tendon bow
-            recipe.AddIngredient(ItemID.DaedalusStormbow);
+            .AddIngredient(ItemID.DaedalusStormbow)
             //shadiwflame bow
-            recipe.AddIngredient(ItemID.DD2PhoenixBow);
+            .AddIngredient(ItemID.DD2PhoenixBow)
             //dog pet
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

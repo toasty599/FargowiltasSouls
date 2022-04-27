@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,60 +13,60 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Retirang");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.melee = true;
-            projectile.friendly = true;
-            projectile.light = 0.4f;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.friendly = true;
+            Projectile.light = 0.4f;
 
-            projectile.width = 50;
-            projectile.height = 50;
-            projectile.penetrate = -1;
-            projectile.aiStyle = -1;
+            Projectile.width = 50;
+            Projectile.height = 50;
+            Projectile.penetrate = -1;
+            Projectile.aiStyle = -1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override bool PreAI()
         {
-            if (projectile.ai[0] == 1)
+            if (Projectile.ai[0] == 1)
             {
-                projectile.ai[1]++;
+                Projectile.ai[1]++;
 
                 //stay in place
-                projectile.position = projectile.oldPosition;
-                projectile.velocity = Vector2.Zero;
-                projectile.rotation += projectile.direction * -0.4f;
+                Projectile.position = Projectile.oldPosition;
+                Projectile.velocity = Vector2.Zero;
+                Projectile.rotation += Projectile.direction * -0.4f;
 
                 //fire lasers at cursor
-                if (projectile.ai[1] % 5 == 0)
+                if (Projectile.ai[1] % 5 == 0)
                 {
                     Vector2 cursor = Main.MouseWorld;
-                    Vector2 velocity = Vector2.Normalize(cursor - projectile.Center) * 20;
-                    Player player = Main.player[projectile.owner];
+                    Vector2 velocity = Vector2.Normalize(cursor - Projectile.Center) * 20;
+                    Player player = Main.player[Projectile.owner];
 
-                    if (projectile.owner == Main.myPlayer)
+                    if (Projectile.owner == Main.myPlayer)
                     {
-                        Main.PlaySound(SoundID.Item12, projectile.Center);
-                        int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<PrimeLaser>(), projectile.damage, projectile.knockBack, projectile.owner);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
+                        int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<PrimeLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+
                         if (p != Main.maxProjectiles)
                         {
-                            Main.projectile[p].magic = false;
-                            Main.projectile[p].melee = true;
+                            Main.projectile[p].DamageType = DamageClass.Melee;
                         }
                     }
                 }
 
-                if (projectile.ai[1] > 15)
+                if (Projectile.ai[1] > 15)
                 {
-                    projectile.ai[0] = 2;
+                    Projectile.ai[0] = 2;
                 }
 
                 return false;
@@ -76,53 +78,53 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void AI()
         {
             //travelling out
-            if (projectile.ai[0] == 0)
+            if (Projectile.ai[0] == 0)
             {
-                projectile.ai[1]++;
+                Projectile.ai[1]++;
 
-                if (projectile.ai[1] > 30)
+                if (Projectile.ai[1] > 30)
                 {
-                    projectile.ai[0] = 1;
-                    projectile.ai[1] = 0;
-                    projectile.netUpdate = true;
+                    Projectile.ai[0] = 1;
+                    Projectile.ai[1] = 0;
+                    Projectile.netUpdate = true;
                 }
             }
             //travel back to player
-            else if (projectile.ai[0] == 2)
+            else if (Projectile.ai[0] == 2)
             {
-                projectile.extraUpdates = 0;
-                projectile.velocity = Vector2.Normalize(Main.player[projectile.owner].Center - projectile.Center) * 15;
+                Projectile.extraUpdates = 0;
+                Projectile.velocity = Vector2.Normalize(Main.player[Projectile.owner].Center - Projectile.Center) * 15;
 
                 //kill when back to player
-                if (projectile.Distance(Main.player[projectile.owner].Center) <= 30)
-                    projectile.Kill();
+                if (Projectile.Distance(Main.player[Projectile.owner].Center) <= 30)
+                    Projectile.Kill();
             }
 
             //spin
-            projectile.rotation += projectile.direction * -0.4f;
+            Projectile.rotation += Projectile.direction * -0.4f;
 
             //dust!
-            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, 60, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
+            int dustId = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 2f), Projectile.width, Projectile.height + 5, 60, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
             Main.dust[dustId].noGravity = true;
 
-            if (projectile.ai[0] == 1)
+            if (Projectile.ai[0] == 1)
             {
-                projectile.localAI[0] += 0.1f;
-                projectile.position += projectile.DirectionTo(Main.player[projectile.owner].Center) * projectile.localAI[0];
+                Projectile.localAI[0] += 0.1f;
+                Projectile.position += Projectile.DirectionTo(Main.player[Projectile.owner].Center) * Projectile.localAI[0];
 
-                if (projectile.Distance(Main.player[projectile.owner].Center) <= projectile.localAI[0])
-                    projectile.Kill();
+                if (Projectile.Distance(Main.player[Projectile.owner].Center) <= Projectile.localAI[0])
+                    Projectile.Kill();
             }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (projectile.ai[0] == 0)
+            if (Projectile.ai[0] == 0)
             {
-                projectile.ai[0] = 1;
-                projectile.ai[1] = 0;
+                Projectile.ai[0] = 1;
+                Projectile.ai[1] = 0;
             }
-            projectile.tileCollide = false;
+            Projectile.tileCollide = false;
 
             return false;
         }
@@ -132,7 +134,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             /*if (!hitSomething)
             {
                 hitSomething = true;
-                if (projectile.owner == Main.myPlayer)
+                if (Projectile.owner == Main.myPlayer)
                 {
                     for (int k = 0; k < Main.maxNPCs; k++)
                     {
@@ -140,17 +142,17 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                             continue;
 
                         NPC npc = Main.npc[k];
-                        float distance = Vector2.Distance(npc.Center, projectile.Center);
+                        float distance = Vector2.Distance(npc.Center, Projectile.Center);
 
-                        if ((distance < 500) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position, npc.width, npc.height))
+                        if ((distance < 500) && Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height))
                         {
-                            Vector2 velocity = (npc.Center - projectile.Center) * 20;
+                            Vector2 velocity = (npc.Center - Projectile.Center) * 20;
 
-                            int p = Projectile.NewProjectile(projectile.Center, velocity, ProjectileID.PurpleLaser, projectile.damage, 0, projectile.owner);
+                            int p = Projectile.NewProjectile(Projectile.Center, velocity, ProjectileID.PurpleLaser, Projectile.damage, 0, Projectile.owner);
                             if (p != Main.maxProjectiles)
                             {
-                                Main.projectile[p].melee = true;
-                                Main.projectile[p].magic = false;
+                                Main.Projectile[p].melee = true;
+                                Main.Projectile[p].magic = false;
                             }
 
                             break;
@@ -160,7 +162,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }*/
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             //smaller tile hitbox
             width = 22;
@@ -168,27 +170,27 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return true;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

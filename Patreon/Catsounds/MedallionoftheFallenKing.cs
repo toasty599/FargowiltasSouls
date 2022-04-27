@@ -1,15 +1,14 @@
-﻿using FargowiltasSouls.Items;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.Catsounds
 {
-    public class MedallionoftheFallenKing : SoulsItem
+    public class MedallionoftheFallenKing : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Medallion of the Fallen King");
             Tooltip.SetDefault(
 @"Spawns a King Slime Minion that scales with summon damage");
@@ -17,18 +16,11 @@ namespace FargowiltasSouls.Patreon.Catsounds
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = 1;
-            item.value = 50000;
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = 1;
+            Item.value = 50000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -7,35 +7,35 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class ClingerFlame : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_482";
+        public override string Texture => "Terraria/Images/Projectile_482";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cursed Flames");
-            Main.projFrames[projectile.type] = Main.projFrames[ProjectileID.ClingerStaff];
+            Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.ClingerStaff];
         }
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.ClingerStaff);
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.friendly = false;
-            projectile.magic = false;
-            projectile.timeLeft = 10 * 60;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.CloneDefaults(ProjectileID.ClingerStaff);
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.friendly = false;
+            Projectile.DamageType = DamageClass.Generic;
+            Projectile.timeLeft = 10 * 60;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
-            return projectile.localAI[0] >= 60;
+            return Projectile.localAI[0] >= 60;
         }
 
         public override void AI()
         {
-            if (++projectile.localAI[0] < 60)
+            if (++Projectile.localAI[0] < 60)
             {
-                int dust = Dust.NewDust(projectile.Bottom, 0, 0, 75, 0f, 0f, 100, default, 2f);
+                int dust = Dust.NewDust(Projectile.Bottom, 0, 0, 75, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].velocity.Y -= 2f;
                 Main.dust[dust].velocity *= 2f;
                 if (Main.rand.NextBool(4))
@@ -44,20 +44,20 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Main.dust[dust].noGravity = true;
                 }
 
-                projectile.velocity = Vector2.Zero;
+                Projectile.velocity = Vector2.Zero;
 
                 for (int i = 0; i < 2; i++)
                 {
-                    Tile tile = Framing.GetTileSafely(projectile.Bottom); //zip to an acceptable location
-                    projectile.position.Y += tile.nactive() && (Main.tileSolid[tile.type] || Main.tileSolidTop[tile.type]) ? -16 : 16;
+                    Tile tile = Framing.GetTileSafely(Projectile.Bottom); //zip to an acceptable location
+                    Projectile.position.Y += tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]) ? -16 : 16;
                 }
             }
             else
             {
-                int max = (int)(projectile.width * projectile.height * 0.0045f);
+                int max = (int)(Projectile.width * Projectile.height * 0.0045f);
                 for (int i = 0; i < max; i++)
                 {
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 75, 0.0f, 0.0f, 100, default, 1f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 75, 0.0f, 0.0f, 100, default, 1f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 0.5f;
                     Main.dust[d].velocity.Y -= 0.5f;
@@ -78,10 +78,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             return false;
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = false;
-            return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
     }
 }

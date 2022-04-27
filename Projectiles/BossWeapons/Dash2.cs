@@ -7,7 +7,7 @@
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 15 * 60 * (projectile.extraUpdates + 1);
+            Projectile.timeLeft = 15 * 60 * (Projectile.extraUpdates + 1);
         }
     }
 }

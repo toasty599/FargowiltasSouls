@@ -7,16 +7,14 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class IvyVenom : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ivy Venom");
-            Description.SetDefault("Losing life, will become Infested EX at 20 seconds");
-            DisplayName.AddTranslation(GameCulture.Chinese, "常春藤毒");
-            Description.AddTranslation(GameCulture.Chinese, "流失生命, 持续时间超过20秒时变为感染");
+            Description.SetDefault("Losing life, will become Neurotoxin at 20 seconds");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "常春藤毒");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "流失生命, 持续时间超过20秒时变为感染");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
         }
 
         public override bool ReApply(Player player, int time, int buffIndex)
@@ -29,10 +27,11 @@ namespace FargowiltasSouls.Buffs.Masomode
         {
             if (player.buffTime[buffIndex] > 1200)
             {
-                player.AddBuff(mod.BuffType("InfestedEX"), player.buffTime[buffIndex]);
+                player.AddBuff(ModContent.BuffType<Neurotoxin>(), player.buffTime[buffIndex]);
                 player.buffTime[buffIndex] = 1;
-                Main.PlaySound(SoundID.Roar, (int)player.Center.X, (int)player.Center.Y, 0);
-                Main.NewText("Your Ivy Venom has become an Infestation!", 175, 75, 255);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.Center.X, (int)player.Center.Y, 0);
+                if (player.whoAmI == Main.myPlayer)
+                    Main.NewText("Your Ivy Venom has become Neurotoxin!", 175, 75, 255);
             }
             player.venom = true;
         }

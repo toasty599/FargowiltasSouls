@@ -16,63 +16,63 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void SetDefaults()
         {
-            projectile.width = 48;
-            projectile.height = 32;
-            projectile.aiStyle = -1;
-            projectile.tileCollide = true;
-            projectile.ignoreWater = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 1800;
+            Projectile.width = 48;
+            Projectile.height = 32;
+            Projectile.aiStyle = -1;
+            Projectile.tileCollide = true;
+            Projectile.ignoreWater = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 1800;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
-            Lighting.AddLight(projectile.Center, 0.5f, 0.5f, 0.5f);
+            Lighting.AddLight(Projectile.Center, 0.5f, 0.5f, 0.5f);
 
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item2, projectile.Center);
+                Projectile.localAI[0] = 1;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item2, Projectile.Center);
             }
 
-            if (!player.GetModPlayer<FargoPlayer>().WizardEnchant && !player.GetModPlayer<FargoPlayer>().ShadowForce)
+            if (!player.GetModPlayer<FargoSoulsPlayer>().WizardEnchantActive && !player.GetModPlayer<FargoSoulsPlayer>().ShadowForce)
             {
-                projectile.velocity.Y = projectile.velocity.Y + 0.2f;
-                if (projectile.velocity.Y > 16f)
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
+                if (Projectile.velocity.Y > 16f)
                 {
-                    projectile.velocity.Y = 16f;
+                    Projectile.velocity.Y = 16f;
                 }
             }
 
-            if (player.Hitbox.Intersects(projectile.Hitbox))
+            if (player.Hitbox.Intersects(Projectile.Hitbox))
             {
-                if (player.GetModPlayer<FargoPlayer>().NecroEnchant && player.GetToggleValue("Necro"))
-                    Projectile.NewProjectile(projectile.Center, new Vector2(0, -20), ModContent.ProjectileType<DungeonGuardianNecro>(), (int)projectile.ai[0], 1, projectile.owner);
+                if (player.GetModPlayer<FargoSoulsPlayer>().NecroEnchantActive && player.GetToggleValue("Necro"))
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, -20), ModContent.ProjectileType<DungeonGuardianNecro>(), (int)Projectile.ai[0], 1, Projectile.owner);
 
                 //dust ring
                 int num1 = 36;
                 for (int index1 = 0; index1 < num1; ++index1)
                 {
-                    Vector2 vector2_1 = (Vector2.Normalize(projectile.velocity) * new Vector2((float)projectile.width / 2f, (float)projectile.height) * 0.75f).RotatedBy((double)(index1 - (num1 / 2 - 1)) * 6.28318548202515 / (double)num1, new Vector2()) + projectile.Center;
-                    Vector2 vector2_2 = vector2_1 - projectile.Center;
+                    Vector2 vector2_1 = (Vector2.Normalize(Projectile.velocity) * new Vector2((float)Projectile.width / 2f, (float)Projectile.height) * 0.75f).RotatedBy((double)(index1 - (num1 / 2 - 1)) * 6.28318548202515 / (double)num1, new Vector2()) + Projectile.Center;
+                    Vector2 vector2_2 = vector2_1 - Projectile.Center;
                     int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, DustID.Blood, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].noLight = true;
                     Main.dust[index2].velocity = vector2_2;
                 }
 
-                projectile.Kill();
+                Projectile.Kill();
             }
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = false;
             return true;
@@ -80,27 +80,27 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            projectile.position += projectile.velocity;
-            projectile.velocity = Vector2.Zero;
+            Projectile.position += Projectile.velocity;
+            Projectile.velocity = Vector2.Zero;
             return false;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
-            if (projectile.timeLeft % 8 < 4)
+            color26 = Projectile.GetAlpha(color26);
+            if (Projectile.timeLeft % 8 < 4)
                 color26.A = 0;
 
             SpriteEffects effects = SpriteEffects.None;
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

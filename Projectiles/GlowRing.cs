@@ -6,6 +6,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
+using FargowiltasSouls.NPCs.EternityMode;
+using Terraria.Graphics.Shaders;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -14,45 +16,46 @@ namespace FargowiltasSouls.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glow Ring");
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 64;
-            projectile.height = 64;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = -1;
-            projectile.penetrate = -1;
-            projectile.hostile = true;
-            projectile.alpha = 0;
-            //projectile.timeLeft = 1200;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.width = 64;
+            Projectile.height = 64;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = -1;
+            Projectile.penetrate = -1;
+            Projectile.hostile = true;
+            Projectile.alpha = 0;
+            //Projectile.timeLeft = 1200;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public Color color = new Color(255, 255, 255, 0);
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0]);
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0]);
             if (npc != null)
-                projectile.Center = npc.Center;
+                Projectile.Center = npc.Center;
 
             float scale = 12f;
             int maxTime = 30;
             bool customScaleAlpha = false;
 
-            switch ((int)projectile.ai[1])
+            switch ((int)Projectile.ai[1])
             {
                 case -23: //eridanus general punch telegraph
                     {
                         customScaleAlpha = true;
                         maxTime = 90;
-                        float modifier = projectile.localAI[0] / maxTime;
+                        float modifier = Projectile.localAI[0] / maxTime;
                         color = new Color(51, 255, 191) * modifier;
-                        projectile.alpha = (int)(255f * (1f - modifier));
-                        projectile.scale = 3f * 9f * (1f - modifier);
+                        Projectile.alpha = (int)(255f * (1f - modifier));
+                        Projectile.scale = 3f * 9f * (1f - modifier);
                     }
                     break;
 
@@ -63,22 +66,22 @@ namespace FargowiltasSouls.Projectiles
 
                         if (npc != null && npc.type == NPCID.WallofFleshEye && (npc.GetEModeNPCMod<WallofFleshEye>().HasTelegraphedNormalLasers || Main.netMode == NetmodeID.MultiplayerClient))
                         {
-                            projectile.rotation = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
-                            projectile.velocity = projectile.rotation.ToRotationVector2();
-                            projectile.Center = npc.Center + (npc.width - 52) * Vector2.UnitX.RotatedBy(projectile.rotation);
+                            Projectile.rotation = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
+                            Projectile.velocity = Projectile.rotation.ToRotationVector2();
+                            Projectile.Center = npc.Center + (npc.width - 52) * Vector2.UnitX.RotatedBy(Projectile.rotation);
 
-                            if (projectile.localAI[0] < npc.localAI[1])
-                                projectile.localAI[0] = (int)npc.localAI[1];
+                            if (Projectile.localAI[0] < npc.localAI[1])
+                                Projectile.localAI[0] = (int)npc.localAI[1];
 
-                            float modifier = (float)Math.Cos(Math.PI / 2 / maxTime * projectile.localAI[0]);
+                            float modifier = (float)Math.Cos(Math.PI / 2 / maxTime * Projectile.localAI[0]);
 
                             color = new Color(255, 0, 255, 100) * (1f - modifier);
-                            projectile.alpha = (int)(255f * modifier);
-                            projectile.scale = 18f * modifier;
+                            Projectile.alpha = (int)(255f * modifier);
+                            Projectile.scale = 18f * modifier;
                         }
                         else
                         {
-                            projectile.Kill();
+                            Projectile.Kill();
                             return;
                         }
                     }
@@ -93,10 +96,10 @@ namespace FargowiltasSouls.Projectiles
                     {
                         customScaleAlpha = true;
                         maxTime = 200;
-                        float modifier = projectile.localAI[0] / maxTime;
+                        float modifier = Projectile.localAI[0] / maxTime;
                         color = new Color(51, 255, 191) * modifier;
-                        projectile.alpha = (int)(255f * (1f - modifier));
-                        projectile.scale = 3f * 6f * (1f - modifier);
+                        Projectile.alpha = (int)(255f * (1f - modifier));
+                        Projectile.scale = 3f * 6f * (1f - modifier);
                     }
                     break;
 
@@ -217,11 +220,26 @@ namespace FargowiltasSouls.Projectiles
                     maxTime = 60;
                     break;
 
+                case NPCID.PrimeCannon:
+                case NPCID.PrimeLaser:
                 case NPCID.PrimeSaw:
                 case NPCID.PrimeVice:
-                    color = new Color(255, 0, 0, 0);
+                    color = new Color(51, 255, 191, 0);
                     scale = 12f;
                     maxTime = 30;
+                    break;
+
+                case NPCID.QueenSlimeBoss:
+                    color = Color.HotPink;
+                    color.A = 200;
+                    scale = 6f;
+                    maxTime = 60;
+
+                    if (Projectile.localAI[0] > maxTime * 0.25f && NPC.AnyNPCs(ModContent.NPCType<GelatinSubject>()))
+                        Projectile.localAI[0] = maxTime * 0.25f;
+
+                    if (npc != null)
+                        Projectile.Center = npc.Bottom + npc.height / 2 * -Vector2.UnitY.RotatedBy(npc.rotation);
                     break;
 
                 case NPCID.CultistBoss:
@@ -237,40 +255,54 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 default:
+                    Main.NewText("glow ring: you shouldnt be seeing this text, show terry");
                     break;
             }
 
-            if (++projectile.localAI[0] > maxTime)
+            if (++Projectile.localAI[0] > maxTime)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
             if (!customScaleAlpha)
             {
-                projectile.scale = scale * (float)Math.Sin(Math.PI / 2 * projectile.localAI[0] / maxTime);
-                projectile.alpha = (int)(255f * projectile.localAI[0] / maxTime);
+                Projectile.scale = scale * (float)Math.Sin(Math.PI / 2 * Projectile.localAI[0] / maxTime);
+                Projectile.alpha = (int)(255f * Projectile.localAI[0] / maxTime);
             }
 
-            if (projectile.alpha < 0)
-                projectile.alpha = 0;
-            if (projectile.alpha > 255)
-                projectile.alpha = 255;
+            if (Projectile.alpha < 0)
+                Projectile.alpha = 0;
+            if (Projectile.alpha > 255)
+                Projectile.alpha = 255;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return color * projectile.Opacity;
+            return color * Projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            if (Projectile.ai[1] == NPCID.QueenSlimeBoss)
+            {
+                Main.spriteBatch.End(); 
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+                GameShaders.Misc["HallowBoss"].Apply(new Terraria.DataStructures.DrawData?());
+            }
+
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
+
+            if (Projectile.ai[1] == NPCID.QueenSlimeBoss)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
             return false;
         }
     }

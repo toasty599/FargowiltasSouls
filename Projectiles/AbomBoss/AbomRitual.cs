@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 {
     public class AbomRitual : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_274";
+        public override string Texture => "Terraria/Images/Projectile_274";
 
         private const float realRotation = MathHelper.Pi / 180f;
 
@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Abominationn Seal");
         }
 
@@ -22,15 +23,15 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         {
             if (npc.ai[0] < 9)
             {
-                projectile.velocity = npc.Center - projectile.Center;
+                Projectile.velocity = npc.Center - Projectile.Center;
                 if (npc.ai[0] != 8) //snaps directly to abom when preparing for p2 attack
-                    projectile.velocity /= 40f;
+                    Projectile.velocity /= 40f;
 
                 rotationPerTick = realRotation;
             }
             else //remains still in higher AIs
             {
-                projectile.velocity = Vector2.Zero;
+                Projectile.velocity = Vector2.Zero;
 
                 rotationPerTick = -realRotation / 10f; //denote arena isn't moving
             }
@@ -39,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override void AI()
         {
             base.AI();
-            projectile.rotation += 1f;
+            Projectile.rotation += 1f;
         }
 
         public override void OnHitPlayer(Player player, int damage, bool crit)
@@ -48,9 +49,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
             if (FargoSoulsWorld.EternityMode)
             {
-                player.AddBuff(mod.BuffType("AbomFang"), 300);
-                //player.AddBuff(mod.BuffType("Unstable"), 240);
-                player.AddBuff(mod.BuffType("Berserked"), 120);
+                player.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFang>(), 300);
+                //player.AddBuff(ModContent.BuffType<Unstable>(), 240);
+                player.AddBuff(ModContent.BuffType<Buffs.Masomode.Berserked>(), 120);
             }
             player.AddBuff(BuffID.Bleeding, 600);
         }

@@ -12,24 +12,24 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void SetDefaults()
         {
-            projectile.width = 56;
-            projectile.height = 56;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 18000;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
+            Projectile.width = 56;
+            Projectile.height = 56;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 18000;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            Player player = Main.player[Projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (player.dead)
             {
@@ -38,12 +38,12 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             if (!(modPlayer.GoldShell))
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            projectile.position.X = Main.player[projectile.owner].Center.X - projectile.width / 2;
-            projectile.position.Y = Main.player[projectile.owner].Center.Y - projectile.height / 2;
+            Projectile.position.X = Main.player[Projectile.owner].Center.X - Projectile.width / 2;
+            Projectile.position.Y = Main.player[Projectile.owner].Center.Y - Projectile.height / 2;
         }
     }
 }

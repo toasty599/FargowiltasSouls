@@ -3,6 +3,9 @@ using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.ID;
+using FargowiltasSouls.Projectiles.Minions;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {
@@ -10,41 +13,48 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Destruction Cannon");
             Tooltip.SetDefault("Becomes longer and faster with up to 5 empty minion slots\n'The reward for slaughtering many...'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "毁灭者之枪 EX");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'屠戮众多的奖励...'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "毁灭者之枪 EX");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励...'");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 275;
-            item.mana = 30;
-            item.summon = true;
-            item.width = 126;
-            item.height = 38;
-            item.useAnimation = 70;
-            item.useTime = 70;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true;
-            item.knockBack = 1.5f;
-            item.UseSound = new LegacySoundStyle(4, 13);
-            item.value = Item.sellPrice(0, 25);
-            item.rare = ItemRarityID.Purple;
-            item.autoReuse = true;
-            item.shoot = mod.ProjectileType("DestroyerHead2");
-            item.shootSpeed = 18f;
+            Item.damage = 275;
+            Item.mana = 30;
+            Item.DamageType = DamageClass.Summon;
+            Item.width = 126;
+            Item.height = 38;
+            Item.useAnimation = 70;
+            Item.useTime = 70;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 1.5f;
+            Item.UseSound = new LegacySoundStyle(4, 13);
+            Item.value = Item.sellPrice(0, 25);
+            Item.rare = ItemRarityID.Purple;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<DestroyerHead2>();
+            Item.shootSpeed = 18f;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            FargoSoulsUtil.NewSummonProjectile(source, position, velocity, type, Item.damage, knockback, player.whoAmI);
+            return false;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "DestroyerGun");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerDestroy"));
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(null, "DestroyerGun")
+            .AddIngredient(null, "AbomEnergy", 10)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerDestroy"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

@@ -4,71 +4,126 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Buffs.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class FossilEnchant : SoulsItem
+    public class FossilEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Fossil Enchantment");
             Tooltip.SetDefault(
-@"If you reach zero HP you will revive with 1 HP and spawn several bones
+@"If you reach zero HP you will revive with 50 HP and spawn several bones
 You will also spawn a few bones on every hit
-Collect the bones to heal for 15 HP each
+Collect the bones to heal for 20 HP each
 'Beyond a forgotten age'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "化石魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "化石魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"受到致死伤害时会以1生命值重生并爆出几根骨头
 你攻击敌人时也会扔出骨头
 每根骨头会回复15点生命值
 '被遗忘已久的记忆'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(140, 92, 59);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(140, 92, 59);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Green;
-            item.value = 40000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Green;
+            Item.value = 40000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().FossilEffect(hideVisual);
+            FossilEffect(player);
+        }
+
+        public static void FossilEffect(Player player)
+        {
+            //bone zone
+            player.GetModPlayer<FargoSoulsPlayer>().FossilEnchantActive = true;
+        }
+
+        public static void FossilHurt(FargoSoulsPlayer modPlayer, int damage)
+        {
+            Player player = modPlayer.Player;
+
+            player.immune = true;
+            player.immuneTime = 60;
+
+            if (player.GetToggleValue("Fossil"))
+            {
+                //spawn bones
+                int damageCopy = damage;
+                for (int i = 0; i < 5; i++)
+                {
+                    if (damageCopy < 30)
+                        break;
+                    damageCopy -= 30;
+
+                    float velX = Main.rand.Next(-5, 6) * 3f;
+                    float velY = Main.rand.Next(-5, 6) * 3f;
+                    Projectile.NewProjectile(player.GetSource_Misc(""), player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
+                }
+            }
+        }
+
+        public static void FossilRevive(FargoSoulsPlayer modPlayer)
+        {
+            Player player = modPlayer.Player;
+
+            void Revive(int healAmount, int reviveCooldown)
+            {
+                player.statLife = healAmount;
+                player.HealEffect(healAmount);
+
+                player.immune = true;
+                player.immuneTime = 120;
+                player.hurtCooldowns[0] = 120;
+                player.hurtCooldowns[1] = 120;
+
+                CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!", true);
+                Main.NewText("You've been revived!", Color.SandyBrown);
+
+                player.AddBuff(ModContent.BuffType<FossilReviveCD>(), reviveCooldown);
+            };
+
+            //if (Eternity)
+            //{
+            //    Revive(player.statLifeMax2 / 2 > 200 ? player.statLifeMax2 / 2 : 200, 10800);
+            //    FargoSoulsUtil.XWay(30, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+            //}
+            //else if (TerrariaSoul)
+            //{
+            //    Revive(200, 14400);
+            //    FargoSoulsUtil.XWay(25, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+            //}
+            //else
+            //{
+                Revive(modPlayer.SpiritForce ? 200 : 50, 18000);
+                FargoSoulsUtil.XWay(modPlayer.SpiritForce ? 20 : 10, player.GetSource_Misc(""), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+            //}
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
+                .AddIngredient(ItemID.FossilHelm)
+                .AddIngredient(ItemID.FossilShirt)
+                .AddIngredient(ItemID.FossilPants)
+                .AddIngredient(ItemID.BoneDagger, 100)
+                .AddIngredient(ItemID.AmberStaff)
+                .AddIngredient(ItemID.AntlionClaw)
 
-            recipe.AddIngredient(ItemID.FossilHelm);
-            recipe.AddIngredient(ItemID.FossilShirt);
-            recipe.AddIngredient(ItemID.FossilPants);
-            //fossil pick
-            recipe.AddIngredient(ItemID.BoneDagger, 300);
-            recipe.AddIngredient(ItemID.AmberStaff);
-            recipe.AddIngredient(ItemID.AntlionClaw);
-            //orange phaseblade
-            //snake charmers flute
-            //recipe.AddIngredient(ItemID.AmberMosquito);
-
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+                .AddTile(TileID.DemonAltar)
+                .Register();
         }
     }
 }

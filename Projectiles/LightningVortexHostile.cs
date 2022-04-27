@@ -18,15 +18,15 @@ namespace FargowiltasSouls.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.width = 32;
-            projectile.height = 32;
-            projectile.friendly = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.alpha = 255;
+            Projectile.width = 32;
+            Projectile.height = 32;
+            Projectile.friendly = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.alpha = 255;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
@@ -35,42 +35,42 @@ namespace FargowiltasSouls.Projectiles
         public override void AI()
         {
             bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
-            if ((NPC.AnyNPCs(NPCID.TheDestroyer) && recolor) || NPC.AnyNPCs(mod.NPCType("MutantBoss")))
+            if ((NPC.AnyNPCs(NPCID.TheDestroyer) && recolor) || (FargowiltasSouls.Instance.TryFind("MutantBoss", out ModNPC mutant) && NPC.AnyNPCs(mutant.Type)))
                 DrawColor = new Color(231, 174, 254);
 
             int shadertype = (DrawColor == new Color(231, 174, 254)) ? 100 : 0; //if it's recolored, use a shader for all the dusts spawned so they're purple instead of cyan
-            Player player = FargoSoulsUtil.PlayerExists(projectile.localAI[1]);
-            if (player == null && projectile.ai[0] == 0)
+            Player player = FargoSoulsUtil.PlayerExists(Projectile.localAI[1]);
+            if (player == null && Projectile.ai[0] == 0)
                 TargetEnemies();
 
-            if (projectile.localAI[0] < 90)
+            if (Projectile.localAI[0] < 90)
             {
-                if (projectile.ai[0] != 0)
+                if (Projectile.ai[0] != 0)
                 {
-                    Vector2 rotationVector2 = projectile.ai[1].ToRotationVector2();
-                    rotationVector2.Normalize(); //projectile.ai[1].ToRotationVector2();
+                    Vector2 rotationVector2 = Projectile.ai[1].ToRotationVector2();
+                    rotationVector2.Normalize(); //Projectile.ai[1].ToRotationVector2();
                     Vector2 vector2_1 = rotationVector2.RotatedBy(1.57079637050629, new Vector2()) * (Main.rand.NextBool()).ToDirectionInt() * (float)Main.rand.Next(10, 21);
                     Vector2 vector2_2 = (rotationVector2 * Main.rand.Next(-80, 81) - vector2_1) / 10f;
                     int Type = 229;
-                    Dust d = Main.dust[Dust.NewDust(projectile.Center, 0, 0, Type, 0.0f, 0.0f, 0, new Color(), 1f)];
+                    Dust d = Main.dust[Dust.NewDust(Projectile.Center, 0, 0, Type, 0.0f, 0.0f, 0, new Color(), 1f)];
                     d.noGravity = true;
-                    d.position = projectile.Center + rotationVector2 * vector2_1.Length();
+                    d.position = Projectile.Center + rotationVector2 * vector2_1.Length();
                     d.velocity = rotationVector2 * vector2_2.Length() * 3f;
                     d.scale = 1.5f;
                 }
             }
 
-            projectile.localAI[0]++;
-            if (projectile.localAI[0] <= 50)
+            Projectile.localAI[0]++;
+            if (Projectile.localAI[0] <= 50)
             {
                 if (Main.rand.NextBool(4))
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, DrawColor, 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, DrawColor, 1f)];
                     dust.noGravity = true;
                     
                     dust.shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
-                    dust.position = projectile.Center - spinningpoint * Main.rand.Next(10, 21);
+                    dust.position = Projectile.Center - spinningpoint * Main.rand.Next(10, 21);
                     dust.velocity = spinningpoint.RotatedBy(1.57079637050629, new Vector2()) * 4f;
                     dust.scale = 0.5f + Main.rand.NextFloat();
                     dust.fadeIn = 0.5f;
@@ -78,117 +78,117 @@ namespace FargowiltasSouls.Projectiles
                 if (Main.rand.NextBool(4))
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, DrawColor, 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, DrawColor, 1f)];
                     dust.noGravity = true; 
                     dust.shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
-                    dust.position = projectile.Center - spinningpoint * 30f;
+                    dust.position = Projectile.Center - spinningpoint * 30f;
                     dust.velocity = spinningpoint.RotatedBy(-1.57079637050629, new Vector2()) * 2f;
                     dust.scale = 0.5f + Main.rand.NextFloat();
                     dust.fadeIn = 0.5f;
                 }
             }
-            else if (projectile.localAI[0] <= 90)
+            else if (Projectile.localAI[0] <= 90)
             {
-                projectile.scale = (projectile.localAI[0] - 50) / 40;
-                projectile.alpha = 255 - (int)(255 * projectile.scale);
-                projectile.rotation = projectile.rotation - 0.1570796f;
+                Projectile.scale = (Projectile.localAI[0] - 50) / 40;
+                Projectile.alpha = 255 - (int)(255 * Projectile.scale);
+                Projectile.rotation = Projectile.rotation - 0.1570796f;
                 if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, DrawColor, 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, DrawColor, 1f)];
                     dust.noGravity = true;
-                    dust.position = projectile.Center - spinningpoint * Main.rand.Next(10, 21);
+                    dust.position = Projectile.Center - spinningpoint * Main.rand.Next(10, 21);
                     dust.velocity = spinningpoint.RotatedBy(1.57079637050629, new Vector2()) * 6f;
                     dust.scale = 0.5f + Main.rand.NextFloat();
                     dust.shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
                     dust.fadeIn = 0.5f;
-                    dust.customData = projectile.Center;
+                    dust.customData = Projectile.Center;
                 }
                 if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, DrawColor, 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, DrawColor, 1f)];
                     dust.noGravity = true;
-                    dust.position = projectile.Center - spinningpoint * 30f;
+                    dust.position = Projectile.Center - spinningpoint * 30f;
                     dust.velocity = spinningpoint.RotatedBy(-1.57079637050629, new Vector2()) * 3f;
                     dust.shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
                     dust.scale = 0.5f + Main.rand.NextFloat();
                     dust.fadeIn = 0.5f;
-                    dust.customData = projectile.Center;
+                    dust.customData = Projectile.Center;
                 }
                 
-                if (projectile.localAI[0] == 90 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (Projectile.localAI[0] == 90 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 vector2_3 = 24f * (player != null && projectile.ai[0] == 0 ? projectile.DirectionTo(player.Center) : projectile.ai[1].ToRotationVector2());
+                    Vector2 vector2_3 = 24f * (player != null && Projectile.ai[0] == 0 ? Projectile.DirectionTo(player.Center) : Projectile.ai[1].ToRotationVector2());
                     float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
-                    int p = Projectile.NewProjectile(projectile.Center, vector2_3,
-                        mod.ProjectileType("HostileLightning"), projectile.damage, projectile.knockBack, projectile.owner,
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector2_3,
+                        ModContent.ProjectileType<HostileLightning>(), Projectile.damage, Projectile.knockBack, Projectile.owner,
                         vector2_3.ToRotation(), ai1New * 0.75f);
                     Main.projectile[p].localAI[1] = shadertype; //change projectile's ai if the recolored vortex portal is being used, so that purple ones always fire purple lightning
                 }
             }
-            else if (projectile.localAI[0] <= 120)
+            else if (Projectile.localAI[0] <= 120)
             {
-                projectile.scale = 1f;
-                projectile.alpha = 0;
-                projectile.rotation = projectile.rotation - (float)Math.PI / 60f;
+                Projectile.scale = 1f;
+                Projectile.alpha = 0;
+                Projectile.rotation = Projectile.rotation - (float)Math.PI / 60f;
                 if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, DrawColor, 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, DrawColor, 1f)];
                     dust.noGravity = true;
-                    dust.position = projectile.Center - spinningpoint * Main.rand.Next(10, 21);
+                    dust.position = Projectile.Center - spinningpoint * Main.rand.Next(10, 21);
                     dust.velocity = spinningpoint.RotatedBy(1.57079637050629, new Vector2()) * 6f;
                     dust.shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
                     dust.scale = 0.5f + Main.rand.NextFloat();
                     dust.fadeIn = 0.5f;
-                    dust.customData = projectile.Center;
+                    dust.customData = Projectile.Center;
                 }
                 else
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, DrawColor, 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, DrawColor, 1f)];
                     dust.noGravity = true;
-                    dust.position = projectile.Center - spinningpoint * 30f;
+                    dust.position = Projectile.Center - spinningpoint * 30f;
                     dust.velocity = spinningpoint.RotatedBy(-1.57079637050629, new Vector2()) * 3f;
                     dust.shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
                     dust.scale = 0.5f + Main.rand.NextFloat();
                     dust.fadeIn = 0.5f;
-                    dust.customData = projectile.Center;
+                    dust.customData = Projectile.Center;
                 }
             }
             else
             {
-                projectile.scale = (float)(1.0 - (projectile.localAI[0] - 120.0) / 60.0);
-                projectile.alpha = 255 - (int)(255 * projectile.scale);
-                projectile.rotation = projectile.rotation - (float)Math.PI / 30f;
-                if (projectile.alpha >= 255)
-                    projectile.Kill();
+                Projectile.scale = (float)(1.0 - (Projectile.localAI[0] - 120.0) / 60.0);
+                Projectile.alpha = 255 - (int)(255 * Projectile.scale);
+                Projectile.rotation = Projectile.rotation - (float)Math.PI / 30f;
+                if (Projectile.alpha >= 255)
+                    Projectile.Kill();
                 for (int index = 0; index < 2; ++index)
                 {
                     switch (Main.rand.Next(3))
                     {
                         case 0:
-                            Vector2 spinningpoint1 = Vector2.UnitY.RotatedByRandom(6.28318548202515) * projectile.scale;
-                            Dust dust1 = Main.dust[Dust.NewDust(projectile.Center - spinningpoint1 * 30f, 0, 0, 229, 0.0f, 0.0f, 0, DrawColor, 1f)];
+                            Vector2 spinningpoint1 = Vector2.UnitY.RotatedByRandom(6.28318548202515) * Projectile.scale;
+                            Dust dust1 = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint1 * 30f, 0, 0, 229, 0.0f, 0.0f, 0, DrawColor, 1f)];
                             dust1.noGravity = true;
-                            dust1.position = projectile.Center - spinningpoint1 * Main.rand.Next(10, 21);
+                            dust1.position = Projectile.Center - spinningpoint1 * Main.rand.Next(10, 21);
                             dust1.velocity = spinningpoint1.RotatedBy(1.57079637050629, new Vector2()) * 6f;
                             dust1.shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
                             dust1.scale = 0.5f + Main.rand.NextFloat();
                             dust1.fadeIn = 0.5f;
-                            dust1.customData = projectile.Center;
+                            dust1.customData = Projectile.Center;
                             break;
                         case 1:
-                            Vector2 spinningpoint2 = Vector2.UnitY.RotatedByRandom(6.28318548202515) * projectile.scale;
-                            Dust dust2 = Main.dust[Dust.NewDust(projectile.Center - spinningpoint2 * 30f, 0, 0, 240, 0.0f, 0.0f, 0, DrawColor, 1f)];
+                            Vector2 spinningpoint2 = Vector2.UnitY.RotatedByRandom(6.28318548202515) * Projectile.scale;
+                            Dust dust2 = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint2 * 30f, 0, 0, 240, 0.0f, 0.0f, 0, DrawColor, 1f)];
                             dust2.noGravity = true;
-                            dust2.position = projectile.Center - spinningpoint2 * 30f;
+                            dust2.position = Projectile.Center - spinningpoint2 * 30f;
                             dust2.velocity = spinningpoint2.RotatedBy(-1.57079637050629, new Vector2()) * 3f;
                             dust2.shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
                             dust2.scale = 0.5f + Main.rand.NextFloat();
                             dust2.fadeIn = 0.5f;
-                            dust2.customData = projectile.Center;
+                            dust2.customData = Projectile.Center;
                             break;
                     }
                 }
@@ -202,9 +202,9 @@ namespace FargowiltasSouls.Projectiles
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
-                if (player.active && Collision.CanHitLine(projectile.Center, 0, 0, player.Center, 0, 0))
+                if (player.active && Collision.CanHitLine(Projectile.Center, 0, 0, player.Center, 0, 0))
                 {
-                    float Distance = projectile.Distance(player.Center);
+                    float Distance = Projectile.Distance(player.Center);
                     if (Distance < maxDistance)
                     {
                         maxDistance = Distance;
@@ -212,19 +212,19 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
             }
-            projectile.localAI[1] = possibleTarget;
-            projectile.netUpdate = true;
+            Projectile.localAI[1] = possibleTarget;
+            Projectile.netUpdate = true;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.Black * projectile.Opacity, -projectile.rotation, origin2, projectile.scale * 1.25f, SpriteEffects.FlipHorizontally, 0f);
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(DrawColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.Black * Projectile.Opacity, -Projectile.rotation, origin2, Projectile.scale * 1.25f, SpriteEffects.FlipHorizontally, 0);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(DrawColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

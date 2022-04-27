@@ -7,68 +7,55 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class WizardEnchant : SoulsItem
+    public class WizardEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Wizard Enchantment");
             Tooltip.SetDefault(
 @"Enhances the power of all other Enchantments to their Force effects
 'I'm a what?'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "巫师魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巫师魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"强化其它魔石，使它们获得在上级合成中才能获得的增强
 （上级合成指 Forces/力）
 '我是啥？'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(50, 80, 193);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(50, 80, 193);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.LightRed;
-            item.value = 100000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = 100000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().WizardEnchant = true;
-            //player.GetModPlayer<FargoPlayer>().AddPet(player.GetToggleValue("PetBlackCat"), hideVisual, BuffID.BlackCat, ProjectileID.BlackCat);
+            player.GetModPlayer<FargoSoulsPlayer>().WizardEnchantActive = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.WizardHat);
-            //recipe.AddIngredient(ItemID.AmethystRobe);
-            //recipe.AddIngredient(ItemID.TopazRobe);
-            
-            recipe.AddIngredient(ItemID.SapphireRobe);
-            recipe.AddIngredient(ItemID.EmeraldRobe);
-            recipe.AddIngredient(ItemID.RubyRobe);
-            recipe.AddIngredient(ItemID.DiamondRobe);
+            .AddIngredient(ItemID.WizardHat)
+            //.AddIngredient(ItemID.AmethystRobe);
+            //.AddIngredient(ItemID.TopazRobe);
+
+            .AddIngredient(ItemID.SapphireRobe)
+            .AddIngredient(ItemID.EmeraldRobe)
+            .AddIngredient(ItemID.RubyRobe)
+            .AddIngredient(ItemID.DiamondRobe)
             //amber robe
-            //recipe.AddIngredient(ItemID.IceRod);
-            recipe.AddIngredient(ItemID.RareEnchantment);
-            //recipe.AddIngredient(ItemID.UnluckyYarn);
+            .AddIngredient(ItemID.RareEnchantment)
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

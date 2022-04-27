@@ -2,18 +2,29 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.Items.Misc;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class CosmoForce : SoulsItem
+    public class CosmoForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<MeteorEnchant>(),
+            ModContent.ItemType<SolarEnchant>(),
+            ModContent.ItemType<VortexEnchant>(),
+            ModContent.ItemType<NebulaEnchant>(),
+            ModContent.ItemType<StardustEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Cosmos");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "宇宙之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宇宙之力");
             
             string tooltip =
 $"[i:{ModContent.ItemType<MeteorEnchant>()}] A meteor shower initiates every few seconds while attacking\n" +
@@ -21,7 +32,7 @@ $"[i:{ModContent.ItemType<SolarEnchant>()}] Solar shield allows you to dash thro
 $"[i:{ModContent.ItemType<SolarEnchant>()}] Attacks may inflict the Solar Flare debuff\n" +
 $"[i:{ModContent.ItemType<VortexEnchant>()}] Double tap down to toggle stealth and spawn a vortex\n" +
 $"[i:{ModContent.ItemType<NebulaEnchant>()}] Hurting enemies has a chance to spawn buff boosters\n" +
-$"[i:{ModContent.ItemType<StardustEnchant>()}] Double tap down to direct your empowered guardian\n" +
+$"[i:{ModContent.ItemType<StardustEnchant>()}] A stardust guardian will protect you from nearby enemies\n" +
 $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze time for 5 seconds, 60 second cooldown\n" +
 "'Been around since the Big Bang'";
             Tooltip.SetDefault(tooltip);
@@ -38,23 +49,12 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
 星尘守卫不受时间冻结影响且在此期间会获得全新的强力攻击
 此效果有60秒冷却时间，冷却结束时会播放音效
 '自宇宙大爆炸以来就一直存在";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-
-        }
-
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //meme speed, solar flare,
             modPlayer.CosmoForce = true;
 
@@ -62,33 +62,24 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
             modPlayer.MeteorEffect();
             //solar shields
             modPlayer.SolarEffect();
-            //flare debuff
-            modPlayer.SolarEnchant = true;
             //stealth, voids, pet
             modPlayer.VortexEffect(hideVisual);
             //boosters and meme speed
             modPlayer.NebulaEffect();
             //guardian and time freeze
-            modPlayer.StardustEffect();
-            //modPlayer.AddPet(player.GetToggleValue("PetSuspEye"), hideVisual, BuffID.SuspiciousTentacle, ProjectileID.SuspiciousTentacle);
+            modPlayer.StardustEffect(Item);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
 
-            recipe.AddIngredient(null, "MeteorEnchant");
-            recipe.AddIngredient(null, "SolarEnchant");
-            recipe.AddIngredient(null, "VortexEnchant");
-            recipe.AddIngredient(null, "NebulaEnchant");
-            recipe.AddIngredient(null, "StardustEnchant");
-            recipe.AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
-            //recipe.AddIngredient(ItemID.SuspiciousLookingTentacle);
+            recipe.AddIngredient(ModContent.ItemType<Eridanium>(), 5);
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

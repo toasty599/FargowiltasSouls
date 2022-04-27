@@ -1,11 +1,12 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Projectiles.Minions;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Buffs.Minions
 {
     public class TwinsEX : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Twins EX");
             Description.SetDefault("The real Twins will fight for you");
@@ -15,9 +16,9 @@ namespace FargowiltasSouls.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ownedProjectileCounts[mod.ProjectileType("OpticRetinazer")] > 0)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<OpticRetinazer>()] > 0)
             {
-                player.GetModPlayer<FargoPlayer>().TwinsEX = true;
+                player.GetModPlayer<FargoSoulsPlayer>().TwinsEX = true;
                 player.buffTime[buffIndex] = 2;
             }
         }

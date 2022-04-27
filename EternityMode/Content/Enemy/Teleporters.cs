@@ -1,25 +1,23 @@
 ﻿using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles.Masomode;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy
 {
-    public class FireImp : EModeNPCBehaviour
+    public abstract class Teleporters : EModeNPCBehaviour
     {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.FireImp);
-
         public int TeleportThreshold = 180;
-
         public int TeleportTimer;
-
         public bool DoTeleport;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
@@ -63,14 +61,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                             int index1 = Main.rand.Next(num1 - num5, num1 + num5);
                             for (int index2 = Main.rand.Next(num2 - num5, num2 + num5); index2 < num2 + num5; ++index2)
                             {
-                                if ((index2 < num2 - 4 || index2 > num2 + 4 || (index1 < num1 - 4 || index1 > num1 + 4)) && (index2 < num4 - 1 || index2 > num4 + 1 || (index1 < num3 - 1 || index1 > num3 + 1)) && Main.tile[index1, index2].nactive())
+                                if ((index2 < num2 - 4 || index2 > num2 + 4 || (index1 < num1 - 4 || index1 > num1 + 4)) && (index2 < num4 - 1 || index2 > num4 + 1 || (index1 < num3 - 1 || index1 > num3 + 1)) && Main.tile[index1, index2].HasUnactuatedTile)
                                 {
                                     bool flag2 = true;
-                                    if (npc.HasValidTarget && Main.player[npc.target].ZoneDungeon && (npc.type == NPCID.DarkCaster || npc.type >= NPCID.RaggedCaster && npc.type <= NPCID.DiabolistWhite) && !Main.wallDungeon[(int)Main.tile[index1, index2 - 1].wall])
+                                    if (npc.HasValidTarget && Main.player[npc.target].ZoneDungeon && (npc.type == NPCID.DarkCaster || npc.type >= NPCID.RaggedCaster && npc.type <= NPCID.DiabolistWhite) && !Main.wallDungeon[(int)Main.tile[index1, index2 - 1].WallType])
                                         flag2 = false;
-                                    if (Main.tile[index1, index2 - 1].lava())
+                                    if (Main.tile[index1, index2 - 1].LiquidType == LiquidID.Lava && Main.tile[index1, index2 - 1].LiquidAmount > 0)
                                         flag2 = false;
-                                    if (flag2 && Main.tileSolid[(int)Main.tile[index1, index2].type] && !Collision.SolidTiles(index1 - 1, index1 + 1, index2 - 4, index2 - 1))
+                                    if (flag2 && Main.tileSolid[(int)Main.tile[index1, index2].TileType] && !Collision.SolidTiles(index1 - 1, index1 + 1, index2 - 4, index2 - 1))
                                     {
                                         npc.ai[1] = 20f;
                                         npc.ai[2] = (float)index1;
@@ -101,91 +99,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             
             DoTeleport = true;
             NetSync(npc, false);
-        }
-    }
-
-    public class Tim : FireImp
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Tim);
-
-        public override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-
-            npc.buffImmune[BuffID.OnFire] = true;
-            npc.lavaImmune = true;
-            npc.lifeMax *= 4;
-            npc.damage /= 2;
-        }
-
-        public override void AI(NPC npc)
-        {
-            base.AI(npc);
-
-            EModeGlobalNPC.Aura(npc, 450, BuffID.Silenced, true, 15);
-            EModeGlobalNPC.Aura(npc, 150, BuffID.Cursed, false, 20);
-        }
-
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
-
-            if (Main.rand.NextBool(5))
-                Item.NewItem(npc.Hitbox, ModContent.ItemType<TimsConcoction>());
-        }
-    }
-
-    public class DungeonTeleporters : FireImp
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
-            NPCID.DiabolistRed,
-            NPCID.DiabolistWhite,
-            NPCID.Necromancer,
-            NPCID.NecromancerArmored,
-            NPCID.RaggedCaster,
-            NPCID.RaggedCasterOpenCoat
-        );
-
-        public override void AI(NPC npc)
-        {
-            if (npc.HasValidTarget && !Main.player[npc.target].ZoneDungeon && !DoTeleport)
-            {
-                DoTeleport = true;
-                TeleportTimer = TeleportThreshold - 420; //occasionally teleport outside dungeon
-            }
-
-            base.AI(npc);
-        }
-    }
-
-    public class DarkCaster : DungeonTeleporters
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DarkCaster);
-
-        public int AttackTimer;
-
-        public override void AI(NPC npc)
-        {
-            base.AI(npc);
-
-            if (++AttackTimer > 300)
-            {
-                AttackTimer = 0;
-                for (int i = 0; i < 5; i++) //spray water bolts
-                {
-                    Main.PlaySound(SoundID.Item21, npc.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(-4.5f, 4.5f), ModContent.ProjectileType<WaterBoltHostile>(), npc.damage / 4, 0f, Main.myPlayer);
-                }
-            }
-        }
-
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
-
-            if (Main.rand.NextBool(50))
-                Item.NewItem(npc.Hitbox, ItemID.WaterBolt);
         }
     }
 }

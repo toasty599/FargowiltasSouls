@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,54 +9,55 @@ namespace FargowiltasSouls.Projectiles.Souls
 {
     public class GladiatorJavelin : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_507";
+        public override string Texture => "Terraria/Images/Projectile_507";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Javelin");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.JavelinFriendly);
-            projectile.timeLeft = 240;
-            projectile.tileCollide = false;
-            projectile.extraUpdates = 1;
-            projectile.usesIDStaticNPCImmunity = true;
-            projectile.idStaticNPCHitCooldown = 10;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
-            if (ModLoader.GetMod("Fargowiltas") != null)
-                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);
+            Projectile.CloneDefaults(ProjectileID.JavelinFriendly);
+            Projectile.timeLeft = 240;
+            Projectile.tileCollide = false;
+            Projectile.extraUpdates = 1;
+            Projectile.penetrate = 1;
+            //Projectile.usesIDStaticNPCImmunity = true;
+            //Projectile.idStaticNPCHitCooldown = 10;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
+                fargo.Call("LowRenderProj", Projectile);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects spriteEffects = SpriteEffects.None;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            Vector2 offset = Vector2.Normalize(projectile.velocity) * -24f * projectile.scale;
+            Vector2 offset = Vector2.Normalize(Projectile.velocity) * -24f * Projectile.scale;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY) + offset, new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, spriteEffects, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) + offset, new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, spriteEffects, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY) + offset, new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY) + offset, new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, spriteEffects, 0);
             return false;
         }
     }

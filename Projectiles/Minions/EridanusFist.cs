@@ -12,77 +12,77 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eridanus Fist");
-            Main.projFrames[projectile.type] = 11;
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            Main.projFrames[Projectile.type] = 11;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 40;
-            projectile.height = 40;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.friendly = true;
-            projectile.melee = true;
-            projectile.alpha = 0;
-            projectile.timeLeft = 300;
-            projectile.extraUpdates = 1;
-            projectile.hide = true;
-            projectile.scale = 1.25f;
+            Projectile.width = 40;
+            Projectile.height = 40;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.alpha = 0;
+            Projectile.timeLeft = 300;
+            Projectile.extraUpdates = 1;
+            Projectile.hide = true;
+            Projectile.scale = 1.25f;
         }
 
         public override void AI()
         {
-            if (projectile.Distance(Main.player[projectile.owner].Center) > projectile.ai[0])
+            if (Projectile.Distance(Main.player[Projectile.owner].Center) > Projectile.ai[0])
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                projectile.frame = Main.rand.Next(Main.projFrames[projectile.type]);
-                Main.PlaySound(SoundID.Item, projectile.Center, 14);
+                Projectile.localAI[0] = 1;
+                Projectile.frame = Main.rand.Next(Main.projFrames[Projectile.type]);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
             }
 
-            projectile.hide = false;
-            projectile.direction = projectile.spriteDirection = Math.Sign(projectile.velocity.X);
-            projectile.rotation = projectile.velocity.ToRotation();
-            if (projectile.spriteDirection < 0)
-                projectile.rotation += (float)Math.PI;
+            Projectile.hide = false;
+            Projectile.direction = Projectile.spriteDirection = Math.Sign(Projectile.velocity.X);
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            if (Projectile.spriteDirection < 0)
+                Projectile.rotation += (float)Math.PI;
 
-            if (++projectile.frameCounter > 2)
+            if (++Projectile.frameCounter > 2)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= Main.projFrames[projectile.type])
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.frame = 0;
             }
 
-            int index = Dust.NewDust(projectile.position, projectile.width, projectile.height,
-                DustID.Fire, projectile.velocity.X, projectile.velocity.Y, 100, new Color(), 1.2f);
-            Main.dust[index].position = (Main.dust[index].position + projectile.Center) / 2f;
+            int index = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height,
+                DustID.Torch, Projectile.velocity.X, Projectile.velocity.Y, 100, new Color(), 1.2f);
+            Main.dust[index].position = (Main.dust[index].position + Projectile.Center) / 2f;
             Main.dust[index].noGravity = true;
             Main.dust[index].velocity = Main.dust[index].velocity * 0.3f;
-            Main.dust[index].velocity = Main.dust[index].velocity - projectile.velocity * 0.1f;
+            Main.dust[index].velocity = Main.dust[index].velocity - Projectile.velocity * 0.1f;
         }
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item, projectile.Center, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
 
             for (int i = 0; i < 5; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
                 Main.dust[dust].velocity *= 1.4f;
             }
 
             for (int i = 0; i < 5; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
-                dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+                dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
                 Main.dust[dust].velocity *= 3f;
             }
         }
@@ -92,21 +92,21 @@ namespace FargowiltasSouls.Projectiles.Minions
             target.AddBuff(BuffID.OnFire, 600);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return Color.White * Projectile.Opacity;
         }
     }
 }

@@ -13,17 +13,17 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.VenomArrow);
-            aiType = ProjectileID.VenomArrow;
-            projectile.friendly = false;
-            projectile.ranged = false;
-            projectile.arrow = false;
-            projectile.hostile = true;
+            Projectile.CloneDefaults(ProjectileID.VenomArrow);
+            AIType = ProjectileID.VenomArrow;
+            Projectile.DamageType = DamageClass.Default;
+            Projectile.friendly = false;
+            Projectile.arrow = false;
+            Projectile.hostile = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Venom, 480);
+            target.AddBuff(BuffID.Venom, 180);
         }
     }
 }

@@ -1,7 +1,10 @@
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Placeables;
 
 namespace FargowiltasSouls.NPCs.Critters
 {
@@ -10,43 +13,50 @@ namespace FargowiltasSouls.NPCs.Critters
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Top Hat Squirrel");
-            Main.npcFrameCount[npc.type] = 6;
-            DisplayName.AddTranslation(GameCulture.Chinese, "高顶礼帽松鼠");
+            Main.npcFrameCount[NPC.type] = 6;
+            NPCID.Sets.TownCritter[NPC.type] = true;
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "高顶礼帽松鼠");
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+                new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
+            });
         }
 
         public override void SetDefaults()
         {
-            npc.width = 50;
-            npc.height = 32;
-            npc.damage = 0;
-            npc.chaseable = false;
-            npc.defense = 0;
-            npc.lifeMax = 100;
-            Main.npcCatchable[npc.type] = true;
-            npc.catchItem = (short)mod.ItemType("TopHatSquirrelCaught");
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.value = 0f;
-            npc.knockBackResist = .25f;
-            banner = npc.type;
-            bannerItem = mod.ItemType("TophatSquirrelBanner");
+            NPC.width = 50;
+            NPC.height = 32;
+            NPC.damage = 0;
+            NPC.chaseable = false;
+            NPC.defense = 0;
+            NPC.lifeMax = 100;
+            Main.npcCatchable[NPC.type] = true;
+            NPC.catchItem = (short)ModContent.ItemType<TopHatSquirrelCaught>();
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.value = 0f;
+            NPC.knockBackResist = .25f;
+            Banner = NPC.type;
+            BannerItem = ModContent.ItemType<TophatSquirrelBanner>();
 
-            animationType = NPCID.Squirrel;
-            npc.aiStyle = 7;
-            aiType = NPCID.Squirrel;
+            AnimationType = NPCID.Squirrel;
+            NPC.aiStyle = 7;
+            AIType = NPCID.Squirrel;
 
-            npc.friendly = true;
+            NPC.friendly = true;
 
-            npc.rarity = 1; //appears on lifeform analyzer
-
-            NPCID.Sets.TownCritter[npc.type] = true;
+            NPC.rarity = 1; //appears on lifeform analyzer
         }
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (npc.life <= 0)
+            if (NPC.life <= 0)
                 for (int k = 0; k < 20; k++)
-                    Dust.NewDust(npc.position, npc.width, npc.height, 5, hitDirection, -1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hitDirection, -1f);
         }
     }
 }

@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Armor
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Gaia Helmet");
             Tooltip.SetDefault(@"10% increased damage
 5% increased critical strike chance
@@ -19,17 +20,17 @@ Increases max number of minions and sentries by 1");
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Yellow;
-            item.value = Item.sellPrice(0, 5);
-            item.defense = 15;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(0, 5);
+            Item.defense = 15;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(5);
+            player.GetDamage(DamageClass.Generic) += 0.1f;
+            player.GetCritChance(DamageClass.Generic) += 5;
 
             player.maxMinions += 1;
             player.maxTurrets += 1;
@@ -42,7 +43,7 @@ Increases max number of minions and sentries by 1");
 
         public override void ArmorSetShadows(Player player)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (fargoPlayer.GaiaOffense)
             {
                 player.armorEffectDrawOutlinesForbidden = true;
@@ -59,12 +60,12 @@ Increases max number of minions and sentries by 1
 Double tap down to toggle offensive mode, which has the following effects:
 30% increased damage and 15% increased critical strike chance
 Increases armor penetration by 20
-Reduces defense by 20, max life by 20%, and damage reduction by 20%";
+Reduces defense by 20, max life by 10%, and damage reduction by 15%";
 
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.GaiaSet = true;
 
-            player.meleeSpeed += 0.1f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.1f;
             player.manaCost -= 0.1f;
             player.maxMinions += 1;
             player.maxTurrets += 1;
@@ -74,7 +75,7 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
                 fargoPlayer.GaiaOffense = !fargoPlayer.GaiaOffense;
 
                 if (fargoPlayer.GaiaOffense)
-                    Main.PlaySound(SoundID.Item4, player.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item4, player.Center);
 
                 Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);
                 const int max = 36; //make some indicator dusts
@@ -92,12 +93,12 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
 
             if (fargoPlayer.GaiaOffense)
             {
-                fargoPlayer.AllDamageUp(0.3f);
-                fargoPlayer.AllCritUp(15);
-                player.armorPenetration += 20;
+                player.GetDamage(DamageClass.Generic) += 0.30f;
+                player.GetCritChance(DamageClass.Generic) += 15;
+                player.GetArmorPenetration(DamageClass.Generic) += 20;
                 player.statDefense -= 20;
-                player.statLifeMax2 -= player.statLifeMax / 5;
-                player.endurance -= 0.2f;
+                player.statLifeMax2 -= player.statLifeMax / 10;
+                player.endurance -= 0.15f;
                 Lighting.AddLight(player.Center, new Vector3(1, 1, 1));
                 if (Main.rand.NextBool(3)) //visual dust
                 {
@@ -118,14 +119,14 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.BeetleHusk, 3);
-            recipe.AddIngredient(ItemID.ShroomiteBar, 6);
-            recipe.AddIngredient(ItemID.SpectreBar, 6);
-            recipe.AddIngredient(ItemID.SpookyWood, 100);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(ItemID.BeetleHusk, 3)
+            .AddIngredient(ItemID.ShroomiteBar, 6)
+            .AddIngredient(ItemID.SpectreBar, 6)
+            .AddIngredient(ItemID.SpookyWood, 100)
+            .AddTile(TileID.LunarCraftingStation)
+            
+            .Register();
         }
     }
 }

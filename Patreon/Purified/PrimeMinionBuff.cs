@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Patreon.Purified
 {
     public class PrimeMinionBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mini Prime");
             Description.SetDefault("Skeletron Prime will fight for you");
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Patreon.Purified
         public override void Update(Player player, ref int buffIndex)
         {
             PatreonPlayer patronPlayer = player.GetModPlayer<PatreonPlayer>();
-            if (player.ownedProjectileCounts[mod.ProjectileType("PrimeMinionProj")] > 0) patronPlayer.PrimeMinion = true;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<PrimeMinionProj>()] > 0) patronPlayer.PrimeMinion = true;
             if (!patronPlayer.PrimeMinion)
             {
                 player.DelBuff(buffIndex);

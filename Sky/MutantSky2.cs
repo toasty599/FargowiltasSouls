@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Sky
         {
             if (maxDepth >= 0 && minDepth < 0)
             {
-                spriteBatch.Draw(ModContent.GetTexture("FargowiltasSouls/Sky/MutantSky2"),
+                spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Sky/MutantSky2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * intensity * 0.9f);
             }
         }

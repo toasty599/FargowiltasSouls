@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     public class FleshLaser : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_100";
+        public override string Texture => "Terraria/Images/Projectile_100";
 
         public override void SetStaticDefaults()
         {
@@ -15,13 +15,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.PurpleLaser);
-            aiType = ProjectileID.PurpleLaser;
+            Projectile.CloneDefaults(ProjectileID.PurpleLaser);
+            AIType = ProjectileID.PurpleLaser;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return Color.White * Projectile.Opacity;
         }
     }
 }

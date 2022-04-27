@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -7,7 +8,7 @@ namespace FargowiltasSouls.Tiles
 {
     public class MutantStatue : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileObsidianKill[Type] = true;
@@ -26,7 +27,7 @@ namespace FargowiltasSouls.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("MutantStatue"));
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Placeables.MutantStatue>());
         }
     }
 }

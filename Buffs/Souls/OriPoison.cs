@@ -6,19 +6,15 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class OriPoison : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Orichalcum Poison");
             Main.buffNoSave[Type] = true;
-            canBeCleared = false;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.debuff[Type] = true;
         }
 
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderDebuff";
-            return true;
-        }
+        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
 
         public override void Update(NPC npc, ref int buffIndex)
         {

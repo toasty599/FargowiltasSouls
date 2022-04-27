@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -16,12 +17,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.width = 12;
-            projectile.height = 12;
-            projectile.timeLeft = 600;
-            projectile.hostile = true;
-            projectile.aiStyle = -1;
-            cooldownSlot = 0;
+            Projectile.width = 12;
+            Projectile.height = 12;
+            Projectile.timeLeft = 600;
+            Projectile.hostile = true;
+            Projectile.aiStyle = -1;
+            CooldownSlot = 0;
         }
 
         public override void AI()
@@ -29,15 +30,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
             float gravity = .1f;
             float yMax = 7f;
 
-            projectile.velocity.Y += gravity;
-            if (projectile.velocity.Y > yMax)
-                projectile.velocity.Y = yMax;
-            projectile.velocity.X *= .95f;
-            if (projectile.velocity.X < .1f && projectile.velocity.X > -.1f)
-                projectile.velocity.X = 0f;
+            Projectile.velocity.Y += gravity;
+            if (Projectile.velocity.Y > yMax)
+                Projectile.velocity.Y = yMax;
+            Projectile.velocity.X *= .95f;
+            if (Projectile.velocity.X < .1f && Projectile.velocity.X > -.1f)
+                Projectile.velocity.X = 0f;
 
             float rand = Main.rand.Next(90, 111) * 0.01f * (Main.essScale * 0.5f);
-            Lighting.AddLight(projectile.Center, 0.5f * rand, 0.1f * rand, 0.1f * rand);
+            Lighting.AddLight(Projectile.Center, 0.5f * rand, 0.1f * rand, 0.1f * rand);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -45,10 +46,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             return false;
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = false;
-            return true;
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
         public override bool? CanCutTiles()
@@ -58,29 +59,29 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override bool CanHitPlayer(Player target)
         {
-            if (projectile.Colliding(projectile.Hitbox, target.Hitbox))
+            if (Projectile.Colliding(Projectile.Hitbox, target.Hitbox))
             {
-                if (target.GetModPlayer<FargoPlayer>().DevianttHearts)
-                {
-                    target.statLife += 1;
-                    target.HealEffect(1);
-                }
-                else
+                if (target.GetModPlayer<FargoSoulsPlayer>().DevianttHeartItem == null)
                 {
                     target.hurtCooldowns[0] = 0;
                     int defense = target.statDefense;
                     float endurance = target.endurance;
                     target.statDefense = 0;
                     target.endurance = 0;
-                    target.Hurt(PlayerDeathReason.ByCustomReason(target.name + " felt heartbroken."), projectile.damage, 0, false, false, false, 0);
+                    target.Hurt(PlayerDeathReason.ByCustomReason(target.name + " felt heartbroken."), Projectile.damage, 0, false, false, false, 0);
                     target.statDefense = defense;
                     target.endurance = endurance;
 
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
-                        target.AddBuff(mod.BuffType("Lovestruck"), 240);
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
+                        target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
+                }
+                else
+                {
+                    target.statLife += 1;
+                    target.HealEffect(1);
                 }
   
-                projectile.timeLeft = 0;
+                Projectile.timeLeft = 0;
             }
             return false;
         }
@@ -90,14 +91,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
             return new Color(255, lightColor.G, lightColor.B, lightColor.A);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

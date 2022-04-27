@@ -8,105 +8,115 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
     public class CrystalLeaf : ModNPC
     {
-        public override string Texture => "Terraria/Projectile_226";
+        public override string Texture => "Terraria/Images/Projectile_226";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Leaf");
-            DisplayName.AddTranslation(GameCulture.Chinese, "叶绿水晶");
-            NPCID.Sets.TrailCacheLength[npc.type] = 6;
-            NPCID.Sets.TrailingMode[npc.type] = 1;
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "叶绿水晶");
+            NPCID.Sets.TrailCacheLength[NPC.type] = 6;
+            NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true,
+                ImmuneToWhips = true
+            });
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
+            });
         }
 
         public override void SetDefaults()
         {
-            npc.width = 28;
-            npc.height = 28;
-            npc.damage = 60;
-            npc.defense = 9999;
-            npc.lifeMax = 9999;
-            npc.HitSound = SoundID.NPCHit1;
-            //npc.DeathSound = SoundID.Grass;
-            npc.noGravity = true;
-            npc.noTileCollide = true;
-            npc.dontCountMe = true;
-            npc.knockBackResist = 0f;
-            npc.alpha = 255;
-            npc.lavaImmune = true;
-            for (int i = 0; i < npc.buffImmune.Length; i++)
-                npc.buffImmune[i] = true;
-            npc.aiStyle = -1;
+            NPC.width = 28;
+            NPC.height = 28;
+            NPC.damage = 60;
+            NPC.defense = 9999;
+            NPC.lifeMax = 9999;
+            NPC.HitSound = SoundID.NPCHit1;
+            //NPC.DeathSound = SoundID.Grass;
+            NPC.noGravity = true;
+            NPC.noTileCollide = true;
+            NPC.dontCountMe = true;
+            NPC.knockBackResist = 0f;
+            NPC.alpha = 255;
+            NPC.lavaImmune = true;
+            NPC.aiStyle = -1;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = 9999;
-            npc.life = 9999;
+            NPC.lifeMax = 9999;
+            NPC.life = 9999;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(npc.localAI[2]);
+            writer.Write(NPC.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            npc.localAI[2] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void AI()
         {
-            if (npc.buffType[0] != 0)
-                npc.DelBuff(0);
+            if (NPC.buffType[0] != 0)
+                NPC.DelBuff(0);
             
-            NPC plantera = FargoSoulsUtil.NPCExists(npc.ai[0], NPCID.Plantera);
+            NPC plantera = FargoSoulsUtil.NPCExists(NPC.ai[0], NPCID.Plantera);
             if (plantera == null || FargoSoulsWorld.SwarmActive)
             {
-                npc.life = 0;
-                npc.HitEffect();
-                npc.active = false;
-                npc.netUpdate = true;
+                NPC.life = 0;
+                NPC.HitEffect();
+                NPC.active = false;
+                NPC.netUpdate = true;
                 return;
             }
 
-            if (npc.localAI[1] == 0)
+            if (NPC.localAI[1] == 0)
             {
-                npc.localAI[1] = 1;
+                NPC.localAI[1] = 1;
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                    int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
             }
 
-            npc.target = plantera.target;
+            NPC.target = plantera.target;
 
-            /*if (npc.HasPlayerTarget && Main.player[npc.target].active)
+            /*if (NPC.HasPlayerTarget && Main.player[NPC.target].active)
             {
-                if (++npc.localAI[2] > 300) //projectile timer
+                if (++NPC.localAI[2] > 300) //projectile timer
                 {
-                    npc.localAI[2] = 0;
-                    npc.netUpdate = true;
-                    if (npc.ai[1] == 130 && plantera.life > plantera.lifeMax / 2)
+                    NPC.localAI[2] = 0;
+                    NPC.netUpdate = true;
+                    if (NPC.ai[1] == 130 && plantera.life > plantera.lifeMax / 2)
                     {
-                        Main.PlaySound(SoundID.Grass, (int)npc.position.X, (int)npc.position.Y);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, (int)NPC.position.X, (int)NPC.position.Y);
                         if (Main.netMode != -1)
                         {
                             for (int i = -2; i <= 2; i++)
                             {
-                                Vector2 target = plantera.Center + (Main.player[npc.target].Center - plantera.Center).RotatedBy(MathHelper.ToRadians(80 / 2) * i);
-                                Projectile.NewProjectile(npc.Center, 18f * npc.DirectionTo(target), mod.ProjectileType("CrystalLeafShot"), npc.damage / 4, 0f, Main.myPlayer);
+                                Vector2 target = plantera.Center + (Main.player[NPC.target].Center - plantera.Center).RotatedBy(MathHelper.ToRadians(80 / 2) * i);
+                                Projectile.NewProjectile(NPC.Center, 18f * NPC.DirectionTo(target), ModContent.ProjectileType<CrystalLeafShot>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                         for (int index1 = 0; index1 < 30; ++index1)
                         {
-                            int index2 = Dust.NewDust(npc.position, npc.width, npc.height, 157, 0f, 0f, 0, new Color(), 2f);
+                            int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 157, 0f, 0f, 0, new Color(), 2f);
                             Main.dust[index2].noGravity = true;
                             Main.dust[index2].velocity *= 5f;
                         }
@@ -114,75 +124,75 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 }
             }*/
 
-            Lighting.AddLight(npc.Center, 0.1f, 0.4f, 0.2f);
-            npc.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
-            npc.life = npc.lifeMax;
+            Lighting.AddLight(NPC.Center, 0.1f, 0.4f, 0.2f);
+            NPC.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
+            NPC.life = NPC.lifeMax;
 
-            npc.position = plantera.Center + new Vector2(npc.ai[1], 0f).RotatedBy(npc.ai[3]);
-            npc.position.X -= npc.width / 2;
-            npc.position.Y -= npc.height / 2;
+            NPC.position = plantera.Center + new Vector2(NPC.ai[1], 0f).RotatedBy(NPC.ai[3]);
+            NPC.position.X -= NPC.width / 2;
+            NPC.position.Y -= NPC.height / 2;
 
-            if (plantera.GetEModeNPCMod<Plantera>().RingTossTimer > 120 && plantera.GetEModeNPCMod<Plantera>().RingTossTimer < 120 + 45 && npc.ai[1] == 130) //pause before shooting
+            if (plantera.GetEModeNPCMod<Plantera>().RingTossTimer > 120 && plantera.GetEModeNPCMod<Plantera>().RingTossTimer < 120 + 45 && NPC.ai[1] == 130) //pause before shooting
             {
-                npc.localAI[3] = 1;
-                npc.scale *= 1.5f;
+                NPC.localAI[3] = 1;
+                NPC.scale *= 1.5f;
             }
             else
             {
-                npc.localAI[3] = 0;
+                NPC.localAI[3] = 0;
 
-                float modifier = 1f; //npc.localAI[0]++ / 90f;
+                float modifier = 1f; //NPC.localAI[0]++ / 90f;
 
-                if (npc.localAI[0] > 90)
-                    npc.localAI[0] = 90;
+                if (NPC.localAI[0] > 90)
+                    NPC.localAI[0] = 90;
 
-                float rotation = npc.ai[1] == 130f ? 0.03f : -0.015f;
-                npc.ai[3] += rotation * modifier;
-                if (npc.ai[3] > (float)Math.PI)
+                float rotation = NPC.ai[1] == 130f ? 0.03f : -0.015f;
+                NPC.ai[3] += rotation * modifier;
+                if (NPC.ai[3] > (float)Math.PI)
                 {
-                    npc.ai[3] -= 2f * (float)Math.PI;
-                    npc.netUpdate = true;
+                    NPC.ai[3] -= 2f * (float)Math.PI;
+                    NPC.netUpdate = true;
                 }
-                npc.rotation = npc.ai[3] + (float)Math.PI / 2f;
+                NPC.rotation = NPC.ai[3] + (float)Math.PI / 2f;
 
-                if (npc.ai[1] > 130)
+                if (NPC.ai[1] > 130)
                 {
                     /*if (plantera.GetEModeNPCMod<Plantera>().TentacleTimer < 0)
                     {
-                        npc.localAI[0] -= 2;
-                        if (npc.localAI[0] < 0)
-                            npc.localAI[0] = 0;
+                        NPC.localAI[0] -= 2;
+                        if (NPC.localAI[0] < 0)
+                            NPC.localAI[0] = 0;
                     }*/
 
-                    npc.ai[2] += 2 * (float)Math.PI / 360 * modifier;
-                    if (npc.ai[2] > (float)Math.PI)
-                        npc.ai[2] -= 2 * (float)Math.PI;
-                    npc.ai[1] += (float)Math.Sin(npc.ai[2]) * 7 * modifier;
-                    npc.scale *= 1.5f;
+                    NPC.ai[2] += 2 * (float)Math.PI / 360 * modifier;
+                    if (NPC.ai[2] > (float)Math.PI)
+                        NPC.ai[2] -= 2 * (float)Math.PI;
+                    NPC.ai[1] += (float)Math.Sin(NPC.ai[2]) * 7 * modifier;
+                    NPC.scale *= 1.5f;
                 }
             }
 
-            npc.alpha -= npc.ai[1] > 130 ? 2 : 3;
-            if (npc.alpha < 0)
-                npc.alpha = 0;
+            NPC.alpha -= NPC.ai[1] > 130 ? 2 : 3;
+            if (NPC.alpha < 0)
+                NPC.alpha = 0;
+
+            NPC.dontTakeDamage = NPC.alpha > 0;
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
-            return npc.alpha == 0;
+            return NPC.alpha == 0;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(mod.BuffType("Infested"), 180);
-            target.AddBuff(mod.BuffType("IvyVenom"), 240);
+            target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
         }
 
         public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             damage = 0;
-            npc.life++;
+            NPC.life++;
         }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -190,16 +200,16 @@ namespace FargowiltasSouls.NPCs.EternityMode
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))
                 projectile.penetrate = 0;
             damage = 0;
-            npc.life++;
+            NPC.life++;
         }
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (npc.life <= 0)
+            if (NPC.life <= 0)
             {
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                    int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
@@ -211,8 +221,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
             return false;
         }
 
-        public override bool PreNPCLoot()
+        public override bool CheckDead()
         {
+            NPC.life = 0;
+            NPC.HitEffect();
+            NPC.active = false;
             return false;
         }
 
@@ -227,38 +240,38 @@ namespace FargowiltasSouls.NPCs.EternityMode
             int num5 = (int)(byte.MaxValue * num4) + 50;
             if (num5 > byte.MaxValue)
                 num5 = byte.MaxValue;
-            return new Color(num5, num5, num5, 200) * npc.Opacity;
+            return new Color(num5, num5, num5, 200) * NPC.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D texture2D13 = Main.npcTexture[npc.type];
-            Rectangle rectangle = npc.frame;
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+            Rectangle rectangle = NPC.frame;
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Color color26 = lightColor;
-            color26 = npc.GetAlpha(color26);
+            Color color26 = drawColor;
+            color26 = NPC.GetAlpha(color26);
 
-            SpriteEffects effects = npc.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, NPC.rotation, origin2, NPC.scale, effects, 0);
 
             color26 *= 0.75f;
 
-            if (npc.alpha == 0)
+            if (NPC.alpha == 0)
             {
-                for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
+                for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
                 {
                     Color color27 = color26;
-                    color27.A = (byte)(npc.localAI[3] == 0 ? 150 : 0);
-                    color27 *= (float)(NPCID.Sets.TrailCacheLength[npc.type] - i) / NPCID.Sets.TrailCacheLength[npc.type];
-                    Vector2 value4 = npc.oldPos[i];
-                    float num165 = npc.rotation; //npc.oldRot[i];
-                    Main.spriteBatch.Draw(texture2D13, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, npc.scale, effects, 0f);
+                    color27.A = (byte)(NPC.localAI[3] == 0 ? 150 : 0);
+                    color27 *= (float)(NPCID.Sets.TrailCacheLength[NPC.type] - i) / NPCID.Sets.TrailCacheLength[NPC.type];
+                    Vector2 value4 = NPC.oldPos[i];
+                    float num165 = NPC.rotation; //NPC.oldRot[i];
+                    Main.EntitySpriteDraw(texture2D13, value4 + NPC.Size / 2f - Main.screenPosition + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, NPC.scale, effects, 0);
                 }
             }
 
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, NPC.rotation, origin2, NPC.scale, effects, 0);
             return false;
         }
     }

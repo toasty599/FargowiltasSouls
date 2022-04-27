@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class ClownBomb : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_75";
+        public override string Texture => "Terraria/Images/Projectile_75";
 
         public override void SetStaticDefaults()
         {
@@ -16,12 +16,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.HappyBomb);
-            aiType = ProjectileID.HappyBomb;
+            Projectile.CloneDefaults(ProjectileID.HappyBomb);
+            AIType = ProjectileID.HappyBomb;
 
-            projectile.timeLeft = 300;
-            projectile.tileCollide = true;
-            cooldownSlot = 1;
+            Projectile.timeLeft = 300;
+            Projectile.tileCollide = true;
+            CooldownSlot = 1;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -31,7 +31,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<FuseBomb>(), 300, 3f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 
+                Vector2.Zero, ModContent.ProjectileType<FusedExplosion>(), Projectile.damage * 4, Projectile.knockBack, Main.myPlayer);
         }
     }
 }

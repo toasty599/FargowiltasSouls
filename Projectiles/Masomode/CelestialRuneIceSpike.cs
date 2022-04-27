@@ -15,42 +15,42 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.width = 34;
-            projectile.height = 34;
-            projectile.aiStyle = -1;
-            projectile.alpha = 255;
-            projectile.friendly = true;
-            projectile.magic = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.extraUpdates = 1;
-            projectile.timeLeft = 90;
-            projectile.penetrate = -1;
+            Projectile.width = 34;
+            Projectile.height = 34;
+            Projectile.aiStyle = -1;
+            Projectile.alpha = 255;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 90;
+            Projectile.penetrate = -1;
 
-            projectile.usesIDStaticNPCImmunity = true;
-            projectile.idStaticNPCHitCooldown = 10;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 10;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
 
-            if (ModLoader.GetMod("Fargowiltas") != null)
-                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
+                fargo.Call("LowRenderProj", Projectile);
         }
 
         public override void AI()
         {
-            projectile.alpha += projectile.timeLeft > 20 ? -10 : 10;
-            if (projectile.alpha < 0)
-                projectile.alpha = 0;
-            if (projectile.alpha > 255)
-                projectile.alpha = 255;
+            Projectile.alpha += Projectile.timeLeft > 20 ? -10 : 10;
+            if (Projectile.alpha < 0)
+                Projectile.alpha = 0;
+            if (Projectile.alpha > 255)
+                Projectile.alpha = 255;
 
-            projectile.position.X += projectile.ai[0];
-            projectile.position.Y += projectile.ai[1];
+            Projectile.position.X += Projectile.ai[0];
+            Projectile.position.Y += Projectile.ai[1];
 
-            int index3 = Dust.NewDust(projectile.Center + Utils.RandomVector2(Main.rand, -8f, 8f) / 2f, 8, 8, 197, 0.0f, 0.0f, 100, Color.Transparent, 1f);
+            int index3 = Dust.NewDust(Projectile.Center + Utils.RandomVector2(Main.rand, -8f, 8f) / 2f, 8, 8, 197, 0.0f, 0.0f, 100, Color.Transparent, 1f);
             Main.dust[index3].noGravity = true;
 
-            projectile.rotation = projectile.velocity.ToRotation();
-            Lighting.AddLight(projectile.Center, 0.3f, 0.75f, 0.9f);
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            Lighting.AddLight(Projectile.Center, 0.3f, 0.75f, 0.9f);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -60,15 +60,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return Color.White * Projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Rectangle rectangle = texture2D13.Bounds;
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

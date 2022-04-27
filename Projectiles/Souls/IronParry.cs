@@ -11,45 +11,45 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Iron Parry");
-            Main.projFrames[projectile.type] = 7;
+            Main.projFrames[Projectile.type] = 7;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 78;
-            projectile.height = 78;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.penetrate = -1;
-            projectile.scale = 2f;
+            Projectile.width = 78;
+            Projectile.height = 78;
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.scale = 2f;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
-                Main.PlaySound(SoundID.NPCHit4, projectile.Center);
+                Projectile.localAI[0] = 1;
+                Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit4, Projectile.Center);
 
                 for (int i = 0; i < 20; i++)
                 {
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 87, 0f, 0f, 0, new Color(255, 255, 255, 150), 1.5f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0f, 0f, 0, new Color(255, 255, 255, 150), 1.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 3f;
                 }
             }
 
-            //projectile.Center = Main.player[projectile.owner].Center + new Vector2(projectile.ai[0], projectile.ai[1]);
+            //Projectile.Center = Main.player[Projectile.owner].Center + new Vector2(Projectile.ai[0], Projectile.ai[1]);
 
-            if (++projectile.frameCounter >= 3)
+            if (++Projectile.frameCounter >= 3)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= Main.projFrames[projectile.type])
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
                 {
-                    projectile.frame--;
-                    projectile.Kill();
+                    Projectile.frame--;
+                    Projectile.Kill();
                 }
             }
         }
@@ -59,15 +59,15 @@ namespace FargowiltasSouls.Projectiles.Souls
             return new Color(255, 255, 255, 150);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

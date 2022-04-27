@@ -1,71 +1,71 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Localization;
+﻿//using Terraria;
+//using Terraria.ID;
+//using Terraria.ModLoader;
+//using Terraria.Localization;
 
-namespace FargowiltasSouls.Items.Accessories.Enchantments
-{
-    public class PinkEskimoEnchant : SoulsItem
-    {
-        public override bool Autoload(ref string name)
-        {
-            return false;
-        }
+//namespace FargowiltasSouls.Items.Accessories.Enchantments
+//{
+//    public class PinkEskimoEnchant : BaseEnchant
+//    {
+//        public override bool Autoload(ref string name)
+//        {
+//            return false;
+//        }
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Pink Eskimo Enchantment");
-            Tooltip.SetDefault(
-@"''");
-            DisplayName.AddTranslation(GameCulture.Chinese, "粉爱斯基摩魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"''");
-        }
+//        public override void SetStaticDefaults()
+//        {
+//            base.SetStaticDefaults();
+//
+//            DisplayName.SetDefault("Pink Eskimo Enchantment");
+//            Tooltip.SetDefault(
+//@"''");
+//            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "粉爱斯基摩魔石");
+//            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+//@"''");
+//        }
 
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Lime;
-            item.value = 100000;
-        }
+//        public override void SetDefaults()
+//        {
+//            base.SetDefaults();
+//
+//            item.rare = ItemRarityID.Lime;
+//            item.value = 100000;
+//        }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            /*
-             * if(player.walkingOnWater)
-{
-	Create Ice Rod Projectile right below you
-}
+//        public override void UpdateAccessory(Player player, bool hideVisual)
+//        {
+//            /*
+//             * if(player.walkingOnWater)
+//{
+//	Create Ice Rod Projectile right below you
+//}
 
-NearbyEffects:
+//NearbyEffects:
 
-if(modPlayer.EskimoEnchant && tile.type == IceRodBlock)
-{
-	Create spikes
-}
-             */
-        }
+//if(modPlayer.EskimoEnchant && tile.type == IceRodBlock)
+//{
+//	Create spikes
+//}
+//             */
+//        }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
+//        public override void AddRecipes()
+//        {
+//            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.PinkEskimoHood);
-            recipe.AddIngredient(ItemID.PinkEskimoCoat);
-            recipe.AddIngredient(ItemID.PinkEskimoPants);
-            //recipe.AddIngredient(ItemID.IceRod);
-            recipe.AddIngredient(ItemID.FrostMinnow);
-            recipe.AddIngredient(ItemID.AtlanticCod);
-            recipe.AddIngredient(ItemID.MarshmallowonaStick);
+//            .AddIngredient(ItemID.PinkEskimoHood)
+//            .AddIngredient(ItemID.PinkEskimoCoat)
+//            .AddIngredient(ItemID.PinkEskimoPants)
+//            //.AddIngredient(ItemID.IceRod);
+//            .AddIngredient(ItemID.FrostMinnow)
+//            .AddIngredient(ItemID.AtlanticCod)
+//            .AddIngredient(ItemID.MarshmallowonaStick)
 
-            //grinch pet? or steal pets from frost??!
+//            //grinch pet? or steal pets from frost??!
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-    }
-}
+//            .AddTile(TileID.CrystalBall)
+//            
+//            .Register();
+//        }
+//    }
+//}

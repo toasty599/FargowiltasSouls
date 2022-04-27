@@ -10,22 +10,23 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.melee = false;
-            projectile.minion = true;
+
+            Projectile.DamageType = Terraria.ModLoader.DamageClass.Summon;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Lovestruck, 300);
-            target.immune[projectile.owner] = 1;
+            target.immune[Projectile.owner] = 1;
 
-            /*if (projectile.owner == Main.myPlayer)
+            /*if (Projectile.owner == Main.myPlayer)
             {
                 int healAmount = 2;
                 Main.player[Main.myPlayer].HealEffect(healAmount);

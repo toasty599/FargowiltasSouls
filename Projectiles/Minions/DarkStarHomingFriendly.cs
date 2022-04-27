@@ -1,59 +1,60 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Minions
 {
     public class DarkStarHomingFriendly : Masomode.DarkStar
     {
-        public override string Texture => "Terraria/Projectile_12";
+        public override string Texture => "Terraria/Images/Projectile_12";
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 180;
-            projectile.hostile = false;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.penetrate = -1;
+            Projectile.timeLeft = 180;
+            Projectile.hostile = false;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.penetrate = -1;
         }
 
         public override void AI()
         {
             base.AI();
 
-            projectile.ai[1]++;
+            Projectile.ai[1]++;
 
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0]);
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0]);
             if (npc != null)
             {
-                if (projectile.ai[1] < 60)
+                if (Projectile.ai[1] < 60)
                 {
-                    float rotation = projectile.velocity.ToRotation();
-                    Vector2 vel = npc.Center - projectile.Center;
+                    float rotation = Projectile.velocity.ToRotation();
+                    Vector2 vel = npc.Center - Projectile.Center;
                     float targetAngle = vel.ToRotation();
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.05f));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.05f));
                 }
             }
             else
             {
-                projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 750);
+                Projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 750);
             }
 
-            if (projectile.ai[1] < 60)
-                projectile.velocity *= 1.065f;
+            if (Projectile.ai[1] < 60)
+                Projectile.velocity *= 1.065f;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[projectile.owner] = 6;
+            target.immune[Projectile.owner] = 6;
         }
     }
 }

@@ -16,58 +16,58 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spirit Hand");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 100;
-            projectile.height = 100;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.timeLeft = 300;
+            Projectile.width = 100;
+            Projectile.height = 100;
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.timeLeft = 300;
             
-            cooldownSlot = 1;
-            projectile.tileCollide = false;
+            CooldownSlot = 1;
+            Projectile.tileCollide = false;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                Main.PlaySound(SoundID.Item8, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
 
                 for (int i = 0; i < 5; i++)
                 {
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire,
-                        projectile.velocity.X, projectile.velocity.Y, 0, default(Color), 1.5f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch,
+                        Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color), 1.5f);
                     Main.dust[d].velocity *= 6f;
                 }
             }
 
-            if (++projectile.localAI[0] > 30 && projectile.localAI[0] < 120)
+            if (++Projectile.localAI[0] > 30 && Projectile.localAI[0] < 120)
             {
-                projectile.velocity *= projectile.ai[0];
+                Projectile.velocity *= Projectile.ai[0];
             }
 
-            if (projectile.localAI[0] > 60 && projectile.localAI[0] < 180)
+            if (Projectile.localAI[0] > 60 && Projectile.localAI[0] < 180)
             {
                 if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>()))
                 {
-                    float rotation = projectile.velocity.ToRotation();
-                    Vector2 vel = Main.player[Main.npc[EModeGlobalNPC.championBoss].target].Center - projectile.Center;
+                    float rotation = Projectile.velocity.ToRotation();
+                    Vector2 vel = Main.player[Main.npc[EModeGlobalNPC.championBoss].target].Center - Projectile.Center;
                     float targetAngle = vel.ToRotation();
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, projectile.ai[1]));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, Projectile.ai[1]));
                 }
             }
 
-            projectile.direction = projectile.spriteDirection = projectile.velocity.X > 0 ? -1 : 1;
-            projectile.rotation = projectile.velocity.ToRotation();
-            if (projectile.spriteDirection < 0)
-                projectile.rotation += (float)Math.PI;
+            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0 ? -1 : 1;
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            if (Projectile.spriteDirection < 0)
+                Projectile.rotation += (float)Math.PI;
 
-            Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, 54, 0f, 0f, 0, default(Color), 2f)].noGravity = true;
+            Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 54, 0f, 0f, 0, default(Color), 2f)].noGravity = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -84,29 +84,29 @@ namespace FargowiltasSouls.Projectiles.Champions
             return Color.White;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            SpriteEffects effects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color27 = Color.White * projectile.Opacity * 0.75f * 0.5f;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
+                Color color27 = Color.White * Projectile.Opacity * 0.75f * 0.5f;
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

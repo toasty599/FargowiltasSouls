@@ -1,10 +1,10 @@
-﻿using Fargowiltas.Items.Summons.Mutant;
-using FargowiltasSouls.EternityMode.Net;
+﻿using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Consumables;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -51,22 +52,30 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
-        public override void AI(NPC npc)
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
-            base.AI(npc);
+            if (npc.ai[3] == -1f && FargoSoulsUtil.IsSummonDamage(projectile, includeWhips: false))
+                return false;
+
+            return base.CanBeHitByProjectile(npc, projectile);
+        }
+
+        public override bool PreAI(NPC npc)
+        {
+            bool result = base.PreAI(npc);
 
             EModeGlobalNPC.cultBoss = npc.whoAmI;
 
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             if (npc.ai[3] == -1f)
             {
-                if (Fargowiltas.Instance.MasomodeEXLoaded && npc.ai[1] >= 120f && npc.ai[1] < 419f) //skip summoning ritual LMAO
-                {
-                    npc.ai[1] = 419f;
-                    npc.netUpdate = true;
-                }
+                //if (Fargowiltas.Instance.MasomodeEXLoaded && npc.ai[1] >= 120f && npc.ai[1] < 419f) //skip summoning ritual LMAO
+                //{
+                //    npc.ai[1] = 419f;
+                //    npc.netUpdate = true;
+                //}
 
                 if (npc.ai[0] == 5)
                 {
@@ -117,7 +126,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.ai[1] = 0;
                     npc.ai[2] = 0;
                     npc.ai[3] = -1;
-                    Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -126,7 +135,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                 }
 
-                int damage = Math.Max(npc.damage, 75); //necessary because calameme
+                //necessary because calameme
+                int damage = Math.Max(75, FargoSoulsUtil.ScaledProjectileDamage(npc.damage));
+                damage /= 4;
+
                 switch ((int)npc.ai[0])
                 {
                     case -1:
@@ -156,7 +168,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         spawnPos.Y -= (700 + Math.Abs(i) * 50) * j;
                                         float speed = 8 + spacing * 0.8f;
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                                            Projectile.NewProjectile(spawnPos, Vector2.UnitY * speed * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.UnitY * speed * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
                             }
@@ -173,7 +185,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         distance.Normalize();
                                         distance *= Main.rand.NextFloat(8f, 9f);
                                         distance = distance.RotatedByRandom(Math.PI / 24);
-                                        Projectile.NewProjectile(Main.npc[i].Center, distance,
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, distance,
                                             ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
@@ -196,12 +208,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     const float ai0 = spawnOffset / speed;
                                     for (int i = 0; i < max; i++)
                                     {
-                                        Projectile.NewProjectile(Main.player[npc.target].Center + spawnOffset * baseOffset.RotatedBy(2 * Math.PI / max * i),
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + spawnOffset * baseOffset.RotatedBy(2 * Math.PI / max * i),
                                             -speed * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<CultistFireball>(),
                                             damage / 3, 0f, Main.myPlayer, ai0);
                                     }
 
-                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                                 }
                             }
 
@@ -211,9 +223,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 {
                                     if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone)
                                     {
-                                        int n = NPC.NewNPC((int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y, NPCID.SolarFlare, Target: npc.target);
-                                        if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                                            NetMessage.SendData(MessageID.SyncNPC, number: n);
+                                        FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), Main.npc[i].Center, NPCID.SolarFlare, target: npc.target);
                                     }
                                 }
                             }
@@ -230,7 +240,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 {
                                     if (EnteredPhase2) //vortex lightning
                                     {
-                                        Projectile.NewProjectile(Main.npc[i].Center, Main.rand.NextVector2Square(-15, 15), ModContent.ProjectileType<CultistVortex>(),
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, Main.rand.NextVector2Square(-15, 15), ModContent.ProjectileType<CultistVortex>(),
                                           damage / 15 * 6, 0, Main.myPlayer, 0f, cultistCount);
                                         cultistCount++;
                                     }
@@ -240,15 +250,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         {
                                             Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
                                             float ai1New = Main.rand.Next(100);
-                                            Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 6f;
-                                            Projectile.NewProjectile(Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
+                                            Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 24f;
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
                                                 damage / 15 * 6, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                                         }
                                         else
                                         {
                                             Vector2 vel = Main.npc[i].DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
                                             vel *= Main.rand.NextFloat(4f, 6f);
-                                            Projectile.NewProjectile(Main.npc[i].Center, vel, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, vel, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
                                         }
                                     }
                                 }
@@ -263,7 +273,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             {
                                 if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<CultistRitual>())
                                 {
-                                    Projectile.NewProjectile(new Vector2(Main.projectile[i].Center.X, Main.player[npc.target].Center.Y - 700),
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), new Vector2(Main.projectile[i].Center.X, Main.player[npc.target].Center.Y - 700),
                                         Vector2.Zero, ModContent.ProjectileType<StardustRain>(), damage / 3, 0f, Main.myPlayer);
                                 }
                             }
@@ -279,7 +289,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 for (int i = 0; i < Main.maxNPCs; i++)
                                 {
                                     if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone)
-                                        Projectile.NewProjectile(Main.npc[i].Center, Vector2.Zero, ProjectileID.NebulaSphere, damage / 15 * 6, 0f, Main.myPlayer);
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, Vector2.Zero, ProjectileID.NebulaSphere, damage / 15 * 6, 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -293,47 +303,53 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.defense = npc.defDefense; //prevent vanilla p2 from lowering defense!
             Lighting.AddLight(npc.Center, 1f, 1f, 1f);
             
-            EModeUtils.DropSummon(npc, ModContent.ItemType<CultistSummon>(), NPC.downedAncientCultist, ref DroppedSummon, NPC.downedGolemBoss);
+            EModeUtils.DropSummon(npc, "CultistSummon", NPC.downedAncientCultist, ref DroppedSummon, NPC.downedGolemBoss);
+
+            return result;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             return false;
-        }
-
-        private void IncrementDamageCounters(bool melee, bool ranged, bool magic, bool minion, int damage)
-        {
-            if (melee)// || thrown)
-                MeleeDamageCounter += damage;
-            else if (ranged)
-                RangedDamageCounter += damage;
-            else if (magic)
-                MagicDamageCounter += damage;
-            else if (minion)
-                MinionDamageCounter += damage;
         }
 
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
             base.OnHitByItem(npc, player, item, damage, knockback, crit);
 
-            IncrementDamageCounters(item.melee, item.ranged, item.magic, item.summon, damage);
+            if (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Throwing)
+                MeleeDamageCounter += damage;
+            if (item.DamageType == DamageClass.Ranged)
+                RangedDamageCounter += damage;
+            if (item.DamageType == DamageClass.Magic)
+                MagicDamageCounter += damage;
+            if (item.DamageType == DamageClass.Summon)
+                MinionDamageCounter += damage;
         }
 
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
             base.OnHitByProjectile(npc, projectile, damage, knockback, crit);
 
-            IncrementDamageCounters(projectile.melee, projectile.ranged, projectile.magic, FargoSoulsUtil.IsMinionDamage(projectile), damage);
+            if (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Throwing)
+                MeleeDamageCounter += damage;
+            if (projectile.DamageType == DamageClass.Ranged)
+                RangedDamageCounter += damage;
+            if (projectile.DamageType == DamageClass.Magic)
+                MagicDamageCounter += damage;
+            if (FargoSoulsUtil.IsSummonDamage(projectile))
+                MinionDamageCounter += damage;
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.NPCLoot(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CelestialRune>());
-            if (Main.player[Main.myPlayer].extraAccessorySlots == 1 || Main.netMode != NetmodeID.SinglePlayer)
-                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CelestialSeal>());
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<CelestialRune>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MutantsPact>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.DungeonFishingCrateHard, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)
@@ -344,6 +360,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             LoadBossHeadSprite(recolor, 24);
             LoadBossHeadSprite(recolor, 31);
             LoadGoreRange(recolor, 902, 903);
+            LoadExtra(recolor, 30);
         }
     }
 
@@ -368,9 +385,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
-        public override void AI(NPC npc)
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
-            base.AI(npc);
+            if (FargoSoulsUtil.IsSummonDamage(projectile, includeWhips: false))
+                return false;
+
+            return base.CanBeHitByProjectile(npc, projectile);
+        }
+
+        public override bool PreAI(NPC npc)
+        {
+            bool result = base.PreAI(npc);
 
             NPC cultist = FargoSoulsUtil.NPCExists(npc.ai[3], NPCID.CultistBoss);
             if (cultist != null)
@@ -414,6 +439,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 Lighting.AddLight(npc.Center, 1f, 1f, 1f);
             }
+
+            return result;
         }
 
         public override void HitEffect(NPC npc, int hitDirection, double damage)
@@ -425,13 +452,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 NPC cultist = FargoSoulsUtil.NPCExists(npc.ai[3], NPCID.CultistBoss);
                 
                 //yes, this spawns two clones without the check
-                if (cultist != null && NPC.CountNPCS(npc.type) < (FargoSoulsWorld.MasochistModeReal ? TotalCultistCount + 1 : TotalCultistCount))
+                if (cultist != null && NPC.CountNPCS(npc.type) < (FargoSoulsWorld.MasochistModeReal ? Math.Min(TotalCultistCount + 1, 12) : TotalCultistCount))
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.CultistBossClone, 0, npc.ai[0], npc.ai[1], npc.ai[2], npc.ai[3], npc.target);
-                        if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        FargoSoulsUtil.NewNPCEasy(cultist.GetSource_FromAI(), npc.Center, NPCID.CultistBossClone, 0, npc.ai[0], npc.ai[1], npc.ai[2], npc.ai[3], npc.target);
                     }
                 }
             }
@@ -457,14 +482,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
-            return base.CanHitPlayer(npc, target, ref cooldownSlot) && npc.localAI[3] > 120;
+            return base.CanHitPlayer(npc, target, ref CooldownSlot) && npc.localAI[3] > 120;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            bool result = base.PreAI(npc);
 
             if (npc.localAI[3] == 0f)
             {
@@ -484,6 +509,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 Vector2 pivot = new Vector2(npc.ai[2], npc.ai[3]);
                 npc.velocity = Vector2.Normalize(pivot - npc.Center).RotatedBy(Math.PI / 2) * 6f;
             }
+
+            return result;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -526,16 +553,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.immortal = true;
             npc.chaseable = false;
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !FargoSoulsWorld.MasochistModeReal)
-            {
-                if (++Timer > 20 && Timer < 60)
-                {
-                    npc.position -= npc.velocity;
-                    return false;
-                }
-            }
-
-            /*if (MoonLordAlive)
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
             {
                 if (npc.HasPlayerTarget)
                 {
@@ -568,7 +586,21 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 npc.velocity.X = npc.ai[2];
                 npc.velocity.Y = npc.ai[3];
-            }*/
+            }
+            else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !FargoSoulsWorld.MasochistModeReal)
+            {
+                if (++Timer > 20 && Timer < 40)
+                {
+                    npc.position -= npc.velocity;
+                    return false;
+                }
+
+                if (Timer > 180)
+                {
+                    npc.dontTakeDamage = false;
+                    npc.immortal = false;
+                }
+            }
 
             return result;
         }
@@ -598,7 +630,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax *= 2;
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
@@ -606,19 +637,23 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnSpawn(npc);
 
-            if (npc.type == NPCID.CultistDragonHead && NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (npc.type == NPCID.CultistDragonHead)
             {
-                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.AncientCultistSquidhead);
-                if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                if (FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
+                    npc.Center = Main.npc[EModeGlobalNPC.cultBoss].Center;
+
+                if (NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4 && Main.netMode != NetmodeID.MultiplayerClient)
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.AncientCultistSquidhead);
             }
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            bool result = base.PreAI(npc);
 
             DamageReductionTimer++;
+
+            return result;
         }
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)

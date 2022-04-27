@@ -7,13 +7,15 @@ using System.Collections.Generic;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class SpiderEnchant : SoulsItem
+    public class SpiderEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Spider Enchantment");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "蜘蛛魔石");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蜘蛛魔石");
             
             string tooltip =
 @"Your minions and sentries can now crit with a 15% chance
@@ -23,53 +25,41 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip_ch =
 @"你的仆从和哨兵现在可以造成暴击且有15%基础暴击率
 '对恐蛛症者可惩罚他们死于蜘蛛之口'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(109, 78, 69);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(109, 78, 69);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.LightPurple;
-            item.value = 150000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.LightPurple;
+            Item.value = 150000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().SpiderEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().SpiderEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SpiderMask);
-            recipe.AddIngredient(ItemID.SpiderBreastplate);
-            recipe.AddIngredient(ItemID.SpiderGreaves);
-            recipe.AddIngredient(ItemID.SpiderStaff);
-            recipe.AddIngredient(ItemID.QueenSpiderStaff);
-            recipe.AddIngredient(ItemID.WebSlinger);
+            CreateRecipe()
+            .AddIngredient(ItemID.SpiderMask)
+            .AddIngredient(ItemID.SpiderBreastplate)
+            .AddIngredient(ItemID.SpiderGreaves)
+            .AddIngredient(ItemID.SpiderStaff)
+            .AddIngredient(ItemID.QueenSpiderStaff)
+            .AddIngredient(ItemID.WebSlinger)
             //web rope coil
             //rainbow string
             //fried egg
-            //recipe.AddIngredient(ItemID.SpiderEgg);
+            //.AddIngredient(ItemID.SpiderEgg);
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

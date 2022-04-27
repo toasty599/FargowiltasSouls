@@ -4,67 +4,75 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
+using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class BorealWoodEnchant : SoulsItem
+    public class BorealWoodEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Boreal Wood Enchantment");
             Tooltip.SetDefault(
 @"Attacks will periodically be accompanied by several snowballs
 'The cooler wood'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "针叶木魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "针叶木魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"攻击时定期释放雪球
 '冷木'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(139, 116, 100);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(139, 116, 100);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Green;
-            item.value = 10000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Green;
+            Item.value = 10000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().BorealEnchant = true;
-            player.GetModPlayer<FargoPlayer>().AdditionalAttacks = true;
+            BorealEffect(player);
+        }
+
+        public static void BorealEffect(Player player)
+        {
+            player.GetModPlayer<FargoSoulsPlayer>().BorealEnchantActive = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AdditionalAttacks = true;
+        }
+
+        public static void BorealSnowballs(FargoSoulsPlayer modPlayer, int damage)
+        {
+            Player player = modPlayer.Player;
+
+            Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
+            int snowballDamage = damage / 2;
+            if (!modPlayer.TerrariaSoul)
+                snowballDamage = Math.Min(snowballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.WoodForce ? 300 : 20));
+            int p = Projectile.NewProjectile(player.GetSource_Misc(""), player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
+
+            int numSnowballs = modPlayer.WoodForce ? 5 : 3;
+            if (p != Main.maxProjectiles)
+                FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.BorealWoodHelmet);
-            recipe.AddIngredient(ItemID.BorealWoodBreastplate);
-            recipe.AddIngredient(ItemID.BorealWoodGreaves);
-            //recipe.AddIngredient(ItemID.BorealWoodSword);
-            //recipe.AddIngredient(ItemID.BorealWoodBow);
-            recipe.AddIngredient(ItemID.Snowball, 300);
-            recipe.AddIngredient(ItemID.Shiverthorn);
-            //cherry/plum
-            //recipe.AddIngredient(ItemID.Penguin);
-            recipe.AddIngredient(ItemID.ColdWatersintheWhiteLand);
+            CreateRecipe()
+            .AddIngredient(ItemID.BorealWoodHelmet)
+            .AddIngredient(ItemID.BorealWoodBreastplate)
+            .AddIngredient(ItemID.BorealWoodGreaves)
+            .AddIngredient(ItemID.Snowball, 300)
+            .AddIngredient(ItemID.Shiverthorn)
+            .AddIngredient(ItemID.Plum)
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
 }

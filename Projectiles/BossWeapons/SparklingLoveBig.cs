@@ -14,69 +14,70 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sparkling Love");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 110;
-            projectile.height = 110;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.timeLeft = 65;
-            projectile.aiStyle = -1;
-            projectile.scale = 4f;
-            projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.width = 110;
+            Projectile.height = 110;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 65;
+            Projectile.aiStyle = -1;
+            Projectile.scale = 4f;
+            Projectile.penetrate = -1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
         {
             //the important part
-            int ai1 = (int)projectile.ai[1];
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
+            int ai1 = (int)Projectile.ai[1];
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
             if (byUUID != -1)
             {
                 Projectile devi = Main.projectile[byUUID];
-                if (projectile.timeLeft > 15)
+                if (Projectile.timeLeft > 15)
                 {
                     Vector2 offset = new Vector2(0, -360).RotatedBy(Math.PI / 4 * devi.spriteDirection);
-                    projectile.Center = devi.Center + offset;
-                    projectile.rotation = (float)Math.PI / 4 * devi.spriteDirection - (float)Math.PI / 4;
+                    Projectile.Center = devi.Center + offset;
+                    Projectile.rotation = (float)Math.PI / 4 * devi.spriteDirection - (float)Math.PI / 4;
                 }
                 else //swinging down
                 {
-                    if (projectile.timeLeft == 15) //confirm facing the right direction with right offset
-                        projectile.rotation = (float)Math.PI / 4 * devi.spriteDirection - (float)Math.PI / 4;
+                    if (Projectile.timeLeft == 15) //confirm facing the right direction with right offset
+                        Projectile.rotation = (float)Math.PI / 4 * devi.spriteDirection - (float)Math.PI / 4;
 
-                    projectile.rotation -= (float)Math.PI / 15 * devi.spriteDirection * 0.75f;
-                    Vector2 offset = new Vector2(0, -360).RotatedBy(projectile.rotation + (float)Math.PI / 4);
-                    projectile.Center = devi.Center + offset;
+                    Projectile.rotation -= (float)Math.PI / 15 * devi.spriteDirection * 0.75f;
+                    Vector2 offset = new Vector2(0, -360).RotatedBy(Projectile.rotation + (float)Math.PI / 4);
+                    Projectile.Center = devi.Center + offset;
                 }
 
-                projectile.spriteDirection = -devi.spriteDirection;
+                Projectile.spriteDirection = -devi.spriteDirection;
 
-                projectile.localAI[1] = devi.velocity.ToRotation();
+                Projectile.localAI[1] = devi.velocity.ToRotation();
 
-                if (projectile.localAI[0] == 0)
+                if (Projectile.localAI[0] == 0)
                 {
-                    projectile.localAI[0] = 1;
-                    if (projectile.owner == Main.myPlayer)
-                        Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
-                    Main.PlaySound(SoundID.Item92, projectile.Center);
+                    Projectile.localAI[0] = 1;
+                    if (Projectile.owner == Main.myPlayer)
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
                     MakeDust();
                 }
             }
-            else if (projectile.owner == Main.myPlayer && projectile.timeLeft < 60)
+            else if (Projectile.owner == Main.myPlayer && Projectile.timeLeft < 60)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
         }
@@ -85,17 +86,17 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             const int scaleCounter = 3;
 
-            Vector2 start = projectile.width * Vector2.UnitX.RotatedBy(projectile.rotation - (float)Math.PI / 4);
-            if (Math.Abs(start.X) > projectile.width / 2) //bound it so its always inside projectile's hitbox
-                start.X = projectile.width / 2 * Math.Sign(start.X);
-            if (Math.Abs(start.Y) > projectile.height / 2)
-                start.Y = projectile.height / 2 * Math.Sign(start.Y);
+            Vector2 start = Projectile.width * Vector2.UnitX.RotatedBy(Projectile.rotation - (float)Math.PI / 4);
+            if (Math.Abs(start.X) > Projectile.width / 2) //bound it so its always inside Projectile's hitbox
+                start.X = Projectile.width / 2 * Math.Sign(start.X);
+            if (Math.Abs(start.Y) > Projectile.height / 2)
+                start.Y = Projectile.height / 2 * Math.Sign(start.Y);
             int length = (int)start.Length();
             start = Vector2.Normalize(start);
             float scaleModifier = scaleCounter / 3f + 0.5f;
             for (int j = -length; j <= length; j += 80)
             {
-                Vector2 dustPoint = projectile.Center + start * j;
+                Vector2 dustPoint = Projectile.Center + start * j;
                 dustPoint.X -= 23;
                 dustPoint.Y -= 23;
 
@@ -123,15 +124,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
-            projectile.maxPenetrate = 1;
+            Projectile.maxPenetrate = 1;
             return true;
         }
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (projectile.timeLeft < 15)
+            if (Projectile.timeLeft < 15)
                 crit = true;
         }
 
@@ -143,26 +144,26 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void Kill(int timeleft)
         {
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
             MakeDust();
 
-            Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
-            Main.PlaySound(SoundID.Item92, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 6);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
-            if (projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
+            if (Projectile.owner == Main.myPlayer)
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
 
-            if (projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer)
             {
                 float minionSlotsUsed = 0;
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    if (Main.projectile[i].active && !Main.projectile[i].hostile && Main.projectile[i].owner == projectile.owner && Main.projectile[i].minionSlots > 0)
+                    if (Main.projectile[i].active && !Main.projectile[i].hostile && Main.projectile[i].owner == Projectile.owner && Main.projectile[i].minionSlots > 0)
                         minionSlotsUsed += Main.projectile[i].minionSlots;
                 }
 
-                float modifier = Main.player[projectile.owner].maxMinions - minionSlotsUsed;
+                float modifier = Main.player[Projectile.owner].maxMinions - minionSlotsUsed;
                 if (modifier < 0)
                     modifier = 0;
                 if (modifier > 12)
@@ -171,47 +172,47 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 int max = (int)modifier + 4;
                 for (int i = 0; i < max; i++)
                 {
-                    Vector2 target = 600 * -Vector2.UnitY.RotatedBy(2 * Math.PI / max * i + projectile.localAI[1]);
+                    Vector2 target = 600 * -Vector2.UnitY.RotatedBy(2 * Math.PI / max * i + Projectile.localAI[1]);
                     Vector2 speed = 2 * target / 90;
                     float acceleration = -speed.Length() / 90;
                     float rotation = speed.ToRotation() + (float)Math.PI / 2;
-                    Projectile.NewProjectile(projectile.Center, speed, ModContent.ProjectileType<SparklingLoveEnergyHeart>(),
-                        projectile.damage, projectile.knockBack, projectile.owner, rotation, acceleration);
+                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, speed, ModContent.ProjectileType<SparklingLoveEnergyHeart>(),
+                        Projectile.originalDamage, Projectile.knockBack, Projectile.owner, rotation, acceleration);
 
-                    Projectile.NewProjectile(projectile.Center, 14f * Vector2.UnitY.RotatedBy(2 * Math.PI / max * (i + 0.5) + projectile.localAI[1]),
-                        ModContent.ProjectileType<SparklingLoveHeart2>(), projectile.damage, projectile.knockBack,
-                        projectile.owner, -1, 45);
+                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 14f * Vector2.UnitY.RotatedBy(2 * Math.PI / max * (i + 0.5) + Projectile.localAI[1]),
+                        ModContent.ProjectileType<SparklingLoveHeart2>(), Projectile.originalDamage, Projectile.knockBack,
+                        Projectile.owner, -1, 45);
                 }
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            SpriteEffects effects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            float rotationOffset = projectile.spriteDirection > 0 ? 0 : (float)Math.PI / 2;
+            float rotationOffset = Projectile.spriteDirection > 0 ? 0 : (float)Math.PI / 2;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26 * 0.5f;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165 + rotationOffset, origin2, projectile.scale, effects, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165 + rotationOffset, origin2, Projectile.scale, effects, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation + rotationOffset, origin2, projectile.scale, effects, 0f);
-            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/SparklingLove_glow");
-            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation + rotationOffset, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation + rotationOffset, origin2, Projectile.scale, effects, 0);
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Items/Weapons/FinalUpgrades/SparklingLove_glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Main.EntitySpriteDraw(texture2D14, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * Projectile.Opacity, Projectile.rotation + rotationOffset, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

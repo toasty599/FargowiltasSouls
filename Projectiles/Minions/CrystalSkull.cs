@@ -10,180 +10,186 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class CrystalSkull : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_289";
+        public override string Texture => "Terraria/Images/NPC_289";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Skull");
-            Main.projFrames[projectile.type] = 6;
+            Main.projFrames[Projectile.type] = 6;
         }
 
         public override void SetDefaults()
         {
-            projectile.netImportant = true;
-            projectile.width = 50;
-            projectile.height = 50;
-            projectile.timeLeft *= 5;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.hide = true;
-            projectile.scale = 0.5f;
+            Projectile.netImportant = true;
+            Projectile.width = 50;
+            Projectile.height = 50;
+            Projectile.timeLeft *= 5;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.hide = true;
+            Projectile.scale = 0.5f;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(projectile.localAI[0]);
+            writer.Write(Projectile.localAI[0]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            projectile.localAI[0] = reader.ReadSingle();
+            Projectile.localAI[0] = reader.ReadSingle();
         }
 
         int clickTimer;
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().CrystalSkullMinion)
-                projectile.timeLeft = 2;
+            Player player = Main.player[Projectile.owner];
+            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().CrystalSkullMinion)
+                Projectile.timeLeft = 2;
 
-            if (projectile.damage == 0)
-                projectile.damage = (int)(30f * player.minionDamage);
+            if (Projectile.originalDamage == 0)
+                Projectile.originalDamage = 30;
 
             Vector2 vector2_1 = new Vector2(0f, -60f); //movement code
             Vector2 vector2_2 = player.MountedCenter + vector2_1;
-            float num1 = Vector2.Distance(projectile.Center, vector2_2);
+            float num1 = Vector2.Distance(Projectile.Center, vector2_2);
             if (num1 > 1000) //teleport when out of range
-                projectile.Center = player.Center + vector2_1;
-            Vector2 vector2_3 = vector2_2 - projectile.Center;
+                Projectile.Center = player.Center + vector2_1;
+            Vector2 vector2_3 = vector2_2 - Projectile.Center;
             float num2 = 4f;
             if (num1 < num2)
-                projectile.velocity *= 0.25f;
+                Projectile.velocity *= 0.25f;
             if (vector2_3 != Vector2.Zero)
             {
                 if (vector2_3.Length() < num2)
-                    projectile.velocity = vector2_3;
+                    Projectile.velocity = vector2_3;
                 else
-                    projectile.velocity = vector2_3 * 0.1f;
+                    Projectile.velocity = vector2_3 * 0.1f;
             }
 
             const float rotationModifier = 0.08f;
             const float chargeTime = 180f;
-            if (projectile.localAI[1] > 0)
+            if (Projectile.localAI[1] > 0)
             {
-                projectile.localAI[1]--;
-                if (projectile.owner == Main.myPlayer)
-                    projectile.netUpdate = true;
+                Projectile.localAI[1]--;
+                if (Projectile.owner == Main.myPlayer)
+                    Projectile.netUpdate = true;
             }
 
-            if (projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer)
             {
-                projectile.ai[0] = Main.MouseWorld.X;
-                projectile.ai[1] = Main.MouseWorld.Y;
+                Projectile.ai[0] = Main.MouseWorld.X;
+                Projectile.ai[1] = Main.MouseWorld.Y;
             }
-            projectile.rotation = projectile.rotation.AngleLerp(
-                (new Vector2(projectile.ai[0], projectile.ai[1]) - projectile.Center).ToRotation(), rotationModifier);
+            Projectile.rotation = Projectile.rotation.AngleLerp(
+                (new Vector2(Projectile.ai[0], Projectile.ai[1]) - Projectile.Center).ToRotation(), rotationModifier);
 
-            projectile.frame = 1;
+            Projectile.frame = 1;
             
-            if (projectile.localAI[0] < 0) //attacking
+            if (Projectile.localAI[0] < 0) //attacking
             {
-                projectile.localAI[0]++;
-                projectile.frame = 4;
+                Projectile.localAI[0]++;
+                Projectile.frame = 4;
 
-                if (projectile.localAI[0] % 5 == 0)
+                if (Projectile.localAI[0] % 5 == 0)
                 {
-                    Main.PlaySound(SoundID.NPCDeath52, projectile.Center);
-                    if (projectile.owner == Main.myPlayer)
-                        Projectile.NewProjectile(projectile.Center, 12f * projectile.DirectionTo(Main.MouseWorld).RotatedByRandom(MathHelper.ToRadians(4)),
-                            ModContent.ProjectileType<ShadowflamesFriendly>(), projectile.damage, projectile.knockBack, projectile.owner);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath52, Projectile.Center);
+                    if (Projectile.owner == Main.myPlayer)
+                    {
+                        FargoSoulsUtil.NewSummonProjectile(
+                            Projectile.GetSource_FromThis(), Projectile.Center,
+                            12f * Projectile.DirectionTo(Main.MouseWorld).RotatedByRandom(MathHelper.ToRadians(4)),
+                            ModContent.ProjectileType<ShadowflamesFriendly>(), Projectile.originalDamage, Projectile.knockBack, 
+                            Projectile.owner);
+                    }
                 }
             }
-            else if (player.controlUseItem || (clickTimer > 0 && projectile.localAI[0] <= chargeTime * 2f))
+            else if (player.controlUseItem || (clickTimer > 0 && Projectile.localAI[0] <= chargeTime * 2f))
             {
                 clickTimer--;
 
-                projectile.localAI[0]++;
+                Projectile.localAI[0]++;
                 
-                if (projectile.localAI[0] == chargeTime * 2f)
+                if (Projectile.localAI[0] == chargeTime * 2f)
                 {
-                    if (projectile.owner == Main.myPlayer)
-                        projectile.netUpdate = true;
+                    if (Projectile.owner == Main.myPlayer)
+                        Projectile.netUpdate = true;
                     const int num226 = 64; //dusts indicate charged up
                     for (int num227 = 0; num227 < num226; num227++)
                     {
-                        Vector2 vector6 = Vector2.UnitX.RotatedBy(projectile.rotation) * 6f;
-                        vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + projectile.Center;
-                        Vector2 vector7 = vector6 - projectile.Center;
+                        Vector2 vector6 = Vector2.UnitX.RotatedBy(Projectile.rotation) * 6f;
+                        vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + Projectile.Center;
+                        Vector2 vector7 = vector6 - Projectile.Center;
                         int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 27, 0f, 0f, 0, default(Color), 3f);
                         Main.dust[num228].noGravity = true;
                         Main.dust[num228].velocity = vector7;
                     }
                 }
 
-                if (projectile.localAI[0] > chargeTime * 2f)
+                if (Projectile.localAI[0] > chargeTime * 2f)
                 {
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 27, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                     Main.dust[d].scale += 0.5f;
-                    d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 27, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f);
+                    d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 1.5f;
                 }
             }
-            else if (projectile.owner == Main.myPlayer)
+            else if (Projectile.owner == Main.myPlayer)
             {
-                if (projectile.localAI[0] > chargeTime * 2f)
+                if (Projectile.localAI[0] > chargeTime * 2f)
                 {
-                    projectile.localAI[0] = -120;
-                    projectile.netUpdate = true;
+                    Projectile.localAI[0] = -120;
+                    Projectile.netUpdate = true;
                 }
                 else
                 {
-                    projectile.localAI[0] = 0;
+                    Projectile.localAI[0] = 0;
                 }
             }
 
             if (player.controlUseItem || player.itemTime > 0 || player.itemAnimation > 0 || player.reuseDelay > 0)
                 clickTimer = 20;
 
-            projectile.spriteDirection = System.Math.Abs(MathHelper.WrapAngle(projectile.rotation)) > MathHelper.PiOver2 ? -1 : 1;
+            Projectile.spriteDirection = System.Math.Abs(MathHelper.WrapAngle(Projectile.rotation)) > MathHelper.PiOver2 ? -1 : 1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(255, 255, 255, 100) * projectile.Opacity;
+            return new Color(255, 255, 255, 100) * Projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Color color = projectile.GetAlpha(lightColor);
-            SpriteEffects spriteEffects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            float rotation = projectile.rotation;
-            if (projectile.spriteDirection < 0)
+            Color color = Projectile.GetAlpha(lightColor);
+            SpriteEffects spriteEffects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            float rotation = Projectile.rotation;
+            if (Projectile.spriteDirection < 0)
                 rotation += MathHelper.Pi;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color, rotation, origin2, projectile.scale, spriteEffects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color, rotation, origin2, Projectile.scale, spriteEffects, 0);
             return false;
         }
     }

@@ -1,5 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -13,120 +16,128 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant Sickle");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 3;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 30;
-            projectile.height = 30;
-            projectile.alpha = 0;
-            projectile.hostile = true;
-            projectile.timeLeft = 600;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = -1;
-            cooldownSlot = 1;
+            Projectile.width = 30;
+            Projectile.height = 30;
+            Projectile.alpha = 0;
+            Projectile.hostile = true;
+            Projectile.timeLeft = 600;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = -1;
+            CooldownSlot = 1;
             
-            projectile.hide = true;
+            Projectile.hide = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(projectile.timeLeft);
+            writer.Write(Projectile.timeLeft);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            projectile.timeLeft = reader.ReadInt32();
+            Projectile.timeLeft = reader.ReadInt32();
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            targetHitbox.Y = targetHitbox.Center.Y;
+            targetHitbox.Height = Math.Min(targetHitbox.Width, targetHitbox.Height);
+            targetHitbox.Y -= targetHitbox.Height / 2;
+            return base.Colliding(projHitbox, targetHitbox);
         }
 
         public override void AI()
         {
-            /*if (projectile.localAI[0] == 0)
+            /*if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item8, projectile.Center);
+                Projectile.localAI[0] = 1;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
             }*/
-            if (projectile.rotation == 0)
-                projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+            if (Projectile.rotation == 0)
+                Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 
-            float modifier = (180f - projectile.timeLeft + 90) / 180f; //2f - projectile.timeLeft / 240f;
+            float modifier = (180f - Projectile.timeLeft + 90) / 180f; //2f - Projectile.timeLeft / 240f;
             if (modifier < 0)
                 modifier = 0;
             if (modifier > 1)
                 modifier = 1;
-            projectile.rotation += 0.1f + 0.7f * modifier;
-            //projectile.alpha = (int)(127f * (1f - modifier));
+            Projectile.rotation += 0.1f + 0.7f * modifier;
+            //Projectile.alpha = (int)(127f * (1f - modifier));
 
-            if (projectile.timeLeft < 180) //240)
+            if (Projectile.timeLeft < 180) //240)
             {
-                if (projectile.velocity == Vector2.Zero)
+                if (Projectile.velocity == Vector2.Zero)
                 {
-                    projectile.velocity = projectile.ai[1].ToRotationVector2();
-                    projectile.netUpdate = true;
+                    Projectile.velocity = Projectile.ai[1].ToRotationVector2();
+                    Projectile.netUpdate = true;
                 }
-                projectile.velocity *= 1f + projectile.ai[0];
+                Projectile.velocity *= 1f + Projectile.ai[0];
             }
             /*for (int i = 0; i < 6; i++)
             {
-                Vector2 offset = new Vector2(0, -20).RotatedBy(projectile.rotation);
+                Vector2 offset = new Vector2(0, -20).RotatedBy(Projectile.rotation);
                 offset = offset.RotatedByRandom(MathHelper.Pi / 6);
-                int d = Dust.NewDust(projectile.Center, 0, 0, 229, 0f, 0f, 150);
+                int d = Dust.NewDust(Projectile.Center, 0, 0, 229, 0f, 0f, 150);
                 Main.dust[d].position += offset;
                 float velrando = Main.rand.Next(20, 31) / 10;
-                Main.dust[d].velocity = projectile.velocity / velrando;
+                Main.dust[d].velocity = Projectile.velocity / velrando;
                 Main.dust[d].noGravity = true;
             }*/
         }
 
         public override void PostAI()
         {
-            /*if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD == 6)
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 60;
-            else if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD == 7)
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 5;*/
+            /*if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD == 6)
+                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 60;
+            else if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD == 7)
+                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 5;*/
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return Color.White * Projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             target.AddBuff(BuffID.Bleeding, 600);
         }
     }

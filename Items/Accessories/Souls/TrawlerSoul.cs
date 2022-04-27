@@ -8,13 +8,15 @@ using Terraria.Localization;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     //[AutoloadEquip(EquipType.Back)]
-    public class TrawlerSoul : SoulsItem
+    public class TrawlerSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Trawler Soul");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "捕鱼之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "捕鱼之魂");
             
             string tooltip =
 @"Increases fishing skill substantially
@@ -34,64 +36,52 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear
 拥有渔夫渔具袋和狍子囊效果
 拥有粉马掌气球和北极潜水装备效果
 '愿者上钩'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 750000;
-            item.rare = ItemRarityID.Purple;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            base.SetDefaults();
+
+            Item.value = 750000;
         }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(0, 238, 125));
-                }
-            }
-        }
+        
+        protected override Color? nameColor => new Color(0, 238, 125);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            modPlayer.TrawlerSoul(hideVisual);
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            modPlayer.TrawlerSoul(Item, hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "AnglerEnchantment");
+            CreateRecipe()
+            .AddIngredient(null, "AnglerEnchantment")
             //inner tube
-            recipe.AddIngredient(ItemID.BalloonHorseshoeSharkron);
-            recipe.AddIngredient(ItemID.ArcticDivingGear);
+            .AddIngredient(ItemID.BalloonHorseshoeSharkron)
+            .AddIngredient(ItemID.ArcticDivingGear)
             //frog gear
             //volatile gel
-            recipe.AddIngredient(ItemID.SporeSac);
+            .AddIngredient(ItemID.SporeSac)
 
             //engineer rod
-            recipe.AddIngredient(ItemID.SittingDucksFishingRod);
+            .AddIngredient(ItemID.SittingDucksFishingRod)
             //hotline fishing
-            recipe.AddIngredient(ItemID.GoldenFishingRod);
-            recipe.AddIngredient(ItemID.GoldenCarp);
-            recipe.AddIngredient(ItemID.ReaverShark);
-            recipe.AddIngredient(ItemID.Bladetongue);
-            recipe.AddIngredient(ItemID.ObsidianSwordfish);
-            recipe.AddIngredient(ItemID.FuzzyCarrot);
-            recipe.AddIngredient(ItemID.HardySaddle);
-            //recipe.AddIngredient(ItemID.ZephyrFish);
+            .AddIngredient(ItemID.GoldenFishingRod)
+            .AddIngredient(ItemID.GoldenCarp)
+            .AddIngredient(ItemID.ReaverShark)
+            .AddIngredient(ItemID.Bladetongue)
+            .AddIngredient(ItemID.ObsidianSwordfish)
+            .AddIngredient(ItemID.FuzzyCarrot)
+            .AddIngredient(ItemID.HardySaddle)
+            //.AddIngredient(ItemID.ZephyrFish);
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            .Register();
         }
     }
 }

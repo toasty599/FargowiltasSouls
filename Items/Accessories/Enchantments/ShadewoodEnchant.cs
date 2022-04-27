@@ -4,69 +4,129 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
+using System;
+using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Projectiles.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class ShadewoodEnchant : SoulsItem
+    public class ShadewoodEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Shadewood Enchantment");
             Tooltip.SetDefault(
 @"You have an aura of Bleeding
 Enemies struck while Bleeding spew damaging blood
 'Surprisingly clean'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "阴影木魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "阴影木魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"一圈流血光环环绕着你
 在流血光环内被攻击的敌人会喷出伤害性血液
 '出奇的干净'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(88, 104, 118);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(88, 104, 118);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Green;
-            item.value = 10000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Green;
+            Item.value = 10000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().ShadewoodEffect();
+            ShadewoodEffect(player);
+        }
+
+        public static void ShadewoodEffect(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
+                return;
+
+            modPlayer.ShadewoodEnchantActive = true;
+
+            int dist = modPlayer.WoodForce ? 300 : 200;
+
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
+                    npc.AddBuff(ModContent.BuffType<SuperBleed>(), 120);
+
+                npc.netUpdate = true;
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 offset = new Vector2();
+                double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                offset.X += (float)(Math.Sin(angle) * dist);
+                offset.Y += (float)(Math.Cos(angle) * dist);
+                Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
+                if (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
+                {
+                    Dust dust = Main.dust[Dust.NewDust(
+                        spawnPos, 0, 0,
+                        DustID.Blood, 0, 0, 100, Color.White, 1f
+                        )];
+                    dust.velocity = player.velocity;
+                    if (Main.rand.NextBool(3))
+                        dust.velocity += Vector2.Normalize(offset) * -5f;
+                    dust.noGravity = true;
+                }
+            }
+
+            if (modPlayer.ShadewoodCD > 0)
+            {
+                modPlayer.ShadewoodCD--;
+            }
+        }
+
+        public static void ShadewoodProc(FargoSoulsPlayer modPlayer, NPC target, Projectile projectile)
+        {
+            Player player = modPlayer.Player;
+            bool trueMelee = (projectile == null || projectile.aiStyle == 19);
+
+            if (target.HasBuff(ModContent.BuffType<SuperBleed>()) && (trueMelee || modPlayer.ShadewoodCD == 0) && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
+            {
+                for (int i = 0; i < Main.rand.Next(3, 6); i++)
+                {
+                    Projectile.NewProjectile(player.GetSource_Misc(""), target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), FargoSoulsUtil.HighestDamageTypeScaling(player, 20), 0f, Main.myPlayer);
+                }
+
+                if (modPlayer.WoodForce)
+                {
+                    target.AddBuff(BuffID.Ichor, 30);
+                }
+
+                //true melee attack does not go on cooldown
+                if (!trueMelee)
+                {
+                    modPlayer.ShadewoodCD = 30;
+                }
+            }
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
+                .AddIngredient(ItemID.ShadewoodHelmet)
+                .AddIngredient(ItemID.ShadewoodBreastplate)
+                .AddIngredient(ItemID.ShadewoodGreaves)
+                .AddIngredient(ItemID.ShadewoodSword)
+                .AddIngredient(ItemID.ViciousMushroom)
+                .AddIngredient(ItemID.BloodOrange)
 
-            recipe.AddIngredient(ItemID.ShadewoodHelmet);
-            recipe.AddIngredient(ItemID.ShadewoodBreastplate);
-            recipe.AddIngredient(ItemID.ShadewoodGreaves);
-            recipe.AddIngredient(ItemID.ShadewoodSword);
-            //shadewood bow
-            //deathweed
-            recipe.AddIngredient(ItemID.ViciousMushroom);
-            //blood orange/rambuttan
-            //recipe.AddIngredient(ItemID.CrimsonTigerfish);
-            recipe.AddIngredient(ItemID.DeadlandComesAlive);
-
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
 }

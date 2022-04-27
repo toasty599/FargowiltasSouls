@@ -6,22 +6,35 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class SpiritForce : SoulsItem
+    public class SpiritForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<FossilEnchant>(),
+            ModContent.ItemType<ForbiddenEnchant>(),
+            ModContent.ItemType<HallowEnchant>(),
+            ModContent.ItemType<AncientHallowEnchant>(),
+            ModContent.ItemType<TikiEnchant>(),
+            ModContent.ItemType<SpectreEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Spirit");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "心灵之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "心灵之力");
             
             string tooltip =
 $"[i:{ModContent.ItemType<FossilEnchant>()}] If you reach zero HP you will revive with 50 HP and spawn several bones\n" +
 $"[i:{ModContent.ItemType<FossilEnchant>()}] Collect the bones once they stop moving to heal for 15 HP each\n" +
 $"[i:{ModContent.ItemType<ForbiddenEnchant>()}] Double tap down to call an ancient storm to the cursor location\n" +
 $"[i:{ModContent.ItemType<ForbiddenEnchant>()}] Any projectiles shot through your storm gain 60% damage\n" +
-$"[i:{ModContent.ItemType<HallowEnchant>()}] You gain a shield that can reflect projectiles\n" +
-$"[i:{ModContent.ItemType<HallowEnchant>()}] Summons an Enchanted Sword familiar\n" +
-$"[i:{ModContent.ItemType<HallowEnchant>()}] Drastically increases minion speed\n" +
+$"[i:{ModContent.ItemType<AncientHallowEnchant>()}] You gain a shield that can reflect projectiles\n" +
+$"[i:{ModContent.ItemType<AncientHallowEnchant>()}] Summons an Enchanted Sword familiar\n" +
+$"[i:{ModContent.ItemType<AncientHallowEnchant>()}] Drastically increases minion speed\n" +
+$"[i:{ModContent.ItemType<HallowEnchant>()}] Become immune after striking an enemy\n" +
 $"[i:{ModContent.ItemType<TikiEnchant>()}] You can summon temporary minions and sentries after maxing out on your slots\n" +
 $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damaging and healing orbs\n" +
 "'Ascend from this mortal realm'";
@@ -38,51 +51,29 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
 伤害敌人时有几率生成幽魂珠
 攻击造成暴击时有几率生成治疗珠
 '从尘世飞升'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-
-        }
-
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //spectre works for all, spirit trapper works for all
             modPlayer.SpiritForce = true;
-            //revive, bone zone, pet
-            modPlayer.FossilEffect(hideVisual);
-            //storm
+            FossilEnchant.FossilEffect(player);
             modPlayer.ForbiddenEffect();
-            //sword, shield, pet
-            modPlayer.HallowEffect(hideVisual);
-            //infested debuff, pet
+            HallowEnchant.HallowEffect(player);
+            AncientHallowEnchant.AncientHallowEffect(player, Item);
             modPlayer.TikiEffect(hideVisual);
-            //pet
             modPlayer.SpectreEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddIngredient(null, "FossilEnchant");
-            recipe.AddIngredient(null, "ForbiddenEnchant");
-            recipe.AddIngredient(null, "HallowEnchant");
-            recipe.AddIngredient(null, "TikiEnchant");
-            recipe.AddIngredient(null, "SpectreEnchant");
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

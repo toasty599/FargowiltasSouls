@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Deathrays
@@ -10,92 +11,104 @@ namespace FargowiltasSouls.Projectiles.Deathrays
     {
         protected float maxTime;
         protected readonly string texture;
-        protected readonly float transparency;
+        protected readonly float transparency; //THIS IS A 0 TO 1 PERCENTAGE, NOT AN ALPHA
         protected readonly float hitboxModifier;
+        protected readonly int grazeCD;
+
         //by default, real hitbox is slightly more than the "white" of a vanilla ray
         //remember that the value passed into function is total width, i.e. on each side the distance is only half the width
+        protected readonly int drawDistance;
 
-        protected BaseDeathray(float maxTime, string texture, float transparency = 0f, float hitboxModifier = 1f)
+        protected BaseDeathray(float maxTime, string texture, float transparency = 0f, float hitboxModifier = 1f, int drawDistance = 2400, int grazeCD = 15)
         {
             this.maxTime = maxTime;
             this.texture = texture;
             this.transparency = transparency;
             this.hitboxModifier = hitboxModifier;
+            this.drawDistance = drawDistance;
+            this.grazeCD = grazeCD;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = drawDistance;
         }
 
         public override void SetDefaults() //MAKE SURE YOU CALL BASE.SETDEFAULTS IF OVERRIDING
         {
-            projectile.width = 48;
-            projectile.height = 48;
-            projectile.hostile = true;
-            projectile.alpha = 255;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.timeLeft = 600;
+            Projectile.width = 48;
+            Projectile.height = 48;
+            Projectile.hostile = true;
+            Projectile.alpha = 255;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 3600;
 
-            cooldownSlot = 1; //not in warning line, test?
+            CooldownSlot = 1; //not in warning line, test?
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
-                projectile =>
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
+                Projectile =>
                 {
                     float num6 = 0f;
-                    if (CanDamage() && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(), projectile.Center,
-                        projectile.Center + projectile.velocity * projectile.localAI[1], 22f * projectile.scale + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius * 2f + Player.defaultHeight, ref num6))
+                    if (CanDamage() != false && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(), Projectile.Center,
+                        Projectile.Center + Projectile.velocity * Projectile.localAI[1], 22f * Projectile.scale + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius * 2f + Player.defaultHeight, ref num6))
                     {
                         return true;
                     }
                     return false;
                 };
 
-            projectile.hide = true; //fixes weird issues on spawn with scaling
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.hide = true; //fixes weird issues on spawn with scaling
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void PostAI()
         {
-            if (projectile.hide)
+            if (Projectile.hide)
             {
-                projectile.hide = false;
-                if (projectile.friendly)
-                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+                Projectile.hide = false;
+                if (Projectile.friendly)
+                    Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
             }
-            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD > 15)
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 15;
+
+            if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD > grazeCD)
+                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = grazeCD;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            if (projectile.velocity == Vector2.Zero)
+            if (Projectile.velocity == Vector2.Zero)
             {
                 return false;
             }
-            Texture2D texture2D19 = Main.projectileTexture[projectile.type];
-            Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/" + texture + "2");
-            Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/" + texture + "3");
-            float num223 = projectile.localAI[1];
-            Microsoft.Xna.Framework.Color color44 = new Microsoft.Xna.Framework.Color(255, 255, 255, 0) * 0.95f;
+            Texture2D texture2D19 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            Texture2D texture2D20 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Projectiles/Deathrays/{texture}2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D21 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Projectiles/Deathrays/{texture}3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            float num223 = Projectile.localAI[1];
+            Color color44 = new Color(255, 255, 255, 0) * 0.95f;
             color44 = Color.Lerp(color44, Color.Transparent, transparency);
-            SpriteBatch arg_ABD8_0 = Main.spriteBatch;
+            //SpriteBatch arg_ABD8_0 = Main.spriteBatch;
             Texture2D arg_ABD8_1 = texture2D19;
-            Vector2 arg_ABD8_2 = projectile.Center - Main.screenPosition;
-            Microsoft.Xna.Framework.Rectangle? sourceRectangle2 = null;
-            arg_ABD8_0.Draw(arg_ABD8_1, arg_ABD8_2, sourceRectangle2, color44, projectile.rotation, texture2D19.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
-            num223 -= (float)(texture2D19.Height / 2 + texture2D21.Height) * projectile.scale;
-            Vector2 value20 = projectile.Center;
-            value20 += projectile.velocity * projectile.scale * (float)texture2D19.Height / 2f;
+            Vector2 arg_ABD8_2 = Projectile.Center - Main.screenPosition;
+            Rectangle? sourceRectangle2 = null;
+            Main.EntitySpriteDraw(arg_ABD8_1, arg_ABD8_2, sourceRectangle2, color44, Projectile.rotation, texture2D19.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
+            num223 -= (float)(texture2D19.Height / 2 + texture2D21.Height) * Projectile.scale;
+            Vector2 value20 = Projectile.Center;
+            value20 += Projectile.velocity * Projectile.scale * (float)texture2D19.Height / 2f;
             if (num223 > 0f)
             {
                 float num224 = 0f;
-                Microsoft.Xna.Framework.Rectangle rectangle7 = new Microsoft.Xna.Framework.Rectangle(0, 16 * (projectile.timeLeft / 3 % 5), texture2D20.Width, 16);
+                Rectangle rectangle7 = new Rectangle(0, 16 * (Projectile.timeLeft / 3 % 5), texture2D20.Width, 16);
                 while (num224 + 1f < num223)
                 {
                     if (num223 - num224 < (float)rectangle7.Height)
                     {
                         rectangle7.Height = (int)(num223 - num224);
                     }
-                    Main.spriteBatch.Draw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2((float)(rectangle7.Width / 2), 0f), projectile.scale, SpriteEffects.None, 0f);
-                    num224 += (float)rectangle7.Height * projectile.scale;
-                    value20 += projectile.velocity * (float)rectangle7.Height * projectile.scale;
+                    Main.EntitySpriteDraw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, Projectile.rotation, new Vector2((float)(rectangle7.Width / 2), 0f), Projectile.scale, SpriteEffects.None, 0);
+                    num224 += (float)rectangle7.Height * Projectile.scale;
+                    value20 += Projectile.velocity * (float)rectangle7.Height * Projectile.scale;
                     rectangle7.Y += 16;
                     if (rectangle7.Y + rectangle7.Height > texture2D20.Height)
                     {
@@ -103,19 +116,19 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                     }
                 }
             }
-            SpriteBatch arg_AE2D_0 = Main.spriteBatch;
+            //SpriteBatch arg_AE2D_0 = Main.spriteBatch;
             Texture2D arg_AE2D_1 = texture2D21;
             Vector2 arg_AE2D_2 = value20 - Main.screenPosition;
             sourceRectangle2 = null;
-            arg_AE2D_0.Draw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, Projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 
         public override void CutTiles()
         {
             DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-            Vector2 unit = projectile.velocity;
-            Utils.PlotTileLine(projectile.Center, projectile.Center + unit * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CutTiles));
+            Vector2 unit = Projectile.velocity;
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + unit * Projectile.localAI[1], Projectile.width * Projectile.scale, DelegateMethods.CutTiles);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -125,7 +138,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 return true;
             }
             float num6 = 0f;
-            if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], 22f * projectile.scale * hitboxModifier, ref num6))
+            if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], 22f * Projectile.scale * hitboxModifier, ref num6))
             {
                 return true;
             }

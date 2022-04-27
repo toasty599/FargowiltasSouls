@@ -6,15 +6,14 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class Stunned : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Stunned");
             Description.SetDefault("You're too dizzy to move");
-            Main.buffNoSave[Type] = true;
-            canBeCleared = false;
             Main.debuff[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "昏迷");
-            Description.AddTranslation(GameCulture.Chinese, "你头晕目眩,动弹不得");
+            Main.pvpBuff[Type] = true;
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "昏迷");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你头晕目眩,动弹不得");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -28,6 +27,10 @@ namespace FargowiltasSouls.Buffs.Masomode
             player.releaseHook = true;
             if (player.mount.Active)
                 player.mount.Dismount(player);
+            player.GetModPlayer<FargoSoulsPlayer>().Stunned = true;
+
+            if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % 60 == 55)
+                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/DizzyBird"));
         }
 
         public override void Update(NPC npc, ref int buffIndex)

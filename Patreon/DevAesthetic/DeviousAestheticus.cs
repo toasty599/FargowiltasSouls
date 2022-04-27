@@ -4,13 +4,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using FargowiltasSouls.Items;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Patreon.DevAesthetic
 {
-    public class DeviousAestheticus : SoulsItem
+    public class DeviousAestheticus : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Devious Aestheticus");
             Tooltip.SetDefault(
 @"Shot spread scales with up to 6 empty minion slots
@@ -19,31 +21,24 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 
         public override void SetDefaults()
         {
-            item.damage = 222;
-            item.summon = true;
-            item.mana = 10;
-            item.width = 40;
-            item.height = 40;
-            item.useTime = 10;
-            item.useAnimation = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.knockBack = 1;
-            item.value = 10000;
-            item.rare = ItemRarityID.Green;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<DevRocket>();
-            item.shootSpeed = 12f;
+            Item.damage = 222;
+            Item.DamageType = DamageClass.Summon;
+            Item.mana = 10;
+            Item.width = 40;
+            Item.height = 40;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 1;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.Green;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<DevRocket>();
+            Item.shootSpeed = 12f;
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
-        }
-
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             damage = (int)(damage / 4.0 * 1.3);
 
@@ -63,16 +58,16 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
             float spread = MathHelper.ToRadians(60f / 3.5f);
             if (modifier % 2 == 0)
             {
-                Vector2 baseSpeed = new Vector2(speedX, speedY).RotatedBy(spread * (-modifier / 2 + 0.5f)); //half offset for v spread
+                Vector2 baseSpeed = velocity.RotatedBy(spread * (-modifier / 2 + 0.5f)); //half offset for v spread
                 for (int i = 0; i < modifier; i++)
-                    Projectile.NewProjectile(player.Center, baseSpeed.RotatedBy(spread * (i + Main.rand.NextFloat(-0.5f, 0.5f))), type, damage, knockback, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(source, position, baseSpeed.RotatedBy(spread * (i + Main.rand.NextFloat(-0.5f, 0.5f))), type, Item.damage, knockback, player.whoAmI);
             }
             else
             {
-                Vector2 baseSpeed = new Vector2(speedX, speedY);
+                Vector2 baseSpeed = velocity;
                 int max = (int)modifier / 2;
                 for (int i = -max; i <= max; i++)
-                    Projectile.NewProjectile(player.Center, baseSpeed.RotatedBy(spread * (i + Main.rand.NextFloat(-0.5f, 0.5f))), type, damage, knockback, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(source, position, baseSpeed.RotatedBy(spread * (i + Main.rand.NextFloat(-0.5f, 0.5f))), type, Item.damage, knockback, player.whoAmI);
             }
 
             return false;

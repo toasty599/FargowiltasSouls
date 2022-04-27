@@ -4,6 +4,10 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.DataStructures;
+using FargowiltasSouls.Items.Weapons.BossDrops;
+using FargowiltasSouls.Items.Materials;
+using FargowiltasSouls.Projectiles.BossWeapons;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {
@@ -11,30 +15,31 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Nuke Fishron");
             Tooltip.SetDefault("Uses rockets for ammo\n'The highly weaponized remains of a defeated foe...'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "核子猪鲨");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'高度武器化的遗骸...'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "核子猪鲨");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'高度武器化的遗骸...'");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 480;
-            item.ranged = true;
-            item.width = 24;
-            item.height = 24;
-            item.useTime = 37;
-            item.useAnimation = 37;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true;
-            item.knockBack = 7.7f;
-            item.UseSound = new LegacySoundStyle(2, 62);
-            item.useAmmo = AmmoID.Rocket;
-            item.value = Item.sellPrice(0, 15);
-            item.rare = ItemRarityID.Purple;
-            item.autoReuse = true;
-            item.shoot = mod.ProjectileType("FishNuke");
-            item.shootSpeed = 7f;
+            Item.damage = 420;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 24;
+            Item.height = 24;
+            Item.useTime = 37;
+            Item.useAnimation = 37;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 7.7f;
+            Item.UseSound = new LegacySoundStyle(2, 62);
+            Item.useAmmo = AmmoID.Rocket;
+            Item.value = Item.sellPrice(0, 15);
+            Item.rare = ItemRarityID.Purple;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<FishNuke>();
+            Item.shootSpeed = 7f;
         }
 
         /*public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -54,22 +59,21 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             return new Vector2(-12, 0);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 speed = new Vector2(speedX, speedY);//.RotatedBy((Main.rand.NextDouble() - 0.5) * MathHelper.ToRadians(15));
-            Projectile.NewProjectile(position, speed, item.shoot, damage, knockBack, player.whoAmI, -1f, 0f);
+            Projectile.NewProjectile(source, position, velocity, Item.shoot, damage, knockback, player.whoAmI, -1f, 0);
             return false;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("FishStick"));
-            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerFish"));
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<FishStick>())
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 10)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerFish"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

@@ -8,10 +8,12 @@ using Terraria.Localization;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     //[AutoloadEquip(EquipType.Shoes)]
-    public class SupersonicSoul : SoulsItem
+    public class SupersonicSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Supersonic Soul");
 
             string tooltip =
@@ -36,63 +38,49 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
 拥有飞毯效果";
 
             Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "超音速之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "超音速之魂");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 750000;
-            item.rare = ItemRarityID.Purple;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            base.SetDefaults();
+
+            Item.value = 750000;
         }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(238, 0, 69));
-                }
-            }
-        }
+        
+        protected override Color? nameColor => new Color(238, 0, 69);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            modPlayer.SupersonicSoul(hideVisual);
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            modPlayer.SupersonicSoul(Item, hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>()); //add terraspark boots
-            //amphibian boots
-            recipe.AddIngredient(ItemID.FlowerBoots); //fairy boots
-            //hellfire treads?
-            recipe.AddIngredient(ItemID.FlyingCarpet);
-            recipe.AddIngredient(ItemID.SweetheartNecklace);
-            recipe.AddIngredient(ItemID.FrogLeg); //frog gear
-            recipe.AddIngredient(ItemID.BalloonHorseshoeHoney);
-            recipe.AddIngredient(ItemID.BundleofBalloons); //(change recipe to use horsehoe varaints ??)
-            recipe.AddIngredient(ItemID.EoCShield);
-            recipe.AddIngredient(ItemID.MasterNinjaGear);
+            .AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>()) //add terraspark boots
+            .AddIngredient(ItemID.FlyingCarpet)
+            .AddIngredient(ItemID.SweetheartNecklace)
+            .AddIngredient(ItemID.Magiluminescence)
+            .AddIngredient(ItemID.BalloonHorseshoeHoney)
+            .AddIngredient(ItemID.BundleofBalloons) //(change recipe to use horsehoe varaints ??)
+            .AddIngredient(ItemID.EoCShield)
+            .AddIngredient(ItemID.MasterNinjaGear)
 
-            recipe.AddIngredient(ItemID.MinecartMech);
-            recipe.AddIngredient(ItemID.BlessedApple);
-            recipe.AddIngredient(ItemID.AncientHorn);
-            recipe.AddIngredient(ItemID.ReindeerBells);
-            recipe.AddIngredient(ItemID.BrainScrambler);
+            .AddIngredient(ItemID.MinecartMech)
+            .AddIngredient(ItemID.BlessedApple)
+            .AddIngredient(ItemID.AncientHorn)
+            .AddIngredient(ItemID.ReindeerBells)
+            .AddIngredient(ItemID.BrainScrambler)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            .Register();
         }
     }
 }

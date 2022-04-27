@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,15 +17,15 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
 		}
 		public override void SetDefaults()
         {
-            projectile.aiStyle = 0;
-            projectile.width = 18;
-            projectile.height = 28;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.ranged = true;
-            projectile.penetrate = 1;
-            projectile.ignoreWater = false;
-            projectile.tileCollide = true;
+            Projectile.aiStyle = 0;
+            Projectile.width = 18;
+            Projectile.height = 28;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.penetrate = 1;
+            Projectile.ignoreWater = false;
+            Projectile.tileCollide = true;
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -32,39 +33,39 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             bounce += 1;
             if (bounce == 4)
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
             
-            if (projectile.velocity.X != oldVelocity.X && Math.Abs (oldVelocity.X) > 0.1f) {
-                projectile.velocity.X = oldVelocity.X * -0.8f;
+            if (Projectile.velocity.X != oldVelocity.X && Math.Abs (oldVelocity.X) > 0.1f) {
+                Projectile.velocity.X = oldVelocity.X * -0.8f;
             }
-            if (projectile.velocity.Y != oldVelocity.Y && Math.Abs (oldVelocity.Y) > 0.1f) {
-                projectile.velocity.Y = oldVelocity.Y * -0.8f;
+            if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs (oldVelocity.Y) > 0.1f) {
+                Projectile.velocity.Y = oldVelocity.Y * -0.8f;
             }
             
             return false;
         }
 		public override void AI()
         {
-			projectile.rotation += 0.2f * (float)projectile.direction;
-            if (projectile.velocity.Y < 0)
-                projectile.velocity.Y += 0.3f;
+			Projectile.rotation += 0.2f * (float)Projectile.direction;
+            if (Projectile.velocity.Y < 0)
+                Projectile.velocity.Y += 0.3f;
             else
-                projectile.velocity.Y += 0.4f;
+                Projectile.velocity.Y += 0.4f;
 		}
 		public override void Kill(int timeLeft)
         {
-        	if (projectile.owner == Main.myPlayer)
+        	if (Projectile.owner == Main.myPlayer)
         	{
-        		Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("AcornProjectileExplosion"), projectile.damage / 2, projectile.knockBack, projectile.owner, 0f, 0f);
+        		Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<AcornProjectileExplosion>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0f, 0);
         	}
-        	Main.PlaySound(SoundID.Item62, projectile.position);
-			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-			projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-			projectile.width = 120;
-			projectile.height = 120;
-			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+        	SoundEngine.PlaySound(SoundID.Item62, Projectile.position);
+			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+			Projectile.width = 120;
+			Projectile.height = 120;
+			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
         }
 
     }

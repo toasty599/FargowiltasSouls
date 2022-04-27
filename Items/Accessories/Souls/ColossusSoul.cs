@@ -8,13 +8,15 @@ using Terraria.Localization;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     //[AutoloadEquip(EquipType.Shield)]
-    public class ColossusSoul : SoulsItem
+    public class ColossusSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Colossus Soul");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "巨像之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巨像之魂");
             
             string tooltip =
 @"Increases HP by 100
@@ -36,63 +38,47 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 拥有混乱之脑、星星面纱和蜜蜂斗篷效果
 拥有闪亮石、圣骑士护盾和冰冻海龟壳效果
 '你无人可挡'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.defense = 10;
-            item.value = 1000000;
-            item.rare = ItemRarityID.Purple;
-            item.shieldSlot = 4;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            base.SetDefaults();
+
+            Item.defense = 10;
+            Item.shieldSlot = 4;
         }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(252, 59, 0));
-                }
-            }
-        }
+        
+        protected override Color? nameColor => new Color(252, 59, 0);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //any new effects, brain of confusion
-            modPlayer.ColossusSoul(100, 0.15f, 5, hideVisual);
+            modPlayer.ColossusSoul(Item, 100, 0.15f, 5, hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.HandWarmer);
-            recipe.AddIngredient(ItemID.ObsidianHorseshoe);
-            recipe.AddIngredient(ItemID.WormScarf);
-            recipe.AddIngredient(ItemID.BrainOfConfusion);
-            recipe.AddIngredient(ItemID.PocketMirror);
-            recipe.AddIngredient(ItemID.CharmofMyths);
-            recipe.AddIngredient(ItemID.BeeCloak);
-            recipe.AddIngredient(ItemID.StarVeil);
-            recipe.AddIngredient(ItemID.FleshKnuckles); //hero shield
-            recipe.AddIngredient(ItemID.ShinyStone);
+            .AddIngredient(ItemID.HandWarmer)
+            .AddIngredient(ItemID.ObsidianHorseshoe)
+            .AddIngredient(ItemID.WormScarf)
+            .AddIngredient(ItemID.BrainOfConfusion)
+            .AddIngredient(ItemID.PocketMirror)
+            .AddIngredient(ItemID.CharmofMyths)
+            .AddIngredient(ItemID.BeeCloak)
+            .AddIngredient(ItemID.StarVeil)
+            .AddIngredient(ItemID.ShinyStone)
+            .AddIngredient(ItemID.HeroShield)
+            .AddIngredient(ItemID.FrozenShield)
+            .AddIngredient(ItemID.AnkhShield)
 
-            recipe.AddIngredient(ItemID.FrozenTurtleShell); //frozen shield
-            recipe.AddIngredient(ItemID.PaladinsShield); // ^
-            recipe.AddIngredient(ItemID.AnkhShield);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            .Register();
         }
     }
 }

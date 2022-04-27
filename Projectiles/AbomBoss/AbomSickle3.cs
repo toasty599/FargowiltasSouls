@@ -12,43 +12,43 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
-            //projectile.timeLeft = 3600;
+            //Projectile.timeLeft = 3600;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = projectile.Center.X;
-                projectile.localAI[1] = projectile.Center.Y;
-                Main.PlaySound(SoundID.Item8, projectile.Center);
+                Projectile.localAI[0] = Projectile.Center.X;
+                Projectile.localAI[1] = Projectile.Center.Y;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
             }
-            projectile.rotation += 0.8f;
+            Projectile.rotation += 0.8f;
             /*for (int i = 0; i < 6; i++)
             {
-                Vector2 offset = new Vector2(0, -20).RotatedBy(projectile.rotation);
+                Vector2 offset = new Vector2(0, -20).RotatedBy(Projectile.rotation);
                 offset = offset.RotatedByRandom(MathHelper.Pi / 6);
-                int d = Dust.NewDust(projectile.Center, 0, 0, 87, 0f, 0f, 150);
+                int d = Dust.NewDust(Projectile.Center, 0, 0, 87, 0f, 0f, 150);
                 Main.dust[d].position += offset;
                 float velrando = Main.rand.Next(20, 31) / 10;
-                Main.dust[d].velocity = projectile.velocity / velrando;
+                Main.dust[d].velocity = Projectile.velocity / velrando;
                 Main.dust[d].noGravity = true;
             }*/
 
-            if (projectile.ai[1] == 0)
+            if (Projectile.ai[1] == 0)
             {
-                Player target = FargoSoulsUtil.PlayerExists(projectile.ai[0]);
+                Player target = FargoSoulsUtil.PlayerExists(Projectile.ai[0]);
                 if (target != null)
                 {
-                    Vector2 spawnPoint = new Vector2(projectile.localAI[0], projectile.localAI[1]);
-                    if (projectile.Distance(spawnPoint) > target.Distance(spawnPoint) - 160)// && Main.netMode != NetmodeID.MultiplayerClient)
+                    Vector2 spawnPoint = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
+                    if (Projectile.Distance(spawnPoint) > target.Distance(spawnPoint) - 160)// && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        projectile.ai[1] = 1;
-                        projectile.velocity.Normalize();
-                        projectile.timeLeft = 300;
-                        projectile.netUpdate = true;
+                        Projectile.ai[1] = 1;
+                        Projectile.velocity.Normalize();
+                        Projectile.timeLeft = 300;
+                        Projectile.netUpdate = true;
 
-                        /*foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.type == projectile.type && p.ai[1] == 0))
+                        /*foreach (Projectile p in Main.Projectile.Where(p => p.active && p.hostile && p.type == Projectile.type && p.ai[1] == 0))
                         {
                             p.ai[1] = 1;
                             p.velocity.Normalize();
@@ -60,8 +60,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
             else
             {
-                if (++projectile.ai[1] < 60)
-                    projectile.velocity *= 1.065f;
+                if (++Projectile.ai[1] < 60)
+                    Projectile.velocity *= 1.065f;
             }
         }
     }

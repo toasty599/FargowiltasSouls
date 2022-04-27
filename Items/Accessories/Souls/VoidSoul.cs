@@ -5,10 +5,12 @@ using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
-    public class VoidSoul : SoulsItem
+    public class VoidSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Soul of the Void");
 
             string tooltip =
@@ -18,18 +20,14 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 1000000;
-            item.rare = -12;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            base.SetDefaults();
+
+            Item.rare = -12;
         }
 
-        public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.VoidSoul = true;
             modPlayer.AddPet(player.GetToggleValue("PetHornet"), hideVisual, BuffID.BabyHornet, ProjectileID.BabyHornet);
             modPlayer.AddPet(player.GetToggleValue("PetSeed"), hideVisual, BuffID.PetSapling, ProjectileID.Sapling);

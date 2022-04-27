@@ -7,6 +7,7 @@ using Terraria.Localization;
 using FargowiltasSouls.Projectiles.Champions;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -16,138 +17,151 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Champion of Nature");
-            DisplayName.AddTranslation(GameCulture.Chinese, "自然英灵");
-            Main.npcFrameCount[npc.type] = 4;
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然英灵");
+            Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
+            });
+
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Confused,
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>(),
+                    ModContent.BuffType<LightningRod>()
+                }
+            });
         }
 
         public override void SetDefaults()
         {
-            npc.width = 80;
-            npc.height = 80;
-            npc.damage = 110;
-            npc.defense = 100;
-            npc.lifeMax = 900000;
-            npc.HitSound = SoundID.NPCHit6;
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.noGravity = true;
-            npc.noTileCollide = true;
-            npc.knockBackResist = 0f;
-            npc.lavaImmune = true;
-            npc.aiStyle = -1;
-
-            npc.buffImmune[BuffID.Chilled] = true;
-            npc.buffImmune[BuffID.OnFire] = true;
-            npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[mod.BuffType("Lethargic")] = true;
-            npc.buffImmune[mod.BuffType("ClippedWings")] = true;
-            npc.buffImmune[mod.BuffType("LightningRod")] = true;
+            NPC.width = 80;
+            NPC.height = 80;
+            NPC.damage = 110;
+            NPC.defense = 100;
+            NPC.lifeMax = 900000;
+            NPC.HitSound = SoundID.NPCHit6;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.noGravity = true;
+            NPC.noTileCollide = true;
+            NPC.knockBackResist = 0f;
+            NPC.lavaImmune = true;
+            NPC.aiStyle = -1;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            //npc.damage = (int)(npc.damage * 0.5f);
-            npc.lifeMax = (int)(npc.lifeMax * Math.Sqrt(bossLifeScale));
+            //NPC.damage = (int)(NPC.damage * 0.5f);
+            NPC.lifeMax = (int)(NPC.lifeMax * Math.Sqrt(bossLifeScale));
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(npc.localAI[0]);
-            writer.Write(npc.localAI[1]);
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            npc.localAI[0] = reader.ReadSingle();
-            npc.localAI[1] = reader.ReadSingle();
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
-            if (npc.ai[0] == -3) //crimson head does no contact damage
+            if (NPC.ai[0] == -3) //crimson head does no contact damage
                 return false;
-            cooldownSlot = 1;
+            CooldownSlot = 1;
             return true;
         }
 
         public override void AI()
         {
-            NPC body = FargoSoulsUtil.NPCExists(npc.ai[1], ModContent.NPCType<NatureChampion>());
+            NPC body = FargoSoulsUtil.NPCExists(NPC.ai[1], ModContent.NPCType<NatureChampion>());
             if (body == null)
             {
-                npc.life = 0;
-                npc.checkDead();
-                npc.active = false;
+                NPC.life = 0;
+                NPC.checkDead();
+                NPC.active = false;
                 return;
             }
             
-            npc.target = body.target;
-            npc.realLife = body.whoAmI;
-            npc.position += body.velocity * 0.75f;
+            NPC.target = body.target;
+            NPC.realLife = body.whoAmI;
+            NPC.position += body.velocity * 0.75f;
 
-            Player player = Main.player[npc.target];
+            Player player = Main.player[NPC.target];
             Vector2 targetPos;
 
-            if (player.Center.X < npc.position.X)
-                npc.direction = npc.spriteDirection = -1;
-            else if (player.Center.X > npc.position.X + npc.width)
-                npc.direction = npc.spriteDirection = 1;
-            npc.rotation = 0;
+            if (player.Center.X < NPC.position.X)
+                NPC.direction = NPC.spriteDirection = -1;
+            else if (player.Center.X > NPC.position.X + NPC.width)
+                NPC.direction = NPC.spriteDirection = 1;
+            NPC.rotation = 0;
             
-            switch ((int)npc.ai[0])
+            switch ((int)NPC.ai[0])
             {
                 case -3: //crimson
                     targetPos = player.Center - Vector2.UnitY * 250f;
                     Movement(targetPos, 0.3f, 24f);
 
-                    if (++npc.ai[2] > 75) //ichor periodically
+                    if (++NPC.ai[2] > 75) //ichor periodically
                     {
-                        if (npc.ai[2] > 105)
+                        if (NPC.ai[2] > 105)
                         {
-                            npc.ai[2] = 0;
+                            NPC.ai[2] = 0;
                         }
 
-                        npc.velocity *= 0.99f;
+                        NPC.velocity *= 0.99f;
 
-                        if (++npc.localAI[1] > 2) //rain piss
+                        if (++NPC.localAI[1] > 2) //rain piss
                         {
-                            npc.localAI[1] = 0;
-                            if (npc.localAI[0] > 60 && Main.netMode != NetmodeID.MultiplayerClient)
+                            NPC.localAI[1] = 0;
+                            if (NPC.localAI[0] > 60 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(npc.Center + Main.rand.NextVector2Circular(npc.width / 2, npc.height / 2),
-                                    Vector2.UnitY * Main.rand.NextFloat(-4f, 0), ProjectileID.GoldenShowerHostile, npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Main.rand.NextVector2Circular(NPC.width / 2, NPC.height / 2),
+                                    Vector2.UnitY * Main.rand.NextFloat(-4f, 0), ProjectileID.GoldenShowerHostile, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                     }
 
-                    if (++npc.localAI[0] > 300)
+                    if (++NPC.localAI[0] > 300)
                     {
-                        npc.ai[0] = 0;
-                        npc.localAI[0] = 0;
-                        npc.ai[2] = 0;
-                        npc.localAI[1] = 0;
-                        npc.netUpdate = true;
+                        NPC.ai[0] = 0;
+                        NPC.localAI[0] = 0;
+                        NPC.ai[2] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.netUpdate = true;
                     }
                     break;
 
                 case -2: //molten
-                    /*if (++npc.ai[2] > 60)
+                    /*if (++NPC.ai[2] > 60)
                     {
-                        npc.ai[2] = 0;
+                        NPC.ai[2] = 0;
 
-                        Main.PlaySound(SoundID.Item, npc.Center, 14);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             const int max = 12;
                             for (int i = 0; i < max; i++)
                             {
-                                Vector2 speed = 20f * npc.DirectionTo(player.Center).RotatedBy(2 * Math.PI / max * i);
-                                Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<NatureFireball>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Vector2 speed = 20f * NPC.DirectionTo(player.Center).RotatedBy(2 * Math.PI / max * i);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<NatureFireball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                     }*/
 
-                    if (++npc.localAI[0] < 240) //stay near
+                    if (++NPC.localAI[0] < 240) //stay near
                     {
                         targetPos = player.Center;
                         Movement(targetPos, 0.10f, 24f);
@@ -158,83 +172,83 @@ namespace FargowiltasSouls.NPCs.Champions
                             double angle = Main.rand.NextDouble() * 2d * Math.PI;
                             offset.X += (float)(Math.Sin(angle) * 400);
                             offset.Y += (float)(Math.Cos(angle) * 400);
-                            Dust dust = Main.dust[Dust.NewDust(npc.Center + offset - new Vector2(4, 4), 0, 0, DustID.Fire, 0, 0, 100, Color.White, 2f)];
-                            dust.velocity = npc.velocity;
+                            Dust dust = Main.dust[Dust.NewDust(NPC.Center + offset - new Vector2(4, 4), 0, 0, DustID.Torch, 0, 0, 100, Color.White, 2f)];
+                            dust.velocity = NPC.velocity;
                             if (Main.rand.NextBool(3))
                                 dust.velocity += Vector2.Normalize(offset) * -5f;
                             dust.noGravity = true;
                         }
                     }
-                    else if (npc.localAI[0] == 240) //explode into attacks
+                    else if (NPC.localAI[0] == 240) //explode into attacks
                     {
-                        npc.velocity = Vector2.Zero;
-                        npc.netUpdate = true;
+                        NPC.velocity = Vector2.Zero;
+                        NPC.netUpdate = true;
 
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<NatureExplosion>(), npc.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<NatureExplosion>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
 
                             const int max = 12;
                             for (int i = 0; i < max; i++)
                             {
-                                Vector2 speed = 24f * npc.DirectionTo(player.Center).RotatedBy(2 * Math.PI / max * i);
-                                Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<NatureFireball>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Vector2 speed = 24f * NPC.DirectionTo(player.Center).RotatedBy(2 * Math.PI / max * i);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<NatureFireball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                     }
-                    else if (npc.localAI[0] > 300)
+                    else if (NPC.localAI[0] > 300)
                     {
-                        npc.ai[0] = 0;
-                        npc.ai[2] = 0;
-                        npc.localAI[0] = 0;
-                        npc.netUpdate = true;
+                        NPC.ai[0] = 0;
+                        NPC.ai[2] = 0;
+                        NPC.localAI[0] = 0;
+                        NPC.netUpdate = true;
                     }
                     break;
 
                 case -1: //rain
-                    targetPos = player.Center + npc.DirectionFrom(player.Center) * 300;
+                    targetPos = player.Center + NPC.DirectionFrom(player.Center) * 300;
                     Movement(targetPos, 0.25f, 24f);
 
-                    if (++npc.localAI[1] > 45)
+                    if (++NPC.localAI[1] > 45)
                     {
-                        npc.localAI[1] = 0;
+                        NPC.localAI[1] = 0;
 
-                        Main.PlaySound(SoundID.Item66, npc.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item66, NPC.Center);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            /*Vector2 dir = Main.player[npc.target].Center - npc.Center;
+                            /*Vector2 dir = Main.player[NPC.target].Center - NPC.Center;
                             float ai1New = Main.rand.Next(100);
                             Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 6f;
-                            Projectile.NewProjectile(npc.Center, vel, ProjectileID.CultistBossLightningOrbArc,
-                                npc.damage / 4, 0, Main.myPlayer, dir.ToRotation(), ai1New);*/
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, vel, ProjectileID.CultistBossLightningOrbArc,
+                                FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer, dir.ToRotation(), ai1New);*/
 
-                            Vector2 speed = player.Center - npc.Center;
+                            Vector2 speed = player.Center - NPC.Center;
                             speed.Y -= 300;
                             speed /= 40;
-                            Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<NatureCloudMoving>(), npc.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<NatureCloudMoving>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         }
                     }
 
-                    if (++npc.localAI[0] > 300)
+                    if (++NPC.localAI[0] > 300)
                     {
-                        npc.ai[0] = 0;
-                        npc.localAI[0] = 0;
-                        npc.ai[2] = 0;
-                        npc.localAI[1] = 0;
-                        npc.netUpdate = true;
+                        NPC.ai[0] = 0;
+                        NPC.localAI[0] = 0;
+                        NPC.ai[2] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.netUpdate = true;
                     }
                     break;
 
                 case 0: //float near body
                     {
                         Vector2 offset;
-                        offset.X = 100f * npc.ai[3] - 50 * Math.Sign(npc.ai[3]);
-                        offset.Y = -350 + 75f * Math.Abs(npc.ai[3]);
+                        offset.X = 100f * NPC.ai[3] - 50 * Math.Sign(NPC.ai[3]);
+                        offset.Y = -350 + 75f * Math.Abs(NPC.ai[3]);
                         targetPos = body.Center + offset;
-                        if (npc.Distance(targetPos) > 50)
+                        if (NPC.Distance(targetPos) > 50)
                             Movement(targetPos, 0.8f, 24f);
                     }
                     break;
@@ -242,35 +256,35 @@ namespace FargowiltasSouls.NPCs.Champions
                 case 1: //frost
                     {
                         Vector2 offset;
-                        offset.X = 100f * npc.ai[3] - 50 * Math.Sign(npc.ai[3]);
-                        offset.Y = -350 + 75f * Math.Abs(npc.ai[3]);
+                        offset.X = 100f * NPC.ai[3] - 50 * Math.Sign(NPC.ai[3]);
+                        offset.Y = -350 + 75f * Math.Abs(NPC.ai[3]);
                         targetPos = body.Center + offset;
-                        if (npc.Distance(targetPos) > 50)
+                        if (NPC.Distance(targetPos) > 50)
                             Movement(targetPos, 0.8f, 24f);
 
-                        if (++npc.ai[2] > 60)
+                        if (++NPC.ai[2] > 60)
                         {
-                            npc.ai[2] = 0;
-                            //npc.localAI[1] = npc.localAI[1] == 1 ? -1 : 1;
+                            NPC.ai[2] = 0;
+                            //NPC.localAI[1] = NPC.localAI[1] == 1 ? -1 : 1;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 const int max = 25;
                                 for (int i = 0; i < max; i++)
                                 {
                                     Vector2 speed = Main.rand.NextFloat(1f, 3f) * Vector2.UnitX.RotatedBy(2 * Math.PI / max * (i + Main.rand.NextDouble()));
-                                    Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<NatureIcicle>(),
-                                        npc.damage / 4, 0f, Main.myPlayer, 60 + Main.rand.Next(20), 1f);// npc.localAI[1]);
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<NatureIcicle>(),
+                                        FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 60 + Main.rand.Next(20), 1f);// NPC.localAI[1]);
                                 }
                             }
                         }
 
-                        if (++npc.localAI[0] > 300)
+                        if (++NPC.localAI[0] > 300)
                         {
-                            npc.ai[0] = 0;
-                            npc.localAI[0] = 0;
-                            npc.ai[2] = 0;
-                            npc.localAI[1] = 0;
-                            npc.netUpdate = true;
+                            NPC.ai[0] = 0;
+                            NPC.localAI[0] = 0;
+                            NPC.ai[2] = 0;
+                            NPC.localAI[1] = 0;
+                            NPC.netUpdate = true;
                         }
                     }
                     break;
@@ -279,9 +293,9 @@ namespace FargowiltasSouls.NPCs.Champions
                     targetPos = player.Center;
                     Movement(targetPos, 0.12f, 24f);
 
-                    if (npc.ai[2] == 0)
+                    if (NPC.ai[2] == 0)
                     {
-                        npc.ai[2] = 1;
+                        NPC.ai[2] = 1;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             const int max = 5;
@@ -289,113 +303,113 @@ namespace FargowiltasSouls.NPCs.Champions
                             float rotation = 2f * (float)Math.PI / max;
                             for (int i = 0; i < max; i++)
                             {
-                                Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<NatureCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, rotation * i);
+                                Vector2 spawnPos = NPC.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<NatureCrystalLeaf>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, rotation * i);
                             }
                         }
                     }
 
-                    if (++npc.localAI[0] > 300)
+                    if (++NPC.localAI[0] > 300)
                     {
-                        npc.ai[0] = 0;
-                        npc.localAI[0] = 0;
-                        npc.ai[2] = 0;
-                        npc.localAI[1] = 0;
-                        npc.netUpdate = true;
+                        NPC.ai[0] = 0;
+                        NPC.localAI[0] = 0;
+                        NPC.ai[2] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.netUpdate = true;
                     }
                     break;
 
                 case 3: //shroomite
                     {
                         Vector2 offset;
-                        offset.X = 100f * npc.ai[3] - 50 * Math.Sign(npc.ai[3]);
-                        offset.Y = -350 + 75f * Math.Abs(npc.ai[3]);
+                        offset.X = 100f * NPC.ai[3] - 50 * Math.Sign(NPC.ai[3]);
+                        offset.Y = -350 + 75f * Math.Abs(NPC.ai[3]);
                         targetPos = body.Center + offset;
-                        if (npc.Distance(targetPos) > 50)
+                        if (NPC.Distance(targetPos) > 50)
                             Movement(targetPos, 0.8f, 24f);
 
-                        if (++npc.ai[2] < 20)
+                        if (++NPC.ai[2] < 20)
                         {
-                            if (npc.localAI[0] > 60 && npc.ai[2] % 2 == 0)
+                            if (NPC.localAI[0] > 60 && NPC.ai[2] % 2 == 0)
                             {
-                                Vector2 speed = player.Center - npc.Center;
+                                Vector2 speed = player.Center - NPC.Center;
                                 speed.X += Main.rand.Next(-40, 41);
                                 speed.Y += Main.rand.Next(-40, 41);
                                 speed.Normalize();
                                 speed *= 12.5f;
-                                int delay = (int)(npc.Distance(player.Center) - 100) / 14;
+                                int delay = (int)(NPC.Distance(player.Center) - 100) / 14;
                                 if (delay < 0)
                                     delay = 0;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(npc.Center + Vector2.UnitY * 10, speed,
-                                        ModContent.ProjectileType<NatureBullet>(), npc.damage / 4, 0f, Main.myPlayer, delay);
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Vector2.UnitY * 10, speed,
+                                        ModContent.ProjectileType<NatureBullet>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, delay);
                                 }
                             }
                         }
 
-                        if (npc.ai[2] > 60)
-                            npc.ai[2] = 0;
+                        if (NPC.ai[2] > 60)
+                            NPC.ai[2] = 0;
 
-                        if (++npc.localAI[0] > 300)
+                        if (++NPC.localAI[0] > 300)
                         {
-                            npc.ai[0] = 0;
-                            npc.localAI[0] = 0;
-                            npc.ai[2] = 0;
-                            npc.localAI[1] = 0;
-                            npc.netUpdate = true;
+                            NPC.ai[0] = 0;
+                            NPC.localAI[0] = 0;
+                            NPC.ai[2] = 0;
+                            NPC.localAI[1] = 0;
+                            NPC.netUpdate = true;
                         }
                     }
                     break;
 
                 case 4: //deathrays
                     {
-                        Vector2 offset = -600 * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(60 / 3) * npc.ai[3]);
+                        Vector2 offset = -600 * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(60 / 3) * NPC.ai[3]);
                         targetPos = body.Center + offset;
                         Movement(targetPos, 0.8f, 24f);
 
-                        npc.direction = npc.spriteDirection = npc.Center.X < body.Center.X ? 1 : -1;
+                        NPC.direction = NPC.spriteDirection = NPC.Center.X < body.Center.X ? 1 : -1;
 
-                        if (++npc.ai[2] == 90)
+                        if (++NPC.ai[2] == 90)
                         {
-                            npc.netUpdate = true;
-                            npc.localAI[1] = npc.DirectionTo(body.Center - Vector2.UnitY * 300).ToRotation();
+                            NPC.netUpdate = true;
+                            NPC.localAI[1] = NPC.DirectionTo(body.Center - Vector2.UnitY * 300).ToRotation();
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(npc.localAI[1]), 
-                                    ModContent.ProjectileType<NatureDeathraySmall>(), npc.damage / 3, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(NPC.localAI[1]), 
+                                    ModContent.ProjectileType<NatureDeathraySmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                             }
                         }
-                        else if (npc.ai[2] == 150)
+                        else if (NPC.ai[2] == 150)
                         {
-                            float ai0 = 2f * (float)Math.PI / 120 * Math.Sign(npc.ai[3]);
+                            float ai0 = 2f * (float)Math.PI / 120 * Math.Sign(NPC.ai[3]);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(npc.localAI[1]),
-                                    ModContent.ProjectileType<NatureDeathray>(), npc.damage / 3, 0f, Main.myPlayer, ai0, npc.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(NPC.localAI[1]),
+                                    ModContent.ProjectileType<NatureDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3), 0f, Main.myPlayer, ai0, NPC.whoAmI);
                             }
                         }
 
-                        if (++npc.localAI[0] > 330)
+                        if (++NPC.localAI[0] > 330)
                         {
-                            npc.ai[0] = 0;
-                            npc.localAI[0] = 0;
-                            npc.ai[2] = 0;
-                            npc.localAI[1] = 0;
-                            npc.netUpdate = true;
+                            NPC.ai[0] = 0;
+                            NPC.localAI[0] = 0;
+                            NPC.ai[2] = 0;
+                            NPC.localAI[1] = 0;
+                            NPC.netUpdate = true;
                         }
                     }
                     break;
 
                 default:
-                    npc.ai[0] = 0;
+                    NPC.ai[0] = 0;
                     goto case 0;
             }
 
-            if (npc.Distance(body.Center) > 1400) //try to prevent going too far from body, will cause neck to disappear
+            if (NPC.Distance(body.Center) > 1400) //try to prevent going too far from body, will cause neck to disappear
             {
-                npc.Center = body.Center + body.DirectionTo(npc.Center) * 1400f;
+                NPC.Center = body.Center + body.DirectionTo(NPC.Center) * 1400f;
             }
         }
 
@@ -407,34 +421,34 @@ namespace FargowiltasSouls.NPCs.Champions
 
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f)
         {
-            if (npc.Center.X < targetPos.X)
+            if (NPC.Center.X < targetPos.X)
             {
-                npc.velocity.X += speedModifier;
-                if (npc.velocity.X < 0)
-                    npc.velocity.X += speedModifier * 2;
+                NPC.velocity.X += speedModifier;
+                if (NPC.velocity.X < 0)
+                    NPC.velocity.X += speedModifier * 2;
             }
             else
             {
-                npc.velocity.X -= speedModifier;
-                if (npc.velocity.X > 0)
-                    npc.velocity.X -= speedModifier * 2;
+                NPC.velocity.X -= speedModifier;
+                if (NPC.velocity.X > 0)
+                    NPC.velocity.X -= speedModifier * 2;
             }
-            if (npc.Center.Y < targetPos.Y)
+            if (NPC.Center.Y < targetPos.Y)
             {
-                npc.velocity.Y += speedModifier;
-                if (npc.velocity.Y < 0)
-                    npc.velocity.Y += speedModifier * 2;
+                NPC.velocity.Y += speedModifier;
+                if (NPC.velocity.Y < 0)
+                    NPC.velocity.Y += speedModifier * 2;
             }
             else
             {
-                npc.velocity.Y -= speedModifier;
-                if (npc.velocity.Y > 0)
-                    npc.velocity.Y -= speedModifier * 2;
+                NPC.velocity.Y -= speedModifier;
+                if (NPC.velocity.Y > 0)
+                    NPC.velocity.Y -= speedModifier * 2;
             }
-            if (Math.Abs(npc.velocity.X) > cap)
-                npc.velocity.X = cap * Math.Sign(npc.velocity.X);
-            if (Math.Abs(npc.velocity.Y) > cap)
-                npc.velocity.Y = cap * Math.Sign(npc.velocity.Y);
+            if (Math.Abs(NPC.velocity.X) > cap)
+                NPC.velocity.X = cap * Math.Sign(NPC.velocity.X);
+            if (Math.Abs(NPC.velocity.Y) > cap)
+                NPC.velocity.Y = cap * Math.Sign(NPC.velocity.Y);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -446,6 +460,18 @@ namespace FargowiltasSouls.NPCs.Champions
             }
         }
 
+        public override void HitEffect(int hitDirection, double damage)
+        {
+            if (NPC.life <= 0)
+            {
+                NPC body = FargoSoulsUtil.NPCExists(NPC.ai[1], ModContent.NPCType<NatureChampion>());
+                if (body != null) //make body handle gibs
+                {
+                    body.HitEffect(hitDirection, damage);
+                }
+            }
+        }
+
         public override bool CheckActive()
         {
             return false;
@@ -453,49 +479,49 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void FindFrame(int frameHeight)
         {
-            /*int frameModifier = (int)npc.ai[3];
+            /*int frameModifier = (int)NPC.ai[3];
             if (frameModifier > 0)
                 frameModifier--;
             frameModifier += 3;*/
 
-            npc.frame.Y = 0;
-            if (!npc.HasValidTarget)
-                npc.frame.Y = frameHeight * 3;
+            NPC.frame.Y = 0;
+            if (!NPC.HasValidTarget)
+                NPC.frame.Y = frameHeight * 3;
 
-            switch ((int)npc.ai[0])
+            switch ((int)NPC.ai[0])
             {
                 case -3: //crimson
-                    if (npc.ai[2] > 60) //ichor periodically
-                        npc.frame.Y = frameHeight;
+                    if (NPC.ai[2] > 60) //ichor periodically
+                        NPC.frame.Y = frameHeight;
                     break;
 
                 case -2: //molten
-                    if (npc.localAI[0] > 240) //stay near
-                        npc.frame.Y = frameHeight * 2;
+                    if (NPC.localAI[0] > 240) //stay near
+                        NPC.frame.Y = frameHeight * 2;
                     break;
 
                 case -1: //rain
-                    if (npc.localAI[1] < 20)
-                        npc.frame.Y = frameHeight;
+                    if (NPC.localAI[1] < 20)
+                        NPC.frame.Y = frameHeight;
                     break;
 
                 case 1: //frost
-                    if (npc.ai[2] > 30)
-                        npc.frame.Y = frameHeight;
+                    if (NPC.ai[2] > 30)
+                        NPC.frame.Y = frameHeight;
                     break;
 
                 case 2: //chlorophyte
-                    npc.frame.Y = frameHeight * 2;
+                    NPC.frame.Y = frameHeight * 2;
                     break;
 
                 case 3: //shroomite
-                    if (npc.ai[2] < 20 && npc.localAI[0] > 60)
-                        npc.frame.Y = frameHeight;
+                    if (NPC.ai[2] < 20 && NPC.localAI[0] > 60)
+                        NPC.frame.Y = frameHeight;
                     break;
 
                 case 4: //deathrays
-                    if (npc.ai[2] > 90)
-                        npc.frame.Y = frameHeight * 2;
+                    if (NPC.ai[2] > 90)
+                        NPC.frame.Y = frameHeight * 2;
                     break;
 
                 default:
@@ -528,19 +554,19 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public void CheckDrawNeck(SpriteBatch spriteBatch)
         {
-            if (!(npc.ai[1] > -1 && npc.ai[1] < Main.maxNPCs && Main.npc[(int)npc.ai[1]].active
-                && Main.npc[(int)npc.ai[1]].type == ModContent.NPCType<NatureChampion>()))
+            if (!(NPC.ai[1] > -1 && NPC.ai[1] < Main.maxNPCs && Main.npc[(int)NPC.ai[1]].active
+                && Main.npc[(int)NPC.ai[1]].type == ModContent.NPCType<NatureChampion>()))
             {
                 return;
             }
 
-            NPC body = Main.npc[(int)npc.ai[1]];
+            NPC body = Main.npc[(int)NPC.ai[1]];
 
             if (Main.LocalPlayer.Distance(body.Center) > 1200)
             {
                 string neckTex = "NPCs/Champions/NatureChampion_Neck";
-                Texture2D neckTex2D = mod.GetTexture(neckTex);
-                Vector2 connector = npc.Center;
+                Texture2D neckTex2D = FargowiltasSouls.Instance.Assets.Request<Texture2D>(neckTex, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Vector2 connector = NPC.Center;
                 Vector2 neckOrigin = body.Center + new Vector2(54 * body.spriteDirection, -10);
                 float chainsPerUse = 0.05f;
                 for (float j = 0; j <= 1; j += chainsPerUse)
@@ -561,36 +587,34 @@ namespace FargowiltasSouls.NPCs.Champions
                     Vector2 lightPos = new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X), Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y));
                     spriteBatch.Draw(neckTex2D, new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) - Main.screenPosition.X, Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y) - Main.screenPosition.Y),
                     new Rectangle(0, 0, neckTex2D.Width, neckTex2D.Height), body.GetAlpha(Lighting.GetColor((int)lightPos.X / 16, (int)lightPos.Y / 16)), projTrueRotation,
-                    new Vector2(neckTex2D.Width * 0.5f, neckTex2D.Height * 0.5f), 1f, connector.X < neckOrigin.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                    new Vector2(neckTex2D.Width * 0.5f, neckTex2D.Height * 0.5f), 1f, connector.X < neckOrigin.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                 }
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             CheckDrawNeck(spriteBatch);
 
-            Texture2D texture2D13 = Main.npcTexture[npc.type];
-            //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
-            //int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+            Rectangle rectangle = NPC.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Color color26 = lightColor;
-            color26 = npc.GetAlpha(color26);
+            Color color26 = drawColor;
+            color26 = NPC.GetAlpha(color26);
 
-            SpriteEffects effects = npc.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = NPC.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            int glow = (int)npc.ai[3];
+            int glow = (int)NPC.ai[3];
             if (glow > 0)
                 glow--;
             glow += 3;
-            Texture2D texture2D14 = mod.GetTexture("NPCs/Champions/NatureChampionHead_Glow" + glow.ToString());
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/NatureChampionHead_Glow" + glow.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
             float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.8f;
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor) * 0.5f, npc.rotation, origin2, npc.scale * scale, effects, 0f);
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
-            Main.spriteBatch.Draw(texture2D14, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor) * 0.5f, NPC.rotation, origin2, NPC.scale * scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D14, NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, NPC.rotation, origin2, NPC.scale, effects, 0);
             return false;
         }
     }

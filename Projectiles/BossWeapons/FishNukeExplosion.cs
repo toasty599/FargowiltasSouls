@@ -8,56 +8,56 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     public class FishNukeExplosion : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_645";
+        public override string Texture => "Terraria/Images/Projectile_645";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fish Nuke");
-            Main.projFrames[projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 400;
-            projectile.height = 400;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.ranged = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 60;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
+            Projectile.width = 400;
+            Projectile.height = 400;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 60;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
+                Projectile.localAI[0] = 1;
 
-                Main.PlaySound(SoundID.Item, projectile.Center, 14);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
                 for (int i = 0; i < 20; i++)
                 {
-                    int dust = Dust.NewDust(projectile.position, projectile.width,
-                        projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                        Projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
                 for (int i = 0; i < 30; i++)
                 {
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 0, default(Color), 3.5f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0f, 0f, 0, default(Color), 3.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 4f;
                 }
                 for (int i = 0; i < 20; i++)
                 {
-                    int dust = Dust.NewDust(projectile.position, projectile.width,
-                        projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                        Projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 7f;
-                    dust = Dust.NewDust(projectile.position, projectile.width,
-                        projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+                    dust = Dust.NewDust(Projectile.position, Projectile.width,
+                        Projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
                     Main.dust[dust].velocity *= 3f;
                 }
 
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                     for (int j = 0; j < 4; j++)
                     {
-                        int gore = Gore.NewGore(new Vector2(projectile.Center.X, projectile.Center.Y),
+                        int gore = Gore.NewGore(new Vector2(Projectile.Center.X, Projectile.Center.Y),
                             default(Vector2),
                             Main.rand.Next(61, 64));
 
@@ -79,13 +79,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 }*/
             }
 
-            if (++projectile.frameCounter > 2)
+            if (++Projectile.frameCounter > 2)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= Main.projFrames[projectile.type])
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
                 {
-                    projectile.frame--;
-                    projectile.Kill();
+                    Projectile.frame--;
+                    Projectile.Kill();
                 }
             }
         }
@@ -105,30 +105,30 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            //target.immune[projectile.owner] = 0;
-            /*target.AddBuff(mod.BuffType("OceanicMaul"), 900);
-            target.AddBuff(mod.BuffType("MutantNibble"), 900);
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 900);*/
+            //target.immune[Projectile.owner] = 0;
+            /*target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 900);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);*/
             target.AddBuff(BuffID.Frostburn, 300);
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            Color color = Color.LightBlue * projectile.Opacity;
+            Color color = Color.LightBlue * Projectile.Opacity;
             color.A = 0;
             return color;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
-                new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2,
-                projectile.scale * 4, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
+                new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2,
+                Projectile.scale * 4, SpriteEffects.None, 0);
             return false;
         }
     }

@@ -6,43 +6,43 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class BetsyFury2 : BetsyFury
     {
-        public override string Texture => "Terraria/Projectile_709";
+        public override string Texture => "Terraria/Images/Projectile_709";
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 180;
+            Projectile.timeLeft = 180;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                Main.PlayTrackedSound(SoundID.DD2_SkyDragonsFuryShot, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryShot, Projectile.Center);
             }
 
-            if (++projectile.localAI[0] < 120)
+            if (++Projectile.localAI[0] < 120)
             {
-                projectile.velocity *= 1.033f;
-                float rotation = projectile.velocity.ToRotation();
-                Vector2 vel = Main.player[(int)projectile.ai[0]].Center - projectile.Center;
+                Projectile.velocity *= 1.033f;
+                float rotation = Projectile.velocity.ToRotation();
+                Vector2 vel = Main.player[(int)Projectile.ai[0]].Center - Projectile.Center;
                 float targetAngle = vel.ToRotation();
-                projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.02f));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.02f));
             }
 
-            projectile.alpha = projectile.alpha - 30;
-            if (projectile.alpha < 0)
-                projectile.alpha = 0;
+            Projectile.alpha = Projectile.alpha - 30;
+            if (Projectile.alpha < 0)
+                Projectile.alpha = 0;
 
-            if (++projectile.frameCounter >= 3)
+            if (++Projectile.frameCounter >= 3)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 3)
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 3)
+                    Projectile.frame = 0;
             }
-            Lighting.AddLight((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16, 0.4f, 0.85f, 0.9f);
+            Lighting.AddLight((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16, 0.4f, 0.85f, 0.9f);
 
-            projectile.rotation = projectile.velocity.ToRotation();
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
         public override void Kill(int timeLeft)
@@ -52,17 +52,17 @@ namespace FargowiltasSouls.Projectiles.Masomode
             
             for (int index1 = 0; index1 < num1; ++index1)
             {
-                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0.0f, 0.0f, 100, default, 1.5f);
-                Main.dust[index2].position = new Vector2(projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble()) * (float)Main.rand.NextDouble() + projectile.Center;
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, default, 1.5f);
+                Main.dust[index2].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble()) * (float)Main.rand.NextDouble() + Projectile.Center;
             }
             for (int index1 = 0; index1 < num2; ++index1)
             {
-                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 226, 0.0f, 0.0f, 0, default, 1.5f);
-                Main.dust[index2].position = new Vector2(projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble()) * (float)Main.rand.NextDouble() + projectile.Center;
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 226, 0.0f, 0.0f, 0, default, 1.5f);
+                Main.dust[index2].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble()) * (float)Main.rand.NextDouble() + Projectile.Center;
                 Main.dust[index2].noGravity = true;
             }
             
-            Main.PlayTrackedSound(SoundID.DD2_SkyDragonsFuryCircle, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryCircle, Projectile.Center);
         }
     }
 }

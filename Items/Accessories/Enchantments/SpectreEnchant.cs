@@ -7,13 +7,15 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class SpectreEnchant : SoulsItem
+    public class SpectreEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Spectre Enchantment");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "幽魂魔石");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "幽魂魔石");
             
             string tooltip =
 @"Damage has a chance to spawn damaging orbs
@@ -25,55 +27,43 @@ If you crit, you might also get a healing orb
 @"伤害敌人时有几率生成幽魂珠
 攻击造成暴击时有几率生成治疗珠
 '他们的生命力将毁灭他们自己'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(172, 205, 252);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(172, 205, 252);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = 250000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = 250000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().SpectreEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().SpectreEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddRecipeGroup("FargowiltasSouls:AnySpectreHead");
-            recipe.AddIngredient(ItemID.SpectreRobe);
-            recipe.AddIngredient(ItemID.SpectrePants);
+            .AddRecipeGroup("FargowiltasSouls:AnySpectreHead")
+            .AddIngredient(ItemID.SpectreRobe)
+            .AddIngredient(ItemID.SpectrePants)
             //spectre wings
-            recipe.AddIngredient(ItemID.UnholyTrident);
+            .AddIngredient(ItemID.UnholyTrident)
             //nettle burst
-            //recipe.AddIngredient(ItemID.Keybrand);
-            recipe.AddIngredient(ItemID.SpectreStaff);
-            recipe.AddIngredient(ItemID.BatScepter);
+            //.AddIngredient(ItemID.Keybrand);
+            .AddIngredient(ItemID.SpectreStaff)
+            .AddIngredient(ItemID.BatScepter)
             //bat scepter
-            //recipe.AddIngredient(ItemID.WispinaBottle);
+            //.AddIngredient(ItemID.WispinaBottle);
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

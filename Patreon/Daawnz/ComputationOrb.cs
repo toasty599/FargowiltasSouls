@@ -7,34 +7,28 @@ using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.Daawnz
 {
-    public class ComputationOrb : SoulsItem
+    public class ComputationOrb : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Computation Orb");
             Tooltip.SetDefault(
 @"Non-magic/summon attacks deal 25% extra damage but are affected by Mana Sickness
 Non-magic/summon weapons require 10 mana to use
 'Within the core, a spark of hope remains.'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "演算宝珠");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "演算宝珠");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"非魔法攻击将额外造成25%伤害, 并消耗10法力");
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = 8;
-            item.value = 100000;
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = 8;
+            Item.value = 100000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -2,6 +2,8 @@
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
+using FargowiltasSouls.Projectiles.BossWeapons;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {
@@ -11,6 +13,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Dragon's Demise");
             Tooltip.SetDefault(@"Uses gel for ammo
 66% chance to not consume ammo
@@ -19,48 +22,47 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void SetDefaults()
         {
-            item.damage = 180;
-            item.knockBack = 1f;
-            item.shootSpeed = 12f;
+            Item.damage = 160;
+            Item.knockBack = 1f;
+            Item.shootSpeed = 12f;
 
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.autoReuse = true;
-            item.useAnimation = 30;
-            item.useTime = 3;
-            item.width = 54;
-            item.height = 14;
-            item.shoot = mod.ProjectileType("HellFlame");
-            item.useAmmo = AmmoID.Gel;
-            item.UseSound = SoundID.DD2_BetsyFlameBreath;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.autoReuse = true;
+            Item.useAnimation = 30;
+            Item.useTime = 3;
+            Item.width = 54;
+            Item.height = 14;
+            Item.shoot = ModContent.ProjectileType<HellFlame>();
+            Item.useAmmo = AmmoID.Gel;
+            Item.UseSound = SoundID.DD2_BetsyFlameBreath;
 
-            item.noMelee = true;
-            item.value = Item.sellPrice(0, 15);
-            item.rare = ItemRarityID.Purple;
-            item.ranged = true;
+            Item.noMelee = true;
+            Item.value = Item.sellPrice(0, 15);
+            Item.rare = ItemRarityID.Purple;
+            Item.DamageType = DamageClass.Ranged;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 speed = new Vector2(speedX, speedY);
-            Projectile.NewProjectile(position + Vector2.Normalize(speed) * 60f, speed, type, damage, knockBack, player.whoAmI);
+            Projectile.NewProjectile(source, position + Vector2.Normalize(velocity) * 60f, velocity, type, damage, knockback, player.whoAmI);
             if (--skullTimer < 0)
             {
                 skullTimer = 5;
-                Main.PlaySound(SoundID.DD2_BetsyFireballShot);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot);
                 //float ai = Main.rand.NextFloat((float)Math.PI * 2);
                 /*for (int i = 0; i <= 4; i++)
                 {
                     int p = Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom(MathHelper.Pi / 18),
-                        mod.ProjectileType("DragonFireball"), damage * 3, knockBack, player.whoAmI);
+                        ModContent.ProjectileType<DragonFireball>(), damage * 3, knockBack, player.whoAmI);
                     Main.projectile[p].netUpdate = true;
                 }*/
-                Projectile.NewProjectile(position, 2f * new Vector2(speedX, speedY),//.RotatedByRandom(MathHelper.Pi / 18),
-                    mod.ProjectileType("DragonFireball"), damage, knockBack * 6f, player.whoAmI);
+                Projectile.NewProjectile(source, position, 2f * velocity,//.RotatedByRandom(MathHelper.Pi / 18),
+                    ModContent.ProjectileType<DragonFireball>(), damage, knockback * 6f, player.whoAmI);
             }
             return false;
         }
 
-        public override bool ConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Player player)
         {
             return Main.rand.NextBool(3);
         }
@@ -73,13 +75,13 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "DragonBreath");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBetsy"));
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(null, "DragonBreath")
+            .AddIngredient(null, "AbomEnergy", 10)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerBetsy"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

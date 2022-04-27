@@ -1,7 +1,10 @@
+using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantTrueEyeL : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_650";
+        public override string Texture => "Terraria/Images/Projectile_650";
 
         private float localAI0;
         private float localAI1;
@@ -18,132 +21,144 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("True Eye of Mutant");
-            Main.projFrames[projectile.type] = 4;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 32;
-            projectile.height = 42;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            cooldownSlot = 1;
-            projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.width = 32;
+            Projectile.height = 42;
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            CooldownSlot = 1;
+            Projectile.penetrate = -1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
 
-            projectile.hide = true;
+            Projectile.hide = true;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.localAI[1]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Projectile.localAI[1] = reader.ReadSingle();
+        }
+
+        private float localai1;
+
         public override void AI()
         {
-            Player target = Main.player[(int)projectile.ai[0]];
-            projectile.localAI[0]++;
-            switch ((int)projectile.ai[1])
+            Player target = Main.player[(int)Projectile.ai[0]];
+            Projectile.localAI[0]++;
+            switch ((int)Projectile.ai[1])
             {
                 case 0: //true eye movement code
-                    Vector2 newVel = target.Center - projectile.Center + new Vector2(0f, -300f);
+                    Vector2 newVel = target.Center - Projectile.Center + new Vector2(0f, -300f);
                     if (newVel != Vector2.Zero)
                     {
                         newVel.Normalize();
                         newVel *= 24f;
-                        projectile.velocity.X = (projectile.velocity.X * 29 + newVel.X) / 30;
-                        projectile.velocity.Y = (projectile.velocity.Y * 29 + newVel.Y) / 30;
+                        Projectile.velocity.X = (Projectile.velocity.X * 29 + newVel.X) / 30;
+                        Projectile.velocity.Y = (Projectile.velocity.Y * 29 + newVel.Y) / 30;
                     }
-                    if (projectile.Distance(target.Center) < 150f)
+                    if (Projectile.Distance(target.Center) < 150f)
                     {
-                        if (projectile.Center.X < target.Center.X)
-                            projectile.velocity.X -= 0.25f;
+                        if (Projectile.Center.X < target.Center.X)
+                            Projectile.velocity.X -= 0.25f;
                         else
-                            projectile.velocity.X += 0.25f;
+                            Projectile.velocity.X += 0.25f;
 
-                        if (projectile.Center.Y < target.Center.Y)
-                            projectile.velocity.Y -= 0.25f;
+                        if (Projectile.Center.Y < target.Center.Y)
+                            Projectile.velocity.Y -= 0.25f;
                         else
-                            projectile.velocity.Y += 0.25f;
+                            Projectile.velocity.Y += 0.25f;
                     }
 
-                    if (projectile.localAI[0] > 120f)
+                    if (Projectile.localAI[0] > 120f)
                     {
-                        projectile.localAI[0] = 0f;
-                        projectile.ai[1]++;
-                        projectile.netUpdate = true;
+                        Projectile.localAI[0] = 0f;
+                        Projectile.ai[1]++;
+                        Projectile.netUpdate = true;
                     }
                     break;
 
                 case 1: //slow down
-                    projectile.velocity *= 0.95f;
-                    if (projectile.velocity.Length() < 1f) //stop
+                    Projectile.velocity *= 0.95f;
+                    if (Projectile.velocity.Length() < 1f) //stop
                     {
-                        projectile.velocity = Vector2.Zero;
-                        projectile.localAI[0] = 0f;
-                        projectile.ai[1]++;
-                        projectile.netUpdate = true;
+                        Projectile.velocity = Vector2.Zero;
+                        Projectile.localAI[0] = 0f;
+                        Projectile.ai[1]++;
+                        Projectile.netUpdate = true;
                     }
                     break;
 
                 case 2: //firing laser
-                    if (projectile.localAI[0] == 1f)
+                    if (Projectile.localAI[0] == 1f)
                     {
                         const float PI = (float)Math.PI;
                         float rotationDirection = PI * 2f / 3f / 90f; //positive is CW, negative is CCW
-                        if (projectile.Center.X < target.Center.X)
+                        if (Projectile.Center.X < target.Center.X)
                             rotationDirection *= -1;
                         localAI0 -= rotationDirection * 60f;
                         Vector2 speed = -Vector2.UnitX.RotatedBy(localAI0);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(projectile.Center - Vector2.UnitY * 6f, speed, mod.ProjectileType("MutantTrueEyeDeathray"),
-                                projectile.damage, 0f, projectile.owner, rotationDirection, projectile.whoAmI);
-                        projectile.localAI[1] = rotationDirection;
-                        projectile.netUpdate = true;
+                            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center - Vector2.UnitY * 6f, speed, ModContent.ProjectileType<MutantTrueEyeDeathray>(),
+                                Projectile.damage, 0f, Projectile.owner, rotationDirection, Projectile.whoAmI);
+                        localai1 = rotationDirection;
+                        Projectile.netUpdate = true;
                     }
-                    else if (projectile.localAI[0] > 90f)
+                    else if (Projectile.localAI[0] > 90f)
                     {
-                        projectile.localAI[0] = 0f;
-                        projectile.ai[1]++;
+                        Projectile.localAI[0] = 0f;
+                        Projectile.ai[1]++;
                     }
                     else
                     {
-                        localAI0 += projectile.localAI[1];
+                        localAI0 += localai1;
                     }
                     break;
 
                 default:
                     for (int i = 0; i < 30; i++)
                     {
-                        int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 0, default(Color), 3f);
+                        int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0f, 0f, 0, default(Color), 3f);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].noLight = true;
                         Main.dust[d].velocity *= 8f;
                     }
-                    Main.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 102, 1f, 0.0f);
-                    projectile.Kill();
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 102, 1f, 0);
+                    Projectile.Kill();
                     break;
             }
 
-            if (projectile.rotation > 3.14159274101257)
-                projectile.rotation = projectile.rotation - 6.283185f;
-            projectile.rotation = projectile.rotation <= -0.005 || projectile.rotation >= 0.005 ? projectile.rotation * 0.96f : 0.0f;
-            if (++projectile.frameCounter >= 4)
+            if (Projectile.rotation > 3.14159274101257)
+                Projectile.rotation = Projectile.rotation - 6.283185f;
+            Projectile.rotation = Projectile.rotation <= -0.005 || Projectile.rotation >= 0.005 ? Projectile.rotation * 0.96f : 0.0f;
+            if (++Projectile.frameCounter >= 4)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= Main.projFrames[projectile.type])
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.frame = 0;
             }
-            if (projectile.ai[1] != 2f) //custom pupil when attacking
+            if (Projectile.ai[1] != 2f) //custom pupil when attacking
                 UpdatePupil();
         }
 
@@ -160,7 +175,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             float f2;
             float num18;
             float num19;
-            f2 = projectile.AngleTo(Main.player[(int)projectile.ai[0]].Center);
+            f2 = Projectile.AngleTo(Main.player[(int)Projectile.ai[0]].Center);
             num15 = 2;
             num18 = MathHelper.Clamp(num13 + 0.05f, 0.0f, max);
             num19 = num14 + Math.Sign(-12f - num14);
@@ -171,9 +186,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
         }
 
         public override bool? CanCutTiles()
@@ -183,39 +198,39 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return Color.White * Projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Color color26 = projectile.GetAlpha(projectile.hide && Main.netMode == NetmodeID.MultiplayerClient ? Lighting.GetColor((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16) : lightColor);
+            Color color26 = Projectile.GetAlpha(Projectile.hide && Main.netMode == NetmodeID.MultiplayerClient ? Lighting.GetColor((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16) : lightColor);
 
             float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 1f;
-            scale *= projectile.scale;
+            scale *= Projectile.scale;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26 * 0.75f;
                 color27.A = 0;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, scale, SpriteEffects.None, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, scale, SpriteEffects.None, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
 
-            Texture2D pupil = mod.GetTexture("Projectiles/Minions/TrueEyePupil");
+            Texture2D pupil = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Minions/TrueEyePupil", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Vector2 pupilOffset = new Vector2(localAI1 / 2f, 0f).RotatedBy(localAI0);
-            pupilOffset += new Vector2(0f, -6f).RotatedBy(projectile.rotation);
+            pupilOffset += new Vector2(0f, -6f).RotatedBy(Projectile.rotation);
             Vector2 pupilOrigin = pupil.Size() / 2f;
-            Main.spriteBatch.Draw(pupil, pupilOffset + projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(pupil.Bounds), color26, 0f, pupilOrigin, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(pupil, pupilOffset + Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(pupil.Bounds), color26, 0f, pupilOrigin, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

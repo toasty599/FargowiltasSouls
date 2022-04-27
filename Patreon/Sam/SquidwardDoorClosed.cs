@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -10,7 +11,7 @@ namespace FargowiltasSouls.Patreon.Sam
 {
     public class SquidwardDoorClosed : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileBlockLight[Type] = true;
@@ -41,27 +42,27 @@ namespace FargowiltasSouls.Patreon.Sam
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Squidward Door");
             AddMapEntry(new Color(200, 200, 200), name);
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.ClosedDoor };
-            openDoorID = mod.TileType("SquidwardDoorOpen");
+            
+            AdjTiles = new int[] { TileID.ClosedDoor };
+            OpenDoorID = ModContent.TileType<SquidwardDoorOpen>();
         }
 
-        public override bool HasSmartInteract()
+        public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
         {
             return true;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType("SquidwardDoor"));
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SquidwardDoor>());
         }
 
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
-            player.showItemIcon = true;
-            player.showItemIcon2 = mod.ItemType("SquidwardDoor");
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = ModContent.ItemType<SquidwardDoor>();
         }
     }
 }

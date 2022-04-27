@@ -7,27 +7,27 @@ namespace FargowiltasSouls.Buffs.Boss
 {
     public class MutantFang : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant Fang");
             Description.SetDefault("The power of Eternity Mode compels you");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变毒牙");
-            Description.AddTranslation(GameCulture.Chinese, "永恒模式的力量压迫着你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变毒牙");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒模式的力量压迫着你");
             Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
+            Main.pvpBuff[Type] = true;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             player.poisoned = true;
             player.venom = true;
             player.ichor = true;
             player.onFire2 = true;
             player.electrified = true;
-            //fargoPlayer.OceanicMaul = true;
+            if (FargoSoulsWorld.MasochistModeReal)
+                fargoPlayer.OceanicMaul = true;
             fargoPlayer.CurseoftheMoon = true;
             if (fargoPlayer.FirstInfection)
             {
@@ -42,12 +42,12 @@ namespace FargowiltasSouls.Buffs.Boss
             fargoPlayer.MutantPresence = true;
             player.moonLeech = true;
             player.potionDelay = player.buffTime[buffIndex];
-            if (Fargowiltas.Instance.MasomodeEXLoaded && !FargoSoulsWorld.downedFishronEX && player.buffTime[buffIndex] > 1
-                && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, mod.NPCType("MutantBoss")))
+            /*if (FargowiltasSouls.Instance.MasomodeEXLoaded && !FargoSoulsWorld.downedFishronEX && player.buffTime[buffIndex] > 1
+                && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
             {
                 player.AddBuff(ModLoader.GetMod("MasomodeEX").BuffType("MutantJudgement"), player.buffTime[buffIndex]);
                 player.buffTime[buffIndex] = 1;
-            }
+            }*/
         }
     }
 }

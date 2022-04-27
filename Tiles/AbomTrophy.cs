@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Tiles
 {
     public class AbomTrophy : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileLavaDeath[Type] = true;
@@ -17,8 +17,6 @@ namespace FargowiltasSouls.Tiles
             TileObjectData.newTile.StyleWrapLimit = 36;
             TileObjectData.addTile(Type);
 
-            disableSmartCursor = true;
-
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Abominationn Trophy");
             AddMapEntry(new Color(120, 85, 60), name);
@@ -26,7 +24,7 @@ namespace FargowiltasSouls.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("AbomTrophy"));
+            Item.NewItem(new Terraria.DataStructures.EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Placeables.AbomTrophy>());
         }
     }
 }

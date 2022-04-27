@@ -12,62 +12,61 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Brain of Cthulhu");
-            DisplayName.AddTranslation(GameCulture.Chinese, "克苏鲁之脑");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "克苏鲁之脑");
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
+            });
         }
 
         public override void SetDefaults()
         {
-            npc.width = 160;
-            npc.height = 110;
-            npc.damage = 0;
-            npc.defense = 9999;
-            npc.lifeMax = 9999;
-            npc.dontTakeDamage = true;
-            npc.hide = true;
-            npc.HitSound = SoundID.NPCHit9;
-            npc.DeathSound = SoundID.NPCDeath11;
-            npc.noGravity = true;
-            npc.noTileCollide = true;
-            npc.knockBackResist = 0f;
-            npc.lavaImmune = true;
-            npc.aiStyle = -1;
+            NPC.width = 160;
+            NPC.height = 110;
+            NPC.damage = 0;
+            NPC.defense = 9999;
+            NPC.lifeMax = 9999;
+            NPC.dontTakeDamage = true;
+            NPC.hide = true;
+            NPC.HitSound = SoundID.NPCHit9;
+            NPC.DeathSound = SoundID.NPCDeath11;
+            NPC.noGravity = true;
+            NPC.noTileCollide = true;
+            NPC.knockBackResist = 0f;
+            NPC.lavaImmune = true;
+            NPC.aiStyle = -1;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.damage = 0;
-            npc.lifeMax = 9999;
+            NPC.damage = 0;
+            NPC.lifeMax = 9999;
         }
 
         public override void AI()
         {
-            NPC brain = FargoSoulsUtil.NPCExists(npc.ai[0], NPCID.BrainofCthulhu);
+            NPC brain = FargoSoulsUtil.NPCExists(NPC.ai[0], NPCID.BrainofCthulhu);
             if (brain == null)
             {
-                npc.life = 0;
-                npc.HitEffect();
-                npc.StrikeNPCNoInteraction(9999, 0f, 0);
-                npc.active = false;
+                NPC.life = 0;
+                NPC.HitEffect();
+                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.active = false;
                 return;
             }
 
-            npc.target = brain.target;
-            if (npc.HasPlayerTarget)
+            NPC.target = brain.target;
+            if (NPC.HasPlayerTarget)
             {
-                Vector2 distance = Main.player[npc.target].Center - brain.Center;
-                npc.Center = Main.player[npc.target].Center;
-                npc.position.X += distance.X * npc.ai[1];
-                npc.position.Y += distance.Y * npc.ai[2];
+                Vector2 distance = Main.player[NPC.target].Center - brain.Center;
+                NPC.Center = Main.player[NPC.target].Center;
+                NPC.position.X += distance.X * NPC.ai[1];
+                NPC.position.Y += distance.Y * NPC.ai[2];
             }
             else
             {
-                npc.Center = brain.Center;
-            }
-
-            if (Fargowiltas.Instance.MasomodeEXLoaded)
-            {
-                npc.damage = brain.damage;
-                npc.defDamage = brain.defDamage;
+                NPC.Center = brain.Center;
             }
         }
 
@@ -83,12 +82,12 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (npc.life <= 0)
+            if (NPC.life <= 0)
             {
-                //Main.PlaySound(npc.DeathSound, npc.Center);
+                //SoundEngine.PlaySound(NPC.DeathSound, NPC.Center);
                 for (int i = 0; i < 40; i++)
                 {
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 5);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
                     Main.dust[d].velocity *= 2.5f;
                     Main.dust[d].scale += 0.5f;
                 }
@@ -100,7 +99,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             return false;
         }
 
-        public override bool PreNPCLoot()
+        public override bool CheckDead()
         {
             return false;
         }

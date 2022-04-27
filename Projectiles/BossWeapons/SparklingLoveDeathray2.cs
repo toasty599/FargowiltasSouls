@@ -12,78 +12,81 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Love Ray");
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.hostile = false;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            Projectile.hostile = false;
+            Projectile.friendly = true;
+            Projectile.DamageType = Terraria.ModLoader.DamageClass.Summon;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 
-            projectile.hide = true;
+            Projectile.hide = true;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
         }
 
         public override void AI()
         {
             Vector2? vector78 = null;
-            if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
+            if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)
             {
-                projectile.velocity = -Vector2.UnitY;
+                Projectile.velocity = -Vector2.UnitY;
             }
-            /*int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxProjectiles && Main.projectile[ai1].active 
-                && Main.projectile[ai1].type == ModContent.ProjectileType<SparklingLove>())
+            /*int ai1 = (int)Projectile.ai[1];
+            if (ai1 > -1 && ai1 < Main.maxProjectiles && Main.Projectile[ai1].active 
+                && Main.Projectile[ai1].type == ModContent.ProjectileType<SparklingLove>())
             {
-                projectile.Center = Main.projectile[ai1].Center;
+                Projectile.Center = Main.Projectile[ai1].Center;
             }
             else
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }*/
-            if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
+            if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)
             {
-                projectile.velocity = -Vector2.UnitY;
+                Projectile.velocity = -Vector2.UnitY;
             }
-            if (projectile.localAI[0] == 0f)
+            if (Projectile.localAI[0] == 0f)
             {
-                Main.PlaySound(SoundID.Item12, projectile.Center);
-                //Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
+                //SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.position.X, (int)Projectile.position.Y, 104, 1f, 0);
             }
             float num801 = 0.5f;
-            projectile.localAI[0] += 1f;
-            if (projectile.localAI[0] >= maxTime)
+            Projectile.localAI[0] += 1f;
+            if (Projectile.localAI[0] >= maxTime)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
-            projectile.scale = (float)Math.Sin(projectile.localAI[0] * 3.14159274f / maxTime) * num801 * 5f;
-            if (projectile.scale > num801)
+            Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * num801 * 5f;
+            if (Projectile.scale > num801)
             {
-                projectile.scale = num801;
+                Projectile.scale = num801;
             }
-            float num804 = projectile.velocity.ToRotation();
-            num804 += projectile.ai[0];
-            projectile.rotation = num804 - 1.57079637f;
-            projectile.velocity = num804.ToRotationVector2();
+            float num804 = Projectile.velocity.ToRotation();
+            num804 += Projectile.ai[0];
+            Projectile.rotation = num804 - 1.57079637f;
+            Projectile.velocity = num804.ToRotationVector2();
             float num805 = 3f;
-            float num806 = (float)projectile.width;
-            Vector2 samplingPoint = projectile.Center;
+            float num806 = (float)Projectile.width;
+            Vector2 samplingPoint = Projectile.Center;
             if (vector78.HasValue)
             {
                 samplingPoint = vector78.Value;
             }
             float[] array3 = new float[(int)num805];
-            //Collision.LaserScan(samplingPoint, projectile.velocity, num806 * projectile.scale, 3000f, array3);
+            //Collision.LaserScan(samplingPoint, Projectile.velocity, num806 * Projectile.scale, 3000f, array3);
             for (int i = 0; i < array3.Length; i++)
                 array3[i] = 2000f;
             float num807 = 0f;
@@ -95,11 +98,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
             num807 /= num805;
             float amount = 0.5f;
-            projectile.localAI[1] = MathHelper.Lerp(projectile.localAI[1], num807, amount);
-            Vector2 vector79 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 14f);
+            Projectile.localAI[1] = MathHelper.Lerp(Projectile.localAI[1], num807, amount);
+            Vector2 vector79 = Projectile.Center + Projectile.velocity * (Projectile.localAI[1] - 14f);
             for (int num809 = 0; num809 < 2; num809 = num3 + 1)
             {
-                float num810 = projectile.velocity.ToRotation() + ((Main.rand.Next(2) == 1) ? -1f : 1f) * 1.57079637f;
+                float num810 = Projectile.velocity.ToRotation() + ((Main.rand.Next(2) == 1) ? -1f : 1f) * 1.57079637f;
                 float num811 = (float)Main.rand.NextDouble() * 2f + 2f;
                 Vector2 vector80 = new Vector2((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
                 int num812 = Dust.NewDust(vector79, 0, 0, 86, vector80.X, vector80.Y, 0, default(Color), 1f);
@@ -109,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
             if (Main.rand.NextBool(5))
             {
-                Vector2 value29 = projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * ((float)Main.rand.NextDouble() - 0.5f) * (float)projectile.width;
+                Vector2 value29 = Projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * ((float)Main.rand.NextDouble() - 0.5f) * (float)Projectile.width;
                 int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 86, 0f, 0f, 100, default(Color), 1.5f);
                 Dust dust = Main.dust[num813];
                 dust.noGravity = true;
@@ -117,15 +120,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Main.dust[num813].velocity.Y = -Math.Abs(Main.dust[num813].velocity.Y);
             }
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
-            //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
+            //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            projectile.position -= projectile.velocity;
+            Projectile.position -= Projectile.velocity;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Lovestruck, 300);
-            target.immune[projectile.owner] = 1;
+            target.immune[Projectile.owner] = 1;
         }
     }
 }

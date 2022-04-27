@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 
@@ -6,24 +7,23 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class GodEater : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("God Eater");
             Description.SetDefault("Your soul is cursed by divine wrath");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "噬神者");
-            Description.AddTranslation(GameCulture.Chinese, "你的灵魂被神明的忿怒所诅咒");
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true; //ignore most debuff immunity
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "噬神者");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的灵魂被神明的忿怒所诅咒");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //defense removed, endurance removed, colossal DOT (45 per second)
-            player.GetModPlayer<FargoPlayer>().GodEater = true;
-            player.GetModPlayer<FargoPlayer>().noDodge = true;
-            player.GetModPlayer<FargoPlayer>().MutantPresence = true;
+            player.GetModPlayer<FargoSoulsPlayer>().GodEater = true;
+            player.GetModPlayer<FargoSoulsPlayer>().noDodge = true;
+            player.GetModPlayer<FargoSoulsPlayer>().MutantPresence = true;
             player.moonLeech = true;
         }
 

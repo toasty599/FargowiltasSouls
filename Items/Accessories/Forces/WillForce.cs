@@ -6,13 +6,25 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class WillForce : SoulsItem
+    public class WillForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<GoldEnchant>(),
+            ModContent.ItemType<PlatinumEnchant>(),
+            ModContent.ItemType<GladiatorEnchant>(),
+            ModContent.ItemType<WizardEnchant>(),
+            ModContent.ItemType<RedRidingEnchant>(),
+            ModContent.ItemType<ValhallaKnightEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Will");
            
-            DisplayName.AddTranslation(GameCulture.Chinese, "意志之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "意志之力");
             
             string tooltip =
 $"[i:{ModContent.ItemType<GoldEnchant>()}] Press the Gold hotkey to be encased in a Golden Shell\n" +
@@ -34,54 +46,31 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
 大幅强化弩车和爆炸机关的效果
 拥有贪婪戒指效果
 '坚不可摧的决心'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-
-        }
-
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            //super bleed on all
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.WillForce = true;
-            //midas, greedy ring, pet, zhonyas
             modPlayer.GoldEffect(hideVisual);
-            //loot multiply
-            modPlayer.PlatinumEnchant = true;
-            //javelins and pets
-            modPlayer.GladiatorEffect(hideVisual);
-            //wizard bonuses if somehow wearing only other enchants and not forces
-            modPlayer.WizardEnchant = true;
-            //arrow rain, celestial shell, pet
+
+            modPlayer.PlatinumEnchantActive = true;
+
+            GladiatorEnchant.GladiatorEffect(player);
+            modPlayer.WizardEnchantActive = true;
             modPlayer.RedRidingEffect(hideVisual);
-            modPlayer.HuntressEffect();
-            //immune frame kill, pet
+            HuntressEnchant.HuntressEffect(player);
             modPlayer.ValhallaEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "GoldEnchant");
-            recipe.AddIngredient(null, "PlatinumEnchant");
-            recipe.AddIngredient(null, "GladiatorEnchant");
-            recipe.AddIngredient(ModContent.ItemType<WizardEnchant>());
-            recipe.AddIngredient(null, "RedRidingEnchant");
-            recipe.AddIngredient(null, "ValhallaKnightEnchant");
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

@@ -10,35 +10,36 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class PlanteraTentacle : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_264";
+        public override string Texture => "Terraria/Images/NPC_264";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Planty Tentacle");
-            Main.projFrames[projectile.type] = Main.npcFrameCount[NPCID.PlanterasTentacle];
+            Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.PlanterasTentacle];
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 18;
-            projectile.height = 18;
-            projectile.aiStyle = -1;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.hostile = true;
-            //cooldownSlot = 1;
+            Projectile.width = 18;
+            Projectile.height = 18;
+            Projectile.aiStyle = -1;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.hostile = true;
+            //CooldownSlot = 1;
 
-            projectile.extraUpdates = 0;
-            projectile.timeLeft = 360 * (projectile.extraUpdates + 1);
+            Projectile.extraUpdates = 0;
+            Projectile.timeLeft = 360 * (Projectile.extraUpdates + 1);
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
                 projectile =>
                 {
                     float num6 = 0f;
-                    if (CanDamage() && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(),
-                        new Vector2(projectile.localAI[0], projectile.localAI[1]), projectile.Center, 22f * projectile.scale + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius * 2 + Player.defaultHeight, ref num6))
+                    if (CanDamage() == true && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(),
+                        new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Projectile.Center, 22f * Projectile.scale + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius * 2 + Player.defaultHeight, ref num6))
                     {
                         return true;
                     }
@@ -46,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 };
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return counter >= attackTime;
         }
@@ -56,118 +57,117 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.Plantera);
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], NPCID.Plantera);
             if (npc == null)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            projectile.rotation = projectile.DirectionFrom(npc.Center).ToRotation() + MathHelper.Pi;
-            projectile.localAI[0] = npc.Center.X;
-            projectile.localAI[1] = npc.Center.Y;
+            Projectile.rotation = Projectile.DirectionFrom(npc.Center).ToRotation() + MathHelper.Pi;
+            Projectile.localAI[0] = npc.Center.X;
+            Projectile.localAI[1] = npc.Center.Y;
 
-            if (projectile.velocity == Vector2.Zero)
+            if (Projectile.velocity == Vector2.Zero)
             {
-                projectile.frame = 0;
-                //projectile.timeLeft--;
+                Projectile.frame = 0;
+                //Projectile.timeLeft--;
             }
             else
             {
                 if (counter == 0)
-                    Main.PlaySound(SoundID.Item5, projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
 
                 if (++counter < attackTime)
                 {
-                    projectile.position += npc.velocity / 3;
+                    Projectile.position += npc.velocity / 3;
 
-                    Vector2 target = npc.Center + (150f + counter * 1.5f) * projectile.ai[1].ToRotationVector2();
-                    Vector2 distance = target - projectile.Center;
+                    Vector2 target = npc.Center + (150f + counter * 1.5f) * Projectile.ai[1].ToRotationVector2();
+                    Vector2 distance = target - Projectile.Center;
                     float length = distance.Length();
                     if (length > 10f)
                     {
                         distance /= 8f;
-                        projectile.velocity = (projectile.velocity * 23f + distance) / 24f;
+                        Projectile.velocity = (Projectile.velocity * 23f + distance) / 24f;
                     }
                     else
                     {
-                        if (projectile.velocity.Length() < 12f)
-                            projectile.velocity *= 1.05f;
+                        if (Projectile.velocity.Length() < 12f)
+                            Projectile.velocity *= 1.05f;
                     }
                 }
                 else if (counter == attackTime)
                 {
-                    projectile.velocity = 32f * projectile.ai[1].ToRotationVector2();
-                    Main.PlaySound(SoundID.Item92, projectile.Center);
+                    Projectile.velocity = 32f * Projectile.ai[1].ToRotationVector2();
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
                 }
                 else
                 {
-                    if (npc.HasPlayerTarget && projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
+                    if (npc.HasPlayerTarget && Projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
                     {
-                        Tile tile = Framing.GetTileSafely(projectile.Center);
-                        if (tile.nactive() && Main.tileSolid[tile.type] && !Main.tileSolidTop[tile.type])
+                        Tile tile = Framing.GetTileSafely(Projectile.Center);
+                        if (tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType])
                         {
                             for (int i = 0; i < 10; i++)
                             {
-                                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 157, -projectile.velocity.X * 0.1f, -projectile.velocity.Y * 0.1f, Scale: 2.5f);
+                                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 157, -Projectile.velocity.X * 0.1f, -Projectile.velocity.Y * 0.1f, Scale: 2.5f);
                                 Main.dust[d].noGravity = true;
                                 Main.dust[d].velocity *= 4f;
                             }
 
-                            projectile.velocity = Vector2.Zero;
+                            Projectile.velocity = Vector2.Zero;
                         }
                     }
                 }
 
-                if (++projectile.frameCounter > 3 * (projectile.extraUpdates + 1))
+                if (++Projectile.frameCounter > 3 * (Projectile.extraUpdates + 1))
                 {
-                    projectile.frameCounter = 0;
-                    if (++projectile.frame >= Main.projFrames[projectile.type])
-                        projectile.frame = 0;
+                    Projectile.frameCounter = 0;
+                    if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                        Projectile.frame = 0;
                 }
             }
         }
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item5, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
 
-            if (projectile.localAI[0] != 0 && projectile.localAI[1] != 0)
+            if (Projectile.localAI[0] != 0 && Projectile.localAI[1] != 0)
             {
-                Vector2 planteraCenter = new Vector2(projectile.localAI[0], projectile.localAI[1]);
+                Vector2 planteraCenter = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
 
-                int length = (int)projectile.Distance(planteraCenter);
+                int length = (int)Projectile.Distance(planteraCenter);
                 const int increment = 512;
                 for (int i = 0; i < length; i += increment)
                 {
-                    Gore.NewGore(projectile.Center + projectile.DirectionTo(planteraCenter) * (i + Main.rand.NextFloat(increment)), Vector2.Zero, 
-                        mod.GetGoreSlot("Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "386" : "387")), projectile.scale);
+                    if (!Main.dedServ)
+                        Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(planteraCenter) * (i + Main.rand.NextFloat(increment)), Vector2.Zero,
+                        ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "Gore_386" : "Gore_387").Type, Projectile.scale);
                 }
             }
 
-            //Gore.NewGore(projectile.Center, Vector2.Zero, mod.GetGoreSlot("Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "388" : "389")), projectile.scale);
+            //Gore.NewGore(Projectile.Center, Vector2.Zero, mod.GetGoreSlot("Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "388" : "389")), Projectile.scale);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(ModContent.BuffType<Infested>(), 180);
             target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(),
-                    new Vector2(projectile.localAI[0], projectile.localAI[1]), projectile.Center);
+                    new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Projectile.Center);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            if (projectile.localAI[0] != 0 && projectile.localAI[1] != 0)
+            if (Projectile.localAI[0] != 0 && Projectile.localAI[1] != 0)
             {
-                Texture2D texture = mod.GetTexture("NPCs/Vanilla/Chain26");
-                Vector2 position = projectile.Center;
-                Vector2 mountedCenter = new Vector2(projectile.localAI[0], projectile.localAI[1]);
+                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Vanilla/Chain26", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Vector2 position = Projectile.Center;
+                Vector2 mountedCenter = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
                 Rectangle? sourceRectangle = new Rectangle?();
                 Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
                 float num1 = texture.Height;
@@ -190,23 +190,23 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         position += vector21 * num1;
                         vector24 = mountedCenter - position;
                         Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
-                        color2 = projectile.GetAlpha(color2);
-                        Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+                        color2 = Projectile.GetAlpha(color2);
+                        Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
                     }
             }
 
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
             SpriteEffects effects = SpriteEffects.None;
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

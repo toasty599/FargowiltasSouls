@@ -26,155 +26,154 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void Behavior()
         {
-            Player player = Main.player[projectile.owner];
-            float spacing = projectile.width * SpacingMult;
+            Player player = Main.player[Projectile.owner];
+            float spacing = Projectile.width * SpacingMult;
             for (int k = 0; k < Main.maxProjectiles; k++)
             {
                 Projectile otherProj = Main.projectile[k];
-                if (k != projectile.whoAmI && otherProj.active && otherProj.owner == projectile.owner && otherProj.type == projectile.type &&
-                    Math.Abs(projectile.position.X - otherProj.position.X) + Math.Abs(projectile.position.Y - otherProj.position.Y) < spacing)
+                if (k != Projectile.whoAmI && otherProj.active && otherProj.owner == Projectile.owner && otherProj.type == Projectile.type &&
+                    Math.Abs(Projectile.position.X - otherProj.position.X) + Math.Abs(Projectile.position.Y - otherProj.position.Y) < spacing)
                 {
-                    if (projectile.position.X < Main.projectile[k].position.X)
-                        projectile.velocity.X -= IdleAccel;
+                    if (Projectile.position.X < Main.projectile[k].position.X)
+                        Projectile.velocity.X -= IdleAccel;
                     else
-                        projectile.velocity.X += IdleAccel;
-                    if (projectile.position.Y < Main.projectile[k].position.Y)
-                        projectile.velocity.Y -= IdleAccel;
+                        Projectile.velocity.X += IdleAccel;
+                    if (Projectile.position.Y < Main.projectile[k].position.Y)
+                        Projectile.velocity.Y -= IdleAccel;
                     else
-                        projectile.velocity.Y += IdleAccel;
+                        Projectile.velocity.Y += IdleAccel;
                 }
             }
 
-            Vector2 targetPos = projectile.position;
+            Vector2 targetPos = Projectile.position;
             float targetDist = ViewDist;
             bool target = false;
-            projectile.tileCollide = true;
+            Projectile.tileCollide = true;
             if (player.HasMinionAttackTargetNPC)
             {
                 NPC npc = Main.npc[player.MinionAttackTargetNPC];
-                if (Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position, npc.width, npc.height))
+                if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height))
                 {
-                    targetDist = Vector2.Distance(projectile.Center, targetPos);
+                    targetDist = Vector2.Distance(Projectile.Center, targetPos);
                     targetPos = npc.Center;
                     target = true;
                 }
             }
             else
             {
-                int n = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, targetDist, true);
+                int n = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(Projectile, targetDist, true);
                 if (n != -1)
                 {
-                    targetDist = projectile.Distance(Main.npc[n].Center);
+                    targetDist = Projectile.Distance(Main.npc[n].Center);
                     targetPos = Main.npc[n].Center;
                     target = true;
                 }
             }
 
-            if (Vector2.Distance(player.Center, projectile.Center) > (target ? 1000f : 500f))
+            if (Vector2.Distance(player.Center, Projectile.Center) > (target ? 1000f : 500f))
             {
-                projectile.ai[0] = 1f;
-                projectile.netUpdate = true;
+                Projectile.ai[0] = 1f;
+                Projectile.netUpdate = true;
             }
 
-            if (projectile.ai[0] == 1f) projectile.tileCollide = false;
-            if (target && projectile.ai[0] == 0f)
+            if (Projectile.ai[0] == 1f) Projectile.tileCollide = false;
+            if (target && Projectile.ai[0] == 0f)
             {
-                Vector2 direction = targetPos - projectile.Center;
+                Vector2 direction = targetPos - Projectile.Center;
                 if (direction.Length() > ChaseDist)
                 {
                     direction.Normalize();
-                    projectile.velocity = (projectile.velocity * Inertia + direction * ChaseAccel) / (Inertia + 1);
+                    Projectile.velocity = (Projectile.velocity * Inertia + direction * ChaseAccel) / (Inertia + 1);
                 }
                 else
                 {
-                    projectile.velocity *= (float) Math.Pow(0.97, 40.0 / Inertia);
+                    Projectile.velocity *= (float) Math.Pow(0.97, 40.0 / Inertia);
                 }
             }
             else
             {
-                if (!Collision.CanHitLine(projectile.Center, 1, 1, player.Center, 1, 1)) projectile.ai[0] = 1f;
+                if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1)) Projectile.ai[0] = 1f;
                 float speed = 6f;
-                if (projectile.ai[0] == 1f) speed = 15f;
-                Vector2 center = projectile.Center;
+                if (Projectile.ai[0] == 1f) speed = 15f;
+                Vector2 center = Projectile.Center;
                 Vector2 direction = player.Center - center;
-                projectile.ai[1] = 3600f;
-                projectile.netUpdate = true;
+                Projectile.ai[1] = 3600f;
+                Projectile.netUpdate = true;
                 int num = 1;
-                for (int k = 0; k < projectile.whoAmI; k++)
-                    if (Main.projectile[k].active && Main.projectile[k].owner == projectile.owner && Main.projectile[k].type == projectile.type)
+                for (int k = 0; k < Projectile.whoAmI; k++)
+                    if (Main.projectile[k].active && Main.projectile[k].owner == Projectile.owner && Main.projectile[k].type == Projectile.type)
                         num++;
                 direction.X -= (10 + num * 40) * player.direction;
                 direction.Y -= 70f;
                 float distanceTo = direction.Length();
                 if (distanceTo > 200f && speed < 9f) speed = 9f;
-                if (distanceTo < 100f && projectile.ai[0] == 1f && !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
+                if (distanceTo < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
                 {
-                    projectile.ai[0] = 0f;
-                    projectile.netUpdate = true;
+                    Projectile.ai[0] = 0f;
+                    Projectile.netUpdate = true;
                 }
 
-                if (distanceTo > 2000f) projectile.Center = player.Center;
+                if (distanceTo > 2000f) Projectile.Center = player.Center;
                 if (distanceTo > 48f)
                 {
                     direction.Normalize();
                     direction *= speed;
                     float temp = Inertia / 2f;
-                    projectile.velocity = (projectile.velocity * temp + direction) / (temp + 1);
+                    Projectile.velocity = (Projectile.velocity * temp + direction) / (temp + 1);
                 }
                 else
                 {
-                    projectile.direction = Main.player[projectile.owner].direction;
-                    projectile.velocity *= (float) Math.Pow(0.9, 40.0 / Inertia);
+                    Projectile.direction = Main.player[Projectile.owner].direction;
+                    Projectile.velocity *= (float) Math.Pow(0.9, 40.0 / Inertia);
                 }
             }
 
-            projectile.rotation = projectile.velocity.X * 0.05f;
+            Projectile.rotation = Projectile.velocity.X * 0.05f;
             SelectFrame();
             CreateDust();
-            if (projectile.velocity.X > 0f)
-                projectile.spriteDirection = projectile.direction = -1;
-            else if (projectile.velocity.X < 0f) projectile.spriteDirection = projectile.direction = 1;
-            if (projectile.ai[1] > 0f)
+            if (Projectile.velocity.X > 0f)
+                Projectile.spriteDirection = Projectile.direction = -1;
+            else if (Projectile.velocity.X < 0f) Projectile.spriteDirection = Projectile.direction = 1;
+            if (Projectile.ai[1] > 0f)
             {
-                projectile.ai[1] += 1f;
-                if (Main.rand.NextBool(3)) projectile.ai[1] += 1f;
+                Projectile.ai[1] += 1f;
+                if (Main.rand.NextBool(3)) Projectile.ai[1] += 1f;
             }
 
-            if (projectile.ai[1] > ShootCool)
+            if (Projectile.ai[1] > ShootCool)
             {
-                projectile.ai[1] = 0f;
-                projectile.netUpdate = true;
+                Projectile.ai[1] = 0f;
+                Projectile.netUpdate = true;
             }
 
-            if (projectile.ai[0] == 0f)
+            if (Projectile.ai[0] == 0f)
                 if (target)
                 {
-                    if ((targetPos - projectile.Center).X > 0f)
-                        projectile.spriteDirection = projectile.direction = -1;
-                    else if ((targetPos - projectile.Center).X < 0f) projectile.spriteDirection = projectile.direction = 1;
-                    if (projectile.ai[1] == 0f)
+                    if ((targetPos - Projectile.Center).X > 0f)
+                        Projectile.spriteDirection = Projectile.direction = -1;
+                    else if ((targetPos - Projectile.Center).X < 0f) Projectile.spriteDirection = Projectile.direction = 1;
+                    if (Projectile.ai[1] == 0f)
                     {
-                        projectile.ai[1] = 1f;
-                        if (Main.myPlayer == projectile.owner)
+                        Projectile.ai[1] = 1f;
+                        if (Main.myPlayer == Projectile.owner)
                         {
-                            Vector2 shootVel = targetPos - projectile.Center;
+                            Vector2 shootVel = targetPos - Projectile.Center;
                             if (shootVel == Vector2.Zero) shootVel = new Vector2(0f, 1f);
                             shootVel.Normalize();
                             shootVel *= ShootSpeed;
-                            int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, shootVel.X, shootVel.Y, Shoot, projectile.damage, projectile.knockBack,
-                                Main.myPlayer);
+                            int proj = FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootVel, Shoot, Projectile.originalDamage, Projectile.knockBack, Main.myPlayer);
                             Main.projectile[proj].timeLeft = 300;
                             Main.projectile[proj].netUpdate = true;
-                            projectile.netUpdate = true;
+                            Projectile.netUpdate = true;
                         }
                     }
                 }
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = true;
-            return true;
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -33,21 +34,25 @@ namespace FargowiltasSouls
 
         public bool Crimetroid;
 
-        public override TagCompound Save()
+        public bool ChibiiRemii;
+
+        public override void SaveData(TagCompound tag)
         {
-            string name = "PatreonSaves" + player.name;
+            base.SaveData(tag);
+
+            string name = "PatreonSaves" + Player.name;
             var PatreonSaves = new List<string>();
 
             if (PiranhaPlantMode) PatreonSaves.Add("PiranhaPlantMode");
 
-            return new TagCompound {
-                    {name, PatreonSaves}
-                }; ;
+            tag.Add(name, PatreonSaves);
         }
 
-        public override void Load(TagCompound tag)
+        public override void LoadData(TagCompound tag)
         {
-            string name = "PatreonSaves" + player.name;
+            base.LoadData(tag);
+
+            string name = "PatreonSaves" + Player.name;
             IList<string> PatreonSaves = tag.GetList<string>(name);
 
             PiranhaPlantMode = PatreonSaves.Contains("PiranhaPlantMode");
@@ -68,13 +73,14 @@ namespace FargowiltasSouls
             JojoTheGamer = false;
             Crimetroid = false;
             PrimeMinion = false;
+            ChibiiRemii = false;
         }
 
         public override void OnEnterWorld(Player player)
         {
             if (Gittle || Sasha || ManliestDove || Cat || JojoTheGamer)
             {
-                Main.NewText("Your special patreon effects are active " + player.name + "!");
+                Main.NewText("Your special patreon effects are active " + Player.name + "!");
             }
         }
 
@@ -83,47 +89,47 @@ namespace FargowiltasSouls
             if (CompOrbDrainCooldown > 0)
                 CompOrbDrainCooldown -= 1;
 
-            if (player.name == "iverhcamer")
+            if (Player.name == "iverhcamer")
             {
                 Gittle = true;
-                player.pickSpeed -= .15f;
+                Player.pickSpeed -= .15f;
                 //shine effect
-                Lighting.AddLight(player.Center, 0.8f, 0.8f, 0f);
+                Lighting.AddLight(Player.Center, 0.8f, 0.8f, 0);
             }
 
-            if (player.name == "Sasha")
+            if (Player.name == "Sasha")
             {
                 Sasha = true;
 
-                player.lavaImmune = true;
-                player.fireWalk = true;
-                player.buffImmune[BuffID.OnFire] = true;
-                player.buffImmune[BuffID.CursedInferno] = true;
-                player.buffImmune[BuffID.Burning] = true;
+                Player.lavaImmune = true;
+                Player.fireWalk = true;
+                Player.buffImmune[BuffID.OnFire] = true;
+                Player.buffImmune[BuffID.CursedInferno] = true;
+                Player.buffImmune[BuffID.Burning] = true;
             }
 
-            if (player.name == "Dove")
+            if (Player.name == "Dove")
             {
                 ManliestDove = true;
             }
 
-            if (player.name == "cat")
+            if (Player.name == "cat")
             {
                 Cat = true;
 
                 if (NPC.downedMoonlord)
                 {
-                    player.maxMinions += 4;
+                    Player.maxMinions += 4;
                 }
                 else if (Main.hardMode)
                 {
-                    player.maxMinions += 2;
+                    Player.maxMinions += 2;
                 }
 
-                player.minionDamage += player.maxMinions * 0.5f;
+                Player.GetDamage(DamageClass.Summon) += Player.maxMinions * 0.5f;
             }
 
-            if (player.name == "VirtualDefender")
+            if (Player.name == "VirtualDefender")
             {
                 JojoTheGamer = true;
             }
@@ -165,19 +171,19 @@ namespace FargowiltasSouls
             if (CompOrb && CompOrbDrainCooldown <= 0)
             {
                 CompOrbDrainCooldown = 15;
-                if (player.CheckMana(10, true, false))
-                    player.manaRegenDelay = 300;
+                if (Player.CheckMana(10, true, false))
+                    Player.manaRegenDelay = 300;
             }
         }
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            if (CompOrb && !item.magic && !item.summon)
+            if (CompOrb && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon)
             {
                 damage = (int)(damage * 1.25f);
 
-                if (player.manaSick)
-                    damage = (int)(damage * player.manaSickReduction);
+                if (Player.manaSick)
+                    damage = (int)(damage * Player.manaSickReduction);
 
                 for (int num468 = 0; num468 < 20; num468++)
                 {
@@ -194,12 +200,12 @@ namespace FargowiltasSouls
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (CompOrb && !proj.magic && !proj.minion)
+            if (CompOrb && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon)
             {
                 damage = (int)(damage * 1.25f);
                 
-                if (player.manaSick)
-                    damage = (int)(damage * player.manaSickReduction);
+                if (Player.manaSick)
+                    damage = (int)(damage * Player.manaSickReduction);
 
                 for (int num468 = 0; num468 < 20; num468++)
                 {
@@ -228,42 +234,43 @@ namespace FargowiltasSouls
         {
             if (PiranhaPlantMode)
             {
-                int index = Main.rand.Next(Fargowiltas.DebuffIDs.Count);
-                player.AddBuff(Fargowiltas.DebuffIDs[index], 180);
+                int index = Main.rand.Next(FargowiltasSouls.DebuffIDs.Count);
+                Player.AddBuff(FargowiltasSouls.DebuffIDs[index], 180);
             }
         }
 
-        public override void ModifyDrawLayers(List<PlayerLayer> layers)
+        public override void HideDrawLayers(PlayerDrawSet drawInfo)
         {
+            base.HideDrawLayers(drawInfo);
+
             if (WolfDashing) //dont draw player during dash
-                while (layers.Count > 0)
-                    layers.RemoveAt(0);
+                drawInfo.DrawDataCache.Clear();
 
+            //HashSet<int> layersToRemove = new HashSet<int>();
+            //for (int i = 0; i < drawInfo.DrawDataCache.Count; i++)
+            //{
+            //    if (JojoTheGamer && drawInfo.DrawDataCache[i] == PlayerLayer.Skin)
+            //    {
+            //        layersToRemove.Add(i);
+            //    }
+            //}
+            //foreach (int i in layersToRemove)
+            //{
+            //    drawInfo.DrawDataCache.RemoveAt(i);
+            //}
 
-            HashSet<int> layersToRemove = new HashSet<int>();
-
-            for (int i = 0; i < layers.Count; i++)
-            {
-                if (JojoTheGamer && layers[i] == PlayerLayer.Skin)
-                {
-                    layersToRemove.Add(i);
-                }
-            }
-
-            foreach (int i in layersToRemove)
-            {
-                layers.RemoveAt(i);
-            }
+            //alternative for jojo changes? idk
+            //Terraria.DataStructures.PlayerDrawLayers.Skin.Hide();
         }
 
         public override void FrameEffects()
         {
-            if (JojoTheGamer)
-            {
-                player.legs = mod.GetEquipSlot("BetaLeg", EquipType.Legs);
-                player.body = mod.GetEquipSlot("BetaBody", EquipType.Body);
-                player.head = mod.GetEquipSlot("BetaHead", EquipType.Head);
-            }
+            //if (JojoTheGamer)
+            //{
+            //    Player.legs = Mod.GetEquipSlot("BetaLeg", EquipType.Legs);
+            //    Player.body = Mod.GetEquipSlot("BetaBody", EquipType.Body);
+            //    Player.head = Mod.GetEquipSlot("BetaHead", EquipType.Head);
+            //}
         }
     }
 }

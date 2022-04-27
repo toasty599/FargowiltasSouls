@@ -5,12 +5,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Champions
 {
     public class ShadowGuardian : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_68";
+        public override string Texture => "Terraria/Images/NPC_68";
 
         public override void SetStaticDefaults()
         {
@@ -19,50 +20,52 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void SetDefaults()
         {
-            projectile.width = 70;
-            projectile.height = 70;
-            projectile.penetrate = -1;
-            projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = -1;
-            cooldownSlot = 1;
+            Projectile.width = 70;
+            Projectile.height = 70;
+            Projectile.penetrate = -1;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = -1;
+            CooldownSlot = 1;
 
-            projectile.timeLeft = 600;
-            projectile.hide = true;
-            projectile.light = 0.5f;
+            Projectile.timeLeft = 600;
+            Projectile.hide = true;
+            Projectile.light = 0.5f;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
-                projectile.hide = false;
+                Projectile.localAI[0] = 1;
+                Projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
+                Projectile.hide = false;
 
                 for (int i = 0; i < 30; i++)
                 {
-                    int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                     Main.dust[dust].noGravity = true;
                 }
             }
 
-            projectile.direction = projectile.velocity.X < 0 ? -1 : 1;
-            projectile.rotation += projectile.direction * .3f;
+            Projectile.direction = Projectile.velocity.X < 0 ? -1 : 1;
+            Projectile.rotation += Projectile.direction * .3f;
         }
 
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 30; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
             }
 
-            Gore.NewGore(projectile.Center, projectile.velocity / 3, mod.GetGoreSlot(Main.rand.NextBool() ? "Gores/Skeletron/Gore_54" : "Gores/Skeletron/Gore_55"), projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity / 3, ModContent.Find<ModGore>(Mod.Name, 
+                Main.rand.NextBool() ? "Gore_54" : "Gore_55").Type, Projectile.scale);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -70,23 +73,23 @@ namespace FargowiltasSouls.Projectiles.Champions
             target.AddBuff(BuffID.Darkness, 300);
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("Shadowflame"), 300);
+                target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
                 target.AddBuff(BuffID.Blackout, 300);
-                target.AddBuff(mod.BuffType("Defenseless"), 300);
-                target.AddBuff(mod.BuffType("Lethargic"), 300);
+                target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
+                target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
             }
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
-                target.AddBuff(mod.BuffType("MarkedForDeath"), 300);
+                target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

@@ -5,19 +5,19 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class DisruptedFocus : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Disrupted Focus");
             Description.SetDefault("Weapon speed reduced");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
-            canBeCleared = true;
+            
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().DisruptedFocus = true;
+            player.GetModPlayer<FargoSoulsPlayer>().DisruptedFocus = true;
         }
     }
 }

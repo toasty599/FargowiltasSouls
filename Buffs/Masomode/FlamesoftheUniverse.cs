@@ -7,25 +7,23 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class FlamesoftheUniverse : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Flames of the Universe");
             Description.SetDefault("The heavens themselves have judged you");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "宇宙之火");
-            Description.AddTranslation(GameCulture.Chinese, "来自诸天的亲自审判");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宇宙之火");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "来自诸天的亲自审判");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //activates various vanilla debuffs
-            player.GetModPlayer<FargoPlayer>().FlamesoftheUniverse = true;
+            player.GetModPlayer<FargoSoulsPlayer>().FlamesoftheUniverse = true;
             player.ichor = true;
 
-            /*player.GetModPlayer<FargoPlayer>().Shadowflame = true;
+            /*player.GetModPlayer<FargoSoulsPlayer>().Shadowflame = true;
             player.onFire = true;
             player.onFire2 = true;
             player.onFrostBurn = true;

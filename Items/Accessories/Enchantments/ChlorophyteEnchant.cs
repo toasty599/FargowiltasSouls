@@ -7,13 +7,15 @@ using System.Collections.Generic;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class ChlorophyteEnchant : SoulsItem
+    public class ChlorophyteEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Chlorophyte Enchantment");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "叶绿魔石");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "叶绿魔石");
             
             string tooltip =
 @"Summons a ring of leaf crystals to shoot at nearby enemies
@@ -29,54 +31,42 @@ Double tap a direction
 使你获得孢子二段跳能力
 使用翅膀进行飞行时会在你周围不断生成孢子
 '丛林的精华凝结在你周围'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(36, 137, 0);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(36, 137, 0);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Lime;
-            item.value = 150000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Lime;
+            Item.value = 150000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //crystal
-            modPlayer.ChloroEffect(hideVisual);
-            modPlayer.JungleEnchant = true;
+            modPlayer.ChloroEffect(Item, hideVisual);
+            modPlayer.JungleEnchantActive = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("FargowiltasSouls:AnyChloroHead");
-            recipe.AddIngredient(ItemID.ChlorophytePlateMail);
-            recipe.AddIngredient(ItemID.ChlorophyteGreaves);
-            recipe.AddIngredient(null, "JungleEnchant");
-            recipe.AddIngredient(ItemID.ChlorophyteWarhammer);
-            recipe.AddIngredient(ItemID.ChlorophyteClaymore);
+            CreateRecipe()
+            .AddRecipeGroup("FargowiltasSouls:AnyChloroHead")
+            .AddIngredient(ItemID.ChlorophytePlateMail)
+            .AddIngredient(ItemID.ChlorophyteGreaves)
+            .AddIngredient(null, "JungleEnchant")
+            .AddIngredient(ItemID.ChlorophyteWarhammer)
+            .AddIngredient(ItemID.ChlorophyteClaymore)
             //grape juice
-            //recipe.AddIngredient(ItemID.Seedling);
+            //.AddIngredient(ItemID.Seedling);
             //plantero pet
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+           .Register();
         }
     }
 }

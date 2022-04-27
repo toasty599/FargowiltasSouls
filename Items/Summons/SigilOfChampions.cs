@@ -16,19 +16,20 @@ namespace FargowiltasSouls.Items.Summons
 Summons vary depending on time and biome
 Right click to check for possible summons
 Not consumed on use");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 40;
-            item.height = 40;
-            item.rare = ItemRarityID.Purple;
-            item.maxStack = 1;
-            item.useAnimation = 45;
-            item.useTime = 45;
-            item.useStyle = ItemUseStyleID.HoldingUp;
-            item.consumable = false;
-            item.value = Item.buyPrice(1);
+            Item.width = 40;
+            Item.height = 40;
+            Item.rare = ItemRarityID.Purple;
+            Item.maxStack = 1;
+            Item.useAnimation = 45;
+            Item.useTime = 45;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.consumable = false;
+            Item.value = Item.buyPrice(1);
         }
 
         public override bool CanUseItem(Player player)
@@ -58,7 +59,7 @@ Not consumed on use");
             return true;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             Color color = new Color(175, 75, 255);
 
@@ -109,7 +110,7 @@ Not consumed on use");
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<WillChampion>());
                 }
-                else if (player.ZoneHoly && Main.dayTime)
+                else if (player.ZoneHallow && Main.dayTime)
                 {
                     if (player.altFunctionUse == 2)
                         Main.NewText("A wave of warmth passes over you...", color);
@@ -123,7 +124,7 @@ Not consumed on use");
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<ShadowChampion>());
                 }
-                else if (!player.ZoneHoly && !player.ZoneCorrupt && !player.ZoneCrimson
+                else if (!player.ZoneHallow && !player.ZoneCorrupt && !player.ZoneCrimson
                     && !player.ZoneDesert && !player.ZoneSnow && !player.ZoneJungle && Main.dayTime) //purity day
                 {
                     if (player.altFunctionUse == 2)
@@ -145,30 +146,29 @@ Not consumed on use");
         {
             foreach (TooltipLine line2 in list)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                if (line2.Mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = Main.DiscoColor;
+                    line2.OverrideColor = Main.DiscoColor;
                 }
             }
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Acorn, 5);
-            recipe.AddRecipeGroup("IronBar", 5);
-            recipe.AddIngredient(ItemID.HellstoneBar, 5);
-            recipe.AddIngredient(ItemID.FrostCore, 5);
-            recipe.AddIngredient(ItemID.SoulofLight, 5);
-            recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 5);
-            recipe.AddIngredient(ItemID.Coral, 5);
-            recipe.AddIngredient(ItemID.LunarBar, 5);
+            CreateRecipe()
+            .AddIngredient(ItemID.Acorn, 5)
+            .AddRecipeGroup("IronBar", 5)
+            .AddIngredient(ItemID.HellstoneBar, 5)
+            .AddIngredient(ItemID.FrostCore, 5)
+            .AddIngredient(ItemID.SoulofLight, 5)
+            .AddIngredient(ItemID.SoulofNight, 5)
+            .AddIngredient(ItemID.AncientBattleArmorMaterial, 5)
+            .AddIngredient(ItemID.Coral, 5)
+            .AddIngredient(ItemID.LunarBar, 5)
 
-            //recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

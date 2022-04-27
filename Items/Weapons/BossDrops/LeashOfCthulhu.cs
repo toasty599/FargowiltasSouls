@@ -10,30 +10,31 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Leash of Cthulhu");
             Tooltip.SetDefault("'The mutilated carcass of a defeated foe...'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "克苏鲁连枷");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'被打败的敌人的残尸...'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "克苏鲁连枷");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'被打败的敌人的残尸...'");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 13;
-            item.width = 30;
-            item.height = 10;
-            item.value = Item.sellPrice(0, 1);
-            item.rare = ItemRarityID.Blue;
-            item.noMelee = true;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.useAnimation = 25;
-            item.useTime = 25;
-            item.knockBack = 4f;
-            item.noUseGraphic = true;
-            item.shoot = ModContent.ProjectileType<LeashFlail>();
-            item.shootSpeed = 25f;
-            item.UseSound = SoundID.Item1;
-            item.melee = true;
-            item.autoReuse = true;
+            Item.damage = 13;
+            Item.width = 30;
+            Item.height = 10;
+            Item.value = Item.sellPrice(0, 1);
+            Item.rare = ItemRarityID.Blue;
+            Item.noMelee = true;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useAnimation = 25;
+            Item.useTime = 25;
+            Item.knockBack = 4f;
+            Item.noUseGraphic = true;
+            Item.shoot = ModContent.ProjectileType<LeashFlail>();
+            Item.shootSpeed = 25f;
+            Item.UseSound = SoundID.Item1;
+            Item.DamageType = DamageClass.Melee;
+            Item.autoReuse = true;
         }
     }
 }

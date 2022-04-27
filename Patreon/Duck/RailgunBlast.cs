@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,64 +15,66 @@ namespace FargowiltasSouls.Patreon.Duck
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Railgun Blast");
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            cooldownSlot = -1;
-            projectile.hostile = false;
-            projectile.friendly = true;
-            projectile.ranged = true;
+            CooldownSlot = -1;
+            Projectile.hostile = false;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Ranged;
 
-            projectile.hide = true;
-            projectile.penetrate = -1;
+            Projectile.hide = true;
+            Projectile.penetrate = -1;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 20;
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 20;
 
             Vector2? vector78 = null;
-            if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
+            if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)
             {
-                projectile.velocity = -Vector2.UnitY;
+                Projectile.velocity = -Vector2.UnitY;
             }
 
             float num801 = 10f;
-            projectile.scale = (float)Math.Cos(projectile.localAI[0] * MathHelper.PiOver2 / maxTime) * num801;
-            if (projectile.scale > num801)
-                projectile.scale = num801;
+            Projectile.scale = (float)Math.Cos(Projectile.localAI[0] * MathHelper.PiOver2 / maxTime) * num801;
+            if (Projectile.scale > num801)
+                Projectile.scale = num801;
 
             if (player.active && !player.dead && !player.ghost)
             {
-                projectile.Center = player.Center + (18f * projectile.scale + 50f) * projectile.velocity + Main.rand.NextVector2Circular(5, 5);
+                Projectile.Center = player.Center + (18f * Projectile.scale + 50f) * Projectile.velocity + Main.rand.NextVector2Circular(5, 5);
             }
             else
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            if (projectile.localAI[0] == 0f)
+            if (Projectile.localAI[0] == 0f)
             {
-                projectile.frame = Main.rand.Next(15);
+                Projectile.frame = Main.rand.Next(15);
                 if (!Main.dedServ)
                 {
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Railgun"), projectile.Center);
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(0.5f), projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Railgun"), Projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder"), player.Center + Projectile.velocity * Math.Min(Main.screenWidth / 2, 900f));
                 }
 
-                Vector2 dustPos = player.Center + projectile.velocity * 50f;
+                Vector2 dustPos = player.Center + Projectile.velocity * 50f;
 
                 for (int i = 0; i < 40; i++)
                 {
                     int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 31, 0f, 0f, 100, default(Color), 4f);
-                    Main.dust[dust].velocity -= projectile.velocity * 2;
+                    Main.dust[dust].velocity -= Projectile.velocity * 2;
                     Main.dust[dust].velocity *= 3f;
                     Main.dust[dust].velocity += player.velocity / 2;
                 }
@@ -81,12 +84,12 @@ namespace FargowiltasSouls.Patreon.Duck
                     int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 4f);
                     Main.dust[dust].scale *= Main.rand.NextFloat(1, 2.5f);
                     Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity -= projectile.velocity * 2;
+                    Main.dust[dust].velocity -= Projectile.velocity * 2;
                     Main.dust[dust].velocity = Main.dust[dust].velocity.RotatedByRandom(MathHelper.ToRadians(40)) * 6f;
                     Main.dust[dust].velocity *= Main.rand.NextFloat(1f, 3f);
                     Main.dust[dust].velocity += player.velocity / 2;
                     dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 4f);
-                    Main.dust[dust].velocity -= projectile.velocity * 2;
+                    Main.dust[dust].velocity -= Projectile.velocity * 2;
                     Main.dust[dust].velocity *= 5f;
                     Main.dust[dust].velocity *= Main.rand.NextFloat(1f, 2f);
                     Main.dust[dust].velocity += player.velocity / 2;
@@ -95,37 +98,37 @@ namespace FargowiltasSouls.Patreon.Duck
                 float scaleFactor9 = 2;
                 for (int j = 0; j < 20; j++)
                 {
-                    int gore = Gore.NewGore(dustPos, -projectile.velocity, Main.rand.Next(61, 64), scaleFactor9);
-                    Main.gore[gore].velocity -= projectile.velocity;
+                    int gore = Gore.NewGore(Projectile.GetSource_FromThis(), dustPos, -Projectile.velocity, Main.rand.Next(61, 64), scaleFactor9);
+                    Main.gore[gore].velocity -= Projectile.velocity;
                     Main.gore[gore].velocity.Y += 2f;
                     Main.gore[gore].velocity *= 4f;
                     Main.gore[gore].velocity += player.velocity / 2;
                 }
             }
             
-            if (++projectile.localAI[0] >= maxTime)
+            if (++Projectile.localAI[0] >= maxTime)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
-            //projectile.scale = num801;
-            //float num804 = projectile.velocity.ToRotation();
-            //num804 += projectile.ai[0];
-            //projectile.rotation = num804 - 1.57079637f;
-            //float num804 = Main.npc[(int)projectile.ai[1]].ai[3] - 1.57079637f;
-            //if (projectile.ai[0] != 0f) num804 -= (float)Math.PI;
-            //projectile.rotation = num804;
+            //Projectile.scale = num801;
+            //float num804 = Projectile.velocity.ToRotation();
+            //num804 += Projectile.ai[0];
+            //Projectile.rotation = num804 - 1.57079637f;
+            //float num804 = Main.npc[(int)Projectile.ai[1]].ai[3] - 1.57079637f;
+            //if (Projectile.ai[0] != 0f) num804 -= (float)Math.PI;
+            //Projectile.rotation = num804;
             //num804 += 1.57079637f;
-            //projectile.velocity = num804.ToRotationVector2();
+            //Projectile.velocity = num804.ToRotationVector2();
             float num805 = 3f;
-            float num806 = (float)projectile.width;
-            Vector2 samplingPoint = projectile.Center;
+            float num806 = (float)Projectile.width;
+            Vector2 samplingPoint = Projectile.Center;
             if (vector78.HasValue)
             {
                 samplingPoint = vector78.Value;
             }
             float[] array3 = new float[(int)num805];
-            //Collision.LaserScan(samplingPoint, projectile.velocity, num806 * projectile.scale, 3000f, array3);
+            //Collision.LaserScan(samplingPoint, Projectile.velocity, num806 * Projectile.scale, 3000f, array3);
             for (int i = 0; i < array3.Length; i++)
                 array3[i] = 3000f;
             float num807 = 0f;
@@ -137,11 +140,11 @@ namespace FargowiltasSouls.Patreon.Duck
             }
             num807 /= num805;
             float amount = 0.5f;
-            projectile.localAI[1] = MathHelper.Lerp(projectile.localAI[1], num807, amount);
-            /*Vector2 vector79 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 14f);
+            Projectile.localAI[1] = MathHelper.Lerp(Projectile.localAI[1], num807, amount);
+            /*Vector2 vector79 = Projectile.Center + Projectile.velocity * (Projectile.localAI[1] - 14f);
             for (int num809 = 0; num809 < 2; num809 = num3 + 1)
             {
-                float num810 = projectile.velocity.ToRotation() + ((Main.rand.Next(2) == 1) ? -1f : 1f) * 1.57079637f;
+                float num810 = Projectile.velocity.ToRotation() + ((Main.rand.Next(2) == 1) ? -1f : 1f) * 1.57079637f;
                 float num811 = (float)Main.rand.NextDouble() * 2f + 2f;
                 Vector2 vector80 = new Vector2((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
                 int num812 = Dust.NewDust(vector79, 0, 0, 244, vector80.X, vector80.Y, 0, default(Color), 1f);
@@ -151,20 +154,20 @@ namespace FargowiltasSouls.Patreon.Duck
             }
             if (Main.rand.NextBool(5))
             {
-                Vector2 value29 = projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * ((float)Main.rand.NextDouble() - 0.5f) * (float)projectile.width;
+                Vector2 value29 = Projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * ((float)Main.rand.NextDouble() - 0.5f) * (float)Projectile.width;
                 int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 244, 0f, 0f, 100, default(Color), 1.5f);
                 Dust dust = Main.dust[num813];
                 dust.velocity *= 0.5f;
                 Main.dust[num813].velocity.Y = -Math.Abs(Main.dust[num813].velocity.Y);
             }*/
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
-            //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
+            //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            projectile.position -= projectile.velocity;
-            projectile.rotation = projectile.velocity.ToRotation() - 1.57079637f;
+            Projectile.position -= Projectile.velocity;
+            Projectile.rotation = Projectile.velocity.ToRotation() - 1.57079637f;
 
-            if (++projectile.frame > 15)
-                projectile.frame = 0;
+            if (++Projectile.frame > 15)
+                Projectile.frame = 0;
 
             const int increment = 75;
             for (int i = 0; i < array3[0]; i += increment)
@@ -174,23 +177,23 @@ namespace FargowiltasSouls.Patreon.Duck
                     offset = 0;
                 if (offset > array3[0])
                     offset = array3[0];
-                float spawnRange = projectile.scale * 32f;
-                int d = Dust.NewDust(projectile.position + projectile.velocity * offset + projectile.velocity.RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-spawnRange, spawnRange),
-                    projectile.width, projectile.height, 87, 0f, 0f, 0, new Color(255, 255, 255, 150), Main.rand.NextFloat(2f, 4f));
+                float spawnRange = Projectile.scale * 32f;
+                int d = Dust.NewDust(Projectile.position + Projectile.velocity * offset + Projectile.velocity.RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-spawnRange, spawnRange),
+                    Projectile.width, Projectile.height, 87, 0f, 0f, 0, new Color(255, 255, 255, 150), Main.rand.NextFloat(2f, 4f));
                 Main.dust[d].noGravity = true;
-                Main.dust[d].velocity += projectile.velocity * 2f;
-                Main.dust[d].velocity *= Main.rand.NextFloat(12f, 24f) / 10f * projectile.scale;
+                Main.dust[d].velocity += Projectile.velocity * 2f;
+                Main.dust[d].velocity *= Main.rand.NextFloat(12f, 24f) / 10f * Projectile.scale;
             }
 
-            projectile.spriteDirection = Main.rand.NextBool() ? -1 : 1;
+            Projectile.spriteDirection = Main.rand.NextBool() ? -1 : 1;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[projectile.owner] = 12;
+            target.immune[Projectile.owner] = 12;
             target.AddBuff(BuffID.Electrified, 600);
 
-            if (projectile.owner == Main.myPlayer && Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] < 60)
+            if (Projectile.owner == Main.myPlayer && Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] < 60)
             {
                 const int max = 3;
                 int count = max;
@@ -201,24 +204,24 @@ namespace FargowiltasSouls.Patreon.Duck
                         if (--count < 0)
                             break;
                         Vector2 vel = Main.rand.NextFloat(10f, 20f) * target.DirectionTo(n.Center);
-                        Projectile.NewProjectile(target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
-                            projectile.damage / 10, projectile.knockBack / 10, projectile.owner, vel.ToRotation(), Main.rand.Next(80));
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
+                            Projectile.damage / 10, Projectile.knockBack / 10, Projectile.owner, vel.ToRotation(), Main.rand.Next(80));
                     }
                 }
                 int spray = (max + count) / 2;
                 for (int i = -spray; i <= spray; i++)
                 {
-                    Vector2 vel = Main.rand.NextFloat(10f, 20f) * projectile.velocity.RotatedBy(MathHelper.ToRadians(30) / spray * (i + Main.rand.NextFloat(-0.5f, 0.5f)));
-                    Projectile.NewProjectile(target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
-                        projectile.damage / 10, projectile.knockBack / 10, projectile.owner, vel.ToRotation(), Main.rand.Next(80));
+                    Vector2 vel = Main.rand.NextFloat(10f, 20f) * Projectile.velocity.RotatedBy(MathHelper.ToRadians(30) / spray * (i + Main.rand.NextFloat(-0.5f, 0.5f)));
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
+                        Projectile.damage / 10, Projectile.knockBack / 10, Projectile.owner, vel.ToRotation(), Main.rand.Next(80));
                 }
-                Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] += max * 2;
+                Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] += max * 2;
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            if (projectile.velocity == Vector2.Zero)
+            if (Projectile.velocity == Vector2.Zero)
             {
                 return false;
             }
@@ -227,23 +230,23 @@ namespace FargowiltasSouls.Patreon.Duck
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             ArmorShaderData shader = GameShaders.Armor.GetShaderFromItemId(ItemID.BrightYellowDye);
-            shader.Apply(projectile, new Terraria.DataStructures.DrawData?());
+            shader.Apply(Projectile, new Terraria.DataStructures.DrawData?());
 
-            SpriteEffects spriteEffects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally: SpriteEffects.None;
+            SpriteEffects spriteEffects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally: SpriteEffects.None;
 
-            Texture2D texture2D19 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray_" + projectile.frame.ToString());
-            Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray2_" + projectile.frame.ToString());
-            Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/" + texture + "3");
-            float num223 = projectile.localAI[1];
+            Texture2D texture2D19 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            Texture2D texture2D20 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Projectiles/Deathrays/{texture}2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D21 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Projectiles/Deathrays/{texture}3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            float num223 = Projectile.localAI[1];
             Color color44 = new Color(255, 255, 255, 150) * 0.95f;
             SpriteBatch arg_ABD8_0 = Main.spriteBatch;
             Texture2D arg_ABD8_1 = texture2D19;
-            Vector2 arg_ABD8_2 = projectile.Center - Main.screenPosition;
+            Vector2 arg_ABD8_2 = Projectile.Center - Main.screenPosition;
             Rectangle? sourceRectangle2 = null;
-            arg_ABD8_0.Draw(arg_ABD8_1, arg_ABD8_2, sourceRectangle2, color44, projectile.rotation, texture2D19.Size() / 2f, projectile.scale, spriteEffects, 0f);
-            num223 -= (texture2D19.Height / 2 + texture2D21.Height) * projectile.scale;
-            Vector2 value20 = projectile.Center;
-            value20 += projectile.velocity * projectile.scale * texture2D19.Height / 2f;
+            arg_ABD8_0.Draw(arg_ABD8_1, arg_ABD8_2, sourceRectangle2, color44, Projectile.rotation, texture2D19.Size() / 2f, Projectile.scale, spriteEffects, 0);
+            num223 -= (texture2D19.Height / 2 + texture2D21.Height) * Projectile.scale;
+            Vector2 value20 = Projectile.Center;
+            value20 += Projectile.velocity * Projectile.scale * texture2D19.Height / 2f;
             if (num223 > 0f)
             {
                 float num224 = 0f;
@@ -255,9 +258,9 @@ namespace FargowiltasSouls.Patreon.Duck
                         rectangle7.Height = (int)(num223 - num224);
                     }
 
-                    Main.spriteBatch.Draw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2(rectangle7.Width / 2, 0f), projectile.scale, spriteEffects, 0f);
-                    num224 += rectangle7.Height * projectile.scale;
-                    value20 += projectile.velocity * rectangle7.Height * projectile.scale;
+                    Main.EntitySpriteDraw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, Projectile.rotation, new Vector2(rectangle7.Width / 2, 0f), Projectile.scale, spriteEffects, 0);
+                    num224 += rectangle7.Height * Projectile.scale;
+                    value20 += Projectile.velocity * rectangle7.Height * Projectile.scale;
                     rectangle7.Y += 30;
                     if (rectangle7.Y + rectangle7.Height > texture2D20.Height)
                     {
@@ -265,11 +268,10 @@ namespace FargowiltasSouls.Patreon.Duck
                     }
                 }
             }
-            SpriteBatch arg_AE2D_0 = Main.spriteBatch;
             Texture2D arg_AE2D_1 = texture2D21;
             Vector2 arg_AE2D_2 = value20 - Main.screenPosition;
             sourceRectangle2 = null;
-            arg_AE2D_0.Draw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), projectile.scale, spriteEffects, 0f);
+            Main.EntitySpriteDraw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, Projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), Projectile.scale, spriteEffects, 0);
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);

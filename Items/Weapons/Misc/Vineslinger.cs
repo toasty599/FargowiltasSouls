@@ -1,5 +1,7 @@
+using FargowiltasSouls.Projectiles.JungleMimic;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Weapons.Misc
 {
@@ -7,29 +9,30 @@ namespace FargowiltasSouls.Items.Weapons.Misc
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Vineslinger");
             Tooltip.SetDefault("Hitting an enemy fires leaves");
         }
 
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 10;
-            item.value = Item.sellPrice(0, 8);
-            item.rare = ItemRarityID.LightRed;
-            item.noMelee = true;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.useAnimation = 40;
-            item.useTime = 40;
-            item.knockBack = 5.5f;
-            item.damage = 52;
-            item.scale = 1.1f;
-            item.noUseGraphic = true;
-            item.shoot = mod.ProjectileType("VineslingerBall");
-            item.shootSpeed = 30f;
-            item.UseSound = SoundID.Item1;
-            item.melee = true;
-            item.channel = true;
+            Item.width = 30;
+            Item.height = 10;
+            Item.value = Item.sellPrice(0, 8);
+            Item.rare = ItemRarityID.LightRed;
+            Item.noMelee = true;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useAnimation = 40;
+            Item.useTime = 40;
+            Item.knockBack = 5.5f;
+            Item.damage = 52;
+            Item.scale = 1.1f;
+            Item.noUseGraphic = true;
+            Item.shoot = ModContent.ProjectileType<VineslingerBall>();
+            Item.shootSpeed = 30f;
+            Item.UseSound = SoundID.Item1;
+            Item.DamageType = DamageClass.Melee;
+            Item.channel = true;
         }
     }
 }

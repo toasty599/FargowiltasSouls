@@ -4,65 +4,92 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
+using FargowiltasSouls.Projectiles.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class GladiatorEnchant : SoulsItem
+    public class GladiatorEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Gladiator Enchantment");
             Tooltip.SetDefault(
 @"Spears will rain down on struck enemies
 'Are you not entertained?'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "角斗士魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "角斗士魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"长矛将倾泄在被攻击的敌人身上
 '难道你不高兴吗？'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(156, 146, 78);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(156, 146, 78);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Green;
-            item.value = 40000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Green;
+            Item.value = 40000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().GladiatorEffect(hideVisual);
+            GladiatorEffect(player);
         }
+
+        public static void GladiatorEffect(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            modPlayer.GladiatorEnchantActive = true;
+
+            if (modPlayer.GladiatorCD > 0)
+            {
+                modPlayer.GladiatorCD--;
+            }
+        }
+
+        public static void GladiatorSpearDrop(FargoSoulsPlayer modPlayer, Item item, Projectile projectile, NPC target, int damage)
+        {
+            Player player = modPlayer.Player;
+            int spearDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+            spearDamage /= 4;
+
+            if (spearDamage > 0)
+            {
+                if (!modPlayer.TerrariaSoul)
+                    spearDamage = Math.Min(spearDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, 300));
+
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-300, 300), target.Center.Y - Main.rand.Next(600, 801));
+
+                    Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
+                    speed.Normalize();
+                    speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
+
+                    Projectile.NewProjectile(player.GetSource_Misc(""), spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
+                }
+
+                modPlayer.GladiatorCD = modPlayer.WillForce ? 10 : 30;
+            }
+        }
+
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
+                .AddIngredient(ItemID.GladiatorHelmet)
+                .AddIngredient(ItemID.GladiatorBreastplate)
+                .AddIngredient(ItemID.GladiatorLeggings)
+                .AddIngredient(ItemID.Spear)
+                .AddIngredient(ItemID.Gladius)
+                .AddIngredient(ItemID.BoneJavelin, 300)
 
-            recipe.AddIngredient(ItemID.GladiatorHelmet);
-            recipe.AddIngredient(ItemID.GladiatorBreastplate);
-            recipe.AddIngredient(ItemID.GladiatorLeggings);
-            recipe.AddIngredient(ItemID.Spear); //gladius
-            recipe.AddIngredient(ItemID.Javelin, 300);
-            recipe.AddIngredient(ItemID.BoneJavelin, 300);
-            
-            //recipe.AddIngredient(ItemID.TartarSauce);
-
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
 }

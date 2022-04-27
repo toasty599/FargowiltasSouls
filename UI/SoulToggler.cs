@@ -48,7 +48,7 @@ namespace FargowiltasSouls.UI
 
             Scrollbar = new UIScrollbar();
             Scrollbar.SetView(200f, 1000f);
-            Scrollbar.Width.Set(20, 0f);
+            Scrollbar.Width.Set(20, 0);
             Scrollbar.OverflowHidden = true;
             Scrollbar.OnScrollWheel += hotbarScrollFix;
 
@@ -57,57 +57,57 @@ namespace FargowiltasSouls.UI
             ToggleList.OnScrollWheel += hotbarScrollFix;
 
             BackPanel = new UIDragablePanel(Scrollbar, ToggleList);
-            BackPanel.Left.Set(0, 0f);
-            BackPanel.Top.Set(0, 0f);
-            BackPanel.Width.Set(BackWidth, 0f);
-            BackPanel.Height.Set(BackHeight, 0f);
+            BackPanel.Left.Set(0, 0);
+            BackPanel.Top.Set(0, 0);
+            BackPanel.Width.Set(BackWidth, 0);
+            BackPanel.Height.Set(BackHeight, 0);
             BackPanel.PaddingLeft = BackPanel.PaddingRight = BackPanel.PaddingTop = BackPanel.PaddingBottom = 0;
             BackPanel.BackgroundColor = new Color(29, 33, 70) * 0.7f;
 
             InnerPanel = new UIPanel();
-            InnerPanel.Width.Set(BackWidth - 12, 0f);
+            InnerPanel.Width.Set(BackWidth - 12, 0);
             InnerPanel.Height.Set(BackHeight - 70, 0);
-            InnerPanel.Left.Set(6, 0f);
-            InnerPanel.Top.Set(32, 0f);
+            InnerPanel.Left.Set(6, 0);
+            InnerPanel.Top.Set(32, 0);
             InnerPanel.BackgroundColor = new Color(73, 94, 171) * 0.9f;
 
             SearchBar = new UISearchBar(BackWidth - 8, 26);
-            SearchBar.Left.Set(4, 0f);
-            SearchBar.Top.Set(4, 0f);
+            SearchBar.Left.Set(4, 0);
+            SearchBar.Top.Set(4, 0);
             SearchBar.OnTextChange += SearchBar_OnTextChange;
 
-            ToggleList.Width.Set(InnerPanel.Width.Pixels - InnerPanel.PaddingLeft * 2f - Scrollbar.Width.Pixels, 0f);
-            ToggleList.Height.Set(InnerPanel.Height.Pixels - InnerPanel.PaddingTop * 2f, 0f);
+            ToggleList.Width.Set(InnerPanel.Width.Pixels - InnerPanel.PaddingLeft * 2f - Scrollbar.Width.Pixels, 0);
+            ToggleList.Height.Set(InnerPanel.Height.Pixels - InnerPanel.PaddingTop * 2f, 0);
 
-            Scrollbar.Height.Set(InnerPanel.Height.Pixels - 16, 0f);
-            Scrollbar.Left.Set(InnerPanel.Width.Pixels - Scrollbar.Width.Pixels - 18, 0f);
+            Scrollbar.Height.Set(InnerPanel.Height.Pixels - 16, 0);
+            Scrollbar.Left.Set(InnerPanel.Width.Pixels - Scrollbar.Width.Pixels - 18, 0);
 
             PresetPanel = new UIPanel();
-            PresetPanel.Left.Set(5, 0f);
-            PresetPanel.Top.Set(SearchBar.Height.Pixels + InnerPanel.Height.Pixels + 8, 0f);
-            PresetPanel.Width.Set(BackWidth - 10, 0f);
-            PresetPanel.Height.Set(32, 0f);
+            PresetPanel.Left.Set(5, 0);
+            PresetPanel.Top.Set(SearchBar.Height.Pixels + InnerPanel.Height.Pixels + 8, 0);
+            PresetPanel.Width.Set(BackWidth - 10, 0);
+            PresetPanel.Height.Set(32, 0);
             PresetPanel.PaddingTop = PresetPanel.PaddingBottom = 0;
             PresetPanel.PaddingLeft = PresetPanel.PaddingRight = 0;
             PresetPanel.BackgroundColor = new Color(74, 95, 172);
 
-            OffButton = new UIPresetButton(Fargowiltas.UserInterfaceManager.PresetOffButton, (toggles) => {
+            OffButton = new UIPresetButton(FargowiltasSouls.UserInterfaceManager.PresetOffButton.Value, (toggles) => {
                 toggles.SetAll(false);
             }, "Turn all toggles off");
-            OffButton.Top.Set(6, 0f);
-            OffButton.Left.Set(8, 0f);
+            OffButton.Top.Set(6, 0);
+            OffButton.Left.Set(8, 0);
 
-            OnButton = new UIPresetButton(Fargowiltas.UserInterfaceManager.PresetOnButton, (toggles) => {
+            OnButton = new UIPresetButton(FargowiltasSouls.UserInterfaceManager.PresetOnButton.Value, (toggles) => {
                 toggles.SetAll(true);
             }, "Turn all toggles on");
-            OnButton.Top.Set(6, 0f);
-            OnButton.Left.Set(30, 0f);
+            OnButton.Top.Set(6, 0);
+            OnButton.Left.Set(30, 0);
 
-            MinimalButton = new UIPresetButton(Fargowiltas.UserInterfaceManager.PresetMinimalButton, (toggles) => {
+            MinimalButton = new UIPresetButton(FargowiltasSouls.UserInterfaceManager.PresetMinimalButton.Value, (toggles) => {
                 toggles.MinimalEffects();
             }, "Minimal effects preset");
-            MinimalButton.Top.Set(6, 0f);
-            MinimalButton.Left.Set(52, 0f);
+            MinimalButton.Top.Set(6, 0);
+            MinimalButton.Left.Set(52, 0);
 
             Append(BackPanel);
             BackPanel.Append(InnerPanel);
@@ -147,7 +147,7 @@ namespace FargowiltasSouls.UI
         {
             ToggleList.Clear();
             Player player = Main.LocalPlayer;
-            ToggleBackend toggler = player.GetModPlayer<FargoPlayer>().Toggler;
+            ToggleBackend toggler = player.GetModPlayer<FargoSoulsPlayer>().Toggler;
 
             IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) => {
                 string[] words = GetRawToggleName(toggle.InternalName).Split(' ');
@@ -214,8 +214,8 @@ namespace FargowiltasSouls.UI
 
         public void SetPositionToPoint(Point point)
         {
-            BackPanel.Left.Set(point.X, 0f);
-            BackPanel.Top.Set(point.Y, 0f);
+            BackPanel.Left.Set(point.X, 0);
+            BackPanel.Top.Set(point.Y, 0);
         }
 
         public Point GetPositionAsPoint() => new Point((int)BackPanel.Left.Pixels, (int)BackPanel.Top.Pixels);

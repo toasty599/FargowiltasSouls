@@ -1,28 +1,135 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Projectiles;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Chat;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Projectiles;
 using Terraria.Localization;
+using Terraria.ModLoader;
+using FargowiltasSouls.NPCs;
+using FargowiltasSouls.ItemDropRules.Conditions;
+using Terraria.GameContent.ItemDropRules;
+//using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls
 {
     public static class FargoSoulsUtil
     {
-        public static Projectile[] XWay(int num, Vector2 pos, int type, float speed, int damage, float knockback)
+        public static bool WorldIsExpertOrHarder()
+        {
+            return Main.expertMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 2);
+        }
+
+        public static bool WorldIsMaster()
+        {
+            return Main.masterMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 3);
+        }
+
+        public static void AddDebuffFixedDuration(Player player, int buffID, int intendedTime)
+        {
+            if (WorldIsExpertOrHarder() && BuffID.Sets.LongerExpertDebuff[buffID])
+            {
+                float debuffTimeMultiplier = Main.GameModeInfo.DebuffTimeMultiplier;
+                if (Main.GameModeInfo.IsJourneyMode)
+                {
+                    if (Main.masterMode)
+                        debuffTimeMultiplier = Main.RegisteredGameModes[2].DebuffTimeMultiplier;
+                    else if (Main.expertMode)
+                        debuffTimeMultiplier = Main.RegisteredGameModes[1].DebuffTimeMultiplier;
+                }
+                player.AddBuff(buffID, (int)Math.Round(intendedTime / debuffTimeMultiplier, MidpointRounding.ToEven));
+            }
+            else
+            {
+                player.AddBuff(buffID, intendedTime);
+            }
+        }
+
+        //npcDamageCalcsOffset because i wrote all the code around expert mode and my npcs do same contact damage in normal and expert
+        public static int ScaledProjectileDamage(int npcDamage, float modifier = 1, int npcDamageCalculationsOffset = 2)
+        {
+            const float inherentHostileProjMultiplier = 2;
+            float worldDamage = Main.GameModeInfo.IsJourneyMode
+                ? CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs
+                : Main.GameModeInfo.EnemyDamageMultiplier;
+            return (int)(modifier * npcDamage / inherentHostileProjMultiplier / Math.Max(npcDamageCalculationsOffset, worldDamage));
+        }
+
+        public static void AllCritEquals(Player player, int crit)
+        {
+            player.GetCritChance(DamageClass.Generic) = crit;
+            player.GetCritChance(DamageClass.Melee) = 0;
+            player.GetCritChance(DamageClass.Ranged) = 0;
+            player.GetCritChance(DamageClass.Magic) = 0;
+            player.GetModPlayer<FargoSoulsPlayer>().SummonCrit = 0;
+        }
+
+        public static float ActualClassDamage(this Player player, DamageClass damageClass)
+            => (float)player.GetDamage(DamageClass.Generic).Additive + (float)player.GetDamage(damageClass).Additive - 1f;
+
+        /// <summary>
+        /// Gets the real crit chance for the damage type, including buffs to all damage.<br/>
+        /// Includes summoner, which uses our internal modPlayer SummonCrit and accounts for Spider Ench nerf!<br/>
+        /// Returns 0 if the class is no scaling
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="damageClass"></param>
+        /// <returns></returns>
+        public static int ActualClassCrit(this Player player, DamageClass damageClass)
+        {
+            if (damageClass == DamageClass.Summon)
+                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + (int)player.GetCritChance(DamageClass.Generic) / (player.GetModPlayer<FargoSoulsPlayer>().LifeForce ? 1 : 2);
+
+            if (damageClass == DamageClass.Default)
+                return 0;
+
+            return (int)player.GetCritChance(damageClass) + (int)player.GetCritChance(DamageClass.Generic);
+        }
+
+        public static int HighestDamageTypeScaling(Player player, int dmg)
+        {
+            List<float> types = new List<float> {  
+                player.ActualClassDamage(DamageClass.Melee),
+                player.ActualClassDamage(DamageClass.Ranged),
+                player.ActualClassDamage(DamageClass.Magic),
+                player.ActualClassDamage(DamageClass.Summon)
+            };
+
+            return (int)(types.Max() * dmg);
+        }
+
+        public static int HighestCritChance(Player player)
+        {
+            List<int> types = new List<int> { 
+                player.ActualClassCrit(DamageClass.Melee), 
+                player.ActualClassCrit(DamageClass.Ranged), 
+                player.ActualClassCrit(DamageClass.Magic),
+                player.ActualClassCrit(DamageClass.Summon)
+            };
+
+            //Main.NewText(player.GetCritChance(DamageClass.Melee) + " " + player.GetCritChance(DamageClass.Ranged) + " " + player.GetCritChance(DamageClass.Magic));
+
+            return types.Max();
+        }
+
+        public static Projectile[] XWay(int num, IEntitySource spawnSource, Vector2 pos, int type, float speed, int damage, float knockback)
         {
             Projectile[] projs = new Projectile[num];
             double spread = 2 * Math.PI / num;
             for (int i = 0; i < num; i++)
-                projs[i] = NewProjectileDirectSafe(pos, new Vector2(speed, speed).RotatedBy(spread * i), type, damage, knockback, Main.myPlayer);
+                projs[i] = NewProjectileDirectSafe(spawnSource, pos, new Vector2(speed, speed).RotatedBy(spread * i), type, damage, knockback, Main.myPlayer);
             return projs;
         }
 
-        public static Projectile NewProjectileDirectSafe(Vector2 pos, Vector2 vel, int type, int damage, float knockback, int owner = 255, float ai0 = 0f, float ai1 = 0f)
+        public static Projectile NewProjectileDirectSafe(IEntitySource spawnSource, Vector2 pos, Vector2 vel, int type, int damage, float knockback, int owner = 255, float ai0 = 0f, float ai1 = 0f)
         {
-            int p = Projectile.NewProjectile(pos, vel, type, damage, knockback, owner, ai0, ai1);
+            int p = Projectile.NewProjectile(spawnSource, pos, vel, type, damage, knockback, owner, ai0, ai1);
             return p < Main.maxProjectiles ? Main.projectile[p] : null;
         }
 
@@ -44,26 +151,26 @@ namespace FargowiltasSouls
             return -1;
         }
 
-        public static bool IsMinionDamage(Projectile projectile, bool includeMinionShot = true)
+        public static bool IsSummonDamage(Projectile projectile, bool includeMinionShot = true, bool includeWhips = true)
         {
-            if (projectile.melee || projectile.ranged || projectile.magic)
-                return false;
-            return projectile.minion || projectile.sentry || projectile.minionSlots > 0 || (includeMinionShot && (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]));
+            return projectile.DamageType == DamageClass.Summon || projectile.minion || projectile.sentry || projectile.minionSlots > 0 || ProjectileID.Sets.MinionSacrificable[projectile.type]
+                || (includeMinionShot && (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
+                || (includeWhips && ProjectileID.Sets.IsAWhip[projectile.type]);
         }
 
-        public static bool CanDeleteProjectile(Projectile projectile, int deletionRank = 0)
+        public static bool CanDeleteProjectile(Projectile projectile, int deletionRank = 0, bool clearSummonProjs = false)
         {
             if (!projectile.active)
                 return false;
             if (projectile.damage <= 0)
                 return false;
-            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank > deletionRank)
+            if (projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank > deletionRank)
                 return false;
             if (projectile.friendly)
             {
                 if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
                     return false;
-                if (IsMinionDamage(projectile, false))
+                if (IsSummonDamage(projectile, false) && !clearSummonProjs)
                     return false;
             }
             return true;
@@ -71,7 +178,7 @@ namespace FargowiltasSouls
 
         public static Player PlayerExists(int whoAmI)
         {
-            return whoAmI > -1 && whoAmI < Main.maxPlayers && Main.player[whoAmI].active /*&& !Main.player[whoAmI].dead*/ && !Main.player[whoAmI].ghost ? Main.player[whoAmI] : null;
+            return whoAmI > -1 && whoAmI < Main.maxPlayers && Main.player[whoAmI].active && !Main.player[whoAmI].dead && !Main.player[whoAmI].ghost ? Main.player[whoAmI] : null;
         }
 
         public static Player PlayerExists(float whoAmI)
@@ -134,17 +241,17 @@ namespace FargowiltasSouls
 
         public static bool AnyBossAlive()
         {
-            if (EModeGlobalNPC.boss == -1)
+            if (FargoSoulsGlobalNPC.boss == -1)
                 return false;
-            if (Main.npc[EModeGlobalNPC.boss].active && (Main.npc[EModeGlobalNPC.boss].boss || Main.npc[EModeGlobalNPC.boss].type == NPCID.EaterofWorldsHead))
+            if (Main.npc[FargoSoulsGlobalNPC.boss].active && (Main.npc[FargoSoulsGlobalNPC.boss].boss || Main.npc[FargoSoulsGlobalNPC.boss].type == NPCID.EaterofWorldsHead))
                 return true;
-            EModeGlobalNPC.boss = -1;
+            FargoSoulsGlobalNPC.boss = -1;
             return false;
         }
 
-        public static void ClearFriendlyProjectiles(int deletionRank = 0, int bossNpc = -1)
+        public static void ClearFriendlyProjectiles(int deletionRank = 0, int bossNpc = -1, bool clearSummonProjs = false)
         {
-            ClearProjectiles(false, true, deletionRank, bossNpc);
+            ClearProjectiles(false, true, deletionRank, bossNpc, clearSummonProjs);
         }
 
         public static void ClearHostileProjectiles(int deletionRank = 0, int bossNpc = -1)
@@ -152,12 +259,12 @@ namespace FargowiltasSouls
             ClearProjectiles(true, false, deletionRank, bossNpc);
         }
 
-        public static void ClearAllProjectiles(int deletionRank = 0, int bossNpc = -1)
+        public static void ClearAllProjectiles(int deletionRank = 0, int bossNpc = -1, bool clearSummonProjs = false)
         {
-            ClearProjectiles(true, true, deletionRank, bossNpc);
+            ClearProjectiles(true, true, deletionRank, bossNpc, clearSummonProjs);
         }
 
-        private static void ClearProjectiles(bool clearHostile, bool clearFriendly, int deletionRank = 0, int bossNpc = -1)
+        private static void ClearProjectiles(bool clearHostile, bool clearFriendly, int deletionRank = 0, int bossNpc = -1, bool clearSummonProjs = false)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
@@ -170,7 +277,7 @@ namespace FargowiltasSouls
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile projectile = Main.projectile[i];
-                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile, deletionRank))
+                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile, deletionRank, clearSummonProjs))
                     {
                         projectile.Kill();
                     }
@@ -205,31 +312,31 @@ namespace FargowiltasSouls
                 }
             }
 
-            int index3 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index3 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index3].scale = 1.5f;
             Main.gore[index3].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index3].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index3].velocity *= 0.4f;
 
-            int index4 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index4 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index4].scale = 1.5f;
             Main.gore[index4].velocity.X = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index4].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index4].velocity *= 0.4f;
 
-            int index5 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index5 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index5].scale = 1.5f;
             Main.gore[index5].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index5].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index5].velocity *= 0.4f;
 
-            int index6 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index6 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index6].scale = 1.5f;
             Main.gore[index6].velocity.X = 1.5f - Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index6].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index6].velocity *= 0.4f;
 
-            int index7 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index7 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index7].scale = 1.5f;
             Main.gore[index7].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index7].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
@@ -290,16 +397,23 @@ namespace FargowiltasSouls
             }
             else if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), color);
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), color);
             }
+        }
+
+        public static void PrintText(string text, int r, int g, int b) => PrintText(text, new Color(r, g, b));
+
+        public static Vector2 ClosestPointInHitbox(Rectangle hitboxOfTarget, Vector2 desiredLocation)
+        {
+            Vector2 offset = desiredLocation - hitboxOfTarget.Center.ToVector2();
+            offset.X = Math.Min(Math.Abs(offset.X), hitboxOfTarget.Width / 2) * Math.Sign(offset.X);
+            offset.Y = Math.Min(Math.Abs(offset.Y), hitboxOfTarget.Height / 2) * Math.Sign(offset.Y);
+            return hitboxOfTarget.Center.ToVector2() + offset;
         }
 
         public static Vector2 ClosestPointInHitbox(Entity entity, Vector2 desiredLocation)
         {
-            Vector2 offset = desiredLocation - entity.Center;
-            offset.X = Math.Min(Math.Abs(offset.X), entity.width / 2) * Math.Sign(offset.X);
-            offset.Y = Math.Min(Math.Abs(offset.Y), entity.height / 2) * Math.Sign(offset.Y);
-            return entity.Center + offset;
+            return ClosestPointInHitbox(entity.Hitbox, desiredLocation);
         }
 
         public static void HeartDust(Vector2 position, float rotationOffset = MathHelper.PiOver2, Vector2 addedVel = default)
@@ -312,11 +426,441 @@ namespace FargowiltasSouls
                 dustPos.Y *= -1;
                 dustPos = dustPos.RotatedBy(rotationOffset - MathHelper.PiOver2);
 
-                int d = Dust.NewDust(position, 0, 0, 86, 0f);
+                int d = Dust.NewDust(position, 0, 0, 86, 0);
                 Main.dust[d].velocity = dustPos * 0.25f + addedVel;
                 Main.dust[d].scale = 2f;
                 Main.dust[d].noGravity = true;
             }
         }
+
+        public static int NewSummonProjectile(IEntitySource source, Vector2 spawn, Vector2 velocity, int type, int rawBaseDamage, float knockback, int owner = 255, float ai0 = 0, float ai1 = 1)
+        {
+            int p = Projectile.NewProjectile(source, spawn, velocity, type, rawBaseDamage, knockback, owner, ai0, ai1);
+            if (p != Main.maxProjectiles)
+                Main.projectile[p].originalDamage = rawBaseDamage;
+            return p;
+        }
+
+        public static int NewNPCEasy(IEntitySource source, Vector2 spawnPos, int type, int start = 0, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, int target = 255, Vector2 velocity = default)
+        {
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                return Main.maxNPCs;
+
+            int n = NPC.NewNPC(source, (int)spawnPos.X, (int)spawnPos.Y, type, start, ai0, ai1, ai2, ai3, target);
+            if (n != Main.maxNPCs)
+            {
+                if (velocity != default)
+                {
+                    Main.npc[n].velocity = velocity;
+                }
+
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+            }
+
+            return n;
+        }
+
+        public static bool LockEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)
+        {
+            EModeEarlyBirdLockDropCondition lockCondition = new EModeEarlyBirdLockDropCondition();
+            IItemDropRule conditionalRule = new LeadingConditionRule(lockCondition);
+            conditionalRule.OnSuccess(rule);
+            npcLoot.Add(conditionalRule);
+            return true;
+        }
+
+        public static void AddEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)
+        {
+            EModeEarlyBirdRewardDropCondition dropCondition = new EModeEarlyBirdRewardDropCondition();
+            IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
+            conditionalRule.OnSuccess(rule);
+            npcLoot.Add(conditionalRule);
+        }
+
+        public static void EModeDrop(NPCLoot npcLoot, IItemDropRule rule)
+        {
+            EModeDropCondition dropCondition = new EModeDropCondition();
+            IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
+            conditionalRule.OnSuccess(rule);
+            npcLoot.Add(conditionalRule);
+        }
+
+        public static IItemDropRule BossBagDropCustom(int itemType, int amount = 1)
+        {
+            return new DropLocalPerClientAndResetsNPCMoneyTo0(itemType, 1, amount, amount, null);
+        }
+
+        /// ALL below From BaseDrawing meme, only used in golem Gib?? prob destroy, update
+
+        #region basedrawing
+
+
+        /*
+         * Draws the given texture using the override color.
+         * Uses a Entity for width, height, position, rotation, and sprite direction.
+         */
+        public static void DrawTexture(object sb, Texture2D texture, int shader, Entity codable, Color? overrideColor = null, bool drawCentered = false, Vector2 overrideOrigin = default)
+        {
+            DrawTexture(sb, texture, shader, codable, 1, overrideColor, drawCentered, overrideOrigin);
+        }
+
+        /*
+         * Draws the given texture using the override color.
+         * Uses a Entity for width, height, position, rotation, and sprite direction.
+         */
+        public static void DrawTexture(object sb, Texture2D texture, int shader, Entity codable, int framecountX, Color? overrideColor = null, bool drawCentered = false, Vector2 overrideOrigin = default)
+        {
+            Color lightColor = (overrideColor != null ? (Color)overrideColor : codable is Item ? ((Item)codable).GetAlpha(GetLightColor(codable.Center)) : codable is NPC ? GetNPCColor(((NPC)codable), codable.Center, false) : codable is Projectile ? ((Projectile)codable).GetAlpha(GetLightColor(codable.Center)) : GetLightColor(codable.Center));
+            int frameCount = (codable is Item ? 1 : codable is NPC ? Main.npcFrameCount[((NPC)codable).type] : 1);
+            Rectangle frame = (codable is NPC ? ((NPC)codable).frame : new Rectangle(0, 0, texture.Width, texture.Height));
+            float scale = (codable is Item ? ((Item)codable).scale : codable is NPC ? ((NPC)codable).scale : ((Projectile)codable).scale);
+            float rotation = (codable is Item ? 0 : codable is NPC ? ((NPC)codable).rotation : ((Projectile)codable).rotation);
+            int spriteDirection = (codable is Item ? 1 : codable is NPC ? ((NPC)codable).spriteDirection : ((Projectile)codable).spriteDirection);
+            float offsetY = (codable is NPC ? ((NPC)codable).gfxOffY : 0f);
+            DrawTexture(sb, texture, shader, codable.position + new Vector2(0f, offsetY), codable.width, codable.height, scale, rotation, spriteDirection, frameCount, framecountX, frame, lightColor, drawCentered, overrideOrigin);
+        }
+
+        public static void DrawTexture(object sb, Texture2D texture, int shader, Vector2 position, int width, int height, float scale, float rotation, int direction, int framecount, Rectangle frame, Color? overrideColor = null, bool drawCentered = false, Vector2 overrideOrigin = default)
+        {
+            DrawTexture(sb, texture, shader, position, width, height, scale, rotation, direction, framecount, 1, frame, overrideColor, drawCentered, overrideOrigin);
+        }
+
+        /*
+         * Draws the given texture using lighting nearby, or the overriden color given.
+         */
+        public static void DrawTexture(object sb, Texture2D texture, int shader, Vector2 position, int width, int height, float scale, float rotation, int direction, int framecount, int framecountX, Rectangle frame, Color? overrideColor = null, bool drawCentered = false, Vector2 overrideOrigin = default)
+        {
+            Vector2 origin = overrideOrigin != default ? overrideOrigin : new Vector2(frame.Width / framecountX / 2, texture.Height / framecount / 2);
+            Color lightColor = overrideColor != null ? (Color)overrideColor : GetLightColor(position + new Vector2(width * 0.5f, height * 0.5f));
+            if (sb is List<DrawData>)
+            {
+                DrawData dd = new DrawData(texture, GetDrawPosition(position, origin, width, height, texture.Width, texture.Height, frame, framecount, framecountX, scale, drawCentered), frame, lightColor, rotation, origin, scale, direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                dd.shader = shader;
+                ((List<DrawData>)sb).Add(dd);
+            }
+            else if (sb is SpriteBatch)
+            {
+                bool applyDye = shader > 0;
+                if (applyDye)
+                {
+                    ((SpriteBatch)sb).End();
+                    ((SpriteBatch)sb).Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                    GameShaders.Armor.ApplySecondary(shader, Main.player[Main.myPlayer], null);
+                }
+               ((SpriteBatch)sb).Draw(texture, GetDrawPosition(position, origin, width, height, texture.Width, texture.Height, frame, framecount, framecountX, scale, drawCentered), frame, lightColor, rotation, origin, scale, direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                if (applyDye)
+                {
+                    ((SpriteBatch)sb).End();
+                    ((SpriteBatch)sb).Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                }
+            }
+        }
+
+        public static Color GetNPCColor(NPC npc, Vector2? position = null, bool effects = true, float shadowOverride = 0f)
+        {
+            return npc.GetAlpha(BuffEffects(npc, GetLightColor(position != null ? (Vector2)position : npc.Center), (shadowOverride != 0f ? shadowOverride : 0f), effects, npc.poisoned, npc.onFire, npc.onFire2, Main.player[Main.myPlayer].detectCreature, false, false, false, npc.venom, npc.midas, npc.ichor, npc.onFrostBurn, false, false, npc.dripping, npc.drippingSlime, npc.loveStruck, npc.stinky));
+        }
+
+        /*
+         * Convenience method for getting lighting color using an npc or projectile position.
+         */
+        public static Color GetLightColor(Vector2 position)
+        {
+            return Lighting.GetColor((int)(position.X / 16f), (int)(position.Y / 16f));
+        }
+
+        /*
+         * Returns the draw position of a texture for npcs and projectiles.
+         */
+        public static Vector2 GetDrawPosition(Vector2 position, Vector2 origin, int width, int height, int texWidth, int texHeight, Rectangle frame, int framecount, float scale, bool drawCentered = false)
+        {
+            return GetDrawPosition(position, origin, width, height, texWidth, texHeight, frame, framecount, 1, scale, drawCentered);
+        }
+
+        /*
+         * Returns the draw position of a texture for npcs and projectiles.
+         */
+        public static Vector2 GetDrawPosition(Vector2 position, Vector2 origin, int width, int height, int texWidth, int texHeight, Rectangle frame, int framecount, int framecountX, float scale, bool drawCentered = false)
+        {
+            Vector2 screenPos = new Vector2((int)Main.screenPosition.X, (int)Main.screenPosition.Y);
+            if (drawCentered)
+            {
+                Vector2 texHalf = new Vector2(texWidth / framecountX / 2, texHeight / framecount / 2);
+                return position + new Vector2(width / 2, height / 2) - (texHalf * scale) + (origin * scale) - screenPos;
+            }
+            return position - screenPos + new Vector2(width / 2, height) - (new Vector2(texWidth / framecountX / 2, texHeight / framecount) * scale) + (origin * scale) + new Vector2(0f, 5f);
+        }
+
+        /*
+         * Applies buff coloring and spawns effects based on if the effect is true or false. 
+         */
+        public static Color BuffEffects(Entity codable, Color lightColor, float shadow = 0f, bool effects = true, bool poisoned = false, bool onFire = false, bool onFire2 = false, bool hunter = false, bool noItems = false, bool blind = false, bool bleed = false, bool venom = false, bool midas = false, bool ichor = false, bool onFrostBurn = false, bool burned = false, bool honey = false, bool dripping = false, bool drippingSlime = false, bool loveStruck = false, bool stinky = false)
+        {
+            float cr = 1f; float cg = 1f; float cb = 1f; float ca = 1f;
+            if (effects && honey && Main.rand.NextBool(30))
+            {
+                int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 152, 0f, 0f, 150, default, 1f);
+                Main.dust[dustID].velocity.Y = 0.3f;
+                Main.dust[dustID].velocity.X *= 0.1f;
+                Main.dust[dustID].scale += Main.rand.Next(3, 4) * 0.1f;
+                Main.dust[dustID].alpha = 100;
+                Main.dust[dustID].noGravity = true;
+                Main.dust[dustID].velocity += codable.velocity * 0.1f;
+                //if (codable is Player) Main.playerDrawDust.Add(dustID);
+            }
+            if (poisoned)
+            {
+                if (effects && Main.rand.NextBool(30))
+                {
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 46, 0f, 0f, 120, default, 0.2f);
+                    Main.dust[dustID].noGravity = true;
+                    Main.dust[dustID].fadeIn = 1.9f;
+                    //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                }
+                cr *= 0.65f;
+                cb *= 0.75f;
+            }
+            if (venom)
+            {
+                if (effects && Main.rand.NextBool(10))
+                {
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 171, 0f, 0f, 100, default, 0.5f);
+                    Main.dust[dustID].noGravity = true;
+                    Main.dust[dustID].fadeIn = 1.5f;
+                    //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                }
+                cg *= 0.45f;
+                cr *= 0.75f;
+            }
+            if (midas)
+            {
+                cb *= 0.3f;
+                cr *= 0.85f;
+            }
+            if (ichor)
+            {
+                if (codable is NPC) { lightColor = new Color(255, 255, 0, 255); } else { cb = 0f; }
+            }
+            if (burned)
+            {
+                if (effects)
+                {
+                    int dustID = Dust.NewDust(new Vector2(codable.position.X - 2f, codable.position.Y - 2f), codable.width + 4, codable.height + 4, 6, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 2f);
+                    Main.dust[dustID].noGravity = true;
+                    Main.dust[dustID].velocity *= 1.8f;
+                    Main.dust[dustID].velocity.Y -= 0.75f;
+                    //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                }
+                if (codable is Player)
+                {
+                    cr = 1f;
+                    cb *= 0.6f;
+                    cg *= 0.7f;
+                }
+            }
+            if (onFrostBurn)
+            {
+                if (effects)
+                {
+                    if (Main.rand.Next(4) < 3)
+                    {
+                        int dustID = Dust.NewDust(new Vector2(codable.position.X - 2f, codable.position.Y - 2f), codable.width + 4, codable.height + 4, 135, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 3.5f);
+                        Main.dust[dustID].noGravity = true;
+                        Main.dust[dustID].velocity *= 1.8f;
+                        Main.dust[dustID].velocity.Y -= 0.5f;
+                        if (Main.rand.NextBool(4))
+                        {
+                            Main.dust[dustID].noGravity = false;
+                            Main.dust[dustID].scale *= 0.5f;
+                        }
+                        //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                    }
+                    Lighting.AddLight((int)(codable.position.X / 16f), (int)(codable.position.Y / 16f + 1f), 0.1f, 0.6f, 1f);
+                }
+                if (codable is Player)
+                {
+                    cr *= 0.5f;
+                    cg *= 0.7f;
+                }
+            }
+            if (onFire)
+            {
+                if (effects)
+                {
+                    if (Main.rand.Next(4) != 0)
+                    {
+                        int dustID = Dust.NewDust(codable.position - new Vector2(2f, 2f), codable.width + 4, codable.height + 4, 6, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 3.5f);
+                        Main.dust[dustID].noGravity = true;
+                        Main.dust[dustID].velocity *= 1.8f;
+                        Main.dust[dustID].velocity.Y -= 0.5f;
+                        if (Main.rand.NextBool(4))
+                        {
+                            Main.dust[dustID].noGravity = false;
+                            Main.dust[dustID].scale *= 0.5f;
+                        }
+                        //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                    }
+                    Lighting.AddLight((int)(codable.position.X / 16f), (int)(codable.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
+                }
+                if (codable is Player)
+                {
+                    cb *= 0.6f;
+                    cg *= 0.7f;
+                }
+            }
+            if (dripping && shadow == 0f && Main.rand.Next(4) != 0)
+            {
+                Vector2 position = codable.position;
+                position.X -= 2f; position.Y -= 2f;
+                if (Main.rand.NextBool())
+                {
+                    int dustID = Dust.NewDust(position, codable.width + 4, codable.height + 2, 211, 0f, 0f, 50, default, 0.8f);
+                    if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
+                    if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
+                    Main.dust[dustID].noLight = true;
+                    Main.dust[dustID].velocity *= 0.2f;
+                    Main.dust[dustID].velocity.Y += 0.2f;
+                    Main.dust[dustID].velocity += codable.velocity;
+                    //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                }
+                else
+                {
+                    int dustID = Dust.NewDust(position, codable.width + 8, codable.height + 8, 211, 0f, 0f, 50, default, 1.1f);
+                    if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
+                    if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
+                    Main.dust[dustID].noLight = true;
+                    Main.dust[dustID].noGravity = true;
+                    Main.dust[dustID].velocity *= 0.2f;
+                    Main.dust[dustID].velocity.Y += 1f;
+                    Main.dust[dustID].velocity += codable.velocity;
+                    //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                }
+            }
+            if (drippingSlime && shadow == 0f)
+            {
+                int alpha = 175;
+                Color newColor = new Color(0, 80, 255, 100);
+                if (Main.rand.Next(4) != 0)
+                {
+                    if (Main.rand.NextBool())
+                    {
+                        Vector2 position2 = codable.position;
+                        position2.X -= 2f; position2.Y -= 2f;
+                        int dustID = Dust.NewDust(position2, codable.width + 4, codable.height + 2, 4, 0f, 0f, alpha, newColor, 1.4f);
+                        if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
+                        if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
+                        Main.dust[dustID].noLight = true;
+                        Main.dust[dustID].velocity *= 0.2f;
+                        Main.dust[dustID].velocity.Y += 0.2f;
+                        Main.dust[dustID].velocity += codable.velocity;
+                        //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                    }
+                }
+                cr *= 0.8f;
+                cg *= 0.8f;
+            }
+            if (onFire2)
+            {
+                if (effects)
+                {
+                    if (Main.rand.Next(4) != 0)
+                    {
+                        int dustID = Dust.NewDust(codable.position - new Vector2(2f, 2f), codable.width + 4, codable.height + 4, 75, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 3.5f);
+                        Main.dust[dustID].noGravity = true;
+                        Main.dust[dustID].velocity *= 1.8f;
+                        Main.dust[dustID].velocity.Y -= 0.5f;
+                        if (Main.rand.NextBool(4))
+                        {
+                            Main.dust[dustID].noGravity = false;
+                            Main.dust[dustID].scale *= 0.5f;
+                        }
+                        //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                    }
+                    Lighting.AddLight((int)(codable.position.X / 16f), (int)(codable.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
+                }
+                if (codable is Player)
+                {
+                    cb *= 0.6f;
+                    cg *= 0.7f;
+                }
+            }
+            if (noItems)
+            {
+                cr *= 0.65f;
+                cg *= 0.8f;
+            }
+            if (blind)
+            {
+                cr *= 0.7f;
+                cg *= 0.65f;
+            }
+            if (bleed)
+            {
+                bool dead = (codable is Player ? ((Player)codable).dead : codable is NPC ? ((NPC)codable).life <= 0 : false);
+                if (effects && !dead && Main.rand.NextBool(30))
+                {
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 5, 0f, 0f, 0, default, 1f);
+                    Main.dust[dustID].velocity.Y += 0.5f;
+                    Main.dust[dustID].velocity *= 0.25f;
+                    //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                }
+                cg *= 0.9f;
+                cb *= 0.9f;
+            }
+            if (loveStruck && effects && shadow == 0f && Main.instance.IsActive && !Main.gamePaused && Main.rand.NextBool(5))
+            {
+                Vector2 value = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                value.Normalize();
+                value.X *= 0.66f;
+                int goreID = Gore.NewGore(codable.GetSource_FromThis(), codable.position + new Vector2(Main.rand.Next(codable.width + 1), Main.rand.Next(codable.height + 1)), value * Main.rand.Next(3, 6) * 0.33f, 331, Main.rand.Next(40, 121) * 0.01f);
+                Main.gore[goreID].sticky = false;
+                Main.gore[goreID].velocity *= 0.4f;
+                Main.gore[goreID].velocity.Y -= 0.6f;
+                //if (codable is Player) Main.playerDrawGore.Add(goreID);
+            }
+            if (stinky && shadow == 0f)
+            {
+                cr *= 0.7f;
+                cb *= 0.55f;
+                if (effects && Main.rand.NextBool(5) && Main.instance.IsActive && !Main.gamePaused)
+                {
+                    Vector2 value2 = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                    value2.Normalize(); value2.X *= 0.66f; value2.Y = Math.Abs(value2.Y);
+                    Vector2 vector = value2 * Main.rand.Next(3, 5) * 0.25f;
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 188, vector.X, vector.Y * 0.5f, 100, default, 1.5f);
+                    Main.dust[dustID].velocity *= 0.1f;
+                    Main.dust[dustID].velocity.Y -= 0.5f;
+                    //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                }
+            }
+            lightColor.R = (byte)(lightColor.R * cr);
+            lightColor.G = (byte)(lightColor.G * cg);
+            lightColor.B = (byte)(lightColor.B * cb);
+            lightColor.A = (byte)(lightColor.A * ca);
+            if (codable is NPC) NPCLoader.DrawEffects((NPC)codable, ref lightColor);
+            if (hunter && (codable is NPC ? ((NPC)codable).lifeMax > 1 : true))
+            {
+                if (effects && !Main.gamePaused && Main.instance.IsActive && Main.rand.NextBool(50))
+                {
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 15, 0f, 0f, 150, default, 0.8f);
+                    Main.dust[dustID].velocity *= 0.1f;
+                    Main.dust[dustID].noLight = true;
+                    //if (codable is Player) Main.playerDrawDust.Add(dustID);
+                }
+                byte colorR = 50, colorG = 255, colorB = 50;
+                if (codable is NPC && !(((NPC)codable).friendly || ((NPC)codable).catchItem > 0 || (((NPC)codable).damage == 0 && ((NPC)codable).lifeMax == 5)))
+                {
+                    colorR = 255; colorG = 50;
+                }
+                if (!(codable is NPC) && lightColor.R < 150) { lightColor.A = Main.mouseTextColor; }
+                if (lightColor.R < colorR) { lightColor.R = colorR; }
+                if (lightColor.G < colorG) { lightColor.G = colorG; }
+                if (lightColor.B < colorB) { lightColor.B = colorB; }
+            }
+            return lightColor;
+        }
+
+        #endregion
     }
 }

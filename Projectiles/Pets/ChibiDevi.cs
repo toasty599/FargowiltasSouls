@@ -15,106 +15,106 @@ namespace FargowiltasSouls.Projectiles.Pets
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chibi Devi");
-            Main.projFrames[projectile.type] = 6;
-            ProjectileID.Sets.LightPet[base.projectile.type] = true;
-            Main.projPet[base.projectile.type] = true;
+            Main.projFrames[Projectile.type] = 6;
+            ProjectileID.Sets.LightPet[Projectile.type] = true;
+            Main.projPet[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 22;
-            projectile.height = 44;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = -1;
-            projectile.netImportant = true;
-            projectile.friendly = true;
+            Projectile.width = 22;
+            Projectile.height = 44;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = -1;
+            Projectile.netImportant = true;
+            Projectile.friendly = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(projectile.rotation);
-            writer.Write(projectile.direction);
+            writer.Write(Projectile.rotation);
+            writer.Write(Projectile.direction);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            projectile.rotation = reader.ReadSingle();
-            projectile.direction = reader.ReadInt32();
+            Projectile.rotation = reader.ReadSingle();
+            Projectile.direction = reader.ReadInt32();
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            Player player = Main.player[Projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (player.dead)
             {
                 modPlayer.ChibiDevi = false;
             }
             if (modPlayer.ChibiDevi)
             {
-                projectile.timeLeft = 2;
+                Projectile.timeLeft = 2;
             }
 
             DelegateMethods.v3_1 = new Vector3(1f, 0.5f, 0.9f) * 0.75f;
-            Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * 6f, 20f, new Utils.PerLinePoint(DelegateMethods.CastLightOpen));
-            Utils.PlotTileLine(projectile.Left, projectile.Right, 20f, new Utils.PerLinePoint(DelegateMethods.CastLightOpen));
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * 6f, 20f, DelegateMethods.CastLightOpen);
+            Utils.PlotTileLine(Projectile.Left, Projectile.Right, 20f, DelegateMethods.CastLightOpen);
 
-            if (projectile.ai[0] == 1)
+            if (Projectile.ai[0] == 1)
             {
-                projectile.tileCollide = true;
-                projectile.ignoreWater = false;
+                Projectile.tileCollide = true;
+                Projectile.ignoreWater = false;
 
-                projectile.frameCounter = 0;
-                projectile.frame = projectile.velocity.Y == 0 ? 5 : 4;
+                Projectile.frameCounter = 0;
+                Projectile.frame = Projectile.velocity.Y == 0 ? 5 : 4;
 
-                projectile.velocity.X *= 0.95f;
-                projectile.velocity.Y += 0.3f;
+                Projectile.velocity.X *= 0.95f;
+                Projectile.velocity.Y += 0.3f;
 
-                if (projectile.owner == Main.myPlayer && projectile.Distance(Main.MouseWorld) > 180)
+                if (Projectile.owner == Main.myPlayer && Projectile.Distance(Main.MouseWorld) > 180)
                 {
-                    projectile.ai[0] = 0;
+                    Projectile.ai[0] = 0;
                 }
             }
             else
             {
-                if (projectile.owner == Main.myPlayer)
+                if (Projectile.owner == Main.myPlayer)
                 {
-                    projectile.tileCollide = false;
-                    projectile.ignoreWater = true;
+                    Projectile.tileCollide = false;
+                    Projectile.ignoreWater = true;
 
-                    projectile.direction = projectile.Center.X < Main.MouseWorld.X ? 1 : -1;
+                    Projectile.direction = Projectile.Center.X < Main.MouseWorld.X ? 1 : -1;
 
                     float distance = 2500;
-                    float possibleDist = Main.player[projectile.owner].Distance(Main.MouseWorld) / 2 + 100;
+                    float possibleDist = Main.player[Projectile.owner].Distance(Main.MouseWorld) / 2 + 100;
                     if (distance < possibleDist)
                         distance = possibleDist;
-                    if (projectile.Distance(Main.player[projectile.owner].Center) > distance && projectile.Distance(Main.MouseWorld) > distance)
+                    if (Projectile.Distance(Main.player[Projectile.owner].Center) > distance && Projectile.Distance(Main.MouseWorld) > distance)
                     {
-                        projectile.Center = player.Center;
-                        projectile.velocity = Vector2.Zero;
+                        Projectile.Center = player.Center;
+                        Projectile.velocity = Vector2.Zero;
                     }
 
-                    if (projectile.Distance(Main.MouseWorld) > 30)
+                    if (Projectile.Distance(Main.MouseWorld) > 30)
                         Movement(Main.MouseWorld, 0.15f, 32f);
 
                     if (oldMouse == Main.MouseWorld)
                     {
-                        projectile.ai[1]++;
-                        if (projectile.ai[1] > 600)
+                        Projectile.ai[1]++;
+                        if (Projectile.ai[1] > 600)
                         {
-                            bool okToRest = !Collision.SolidCollision(projectile.position, projectile.width, projectile.height);
+                            bool okToRest = !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height);
 
                             if (okToRest)
                             {
                                 okToRest = false;
 
-                                Vector2 targetPos = new Vector2(projectile.Center.X, projectile.position.Y + projectile.height);
+                                Vector2 targetPos = new Vector2(Projectile.Center.X, Projectile.position.Y + Projectile.height);
                                 for (int i = 0; i < 10; i++) //collision check below self
                                 {
                                     targetPos.Y += 16;
                                     Tile tile = Framing.GetTileSafely(targetPos); //if solid, ok
-                                    if (tile.active() && !tile.inActive() && Main.tileSolid[tile.type])
+                                    if (tile.HasUnactuatedTile && Main.tileSolid[tile.TileType])
                                     {
                                         okToRest = true;
                                         break;
@@ -124,37 +124,37 @@ namespace FargowiltasSouls.Projectiles.Pets
 
                             if (okToRest) //not in solid tiles, but found tiles within a short distance below
                             {
-                                projectile.ai[0] = 1;
-                                projectile.ai[1] = 0;
+                                Projectile.ai[0] = 1;
+                                Projectile.ai[1] = 0;
                             }
                             else //try again in a bit
                             {
-                                projectile.ai[1] = 540;
+                                Projectile.ai[1] = 540;
                             }
                         }
                     }
                     else
                     {
-                        projectile.ai[1] = 0;
+                        Projectile.ai[1] = 0;
                         oldMouse = Main.MouseWorld;
                     }
                 }
 
-                if (++projectile.frameCounter > 6)
+                if (++Projectile.frameCounter > 6)
                 {
-                    projectile.frameCounter = 0;
-                    if (++projectile.frame >= 4)
-                        projectile.frame = 0;
+                    Projectile.frameCounter = 0;
+                    if (++Projectile.frame >= 4)
+                        Projectile.frame = 0;
                 }
             }
 
-            projectile.spriteDirection = projectile.direction;
+            Projectile.spriteDirection = Projectile.direction;
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = false;
-            return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -164,45 +164,45 @@ namespace FargowiltasSouls.Projectiles.Pets
 
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f)
         {
-            if (projectile.Center.X < targetPos.X)
+            if (Projectile.Center.X < targetPos.X)
             {
-                projectile.velocity.X += speedModifier;
-                if (projectile.velocity.X < 0)
-                    projectile.velocity.X *= 0.95f;
+                Projectile.velocity.X += speedModifier;
+                if (Projectile.velocity.X < 0)
+                    Projectile.velocity.X *= 0.95f;
             }
             else
             {
-                projectile.velocity.X -= speedModifier;
-                if (projectile.velocity.X > 0)
-                    projectile.velocity.X *= 0.95f;
+                Projectile.velocity.X -= speedModifier;
+                if (Projectile.velocity.X > 0)
+                    Projectile.velocity.X *= 0.95f;
             }
-            if (projectile.Center.Y < targetPos.Y)
+            if (Projectile.Center.Y < targetPos.Y)
             {
-                projectile.velocity.Y += speedModifier;
-                if (projectile.velocity.Y < 0)
-                    projectile.velocity.Y *= 0.95f;
+                Projectile.velocity.Y += speedModifier;
+                if (Projectile.velocity.Y < 0)
+                    Projectile.velocity.Y *= 0.95f;
             }
             else
             {
-                projectile.velocity.Y -= speedModifier;
-                if (projectile.velocity.Y > 0)
-                    projectile.velocity.Y *= 0.95f;
+                Projectile.velocity.Y -= speedModifier;
+                if (Projectile.velocity.Y > 0)
+                    Projectile.velocity.Y *= 0.95f;
             }
-            if (Math.Abs(projectile.velocity.X) > cap)
-                projectile.velocity.X = cap * Math.Sign(projectile.velocity.X);
-            if (Math.Abs(projectile.velocity.Y) > cap)
-                projectile.velocity.Y = cap * Math.Sign(projectile.velocity.Y);
+            if (Math.Abs(Projectile.velocity.X) > cap)
+                Projectile.velocity.X = cap * Math.Sign(Projectile.velocity.X);
+            if (Math.Abs(Projectile.velocity.Y) > cap)
+                Projectile.velocity.Y = cap * Math.Sign(Projectile.velocity.Y);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            SpriteEffects spriteEffects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
+            SpriteEffects spriteEffects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, spriteEffects, 0);
             return false;
         }
     }

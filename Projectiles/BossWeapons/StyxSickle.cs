@@ -14,80 +14,80 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Styx Sickle");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 40;
-            projectile.height = 40;
-            projectile.alpha = 100;
-            projectile.friendly = true;
-            projectile.magic = true;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = -1;
-            projectile.penetrate = -1;
+            Projectile.width = 40;
+            Projectile.height = 40;
+            Projectile.alpha = 100;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = -1;
+            Projectile.penetrate = -1;
 
-            projectile.hide = true;
+            Projectile.hide = true;
 
-            projectile.extraUpdates = 1;
-            projectile.timeLeft = 120 * (projectile.extraUpdates + 1);
+            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 120 * (Projectile.extraUpdates + 1);
 
-            projectile.usesIDStaticNPCImmunity = true;
-            projectile.idStaticNPCHitCooldown = 1;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item8, projectile.Center);
+                Projectile.localAI[0] = 1;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
             }
-            projectile.rotation += 0.8f / projectile.MaxUpdates;
+            Projectile.rotation += 0.8f / Projectile.MaxUpdates;
 
             /*for (int i = 0; i < 6; i++)
             {
-                Vector2 offset = new Vector2(0, -20).RotatedBy(projectile.rotation);
+                Vector2 offset = new Vector2(0, -20).RotatedBy(Projectile.rotation);
                 offset = offset.RotatedByRandom(MathHelper.Pi / 6);
-                int d = Dust.NewDust(projectile.Center, 0, 0, 87, 0f, 0f, 150);
+                int d = Dust.NewDust(Projectile.Center, 0, 0, 87, 0f, 0f, 150);
                 Main.dust[d].position += offset;
                 float velrando = Main.rand.Next(20, 31) / 10;
-                Main.dust[d].velocity = projectile.velocity / velrando;
+                Main.dust[d].velocity = Projectile.velocity / velrando;
                 Main.dust[d].noGravity = true;
             }*/
 
-            if (++projectile.localAI[1] == 30 * projectile.MaxUpdates)
+            if (++Projectile.localAI[1] == 30 * Projectile.MaxUpdates)
             {
-                NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 2000));
+                NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 2000));
                 if (n == null)
                 {
-                    projectile.timeLeft = 30 * projectile.MaxUpdates;
+                    Projectile.timeLeft = 30 * Projectile.MaxUpdates;
                 }
                 else
                 {
-                    projectile.velocity = projectile.DirectionTo(n.Center + n.velocity * Main.rand.NextFloat(30)) * 36f;
+                    Projectile.velocity = Projectile.DirectionTo(n.Center + n.velocity * Main.rand.NextFloat(30)) * 36f;
                 }
             }
 
-            projectile.position -= projectile.velocity / projectile.MaxUpdates;
+            Projectile.position -= Projectile.velocity / Projectile.MaxUpdates;
         }
 
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Shadowflame, 0f, 0f, 0, default(Color), 2f);
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Shadowflame, 0f, 0f, 0, default(Color), 2f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 4f;
             }
@@ -98,39 +98,39 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return Color.White;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26 * 0.8f;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
-            //projectile.maxPenetrate = 1;
+            //Projectile.maxPenetrate = 1;
             return true;
         }
 
         public override bool? CanHitNPC(NPC target)
         {
-            if (Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] > Main.GameUpdateCount)
+            if (Projectile.perIDStaticNPCImmunity[Projectile.type][target.whoAmI] > Main.GameUpdateCount)
                 return false;
             return null;
         }
@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             //doing it like this so this proj doesnt use standard iframes
-            projectile.idStaticNPCHitCooldown = Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<StyxGazer>()] > 0 ? 1 : 3;
+            Projectile.idStaticNPCHitCooldown = Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<StyxGazer>()] > 0 ? 1 : 3;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

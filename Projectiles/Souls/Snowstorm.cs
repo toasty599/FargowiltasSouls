@@ -18,30 +18,30 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void SetDefaults()
         {
-            projectile.aiStyle = -1;
+            Projectile.aiStyle = -1;
 
-            projectile.penetrate = -1;
-            projectile.timeLeft = 2;
-            projectile.width = 1;
-            projectile.height = 1;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 2;
+            Projectile.width = 1;
+            Projectile.height = 1;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            Player player = Main.player[Projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            projectile.timeLeft++;
+            Projectile.timeLeft++;
 
-            if (player.dead || !player.active || !modPlayer.SnowEnchant)
-                projectile.Kill();
+            if (player.dead || !player.active || !modPlayer.SnowEnchantActive)
+                Projectile.Kill();
 
             if (player == Main.LocalPlayer)
             {
-                projectile.Center = Main.MouseWorld;
+                Projectile.Center = Main.MouseWorld;
 
                 if (!player.GetToggleValue("Snow"))
-                    projectile.Kill();
+                    Projectile.Kill();
             }
 
             //dust
@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 offset.X += (float)(Math.Sin(angle) * Main.rand.Next(dist + 1));
                 offset.Y += (float)(Math.Cos(angle) * Main.rand.Next(dist + 1));
                 Dust dust = Main.dust[Dust.NewDust(
-                    projectile.Center + offset - new Vector2(4, 4), 0, 0,
+                    Projectile.Center + offset - new Vector2(4, 4), 0, 0,
                     76, 0, 0, 100, Color.White, .75f)];
 
                 dust.noGravity = true;
@@ -72,13 +72,13 @@ namespace FargowiltasSouls.Projectiles.Souls
             //    double angle = Main.rand.NextDouble() * 2d * Math.PI;
             //    offset.X += (float)(Math.Sin(angle) * dist);
             //    offset.Y += (float)(Math.Cos(angle) * dist);
-            //    if (!Collision.SolidCollision(projectile.Center + offset - new Vector2(4, 4), 0, 0))
+            //    if (!Collision.SolidCollision(Projectile.Center + offset - new Vector2(4, 4), 0, 0))
             //    {
             //        Dust dust = Main.dust[Dust.NewDust(
-            //          projectile.Center + offset - new Vector2(4, 4), 0, 0,
+            //          Projectile.Center + offset - new Vector2(4, 4), 0, 0,
             //          76, 0, 0, 100, Color.White, 1f
             //          )];
-            //        dust.velocity = projectile.velocity;
+            //        dust.velocity = Projectile.velocity;
             //        dust.noGravity = true;
             //    }
             //}
@@ -90,12 +90,12 @@ namespace FargowiltasSouls.Projectiles.Souls
                 Projectile proj = Main.projectile[i];
                 
 
-                if (proj.active && proj.hostile && proj.damage > 0 && projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(proj, projectile.Center)) < dist && FargoSoulsUtil.CanDeleteProjectile(proj))
+                if (proj.active && proj.hostile && proj.damage > 0 && Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(proj, Projectile.Center)) < dist && FargoSoulsUtil.CanDeleteProjectile(proj))
                 {
-                    FargoGlobalProjectile globalProj = proj.GetGlobalProjectile<FargoGlobalProjectile>();
+                    FargoSoulsGlobalProjectile globalProj = proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
                     globalProj.ChilledProj = true;
                     globalProj.ChilledTimer = 15;
-                    projectile.netUpdate = true;
+                    Projectile.netUpdate = true;
                 }
             }
 
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             {
                 NPC npc = Main.npc[i];
 
-                if (npc.active && !npc.friendly && npc.damage > 0 && projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(npc, projectile.Center)) < dist && !npc.dontTakeDamage)
+                if (npc.active && !npc.friendly && npc.damage > 0 && Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(npc, Projectile.Center)) < dist && !npc.dontTakeDamage)
                 {
                     npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
                     npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = 15;

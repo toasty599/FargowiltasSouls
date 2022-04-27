@@ -10,66 +10,62 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 150;
-        }
-
-        public override bool CanDamage()
-        {
-            return false;
+            Projectile.timeLeft = 150;
         }
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.IceQueen);
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], NPCID.IceQueen);
             if (npc == null)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
             Player player = Main.player[npc.target];
 
             Vector2 target = player.Center;
-            target.X += 700 * projectile.ai[1];
+            target.X += 700 * Projectile.ai[1];
 
-            Vector2 distance = target - projectile.Center;
+            Vector2 distance = target - Projectile.Center;
             float length = distance.Length();
             if (length > 100f)
             {
                 distance /= 8f;
-                projectile.velocity = (projectile.velocity * 23f + distance) / 24f;
+                Projectile.velocity = (Projectile.velocity * 23f + distance) / 24f;
             }
             else
             {
-                if (projectile.velocity.Length() < 12f)
-                    projectile.velocity *= 1.05f;
+                if (Projectile.velocity.Length() < 12f)
+                    Projectile.velocity *= 1.05f;
             }
 
-            if (++projectile.localAI[1] > 120) //fire frost wave
+            if (++Projectile.localAI[1] > 120) //fire frost wave
             {
-                projectile.localAI[1] = 0f;
-                Main.PlaySound(SoundID.Item120, projectile.position);
+                Projectile.localAI[1] = 0f;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item120, Projectile.position);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 vel = projectile.DirectionTo(player.Center) * 7f;
-                    float xDistance = Math.Abs(player.Center.X - projectile.Center.X);
+                    Vector2 vel = Projectile.DirectionTo(player.Center) * 7f;
+                    float xDistance = Math.Abs(player.Center.X - Projectile.Center.X);
                     for (int i = -1; i <= 1; i++)
                     {
                         Vector2 velocity = vel.RotatedBy(MathHelper.ToRadians(4) * i);
-                        velocity.X = (player.Center.X - projectile.Center.X) / 100f;
-                        int p = Projectile.NewProjectile(projectile.Center, velocity, ProjectileID.FrostWave, projectile.damage, projectile.knockBack, projectile.owner);
+                        velocity.X = (player.Center.X - Projectile.Center.X) / 100f;
+                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), Projectile.Center, 
+                            velocity, ProjectileID.FrostWave, Projectile.damage, Projectile.knockBack, Projectile.owner);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = 101;
                     }
                 }
             }
 
-            projectile.rotation += projectile.velocity.Length() / 12f * (projectile.velocity.X > 0 ? -0.2f : 0.2f);
-            if (++projectile.frameCounter > 3)
+            Projectile.rotation += Projectile.velocity.Length() / 12f * (Projectile.velocity.X > 0 ? -0.2f : 0.2f);
+            if (++Projectile.frameCounter > 3)
             {
-                if (++projectile.frame >= 6)
-                    projectile.frame = 0;
-                projectile.frameCounter = 0;
+                if (++Projectile.frame >= 6)
+                    Projectile.frame = 0;
+                Projectile.frameCounter = 0;
             }
         }
     }

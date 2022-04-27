@@ -11,19 +11,20 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deviantt Seal");
+            base.SetStaticDefaults();
         }
 
         protected override void Movement(NPC npc)
         {
             if (npc.ai[0] <= 10)
-                projectile.Kill();
+                Projectile.Kill();
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             base.OnHitPlayer(target, damage, crit);
 
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.Lovestruck>(), 240);
         }
     }
 }

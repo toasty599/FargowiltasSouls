@@ -9,25 +9,17 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class TimeFrozen : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Time Frozen");
             Description.SetDefault("You are stopped in time");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = false;
-            Main.buffNoSave[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
-            DisplayName.AddTranslation(GameCulture.Chinese, "时间冻结");
-            Description.AddTranslation(GameCulture.Chinese, "你停止了时间");
-        }
-
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderDebuff";
-
-            return true;
+            
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "时间冻结");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你停止了时间");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -46,22 +38,33 @@ namespace FargowiltasSouls.Buffs.Souls
             player.velocity = player.oldVelocity;
             player.position = player.oldPosition;
 
-            player.GetModPlayer<FargoPlayer>().MutantNibble = true; //no heal
+            player.GetModPlayer<FargoSoulsPlayer>().MutantNibble = true; //no heal
 
-            Fargowiltas.Instance.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
+            FargowiltasSouls.Instance.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
 
-            if (Main.netMode != NetmodeID.Server)
+            if (!Main.dedServ && player.whoAmI == Main.myPlayer)
             {
-                if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && player.buffTime[buffIndex] > 60)
+                if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
                 {
-                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>()) ? Main.npc[EModeGlobalNPC.championBoss].Center : player.Center);
-                }
-            }
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>())
+                    && Main.npc[EModeGlobalNPC.championBoss].ai[0] == 15)
+                    {
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.championBoss].Center);
+                    }
 
-            if (player.buffTime[buffIndex] == 90)
-            {
-                if (!Main.dedServ)
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                        && FargoSoulsWorld.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5)
+                    {
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
+                    }
+                }
+                else if (player.buffTime[buffIndex] > 60)
+                {
+                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(player.Center);
+                }
+
+                if (player.buffTime[buffIndex] == 90)
+                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
             }
         }
 

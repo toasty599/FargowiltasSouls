@@ -6,16 +6,21 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Buffs.Minions;
+using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     [AutoloadEquip(/*EquipType.Head, */EquipType.Front, EquipType.Back, EquipType.Shield)]
-    public class MasochistSoul : SoulsItem
+    public class MasochistSoul : BaseSoul
     {
         public override bool Eternity => true;
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Soul of the Siblings");
             Tooltip.SetDefault(
 @"Increases wing time by 200%, armor penetration by 50, and movement speed by 20%
@@ -28,12 +33,14 @@ Press the Fireball Dash key to perform a short invincible dash, zoom with right 
 Certain enemies will drop potions when defeated, 50% discount on reforges, you respawn with more life
 You respawn twice as fast, attacks spawn honey, have improved night vision, and erupt into various attacks when injured
 Prevents boss spawns, increases spawn rate, increases loot, and attacks may squeak and deal 1 damage to you
+Reduces hurtbox size, hold the Precision Seal key to disable dashes and double jumps
+Right Click to parry attacks with extremely tight timing
 Use to teleport to your last death point
 Summons the aid of all Eternity Mode bosses to your side
 'Embrace eternity'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "受虐之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐之魂");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"延长200%飞行时间，增加50点护甲穿透和20%移动速度
 增加100%最大生命值、50%伤害和10%伤害减免
 大幅增加生命恢复速度，+10最大召唤和哨兵栏
@@ -51,33 +58,22 @@ Summons the aid of all Eternity Mode bosses to your side
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 5000000;
-            item.defense = 30;
-            item.useTime = 90;
-            item.useAnimation = 90;
-            item.useStyle = ItemUseStyleID.HoldingUp;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item6;
+            base.SetDefaults();
+
+            Item.value = 5000000;
+            Item.defense = 30;
+            Item.useTime = 90;
+            Item.useAnimation = 90;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item6;
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
-                }
-            }
-        }
+        protected override Color? nameColor => new Color(255, 51, 153, 0);
 
         public override bool CanUseItem(Player player) => player.lastDeathPostion != Vector2.Zero;
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             for (int index = 0; index < 70; ++index)
             {
@@ -114,24 +110,23 @@ Summons the aid of all Eternity Mode bosses to your side
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().BionomicPassiveEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().BionomicPassiveEffect();
         }
 
-        public override Color? GetAlpha(Color lightColor) => Color.White;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.MasochistSoul = true;
 
-            player.AddBuff(mod.BuffType("SouloftheMasochist"), 2);
+            player.AddBuff(ModContent.BuffType<SouloftheMasochist>(), 2);
 
             //stat modifiers
-            fargoPlayer.AllDamageUp(.5f);
+            player.GetDamage(DamageClass.Generic) += 0.5f;
             player.endurance += 0.1f;
             player.maxMinions += 2;
             player.maxTurrets += 2;
-            player.armorPenetration += 50;
+            player.GetArmorPenetration(DamageClass.Generic) += 50;
             player.statLifeMax2 += player.statLifeMax;
             if (!fargoPlayer.MutantPresence)
             {
@@ -139,7 +134,7 @@ Summons the aid of all Eternity Mode bosses to your side
                 player.lifeRegenTime += 7;
                 player.lifeRegenCount += 7;
             }
-            fargoPlayer.wingTimeModifier += 2f;
+            fargoPlayer.WingTimeModifier += 2f;
             player.moveSpeed += 0.2f;
 
             //slimy shield
@@ -152,11 +147,11 @@ Summons the aid of all Eternity Mode bosses to your side
 
             if (player.GetToggleValue("MasoSlime"))
             {
-                fargoPlayer.SlimyShield = true;
+                fargoPlayer.SlimyShieldItem = Item;
             }
 
             //agitating lens
-            fargoPlayer.AgitatingLens = true;
+            fargoPlayer.AgitatingLensItem = Item;
 
             //queen stinger
             //player.honey = true;
@@ -169,10 +164,10 @@ Summons the aid of all Eternity Mode bosses to your side
             player.npcTypeNoAggro[233] = true;
             player.npcTypeNoAggro[234] = true;
             player.npcTypeNoAggro[235] = true;
-            fargoPlayer.QueenStinger = true;
+            fargoPlayer.QueenStingerItem = Item;
 
             //necromantic brew
-            fargoPlayer.NecromanticBrew = true;
+            fargoPlayer.NecromanticBrewItem = Item;
 
             //supreme deathbringer fairy
             fargoPlayer.SupremeDeathbringerFairy = true;
@@ -181,7 +176,8 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.PureHeart = true;
 
             //corrupt heart
-            fargoPlayer.CorruptHeart = true;
+            fargoPlayer.CorruptHeartItem = Item;
+            player.hasMagiluminescence = true;
             if (fargoPlayer.CorruptHeartCD > 0)
                 fargoPlayer.CorruptHeartCD -= 2;
 
@@ -201,7 +197,7 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.Obstructed] = true;
             player.buffImmune[BuffID.Dazed] = true;
             fargoPlayer.SkullCharm = true;
-            player.buffImmune[mod.BuffType("CrystalSkull")] = true;
+            player.buffImmune[ModContent.BuffType<CrystalSkull>()] = true;
             /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;
@@ -223,10 +219,10 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //sparkling adoration
             /*if (SoulConfig.Instance.GetValue(SoulConfig.Instance.Graze, false))
-                player.GetModPlayer<FargoPlayer>().Graze = true;
+                player.GetModPlayer<FargoSoulsPlayer>().Graze = true;
 
             if (SoulConfig.Instance.GetValue(SoulConfig.Instance.DevianttHearts))
-                player.GetModPlayer<FargoPlayer>().DevianttHearts = true;*/
+                player.GetModPlayer<FargoSoulsPlayer>().DevianttHearts = true;*/
 
             //dragon fang
             if (player.GetToggleValue("MasoClipped"))
@@ -236,15 +232,15 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.Frostburn] = true;
             if (player.GetToggleValue("MasoFrigid"))
             {
-                fargoPlayer.FrigidGemstone = true;
+                fargoPlayer.FrigidGemstoneItem = Item;
                 if (fargoPlayer.FrigidGemstoneCD > 0)
                     fargoPlayer.FrigidGemstoneCD -= 5;
             }
 
             //wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
-            player.buffImmune[mod.BuffType("Shadowflame")] = true;
-            player.GetModPlayer<FargoPlayer>().WretchedPouch = true;
+            player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
+            player.GetModPlayer<FargoSoulsPlayer>().WretchedPouchItem = Item;
 
             //sands of time
             player.buffImmune[BuffID.WindPushed] = true;
@@ -282,7 +278,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //tim's concoction
             if (player.GetToggleValue("MasoConcoction"))
-                player.GetModPlayer<FargoPlayer>().TimsConcoction = true;
+                player.GetModPlayer<FargoSoulsPlayer>().TimsConcoction = true;
 
             //dubious circuitry
             player.buffImmune[BuffID.CursedInferno] = true;
@@ -300,7 +296,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //lihzahrd treasure
             player.buffImmune[BuffID.Burning] = true;
-            fargoPlayer.LihzahrdTreasureBox = true;
+            fargoPlayer.LihzahrdTreasureBoxItem = Item;
 
             //saucer control console
             player.buffImmune[BuffID.Electrified] = true;
@@ -309,11 +305,11 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.OgreSpit] = true;
             player.buffImmune[BuffID.WitheredWeapon] = true;
             player.buffImmune[BuffID.WitheredArmor] = true;
-            fargoPlayer.BetsysHeart = true;
+            fargoPlayer.BetsysHeartItem = Item;
 
             //celestial rune/pumpking's cape
-            fargoPlayer.CelestialRune = true;
-            fargoPlayer.PumpkingsCape = true;
+            fargoPlayer.CelestialRuneItem = Item;
+            fargoPlayer.PumpkingsCapeItem = Item;
             fargoPlayer.AdditionalAttacks = true;
             if (fargoPlayer.AdditionalAttacksTimer > 0)
                 fargoPlayer.AdditionalAttacksTimer -= 2;
@@ -324,7 +320,7 @@ Summons the aid of all Eternity Mode bosses to your side
             //galactic globe
             player.buffImmune[BuffID.VortexDebuff] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
-            fargoPlayer.GravityGlobeEX = true;
+            fargoPlayer.GravityGlobeEXItem = Item;
             if (player.GetToggleValue("MasoGrav"))
                 player.gravControl = true;
 
@@ -332,71 +328,17 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.MasochistHeart = true;
             player.buffImmune[BuffID.MoonLeech] = true;
 
-            //cyclonic fin
-            /*fargoPlayer.CyclonicFin = true;
-            if (fargoPlayer.CyclonicFinCD > 0)
-                fargoPlayer.CyclonicFinCD -= 2;*/
-            /*if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
-            {
-                if (player.ownedProjectileCounts[mod.ProjectileType("CuteFishronRitual")] < 1 && player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(player.MountedCenter, Vector2.Zero, mod.ProjectileType("CuteFishronRitual"), 0, 0f, Main.myPlayer);
-                player.MountFishronSpecialCounter = 300;
-                player.meleeDamage += 0.15f;
-                player.rangedDamage += 0.15f;
-                player.magicDamage += 0.15f;
-                player.minionDamage += 0.15f;
-                player.meleeCrit += 30;
-                player.rangedCrit += 30;
-                player.magicCrit += 30;
-                player.statDefense += 30;
-                player.lifeRegen += 3;
-                player.lifeRegenCount += 3;
-                player.lifeRegenTime += 3;
-                if (player.controlLeft == player.controlRight)
-                {
-                    if (player.velocity.X != 0)
-                        player.velocity.X -= player.mount.Acceleration * Math.Sign(player.velocity.X);
-                    if (player.velocity.X != 0)
-                        player.velocity.X -= player.mount.Acceleration * Math.Sign(player.velocity.X);
-                }
-                else if (player.controlLeft)
-                {
-                    player.velocity.X -= player.mount.Acceleration * 4f;
-                    if (player.velocity.X < -16f)
-                        player.velocity.X = -16f;
-                    if (!player.controlUseItem)
-                        player.direction = -1;
-                }
-                else if (player.controlRight)
-                {
-                    player.velocity.X += player.mount.Acceleration * 4f;
-                    if (player.velocity.X > 16f)
-                        player.velocity.X = 16f;
-                    if (!player.controlUseItem)
-                        player.direction = 1;
-                }
-                if (player.controlUp == player.controlDown)
-                {
-                    if (player.velocity.Y != 0)
-                        player.velocity.Y -= player.mount.Acceleration * Math.Sign(player.velocity.Y);
-                    if (player.velocity.Y != 0)
-                        player.velocity.Y -= player.mount.Acceleration * Math.Sign(player.velocity.Y);
-                }
-                else if (player.controlUp)
-                {
-                    player.velocity.Y -= player.mount.Acceleration * 4f;
-                    if (player.velocity.Y < -16f)
-                        player.velocity.Y = -16f;
-                }
-                else if (player.controlDown)
-                {
-                    player.velocity.Y += player.mount.Acceleration * 4f;
-                    if (player.velocity.Y > 16f)
-                        player.velocity.Y = 16f;
-                }
-            }*/
+            //precision seal
+            fargoPlayer.PrecisionSeal = true;
+            if (player.GetToggleValue("PrecisionSealHurtbox", false))
+                fargoPlayer.PrecisionSealHurtbox = true;
+
+            //dread shell
+            if (player.GetToggleValue("DreadShellParry"))
+                player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
 
             //sadism
+            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
             player.buffImmune[ModContent.BuffType<Antisocial>()] = true;
             player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
             player.buffImmune[ModContent.BuffType<Berserked>()] = true;
@@ -433,7 +375,8 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[ModContent.BuffType<ReverseManaFlow>()] = true;
             player.buffImmune[ModContent.BuffType<Rotting>()] = true;
             player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
-            player.buffImmune[ModContent.BuffType<SqueakyToy>()] = true;
+            player.buffImmune[ModContent.BuffType<Smite>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToy>()] = true;
             player.buffImmune[ModContent.BuffType<Swarming>()] = true;
             player.buffImmune[ModContent.BuffType<Stunned>()] = true;
             player.buffImmune[ModContent.BuffType<Unstable>()] = true;
@@ -441,26 +384,24 @@ Summons the aid of all Eternity Mode bosses to your side
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("SinisterIcon"));
-            //recipe.AddIngredient(mod.ItemType("SparklingAdoration"));
-            recipe.AddIngredient(mod.ItemType("SupremeDeathbringerFairy"));
-            recipe.AddIngredient(mod.ItemType("BionomicCluster"));
-            recipe.AddIngredient(mod.ItemType("DubiousCircuitry"));
-            recipe.AddIngredient(mod.ItemType("PureHeart"));
-            recipe.AddIngredient(mod.ItemType("LumpOfFlesh"));
-            recipe.AddIngredient(mod.ItemType("ChaliceoftheMoon"));
-            recipe.AddIngredient(mod.ItemType("HeartoftheMasochist"));
-            //recipe.AddIngredient(mod.ItemType("CyclonicFin"));
-            //recipe.AddIngredient(mod.ItemType("Sadism"), 30);
-            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 15);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 15);
+            .AddIngredient(ModContent.ItemType<SinisterIcon>())
+            .AddIngredient(ModContent.ItemType<SupremeDeathbringerFairy>())
+            .AddIngredient(ModContent.ItemType<BionomicCluster>())
+            .AddIngredient(ModContent.ItemType<DubiousCircuitry>())
+            .AddIngredient(ModContent.ItemType<PureHeart>())
+            .AddIngredient(ModContent.ItemType<LumpOfFlesh>())
+            .AddIngredient(ModContent.ItemType<ChaliceoftheMoon>())
+            .AddIngredient(ModContent.ItemType<HeartoftheMasochist>())
+            .AddIngredient(ModContent.ItemType<PrecisionSeal>())
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 15)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 15)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            .Register();
         }
     }
 }

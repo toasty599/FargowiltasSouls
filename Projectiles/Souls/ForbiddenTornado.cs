@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,49 +18,61 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void SetDefaults()
         {
-            projectile.width = 10;
-            projectile.height = 10;
-            projectile.friendly = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.alpha = 0;
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.friendly = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.alpha = 0;
 
-            projectile.penetrate = -1;
-            projectile.usesLocalNPCImmunity = true;
-			projectile.localNPCHitCooldown = 10;
-            projectile.timeLeft = 1200;
-			projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.penetrate = -1;
+            Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 10;
+            Projectile.timeLeft = 1200;
+			Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+
+			Projectile.DamageType = DamageClass.Magic;
 		}
 
         public override void AI()
         {
-            projectile.velocity = Vector2.UnitY;
-            projectile.position -= projectile.velocity;
+			FargoSoulsPlayer modPlayer = Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>();
+
+			if (modPlayer.ForbiddenEnchantActive)
+            {
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && !p.hostile && p.owner == Projectile.owner && p.type != Projectile.type && p.Colliding(p.Hitbox, Projectile.Hitbox)))
+                {
+					p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().stormTimer = 240;
+                }
+            }
+
+            Projectile.velocity = Vector2.UnitY;
+            Projectile.position -= Projectile.velocity;
 
 			float num1123 = 900f;
-			if (projectile.soundDelay == 0)
+			if (Projectile.soundDelay == 0)
 			{
-				projectile.soundDelay = -1;
-				Main.PlaySound(SoundID.Item82, projectile.Center);
+				Projectile.soundDelay = -1;
+				SoundEngine.PlaySound(SoundID.Item82, Projectile.Center);
 			}
-			projectile.ai[0] += 1f;
-			if (projectile.ai[0] >= num1123)
+			Projectile.ai[0] += 1f;
+			if (Projectile.ai[0] >= num1123)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
-			if (projectile.localAI[0] >= 30f)
+			if (Projectile.localAI[0] >= 30f)
 			{
-				projectile.damage = 0;
-				if (projectile.ai[0] < num1123 - 120f)
+				Projectile.damage = 0;
+				if (Projectile.ai[0] < num1123 - 120f)
 				{
-					float num1124 = projectile.ai[0] % 60f;
-					projectile.ai[0] = num1123 - 120f + num1124;
-					projectile.netUpdate = true;
+					float num1124 = Projectile.ai[0] % 60f;
+					Projectile.ai[0] = num1123 - 120f + num1124;
+					Projectile.netUpdate = true;
 				}
 			}
 			float num1125 = 15f;
 			float num1126 = 15f;
-			Point point8 = projectile.Center.ToTileCoordinates();
+			Point point8 = Projectile.Center.ToTileCoordinates();
 			int num1127;
 			int num1128;
 			Collision.ExpandVertically(point8.X, point8.Y, out num1127, out num1128, (int)num1125, (int)num1126);
@@ -69,14 +83,14 @@ namespace FargowiltasSouls.Projectiles.Souls
 			Vector2 vector145 = Vector2.Lerp(value72, value73, 0.5f);
 			Vector2 value74 = new Vector2(0f, value73.Y - value72.Y);
 			value74.X = value74.Y * 0.2f;
-			projectile.width = (int)(value74.X * 0.65f);
-			projectile.height = (int)value74.Y;
-			projectile.Center = vector145;
-			if (projectile.owner == Main.myPlayer)
+			Projectile.width = (int)(value74.X * 0.65f);
+			Projectile.height = (int)value74.Y;
+			Projectile.Center = vector145;
+			if (Projectile.owner == Main.myPlayer)
 			{
 				bool flag75 = false;
-				Vector2 center16 = Main.player[projectile.owner].Center;
-				Vector2 top = Main.player[projectile.owner].Top;
+				Vector2 center16 = Main.player[Projectile.owner].Center;
+				Vector2 top = Main.player[Projectile.owner].Top;
 				for (float num1129 = 0f; num1129 < 1f; num1129 += 0.05f)
 				{
 					Vector2 position2 = Vector2.Lerp(value72, value73, num1129);
@@ -86,14 +100,14 @@ namespace FargowiltasSouls.Projectiles.Souls
 						break;
 					}
 				}
-				if (!flag75 && projectile.ai[0] < num1123 - 120f)
+				if (!flag75 && Projectile.ai[0] < num1123 - 120f)
 				{
-					float num1130 = projectile.ai[0] % 60f;
-					projectile.ai[0] = num1123 - 120f + num1130;
-					projectile.netUpdate = true;
+					float num1130 = Projectile.ai[0] % 60f;
+					Projectile.ai[0] = num1123 - 120f + num1130;
+					Projectile.netUpdate = true;
 				}
 			}
-			if (projectile.ai[0] < num1123 - 120f)
+			if (Projectile.ai[0] < num1123 - 120f)
 			{
 				for (int num1131 = 0; num1131 < 1; num1131++)
 				{
@@ -120,7 +134,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			}
 		}
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             float halfheight = 220;
             float density = 50f;
@@ -130,13 +144,13 @@ namespace FargowiltasSouls.Projectiles.Souls
                 color.A /= 2;
                 float lerpamount = (Math.Abs(density / 2 - i) > ((density/2) * 0.6f)) ? Math.Abs(density / 2 - i)/(density/2) : 0f; //if too low or too high up, start making it transparent
                 color = Color.Lerp(color, Color.Transparent, lerpamount);
-                Texture2D texture = Main.projectileTexture[projectile.type];
-                Vector2 offset = Vector2.SmoothStep(projectile.Center + Vector2.Normalize(projectile.velocity) * halfheight, projectile.Center - Vector2.Normalize(projectile.velocity) * halfheight, i / density);
-                float scale = MathHelper.Lerp(projectile.scale * 0.8f, projectile.scale * 2.5f, i / density);
-                Main.spriteBatch.Draw(texture, offset - Main.screenPosition,
+                Texture2D texture = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+                Vector2 offset = Vector2.SmoothStep(Projectile.Center + Vector2.Normalize(Projectile.velocity) * halfheight, Projectile.Center - Vector2.Normalize(Projectile.velocity) * halfheight, i / density);
+                float scale = MathHelper.Lerp(Projectile.scale * 0.8f, Projectile.scale * 2.5f, i / density);
+                Main.EntitySpriteDraw(texture, offset - Main.screenPosition,
                     new Rectangle(0, 0, texture.Width, texture.Height),
-                    projectile.GetAlpha(color),
-                    i / 6f - Main.GlobalTime * 5f + projectile.rotation,
+                    Projectile.GetAlpha(color),
+                    i / 6f - Main.GlobalTimeWrappedHourly * 5f + Projectile.rotation,
                     texture.Size() / 2,
                     scale,
                     SpriteEffects.None,

@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.Duck
 {
-    public class ScientificRailgun : SoulsItem
+    public class ScientificRailgun : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Scientific Railgun");
             Tooltip.SetDefault(
 @"Uses coins for ammo
@@ -20,39 +20,29 @@ Higher valued coins do more damage
 
         public override void SetDefaults()
         {
-            item.damage = 1800;
-            item.crit = 26;
-            item.ranged = true;
-            item.noMelee = true;
-            item.width = 64;
-            item.height = 26;
-            item.useTime = 120;
-            item.useAnimation = 120;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.knockBack = 20;
-            item.value = Item.sellPrice(0, 10);
-            item.rare = ItemRarityID.Purple;
-            //item.UseSound = SoundID.Item33;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<RailgunBlast>();
-            item.shootSpeed = 1000f;
-            item.useAmmo = AmmoID.Coin;
+            Item.damage = 1800;
+            Item.crit = 26;
+            Item.DamageType = DamageClass.Ranged;
+            Item.noMelee = true;
+            Item.width = 64;
+            Item.height = 26;
+            Item.useTime = 120;
+            Item.useAnimation = 120;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.knockBack = 20;
+            Item.value = Item.sellPrice(0, 10);
+            Item.rare = ItemRarityID.Purple;
+            //Item.UseSound = SoundID.Item33;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<RailgunBlast>();
+            Item.shootSpeed = 1000f;
+            Item.useAmmo = AmmoID.Coin;
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
-        }
-
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-            Vector2 speed = new Vector2(speedX, speedY).SafeNormalize(Vector2.Zero);
-            speedX = speed.X;
-            speedY = speed.Y;
-            type = item.shoot;
-            return true;
+            velocity = velocity.SafeNormalize(Vector2.Zero);
+            type = Item.shoot;
         }
 
         public override Vector2? HoldoutOffset()
@@ -62,16 +52,14 @@ Higher valued coins do more damage
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.CoinGun);
-            recipe.AddIngredient(ItemID.ChargedBlasterCannon);
-            recipe.AddIngredient(ItemID.LastPrism);
-            recipe.AddIngredient(ItemID.LunarBar, 10);
-            recipe.AddIngredient(ItemID.MartianConduitPlating, 100);
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ItemID.CoinGun)
+                .AddIngredient(ItemID.ChargedBlasterCannon)
+                .AddIngredient(ItemID.LastPrism)
+                .AddIngredient(ItemID.LunarBar, 10)
+                .AddIngredient(ItemID.MartianConduitPlating, 100)
+                .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+                .Register();
         }
     }
 }

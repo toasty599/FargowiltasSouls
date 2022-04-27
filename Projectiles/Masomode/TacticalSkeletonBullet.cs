@@ -14,26 +14,26 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.MeteorShot);
-            aiType = ProjectileID.MeteorShot;
-            projectile.friendly = false;
-            projectile.ranged = false;
-            projectile.hostile = true;
-            projectile.penetrate = 3;
+            Projectile.CloneDefaults(ProjectileID.MeteorShot);
+            AIType = ProjectileID.MeteorShot;
+            Projectile.DamageType = DamageClass.Default;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.penetrate = 3;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (projectile.penetrate > 1)
+            if (Projectile.penetrate > 1)
             {
-                Collision.HitTiles(projectile.position, projectile.velocity, projectile.width, projectile.height);
-                Main.PlaySound(SoundID.Item10, projectile.position);
-                projectile.penetrate--;
+                Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+                Projectile.penetrate--;
 
-                if (projectile.velocity.X != projectile.oldVelocity.X)
-                    projectile.velocity.X = -projectile.oldVelocity.X;
-                if (projectile.velocity.Y != projectile.oldVelocity.Y)
-                    projectile.velocity.Y = -projectile.oldVelocity.Y;
+                if (Projectile.velocity.X != Projectile.oldVelocity.X)
+                    Projectile.velocity.X = -Projectile.oldVelocity.X;
+                if (Projectile.velocity.Y != Projectile.oldVelocity.Y)
+                    Projectile.velocity.Y = -Projectile.oldVelocity.Y;
 
                 return false;
             }

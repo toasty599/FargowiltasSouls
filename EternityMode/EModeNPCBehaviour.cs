@@ -2,18 +2,21 @@
 using FargowiltasSouls.EternityMode.NPCMatching;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
+using FargowiltasSouls.EternityMode.Net.Strategies;
 
 namespace FargowiltasSouls.EternityMode
 {
     public abstract class EModeNPCBehaviour
     {
-        internal static Mod mod => Fargowiltas.Instance;
+        internal static Mod mod => FargowiltasSouls.Instance;
 
         public static List<EModeNPCBehaviour> AllEModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
@@ -59,6 +62,29 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() => default;
 
+        public int GetBytesNeeded()
+        {
+            int byteLength = 0;
+
+            Dictionary<Ref<object>, CompoundStrategy> netInfo = GetNetInfo();
+            if (netInfo == default)
+                return byteLength;
+
+            foreach (CompoundStrategy strategy in netInfo.Values)
+            {
+                if (strategy.Equals(BoolStrategies.CompoundStrategy))
+                    byteLength += 1;
+                else if (strategy.Equals(IntStrategies.CompoundStrategy))
+                    byteLength += 4;
+                else if (strategy.Equals(FloatStrategies.CompoundStrategy))
+                    byteLength += 4;
+                else
+                    FargowiltasSouls.Instance.Logger.Warn("didn't recognize strategy!");
+            }
+
+            return byteLength;
+        }
+
         public abstract NPCMatcher CreateMatcher();
         /// <summary>
         /// Override this and return a new instance of your EModeNPCBehaviour subclass if you have any reference-type variables
@@ -73,13 +99,22 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void AI(NPC npc) { }
 
-        public virtual bool PreNPCLoot(NPC npc) => true;
+        /// <summary>
+        /// ModifyNPCLoot runs before entering a world. Make sure drops are properly wrapped in the EMode drop condition!
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="npcLoot"></param>
+        public virtual void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) { }
 
-        public virtual void NPCLoot(NPC npc) { }
+        public virtual void OnKill(NPC npc) { }
 
-        public virtual bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => true;
+        public virtual bool SpecialOnKill(NPC npc) => false;
+
+        public virtual bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot) => true;
 
         public virtual void OnHitPlayer(NPC npc, Player target, int damage, bool crit) { }
+
+        public virtual void OnHitNPC(NPC npc, NPC target, int damage, float knockback, bool crit) { }
 
         public virtual void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit) { }
 
@@ -97,9 +132,13 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void HitEffect(NPC npc, int hitDirection, double damage) { }
 
+        public virtual void UpdateLifeRegen(NPC npc, ref int damage) { }
+
         public virtual bool CheckDead(NPC npc) => true;
 
         public virtual Color? GetAlpha(NPC npc, Color drawColor) => null;
+
+        public virtual bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position) => null;
 
         public virtual bool? CanBeHitByItem(NPC npc, Player player, Item item) => null;
 
@@ -110,32 +149,46 @@ namespace FargowiltasSouls.EternityMode
             if (onlySendFromServer && Main.netMode != NetmodeID.Server)
                 return;
 
-            npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync(npc.whoAmI);
+            npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync(npc);
         }
 
         public virtual void LoadSprites(NPC npc, bool recolor) { }
 
         #region Sprite Loading
-        protected static Texture2D LoadSprite(bool recolor, string texture)
+        protected static Asset<Texture2D> LoadSprite(bool recolor, string texture)
         {
-            return ModContent.GetTexture("FargowiltasSouls/NPCs/" + (recolor ? "Resprites/" : "Vanilla/") + texture);
+            return ModContent.Request<Texture2D>("FargowiltasSouls/NPCs/" + (recolor ? "Resprites/" : "Vanilla/") + texture, AssetRequestMode.ImmediateLoad);
+        }
+
+        protected static void LoadSpriteBuffered(bool recolor, int type, Asset<Texture2D>[] vanillaTexture, Dictionary<int, Asset<Texture2D>> fargoBuffer, string texturePrefix)
+        {
+            if (!fargoBuffer.ContainsKey(type))
+                fargoBuffer[type] = vanillaTexture[type];
+
+            vanillaTexture[type] = LoadSprite(recolor, $"{texturePrefix}{type}");
+        }
+
+        protected static void LoadSpecial(bool recolor, ref Asset<Texture2D> vanillaResource, ref Asset<Texture2D> fargoSoulsBuffer, string name)
+        {
+            if (fargoSoulsBuffer == null)
+                fargoSoulsBuffer = vanillaResource;
+
+            vanillaResource = LoadSprite(recolor, name);
         }
 
         protected static void LoadNPCSprite(bool recolor, int type)
         {
-            Main.npcTexture[type] = LoadSprite(recolor, "NPC_" + type.ToString());
-            Main.NPCLoaded[type] = true;
+            LoadSpriteBuffered(recolor, type, TextureAssets.Npc, FargowiltasSouls.TextureBuffer.NPC, "NPC_");
         }
 
         protected static void LoadBossHeadSprite(bool recolor, int type)
         {
-            Main.npcHeadBossTexture[type] = LoadSprite(recolor, "NPC_Head_Boss_" + type.ToString());
+            LoadSpriteBuffered(recolor, type, TextureAssets.NpcHeadBoss, FargowiltasSouls.TextureBuffer.NPCHeadBoss, "NPC_Head_Boss_");
         }
 
         protected static void LoadGore(bool recolor, int type)
         {
-            Main.goreTexture[type] = LoadSprite(recolor, "Gores/Gore_" + type.ToString());
-            Main.goreLoaded[type] = true;
+            LoadSpriteBuffered(recolor, type, TextureAssets.Gore, FargowiltasSouls.TextureBuffer.Gore, "Gores/Gore_");
         }
 
         protected static void LoadGoreRange(bool recolor, int type, int lastType)
@@ -146,7 +199,12 @@ namespace FargowiltasSouls.EternityMode
 
         protected static void LoadExtra(bool recolor, int type)
         {
-            Main.extraTexture[type] = LoadSprite(recolor, "Extra_" + type.ToString());
+            LoadSpriteBuffered(recolor, type, TextureAssets.Extra, FargowiltasSouls.TextureBuffer.Extra, "Extra_");
+        }
+
+        protected static void LoadGolem(bool recolor, int type)
+        {
+            LoadSpriteBuffered(recolor, type, TextureAssets.Golem, FargowiltasSouls.TextureBuffer.Golem, "GolemLights");
         }
         #endregion
     }

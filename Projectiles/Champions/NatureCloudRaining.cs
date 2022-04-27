@@ -6,63 +6,63 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class NatureCloudRaining : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_238";
+        public override string Texture => "Terraria/Images/Projectile_238";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Nature Cloud");
-            Main.projFrames[projectile.type] = 6;
+            Main.projFrames[Projectile.type] = 6;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 54;
-            projectile.height = 28;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.timeLeft = 300;
-            projectile.tileCollide = false;
+            Projectile.width = 54;
+            Projectile.height = 28;
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.timeLeft = 300;
+            Projectile.tileCollide = false;
 
-            projectile.scale = 1.5f;
-            cooldownSlot = 1;
+            Projectile.scale = 1.5f;
+            CooldownSlot = 1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override void AI()
         {
-            Lighting.AddLight(projectile.Center, 0.5f, 0.75f, 1f);
+            Lighting.AddLight(Projectile.Center, 0.5f, 0.75f, 1f);
 
-            if (++projectile.ai[0] > 8)
+            if (++Projectile.ai[0] > 8)
             {
-                projectile.ai[0] = 0;
+                Projectile.ai[0] = 0;
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(projectile.position.X + 14 + Main.rand.Next(projectile.width - 28),
-                        projectile.position.Y + projectile.height + 4, 0f, 5f,
-                        ModContent.ProjectileType<NatureRain>(), projectile.damage, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + 14 + Main.rand.Next(Projectile.width - 28),
+                        Projectile.position.Y + Projectile.height + 4, 0f, 5f,
+                        ModContent.ProjectileType<NatureRain>(), Projectile.damage, 0f, Main.myPlayer);
                 }
             }
 
-            if (++projectile.ai[1] > 600)
+            if (++Projectile.ai[1] > 600)
             {
-                projectile.alpha += 5;
-                if (projectile.alpha > 255)
+                Projectile.alpha += 5;
+                if (Projectile.alpha > 255)
                 {
-                    projectile.alpha = 255;
-                    projectile.Kill();
+                    Projectile.alpha = 255;
+                    Projectile.Kill();
                 }
             }
 
-            if (++projectile.frameCounter > 8)
+            if (++Projectile.frameCounter > 8)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame > 5)
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame > 5)
+                    Projectile.frame = 0;
             }
         }
 

@@ -1,42 +1,46 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class FishronRitual2 : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_409";
+        public override string Texture => "Terraria/Images/Projectile_409";
 
         public FishronRitual2() : base(MathHelper.Pi / 140f, 1600f, NPCID.DukeFishron) { }
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Oceanic Ritual");
-            Main.projFrames[projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 3;
         }
 
         protected override void Movement(NPC npc)
         {
-            projectile.velocity = npc.Center - projectile.Center;
-            projectile.velocity /= 20f;
+            Projectile.velocity = npc.Center - Projectile.Center;
+            Projectile.velocity /= 20f;
         }
 
         public override void AI()
         {
             base.AI();
-            projectile.rotation += 0.2f;
-            projectile.frame++;
-            if (projectile.frame > 2)
-                projectile.frame = 0;
+            Projectile.rotation += 0.2f;
+            Projectile.frame++;
+            if (Projectile.frame > 2)
+                Projectile.frame = 0;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             base.OnHitPlayer(target, damage, crit);
 
-            target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 50;
-            target.AddBuff(mod.BuffType("OceanicMaul"), Main.rand.Next(300, 600));
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
+            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 20 * 60);
         }
 
         public override Color? GetAlpha(Color lightColor)

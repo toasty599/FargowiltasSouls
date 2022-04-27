@@ -19,62 +19,62 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.ExplosiveBullet);
-            projectile.aiStyle = -1;
-            projectile.friendly = false;
-            projectile.ranged = false;
-            projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
+            Projectile.CloneDefaults(ProjectileID.ExplosiveBullet);
+            Projectile.aiStyle = -1;
+            Projectile.DamageType = DamageClass.Default;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
         }
 
         public override void AI()
         {
-            if (projectile.alpha > 0)
+            if (Projectile.alpha > 0)
             {
-                projectile.alpha -= 7;
-                if (projectile.alpha < 0)
-                    projectile.alpha = 0;
+                Projectile.alpha -= 7;
+                if (Projectile.alpha < 0)
+                    Projectile.alpha = 0;
             }
 
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                projectile.localAI[1] = projectile.velocity.Length();
-                Main.PlaySound(SoundID.Item11, projectile.Center);
+                Projectile.localAI[0] = 1;
+                Projectile.localAI[1] = Projectile.velocity.Length();
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
             }
 
-            projectile.hide = false;
+            Projectile.hide = false;
             
-            if (--projectile.ai[0] < 0 && projectile.ai[0] > -40 * projectile.MaxUpdates)
+            if (--Projectile.ai[0] < 0 && Projectile.ai[0] > -40 * Projectile.MaxUpdates)
             {
-                projectile.velocity = Vector2.Zero;
-                projectile.hide = true;
+                Projectile.velocity = Vector2.Zero;
+                Projectile.hide = true;
 
                 if (Main.rand.NextBool())
                 {
-                    int d = Dust.NewDust(projectile.Center, 0, 0, 229, Scale: 2f);
+                    int d = Dust.NewDust(Projectile.Center, 0, 0, 229, Scale: 2f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 3f;
                 }
             }
-            else if (projectile.ai[0] == -40 * projectile.MaxUpdates)
+            else if (Projectile.ai[0] == -40 * Projectile.MaxUpdates)
             {
-                Main.PlaySound(SoundID.Item11, projectile.Center);
-                int p = Player.FindClosest(projectile.Center, 0, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
+                int p = Player.FindClosest(Projectile.Center, 0, 0);
                 if (p != -1)
-                    projectile.velocity = projectile.DirectionTo(Main.player[p].Center) * projectile.localAI[1];
+                    Projectile.velocity = Projectile.DirectionTo(Main.player[p].Center) * Projectile.localAI[1];
                 else
-                    projectile.Kill();
+                    Projectile.Kill();
             }
-            else if (projectile.ai[0] < -40 * projectile.MaxUpdates)
+            else if (Projectile.ai[0] < -40 * Projectile.MaxUpdates)
             {
-                projectile.tileCollide = true;
-                projectile.ignoreWater = false;
+                Projectile.tileCollide = true;
+                Projectile.ignoreWater = false;
             }
 
-            if (projectile.velocity != Vector2.Zero)
-                projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
+            if (Projectile.velocity != Vector2.Zero)
+                Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -86,11 +86,11 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y);
 
             for (int index1 = 0; index1 < 20; ++index1)
             {
-                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 68, 0f, 0f, 0, default(Color), 1f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, 0f, 0f, 0, default(Color), 1f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 1.5f;
                 Main.dust[index2].scale *= 0.9f;
@@ -100,17 +100,17 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 for (int index = 0; index < 6; ++index)
                 {
-                    float SpeedX = projectile.velocity.Length() * Main.rand.Next(-60, 61) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                    float SpeedY = projectile.velocity.Length() * Main.rand.Next(-60, 61) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, SpeedX, SpeedY,
-                        ModContent.ProjectileType<CrystalBombShard>(), projectile.damage, 0f, projectile.owner);
+                    float SpeedX = Projectile.velocity.Length() * Main.rand.Next(-60, 61) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
+                    float SpeedY = Projectile.velocity.Length() * Main.rand.Next(-60, 61) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, SpeedX, SpeedY,
+                        ModContent.ProjectileType<CrystalBombShard>(), Projectile.damage, 0f, Projectile.owner);
                 }
             }
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return Color.White * Projectile.Opacity;
         }
     }
 }

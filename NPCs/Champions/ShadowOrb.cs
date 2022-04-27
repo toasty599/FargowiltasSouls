@@ -5,6 +5,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using System.IO;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Bestiary;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -13,115 +15,133 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shadow Orb");
-            DisplayName.AddTranslation(GameCulture.Chinese, "暗影珠");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影珠");
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true,
+                ImmuneToWhips = true
+            });
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(
+                   ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[ModContent.NPCType<ShadowChampion>()],
+                   quickUnlock: true
+               );
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+                new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
+            });
         }
 
         public override void SetDefaults()
         {
-            npc.width = 32;
-            npc.height = 32;
-            npc.defense = 9999;
-            npc.lifeMax = 9999;
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.noGravity = true;
-            npc.noTileCollide = true;
-            npc.knockBackResist = 0f;
-            npc.lavaImmune = true;
-            for (int i = 0; i < npc.buffImmune.Length; i++)
-                npc.buffImmune[i] = true;
-            npc.aiStyle = -1;
-            npc.chaseable = false;
+            NPC.width = 32;
+            NPC.height = 32;
+            NPC.defense = 9999;
+            NPC.lifeMax = 9999;
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.noGravity = true;
+            NPC.noTileCollide = true;
+            NPC.knockBackResist = 0f;
+            NPC.lavaImmune = true;
+            NPC.aiStyle = -1;
+            NPC.chaseable = false;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = 9999;
+            NPC.lifeMax = 9999;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(npc.localAI[3]);
+            writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            npc.localAI[3] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
             return false;
         }
 
         public override void AI()
         {
-            if (npc.buffType[0] != 0)
-                npc.DelBuff(0);
+            if (NPC.buffType[0] != 0)
+                NPC.DelBuff(0);
 
-            NPC host = FargoSoulsUtil.NPCExists(npc.ai[0], ModContent.NPCType<ShadowChampion>());
+            NPC host = FargoSoulsUtil.NPCExists(NPC.ai[0], ModContent.NPCType<ShadowChampion>());
             if (host == null)
             {
-                npc.active = false;
-                npc.netUpdate = true;
+                NPC.active = false;
+                NPC.netUpdate = true;
                 return;
             }
             
-            npc.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
-            npc.life = npc.lifeMax;
+            NPC.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
+            NPC.life = NPC.lifeMax;
 
-            npc.damage = 0;
-            npc.defDamage = 0;
+            NPC.damage = 0;
+            NPC.defDamage = 0;
 
-            npc.position = host.Center + new Vector2(npc.ai[1], 0f).RotatedBy(npc.ai[3]);
-            npc.position.X -= npc.width / 2;
-            npc.position.Y -= npc.height / 2;
-            float rotation = 0.07f; //npc.ai[1] == 125f ? 0.03f : -0.015f;
-            if (npc.ai[1] != 110)
+            NPC.position = host.Center + new Vector2(NPC.ai[1], 0f).RotatedBy(NPC.ai[3]);
+            NPC.position.X -= NPC.width / 2;
+            NPC.position.Y -= NPC.height / 2;
+            float rotation = 0.07f; //NPC.ai[1] == 125f ? 0.03f : -0.015f;
+            if (NPC.ai[1] != 110)
                 rotation = 0.03f;
-            npc.ai[3] += rotation;
-            if (npc.ai[3] > (float)Math.PI)
+            NPC.ai[3] += rotation;
+            if (NPC.ai[3] > (float)Math.PI)
             {
-                npc.ai[3] -= 2f * (float)Math.PI;
-                npc.netUpdate = true;
+                NPC.ai[3] -= 2f * (float)Math.PI;
+                NPC.netUpdate = true;
             }
-            npc.rotation = npc.ai[3] + (float)Math.PI / 2f;
+            NPC.rotation = NPC.ai[3] + (float)Math.PI / 2f;
 
-            if (npc.ai[1] != 110 && npc.ai[1] != 700)
+            if (NPC.ai[1] != 110 && NPC.ai[1] != 700)
             {
-                npc.ai[2] += 2 * (float)Math.PI / 69;
-                if (npc.ai[2] > (float)Math.PI)
-                    npc.ai[2] -= 2 * (float)Math.PI;
-                npc.ai[1] += (float)Math.Sin(npc.ai[2]) * 30;
+                NPC.ai[2] += 2 * (float)Math.PI / 69;
+                if (NPC.ai[2] > (float)Math.PI)
+                    NPC.ai[2] -= 2 * (float)Math.PI;
+                NPC.ai[1] += (float)Math.Sin(NPC.ai[2]) * 30;
             }
 
-            npc.alpha = npc.localAI[3] == 1 ? 150 : 0;
+            NPC.alpha = NPC.localAI[3] == 1 ? 150 : 0;
 
-            if ((npc.ai[1] == 110 && host.life < host.lifeMax * .66)
-                || (npc.ai[1] == 700 && host.life < host.lifeMax * .33))
-                npc.active = false;
+            if ((NPC.ai[1] == 110 && host.life < host.lifeMax * .66)
+                || (NPC.ai[1] == 700 && host.life < host.lifeMax * .33))
+                NPC.active = false;
 
-            npc.dontTakeDamage = host.ai[0] == -1;
+            NPC.dontTakeDamage = host.ai[0] == -1;
 
-            if (npc.localAI[3] == 1)
-                npc.dontTakeDamage = true;
+            if (NPC.localAI[3] == 1)
+                NPC.dontTakeDamage = true;
         }
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            npc.dontTakeDamage = true;
-            npc.localAI[3] = 1;
-            npc.netUpdate = true;
+            NPC.dontTakeDamage = true;
+            NPC.localAI[3] = 1;
+            NPC.netUpdate = true;
             damage = 0;
 
-            Main.PlaySound(SoundID.Item, npc.Center, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
 
             const int num226 = 36;
             for (int num227 = 0; num227 < num226; num227++)
             {
                 Vector2 vector6 = Vector2.UnitX * 10f;
-                vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + npc.Center;
-                Vector2 vector7 = vector6 - npc.Center;
+                vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + NPC.Center;
+                Vector2 vector7 = vector6 - NPC.Center;
                 int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 27, 0f, 0f, 0, default(Color), 3f);
                 Main.dust[num228].noGravity = true;
                 Main.dust[num228].velocity = vector7;
@@ -133,7 +153,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             damage = 0;
-            npc.life++;
+            NPC.life++;
         }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -144,7 +164,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 projectile.timeLeft = 0;
             }
             damage = 0;
-            npc.life++;
+            NPC.life++;
         }
 
         public override bool CheckActive()
@@ -152,7 +172,7 @@ namespace FargowiltasSouls.NPCs.Champions
             return false;
         }
 
-        public override bool PreNPCLoot()
+        public override bool PreKill()
         {
             return false;
         }
@@ -164,7 +184,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override Color? GetAlpha(Color drawColor)
         {
-            return Color.White * npc.Opacity;
+            return Color.White * NPC.Opacity;
         }
     }
 }

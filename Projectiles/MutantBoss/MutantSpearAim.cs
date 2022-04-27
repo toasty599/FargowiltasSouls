@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Projectiles.BossWeapons;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -13,25 +16,25 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Penetrator");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 30;
-            projectile.height = 30;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.scale = 1.3f;
-            projectile.alpha = 0;
-            projectile.timeLeft = 60;
-            cooldownSlot = 1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.width = 30;
+            Projectile.height = 30;
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.scale = 1.3f;
+            Projectile.alpha = 0;
+            Projectile.timeLeft = 60;
+            CooldownSlot = 1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         /* -1: direct, green, 3sec for rapid p2 toss
@@ -47,97 +50,99 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             //basically: ai1 > 1 means predictive and blue glow, otherwise direct aim and green glow
 
-            NPC mutant = Main.npc[(int)projectile.ai[0]];
-            if (mutant.active && mutant.type == mod.NPCType("MutantBoss"))
+            NPC mutant = Main.npc[(int)Projectile.ai[0]];
+            if (mutant.active && mutant.type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
             {
-                projectile.Center = mutant.Center;
-                if (projectile.ai[1] > 1)
+                Projectile.Center = mutant.Center;
+                if (Projectile.ai[1] > 1)
                 {
-                    if (!(projectile.ai[1] == 4 && projectile.timeLeft < System.Math.Abs(projectile.localAI[1]) + 5))
-                        projectile.rotation = mutant.DirectionTo(Main.player[mutant.target].Center + Main.player[mutant.target].velocity * 30).ToRotation() + MathHelper.ToRadians(135f);
+                    if (!(Projectile.ai[1] == 4 && Projectile.timeLeft < System.Math.Abs(Projectile.localAI[1]) + 5))
+                        Projectile.rotation = Projectile.rotation.AngleLerp(mutant.DirectionTo(Main.player[mutant.target].Center + Main.player[mutant.target].velocity * 30).ToRotation(), 0.2f);
                 }
                 else
                 {
-                    projectile.rotation = mutant.DirectionTo(Main.player[mutant.target].Center).ToRotation() + MathHelper.ToRadians(135f);
+                    Projectile.rotation = mutant.DirectionTo(Main.player[mutant.target].Center).ToRotation();
                 }
             }
             else
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
 
-            if (projectile.localAI[0] == 0) //modifying timeleft for mp sync, localAI1 changed to adjust the rampup on the glow tell
+            if (Projectile.localAI[0] == 0) //modifying timeleft for mp sync, localAI1 changed to adjust the rampup on the glow tell
             {
-                projectile.localAI[0] = 1;
+                Projectile.localAI[0] = 1;
 
-                if (projectile.ai[1] == -1) //extra long startup on p2 direct throw
+                if (Projectile.ai[1] == -1) //extra long startup on p2 direct throw
                 {
-                    projectile.timeLeft += 120;
-                    projectile.localAI[1] = -120;
+                    Projectile.timeLeft += 120;
+                    Projectile.localAI[1] = -120;
                 }
-                else if (projectile.ai[1] == 1) //p2 direct throw rapid fire
+                else if (Projectile.ai[1] == 1) //p2 direct throw rapid fire
                 {
-                    projectile.timeLeft -= 30;
-                    projectile.localAI[1] = 30;
+                    Projectile.timeLeft -= 30;
+                    Projectile.localAI[1] = 30;
                 }
-                else if (projectile.ai[1] == 3) //p1 predictive throw
+                else if (Projectile.ai[1] == 3) //p1 predictive throw
                 {
-                    projectile.timeLeft += 30;
-                    projectile.localAI[1] = -30;
+                    Projectile.timeLeft += 30;
+                    Projectile.localAI[1] = -30;
                 }
-                else if (projectile.ai[1] == 4)
+                else if (Projectile.ai[1] == 4)
                 {
-                    projectile.timeLeft += 20;
-                    projectile.localAI[1] = -20;
+                    Projectile.timeLeft += 20;
+                    Projectile.localAI[1] = -20;
                 }
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, mod.ProjectileType("PhantasmalBlast"), 0, 0f, projectile.owner);
+            Projectile.NewProjectile(Projectile.InheritSource(Projectile), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), 0, 0f, Projectile.owner);
             if (FargoSoulsWorld.EternityMode)
             {
-                target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 600);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            float rotationOffset = MathHelper.ToRadians(135f);
+
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i] + rotationOffset;
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation + rotationOffset, origin2, Projectile.scale, SpriteEffects.None, 0);
 
-            if (projectile.ai[1] != 5 && !FargoSoulsWorld.MasochistModeReal)
+            if (Projectile.ai[1] != 5)
             {
-                Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
-                float modifier = projectile.timeLeft / (60f - projectile.localAI[1]);
+                Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantSpearAimGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                float modifier = Projectile.timeLeft / (60f - Projectile.localAI[1]);
                 Color glowColor = new Color(51, 255, 191, 210);
-                if (projectile.ai[1] > 1)
+                if (Projectile.ai[1] > 1)
                     glowColor = new Color(0, 0, 255, 210);
-                //if (projectile.ai[1] == 4) glowColor = new Color(255, 0, 0, 210);
+                //if (Projectile.ai[1] == 4) glowColor = new Color(255, 0, 0, 210);
                 glowColor *= 1f - modifier;
-                float glowScale = projectile.scale * 6f * modifier;
-                Main.spriteBatch.Draw(glow, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, 0, origin2, glowScale, SpriteEffects.None, 0f);
+                float glowScale = Projectile.scale * 6f * modifier;
+                Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, 0, origin2, glowScale, SpriteEffects.None, 0);
             }
             return false;
         }

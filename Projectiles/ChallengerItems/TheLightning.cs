@@ -1,21 +1,21 @@
 using Terraria;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.ChallengerItems
 {
     public class TheLightning : LightningArc
     {
-        public override string Texture => "Terraria/Projectile_466";
+        public override string Texture => "Terraria/Images/Projectile_466";
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.tileCollide = false;
-            projectile.ranged = false;
-            projectile.melee = true;
+            Projectile.tileCollide = false;
+            Projectile.DamageType = DamageClass.Melee;
 
-            projectile.usesIDStaticNPCImmunity = false;
-            projectile.idStaticNPCHitCooldown = 0;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+            Projectile.usesIDStaticNPCImmunity = false;
+            Projectile.idStaticNPCHitCooldown = 0;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
         }
 
         float collideHeight;
@@ -24,9 +24,9 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
         {
             if (collideHeight == 0)
             {
-                collideHeight = projectile.ai[1];
-                projectile.ai[1] = Main.rand.Next(80);
-                projectile.netUpdate = true;
+                collideHeight = Projectile.ai[1];
+                Projectile.ai[1] = Main.rand.Next(80);
+                Projectile.netUpdate = true;
             }
             return base.PreAI();
         }
@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
         {
             base.AI();
 
-            if (projectile.Center.Y > collideHeight)
-                projectile.tileCollide = true;
+            if (Projectile.Center.Y > collideHeight)
+                Projectile.tileCollide = true;
         }
     }
 }

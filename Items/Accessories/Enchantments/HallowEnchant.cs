@@ -4,73 +4,61 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class HallowEnchant : SoulsItem
+    public class HallowEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Hallowed Enchantment");
 
             Tooltip.SetDefault(
-@"You gain a shield that can reflect projectiles
-Summons an Enchanted Sword familiar that scales with minion damage
-Drastically increases minion speed
-Certain minion attacks do reduced damage to compensate for increased speed
-'Hallowed be your sword and shield'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "神圣魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"Become immune after striking an enemy
+'Hit me with your best shot'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神圣魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"使你获得一面可以反弹弹幕的盾牌
 召唤一柄附魔剑，附魔剑的伤害取决于你的召唤伤害
 '愿人都尊你的剑与盾为圣'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(150, 133, 100);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(150, 133, 100);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.LightPurple;
-            item.value = 180000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.LightPurple;
+            Item.value = 180000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().HallowEffect(hideVisual); //new effect
+            HallowEffect(player);
+        }
+
+        public static void HallowEffect(Player player)
+        {
+            if (player.GetToggleValue("HallowDodge"))
+                player.onHitDodge = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddRecipeGroup("FargowiltasSouls:AnyHallowHead"); //add summon helm here
-            recipe.AddIngredient(ItemID.HallowedPlateMail);
-            recipe.AddIngredient(ItemID.HallowedGreaves);
-            recipe.AddIngredient(ModContent.ItemType<SilverEnchant>());
-            recipe.AddIngredient(ItemID.Gungnir);
-            recipe.AddIngredient(ItemID.RainbowRod);
-            //hallow lance
-            //hallowed repeater
-            //any caught fairy
-            //any horse mount
-            //recipe.AddIngredient(ItemID.FairyBell);
-
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddRecipeGroup("FargowiltasSouls:AnyHallowHead")
+                .AddIngredient(ItemID.HallowedPlateMail)
+                .AddIngredient(ItemID.HallowedGreaves)
+                .AddIngredient(ItemID.HallowJoustingLance)
+                .AddIngredient(ItemID.RainbowRod)
+                .AddIngredient(ItemID.MajesticHorseSaddle)
+                
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

@@ -3,9 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.Minions;
-using FargowiltasSouls.Buffs.Minions;
+//using FargowiltasSouls.Buffs.Minions;
 using Microsoft.Xna.Framework;
 using System.Linq;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Items.Weapons.BossDrops
 {
@@ -15,34 +16,36 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
         {
             DisplayName.SetDefault("Mind Break");
             Tooltip.SetDefault("'An old foe beaten into submission..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "精神崩坏");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'一个被迫屈服的老对手..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精神崩坏");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'一个被迫屈服的老对手..'");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.damage = 12;
-            item.summon = true;
-            item.mana = 10;
-            item.width = 26;
-            item.height = 28;
-            item.useTime = 36;
-            item.useAnimation = 36;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.noMelee = true;
-            item.knockBack = 3;
-            item.rare = ItemRarityID.Green;
-            item.UseSound = SoundID.Item44;
-            item.shoot = ModContent.ProjectileType<BrainProj>();
-            item.shootSpeed = 10f;
-            //item.buffType = ModContent.BuffType<BrainMinion>();
-            item.autoReuse = true;
-            item.value = Item.sellPrice(0, 2);
+            Item.damage = 12;
+            Item.DamageType = DamageClass.Summon;
+            Item.mana = 10;
+            Item.width = 26;
+            Item.height = 28;
+            Item.useTime = 36;
+            Item.useAnimation = 36;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.noMelee = true;
+            Item.knockBack = 3;
+            Item.rare = ItemRarityID.Green;
+            Item.UseSound = SoundID.Item44;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Minions.BrainMinion>();
+            Item.shootSpeed = 10f;
+            //Item.buffType = ModContent.BuffType<BrainMinion>();
+            Item.autoReuse = true;
+            Item.value = Item.sellPrice(0, 2);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(ModContent.BuffType<BrainMinion>(), 2);
+            player.AddBuff(ModContent.BuffType<Buffs.Minions.BrainMinion>(), 2);
             Vector2 spawnPos = Main.MouseWorld;
             float usedminionslots = 0;
             var minions = Main.projectile.Where(x => x.minionSlots > 0 && x.owner == player.whoAmI && x.active);
@@ -50,9 +53,9 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
                 usedminionslots += minion.minionSlots;
             if (player.ownedProjectileCounts[type] == 0 && usedminionslots != player.maxMinions) //only spawn brain minion itself when the player doesnt have any, and if minion slots aren't maxxed out
             {
-                Projectile.NewProjectile(spawnPos, Vector2.Zero, type, damage, knockBack, player.whoAmI);
+                player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
             }
-            Projectile.NewProjectile(spawnPos, Main.rand.NextVector2Circular(10, 10), mod.ProjectileType("CreeperMinion"), damage, knockBack, player.whoAmI);
+            player.SpawnMinionOnCursor(source, player.whoAmI, ModContent.ProjectileType<CreeperMinion>(), Item.damage, knockback, default, Main.rand.NextVector2Circular(10, 10));
             return false;
         }
     }

@@ -10,17 +10,17 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 30;
-			projectile.height = 30;
-			//projectile.aiStyle = 136;
-			projectile.alpha = 0;
-			projectile.penetrate = -1;
-			projectile.friendly = true;
-			//projectile.usesLocalNPCImmunity = true;
-			//projectile.localNPCHitCooldown = 8;
-			projectile.melee = true;
-			projectile.tileCollide = false;
-			projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+			Projectile.width = 30;
+			Projectile.height = 30;
+			//Projectile.aiStyle = 136;
+			Projectile.alpha = 0;
+			Projectile.penetrate = -1;
+			Projectile.friendly = true;
+			//Projectile.usesLocalNPCImmunity = true;
+			//Projectile.localNPCHitCooldown = 8;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.tileCollide = false;
+			Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 		}
 
 		public int timer;
@@ -33,62 +33,54 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
 		public override void AI()
 		{
-			NPC target = Main.npc[(int)projectile.ai[1]];
+			NPC target = Main.npc[(int)Projectile.ai[1]];
 			if (!target.active)
-				projectile.Kill();
+				Projectile.Kill();
 
 			Vector2 center = target.Center;
-			projectile.Center = center;
-			projectile.rotation = projectile.velocity.ToRotation();
+			Projectile.Center = center;
+			Projectile.rotation = Projectile.velocity.ToRotation();
 
 			DelegateMethods.v3_1 = new Vector3(1.2f, 1f, 0.3f);
-			float num2 = projectile.localAI[0] / 40f;
+			float num2 = Projectile.localAI[0] / 40f;
 			if (num2 > 1f)
 			{
 				num2 = 1f;
 			}
-			float num3 = (projectile.localAI[0] - 38f) / 40f;
+			float num3 = (Projectile.localAI[0] - 38f) / 40f;
 			if (num3 < 0f)
 			{
 				num3 = 0f;
 			}
-			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2() * 100f * num3, projectile.Center + projectile.rotation.ToRotationVector2() * 100f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
-			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(0.19634954631328583, default(Vector2)) * 100f * num3, projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(0.19634954631328583, default(Vector2)) * 100f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
-			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(-0.19634954631328583, default(Vector2)) * 100f * num3, projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(-0.19634954631328583, default(Vector2)) * 100f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
+			//Utils.PlotTileLine(Projectile.Center + Projectile.rotation.ToRotationVector2() * 100f * num3, Projectile.Center + Projectile.rotation.ToRotationVector2() * 100f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
+			//Utils.PlotTileLine(Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(0.19634954631328583, default(Vector2)) * 100f * num3, Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(0.19634954631328583, default(Vector2)) * 100f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
+			//Utils.PlotTileLine(Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(-0.19634954631328583, default(Vector2)) * 100f * num3, Projectile.Center + Projectile.rotation.ToRotationVector2().RotatedBy(-0.19634954631328583, default(Vector2)) * 100f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-			/*if (Main.rand.NextBool(4) && projectile.localAI[0] >= 25f)
-			{
-				Vector2 vector = projectile.Center + projectile.rotation.ToRotationVector2() * 600f;
-				vector -= Utils.RandomVector2(Main.rand, -40f, 40f);
-				Gore gore = Gore.NewGoreDirect(vector, Vector2.Zero, 61 + Main.rand.Next(3), 1f);
-				gore.velocity *= 0.6f;
-				gore.velocity += projectile.rotation.ToRotationVector2() * 4f;
-			}*/
-			//projectile.frameCounter++;
-			projectile.localAI[0] += 1f;
 
-			if (projectile.localAI[0] >= projectile.ai[0])
+			Projectile.localAI[0] += 1f;
+
+			if (Projectile.localAI[0] >= Projectile.ai[0])
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 		}
 
 		public override bool? Colliding(Rectangle myRect, Rectangle targetRect)
 		{
 			float num11 = 0f;
-			float num12 = projectile.localAI[0] / 25f;
+			float num12 = Projectile.localAI[0] / 25f;
 			if (num12 > 1f)
 			{
 				num12 = 1f;
 			}
-			float num13 = (projectile.localAI[0] - 38f) / 40f;
+			float num13 = (Projectile.localAI[0] - 38f) / 40f;
 			if (num13 < 0f)
 			{
 				num13 = 0f;
 			}
-			Vector2 lineStart = projectile.Center + projectile.rotation.ToRotationVector2() * 100f * num13;
-			Vector2 lineEnd = projectile.Center + projectile.rotation.ToRotationVector2() * 200f * num12;
-			if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), lineStart, lineEnd, 40f * projectile.scale, ref num11))
+			Vector2 lineStart = Projectile.Center + Projectile.rotation.ToRotationVector2() * 100f * num13;
+			Vector2 lineEnd = Projectile.Center + Projectile.rotation.ToRotationVector2() * 200f * num12;
+			if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), lineStart, lineEnd, 40f * Projectile.scale, ref num11))
 			{
 				return true;
 			}
@@ -100,14 +92,14 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			return new Color(13, 219, 83);
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
-			Vector2 value10 = projectile.Center;
+			Vector2 value10 = Projectile.Center;
 			value10 -= Main.screenPosition;
 			float num178 = 40f;
 			float num179 = num178 * 2f;
-			float num180 = (float)projectile.localAI[0] / num178;
-			Texture2D texture2D5 = Main.projectileTexture[projectile.type];
+			float num180 = (float)Projectile.localAI[0] / num178;
+			Texture2D texture2D5 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
 			Color color33 = Color.White;
 			Color color34 = new Color(255, 255, 255, 0);
 			Color color35 = new Color(30, 180, 30, 0);
@@ -116,16 +108,16 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			for (float num182 = 0f; num182 < 15f; num182 += 0.66f)
 			{
 				float num183 = Utils.RandomFloat(ref num181) * 0.25f - 0.125f;
-				Vector2 value11 = (projectile.rotation + num183).ToRotationVector2();
+				Vector2 value11 = (Projectile.rotation + num183).ToRotationVector2();
 				Vector2 value12 = value10 + value11 * 200f;
 				float num184 = num180 + num182 * 0.06666667f;
 				int num185 = (int)(num184 / 0.06666667f);
 				num184 %= 1f;
-				if ((num184 <= num180 % 1f || (float)projectile.localAI[0] >= num178) && (num184 >= num180 % 1f || (float)projectile.localAI[0] < num179 - num178))
+				if ((num184 <= num180 % 1f || (float)Projectile.localAI[0] >= num178) && (num184 >= num180 % 1f || (float)Projectile.localAI[0] < num179 - num178))
 				{
 					if (num184 < 0.1f)
 					{
-						color33 = Color.Lerp(Color.Transparent, color34, Utils.InverseLerp(0f, 0.1f, num184, true));
+						color33 = Color.Lerp(Color.Transparent, color34, Utils.GetLerpValue(0f, 0.1f, num184, true));
 					}
 					else if (num184 < 0.35f)
 					{
@@ -133,15 +125,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 					}
 					else if (num184 < 0.7f)
 					{
-						color33 = Color.Lerp(color34, color35, Utils.InverseLerp(0.35f, 0.7f, num184, true));
+						color33 = Color.Lerp(color34, color35, Utils.GetLerpValue(0.35f, 0.7f, num184, true));
 					}
 					else if (num184 < 0.9f)
 					{
-						color33 = Color.Lerp(color35, color36, Utils.InverseLerp(0.7f, 0.9f, num184, true));
+						color33 = Color.Lerp(color35, color36, Utils.GetLerpValue(0.7f, 0.9f, num184, true));
 					}
 					else if (num184 < 1f)
 					{
-						color33 = Color.Lerp(color36, Color.Transparent, Utils.InverseLerp(0.9f, 1f, num184, true));
+						color33 = Color.Lerp(color36, Color.Transparent, Utils.GetLerpValue(0.9f, 1f, num184, true));
 					}
 					else
 					{
@@ -153,7 +145,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 					num186 *= 0.8f;
 					Vector2 position = Vector2.SmoothStep(value10, value12, num184);
 					Rectangle rectangle2 = texture2D5.Frame(1, 7, 0, (int)(num184 * 7f));
-					Main.spriteBatch.Draw(texture2D5, position, new Microsoft.Xna.Framework.Rectangle?(rectangle2), color33, projectile.rotation + 6.28318548f * (num184 + Main.GlobalTime * 1.2f) * 0.2f + (float)num185 * 1.2566371f, rectangle2.Size() / 2f, num186 / 2, SpriteEffects.None, 0f);
+					Main.EntitySpriteDraw(texture2D5, position, new Microsoft.Xna.Framework.Rectangle?(rectangle2), color33, Projectile.rotation + 6.28318548f * (num184 + Main.GlobalTimeWrappedHourly * 1.2f) * 0.2f + (float)num185 * 1.2566371f, rectangle2.Size() / 2f, num186 / 2, SpriteEffects.None, 0);
 				}
 			}
 			return false;

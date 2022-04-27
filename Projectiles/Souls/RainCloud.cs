@@ -10,93 +10,92 @@ namespace FargowiltasSouls.Projectiles.Souls
     public class RainCloud : ModProjectile
     {
         private int shrinkTimer = 0;
-        public override string Texture => "Terraria/Projectile_238";
+        public override string Texture => "Terraria/Images/Projectile_238";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rain Cloud");
-            Main.projFrames[projectile.type] = 6;
+            Main.projFrames[Projectile.type] = 6;
         }
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.RainCloudRaining);
-            aiType = ProjectileID.RainCloudRaining;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            Projectile.CloneDefaults(ProjectileID.RainCloudRaining);
+            AIType = ProjectileID.RainCloudRaining;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 
-            projectile.timeLeft = 300;
+            Projectile.timeLeft = 300;
 
-            projectile.penetrate = -1;
+            Projectile.penetrate = -1;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            Player player = Main.player[Projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             //destroy duplicates if they somehow spawn
-            if (player.ownedProjectileCounts[projectile.type] > 1
-                || (projectile.owner == Main.myPlayer && (!player.GetToggleValue("Rain") || !modPlayer.RainEnchant)))
+            if (player.ownedProjectileCounts[Projectile.type] > 1
+                || (Projectile.owner == Main.myPlayer && (!player.GetToggleValue("Rain") || !modPlayer.RainEnchantActive)))
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
             else
             {
-                projectile.timeLeft = 2;
+                Projectile.timeLeft = 2;
             }
 
             //follow player
-            float dist = Vector2.Distance(projectile.Center, player.Center);
+            float dist = Vector2.Distance(Projectile.Center, player.Center);
 
             if (dist > 200)
             {
-                Vector2 velocity = Vector2.Normalize(player.Center - projectile.Center) * player.velocity.Length();
-                projectile.position += velocity;
+                Vector2 velocity = Vector2.Normalize(player.Center - Projectile.Center) * player.velocity.Length();
+                Projectile.position += velocity;
             }
             else
             {
-                projectile.velocity.Y = 0;
+                Projectile.velocity.Y = 0;
             }
 
             //always max size
             if (modPlayer.NatureForce)
             {
-                projectile.scale = 3f;
+                Projectile.scale = 3f;
                 shrinkTimer = 1;
             }
 
-            //absorb projectiles
-            if (projectile.owner == Main.myPlayer)
+            //absorb Projectiles
+            if (Projectile.owner == Main.myPlayer)
             {
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile proj = Main.projectile[i];
 
-                    if (proj.active && proj.friendly && !proj.hostile && proj.owner == player.whoAmI && proj.damage > 0 && !proj.minion && proj.Hitbox.Intersects(projectile.Hitbox)
-                        && proj.type != projectile.type && proj.type != ProjectileID.RainFriendly && proj.type != ModContent.ProjectileType<LightningArc>() && proj.whoAmI != Main.player[proj.owner].heldProj
-                        && Array.IndexOf(FargoGlobalProjectile.noSplit, projectile.type) <= -1 && proj.type != ModContent.ProjectileType<Chlorofuck>())
+                    if (proj.active && proj.friendly && !proj.hostile && proj.owner == player.whoAmI && proj.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(proj) && !FargoSoulsUtil.IsSummonDamage(proj, false) && proj.Hitbox.Intersects(Projectile.Hitbox)
+                        && proj.type != Projectile.type && proj.type != ProjectileID.RainFriendly && proj.type != ModContent.ProjectileType<LightningArc>() && proj.whoAmI != Main.player[proj.owner].heldProj
+                        && Array.IndexOf(FargoSoulsGlobalProjectile.noSplit, Projectile.type) <= -1 && proj.type != ModContent.ProjectileType<Chlorofuck>())
                     {
-                        if (projectile.scale < 3f)
+                        if (Projectile.scale < 3f)
                         {
-                            projectile.scale *= 1.1f;
+                            Projectile.scale *= 1.1f;
                         }
                         else
                         {
-                            Vector2 rotationVector2 = (proj.Center + proj.velocity * 25) - projectile.Center;
+                            Vector2 rotationVector2 = (proj.Center + proj.velocity * 25) - Projectile.Center;
                             rotationVector2.Normalize();
 
                             Vector2 vector2_3 = rotationVector2 * 10f;
                             float ai_1 = Main.rand.Next(80);
-                            int p = Projectile.NewProjectile(projectile.position.X + Main.rand.NextFloat(projectile.width), projectile.position.Y + Main.rand.NextFloat(projectile.height), vector2_3.X, vector2_3.Y,
-                                mod.ProjectileType("LightningArc"), proj.maxPenetrate == 1 ? proj.damage * 2 : (int)(proj.damage * 1.2), projectile.knockBack, projectile.owner,
+                            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + Main.rand.NextFloat(Projectile.width), Projectile.position.Y + Main.rand.NextFloat(Projectile.height), vector2_3.X, vector2_3.Y,
+                                ModContent.ProjectileType<LightningArc>(), proj.maxPenetrate == 1 ? proj.damage * 2 : (int)(proj.damage * 1.2), Projectile.knockBack, Projectile.owner,
                                 rotationVector2.ToRotation(), ai_1);
                             if (p != Main.maxProjectiles)
                             {
-                                Main.projectile[p].ranged = false;
-                                Main.projectile[p].magic = true;
+                                Main.projectile[p].DamageType = DamageClass.Magic;
                                 Main.projectile[p].usesIDStaticNPCImmunity = false;
                                 Main.projectile[p].idStaticNPCHitCooldown = 0;
-                                Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
                                 if (proj.maxPenetrate == 1)
                                     Main.projectile[p].penetrate = Main.projectile[p].maxPenetrate = 3;
                             }
@@ -110,50 +109,50 @@ namespace FargowiltasSouls.Projectiles.Souls
                 }
             }
 
-            //shrink over time if no projectiles absorbed
-            if (shrinkTimer > 0 && projectile.scale > 1f)
+            //shrink over time if no Projectiles absorbed
+            if (shrinkTimer > 0 && Projectile.scale > 1f)
             {
                 shrinkTimer--;
 
                 if (shrinkTimer == 0)
                 {
-                    projectile.scale *= 0.9f;
+                    Projectile.scale *= 0.9f;
                     shrinkTimer = 10;
                 }
             }
 
             //cancel normal rain
-            projectile.ai[0] = 0;
+            Projectile.ai[0] = 0;
 
-            projectile.localAI[1]++;
+            Projectile.localAI[1]++;
 
             //bigger = more rain
-            if (projectile.scale > 3f)
+            if (Projectile.scale > 3f)
             {
-                projectile.localAI[1] += 4;
+                Projectile.localAI[1] += 4;
             }
-            else if (projectile.scale > 2f)
+            else if (Projectile.scale > 2f)
             {
-                projectile.localAI[1] += 3;
+                Projectile.localAI[1] += 3;
             }
-            else if (projectile.scale > 1.5f)
+            else if (Projectile.scale > 1.5f)
             {
-                projectile.localAI[1] += 2;
+                Projectile.localAI[1] += 2;
             }
             else
             {
-                projectile.localAI[1]++;
+                Projectile.localAI[1]++;
             }
 
             //do the rain
-            if (projectile.localAI[1] >= 8)
+            if (Projectile.localAI[1] >= 8)
             {
-                projectile.localAI[1] = 0;
-                if (projectile.owner == Main.myPlayer)
+                Projectile.localAI[1] = 0;
+                if (Projectile.owner == Main.myPlayer)
                 {
-                    int num414 = (int)(projectile.Center.X + (float)Main.rand.Next((int)(-20 * projectile.scale), (int)(20 * projectile.scale)));
-                    int num415 = (int)(projectile.position.Y + (float)projectile.height + 4f);
-                    int p = Projectile.NewProjectile((float)num414, (float)num415, 0f, 5f, ProjectileID.RainFriendly, projectile.damage / 4, 0f, projectile.owner, 0f, 0f);
+                    int num414 = (int)(Projectile.Center.X + (float)Main.rand.Next((int)(-20 * Projectile.scale), (int)(20 * Projectile.scale)));
+                    int num415 = (int)(Projectile.position.Y + (float)Projectile.height + 4f);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), (float)num414, (float)num415, 0f, 5f, ProjectileID.RainFriendly, Projectile.damage / 4, 0f, Projectile.owner, 0f, 0);
                     if (p != Main.maxProjectiles)
                     {
                         Main.projectile[p].penetrate = 1;

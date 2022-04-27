@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.BossWeapons
 {
@@ -11,16 +12,16 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.hostile = false;
-            projectile.friendly = true;
-            projectile.melee = true;
-            projectile.penetrate = 1;
-            cooldownSlot = -1;
+            Projectile.hostile = false;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.penetrate = 1;
+            CooldownSlot = -1;
         }
 
         public override void AI()
         {
-            projectile.tileCollide = --projectile.ai[1] < 0;
+            Projectile.tileCollide = --Projectile.ai[1] < 0;
             base.AI();
         }
 

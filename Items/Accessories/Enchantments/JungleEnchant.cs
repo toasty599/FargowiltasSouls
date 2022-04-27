@@ -7,13 +7,15 @@ using System.Collections.Generic;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class JungleEnchant : SoulsItem
+    public class JungleEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Jungle Enchantment");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "丛林魔石");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "丛林魔石");
             
             string tooltip =
 @"Grants a double spore jump
@@ -24,53 +26,41 @@ Double tap a direction
             string tooltip_ch =
 @"使你获得孢子二段跳能力
 '丛林之怒深藏其中'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(113, 151, 31);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(113, 151, 31);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Orange;
-            item.value = 50000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Orange;
+            Item.value = 50000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().JungleEnchant = true;
+            player.GetModPlayer<FargoSoulsPlayer>().JungleEnchantActive = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.JungleHat);
-            recipe.AddIngredient(ItemID.JungleShirt);
-            recipe.AddIngredient(ItemID.JunglePants);
-            recipe.AddIngredient(ItemID.ThornChakram);
-            recipe.AddIngredient(ItemID.JungleYoyo);
+            .AddIngredient(ItemID.JungleHat)
+            .AddIngredient(ItemID.JungleShirt)
+            .AddIngredient(ItemID.JunglePants)
+            .AddIngredient(ItemID.ThornChakram)
+            .AddIngredient(ItemID.JungleYoyo)
             //snapthorn
             //staff of regrowth
-            recipe.AddIngredient(ItemID.JungleRose);
-            //recipe.AddIngredient(ItemID.Buggy);
+            .AddIngredient(ItemID.JungleRose)
+            //.AddIngredient(ItemID.Buggy);
             //panda pet
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -18,29 +20,29 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 320;
-            projectile.height = 320;
-            projectile.hostile = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.timeLeft = 600;
-            projectile.alpha = 255;
-            projectile.penetrate = -1;
-            cooldownSlot = -1;
+            Projectile.width = 320;
+            Projectile.height = 320;
+            Projectile.hostile = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 600;
+            Projectile.alpha = 255;
+            Projectile.penetrate = -1;
+            CooldownSlot = -1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
                 projectile =>
                 {
-                    return CanDamage() && Math.Abs((Main.LocalPlayer.Center - projectile.Center).Length() - safeRange) < Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius;
+                    return CanDamage() == true && Math.Abs((Main.LocalPlayer.Center - Projectile.Center).Length() - safeRange) < Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius;
                 };
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
-            return projectile.alpha == 0f && Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantBomb>()] > 0;
+            return Projectile.alpha == 0f && Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantBomb>()] > 0;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -64,36 +66,36 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             if (npc != null && npc.ai[0] == 34)
             {
-                projectile.alpha -= 7;
-                projectile.timeLeft = 300;
-                projectile.Center = npc.Center;
-                projectile.position.Y -= 100;
+                Projectile.alpha -= 7;
+                Projectile.timeLeft = 300;
+                Projectile.Center = npc.Center;
+                Projectile.position.Y -= 100;
             }
             else
             {
-                projectile.alpha += 17;
+                Projectile.alpha += 17;
             }
 
-            if (projectile.alpha < 0)
-                projectile.alpha = 0;
-            if (projectile.alpha > 255)
+            if (Projectile.alpha < 0)
+                Projectile.alpha = 0;
+            if (Projectile.alpha > 255)
             {
-                projectile.alpha = 255;
-                projectile.Kill();
+                Projectile.alpha = 255;
+                Projectile.Kill();
                 return;
             }
-            projectile.scale = 1f - projectile.alpha / 255f;
-            projectile.rotation += (float)Math.PI / 70f;
+            Projectile.scale = 1f - Projectile.alpha / 255f;
+            Projectile.rotation += (float)Math.PI / 70f;
 
-            /*int num1 = (300 - projectile.timeLeft) / 60;
-            float num2 = projectile.scale * 0.4f;
+            /*int num1 = (300 - Projectile.timeLeft) / 60;
+            float num2 = Projectile.scale * 0.4f;
             float num3 = Main.rand.Next(1, 3);
             Vector2 vector2 = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
             vector2.Normalize();
-            int index2 = Dust.NewDust(projectile.Center, 0, 0, 135, 0f, 0f, 100, new Color(), 2f);
+            int index2 = Dust.NewDust(Projectile.Center, 0, 0, 135, 0f, 0f, 100, new Color(), 2f);
             Main.dust[index2].noGravity = true;
             Main.dust[index2].noLight = true;
             Main.dust[index2].velocity = vector2 * num3;
@@ -104,22 +106,22 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             Main.dust[index2].fadeIn = 2f;*/
 
-            Lighting.AddLight(projectile.Center, 0.4f, 0.9f, 1.1f);
+            Lighting.AddLight(Projectile.Center, 0.4f, 0.9f, 1.1f);
 
-            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD > 10)
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 10;
+            if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD > 10)
+                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 10;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
-            target.AddBuff(mod.BuffType("MutantNibble"), 900);
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 900);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 900);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
         }
 
         public override Color? GetAlpha(Color lightColor)

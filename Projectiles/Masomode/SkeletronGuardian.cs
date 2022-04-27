@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -9,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class SkeletronGuardian : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_197";
+        public override string Texture => "Terraria/Images/Projectile_197";
 
         public override void SetStaticDefaults()
         {
@@ -18,103 +19,103 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.width = 42;
-            projectile.height = 42;
-            projectile.penetrate = -1;
-            projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = -1;
-            //cooldownSlot = 1;
+            Projectile.width = 42;
+            Projectile.height = 42;
+            Projectile.penetrate = -1;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = -1;
+            //CooldownSlot = 1;
 
-            projectile.timeLeft = 360;
-            projectile.hide = true;
+            Projectile.timeLeft = 360;
+            Projectile.hide = true;
 
-            projectile.light = 0.5f;
+            Projectile.light = 0.5f;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
-                projectile.hide = false;
+                Projectile.localAI[0] = 1;
+                Projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
+                Projectile.hide = false;
 
-                Main.PlaySound(SoundID.Item21, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);
 
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 pos = new Vector2(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + Main.rand.Next(-20, 20));
-                    int dust = Dust.NewDust(pos, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                    Vector2 pos = new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20));
+                    int dust = Dust.NewDust(pos, Projectile.width, Projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                     Main.dust[dust].noGravity = true;
                 }
             }
 
-            if (projectile.ai[0] == 0)
+            if (Projectile.ai[0] == 0)
             {
-                projectile.velocity -= new Vector2(projectile.ai[1], 0).RotatedBy(projectile.velocity.ToRotation());
+                Projectile.velocity -= new Vector2(Projectile.ai[1], 0).RotatedBy(Projectile.velocity.ToRotation());
 
-                if (projectile.velocity.Length() < 1)
+                if (Projectile.velocity.Length() < 1)
                 {
-                    int p = Player.FindClosest(projectile.Center, 0, 0);
+                    int p = Player.FindClosest(Projectile.Center, 0, 0);
                     if (p != -1)
                     {
-                        projectile.velocity = projectile.DirectionTo(Main.player[p].Center);
-                        projectile.ai[0] = 1f;
-                        projectile.ai[1] = p; //now used for tracking player
-                        projectile.netUpdate = true;
+                        Projectile.velocity = Projectile.DirectionTo(Main.player[p].Center);
+                        Projectile.ai[0] = 1f;
+                        Projectile.ai[1] = p; //now used for tracking player
+                        Projectile.netUpdate = true;
 
-                        Main.PlaySound(SoundID.Item1, projectile.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
                     }
                     else
                     {
-                        projectile.Kill();
+                        Projectile.Kill();
                     }
                 }
             }
             else //weak homing
             {
-                if (++projectile.localAI[0] < 45)
-                    projectile.velocity *= 1.08f;
+                if (++Projectile.localAI[0] < 45)
+                    Projectile.velocity *= 1.08f;
 
-                if (projectile.localAI[0] < 65)
+                if (Projectile.localAI[0] < 65)
                 {
-                    float rotation = projectile.velocity.ToRotation();
-                    Vector2 vel = Main.player[(int)projectile.ai[1]].Center - projectile.Center;
+                    float rotation = Projectile.velocity.ToRotation();
+                    Vector2 vel = Main.player[(int)Projectile.ai[1]].Center - Projectile.Center;
                     float targetAngle = vel.ToRotation();
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.065f));
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.065f));
                 }
             }
 
-            projectile.direction = projectile.velocity.X < 0 ? -1 : 1;
-            projectile.rotation += projectile.direction * .3f;
+            Projectile.direction = Projectile.velocity.X < 0 ? -1 : 1;
+            Projectile.rotation += Projectile.direction * .3f;
         }
 
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 50; i++)
             {
-                Vector2 pos = new Vector2(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + Main.rand.Next(-20, 20));
-                int dust = Dust.NewDust(pos, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                Vector2 pos = new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20));
+                int dust = Dust.NewDust(pos, Projectile.width, Projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Defenseless"), 300);
-            target.AddBuff(mod.BuffType("Lethargic"), 300);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
+            target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Projectiles;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Items.Weapons.BossDrops
 {
@@ -14,33 +15,34 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
 
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Slime King's Slasher");
             Tooltip.SetDefault("'Torn from the insides of a defeated foe..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "史莱姆王的屠戮者");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'撕裂敌人内部而得来的..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "史莱姆王的屠戮者");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'撕裂敌人内部而得来的..'");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 15;
-            item.melee = true;
-            item.width = 40;
-            item.height = 40;
-            item.useTime = 25;
-            item.useAnimation = 25;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.knockBack = 6;
-            item.value = 10000;
-            item.rare = ItemRarityID.Green;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<SlimeSpikeFriendly>();
-            item.shootSpeed = 12f;
+            Item.damage = 15;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 40;
+            Item.height = 40;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 6;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.Green;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<SlimeSpikeFriendly>();
+            Item.shootSpeed = 12f;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int p = Projectile.NewProjectile(player.Center, new Vector2(speedX, speedY), type, damage, knockback, player.whoAmI);
+            int p = Projectile.NewProjectile(player.GetSource_ItemUse(source.Item), player.Center, velocity, type, damage, knockback, player.whoAmI);
 
             float spread = MathHelper.Pi / 8;
 
@@ -49,7 +51,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
                 spread = MathHelper.Pi / 5;
             }
 
-            FargoGlobalProjectile.SplitProj(Main.projectile[p], numSpikes, spread, 1);
+            FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSpikes, spread, 1);
 
             numSpikes += 2;
 

@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class OpticFlame : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_101";
+        public override string Texture => "Terraria/Images/Projectile_101";
 
         public int targetID = -1;
         public int searchTimer = 3;
@@ -15,7 +15,8 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eye Fire");
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -30,18 +31,17 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.EyeFire);
-            aiType = ProjectileID.EyeFire;
-            projectile.hostile = false;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.magic = false;
-            projectile.tileCollide = false;
-            projectile.penetrate = -1;
-            projectile.ignoreWater = true;
+            Projectile.CloneDefaults(ProjectileID.EyeFire);
+            AIType = ProjectileID.EyeFire;
+            Projectile.hostile = false;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.ignoreWater = true;
 
-            /*projectile.usesIDStaticNPCImmunity = true;
-            projectile.idStaticNPCHitCooldown = 10;*/
+            /*Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 10;*/
         }
 
         /*public override void AI()
@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                         if (npc.active && npc.chaseable && npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly && !npc.immortal)
                         {
-                            float distance = Vector2.Distance(projectile.Center, npc.Center);
+                            float distance = Vector2.Distance(Projectile.Center, npc.Center);
 
                             if (closestDistance > distance)
                             {
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     if (possibleTarget != -1)
                     {
                         targetID = possibleTarget;
-                        projectile.netUpdate = true;
+                        Projectile.netUpdate = true;
                     }
                 }
                 searchTimer--;
@@ -85,18 +85,18 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                 if (npc.active && npc.chaseable && !npc.dontTakeDamage) //target is still valid
                 {
-                    Vector2 distance = npc.Center - projectile.Center;
-                    double angle = distance.ToRotation() - projectile.velocity.ToRotation();
+                    Vector2 distance = npc.Center - Projectile.Center;
+                    double angle = distance.ToRotation() - Projectile.velocity.ToRotation();
                     if (angle > Math.PI)
                         angle -= 2.0 * Math.PI;
                     if (angle < -Math.PI)
                         angle += 2.0 * Math.PI;
 
-                    if (projectile.ai[0] == -1)
+                    if (Projectile.ai[0] == -1)
                     {
                         if (Math.Abs(angle) > Math.PI * 0.75)
                         {
-                            projectile.velocity = projectile.velocity.RotatedBy(angle * 0.07);
+                            Projectile.velocity = Projectile.velocity.RotatedBy(angle * 0.07);
                         }
                         else
                         {
@@ -104,30 +104,30 @@ namespace FargowiltasSouls.Projectiles.Minions
                             float difference = 12.7f / range;
                             distance *= difference;
                             distance /= 7f;
-                            projectile.velocity += distance;
+                            Projectile.velocity += distance;
                             if (range > 70f)
                             {
-                                projectile.velocity *= 0.977f;
+                                Projectile.velocity *= 0.977f;
                             }
                         }
                     }
                     else
                     {
-                        projectile.velocity = projectile.velocity.RotatedBy(angle * 0.1);
+                        Projectile.velocity = Projectile.velocity.RotatedBy(angle * 0.1);
                     }
                 }
                 else //target lost, reset
                 {
                     targetID = -1;
                     searchTimer = 0;
-                    projectile.netUpdate = true;
+                    Projectile.netUpdate = true;
                 }
             }
         }*/
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[projectile.owner] = 8;
+            target.immune[Projectile.owner] = 8;
             target.AddBuff(BuffID.CursedInferno, 600);
         }
     }

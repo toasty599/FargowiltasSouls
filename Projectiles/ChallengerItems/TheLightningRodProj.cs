@@ -15,199 +15,206 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Lightning Rod");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 132;
-            projectile.height = 132;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.scale = 1.5f;
-            projectile.hide = true;
-            projectile.melee = true;
-            projectile.alpha = 0;
-            projectile.timeLeft = 45;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            Projectile.width = 132;
+            Projectile.height = 132;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.scale = 1.5f;
+            Projectile.hide = true;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.alpha = 0;
+            Projectile.timeLeft = 45;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(projectile.localAI[0]);
-            writer.Write(projectile.localAI[1]);
+            writer.Write(Projectile.localAI[0]);
+            writer.Write(Projectile.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            projectile.localAI[0] = reader.ReadSingle();
-            projectile.localAI[1] = reader.ReadSingle();
+            Projectile.localAI[0] = reader.ReadSingle();
+            Projectile.localAI[1] = reader.ReadSingle();
         }
+
+        private const int maxTime = 80;
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            if (projectile.owner == Main.myPlayer && !player.controlUseItem && projectile.ai[0] == 0f)
+            Player player = Main.player[Projectile.owner];
+            if (Projectile.owner == Main.myPlayer && !player.controlUseItem && Projectile.ai[0] == 0f)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
             if (player.dead || !player.active || player.ghost)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            projectile.localAI[0]++;
+            Projectile.localAI[0]++;
 
-            if (projectile.localAI[0] % 20 == 0)
-                Main.PlaySound(SoundID.Item1, projectile.Center);
+            if (Projectile.localAI[0] % 20 == 0)
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
 
             Vector2 ownerMountedCenter = player.RotatedRelativePoint(player.MountedCenter);
-            if (projectile.ai[0] == 0 && player.velocity.X != 0)
+            if (Projectile.ai[0] == 0 && player.velocity.X != 0)
                 player.ChangeDir(Math.Sign(player.velocity.X));
-            projectile.direction = player.direction;
-            player.heldProj = projectile.whoAmI;
+            Projectile.direction = player.direction;
+            player.heldProj = Projectile.whoAmI;
             player.itemTime = 2; //15;
             player.itemAnimation = 2; //15;
             //player.itemAnimationMax = 15;
-            projectile.timeLeft = 2;
 
             const float maxRotation = MathHelper.Pi / 6.85f / 1.5f; //spin up to full speed
-            float modifier = maxRotation * (projectile.ai[0] == 0 ? Math.Min(1f, projectile.localAI[0] / 80f) : 1f);
+            float modifier = maxRotation * (Projectile.ai[0] == 0 ? Math.Min(1f, Projectile.localAI[0] / 80f) : 1f);
 
-            if (projectile.ai[0] == 0f) //while held
+            if (Projectile.ai[0] == 0f) //while held
             {
-                damage = projectile.damage;
-                projectile.numHits = 0;
+                Projectile.timeLeft = maxTime + 2;
 
-                projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X);
-                projectile.rotation += modifier * player.direction;
-                projectile.velocity = projectile.rotation.ToRotationVector2();
-                projectile.position -= projectile.velocity;
-                player.itemRotation = MathHelper.WrapAngle(projectile.rotation);
+                damage = Projectile.damage;
+                Projectile.numHits = 0;
+
+                Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X);
+                Projectile.rotation += modifier * player.direction;
+                Projectile.velocity = Projectile.rotation.ToRotationVector2();
+                Projectile.position -= Projectile.velocity;
+                player.itemRotation = MathHelper.WrapAngle(Projectile.rotation);
                 
-                if (projectile.localAI[0] == 40)
+                if (Projectile.localAI[0] == 40)
                 {
-                    projectile.ai[1] = 1f;
+                    Projectile.ai[1] = 1f;
                 }
-                else if (projectile.localAI[0] == 120) //time to throw
+                else if (Projectile.localAI[0] == 120) //time to throw
                 {
-                    if (projectile.owner == Main.myPlayer)
+                    if (Projectile.owner == Main.myPlayer)
                     {
-                        projectile.ai[0] = 1f;
-                        projectile.localAI[0] = 0f;
-                        projectile.localAI[1] = projectile.Distance(Main.MouseWorld);
-                        if (projectile.localAI[1] < 200) //minimum throwing distance
-                            projectile.localAI[1] = 200;
-                        projectile.velocity = projectile.DirectionTo(Main.MouseWorld);
-                        projectile.netUpdate = true;
+                        Projectile.ai[0] = 1f;
+                        Projectile.localAI[0] = 0f;
+                        Projectile.localAI[1] = Projectile.Distance(Main.MouseWorld);
+                        if (Projectile.localAI[1] < 200) //minimum throwing distance
+                            Projectile.localAI[1] = 200;
+                        Projectile.velocity = Projectile.DirectionTo(Main.MouseWorld);
+                        Projectile.netUpdate = true;
                     }
                 }
             }
             else //while thrown
             {
-                projectile.damage = (int)(damage * Math.Pow(0.85, projectile.numHits));
-                if (projectile.damage < damage / 2)
-                    projectile.damage = damage / 2;
+                Projectile.damage = (int)(damage * Math.Pow(0.933, Projectile.numHits));
+                if (Projectile.damage < damage / 2)
+                    Projectile.damage = damage / 2;
 
-                const int maxTime = 80;
-
-                if (projectile.localAI[0] > maxTime)
+                if (Projectile.localAI[0] > maxTime)
                 {
-                    projectile.Kill();
+                    if (Projectile.owner == Main.myPlayer)
+                        Projectile.Kill();
+                    return;
                 }
                 else //player faces where this was thrown
                 {
-                    projectile.direction = Math.Sign(projectile.Center.X - player.Center.X);
-                    player.ChangeDir(projectile.direction);
-                    player.itemRotation = (float)Math.Atan2(projectile.velocity.Y * projectile.direction, projectile.velocity.X * projectile.direction);
+                    Projectile.direction = Math.Sign(Projectile.Center.X - player.Center.X);
+                    player.ChangeDir(Projectile.direction);
+                    player.itemRotation = (float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction);
                 }
 
-                projectile.rotation += modifier * player.direction * 1.25f; //spin faster when thrown
-
-                float distanceModifier = (float)Math.Sin(Math.PI / maxTime * projectile.localAI[0]); //fly out and back
-                projectile.velocity = Vector2.Normalize(projectile.velocity) * distanceModifier * projectile.localAI[1];
-
-                if (projectile.localAI[0] % 10 == 0 && projectile.owner == Main.myPlayer) //rain lightning
+                //while going out
+                if (Projectile.localAI[0] < maxTime / 2)
                 {
-                    Vector2 spawnPos = projectile.Center + Main.rand.NextVector2Circular(projectile.width / 2, projectile.height / 2);
-                    Projectile.NewProjectile(spawnPos - Vector2.UnitY * 900, Vector2.UnitY * 7f, ModContent.ProjectileType<TheLightning>(),
-                        projectile.damage, projectile.knockBack / 2, projectile.owner, Vector2.UnitY.ToRotation(), spawnPos.Y);
+                    //rain lightning
+                    if (Projectile.localAI[0] % 6 == 0 && Projectile.owner == Main.myPlayer)
+                    {
+                        Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 4, Projectile.height / 2);
+                        spawnPos -= Main.rand.NextFloat(900f, 1800f) * Vector2.UnitY;
+                        float ai1 = Projectile.Center.Y + Main.rand.NextFloat(-Projectile.height / 4, Projectile.height / 4);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, 12f * Vector2.UnitY, ModContent.ProjectileType<TheLightning>(),
+                            Projectile.damage, Projectile.knockBack / 2, Projectile.owner, Vector2.UnitY.ToRotation(), ai1);
+                    }
+
+                    //if hits a solid surface, immediately rebound
+                    if (Collision.SolidTiles(Projectile.Center, 2, 2, false) && Projectile.owner == Main.myPlayer)
+                    {
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+                        Projectile.localAI[0] = maxTime - Projectile.localAI[0];
+                        Projectile.netUpdate = true;
+                    }
                 }
+
+                Projectile.rotation += modifier * player.direction * 1.25f; //spin faster when thrown
+
+                float distanceModifier = (float)Math.Sin(Math.PI / maxTime * Projectile.localAI[0]); //fly out and back
+                Projectile.velocity = Vector2.Normalize(Projectile.velocity) * distanceModifier * Projectile.localAI[1];
             }
 
-            if (projectile.ai[1] != 0f)
+            if (Projectile.ai[1] != 0f)
             {
                 //dust!
-                int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, 156, 0f, 0f, 100, default(Color), 1f);
+                int dustId = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 156, 0f, 0f, 100, default(Color), 1f);
                 Main.dust[dustId].noGravity = true;
-                int dustId3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 156, 0f, 0f, 100, default(Color), 1f);
+                int dustId3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 156, 0f, 0f, 100, default(Color), 1f);
                 Main.dust[dustId3].noGravity = true;
             }
 
-            projectile.Center = ownerMountedCenter;
+            Projectile.Center = ownerMountedCenter;
         }
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (projectile.ai[0] == 0f)
+            if (Projectile.ai[0] == 0f) //less damage when held
                 damage /= 2;
 
-            hitDirection = Math.Sign(target.Center.X - Main.player[projectile.owner].Center.X);
+            hitDirection = Math.Sign(target.Center.X - Main.player[Projectile.owner].Center.X);
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
-            return projectile.ai[1] != 0f && Collision.CanHitLine(Main.player[projectile.owner].Center, 0, 0, projectile.Center, 0, 0);
+            return Projectile.ai[1] != 0f && Collision.CanHitLine(Main.player[Projectile.owner].Center, 0, 0, Projectile.Center, 0, 0);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            int clampedX = projHitbox.Center.X - targetHitbox.Center.X;
-            int clampedY = projHitbox.Center.Y - targetHitbox.Center.Y;
-
-            if (Math.Abs(clampedX) > targetHitbox.Width / 2)
-                clampedX = targetHitbox.Width / 2 * Math.Sign(clampedX);
-            if (Math.Abs(clampedY) > targetHitbox.Height / 2)
-                clampedY = targetHitbox.Height / 2 * Math.Sign(clampedY);
-
-            int dX = projHitbox.Center.X - targetHitbox.Center.X - clampedX;
-            int dY = projHitbox.Center.Y - targetHitbox.Center.Y - clampedY;
-
-            return Math.Sqrt(dX * dX + dY * dY) <= projectile.width / 2;
+            return Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) <= Projectile.width / 2;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            if (projectile.ai[1] != 0f)
+            if (Projectile.ai[1] != 0f)
             {
                 Color color26 = lightColor;
-                color26 = projectile.GetAlpha(color26);
+                color26 = Projectile.GetAlpha(color26);
 
-                for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+                for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
                 {
                     Color color27 = color26 * 0.5f;
-                    color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                    Vector2 value4 = projectile.oldPos[i];
-                    float num165 = projectile.oldRot[i];
-                    Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                    color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                    Vector2 value4 = Projectile.oldPos[i];
+                    float num165 = Projectile.oldRot[i];
+                    Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
                 }
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), 
-                projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), 
+                Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

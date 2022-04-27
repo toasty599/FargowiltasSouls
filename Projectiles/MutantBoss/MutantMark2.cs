@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -8,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantMark2 : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_226";
+        public override string Texture => "Terraria/Images/Projectile_226";
 
         public override void SetStaticDefaults()
         {
@@ -17,28 +19,28 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 32;
-            projectile.height = 32;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.hostile = true;
-            projectile.timeLeft = 900;
-            projectile.aiStyle = -1;
-            cooldownSlot = 1;
+            Projectile.width = 32;
+            Projectile.height = 32;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.hostile = true;
+            Projectile.timeLeft = 900;
+            Projectile.aiStyle = -1;
+            CooldownSlot = 1;
 
-            projectile.hide = true;
+            Projectile.hide = true;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override void AI()
         {
-            /*if (projectile.localAI[0] == 0) //spawn surrounding crystals
+            /*if (Projectile.localAI[0] == 0) //spawn surrounding crystals
             {
-                projectile.localAI[0] = 1;
+                Projectile.localAI[0] = 1;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     const int max = 5;
@@ -46,24 +48,24 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     float rotation = 2f * (float)Math.PI / max;
                     for (int i = 0; i < max; i++)
                     {
-                        Vector2 spawnPos = projectile.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                        Projectile.NewProjectile(spawnPos, Vector2.Zero, mod.ProjectileType("MutantCrystalLeaf"), projectile.damage, 0f, projectile.owner, projectile.whoAmI, rotation * i);
-                        //int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, mod.NPCType("CrystalLeaf"), 0, npc.whoAmI, distance, 300, rotation * i);
+                        Vector2 spawnPos = Projectile.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
+                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), Projectile.damage, 0f, Projectile.owner, Projectile.whoAmI, rotation * i);
+                        //int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 300, rotation * i);
                     }
                 }
             }*/
 
-            if (--projectile.ai[0] == 0)
+            if (--Projectile.ai[0] == 0)
             {
-                projectile.netUpdate = true;
-                projectile.velocity = Vector2.Zero;
+                Projectile.netUpdate = true;
+                Projectile.velocity = Vector2.Zero;
             }
-            if (--projectile.ai[1] == 0)
+            if (--Projectile.ai[1] == 0)
             {
-                projectile.netUpdate = true;
-                Player target = Main.player[Player.FindClosest(projectile.position, projectile.width, projectile.height)];
-                projectile.velocity = projectile.DirectionTo(target.Center) * 15;
-                Main.PlaySound(SoundID.Item84, projectile.Center);
+                Projectile.netUpdate = true;
+                Player target = Main.player[Player.FindClosest(Projectile.position, Projectile.width, Projectile.height)];
+                Projectile.velocity = Projectile.DirectionTo(target.Center) * 15;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
             }
         }
 
@@ -72,20 +74,20 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 300));
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("Infested"), Main.rand.Next(60, 300));
-                target.AddBuff(mod.BuffType("IvyVenom"), Main.rand.Next(60, 300));
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<Infested>(), Main.rand.Next(60, 300));
+                target.AddBuff(ModContent.BuffType<IvyVenom>(), Main.rand.Next(60, 300));
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

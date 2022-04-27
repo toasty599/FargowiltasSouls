@@ -10,42 +10,43 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Mechanical Leash of Cthulhu");
             Tooltip.SetDefault("'The reward for slaughtering many..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "机械克苏鲁连枷");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'屠戮众多的奖励..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "机械克苏鲁连枷");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励..'");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 220;
-            item.width = 30;
-            item.height = 10;
-            item.value = Item.sellPrice(0, 10);
-            item.rare = ItemRarityID.Purple;
-            item.noMelee = true;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.autoReuse = true;
-            item.useAnimation = 25;
-            item.useTime = 25;
-            item.knockBack = 6f;
-            item.noUseGraphic = true;
-            item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.MechFlail>();
-            item.shootSpeed = 50f;
-            item.UseSound = SoundID.Item1;
-            item.melee = true;
+            Item.damage = 220;
+            Item.width = 30;
+            Item.height = 10;
+            Item.value = Item.sellPrice(0, 10);
+            Item.rare = ItemRarityID.Purple;
+            Item.noMelee = true;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.autoReuse = true;
+            Item.useAnimation = 25;
+            Item.useTime = 25;
+            Item.knockBack = 6f;
+            Item.noUseGraphic = true;
+            Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.MechFlail>();
+            Item.shootSpeed = 50f;
+            Item.UseSound = SoundID.Item1;
+            Item.DamageType = DamageClass.Melee;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<LeashOfCthulhu>());
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerEye"));
-            recipe.AddIngredient(ItemID.LunarBar, 10);
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<LeashOfCthulhu>())
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerEye"))
+            .AddIngredient(ItemID.LunarBar, 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

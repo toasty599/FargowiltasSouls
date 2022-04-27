@@ -8,41 +8,42 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class BossRush : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_454";
+        public override string Texture => "Terraria/Images/Projectile_454";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant Seal");
-            Main.projFrames[projectile.type] = 2;
+            base.SetStaticDefaults();
+            Main.projFrames[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 46;
-            projectile.height = 46;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.hide = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.width = 46;
+            Projectile.height = 46;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.hide = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             if (npc == null)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            projectile.Center = npc.Center;
-            projectile.timeLeft = 2;
+            Projectile.Center = npc.Center;
+            Projectile.timeLeft = 2;
 
-            if (--projectile.ai[1] < 0)
+            if (--Projectile.ai[1] < 0)
             {
-                projectile.ai[1] = 180;
-                projectile.netUpdate = true;
-                switch ((int)projectile.localAI[0]++)
+                Projectile.ai[1] = 180;
+                Projectile.netUpdate = true;
+                switch ((int)Projectile.localAI[0]++)
                 {
                     case 0:
                         NPC.SpawnOnPlayer(npc.target, NPCID.EyeofCthulhu);
@@ -126,7 +127,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.WorldData); //sync world
                         }
-                        projectile.Kill();
+                        Projectile.Kill();
                         break;
                 }
             }
@@ -136,19 +137,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, type);
-                if (n < 200)
-                {
-                    if (Main.netMode == NetmodeID.SinglePlayer)
-                    {
-                        Main.NewText(Main.npc[n].FullName + " has awoken!", 175, 75, 255);
-                    }
-                    else if (Main.netMode == NetmodeID.Server)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(Main.npc[n].FullName + " has awoken!"), new Color(175, 75, 255));
-                    }
-                }
+                int n = FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), npc.Center, type);
+                if (n != Main.maxNPCs)
+                    FargoSoulsUtil.PrintText(Main.npc[n].FullName + " has awoken!", 175, 75, 255);
             }
         }
     }

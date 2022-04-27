@@ -1,6 +1,8 @@
+using FargowiltasSouls.Buffs.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -16,8 +18,8 @@ Grants immunity to most debuffs caused by entering water
 Grants effects of Wet debuff while riding Cute Fishron
 Increases damage by 20%, but decreases life regeneration
 'Healthy drug recommended by 0 out of 10 doctors'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变抗体");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'推荐健康药物指数: 0/10'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变抗体");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'推荐健康药物指数: 0/10'
 免疫潮湿,野性咬噬和突变啃啄和海洋重击
 免疫大部分由水造成的Debuff
 骑乘猪鲨坐骑时获得潮湿状态
@@ -26,21 +28,21 @@ Increases damage by 20%, but decreases life regeneration
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Cyan;
-            item.value = Item.sellPrice(0, 7);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.sellPrice(0, 7);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Wet] = true;
             player.buffImmune[BuffID.Rabies] = true;
-            player.buffImmune[mod.BuffType("MutantNibble")] = true;
-            player.buffImmune[mod.BuffType("OceanicMaul")] = true;
-            player.GetModPlayer<FargoPlayer>().MutantAntibodies = true;
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.2f);
+            player.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
+            player.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
+            player.GetModPlayer<FargoSoulsPlayer>().MutantAntibodies = true;
+            player.GetDamage(DamageClass.Generic) += 0.2f;
             player.rabid = true;
             if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
                 player.dripping = true;

@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.FrostArrow);
-            aiType = ProjectileID.FrostArrow;
-            projectile.friendly = false;
-            projectile.ranged = false;
-            projectile.arrow = false;
-            projectile.hostile = true;
-            projectile.coldDamage = true;
+            Projectile.CloneDefaults(ProjectileID.FrostArrow);
+            AIType = ProjectileID.FrostArrow;
+            Projectile.DamageType = DamageClass.Generic;
+            Projectile.arrow = false;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.coldDamage = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

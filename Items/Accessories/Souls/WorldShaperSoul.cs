@@ -8,10 +8,12 @@ using Terraria.Localization;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     //[AutoloadEquip(EquipType.Back)]
-    public class WorldShaperSoul : SoulsItem
+    public class WorldShaperSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("World Shaper Soul");
             Tooltip.SetDefault(
 @"Increased block and wall placement speed by 50%
@@ -27,8 +29,8 @@ Effect can be disabled in Soul Toggles menu
 Effects of the Cell Phone and Royal Gel
 Summons a pet Magic Lantern
 'Limitless possibilities'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "铸世者之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铸世者之魂");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"增加50%物块和墙壁的放置速度
 近乎无限的放置和挖掘距离
 挖掘速度x3
@@ -46,40 +48,28 @@ Summons a pet Magic Lantern
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 750000;
-            item.rare = ItemRarityID.Purple;
+            base.SetDefaults();
 
-            item.useStyle = ItemUseStyleID.HoldingUp;
-            item.useTime = 1;
-            item.UseSound = SoundID.Item6;
-            item.useAnimation = 1;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-        }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(255, 239, 2));
-                }
-            }
-        }
+            Item.value = 750000;
 
-        public override bool UseItem(Player player)
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTime = 1;
+            Item.UseSound = SoundID.Item6;
+            Item.useAnimation = 1;
+        }
+        
+        protected override Color? nameColor => new Color(255, 239, 2);
+
+        public override bool? UseItem(Player player)
         {
-            player.Spawn();
+            player.Spawn(PlayerSpawnContext.RecallFromItem);
 
             for (int num348 = 0; num348 < 70; num348++)
             {
                 Dust.NewDust(player.position, player.width, player.height, 15, 0f, 0f, 150, default(Color), 1.5f);
             }
 
-            return base.UseItem(player);
+            return true;
         }
 
         public override void UpdateInventory(Player player)
@@ -101,37 +91,37 @@ Summons a pet Magic Lantern
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.WorldShaperSoul(hideVisual); //add the pet
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
             //ancient chisel
             //step stool
             //greedy ring
             //treasure magnet
 
-            recipe.AddIngredient(null, "MinerEnchant");
-            recipe.AddIngredient(ItemID.Toolbelt);
-            recipe.AddIngredient(ItemID.Toolbox);
-            recipe.AddIngredient(ItemID.ArchitectGizmoPack);
-            recipe.AddIngredient(ItemID.ActuationAccessory);
-            recipe.AddIngredient(ItemID.LaserRuler);
-            recipe.AddIngredient(ItemID.RoyalGel);
-            recipe.AddIngredient(ItemID.CellPhone);
-            //haemoraxe
-            recipe.AddRecipeGroup("FargowiltasSouls:AnyDrax");
-            recipe.AddIngredient(ItemID.ShroomiteDiggingClaw);
-            recipe.AddIngredient(ItemID.DrillContainmentUnit);
-            //dynamite kitten pet
+            .AddIngredient(null, "MinerEnchant")
+            .AddIngredient(ItemID.Toolbelt)
+            .AddIngredient(ItemID.Toolbox)
+            .AddIngredient(ItemID.ArchitectGizmoPack)
+            .AddIngredient(ItemID.ActuationAccessory)
+            .AddIngredient(ItemID.LaserRuler)
+            .AddIngredient(ItemID.RoyalGel)
+            .AddIngredient(ItemID.CellPhone)
+            //.AddIngredient(ItemID.BloodHamaxe) //haemoraxe
+            .AddRecipeGroup("FargowiltasSouls:AnyDrax")
+            .AddIngredient(ItemID.ShroomiteDiggingClaw)
+            .AddIngredient(ItemID.DrillContainmentUnit)
+            //.AddIngredient(ItemID.BallOfFuseWire) //dynamite kitten pet
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            .Register();
         }
     }
 }

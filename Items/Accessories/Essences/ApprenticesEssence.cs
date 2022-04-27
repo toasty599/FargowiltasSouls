@@ -7,72 +7,53 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Essences
 {
-    public class ApprenticesEssence : SoulsItem
+    public class ApprenticesEssence : BaseEssence
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Apprentice's Essence");
             Tooltip.SetDefault(
 @"18% increased magic damage
 5% increased magic crit
 Increases your maximum mana by 50
 'This is only the beginning..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "学徒精华");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "学徒精华");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"增加18%魔法伤害
 增加5%魔法暴击率
 增加50点最大法力值
 '这是个开始...'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(255, 83, 255));
-                }
-            }
-        }
-
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 150000;
-            item.rare = ItemRarityID.LightRed;
-        }
-
-        public override Color? GetAlpha(Color lightColor) => Color.White;
+        protected override Color nameColor => new Color(255, 83, 255);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.magicDamage += .18f;
-            player.magicCrit += 5;
+            player.GetDamage(DamageClass.Magic) += 0.18f;
+            player.GetCritChance(DamageClass.Magic) += 5;
             player.statManaMax2 += 50;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
+                .AddIngredient(ItemID.WandofSparking)
+                .AddIngredient(ItemID.ZapinatorGray)
+                .AddIngredient(ItemID.Vilethorn)
+                .AddIngredient(ItemID.CrimsonRod)
+                .AddIngredient(ItemID.WeatherPain)
+                .AddIngredient(ItemID.WaterBolt)
+                .AddIngredient(ItemID.Flamelash)
+                .AddIngredient(ItemID.DemonScythe)
+                .AddIngredient(ItemID.SorcererEmblem)
+                .AddIngredient(ItemID.HallowedBar, 5)
 
-            recipe.AddIngredient(ItemID.SorcererEmblem);
-            recipe.AddIngredient(ItemID.WandofSparking);
-            recipe.AddIngredient(ItemID.Vilethorn);
-            recipe.AddIngredient(ItemID.CrimsonRod);
-            recipe.AddIngredient(ItemID.WaterBolt);
-            recipe.AddIngredient(ItemID.BookofSkulls);
-            recipe.AddIngredient(ItemID.AquaScepter);
-            recipe.AddIngredient(ItemID.Flamelash);
-            recipe.AddIngredient(ItemID.DemonScythe);
-            recipe.AddIngredient(ItemID.HallowedBar, 5);
-            //gray zapinator
-
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
+            
         }
     }
 }

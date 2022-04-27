@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Patreon.Sasha
 {
     public class FishMinionBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fish");
             Description.SetDefault("This fish will fight for you");
@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Patreon.Sasha
         public override void Update(Player player, ref int buffIndex)
         {
             PatreonPlayer modPlayer = player.GetModPlayer<PatreonPlayer>();
-            if (player.ownedProjectileCounts[mod.ProjectileType("FishMinion")] > 0) modPlayer.FishMinion = true;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<FishMinion>()] > 0) modPlayer.FishMinion = true;
             if (!modPlayer.FishMinion)
             {
                 player.DelBuff(buffIndex);

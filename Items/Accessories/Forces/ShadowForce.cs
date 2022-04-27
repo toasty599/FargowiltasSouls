@@ -6,13 +6,24 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class ShadowForce : SoulsItem
+    public class ShadowForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<AncientShadowEnchant>(),
+            ModContent.ItemType<NecroEnchant>(),
+            ModContent.ItemType<SpookyEnchant>(),
+            ModContent.ItemType<ShinobiEnchant>(),
+            ModContent.ItemType<DarkArtistEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Shadow Force");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "暗影之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影之力");
             
             string tooltip = 
 $"[i:{ModContent.ItemType<ShadowEnchant>()}] Four Shadow Orbs will orbit around you\n" +
@@ -40,30 +51,19 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
 切换武器后使下次攻击的伤害增加100%
 大幅强化爆炸烈焰哨兵和闪电光环的效果
 'Dark, Darker, Yet Darker（出自Undertale）'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-        }
-
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //warlock, shade, plague accessory effect for all
             modPlayer.ShadowForce = true;
             //shoot from where you were meme, pet
             modPlayer.DarkArtistEffect(hideVisual);
             modPlayer.ApprenticeEffect();
 
-            //DG meme, pet
-            modPlayer.NecroEffect(hideVisual);
+            NecroEnchant.NecroEffect(player, this.Item);
             //shadow orbs
             modPlayer.AncientShadowEffect();
             //darkness debuff, pets
@@ -73,25 +73,18 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
             //monk dash mayhem
             modPlayer.MonkEffect();
             //smoke bomb nonsense, pet
-            modPlayer.NinjaEffect(hideVisual);
+            //modPlayer.NinjaEffect(hideVisual);
             //scythe doom, pets
             modPlayer.SpookyEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddIngredient(null, "AncientShadowEnchant");
-            recipe.AddIngredient(null, "NecroEnchant");
-            recipe.AddIngredient(null, "SpookyEnchant");
-            recipe.AddIngredient(null, "ShinobiEnchant");
-            recipe.AddIngredient(null, "DarkArtistEnchant");
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

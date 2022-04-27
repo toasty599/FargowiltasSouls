@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Items.Misc;
+﻿using FargowiltasSouls.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -16,21 +16,23 @@ namespace FargowiltasSouls.Items.Armor
 5% increased critical strike chance
 Increases your max number of minions by 4
 Increases your max number of sentries by 4");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(0, 14);
-            item.defense = 20;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(0, 14);
+            Item.defense = 20;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.05f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(5);
+            player.GetDamage(DamageClass.Generic) += 0.05f;
+            player.GetCritChance(DamageClass.Generic) += 5;
 
             player.maxMinions += 4;
             player.maxTurrets += 4;
@@ -53,12 +55,12 @@ The empowered class changes every 10 seconds
 Eridanus fights alongside you when you use the empowered class
 75% increased damage, 30% increased attack speed, and 20% increased critical strike chance for the empowered class";
 
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.EridanusEmpower = true;
 
             if (fargoPlayer.EridanusTimer % (60 * 10) == 1) //make dust whenever changing classes
             {
-                Main.PlaySound(SoundID.Item4, player.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item4, player.Center);
 
                 int type;
                 switch (fargoPlayer.EridanusTimer / (60 * 10))
@@ -66,7 +68,10 @@ Eridanus fights alongside you when you use the empowered class
                     case 0: type = 127; break; //solar
                     case 1: type = 229; break; //vortex
                     case 2: type = 242; break; //nebula
-                    default: type = 135; break; //stardust
+                    default: //stardust
+                        type = 135; 
+                        fargoPlayer.MasomodeMinionNerfTimer = 0; //so that player isn't punished for using weapons during prior phase
+                        break;
                 }
 
                 const int max = 100; //make some indicator dusts
@@ -107,34 +112,47 @@ Eridanus fights alongside you when you use the empowered class
                 fargoPlayer.EridanusTimer = 0;
             }
 
+            void Bonuses(DamageClass damageClass)
+            {
+                player.GetDamage(damageClass) += 0.75f;
+                
+                if (damageClass == DamageClass.Summon)
+                    fargoPlayer.SpiderEnchantActive = true;
+                else
+                    player.GetCritChance(damageClass) += 20;
+
+                if (player.HeldItem.DamageType == damageClass)
+                    fargoPlayer.AttackSpeed += .3f;
+            }
+
             switch (fargoPlayer.EridanusTimer / (60 * 10)) //damage boost according to current class
             {
-                case 0: player.meleeDamage += 0.75f; player.meleeCrit += 20; if (player.HeldItem.melee) fargoPlayer.AttackSpeed += .3f; break;
-                case 1: player.rangedDamage += 0.75f; player.rangedCrit += 20; if (player.HeldItem.ranged) fargoPlayer.AttackSpeed += .3f; break;
-                case 2: player.magicDamage += 0.75f; player.magicCrit += 20; if (player.HeldItem.magic) fargoPlayer.AttackSpeed += .3f; break;
-                default: player.minionDamage += 0.75f; fargoPlayer.SpiderEnchant = true; if (player.HeldItem.summon) fargoPlayer.AttackSpeed += .3f; break;
+                case 0: Bonuses(DamageClass.Melee); break;
+                case 1: Bonuses(DamageClass.Ranged); break;
+                case 2: Bonuses(DamageClass.Magic); break;
+                default: Bonuses(DamageClass.Summon); break;
             }
 
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.EridanusMinion>()] < 1)
                 {
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusMinion>(), 300, 12f, player.whoAmI, -1);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusMinion>(), 300, 12f, player.whoAmI, -1);
                 }
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.EridanusRitual>()] < 1)
                 {
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusRitual>(), 0, 0f, player.whoAmI);
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusRitual>(), 0, 0f, player.whoAmI);
                 }
             }
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Eridanium>(), 5)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class CursedFlamethrower : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_101";
+        public override string Texture => "Terraria/Images/Projectile_101";
 
         public override void SetStaticDefaults()
         {
@@ -15,12 +15,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.EyeFire); //has 4 updates per tick
-            aiType = ProjectileID.EyeFire;
-            projectile.magic = false;
-            projectile.tileCollide = false;
-            projectile.width = 20;
-            projectile.height = 400;
+            Projectile.CloneDefaults(ProjectileID.EyeFire); //has 4 updates per tick
+            AIType = ProjectileID.EyeFire;
+            Projectile.DamageType = DamageClass.Generic;
+            Projectile.tileCollide = false;
+            Projectile.width = 20;
+            Projectile.height = 400;
         }
 
         public override bool? CanCutTiles()
@@ -38,8 +38,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 target.AddBuff(39, 180, true);
 
             target.AddBuff(BuffID.OnFire, 300);
-            /*target.AddBuff(mod.BuffType("ClippedWings"), 180);
-            target.AddBuff(mod.BuffType("Crippled"), 60);*/
+            /*target.AddBuff(ModContent.BuffType<ClippedWings>(), 180);
+            target.AddBuff(ModContent.BuffType<Crippled>(), 60);*/
         }
     }
 }

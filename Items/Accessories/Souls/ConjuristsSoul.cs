@@ -7,13 +7,15 @@ using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
-    public class ConjuristsSoul : SoulsItem
+    public class ConjuristsSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Conjurist's Soul");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "召唤之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "召唤之魂");
             
             string tooltip =
 @"30% increased summon damage
@@ -29,70 +31,51 @@ Increased minion knockback
 +2最大哨兵栏
 增加召唤物击退
 '一支听命于您的军队'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
-
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 1000000;
-            item.rare = ItemRarityID.Purple;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-        }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(0, 255, 255));
-                }
-            }
-        }
+        
+        protected override Color? nameColor => new Color(0, 255, 255);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.minionDamage += 0.3f;
+            player.GetDamage(DamageClass.Summon) += 0.3f;
             player.maxMinions += 3;
             player.maxTurrets += 3;
-            player.minionKB += 3f;
+            player.GetKnockback(DamageClass.Summon) += 3f;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
+            .AddIngredient(null, "OccultistsEssence")
+            .AddIngredient(ItemID.MonkBelt)
+            .AddIngredient(ItemID.SquireShield)
+            .AddIngredient(ItemID.HuntressBuckler)
+            .AddIngredient(ItemID.ApprenticeScarf)
+            .AddIngredient(ItemID.PygmyNecklace)
+            .AddIngredient(ItemID.PapyrusScarab)
 
-            recipe.AddIngredient(null, "OccultistsEssence");
-            recipe.AddIngredient(ItemID.MonkBelt);
-            recipe.AddIngredient(ItemID.SquireShield);
-            recipe.AddIngredient(ItemID.HuntressBuckler);
-            recipe.AddIngredient(ItemID.ApprenticeScarf);
-            recipe.AddIngredient(ItemID.PygmyNecklace);
-            recipe.AddIngredient(ItemID.PapyrusScarab);
-
-            //blade staff
-            recipe.AddIngredient(ItemID.PirateStaff);
-            recipe.AddIngredient(ItemID.OpticStaff);
-            recipe.AddIngredient(ItemID.DeadlySphereStaff);
-            //desert tiger staff
-            recipe.AddIngredient(ItemID.StaffoftheFrostHydra);
+            
+            .AddIngredient(ItemID.Smolstar) //blade staff
+            .AddIngredient(ItemID.PirateStaff)
+            .AddIngredient(ItemID.OpticStaff)
+            .AddIngredient(ItemID.DeadlySphereStaff)
+            .AddIngredient(ItemID.StormTigerStaff)
+            .AddIngredient(ItemID.StaffoftheFrostHydra)
             //mourningstar?
-            //recipe.AddIngredient(ItemID.DD2BallistraTowerT3Popper);
-            //recipe.AddIngredient(ItemID.DD2ExplosiveTrapT3Popper);
-            //recipe.AddIngredient(ItemID.DD2FlameburstTowerT3Popper);
-            //recipe.AddIngredient(ItemID.DD2LightningAuraT3Popper);
-            recipe.AddIngredient(ItemID.TempestStaff);
-            recipe.AddIngredient(ItemID.RavenStaff);
-            recipe.AddIngredient(ItemID.XenoStaff);
+            //.AddIngredient(ItemID.DD2BallistraTowerT3Popper);
+            //.AddIngredient(ItemID.DD2ExplosiveTrapT3Popper);
+            //.AddIngredient(ItemID.DD2FlameburstTowerT3Popper);
+            //.AddIngredient(ItemID.DD2LightningAuraT3Popper);
+            .AddIngredient(ItemID.TempestStaff)
+            .AddIngredient(ItemID.RavenStaff)
+            .AddIngredient(ItemID.XenoStaff)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            .Register();
+            
 
-            recipe.SetResult(this);
-            recipe.AddRecipe();
         }
     }
 }

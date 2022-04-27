@@ -14,17 +14,17 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.ExplosiveBullet);
-            aiType = ProjectileID.Bullet;
-            projectile.friendly = false;
-            projectile.ranged = false;
-            projectile.hostile = true;
+            Projectile.CloneDefaults(ProjectileID.ExplosiveBullet);
+            AIType = ProjectileID.Bullet;
+            Projectile.DamageType = DamageClass.Default;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
         }
 
         public override void Kill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("ElfCopterBulletExplosion"), projectile.damage, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ElfCopterBulletExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
     }
 }

@@ -9,13 +9,15 @@ using FargowiltasSouls.Toggler;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     //[AutoloadEquip(EquipType.Neck)]
-    public class SnipersSoul : SoulsItem
+    public class SnipersSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Sniper's Soul");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "神枪手之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神枪手之魂");
             
             string tooltip =
 @"30% increased ranged damage
@@ -31,37 +33,20 @@ Effects of Sniper Scope
 增加15%远程暴击率
 拥有狙击镜效果
 '预备，瞄准，开火'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 1000000;
-            item.rare = ItemRarityID.Purple;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-        }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(188, 253, 68));
-                }
-            }
-        }
+        
+
+        protected override Color? nameColor => new Color(188, 253, 68);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //attack speed
-            player.GetModPlayer<FargoPlayer>().RangedSoul = true;
-            player.rangedDamage += .3f;
-            player.rangedCrit += 15;
+            //reduce ammo consume
+            player.GetModPlayer<FargoSoulsPlayer>().RangedSoul = true;
+            player.GetDamage(DamageClass.Ranged) += 0.3f;
+            player.GetCritChance(DamageClass.Ranged) += 15;
 
             //add new effects
 
@@ -73,34 +58,31 @@ Effects of Sniper Scope
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
             /*
 hive pack*/
+            .AddIngredient(null, "SharpshootersEssence")
+            .AddIngredient(ItemID.BoneGlove)
+            .AddIngredient(ItemID.MoltenQuiver)
+            .AddIngredient(ItemID.StalkersQuiver)
+            .AddIngredient(ItemID.ReconScope) 
 
-            recipe.AddIngredient(null, "SharpshootersEssence");
-            //bone glove
-            recipe.AddIngredient(ItemID.MagicQuiver); //molten quiver
-            //stalkers quiver
-            recipe.AddIngredient(ItemID.SniperScope); //recon scope
+            .AddIngredient(ItemID.DartPistol)
+            .AddIngredient(ItemID.Megashark)
+            .AddIngredient(ItemID.PulseBow)
+            .AddIngredient(ItemID.NailGun)
+            .AddIngredient(ItemID.PiranhaGun)
+            .AddIngredient(ItemID.SniperRifle)
+            .AddIngredient(ItemID.Tsunami)
+            .AddIngredient(ItemID.StakeLauncher)
+            .AddIngredient(ItemID.EldMelter)
+            .AddIngredient(ItemID.Xenopopper)
+            .AddIngredient(ItemID.Celeb2)
 
-            recipe.AddIngredient(ItemID.DartPistol);
-            recipe.AddIngredient(ItemID.Megashark);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            .Register();
 
-            recipe.AddIngredient(ItemID.PulseBow);
-            recipe.AddIngredient(ItemID.NailGun);
-            recipe.AddIngredient(ItemID.PiranhaGun);
-            recipe.AddIngredient(ItemID.SniperRifle);
-            recipe.AddIngredient(ItemID.Tsunami);
-            recipe.AddIngredient(ItemID.StakeLauncher);
-            recipe.AddIngredient(ItemID.EldMelter);
-            recipe.AddIngredient(ItemID.Xenopopper);
-            recipe.AddIngredient(ItemID.FireworksLauncher); //celebration mk 2
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
         }
     }
 }

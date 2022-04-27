@@ -7,13 +7,15 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class ShinobiEnchant : SoulsItem
+    public class ShinobiEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Shinobi Infiltrator Enchantment");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "渗透忍者魔石");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "渗透忍者魔石");
             
             string tooltip =
 @"Dash into any walls, to teleport through them to the next opening
@@ -33,61 +35,49 @@ Greatly enhances Lightning Aura effectiveness
 使用混沌传送杖也会获得先发制人增益
 大幅强化闪电光环的效果
 '藏匿于墙中的村庄'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(147, 91, 24);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(147, 91, 24);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = 250000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = 250000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             
             //tele thru wall
             modPlayer.ShinobiEffect(hideVisual);
             //monk dash mayhem
             modPlayer.MonkEffect();
             //ninja, smoke bombs, pet
-            modPlayer.NinjaEffect(hideVisual); //destroy
+            //modPlayer.NinjaEffect(hideVisual); //destroy
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.MonkAltHead);
-            recipe.AddIngredient(ItemID.MonkAltShirt);
-            recipe.AddIngredient(ItemID.MonkAltPants);
-            recipe.AddIngredient(null, "NinjaEnchant");
-            recipe.AddIngredient(null, "MonkEnchant");
-            recipe.AddIngredient(ItemID.PsychoKnife);
+            CreateRecipe()
+            .AddIngredient(ItemID.MonkAltHead)
+            .AddIngredient(ItemID.MonkAltShirt)
+            .AddIngredient(ItemID.MonkAltPants)
+            .AddIngredient(null, "NinjaEnchant")
+            .AddIngredient(null, "MonkEnchant")
+            .AddIngredient(ItemID.PsychoKnife)
             //chain guiottine
             //code 2
             //flower pow
             //stynger
-            //recipe.AddIngredient(ItemID.DD2PetGato);
+            //.AddIngredient(ItemID.DD2PetGato);
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

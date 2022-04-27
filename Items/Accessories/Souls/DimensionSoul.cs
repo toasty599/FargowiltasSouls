@@ -10,13 +10,17 @@ using FargowiltasSouls.Toggler;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class DimensionSoul : SoulsItem
+    public class DimensionSoul : FlightMasteryWings
     {
+        protected override bool HasSupersonicSpeed => true;
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Soul of Dimensions");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "维度之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "维度之魂");
             
             String tooltip =
 @"Increases HP by 300
@@ -56,33 +60,32 @@ Effects of Shield of Cthulhu and Master Ninja Gear
 拥有熔岩靴、渔夫渔具袋、喷漆器、自动安放器、手机和重力球效果
 拥有克苏鲁护盾和忍者大师装备效果
 '泰拉瑞亚的维度触手可及'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
-
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 18));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 18));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
         public override int NumFrames => 18;
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.accessory = true;
-            item.defense = 15;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.value = 5000000;
-            item.rare = -12;
-            item.expert = true;
+            Item.width = 32;
+            Item.height = 32;
+            Item.accessory = true;
+            Item.defense = 15;
+            Item.value = 5000000;
+            Item.rare = -12;
+            Item.expert = true;
 
-            item.useStyle = ItemUseStyleID.HoldingUp;
-            item.useTime = 1;
-            item.UseSound = SoundID.Item6;
-            item.useAnimation = 1;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTime = 1;
+            Item.UseSound = SoundID.Item6;
+            Item.useAnimation = 1;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
-            player.Spawn();
+            player.Spawn(PlayerSpawnContext.RecallFromItem);
 
             for (int num348 = 0; num348 < 70; num348++)
             {
@@ -111,49 +114,30 @@ Effects of Shield of Cthulhu and Master Ninja Gear
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            modPlayer.ColossusSoul(300, 0.2f, 8, hideVisual);
-            modPlayer.SupersonicSoul(hideVisual);
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            modPlayer.ColossusSoul(Item, 300, 0.2f, 8, hideVisual);
+            modPlayer.SupersonicSoul(Item, hideVisual);
             modPlayer.FlightMasterySoul();
-            modPlayer.TrawlerSoul(hideVisual);
+            modPlayer.TrawlerSoul(Item, hideVisual);
             modPlayer.WorldShaperSoul(hideVisual);
-            modPlayer.NecroPet = true;
-            //modPlayer.AddPet(player.GetToggleValue("PetDG"), hideVisual, BuffID.BabySkeletronHead, ProjectileID.BabySkeletronHead);
-        }
-
-        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            player.wingsLogic = 22;
-            ascentWhenFalling = 1f;
-            ascentWhenRising = 0.3f;
-            maxCanAscendMultiplier = 1.5f;
-            maxAscentMultiplier = 3f;
-            constantAscend = 0.15f;
-        }
-
-        public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
-        {
-            speed = player.GetToggleValue("Supersonic") ? 25f : 18f;
-            acceleration *= 3.5f;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(null, "ColossusSoul");
-            recipe.AddIngredient(null, "SupersonicSoul");
-            recipe.AddIngredient(null, "FlightMasterySoul");
-            recipe.AddIngredient(null, "TrawlerSoul");
-            recipe.AddIngredient(null, "WorldShaperSoul");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            //recipe.AddIngredient(ItemID.BoneKey);
+            .AddIngredient(null, "ColossusSoul")
+            .AddIngredient(null, "SupersonicSoul")
+            .AddIngredient(null, "FlightMasterySoul")
+            .AddIngredient(null, "TrawlerSoul")
+            .AddIngredient(null, "WorldShaperSoul")
+            .AddIngredient(null, "AbomEnergy", 10)
+            //.AddIngredient(ItemID.BoneKey);
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            .Register();
         }
     }
 }

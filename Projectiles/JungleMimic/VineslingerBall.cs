@@ -15,20 +15,20 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
         }
         public override void SetDefaults()
         {
-            projectile.width = 34;
-            projectile.height = 34;
-            projectile.friendly = true;
-            projectile.penetrate = -1; 
-            projectile.melee = true; 
-            projectile.aiStyle = 15;
+            Projectile.width = 34;
+            Projectile.height = 34;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1; 
+            Projectile.DamageType = DamageClass.Melee; 
+            Projectile.aiStyle = 15;
         }
 
-        public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture = ModContent.GetTexture("FargowiltasSouls/Projectiles/JungleMimic/VineslingerChain");
+            Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/JungleMimic/VineslingerChain", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
-            Vector2 position = projectile.Center;
-            Vector2 mountedCenter = Main.player[projectile.owner].MountedCenter;
+            Vector2 position = Projectile.Center;
+            Vector2 mountedCenter = Main.player[Projectile.owner].MountedCenter;
             Microsoft.Xna.Framework.Rectangle? sourceRectangle = new Microsoft.Xna.Framework.Rectangle?();
             Vector2 origin = new Vector2((float)texture.Width * 0.5f, (float)texture.Height * 0.5f);
             float num1 = (float)texture.Height;
@@ -52,8 +52,8 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
                     position += vector2_1 * num1;
                     vector2_4 = mountedCenter - position;
                     Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int)position.X / 16, (int)((double)position.Y / 16.0));
-                    color2 = projectile.GetAlpha(color2);
-                    Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+                    color2 = Projectile.GetAlpha(color2);
+                    Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
                 }
             }
 
@@ -61,14 +61,14 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
         {
-            if (projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer)
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    float speedX = -projectile.velocity.X * Main.rand.NextFloat(.2f, .3f) + Main.rand.NextFloat(-4f, 4f);
-                    float speedY = -projectile.velocity.Y * Main.rand.NextFloat(.2f, .3f) + Main.rand.NextFloat(-4f, 4f);
-                    Projectile.NewProjectile(projectile.position.X + speedX, projectile.position.Y + speedY, speedX, speedY, mod.ProjectileType("VineslingerProjectileFriendly"), (int)(projectile.damage * 0.5), 0f, projectile.owner, 0f, 0f);
-                    Main.PlaySound(SoundID.Grass, projectile.position);
+                    float speedX = -Projectile.velocity.X * Main.rand.NextFloat(.2f, .3f) + Main.rand.NextFloat(-4f, 4f);
+                    float speedY = -Projectile.velocity.Y * Main.rand.NextFloat(.2f, .3f) + Main.rand.NextFloat(-4f, 4f);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + speedX, Projectile.position.Y + speedY, speedX, speedY, ModContent.ProjectileType<VineslingerProjectileFriendly>(), (int)(Projectile.damage * 0.5), 0f, Projectile.owner, 0f, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, Projectile.position);
                 }
             }
         }

@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Armor
 {
@@ -9,6 +10,7 @@ namespace FargowiltasSouls.Items.Armor
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Styx Leggings");
             Tooltip.SetDefault(@"10% increased damage
 10% increased critical strike chance
@@ -17,29 +19,29 @@ namespace FargowiltasSouls.Items.Armor
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(0, 20);
-            item.defense = 20;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(0, 20);
+            Item.defense = 20;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(10);
+            player.GetDamage(DamageClass.Generic) += 0.10f;
+            player.GetCritChance(DamageClass.Generic) += 10;
             player.moveSpeed += 0.2f;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SoulofFright, 15);
-            recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(ItemID.SoulofFright, 15)
+            .AddIngredient(ItemID.LunarBar, 5)
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 10)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

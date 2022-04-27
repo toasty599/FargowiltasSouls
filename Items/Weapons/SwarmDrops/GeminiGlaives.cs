@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.BossWeapons;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {
@@ -13,31 +14,33 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Gemini Glaives");
             Tooltip.SetDefault("Fire different glaives depending on mouse click" +
                 "\nAlternating clicks will enhance attacks" +
                 "\n'The compressed forms of defeated foes..'");
 
-            Tooltip.AddTranslation(GameCulture.Chinese, "被打败的敌人的压缩形态..");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "被打败的敌人的压缩形态..");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 340;
-            item.melee = true;
-            item.width = 30;
-            item.height = 30;
-            item.useTime = 40;
-            item.useAnimation = 40;
-            item.noUseGraphic = true;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.knockBack = 3;
-            item.value = Item.sellPrice(0, 25);
-            item.rare = ItemRarityID.Purple;
-            item.shootSpeed = 20;
-            item.shoot = ProjectileID.WoodenArrowFriendly;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
+            Item.damage = 330;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 30;
+            Item.height = 30;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.reuseDelay = 20;
+            Item.noUseGraphic = true;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 3;
+            Item.value = Item.sellPrice(0, 25);
+            Item.rare = ItemRarityID.Purple;
+            Item.shootSpeed = 20;
+            Item.shoot = ProjectileID.WoodenArrowFriendly;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
         }
 
         public override bool AltFunctionUse(Player player)
@@ -52,26 +55,30 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
             if (player.altFunctionUse == 2)
             {
-                item.shoot = ModContent.ProjectileType<Retiglaive>();
-                item.shootSpeed = 15f;
+                Item.shoot = ModContent.ProjectileType<Retiglaive>();
+                Item.shootSpeed = 15f;
             }
             else
             {
-                item.shoot = ModContent.ProjectileType<Spazmaglaive>();
-                item.shootSpeed = 45f;
+                Item.shoot = ModContent.ProjectileType<Spazmaglaive>();
+                Item.shootSpeed = 45f;
             }
             return true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool CanShoot(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<Retiglaive>()] <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<Spazmaglaive>()] <= 0;
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (lastThrown != type)
-                damage = (int)(damage * 1.2); //additional damage boost for switching
+                damage = (int)(damage * 1.5); //additional damage boost for switching
+        }
 
-            Vector2 speed = new Vector2(speedX, speedY);
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
             for (int i = -1; i <= 1; i++)
             {
-                Projectile.NewProjectile(position, speed.RotatedBy(MathHelper.ToRadians(30) * i), type, damage, knockBack, player.whoAmI, lastThrown);
+                Projectile.NewProjectile(source, position, velocity.RotatedBy(MathHelper.ToRadians(30) * i), type, damage, knockback, player.whoAmI, lastThrown);
             }
 
             lastThrown = type;
@@ -80,13 +87,13 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "TwinRangs");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerTwins"));
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(null, "TwinRangs")
+            .AddIngredient(null, "AbomEnergy", 10)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerTwins"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

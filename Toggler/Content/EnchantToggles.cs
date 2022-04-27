@@ -69,6 +69,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string DarkArt;
         public string Apprentice;
         public string Necro;
+        public string NecroGlove;
         public string AncientShadow;
         public string Shadow;
         public string Monk;
@@ -79,6 +80,7 @@ namespace FargowiltasSouls.Toggler.Content
         public int SpiritHeader = ModContent.ItemType<SpiritForce>();
         public string Fossil;
         public string Forbidden;
+        public string HallowDodge;
         public string Hallowed;
         public string HallowS;
         public string Silver;

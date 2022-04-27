@@ -12,38 +12,37 @@ namespace FargowiltasSouls.Patreon.ParadoxWolf
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Wolf Dash");
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = Player.defaultHeight;
-            projectile.height = Player.defaultHeight;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.melee = true;
-            projectile.ignoreWater = true;
-            projectile.timeLeft = 20; //
-            projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 8;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
+            Projectile.width = Player.defaultHeight;
+            Projectile.height = Player.defaultHeight;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.ignoreWater = true;
+            Projectile.timeLeft = 20; //
+            Projectile.penetrate = -1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
             if (!player.active || player.dead)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
             player.GetModPlayer<PatreonPlayer>().WolfDashing = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoPlayer>().StardustEnchant;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoSoulsPlayer>().StardustEnchantActive;
 
-            player.Center = projectile.Center;
-            projectile.spriteDirection = -projectile.direction;
+            player.Center = Projectile.Center;
+            Projectile.spriteDirection = -Projectile.direction;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -51,11 +50,11 @@ namespace FargowiltasSouls.Patreon.ParadoxWolf
             return false; //dont kill proj when hits tiles
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             SpriteEffects effects;
 
-            if (projectile.spriteDirection < 0)
+            if (Projectile.spriteDirection < 0)
             {
                 effects = SpriteEffects.FlipHorizontally;
             }
@@ -65,13 +64,13 @@ namespace FargowiltasSouls.Patreon.ParadoxWolf
             }
 
             //Redraw the projectile with the color not influenced by light
-            Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
-            for (int k = 0; k < projectile.oldPos.Length; k++)
+            Vector2 drawOrigin = new Vector2(Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
-                Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-                Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
+                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 
-                spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, effects, 0f);
+                Main.EntitySpriteDraw(Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
             }
             return true;
         }

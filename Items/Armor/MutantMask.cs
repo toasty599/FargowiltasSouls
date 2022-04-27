@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ID;
+using FargowiltasSouls.Buffs.Minions;
 
 namespace FargowiltasSouls.Items.Armor
 {
@@ -17,33 +18,28 @@ namespace FargowiltasSouls.Items.Armor
 Increases max number of minions and sentries by 10
 25% reduced mana usage
 25% chance not to consume ammo");
-            DisplayName.AddTranslation(GameCulture.Chinese, "真·突变之颅");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"增加50%伤害和20%暴击率
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "真·突变之颅");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"增加50%伤害和20%暴击率
 增加10最大召唤栏和哨兵栏
 减少25%法力消耗
 25%概率不消耗弹药");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(0, 50);
-            item.defense = 50;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(0, 50);
+            Item.defense = 50;
         }
 
         public override void UpdateEquip(Player player)
         {
-            const float damageUp = 0.5f;
-            const int critUp = 20;
-            player.meleeDamage += damageUp;
-            player.rangedDamage += damageUp;
-            player.magicDamage += damageUp;
-            player.minionDamage += damageUp;
-            player.meleeCrit += critUp;
-            player.rangedCrit += critUp;
-            player.magicCrit += critUp;
+            player.GetDamage(DamageClass.Generic) += 0.50f;
+            player.GetCritChance(DamageClass.Generic) += 20;
 
             player.maxMinions += 10;
             player.maxTurrets += 10;
@@ -54,7 +50,7 @@ Increases max number of minions and sentries by 10
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == mod.ItemType("MutantBody") && legs.type == mod.ItemType("MutantPants");
+            return body.type == ModContent.ItemType<MutantBody>() && legs.type == ModContent.ItemType<MutantPants>();
         }
 
         public override void ArmorSetShadows(Player player)
@@ -70,33 +66,33 @@ Your attacks inflict God Eater and Hellfire
 You erupt into a massive deathray whenever revived
 20% increased weapon use speed";
 
-            player.AddBuff(mod.BuffType("MutantPower"), 2);
+            player.AddBuff(ModContent.BuffType<MutantPower>(), 2);
 
-            player.GetModPlayer<FargoPlayer>().MutantSetBonus = true;
-            player.GetModPlayer<FargoPlayer>().GodEaterImbue = true;
-            player.GetModPlayer<FargoPlayer>().AttackSpeed += .2f;
+            player.GetModPlayer<FargoSoulsPlayer>().MutantSetBonusItem = Item;
+            player.GetModPlayer<FargoSoulsPlayer>().GodEaterImbue = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += .2f;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                if (line2.Mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
+                    line2.OverrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
                 }
             }
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantMask"));
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(null, "Sadism", 10);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "MutantMask"))
+            .AddIngredient(null, "AbomEnergy", 10)
+            .AddIngredient(null, "EternalEnergy", 10)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

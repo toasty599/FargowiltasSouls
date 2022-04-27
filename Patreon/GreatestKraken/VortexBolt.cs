@@ -1,28 +1,28 @@
 ﻿using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.GreatestKraken
 {
     public class VortexBolt : Projectiles.LightningArc
     {
-		public override string Texture => "Terraria/Projectile_466";
+		public override string Texture => "Terraria/Images/Projectile_466";
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.ranged = false;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
 
-            projectile.usesIDStaticNPCImmunity = false;
-            projectile.idStaticNPCHitCooldown = 0;
-            projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+            Projectile.usesIDStaticNPCImmunity = false;
+            Projectile.idStaticNPCHitCooldown = 0;
+            Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
 
-            projectile.timeLeft = 30 * (projectile.extraUpdates + 1);
+            Projectile.timeLeft = 30 * (Projectile.extraUpdates + 1);
         }
     }
 }

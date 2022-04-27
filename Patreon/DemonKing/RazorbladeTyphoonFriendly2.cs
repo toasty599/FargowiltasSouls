@@ -1,23 +1,24 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.DemonKing
 {
-    public class RazorbladeTyphoonFriendly2 : Projectiles.RazorbladeTyphoonFriendly
+    public class RazorbladeTyphoonFriendly2 : Projectiles.BossWeapons.RazorbladeTyphoonFriendly
     {
-        public override string Texture => "Terraria/Projectile_409";
+        public override string Texture => "Terraria/Images/Projectile_409";
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.ranged = false;
-            projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
         }
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -28,7 +29,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(mod.BuffType("MutantNibble"), 900);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 900);
         }
     }
 }

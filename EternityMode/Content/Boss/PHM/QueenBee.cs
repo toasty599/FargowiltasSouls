@@ -1,10 +1,9 @@
-﻿using Fargowiltas.Items.Summons;
-using FargowiltasSouls.EternityMode.Net;
+﻿using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Tiles;
+using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Projectiles;
@@ -14,6 +13,9 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
+using FargowiltasSouls.ItemDropRules.Conditions;
+using FargowiltasSouls.Projectiles.Champions;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -24,6 +26,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public int HiveThrowTimer;
         public int StingerRingTimer;
         public int BeeSwarmTimer = 600;
+        public int ForgorDeathrayTimer;
 
         public bool SpawnedRoyalSubjectWave1;
         public bool SpawnedRoyalSubjectWave2;
@@ -51,12 +54,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            bool result = base.PreAI(npc);
 
             EModeGlobalNPC.beeBoss = npc.whoAmI;
 
             if (FargoSoulsWorld.SwarmActive)
-                return true;
+                return result;
+
 
             if (!SpawnedRoyalSubjectWave1 && npc.life < npc.lifeMax / 3 * 2 && npc.HasPlayerTarget)
             {
@@ -64,15 +68,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 Vector2 vector72 = new Vector2(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
 
-                int n = NPC.NewNPC((int)vector72.X, (int)vector72.Y, ModContent.NPCType<RoyalSubject>(), 0, 0f, 0f, 0f, 0f, 255);
+                int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), vector72, ModContent.NPCType<RoyalSubject>(),
+                    velocity: new Vector2(Main.rand.Next(-200, 201) * 0.1f, Main.rand.Next(-200, 201) * 0.1f));
                 if (n != Main.maxNPCs)
-                {
-                    Main.npc[n].velocity.X = Main.rand.Next(-200, 201) * 0.002f;
-                    Main.npc[n].velocity.Y = Main.rand.Next(-200, 201) * 0.002f;
                     Main.npc[n].localAI[0] = 60f;
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                }
 
                 FargoSoulsUtil.PrintText("Royal Subject has awoken!", new Color(175, 75, 255));
 
@@ -89,15 +88,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 Vector2 vector72 = new Vector2(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
 
-                int n = NPC.NewNPC((int)vector72.X, (int)vector72.Y, ModContent.NPCType<RoyalSubject>(), 0, 0f, 0f, 0f, 0f, 255);
+                int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), vector72, ModContent.NPCType<RoyalSubject>(),
+                    velocity: new Vector2(Main.rand.Next(-200, 201) * 0.1f, Main.rand.Next(-200, 201) * 0.1f));
                 if (n != Main.maxNPCs)
-                {
-                    Main.npc[n].velocity.X = Main.rand.Next(-200, 201) * 0.1f;
-                    Main.npc[n].velocity.Y = Main.rand.Next(-200, 201) * 0.1f;
                     Main.npc[n].localAI[0] = 60f;
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                }
 
                 FargoSoulsUtil.PrintText("Royal Subject has awoken!", new Color(175, 75, 255));
 
@@ -107,10 +101,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 NetSync(npc);
             }
 
+
             if (!InPhase2 && npc.life < npc.lifeMax / 2) //enable new attack and roar below 50%
             {
                 InPhase2 = true;
-                Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                 if (FargoSoulsWorld.MasochistModeReal)
                     SpawnedRoyalSubjectWave1 = false; //do this again
@@ -130,6 +125,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 Main.dust[dustId3].noGravity = true;
 
                 npc.ai[0] = 3; //always shoot stingers mode
+
+                if (npc.ai[1] > 1)
+                    npc.ai[1] -= 0.5f; //slower stingers
             }
             else
             {
@@ -141,9 +139,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
 
             if (FargoSoulsWorld.MasochistModeReal)
+            {
                 HiveThrowTimer++;
 
-            if (!InPhase2)
+                if (ForgorDeathrayTimer > 0 && --ForgorDeathrayTimer % 10 == 0 && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(npc.GetSource_FromThis(),
+                        Main.player[npc.target].Center - 2000 * Vector2.UnitY, Vector2.UnitY,
+                        ModContent.ProjectileType<WillDeathraySmall>(),
+                        (int)(npc.damage * .75), 0f, Main.myPlayer,
+                        Main.player[npc.target].Center.X, npc.whoAmI);
+                }
+            }
+
+            if (!InPhase2 || FargoSoulsWorld.MasochistModeReal)
             {
                 if (npc.ai[0] == 3f || npc.ai[0] == 1f) //only when in stationary modes
                 {
@@ -153,11 +162,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (StingerRingTimer % 90 == 0)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            FargoSoulsUtil.XWay(StingerRingTimer == 90 * 3 ? 16 : 8, npc.Center, ProjectileID.Stinger, 6, 11, 1);
+                            FargoSoulsUtil.XWay(StingerRingTimer == 90 * 3 ? 16 : 8, npc.GetSource_FromThis(), npc.Center, ProjectileID.QueenBeeStinger, 6, 11, 1);
                     }
                 }
             }
-            else
+
+            if (InPhase2)
             {
                 if (++HiveThrowTimer > 570 && BeeSwarmTimer <= 600 && (npc.ai[0] == 3f || npc.ai[0] == 1f)) //lobs hives below 50%, not dashing
                 {
@@ -173,8 +183,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     distance.Y = distance.Y / time - 0.5f * gravity * time;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.Center, distance, ModContent.ProjectileType<Beehive>(),
-                            npc.damage / 4, 0f, Main.myPlayer, time - 5);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance, ModContent.ProjectileType<Beehive>(),
+                            FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, time - 5);
                     }
                 }
 
@@ -199,10 +209,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             NetSync(npc);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
 
                             if (npc.HasValidTarget)
-                                Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
 
                             if (FargoSoulsWorld.MasochistModeReal)
                                 BeeSwarmTimer += 30;
@@ -227,8 +237,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             const float rotation = 0.025f;
                             for (int i = -1; i <= 1; i += 2)
                             {
-                                Projectile.NewProjectile(npc.Center + new Vector2(3 * npc.direction, 15), i * Main.rand.NextFloat(9f, 18f) * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-45, 45))),
-                                    ModContent.ProjectileType<Bee>(), npc.damage / (FargoSoulsWorld.MasochistModeReal ? 3 : 4), 0f, Main.myPlayer, npc.target, Main.rand.NextBool() ? -rotation : rotation);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + new Vector2(3 * npc.direction, 15), i * Main.rand.NextFloat(9f, 18f) * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-45, 45))),
+                                    ModContent.ProjectileType<Bee>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, FargoSoulsWorld.MasochistModeReal ? 4f / 3 : 1), 0f, Main.myPlayer, npc.target, Main.rand.NextBool() ? -rotation : rotation);
                             }
                         }
                     }
@@ -257,50 +267,68 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            if (npc.ai[0] == 0 && npc.ai[1] == 4 && npc.ai[2] < 0) //when about to do dashes triggered by royal subjects/bee swarm, telegraph and stall
+            if (npc.ai[0] == 0 && npc.ai[1] == 4) //when about to do dashes triggered by royal subjects/bee swarm, telegraph and stall
             {
-                if (npc.ai[2] == -44) //telegraph
+                if (npc.ai[2] < 0)
                 {
-                    Main.PlaySound(SoundID.Item21, npc.Center);
-
-                    for (int i = 0; i < 44; i++)
+                    if (npc.ai[2] == -44) //telegraph
                     {
-                        int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? 152 : 153, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f);
-                        Main.dust[d].scale = Main.rand.NextFloat(1f, 3f);
-                        Main.dust[d].velocity *= Main.rand.NextFloat(4.4f);
-                        Main.dust[d].noGravity = Main.rand.NextBool();
-                        if (Main.dust[d].noGravity)
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, npc.Center);
+
+                        for (int i = 0; i < 44; i++)
                         {
-                            Main.dust[d].scale *= 2.2f;
-                            Main.dust[d].velocity *= 4.4f;
+                            int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? 152 : 153, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f);
+                            Main.dust[d].scale = Main.rand.NextFloat(1f, 3f);
+                            Main.dust[d].velocity *= Main.rand.NextFloat(4.4f);
+                            Main.dust[d].noGravity = Main.rand.NextBool();
+                            if (Main.dust[d].noGravity)
+                            {
+                                Main.dust[d].scale *= 2.2f;
+                                Main.dust[d].velocity *= 4.4f;
+                            }
                         }
+
+                        if (FargoSoulsWorld.MasochistModeReal)
+                            npc.ai[2] = 0;
+
+                        ForgorDeathrayTimer = 95;
                     }
 
-                    if (FargoSoulsWorld.MasochistModeReal)
-                        npc.ai[2] = 0;
+                    npc.velocity *= 0.95f;
+                    npc.ai[2]++;
+
+                    return false;
                 }
-
-                npc.velocity *= 0.95f;
-                npc.ai[2]++;
-
-                return false;
             }
 
-            EModeUtils.DropSummon(npc, ModContent.ItemType<Abeemination2>(), NPC.downedQueenBee, ref DroppedSummon);
+            if (!npc.HasValidTarget || (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) > 3000))
+            {
+                if (npc.timeLeft > 30)
+                    npc.timeLeft = 30;
+            }
 
-            return true;
+            EModeUtils.DropSummon(npc, "Abeemination2", NPC.downedQueenBee, ref DroppedSummon);
+
+            return result;
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void OnKill(NPC npc)
         {
-            base.NPCLoot(npc);
-
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.JungleFishingCrate, 5);
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.HerbBag, 5);
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<QueenStinger>());
+            base.OnKill(npc);
 
             if ((int)(Main.time / 60 - 30) % 60 == 22) //COOMEDY
-                Item.NewItem(npc.Hitbox, ModContent.ItemType<TwentyTwoPainting>());
+                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.ItemType<TwentyTwoPainting>());
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<QueenStinger>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.JungleFishingCrate, 5));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HerbBag, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

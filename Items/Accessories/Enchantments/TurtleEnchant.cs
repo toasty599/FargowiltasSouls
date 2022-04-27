@@ -7,10 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class TurtleEnchant : SoulsItem
+    public class TurtleEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Turtle Enchantment");
             Tooltip.SetDefault(
 @"100% of contact damage is reflected
@@ -20,8 +22,8 @@ Additionally you will destroy incoming projectiles and deal 10x more thorns dama
 The shell lasts at least 1 second and up to 25 attacks blocked
 Enemies may explode into needles on death
 'You suddenly have the urge to hide in a shell'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "乌龟魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "乌龟魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"反弹100%接触伤害
 站定不动时且不攻击时你会缩进壳里
 当你缩进壳里时增加90%伤害减免
@@ -31,53 +33,41 @@ Enemies may explode into needles on death
 '你突然有一种想躲进壳里的冲动'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(248, 156, 92);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(248, 156, 92);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = 250000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = 250000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            modPlayer.CactusEffect();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            CactusEnchant.CactusEffect(player);
             modPlayer.TurtleEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.TurtleHelmet);
-            recipe.AddIngredient(ItemID.TurtleScaleMail);
-            recipe.AddIngredient(ItemID.TurtleLeggings);
-            recipe.AddIngredient(null, "CactusEnchant");
-            recipe.AddIngredient(ItemID.ChlorophytePartisan);
-            recipe.AddIngredient(ItemID.Yelets);
+            CreateRecipe()
+            .AddIngredient(ItemID.TurtleHelmet)
+            .AddIngredient(ItemID.TurtleScaleMail)
+            .AddIngredient(ItemID.TurtleLeggings)
+            .AddIngredient(null, "CactusEnchant")
+            .AddIngredient(ItemID.ChlorophytePartisan)
+            .AddIngredient(ItemID.Yelets)
 
             //chloro saber
             //
             //jungle turtle
-            //recipe.AddIngredient(ItemID.Seaweed);
-            //recipe.AddIngredient(ItemID.LizardEgg);
+            //.AddIngredient(ItemID.Seaweed);
+            //.AddIngredient(ItemID.LizardEgg);
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

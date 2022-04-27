@@ -7,66 +7,54 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class ObsidianEnchant : SoulsItem
+    public class ObsidianEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Obsidian Enchantment");
             Tooltip.SetDefault(
-@"Grants immunity to fire and lava
-You have normal movement and can swim in lava
-While standing in lava or lava wet, your attacks spawn explosions
+@"
 'The earth calls'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "黑曜石魔石");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "黑曜石魔石");
 //@"使你免疫火与岩浆
 //使你可以在岩浆中正常移动和游泳
 //在岩浆中时，你的攻击会引发爆炸
 //'大地的呼唤'"); e
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(69, 62, 115);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(69, 62, 115);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Orange;
-            item.value = 50000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Orange;
+            Item.value = 50000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().ObsidianEffect(); //add effect
+            player.GetModPlayer<FargoSoulsPlayer>().ObsidianEffect(); //add effect
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.ObsidianHelm);
-            recipe.AddIngredient(ItemID.ObsidianShirt);
-            recipe.AddIngredient(ItemID.ObsidianPants);
-            recipe.AddIngredient(ItemID.ObsidianRose); //molten skull rose
-            //recipe.AddIngredient(ItemID.ObsidianHorseshoe);
-            recipe.AddIngredient(ItemID.Cascade);
-            recipe.AddIngredient(ItemID.Fireblossom);
+            CreateRecipe()
+            .AddIngredient(ItemID.ObsidianHelm)
+            .AddIngredient(ItemID.ObsidianShirt)
+            .AddIngredient(ItemID.ObsidianPants)
+            .AddIngredient(ItemID.ObsidianRose) //molten skull rose
+            //.AddIngredient(ItemID.ObsidianHorseshoe);
+            .AddIngredient(ItemID.Cascade)
+            .AddIngredient(ItemID.Fireblossom)
             //magma snail
             //obsidifsh
             //mimic pet
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
 }

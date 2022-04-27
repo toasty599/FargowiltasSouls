@@ -7,10 +7,22 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class EarthForce : SoulsItem
+    public class EarthForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<CobaltEnchant>(),
+            ModContent.ItemType<PalladiumEnchant>(),
+            ModContent.ItemType<MythrilEnchant>(),
+            ModContent.ItemType<OrichalcumEnchant>(),
+            ModContent.ItemType<AdamantiteEnchant>(),
+            ModContent.ItemType<TitaniumEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Earth");
 
             Tooltip.SetDefault(
@@ -24,8 +36,8 @@ $"[i:{ModContent.ItemType<AdamantiteEnchant>()}] One of your projectiles will sp
 $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after striking an enemy\n" +
 "'Gaia's blessing shines upon you'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "大地之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大地之力");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"你的弹幕有25%几率爆裂成碎片
 增加20%武器使用速度
 攻击敌人后大幅增加生命恢复速度
@@ -37,54 +49,34 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after
 '盖亚的祝福照耀着你'");
         }
 
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
-        }
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.EarthForce = true;
             //mythril
             if (player.GetToggleValue("Mythril"))
             {
-                modPlayer.MythrilEnchant = true;
+                modPlayer.MythrilEnchantActive = true;
                 if (!modPlayer.DisruptedFocus)
                     modPlayer.AttackSpeed += .2f;
             }
             //shards
-            modPlayer.CobaltEnchant = true;
+            modPlayer.CobaltEnchantActive = true;
             //regen on hit, heals
             modPlayer.PalladiumEffect();
             //fireballs and petals
             modPlayer.OrichalcumEffect();
-            //split
-            modPlayer.AdamantiteEnchant = true;
-            //shadow dodge
-            modPlayer.TitaniumEffect();
+            AdamantiteEnchant.AdamantiteEffect(player);
+            TitaniumEnchant.TitaniumEffect(player);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddIngredient(null, "CobaltEnchant");
-            recipe.AddIngredient(null, "PalladiumEnchant");
-            recipe.AddIngredient(null, "MythrilEnchant");
-            recipe.AddIngredient(null, "OrichalcumEnchant");
-            recipe.AddIngredient(null, "AdamantiteEnchant");
-            recipe.AddIngredient(null, "TitaniumEnchant");
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

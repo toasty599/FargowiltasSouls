@@ -2,96 +2,92 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Minions
 {
     public class Probe2 : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_139";
+        public override string Texture => "Terraria/Images/NPC_139";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Probe");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.netImportant = true;
-            projectile.width = 30;
-            projectile.height = 30;
-            projectile.timeLeft *= 5;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
+            Projectile.netImportant = true;
+            Projectile.width = 30;
+            Projectile.height = 30;
+            Projectile.timeLeft *= 5;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
 
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 10;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().Probes)
-                projectile.timeLeft = 2;
+            Player player = Main.player[Projectile.owner];
+            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().Probes)
+                Projectile.timeLeft = 2;
 
-            if (projectile.damage == 0)
+            Projectile.ai[0] -= (float)Math.PI / 60f;
+            Projectile.Center = player.Center + new Vector2(-60, 0).RotatedBy(Projectile.ai[0]);
+
+            if (Projectile.ai[1] >= 0f && Projectile.ai[1] < Main.maxNPCs)
             {
-                projectile.damage = (int)(35f * player.minionDamage);
-                if (player.GetModPlayer<FargoPlayer>().MasochistSoul)
-                    projectile.damage *= 3;
-            }
-
-            projectile.ai[0] -= (float)Math.PI / 60f;
-            projectile.Center = player.Center + new Vector2(-60, 0).RotatedBy(projectile.ai[0]);
-
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < Main.maxNPCs)
-            {
-                NPC npc = Main.npc[(int)projectile.ai[1]];
-                projectile.rotation = (npc.Center - projectile.Center).ToRotation();
-                if (npc.CanBeChasedBy() && Collision.CanHitLine(npc.Center, 0, 0, Main.player[projectile.owner].Center, 0, 0))
+                NPC npc = Main.npc[(int)Projectile.ai[1]];
+                Projectile.rotation = (npc.Center - Projectile.Center).ToRotation();
+                if (npc.CanBeChasedBy() && Collision.CanHitLine(npc.Center, 0, 0, Main.player[Projectile.owner].Center, 0, 0))
                 {
-                    if (--projectile.localAI[0] < 0f)
+                    if (--Projectile.localAI[0] < 0f)
                     {
-                        projectile.localAI[0] = player.GetModPlayer<FargoPlayer>().MasochistSoul ? 15f : 30f;
-                        if (projectile.owner == Main.myPlayer)
-                            Projectile.NewProjectile(projectile.Center, new Vector2(8f, 0f).RotatedBy(projectile.rotation),
-                                ModContent.ProjectileType<ProbeLaser>(), projectile.damage, projectile.knockBack, projectile.owner);
-                        projectile.netUpdate = true;
+                        Projectile.localAI[0] = player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul ? 15f : 30f;
+                        if (Projectile.owner == Main.myPlayer)
+                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(8f, 0f).RotatedBy(Projectile.rotation),
+                                ModContent.ProjectileType<ProbeLaser>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
+                        Projectile.netUpdate = true;
                     }
                 }
                 else
                 {
-                    projectile.ai[1] = -1f;
-                    projectile.netUpdate = true;
+                    Projectile.ai[1] = -1f;
+                    Projectile.netUpdate = true;
                 }
-                projectile.rotation += (float)Math.PI;
+                Projectile.rotation += (float)Math.PI;
             }
             else
             {
-                if (projectile.owner == Main.myPlayer)
-                    projectile.rotation = (Main.MouseWorld - projectile.Center).ToRotation() + (float)Math.PI;
+                if (Projectile.owner == Main.myPlayer)
+                    Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation() + (float)Math.PI;
             }
 
-            if (++projectile.localAI[1] > 20f)
+            if (++Projectile.localAI[1] > 20f)
             {
-                projectile.localAI[1] = 0f;
-                projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000f, true);
-                projectile.netUpdate = true;
+                Projectile.localAI[1] = 0f;
+                Projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(Projectile, 1000f, true);
+                Projectile.netUpdate = true;
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

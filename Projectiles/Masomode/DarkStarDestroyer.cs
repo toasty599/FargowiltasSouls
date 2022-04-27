@@ -5,31 +5,31 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class DarkStarDestroyer : DarkStar
     {
-        public override string Texture => "Terraria/Projectile_12";
+        public override string Texture => "Terraria/Images/Projectile_12";
 
         public override void AI()
         {
-            if (projectile.localAI[1] == 0)
-                projectile.localAI[1] = projectile.velocity.Length() / System.Math.Abs(projectile.ai[1]);
+            if (Projectile.localAI[1] == 0)
+                Projectile.localAI[1] = Projectile.velocity.Length() / System.Math.Abs(Projectile.ai[1]);
 
             base.AI();
 
-            if (++projectile.ai[1] > 0)
+            if (++Projectile.ai[1] > 0)
             {
-                if (projectile.ai[1] > 30)
-                    projectile.velocity *= 1.06f;
-                else if (projectile.ai[1] == 30)
+                if (Projectile.ai[1] > 30)
+                    Projectile.velocity *= 1.06f;
+                else if (Projectile.ai[1] == 30)
                 {
-                    projectile.velocity = projectile.ai[0].ToRotationVector2();
-                    projectile.timeLeft = 180;
-                    projectile.netUpdate = true;
+                    Projectile.velocity = Projectile.ai[0].ToRotationVector2();
+                    Projectile.timeLeft = 180;
+                    Projectile.netUpdate = true;
                 }
                 else
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.ai[0].ToRotationVector2(), 0.1f);
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.ai[0].ToRotationVector2(), 0.1f);
             }
             else
             {
-                projectile.velocity = Vector2.Normalize(projectile.velocity) * (projectile.velocity.Length() - projectile.localAI[1]);
+                Projectile.velocity = Vector2.Normalize(Projectile.velocity) * (Projectile.velocity.Length() - Projectile.localAI[1]);
             }
         }
     }

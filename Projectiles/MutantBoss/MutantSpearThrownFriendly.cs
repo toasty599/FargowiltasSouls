@@ -7,14 +7,7 @@
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.ranged = false;
+            Projectile.DamageType = Terraria.ModLoader.DamageClass.Default;
         }
-
-        /*public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(mod.BuffType("GodEater"), 600);
-            target.AddBuff(mod.BuffType("Sadism"), 600);
-            base.OnHitNPC(target, damage, knockback, crit);
-        }*/
     }
 }

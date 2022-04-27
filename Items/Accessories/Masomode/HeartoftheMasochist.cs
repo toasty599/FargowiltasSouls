@@ -4,6 +4,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Minions;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -27,8 +30,8 @@ Grants effects of Wet debuff while riding Cute Fishron and gravity control
 Freeze nearby enemies when hurt
 Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
 'Warm, beating, and no body needed'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "永恒者之心");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'大多数情况下已经不用受苦了'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒者之心");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'大多数情况下已经不用受苦了'
 免疫人形废土,冻结,渗入,枯萎武器和枯萎盔甲
 免疫野性咬噬,突变啃啄,翻转,不稳定,扭曲和混沌
 免疫潮湿,带电,月之血蛭,无效诅咒和由水造成的Debuff
@@ -39,94 +42,95 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
 按下火球冲刺按键来进行一次短程的无敌冲刺
 骑乘猪鲨坐骑时获得潮湿状态,能够控制重力
 召唤一个友善的超级圣诞雪灵,迷你飞碟和真·克苏鲁之眼");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 5));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 5));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(0, 9);
-            item.defense = 10;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(0, 9);
+            Item.defense = 10;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
-            fargoPlayer.AllDamageUp(.1f);
-            fargoPlayer.AllCritUp(10);
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            player.GetDamage(DamageClass.Generic) += 0.10f;
+            player.GetCritChance(DamageClass.Generic) += 10;
             fargoPlayer.MasochistHeart = true;
             player.endurance += 0.05f;
 
             //pumpking's cape
-            player.buffImmune[mod.BuffType("LivingWasteland")] = true;
-            fargoPlayer.PumpkingsCape = true;
+            player.buffImmune[ModContent.BuffType<LivingWasteland>()] = true;
+            fargoPlayer.PumpkingsCapeItem = Item;
             fargoPlayer.AdditionalAttacks = true;
 
             //ice queen's crown
             player.buffImmune[BuffID.Frozen] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Hypothermia>()] = true;
+            player.buffImmune[ModContent.BuffType<Hypothermia>()] = true;
             fargoPlayer.IceQueensCrown = true;
             if (player.GetToggleValue("MasoFlocko"))
-                player.AddBuff(mod.BuffType("SuperFlocko"), 2);
+                player.AddBuff(ModContent.BuffType<SuperFlocko>(), 2);
 
             //saucer control console
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.VortexDebuff] = true;
             if (player.GetToggleValue("MasoUfo"))
-                player.AddBuff(mod.BuffType("SaucerMinion"), 2);
+                player.AddBuff(ModContent.BuffType<SaucerMinion>(), 2);
 
             //betsy's heart
             player.buffImmune[BuffID.OgreSpit] = true;
             player.buffImmune[BuffID.WitheredWeapon] = true;
             player.buffImmune[BuffID.WitheredArmor] = true;
-            fargoPlayer.BetsysHeart = true;
+            fargoPlayer.BetsysHeartItem = Item;
 
             //mutant antibodies
             player.buffImmune[BuffID.Wet] = true;
             player.buffImmune[BuffID.Rabies] = true;
-            player.buffImmune[mod.BuffType("MutantNibble")] = true;
-            player.buffImmune[mod.BuffType("OceanicMaul")] = true;
+            player.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
+            player.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
             fargoPlayer.MutantAntibodies = true;
             if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
                 player.dripping = true;
 
             //galactic globe
-            player.buffImmune[mod.BuffType("Flipped")] = true;
-            player.buffImmune[mod.BuffType("FlippedHallow")] = true;
-            player.buffImmune[mod.BuffType("Unstable")] = true;
-            player.buffImmune[mod.BuffType("CurseoftheMoon")] = true;
+            player.buffImmune[ModContent.BuffType<Flipped>()] = true;
+            player.buffImmune[ModContent.BuffType<FlippedHallow>()] = true;
+            player.buffImmune[ModContent.BuffType<Unstable>()] = true;
+            player.buffImmune[ModContent.BuffType<CurseoftheMoon>()] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
             if (player.GetToggleValue("MasoGrav"))
                 player.gravControl = true;
             if (player.GetToggleValue("MasoTrueEye"))
-                player.AddBuff(mod.BuffType("TrueEyes"), 2);
-            fargoPlayer.GravityGlobeEX = true;
-            fargoPlayer.wingTimeModifier += 1f;
+                player.AddBuff(ModContent.BuffType<TrueEyes>(), 2);
+            fargoPlayer.GravityGlobeEXItem = Item;
+            fargoPlayer.WingTimeModifier += 1f;
 
             //heart of maso
             player.buffImmune[BuffID.MoonLeech] = true;
-            player.buffImmune[mod.BuffType("NullificationCurse")] = true;
+            player.buffImmune[ModContent.BuffType<NullificationCurse>()] = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("PumpkingsCape"));
-            recipe.AddIngredient(mod.ItemType("IceQueensCrown"));
-            recipe.AddIngredient(mod.ItemType("SaucerControlConsole"));
-            recipe.AddIngredient(mod.ItemType("BetsysHeart"));
-            recipe.AddIngredient(mod.ItemType("MutantAntibodies"));
-            recipe.AddIngredient(mod.ItemType("GalacticGlobe"));
-            recipe.AddIngredient(ItemID.LunarBar, 15);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<PumpkingsCape>())
+            .AddIngredient(ModContent.ItemType<IceQueensCrown>())
+            .AddIngredient(ModContent.ItemType<SaucerControlConsole>())
+            .AddIngredient(ModContent.ItemType<BetsysHeart>())
+            .AddIngredient(ModContent.ItemType<MutantAntibodies>())
+            .AddIngredient(ModContent.ItemType<GalacticGlobe>())
+            .AddIngredient(ItemID.LunarBar, 15)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

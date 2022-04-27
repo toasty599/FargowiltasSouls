@@ -8,21 +8,21 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class LowGround : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Low Ground");
             Description.SetDefault("Cannot stand on platforms or liquids");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "低地");
-            Description.AddTranslation(GameCulture.Chinese, "不能站在平台或液体上");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "低地");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "不能站在平台或液体上");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().LowGround = true;
+            player.GetModPlayer<FargoSoulsPlayer>().LowGround = true;
 
-            player.endurance -= 0.1f;
+            player.endurance -= 0.15f;
 
             if (player.mount.Active)
                 player.mount.Dismount(player);
@@ -37,8 +37,8 @@ namespace FargowiltasSouls.Buffs.Masomode
                 pos.Y += 8;
 
                 Tile tile = Framing.GetTileSafely((int)(pos.X / 16), (int)(pos.Y / 16));
-                if (tile.type == TileID.Platforms || tile.type == TileID.PlanterBox)
-                    tile.inActive(true);
+                if (tile.TileType == TileID.Platforms || tile.TileType == TileID.PlanterBox)
+                    tile.IsActuated = true;
             }
         }
     }

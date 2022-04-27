@@ -1,6 +1,8 @@
 ﻿using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
+using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -16,8 +18,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nTaking damage creates a friendly Ancient Vision to attack enemies" +
                 "\n'A fallen enemy's spells, repurposed'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "天界符文");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'堕落的敌人的咒语,被改换用途'" +
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "天界符文");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'堕落的敌人的咒语,被改换用途'" +
                 "\n免疫死亡标记" +
                 "\n根据武器类型定期发动额外的攻击" +
                 "\n受伤时创造一个友好的远古幻象来攻击敌人");
@@ -25,18 +27,18 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Cyan;
-            item.value = Item.sellPrice(gold: 7);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.sellPrice(gold: 7);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[mod.BuffType("MarkedforDeath")] = true;
-            player.GetModPlayer<FargoPlayer>().CelestialRune = true;
-            player.GetModPlayer<FargoPlayer>().AdditionalAttacks = true;
+            player.buffImmune[ModContent.BuffType<MarkedforDeath>()] = true;
+            player.GetModPlayer<FargoSoulsPlayer>().CelestialRuneItem = Item;
+            player.GetModPlayer<FargoSoulsPlayer>().AdditionalAttacks = true;
         }
     }
 }

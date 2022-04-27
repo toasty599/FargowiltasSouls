@@ -9,28 +9,29 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class OceanicSeal : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Oceanic Seal");
+            base.SetStaticDefaults();
             Description.SetDefault("No dodging, no lifesteal, no supersonic, no escape");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
-            DisplayName.AddTranslation(GameCulture.Chinese, "海洋印记");
-            Description.AddTranslation(GameCulture.Chinese, "无法躲避,无法进行生命偷取,无法快速移动,无法逃脱");
+            
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "海洋印记");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "无法躲避,无法进行生命偷取,无法快速移动,无法逃脱");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().OceanicMaul = true;
-            player.GetModPlayer<FargoPlayer>().eternityDamage = 0; //fuck it
+            player.GetModPlayer<FargoSoulsPlayer>().OceanicMaul = true;
+            player.GetModPlayer<FargoSoulsPlayer>().TinEternityDamage = 0; //fuck it
 
-            //player.GetModPlayer<FargoPlayer>().MutantPresence = true; //LUL
+            player.GetModPlayer<FargoSoulsPlayer>().MutantPresence = true; //LUL
 
-            player.GetModPlayer<FargoPlayer>().noDodge = true;
-            player.GetModPlayer<FargoPlayer>().noSupersonic = true;
+            player.GetModPlayer<FargoSoulsPlayer>().noDodge = true;
+            player.GetModPlayer<FargoSoulsPlayer>().noSupersonic = true;
             player.moonLeech = true;
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron))
@@ -38,10 +39,10 @@ namespace FargowiltasSouls.Buffs.Masomode
                 player.buffTime[buffIndex] = 2;
                 if (player.whoAmI == Main.npc[EModeGlobalNPC.fishBoss].target
                     && player.whoAmI == Main.myPlayer
-                    && player.ownedProjectileCounts[mod.ProjectileType("FishronRitual2")] < 1)
+                    && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Masomode.FishronRitual2>()] < 1)
                 {
-                    Projectile.NewProjectile(Main.npc[EModeGlobalNPC.fishBoss].Center, Vector2.Zero,
-                        mod.ProjectileType("FishronRitual2"), 0, 0f, player.whoAmI, 0f, EModeGlobalNPC.fishBoss);
+                    Projectile.NewProjectile(Main.npc[EModeGlobalNPC.fishBoss].GetSource_FromThis(), Main.npc[EModeGlobalNPC.fishBoss].Center, Vector2.Zero,
+                        ModContent.ProjectileType<Projectiles.Masomode.FishronRitual2>(), 0, 0f, player.whoAmI, 0f, EModeGlobalNPC.fishBoss);
                 }
             }
             else

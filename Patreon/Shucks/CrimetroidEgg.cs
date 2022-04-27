@@ -8,33 +8,27 @@ using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.Shucks
 {
-    public class CrimetroidEgg : SoulsItem
+    public class CrimetroidEgg : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Crimetroid Egg");
             Tooltip.SetDefault("Summons the Baby\nNot to be confused with criminal androids");
         }
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.ZephyrFish);
-            item.shoot = ModContent.ProjectileType<Crimetroid>();
-            item.buffType = ModContent.BuffType<CrimetroidBuff>();
+            Item.CloneDefaults(ItemID.ZephyrFish);
+            Item.shoot = ModContent.ProjectileType<Crimetroid>();
+            Item.buffType = ModContent.BuffType<CrimetroidBuff>();
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
-        }
-
-        public override void UseStyle(Player player)
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
             {
-                player.AddBuff(item.buffType, 3600, true);
+                player.AddBuff(Item.buffType, 3600, true);
             }
         }
     }

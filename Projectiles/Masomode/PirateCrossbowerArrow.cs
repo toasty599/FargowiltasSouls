@@ -14,13 +14,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.JestersArrow);
-            aiType = ProjectileID.JestersArrow;
-            projectile.friendly = false;
-            projectile.ranged = false;
-            projectile.arrow = false;
-            projectile.hostile = true;
-            projectile.timeLeft *= 2;
+            Projectile.CloneDefaults(ProjectileID.JestersArrow);
+            AIType = ProjectileID.JestersArrow;
+            Projectile.friendly = false;
+            Projectile.DamageType = DamageClass.Default;
+            Projectile.arrow = false;
+            Projectile.hostile = true;
+            Projectile.timeLeft *= 2;
         }
 
         public override void AI()
@@ -28,13 +28,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (Main.rand.NextBool())
             {
                 int type = Main.rand.Next(new int[] { 15, 57, 58 });
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, type, projectile.velocity.X / 2f, projectile.velocity.Y / 2f, 150, default, 0.8f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, type, Projectile.velocity.X / 2f, Projectile.velocity.Y / 2f, 150, default, 0.8f);
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Midas"), 600);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.Midas>(), 600);
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item10, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 60; i++)
             {
                 int Type;
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     case 1: Type = 57; break;
                     default: Type = 58; break;
                 }
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, Type, projectile.velocity.X / 2f, projectile.velocity.Y / 2f, 150, default(Color), 1.2f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Type, Projectile.velocity.X / 2f, Projectile.velocity.Y / 2f, 150, default(Color), 1.2f);
             }
         }
     }

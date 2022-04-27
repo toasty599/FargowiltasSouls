@@ -1,5 +1,8 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
 {
@@ -10,15 +13,15 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spazmarang");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 12;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.CursedInferno, 120);
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
         }
     }
 }

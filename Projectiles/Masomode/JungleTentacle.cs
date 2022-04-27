@@ -9,63 +9,64 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class JungleTentacle : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_264";
+        public override string Texture => "Terraria/Images/NPC_264";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Jungle Tentacle");
-            Main.projFrames[projectile.type] = Main.npcFrameCount[NPCID.PlanterasTentacle];
+            Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.PlanterasTentacle];
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 18;
-            projectile.height = 18;
-            projectile.aiStyle = -1;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.hostile = true;
-            //cooldownSlot = 1;
+            Projectile.width = 18;
+            Projectile.height = 18;
+            Projectile.aiStyle = -1;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.hostile = true;
+            //CooldownSlot = 1;
 
-            projectile.extraUpdates = 0;
-            projectile.timeLeft = 240 * (projectile.extraUpdates + 1);
+            Projectile.extraUpdates = 0;
+            Projectile.timeLeft = 240 * (Projectile.extraUpdates + 1);
         }
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.BigMimicJungle);
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], NPCID.BigMimicJungle);
             if (npc == null)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            projectile.rotation = projectile.DirectionFrom(npc.Center).ToRotation() + MathHelper.Pi;
-            projectile.localAI[0] = npc.Center.X;
-            projectile.localAI[1] = npc.Center.Y;
+            Projectile.rotation = Projectile.DirectionFrom(npc.Center).ToRotation() + MathHelper.Pi;
+            Projectile.localAI[0] = npc.Center.X;
+            Projectile.localAI[1] = npc.Center.Y;
 
-            if (projectile.velocity == Vector2.Zero)
+            if (Projectile.velocity == Vector2.Zero)
             {
-                projectile.frame = 0;
-                //projectile.timeLeft--;
+                Projectile.frame = 0;
+                //Projectile.timeLeft--;
             }
             else
             {
-                projectile.velocity *= 1.005f;
-                projectile.rotation = projectile.velocity.ToRotation() + MathHelper.Pi;
+                Projectile.velocity *= 1.005f;
+                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.Pi;
 
-                if (npc.HasPlayerTarget && projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
+                if (npc.HasPlayerTarget && Projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
                 {
-                    Tile tile = Framing.GetTileSafely(projectile.Center);
-                    if (tile.nactive() && Main.tileSolid[tile.type])
-                        projectile.velocity = Vector2.Zero;
+                    Tile tile = Framing.GetTileSafely(Projectile.Center);
+                    if (tile.HasUnactuatedTile && Main.tileSolid[tile.TileType])
+                        Projectile.velocity = Vector2.Zero;
                 }
 
-                if (++projectile.frameCounter > 3 * (projectile.extraUpdates + 1))
+                if (++Projectile.frameCounter > 3 * (Projectile.extraUpdates + 1))
                 {
-                    projectile.frameCounter = 0;
-                    if (++projectile.frame >= Main.projFrames[projectile.type])
-                        projectile.frame = 0;
+                    Projectile.frameCounter = 0;
+                    if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                        Projectile.frame = 0;
                 }
             }
         }
@@ -75,13 +76,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.IvyVenom>(), 240);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            if (projectile.localAI[0] != 0 && projectile.localAI[1] != 0)
+            if (Projectile.localAI[0] != 0 && Projectile.localAI[1] != 0)
             {
-                Texture2D texture = mod.GetTexture("NPCs/Vanilla/Chain27");
-                Vector2 position = projectile.Center;
-                Vector2 mountedCenter = new Vector2(projectile.localAI[0], projectile.localAI[1]);
+                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Vanilla/Chain27", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Vector2 position = Projectile.Center;
+                Vector2 mountedCenter = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
                 Rectangle? sourceRectangle = new Rectangle?();
                 Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
                 float num1 = texture.Height;
@@ -104,23 +105,23 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         position += vector21 * num1;
                         vector24 = mountedCenter - position;
                         Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
-                        color2 = projectile.GetAlpha(color2);
-                        Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+                        color2 = Projectile.GetAlpha(color2);
+                        Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
                     }
             }
 
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
             SpriteEffects effects = SpriteEffects.None;
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

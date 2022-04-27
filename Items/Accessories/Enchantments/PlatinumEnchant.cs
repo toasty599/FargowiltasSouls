@@ -7,70 +7,52 @@ using System.Collections.Generic;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class PlatinumEnchant : SoulsItem
+    public class PlatinumEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Platinum Enchantment");
-            
-            DisplayName.AddTranslation(GameCulture.Chinese, "铂金魔石");
-            
             string tooltip =
-@"20% chance for enemies to drop 2x loot
+@"20% chance for enemies to drop 5x loot
 'Its value is immeasurable'";
             Tooltip.SetDefault(tooltip);
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铂金魔石");
             string tooltip_ch = 
 @"敌人死亡时掉落的战利品有20%几率翻倍
 '价值无法估量'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(83, 103, 143);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(83, 103, 143);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.LightRed;
-            item.value = 100000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = 100000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            modPlayer.PlatinumEnchant = true;
+            player.GetModPlayer<FargoSoulsPlayer>().PlatinumEnchantActive = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.PlatinumHelmet);
-            recipe.AddIngredient(ItemID.PlatinumChainmail);
-            recipe.AddIngredient(ItemID.PlatinumGreaves);
-            recipe.AddIngredient(ItemID.PlatinumCrown);
-            //recipe.AddIngredient(ItemID.PlatinumBroadsword);
-            recipe.AddIngredient(ItemID.DiamondStaff);
-            recipe.AddIngredient(ItemID.WhitePhaseblade);
-            //recipe.AddIngredient(ItemID.TaxCollectorsStickOfDoom);
-            //recipe.AddIngredient(ItemID.BeamSword);
-            //recipe.AddIngredient(ItemID.DiamondRing);
-            //diamond squirrel
+            CreateRecipe()
+                .AddIngredient(ItemID.PlatinumHelmet)
+                .AddIngredient(ItemID.PlatinumChainmail)
+                .AddIngredient(ItemID.PlatinumGreaves)
+                .AddIngredient(ItemID.GardenGnome)
+                .AddIngredient(ItemID.GemSquirrelDiamond)
+                .AddIngredient(ItemID.LadyBug)
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
 }

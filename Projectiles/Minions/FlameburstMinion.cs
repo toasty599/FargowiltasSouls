@@ -3,6 +3,7 @@ using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,64 +20,64 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void SetDefaults()
         {
-            projectile.netImportant = true;
-            projectile.width = 44;
-            projectile.height = 30;
-            projectile.timeLeft = 900;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
+            Projectile.netImportant = true;
+            Projectile.width = 44;
+            Projectile.height = 30;
+            Projectile.timeLeft = 900;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.minion = true;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || !player.GetModPlayer<FargoPlayer>().DarkEnchant || !player.GetToggleValue("DarkArt")))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !player.GetModPlayer<FargoSoulsPlayer>().DarkArtistEnchantActive || !player.GetToggleValue("DarkArt")))
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            projectile.netUpdate = true; // Please sync ech
+            Projectile.netUpdate = true; // Please sync ech
 
             //pulsation mumbo jumbo
-            projectile.position.X = (float)((int)projectile.position.X);
-            projectile.position.Y = (float)((int)projectile.position.Y);
+            Projectile.position.X = (float)((int)Projectile.position.X);
+            Projectile.position.Y = (float)((int)Projectile.position.Y);
             float num395 = (float)Main.mouseTextColor / 200f - 0.35f;
             num395 *= 0.2f;
-            projectile.scale = num395 + 0.95f;
+            Projectile.scale = num395 + 0.95f;
 
             //charging above the player
-            if (projectile.ai[0] == 0)
+            if (Projectile.ai[0] == 0)
             {
                 //float above player
-                projectile.position.X = player.Center.X - (float)(projectile.width / 2);
-                projectile.position.Y = player.Center.Y - (float)(projectile.height / 2) + player.gfxOffY - 50f;
+                Projectile.position.X = player.Center.X - (float)(Projectile.width / 2);
+                Projectile.position.Y = player.Center.Y - (float)(Projectile.height / 2) + player.gfxOffY - 50f;
 
                 //rotate towards and face mouse
                 const float rotationModifier = 0.08f;
 
                 if (player.whoAmI == Main.myPlayer)
                 {
-                    if (Main.MouseWorld.X > projectile.Center.X)
+                    if (Main.MouseWorld.X > Projectile.Center.X)
                     {
-                        projectile.spriteDirection = 1;
+                        Projectile.spriteDirection = 1;
 
-                        projectile.rotation = projectile.rotation.AngleLerp(
-                            (new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - projectile.Center).ToRotation(), rotationModifier);
+                        Projectile.rotation = Projectile.rotation.AngleLerp(
+                            (new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - Projectile.Center).ToRotation(), rotationModifier);
                     }
                     else
                     {
-                        projectile.spriteDirection = -1;
+                        Projectile.spriteDirection = -1;
 
                         //absolute fuckery so it faces the right direction
-                        Vector2 target = new Vector2(Main.MouseWorld.X - (Main.MouseWorld.X - projectile.Center.X) * 2, Main.MouseWorld.Y - (Main.MouseWorld.Y - projectile.Center.Y) * 2) - projectile.Center;
+                        Vector2 target = new Vector2(Main.MouseWorld.X - (Main.MouseWorld.X - Projectile.Center.X) * 2, Main.MouseWorld.Y - (Main.MouseWorld.Y - Projectile.Center.Y) * 2) - Projectile.Center;
 
-                        projectile.rotation = projectile.rotation.AngleLerp(target.ToRotation(), rotationModifier);
+                        Projectile.rotation = Projectile.rotation.AngleLerp(target.ToRotation(), rotationModifier);
                     }
                 }
 
@@ -86,85 +87,85 @@ namespace FargowiltasSouls.Projectiles.Minions
                 if (player.controlUseItem)
                 {
                     //charge up while attacking
-                    projectile.localAI[0]++;
+                    Projectile.localAI[0]++;
 
                     //charge level 1
-                    if (projectile.localAI[0] == chargeTime)
+                    if (Projectile.localAI[0] == chargeTime)
                     {
-                        if (projectile.owner == Main.myPlayer)
-                            projectile.netUpdate = true;
+                        if (Projectile.owner == Main.myPlayer)
+                            Projectile.netUpdate = true;
 
                         double spread = 2 * Math.PI / 36;
                         for (int i = 0; i < 36; i++)
                         {
                             Vector2 velocity = new Vector2(2, 2).RotatedBy(spread * i);
 
-                            int index2 = Dust.NewDust(projectile.Center, 0, 0, DustID.FlameBurst, velocity.X, velocity.Y, 100);
+                            int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.FlameBurst, velocity.X, velocity.Y, 100);
                             Main.dust[index2].noGravity = true;
                             Main.dust[index2].noLight = true;
                         }
                     }
                     //charging further
-                    if (projectile.localAI[0] > chargeTime)
+                    if (Projectile.localAI[0] > chargeTime)
                     {
-                        int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.FlameBurst, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f);
+                        int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.FlameBurst, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
                         Main.dust[d].noGravity = true;
                     }
                 }
                 else
                 {
                     //let go and fire
-                    if (projectile.localAI[0] > chargeTime)
+                    if (Projectile.localAI[0] > chargeTime)
                     {
-                        if (projectile.owner == Main.myPlayer)
-                            projectile.netUpdate = true;
+                        if (Projectile.owner == Main.myPlayer)
+                            Projectile.netUpdate = true;
 
                         Vector2 mouse = Main.MouseWorld;
                         destination = mouse;
 
                         //switch to travel mode
-                        projectile.ai[0] = 1;
-                        projectile.localAI[0] = 0;
+                        Projectile.ai[0] = 1;
+                        Projectile.localAI[0] = 0;
 
-                        player.GetModPlayer<FargoPlayer>().DarkSpawn = true;
-                        //player.GetModPlayer<FargoPlayer>().DarkSpawnCD = 5;
+                        player.GetModPlayer<FargoSoulsPlayer>().DarkArtistSpawn = true;
+                        //player.GetModPlayer<FargoSoulsPlayer>().DarkSpawnCD = 5;
                     }
                 }
             }
             else
             {
                 //travelling to destination
-                if (Vector2.Distance(projectile.Center, destination) > 10 && projectile.localAI[0] == 0)
+                if (Vector2.Distance(Projectile.Center, destination) > 10 && Projectile.localAI[0] == 0)
                 {
-                    Vector2 velocity = Vector2.Normalize(destination - projectile.Center) * 10;
-                    projectile.velocity = velocity;
+                    Vector2 velocity = Vector2.Normalize(destination - Projectile.Center) * 10;
+                    Projectile.velocity = velocity;
 
                     //dust
-                    int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, DustID.FlameBurst, projectile.velocity.X * 0.2f,
-                        projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
+                    int dustId = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 2f), Projectile.width, Projectile.height + 5, DustID.FlameBurst, Projectile.velocity.X * 0.2f,
+                        Projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
                     Main.dust[dustId].noGravity = true;
-                    int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, DustID.FlameBurst, projectile.velocity.X * 0.2f,
-                        projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
+                    int dustId3 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 2f), Projectile.width, Projectile.height + 5, DustID.FlameBurst, Projectile.velocity.X * 0.2f,
+                        Projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
                     Main.dust[dustId3].noGravity = true;
                 }
                 //attack as a sentry
                 else
                 {
-                    projectile.localAI[0] = 1;
-                    projectile.velocity = Vector2.Zero;
+                    Projectile.localAI[0] = 1;
+                    Projectile.velocity = Vector2.Zero;
 
                     int attackRate = 20;
-                    projectile.ai[1] += 1f;
+                    Projectile.ai[1] += 1f;
 
-                    if (projectile.ai[1] >= attackRate)
+                    if (Projectile.ai[1] >= attackRate)
                     {
                         float num = 2000f;
                         int npcIndex = -1;
                         for (int i = 0; i < 200; i++)
                         {
-                            float dist = Vector2.Distance(projectile.Center, Main.npc[i].Center);
+                            float dist = Vector2.Distance(Projectile.Center, Main.npc[i].Center);
 
-                            if (dist < num && dist < 600 && Main.npc[i].CanBeChasedBy(projectile, false))
+                            if (dist < num && dist < 600 && Main.npc[i].CanBeChasedBy(Projectile, false))
                             {
                                 npcIndex = i;
                                 num = dist;
@@ -175,49 +176,49 @@ namespace FargowiltasSouls.Projectiles.Minions
                         {
                             NPC target = Main.npc[npcIndex];
 
-                            if (Collision.CanHit(projectile.position, projectile.width, projectile.height, target.position, target.width, target.height))
+                            if (Collision.CanHit(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
                             {
-                                Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 10;
+                                Vector2 velocity = Vector2.Normalize(target.Center - Projectile.Center) * 10;
 
-                                int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<MegaFlameburst>(), player.GetModPlayer<FargoPlayer>().HighestDamageTypeScaling(85), 4, projectile.owner, projectile.whoAmI);
-                                Main.PlayTrackedSound(SoundID.DD2_FlameburstTowerShot, projectile.Center);
+                                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<MegaFlameburst>(), FargoSoulsUtil.HighestDamageTypeScaling(player, 85), 4, Projectile.owner, Projectile.whoAmI);
+                                SoundEngine.PlaySound(SoundID.DD2_FlameburstTowerShot, Projectile.Center);
 
                                 const float rotationModifier = 0.08f;
 
                                 for (int i = 0; i < 20; i++)
                                 {
-                                    if (target.Center.X > projectile.Center.X)
+                                    if (target.Center.X > Projectile.Center.X)
                                     {
-                                        projectile.spriteDirection = 1;
+                                        Projectile.spriteDirection = 1;
 
-                                        projectile.rotation = projectile.rotation.AngleLerp(
-                                        (new Vector2(target.Center.X, target.Center.Y) - projectile.Center).ToRotation(), rotationModifier);
+                                        Projectile.rotation = Projectile.rotation.AngleLerp(
+                                        (new Vector2(target.Center.X, target.Center.Y) - Projectile.Center).ToRotation(), rotationModifier);
                                     }
                                     else
                                     {
-                                        projectile.spriteDirection = -1;
+                                        Projectile.spriteDirection = -1;
 
                                         //absolute fuckery so it faces the right direction
-                                        Vector2 rotation = new Vector2(target.Center.X - (target.Center.X - projectile.Center.X) * 2, target.Center.Y - (target.Center.Y - projectile.Center.Y) * 2) - projectile.Center;
+                                        Vector2 rotation = new Vector2(target.Center.X - (target.Center.X - Projectile.Center.X) * 2, target.Center.Y - (target.Center.Y - Projectile.Center.Y) * 2) - Projectile.Center;
 
-                                        projectile.rotation = projectile.rotation.AngleLerp(rotation.ToRotation(), rotationModifier);
+                                        Projectile.rotation = Projectile.rotation.AngleLerp(rotation.ToRotation(), rotationModifier);
                                     }
                                 } 
                             }
                         }
-                        projectile.ai[1] = 0f;
+                        Projectile.ai[1] = 0f;
 
                         //kill if too far away
-                        if (Vector2.Distance(Main.player[projectile.owner].Center, projectile.Center) > 2000)
+                        if (Vector2.Distance(Main.player[Projectile.owner].Center, Projectile.Center) > 2000)
                         {
-                            projectile.Kill();
+                            Projectile.Kill();
                         }
                     }
                 }
             }
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
@@ -227,9 +228,9 @@ namespace FargowiltasSouls.Projectiles.Minions
             const int num226 = 12;
             for (int i = 0; i < num226; i++)
             {
-                Vector2 vector6 = Vector2.UnitX.RotatedBy(projectile.rotation) * 6f;
-                vector6 = vector6.RotatedBy(((i - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + projectile.Center;
-                Vector2 vector7 = vector6 - projectile.Center;
+                Vector2 vector6 = Vector2.UnitX.RotatedBy(Projectile.rotation) * 6f;
+                vector6 = vector6.RotatedBy(((i - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + Projectile.Center;
+                Vector2 vector7 = vector6 - Projectile.Center;
                 int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.FlameBurst, 0f, 0f, 0, default(Color), 1.5f);
                 Main.dust[num228].noGravity = true;
                 Main.dust[num228].velocity = vector7;

@@ -1,8 +1,8 @@
-﻿using Fargowiltas.Items.Summons;
-using FargowiltasSouls.Buffs.Masomode;
+﻿using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,6 +25,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         
         public int DeathrayState;
         public int AuraRadiusCounter;
+        public int DarkStarTimer;
         
         public bool StoredDirectionToPlayer;
 
@@ -35,7 +38,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(DeathrayState), IntStrategies.CompoundStrategy },
                 { new Ref<object>(AuraRadiusCounter), IntStrategies.CompoundStrategy },
-                
+                { new Ref<object>(DarkStarTimer), IntStrategies.CompoundStrategy },
+
                 { new Ref<object>(StoredDirectionToPlayer), BoolStrategies.CompoundStrategy },
             };
 
@@ -118,28 +122,28 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     //npc.ai[0] = 4f;
                     npc.ai[0] = 604f; //initiate spin immediately
                     npc.netUpdate = true;
-                    Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 11, npc.whoAmI);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 11, npc.whoAmI);
                 }
             }
             else //in phase 3
             {
 
-                /*if (npc.life == 1 && --Counter1 < 0) //when brought to 1hp, begin shooting dark stars
+                if (FargoSoulsWorld.MasochistModeReal && npc.life == 1 && --DarkStarTimer < 0) //when brought to 1hp, begin shooting dark stars
                 {
-                    Counter1 = 240;
+                    DarkStarTimer = 240;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
                         distance.Normalize();
                         distance *= 10f;
                         for (int i = 0; i < 12; i++)
-                            Projectile.NewProjectile(npc.Center, distance.RotatedBy(2 * Math.PI / 12 * i),
-                                ModContent.ProjectileType<DarkStar>(), npc.damage / 5, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance.RotatedBy(2 * Math.PI / 12 * i),
+                                ModContent.ProjectileType<DarkStar>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
-                }*/
+                }
 
                 //dust code
                 if (Main.rand.Next(4) < 3)
@@ -159,9 +163,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     npc.localAI[1] = 0;
                     Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center);
-                    int proj = Projectile.NewProjectile(npc.Center + (npc.width - 24) * vel, vel, ModContent.ProjectileType<DarkStarHoming>(), npc.damage / 4, 0f, Main.myPlayer, -1, 1f);
-                    if (proj != Main.maxProjectiles)
-                        Main.projectile[proj].timeLeft = 120;
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + (npc.width - 24) * vel, vel, ModContent.ProjectileType<DarkStarTwins>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target);
                 }
 
                 if (DeathrayState == 0 || DeathrayState == 3) //not doing deathray, grow arena
@@ -180,9 +182,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 float auraDistance = 2000 - 1200 * AuraRadiusCounter / 180f;
                 if (FargoSoulsWorld.MasochistModeReal)
                     auraDistance *= 0.75f;
-                EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Fire, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
-
-                Player p = Main.LocalPlayer;
+                if (auraDistance < 2000)
+                    EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Torch, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
 
                 //2*pi * (# of full circles) / (seconds to finish rotation) / (ticks per sec)
                 float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
@@ -214,9 +215,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 StoredDirectionToPlayer = (Main.player[npc.target].Center.X - npc.Center.X < 0);
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
 
-                                Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0); //eoc roar
                             }
                             npc.netUpdate = true;
                             NetSync(npc);
@@ -234,7 +235,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 9f, npc.whoAmI);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 9f, npc.whoAmI);
                             }
                         }
 
@@ -243,7 +244,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Vector2 speed = Vector2.UnitX.RotatedBy(npc.rotation);
-                                Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathray>(), npc.damage / 3, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, 0f, npc.whoAmI);
                             }
                             DeathrayState++;
                             npc.ai[0] = 4f;
@@ -316,7 +317,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 //        num1225 = 1f;
                 //    }
                 //    vector200 = vector200.RotatedBy(-num1225 * 1.04719755f, default(Vector2));
-                //    Projectile.NewProjectile(npc.Center, vector200, ModContent.ProjectileType<PhantasmalDeathray>(), npc.damage / 2, 0f, Main.myPlayer, num1225 * 0.0104719755f, npc.whoAmI);
+                //    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vector200, ModContent.ProjectileType<PhantasmalDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 2), 0f, Main.myPlayer, num1225 * 0.0104719755f, npc.whoAmI);
                 //    npc.netUpdate = true;
                 //}
             }
@@ -336,7 +337,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Main.npc[spawn].life = Main.npc[spawn].lifeMax / 4;
                             if (Main.netMode == NetmodeID.Server)
                             {
-                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism has been revived!"), new Color(175, 75, 255));
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism has been revived!"), new Color(175, 75, 255));
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spawn);
                             }
                             else
@@ -348,7 +349,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }*/
 
-            EModeUtils.DropSummon(npc, ModContent.ItemType<MechEye>(), NPC.downedMechBoss2, ref DroppedSummon, Main.hardMode);
+            EModeUtils.DropSummon(npc, "MechEye", NPC.downedMechBoss2, ref DroppedSummon, Main.hardMode);
 
             return true;
         }
@@ -358,15 +359,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return npc.ai[0] < 4 ? base.GetAlpha(npc, drawColor) : new Color(255, drawColor.G / 2, drawColor.B / 2);
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.NPCLoot(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism))
-            {
-                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<FusedLens>());
-                npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
-            }
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule noTwin = new LeadingConditionRule(new Conditions.MissingTwin());
+            emodeRule.OnSuccess(noTwin);
+            noTwin.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<FusedLens>()));
+            noTwin.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrateHard, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override bool CheckDead(NPC npc)
@@ -400,6 +402,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             LoadBossHeadSprite(recolor, 15);
             LoadBossHeadSprite(recolor, 20);
             LoadGoreRange(recolor, 143, 146);
+
+            LoadSpecial(recolor, ref TextureAssets.Chain12, ref FargowiltasSouls.TextureBuffer.Chain12, "Chain12");
         }
     }
 
@@ -410,6 +414,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public int CursedFlameTimer;
         public int FlameWheelSpreadTimer;
         public int FlameWheelCount;
+        public int DarkStarTimer;
 
         public bool ForcedPhase2OnSpawn;
         public bool HasSaidEndure;
@@ -419,6 +424,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(CursedFlameTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(FlameWheelSpreadTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(FlameWheelCount), IntStrategies.CompoundStrategy },
+                { new Ref<object>(DarkStarTimer), IntStrategies.CompoundStrategy },
             };
 
         public override void SetDefaults(NPC npc)
@@ -502,7 +508,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     npc.ai[0] = 4f;
                     npc.netUpdate = true;
-                    Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
                     int index = npc.FindBuffIndex(BuffID.CursedInferno);
                     if (index != -1)
@@ -566,18 +572,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 FlameWheelCount = 3;
                             if (modifier < 0.5f / 4 * 2)
                                 FlameWheelCount = 4;
-                            if (modifier < 0.5f / 4 * 1)
-                                FlameWheelCount = 4;
-
-                            if (FargoSoulsWorld.MasochistModeReal)
-                                FlameWheelCount++;
+                            if (modifier < 0.5f / 4 * 1 || FargoSoulsWorld.MasochistModeReal)
+                                FlameWheelCount = 5;
                         }
                         
                         if (++FlameWheelSpreadTimer < 30) //snap to reti, don't do contact damage
                         {
                             npc.rotation = npc.DirectionTo(retinazer.Center).ToRotation() - (float)Math.PI / 2;
                         }
-                        else if (++CursedFlameTimer > 3) //rings of fire
+                        else if (++CursedFlameTimer > 3) //rings of stars
                         {
                             CursedFlameTimer = 0;
 
@@ -590,8 +593,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 {
                                     for (int i = 0; i < FlameWheelCount; i++)
                                     {
-                                        int p = Projectile.NewProjectile(npc.Center, speed * (baseRotation + MathHelper.TwoPi / FlameWheelCount * i).ToRotationVector2(),
-                                            ModContent.ProjectileType<DarkStar>(), npc.damage / 4, 0f, Main.myPlayer);
+                                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed * (baseRotation + MathHelper.TwoPi / FlameWheelCount * i).ToRotationVector2(),
+                                            ModContent.ProjectileType<DarkStar>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                         if (p != Main.maxProjectiles)
                                             Main.projectile[p].timeLeft = timeLeft;
                                     }
@@ -617,7 +620,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     Speed *= 12f;
                                     Damage = 25;
                                 }
-                                Projectile.NewProjectile(npc.Center + Speed * 4f, Speed, ProjectileID.CursedFlameHostile, Damage, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + Speed * 4f, Speed, ProjectileID.CursedFlameHostile, Damage, 0f, Main.myPlayer);
                             }
                         }*/
 
@@ -674,25 +677,25 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             {
                                 float speed = (1f - modifier) * 0.8f;
                                 float rotationVariance = 9f * modifier * 2;
-                                Projectile.NewProjectile(npc.Center, speed * npc.velocity.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-rotationVariance, rotationVariance))), ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed * npc.velocity.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-rotationVariance, rotationVariance))), ProjectileID.EyeFire, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                             }
                         }
                     }
                 }
 
-                /*if (npc.life == 1 && --Counter1 < 0) //when brought to 1hp, begin shooting dark stars
+                if (FargoSoulsWorld.MasochistModeReal && npc.life == 1 && --DarkStarTimer < 0) //when brought to 1hp, begin shooting dark stars
                 {
-                    Counter1 = 120;
+                    DarkStarTimer = 150;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
                         distance.Normalize();
                         distance *= 14f;
                         for (int i = 0; i < 8; i++)
-                            Projectile.NewProjectile(npc.Center, distance.RotatedBy(2 * Math.PI / 8 * i),
-                                ModContent.ProjectileType<DarkStar>(), npc.damage / 5, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance.RotatedBy(2 * Math.PI / 8 * i),
+                                ModContent.ProjectileType<DarkStar>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
-                }*/
+                }
             }
 
             /*if (!retiAlive && npc.HasPlayerTarget && Main.player[npc.target].active)
@@ -710,7 +713,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Main.npc[spawn].life = Main.npc[spawn].lifeMax / 4;
                             if (Main.netMode == NetmodeID.Server)
                             {
-                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer has been revived!"), new Color(175, 75, 255));
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer has been revived!"), new Color(175, 75, 255));
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spawn);
                             }
                             else
@@ -725,7 +728,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return true;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             return !(npc.ai[1] == 0f && FlameWheelSpreadTimer < 30);
         }
@@ -743,15 +746,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return npc.ai[0] < 4 ? base.GetAlpha(npc, drawColor) : new Color(drawColor.R / 2, 255, drawColor.B / 2);
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.NPCLoot(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer))
-            {
-                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<FusedLens>());
-                npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
-            }
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule noTwin = new LeadingConditionRule(new Conditions.MissingTwin());
+            emodeRule.OnSuccess(noTwin);
+            noTwin.OnSuccess(ItemDropRule.BossBag(ModContent.ItemType<FusedLens>()));
+            noTwin.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrateHard, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override bool CheckDead(NPC npc)
@@ -785,6 +789,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             LoadBossHeadSprite(recolor, 16);
             LoadBossHeadSprite(recolor, 21);
             LoadGoreRange(recolor, 143, 146);
+
+            LoadSpecial(recolor, ref TextureAssets.Chain12, ref FargowiltasSouls.TextureBuffer.Chain12, "Chain12");
         }
     }
 }

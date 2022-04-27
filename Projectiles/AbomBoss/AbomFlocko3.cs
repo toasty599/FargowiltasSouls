@@ -7,54 +7,54 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 {
     public class AbomFlocko3 : AbomFlocko
     {
-        public override string Texture => "Terraria/NPC_352";
+        public override string Texture => "Terraria/Images/NPC_352";
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
             if (npc == null)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
             Vector2 target = npc.Center;
-            target.X += projectile.ai[1];
+            target.X += Projectile.ai[1];
             target.Y -= 1100;
 
-            Vector2 distance = target - projectile.Center;
+            Vector2 distance = target - Projectile.Center;
             float length = distance.Length();
             if (length > 10f)
             {
                 distance /= 8f;
-                projectile.velocity = (projectile.velocity * 23f + distance) / 24f;
+                Projectile.velocity = (Projectile.velocity * 23f + distance) / 24f;
             }
             else
             {
-                if (projectile.velocity.Length() < 12f)
-                    projectile.velocity *= 1.05f;
+                if (Projectile.velocity.Length() < 12f)
+                    Projectile.velocity *= 1.05f;
             }
 
-            if (++projectile.localAI[0] > 180 && ++projectile.localAI[1] > (npc.localAI[3] > 1 ? 4 : 2)) //spray shards
+            if (++Projectile.localAI[0] > 180 && ++Projectile.localAI[1] > (npc.localAI[3] > 1 ? 4 : 2)) //spray shards
             {
-                Main.PlaySound(SoundID.Item27, projectile.position);
-                projectile.localAI[1] = 0f;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+                Projectile.localAI[1] = 0f;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
                     speed.Normalize();
                     speed *= 6f;
                     speed.X /= 2;
-                    Projectile.NewProjectile(projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), projectile.damage, projectile.knockBack, projectile.owner);
+                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
 
-            projectile.rotation += projectile.velocity.Length() / 12f * (projectile.velocity.X > 0 ? -0.2f : 0.2f);
-            if (++projectile.frameCounter > 3)
+            Projectile.rotation += Projectile.velocity.Length() / 12f * (Projectile.velocity.X > 0 ? -0.2f : 0.2f);
+            if (++Projectile.frameCounter > 3)
             {
-                if (++projectile.frame >= 6)
-                    projectile.frame = 0;
-                projectile.frameCounter = 0;
+                if (++Projectile.frame >= 6)
+                    Projectile.frame = 0;
+                Projectile.frameCounter = 0;
             }
         }
     }

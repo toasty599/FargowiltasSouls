@@ -3,9 +3,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Materials;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
+    //[AutoloadEquip(EquipType.Shield)]
     public class LumpOfFlesh : SoulsItem
     {
         public override bool Eternity => true;
@@ -13,15 +16,17 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lump of Flesh");
-            Tooltip.SetDefault(@"Grants immunity to Blackout, Obstructed, Dazed, and Stunned
-Increases minion damage by 16% but slightly decreases defense
+            Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, and Stunned
+Increases minion damage by 16%
 Increases your max number of minions by 2
 Increases your max number of sentries by 2
+Right Click to parry attacks with extremely tight timing
+Defense and damage reduction drastically decreased while and shortly after guarding
 The pungent eyeball charges energy to fire a laser as you attack
 Enemies are less likely to target you
 'It's growing'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "肉团");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'它在增长'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "肉团");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'它在增长'
 免疫致盲,阻塞和眩晕
 增加16%召唤伤害,但略微减少防御
 +2最大召唤栏
@@ -29,15 +34,17 @@ Enemies are less likely to target you
 当你攻击时,尖刻眼球会充能来发射激光
 敌人不太可能以你为目标
 地牢外的装甲和魔法骷髅敌意减小");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Cyan;
-            item.value = Item.sellPrice(0, 7);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.sellPrice(0, 7);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -45,11 +52,10 @@ Enemies are less likely to target you
             player.buffImmune[BuffID.Blackout] = true;
             player.buffImmune[BuffID.Obstructed] = true;
             player.buffImmune[BuffID.Dazed] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Stunned>()] = true;
-            player.minionDamage += 0.16f;
-            player.statDefense -= 6;
+            player.buffImmune[ModContent.BuffType<Stunned>()] = true;
+            player.GetDamage(DamageClass.Summon) += 0.16f;
             player.aggro -= 400;
-            player.GetModPlayer<FargoPlayer>().SkullCharm = true;
+            player.GetModPlayer<FargoSoulsPlayer>().SkullCharm = true;
             /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;
@@ -66,23 +72,29 @@ Enemies are less likely to target you
             player.maxTurrets += 2;
             if (player.GetToggleValue("MasoPugent"))
             {
-                player.buffImmune[mod.BuffType("CrystalSkull")] = true;
-                player.AddBuff(mod.BuffType("PungentEyeball"), 5);
+                player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkull>()] = true;
+                player.AddBuff(ModContent.BuffType<Buffs.Minions.PungentEyeball>(), 5);
             }
+
+            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
+            player.noKnockback = true;
+            if (player.GetToggleValue("DreadShellParry"))
+                player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("PungentEyeball"));
-            recipe.AddIngredient(mod.ItemType("SkullCharm"));
-            recipe.AddIngredient(ItemID.SpectreBar, 10);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<PungentEyeball>())
+            .AddIngredient(ModContent.ItemType<SkullCharm>())
+            .AddIngredient(ModContent.ItemType<DreadShell>())
+            .AddIngredient(ItemID.SpectreBar, 10)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.MythrilAnvil)
+            
+            .Register();
         }
     }
 }

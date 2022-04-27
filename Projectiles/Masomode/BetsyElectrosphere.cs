@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class BetsyElectrosphere : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_443";
+        public override string Texture => "Terraria/Images/Projectile_443";
 
         public int p = -1;
         public int timer;
@@ -18,30 +18,30 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sky Dragon's Fury");
-            Main.projFrames[projectile.type] = Main.projFrames[ProjectileID.Electrosphere];
+            Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.Electrosphere];
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 80;
-            projectile.height = 80;
-            projectile.aiStyle = 77;
-            projectile.alpha = 255;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.timeLeft = 240;
-            projectile.hostile = true;
-            projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.width = 80;
+            Projectile.height = 80;
+            Projectile.aiStyle = 77;
+            Projectile.alpha = 255;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.timeLeft = 240;
+            Projectile.hostile = true;
+            Projectile.penetrate = -1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool PreAI()
         {
-            if (projectile.timeLeft == 240)
+            if (Projectile.timeLeft == 240)
             {
-                spawn.X = projectile.ai[0];
-                spawn.Y = projectile.ai[1];
-                rotation = projectile.velocity.ToRotation();
+                spawn.X = Projectile.ai[0];
+                spawn.Y = Projectile.ai[1];
+                rotation = Projectile.velocity.ToRotation();
                 timer = Main.rand.Next(60);
             }
             return true;
@@ -49,24 +49,24 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            projectile.velocity = Vector2.Zero;
+            Projectile.velocity = Vector2.Zero;
 
             if (p == -1)
             {
-                p = Player.FindClosest(projectile.Center, 0, 0);
+                p = Player.FindClosest(Projectile.Center, 0, 0);
             }
             else
             {
-                if (projectile.Distance(Main.player[p].Center) < 600)
-                    projectile.velocity = 2f * projectile.DirectionTo(Main.player[p].Center);
+                if (Projectile.Distance(Main.player[p].Center) < 600)
+                    Projectile.velocity = 2f * Projectile.DirectionTo(Main.player[p].Center);
 
                 if (++timer > 60)
                 {
                     timer = 0;
-                    if (Main.player[p].Distance(spawn) > projectile.Distance(spawn) && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Main.player[p].Distance(spawn) > Projectile.Distance(spawn) && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(projectile.Center, rotation.ToRotationVector2().RotatedByRandom(MathHelper.ToRadians(30)),
-                            ModContent.ProjectileType<BetsyFury2>(), projectile.damage, 0f, Main.myPlayer, p);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, rotation.ToRotationVector2().RotatedByRandom(MathHelper.ToRadians(30)),
+                            ModContent.ProjectileType<BetsyFury2>(), Projectile.damage, 0f, Main.myPlayer, p);
                     }
                 }
             }
@@ -83,21 +83,21 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(255, 255, 255, 128) * projectile.Opacity;
+            return new Color(255, 255, 255, 128) * Projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

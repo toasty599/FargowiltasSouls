@@ -16,53 +16,53 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void SetDefaults()
         {
-            projectile.width = 96;
-            projectile.height = 304;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.timeLeft = 60;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = true;
-            projectile.alpha = 255;
+            Projectile.width = 96;
+            Projectile.height = 304;
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.timeLeft = 60;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = true;
+            Projectile.alpha = 255;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override void AI()
         {
-            projectile.velocity.Y += 1f;
+            Projectile.velocity.Y += 1f;
 
-            /*if (projectile.scale < 1f)
+            /*if (Projectile.scale < 1f)
             {
-                projectile.position.X += projectile.width / 2f;
-                projectile.position.Y += projectile.height;
+                Projectile.position.X += Projectile.width / 2f;
+                Projectile.position.Y += Projectile.height;
 
-                projectile.width = (int)(projectile.width / projectile.scale);
-                projectile.height = (int)(projectile.height / projectile.scale);
+                Projectile.width = (int)(Projectile.width / Projectile.scale);
+                Projectile.height = (int)(Projectile.height / Projectile.scale);
 
-                projectile.scale += 0.01f;
-                if (projectile.scale > 1f)
-                    projectile.scale = 1f;
+                Projectile.scale += 0.01f;
+                if (Projectile.scale > 1f)
+                    Projectile.scale = 1f;
 
-                projectile.width = (int)(projectile.width * projectile.scale);
-                projectile.height = (int)(projectile.height * projectile.scale);
+                Projectile.width = (int)(Projectile.width * Projectile.scale);
+                Projectile.height = (int)(Projectile.height * Projectile.scale);
 
-                projectile.position.X -= projectile.width / 2f;
-                projectile.position.Y -= projectile.height;
+                Projectile.position.X -= Projectile.width / 2f;
+                Projectile.position.Y -= Projectile.height;
             }*/
 
-            if (projectile.alpha > 0)
+            if (Projectile.alpha > 0)
             {
-                projectile.alpha -= 10;
-                if (projectile.alpha < 0)
-                    projectile.alpha = 0;
+                Projectile.alpha -= 10;
+                if (Projectile.alpha < 0)
+                    Projectile.alpha = 0;
 
                 for (int i = 0; i < 5; i++)
                 {
-                    Dust.NewDust(projectile.position, projectile.width, projectile.height, 2);
+                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 2);
                 }
             }
         }
@@ -71,13 +71,13 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int p = Player.FindClosest(projectile.position, projectile.width, projectile.height);
+                int p = Player.FindClosest(Projectile.position, Projectile.width, Projectile.height);
                 if (p != -1)
                 {
                     for (int i = 0; i < 10; i++)
                     {
-                        Vector2 spawnPos = projectile.position;
-                        spawnPos.X += projectile.width / 2f + Main.rand.NextFloat(-40, 40);
+                        Vector2 spawnPos = Projectile.position;
+                        spawnPos.X += Projectile.width / 2f + Main.rand.NextFloat(-40, 40);
                         spawnPos.Y += 40 + Main.rand.NextFloat(-40, 40);
 
                         const float gravity = 0.2f;
@@ -90,19 +90,19 @@ namespace FargowiltasSouls.Projectiles.Champions
                             distance.Y = minimumY;
                         distance += Main.rand.NextVector2Square(-0.5f, 0.5f) * 2;
 
-                        if (Math.Abs(Main.player[(int)projectile.ai[0]].velocity.X) > 9f)
-                            distance.X += Main.player[(int)projectile.ai[0]].velocity.X * 0.75f;
+                        if (Math.Abs(Main.player[(int)Projectile.ai[0]].velocity.X) > 9f)
+                            distance.X += Main.player[(int)Projectile.ai[0]].velocity.X * 0.75f;
 
-                        Projectile.NewProjectile(spawnPos, distance, ModContent.ProjectileType<Acorn>(), projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), spawnPos, distance, ModContent.ProjectileType<TimberAcorn>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
             }
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = false;
-            return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -110,20 +110,20 @@ namespace FargowiltasSouls.Projectiles.Champions
             return false;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

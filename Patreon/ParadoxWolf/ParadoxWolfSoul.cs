@@ -8,13 +8,14 @@ using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.ParadoxWolf
 {
-    public class ParadoxWolfSoul : SoulsItem
+    public class ParadoxWolfSoul : PatreonModItem
     {
         private int dashTime = 0;
         private int dashCD = 0;
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Paradox Wolf Soul");
             Tooltip.SetDefault(
 @"Double tap to dash through and damage enemies
@@ -23,18 +24,11 @@ There is a cooldown of 3 seconds between uses");
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = 5;
-            item.value = 100000;
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = 5;
+            Item.value = 100000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -121,9 +115,9 @@ There is a cooldown of 3 seconds between uses");
                 player.dashDelay = -1;
                 dashTime = 20;
 
-                Projectile.NewProjectile(player.Center, new Vector2(player.velocity.X, 0), ModContent.ProjectileType<WolfDashProj>(), (int)(50 * player.meleeDamage), 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, new Vector2(player.velocity.X, 0), ModContent.ProjectileType<WolfDashProj>(), (int)(50 * player.GetDamage(DamageClass.Melee).Additive), 0f, player.whoAmI);
 
-                Main.PlaySound(SoundID.NPCKilled, (int)player.Center.X, (int)player.Center.Y, 8);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)player.Center.X, (int)player.Center.Y, 8);
             }
         }
     }

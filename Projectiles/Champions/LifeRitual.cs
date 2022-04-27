@@ -2,30 +2,32 @@
 using Terraria;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs.Champions;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Champions
 {
     public class LifeRitual : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_467";
+        public override string Texture => "Terraria/Images/Projectile_467";
 
         public LifeRitual() : base(MathHelper.Pi / 140f, 1000f, ModContent.NPCType<LifeChampion>(), 87) { }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Life Seal");
-            Main.projFrames[projectile.type] = 4;
+            base.SetStaticDefaults();
+            Main.projFrames[Projectile.type] = 4;
         }
 
         protected override void Movement(NPC npc)
         {
             if (npc.ai[0] != 2f && npc.ai[0] != 8f)
             {
-                projectile.velocity = (npc.Center - projectile.Center) / 30;
+                Projectile.velocity = (npc.Center - Projectile.Center) / 30;
             }
             else
             {
-                projectile.velocity *= 0.95f;
+                Projectile.velocity *= 0.95f;
             }
         }
 
@@ -33,12 +35,12 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             base.AI();
 
-            projectile.rotation += 0.77f;
-            if (++projectile.frameCounter > 6)
+            Projectile.rotation += 0.77f;
+            if (++Projectile.frameCounter > 6)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame > 3)
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame > 3)
+                    Projectile.frame = 0;
             }
         }
 
@@ -47,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             base.OnHitPlayer(target, damage, crit);
 
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("Purified"), 300);
+                target.AddBuff(ModContent.BuffType<Purified>(), 300);
         }
     }
 }

@@ -15,119 +15,130 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Champion of Terra");
-            DisplayName.AddTranslation(GameCulture.Chinese, "泰拉英灵");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉英灵");
 
-            NPCID.Sets.TrailCacheLength[npc.type] = 5;
-            NPCID.Sets.TrailingMode[npc.type] = 1;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 5;
+            NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
+
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true,
+                ImmuneToWhips = true
+            });
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
+            });
         }
 
         public override void SetDefaults()
         {
-            npc.width = 45;
-            npc.height = 45;
-            npc.damage = 140;
-            npc.defense = 80;
-            npc.lifeMax = 170000;
-            npc.HitSound = SoundID.NPCHit4;
-            npc.DeathSound = SoundID.NPCDeath14;
-            npc.noGravity = true;
-            npc.noTileCollide = true;
-            npc.knockBackResist = 0f;
-            npc.lavaImmune = true;
-            npc.aiStyle = -1;
+            NPC.width = 45;
+            NPC.height = 45;
+            NPC.damage = 140;
+            NPC.defense = 80;
+            NPC.lifeMax = 170000;
+            NPC.HitSound = SoundID.NPCHit4;
+            NPC.DeathSound = SoundID.NPCDeath14;
+            NPC.noGravity = true;
+            NPC.noTileCollide = true;
+            NPC.knockBackResist = 0f;
+            NPC.lavaImmune = true;
+            NPC.aiStyle = -1;
 
-            for (int i = 0; i < npc.buffImmune.Length; i++)
-                npc.buffImmune[i] = true;
+            NPC.behindTiles = true;
+            NPC.chaseable = false;
 
-            npc.behindTiles = true;
-            npc.chaseable = false;
-
-            npc.scale *= 1.25f;
-            npc.trapImmune = true;
-            npc.dontCountMe = true;
+            NPC.scale *= 1.25f;
+            NPC.trapImmune = true;
+            NPC.dontCountMe = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            //npc.damage = (int)(npc.damage * 0.5f);
-            npc.lifeMax = (int)(npc.lifeMax * Math.Sqrt(bossLifeScale));
+            //NPC.damage = (int)(NPC.damage * 0.5f);
+            NPC.lifeMax = (int)(NPC.lifeMax * Math.Sqrt(bossLifeScale));
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
-            cooldownSlot = 1;
-            return npc.Distance(target.Center) < 30 * npc.scale;
+            CooldownSlot = 1;
+            return NPC.Distance(target.Center) < 30 * NPC.scale;
         }
 
         public override void AI()
         {
-            NPC segment = FargoSoulsUtil.NPCExists(npc.ai[1], ModContent.NPCType<TerraChampion>(), ModContent.NPCType<TerraChampionBody>());
-            NPC head = FargoSoulsUtil.NPCExists(npc.ai[3], ModContent.NPCType<TerraChampion>());
+            NPC segment = FargoSoulsUtil.NPCExists(NPC.ai[1], ModContent.NPCType<TerraChampion>(), ModContent.NPCType<TerraChampionBody>());
+            NPC head = FargoSoulsUtil.NPCExists(NPC.ai[3], ModContent.NPCType<TerraChampion>());
             if (segment == null || head == null || (FargoSoulsWorld.EternityMode && segment.life < segment.lifeMax / 10))
             {
-                Main.PlaySound(SoundID.Item, npc.Center, 14);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     for (int i = 0; i < 30; i++)
                     {
-                        int dust = Dust.NewDust(npc.position, npc.width, npc.height, 31, 0f, 0f, 100, default(Color), 3f);
+                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 31, 0f, 0f, 100, default(Color), 3f);
                         Main.dust[dust].velocity *= 1.4f;
                     }
 
                     for (int i = 0; i < 20; i++)
                     {
-                        int dust = Dust.NewDust(npc.position, npc.width, npc.height, 6, 0f, 0f, 100, default(Color), 3.5f);
+                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, 0f, 0f, 100, default(Color), 3.5f);
                         Main.dust[dust].noGravity = true;
                         Main.dust[dust].velocity *= 7f;
-                        dust = Dust.NewDust(npc.position, npc.width, npc.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+                        dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, 0f, 0f, 100, default(Color), 1.5f);
                         Main.dust[dust].velocity *= 3f;
                     }
 
                     float scaleFactor9 = 0.5f;
                     for (int j = 0; j < 4; j++)
                     {
-                        int gore = Gore.NewGore(npc.Center, default(Vector2), Main.rand.Next(61, 64));
+                        int gore = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default(Vector2), Main.rand.Next(61, 64));
                         Main.gore[gore].velocity *= scaleFactor9;
                         Main.gore[gore].velocity.X += 1f;
                         Main.gore[gore].velocity.Y += 1f;
                     }
 
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<TerraLightningOrb>(), npc.damage / 4, 0f, Main.myPlayer, npc.ai[3]);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TerraLightningOrb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.ai[3]);
 
-                    npc.active = false;
+                    NPC.active = false;
                     if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
                 }
                 return;
             }
 
-            npc.velocity = Vector2.Zero;
+            NPC.velocity = Vector2.Zero;
 
-            int pastPos = NPCID.Sets.TrailCacheLength[npc.type] - (int)head.ai[3] - 1; //ai3 check is to trace better and coil tightly
+            int pastPos = NPCID.Sets.TrailCacheLength[NPC.type] - (int)head.ai[3] - 1; //ai3 check is to trace better and coil tightly
 
-            if (npc.localAI[0] == 0)
+            if (NPC.localAI[0] == 0)
             {
-                npc.localAI[0] = 1;
-                for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
-                    npc.oldPos[i] = npc.position;
+                NPC.localAI[0] = 1;
+                for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
+                    NPC.oldPos[i] = NPC.position;
             }
 
-            npc.Center = segment.oldPos[pastPos] + segment.Size / 2;
-            npc.rotation = npc.DirectionTo(segment.Center).ToRotation();
-            if (npc.Distance(npc.oldPos[pastPos - 1] + npc.Size / 2) > 45 * npc.scale)
+            NPC.Center = segment.oldPos[pastPos] + segment.Size / 2;
+            NPC.rotation = NPC.DirectionTo(segment.Center).ToRotation();
+            if (NPC.Distance(NPC.oldPos[pastPos - 1] + NPC.Size / 2) > 45 * NPC.scale)
             {
-                npc.oldPos[pastPos - 1] = npc.position + Vector2.Normalize(npc.oldPos[pastPos - 1] - npc.position) * 45 * npc.scale;
+                NPC.oldPos[pastPos - 1] = NPC.position + Vector2.Normalize(NPC.oldPos[pastPos - 1] - NPC.position) * 45 * NPC.scale;
             }
 
-            npc.timeLeft = segment.timeLeft;
+            NPC.timeLeft = segment.timeLeft;
 
             /*if (head.ai[1] == 11)
             {
                 Vector2 pivot = head.Center;
                 pivot += Vector2.Normalize(head.velocity.RotatedBy(Math.PI / 2)) * 600;
-                if (npc.Distance(pivot) < 600) //make sure body doesnt coil into the circling zone
-                    npc.Center = pivot + npc.DirectionFrom(pivot) * 600;
+                if (NPC.Distance(pivot) < 600) //make sure body doesnt coil into the circling zone
+                    NPC.Center = pivot + NPC.DirectionFrom(pivot) * 600;
             }*/
         }
 
@@ -158,22 +169,15 @@ namespace FargowiltasSouls.NPCs.Champions
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D texture2D13 = Main.npcTexture[npc.type];
-            //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
-            //int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+            Rectangle rectangle = NPC.frame;//new Rectangle(0, y3, texture2D13.Width, turnSpeed6);
             Vector2 origin2 = rectangle.Size() / 2f;
-
-            Color color26 = lightColor;
-            color26 = npc.GetAlpha(color26);
-
-            SpriteEffects effects = npc.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
-            Texture2D glowmask = npc.type == ModContent.NPCType<TerraChampionBody>() ? ModContent.GetTexture("FargowiltasSouls/NPCs/Champions/TerraChampionBody_Glow") : ModContent.GetTexture("FargowiltasSouls/NPCs/Champions/TerraChampionTail_Glow");
-            Main.spriteBatch.Draw(glowmask, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, npc.rotation, origin2, npc.scale, effects, 0f);
+            SpriteEffects effects = NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
+            Texture2D glowmask = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"NPCs/Champions/{Name}_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Main.EntitySpriteDraw(glowmask, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, NPC.rotation, origin2, NPC.scale, effects, 0);
             return false;
         }
     }

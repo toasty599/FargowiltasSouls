@@ -1,34 +1,33 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantEyeWavy : MutantEye
     {
-        public override string Texture => "Terraria/Projectile_452";
+        public override string Texture => "Terraria/Images/Projectile_452";
 
         public override int TrailAdditive => 150;
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 180;
-            cooldownSlot = 0;
+            Projectile.timeLeft = 180;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            CooldownSlot = 0;
         }
 
-        private float Amplitude => projectile.ai[0];
-        private float Period => projectile.ai[1];
-        private float Counter => projectile.localAI[1] * 4;
+        private float Amplitude => Projectile.ai[0];
+        private float Period => Projectile.ai[1];
+        private float Counter => Projectile.localAI[1] * 4;
 
         public float oldRot;
 
@@ -39,19 +38,19 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 float targetRotation = mutant.ai[3];
 
-                float speed = projectile.velocity.Length();
+                float speed = Projectile.velocity.Length();
                 float rotation = targetRotation + (float)Math.PI / 4 * (float)Math.Sin(2 * (float)Math.PI * Counter / Period) * Amplitude;
-                projectile.velocity = speed * rotation.ToRotationVector2();
+                Projectile.velocity = speed * rotation.ToRotationVector2();
 
                 if (oldRot != 0)
                 {
-                    Vector2 oldCenter = projectile.Center;
-                    projectile.Center = mutant.Center + (projectile.Center - mutant.Center).RotatedBy(targetRotation - oldRot);
+                    Vector2 oldCenter = Projectile.Center;
+                    Projectile.Center = mutant.Center + (Projectile.Center - mutant.Center).RotatedBy(targetRotation - oldRot);
 
-                    Vector2 diff = projectile.Center - oldCenter;
-                    for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+                    Vector2 diff = Projectile.Center - oldCenter;
+                    for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
                     {
-                        projectile.oldPos[i] += diff;
+                        Projectile.oldPos[i] += diff;
                     }
                 }
 
@@ -59,11 +58,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             else
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            projectile.localAI[0] += 0.1f;
+            Projectile.localAI[0] += 0.1f;
 
             base.AI();
         }

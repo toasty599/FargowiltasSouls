@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class ObsidianLavaWetBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lava Wet");
             Description.SetDefault("You are dripping lava");
@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().LavaWet = true;
+            player.GetModPlayer<FargoSoulsPlayer>().LavaWet = true;
         }
     }
 }

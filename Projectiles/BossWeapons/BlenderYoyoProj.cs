@@ -15,46 +15,61 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             DisplayName.SetDefault("The Blender");
             // Vanilla values range from 3f(Wood) to 16f(Chik), and defaults to -1f. Leaving as -1 will make the time infinite.
-            ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = -1f;
+            ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = -1f;
             // Vanilla values range from 130f(Wood) to 400f(Terrarian), and defaults to 200f
-            ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 750f;
+            ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 750f;
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
-            ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 25f;
+            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 25f;
 
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.Kraken);
-            projectile.width = 46;
-            projectile.height = 46;
+            Projectile.CloneDefaults(ProjectileID.Kraken);
+            Projectile.width = 46;
+            Projectile.height = 46;
             //yoyo ai
-            projectile.aiStyle = 99;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.melee = true;
-            projectile.scale = 1f;
+            Projectile.aiStyle = 99;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.scale = 1f;
 
-            projectile.extraUpdates = 1;
+            Projectile.extraUpdates = 1;
 
-            projectile.usesIDStaticNPCImmunity = true;
-            projectile.idStaticNPCHitCooldown = 15;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 15;
         }
 
         int soundtimer;
         public override void AI()
         {
-            if (!yoyosSpawned && projectile.owner == Main.myPlayer)
+            if (!yoyosSpawned && Projectile.owner == Main.myPlayer)
             {
+                float localAI1 = 0;
+
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].owner == Projectile.owner && Main.projectile[i].type == ModContent.ProjectileType<BlenderOrbital>())
+                    {
+                        localAI1 = Main.projectile[i].localAI[1] + MathHelper.Pi;
+                        break;
+                    }
+                }
+
                 int maxYoyos = 5;
                 for (int i = 0; i < maxYoyos; i++)
                 {
                     float radians = (360f / (float)maxYoyos) * i * (float)(Math.PI / 180);
-                    Projectile yoyo = FargoSoulsUtil.NewProjectileDirectSafe(projectile.Center, Vector2.Zero,
-                        ModContent.ProjectileType<BlenderOrbital>(), projectile.damage, projectile.knockBack, projectile.owner, i, radians);
-                    yoyo.localAI[0] = projectile.identity;
+                    Projectile yoyo = FargoSoulsUtil.NewProjectileDirectSafe(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
+                        ModContent.ProjectileType<BlenderOrbital>(), Projectile.damage, Projectile.knockBack, Projectile.owner, i, radians);
+                    if (yoyo != null)
+                    {
+                        yoyo.localAI[0] = Projectile.identity;
+                        yoyo.localAI[1] = localAI1;
+                    }
                 }
 
                 yoyosSpawned = true;
@@ -63,34 +78,34 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (soundtimer > 0)
                 soundtimer--;
 
-            if (Main.player[projectile.owner].HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.Blender>())
+            if (Main.player[Projectile.owner].HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.Blender>())
             {
-                projectile.damage = Main.player[projectile.owner].GetWeaponDamage(Main.player[projectile.owner].HeldItem);
-                projectile.knockBack = Main.player[projectile.owner].GetWeaponKnockback(Main.player[projectile.owner].HeldItem, Main.player[projectile.owner].HeldItem.knockBack);
+                Projectile.damage = Main.player[Projectile.owner].GetWeaponDamage(Main.player[Projectile.owner].HeldItem);
+                Projectile.knockBack = Main.player[Projectile.owner].GetWeaponKnockback(Main.player[Projectile.owner].HeldItem, Main.player[Projectile.owner].HeldItem.knockBack);
             }
         }
 
         public override void PostAI()
         {
-            int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 107 : 157);
+            int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Main.rand.NextBool() ? 107 : 157);
             Main.dust[d].noGravity = true;
             Main.dust[d].velocity *= 0.2f;
-            Main.dust[d].velocity += projectile.velocity * 0.8f;
+            Main.dust[d].velocity += Projectile.velocity * 0.8f;
             Main.dust[d].scale = 1.5f;
         }
 
         int hitcounter;
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            //target.immune[projectile.owner] = 6;
+            //target.immune[Projectile.owner] = 6;
 
-            if (projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer)
             {
-                Player player = Main.player[projectile.owner];
+                Player player = Main.player[Projectile.owner];
                 hitcounter++;
                 if (player.ownedProjectileCounts[ProjectileID.BlackCounterweight] < 5)
                 {
-                    Projectile.NewProjectile(player.Center, Main.rand.NextVector2Circular(10, 10), ProjectileID.BlackCounterweight, projectile.damage, projectile.knockBack, projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, Main.rand.NextVector2Circular(10, 10), ProjectileID.BlackCounterweight, Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
                 if (hitcounter % 5 == 0)
                 {
@@ -99,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     for (int i = 0; i < 8; i++)
                     {
                         Vector2 newvel = velocity.RotatedBy(i * Math.PI / 4);
-                        Projectile.NewProjectile(projectile.Center, newvel * 8, ModContent.ProjectileType<BlenderPetal>(), projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel * 8, ModContent.ProjectileType<BlenderPetal>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
             }
@@ -107,41 +122,46 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if(soundtimer == 0)
             {
                 soundtimer = 15;
-                Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 22, 1.5f, 1f);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 22, 1.5f, 1f);
             }
         }
 
         //reduce tile hitbox
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             width = 30;
             height = 30;
-            return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            SpriteEffects effects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f)
             {
-                Color color27 = color26 * 0.75f;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
+                Color color27 = Color.LightGreen * Projectile.Opacity * 0.5f;
+                color27.A = 100;
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
+                if (max0 < 0)
+                    continue;
+                float num165 = Projectile.oldRot[max0];
+                Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
+                center += Projectile.Size / 2;
+                Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

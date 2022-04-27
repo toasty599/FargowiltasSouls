@@ -1,8 +1,8 @@
-﻿using Fargowiltas.Items.Summons.Mutant;
-using FargowiltasSouls.Buffs.Masomode;
+﻿using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Projectiles.Masomode;
@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,14 +26,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.SetDefaults(npc);
 
             npc.buffImmune[BuffID.Poisoned] = true;
+            npc.buffImmune[BuffID.Venom] = true;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(ModContent.BuffType<Infested>(), 180);
             target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
         }
 
@@ -50,6 +51,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public int DicerTimer;
         public int RingTossTimer;
         public int TentacleTimer = 480; //line up first tentacles with ring toss lmao, 600
+        public int TentacleTimerMaso;
 
         public float TentacleAttackAngleOffset;
 
@@ -64,6 +66,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(DicerTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(RingTossTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(TentacleTimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(TentacleTimerMaso), IntStrategies.CompoundStrategy },
 
                 { new Ref<object>(IsVenomEnraged), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(InPhase2), BoolStrategies.CompoundStrategy },
@@ -77,12 +80,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.lifeMax = (int)(npc.lifeMax * 1.75);
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             IsVenomEnraged = false;
 
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             if (!npc.HasValidTarget)
                 npc.velocity.Y++;
@@ -100,16 +105,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     for (int i = 0; i < max; i++)
                     {
                         Vector2 spawnPos = npc.Center + new Vector2(innerRingDistance, 0f).RotatedBy(rotation * i);
-                        int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, innerRingDistance, 0, rotation * i);
-                        if (Main.netMode == NetmodeID.Server && n != Main.maxNPCs)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), spawnPos, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, innerRingDistance, 0, rotation * i);
                     }
                 }
             }
             else if (RingTossTimer == 120)
             {
                 if (FargoSoulsWorld.MasochistModeReal)
-                    RingTossTimer = 0;
+                    RingTossTimer = 0; //instantly spawn next set of crystals
 
                 npc.netUpdate = true;
                 NetSync(npc);
@@ -117,15 +120,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float speed = 8f;
-                    int p = Projectile.NewProjectile(npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.defDamage / 4, 0f, Main.myPlayer);
+                    int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.defDamage / 4, 0f, Main.myPlayer);
                     if (p != Main.maxProjectiles)
                     {
                         Main.projectile[p].timeLeft -= 300;
 
                         foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance)) //my crystal leaves
                         {
-                            Main.PlaySound(SoundID.Grass, n.Center);
-                            Projectile.NewProjectile(n.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraCrystalLeafRing>(), npc.defDamage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, n.ai[3]);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, n.Center);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), n.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraCrystalLeafRing>(), npc.defDamage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, n.ai[3]);
 
                             n.life = 0;
                             n.HitEffect();
@@ -143,12 +146,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (--DicerTimer < 0)
                 {
                     DicerTimer = 150 * 4 + 25;
-                    if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsWorld.MasochistModeReal && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 0, 0);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 0, 0);
                         for (int i = 0; i < 3; i++)
                         {
-                            Projectile.NewProjectile(Main.player[npc.target].Center, 30f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center, 30f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
                               ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 1, 1);
                         }
                     }
@@ -162,12 +165,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     DicerTimer = 0;
                 }
 
-                if (FargoSoulsWorld.MasochistModeReal)
-                {
-                    NPCs.EModeGlobalNPC.Aura(npc, 600, ModContent.BuffType<IvyVenom>(), true, 188);
-                    npc.defense += 21;
-                }
-
                 void SpawnOuterLeafRing()
                 {
                     const int max = 12;
@@ -176,9 +173,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     for (int i = 0; i < max; i++)
                     {
                         Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                        int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 0, rotation * i);
-                        if (Main.netMode == NetmodeID.Server && n != Main.maxNPCs)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), spawnPos, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 0, rotation * i);
                     }
                 }
 
@@ -195,9 +190,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             for (int i = 0; i < innerMax; i++)
                             {
                                 Vector2 spawnPos = npc.Center + new Vector2(innerRingDistance, 0f).RotatedBy(innerRotation * i);
-                                int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, innerRingDistance, 0, innerRotation * i);
-                                if (Main.netMode == NetmodeID.Server && n != Main.maxNPCs)
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), spawnPos, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, innerRingDistance, 0, innerRotation * i);
                             }
                         }
 
@@ -230,10 +223,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer);
                         for (int i = 0; i < 3; i++)
                         {
-                            Projectile.NewProjectile(npc.Center, 25f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 25f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
                               ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 1, 8);
                         }
                     }
@@ -269,14 +262,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         TentacleAttackAngleOffset = Main.rand.NextFloat(MathHelper.TwoPi);
 
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         npc.netUpdate = true;
                         NetSync(npc);
 
                         foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] > innerRingDistance)) //my crystal leaves
                         {
-                            Main.PlaySound(SoundID.Grass, n.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, n.Center);
 
                             n.life = 0;
                             n.HitEffect();
@@ -302,10 +295,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
-                                    ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, attackAngle);
-                                Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
-                                    ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, attackAngle + MathHelper.Pi);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
+                                    ModContent.ProjectileType<PlanteraTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, attackAngle);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
+                                    ModContent.ProjectileType<PlanteraTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, attackAngle + MathHelper.Pi);
                             }
 
                             if (i == 0)
@@ -313,7 +306,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         }
                     }
 
-                    if (TentacleTimer < -360)
+                    if (TentacleTimer < -390)
                     {
                         TentacleTimer = 600 + Main.rand.Next(120);
 
@@ -330,9 +323,37 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     npc.position -= npc.velocity * (IsVenomEnraged ? 0.1f : 0.2f);
                 }
+
+                if (FargoSoulsWorld.MasochistModeReal && --TentacleTimerMaso < 0)
+                {
+                    TentacleTimerMaso = 420;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        float angle = npc.DirectionTo(Main.player[npc.target].Center).ToRotation();
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            float offset = MathHelper.ToRadians(6) * i;
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
+                              ModContent.ProjectileType<PlanteraTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, angle + offset);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
+                                ModContent.ProjectileType<PlanteraTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, -angle + offset);
+                        }
+                    }
+
+                }
             }
 
-            EModeUtils.DropSummon(npc, ModContent.ItemType<PlanterasFruit>(), NPC.downedPlantBoss, ref DroppedSummon, NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3);
+            EModeUtils.DropSummon(npc, "PlanterasFruit", NPC.downedPlantBoss, ref DroppedSummon, NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3);
+
+            return result;
+        }
+
+        public override void AI(NPC npc)
+        {
+            base.AI(npc);
+
+            if (FargoSoulsWorld.MasochistModeReal && npc.defense < npc.defDefense)
+                npc.defense = npc.defDefense;
         }
 
         public override Color? GetAlpha(NPC npc, Color drawColor)
@@ -340,22 +361,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return IsVenomEnraged ? base.GetAlpha(npc, drawColor) : new Color(255, drawColor.G / 2, drawColor.B / 2);
         }
 
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            if (item.type == ItemID.FetidBaghnakhs)
-                damage /= 2;
-        }
-
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
-
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MagicalBulb>());
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.JungleFishingCrate, 5);
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.LifeFruit, 3);
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.ChlorophyteOre, 200);
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MagicalBulb>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.JungleFishingCrateHard, 5));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.LifeFruit, 3));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.ChlorophyteOre, 200));
+            npcLoot.Add(emodeRule);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)
@@ -365,8 +380,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             LoadBossHeadSprite(recolor, 11);
             LoadBossHeadSprite(recolor, 12);
             LoadGoreRange(recolor, 378, 391);
-            Main.chain26Texture = LoadSprite(recolor, "Chain26");
-            Main.chain27Texture = LoadSprite(recolor, "Chain27");
+            LoadSpecial(recolor, ref TextureAssets.Chain26, ref FargowiltasSouls.TextureBuffer.Chain12, "Chain26");
+            LoadSpecial(recolor, ref TextureAssets.Chain27, ref FargowiltasSouls.TextureBuffer.Chain12, "Chain27");
         }
     }
 
@@ -374,10 +389,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.PlanterasHook);
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             npc.damage = 0;
             npc.defDamage = 0;
@@ -403,6 +420,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (npc.Distance(new Vector2(npc.ai[0] * 16 + 8, npc.ai[1] * 16 + 8)) > 32)
                     npc.position += npc.velocity;
             }
+
+            return result;
         }
     }
 
@@ -432,15 +451,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             MaxDistanceFromPlantera = 200;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
-            return base.CanHitPlayer(npc, target, ref cooldownSlot) && CanHitTimer > 60;
+            return base.CanHitPlayer(npc, target, ref CooldownSlot) && CanHitTimer > 60;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             NPC plantera = FargoSoulsUtil.NPCExists(NPC.plantBoss, NPCID.Plantera);
             if (plantera != null)
@@ -467,6 +488,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             ++CanHitTimer;
+
+            return result;
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

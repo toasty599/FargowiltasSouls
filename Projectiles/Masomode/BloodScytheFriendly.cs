@@ -12,25 +12,17 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.DemonScythe);
-            aiType = ProjectileID.DemonScythe;
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 10;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            Projectile.CloneDefaults(ProjectileID.DemonScythe);
+            AIType = ProjectileID.DemonScythe;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.penetrate = 2;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 10;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
 
-            if (ModLoader.GetMod("Fargowiltas") != null)
-                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
+                fargo.Call("LowRenderProj", Projectile);
         }
-
-        /*public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.Red;
-        }*/
-	// causes huge lag on mac/linux
-	
-        /*public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(BuffID.ShadowFlame, 300);
-        }*/
     }
 }

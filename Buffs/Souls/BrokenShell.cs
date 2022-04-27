@@ -5,13 +5,13 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class BrokenShell : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Broken Shell");
             Description.SetDefault("You cannot enter your shell yet");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
-            canBeCleared = false;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
     }
 }

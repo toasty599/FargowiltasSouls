@@ -14,21 +14,21 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            projectile.width = 16;
-            projectile.height = 14;
-            projectile.aiStyle = 14;
-            projectile.friendly = true;
-            projectile.melee = true;
-            projectile.timeLeft = 180;
+            Projectile.width = 16;
+            Projectile.height = 14;
+            Projectile.aiStyle = 14;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.timeLeft = 180;
 
-            if (ModLoader.GetMod("Fargowiltas") != null)
-                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
+                fargo.Call("LowRenderProj", Projectile);
         }
 
         public override void AI()
         {
-            int dust = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 59, projectile.velocity.X * 0.2f,
-                projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
+            int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 59, Projectile.velocity.X * 0.2f,
+                Projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
             Main.dust[dust].noGravity = true;
         }
 
@@ -36,12 +36,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             for (int i = 0; i < 20; i++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 59, -projectile.velocity.X * 0.2f,
-                    -projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
+                int num469 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 59, -Projectile.velocity.X * 0.2f,
+                    -Projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 59, -projectile.velocity.X * 0.2f,
-                    -projectile.velocity.Y * 0.2f, 100);
+                num469 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 59, -Projectile.velocity.X * 0.2f,
+                    -Projectile.velocity.Y * 0.2f, 100);
                 Main.dust[num469].velocity *= 2f;
             }
         }

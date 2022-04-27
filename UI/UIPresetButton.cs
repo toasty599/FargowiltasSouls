@@ -19,8 +19,8 @@ namespace FargowiltasSouls.UI
             ApplyPreset = preset;
             Text = text;
 
-            Width.Set(20, 0f);
-            Height.Set(20, 0f);
+            Width.Set(20, 0);
+            Height.Set(20, 0);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -39,20 +39,20 @@ namespace FargowiltasSouls.UI
 
                 if (Main.mouseLeft && Main.mouseLeftRelease)
                 {
-                    ApplyPreset(Main.LocalPlayer.GetModPlayer<FargoPlayer>().Toggler);
+                    ApplyPreset(Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler);
                 }
             }
 
             // Drawing
-            Texture2D outlineTexture = Fargowiltas.UserInterfaceManager.PresetButtonOutline;
+            Texture2D outlineTexture = FargowiltasSouls.UserInterfaceManager.PresetButtonOutline.Value;
             Vector2 position = style.Position();
-            spriteBatch.Draw(outlineTexture, position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(outlineTexture, position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
 
             position += new Vector2(2);
             Rectangle frame = new Rectangle(0, 0, 20, 20);
             if (hovered)
                 frame.X += 20;
-            spriteBatch.Draw(Texture, position, frame, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture, position, frame, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
     }
 }

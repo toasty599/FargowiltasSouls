@@ -3,6 +3,9 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.Minions;
 using Terraria.ID;
+using Terraria;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Weapons.BossDrops
 {
@@ -12,28 +15,36 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
         {
             DisplayName.SetDefault("Destroyer Gun");
             Tooltip.SetDefault("Becomes longer and faster with up to 3 empty minion slots\n'An old foe beaten into submission..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "毁灭者之枪");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'一个被迫屈服的老对手..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "毁灭者之枪");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'一个被迫屈服的老对手..'");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.damage = 45;
-            item.mana = 10;
-            item.summon = true;
-            item.width = 24;
-            item.height = 24;
-            item.useTime = 70;
-            item.useAnimation = 70;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true;
-            item.knockBack = 1.5f;
-            item.UseSound = new LegacySoundStyle(4, 13);
-            item.value = 50000;
-            item.rare = ItemRarityID.Pink;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<DestroyerHead>();
-            item.shootSpeed = 10f;
+            Item.damage = 45;
+            Item.mana = 10;
+            Item.DamageType = DamageClass.Summon;
+            Item.width = 24;
+            Item.height = 24;
+            Item.useTime = 70;
+            Item.useAnimation = 70;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 1.5f;
+            Item.UseSound = new LegacySoundStyle(4, 13);
+            Item.value = 50000;
+            Item.rare = ItemRarityID.Pink;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<DestroyerHead>();
+            Item.shootSpeed = 10f;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            FargoSoulsUtil.NewSummonProjectile(source, position, velocity, type, Item.damage, knockback, player.whoAmI);
+            return false;
         }
     }
 }

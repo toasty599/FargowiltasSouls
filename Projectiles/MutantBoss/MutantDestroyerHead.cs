@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Linq;
@@ -19,28 +21,28 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 42;
-            projectile.height = 42;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 900;
-            projectile.hostile = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.alpha = 255;
-            projectile.netImportant = true;
-            cooldownSlot = 1;
+            Projectile.width = 42;
+            Projectile.height = 42;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 900;
+            Projectile.hostile = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.alpha = 255;
+            Projectile.netImportant = true;
+            CooldownSlot = 1;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(projectile.localAI[0]);
-            writer.Write(projectile.localAI[1]);
+            writer.Write(Projectile.localAI[0]);
+            writer.Write(Projectile.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            projectile.localAI[0] = reader.ReadSingle();
-            projectile.localAI[1] = reader.ReadSingle();
+            Projectile.localAI[0] = reader.ReadSingle();
+            Projectile.localAI[1] = reader.ReadSingle();
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -48,72 +50,72 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             return Color.White;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num214 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
-            int y6 = num214 * projectile.frame;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle(0, y6, texture2D13.Width, num214),
-                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f), projectile.scale,
-                projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num214 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type];
+            int y6 = num214 * Projectile.frame;
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle(0, y6, texture2D13.Width, num214),
+                Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f), Projectile.scale,
+                Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             return false;
         }
 
         public override void AI()
         {
             //keep the head looking right
-            projectile.rotation = projectile.velocity.ToRotation() + 1.57079637f;
-            projectile.spriteDirection = projectile.velocity.X > 0f ? 1 : -1;
+            Projectile.rotation = Projectile.velocity.ToRotation() + 1.57079637f;
+            Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
             
             const int homingDelay = 60;
-            float desiredFlySpeedInPixelsPerFrame = 10 * projectile.ai[1];
-            float amountOfFramesToLerpBy = 25 / projectile.ai[1]; // minimum of 1, please keep in full numbers even though it's a float!
+            float desiredFlySpeedInPixelsPerFrame = 10 * Projectile.ai[1];
+            float amountOfFramesToLerpBy = 25 / Projectile.ai[1]; // minimum of 1, please keep in full numbers even though it's a float!
 
-            if (++projectile.localAI[1] > homingDelay)
+            if (++Projectile.localAI[1] > homingDelay)
             {
-                int foundTarget = (int)projectile.ai[0];
+                int foundTarget = (int)Projectile.ai[0];
                 Player p = Main.player[foundTarget];
-                if (projectile.Distance(p.Center) > 700)
+                if (Projectile.Distance(p.Center) > 700)
                 {
                     desiredFlySpeedInPixelsPerFrame *= 2;
                     amountOfFramesToLerpBy /= 2;
                 }
-                Vector2 desiredVelocity = projectile.DirectionTo(p.Center) * desiredFlySpeedInPixelsPerFrame;
-                projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                Vector2 desiredVelocity = Projectile.DirectionTo(p.Center) * desiredFlySpeedInPixelsPerFrame;
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
             }
 
             const float IdleAccel = 0.05f;
-            foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == projectile.type && p.whoAmI != projectile.whoAmI && p.Distance(projectile.Center) < projectile.width))
+            foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == Projectile.type && p.whoAmI != Projectile.whoAmI && p.Distance(Projectile.Center) < Projectile.width))
             {
-                projectile.velocity.X += IdleAccel * (projectile.position.X < p.position.X ? -1 : 1);
-                projectile.velocity.Y += IdleAccel * (projectile.position.Y < p.position.Y ? -1 : 1);
-                p.velocity.X += IdleAccel * (p.position.X < projectile.position.X ? -1 : 1);
-                p.velocity.Y += IdleAccel * (p.position.Y < projectile.position.Y ? -1 : 1);
+                Projectile.velocity.X += IdleAccel * (Projectile.position.X < p.position.X ? -1 : 1);
+                Projectile.velocity.Y += IdleAccel * (Projectile.position.Y < p.position.Y ? -1 : 1);
+                p.velocity.X += IdleAccel * (p.position.X < Projectile.position.X ? -1 : 1);
+                p.velocity.Y += IdleAccel * (p.position.Y < Projectile.position.Y ? -1 : 1);
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("LightningRod"), Main.rand.Next(300, 1200));
+            target.AddBuff(ModContent.BuffType<LightningRod>(), Main.rand.Next(300, 1200));
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
         }
 
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 20; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 62, -projectile.velocity.X * 0.2f,
-                    -projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 62, -Projectile.velocity.X * 0.2f,
+                    -Projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 2f;
-                dust = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 60, -projectile.velocity.X * 0.2f,
-                    -projectile.velocity.Y * 0.2f, 100);
+                dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 60, -Projectile.velocity.X * 0.2f,
+                    -Projectile.velocity.Y * 0.2f, 100);
                 Main.dust[dust].velocity *= 2f;
             }
-            //int g = Gore.NewGore(projectile.Center, projectile.velocity / 2, mod.GetGoreSlot("Gores/DestroyerGun/DestroyerHead"), projectile.scale);
+            //int g = Gore.NewGore(Projectile.Center, Projectile.velocity / 2, mod.GetGoreSlot("Gores/DestroyerGun/DestroyerHead"), Projectile.scale);
            // Main.gore[g].timeLeft = 20;
-            Main.PlaySound(SoundID.NPCKilled, projectile.Center, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 14);
         }
     }
 }

@@ -12,80 +12,80 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Phantasmal Flail");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 58;
-            projectile.height = 52;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.melee = true;
-            projectile.tileCollide = false;
-            //projectile.usesLocalNPCImmunity = true;
-            //projectile.localNPCHitCooldown = 0;
+            Projectile.width = 58;
+            Projectile.height = 52;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.tileCollide = false;
+            //Projectile.usesLocalNPCImmunity = true;
+            //Projectile.localNPCHitCooldown = 0;
         }
 
         public override void AI()
         {
-            if (projectile.timeLeft == 120) projectile.ai[0] = 1f;
+            if (Projectile.timeLeft == 120) Projectile.ai[0] = 1f;
 
-            if (Main.player[projectile.owner].dead)
+            if (Main.player[Projectile.owner].dead)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            Main.player[projectile.owner].itemAnimation = 5;
-            Main.player[projectile.owner].itemTime = 5;
+            Main.player[Projectile.owner].itemAnimation = 5;
+            Main.player[Projectile.owner].itemTime = 5;
 
-            if (projectile.alpha == 0)
+            if (Projectile.alpha == 0)
             {
-                if (projectile.position.X + projectile.width / 2 > Main.player[projectile.owner].position.X + Main.player[projectile.owner].width / 2)
-                    Main.player[projectile.owner].ChangeDir(1);
+                if (Projectile.position.X + Projectile.width / 2 > Main.player[Projectile.owner].position.X + Main.player[Projectile.owner].width / 2)
+                    Main.player[Projectile.owner].ChangeDir(1);
                 else
-                    Main.player[projectile.owner].ChangeDir(-1);
+                    Main.player[Projectile.owner].ChangeDir(-1);
             }
 
-            Vector2 vector14 = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
-            float num166 = Main.player[projectile.owner].position.X + Main.player[projectile.owner].width / 2 - vector14.X;
-            float num167 = Main.player[projectile.owner].position.Y + Main.player[projectile.owner].height / 2 - vector14.Y;
+            Vector2 vector14 = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
+            float num166 = Main.player[Projectile.owner].position.X + Main.player[Projectile.owner].width / 2 - vector14.X;
+            float num167 = Main.player[Projectile.owner].position.Y + Main.player[Projectile.owner].height / 2 - vector14.Y;
             float distance = (float)Math.Sqrt(num166 * num166 + num167 * num167);
-            if (projectile.ai[0] == 0f)
+            if (Projectile.ai[0] == 0f)
             {
-                if (distance > 600f) projectile.ai[0] = 1f;
-                projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
-                projectile.ai[1] += 1f;
-                if (projectile.ai[1] > 8f) projectile.ai[1] = 8f;
-                if (projectile.velocity.X < 0f)
-                    projectile.spriteDirection = -1;
+                if (distance > 600f) Projectile.ai[0] = 1f;
+                Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
+                Projectile.ai[1] += 1f;
+                if (Projectile.ai[1] > 8f) Projectile.ai[1] = 8f;
+                if (Projectile.velocity.X < 0f)
+                    Projectile.spriteDirection = -1;
                 else
-                    projectile.spriteDirection = 1;
+                    Projectile.spriteDirection = 1;
 
-                /*if (projectile.owner == Main.myPlayer)
+                /*if (Projectile.owner == Main.myPlayer)
                 {
-                    Vector2 speed = 10f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2);
-                    Projectile.NewProjectile(projectile.Center, speed, ModContent.ProjectileType<PhantasmalBolt>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
-                    Projectile.NewProjectile(projectile.Center, -speed, ModContent.ProjectileType<PhantasmalBolt>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
+                    Vector2 speed = 10f * Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 2);
+                    Projectile.NewProjectile(Projectile.Center, speed, ModContent.ProjectileType<PhantasmalBolt>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.Center, -speed, ModContent.ProjectileType<PhantasmalBolt>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                 }*/
             }
             //plz retract sir
-            else if (projectile.ai[0] == 1f)
+            else if (Projectile.ai[0] == 1f)
             {
-                if (projectile.localAI[1] == 0)
+                if (Projectile.localAI[1] == 0)
                 {
-                    projectile.localAI[1] = 1f;
-                    if (projectile.owner == Main.myPlayer)
+                    Projectile.localAI[1] = 1f;
+                    if (Projectile.owner == Main.myPlayer)
                     {
                         const int max = 8;
                         const float dist = 100f;
                         const float rotation = 2f * (float)Math.PI / max;
                         for (int i = 0; i < max; i++)
                         {
-                            Vector2 spawnPos = projectile.Center + new Vector2(dist, 0f).RotatedBy(rotation * i);
-                            Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphere2>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
+                            Vector2 spawnPos = Projectile.Center + new Vector2(dist, 0f).RotatedBy(rotation * i);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphere2>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                         }
 
                         const int boltMax = 32;
@@ -93,40 +93,40 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         for (int i = 0; i < boltMax; i++)
                         {
                             Vector2 speed = 10f * Vector2.UnitX.RotatedBy(rotationOffset + MathHelper.TwoPi / boltMax * i);
-                            int p = Projectile.NewProjectile(projectile.Center, speed, ModContent.ProjectileType<PhantasmalBolt>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
+                            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, speed, ModContent.ProjectileType<PhantasmalBolt>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].timeLeft /= 2;
                         }
                     }
                 }
 
-                projectile.tileCollide = false;
-                projectile.rotation = (float)Math.Atan2(num167, num166) - 1.57f;
+                Projectile.tileCollide = false;
+                Projectile.rotation = (float)Math.Atan2(num167, num166) - 1.57f;
                 float num169 = 30f;
 
-                if (distance < 50f) projectile.Kill();
+                if (distance < 50f) Projectile.Kill();
                 distance = num169 / distance;
                 num166 *= distance;
                 num167 *= distance;
-                projectile.velocity.X = num166 * 2;
-                projectile.velocity.Y = num167 * 2;
-                if (projectile.velocity.X < 0f)
-                    projectile.spriteDirection = 1;
+                Projectile.velocity.X = num166 * 2;
+                Projectile.velocity.Y = num167 * 2;
+                if (Projectile.velocity.X < 0f)
+                    Projectile.spriteDirection = 1;
                 else
-                    projectile.spriteDirection = -1;
+                    Projectile.spriteDirection = -1;
             }
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (projectile.penetrate < 0)
-                target.immune[projectile.owner] = 1;
+            if (Projectile.penetrate < 0)
+                target.immune[Projectile.owner] = 1;
 
-            projectile.penetrate = -1;
-            projectile.maxPenetrate = -1;
+            Projectile.penetrate = -1;
+            Projectile.maxPenetrate = -1;
 
             int type = ModContent.ProjectileType<PhantasmalEyeLeashProj>();
-            if (Main.player[projectile.owner].ownedProjectileCounts[type] < 100)
+            if (Main.player[Projectile.owner].ownedProjectileCounts[type] < 100)
             {
                 int dist = 1200;
                 for (int i = 0; i < 15; i++)
@@ -139,8 +139,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Vector2 position = target.Center + offset - new Vector2(4, 4);
                     Vector2 velocity = Vector2.Normalize(target.Center - position) * 50;
 
-                    int p = Projectile.NewProjectile(position, velocity,
-                        type, projectile.damage / 2, projectile.knockBack, projectile.owner, -10f);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity,
+                        type, Projectile.damage / 2, Projectile.knockBack, Projectile.owner, -10f);
                 }
             }
 
@@ -149,23 +149,23 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Vector2 vector55 = Vector2.UnitX.RotatedBy(Math.PI * 2 / max * (i + Main.rand.NextDouble()));
                 vector55 *= 50;
-                int p = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vector55.X, vector55.Y,
-                    ModContent.ProjectileType<PhantasmalEyeLeashProj>(), projectile.damage, projectile.knockBack, projectile.owner, -10f);
+                int p = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vector55.X, vector55.Y,
+                    ModContent.ProjectileType<PhantasmalEyeLeashProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner, -10f);
                 if (p != Main.maxProjectiles)
-                    Main.projectile[p].penetrate = 3;
+                    Main.Projectile[p].penetrate = 3;
             }*/
 
             //retract
-            projectile.ai[0] = 1f; 
+            Projectile.ai[0] = 1f; 
         }
 
         // chain voodoo
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture = ModContent.GetTexture("FargowiltasSouls/Projectiles/BossWeapons/PhantasmalLeashFlailChain");
+            Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/BossWeapons/PhantasmalLeashFlailChain", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
-            Vector2 position = projectile.Center;
-            Vector2 mountedCenter = Main.player[projectile.owner].MountedCenter;
+            Vector2 position = Projectile.Center;
+            Vector2 mountedCenter = Main.player[Projectile.owner].MountedCenter;
             Rectangle? sourceRectangle = new Rectangle?();
             Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
             float num1 = texture.Height;
@@ -188,36 +188,36 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     position += vector21 * num1;
                     vector24 = mountedCenter - position;
                     Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
-                    color2 = projectile.GetAlpha(color2);
-                    Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+                    color2 = Projectile.GetAlpha(color2);
+                    Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
                 }
 
 
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
             SpriteEffects effects = SpriteEffects.None;
 
-            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.5f)
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f)
             {
-                Color color27 = Color.White * projectile.Opacity;
+                Color color27 = Color.White * Projectile.Opacity;
                 color27.A = 0;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
                 if (max0 < 0)
                     continue;
-                Vector2 value4 = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], 1 - i % 1);
-                float num165 = MathHelper.Lerp(projectile.oldRot[(int)i], projectile.oldRot[max0], 1 - i % 1);
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
+                Vector2 value4 = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
+                float num165 = MathHelper.Lerp(Projectile.oldRot[(int)i], Projectile.oldRot[max0], 1 - i % 1);
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

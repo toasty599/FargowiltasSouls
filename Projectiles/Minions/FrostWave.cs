@@ -8,29 +8,30 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class FrostWave : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_348";
+        public override string Texture => "Terraria/Images/Projectile_348";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frost Wave");
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 48;
-            projectile.height = 48;
-            projectile.tileCollide = false;
-            projectile.aiStyle = 1;
-            aiType = ProjectileID.FrostWave;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.extraUpdates = 1;
-            projectile.timeLeft = 360;
-            projectile.penetrate = -1;
+            Projectile.width = 48;
+            Projectile.height = 48;
+            Projectile.tileCollide = false;
+            Projectile.aiStyle = 1;
+            AIType = ProjectileID.FrostWave;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 360;
+            Projectile.penetrate = -1;
 
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 10;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -40,17 +41,17 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(200, 200, 200, projectile.alpha);
+            return new Color(200, 200, 200);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

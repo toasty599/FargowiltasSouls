@@ -1,5 +1,5 @@
-using Fargowiltas.Items.Tiles;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
+using FargowiltasSouls.NPCs.MutantBoss;
 using FargowiltasSouls.Utilities;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -18,39 +18,44 @@ namespace FargowiltasSouls.Items.Summons
             Tooltip.SetDefault("Summons Abominationn to your town" +
                 "\n'You are a terrible person'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "憎恶巫毒娃娃");
-            Tooltip.AddTranslation(GameCulture.Chinese, "你可真是个坏东西");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶巫毒娃娃");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "你可真是个坏东西");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.rare = ItemRarityID.Purple;
-            item.useAnimation = 30;
-            item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
-            item.maxStack = 20;
-            item.value = Item.sellPrice(gold: 1);
+            Item.width = 20;
+            Item.height = 20;
+            Item.rare = ItemRarityID.Purple;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.maxStack = 20;
+            Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override bool CanUseItem(Player player) => !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn"));
+        public override bool CanUseItem(Player player) => ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type);
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
-            NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Fargowiltas").NPCType("Abominationn"));
+            if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC))
+                NPC.SpawnOnPlayer(player.whoAmI, modNPC.Type);
 
             return true;
         }
 
         public override void Update(ref float gravity, ref float maxFallSpeed)
         {
-            if (item.lavaWet)
+            if (Item.lavaWet)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.MultiplayerClient
+                    && ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC a)
+                    && ModContent.TryFind("Fargowiltas", "Mutant", out ModNPC m))
                 {
-                    NPC abom = FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")));
-                    NPC mutant = FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(ModLoader.GetMod("Fargowiltas").NPCType("Mutant")));
+                    NPC abom = FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(a.Type));
+                    NPC mutant = FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(m.Type));
 
                     if (abom != null)
                     {
@@ -58,16 +63,16 @@ namespace FargowiltasSouls.Items.Summons
 
                         if (mutant != null)
                         {
-                            mutant.Transform(mod.NPCType("MutantBoss"));
+                            mutant.Transform(ModContent.NPCType<MutantBoss>());
 
                             // TODO: Localization
                             FargoSoulsUtil.PrintText("Mutant has been enraged by the death of his brother!", new Color(175, 75, 255));
                         }
                     }
 
-                    item.active = false;
-                    item.type = 0;
-                    item.stack = 0;
+                    Item.active = false;
+                    Item.type = 0;
+                    Item.stack = 0;
                 }
             }
         }
@@ -75,17 +80,16 @@ namespace FargowiltasSouls.Items.Summons
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))
-                itemNameLine.overrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
+                itemNameLine.OverrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<AbomEnergy>(), 5);
-            recipe.AddIngredient(ItemID.GuideVoodooDoll);
-            recipe.AddTile(ModContent.TileType<CrucibleCosmosSheet>());
-            recipe.SetResult(this, 5);
-            recipe.AddRecipe();
+            CreateRecipe(5)
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 5)
+            .AddIngredient(ItemID.GuideVoodooDoll)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            .Register();
         }
     }
 }

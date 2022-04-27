@@ -12,27 +12,29 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cosmic Moon");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 410;
-            projectile.height = 410;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            
-            projectile.extraUpdates = 0;
-            cooldownSlot = 0;
+            Projectile.width = 410;
+            Projectile.height = 410;
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
-            projectile.penetrate = -1;
+            Projectile.netImportant = true;
 
-            //projectile.scale = 0.5f;
+            Projectile.extraUpdates = 0;
+            CooldownSlot = 0;
+
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.penetrate = -1;
+
+            //Projectile.scale = 0.5f;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -48,73 +50,73 @@ namespace FargowiltasSouls.Projectiles.Champions
             int dX = projHitbox.Center.X - targetHitbox.Center.X - clampedX;
             int dY = projHitbox.Center.Y - targetHitbox.Center.Y - clampedY;
 
-            return Math.Sqrt(dX * dX + dY * dY) <= projectile.width / 2;
+            return Math.Sqrt(dX * dX + dY * dY) <= Projectile.width / 2;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
+                Projectile.localAI[0] = 1;
 
-                Main.PlaySound(SoundID.Item92, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
-                projectile.rotation = projectile.ai[0];
+                Projectile.rotation = Projectile.ai[0];
             }
 
-            if (projectile.localAI[0] == 2)
+            if (Projectile.localAI[0] == 2)
             {
-                projectile.damage = 0;
-                projectile.velocity.Y += 0.2f;
-                projectile.tileCollide = true;
+                Projectile.damage = 0;
+                Projectile.velocity.Y += 0.2f;
+                Projectile.tileCollide = true;
             }
             else
             {
-                NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.Champions.CosmosChampion>());
+                NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.CosmosChampion>());
                 if (npc != null)
                 {
-                    projectile.timeLeft = 600;
+                    Projectile.timeLeft = 600;
 
                     const float maxAmplitude = 850;
                     float offset = Math.Abs(maxAmplitude * (float)Math.Sin(npc.ai[2] * 2 * (float)Math.PI / 200));
                     offset += 150;
-                    projectile.ai[0] += 0.01f;
-                    projectile.Center = npc.Center + offset * projectile.ai[0].ToRotationVector2();
+                    Projectile.ai[0] += 0.01f;
+                    Projectile.Center = npc.Center + offset * Projectile.ai[0].ToRotationVector2();
                 }
                 else
                 {
-                    projectile.localAI[0] = 2;
-                    projectile.velocity = projectile.position - projectile.oldPos[1];
+                    Projectile.localAI[0] = 2;
+                    Projectile.velocity = Projectile.position - Projectile.oldPos[1];
                 }
             }
 
-            projectile.rotation += 0.04f;
+            Projectile.rotation += 0.04f;
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
-            width = height = (int)(projectile.width / Math.Sqrt(2));
-            return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+            width = height = (int)(Projectile.width / Math.Sqrt(2));
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
         public override void Kill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
         {
-            Main.PlaySound(SoundID.Item89, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item89, Projectile.position);
 
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int max = 10;
                 for (int i = 0; i < max; i++)
-                    Projectile.NewProjectile(projectile.Center + Main.rand.NextVector2Circular(projectile.width / 2, projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MutantBoss.MutantBomb>(), 0, projectile.knockBack, projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MutantBoss.MutantBomb>(), 0, Projectile.knockBack, Projectile.owner);
                 if (!FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
-                    Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, projectile.knockBack, projectile.owner, -Vector2.UnitY.ToRotation(), 32);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, Projectile.knockBack, Projectile.owner, -Vector2.UnitY.ToRotation(), 32);
             }
 
             Vector2 size = new Vector2(500, 500);
-            Vector2 spawnPos = projectile.Center;
+            Vector2 spawnPos = Projectile.Center;
             spawnPos.X -= size.X / 2;
             spawnPos.Y -= size.Y / 2;
 
@@ -126,10 +128,10 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             for (int num617 = 0; num617 < 20; num617++)
             {
-                int num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                int num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
                 Main.dust[num618].noGravity = true;
                 Main.dust[num618].velocity *= 7f;
-                num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Fire, 0f, 0f, 100, default(Color), 1.5f);
+                num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
                 Main.dust[num618].velocity *= 3f;
             }
 
@@ -137,25 +139,25 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 float scaleFactor9 = 0.4f;
                 if (num619 == 1) scaleFactor9 = 0.8f;
-                int num620 = Gore.NewGore(projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                int num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore97 = Main.gore[num620];
                 gore97.velocity.X = gore97.velocity.X + 1f;
                 Gore gore98 = Main.gore[num620];
                 gore98.velocity.Y = gore98.velocity.Y + 1f;
-                num620 = Gore.NewGore(projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore99 = Main.gore[num620];
                 gore99.velocity.X = gore99.velocity.X - 1f;
                 Gore gore100 = Main.gore[num620];
                 gore100.velocity.Y = gore100.velocity.Y + 1f;
-                num620 = Gore.NewGore(projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore101 = Main.gore[num620];
                 gore101.velocity.X = gore101.velocity.X + 1f;
                 Gore gore102 = Main.gore[num620];
                 gore102.velocity.Y = gore102.velocity.Y - 1f;
-                num620 = Gore.NewGore(projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore103 = Main.gore[num620];
                 gore103.velocity.X = gore103.velocity.X - 1f;
@@ -178,17 +180,17 @@ namespace FargowiltasSouls.Projectiles.Champions
 
                 for (int i = 0; i < 10; i++)
                 {
-                    int dust = Dust.NewDust(dustPos, 32, 32, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                    int dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 7f;
-                    dust = Dust.NewDust(dustPos, 32, 32, DustID.Fire, 0f, 0f, 100, default(Color), 1.5f);
+                    dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
                     Main.dust[dust].velocity *= 3f;
                 }
 
                 float scaleFactor9 = 0.5f;
                 for (int j = 0; j < 2; j++)
                 {
-                    int gore = Gore.NewGore(dustPos, default(Vector2), Main.rand.Next(61, 64));
+                    int gore = Gore.NewGore(Projectile.GetSource_FromThis(), dustPos, default(Vector2), Main.rand.Next(61, 64));
                     Main.gore[gore].velocity *= scaleFactor9;
                     Main.gore[gore].velocity.X += 1f;
                     Main.gore[gore].velocity.Y += 1f;
@@ -200,9 +202,9 @@ namespace FargowiltasSouls.Projectiles.Champions
             for (int num227 = 0; num227 < num226; num227++)
             {
                 Vector2 vector6 = Vector2.UnitX * 40f;
-                vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + projectile.Center;
-                Vector2 vector7 = vector6 - projectile.Center;
-                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Fire, 0f, 0f, 0, default(Color), 3f);
+                vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + Projectile.Center;
+                Vector2 vector7 = vector6 - Projectile.Center;
+                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Torch, 0f, 0f, 0, default(Color), 3f);
                 Main.dust[num228].noGravity = true;
                 Main.dust[num228].velocity = vector7;
             }
@@ -224,37 +226,37 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return Color.White * Projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Color glow = new Color(Main.DiscoR + 210, Main.DiscoG + 210, Main.DiscoB + 210) * projectile.Opacity;
-            Color glow2 = new Color(Main.DiscoR + 50, Main.DiscoG + 50, Main.DiscoB + 50) * projectile.Opacity;
+            Color glow = new Color(Main.DiscoR + 210, Main.DiscoG + 210, Main.DiscoB + 210) * Projectile.Opacity;
+            Color glow2 = new Color(Main.DiscoR + 50, Main.DiscoG + 50, Main.DiscoB + 50) * Projectile.Opacity;
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glow2 * 0.35f, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.spriteBatch.Draw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glow2 * 0.35f, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-            spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Draw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-            spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glow2 * 0.35f, projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Draw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glow2 * 0.35f, Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
     }

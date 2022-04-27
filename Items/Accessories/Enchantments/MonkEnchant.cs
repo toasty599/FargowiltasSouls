@@ -7,10 +7,12 @@ using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class MonkEnchant : SoulsItem
+    public class MonkEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Monk Enchantment");
             Tooltip.SetDefault(
 @"Allows the ability to dash
@@ -19,8 +21,8 @@ You are immune to damage and debuffs for half a second after dashing
 Dash cooldown is twice as long as normal dashes
 Lightning Aura can now crit and strikes faster
 'Return to Monk'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "武僧魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "武僧魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"使你获得冲刺能力
 双击'左'或'右'键进行冲刺
 在冲刺后的0.5秒内使你免疫伤害和减益
@@ -29,50 +31,38 @@ Lightning Aura can now crit and strikes faster
 '返本还僧'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(146, 5, 32);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(146, 5, 32);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = 150000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = 150000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().MonkEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().MonkEffect();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.MonkBrows);
-            recipe.AddIngredient(ItemID.MonkShirt);
-            recipe.AddIngredient(ItemID.MonkPants);
-            //recipe.AddIngredient(ItemID.MonkBelt);
-            recipe.AddIngredient(ItemID.DD2LightningAuraT2Popper);
+            .AddIngredient(ItemID.MonkBrows)
+            .AddIngredient(ItemID.MonkShirt)
+            .AddIngredient(ItemID.MonkPants)
+            //.AddIngredient(ItemID.MonkBelt);
+            .AddIngredient(ItemID.DD2LightningAuraT2Popper)
             //meatball
             //blue moon
             //valor
-            recipe.AddIngredient(ItemID.DaoofPow);
-            recipe.AddIngredient(ItemID.MonkStaffT2);
+            .AddIngredient(ItemID.DaoofPow)
+            .AddIngredient(ItemID.MonkStaffT2)
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

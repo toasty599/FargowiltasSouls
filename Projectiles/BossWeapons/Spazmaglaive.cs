@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spazmaglaive");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -33,54 +33,53 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            projectile.melee = true;
-            projectile.friendly = true;
-            projectile.light = 0.4f;
-            projectile.tileCollide = false;
-            projectile.width = 50;
-            projectile.height = 50;
-            projectile.penetrate = -1;
-            projectile.aiStyle = -1;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.friendly = true;
+            Projectile.light = 0.4f;
+            Projectile.tileCollide = false;
+            Projectile.width = 50;
+            Projectile.height = 50;
+            Projectile.penetrate = -1;
+            Projectile.aiStyle = -1;
         }
 
         public override void AI()
         {
-            if (projectile.ai[0] == ModContent.ProjectileType<Retiglaive>())
+            if (Projectile.ai[0] == ModContent.ProjectileType<Retiglaive>())
             {
                 empowered = true;
-                projectile.ai[0] = 0;
+                Projectile.ai[0] = 0;
             }
-            else if (projectile.ai[0] == ModContent.ProjectileType<Spazmaglaive>())
+            else if (Projectile.ai[0] == ModContent.ProjectileType<Spazmaglaive>())
             {
-                projectile.ai[0] = 0;
+                Projectile.ai[0] = 0;
             }
-            if(projectile.ai[1] == 0)
+            if(Projectile.ai[1] == 0)
             {
-                projectile.ai[1] = Main.rand.NextFloat(-MathHelper.Pi / 6, MathHelper.Pi / 6);
+                Projectile.ai[1] = Main.rand.NextFloat(-MathHelper.Pi / 6, MathHelper.Pi / 6);
             }
-            projectile.rotation += projectile.direction * -0.4f;
-            projectile.ai[0]++;
+            Projectile.rotation += Projectile.direction * -0.4f;
+            Projectile.ai[0]++;
 
             const int maxTime = 45;
-            Vector2 DistanceOffset = new Vector2(950 * (float)Math.Sin(projectile.ai[0] * Math.PI / maxTime), 0).RotatedBy(projectile.velocity.ToRotation());
-            DistanceOffset = DistanceOffset.RotatedBy(projectile.ai[1] - (projectile.ai[1] * projectile.ai[0] / (maxTime / 2)));
-            projectile.Center = Main.player[projectile.owner].Center + DistanceOffset;
-            if (projectile.ai[0] > maxTime)
-                projectile.Kill();
+            Vector2 DistanceOffset = new Vector2(950 * (float)Math.Sin(Projectile.ai[0] * Math.PI / maxTime), 0).RotatedBy(Projectile.velocity.ToRotation());
+            DistanceOffset = DistanceOffset.RotatedBy(Projectile.ai[1] - (Projectile.ai[1] * Projectile.ai[0] / (maxTime / 2)));
+            Projectile.Center = Main.player[Projectile.owner].Center + DistanceOffset;
+            if (Projectile.ai[0] > maxTime)
+                Projectile.Kill();
 
-            if (empowered && projectile.ai[0] == maxTime / 2 && projectile.owner == Main.myPlayer) //star spray on the rebound
+            if (empowered && Projectile.ai[0] == maxTime / 2 && Projectile.owner == Main.myPlayer) //star spray on the rebound
             {
                 Vector2 baseVel = Main.rand.NextVector2CircularEdge(1, 1);
                 const int max = 24;
                 for (int i = 0; i < max; i++)
                 {
-                    Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 105, 1f, -0.3f);
                     Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / max);
-                    int p = Projectile.NewProjectile(projectile.Center, newvel / 2, mod.ProjectileType("DarkStarFriendly"), projectile.damage, projectile.knockBack, projectile.owner);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel / 2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     if (p < Main.maxProjectiles)
                     {
-                        Main.projectile[p].magic = false;
-                        Main.projectile[p].melee = true;
+                        Main.projectile[p].DamageType = DamageClass.Melee;
                         Main.projectile[p].timeLeft = 30;
                         Main.projectile[p].netUpdate = true;
                     }
@@ -90,7 +89,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return projectile.Distance(new Vector2(targetHitbox.Center.X, targetHitbox.Center.Y)) < 150; //big circular hitbox because otherwise it misses too often
+            return Projectile.Distance(new Vector2(targetHitbox.Center.X, targetHitbox.Center.Y)) < 150; //big circular hitbox because otherwise it misses too often
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -100,69 +99,69 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (!hitSomething)
             {
                 hitSomething = true;
-                if (projectile.owner == Main.myPlayer)
+                if (Projectile.owner == Main.myPlayer)
                 {
-                    Main.PlaySound(SoundID.Item74, projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
                     Vector2 baseVel = Main.rand.NextVector2CircularEdge(1, 1);
                     float ai0 = 78;//empowered ? 120 : 78;
                     for(int i = 0; i < 5; i++)
                     {
                         Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 5);
-                        Projectile.NewProjectile(target.Center, newvel, mod.ProjectileType("SpazmaglaiveExplosion"), projectile.damage, projectile.knockBack, projectile.owner, ai0, target.whoAmI);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, newvel, ModContent.ProjectileType<SpazmaglaiveExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai0, target.whoAmI);
                     }
                     /*if (empowered)
                     {
                         for (int i = 0; i < 12; i++)
                         {
-                            Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 105, 1f, -0.3f);
                             Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 12);
-                            int p = Projectile.NewProjectile(target.Center, newvel/2, mod.ProjectileType("DarkStarFriendly"), projectile.damage, projectile.knockBack, projectile.owner, 0, target.whoAmI);
+                            int p = Projectile.NewProjectile(target.Center, newvel/2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, target.whoAmI);
                             if(p < 1000)
                             {
-                                Main.projectile[p].magic = false;
-                                Main.projectile[p].melee = true;
-                                Main.projectile[p].timeLeft = 30;
-                                Main.projectile[p].netUpdate = true;
+                                Main.Projectile[p].magic = false;
+                                Main.Projectile[p].melee = true;
+                                Main.Projectile[p].timeLeft = 30;
+                                Main.Projectile[p].netUpdate = true;
                             }
                         }
                     }*/
                 }
-                projectile.netUpdate = true;
+                Projectile.netUpdate = true;
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.33f)
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.33f)
             {
                 int max0 = Math.Max((int)i - 1, 0);
-                Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], (1 - i % 1));
+                Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], (1 - i % 1));
                 if (i < 4)
                 {
                     Color color27 = color26;
-                    color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                    Main.spriteBatch.Draw(texture2D13, center + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, projectile.oldRot[(int)i], origin2, projectile.scale, SpriteEffects.None, 0f);
+                    color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                    Main.EntitySpriteDraw(texture2D13, center + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, Projectile.oldRot[(int)i], origin2, Projectile.scale, SpriteEffects.None, 0);
                 }
                 if (empowered)
                 {
-                    Texture2D glow = mod.GetTexture("Projectiles/BossWeapons/HentaiSpearSpinGlow");
+                    Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/BossWeapons/HentaiSpearSpinGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Color glowcolor = new Color(142, 250, 176);
                     glowcolor = Color.Lerp(glowcolor, Color.Transparent, 0.6f);
-                    float glowscale = projectile.scale * (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                    Main.spriteBatch.Draw(glow, center + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), null, glowcolor, 0, glow.Size() / 2, glowscale, SpriteEffects.None, 0f);
+                    float glowscale = Projectile.scale * (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                    Main.EntitySpriteDraw(glow, center + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, glowcolor, 0, glow.Size() / 2, glowscale, SpriteEffects.None, 0);
                 }
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

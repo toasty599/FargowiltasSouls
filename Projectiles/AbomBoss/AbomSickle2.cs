@@ -17,36 +17,36 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 40;
-            projectile.height = 40;
-            projectile.alpha = 100;
-            projectile.hostile = true;
-            projectile.timeLeft = 240;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = -1;
-            projectile.penetrate = -1;
-            cooldownSlot = 1;
+            Projectile.width = 40;
+            Projectile.height = 40;
+            Projectile.alpha = 100;
+            Projectile.hostile = true;
+            Projectile.timeLeft = 240;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = -1;
+            Projectile.penetrate = -1;
+            CooldownSlot = 1;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item8, projectile.Center);
+                Projectile.localAI[0] = 1;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
             }
-            projectile.rotation += 0.8f;
-            if (++projectile.localAI[1] > 30 && projectile.localAI[1] < 100)
-                projectile.velocity *= 1.06f;
+            Projectile.rotation += 0.8f;
+            if (++Projectile.localAI[1] > 30 && Projectile.localAI[1] < 100)
+                Projectile.velocity *= 1.06f;
             /*for (int i = 0; i < 6; i++)
             {
-                Vector2 offset = new Vector2(0, -20).RotatedBy(projectile.rotation);
+                Vector2 offset = new Vector2(0, -20).RotatedBy(Projectile.rotation);
                 offset = offset.RotatedByRandom(MathHelper.Pi / 6);
-                int d = Dust.NewDust(projectile.Center, 0, 0, 87, 0f, 0f, 150);
+                int d = Dust.NewDust(Projectile.Center, 0, 0, 87, 0f, 0f, 150);
                 Main.dust[d].position += offset;
                 float velrando = Main.rand.Next(20, 31) / 10;
-                Main.dust[d].velocity = projectile.velocity / velrando;
+                Main.dust[d].velocity = Projectile.velocity / velrando;
                 Main.dust[d].noGravity = true;
             }*/
         }
@@ -56,27 +56,27 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             return Color.White;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             /*Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }*/
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 
@@ -84,8 +84,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("AbomFang"), 300);
-                target.AddBuff(mod.BuffType("Berserked"), 120);
+                target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFang>(), 300);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Berserked>(), 120);
             }
             target.AddBuff(BuffID.Bleeding, 600);
         }

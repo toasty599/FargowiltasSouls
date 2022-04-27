@@ -1,11 +1,12 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Projectiles.JungleMimic;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Buffs.Minions
 {
     public class JungleMimicSummonBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Jungle Mimic");
             Description.SetDefault("The Jungle Mimic will fight for you");
@@ -15,7 +16,7 @@ namespace FargowiltasSouls.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ownedProjectileCounts[mod.ProjectileType("JungleMimicSummon")] > 0)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<JungleMimicSummon>()] > 0)
             {
                 player.buffTime[buffIndex] = 2;
             }

@@ -1,25 +1,27 @@
+using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class PrimeGuardian : MutantBoss.MutantGuardian
     {
-        public override string Texture => "Terraria/NPC_127";
+        public override string Texture => "Terraria/Images/NPC_127";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dungeon Guardian Prime");
-            Main.projFrames[projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 3;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 600;
-            cooldownSlot = -1;
+            Projectile.timeLeft = 600;
+            CooldownSlot = -1;
         }
 
         public override bool CanHitPlayer(Player target)
@@ -29,40 +31,41 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
-                projectile.hide = false;
+                Projectile.localAI[0] = 1;
+                Projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
+                Projectile.hide = false;
 
                 for (int i = 0; i < 30; i++)
                 {
-                    int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire, 0, 0, 100, default(Color), 2f);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0, 0, 100, default(Color), 2f);
                     Main.dust[dust].noGravity = true;
                 }
             }
 
-            projectile.frame = 2;
-            projectile.direction = projectile.velocity.X < 0 ? -1 : 1;
-            projectile.rotation += projectile.direction * .3f;
+            Projectile.frame = 2;
+            Projectile.direction = Projectile.velocity.X < 0 ? -1 : 1;
+            Projectile.rotation += Projectile.direction * .3f;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("NanoInjection"), 480);
-            target.AddBuff(mod.BuffType("Defenseless"), 480);
-            target.AddBuff(mod.BuffType("Lethargic"), 480);
+            target.AddBuff(ModContent.BuffType<NanoInjection>(), 480);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 480);
+            target.AddBuff(ModContent.BuffType<Lethargic>(), 480);
         }
 
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 30; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire, 0, 0, 100, default(Color), 2f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0, 0, 100, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
             }
 
-            Gore.NewGore(projectile.Center, projectile.velocity / 3, mod.GetGoreSlot(Main.rand.NextBool() ? "Gores/Skeletron/Gore_149" : "Gores/Skeletron/Gore_150"), projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity / 3, ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "Gore_149" : "Gore_150").Type, Projectile.scale);
         }
     }
 }

@@ -3,6 +3,8 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using FargowiltasSouls.Projectiles.JungleMimic;
+using Terraria.DataStructures;
+using FargowiltasSouls.Buffs.Minions;
 
 namespace FargowiltasSouls.Items.Weapons.Misc
 {
@@ -10,36 +12,37 @@ namespace FargowiltasSouls.Items.Weapons.Misc
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Overgrown Key");
             Tooltip.SetDefault("Summons a Jungle Mimic to fight for you\nNeeds 2 minion slots");
-            ItemID.Sets.StaffMinionSlotsRequired[item.type] = 2;
+            ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            item.mana = 10;
-            item.damage = 30;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.shootSpeed = 14f;
-            item.width = 36;
-            item.height = 16;
-            item.UseSound = SoundID.Item77;
-            item.useAnimation = 37;
-            item.useTime = 37;
-            item.noMelee = true;
-            item.value = Item.sellPrice(0, 8);
-            item.knockBack = 2f;
-            item.rare = ItemRarityID.LightRed;
-            item.summon = true;
-            item.shoot = ModContent.ProjectileType<JungleMimicSummon>();
-            item.buffType = mod.BuffType("JungleMimicSummonBuff");
+            Item.mana = 10;
+            Item.damage = 30;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.shootSpeed = 14f;
+            Item.width = 36;
+            Item.height = 16;
+            Item.UseSound = SoundID.Item77;
+            Item.useAnimation = 37;
+            Item.useTime = 37;
+            Item.noMelee = true;
+            Item.value = Item.sellPrice(0, 8);
+            Item.knockBack = 2f;
+            Item.rare = ItemRarityID.LightRed;
+            Item.DamageType = DamageClass.Summon;
+            Item.shoot = ModContent.ProjectileType<JungleMimicSummon>();
+            Item.buffType = ModContent.BuffType<JungleMimicSummonBuff>();
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(item.buffType, 2);
-            position = Main.MouseWorld;
-            return true;
+            player.AddBuff(Item.buffType, 2);
+            player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
+            return false;
         }
 
         public override Vector2? HoldoutOffset()

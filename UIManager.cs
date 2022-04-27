@@ -6,6 +6,8 @@ using FargowiltasSouls.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using Terraria.ID;
+using ReLogic.Content;
+using Terraria.Audio;
 
 namespace FargowiltasSouls
 {
@@ -17,28 +19,30 @@ namespace FargowiltasSouls
         public SoulTogglerButton SoulTogglerButton;
         private GameTime _lastUpdateUIGameTime;
 
-        public Texture2D CheckMark;
-        public Texture2D CheckBox;
-        public Texture2D SoulTogglerButtonTexture;
-        public Texture2D SoulTogglerButton_MouseOverTexture;
-        public Texture2D PresetButtonOutline;
-        public Texture2D PresetOffButton;
-        public Texture2D PresetOnButton;
-        public Texture2D PresetMinimalButton;
+        public Asset<Texture2D> CheckMark;
+        public Asset<Texture2D> CheckBox;
+        public Asset<Texture2D> SoulTogglerButtonTexture;
+        public Asset<Texture2D> SoulTogglerButton_MouseOverTexture;
+        public Asset<Texture2D> PresetButtonOutline;
+        public Asset<Texture2D> PresetOffButton;
+        public Asset<Texture2D> PresetOnButton;
+        public Asset<Texture2D> PresetMinimalButton;
+        public Asset<Texture2D> OncomingMutantTexture;
 
         public void LoadUI()
         {
             if (!Main.dedServ)
             {
                 // Load textures
-                CheckMark = ModContent.GetTexture("FargowiltasSouls/UI/Assets/CheckMark");
-                CheckBox = ModContent.GetTexture("FargowiltasSouls/UI/Assets/CheckBox");
-                SoulTogglerButtonTexture = ModContent.GetTexture("FargowiltasSouls/UI/Assets/SoulTogglerToggle");
-                SoulTogglerButton_MouseOverTexture = ModContent.GetTexture("FargowiltasSouls/UI/Assets/SoulTogglerToggle_MouseOver");
-                PresetButtonOutline = ModContent.GetTexture("FargowiltasSouls/UI/Assets/PresetOutline");
-                PresetOffButton = ModContent.GetTexture("FargowiltasSouls/UI/Assets/PresetOff");
-                PresetOnButton = ModContent.GetTexture("FargowiltasSouls/UI/Assets/PresetOn");
-                PresetMinimalButton = ModContent.GetTexture("FargowiltasSouls/UI/Assets/PresetMinimal");
+                CheckMark = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/CheckMark", AssetRequestMode.ImmediateLoad);
+                CheckBox = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/CheckBox", AssetRequestMode.ImmediateLoad);
+                SoulTogglerButtonTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/SoulTogglerToggle", AssetRequestMode.ImmediateLoad);
+                SoulTogglerButton_MouseOverTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/SoulTogglerToggle_MouseOver", AssetRequestMode.ImmediateLoad);
+                PresetButtonOutline = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOutline", AssetRequestMode.ImmediateLoad);
+                PresetOffButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOff", AssetRequestMode.ImmediateLoad);
+                PresetOnButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOn", AssetRequestMode.ImmediateLoad);
+                PresetMinimalButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetMinimal", AssetRequestMode.ImmediateLoad);
+                OncomingMutantTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/OncomingMutant", AssetRequestMode.ImmediateLoad);
 
                 // Initialize UserInterfaces
                 TogglerUserInterface = new UserInterface();
@@ -76,12 +80,15 @@ namespace FargowiltasSouls
         {
             if (IsSoulTogglerOpen())
             {
-                Main.PlaySound(SoundID.MenuOpen);
+                //Main.NewText("we opening");
+
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuOpen);
                 OpenToggler();
             }
             else if (IsTogglerOpen())
             {
-                Main.PlaySound(SoundID.MenuClose);
+                //Main.NewText("we closing");
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuClose);
                 CloseSoulToggler();
             }
         }
@@ -97,11 +104,7 @@ namespace FargowiltasSouls
                         TogglerUserInterface.Draw(Main.spriteBatch, _lastUpdateUIGameTime);
                     return true;
                 }, InterfaceScaleType.UI));
-            }
 
-            index = layers.FindIndex((layer) => layer.Name == "Vanilla: Mouse Text");
-            if (index != -1)
-            {
                 layers.Insert(index, new LegacyGameInterfaceLayer("Fargos: Soul Toggler Toggler", delegate
                 {
                     if (_lastUpdateUIGameTime != null && TogglerToggleUserInterface?.CurrentState != null)

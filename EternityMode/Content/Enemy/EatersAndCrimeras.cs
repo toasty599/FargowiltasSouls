@@ -14,7 +14,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 {
     public class EatersAndCrimeras : Shooters
     {
-        public EatersAndCrimeras() : base(420, ModContent.ProjectileType<CursedFlameHostile2>(), 8f, 0.8f, 75, 600) { }
+        public EatersAndCrimeras() : base(420, ModContent.ProjectileType<CursedFlameHostile2>(), 8f, 0.8f, 75, 600, 45) { }
 
         public override NPCMatcher CreateMatcher() =>
             new NPCMatcher().MatchTypeRange(

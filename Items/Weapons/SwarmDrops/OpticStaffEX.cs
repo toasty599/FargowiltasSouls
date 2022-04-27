@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Minions;
+using FargowiltasSouls.Projectiles.Minions;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,51 +13,53 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Omniscience Staff");
             Tooltip.SetDefault("Summons the real twins to fight for you\nNeeds 3 minion slots\n'The reward for slaughtering many...'");
-            ItemID.Sets.StaffMinionSlotsRequired[item.type] = 4;
+            ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            item.damage = 295;
-            item.mana = 10;
-            item.summon = true;
-            item.width = 24;
-            item.height = 24;
-            item.useAnimation = 37;
-            item.useTime = 37;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.noMelee = true;
-            item.knockBack = 3f;
-            item.UseSound = SoundID.Item82;
-            item.value = Item.sellPrice(0, 25);
-            item.rare = ItemRarityID.Purple;
-            item.buffType = mod.BuffType("TwinsEX");
-            item.shoot = mod.ProjectileType("OpticRetinazer");
-            item.shootSpeed = 10f;
+            Item.damage = 295;
+            Item.mana = 10;
+            Item.DamageType = DamageClass.Summon;
+            Item.width = 24;
+            Item.height = 24;
+            Item.useAnimation = 37;
+            Item.useTime = 37;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.noMelee = true;
+            Item.knockBack = 3f;
+            Item.UseSound = SoundID.Item82;
+            Item.value = Item.sellPrice(0, 25);
+            Item.rare = ItemRarityID.Purple;
+            Item.buffType = ModContent.BuffType<TwinsEX>();
+            Item.shoot = ModContent.ProjectileType<OpticRetinazer>();
+            Item.shootSpeed = 10f;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(item.buffType, 2);
+            player.AddBuff(Item.buffType, 2);
             Vector2 spawnPos = Main.MouseWorld;
-            Vector2 speed = new Vector2(speedX, speedY).RotatedBy(Math.PI / 2);
-            Projectile.NewProjectile(spawnPos, speed, mod.ProjectileType("OpticRetinazer"), damage, knockBack, player.whoAmI, -1);
-            Projectile.NewProjectile(spawnPos, -speed, mod.ProjectileType("OpticSpazmatism"), damage, knockBack, player.whoAmI, -1);
+            velocity = velocity.RotatedBy(Math.PI / 2);
+
+            player.SpawnMinionOnCursor(source, player.whoAmI, ModContent.ProjectileType<OpticRetinazer>(), Item.damage, knockback, default, velocity);
+            player.SpawnMinionOnCursor(source, player.whoAmI, ModContent.ProjectileType<OpticSpazmatism>(), Item.damage, knockback, default, -velocity);
             return false;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.OpticStaff);
-            recipe.AddIngredient(null, "TwinRangs");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerTwins"));
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(ItemID.OpticStaff)
+            .AddIngredient(null, "TwinRangs")
+            .AddIngredient(null, "AbomEnergy", 10)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerTwins"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

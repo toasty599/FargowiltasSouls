@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -11,29 +12,30 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Refractor Blaster");
             Tooltip.SetDefault("'Modified from the arm of a defeated foe..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "变轨激光炮");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'由一个被击败的敌人的手臂改装而来..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "变轨激光炮");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'由一个被击败的敌人的手臂改装而来..'");
         }
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.LaserRifle);
-            item.damage = 30;
-            item.useTime = 24;
-            item.useAnimation = 24;
-            item.shootSpeed = 15f;
-            item.value = 100000;
-            item.rare = ItemRarityID.Pink;
-            //item.mana = 10;
+            Item.CloneDefaults(ItemID.LaserRifle);
+            Item.damage = 30;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
+            Item.shootSpeed = 15f;
+            Item.value = 100000;
+            Item.rare = ItemRarityID.Pink;
+            //Item.mana = 10;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             type = ModContent.ProjectileType<PrimeLaser>();
 
-            int p = Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
+            int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), position, velocity, type, damage, knockback, player.whoAmI);
 
             if (p < 1000)
             {
@@ -59,7 +61,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
                 for (int j = 0; j < 2; j++)
                 {
                     int factor = (j == 0) ? 1 : -1;
-                    Projectile.NewProjectile(projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
                 }
             }
 

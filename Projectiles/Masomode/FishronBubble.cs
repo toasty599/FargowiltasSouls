@@ -4,89 +4,96 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class FishronBubble : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_371";
+        public override string Texture => "Terraria/Images/NPC_371";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Detonating Bubble");
-            Main.projFrames[projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            Main.projFrames[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 36;
-            projectile.height = 36;
-            projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.timeLeft = 240;
-            projectile.alpha = 255;
-            projectile.aiStyle = -1;
+            Projectile.width = 36;
+            Projectile.height = 36;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 240;
+            Projectile.alpha = 255;
+            Projectile.aiStyle = -1;
         }
 
         public override void AI()
         {
-            projectile.velocity *= 1.03f;
+            Projectile.velocity *= 1.03f;
 
-            if (projectile.alpha > 50)
-                projectile.alpha -= 30;
+            if (Projectile.alpha > 50)
+                Projectile.alpha -= 30;
             else
-                projectile.alpha = 50;
+                Projectile.alpha = 50;
 
-            if (++projectile.frameCounter > 3)
+            if (++Projectile.frameCounter > 3)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= Main.projFrames[projectile.type])
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.frame = 0;
             }
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(255, 255, 255, 0) * projectile.Opacity;
+            return new Color(255, 255, 255, 0) * Projectile.Opacity;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Wet, 420);
-            //target.AddBuff(mod.BuffType("SqueakyToy"), Main.rand.Next(60, 180));
-            target.AddBuff(mod.BuffType("OceanicMaul"), 1800);
-            target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+            //target.AddBuff(ModContent.BuffType<SqueakyToy>(), Main.rand.Next(60, 180));
+            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 20 * 60);
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
         }
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.NPCHit3, projectile.Center);
-            Main.PlaySound(SoundID.NPCDeath3, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit3, Projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath3, Projectile.Center);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.25f)
             {
-                Color color27 = color26;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                Color color27 = Color.Cyan * Projectile.Opacity;
+                color27.A = 0;
+                float fade = (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                color27 *= fade * fade;
+                int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
+                if (max0 < 0)
+                    continue;
+                float num165 = Projectile.oldRot[max0];
+                Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
+                center += Projectile.Size / 2;
+                Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

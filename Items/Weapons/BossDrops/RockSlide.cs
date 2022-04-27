@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.BossWeapons;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Items.Weapons.BossDrops
 {
@@ -12,41 +13,41 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("The Rockslide");
             Tooltip.SetDefault("'The crumbling remains of a defeated foe..'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "山崩");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'被击败的敌人的破碎残骸'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "山崩");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'被击败的敌人的破碎残骸'");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 88;
-            item.magic = true;
-            item.width = 24;
-            item.height = 28;
-            item.useTime = 12;
-            item.useAnimation = 12;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true;
-            item.knockBack = 2;
-            item.value = 100000;
-            item.rare = ItemRarityID.Yellow;
-            item.mana = 10;
-            item.UseSound = SoundID.Item21;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<GolemGib>();
-            item.shootSpeed = 12f;
+            Item.damage = 88;
+            Item.DamageType = DamageClass.Magic;
+            Item.width = 24;
+            Item.height = 28;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 2;
+            Item.value = 100000;
+            Item.rare = ItemRarityID.Yellow;
+            Item.mana = 10;
+            Item.UseSound = SoundID.Item21;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<GolemGib>();
+            Item.shootSpeed = 12f;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
-            ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float itemShootSpeed = item.shootSpeed;
-            int itemDamage = item.damage;
-            float itemKnockBack = item.knockBack;
-            itemKnockBack = player.GetWeaponKnockback(item, itemKnockBack);
-            player.itemTime = item.useTime;
+            float ItemShootSpeed = Item.shootSpeed;
+            int ItemDamage = Item.damage;
+            float ItemKnockBack = Item.knockBack;
+            ItemKnockBack = player.GetWeaponKnockback(Item, ItemKnockBack);
+            player.itemTime = Item.useTime;
 
             Vector2 mountedCenterRotation = player.RotatedRelativePoint(player.MountedCenter);
             Vector2.UnitX.RotatedBy(player.fullRotation);
@@ -63,10 +64,10 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             {
                 localX = player.direction;
                 localY = 0f;
-                sqrtSpeed = itemShootSpeed;
+                sqrtSpeed = ItemShootSpeed;
             }
             else
-                sqrtSpeed = itemShootSpeed / sqrtSpeed;
+                sqrtSpeed = ItemShootSpeed / sqrtSpeed;
 
             localX *= sqrtSpeed;
             localY *= sqrtSpeed;
@@ -94,12 +95,12 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
                 localProjY += Main.rand.Next(-25, 26) * multiplier;
 
                 sqrtSpeed = (float)Math.Sqrt(localProjX * localProjX + localProjY * localProjY);
-                sqrtSpeed = itemShootSpeed / sqrtSpeed;
+                sqrtSpeed = ItemShootSpeed / sqrtSpeed;
 
                 localProjX *= sqrtSpeed;
                 localProjY *= sqrtSpeed;
 
-                Projectile.NewProjectile(position.X, position.Y, localProjX, localProjY, ModContent.ProjectileType<GolemGib>(), itemDamage, itemKnockBack, Main.myPlayer, 0, Main.rand.Next(1, 12));
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), position.X, position.Y, localProjX, localProjY, ModContent.ProjectileType<GolemGib>(), ItemDamage, ItemKnockBack, Main.myPlayer, 0, Main.rand.Next(1, 12));
             }
 
             return false;

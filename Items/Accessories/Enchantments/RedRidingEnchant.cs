@@ -7,10 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class RedRidingEnchant : SoulsItem
+    public class RedRidingEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Red Riding Enchantment");
             Tooltip.SetDefault(
 @"Arrows will periodically fall towards your cursor
@@ -19,8 +21,8 @@ The arrow type is based on the first arrow in your inventory
 This has a cooldown of 10 seconds
 Greatly enhances Explosive Traps effectiveness
 'Big Bad Red Riding Hood'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "红色游侠魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "红色游侠魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"箭矢会定期落至你光标周围
 双击'下'键后令箭雨倾斜在光标位置
 箭矢的种类取决于你背包中第一个箭矢
@@ -29,49 +31,37 @@ Greatly enhances Explosive Traps effectiveness
 '大坏蛋红色骑术帽！'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(192, 27, 60);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(192, 27, 60);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = 250000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = 250000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.RedRidingEffect(hideVisual);
-            modPlayer.HuntressEffect();
+            HuntressEnchant.HuntressEffect(player);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.HuntressAltHead);
-            recipe.AddIngredient(ItemID.HuntressAltShirt);
-            recipe.AddIngredient(ItemID.HuntressAltPants);
-            recipe.AddIngredient(null, "HuntressEnchant");
+            CreateRecipe()
+            .AddIngredient(ItemID.HuntressAltHead)
+            .AddIngredient(ItemID.HuntressAltShirt)
+            .AddIngredient(ItemID.HuntressAltPants)
+            .AddIngredient(null, "HuntressEnchant")
             //eventide
-            recipe.AddIngredient(ItemID.Marrow);
-            recipe.AddIngredient(ItemID.DD2BetsyBow);
-            //recipe.AddIngredient(ItemID.DogWhistle); //werewolf pet
+            .AddIngredient(ItemID.Marrow)
+            .AddIngredient(ItemID.DD2BetsyBow)
+            //.AddIngredient(ItemID.DogWhistle); //werewolf pet
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

@@ -12,57 +12,57 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Divine Blast");
-            Main.projFrames[projectile.type] = 12;
+            Main.projFrames[Projectile.type] = 12;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 80;
-            projectile.height = 80;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.penetrate = -1;
-            projectile.scale = 1.5f;
-            projectile.alpha = 0;
+            Projectile.width = 80;
+            Projectile.height = 80;
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.scale = 1.5f;
+            Projectile.alpha = 0;
         }
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.WallofFleshEye);
-            if (projectile.position.HasNaNs() || npc == null)
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.WallofFleshEye);
+            if (Projectile.position.HasNaNs() || npc == null)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
             
             Vector2 offset;
-            if (projectile.ai[0] == 0f)
+            if (Projectile.ai[0] == 0f)
             {
-                projectile.rotation = npc.rotation + (float)Math.PI;
-                offset = new Vector2(npc.width - 36, 6).RotatedBy(projectile.rotation);
+                Projectile.rotation = npc.rotation + (float)Math.PI;
+                offset = new Vector2(npc.width - 36, 6).RotatedBy(Projectile.rotation);
             }
             else
             {
-                projectile.rotation = npc.rotation;
-                offset = new Vector2(npc.width - 36, -6).RotatedBy(projectile.rotation);
+                Projectile.rotation = npc.rotation;
+                offset = new Vector2(npc.width - 36, -6).RotatedBy(Projectile.rotation);
             }
-            projectile.Center = npc.Center + offset;
+            Projectile.Center = npc.Center + offset;
             
-            if (++projectile.frameCounter >= 3)
+            if (++Projectile.frameCounter >= 3)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= Main.projFrames[projectile.type])
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
                 {
-                    projectile.frame--;
-                    projectile.Kill();
+                    Projectile.frame--;
+                    Projectile.Kill();
                 }
             }
             
-            if (projectile.localAI[0] == 0f)
+            if (Projectile.localAI[0] == 0f)
             {
-                projectile.localAI[0] = 1f;
-                Main.PlaySound(SoundID.Item88, projectile.Center);
+                Projectile.localAI[0] = 1f;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item88, Projectile.Center);
             }
         }
 
@@ -71,15 +71,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
             return Color.White;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

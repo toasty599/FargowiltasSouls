@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.BossWeapons;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Items.Weapons.BossDrops
 {
@@ -18,34 +19,36 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
                 "\n33% chance to not consume ammo" +
                 "\n'The shattered remains of a defeated foe..'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "骸骨领域");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'被击败的敌人的残骸..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "骸骨领域");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'被击败的敌人的残骸..'");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.damage = 12;
-            item.ranged = true;
-            item.width = 54;
-            item.height = 14;
-            item.useTime = 24;
-            item.useAnimation = 24;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true;
-            item.knockBack = 1.5f;
-            item.UseSound = SoundID.Item2;
-            item.value = 50000;
-            item.rare = ItemRarityID.Orange;
-            item.autoReuse = true;
-            item.shoot = mod.ProjectileType("Bonez");
-            item.shootSpeed = 5.5f;
-            item.useAmmo = ItemID.Bone;
+            Item.damage = 12;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 54;
+            Item.height = 14;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 1.5f;
+            Item.UseSound = SoundID.Item2;
+            Item.value = 50000;
+            Item.rare = ItemRarityID.Orange;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<Bonez>();
+            Item.shootSpeed = 5.5f;
+            Item.useAmmo = ItemID.Bone;
         }
 
-        // Manually reposition the item when held out
+        // Manually reposition the Item when held out
         public override Vector2? HoldoutOffset() => new Vector2(-30, 4);
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int shoot;
 
@@ -57,13 +60,13 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             else
                 shoot = ModContent.ProjectileType<Bonez>();
 
-            Main.projectile[Projectile.NewProjectile(position.X, position.Y, speedX, speedY, shoot, damage, knockBack, player.whoAmI)].ranged = true;
+            Main.projectile[Projectile.NewProjectile(player.GetSource_ItemUse(Item), position, velocity, shoot, damage, knockback, player.whoAmI)].DamageType = DamageClass.Ranged;
 
             counter++;
 
             return false;
         }
 
-        public override bool ConsumeAmmo(Player player) => Main.rand.Next(3) != 0;
+        public override bool CanConsumeAmmo(Player player) => Main.rand.Next(3) != 0;
     }
 }

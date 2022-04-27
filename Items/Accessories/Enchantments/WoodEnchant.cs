@@ -4,67 +4,85 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Terraria.GameContent.Bestiary;
+using System;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class WoodEnchant : SoulsItem
+    public class WoodEnchant : BaseEnchant
     {
+        protected override Color nameColor => new Color(151, 107, 75);
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Wood Enchantment");
             Tooltip.SetDefault(
-@"Turns certain critters into weapons
-Right click with them to attack
-'Humble beginnings…'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "木魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+@"Bestiary entries complete twice as fast
+You gain a shop discount based on bestiary completion");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "木魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"将某些动物转化为武器
 右键进行攻击
 '卑微的开始...'");
-            //Certain critters have extra effects
-            //Effects of Critter guide tm
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
         {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(151, 107, 75);
-                }
-            }
+            base.SafeModifyTooltips(list);
+
+            double discount = (Main.GetBestiaryProgressReport().CompletionPercent / 2);
+            discount *= 100;
+            discount = Math.Round(discount, 2);
+            list.Add(new TooltipLine(Mod, "Discount", "Current discount: " + discount + "%"));
+            list.Add(new TooltipLine(Mod, "Flavor", "'Humble beginnings…'"));
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Blue;
-            item.value = 10000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Blue;
+            Item.value = 10000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().WoodEnchant = true;
+            WoodEffect(player);
+        }
+
+        public static void WoodEffect(Player player)
+        {
+            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantActive = true;
+        }
+
+        public static void WoodDiscount(Chest shop)
+        {
+            BestiaryUnlockProgressReport bestiaryProgressReport = Main.GetBestiaryProgressReport();
+            float discount = 1f - (bestiaryProgressReport.CompletionPercent / 2f); //50% discount at 100% bestiary
+
+            for (int i = 0; i < 40; i++)
+            {
+                int? originalPrice = shop.item[i].shopCustomPrice == null ? shop.item[i].value : shop.item[i].shopCustomPrice;
+
+                shop.item[i].shopCustomPrice = (int)((float)originalPrice * discount);
+            }
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.WoodHelmet);
-            recipe.AddIngredient(ItemID.WoodBreastplate);
-            recipe.AddIngredient(ItemID.WoodGreaves);
-            recipe.AddIngredient(ItemID.Daybloom);
-            recipe.AddIngredient(ItemID.Bunny); //guide to critter companionship
-            recipe.AddRecipeGroup("FargowiltasSouls:AnySquirrel"); //squirrel hook
-            //recipe.AddRecipeGroup("FargowiltasSouls:AnyBird");
+            CreateRecipe()
+            .AddIngredient(ItemID.WoodHelmet)
+            .AddIngredient(ItemID.WoodBreastplate)
+            .AddIngredient(ItemID.WoodGreaves)
+            .AddIngredient(ItemID.Daybloom)
+            .AddIngredient(ItemID.Bunny) 
+            .AddRecipeGroup("FargowiltasSouls:AnySquirrel") 
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.DemonAltar)
+            .Register();
+            
         }
     }
 }

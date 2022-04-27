@@ -4,70 +4,126 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
+using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Projectiles.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class CopperEnchant : SoulsItem
+    public class CopperEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Copper Enchantment");
-            
-            DisplayName.AddTranslation(GameCulture.Chinese, "铜魔石");
-            
-            string tooltip =
-@"Attacks have a chance to shock enemies with lightning
-'Behold'";
-            Tooltip.SetDefault(tooltip);
+            Tooltip.SetDefault(
+@"Attacks have a chance to shock enemies with chain lightning
+'Behold'");
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铜魔石");
             string tooltip_ch =
 @"攻击有几率释放闪电击打敌人
 '凝视'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(213, 102, 23);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(213, 102, 23);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Orange;
-            item.value = 100000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Orange;
+            Item.value = 100000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().CopperEnchant = true;
+            CopperEffect(player);
+        }
+
+        public static void CopperEffect(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            modPlayer.CopperEnchantActive = true;
+
+            if (modPlayer.CopperProcCD > 0)
+                modPlayer.CopperProcCD--;
+        }
+
+        public static void CopperProc(FargoSoulsPlayer modPlayer, NPC target)
+        {
+            if (modPlayer.Player.GetToggleValue("Copper") && modPlayer.CopperProcCD == 0)
+            {
+                target.AddBuff(BuffID.Electrified, 180);
+
+                int dmg = 20;
+                int maxTargets = 1;
+                int cdLength = 300;
+
+                if (modPlayer.TerraForce)
+                {
+                    dmg = 100;
+                    maxTargets = 10;
+                    cdLength = 200;
+                }
+
+                List<int> npcIndexes = new List<int>();
+                float closestDist = 500f;
+                NPC closestNPC;
+
+                for (int i = 0; i < maxTargets; i++)
+                {
+                    closestNPC = null;
+
+                    //find closest npc to target that has not been chained to yet
+                    for (int j = 0; j < Main.maxNPCs; j++)
+                    {
+                        NPC npc = Main.npc[j];
+
+                        if (npc.active && npc.whoAmI != target.whoAmI && npc.Distance(target.Center) < closestDist && !npcIndexes.Contains(npc.whoAmI)
+                            && Collision.CanHitLine(npc.Center, 0, 0, target.Center, 0, 0))
+                        {
+                            closestNPC = npc;
+                            closestDist = npc.Distance(target.Center);
+                            //break;
+                        }
+                    }
+
+                    if (closestNPC != null)
+                    {
+                        npcIndexes.Add(closestNPC.whoAmI);
+
+                        Vector2 ai = closestNPC.Center - target.Center;
+                        float ai2 = Main.rand.Next(100);
+                        Vector2 velocity = Vector2.Normalize(ai) * 20;
+
+                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(modPlayer.Player.GetSource_ItemUse(modPlayer.Player.HeldItem), target.Center, velocity, ModContent.ProjectileType<CopperLightning>(), FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, dmg), 0f, modPlayer.Player.whoAmI, ai.ToRotation(), ai2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    target = closestNPC;
+                }
+
+                modPlayer.CopperProcCD = cdLength;
+            }
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.CopperHelmet);
-            recipe.AddIngredient(ItemID.CopperChainmail);
-            recipe.AddIngredient(ItemID.CopperGreaves);
-            recipe.AddIngredient(ItemID.CopperShortsword);
-            recipe.AddIngredient(ItemID.AmethystStaff);
-            //recipe.AddIngredient(ItemID.PurplePhaseblade);
-            //thunder zapper
-            //recipe.AddIngredient(ItemID.Wire, 20);
-            //daybloom
-            recipe.AddIngredient(ItemID.FirstEncounter);
-
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ItemID.CopperHelmet)
+                .AddIngredient(ItemID.CopperChainmail)
+                .AddIngredient(ItemID.CopperGreaves)
+                .AddIngredient(ItemID.CopperShortsword)
+                .AddIngredient(ItemID.WandofSparking)
+                .AddIngredient(ItemID.ThunderStaff)
+                
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
 }

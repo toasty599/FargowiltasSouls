@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Materials;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +14,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Sparkling Love");
             Tooltip.SetDefault(@"Right click to summon the soul of Deviantt
 Right click pattern becomes denser with up to 12 empty minion slots
@@ -19,23 +23,23 @@ Right click pattern becomes denser with up to 12 empty minion slots
 
         public override void SetDefaults()
         {
-            item.damage = 1700;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useAnimation = 27;
-            item.useTime = 27;
-            item.shootSpeed = 16f;
-            item.knockBack = 14f;
-            item.width = 32;
-            item.height = 32;
-            item.scale = 2f;
-            item.rare = ItemRarityID.Purple;
-            item.UseSound = SoundID.Item1;
-            item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingLove>();
-            item.value = Item.sellPrice(0, 70);
-            item.noMelee = true; //no melee hitbox
-            item.noUseGraphic = true; //dont draw item
-            item.melee = true;
-            item.autoReuse = true;
+            Item.damage = 1700;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useAnimation = 27;
+            Item.useTime = 27;
+            Item.shootSpeed = 16f;
+            Item.knockBack = 14f;
+            Item.width = 32;
+            Item.height = 32;
+            Item.scale = 2f;
+            Item.rare = ItemRarityID.Purple;
+            Item.UseSound = SoundID.Item1;
+            Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingLove>();
+            Item.value = Item.sellPrice(0, 70);
+            Item.noMelee = true; //no melee hitbox
+            Item.noUseGraphic = true; //dont draw Item
+            Item.DamageType = DamageClass.Melee;
+            Item.autoReuse = true;
         }
 
         public override bool AltFunctionUse(Player player)
@@ -47,40 +51,49 @@ Right click pattern becomes denser with up to 12 empty minion slots
         {
             if (player.altFunctionUse == 2)
             {
-                item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingDevi>();
-                item.useStyle = ItemUseStyleID.SwingThrow;
-                item.summon = true;
-                item.melee = false;
-                item.noUseGraphic = false;
-                item.noMelee = false;
-                item.useAnimation = 66;
-                item.useTime = 66;
-                item.mana = 100;
+                Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingDevi>();
+                Item.useStyle = ItemUseStyleID.Swing;
+                Item.DamageType = DamageClass.Summon;
+                Item.noUseGraphic = false;
+                Item.noMelee = false;
+                Item.useAnimation = 66;
+                Item.useTime = 66;
+                Item.mana = 100;
             }
             else
             {
-                item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingLove>();
-                item.useStyle = ItemUseStyleID.SwingThrow;
-                item.summon = false;
-                item.melee = true;
-                item.noUseGraphic = true;
-                item.noMelee = true;
-                item.useAnimation = 27;
-                item.useTime = 27;
-                item.mana = 0;
+                Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingLove>();
+                Item.useStyle = ItemUseStyleID.Swing;
+                Item.DamageType = DamageClass.Melee;
+                Item.noUseGraphic = true;
+                Item.noMelee = true;
+                Item.useAnimation = 27;
+                Item.useTime = 27;
+                Item.mana = 0;
             }
             return true;
         }
 
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                FargoSoulsUtil.NewSummonProjectile(source, position, velocity, type, Item.damage, knockback, player.whoAmI);
+                return false;
+            }
+
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+        }
+
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
         {
-            if (line.mod == "Terraria" && line.Name == "ItemName")
+            if (line.Mod == "Terraria" && line.Name == "ItemName")
             {
                 Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
                 var lineshader = GameShaders.Misc["PulseCircle"].UseColor(new Color(255, 48, 154)).UseSecondaryColor(new Color(255, 169, 240));
                 lineshader.Apply(null);
-                Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), new Color(255, 169, 240), 1); //draw the tooltip manually
+                Utils.DrawBorderString(Main.spriteBatch, line.Text, new Vector2(line.X, line.Y), new Color(255, 169, 240), 1); //draw the tooltip manually
                 Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
                 return false;
@@ -90,18 +103,18 @@ Right click pattern becomes denser with up to 12 empty minion slots
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            //recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
-            recipe.AddIngredient(mod.ItemType("Sadism"), 30);
-            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 30);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
-            recipe.AddIngredient(mod.ItemType("BrokenBlade"));
-            recipe.AddIngredient(mod.ItemType("SparklingAdoration"));
+            //.AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerMoon"));
+            .AddIngredient(ModContent.ItemType<EternalEnergy>(), 30)
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 30)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 30)
+            .AddIngredient(ModContent.ItemType<BrokenBlade>())
+            .AddIngredient(ModContent.ItemType<SparklingAdoration>())
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

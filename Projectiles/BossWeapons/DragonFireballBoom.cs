@@ -7,24 +7,24 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     public class DragonFireballBoom : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_612";
+        public override string Texture => "Terraria/Images/Projectile_612";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fireball");
-            Main.projFrames[projectile.type] = Main.projFrames[ProjectileID.SolarWhipSwordExplosion];
+            Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.SolarWhipSwordExplosion];
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 30;
-            projectile.height = 30;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.timeLeft = 600;
-            projectile.scale = 2;
-            projectile.tileCollide = false;
-            //cooldownSlot = 1;
+            Projectile.width = 30;
+            Projectile.height = 30;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.timeLeft = 600;
+            Projectile.scale = 2;
+            Projectile.tileCollide = false;
+            //CooldownSlot = 1;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -33,15 +33,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         }
         public override void AI()
         {
-            projectile.frameCounter++;
-            if (projectile.frameCounter > 3)
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter > 3)
             {
-                projectile.frame++;
-                projectile.frameCounter = 0;
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
             }
 
-            if (projectile.frame > Main.projFrames[projectile.type])
-                projectile.Kill();
+            if (Projectile.frame > Main.projFrames[Projectile.type])
+                Projectile.Kill();
         }
     }
 }

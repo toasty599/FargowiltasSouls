@@ -1,65 +1,74 @@
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.UI;
 
 namespace FargowiltasSouls
 {
-    // ReSharper disable once ClassNeverInstantiated.Global
-    public class FargoSoulsWorld : ModWorld
+    public class FargoSoulsWorld : ModSystem
     {
-        public static bool SwarmActive => (bool)ModLoader.GetMod("Fargowiltas").Call("SwarmActive");
+        internal enum Downed //for champions specifically to keep them organized and synced, DO NOT rearrange
+        {
+            TimberChampion,
+            TerraChampion,
+            EarthChampion,
+            NatureChampion,
+            LifeChampion,
+            ShadowChampion,
+            SpiritChampion,
+            WillChampion,
+            CosmosChampion
+        }
+
+        public static bool SwarmActive => ModLoader.TryGetMod("Fargowiltas", out Mod fargo) && (bool)fargo.Call("SwarmActive");
 
         public static bool downedBetsy;
-        private static bool _downedBoss;
 
         //masomode
         public const int MaxCountPreHM = 560;
         public const int MaxCountHM = 240;
 
-        public static bool EternityMode;
+        public static bool ShouldBeEternityMode;
+        public static bool EternityMode { get; private set; }
         public static bool MasochistModeReal;
+        public static bool CanPlayMaso;
         public static bool downedFishronEX;
         public static bool downedDevi;
         public static bool downedAbom;
         public static bool downedMutant;
         public static bool AngryMutant;
-        public static bool SuppressRandomMutant;
 
-        public static bool downedMM;
-        public static bool firstGoblins;
+        public static bool haveForcedAbomFromGoblins;
         public static int skipMutantP1;
 
-        public static bool NoMasoBossScaling = true;
         public static bool ReceivedTerraStorage;
         public static bool spawnedDevi;
 
         public static bool[] downedChampions = new bool[9];
 
-        public override void Initialize()
+        public override void OnWorldLoad()
         {
             downedBetsy = false;
-            _downedBoss = false;
 
-            downedMM = false;
-
-            //masomode
+            ShouldBeEternityMode = false;
             EternityMode = false;
+            CanPlayMaso = false;
             MasochistModeReal = false;
             downedFishronEX = false;
             downedDevi = false;
             downedAbom = false;
             downedMutant = false;
             AngryMutant = false;
-            SuppressRandomMutant = false;
 
-            firstGoblins = true;
+            haveForcedAbomFromGoblins = false;
             skipMutantP1 = 0;
 
-            NoMasoBossScaling = true;
             ReceivedTerraStorage = false;
             spawnedDevi = false;
 
@@ -67,61 +76,53 @@ namespace FargowiltasSouls
                 downedChampions[i] = false;
         }
 
-        public override TagCompound Save()
+        public override void SaveWorldData(TagCompound tag)
         {
 
             List<string> downed = new List<string>();
             if (downedBetsy) downed.Add("betsy");
-            if (_downedBoss) downed.Add("boss");
+            if (ShouldBeEternityMode) downed.Add("shouldBeEternityMode");
             if (EternityMode) downed.Add("eternity");
+            if (CanPlayMaso) downed.Add("CanPlayMaso");
             if (MasochistModeReal) downed.Add("getReal");
             if (downedFishronEX) downed.Add("downedFishronEX");
             if (downedDevi) downed.Add("downedDevi");
             if (downedAbom) downed.Add("downedAbom");
             if (downedMutant) downed.Add("downedMutant");
             if (AngryMutant) downed.Add("AngryMutant");
-            if (SuppressRandomMutant) downed.Add("SuppressRandomMutant");
-            if (downedMM) downed.Add("downedMadhouse");
-            if (firstGoblins) downed.Add("forceMeteor");
-            if (NoMasoBossScaling) downed.Add("NoMasoBossScaling");
+            if (haveForcedAbomFromGoblins) downed.Add("haveForcedAbomFromGoblins");
             if (ReceivedTerraStorage) downed.Add("ReceivedTerraStorage");
             if (spawnedDevi) downed.Add("spawnedDevi");
-            
+
             for (int i = 0; i < downedChampions.Length; i++)
             {
                 if (downedChampions[i])
                     downed.Add("downedChampion" + i.ToString());
             }
 
-            return new TagCompound
-            {
-                {"downed", downed}, {"mutantP1", skipMutantP1}
-            };
+            tag.Add("downed", downed);
+            tag.Add("mutantP1", skipMutantP1);
         }
 
-        public override void Load(TagCompound tag)
+        public override void LoadWorldData(TagCompound tag)
         {
             IList<string> downed = tag.GetList<string>("downed");
             downedBetsy = downed.Contains("betsy");
-            _downedBoss = downed.Contains("boss");
+            ShouldBeEternityMode = downed.Contains("shouldBeEternityMode");
             EternityMode = downed.Contains("eternity") || downed.Contains("masochist");
+            CanPlayMaso = downed.Contains("CanPlayMaso");
             MasochistModeReal = downed.Contains("getReal");
             downedFishronEX = downed.Contains("downedFishronEX");
             downedDevi = downed.Contains("downedDevi");
             downedAbom = downed.Contains("downedAbom");
             downedMutant = downed.Contains("downedMutant");
             AngryMutant = downed.Contains("AngryMutant");
-            SuppressRandomMutant = downed.Contains("SuppressRandomMutant");
-            downedMM = downed.Contains("downedMadhouse");
-            firstGoblins = downed.Contains("forceMeteor");
-            NoMasoBossScaling = downed.Contains("NoMasoBossScaling");
+            haveForcedAbomFromGoblins = downed.Contains("haveForcedAbomFromGoblins");
             ReceivedTerraStorage = downed.Contains("ReceivedTerraStorage");
             spawnedDevi = downed.Contains("spawnedDevi");
 
             for (int i = 0; i < downedChampions.Length; i++)
-            {
-                downedChampions[i] = downed.Contains("downedChampion" + i.ToString());
-            }
+                downedChampions[i] = downed.Contains($"downedChampion{i}");
 
             if (tag.ContainsKey("mutantP1"))
                 skipMutantP1 = tag.GetAsInt("mutantP1");
@@ -133,76 +134,119 @@ namespace FargowiltasSouls
 
             BitsByte flags = reader.ReadByte();
             downedBetsy = flags[0];
-            _downedBoss = flags[1];
-            EternityMode = flags[2];
-            downedFishronEX = flags[3];
-            downedDevi = flags[4];
-            downedAbom = flags[5];
-            downedMutant = flags[6];
-            AngryMutant = flags[7];
-            downedMM = flags[8];
-            firstGoblins = flags[9];
-            NoMasoBossScaling = flags[10];
-            ReceivedTerraStorage = flags[11];
-            spawnedDevi = flags[12];
-            SuppressRandomMutant = flags[13];
-            MasochistModeReal = flags[14];
+            EternityMode = flags[1];
+            downedFishronEX = flags[2];
+            downedDevi = flags[3];
+            downedAbom = flags[4];
+            downedMutant = flags[5];
+            AngryMutant = flags[6];
+            haveForcedAbomFromGoblins = flags[7];
 
-            const int offset = 15;
-            for (int i = 0; i < downedChampions.Length; i++)
-            {
-                downedChampions[i] = flags[i + offset];
-            }
+            flags = reader.ReadByte();
+            ReceivedTerraStorage = flags[0];
+            spawnedDevi = flags[1];
+            MasochistModeReal = flags[2];
+            CanPlayMaso = flags[3];
+            ShouldBeEternityMode = flags[4];
+
+            flags = reader.ReadByte();
+            downedChampions[0] = flags[0];
+            downedChampions[1] = flags[1];
+            downedChampions[2] = flags[2];
+            downedChampions[3] = flags[3];
+            downedChampions[4] = flags[4];
+            downedChampions[5] = flags[5];
+            downedChampions[6] = flags[6];
+            downedChampions[7] = flags[7];
+
+            flags = reader.ReadByte();
+            downedChampions[8] = flags[0];
         }
 
         public override void NetSend(BinaryWriter writer)
         {
             writer.Write(skipMutantP1);
 
-            BitsByte flags = new BitsByte
+            writer.Write(new BitsByte
             {
                 [0] = downedBetsy,
-                [1] = _downedBoss,
-                [2] = EternityMode,
-                [3] = downedFishronEX,
-                [4] = downedDevi,
-                [5] = downedAbom,
-                [6] = downedMutant,
-                [7] = AngryMutant,
-                [8] = downedMM,
-                [9] = firstGoblins,
-                [10] = NoMasoBossScaling,
-                [11] = ReceivedTerraStorage,
-                [12] = spawnedDevi,
-                [13] = SuppressRandomMutant,
-                [14] = MasochistModeReal,
-                [15] = downedChampions[0],
-                [16] = downedChampions[1],
-                [17] = downedChampions[2],
-                [18] = downedChampions[3],
-                [19] = downedChampions[4],
-                [20] = downedChampions[5],
-                [21] = downedChampions[6],
-                [22] = downedChampions[7],
-                [23] = downedChampions[8]
-            };
+                [1] = EternityMode,
+                [2] = downedFishronEX,
+                [3] = downedDevi,
+                [4] = downedAbom,
+                [5] = downedMutant,
+                [6] = AngryMutant,
+                [7] = haveForcedAbomFromGoblins
+            });
 
-            writer.Write(flags);
+            writer.Write(new BitsByte
+            {
+                [0] = ReceivedTerraStorage,
+                [1] = spawnedDevi,
+                [2] = MasochistModeReal,
+                [3] = CanPlayMaso,
+                [4] = ShouldBeEternityMode
+            });
+
+            writer.Write(new BitsByte
+            {
+                [0] = downedChampions[0],
+                [1] = downedChampions[1],
+                [2] = downedChampions[2],
+                [3] = downedChampions[3],
+                [4] = downedChampions[4],
+                [5] = downedChampions[5],
+                [6] = downedChampions[6],
+                [7] = downedChampions[7]
+            });
+
+            writer.Write(new BitsByte
+            {
+                [0] = downedChampions[8]
+            });
         }
 
-        public override void PostUpdate()
+        public override void PostUpdateWorld()
         {
             NPC.LunarShieldPowerExpert = 150;
+
+            if (ShouldBeEternityMode)
+            {
+                if (EternityMode && !FargoSoulsUtil.WorldIsExpertOrHarder())
+                {
+                    EternityMode = false;
+                    FargoSoulsUtil.PrintText("Difficulty too low, Eternity Mode deactivated...", new Color(175, 75, 255));
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData);
+                    if (!Main.dedServ)
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
+                }
+                else if (!EternityMode && FargoSoulsUtil.WorldIsExpertOrHarder())
+                {
+                    EternityMode = true;
+                    FargoSoulsUtil.PrintText("Eternity Mode activated!", new Color(175, 75, 255));
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData);
+                    if (!Main.dedServ)
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
+                }
+            }
+            else if (EternityMode)
+            {
+                EternityMode = false;
+                FargoSoulsUtil.PrintText("Eternity Mode deactivated.", new Color(175, 75, 255));
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.WorldData);
+                if (!Main.dedServ)
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
+            }
 
             if (EternityMode)
             {
                 NPC.LunarShieldPowerExpert = 50;
 
-                if (!Main.expertMode)
-                    EternityMode = false;
-
                 if (!NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable some events
-                    && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")))
+                    && ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC abom) && !NPC.AnyNPCs(abom.Type))
                 {
                     if (Main.raining || Sandstorm.Happening || Main.bloodMoon)
                     {
@@ -211,15 +255,33 @@ namespace FargowiltasSouls
                         Main.maxRaining = 0;
                         Sandstorm.Happening = false;
                         Sandstorm.TimeLeft = 0;
+                        if (Main.bloodMoon)
+                            FargoSoulsUtil.PrintText("The Blood Moon changed its mind and left...", new Color(175, 75, 255));
                         Main.bloodMoon = false;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.WorldData);
                     }
                 }
+
+                if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso && !FargoSoulsUtil.AnyBossAlive())
+                {
+                    MasochistModeReal = true;
+                    FargoSoulsUtil.PrintText("Master and Eternity combined: Masochist Mode activated!!", new Color(51, 255, 191, 0));
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData);
+                    if (!Main.dedServ)
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
+                }
             }
-            else
+
+            if (MasochistModeReal && !(EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso))
             {
                 MasochistModeReal = false;
+                FargoSoulsUtil.PrintText("Masochist Mode deactivated.", new Color(51, 255, 191, 0));
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.WorldData);
+                if (!Main.dedServ)
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
             }
 
             //Main.NewText(BuilderMode);
@@ -228,26 +290,26 @@ namespace FargowiltasSouls
 
             //right when day starts
             /*if(/*Main.time == 0 && Main.dayTime && !Main.eclipse && FargoSoulsWorld.masochistMode)
-			{
-					Main.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0, 1f, 0f);
-					
-					if (Main.netMode == NetmodeID.SinglePlayer)
-					{
-						Main.eclipse = true;
-						//Main.NewText(Lang.misc[20], 50, 255, 130, false);
-					}
-					else
-					{
-						//NetMessage.SendData(61, -1, -1, "", player.whoAmI, -6f, 0f, 0f, 0, 0, 0);
-					}
-				
-				
-			}*/
+            {
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0, 1f, 0);
+
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.eclipse = true;
+                        //Main.NewText(Lang.misc[20], 50, 255, 130, false);
+                    }
+                    else
+                    {
+                        //NetMessage.SendData(61, -1, -1, "", player.whoAmI, -6f, 0f, 0f, 0, 0, 0);
+                    }
+
+
+            }*/
 
             // if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 361 && Main.CanStartInvasion(1, true))
             // {
             // this.itemTime = item.useTime;
-            // Main.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0f);
+            // Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0);
             // if (Main.netMode != NetmodeID.MultiplayerClient)
             // {
             // if (Main.invasionType == 0)
@@ -264,7 +326,7 @@ namespace FargowiltasSouls
             // if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 602 && Main.CanStartInvasion(2, true))
             // {
             // this.itemTime = item.useTime;
-            // Main.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0f);
+            // Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0);
             // if (Main.netMode != NetmodeID.MultiplayerClient)
             // {
             // if (Main.invasionType == 0)
@@ -281,7 +343,7 @@ namespace FargowiltasSouls
             // if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 1315 && Main.CanStartInvasion(3, true))
             // {
             // this.itemTime = item.useTime;
-            // Main.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0f);
+            // Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0);
             // if (Main.netMode != NetmodeID.MultiplayerClient)
             // {
             // if (Main.invasionType == 0)
@@ -298,7 +360,7 @@ namespace FargowiltasSouls
             // if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 1844 && !Main.dayTime && !Main.pumpkinMoon && !Main.snowMoon && !DD2Event.Ongoing)
             // {
             // this.itemTime = item.useTime;
-            // Main.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0f);
+            // Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0);
             // if (Main.netMode != NetmodeID.MultiplayerClient)
             // {
             // Main.NewText(Lang.misc[31], 50, 255, 130, false);
@@ -312,7 +374,7 @@ namespace FargowiltasSouls
 
             // if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 3601 && NPC.downedGolemBoss && Main.hardMode && !NPC.AnyDanger() && !NPC.AnyoneNearCultists())
             // {
-            // Main.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0f);
+            // Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0);
             // this.itemTime = item.useTime;
             // if (Main.netMode == NetmodeID.SinglePlayer)
             // {
@@ -326,7 +388,7 @@ namespace FargowiltasSouls
             // if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 1958 && !Main.dayTime && !Main.pumpkinMoon && !Main.snowMoon && !DD2Event.Ongoing)
             // {
             // this.itemTime = item.useTime;
-            // Main.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0f);
+            // Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)this.position.X, (int)this.position.Y, 0, 1f, 0);
             // if (Main.netMode != NetmodeID.MultiplayerClient)
             // {
             // Main.NewText(Lang.misc[34], 50, 255, 130, false);
@@ -349,61 +411,94 @@ namespace FargowiltasSouls
             Main.tile[Main.spawnTileX - 1, Main.spawnTileY].slope(0);
             Main.tile[Main.spawnTileX, Main.spawnTileY].slope(0);
             Main.tile[Main.spawnTileX + 1, Main.spawnTileY].slope(0);
-            WorldGen.PlaceTile(Main.spawnTileX, Main.spawnTileY - 1, ModLoader.GetMod("Fargowiltas").TileType("RegalStatueSheet"), false, true);*/
+            WorldGen.PlaceTile(Main.spawnTileX, Main.spawnTileY - 1, ModContent.Find<ModTile>("Fargowiltas", "RegalStatueSheet"), false, true);*/
 
-            int positionX = Main.spawnTileX - 1; //offset by dimensions of statue
-            int positionY = Main.spawnTileY - 4;
-            bool placed = false;
-            List<int> legalBlocks = new List<int> { TileID.Stone, TileID.Grass, TileID.Dirt, TileID.SnowBlock, TileID.IceBlock, TileID.ClayBlock };
-            for (int offsetX = -50; offsetX <= 50; offsetX++)
+            bool TryPlacingStatue(int baseCheckX, int baseCheckY)
             {
-                for (int offsetY = -30; offsetY <= 10; offsetY++)
-                {
-                    int baseCheckX = positionX + offsetX;
-                    int baseCheckY = positionY + offsetY;
+                List<int> legalBlocks = new List<int> { 
+                    TileID.Stone, 
+                    TileID.Grass,
+                    TileID.Dirt,
+                    TileID.SnowBlock,
+                    TileID.IceBlock, 
+                    TileID.ClayBlock,
+                    TileID.Mud,
+                    TileID.JungleGrass,
+                    TileID.Sand
+                };
 
-                    bool canPlaceStatueHere = true;
-                    for (int i = 0; i < 3; i++) //check no obstructing blocks
-                        for (int j = 0; j < 4; j++)
-                        {
-                            Tile tile = Framing.GetTileSafely(baseCheckX + i, baseCheckY + j);
-                            if (WorldGen.SolidOrSlopedTile(tile))
-                            {
-                                canPlaceStatueHere = false;
-                                break;
-                            }
-                        }
-                    for (int i = 0; i < 3; i++) //check for solid foundation
+                bool canPlaceStatueHere = true;
+                for (int i = 0; i < 3; i++) //check no obstructing blocks
+                    for (int j = 0; j < 4; j++)
                     {
-                        Tile tile = Framing.GetTileSafely(baseCheckX + i, baseCheckY + 4);
-                        if (!WorldGen.SolidTile(tile) || !legalBlocks.Contains(tile.type))
+                        Tile tile = Framing.GetTileSafely(baseCheckX + i, baseCheckY + j);
+                        if (WorldGen.SolidOrSlopedTile(tile))
                         {
                             canPlaceStatueHere = false;
                             break;
                         }
                     }
-
-                    if (canPlaceStatueHere)
+                for (int i = 0; i < 3; i++) //check for solid foundation
+                {
+                    Tile tile = Framing.GetTileSafely(baseCheckX + i, baseCheckY + 4);
+                    if (!WorldGen.SolidTile(tile) || !legalBlocks.Contains(tile.TileType))
                     {
-                        for (int i = 0; i < 3; i++) //MAKE SURE nothing in the way
-                            for (int j = 0; j < 4; j++)
-                                WorldGen.KillTile(baseCheckX + i, baseCheckY + j);
+                        canPlaceStatueHere = false;
+                        break;
+                    }
+                }
 
-                        WorldGen.PlaceTile(baseCheckX, baseCheckY + 4, TileID.GrayBrick, false, true);
-                        WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 4, TileID.GrayBrick, false, true);
-                        WorldGen.PlaceTile(baseCheckX + 2, baseCheckY + 4, TileID.GrayBrick, false, true);
-                        Main.tile[baseCheckX, baseCheckY + 4].slope(0);
-                        Main.tile[baseCheckX + 1, baseCheckY + 4].slope(0);
-                        Main.tile[baseCheckX + 2, baseCheckY + 4].slope(0);
-                        WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 3, mod.TileType("MutantStatueGift"), false, true);
+                if (canPlaceStatueHere)
+                {
+                    for (int i = 0; i < 3; i++) //MAKE SURE nothing in the way
+                        for (int j = 0; j < 4; j++)
+                            WorldGen.KillTile(baseCheckX + i, baseCheckY + j);
 
+                    WorldGen.PlaceTile(baseCheckX, baseCheckY + 4, TileID.GrayBrick, false, true);
+                    WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 4, TileID.GrayBrick, false, true);
+                    WorldGen.PlaceTile(baseCheckX + 2, baseCheckY + 4, TileID.GrayBrick, false, true);
+                    Tile tile = Main.tile[baseCheckX, baseCheckY + 4]; tile.Slope = 0;
+                    tile = Main.tile[baseCheckX + 1, baseCheckY + 4]; tile.Slope = 0;
+                    tile = Main.tile[baseCheckX + 2, baseCheckY + 4]; tile.Slope = 0;
+                    WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 3, ModContent.TileType<Tiles.MutantStatueGift>(), false, true);
+
+                    return true;
+                }
+
+                return false;
+            }
+
+            int positionX = Main.spawnTileX - 1; //offset by dimensions of statue
+            int positionY = Main.spawnTileY - 4;
+            bool placed = false;
+            for (int offsetX = -50; offsetX <= 50; offsetX++)
+            {
+                for (int offsetY = -30; offsetY <= 10; offsetY++)
+                {
+                    if (TryPlacingStatue(positionX + offsetX, positionY + offsetY))
+                    {
                         placed = true;
                         break;
                     }
                 }
+
                 if (placed)
                     break;
             }
+        }
+
+        public override void UpdateUI(GameTime gameTime)
+        {
+            base.UpdateUI(gameTime);
+
+            FargowiltasSouls.UserInterfaceManager.UpdateUI(gameTime);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            base.ModifyInterfaceLayers(layers);
+
+            FargowiltasSouls.UserInterfaceManager.ModifyInterfaceLayers(layers);
         }
     }
 }

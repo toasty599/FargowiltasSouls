@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -19,23 +20,25 @@ Your attacks have a small chance to inflict Lightning Rod
 Two friendly probes fight by your side
 Reduces damage taken by 5%
 'Malware probably not included'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "可疑电路");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'里面也许没有恶意软件'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "可疑电路");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'里面也许没有恶意软件'
 免疫诅咒地狱,脓液,避雷针,毫无防御,昏迷和击退
 攻击造成诅咒地狱和脓液效果
 攻击小概率造成避雷针效果
 召唤2个友善的探测器为你而战
 减少6%所受伤害");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Lime;
-            item.value = Item.sellPrice(0, 5);
-            item.defense = 10;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Lime;
+            Item.value = Item.sellPrice(0, 5);
+            Item.defense = 10;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -46,8 +49,8 @@ Reduces damage taken by 5%
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.NanoInjection>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.LightningRod>()] = true;
 
-            player.GetModPlayer<FargoPlayer>().FusedLens = true;
-            player.GetModPlayer<FargoPlayer>().GroundStick = true;
+            player.GetModPlayer<FargoSoulsPlayer>().FusedLens = true;
+            player.GetModPlayer<FargoSoulsPlayer>().GroundStick = true;
             if (player.GetToggleValue("MasoProbe"))
                 player.AddBuff(ModContent.BuffType<Buffs.Minions.Probes>(), 2);
 
@@ -57,20 +60,20 @@ Reduces damage taken by 5%
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("FusedLens"));
-            recipe.AddIngredient(mod.ItemType("GroundStick"));
-            recipe.AddIngredient(mod.ItemType("ReinforcedPlating"));
-            recipe.AddIngredient(ItemID.HallowedBar, 10);
-            recipe.AddIngredient(ItemID.SoulofFright, 5);
-            recipe.AddIngredient(ItemID.SoulofMight, 5);
-            recipe.AddIngredient(ItemID.SoulofSight, 5);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<FusedLens>())
+            .AddIngredient(ModContent.ItemType<GroundStick>())
+            .AddIngredient(ModContent.ItemType<ReinforcedPlating>())
+            .AddIngredient(ItemID.HallowedBar, 10)
+            .AddIngredient(ItemID.SoulofFright, 5)
+            .AddIngredient(ItemID.SoulofMight, 5)
+            .AddIngredient(ItemID.SoulofSight, 5)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.MythrilAnvil)
+            
+            .Register();
         }
     }
 }

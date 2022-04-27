@@ -6,21 +6,19 @@ namespace FargowiltasSouls.Buffs.Boss
 {
     public class AbomFang : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abominable Fang");
             Description.SetDefault("The power of Eternity Mode compels you");
-            DisplayName.AddTranslation(GameCulture.Chinese, "憎恶毒牙");
-            Description.AddTranslation(GameCulture.Chinese, "永恒模式的力量压迫着你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶毒牙");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒模式的力量压迫着你");
             Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            //FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             player.ichor = true;
             player.onFire2 = true;
             player.electrified = true;

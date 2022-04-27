@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
 using Terraria.Localization;
@@ -7,23 +8,20 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class Sadism : ModBuff
     {
-        public override void SetDefaults()
+        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderBuff";
+
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eternity");
             Description.SetDefault("The power of Eternity Mode is with you");
-            Main.buffNoSave[Type] = false;
-            DisplayName.AddTranslation(GameCulture.Chinese, "施虐狂");
-            Description.AddTranslation(GameCulture.Chinese, "受虐模式的力量与你同在");
-        }
-
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderBuff";
-            return true;
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true; //ignore most debuff immunity
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "施虐狂");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐模式的力量与你同在");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
+            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
             player.buffImmune[ModContent.BuffType<Antisocial>()] = true;
             player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
             player.buffImmune[ModContent.BuffType<Berserked>()] = true;
@@ -60,6 +58,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             player.buffImmune[ModContent.BuffType<ReverseManaFlow>()] = true;
             player.buffImmune[ModContent.BuffType<Rotting>()] = true;
             player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
+            player.buffImmune[ModContent.BuffType<Smite>()] = true;
             player.buffImmune[ModContent.BuffType<SqueakyToy>()] = true;
             player.buffImmune[ModContent.BuffType<Swarming>()] = true;
             player.buffImmune[ModContent.BuffType<Stunned>()] = true;

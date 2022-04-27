@@ -1,8 +1,8 @@
-﻿using Fargowiltas.Items.Summons;
-using FargowiltasSouls.Buffs.Masomode;
+﻿using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,6 +32,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public bool FinalPhaseDashHorizSpeedSet;
 
         public bool DroppedSummon;
+        public bool ScytheRingIsOnCD;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -54,12 +56,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             void SpawnServants()
             {
-                if (FargoSoulsWorld.MasochistModeReal && npc.life <= npc.lifeMax * 0.65 && NPC.CountNPCS(NPCID.ServantofCthulhu) < 9 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.life <= npc.lifeMax * 0.65 && NPC.CountNPCS(NPCID.ServantofCthulhu) < 9 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 vel = new Vector2(3, 3);
                     for (int i = 0; i < 4; i++)
                     {
-                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu);
+                        int n = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu);
                         if (n != Main.maxNPCs)
                         {
                             Main.npc[n].velocity = vel.RotatedBy(Math.PI / 2 * i);
@@ -78,15 +80,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 if (ScytheSpawnTimer % (IsInFinalPhase ? 2 : 6) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (IsInFinalPhase)
+                    if (IsInFinalPhase && !FargoSoulsWorld.MasochistModeReal)
                     {
-                        int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 1f, Main.myPlayer);
+                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = 75;
                     }
                     else
                     {
-                        Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 1f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
                     }
                 }
                 ScytheSpawnTimer--;
@@ -100,10 +102,21 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (npc.ai[1] == 3f && !IsInFinalPhase) //during dashes in phase 2
             {
                 if (FargoSoulsWorld.MasochistModeReal)
+                {
                     ScytheSpawnTimer = 30;
-                
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                    FargoSoulsUtil.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, npc.damage / 4, 0);
+                    SpawnServants();
+                }
+
+                if (!ScytheRingIsOnCD)
+                {
+                    ScytheRingIsOnCD = true;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        FargoSoulsUtil.XWay(8, npc.GetSource_FromThis(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
+                }
+            }
+            else
+            {
+                ScytheRingIsOnCD = false; //hacky fix for scythe spam during p2 transition
             }
 
             if (npc.life < npc.lifeMax / 2)
@@ -162,7 +175,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     else if (AITimer < 90) //fade in, moving into position
                     {
-                        npc.alpha -= 4;
+                        npc.alpha -= FargoSoulsWorld.MasochistModeReal ? 5 : 4;
                         if (npc.alpha < 0)
                         {
                             npc.alpha = 0;
@@ -233,7 +246,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         if (++FinalPhaseDashCD == 1)
                         {
-                            Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
 
                             if (!FinalPhaseDashHorizSpeedSet) //only set this on the first dash of each set
                             {
@@ -244,8 +257,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.velocity.Y = npc.Center.Y < Main.player[npc.target].Center.Y ? ySpeed : -ySpeed; //alternate this every dash
 
                             ScytheSpawnTimer = 30;
+                            if (FargoSoulsWorld.MasochistModeReal)
+                                SpawnServants();
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                FargoSoulsUtil.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1f, npc.damage / 4, 0);
+                                FargoSoulsUtil.XWay(8, npc.GetSource_FromThis(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
 
                             npc.netUpdate = true;
                         }
@@ -278,7 +293,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         const int restingTime = 240;
 
-                        float threshold = 180;
+                        int threshold = 180;
                         if (mustRest)
                             threshold += restingTime;
 
@@ -295,8 +310,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             if (!floatUp && npc.Bottom.X > 0 && npc.Bottom.X < Main.maxTilesX * 16 && npc.Bottom.Y > 0 && npc.Bottom.Y < Main.maxTilesY * 16)
                             {
                                 Tile tile = Framing.GetTileSafely(npc.Bottom);
-                                if (tile != null && tile.nactive())
-                                    floatUp = Main.tileSolid[tile.type];
+                                if (tile != null && tile.HasUnactuatedTile)
+                                    floatUp = Main.tileSolid[tile.TileType];
                             }
                             
                             if (floatUp)
@@ -320,9 +335,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                         else
                         {
-                            npc.alpha += 4;
+                            npc.alpha += FargoSoulsWorld.MasochistModeReal ? 16 : 4;
                             if (npc.alpha > 255)
+                            {
                                 npc.alpha = 255;
+                                if (FargoSoulsWorld.MasochistModeReal && AITimer < threshold)
+                                    AITimer = threshold;
+                            }
 
                             if (mustRest)
                             {
@@ -393,10 +412,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         npc.alpha = 255;
                         IsInFinalPhase = true;
 
-                        Main.PlaySound(SoundID.Roar, npc.HasValidTarget ? Main.player[npc.target].Center : npc.Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.HasValidTarget ? Main.player[npc.target].Center : npc.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                     }
                     return false;
                 }
@@ -459,14 +478,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                     }
                 }
-
+                
                 /*if (++Timer > 600)
                 {
                     Timer = 0;
                     if (npc.HasValidTarget)
                     {
                         Player player = Main.player[npc.target];
-                        Main.PlaySound(SoundID.Item9, (int)player.position.X, (int)player.position.Y, 104, 1f, 0f);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item9, (int)player.position.X, (int)player.position.Y, 104, 1f, 0);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Vector2 spawnPos = player.Center;
@@ -480,7 +499,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             Vector2 speed = Vector2.UnitY;
                             for (int i = 0; i < 30; i++)
                             {
-                                Projectile.NewProjectile(spawnPos, speed, ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 1f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, speed, ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
                                 spawnPos.X += 72 * direction;
                                 speed.Y += 0.15f;
                             }
@@ -495,23 +514,32 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
 
             // Drop summon
-            EModeUtils.DropSummon(npc, ModContent.ItemType<SuspiciousEye>(), NPC.downedBoss1, ref DroppedSummon);
+            EModeUtils.DropSummon(npc, "SuspiciousEye", NPC.downedBoss1, ref DroppedSummon);
 
             return true;
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.NPCLoot(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, 5);
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AgitatingLens>());
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<AgitatingLens>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrate, 5));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.FallenStar, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
+
+            if (FargoSoulsWorld.MasochistModeReal)
+            {
+                target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                target.AddBuff(BuffID.Bleeding, 600);
+                target.AddBuff(BuffID.Obstructed, 15);
+            }
 
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 120);
             target.AddBuff(ModContent.BuffType<Berserked>(), 300);

@@ -1,15 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class LunarRitual : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_454";
+        public override string Texture => "Terraria/Images/Projectile_454";
 
         private const float maxSize = 1600f;
 
@@ -17,8 +18,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Lunar Ritual");
-            Main.projFrames[projectile.type] = 2;
+            Main.projFrames[Projectile.type] = 2;
         }
 
         protected override void Movement(NPC npc)
@@ -27,14 +30,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (npc.HasValidTarget) //tracks halfway between player and boss
                 target += (Main.player[npc.target].Center - npc.Center) / 2;
 
-            if (projectile.Distance(target) <= 1)
-                projectile.Center = target;
-            else if (projectile.Distance(target) > threshold)
-                projectile.velocity = (target - projectile.Center) / 30;
+            if (Projectile.Distance(target) <= 1)
+                Projectile.Center = target;
+            else if (Projectile.Distance(target) > threshold)
+                Projectile.velocity = (target - Projectile.Center) / 30;
             else if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState == 4 && npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityTimer < 60)
-                projectile.velocity = (Main.player[npc.target].Center - projectile.Center) * 0.05f;
+                Projectile.velocity = (Main.player[npc.target].Center - Projectile.Center) * 0.05f;
             else
-                projectile.velocity = projectile.DirectionTo(target);
+                Projectile.velocity = Projectile.DirectionTo(target);
 
             threshold += 6;
             if (threshold > maxSize)
@@ -45,13 +48,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             base.AI();
 
-            projectile.frameCounter++;
-            if (projectile.frameCounter >= 6)
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 6)
             {
-                projectile.frameCounter = 0;
-                projectile.frame++;
-                if (projectile.frame > 1)
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame > 1)
+                    Projectile.frame = 0;
             }
         }
 
@@ -59,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             base.OnHitPlayer(target, damage, crit);
 
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 300);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 300);
         }
     }
 }

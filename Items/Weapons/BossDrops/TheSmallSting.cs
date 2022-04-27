@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,6 +13,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("The Small Sting");
             Tooltip.SetDefault("Uses darts for ammo" +
                 "\n50% chance to not consume ammo" +
@@ -21,38 +23,36 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
 
         public override void SetDefaults()
         {
-            item.damage = 39;
-            item.crit = 0;
-            item.ranged = true;
-            item.useTime = 36;
-            item.useAnimation = 36;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true;
-            item.knockBack = 1.5f;
-            item.value = 50000;
-            item.rare = ItemRarityID.Orange;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<SmallStinger>();
-            item.useAmmo = AmmoID.Dart;
-            item.UseSound = SoundID.Item97;
-            item.shootSpeed = 40f;
-            item.width = 44;
-            item.height = 16;
+            Item.damage = 39;
+            Item.crit = 0;
+            Item.DamageType = DamageClass.Ranged;
+            Item.useTime = 36;
+            Item.useAnimation = 36;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 1.5f;
+            Item.value = 50000;
+            Item.rare = ItemRarityID.Orange;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<SmallStinger>();
+            Item.useAmmo = AmmoID.Dart;
+            Item.UseSound = SoundID.Item97;
+            Item.shootSpeed = 40f;
+            Item.width = 44;
+            Item.height = 16;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            type = ModContent.ProjectileType<SmallStinger>();
-
-            return true;
+            type = Item.shoot;
         }
 
         // Remove the Crit Chance line because of a custom crit method
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips) => tooltips.Remove(tooltips.FirstOrDefault(line => line.Name == "CritChance" && line.mod == "Terraria"));
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips) => tooltips.Remove(tooltips.FirstOrDefault(line => line.Name == "CritChance" && line.Mod == "Terraria"));
 
         //make them hold it different
         public override Vector2? HoldoutOffset() => new Vector2(-10, 0);
 
-        public override bool ConsumeAmmo(Player player) => Main.rand.NextBool();
+        public override bool CanConsumeAmmo(Player player) => Main.rand.NextBool();
     }
 }

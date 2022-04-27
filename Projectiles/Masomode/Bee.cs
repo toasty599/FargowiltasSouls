@@ -3,62 +3,63 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class Bee : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_566";
+        public override string Texture => "Terraria/Images/Projectile_566";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bee");
-            Main.projFrames[projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 16;
-            projectile.height = 16;
-            projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.timeLeft = 600;
-            projectile.aiStyle = -1;
+            Projectile.width = 16;
+            Projectile.height = 16;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 600;
+            Projectile.aiStyle = -1;
         }
 
         public override void AI()
         {
-            projectile.spriteDirection = Math.Sign(projectile.velocity.X);
-            projectile.rotation = projectile.velocity.X * .1f;
+            Projectile.spriteDirection = Math.Sign(Projectile.velocity.X);
+            Projectile.rotation = Projectile.velocity.X * .1f;
 
-            if (++projectile.frameCounter >= 3)
+            if (++Projectile.frameCounter >= 3)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 3)
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 3)
+                    Projectile.frame = 0;
             }
 
-            if ((projectile.wet || projectile.lavaWet) && !projectile.honeyWet) //die in liquids
+            if ((Projectile.wet || Projectile.lavaWet) && !Projectile.honeyWet) //die in liquids
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
 
-            if (++projectile.localAI[0] > 30 && projectile.localAI[0] < 90)
+            if (++Projectile.localAI[0] > 30 && Projectile.localAI[0] < 90)
             {
-                float rotation = projectile.velocity.ToRotation();
-                Vector2 vel = Main.player[(int)projectile.ai[0]].Center - projectile.Center;
+                float rotation = Projectile.velocity.ToRotation();
+                Vector2 vel = Main.player[(int)Projectile.ai[0]].Center - Projectile.Center;
                 float targetAngle = vel.ToRotation();
-                projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, projectile.ai[1]));
+                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, Projectile.ai[1]));
             }
 
-            projectile.tileCollide = projectile.localAI[0] > 180;
+            Projectile.tileCollide = Projectile.localAI[0] > 180;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(mod.BuffType("Infested"), 300);
-            target.AddBuff(mod.BuffType("Swarming"), 600);
+            target.AddBuff(ModContent.BuffType<Infested>(), 300);
+            target.AddBuff(ModContent.BuffType<Swarming>(), 600);
         }
     }
 }

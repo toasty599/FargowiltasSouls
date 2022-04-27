@@ -5,14 +5,14 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     internal class DicerSpray : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_484";
+        public override string Texture => "Terraria/Images/Projectile_484";
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.SeedlerThorn);
-            aiType = ProjectileID.SeedlerThorn;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 120;
+            Projectile.CloneDefaults(ProjectileID.SeedlerThorn);
+            AIType = ProjectileID.SeedlerThorn;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 120;
         }
     }
 }

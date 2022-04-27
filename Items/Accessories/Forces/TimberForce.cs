@@ -6,10 +6,23 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class TimberForce : SoulsItem
+    public class TimberForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<WoodEnchant>(),
+            ModContent.ItemType<BorealWoodEnchant>(),
+            ModContent.ItemType<RichMahoganyEnchant>(),
+            ModContent.ItemType<EbonwoodEnchant>(),
+            ModContent.ItemType<ShadewoodEnchant>(),
+            ModContent.ItemType<PalmWoodEnchant>(),
+            ModContent.ItemType<PearlwoodEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Timber");
 
             Tooltip.SetDefault(
@@ -20,8 +33,8 @@ $"[i:{ModContent.ItemType<EbonwoodEnchant>()}] You have an aura of Shadowflame, 
 $"[i:{ModContent.ItemType<PalmWoodEnchant>()}] Double tap down to spawn a palm tree sentry that throws nuts at enemies\n" +
 $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star when they hit something\n" +
 "'Extremely rigid'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "森林之力");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "森林之力");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"小动物在释放出去1秒后会爆炸
 50%几率不消耗弹药
 攻击时定期释放雪球
@@ -32,57 +45,26 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
 '很刚'");
         }
 
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
-        }
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.WoodForce = true;
-            //wood
-            modPlayer.WoodEnchant = true;
-            //boreal
-            modPlayer.BorealEnchant = true;
-            modPlayer.AdditionalAttacks = true;
-            //mahogany
-            modPlayer.MahoganyEnchant = true;
-
-            //ebon
-            modPlayer.EbonEffect();
-            //shade
-            modPlayer.ShadewoodEffect();
-
-            //shade
-            modPlayer.ShadeEnchant = true;
-            //palm
-            modPlayer.PalmEffect();
-            //pearl
-            modPlayer.PearlEnchant = true;
+            WoodEnchant.WoodEffect(player);
+            BorealWoodEnchant.BorealEffect(player);
+            modPlayer.MahoganyEnchantActive = true;
+            EbonwoodEnchant.EbonwoodEffect(player);
+            ShadewoodEnchant.ShadewoodEffect(player);
+            PalmWoodEnchant.PalmEffect(player);
+            PearlwoodEnchant.PearlwoodEffect(player);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddIngredient(null, "WoodEnchant");
-            recipe.AddIngredient(null, "BorealWoodEnchant");
-            recipe.AddIngredient(null, "RichMahoganyEnchant");
-            recipe.AddIngredient(null, "EbonwoodEnchant");
-            recipe.AddIngredient(null, "ShadewoodEnchant");
-            recipe.AddIngredient(null, "PalmWoodEnchant");
-            recipe.AddIngredient(null, "PearlwoodEnchant");
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

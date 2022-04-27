@@ -6,13 +6,13 @@ namespace FargowiltasSouls.Toggler
     {
         public static Toggle GetToggle(this Player player, string name)
         {
-            return player.GetModPlayer<FargoPlayer>().Toggler.Toggles[name];
+            return player.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles[name];
         }
 
         public static bool GetToggleValue(this Player player, string name, bool checkForMutantPresence = true)
         {
             Toggle toggle = player.GetToggle(name);
-            return checkForMutantPresence && Main.player[Main.myPlayer].GetModPlayer<FargoPlayer>().MutantPresence ? false : toggle.ToggleBool;
+            return checkForMutantPresence && Main.player[Main.myPlayer].GetModPlayer<FargoSoulsPlayer>().MutantPresence ? false : toggle.ToggleBool;
         }
 
         public static bool GetPlayerBoolValue(this Player player, string name)
@@ -23,12 +23,12 @@ namespace FargowiltasSouls.Toggler
 
         public static void SetToggleValue(this Player player, string name, bool value)
         {
-            player.GetModPlayer<FargoPlayer>().Toggler.Toggles[name].ToggleBool = value;
+            player.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles[name].ToggleBool = value;
         }
 
         /*public static void SetPlayerBoolValue(this Player player, string name, bool value)
         {
-            player.GetModPlayer<FargoPlayer>().Toggler.Toggles[name].PlayerBool = value;
+            player.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles[name].PlayerBool = value;
         }*/
     }
 }

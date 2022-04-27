@@ -8,38 +8,43 @@ namespace FargowiltasSouls.Items
 {
     public class MasochistReal : SoulsItem
     {
+        //public override bool IsLoadingEnabled(Mod mod) => false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forgotten Gift");
-            Tooltip.SetDefault("Toggles Masochist Mode");
+            Tooltip.SetDefault("[c/ff0000:Debug item]\nLeft click: Toggles session ability to play Maso\nRight click: Toggles world ability to play Maso");
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 1;
-            item.rare = ItemRarityID.Blue;
-            item.useAnimation = 30;
-            item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
-            item.consumable = false;
+            Item.width = 20;
+            Item.height = 20;
+            Item.maxStack = 1;
+            Item.rare = ItemRarityID.Blue;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.consumable = false;
         }
 
-        public override bool UseItem(Player player)
+        public override bool AltFunctionUse(Player player) => true;
+
+        public override bool CanRightClick() => true;
+
+        public override void RightClick(Player player) => Main.NewText($"world is currently maso: {FargoSoulsWorld.MasochistModeReal}");
+
+        public override bool? UseItem(Player player)
         {
-            if (!FargoSoulsUtil.AnyBossAlive())
+            if (player.altFunctionUse == 2)
             {
-                FargoSoulsWorld.MasochistModeReal = !FargoSoulsWorld.MasochistModeReal;
-                FargoSoulsWorld.EternityMode = true;
-                Main.expertMode = true;
-
-                Main.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
-
-                FargoSoulsUtil.PrintText(FargoSoulsWorld.MasochistModeReal ? "The difficulty got real!" : "The difficulty got fake!", new Color(255, 51, 153));
-
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.SendData(MessageID.WorldData); //sync world
+                FargoSoulsWorld.CanPlayMaso = !FargoSoulsWorld.CanPlayMaso;
+                Main.NewText($"world: {FargoSoulsWorld.CanPlayMaso}");
+            }
+            else
+            {
+                player.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso = !player.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso;
+                Main.NewText($"mod: {player.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso}");
             }
             return true;
         }

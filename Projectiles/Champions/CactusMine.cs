@@ -15,37 +15,37 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void SetDefaults()
         {
-            projectile.width = 24;
-            projectile.height = 24;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.timeLeft = 90;
+            Projectile.width = 24;
+            Projectile.height = 24;
+            Projectile.aiStyle = -1;
+            Projectile.hostile = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 90;
         }
 
         public override void AI()
         {
-            float speed = projectile.velocity.Length();
-            speed += projectile.ai[1];
-            projectile.velocity = Vector2.Normalize(projectile.velocity) * speed;
+            float speed = Projectile.velocity.Length();
+            speed += Projectile.ai[1];
+            Projectile.velocity = Vector2.Normalize(Projectile.velocity) * speed;
 
-            projectile.rotation += projectile.velocity.Length() * 0.015f * System.Math.Sign(projectile.velocity.X);
+            Projectile.rotation += Projectile.velocity.Length() * 0.015f * System.Math.Sign(Projectile.velocity.X);
         }
 
         public override void Kill(int timeLeft)
         {
-            FargoSoulsUtil.XWay(16, projectile.Center, ProjectileID.PineNeedleHostile, 5, projectile.damage, 0f);
+            FargoSoulsUtil.XWay(16, Projectile.GetSource_FromThis(), Projectile.Center, ProjectileID.PineNeedleHostile, 5, Projectile.damage, 0);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

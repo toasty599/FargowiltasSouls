@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -9,27 +11,27 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantTyphoon : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_409";
+        public override string Texture => "Terraria/Images/Projectile_409";
         //public Vector2 spawn = Vector2.Zero;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Razorblade Typhoon");
-            Main.projFrames[projectile.type] = 3;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 8;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            Main.projFrames[Projectile.type] = 3;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 30;
-            projectile.height = 30;
-            projectile.hostile = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.timeLeft = 600;
-            projectile.alpha = 100;
-            cooldownSlot = 1;
+            Projectile.width = 30;
+            Projectile.height = 30;
+            Projectile.hostile = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 600;
+            Projectile.alpha = 100;
+            CooldownSlot = 1;
         }
 
         public override bool CanHitPlayer(Player target)
@@ -39,58 +41,58 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            //float ratio = projectile.timeLeft / 600f;
-            //projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[0] * ratio + projectile.ai[1] * (1 - ratio));
-            /*projectile.localAI[0] += projectile.ai[0] * projectile.timeLeft / 300f;
-            projectile.velocity.X = (float)(Math.Cos(projectile.localAI[0] + projectile.ai[1]) - projectile.localAI[0] * Math.Sin(projectile.localAI[0] + projectile.ai[1]));
-            projectile.velocity.Y = (float)(Math.Sin(projectile.localAI[0] + projectile.ai[1]) + projectile.localAI[0] * Math.Cos(projectile.localAI[0] + projectile.ai[1]));*/
-            //projectile.velocity *= (projectile.timeLeft > 300 ? projectile.timeLeft / 300f : 1f);
-            //Main.NewText(projectile.velocity.Length().ToString());
-            //projectile.velocity *= 1f + projectile.ai[0];
-            //projectile.velocity += projectile.velocity.RotatedBy(Math.PI / 2) * projectile.ai[1];
+            //float ratio = Projectile.timeLeft / 600f;
+            //Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[0] * ratio + Projectile.ai[1] * (1 - ratio));
+            /*Projectile.localAI[0] += Projectile.ai[0] * Projectile.timeLeft / 300f;
+            Projectile.velocity.X = (float)(Math.Cos(Projectile.localAI[0] + Projectile.ai[1]) - Projectile.localAI[0] * Math.Sin(Projectile.localAI[0] + Projectile.ai[1]));
+            Projectile.velocity.Y = (float)(Math.Sin(Projectile.localAI[0] + Projectile.ai[1]) + Projectile.localAI[0] * Math.Cos(Projectile.localAI[0] + Projectile.ai[1]));*/
+            //Projectile.velocity *= (Projectile.timeLeft > 300 ? Projectile.timeLeft / 300f : 1f);
+            //Main.NewText(Projectile.velocity.Length().ToString());
+            //Projectile.velocity *= 1f + Projectile.ai[0];
+            //Projectile.velocity += Projectile.velocity.RotatedBy(Math.PI / 2) * Projectile.ai[1];
             /*if (spawn == Vector2.Zero)
-                spawn = projectile.position;
-            projectile.localAI[0] += projectile.ai[0] * (projectile.timeLeft > 300 ? projectile.timeLeft / 300f : 1f);
-            Vector2 vel = new Vector2(projectile.localAI[0] * (float)Math.Cos(projectile.localAI[0] + projectile.ai[1]) * 120f,
-                projectile.localAI[0] * (float)Math.Sin(projectile.localAI[0] + projectile.ai[1]) * 120f);
-            projectile.position = spawn + vel;
-            vel = projectile.position - projectile.oldPosition;*/
-            projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[1] / (2 * Math.PI * projectile.ai[0] * ++projectile.localAI[0]));
+                spawn = Projectile.position;
+            Projectile.localAI[0] += Projectile.ai[0] * (Projectile.timeLeft > 300 ? Projectile.timeLeft / 300f : 1f);
+            Vector2 vel = new Vector2(Projectile.localAI[0] * (float)Math.Cos(Projectile.localAI[0] + Projectile.ai[1]) * 120f,
+                Projectile.localAI[0] * (float)Math.Sin(Projectile.localAI[0] + Projectile.ai[1]) * 120f);
+            Projectile.position = spawn + vel;
+            vel = Projectile.position - Projectile.oldPosition;*/
+            Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[1] / (2 * Math.PI * Projectile.ai[0] * ++Projectile.localAI[0]));
 
             //vanilla typhoon dust (ech)
             int cap = Main.rand.Next(3);
             for (int index1 = 0; index1 < cap; ++index1)
             {
-                Vector2 vector2_1 = projectile.velocity;
+                Vector2 vector2_1 = Projectile.velocity;
                 vector2_1.Normalize();
-                vector2_1.X *= projectile.width;
-                vector2_1.Y *= projectile.height;
+                vector2_1.X *= Projectile.width;
+                vector2_1.Y *= Projectile.height;
                 vector2_1 /= 2;
                 vector2_1 = vector2_1.RotatedBy((index1 - 2) * Math.PI / 6);
-                vector2_1 += projectile.Center;
+                vector2_1 += Projectile.Center;
                 Vector2 vector2_2 = (Main.rand.NextFloat() * (float)Math.PI - (float)Math.PI / 2f).ToRotationVector2();
                 vector2_2 *= Main.rand.Next(3, 8);
                 int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, 172, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].noLight = true;
                 Main.dust[index2].velocity /= 4f;
-                Main.dust[index2].velocity -= projectile.velocity;
+                Main.dust[index2].velocity -= Projectile.velocity;
             }
-            projectile.rotation += 0.2f * (projectile.velocity.X > 0f ? 1f : -1f);
-            projectile.frame++;
-            if (projectile.frame > 2)
-                projectile.frame = 0;
+            Projectile.rotation += 0.2f * (Projectile.velocity.X > 0f ? 1f : -1f);
+            Projectile.frame++;
+            if (Projectile.frame > 2)
+                Projectile.frame = 0;
         }
 
         public override void OnHitPlayer(Player player, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                player.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
-                player.AddBuff(mod.BuffType("OceanicMaul"), 5400);
-                player.AddBuff(mod.BuffType("MutantFang"), 180);
+                player.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                player.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                player.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
-            player.AddBuff(mod.BuffType("Defenseless"), Main.rand.Next(600, 900));
+            player.AddBuff(ModContent.BuffType<Defenseless>(), Main.rand.Next(600, 900));
             player.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(300, 600));
         }
 
@@ -99,8 +101,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             int num1 = 36;
             for (int index1 = 0; index1 < num1; ++index1)
             {
-                Vector2 vector2_1 = (Vector2.Normalize(projectile.velocity) * new Vector2((float)projectile.width / 2f, (float)projectile.height) * 0.75f).RotatedBy((double)(index1 - (num1 / 2 - 1)) * 6.28318548202515 / (double)num1, new Vector2()) + projectile.Center;
-                Vector2 vector2_2 = vector2_1 - projectile.Center;
+                Vector2 vector2_1 = (Vector2.Normalize(Projectile.velocity) * new Vector2((float)Projectile.width / 2f, (float)Projectile.height) * 0.75f).RotatedBy((double)(index1 - (num1 / 2 - 1)) * 6.28318548202515 / (double)num1, new Vector2()) + Projectile.Center;
+                Vector2 vector2_2 = vector2_1 - Projectile.Center;
                 int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, 172, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].noLight = true;
@@ -108,27 +110,27 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 2)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 2)
             {
                 Color color27 = color26;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 

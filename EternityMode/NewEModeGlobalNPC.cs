@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,28 +17,32 @@ namespace FargowiltasSouls.EternityMode
         public List<EModeNPCBehaviour> EModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
         public bool FirstTick = true;
+        public bool enteredSetDefaults;
 
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
 
-            if (!FargoSoulsWorld.EternityMode)
-                return;
-
             InitBehaviourList(npc);
 
-            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+            if (!Main.dedServ)
             {
-                behaviour.SetDefaults(npc);
+                bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
+                if (recolor || FargowiltasSouls.Instance.LoadedNewSprites)
+                {
+                    FargowiltasSouls.Instance.LoadedNewSprites = true;
+                    foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                    {
+                        behaviour.LoadSprites(npc, recolor);
+                    }
+                }
             }
 
-            bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
-            if (recolor || Fargowiltas.Instance.LoadedNewSprites)
+            if (FargoSoulsWorld.EternityMode) //needs to be like this to avoid bestiary/npcloot issues and crashes
             {
-                Fargowiltas.Instance.LoadedNewSprites = true;
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
-                    behaviour.LoadSprites(npc, recolor);
+                    behaviour.SetDefaults(npc);
                 }
             }
         }
@@ -89,35 +94,45 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
-        public override bool PreNPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            bool result = base.PreNPCLoot(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+            {
+                behaviour.ModifyNPCLoot(npc, npcLoot);
+            }
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            base.OnKill(npc);
 
             if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
-                    result &= behaviour.PreNPCLoot(npc);
+                    behaviour.OnKill(npc);
+                }
+            }
+        }
+
+        public override bool SpecialOnKill(NPC npc)
+        {
+            bool result = base.SpecialOnKill(npc);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.SpecialOnKill(npc);
                 }
             }
 
             return result;
         }
 
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
-
-            if (!FargoSoulsWorld.EternityMode || npc.SpawnedFromStatue)
-                return;
-
-            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
-            {
-                behaviour.NPCLoot(npc);
-            }
-        }
-
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             bool result = true;
 
@@ -125,7 +140,7 @@ namespace FargowiltasSouls.EternityMode
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
-                    result &= behaviour.CanHitPlayer(npc, target, ref cooldownSlot);
+                    result &= behaviour.CanHitPlayer(npc, target, ref CooldownSlot);
                 }
             }
 
@@ -172,6 +187,19 @@ namespace FargowiltasSouls.EternityMode
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
                 behaviour.OnHitPlayer(npc, target, damage, crit);
+            }
+        }
+
+        public override void OnHitNPC(NPC npc, NPC target, int damage, float knockback, bool crit)
+        {
+            base.OnHitNPC(npc, target, damage, knockback, crit);
+
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+            {
+                behaviour.OnHitNPC(npc, target, damage, knockback, crit);
             }
         }
 
@@ -255,6 +283,19 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            base.UpdateLifeRegen(npc, ref damage);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.UpdateLifeRegen(npc, ref damage);
+                }
+            }
+        }
+
         public override bool CheckDead(NPC npc)
         {
             bool result = base.CheckDead(npc);
@@ -285,14 +326,35 @@ namespace FargowiltasSouls.EternityMode
             return result;
         }
 
-        public void NetSync(int whoAmI)
+        public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            bool? result = base.DrawHealthBar(npc, hbPosition, ref scale, ref position);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.DrawHealthBar(npc, hbPosition, ref scale, ref position);
+                }
+            }
+
+            return result;
+        }
+
+        public void NetSync(NPC npc)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)
                 return;
 
-            ModPacket packet = mod.GetPacket();
+            ModPacket packet = FargowiltasSouls.Instance.GetPacket();
             packet.Write((byte)22); // New maso sync packet id
-            packet.Write(whoAmI);
+            packet.Write(npc.whoAmI);
+            packet.Write(npc.type);
+
+            int bytesLength = 0;
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                bytesLength += behaviour.GetBytesNeeded();
+            packet.Write(bytesLength);
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {

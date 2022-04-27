@@ -20,8 +20,10 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         protected readonly float Distance;
         protected readonly float Speed;
         protected readonly float DamageMultiplier;
+        protected readonly int Telegraph;
+        protected readonly bool NeedLineOfSight;
 
-        protected Shooters(int attackThreshold, int projectileType, float speed, float damageMultiplier = 1f, int dustType = -1, float distance = 1000)
+        protected Shooters(int attackThreshold, int projectileType, float speed, float damageMultiplier = 1f, int dustType = 159, float distance = 1000, int telegraph = 30, bool needLineOfSight = false)
         {
             AttackThreshold = attackThreshold;
             ProjectileType = projectileType;
@@ -29,6 +31,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             Distance = distance;
             Speed = speed;
             DamageMultiplier = damageMultiplier;
+            Telegraph = telegraph;
+            NeedLineOfSight = needLineOfSight;
         }
 
         public int AttackTimer;
@@ -38,39 +42,53 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 { new Ref<object>(AttackTimer), IntStrategies.CompoundStrategy },
             };
 
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            AttackTimer = -Main.rand.Next(60);
+        }
+
         public override void AI(NPC npc)
         {
             base.AI(npc);
 
             AttackTimer++;
 
-            if (AttackTimer >= AttackThreshold - 90)
+            if (AttackTimer == AttackThreshold - Telegraph)
             {
-                if (AttackTimer == AttackThreshold - 90)
+                if (!npc.HasPlayerTarget || npc.Distance(Main.player[npc.target].Center) > Distance
+                    || (NeedLineOfSight && !Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0)))
                 {
-                    if (!npc.HasPlayerTarget || npc.Distance(Main.player[npc.target].Center) > Distance)
-                        AttackTimer = 0;
-
-                    npc.netUpdate = true;
-                    NetSync(npc);
+                    AttackTimer = 0;
+                }
+                else if (DustType != -1)
+                {
+                    FargoSoulsUtil.DustRing(npc.Center, 32, DustType, 5f, default, 2f);
                 }
 
-                int d = Dust.NewDust(npc.position, npc.width, npc.height, DustType, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-                Main.dust[d].noGravity = true;
-                Main.dust[d].velocity *= 2f;
-                Main.dust[d].scale = 0.5f + 2.5f * (AttackTimer - AttackThreshold + 90) / 60f;
+                npc.netUpdate = true;
+                NetSync(npc);
+            }
+
+            if (AttackTimer > AttackThreshold - Telegraph)
+            {
+                npc.position -= npc.velocity;
             }
 
             if (AttackTimer > AttackThreshold)
             {
-                AttackTimer = -Main.rand.Next(60);
-                npc.velocity = Vector2.Zero;
+                AttackTimer = 0;
 
                 npc.netUpdate = true;
                 NetSync(npc);
 
-                if (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < Distance && Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.Center, Speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileType, (int)(npc.damage / 4f * DamageMultiplier), 0, Main.myPlayer);
+                if (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < Distance
+                    && (!NeedLineOfSight || NeedLineOfSight && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
+                    && Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileType, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, DamageMultiplier), 0, Main.myPlayer);
+                }
             }
         }
     }

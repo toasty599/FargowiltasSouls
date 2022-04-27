@@ -7,72 +7,53 @@ using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class CrystalAssassinEnchant : SoulsItem
+    public class CrystalAssassinEnchant : BaseEnchant
     {
-        public override bool Autoload(ref string name)
-        {
-            return false;
-        }
-
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Crystal Assassin Enchantment");
-            
-            DisplayName.AddTranslation(GameCulture.Chinese, "水晶刺客魔石");
-            
-            string tooltip =
-@"Effects of Volatile Gel
-''";
-            Tooltip.SetDefault(tooltip);
+            Tooltip.SetDefault(@"Allows the ability to dash
+Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
+Using the Rod of Discord will also grant this buff
+When you teleport, you also spawn several homing blades
+Effects of Volatile Gel''");
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "水晶刺客魔石");
             string tooltip_ch =
 @"拥有挥发明胶效果
 ''";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(231, 178, 28); //change e
-                }
-            }
-        }
+        protected override Color nameColor => new Color(231, 178, 28); //change e
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = 150000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Pink;
+            Item.value = 150000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoPlayer>().ForbiddenEffect(); //effect tele on party girl bathwater, when tele slashes through enemies
+            //player.GetModPlayer<FargoSoulsPlayer>().ForbiddenEffect(); //effect tele on party girl bathwater, when tele slashes through enemies
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.AncientBattleArmorHat); //head
-            recipe.AddIngredient(ItemID.AncientBattleArmorShirt); //body
-            recipe.AddIngredient(ItemID.AncientBattleArmorPants); //legs
-            //ninja enchant
-            //volatile gel
-            //magic dagger
-            //flying knife
-            //party gitl bathwater
-            //hook of dissonance
-            //qs mount
+            CreateRecipe()
+                .AddIngredient(ItemID.CrystalNinjaHelmet)
+                .AddIngredient(ItemID.CrystalNinjaChestplate)
+                .AddIngredient(ItemID.CrystalNinjaLeggings) 
+                .AddIngredient(ModContent.ItemType<NinjaEnchant>())
+                .AddIngredient(ItemID.VolatileGelatin)
+                .AddIngredient(ItemID.FlyingKnife)
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+                .AddTile(TileID.CrystalBall)
+                .Register();
         }
     }
 }

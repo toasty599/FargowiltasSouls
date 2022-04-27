@@ -10,13 +10,15 @@ using Microsoft.Xna.Framework.Graphics;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     [AutoloadEquip(EquipType.Shield)]
-    public class TerrariaSoul : SoulsItem
+    public class TerrariaSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Soul of Terraria");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉之魂");
             
             string tooltip =
 @"Summons fireballs, shadow orbs, icicles, leaf crystals, flameburst minion, hallowed sword and shield, and beetles
@@ -62,19 +64,20 @@ Effects of Flower Boots and Greedy Ring
 你受到伤害时会剧烈爆炸并伤害附近的敌人，你在重生时以200点生命值重生
 拥有花靴和贪婪戒指效果
 '泰拉之主，天地共证'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 24));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 24));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
 
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
         {
-            if (line.mod == "Terraria" && line.Name == "ItemName")
+            if (line.Mod == "Terraria" && line.Name == "ItemName")
             {
                 Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
-                GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingRainbowDye), item, null); //use living rainbow dye shader
-                Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
+                GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingRainbowDye), Item, null); //use living rainbow dye shader
+                Utils.DrawBorderString(Main.spriteBatch, line.Text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
                 Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
                 return false;
@@ -84,60 +87,56 @@ Effects of Flower Boots and Greedy Ring
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.value = 5000000;
+            base.SetDefaults();
 
-            item.rare = -12;
+            Item.value = 5000000;
+            Item.rare = -12;
         }
 
-        public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //includes revive, both spectres, adamantite, and star heal
             modPlayer.TerrariaSoul = true;
 
             //WOOD
-            mod.GetItem("TimberForce").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "TimberForce").UpdateAccessory(player, hideVisual);
             //TERRA
-            mod.GetItem("TerraForce").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "TerraForce").UpdateAccessory(player, hideVisual);
             //EARTH
-            mod.GetItem("EarthForce").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "EarthForce").UpdateAccessory(player, hideVisual);
             //NATURE
-            mod.GetItem("NatureForce").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "NatureForce").UpdateAccessory(player, hideVisual);
             //LIFE
-            mod.GetItem("LifeForce").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "LifeForce").UpdateAccessory(player, hideVisual);
             //SPIRIT
-            mod.GetItem("SpiritForce").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "SpiritForce").UpdateAccessory(player, hideVisual);
             //SHADOW
-            mod.GetItem("ShadowForce").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "ShadowForce").UpdateAccessory(player, hideVisual);
             //WILL
-            mod.GetItem("WillForce").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "WillForce").UpdateAccessory(player, hideVisual);
             //COSMOS
-            mod.GetItem("CosmoForce").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "CosmoForce").UpdateAccessory(player, hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "TimberForce");
-            recipe.AddIngredient(null, "TerraForce");
-            recipe.AddIngredient(null, "EarthForce");
-            recipe.AddIngredient(null, "NatureForce");
-            recipe.AddIngredient(null, "LifeForce");
-            recipe.AddIngredient(null, "SpiritForce");
-            recipe.AddIngredient(null, "ShadowForce");
-            recipe.AddIngredient(null, "WillForce");
-            recipe.AddIngredient(null, "CosmoForce");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
+            CreateRecipe()
+            .AddIngredient(null, "TimberForce")
+            .AddIngredient(null, "TerraForce")
+            .AddIngredient(null, "EarthForce")
+            .AddIngredient(null, "NatureForce")
+            .AddIngredient(null, "LifeForce")
+            .AddIngredient(null, "SpiritForce")
+            .AddIngredient(null, "ShadowForce")
+            .AddIngredient(null, "WillForce")
+            .AddIngredient(null, "CosmoForce")
+            .AddIngredient(null, "AbomEnergy", 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            .Register();
         }
     }
 }

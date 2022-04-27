@@ -7,70 +7,52 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Essences
 {
-    public class SharpshootersEssence : SoulsItem
+    public class SharpshootersEssence : BaseEssence
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Sharpshooter's Essence");
             Tooltip.SetDefault(
 @"18% increased ranged damage
 10% chance to not consume ammo
 5% increased ranged critical chance
 'This is only the beginning..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "神射手精华");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神射手精华");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"增加18%远程伤害
 10%几率不消耗弹药
 增加5%远程暴击率
 '这只是个开始...'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(188, 253, 68));
-                }
-            }
-        }
+        protected override Color nameColor => new Color(188, 253, 68);
 
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 150000;
-            item.rare = ItemRarityID.LightRed;
-        }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.rangedDamage += .18f;
-            player.rangedCrit += 5;
-            player.GetModPlayer<FargoPlayer>().RangedEssence = true;
+            player.GetDamage(DamageClass.Ranged) += 0.18f;
+            player.GetCritChance(DamageClass.Ranged) += 5;
+            player.GetModPlayer<FargoSoulsPlayer>().RangedEssence = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
+                .AddIngredient(ItemID.PainterPaintballGun)
+                .AddIngredient(ItemID.SnowballCannon)
+                .AddIngredient(ItemID.RedRyder)
+                .AddIngredient(ItemID.Harpoon)
+                .AddIngredient(ItemID.Musket)
+                .AddIngredient(ItemID.Boomstick)
+                .AddIngredient(ItemID.BeesKnees)
+                .AddIngredient(ItemID.HellwingBow)
+                .AddIngredient(ItemID.RangerEmblem)
+                .AddIngredient(ItemID.HallowedBar, 5)
 
-            //no others
-            recipe.AddIngredient(ItemID.RangerEmblem);
-            recipe.AddIngredient(ItemID.PainterPaintballGun);
-            recipe.AddIngredient(ItemID.SnowballCannon);
-            recipe.AddIngredient(ItemID.RedRyder);
-            recipe.AddIngredient(ItemID.Harpoon);
-            recipe.AddIngredient(ItemID.Musket);
-            recipe.AddIngredient(ItemID.Boomstick);
-            recipe.AddIngredient(ItemID.BeesKnees);
-            recipe.AddIngredient(ItemID.HellwingBow);
-            recipe.AddIngredient(ItemID.HallowedBar, 5);
-
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
         }
     }
 }

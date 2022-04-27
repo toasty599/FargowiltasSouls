@@ -6,13 +6,25 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class NatureForce : SoulsItem
+    public class NatureForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<CrimsonEnchant>(),
+            ModContent.ItemType<MoltenEnchant>(),
+            ModContent.ItemType<RainEnchant>(),
+            ModContent.ItemType<FrostEnchant>(),
+            ModContent.ItemType<ChlorophyteEnchant>(),
+            ModContent.ItemType<ShroomiteEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Nature");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "自然之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然之力");
            
             string tooltip =
 $"[i:{ModContent.ItemType<CrimsonEnchant>()}] After taking a hit, regen is greatly increased until the hit is healed off\n" +
@@ -43,23 +55,12 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
 站定不动时使你进入隐身状态
 处于隐身状态时攻击会留下更多蘑菇尾迹
 '挖掘了荒野的每一个秘密'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-
-        }
-
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //
             modPlayer.NatureForce = true;
             //regen, pets
@@ -67,33 +68,25 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
             //inferno and explode
             modPlayer.MoltenEffect();
             //rain
-            modPlayer.RainEffect();
+            modPlayer.RainEffect(Item);
             //icicles, pets
             modPlayer.FrostEffect(hideVisual);
             modPlayer.SnowEffect(hideVisual);
             //crystal and pet
-            modPlayer.ChloroEffect(hideVisual);
+            modPlayer.ChloroEffect(Item, hideVisual);
             //spores
-            modPlayer.JungleEnchant = true;
+            modPlayer.JungleEnchantActive = true;
             //stealth, shrooms, pet
             modPlayer.ShroomiteEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddIngredient(null, "CrimsonEnchant");
-            recipe.AddIngredient(null, "MoltenEnchant");
-            recipe.AddIngredient(null, "RainEnchant");
-            recipe.AddIngredient(null, "FrostEnchant");
-            recipe.AddIngredient(null, "ChlorophyteEnchant");
-            recipe.AddIngredient(null, "ShroomiteEnchant");
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

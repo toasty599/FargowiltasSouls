@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using FargowiltasSouls.Buffs.Pets;
+using FargowiltasSouls.Projectiles.Pets;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,33 +14,34 @@ namespace FargowiltasSouls.Items.Pets
         {
             DisplayName.SetDefault("Baby Scythe");
             Tooltip.SetDefault("Summons Baby Abom\n'Don't worry, it's dull'");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.WispinaBottle);
-            item.value = Item.sellPrice(0, 5);
-            item.rare = -13;
-            item.shoot = mod.ProjectileType("BabyAbom");
-            item.buffType = mod.BuffType("BabyAbomBuff");
+            Item.CloneDefaults(ItemID.WispinaBottle);
+            Item.value = Item.sellPrice(0, 5);
+            Item.rare = -13;
+            Item.shoot = ModContent.ProjectileType<BabyAbom>();
+            Item.buffType = ModContent.BuffType<BabyAbomBuff>();
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                if (line2.Mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = Main.DiscoColor;
+                    line2.OverrideColor = Main.DiscoColor;
                 }
             }
         }
 
-        public override void UseStyle(Player player)
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
             {
-                player.AddBuff(item.buffType, 3600, true);
+                player.AddBuff(Item.buffType, 3600, true);
             }
         }
     }

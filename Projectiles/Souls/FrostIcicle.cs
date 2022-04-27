@@ -12,67 +12,67 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frost Icicle");
-            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+            ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.netImportant = true;
-            projectile.width = 14;
-            projectile.height = 34;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 2;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
+            Projectile.netImportant = true;
+            Projectile.width = 14;
+            Projectile.height = 34;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 2;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            Player player = Main.player[Projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            projectile.timeLeft++;
-            projectile.netUpdate = true;
+            Projectile.timeLeft++;
+            Projectile.netUpdate = true;
 
             if (player.whoAmI == Main.myPlayer && player.dead)
             {
-                modPlayer.FrostEnchant = false;
+                modPlayer.FrostEnchantActive = false;
             }
 
-            if (player.whoAmI == Main.myPlayer && !player.GetToggleValue("Frost") || !modPlayer.FrostEnchant)
+            if (player.whoAmI == Main.myPlayer && (!player.GetToggleValue("Frost") || !modPlayer.FrostEnchantActive))
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            if (projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer)
             {
                 //rotation mumbo jumbo
                 float distanceFromPlayer = 32;
 
-                projectile.position = player.Center + new Vector2(distanceFromPlayer, 0f).RotatedBy(projectile.ai[1]); 
-                projectile.position.X -= projectile.width / 2;
-                projectile.position.Y -= projectile.height / 2;
+                Projectile.position = player.Center + new Vector2(distanceFromPlayer, 0f).RotatedBy(Projectile.ai[1]); 
+                Projectile.position.X -= Projectile.width / 2;
+                Projectile.position.Y -= Projectile.height / 2;
 
                 float rotation = (float)Math.PI / 60;
-                projectile.ai[1] += rotation;
-                if (projectile.ai[1] > (float)Math.PI)
+                Projectile.ai[1] += rotation;
+                if (Projectile.ai[1] > (float)Math.PI)
                 {
-                    projectile.ai[1] -= 2f * (float)Math.PI;
-                    projectile.netUpdate = true;
+                    Projectile.ai[1] -= 2f * (float)Math.PI;
+                    Projectile.netUpdate = true;
                 }
 
-                projectile.rotation = (Main.MouseWorld - projectile.Center).ToRotation() - 5;
+                Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation() - 5;
             }
 
             if (Main.netMode == NetmodeID.Server)
-                projectile.netUpdate = true;
+                Projectile.netUpdate = true;
         }
 
         public override void Kill(int timeLeft)
         {
-            Main.player[projectile.owner].GetModPlayer<FargoPlayer>().IcicleCount--;
+            Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().IcicleCount--;
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using Terraria;
 using Terraria.ID;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ModLoader;
+using FargowiltasSouls.ItemDropRules.Conditions;
 
 namespace FargowiltasSouls.EternityMode
 {
@@ -12,7 +15,19 @@ namespace FargowiltasSouls.EternityMode
             {
                 Player player = Main.player[npc.target];
 
-                Item.NewItem(player.Hitbox, itemType);
+                Item.NewItem(npc.GetSource_Loot(), player.Hitbox, itemType);
+                droppedSummonFlag = true;
+            }
+        }
+
+        public static void DropSummon(NPC npc, string itemName, bool downed, ref bool droppedSummonFlag, bool prerequisite = true)
+        {
+            if (prerequisite && !downed && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummonFlag)
+            {
+                Player player = Main.player[npc.target];
+
+                if (ModContent.TryFind("Fargowiltas", itemName, out ModItem modItem))
+                    Item.NewItem(npc.GetSource_Loot(), player.Hitbox, modItem.Type);
                 droppedSummonFlag = true;
             }
         }

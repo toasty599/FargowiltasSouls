@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -14,74 +15,74 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sparkling Love");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         const int maxTime = 60;
 
         public override void SetDefaults()
         {
-            projectile.width = 80;
-            projectile.height = 80;
-            projectile.scale = 1.5f;
-            projectile.hostile = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.timeLeft = maxTime;
-            //projectile.alpha = 250;
-            projectile.aiStyle = -1;
-            projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.width = 80;
+            Projectile.height = 80;
+            Projectile.scale = 1.5f;
+            Projectile.hostile = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = maxTime;
+            //Projectile.alpha = 250;
+            Projectile.aiStyle = -1;
+            Projectile.penetrate = -1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
 
-            projectile.hide = true;
+            Projectile.hide = true;
         }
 
         public override void AI()
         {
-            projectile.hide = false; //to avoid edge case tick 1 wackiness
+            Projectile.hide = false; //to avoid edge case tick 1 wackiness
 
             //the important part
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
             if (npc != null)
             {
-                if (projectile.localAI[0] == 0)
-                    projectile.localAI[1] = projectile.ai[1] / maxTime; //do this first
+                if (Projectile.localAI[0] == 0)
+                    Projectile.localAI[1] = Projectile.ai[1] / maxTime; //do this first
                 
-                projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[1]);
-                projectile.ai[1] -= projectile.localAI[1];
-                projectile.Center = npc.Center + new Vector2(50, 50).RotatedBy(projectile.velocity.ToRotation() - MathHelper.PiOver4) * projectile.scale;
+                Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[1]);
+                Projectile.ai[1] -= Projectile.localAI[1];
+                Projectile.Center = npc.Center + new Vector2(50, 50).RotatedBy(Projectile.velocity.ToRotation() - MathHelper.PiOver4) * Projectile.scale;
             }
             else
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
+                Projectile.localAI[0] = 1;
+                Vector2 basePos = Projectile.Center - Projectile.velocity * 141 / 2 * Projectile.scale;
                 for (int i = 0; i < 40; i++)
                 {
-                    int d = Dust.NewDust(basePos + projectile.velocity * Main.rand.NextFloat(141) * projectile.scale, 0, 0, 86, Scale: 3f);
+                    int d = Dust.NewDust(basePos + Projectile.velocity * Main.rand.NextFloat(141) * Projectile.scale, 0, 0, 86, Scale: 3f);
                     Main.dust[d].velocity *= 4.5f;
                     Main.dust[d].noGravity = true;
                 }
-                Main.PlaySound(SoundID.Item1, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
             }
             
-            projectile.direction = projectile.spriteDirection = Math.Sign(projectile.ai[1]);
-            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(projectile.direction < 0 ? 135 : 45);
-            //Main.NewText(MathHelper.ToDegrees(projectile.velocity.ToRotation()) + " " + MathHelper.ToDegrees(projectile.ai[1]));
+            Projectile.direction = Projectile.spriteDirection = Math.Sign(Projectile.ai[1]);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(Projectile.direction < 0 ? 135 : 45);
+            //Main.NewText(MathHelper.ToDegrees(Projectile.velocity.ToRotation()) + " " + MathHelper.ToDegrees(Projectile.ai[1]));
         }
 
         public override void Kill(int timeLeft)
         {
-            Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
+            Vector2 basePos = Projectile.Center - Projectile.velocity * 141 / 2 * Projectile.scale;
             for (int i = 0; i < 40; i++)
             {
-                int d = Dust.NewDust(basePos + projectile.velocity * Main.rand.NextFloat(141) * projectile.scale, 0, 0, 86, Scale: 3f);
+                int d = Dust.NewDust(basePos + Projectile.velocity * Main.rand.NextFloat(141) * Projectile.scale, 0, 0, 86, Scale: 3f);
                 Main.dust[d].velocity *= 4.5f;
                 Main.dust[d].noGravity = true;
             }
@@ -89,45 +90,45 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Berserked"), 240);
-            target.AddBuff(mod.BuffType("MutantNibble"), 240);
-            target.AddBuff(mod.BuffType("Guilty"), 240);
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
-            target.AddBuff(mod.BuffType("Rotting"), 240);
+            target.AddBuff(ModContent.BuffType<Berserked>(), 240);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 240);
+            target.AddBuff(ModContent.BuffType<Guilty>(), 240);
+            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
+            target.AddBuff(ModContent.BuffType<Rotting>(), 240);
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            Color color = lightColor * projectile.Opacity;
-            color.A = (byte)Math.Min(255, 255 * Math.Sin(Math.PI * (maxTime - projectile.timeLeft) / maxTime) * 1f);
+            Color color = lightColor * Projectile.Opacity;
+            color.A = (byte)Math.Min(255, 255 * Math.Sin(Math.PI * (maxTime - Projectile.timeLeft) / maxTime) * 1f);
             return color;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            SpriteEffects effects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26 * 0.5f;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
-            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/SparklingLove_glow");
-            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, effects, 0);
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Items/Weapons/FinalUpgrades/SparklingLove_glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Main.EntitySpriteDraw(texture2D14, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * Projectile.Opacity, Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

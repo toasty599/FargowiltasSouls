@@ -13,31 +13,33 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Sands of Time");
             Tooltip.SetDefault(@"Works in your inventory
-Grants immunity to Mighty Wind and cactus damage
+Grants immunity to Mighty Wind
 You respawn twice as fast when no boss is alive
 Use to teleport to your last death point
 'Whatever you do, don't drop it'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "时之沙");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'无论你做什么,都不要丢下它'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "时之沙");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'无论你做什么,都不要丢下它'
 放在物品栏中即可生效
 免疫强风和仙人掌伤害
 当没有Boss存活时,重生速度加倍
 按下快捷键传送到上次死亡地点");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 4);
 
-            item.useTime = 90;
-            item.useAnimation = 90;
-            item.useStyle = ItemUseStyleID.HoldingUp;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item6;
+            Item.useTime = 90;
+            Item.useAnimation = 90;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item6;
         }
 
         public override void UpdateInventory(Player player)
@@ -45,7 +47,7 @@ Use to teleport to your last death point
             player.buffImmune[BuffID.WindPushed] = true;
 
             //respawn faster ech
-            player.GetModPlayer<FargoPlayer>().SandsofTime = true;
+            player.GetModPlayer<FargoSoulsPlayer>().SandsofTime = true;
         }
 
         public override bool CanUseItem(Player player)
@@ -53,7 +55,7 @@ Use to teleport to your last death point
             return player.lastDeathPostion != Vector2.Zero;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             for (int index = 0; index < 70; ++index)
             {

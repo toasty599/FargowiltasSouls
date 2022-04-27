@@ -8,25 +8,38 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
     [AutoloadEquip(EquipType.Shield)]
-    public class TerraForce : SoulsItem
+    public class TerraForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<CopperEnchant>(),
+            ModContent.ItemType<TinEnchant>(),
+            ModContent.ItemType<IronEnchant>(),
+            ModContent.ItemType<LeadEnchant>(),
+            ModContent.ItemType<TungstenEnchant>(),
+            ModContent.ItemType<ObsidianEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Terra Force");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉之力");
             
             string tooltip =
 $"[i:{ModContent.ItemType<CopperEnchant>()}] Attacks have a chance to spawn lightning and explosions\n" +
 $"[i:{ModContent.ItemType<TinEnchant>()}] Sets your critical strike chance to 10%\n" +
 $"[i:{ModContent.ItemType<TinEnchant>()}] Every crit will increase it by 5% up to double your current crit chance\n" +
 $"[i:{ModContent.ItemType<IronEnchant>()}] Right Click to guard with your shield\n" +
+$"[i:{ModContent.ItemType<IronEnchant>()}] Guard just before being hit to parry the attack\n" +
 $"[i:{ModContent.ItemType<IronEnchant>()}] You attract items from a larger range\n" +
 $"[i:{ModContent.ItemType<LeadEnchant>()}] Attacks may inflict enemies with Lead Poisoning\n" +
-$"[i:{ModContent.ItemType<TungstenEnchant>()}] 150% increased sword size\n" +
-$"[i:{ModContent.ItemType<TungstenEnchant>()}] Every quarter second a projectile will be doubled in size\n" +
+$"[i:{ModContent.ItemType<TungstenEnchant>()}] 300% increased sword size\n" +
+$"[i:{ModContent.ItemType<TungstenEnchant>()}] Every quarter second a projectile will be tripled in size\n" +
 $"[i:{ModContent.ItemType<ObsidianEnchant>()}]Grants immunity to fire and lava\n" +
-$"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet, your attacks spawn explosions\n" +
+$"[i:{ModContent.ItemType<ObsidianEnchant>()}]Your attacks spawn explosions\n" +
 "'The land lends its strength'";
             Tooltip.SetDefault(tooltip);
 
@@ -42,33 +55,18 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
 使你免疫火与岩浆并获得在岩浆中的机动性
 你的攻击会引发爆炸
 '大地赐予它力量'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-        }
-
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
-            //item.shieldSlot = 5;
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            //lightning
-            modPlayer.CopperEnchant = true;
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //crit effect improved
             modPlayer.TerraForce = true;
-            //crits
-            modPlayer.TinEffect();
-            //lead poison
-            modPlayer.LeadEnchant = true;
-            //tungsten
-            modPlayer.TungstenEnchant = true;
+            CopperEnchant.CopperEffect(player);
+            TinEnchant.TinEffect(player);
+            LeadEnchant.LeadEffect(player);
+            TungstenEnchant.TungstenEffect(player);
             //lava immune (obsidian)
             modPlayer.ObsidianEffect();
 
@@ -80,25 +78,18 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
             //magnet
             if (player.GetToggleValue("IronM", false))
             {
-                modPlayer.IronEnchant = true;
+                modPlayer.IronEnchantActive = true;
+                player.treasureMagnet = true;
             }
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddIngredient(null, "CopperEnchant");
-            recipe.AddIngredient(null, "TinEnchant");
-            recipe.AddIngredient(null, "IronEnchant");
-            recipe.AddIngredient(null, "LeadEnchant");
-            recipe.AddIngredient(null, "TungstenEnchant");
-            recipe.AddIngredient(null, "ObsidianEnchant");
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

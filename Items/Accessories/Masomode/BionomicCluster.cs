@@ -4,6 +4,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Minions;
+using FargowiltasSouls.Items.Materials;
+using FargowiltasSouls.Items.Consumables;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -22,15 +26,15 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nAttacks have a chance to squeak and deal 1 damage to you" +
                 "\nShadowflame tentacles lash out at nearby enemies and summons a friendly rainbow slime" +
                 "\nCertain enemies will drop potions when defeated" +
-                "\nFollowing effects work in inventory or vanity slots:" +
-                "\nGrants immunity to Mighty Wind and Suffocation" +
-                "\nYou have autofire, improved night vision, and automatically use mana potions when needed" +
-                "\nYou respawn with more life and when no boss is alive, respawn faster" +
-                "\nRight click to zoom and 50% discount on reforges" +
+                "\n[c/00FFFF:Following effects work passively from inventory or vanity slots:]" +
+                "\n    Grants immunity to Mighty Wind, Suffocation, and Guilty" +
+                "\n    You have autofire, improved night vision, and automatically use mana potions when needed" +
+                "\n    You respawn with more life and when no boss is alive, respawn faster" +
+                "\n    Right click to zoom and 50% discount on reforges" +
                 "\n'The amalgamate born of a thousand common enemies'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "生态集群");
-            Tooltip.AddTranslation(GameCulture.Chinese, "使你免疫霜冻、暗影焰、吱吱作响的玩具、愧疚、强风和窒息减益" +
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生态集群");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "使你免疫霜冻、暗影焰、吱吱作响的玩具、愧疚、强风和窒息减益" +
                 "\n使你免疫宇宙之火、剪除羽翼、残废、被网住和净化减益" +
                 "\n使你免热恋、恶臭、迈达斯、邪咒减益，同时免疫仙人掌刺伤和敌人的偷取物品效果" +
                 "\n攻击会造成剪除羽翼减益并生成霜火球和红心" +
@@ -41,40 +45,42 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n召唤一只彩虹史莱姆" +
                 "\n使用此饰品后会将你传送至上一次死亡时的地点，右键缩放视域" +
                 "\n'由上千普通敌人融合而成'");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = Item.sellPrice(0, 6);
-            item.defense = 6;
-            item.useTime = 90;
-            item.useAnimation = 90;
-            item.useStyle = ItemUseStyleID.HoldingUp;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item6;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(0, 6);
+            Item.defense = 6;
+            Item.useTime = 90;
+            Item.useAnimation = 90;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item6;
         }
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().BionomicPassiveEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().BionomicPassiveEffect();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             // Concentrated rainbow matter
-            player.buffImmune[mod.BuffType("FlamesoftheUniverse")] = true;
+            player.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
             if (player.GetToggleValue("MasoRainbow"))
-                player.AddBuff(mod.BuffType("RainbowSlime"), 2);
+                player.AddBuff(ModContent.BuffType<RainbowSlime>(), 2);
 
             // Dragon fang
-            player.buffImmune[mod.BuffType("ClippedWings")] = true;
-            player.buffImmune[mod.BuffType("Crippled")] = true;
+            player.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            player.buffImmune[ModContent.BuffType<Crippled>()] = true;
             if (player.GetToggleValue("MasoClipped"))
                 fargoPlayer.DragonFang = true;
 
@@ -82,28 +88,28 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             player.buffImmune[BuffID.Frostburn] = true;
             if (player.GetToggleValue("MasoFrigid"))
             {
-                fargoPlayer.FrigidGemstone = true;
+                fargoPlayer.FrigidGemstoneItem = Item;
                 if (fargoPlayer.FrigidGemstoneCD > 0)
                     fargoPlayer.FrigidGemstoneCD--;
             }
 
             // Wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
-            player.buffImmune[mod.BuffType("Shadowflame")] = true;
-            player.GetModPlayer<FargoPlayer>().WretchedPouch = true;
+            player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
+            player.GetModPlayer<FargoSoulsPlayer>().WretchedPouchItem = Item;
 
             // Sands of time
             player.buffImmune[BuffID.WindPushed] = true;
             fargoPlayer.SandsofTime = true;
 
             // Squeaky toy
-            player.buffImmune[mod.BuffType("SqueakyToy")] = true;
-            player.buffImmune[mod.BuffType("Guilty")] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToy>()] = true;
+            player.buffImmune[ModContent.BuffType<Guilty>()] = true;
             fargoPlayer.SqueakyAcc = true;
 
             // Tribal charm
             player.buffImmune[BuffID.Webbed] = true;
-            player.buffImmune[mod.BuffType("Purified")] = true;
+            player.buffImmune[ModContent.BuffType<Purified>()] = true;
             fargoPlayer.TribalCharm = true;
 
             // Mystic skull
@@ -111,7 +117,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             player.manaFlower = true;
 
             // Security wallet
-            player.buffImmune[mod.BuffType("Midas")] = true;
+            player.buffImmune[ModContent.BuffType<Midas>()] = true;
             fargoPlayer.SecurityWallet = true;
 
             // Carrot
@@ -121,8 +127,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
             // Nymph's perfume
             player.buffImmune[BuffID.Lovestruck] = true;
-            player.buffImmune[mod.BuffType("Lovestruck")] = true;
-            player.buffImmune[mod.BuffType("Hexed")] = true;
+            player.buffImmune[ModContent.BuffType<Lovestruck>()] = true;
+            player.buffImmune[ModContent.BuffType<Hexed>()] = true;
             player.buffImmune[BuffID.Stinky] = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
             if (player.GetToggleValue("MasoNymph"))
@@ -134,12 +140,12 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
             // Tim's concoction
             if (player.GetToggleValue("MasoConcoction"))
-                player.GetModPlayer<FargoPlayer>().TimsConcoction = true;
+                player.GetModPlayer<FargoSoulsPlayer>().TimsConcoction = true;
         }
 
         public override bool CanUseItem(Player player) => player.lastDeathPostion != Vector2.Zero;
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             for (int index = 0; index < 70; ++index)
             {
@@ -176,27 +182,27 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("ConcentratedRainbowMatter"));
-            recipe.AddIngredient(mod.ItemType("WyvernFeather"));
-            recipe.AddIngredient(mod.ItemType("FrigidGemstone"));
-            recipe.AddIngredient(mod.ItemType("SandsofTime"));
-            recipe.AddIngredient(mod.ItemType("SqueakyToy"));
-            recipe.AddIngredient(mod.ItemType("TribalCharm"));
-            recipe.AddIngredient(mod.ItemType("MysticSkull"));
-            recipe.AddIngredient(mod.ItemType("SecurityWallet"));
-            recipe.AddIngredient(mod.ItemType("OrdinaryCarrot"));
-            recipe.AddIngredient(mod.ItemType("WretchedPouch"));
-            recipe.AddIngredient(mod.ItemType("NymphsPerfume"));
-            recipe.AddIngredient(mod.ItemType("TimsConcoction"));
-            //recipe.AddIngredient(ItemID.SoulofLight, 20);
-            //recipe.AddIngredient(ItemID.SoulofNight, 20);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<ConcentratedRainbowMatter>())
+            .AddIngredient(ModContent.ItemType<WyvernFeather>())
+            .AddIngredient(ModContent.ItemType<FrigidGemstone>())
+            .AddIngredient(ModContent.ItemType<SandsofTime>())
+            .AddIngredient(ModContent.ItemType<SqueakyToy>())
+            .AddIngredient(ModContent.ItemType<TribalCharm>())
+            .AddIngredient(ModContent.ItemType<MysticSkull>())
+            .AddIngredient(ModContent.ItemType<SecurityWallet>())
+            .AddIngredient(ModContent.ItemType<OrdinaryCarrot>())
+            .AddIngredient(ModContent.ItemType<WretchedPouch>())
+            .AddIngredient(ModContent.ItemType<NymphsPerfume>())
+            .AddIngredient(ModContent.ItemType<TimsConcoction>())
+            //.AddIngredient(ItemID.SoulofLight, 20);
+            //.AddIngredient(ItemID.SoulofNight, 20);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.MythrilAnvil)
+            
+            .Register();
         }
     }
 }

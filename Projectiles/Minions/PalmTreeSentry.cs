@@ -10,58 +10,60 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Palm Tree");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 80;
-            projectile.height = 82;
-            projectile.aiStyle = -1;
-            projectile.tileCollide = true;
-            projectile.ignoreWater = true;
-            projectile.penetrate = -1;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.timeLeft = 7200;
+            Projectile.width = 80;
+            Projectile.height = 82;
+            Projectile.aiStyle = -1;
+            Projectile.tileCollide = true;
+            Projectile.ignoreWater = true;
+            Projectile.penetrate = -1;
+            Projectile.friendly = true;
+            Projectile.sentry = true;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.timeLeft = 7200;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            Player player = Main.player[Projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (player.active && !player.dead && modPlayer.PalmEnchant)
-                projectile.timeLeft = 2;
+            if (player.active && !player.dead && modPlayer.PalmEnchantActive)
+                Projectile.timeLeft = 2;
 
-            projectile.velocity.Y = projectile.velocity.Y + 0.2f;
-            if (projectile.velocity.Y > 16f)
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
+            if (Projectile.velocity.Y > 16f)
             {
-                projectile.velocity.Y = 16f;
+                Projectile.velocity.Y = 16f;
             }
 
-            projectile.ai[1] += 1f;
+            Projectile.ai[1] += 1f;
 
             int attackRate = 45;
 
-            if (modPlayer.WoodForce || modPlayer.WizardEnchant)
+            if (modPlayer.WoodForce || modPlayer.WizardEnchantActive)
             {
                 attackRate = 30;
             }
 
-            if (projectile.ai[1] >= attackRate)
+            if (Projectile.ai[1] >= attackRate)
             {
                 float num = 2000f;
                 int npcIndex = -1;
                 for (int i = 0; i < 200; i++)
                 {
-                    float dist = Vector2.Distance(projectile.Center, Main.npc[i].Center);
+                    float dist = Vector2.Distance(Projectile.Center, Main.npc[i].Center);
 
-                    if (dist < num && dist < 300 && Main.npc[i].CanBeChasedBy(projectile, false))
+                    if (dist < num && dist < 300 && Main.npc[i].CanBeChasedBy(Projectile, false))
                     {
                         npcIndex = i;
                         num = dist;
@@ -72,39 +74,36 @@ namespace FargowiltasSouls.Projectiles.Minions
                 {
                     NPC target = Main.npc[npcIndex];
 
-                    if (Collision.CanHit(projectile.position, projectile.width, projectile.height, target.position, target.width, target.height))
+                    if (Collision.CanHit(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
                     {
-                        Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 10;
+                        Vector2 velocity = Vector2.Normalize(target.Center - Projectile.Center) * 10;
 
-                        int p = Projectile.NewProjectile(projectile.Center, velocity, ProjectileID.SeedlerNut, projectile.damage, 2, projectile.owner);
+                        int p = FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ProjectileID.SeedlerNut, Projectile.originalDamage, 2, Projectile.owner);
                         if (p != Main.maxProjectiles)
-                        {
-                            Main.projectile[p].minion = true;
-                            Main.projectile[p].melee = false;
-                        }
-
+                            Main.projectile[p].DamageType = DamageClass.Summon;
                     }
                 }
-                projectile.ai[1] = 0f;
+                Projectile.ai[1] = 0f;
 
                 //kill if too far away
-                if (Vector2.Distance(Main.player[projectile.owner].Center, projectile.Center) > 2000)
+                if (Vector2.Distance(Main.player[Projectile.owner].Center, Projectile.Center) > 2000)
                 {
-                    projectile.Kill();
+                    Projectile.Kill();
                 }
             }
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = false;
             return true;
         }
 
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            projectile.position += projectile.velocity;
-            projectile.velocity = Vector2.Zero;
+            Projectile.position += Projectile.velocity;
+            Projectile.velocity = Vector2.Zero;
             return false;
         }
     }

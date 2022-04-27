@@ -1,4 +1,8 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,15 +14,16 @@ namespace FargowiltasSouls.Items.Dyes
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heavenly Dye");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 
         public override void SetDefaults()
         {
-            item.maxStack = 99;
-            item.rare = ItemRarityID.Orange;
-            item.width = 20;
-            item.height = 20;
-            item.value = Item.sellPrice(0, 2, 50);
+            Item.maxStack = 99;
+            Item.rare = ItemRarityID.Orange;
+            Item.width = 20;
+            Item.height = 20;
+            Item.value = Item.sellPrice(0, 2, 50);
         }
     }
 
@@ -28,15 +33,16 @@ namespace FargowiltasSouls.Items.Dyes
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Willpower Dye");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 
         public override void SetDefaults()
         {
-            item.maxStack = 99;
-            item.rare = ItemRarityID.Orange;
-            item.width = 20;
-            item.height = 20;
-            item.value = Item.sellPrice(0, 2, 50);
+            Item.maxStack = 99;
+            Item.rare = ItemRarityID.Orange;
+            Item.width = 20;
+            Item.height = 20;
+            Item.value = Item.sellPrice(0, 2, 50);
         }
     }
 
@@ -46,28 +52,29 @@ namespace FargowiltasSouls.Items.Dyes
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gaia Dye");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 
         public override void SetDefaults()
         {
-            item.maxStack = 99;
-            item.rare = ItemRarityID.Orange;
-            item.width = 20;
-            item.height = 20;
-            item.value = Item.sellPrice(0, 2, 50);
+            Item.maxStack = 99;
+            Item.rare = ItemRarityID.Orange;
+            Item.width = 20;
+            Item.height = 20;
+            Item.value = Item.sellPrice(0, 2, 50);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.BottledWater);
-            recipe.AddIngredient(ItemID.BeetleHusk);
-            recipe.AddIngredient(ItemID.ShroomiteBar);
-            recipe.AddIngredient(ItemID.SpectreBar);
-            recipe.AddIngredient(ItemID.SpookyWood);
-            recipe.AddTile(TileID.DyeVat);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddIngredient(ItemID.BottledWater)
+            .AddIngredient(ItemID.BeetleHusk)
+            .AddIngredient(ItemID.ShroomiteBar)
+            .AddIngredient(ItemID.SpectreBar)
+            .AddIngredient(ItemID.SpookyWood)
+            .AddTile(TileID.DyeVat)
+            
+            .Register();
         }
     }
 }

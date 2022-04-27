@@ -5,26 +5,19 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class AbomCooldown : ModBuff
     {
-        public override void SetDefaults()
+        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
+
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abominable Cooldown");
             Description.SetDefault("Cannot endure another attack yet");
             Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = true;
-        }
-
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderDebuff";
-            return true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.GetModPlayer<FargoPlayer>().AbominableWandRevived)
+            if (player.GetModPlayer<FargoSoulsPlayer>().AbominableWandRevived)
                 player.buffTime[buffIndex] = 2;
         }
     }

@@ -1,5 +1,7 @@
+using FargowiltasSouls.Buffs.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,43 +11,45 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Big Brain Buster");
             Tooltip.SetDefault(
 "Repeated summons increase the size and damage of the minion\n" +
 $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
 "'The reward for slaughtering many...'");
-            ItemID.Sets.StaffMinionSlotsRequired[item.type] = 1;
+            ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 1;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.damage = 222;
-            item.summon = true;
-            item.mana = 10;
-            item.width = 26;
-            item.height = 28;
-            item.useTime = 36;
-            item.useAnimation = 36;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.noMelee = true;
-            item.knockBack = 3;
-            item.rare = ItemRarityID.Purple;
-            item.UseSound = SoundID.Item44;
-            item.shoot = ModContent.ProjectileType<Projectiles.Minions.BigBrainProj>();
-            item.shootSpeed = 10f;
-            //item.buffType = mod.BuffType("BigBrainMinion");
-            //item.buffTime = 3600;
-            item.autoReuse = true;
-            item.value = Item.sellPrice(0, 10);
+            Item.damage = 222;
+            Item.DamageType = DamageClass.Summon;
+            Item.mana = 10;
+            Item.width = 26;
+            Item.height = 28;
+            Item.useTime = 36;
+            Item.useAnimation = 36;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.noMelee = true;
+            Item.knockBack = 3;
+            Item.rare = ItemRarityID.Purple;
+            Item.UseSound = SoundID.Item44;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Minions.BigBrainProj>();
+            Item.shootSpeed = 10f;
+            //Item.buffType = ModContent.BuffType<BigBrainMinion>();
+            //Item.buffTime = 3600;
+            Item.autoReuse = true;
+            Item.value = Item.sellPrice(0, 10);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(mod.BuffType("BigBrainMinion"), 2);
+            player.AddBuff(ModContent.BuffType<BigBrainMinion>(), 2);
             Vector2 spawnPos = player.Center - Main.MouseWorld;
             if (player.ownedProjectileCounts[type] == 0)
             {
-                Projectile.NewProjectile(player.Center, Vector2.Zero, type, damage, knockBack, player.whoAmI, 0, spawnPos.ToRotation());
+                FargoSoulsUtil.NewSummonProjectile(source, player.Center, Vector2.Zero, type, Item.damage, knockback, player.whoAmI, 0, spawnPos.ToRotation());
             }
             else
             {
@@ -66,9 +70,9 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
                     }
                 }
 
-                if (player.GetModPlayer<FargoPlayer>().TikiMinion && usedslots > player.GetModPlayer<FargoPlayer>().actualMinions && FargoSoulsUtil.ProjectileExists(brain, type) != null)
+                if (player.GetModPlayer<FargoSoulsPlayer>().TikiMinion && usedslots > player.GetModPlayer<FargoSoulsPlayer>().actualMinions && FargoSoulsUtil.ProjectileExists(brain, type) != null)
                 {
-                    Main.projectile[brain].GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().tikiMinion = true;
+                    Main.projectile[brain].GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().tikiMinion = true;
                 }
             }
             return false;
@@ -76,14 +80,14 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "BrainStaff");
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBrain"));
-            recipe.AddIngredient(ItemID.LunarBar, 10);
+            CreateRecipe()
+            .AddIngredient(null, "BrainStaff")
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerBrain"))
+            .AddIngredient(ItemID.LunarBar, 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
         }
     }
 }

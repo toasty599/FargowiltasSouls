@@ -9,17 +9,19 @@ using FargowiltasSouls.Toggler;
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
     [AutoloadEquip(EquipType.Shield)]
-    public class IronEnchant : SoulsItem
+    public class IronEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Iron Enchantment");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "铁魔石");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铁魔石");
             
             string tooltip =
 @"Right Click to guard with your shield
-You will totally block an attack if timed correctly
+Guard just before being hit to negate damage
 You attract items from a larger range
 'Strike while the iron is hot'";
             Tooltip.SetDefault(tooltip);
@@ -29,37 +31,23 @@ You attract items from a larger range
 如果时机正确则抵消这次伤害
 扩大你的拾取范围
 '趁热打铁'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(152, 142, 131);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(152, 142, 131);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Green;
-            item.value = 40000;
-            //item.shieldSlot = 5;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Green;
+            Item.value = 40000;
+            //Item.shieldSlot = 5;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-
-            //cobalt shield
-            //player.noKnockback = true;
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (player.GetToggleValue("IronS"))
             {
@@ -69,25 +57,25 @@ You attract items from a larger range
             //magnet
             if (player.GetToggleValue("IronM", false))
             {
-                modPlayer.IronEnchant = true;
+                modPlayer.IronEnchantActive = true;
             }
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.IronHelmet);
-            recipe.AddIngredient(ItemID.IronChainmail);
-            recipe.AddIngredient(ItemID.IronGreaves);
-            recipe.AddIngredient(ItemID.EmptyBucket);
-            recipe.AddIngredient(ItemID.IronBroadsword);
-            //recipe.AddIngredient(ItemID.IronBow);
+            CreateRecipe()
+            .AddIngredient(ItemID.IronHelmet)
+            .AddIngredient(ItemID.IronChainmail)
+            .AddIngredient(ItemID.IronGreaves)
+            .AddIngredient(ItemID.EmptyBucket)
+            .AddIngredient(ItemID.IronBroadsword)
+            //.AddIngredient(ItemID.IronBow);
             //apricot (high in iron pog)
-            recipe.AddIngredient(ItemID.ZebraSwallowtailButterfly);
+            .AddIngredient(ItemID.TreasureMagnet)
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.DemonAltar)
+            .Register();
+
         }
     }
 }

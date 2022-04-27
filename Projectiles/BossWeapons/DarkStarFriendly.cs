@@ -1,38 +1,39 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Projectiles.Minions
+namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     public class DarkStarFriendly : Masomode.DarkStar
     {
-        public override string Texture => "Terraria/Projectile_12";
+        public override string Texture => "Terraria/Images/Projectile_12";
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 75;
-            projectile.hostile = false;
-            projectile.friendly = true;
-            projectile.magic = true;
-            projectile.penetrate = -1;
+            Projectile.timeLeft = 75;
+            Projectile.hostile = false;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.penetrate = -1;
         }
 
         public override void AI()
         {
-            projectile.rotation = projectile.rotation + (Math.Abs(projectile.velocity.X) + Math.Abs(projectile.velocity.Y)) * 0.01f * projectile.direction;
-            projectile.soundDelay = 0;
-            if(projectile.velocity.Length() < 22) //fix stars not being aligned properly by making sure their total velocity is the same???
+            Projectile.rotation = Projectile.rotation + (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * Projectile.direction;
+            Projectile.soundDelay = 0;
+            if(Projectile.velocity.Length() < 22) //fix stars not being aligned properly by making sure their total velocity is the same???
             {
-                projectile.velocity.Normalize();
-                projectile.velocity *= 22;
+                Projectile.velocity.Normalize();
+                Projectile.velocity *= 22;
             }
-            projectile.velocity *= 1.02f;
+            Projectile.velocity *= 1.02f;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[projectile.owner] = 6;
+            target.immune[Projectile.owner] = 6;
         }
 
         public override bool PreKill(int timeleft)
@@ -41,19 +42,21 @@ namespace FargowiltasSouls.Projectiles.Minions
             int num2 = 3;
 
             for (int index = 0; index < num1; ++index)
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, projectile.velocity.X * 0.1f, projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 58, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
             for (int index = 0; index < num2; ++index)
             {
                 int Type = Main.rand.Next(16, 18);
-                if (projectile.type == 503)
+                if (Projectile.type == 503)
                     Type = 16;
-                Gore.NewGore(projectile.position, new Vector2(projectile.velocity.X * 0.05f, projectile.velocity.Y * 0.05f), Type, 1f);
+                if (!Main.dedServ)
+                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Type, 1f);
             }
 
             for (int index = 0; index < 10; ++index)
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 57, projectile.velocity.X * 0.1f, projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 57, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
             for (int index = 0; index < 3; ++index)
-                Gore.NewGore(projectile.position, new Vector2(projectile.velocity.X * 0.05f, projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
+                if (!Main.dedServ)
+                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
 
             return false;
         }

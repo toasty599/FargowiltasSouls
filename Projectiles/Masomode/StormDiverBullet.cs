@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,17 +14,19 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.MoonlordBullet);
-            aiType = ProjectileID.MoonlordBullet;
-            projectile.friendly = false;
-            projectile.ranged = false;
-            projectile.hostile = true;
+            Projectile.CloneDefaults(ProjectileID.MoonlordBullet);
+            AIType = ProjectileID.MoonlordBullet;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.DamageType = DamageClass.Default;
         }
+
+        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("LightningRod"), 300);
-            target.AddBuff(mod.BuffType("ClippedWings"), 120);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.LightningRod>(), 300);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.ClippedWings>(), 120);
         }
     }
 }

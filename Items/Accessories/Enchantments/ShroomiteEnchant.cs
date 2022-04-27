@@ -7,13 +7,15 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class ShroomiteEnchant : SoulsItem
+    public class ShroomiteEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Shroomite Enchantment");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "蘑菇魔石");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蘑菇魔石");
             
             string tooltip =
 @"All attacks gain trails of mushrooms
@@ -27,53 +29,41 @@ While in stealth, more mushrooms will spawn
 站定不动时使你进入隐身状态
 处于隐身状态时攻击会留下更多蘑菇尾迹
 '真的是用蘑菇做的！'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(0, 140, 244);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(0, 140, 244);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = 250000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = 250000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().ShroomiteEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().ShroomiteEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("FargowiltasSouls:AnyShroomHead");
-            recipe.AddIngredient(ItemID.ShroomiteBreastplate);
-            recipe.AddIngredient(ItemID.ShroomiteLeggings);
+            CreateRecipe()
+            .AddRecipeGroup("FargowiltasSouls:AnyShroomHead")
+            .AddIngredient(ItemID.ShroomiteBreastplate)
+            .AddIngredient(ItemID.ShroomiteLeggings)
             //shroomite digging
             //hammush
-            recipe.AddIngredient(ItemID.MushroomSpear);
-            recipe.AddIngredient(ItemID.Uzi);
+            .AddIngredient(ItemID.MushroomSpear)
+            .AddIngredient(ItemID.Uzi)
             //venus magnum
-            recipe.AddIngredient(ItemID.TacticalShotgun);
-            //recipe.AddIngredient(ItemID.StrangeGlowingMushroom);
+            .AddIngredient(ItemID.TacticalShotgun)
+            //.AddIngredient(ItemID.StrangeGlowingMushroom);
 
-            recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
     }
 }

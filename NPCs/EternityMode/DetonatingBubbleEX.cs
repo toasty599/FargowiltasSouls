@@ -3,66 +3,77 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Buffs.Masomode;
+using Terraria.GameContent;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
     public class DetonatingBubbleEX : ModNPC
     {
-        public override string Texture => "Terraria/NPC_371";
+        public override string Texture => "Terraria/Images/NPC_371";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Detonating Bubble");
-            Main.npcFrameCount[npc.type] = 2;
-            DisplayName.AddTranslation(GameCulture.Chinese, "爆炸泡泡");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爆炸泡泡");
+            Main.npcFrameCount[NPC.type] = 2;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true
+            });
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
+            });
         }
 
         public override void SetDefaults()
         {
-            npc.width = 36;
-            npc.height = 36;
-            npc.damage = 100;
-            npc.lifeMax = 5000;//500;
-            npc.HitSound = SoundID.NPCHit3;
-            npc.DeathSound = SoundID.NPCDeath3;
-            npc.noGravity = true;
-            npc.noTileCollide = true;
-            npc.knockBackResist = 0f;
-            npc.alpha = 255;
-            npc.lavaImmune = true;
-            npc.buffImmune[BuffID.OnFire] = true;
-            npc.aiStyle = -1;
-            npc.chaseable = false;
-            npc.buffImmune[BuffID.Suffocation] = true;
+            NPC.width = 36;
+            NPC.height = 36;
+            NPC.damage = 100;
+            NPC.lifeMax = 5000;//500;
+            NPC.HitSound = SoundID.NPCHit3;
+            NPC.DeathSound = SoundID.NPCDeath3;
+            NPC.noGravity = true;
+            NPC.noTileCollide = true;
+            NPC.knockBackResist = 0f;
+            NPC.alpha = 255;
+            NPC.lavaImmune = true;
+            NPC.aiStyle = -1;
+            NPC.chaseable = false;
         }
 
         public override void AI()
         {
-            if (npc.buffTime[0] != 0)
+            if (NPC.buffTime[0] != 0)
             {
-                npc.buffImmune[npc.buffType[0]] = true;
-                npc.DelBuff(0);
+                NPC.buffImmune[NPC.buffType[0]] = true;
+                NPC.DelBuff(0);
             }
 
-            if (npc.alpha > 50)
-                npc.alpha -= 30;
+            if (NPC.alpha > 50)
+                NPC.alpha -= 30;
             else
-                npc.alpha = 50;
+                NPC.alpha = 50;
 
-            npc.velocity *= 1.04f;
+            NPC.velocity *= 1.04f;
 
-            npc.ai[0]++;
-            if (npc.ai[0] >= 120f)
+            NPC.ai[0]++;
+            if (NPC.ai[0] >= 120f)
             {
-                npc.life = 0;
-                npc.checkDead();
-                npc.active = false;
+                NPC.life = 0;
+                NPC.checkDead();
+                NPC.active = false;
             }
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
-            cooldownSlot = 1;
+            CooldownSlot = 1;
             return true;
         }
 
@@ -73,7 +84,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override bool CheckDead()
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Needles = false;
+            NPC.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = false;
             return true;
         }
 
@@ -82,15 +93,18 @@ namespace FargowiltasSouls.NPCs.EternityMode
             if (target.hurtCooldowns[1] == 0)
             {
                 target.AddBuff(BuffID.Wet, 420);
-                target.AddBuff(mod.BuffType("Defenseless"), 600);
-                target.AddBuff(mod.BuffType("OceanicMaul"), 1800);
-                target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+                if (FargoSoulsWorld.MasochistModeReal)
+                    target.AddBuff(ModContent.BuffType<SqueakyToy>(), 120);
+                target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 20 * 60);
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
             }
         }
 
         public override void FindFrame(int frameHeight)
         {
-            npc.frame.Y = Main.npcTexture[npc.type].Height / 2;
+            if (TextureAssets.Npc[NPC.type].IsLoaded)
+                NPC.frame.Y = TextureAssets.Npc[NPC.type].Value.Height / 2;
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

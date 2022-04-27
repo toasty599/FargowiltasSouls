@@ -7,66 +7,56 @@ using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class SnowEnchant : SoulsItem
+    public class SnowEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Snow Enchantment");
             Tooltip.SetDefault(
 @"Spawns a snowstorm at your cursor
 Any projectiles or npcs in the snowstorm are slowed by 50%
 'It's Burning Cold Outside'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "冰雪魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰雪魔石");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"在光标位置生成暴雪
 暴雪中的所有弹幕和NPC的速度减缓50%（NPC包括敌人）
 '冷的要死'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(37, 195, 242);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(37, 195, 242);
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Blue;
-            item.value = 50000;
+            base.SetDefaults();
+            
+            Item.rare = ItemRarityID.Blue;
+            Item.value = 50000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().SnowEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().SnowEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.EskimoHood);
-            recipe.AddIngredient(ItemID.EskimoCoat);
-            recipe.AddIngredient(ItemID.EskimoPants);
+            .AddIngredient(ItemID.EskimoHood)
+            .AddIngredient(ItemID.EskimoCoat)
+            .AddIngredient(ItemID.EskimoPants)
             //hand warmer
             //fruitcake chakram
-            recipe.AddIngredient(ItemID.IceBoomerang);
+            .AddIngredient(ItemID.IceBoomerang)
             //frost daggerfish
-            recipe.AddIngredient(ItemID.FrostMinnow);
-            recipe.AddIngredient(ItemID.AtlanticCod);
-            //recipe.AddIngredient(ItemID.Fish); 
+            .AddIngredient(ItemID.FrostMinnow)
+            .AddIngredient(ItemID.AtlanticCod)
+            //.AddIngredient(ItemID.Fish); 
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
 }

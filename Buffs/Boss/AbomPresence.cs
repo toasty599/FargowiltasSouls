@@ -6,23 +6,23 @@ namespace FargowiltasSouls.Buffs.Boss
 {
     public class AbomPresence : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abominable Presence");
             Description.SetDefault("Defense, damage reduction, and life regen reduced; Moon Leech effect");
-            DisplayName.AddTranslation(GameCulture.Chinese, "憎恶驾到");
-            Description.AddTranslation(GameCulture.Chinese, "减少防御、伤害减免和生命恢复速度;附带月噬减益");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶驾到");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "减少防御、伤害减免和生命恢复速度;附带月噬减益");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
+            
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().noDodge = true;
-            player.GetModPlayer<FargoPlayer>().noSupersonic = true;
+            player.GetModPlayer<FargoSoulsPlayer>().noDodge = true;
+            player.GetModPlayer<FargoSoulsPlayer>().noSupersonic = true;
             player.moonLeech = true;
             player.bleed = true;
 

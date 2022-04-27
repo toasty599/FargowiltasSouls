@@ -9,26 +9,26 @@ namespace FargowiltasSouls.Patreon.Gittle
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[projectile.type] = 16;
-            Main.projPet[projectile.type] = true;
+            Main.projFrames[Projectile.type] = 16;
+            Main.projPet[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.Turtle);
-            aiType = ProjectileID.Turtle;
+            Projectile.CloneDefaults(ProjectileID.Turtle);
+            AIType = ProjectileID.Turtle;
         }
 
         public override bool PreAI()
         {
-            Player player = Main.player[projectile.owner];
-            player.turtle = false; // Relic from aiType
+            Player player = Main.player[Projectile.owner];
+            player.turtle = false; // Relic from AIType
             return true;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
             PatreonPlayer modPlayer = player.GetModPlayer<PatreonPlayer>();
             if (player.dead)
             {
@@ -36,10 +36,10 @@ namespace FargowiltasSouls.Patreon.Gittle
             }
             if (modPlayer.RoombaPet)
             {
-                projectile.timeLeft = 2;
+                Projectile.timeLeft = 2;
             }
 
-            int num113 = Dust.NewDust(new Vector2(projectile.Center.X - projectile.direction * (projectile.width / 2), projectile.Center.Y + projectile.height / 2), projectile.width, 6, 76, 0f, 0f, 0, default(Color), 1f);
+            int num113 = Dust.NewDust(new Vector2(Projectile.Center.X - Projectile.direction * (Projectile.width / 2), Projectile.Center.Y + Projectile.height / 2), Projectile.width, 6, 76, 0f, 0f, 0, default(Color), 1f);
             Main.dust[num113].noGravity = true;
             Main.dust[num113].velocity *= 0.3f;
             Main.dust[num113].noLight = true;

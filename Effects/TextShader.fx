@@ -15,6 +15,7 @@ float2 uImageSize0;
 float2 uImageSize1;
 float4 uLegacyArmorSourceRect;
 float2 uLegacyArmorSheetSize;
+float4 uShaderSpecificData;
 
 float4 PulseShader(float4 sampleColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {

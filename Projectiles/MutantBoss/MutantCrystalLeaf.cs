@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -9,58 +11,58 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantCrystalLeaf : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_226";
+        public override string Texture => "Terraria/Images/Projectile_226";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Leaf");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 12;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 20;
-            projectile.height = 20;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.hostile = true;
-            projectile.timeLeft = 900;
-            projectile.aiStyle = -1;
-            projectile.scale = 2.5f;
-            cooldownSlot = 1;
+            Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.hostile = true;
+            Projectile.timeLeft = 900;
+            Projectile.aiStyle = -1;
+            Projectile.scale = 2.5f;
+            CooldownSlot = 1;
         }
 
         public override void AI()
         {
-            if (++projectile.localAI[0] == 0)
+            if (++Projectile.localAI[0] == 0)
             {
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 157, 0f, 0f, 0, new Color(), 2f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 157, 0f, 0f, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
             }
 
-            Lighting.AddLight(projectile.Center, 0.1f, 0.4f, 0.2f);
-            projectile.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
-            projectile.scale *= 2.5f;
+            Lighting.AddLight(Projectile.Center, 0.1f, 0.4f, 0.2f);
+            Projectile.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
+            Projectile.scale *= 2.5f;
 
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], ModContent.ProjectileType<MutantMark2>());
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<MutantMark2>());
             if (byUUID != -1)
             {
-                Vector2 offset = new Vector2(100, 0).RotatedBy(projectile.ai[1]);
-                projectile.Center = Main.projectile[byUUID].Center + offset;
+                Vector2 offset = new Vector2(100, 0).RotatedBy(Projectile.ai[1]);
+                Projectile.Center = Main.projectile[byUUID].Center + offset;
 
-                projectile.localAI[1] = Math.Max(0, 150 - Main.projectile[byUUID].ai[1]) / 150; //rampup
-                projectile.ai[1] += 0.15f * projectile.localAI[1];
+                Projectile.localAI[1] = Math.Max(0, 150 - Main.projectile[byUUID].ai[1]) / 150; //rampup
+                Projectile.ai[1] += 0.15f * Projectile.localAI[1];
 
-                if (projectile.localAI[1] > 1f) //clamp it for use in draw
-                    projectile.localAI[1] = 1f;
+                if (Projectile.localAI[1] > 1f) //clamp it for use in draw
+                    Projectile.localAI[1] = 1f;
             }
 
-            projectile.rotation = projectile.ai[1] + (float)Math.PI / 2f;
+            Projectile.rotation = Projectile.ai[1] + (float)Math.PI / 2f;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -68,9 +70,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 300));
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("Infested"), Main.rand.Next(60, 300));
-                target.AddBuff(mod.BuffType("IvyVenom"), Main.rand.Next(60, 300));
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<Infested>(), Main.rand.Next(60, 300));
+                target.AddBuff(ModContent.BuffType<IvyVenom>(), Main.rand.Next(60, 300));
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
         }
 
@@ -83,33 +85,33 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             return new Color(num5, num5, num5, 200);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color27 = Color.White * projectile.Opacity * projectile.localAI[1];
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                Color color27 = Color.White * Projectile.Opacity * Projectile.localAI[1];
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

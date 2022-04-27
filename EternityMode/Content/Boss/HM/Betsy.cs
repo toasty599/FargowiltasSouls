@@ -1,8 +1,8 @@
-﻿using Fargowiltas.Items.Summons.Abom;
-using FargowiltasSouls.Buffs.Masomode;
+﻿using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Events;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -45,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.SetDefaults(npc);
 
             npc.boss = true;
-            npc.lifeMax = (int)(npc.lifeMax * 4.0 / 3.0);
+            npc.lifeMax = (int)(npc.lifeMax * 4.0 / 3.0) + 1;
         }
 
         public override bool PreAI(NPC npc)
@@ -97,63 +98,63 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         case 0:
                             if (!Main.dedServ)
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(1f).WithPitchVariance(-0.5f), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1f).WithPitchVariance(-0.5f), Main.player[npc.target].Center);
                             break;
 
                         case 1:
-                            Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 2); //arte scream
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 2); //arte scream
                             break;
 
                         case 2:
-                            Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
                             break;
 
                         case 3:
-                            Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
                             break;
 
                         case 4:
                             if (!Main.dedServ)
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster94"), Main.player[npc.target].Center);
                             break;
 
                         case 5:
                             if (!Main.dedServ)
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster5").WithVolume(1.5f), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster5").WithVolume(1.5f), Main.player[npc.target].Center);
                             break;
 
                         case 6:
                             if (!Main.dedServ)
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(1.5f).WithPitchVariance(1.5f), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1.5f).WithPitchVariance(1.5f), Main.player[npc.target].Center);
                             break;
 
                         case 7:
                             if (!Main.dedServ)
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104"), Main.player[npc.target].Center);
                             break;
 
                         case 8:
                             if (!Main.dedServ)
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster70"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster70"), Main.player[npc.target].Center);
                             break;
 
                         case 9:
                             if (!Main.dedServ)
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Railgun"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Railgun"), Main.player[npc.target].Center);
                             break;
 
                         case 10:
                             if (!Main.dedServ)
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Navi"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Navi"), Main.player[npc.target].Center);
                             break;
 
                         case 11:
                             if (!Main.dedServ)
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1.5f), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1.5f), Main.player[npc.target].Center);
                             break;
 
                         default:
-                            Main.PlaySound(SoundID.NPCDeath10, Main.player[npc.target].Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath10, Main.player[npc.target].Center);
                             break;
                     }
                 }
@@ -162,7 +163,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (!InPhase2 && npc.life < npc.lifeMax / 2)
             {
                 InPhase2 = true;
-                Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
             }
 
             if (npc.ai[0] == 6f) //when approaching for roar
@@ -184,7 +185,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (FuryRingTimer == 0)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), npc.damage / 3, 0f, Main.myPlayer, 4);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, 4);
+
+                    if (FargoSoulsWorld.MasochistModeReal)
+                    {
+                        if (NPC.CountNPCS(NPCID.DD2DarkMageT3) < 3)
+                            FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.DD2DarkMageT3, target: npc.target);
+                    }
                 }
 
                 FuryRingTimer++;
@@ -192,8 +199,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * FuryRingShotRotationCounter), ModContent.ProjectileType<BetsyFury>(), npc.damage / 3, 0f, Main.myPlayer, npc.target);
-                        Projectile.NewProjectile(npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * -FuryRingShotRotationCounter), ModContent.ProjectileType<BetsyFury>(), npc.damage / 3, 0f, Main.myPlayer, npc.target);
+                        float rotation = FuryRingShotRotationCounter;
+                        if (FargoSoulsWorld.MasochistModeReal && FuryRingTimer >= 30 && FuryRingTimer <= 60)
+                            rotation += 1; //staggers each wave instead of lining them up behind each other
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * rotation), ModContent.ProjectileType<BetsyFury>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, npc.target);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * -rotation), ModContent.ProjectileType<BetsyFury>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, npc.target);
                     }
                     FuryRingShotRotationCounter++;
                 }
@@ -232,7 +242,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.active = false;
             }
 
-            EModeUtils.DropSummon(npc, ModContent.ItemType<BetsyEgg>(), FargoSoulsWorld.downedBetsy, ref DroppedSummon, NPC.downedGolemBoss);
+            EModeUtils.DropSummon(npc, "BetsyEgg", FargoSoulsWorld.downedBetsy, ref DroppedSummon, NPC.downedGolemBoss);
 
             return true;
         }
@@ -246,20 +256,28 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
         }
 
-        public override bool PreNPCLoot(NPC npc)
+        public override bool SpecialOnKill(NPC npc)
         {
             npc.boss = false;
 
-            return base.PreNPCLoot(npc);
+            return base.SpecialOnKill(npc);
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void OnKill(NPC npc)
         {
-            base.NPCLoot(npc);
+            base.OnKill(npc);
 
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<BetsysHeart>());
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.GoldenCrate, 5);
             FargoSoulsWorld.downedBetsy = true;
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<BetsysHeart>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.GoldenCrateHard, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

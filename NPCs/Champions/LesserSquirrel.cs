@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.DeviBoss;
+using Terraria.GameContent.Bestiary;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -15,45 +16,59 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lesser Squirrel");
-            DisplayName.AddTranslation(GameCulture.Chinese, "小松鼠");
-            Main.npcFrameCount[npc.type] = 6;
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "小松鼠");
+            Main.npcFrameCount[NPC.type] = 6;
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(
+                   ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[ModContent.NPCType<TimberChampion>()],
+                   quickUnlock: true
+               );
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+                new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
+            });
         }
 
         public override void SetDefaults()
         {
-            npc.width = 50;
-            npc.height = 32;
-            npc.damage = 0;
-            npc.defense = 0;
-            npc.lifeMax = 1800;
-            //Main.npcCatchable[npc.type] = true;
-            //npc.catchItem = (short)mod.ItemType("TophatSquirrel");
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.value = 0f;
-            npc.knockBackResist = .25f;
-            //banner = npc.type;
-            //bannerItem = mod.ItemType("TophatSquirrelBanner");
+            NPC.width = 50;
+            NPC.height = 32;
+            NPC.damage = 0;
+            NPC.defense = 0;
+            NPC.lifeMax = 1800;
+            //Main.npcCatchable[NPC.type] = true;
+            //NPC.catchItem = (short)ModContent.ItemType<TophatSquirrel>();
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.value = 0f;
+            NPC.knockBackResist = .25f;
+            //banner = NPC.type;
+            //bannerItem = ModContent.ItemType<TophatSquirrelBanner>();
 
-            animationType = NPCID.Squirrel;
-            npc.aiStyle = 7;
-            aiType = NPCID.Squirrel;
+            AnimationType = NPCID.Squirrel;
+            NPC.aiStyle = 7;
+            AIType = NPCID.Squirrel;
 
-            //NPCID.Sets.TownCritter[npc.type] = true;
+            //NPCID.Sets.TownCritter[NPC.type] = true;
 
-            //npc.closeDoor;
+            //NPC.closeDoor;
 
-            npc.dontTakeDamage = true;
+            NPC.dontTakeDamage = true;
         }
 
         public override void AI()
         {
-            if (npc.velocity.Y == 0)
-                npc.dontTakeDamage = false;
+            if (NPC.velocity.Y == 0)
+                NPC.dontTakeDamage = false;
 
             if (++counter > 600)
             {
-                npc.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
             }
         }
 
@@ -61,12 +76,12 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int p = Player.FindClosest(npc.Center, 0, 0);
+                int p = Player.FindClosest(NPC.Center, 0, 0);
                 int n = NPC.FindFirstNPC(ModContent.NPCType<TimberChampion>());
                 if (p != -1 && n != -1)
                 {
-                    Projectile.NewProjectile(npc.Center, 4f * npc.DirectionTo(Main.player[p].Center),
-                        ModContent.ProjectileType<DeviLostSoul>(), Main.npc[n].damage / 4, 0, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 4f * NPC.DirectionTo(Main.player[p].Center),
+                        ModContent.ProjectileType<DeviLostSoul>(), FargoSoulsUtil.ScaledProjectileDamage(Main.npc[n].damage), 0, Main.myPlayer);
                 }
             }
             return true;
@@ -74,9 +89,9 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (npc.life <= 0)
+            if (NPC.life <= 0)
                 for (int k = 0; k < 20; k++)
-                    Dust.NewDust(npc.position, npc.width, npc.height, 5, hitDirection, -1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hitDirection, -1f);
         }
     }
 }

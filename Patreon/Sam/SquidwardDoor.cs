@@ -5,33 +5,27 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.Sam
 {
-    public class SquidwardDoor : SoulsItem
+    public class SquidwardDoor : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             Tooltip.SetDefault("'After you Mr. Squidward'");
         }
 
         public override void SetDefaults()
         {
-            item.width = 14;
-            item.height = 28;
-            item.maxStack = 99;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 10;
-            item.useStyle = 1;
-            item.consumable = true;
-            item.value = 150;
-            item.createTile = mod.TileType("SquidwardDoorClosed");
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
+            Item.width = 14;
+            Item.height = 28;
+            Item.maxStack = 99;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = 1;
+            Item.consumable = true;
+            Item.value = 150;
+            Item.createTile = ModContent.TileType<SquidwardDoorClosed>();
         }
     }
 }

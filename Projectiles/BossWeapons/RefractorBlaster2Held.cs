@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,29 +19,29 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Diffractor Blaster");
-            Main.projFrames[projectile.type] = 7;
+            Main.projFrames[Projectile.type] = 7;
         }
 
         public override void SetDefaults()
 		{
-			projectile.width = 76;
-			projectile.height = 38;
-			//projectile.aiStyle = 136;
-			projectile.alpha = 0;
-			projectile.penetrate = -1;
-			//projectile.usesLocalNPCImmunity = true;
-			//projectile.localNPCHitCooldown = 8;
-			projectile.tileCollide = false;
-			projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-            projectile.magic = true;
+			Projectile.width = 76;
+			Projectile.height = 38;
+			//Projectile.aiStyle = 136;
+			Projectile.alpha = 0;
+			Projectile.penetrate = -1;
+			//Projectile.usesLocalNPCImmunity = true;
+			//Projectile.localNPCHitCooldown = 8;
+			Projectile.tileCollide = false;
+			Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.DamageType = DamageClass.Magic;
 
-            projectile.netImportant = true;
+            Projectile.netImportant = true;
         }
 
 		public int timer;
         public float lerp = 0.12f;
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
@@ -56,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Vector2 buffer;
             buffer.X = reader.ReadSingle();
             buffer.Y = reader.ReadSingle();
-            if (projectile.owner != Main.myPlayer)
+            if (Projectile.owner != Main.myPlayer)
             {
                 mousePos = buffer;
             }
@@ -64,63 +65,63 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			if (player.dead || !player.active)
-				projectile.Kill();
+				Projectile.Kill();
 
-            if (Main.player[projectile.owner].HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.RefractorBlaster2>())
+            if (Main.player[Projectile.owner].HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.RefractorBlaster2>())
             {
-                projectile.damage = Main.player[projectile.owner].GetWeaponDamage(Main.player[projectile.owner].HeldItem);
-                projectile.knockBack = Main.player[projectile.owner].GetWeaponKnockback(Main.player[projectile.owner].HeldItem, Main.player[projectile.owner].HeldItem.knockBack);
+                Projectile.damage = Main.player[Projectile.owner].GetWeaponDamage(Main.player[Projectile.owner].HeldItem);
+                Projectile.knockBack = Main.player[Projectile.owner].GetWeaponKnockback(Main.player[Projectile.owner].HeldItem, Main.player[Projectile.owner].HeldItem.knockBack);
             }
 
             Vector2 center = player.MountedCenter;
 
-			projectile.Center = center;
-			projectile.rotation = projectile.velocity.ToRotation();
+			Projectile.Center = center;
+			Projectile.rotation = Projectile.velocity.ToRotation();
 
-			float extrarotate = ((projectile.direction * player.gravDir) < 0) ? MathHelper.Pi : 0;
-			float itemrotate = projectile.direction < 0 ? MathHelper.Pi : 0;
-			player.itemRotation = projectile.velocity.ToRotation() + itemrotate;
+			float extrarotate = ((Projectile.direction * player.gravDir) < 0) ? MathHelper.Pi : 0;
+			float itemrotate = Projectile.direction < 0 ? MathHelper.Pi : 0;
+			player.itemRotation = Projectile.velocity.ToRotation() + itemrotate;
 			player.itemRotation = MathHelper.WrapAngle(player.itemRotation);
-			player.ChangeDir(projectile.direction);
-			player.heldProj = projectile.whoAmI;
+			player.ChangeDir(Projectile.direction);
+			player.heldProj = Projectile.whoAmI;
 			player.itemTime = 10;
 			player.itemAnimation = 10;
-			Vector2 HoldOffset = new Vector2(projectile.width/3, 0).RotatedBy(MathHelper.WrapAngle(projectile.velocity.ToRotation()));
+			Vector2 HoldOffset = new Vector2(Projectile.width/3, 0).RotatedBy(MathHelper.WrapAngle(Projectile.velocity.ToRotation()));
 
-			projectile.Center += HoldOffset;
-			projectile.spriteDirection = projectile.direction * (int)player.gravDir;
-			projectile.rotation -= extrarotate;
+			Projectile.Center += HoldOffset;
+			Projectile.spriteDirection = Projectile.direction * (int)player.gravDir;
+			Projectile.rotation -= extrarotate;
 
-			projectile.frameCounter++;
-			if(projectile.frameCounter > 3)
+			Projectile.frameCounter++;
+			if(Projectile.frameCounter > 3)
 			{
-				projectile.frame++;
-				if (projectile.frame > Main.projFrames[projectile.type] - 1)
-					projectile.frame = 0;
+				Projectile.frame++;
+				if (Projectile.frame > Main.projFrames[Projectile.type] - 1)
+					Projectile.frame = 0;
 
-				projectile.frameCounter = 0;
+				Projectile.frameCounter = 0;
 			}
 
-            projectile.velocity = Vector2.Lerp(Vector2.Normalize(projectile.velocity),
+            Projectile.velocity = Vector2.Lerp(Vector2.Normalize(Projectile.velocity),
                 Vector2.Normalize(mousePos - player.MountedCenter), lerp); //slowly move towards direction of cursor
-            projectile.velocity.Normalize();
+            Projectile.velocity.Normalize();
             
-            if (projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer)
             {
                 mousePos = Main.MouseWorld;
 
                 if (++syncTimer > 20)
                 {
                     syncTimer = 0;
-                    projectile.netUpdate = true;
+                    Projectile.netUpdate = true;
                 }
             }
             else
             {
-                projectile.Center += projectile.velocity * 20;
+                Projectile.Center += Projectile.velocity * 20;
                 return;
             }
 
@@ -129,10 +130,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 timer++;
 				if (timer % 6 == 0)
 				{
-					Main.PlaySound(player.inventory[player.selectedItem].UseSound, projectile.Center);
+					SoundEngine.PlaySound(player.inventory[player.selectedItem].UseSound, Projectile.Center);
 					bool checkmana = player.CheckMana(player.inventory[player.selectedItem].mana, true, false);
 					if (!checkmana)
-						projectile.Kill();
+						Projectile.Kill();
 
 				}
 				if (timer > 60)
@@ -142,46 +143,46 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     double spread = MathHelper.PiOver4 / max;
                     for (int i = -max; i <= max; i++)
                     {
-                        Projectile.NewProjectile(projectile.Center + HoldOffset * 2, 22f * projectile.velocity.RotatedBy(spread * i),
-                            type, projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + HoldOffset * 2, 22f * Projectile.velocity.RotatedBy(spread * i),
+                            type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
-                    Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
-                    /*int p = Projectile.NewProjectile(projectile.Center + HoldOffset * 2, projectile.velocity * 22, type, projectile.damage, projectile.knockBack, player.whoAmI);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 105, 1f, -0.3f);
+                    /*int p = Projectile.NewProjectile(Projectile.Center + HoldOffset * 2, Projectile.velocity * 22, type, Projectile.damage, Projectile.knockBack, player.whoAmI);
 					if (p < 1000)
 					{
-						SplitProj(Main.projectile[p], 21);
+						SplitProj(Main.Projectile[p], 21);
 					}*/
                     timer = 0;
 				}
-				projectile.timeLeft++;
+				Projectile.timeLeft++;
 
-				if (projectile.ai[1] == 0)
+				if (Projectile.ai[1] == 0)
 				{
 					int type = ModContent.ProjectileType<PrimeDeathray>();
 
-					int p = Projectile.NewProjectile(projectile.Center, projectile.velocity, type, projectile.damage, projectile.knockBack, player.whoAmI, 0, projectile.identity);
+					int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, type, Projectile.damage, Projectile.knockBack, player.whoAmI, 0, Projectile.identity);
 
 					if (p < Main.maxProjectiles)
 					{
 						SplitProj(Main.projectile[p], 17);
 					}
-					projectile.ai[1]++;
+					Projectile.ai[1]++;
 				}
 				else if (player.ownedProjectileCounts[ModContent.ProjectileType<PrimeDeathray>()] < 12)
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 			}
 
-			projectile.Center += projectile.velocity * 20;
+			Projectile.Center += Projectile.velocity * 20;
 
 			if (!player.channel)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 		}
 
-		public static void SplitProj(Projectile projectile, int number)
+		public static void SplitProj(Projectile Projectile, int number)
 		{
 			//if its odd, we just keep the original 
 			if (number % 2 != 0)
@@ -196,36 +197,36 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 				for (int j = 0; j < 2; j++)
 				{
 					int factor = (j == 0) ? 1 : -1;
-					float ai0 = (projectile.type == ModContent.ProjectileType<PrimeDeathray>()) ? (i + 1) * factor : 0;
-					Projectile.NewProjectile(projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 
-						ai0, projectile.ai[1]);
+					float ai0 = (Projectile.type == ModContent.ProjectileType<PrimeDeathray>()) ? (i + 1) * factor : 0;
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedBy(factor * spread * (i + 1)), Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, 
+						ai0, Projectile.ai[1]);
 				}
 			}
 
-			projectile.active = false;
+			Projectile.active = false;
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
-			Texture2D texture2D = Main.projectileTexture[projectile.type];
-			int height = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
-			int width = Main.projectileTexture[projectile.type].Width;
-			int frame = height * projectile.frame;
-			SpriteEffects flipdirection = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+			Texture2D texture2D = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+			int height = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type];
+			int width = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Width;
+			int frame = height * Projectile.frame;
+			SpriteEffects flipdirection = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 			Rectangle Origin = new Rectangle(0, frame, width, height);
-			spriteBatch.Draw(texture2D, projectile.Center - Main.screenPosition, Origin, lightColor, projectile.rotation, new Vector2(width/2, height/2), projectile.scale, flipdirection, 0f);
+			Main.spriteBatch.Draw(texture2D, Projectile.Center - Main.screenPosition, Origin, lightColor, Projectile.rotation, new Vector2(width/2, height/2), Projectile.scale, flipdirection, 0);
 			return false;
 		}
 
-		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override void PostDraw(Color lightColor)
 		{
-			Texture2D texture2D = mod.GetTexture("Items/Weapons/SwarmDrops/RefractorBlaster2_glow");
-			int height = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
-			int width = Main.projectileTexture[projectile.type].Width;
-			int frame = height * projectile.frame;
-			SpriteEffects flipdirection = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+			Texture2D texture2D = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Items/Weapons/SwarmDrops/RefractorBlaster2_glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			int height = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type];
+			int width = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Width;
+			int frame = height * Projectile.frame;
+			SpriteEffects flipdirection = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 			Rectangle Origin = new Rectangle(0, frame, width, height);
-			spriteBatch.Draw(texture2D, projectile.Center - Main.screenPosition, Origin, Color.White, projectile.rotation, new Vector2(width / 2, height / 2), projectile.scale, flipdirection, 0f);
+			Main.spriteBatch.Draw(texture2D, Projectile.Center - Main.screenPosition, Origin, Color.White, Projectile.rotation, new Vector2(width / 2, height / 2), Projectile.scale, flipdirection, 0);
 		}
 	}
 }

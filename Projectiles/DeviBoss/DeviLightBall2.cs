@@ -12,18 +12,18 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             base.SetDefaults();
 
-            projectile.timeLeft = 600;
+            Projectile.timeLeft = 600;
         }
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item10, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int index1 = 0; index1 < 10; ++index1)
             {
-                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 246, -projectile.velocity.X * 0.2f, -projectile.velocity.Y * 0.2f, 100, new Color(), 2f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 246, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 2f;
-                int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 246, -projectile.velocity.X * 0.2f, -projectile.velocity.Y * 0.2f, 100, new Color(), 1f);
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 246, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 1f);
                 Main.dust[index3].velocity *= 2f;
             }
         }

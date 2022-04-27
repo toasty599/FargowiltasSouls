@@ -13,12 +13,14 @@ namespace FargowiltasSouls.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.SpikyBallTrap);
-            aiType = ProjectileID.SpikyBallTrap;
-            projectile.hostile = false;
-            projectile.trap = false;
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 10;
+            Projectile.CloneDefaults(ProjectileID.SpikyBallTrap);
+            AIType = ProjectileID.SpikyBallTrap;
+            Projectile.hostile = false;
+            Projectile.trap = false;
+            Projectile.DamageType = DamageClass.Melee;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

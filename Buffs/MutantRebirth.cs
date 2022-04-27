@@ -6,22 +6,17 @@ namespace FargowiltasSouls.Buffs
 {
     public class MutantRebirth : ModBuff
     {
-        public override void SetDefaults()
+        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
+
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant Rebirth");
             Description.SetDefault("Deathray revive is recharging");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变重生");
-            Description.AddTranslation(GameCulture.Chinese, "死光复苏蓄能中");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变重生");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "死光复苏蓄能中");
             Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
-        }
-
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderDebuff";
-            return true;
+            
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
     }
 }

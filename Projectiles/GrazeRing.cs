@@ -16,37 +16,37 @@ namespace FargowiltasSouls.Projectiles
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.alpha = 0;
-            projectile.hostile = false;
-            projectile.friendly = true;
+            Projectile.alpha = 0;
+            Projectile.hostile = false;
+            Projectile.friendly = true;
             color = Color.HotPink;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            Player player = Main.player[Projectile.owner];
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (!player.active || player.dead || player.ghost || (projectile.owner == Main.myPlayer && (!fargoPlayer.Graze || !player.GetToggleValue("MasoGrazeRing", false))))
+            if (!player.active || player.dead || player.ghost || (Projectile.owner == Main.myPlayer && (!fargoPlayer.Graze || !player.GetToggleValue("MasoGrazeRing", false))))
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
             float radius = Player.defaultHeight + fargoPlayer.GrazeRadius;
 
-            projectile.timeLeft = 2;
-            projectile.Center = player.Center;
+            Projectile.timeLeft = 2;
+            Projectile.Center = player.Center;
 
-            projectile.alpha = 0;
+            Projectile.alpha = 0;
 
-            projectile.scale = radius * 2f / 1000f;
+            Projectile.scale = radius * 2f / 1000f;
 
-            projectile.position = projectile.Center;
-            projectile.width = projectile.height = (int)(1000 * projectile.scale);
-            projectile.Center = projectile.position;
+            Projectile.position = Projectile.Center;
+            Projectile.width = Projectile.height = (int)(1000 * Projectile.scale);
+            Projectile.Center = Projectile.position;
         }
 
         public override Color? GetAlpha(Color lightColor)

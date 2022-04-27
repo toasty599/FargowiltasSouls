@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -12,31 +13,34 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Corrupt Heart");
             Tooltip.SetDefault(@"Grants immunity to Rotting
-10% increased movement speed
+10% increased movement speed and increased acceleration
 You spawn mini eaters to seek out enemies every few attacks
 'Flies refuse to approach it'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "腐化之心");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'苍蝇都不想接近它'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "腐化之心");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'苍蝇都不想接近它'
 免疫腐败
 增加10%移动速度
 每隔几次攻击就会产生一个迷你噬魂者追踪敌人");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Orange;
-            item.value = Item.sellPrice(0, 2);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Orange;
+            Item.value = Item.sellPrice(0, 2);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            player.buffImmune[mod.BuffType("Rotting")] = true;
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Rotting>()] = true;
             player.moveSpeed += 0.1f;
-            modPlayer.CorruptHeart = true;
+            player.hasMagiluminescence = true;
+            modPlayer.CorruptHeartItem = Item;
             if (modPlayer.CorruptHeartCD > 0)
                 modPlayer.CorruptHeartCD--;
         }

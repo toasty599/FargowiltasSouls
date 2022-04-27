@@ -5,12 +5,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.DeviBoss
 {
     public class DeviGuardian : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_197";
+        public override string Texture => "Terraria/Images/Projectile_197";
 
         public override void SetStaticDefaults()
         {
@@ -19,67 +20,67 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 42;
-            projectile.height = 42;
-            projectile.penetrate = -1;
-            projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = -1;
-            cooldownSlot = 1;
+            Projectile.width = 42;
+            Projectile.height = 42;
+            Projectile.penetrate = -1;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = -1;
+            CooldownSlot = 1;
 
-            projectile.timeLeft = 600;
-            projectile.hide = true;
+            Projectile.timeLeft = 600;
+            Projectile.hide = true;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
-                projectile.hide = false;
+                Projectile.localAI[0] = 1;
+                Projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
+                Projectile.hide = false;
 
-                Main.PlaySound(SoundID.Item21, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);
 
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 pos = new Vector2(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + Main.rand.Next(-20, 20));
-                    int dust = Dust.NewDust(pos, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                    Vector2 pos = new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20));
+                    int dust = Dust.NewDust(pos, Projectile.width, Projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                     Main.dust[dust].noGravity = true;
                 }
             }
 
-            projectile.direction = projectile.velocity.X < 0 ? -1 : 1;
-            projectile.rotation += projectile.direction * .3f;
+            Projectile.direction = Projectile.velocity.X < 0 ? -1 : 1;
+            Projectile.rotation += Projectile.direction * .3f;
         }
 
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 50; i++)
             {
-                Vector2 pos = new Vector2(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + Main.rand.Next(-20, 20));
-                int dust = Dust.NewDust(pos, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                Vector2 pos = new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20));
+                int dust = Dust.NewDust(pos, Projectile.width, Projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Defenseless"), 300);
-            target.AddBuff(mod.BuffType("Lethargic"), 300);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
+            target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
-                target.AddBuff(mod.BuffType("MarkedForDeath"), 300);
+                target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

@@ -10,50 +10,50 @@ namespace FargowiltasSouls.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Explosion");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 500;
-            projectile.height = 500;
-            projectile.aiStyle = 0;
-            projectile.friendly = true;
-            projectile.thrown = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 2;
-            projectile.tileCollide = false;
-            projectile.light = 0.75f;
-            projectile.ignoreWater = true;
-            projectile.extraUpdates = 1;
-            aiType = ProjectileID.Bullet;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.width = 500;
+            Projectile.height = 500;
+            Projectile.aiStyle = 0;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Ranged; //cringe
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 2;
+            Projectile.tileCollide = false;
+            Projectile.light = 0.75f;
+            Projectile.ignoreWater = true;
+            Projectile.extraUpdates = 1;
+            AIType = ProjectileID.Bullet;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item, (int) projectile.position.X, (int) projectile.position.Y, 14);
-            projectile.position.X = projectile.position.X + projectile.width / 2f;
-            projectile.position.Y = projectile.position.Y + projectile.height / 2f;
-            projectile.position.X = projectile.position.X - projectile.width / 2f;
-            projectile.position.Y = projectile.position.Y - projectile.height / 2f;
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int) Projectile.position.X, (int) Projectile.position.Y, 14);
+            Projectile.position.X = Projectile.position.X + Projectile.width / 2f;
+            Projectile.position.Y = Projectile.position.Y + Projectile.height / 2f;
+            Projectile.position.X = Projectile.position.X - Projectile.width / 2f;
+            Projectile.position.Y = Projectile.position.Y - Projectile.height / 2f;
 
             for (int i = 0; i < 50; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width,
-                    projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
                 Main.dust[dust].velocity *= 1.4f;
             }
 
             for (int i = 0; i < 30; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width,
-                    projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
-                dust = Dust.NewDust(projectile.position, projectile.width,
-                    projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+                dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
                 Main.dust[dust].velocity *= 3f;
             }
 
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Projectiles
 
                 for (int j = 0; j < 4; j++)
                 {
-                    int gore = Gore.NewGore(new Vector2(projectile.Center.X, projectile.Center.Y),
+                    int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
                         default(Vector2),
                         Main.rand.Next(61, 64));
 

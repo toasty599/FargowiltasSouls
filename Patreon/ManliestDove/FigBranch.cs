@@ -7,33 +7,27 @@ using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.ManliestDove
 {
-    public class FigBranch : SoulsItem
+    public class FigBranch : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Fig Branch");
             Tooltip.SetDefault("Summons a Dove companion");
         }
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.ZephyrFish);
-            item.shoot = ModContent.ProjectileType<DoveProj>();
-            item.buffType = ModContent.BuffType<DoveBuff>();
+            Item.CloneDefaults(ItemID.ZephyrFish);
+            Item.shoot = ModContent.ProjectileType<DoveProj>();
+            Item.buffType = ModContent.BuffType<DoveBuff>();
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
-        }
-
-        public override void UseStyle(Player player)
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
             {
-                player.AddBuff(item.buffType, 3600, true);
+                player.AddBuff(Item.buffType, 3600, true);
             }
         }
 
@@ -41,19 +35,19 @@ namespace FargowiltasSouls.Patreon.ManliestDove
         {
             if (SoulConfig.Instance.PatreonDove)
             {
-                ModRecipe recipe = new ModRecipe(mod);
-                recipe.AddRecipeGroup("FargowiltasSouls:AnyBird");
-                recipe.AddIngredient(ItemID.Wood, 50);
-                recipe.AddIngredient(ItemID.BorealWood, 50);
-                recipe.AddIngredient(ItemID.RichMahogany, 50);
-                recipe.AddIngredient(ItemID.PalmWood, 50);
-                recipe.AddIngredient(ItemID.Ebonwood, 50);
-                recipe.AddIngredient(ItemID.Shadewood, 50);
+                CreateRecipe()
+                .AddRecipeGroup("FargowiltasSouls:AnyBird")
+                .AddIngredient(ItemID.Wood, 50)
+                .AddIngredient(ItemID.BorealWood, 50)
+                .AddIngredient(ItemID.RichMahogany, 50)
+                .AddIngredient(ItemID.PalmWood, 50)
+                .AddIngredient(ItemID.Ebonwood, 50)
+                .AddIngredient(ItemID.Shadewood, 50)
 
-                recipe.AddTile(TileID.LivingLoom);
+                .AddTile(TileID.LivingLoom)
 
-                recipe.SetResult(this);
-                recipe.AddRecipe();
+                
+                .Register();
             }
         }
     }

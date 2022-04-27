@@ -6,20 +6,30 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class LifeForce : SoulsItem
+    public class LifeForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<PumpkinEnchant>(),
+            ModContent.ItemType<BeeEnchant>(),
+            ModContent.ItemType<SpiderEnchant>(),
+            ModContent.ItemType<TurtleEnchant>(),
+            ModContent.ItemType<BeetleEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Life");
 
             string tooltip =
 $"[i:{ModContent.ItemType<PumpkinEnchant>()}] You will grow pumpkins while walking on the ground\n" +
 $"[i:{ModContent.ItemType<CactusEnchant>()}] Enemies may explode into needles on death\n" +
-$"[i:{ModContent.ItemType<BeeEnchant>()}] Your piercing attacks spawn bees\n" +
+$"[i:{ModContent.ItemType<BeeEnchant>()}] Melee hits and most piercing attacks spawn bees\n" +
 $"[i:{ModContent.ItemType<SpiderEnchant>()}] 30% chance for minions and sentries to crit\n" +
 $"[i:{ModContent.ItemType<TurtleEnchant>()}] When standing still and not attacking, you will enter your shell\n" +
-$"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles protect you from damage\n" +
-$"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
+$"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defense\n" +
 "'Rare is a living thing that dare disobey your will'";
             string tooltip_ch =
 @"你在草地上行走时会种下南瓜
@@ -33,55 +43,29 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
 '罕有活物敢违背你的意愿'";
 
             Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "生命之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-        }
-
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生命之力");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            //tide hunter, yew wood, iridescent effects
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.LifeForce = true;
-            //bees ignore defense, super bees, pet
             modPlayer.BeeEffect(hideVisual);
-            //minion crits and pet
             modPlayer.SpiderEffect(hideVisual);
-            //defense beetle bois
             modPlayer.BeetleEffect();
-            if (!modPlayer.TerrariaSoul)
-                modPlayer.wingTimeModifier += .5f;
-            //flame trail, pie heal, pet
-            modPlayer.PumpkinEffect(hideVisual);
-            //shell hide, pets
+            PumpkinEnchant.PumpkinEffect(player, Item);
             modPlayer.TurtleEffect(hideVisual);
-            //needle spray
-            modPlayer.CactusEffect();
+            CactusEnchant.CactusEffect(player);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddIngredient(null, "PumpkinEnchant");
-            recipe.AddIngredient(null, "BeeEnchant");
-            recipe.AddIngredient(null, "SpiderEnchant");
-            recipe.AddIngredient(null, "TurtleEnchant");
-            recipe.AddIngredient(null, "BeetleEnchant");
-
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

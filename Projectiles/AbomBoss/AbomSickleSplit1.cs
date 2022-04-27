@@ -13,25 +13,25 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 90;
+            Projectile.timeLeft = 90;
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item8, projectile.Center);
+                Projectile.localAI[0] = 1;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
             }
-            projectile.rotation += 0.8f;
+            Projectile.rotation += 0.8f;
             /*for (int i = 0; i < 6; i++)
             {
-                Vector2 offset = new Vector2(0, -20).RotatedBy(projectile.rotation);
+                Vector2 offset = new Vector2(0, -20).RotatedBy(Projectile.rotation);
                 offset = offset.RotatedByRandom(MathHelper.Pi / 6);
-                int d = Dust.NewDust(projectile.Center, 0, 0, 87, 0f, 0f, 150);
+                int d = Dust.NewDust(Projectile.Center, 0, 0, 87, 0f, 0f, 150);
                 Main.dust[d].position += offset;
                 float velrando = Main.rand.Next(20, 31) / 10;
-                Main.dust[d].velocity = projectile.velocity / velrando;
+                Main.dust[d].velocity = Projectile.velocity / velrando;
                 Main.dust[d].noGravity = true;
             }*/
         }
@@ -42,8 +42,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    Vector2 vel = Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 4 * i);
-                    Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<AbomSickleSplit2>(), projectile.damage, 0f, projectile.owner);
+                    Vector2 vel = Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 4 * i);
+                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<AbomSickleSplit2>(), Projectile.damage, 0f, Projectile.owner);
                 }
             }
         }

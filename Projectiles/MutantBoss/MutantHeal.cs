@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -15,126 +17,126 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant Heal");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 20;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 12;
-            projectile.height = 12;
-            projectile.aiStyle = -1;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.timeLeft = 1800;
-            //projectile.hostile = true;
-            projectile.scale = 0.8f;
+            Projectile.width = 12;
+            Projectile.height = 12;
+            Projectile.aiStyle = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.timeLeft = 1800;
+            //Projectile.hostile = true;
+            Projectile.scale = 0.8f;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(projectile.localAI[0]);
-            writer.Write(projectile.localAI[1]);
+            writer.Write(Projectile.localAI[0]);
+            writer.Write(Projectile.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            projectile.localAI[0] = reader.ReadSingle();
-            projectile.localAI[1] = reader.ReadSingle();
+            Projectile.localAI[0] = reader.ReadSingle();
+            Projectile.localAI[1] = reader.ReadSingle();
         }
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (Projectile.localAI[0] == 0)
             {
-                if (projectile.localAI[1] == 0)
+                if (Projectile.localAI[1] == 0)
                 {
-                    projectile.localAI[1] = Main.rand.NextFloat(MathHelper.ToRadians(1f)) * (Main.rand.NextBool() ? 1 : -1);
-                    projectile.netUpdate = true;
+                    Projectile.localAI[1] = Main.rand.NextFloat(MathHelper.ToRadians(1f)) * (Main.rand.NextBool() ? 1 : -1);
+                    Projectile.netUpdate = true;
                 }
 
-                projectile.velocity = Vector2.Normalize(projectile.velocity).RotatedBy(projectile.localAI[1]) * (projectile.velocity.Length() - projectile.ai[1]);
+                Projectile.velocity = Vector2.Normalize(Projectile.velocity).RotatedBy(Projectile.localAI[1]) * (Projectile.velocity.Length() - Projectile.ai[1]);
 
-                if (projectile.velocity.Length() < 0.01f)
+                if (Projectile.velocity.Length() < 0.01f)
                 {
-                    projectile.localAI[0] = 1;
-                    projectile.netUpdate = true;
+                    Projectile.localAI[0] = 1;
+                    Projectile.netUpdate = true;
                 }
             }
-            else if (projectile.localAI[0] == 1)
+            else if (Projectile.localAI[0] == 1)
             {
                 for (int i = 0; i < 2; i++) //make up for real spectre bolt having 3 extraUpdates
                 {
-                    projectile.position += projectile.velocity;
+                    Projectile.position += Projectile.velocity;
 
-                    Vector2 change = Vector2.Normalize(projectile.velocity) * 5f;
-                    projectile.velocity = (projectile.velocity * 29f + change).RotatedBy(projectile.localAI[1] * 3) / 30f;
+                    Vector2 change = Vector2.Normalize(Projectile.velocity) * 5f;
+                    Projectile.velocity = (Projectile.velocity * 29f + change).RotatedBy(Projectile.localAI[1] * 3) / 30f;
                 }
 
-                if (projectile.velocity.Length() > 4.5f)
+                if (Projectile.velocity.Length() > 4.5f)
                 {
-                    projectile.localAI[0] = 2;
-                    projectile.netUpdate = true;
+                    Projectile.localAI[0] = 2;
+                    Projectile.netUpdate = true;
 
-                    projectile.timeLeft = 180 * 2; //compensating for extraUpdates
+                    Projectile.timeLeft = 180 * 2; //compensating for extraUpdates
                 }
             }
             else
             {
-                projectile.extraUpdates = 1;
+                Projectile.extraUpdates = 1;
 
-                int ai0 = (int)Math.Abs(projectile.ai[0]);
-                bool feedPlayer = projectile.ai[0] < 0;
+                int ai0 = (int)Math.Abs(Projectile.ai[0]);
+                bool feedPlayer = Projectile.ai[0] < 0;
                 if (feedPlayer)
                 {
                     ai0 -= 1;
 
                     if (FargoSoulsWorld.MasochistModeReal)
                     {
-                        projectile.Kill();
+                        Projectile.Kill();
                         return;
                     }
                 }
 
                 if (ai0 < 0 || (feedPlayer ? ai0 >= Main.maxPlayers || !Main.player[ai0].active || Main.player[ai0].ghost || Main.player[ai0].dead : ai0 >= Main.maxNPCs || !Main.npc[ai0].active))
                 {
-                    projectile.Kill();
+                    Projectile.Kill();
                     return;
                 }
 
                 Vector2 target = feedPlayer ? Main.player[ai0].Center : Main.npc[ai0].Center;
 
-                if (projectile.Distance(target) < 5f)
+                if (Projectile.Distance(target) < 5f)
                 {
                     if (feedPlayer) //die and feed player
                     {
                         if (Main.player[ai0].whoAmI == Main.myPlayer)
                         {
-                            Main.player[ai0].ClearBuff(mod.BuffType("MutantFang"));
-                            Main.player[ai0].statLife += projectile.damage;
-                            Main.player[ai0].HealEffect(projectile.damage);
+                            Main.player[ai0].ClearBuff(ModContent.BuffType<MutantFang>());
+                            Main.player[ai0].statLife += Projectile.damage;
+                            Main.player[ai0].HealEffect(Projectile.damage);
                             if (Main.player[ai0].statLife > Main.player[ai0].statLifeMax2)
                                 Main.player[ai0].statLife = Main.player[ai0].statLifeMax2;
-                            projectile.Kill();
+                            Projectile.Kill();
                         }
                     }
                     else
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Main.npc[ai0].life += projectile.damage;
-                            Main.npc[ai0].HealEffect(projectile.damage);
+                            Main.npc[ai0].life += Projectile.damage;
+                            Main.npc[ai0].HealEffect(Projectile.damage);
                             if (Main.npc[ai0].life > Main.npc[ai0].lifeMax)
                                 Main.npc[ai0].life = Main.npc[ai0].lifeMax;
                             Main.npc[ai0].netUpdate = true;
-                            projectile.Kill();
+                            Projectile.Kill();
                         }
                     }
                 }
@@ -142,74 +144,74 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 {
                     for (int i = 0; i < 2; i++) //make up for real spectre bolt having 3 extraUpdates
                     {
-                        Vector2 change = projectile.DirectionTo(target) * 5f;
-                        projectile.velocity = (projectile.velocity * 29f + change) / 30f;
+                        Vector2 change = Projectile.DirectionTo(target) * 5f;
+                        Projectile.velocity = (Projectile.velocity * 29f + change) / 30f;
                     }
                 }
 
                 for (int i = 0; i < 3; i++) //make up for real spectre bolt having 3 extraUpdates
                 {
-                    projectile.position += projectile.velocity;
+                    Projectile.position += Projectile.velocity;
                 }
             }
         }
 
         public override void Kill(int timeLeft)
         {
-            /*int ai0 = (int)projectile.ai[0];
+            /*int ai0 = (int)Projectile.ai[0];
             if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
             {
-                CombatText.NewText(Main.npc[ai0].Hitbox, CombatText.HealLife, projectile.damage);
+                CombatText.NewText(Main.npc[ai0].Hitbox, CombatText.HealLife, Projectile.damage);
             }*/
 
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 229, 0f, 0f, 0, default(Color), 1.5f);
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 0, default(Color), 1.5f);
                 Main.dust[d].noGravity = true;
             }
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(51, 255, 191, 210) * projectile.Opacity * 0.8f;
+            return new Color(51, 255, 191, 210) * Projectile.Opacity * 0.8f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            color26 = Projectile.GetAlpha(color26);
 
-            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.2f)
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.2f)
             {
-                Texture2D glow = texture2D13; //mod.GetTexture("Projectiles/BossWeapons/HentaiSpearSpinGlow");
+                Texture2D glow = texture2D13; //FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/BossWeapons/HentaiSpearSpinGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Color color27 = color26; //Color.Lerp(new Color(255, 255, 0, 210), Color.Transparent, 0.4f);
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                float scale = projectile.scale;
-                scale *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                float scale = Projectile.scale;
+                scale *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
                 if (max0 < 0)
                     continue;
-                Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], 1 - i % 1);
+                Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
                 float smoothtrail = i % 1 * MathHelper.Pi / 6.85f;
 
-                center += projectile.Size / 2;
+                center += Projectile.Size / 2;
 
-                Main.spriteBatch.Draw(
+                Main.EntitySpriteDraw(
                     glow,
-                    center - Main.screenPosition + new Vector2(0, projectile.gfxOffY),
+                    center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY),
                     null,
                     color27,
-                    projectile.rotation,
+                    Projectile.rotation,
                     glow.Size() / 2,
                     scale,
                     SpriteEffects.None,
-                    0f);
+                    0);
             }
             return false;
         }

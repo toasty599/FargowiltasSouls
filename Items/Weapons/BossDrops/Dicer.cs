@@ -13,30 +13,32 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             DisplayName.SetDefault("The Dicer");
             Tooltip.SetDefault("'A defeated foe's attack now on a string'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "切肉器");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'一个被击败的敌人的攻击,用线拴着'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "切肉器");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'一个被击败的敌人的攻击,用线拴着'");
 
-            ItemID.Sets.Yoyo[item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            ItemID.Sets.Yoyo[Item.type] = true;
         }
 
         public override void SetDefaults()
         {
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.width = 24;
-            item.height = 24;
-            item.noUseGraphic = true;
-            item.UseSound = SoundID.Item1;
-            item.melee = true;
-            item.channel = true;
-            item.noMelee = true;
-            item.shoot = ModContent.ProjectileType<DicerProj>();
-            item.useAnimation = 25;
-            item.useTime = 25;
-            item.shootSpeed = 16f;
-            item.knockBack = 2.5f;
-            item.damage = 60;
-            item.value = Item.sellPrice(0, 10);
-            item.rare = ItemRarityID.Yellow;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.width = 24;
+            Item.height = 24;
+            Item.noUseGraphic = true;
+            Item.UseSound = SoundID.Item1;
+            Item.DamageType = DamageClass.Melee;
+            Item.channel = true;
+            Item.noMelee = true;
+            Item.shoot = ModContent.ProjectileType<DicerYoyo>();
+            Item.useAnimation = 25;
+            Item.useTime = 25;
+            Item.shootSpeed = 16f;
+            Item.knockBack = 2.5f;
+            Item.damage = 60;
+            Item.value = Item.sellPrice(0, 10);
+            Item.rare = ItemRarityID.Yellow;
         }
 
         public override void HoldItem(Player player) => player.stringColor = 5;

@@ -1,60 +1,61 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.AbomBoss
 {
     public class AbomFlocko2 : AbomFlocko
     {
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
 
         public override void AI()
         {
-            if (projectile.ai[0] < 0 || projectile.ai[0] >= Main.maxPlayers)
+            if (Projectile.ai[0] < 0 || Projectile.ai[0] >= Main.maxPlayers)
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
-            Player player = Main.player[(int)projectile.ai[0]];
+            Player player = Main.player[(int)Projectile.ai[0]];
 
             Vector2 target = player.Center;
-            target.X += 700 * projectile.ai[1];
+            target.X += 700 * Projectile.ai[1];
 
-            Vector2 distance = target - projectile.Center;
+            Vector2 distance = target - Projectile.Center;
             float length = distance.Length();
             if (length > 100f)
             {
                 distance /= 8f;
-                projectile.velocity = (projectile.velocity * 23f + distance) / 24f;
+                Projectile.velocity = (Projectile.velocity * 23f + distance) / 24f;
             }
             else
             {
-                if (projectile.velocity.Length() < 12f)
-                    projectile.velocity *= 1.05f;
+                if (Projectile.velocity.Length() < 12f)
+                    Projectile.velocity *= 1.05f;
             }
 
-            if (++projectile.localAI[0] > 90 && ++projectile.localAI[1] > 60) //fire frost wave
+            if (++Projectile.localAI[0] > 90 && ++Projectile.localAI[1] > 60) //fire frost wave
             {
-                projectile.localAI[1] = 0f;
-                Main.PlaySound(SoundID.Item120, projectile.position);
+                Projectile.localAI[1] = 0f;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item120, Projectile.position);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 vel = projectile.DirectionTo(player.Center) * 7f;
+                    Vector2 vel = Projectile.DirectionTo(player.Center) * 7f;
                     for (int i = -1; i <= 1; i++)
-                        Projectile.NewProjectile(projectile.Center, vel.RotatedBy(MathHelper.ToRadians(10) * i), mod.ProjectileType("AbomFrostWave"), projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, vel.RotatedBy(MathHelper.ToRadians(10) * i), ModContent.ProjectileType<AbomFrostWave>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
 
-            projectile.rotation += projectile.velocity.Length() / 12f * (projectile.velocity.X > 0 ? -0.2f : 0.2f);
-            if (++projectile.frameCounter > 3)
+            Projectile.rotation += Projectile.velocity.Length() / 12f * (Projectile.velocity.X > 0 ? -0.2f : 0.2f);
+            if (++Projectile.frameCounter > 3)
             {
-                if (++projectile.frame >= 6)
-                    projectile.frame = 0;
-                projectile.frameCounter = 0;
+                if (++Projectile.frame >= 6)
+                    Projectile.frame = 0;
+                Projectile.frameCounter = 0;
             }
         }
     }

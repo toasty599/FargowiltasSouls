@@ -5,6 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.MutantBoss;
+using Terraria.Graphics.Shaders;
 
 namespace FargowiltasSouls.Sky
 {
@@ -13,7 +14,8 @@ namespace FargowiltasSouls.Sky
         private bool isActive = false;
         private float intensity = 0f;
         private float lifeIntensity = 0f;
-        private float blackLerp = 0f;
+        private float specialColorLerp = 0f;
+        private Color? specialColor = null;
         private int delay = 0;
         private int[] xPos = new int[50];
         private int[] yPos = new int[50];
@@ -21,32 +23,51 @@ namespace FargowiltasSouls.Sky
         public override void Update(GameTime gameTime)
         {
             const float increment = 0.01f;
+
+            bool useSpecialColor = false;
+
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>())
                 && (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] < 0 || Main.npc[EModeGlobalNPC.mutantBoss].ai[0] >= 10))
             {
+                intensity += increment;
                 lifeIntensity = 1f - (float)Main.npc[EModeGlobalNPC.mutantBoss].life / Main.npc[EModeGlobalNPC.mutantBoss].lifeMax;
-                /*if (!FargoSoulsWorld.MasochistMode)
-                {
-                    lifeIntensity -= 0.5f;
-                    if (lifeIntensity < 0)
-                        lifeIntensity = 0;
-                }*/
 
-                if (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == 10) //smash to black
+                void ChangeColorIfDefault(Color color) //waits for bg to return to default first
                 {
-                    intensity += increment * 3;
-
-                    blackLerp += increment * 3;
-                    if (blackLerp > 0.75f)
-                        blackLerp = 0.75f;
+                    if (specialColor == null)
+                        specialColor = color;
+                    if (specialColor != null && specialColor == color)
+                        useSpecialColor = true;
                 }
-                else
-                {
-                    intensity += increment;
 
-                    blackLerp -= increment;
-                    if (blackLerp < 0)
-                        blackLerp = 0;
+                switch ((int)Main.npc[EModeGlobalNPC.mutantBoss].ai[0])
+                {
+                    case -5:
+                        if (Main.npc[EModeGlobalNPC.mutantBoss].ai[2] >= 420)
+                            ChangeColorIfDefault(Color.Cyan);
+                        break;
+
+                    case 10: //p2 transition, smash to black
+                        useSpecialColor = true;
+                        specialColor = Color.Black;
+                        specialColorLerp = 1f;
+                        break;
+
+                    case 27: //twins
+                        ChangeColorIfDefault(Color.Red);
+                        break;
+
+                    case 36: //slime rain
+                        if (FargoSoulsWorld.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[2] > 180 * 3 - 60)
+                            ChangeColorIfDefault(Color.Blue);
+                        break;
+
+                    case 44: //empress
+                        ChangeColorIfDefault(Color.DeepPink);
+                        break;
+
+                    default:
+                        break;
                 }
 
                 if (intensity > 1f)
@@ -58,30 +79,64 @@ namespace FargowiltasSouls.Sky
                 if (lifeIntensity < 0f)
                     lifeIntensity = 0f;
 
-                blackLerp -= increment;
-                if (blackLerp < 0)
-                    blackLerp = 0;
+                specialColorLerp -= increment * 2;
+                if (specialColorLerp < 0)
+                    specialColorLerp = 0;
 
                 intensity -= increment;
                 if (intensity < 0f)
                 {
                     intensity = 0f;
                     lifeIntensity = 0f;
-                    blackLerp = 0f;
+                    specialColorLerp = 0f;
+                    specialColor = null;
                     delay = 0;
                     Deactivate();
+                    return;
                 }
             }
+
+            if (useSpecialColor)
+            {
+                specialColorLerp += increment * 2;
+                if (specialColorLerp > 1)
+                    specialColorLerp = 1;
+            }
+            else
+            {
+                specialColorLerp -= increment * 2;
+                if (specialColorLerp < 0)
+                {
+                    specialColorLerp = 0;
+                    specialColor = null;
+                }
+            }
+        }
+
+        private Color ColorToUse(ref float opacity)
+        {
+            Color color = new Color(51, 255, 191);
+            opacity = intensity * 0.5f + lifeIntensity * 0.5f;
+
+            if (specialColorLerp > 0 && specialColor != null)
+            {
+                color = Color.Lerp(color, (Color)specialColor, specialColorLerp);
+                if (specialColor == Color.Black)
+                    opacity = System.Math.Min(1f, opacity + System.Math.Min(intensity, lifeIntensity) * 0.5f);
+            }
+
+            return color;
         }
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
             if (maxDepth >= 0 && minDepth < 0)
             {
-                Color color = Color.Lerp(new Color(180, 180, 180), Color.Black, blackLerp);
+                float opacity = 0f;
+                Color color = ColorToUse(ref opacity);
 
-                spriteBatch.Draw(ModContent.GetTexture("FargowiltasSouls/Sky/MutantSky"),
-                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), color * (intensity * 0.5f + System.Math.Max(lifeIntensity, blackLerp) * 0.5f));
+                spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Sky/MutantSky", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
+                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), color * opacity);
 
                 if (--delay < 0)
                 {
@@ -96,7 +151,7 @@ namespace FargowiltasSouls.Sky
                 for (int i = 0; i < 50; i++) //static on screen
                 {
                     int width = Main.rand.Next(3, 251);
-                    spriteBatch.Draw(ModContent.GetTexture("FargowiltasSouls/Sky/MutantStatic"),
+                    spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Sky/MutantStatic", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
                     new Rectangle(xPos[i] - width / 2, yPos[i], width, 3),
                     color * lifeIntensity * 0.75f);
                 }
@@ -130,7 +185,9 @@ namespace FargowiltasSouls.Sky
 
         public override Color OnTileColor(Color inColor)
         {
-            return new Color(Vector4.Lerp(new Vector4(0.6f, 0.9f, 1f, 1f), inColor.ToVector4(), 1f - intensity));
+            float dummy = 0f;
+            Color skyColor = Color.Lerp(Color.White, ColorToUse(ref dummy), 0.5f);
+            return Color.Lerp(skyColor, inColor, 1f - intensity);
         }
     }
 }
