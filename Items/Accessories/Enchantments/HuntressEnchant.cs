@@ -18,7 +18,14 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             DisplayName.SetDefault("Huntress Enchantment");
             Tooltip.SetDefault(
-@"Arrows will periodically fall towards your cursor
+@"
+Arrows will stick in enemies and apply a stacking bleed debuff per arrow
+Hit the enemy with a melee attack to deal bonus damage per arrow
+
+
+
+
+Arrows will periodically fall towards your cursor
 The arrow type is based on the first arrow in your inventory
 Double tap down to create a localized rain of arrows at the cursor's position for a few seconds
 This has a cooldown of 15 seconds
@@ -52,48 +59,53 @@ Boosts Explosive Traps
 
         public static void HuntressEffect(Player player)
         {
-            if (player.GetToggleValue("Huntress") && player.whoAmI == Main.myPlayer)
-            {
-                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-                modPlayer.HuntressCD++;
+            modPlayer.HuntressEnchantActive = true;
 
-                Item firstAmmo = PickAmmo(player);
-                int arrowType = firstAmmo.shoot;
-                int damage = FargoSoulsUtil.HighestDamageTypeScaling(player, (int)(firstAmmo.damage * 3f));
 
-                if (modPlayer.RedEnchantActive)
-                {
-                    damage *= 2;
-                }
+            //if (player.GetToggleValue("Huntress") && player.whoAmI == Main.myPlayer)
+            //{
+            //    FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-                //fire arrow at nearby enemy
-                if (modPlayer.HuntressCD >= 30)
-                {
-                    Vector2 mouse = Main.MouseWorld;
-                    Vector2 pos = new Vector2(mouse.X - player.direction * 100, mouse.Y - 800);
-                    Vector2 velocity = Vector2.Normalize(mouse - pos) * 25;
+            //    modPlayer.HuntressCD++;
 
-                    int p = Projectile.NewProjectile(player.GetProjectileSource_Misc(0), pos, velocity, arrowType, damage, 2, player.whoAmI);
-                    Main.projectile[p].noDropItem = true;
-                    //Main.projectile[p].extraUpdates = 2;
+            //    Item firstAmmo = PickAmmo(player);
+            //    int arrowType = firstAmmo.shoot;
+            //    int damage = FargoSoulsUtil.HighestDamageTypeScaling(player, (int)(firstAmmo.damage * 3f));
 
-                    modPlayer.HuntressCD = 0;
-                }
+            //    if (modPlayer.RedEnchantActive)
+            //    {
+            //        damage *= 2;
+            //    }
 
-                //arrow rain ability
-                if (!player.HasBuff(ModContent.BuffType<HuntressCD>()) && modPlayer.DoubleTap)
-                {
-                    Vector2 mouse = Main.MouseWorld;
+            //    //fire arrow at nearby enemy
+            //    if (modPlayer.HuntressCD >= 30)
+            //    {
+            //        Vector2 mouse = Main.MouseWorld;
+            //        Vector2 pos = new Vector2(mouse.X - player.direction * 100, mouse.Y - 800);
+            //        Vector2 velocity = Vector2.Normalize(mouse - pos) * 25;
 
-                    int heatray = Projectile.NewProjectile(player.GetProjectileSource_Misc(0), player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
-                    Main.projectile[heatray].tileCollide = false;
-                    //proj spawns arrows all around it until it dies
-                    Projectile.NewProjectile(player.GetProjectileSource_Misc(0), mouse.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(player, firstAmmo.damage), 0f, player.whoAmI, arrowType, player.direction);
+            //        int p = Projectile.NewProjectile(player.GetProjectileSource_Misc(0), pos, velocity, arrowType, damage, 2, player.whoAmI);
+            //        Main.projectile[p].noDropItem = true;
+            //        //Main.projectile[p].extraUpdates = 2;
 
-                    player.AddBuff(ModContent.BuffType<HuntressCD>(), modPlayer.RedEnchantActive ? 600 : 900);
-                }
-            }
+            //        modPlayer.HuntressCD = 0;
+            //    }
+
+            //    //arrow rain ability
+            //    if (!player.HasBuff(ModContent.BuffType<HuntressCD>()) && modPlayer.DoubleTap)
+            //    {
+            //        Vector2 mouse = Main.MouseWorld;
+
+            //        int heatray = Projectile.NewProjectile(player.GetProjectileSource_Misc(0), player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
+            //        Main.projectile[heatray].tileCollide = false;
+            //        //proj spawns arrows all around it until it dies
+            //        Projectile.NewProjectile(player.GetProjectileSource_Misc(0), mouse.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(player, firstAmmo.damage), 0f, player.whoAmI, arrowType, player.direction);
+
+            //        player.AddBuff(ModContent.BuffType<HuntressCD>(), modPlayer.RedEnchantActive ? 600 : 900);
+            //    }
+            //}
         }
 
         private static Item PickAmmo(Player player)

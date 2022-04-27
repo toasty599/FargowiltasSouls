@@ -2797,8 +2797,8 @@ namespace FargowiltasSouls
 
         private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
         {
-            if (CactusEnchantActive)
-                target.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = true;
+            //if (CactusEnchantActive)
+            //    target.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = true;
 
             if (StyxSet)
             {

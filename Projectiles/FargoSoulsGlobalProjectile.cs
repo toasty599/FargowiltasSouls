@@ -912,6 +912,42 @@ namespace FargowiltasSouls.Projectiles
                 if (projectile.wet && projectile.ai[0] == 0 && projectile.localAI[1] < 655 /*&& Main.player[projectile.owner].FishingLevel() != -1*/) //fishron check
                     projectile.localAI[1] = 655; //quick catch. not 660 and up, may break things
             }
+
+            if (modPlayer.HuntressEnchantActive && projectile.arrow)
+            {
+                //stuck in enemy
+                if (projectile.localAI[0] == 1)
+                {
+                    projectile.aiStyle = -1;
+
+                    projectile.ignoreWater = true;
+                    projectile.tileCollide = false;
+
+                    bool kill = false;
+                    int npcIndex = (int)projectile.localAI[1];
+
+                    if (npcIndex < 0 || npcIndex >= 200 || projectile.timeLeft <= 5)
+                    {
+                        kill = true;
+                    }
+                    else if (Main.npc[npcIndex].active && !Main.npc[npcIndex].dontTakeDamage)
+                    {
+                        projectile.Center = Main.npc[npcIndex].Center - projectile.velocity * 2f;
+                        projectile.gfxOffY = Main.npc[npcIndex].gfxOffY;
+                    }
+                    else
+                    {
+                        kill = true;
+                    }
+
+                    if (kill)
+                    {
+                        //remove stack of bleed
+
+                        projectile.Kill();
+                    }
+                }
+            }
         }
 
         public override void PostAI(Projectile projectile)
@@ -1082,6 +1118,23 @@ namespace FargowiltasSouls.Projectiles
                 {
                     target.AddBuff(debuff, duration);
                 }
+            }
+
+            Player player = Main.player[projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (projectile.owner == player.whoAmI && modPlayer.HuntressEnchantActive && projectile.arrow)
+            {
+                //start sticking in enemy
+                projectile.localAI[0] = 1;
+                projectile.localAI[1] = (float)target.whoAmI;
+                projectile.velocity = (Main.npc[target.whoAmI].Center - projectile.Center) * 0.5f; //distance it sticks out
+                projectile.aiStyle = -1;
+                projectile.damage = 0;
+                projectile.timeLeft = 305;
+                projectile.netUpdate = true;
+
+                //add stack of bleed
             }
         }
 
