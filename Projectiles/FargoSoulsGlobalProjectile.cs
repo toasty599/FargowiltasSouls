@@ -948,7 +948,7 @@ namespace FargowiltasSouls.Projectiles
                 FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
                 if (fargoPlayer.Graze && --GrazeCD < 0 && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                 {
-                    if (CanHitPlayer(projectile, Main.LocalPlayer) && GrazeCheck(projectile))
+                    if (GrazeCheck(projectile))
                     {
                         double grazeCap = 0.25;
                         if (fargoPlayer.MutantEyeItem != null)
