@@ -8,6 +8,17 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 {
     public class TimberForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<WoodEnchant>(),
+            ModContent.ItemType<BorealWoodEnchant>(),
+            ModContent.ItemType<RichMahoganyEnchant>(),
+            ModContent.ItemType<EbonwoodEnchant>(),
+            ModContent.ItemType<ShadewoodEnchant>(),
+            ModContent.ItemType<PalmWoodEnchant>(),
+            ModContent.ItemType<PearlwoodEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -49,20 +60,11 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<WoodEnchant>())
-            .AddIngredient(ModContent.ItemType<BorealWoodEnchant>())
-            .AddIngredient(ModContent.ItemType<RichMahoganyEnchant>())
-            .AddIngredient(ModContent.ItemType<EbonwoodEnchant>())
-            .AddIngredient(ModContent.ItemType<ShadewoodEnchant>())
-            .AddIngredient(ModContent.ItemType<PalmWoodEnchant>())
-            .AddIngredient(ModContent.ItemType<PearlwoodEnchant>())
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

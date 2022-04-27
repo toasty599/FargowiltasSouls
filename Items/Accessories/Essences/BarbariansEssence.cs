@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Items.Accessories.Essences
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage(DamageClass.Melee) += 0.18f;
-            player.meleeSpeed += .1f;
+            player.GetAttackSpeed(DamageClass.Melee) += .1f;
             player.GetCritChance(DamageClass.Melee) += 5;
         }
 

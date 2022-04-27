@@ -42,6 +42,8 @@ namespace FargowiltasSouls.Projectiles
             Projectile.tileCollide = false;
             Projectile.timeLeft = 600;
 
+            Projectile.netImportant = true;
+
             CooldownSlot = 0;
 
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =

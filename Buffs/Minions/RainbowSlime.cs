@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Buffs.Minions
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.RainbowSlime>()] < 1)
-                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.RainbowSlime>(), 35, 3f, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.RainbowSlime>(), 35, 3f, player.whoAmI);
             }
         }
     }

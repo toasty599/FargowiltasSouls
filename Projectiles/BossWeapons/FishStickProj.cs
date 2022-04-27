@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (Main.rand.NextBool(rngModifier))
                 {
                     Vector2 velocity = Vector2.Normalize(target + leadLength * Main.rand.NextFloat() - x.Center) * Main.rand.NextFloat(12f, 24f);
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), x.Center, velocity, ModContent.ProjectileType<FishStickShark>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), x.Center, velocity, ModContent.ProjectileType<FishStickShark>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             });
         }
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (Projectile.owner == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<WhirlpoolBase>()] < 1)
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WhirlpoolBase>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 16, 11);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WhirlpoolBase>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 16, 11);
                 else
                     ShootSharks(target.Center, 2, target.velocity * 30f);
             }
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (Projectile.owner == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<WhirlpoolBase>()] < 1)
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WhirlpoolBase>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 16, 11);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WhirlpoolBase>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 16, 11);
                 else
                     ShootSharks(Projectile.Center, 5);
             }

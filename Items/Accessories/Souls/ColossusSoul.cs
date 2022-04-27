@@ -70,11 +70,9 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
             .AddIngredient(ItemID.CharmofMyths)
             .AddIngredient(ItemID.BeeCloak)
             .AddIngredient(ItemID.StarVeil)
-            .AddIngredient(ItemID.FleshKnuckles) //hero shield
             .AddIngredient(ItemID.ShinyStone)
-
-            .AddIngredient(ItemID.FrozenTurtleShell) //frozen shield
-            .AddIngredient(ItemID.PaladinsShield) // ^
+            .AddIngredient(ItemID.HeroShield)
+            .AddIngredient(ItemID.FrozenShield)
             .AddIngredient(ItemID.AnkhShield)
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))

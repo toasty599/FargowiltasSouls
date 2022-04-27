@@ -53,43 +53,59 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (player.GetToggleValue("Tungsten"))
-            {
-                modPlayer.TungstenEnchantActive = true;
-
-                if (modPlayer.TungstenCD > 0)
-                    modPlayer.TungstenCD--;
-            }
+            modPlayer.TungstenEnchantActive = true;
         }
 
-        public static void TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
+        public static void TungstenIncreaseWeaponSize(Item item, FargoSoulsPlayer modPlayer)
         {
-            Player player = modPlayer.Player;
-            Item heldItem = player.HeldItem;
+            float tungstenScale = modPlayer.TerraForce ? 4f : 2.5f;
 
-            if (heldItem.damage > 0 && heldItem.scale < 2.5f)
-            {
-                modPlayer.TungstenPrevSizeSave = heldItem.scale;
-                heldItem.scale = 2.5f;
-            }
+            //if (heldItem.damage > 0 && !heldItem.noMelee)
+            //{
+            modPlayer.TungstenPrevSizeSave = item.scale;
+            item.scale *= tungstenScale;
+            //}
             //else if (((modPlayer.Toggler != null && !player.GetToggleValue("Tungsten", false)) || !TungstenEnchant) && modPlayer.TungstenPrevSizeSave != -1)
             //{
             //    heldItem.scale = modPlayer.TungstenPrevSizeSave;
             //}
         }
 
+        public static bool TungstenAlwaysAffectProj(Projectile projectile)
+        {
+            return projectile.aiStyle == ProjAIStyleID.Spear 
+                || projectile.aiStyle == ProjAIStyleID.Yoyo 
+                || projectile.aiStyle == ProjAIStyleID.ShortSword 
+                || ProjectileID.Sets.IsAWhip[projectile.type]
+                || projectile.type == ProjectileID.MonkStaffT2 
+                || projectile.type == ProjectileID.Arkhalis 
+                || projectile.type == ProjectileID.Terragrim
+                || projectile.type == ProjectileID.PiercingStarlight;
+        }
+
+        public static bool TungstenCanAffectProj(Projectile projectile)
+        {
+            return projectile.friendly 
+                && projectile.aiStyle != 99
+                && projectile.damage != 0
+                && !projectile.npcProj
+                && !projectile.trap 
+                && !(FargoSoulsUtil.IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
+        }
+
         public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer)
         {
-            if ((modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.friendly /*&& projectile.aiStyle != 99 *//*&& !townNPCProj*/ && projectile.damage != 0 && !projectile.trap && !FargoSoulsUtil.IsSummonDamage(projectile) /*&& projectile.type != ProjectileID.Arkhalis*/ /*&& projectile.type != ModContent.ProjectileType<BlenderOrbital>()*/ )
+            if (TungstenAlwaysAffectProj(projectile) || (modPlayer.TungstenCD == 0 && TungstenCanAffectProj(projectile)))
             {
+                float scale = modPlayer.TerraForce ? 3f : 2f;
 
                 projectile.position = projectile.Center;
-                projectile.scale *= 2f;
-                projectile.width *= 2;
-                projectile.height *= 2;
+                projectile.scale *= scale;
+                projectile.width = (int)(projectile.width * scale);
+                projectile.height = (int)(projectile.height * scale);
                 projectile.Center = projectile.position;
                 FargoSoulsGlobalProjectile globalProjectile = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
-                globalProjectile.TungstenProjectile = true;
+                globalProjectile.TungstenScale = scale;
                 modPlayer.TungstenCD = 30;
 
                 //    if (modPlayer.Eternity)
@@ -103,13 +119,19 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             }
         }
 
-        public static void TungstenModifyDamage(Player player, ref int damage, ref bool crit)
+        public static void TungstenModifyDamage(Player player, ref int damage, ref bool crit, DamageClass damageClass)
         {
-            damage = (int)(damage * 1.1f);
+            bool forceBuff = player.GetModPlayer<FargoSoulsPlayer>().TerraForce;
 
-            if (!crit)
+            damage = (int)(damage * (forceBuff ? 1.2 : 1.1));
+
+            int max = forceBuff ? 2 : 1;
+            for (int i = 0; i < max; i++)
             {
-                crit = Main.rand.Next(0, 100) <= FargoSoulsUtil.HighestCritChance(player);
+                if (crit)
+                    break;
+
+                crit = Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass);
             }
         }
 

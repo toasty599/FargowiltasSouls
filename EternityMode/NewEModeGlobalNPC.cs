@@ -326,14 +326,35 @@ namespace FargowiltasSouls.EternityMode
             return result;
         }
 
-        public void NetSync(int whoAmI)
+        public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            bool? result = base.DrawHealthBar(npc, hbPosition, ref scale, ref position);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.DrawHealthBar(npc, hbPosition, ref scale, ref position);
+                }
+            }
+
+            return result;
+        }
+
+        public void NetSync(NPC npc)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)
                 return;
 
             ModPacket packet = FargowiltasSouls.Instance.GetPacket();
             packet.Write((byte)22); // New maso sync packet id
-            packet.Write(whoAmI);
+            packet.Write(npc.whoAmI);
+            packet.Write(npc.type);
+
+            int bytesLength = 0;
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                bytesLength += behaviour.GetBytesNeeded();
+            packet.Write(bytesLength);
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {

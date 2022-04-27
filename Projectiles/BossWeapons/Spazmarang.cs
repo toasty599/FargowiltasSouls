@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (Projectile.owner == Main.myPlayer)
                 {
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
-                    FargoSoulsUtil.XWay(12, Projectile.GetProjectileSource_FromThis(), Projectile.Center, ModContent.ProjectileType<EyeFireFriendly>(), 3, Projectile.damage / 2, Projectile.knockBack);
+                    FargoSoulsUtil.XWay(12, Projectile.GetSource_FromThis(), Projectile.Center, ModContent.ProjectileType<EyeFireFriendly>(), 3, Projectile.damage / 2, Projectile.knockBack);
                 }
                 Projectile.ai[0] = 1;
                 Projectile.penetrate = 4;
@@ -87,12 +87,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (Projectile.Distance(Main.player[Projectile.owner].Center) >= 50)
-            {
-                spawnFire();
-            }
+            spawnFire();
             Projectile.tileCollide = false;
-            
             return false;
         }
 

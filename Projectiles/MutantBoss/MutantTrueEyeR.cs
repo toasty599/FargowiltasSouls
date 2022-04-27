@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using System.IO;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
 {
@@ -42,6 +43,16 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             return false;
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.localAI[1]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Projectile.localAI[1] = reader.ReadSingle();
+        }
+
         public override void AI()
         {
             Player target = Main.player[(int)Projectile.ai[0]];
@@ -49,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             switch ((int)Projectile.ai[1])
             {
                 case 0: //true eye movement code
-                    Vector2 newVel = target.Center - Projectile.Center + new Vector2(300f, -300f);
+                    Vector2 newVel = target.Center - Projectile.Center + new Vector2(300f * Projectile.localAI[1], -300f);
                     if (newVel != Vector2.Zero)
                     {
                         newVel.Normalize();

@@ -8,6 +8,15 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 {
     public class ShadowForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<AncientShadowEnchant>(),
+            ModContent.ItemType<NecroEnchant>(),
+            ModContent.ItemType<SpookyEnchant>(),
+            ModContent.ItemType<ShinobiEnchant>(),
+            ModContent.ItemType<DarkArtistEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -71,18 +80,11 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<AncientShadowEnchant>())
-            .AddIngredient(ModContent.ItemType<NecroEnchant>())
-            .AddIngredient(ModContent.ItemType<SpookyEnchant>())
-            .AddIngredient(ModContent.ItemType<ShinobiEnchant>())
-            .AddIngredient(ModContent.ItemType<DarkArtistEnchant>())
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

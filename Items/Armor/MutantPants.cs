@@ -38,16 +38,16 @@ namespace FargowiltasSouls.Items.Armor
             player.GetCritChance(DamageClass.Generic) += 20;
 
             player.moveSpeed += 0.4f;
-            player.meleeSpeed += 0.4f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.4f;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                if (line2.Mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
+                    line2.OverrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
                 }
             }
         }

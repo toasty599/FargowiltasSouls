@@ -42,7 +42,7 @@ Increased minion knockback
             player.GetDamage(DamageClass.Summon) += 0.3f;
             player.maxMinions += 3;
             player.maxTurrets += 3;
-            player.minionKB += 3f;
+            player.GetKnockback(DamageClass.Summon) += 3f;
         }
 
         public override void AddRecipes()

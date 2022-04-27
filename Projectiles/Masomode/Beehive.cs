@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     if (beeCount < 22) //22
                     {
-                        int n = NPC.NewNPC(Projectile.GetNPCSource_FromThis(), (int)Projectile.Center.X, (int)Projectile.Center.Y, Main.rand.NextBool() ? NPCID.Bee : NPCID.BeeSmall);
+                        int n = NPC.NewNPC(Projectile.GetSource_FromThis(), (int)Projectile.Center.X, (int)Projectile.Center.Y, Main.rand.NextBool() ? NPCID.Bee : NPCID.BeeSmall);
                         if (n != Main.maxNPCs)
                         {
                             beeCount++;

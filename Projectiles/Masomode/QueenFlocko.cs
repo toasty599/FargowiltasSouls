@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     {
                         Vector2 velocity = vel.RotatedBy(MathHelper.ToRadians(4) * i);
                         velocity.X = (player.Center.X - Projectile.Center.X) / 100f;
-                        int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Projectile.Center, 
+                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), Projectile.Center, 
                             velocity, ProjectileID.FrostWave, Projectile.damage, Projectile.knockBack, Projectile.owner);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = 101;

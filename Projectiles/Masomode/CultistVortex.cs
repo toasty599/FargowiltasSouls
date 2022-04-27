@@ -45,15 +45,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (p != -1)
             {
-                Projectile.position += Main.player[p].velocity / 2;
+                Projectile.position += Main.player[p].velocity * 0.8f;
 
                 Vector2 target = Main.player[p].Center;
                 target.Y -= 400;
 
                 Vector2 distance = target - Projectile.Center;
-                float length = distance.Length();
-                
-                distance /= 8f;
+                distance /= 6f;
                 Projectile.velocity = (Projectile.velocity * 19f + distance) / 20f;
             }
 
@@ -146,7 +144,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         Vector2 dir = Vector2.UnitY;
                         float ai1New = Main.rand.Next(100);
                         Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 5f;
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel, ProjectileID.CultistBossLightningOrbArc,
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ProjectileID.CultistBossLightningOrbArc,
                             Projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                     }
                 }

@@ -518,6 +518,48 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 18: //cultist arena new visual
+                    {
+                        color = Color.Cyan * 0.75f;
+                        maxTime = 60;
+                        alphaModifier = 2;
+                        Projectile.scale = 3f;
+
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.CultistBoss);
+                        if (npc != null)
+                        {
+                            if (counter > maxTime / 2)
+                                counter = maxTime / 2;
+
+                            if (npc.ai[0] == 5)
+                            {
+                                //in here so it doesnt kill itself as soon as it spawns
+                                if (counter > 0 && npc.ai[1] == 1f && Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.Kill();
+                                    return;
+                                }
+
+                                int ritual = (int)npc.ai[2];
+                                if (ritual > -1 && ritual < Main.maxProjectiles && Main.projectile[ritual].active && Main.projectile[ritual].type == ProjectileID.CultistRitual)
+                                {
+                                    if (counter == 0)
+                                    {
+                                        Vector2 offset = Projectile.Center - Main.projectile[ritual].Center;
+                                        Projectile.localAI[0] = offset.X;
+                                        Projectile.localAI[1] = offset.Y;
+                                    }
+
+                                    Projectile.Center = Main.projectile[ritual].Center + new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
+                                }
+                            }
+                        }
+
+                        Projectile.position -= Projectile.velocity;
+                        Projectile.rotation = Projectile.velocity.ToRotation();
+                    }
+                    break;
+
                 default:
                     Main.NewText("glow line: you shouldnt be seeing this text, show terry");
                     break;
@@ -537,6 +579,11 @@ namespace FargowiltasSouls.Projectiles
             }
 
             color.A = 0;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

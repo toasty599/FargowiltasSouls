@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             Vector2 vel = distance;
                             vel.Normalize();
                             vel *= 9f;
-                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<FrostWave>(),
+                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<FrostWave>(),
                                 Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
                         }
                     }
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             speed.Normalize();
                             speed *= 12f;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + speed * 4f, speed, ModContent.ProjectileType<FrostShard>(),
+                                FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center + speed * 4f, speed, ModContent.ProjectileType<FrostShard>(),
                                     Projectile.originalDamage / 2, Projectile.knockBack / 2, Projectile.owner);
                         }
                     }

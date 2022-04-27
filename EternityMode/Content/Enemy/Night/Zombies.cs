@@ -44,7 +44,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
             NPCID.ZombieElfBeard,
             NPCID.ZombieElfGirl,
             NPCID.SmallSlimedZombie,
-            NPCID.BigSlimedZombie
+            NPCID.BigSlimedZombie,
+            NPCID.ZombieMerman
         );
 
         private void transformZombie(NPC npc, int armedId = -1)
@@ -162,7 +163,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
                 case NPCID.BigSlimedZombie:
                 case NPCID.ArmedZombieSlimed:
                     if (Main.rand.NextBool() && Main.netMode != NetmodeID.MultiplayerClient)
-                        FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.BlueSlime);
+                        FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.BlueSlime);
                     break;
 
                 default: 

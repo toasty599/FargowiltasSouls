@@ -89,9 +89,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 for (int index = 0; index < 24; ++index)
                 {
-                    float SpeedX = Projectile.velocity.Length() * Main.rand.Next(-60, 61) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                    float SpeedY = Projectile.velocity.Length() * Main.rand.Next(-60, 61) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, SpeedX, SpeedY,
+                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Main.rand.NextVector2Circular(12f, 12f),
                         ModContent.ProjectileType<CrystalBombShard>(), Projectile.damage, 0f, Projectile.owner);
                 }
             }

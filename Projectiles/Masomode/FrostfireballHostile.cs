@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (--Projectile.ai[1] > -60f && Projectile.ai[1] < 0f) //homing for 1sec, with delay
             {
                 Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[0]);
-                if (player.active && !player.dead)
+                if (player != null && player.active && !player.dead)
                 {
                     Vector2 dist = player.Center - Projectile.Center;
                     dist.Normalize();

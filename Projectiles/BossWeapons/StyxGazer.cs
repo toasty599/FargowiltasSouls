@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     for (int i = 1; i <= max; i++)
                     {
                         spawnPos += Projectile.velocity * 1500f / max;
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<StyxSickle>(), Projectile.damage, Projectile.knockBack / 10, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<StyxSickle>(), Projectile.damage, Projectile.knockBack / 10, Projectile.owner);
                     }
                 }
             }
@@ -138,9 +138,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 spawnedHandle = true;
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<StyxGazerHandle>(), 
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<StyxGazerHandle>(), 
                         Projectile.damage, Projectile.knockBack, Projectile.owner, (float)Math.PI / 2, Projectile.identity);
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<StyxGazerHandle>(),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<StyxGazerHandle>(),
                         Projectile.damage, Projectile.knockBack, Projectile.owner, -(float)Math.PI / 2, Projectile.identity);
                 }
             }
@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             Projectile.localNPCImmunity[target.whoAmI]++;
 
-            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<AbomBoss.AbomBlast>(), 0, 0f, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<AbomBoss.AbomBlast>(), 0, 0f, Projectile.owner);
 
             target.AddBuff(BuffID.ShadowFlame, 300);
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibble>(), 300);

@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Patreon.Shucks
             player.GetModPlayer<PatreonPlayer>().Crimetroid = true;
             if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<Crimetroid>()] < 1)
             {
-                Projectile.NewProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Crimetroid>(), 0, 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Crimetroid>(), 0, 0f, player.whoAmI);
             }
         }
     }

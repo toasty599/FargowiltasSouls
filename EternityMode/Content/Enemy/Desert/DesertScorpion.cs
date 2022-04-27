@@ -36,7 +36,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
                 if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
                 {
                     Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center) * 14;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<VenomSpit>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<VenomSpit>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
                 }
             }
         }

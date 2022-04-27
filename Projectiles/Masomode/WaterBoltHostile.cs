@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             AIType = ProjectileID.WaterBolt;
             Projectile.friendly = false;
             Projectile.hostile = true;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
             Projectile.timeLeft = 300;
             Projectile.alpha = 255;
         }

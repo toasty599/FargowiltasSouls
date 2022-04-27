@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 Projectile.velocity = -Vector2.UnitY;
             }
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.GolemHeadFree);
-            if (npc != null && npc.GetEModeNPCMod<GolemHead>().ShootDeathray)
+            if (npc != null && npc.GetEModeNPCMod<GolemHead>().DoAttack)
             {
                 Projectile.Center = npc.Center;
             }

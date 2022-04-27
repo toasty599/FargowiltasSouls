@@ -56,13 +56,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                         Projectile proj = Main.projectile[i];
 
                         if (proj.type == ModContent.ProjectileType<PalmTreeSentry>() && proj.owner == player.whoAmI)
-                        {
                             proj.Kill();
-                        }
                     }
                 }
 
-                Projectile.NewProjectile(player.GetProjectileSource_Misc(0), mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<PalmTreeSentry>(), 0, 0f, player.whoAmI);
+                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), mouse - 10 * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), modPlayer.WoodForce ? 45 : 15, 0f, player.whoAmI);
             }
         }
 

@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
            
             string tooltip =
 @"Increases the strength of friendly bees
-Your piercing attacks spawn bees
+Melee hits and most piercing attacks spawn bees
 'According to all known laws of aviation, there is no way a bee should be able to fly'";
             Tooltip.SetDefault(tooltip);
 

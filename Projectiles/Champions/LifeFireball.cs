@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-10, 0),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-10, 0),
                               Main.rand.Next(326, 329), Projectile.damage / 4, 0f, Main.myPlayer);
                     }
                 }
@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             float scaleFactor9 = 0.5f;
             for (int j = 0; j < 4; j++)
             {
-                int gore = Gore.NewGore(new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
                     default(Vector2),
                     Main.rand.Next(61, 64));
 

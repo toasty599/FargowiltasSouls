@@ -207,7 +207,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                             if (Main.rand.Next(3) != 0)
                                 continue;
 
-                            int n = FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, type,
+                            int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, type,
                                 velocity: new Vector2(npc.velocity.X * 2, npc.velocity.Y));
 
                             if (n != Main.maxNPCs)

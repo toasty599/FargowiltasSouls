@@ -81,7 +81,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                     {
                         NPC npc = Main.npc[j];
 
-                        if (npc.active && npc.whoAmI != target.whoAmI && npc.Distance(target.Center) < closestDist && !npcIndexes.Contains(npc.whoAmI))
+                        if (npc.active && npc.whoAmI != target.whoAmI && npc.Distance(target.Center) < closestDist && !npcIndexes.Contains(npc.whoAmI)
+                            && Collision.CanHitLine(npc.Center, 0, 0, target.Center, 0, 0))
                         {
                             closestNPC = npc;
                             closestDist = npc.Distance(target.Center);
@@ -97,7 +98,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                         float ai2 = Main.rand.Next(100);
                         Vector2 velocity = Vector2.Normalize(ai) * 20;
 
-                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(modPlayer.Player.GetProjectileSource_Item(modPlayer.Player.HeldItem), target.Center, velocity, ModContent.ProjectileType<CopperLightning>(), FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, dmg), 0f, modPlayer.Player.whoAmI, ai.ToRotation(), ai2);
+                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(modPlayer.Player.GetSource_ItemUse(modPlayer.Player.HeldItem), target.Center, velocity, ModContent.ProjectileType<CopperLightning>(), FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, dmg), 0f, modPlayer.Player.whoAmI, ai.ToRotation(), ai2);
                     }
                     else
                     {

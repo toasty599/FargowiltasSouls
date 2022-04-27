@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             DisplayName.SetDefault("Slime Rain");
             Main.projFrames[Projectile.type] = 4;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
@@ -56,6 +56,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         Projectile.frame = 0;
                 }
             }
+
+            if (++Projectile.localAI[1] > 10 && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+            {
+                float yOffset = Projectile.Center.Y - Main.npc[NPCs.EModeGlobalNPC.mutantBoss].Center.Y;
+                if (Math.Sign(yOffset) == Math.Sign(Projectile.velocity.Y) && Projectile.Distance(Main.npc[NPCs.EModeGlobalNPC.mutantBoss].Center) > 1200 + Projectile.ai[0])
+                    Projectile.timeLeft = 0;
+            }
         }
 
         public override void Kill(int timeleft)
@@ -79,9 +86,19 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White * Projectile.Opacity;
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantSlimeBall_" + Projectile.localAI[0].ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            int sheetClamped = (int)Projectile.localAI[0];
+            if (sheetClamped < 1)
+                sheetClamped = 1;
+            if (sheetClamped > 3)
+                sheetClamped = 3;
+            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Projectiles/MutantBoss/MutantSlimeBall_{sheetClamped}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);

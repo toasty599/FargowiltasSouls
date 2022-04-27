@@ -189,9 +189,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     for (int i = 0; i < ringMax; i++)
                     {
                         Vector2 vel = speed * Projectile.velocity.RotatedBy(2 * Math.PI / ringMax * i);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, vel, ModContent.ProjectileType<HentaiSphereRing>(),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, vel, ModContent.ProjectileType<HentaiSphereRing>(),
                             Projectile.damage, Projectile.knockBack, Projectile.owner, rotation, speed);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, vel, ModContent.ProjectileType<HentaiSphereRing>(),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, vel, ModContent.ProjectileType<HentaiSphereRing>(),
                             Projectile.damage, Projectile.knockBack, Projectile.owner, -rotation, speed);
                     }
                 }

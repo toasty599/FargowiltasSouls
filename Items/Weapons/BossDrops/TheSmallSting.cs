@@ -42,15 +42,13 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             Item.height = 16;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            type = ModContent.ProjectileType<SmallStinger>();
-
-            return true;
+            type = Item.shoot;
         }
 
         // Remove the Crit Chance line because of a custom crit method
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips) => tooltips.Remove(tooltips.FirstOrDefault(line => line.Name == "CritChance" && line.mod == "Terraria"));
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips) => tooltips.Remove(tooltips.FirstOrDefault(line => line.Name == "CritChance" && line.Mod == "Terraria"));
 
         //make them hold it different
         public override Vector2? HoldoutOffset() => new Vector2(-10, 0);

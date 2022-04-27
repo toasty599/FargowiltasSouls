@@ -23,6 +23,7 @@ namespace FargowiltasSouls.Items.Ammos
                                "弹跳多次\n" +
                                "每次撞击都会造成魔晶碎片爆炸\n" +
                                "造成多种Debuff");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

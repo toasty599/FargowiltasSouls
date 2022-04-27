@@ -25,7 +25,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.AI(npc);
 
-            if (++Counter > 90)
+            if (++Counter > 180)
             {
                 Counter = 0;
 
@@ -37,7 +37,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                     speed.Y += Main.rand.Next(-20, 21);
                     speed.Normalize();
                     speed *= 12f;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.BombSkeletronPrime, (int)(npc.damage * .7), 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ProjectileID.BombSkeletronPrime, (int)(npc.damage * .7), 0f, Main.myPlayer);
                 }
             }
         }

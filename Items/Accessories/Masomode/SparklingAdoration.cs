@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Grants immunity to Lovestruck and Fake Hearts
 Graze projectiles to gain up to 25% increased critical damage
 Critical damage bonus decreases over time and is fully lost on hit
+This damage bonus can apply to summon damage even without a critical hit
 Your attacks periodically summon life-draining hearts
 'With all of your emotion!'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 11));
@@ -47,7 +48,7 @@ Your attacks periodically summon life-draining hearts
             fargoPlayer.DevianttHeartItem = Item;
 
             if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoGrazeRing", false) && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.GrazeRing>()] < 1)
-                Projectile.NewProjectile(player.GetProjectileSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GrazeRing>(), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GrazeRing>(), 0, 0f, Main.myPlayer);
         }
     }
 }

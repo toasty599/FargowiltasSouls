@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Items.Ammos
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "弹跳多次\n" +
                 "每次撞击都会爆炸,召唤流星,发射激光箭\n" +
                 "造成多种Debuff");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

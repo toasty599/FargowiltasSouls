@@ -12,6 +12,7 @@ using FargowiltasSouls.Projectiles.Champions;
 using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -146,7 +147,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, -1f, -1f, NPC.target);
+                            int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, -1f, -1f, NPC.target);
                             if (n != Main.maxNPCs)
                             {
                                 Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -154,7 +155,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 if (Main.netMode == NetmodeID.Server)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }
-                            n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, -1f, 1f, NPC.target);
+                            n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, -1f, 1f, NPC.target);
                             if (n != Main.maxNPCs)
                             {
                                 Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -162,7 +163,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 if (Main.netMode == NetmodeID.Server)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }
-                            n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, 1f, -1f, NPC.target);
+                            n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, 1f, -1f, NPC.target);
                             if (n != Main.maxNPCs)
                             {
                                 Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -170,7 +171,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 if (Main.netMode == NetmodeID.Server)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }
-                            n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, 1f, 1f, NPC.target);
+                            n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, 1f, 1f, NPC.target);
                             if (n != Main.maxNPCs)
                             {
                                 Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -244,7 +245,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         float scaleFactor9 = 0.5f;
                         for (int j = 0; j < 4; j++)
                         {
-                            int gore = Gore.NewGore(dustPos, default(Vector2), Main.rand.Next(61, 64));
+                            int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default(Vector2), Main.rand.Next(61, 64));
                             Main.gore[gore].velocity *= scaleFactor9;
                             //Main.gore[gore].velocity.X += 1f;
                             //Main.gore[gore].velocity.Y += 1f;
@@ -316,7 +317,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             if (!foundHand[0])
                             {
-                                int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, -1f, -1f, NPC.target);
+                                int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, -1f, -1f, NPC.target);
                                 if (n != Main.maxNPCs)
                                 {
                                     Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -327,7 +328,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             }
                             if (!foundHand[1])
                             {
-                                int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, -1f, 1f, NPC.target);
+                                int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, -1f, 1f, NPC.target);
                                 if (n != Main.maxNPCs)
                                 {
                                     Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -338,7 +339,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             }
                             if (!foundHand[2])
                             {
-                                int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, 1f, -1f, NPC.target);
+                                int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, 1f, -1f, NPC.target);
                                 if (n != Main.maxNPCs)
                                 {
                                     Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -349,7 +350,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             }
                             if (!foundHand[3])
                             {
-                                int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, 1f, 1f, NPC.target);
+                                int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, 1f, 1f, NPC.target);
                                 if (n != Main.maxNPCs)
                                 {
                                     Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -376,7 +377,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (Main.netMode != NetmodeID.MultiplayerClient) //spawn super hand
                         {
 
-                            int n2 = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 3f, NPC.whoAmI, 1f, 1f, NPC.target);
+                            int n2 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 3f, NPC.whoAmI, 1f, 1f, NPC.target);
                             if (n2 != Main.maxNPCs)
                             {
                                 Main.npc[n2].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -397,7 +398,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             for (int i = 0; i < 12; i++)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
                                     Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<SpiritCrossBone>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
@@ -410,7 +411,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             Vector2 target = player.Center;
                             target.Y -= 100;
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), target, Vector2.Zero, ProjectileID.SandnadoHostileMark, 0, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), target, Vector2.Zero, ProjectileID.SandnadoHostileMark, 0, 0f, Main.myPlayer);
 
                             int length = (int)NPC.Distance(target) / 10;
                             Vector2 offset = NPC.DirectionTo(target) * 10f;
@@ -513,7 +514,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                                 for (int i = 0; i < 12; i++)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
                                         Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<SpiritCrossBone>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                                 }
                             }
@@ -525,7 +526,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 if (doPredictiveSandnado && NPC.life < NPC.lifeMax * 0.66)
                                     target += player.velocity * 30f; //alternate between predictive and direct aim
                                 target.Y -= 100;
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), target, Vector2.Zero, ProjectileID.SandnadoHostileMark, 0, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), target, Vector2.Zero, ProjectileID.SandnadoHostileMark, 0, 0f, Main.myPlayer);
 
                                 int length = (int)NPC.Distance(target) / 10;
                                 Vector2 offset = NPC.DirectionTo(target) * 10f;
@@ -582,7 +583,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 {
                                     Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
                                     float ai1 = 60 + Main.rand.Next(30);
-                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<SpiritSpirit>(),
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<SpiritSpirit>(),
                                         FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, ai1);
                                 }
                             }
@@ -621,7 +622,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 float speed = Main.rand.NextFloat(4f, 8f);
                                 Vector2 velocity = speed * Vector2.UnitX.RotatedBy(Main.rand.NextDouble() * 2 * Math.PI);
                                 float ai1 = speed / Main.rand.NextFloat(60f, 120f);
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, velocity, ModContent.ProjectileType<SpiritSword>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, ai1);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, velocity, ModContent.ProjectileType<SpiritSword>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, ai1);
                             }
 
                             if (NPC.life < NPC.lifeMax * 0.66)
@@ -631,7 +632,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 {
                                     Vector2 vel = NPC.DirectionTo(player.Center).RotatedBy(Math.PI * 2 / max * i);
                                     float ai0 = 1.04f;
-                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, vel, ModContent.ProjectileType<SpiritHand>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0);
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<SpiritHand>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0);
                                 }
                             }
                         }
@@ -715,7 +716,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     //x.netUpdate = true;
 
                                     if (x.owner == Main.myPlayer)
-                                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), x.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), x.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
                                 }
                             });
                         }
@@ -724,7 +725,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -6);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -6);
                         }
 
                         if (++NPC.ai[3] > 10) //spirits
@@ -760,7 +761,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                             flag2 = false;
                                         if (flag2)
                                         {
-                                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), index1 * 16 + 8, index2 * 16 + 8, 0, 0f,
+                                            Projectile.NewProjectile(NPC.GetSource_FromThis(), index1 * 16 + 8, index2 * 16 + 8, 0, 0f,
                                                 ProjectileID.DesertDjinnCurse, 0, 1f, Main.myPlayer, NPC.target, 0);
                                             break;
                                         }
@@ -780,7 +781,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     Vector2 vel = NPC.DirectionTo(player.Center).RotatedBy(Math.PI / 6 * (Main.rand.NextDouble() - 0.5));
                                     float ai0 = Main.rand.NextFloat(1.04f, 1.06f);
                                     float ai1 = Main.rand.NextFloat(0.025f);
-                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, vel, ModContent.ProjectileType<SpiritHand>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0, ai1);
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<SpiritHand>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0, ai1);
                                 }
                             }
                         }
@@ -790,9 +791,9 @@ namespace FargowiltasSouls.NPCs.Champions
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item2, NPC.Center);
                             for (int i = 0; i < 3; i++)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
                                     Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-8f, 0f), ModContent.ProjectileType<SpiritCrossBone>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
                                     Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(8f, 0f), ModContent.ProjectileType<SpiritCrossBoneReverse>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
@@ -837,7 +838,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (Main.netMode != NetmodeID.MultiplayerClient) //spawn super hand
                         {
 
-                            int n2 = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 4f, NPC.whoAmI, 1f, 1f, NPC.target);
+                            int n2 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 4f, NPC.whoAmI, 1f, 1f, NPC.target);
                             if (n2 != Main.maxNPCs)
                             {
                                 Main.npc[n2].velocity.X = Main.rand.NextFloat(-24f, 24f);
@@ -963,7 +964,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 {
                     Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
                     if (!Main.dedServ)
-                        Gore.NewGore(pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"SpiritGore{i}").Type, NPC.scale);
+                        Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"SpiritGore{i}").Type, NPC.scale);
                 }
             }
         }
@@ -975,14 +976,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.SpiritForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] {
-                ModContent.ItemType<FossilEnchant>(),
-                ModContent.ItemType<ForbiddenEnchant>(),
-                ModContent.ItemType<HallowEnchant>(),
-                ModContent.ItemType<TikiEnchant>(),
-                ModContent.ItemType<SpectreEnchant>()
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(SpiritForce.Enchants));
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

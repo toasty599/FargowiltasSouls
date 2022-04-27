@@ -35,7 +35,7 @@ Increases jump height and negates fall damage
         {
             //lightning boots
             player.accRunSpeed = 6.75f;
-            player.rocketBoots = 2;
+            player.rocketBoots = player.vanityRocketBoots = ArmorIDs.RocketBoots.SpectreBoots;
             player.moveSpeed += 0.08f;
 
             //fart balloon

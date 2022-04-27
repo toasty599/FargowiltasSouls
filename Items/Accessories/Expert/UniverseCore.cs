@@ -3,12 +3,13 @@ using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Expert
 {
     public class UniverseCore : SoulsItem
     {
-        public override string Texture => "FargowiltasSouls/Items/Placeholder";
+        public override int NumFrames => 8;
 
         public override void SetStaticDefaults()
         {
@@ -17,8 +18,8 @@ namespace FargowiltasSouls.Items.Accessories.Expert
 All attacks inflict Flames of the Universe
 'Bursting with ultra-high-energy cosmic rays'");
 
-            //Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 14));
-            //ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 8));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -31,8 +32,12 @@ All attacks inflict Flames of the Universe
             Item.rare = ItemRarityID.Purple;
             Item.value = Item.sellPrice(0, 50);
 
+            Item.scale *= 0.5f;
+
             Item.expert = true;
         }
+
+        public override Color? GetAlpha(Color lightColor) => Color.White;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
+using FargowiltasSouls.NPCs.EternityMode;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -195,7 +196,7 @@ namespace FargowiltasSouls.Projectiles
                                     {
                                         Vector2 spawnPoint = npc.Center + Vector2.UnitX * i * 1000;
                                         for (int j = -1; j <= 1; j += 2)
-                                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPoint, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 15f, MathHelper.PiOver2 * j);
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPoint, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 15f, MathHelper.PiOver2 * j);
                                     }
                                 }
                             }

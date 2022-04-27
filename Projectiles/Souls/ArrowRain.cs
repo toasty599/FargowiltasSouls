@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 //    velocity = new Vector2(Main.rand.NextFloat(-2, 0), Main.rand.NextFloat(20, 25));
                 //}
 
-                int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), position, velocity, (int)Projectile.ai[0], Projectile.damage, 0, Projectile.owner);
+                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity, (int)Projectile.ai[0], Projectile.damage, 0, Projectile.owner);
                 Main.projectile[p].noDropItem = true;
 
                 launchArrow = false;

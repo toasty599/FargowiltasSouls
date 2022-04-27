@@ -27,6 +27,7 @@ namespace FargowiltasSouls
         public Asset<Texture2D> PresetOffButton;
         public Asset<Texture2D> PresetOnButton;
         public Asset<Texture2D> PresetMinimalButton;
+        public Asset<Texture2D> OncomingMutantTexture;
 
         public void LoadUI()
         {
@@ -41,6 +42,7 @@ namespace FargowiltasSouls
                 PresetOffButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOff", AssetRequestMode.ImmediateLoad);
                 PresetOnButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOn", AssetRequestMode.ImmediateLoad);
                 PresetMinimalButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetMinimal", AssetRequestMode.ImmediateLoad);
+                OncomingMutantTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/OncomingMutant", AssetRequestMode.ImmediateLoad);
 
                 // Initialize UserInterfaces
                 TogglerUserInterface = new UserInterface();
@@ -78,14 +80,14 @@ namespace FargowiltasSouls
         {
             if (IsSoulTogglerOpen())
             {
-                Main.NewText("we opening");
+                //Main.NewText("we opening");
 
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuOpen);
                 OpenToggler();
             }
             else if (IsTogglerOpen())
             {
-                Main.NewText("we closing");
+                //Main.NewText("we closing");
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuClose);
                 CloseSoulToggler();
             }
@@ -102,11 +104,7 @@ namespace FargowiltasSouls
                         TogglerUserInterface.Draw(Main.spriteBatch, _lastUpdateUIGameTime);
                     return true;
                 }, InterfaceScaleType.UI));
-            }
 
-            index = layers.FindIndex((layer) => layer.Name == "Vanilla: Mouse Text");
-            if (index != -1)
-            {
                 layers.Insert(index, new LegacyGameInterfaceLayer("Fargos: Soul Toggler Toggler", delegate
                 {
                     if (_lastUpdateUIGameTime != null && TogglerToggleUserInterface?.CurrentState != null)

@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                     }
 
                     int damage = FargoSoulsUtil.HighestDamageTypeScaling(player, dmg);
-                    Projectile[] balls = FargoSoulsUtil.XWay(numBalls, Projectile.GetProjectileSource_FromThis(), Projectile.Center, ModContent.ProjectileType<ShadowBall>(), 6, damage, 0);
+                    Projectile[] balls = FargoSoulsUtil.XWay(numBalls, Projectile.GetSource_FromThis(), Projectile.Center, ModContent.ProjectileType<ShadowBall>(), 6, damage, 0);
 
                     foreach(Projectile ball in balls)
                     {

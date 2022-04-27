@@ -8,6 +8,16 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 {
     public class SpiritForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<FossilEnchant>(),
+            ModContent.ItemType<ForbiddenEnchant>(),
+            ModContent.ItemType<HallowEnchant>(),
+            ModContent.ItemType<AncientHallowEnchant>(),
+            ModContent.ItemType<TikiEnchant>(),
+            ModContent.ItemType<SpectreEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -21,9 +31,10 @@ $"[i:{ModContent.ItemType<FossilEnchant>()}] If you reach zero HP you will reviv
 $"[i:{ModContent.ItemType<FossilEnchant>()}] Collect the bones once they stop moving to heal for 15 HP each\n" +
 $"[i:{ModContent.ItemType<ForbiddenEnchant>()}] Double tap down to call an ancient storm to the cursor location\n" +
 $"[i:{ModContent.ItemType<ForbiddenEnchant>()}] Any projectiles shot through your storm gain 60% damage\n" +
-$"[i:{ModContent.ItemType<HallowEnchant>()}] You gain a shield that can reflect projectiles\n" +
-$"[i:{ModContent.ItemType<HallowEnchant>()}] Summons an Enchanted Sword familiar\n" +
-$"[i:{ModContent.ItemType<HallowEnchant>()}] Drastically increases minion speed\n" +
+$"[i:{ModContent.ItemType<AncientHallowEnchant>()}] You gain a shield that can reflect projectiles\n" +
+$"[i:{ModContent.ItemType<AncientHallowEnchant>()}] Summons an Enchanted Sword familiar\n" +
+$"[i:{ModContent.ItemType<AncientHallowEnchant>()}] Drastically increases minion speed\n" +
+$"[i:{ModContent.ItemType<HallowEnchant>()}] Become immune after striking an enemy\n" +
 $"[i:{ModContent.ItemType<TikiEnchant>()}] You can summon temporary minions and sentries after maxing out on your slots\n" +
 $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damaging and healing orbs\n" +
 "'Ascend from this mortal realm'";
@@ -51,24 +62,18 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
             FossilEnchant.FossilEffect(player);
             modPlayer.ForbiddenEffect();
             HallowEnchant.HallowEffect(player);
+            AncientHallowEnchant.AncientHallowEffect(player, Item);
             modPlayer.TikiEffect(hideVisual);
             modPlayer.SpectreEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<FossilEnchant>())
-            .AddIngredient(ModContent.ItemType<ForbiddenEnchant>())
-            .AddIngredient(ModContent.ItemType<HallowEnchant>())
-            .AddIngredient(ModContent.ItemType<TikiEnchant>())
-            .AddIngredient(ModContent.ItemType<SpectreEnchant>())
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

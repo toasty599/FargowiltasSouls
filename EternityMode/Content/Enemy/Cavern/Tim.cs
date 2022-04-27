@@ -19,8 +19,18 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
             npc.buffImmune[BuffID.OnFire] = true;
             npc.lavaImmune = true;
-            npc.lifeMax *= 4;
+            npc.lifeMax *= 2;
             npc.damage /= 2;
+        }
+
+        public override void OnSpawn(NPC npc)
+        {
+            base.OnSpawn(npc);
+
+            for (int i = 0; i < 6; i++)
+            {
+                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.FireImp, velocity: Main.rand.NextVector2Circular(8, 8));
+            }
         }
 
         public override void AI(NPC npc)

@@ -100,8 +100,8 @@ namespace FargowiltasSouls.Projectiles.Minions
                                     if (Main.myPlayer == Projectile.owner && player.HeldItem.DamageType == DamageClass.Melee)
                                     {
                                         const float maxRange = 700;
-                                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + Projectile.DirectionTo(npc.Center) * 40, 16f * Projectile.DirectionTo(npc.Center).RotatedByRandom(MathHelper.ToRadians(15)),
-                                            ModContent.ProjectileType<EridanusFist>(), (int)(Projectile.originalDamage * Main.player[Projectile.owner].GetDamage(DamageClass.Melee) / 3), Projectile.knockBack / 2, Main.myPlayer, maxRange);
+                                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(npc.Center) * 40, 16f * Projectile.DirectionTo(npc.Center).RotatedByRandom(MathHelper.ToRadians(15)),
+                                            ModContent.ProjectileType<EridanusFist>(), (int)(Projectile.originalDamage * Main.player[Projectile.owner].GetDamage(DamageClass.Melee).Additive / 3), Projectile.knockBack / 2, Main.myPlayer, maxRange);
                                     }
                                 }
 
@@ -125,8 +125,8 @@ namespace FargowiltasSouls.Projectiles.Minions
                                     Projectile.localAI[0] = 0;
                                     if (Main.myPlayer == Projectile.owner && player.HeldItem.DamageType == DamageClass.Ranged)
                                     {
-                                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 12f * Projectile.DirectionTo(npc.Center), ModContent.ProjectileType<EridanusBullet>(),
-                                            (int)(Projectile.originalDamage * Main.player[Projectile.owner].GetDamage(DamageClass.Ranged) * 1.5f), Projectile.knockBack * 2, Main.myPlayer, npc.whoAmI);
+                                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 12f * Projectile.DirectionTo(npc.Center), ModContent.ProjectileType<EridanusBullet>(),
+                                            (int)(Projectile.originalDamage * Main.player[Projectile.owner].GetDamage(DamageClass.Ranged).Additive * 1.5f), Projectile.knockBack * 2, Main.myPlayer, npc.whoAmI);
                                     }
                                 }
                                 
@@ -171,8 +171,8 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                                             spawnPos += npc.velocity * Main.rand.NextFloat(10f);
 
-                                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, vel, ProjectileID.LunarFlare,
-                                                (int)(Projectile.originalDamage * player.GetDamage(DamageClass.Magic) / 2), Projectile.knockBack / 2, Main.myPlayer, 0, npc.Center.Y);
+                                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, vel, ProjectileID.LunarFlare,
+                                                (int)(Projectile.originalDamage * player.GetDamage(DamageClass.Magic).Additive / 2), Projectile.knockBack / 2, Main.myPlayer, 0, npc.Center.Y);
                                         }
                                     }
                                 }
@@ -201,7 +201,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                     if (Main.myPlayer == Projectile.owner && !playerIsAttacking)
                                     {
                                         int modifier = Math.Sign(Projectile.Center.Y - npc.Center.Y);
-                                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + 3000 * Projectile.DirectionFrom(npc.Center) * modifier,
+                                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center + 3000 * Projectile.DirectionFrom(npc.Center) * modifier,
                                             Projectile.DirectionTo(npc.Center) * modifier, ModContent.ProjectileType<EridanusDeathray>(), 
                                             Projectile.originalDamage, Projectile.knockBack / 4, Main.myPlayer);
                                     }

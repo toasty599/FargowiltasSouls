@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     if (++Projectile.localAI[0] > 8)
                     {
                         Projectile.localAI[0] = 0;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.netMode != NetmodeID.MultiplayerClient && Projectile.Distance(Main.player[mutant.target].Center) > 360)
                         {
                             Vector2 speed = Vector2.UnitY.RotatedByRandom(Math.PI / 2) * Main.rand.NextFloat(6f, 9f);
                             if (mutant.Center.Y < Main.player[mutant.target].Center.Y)
@@ -148,6 +148,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
         }
+
+        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
 
         public override bool PreDraw(ref Color lightColor)
         {

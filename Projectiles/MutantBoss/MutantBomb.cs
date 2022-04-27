@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fish Nuke");
+            DisplayName.SetDefault("Phantasmal Blast");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
         }
 
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 
                 float scaleFactor9 = 0.5f;
                 
-                int gore = Gore.NewGore(new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
                     default(Vector2),
                     Main.rand.Next(61, 64));
 

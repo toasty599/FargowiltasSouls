@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             Vector2 vel = Projectile.DirectionTo(Main.MouseWorld) * 16f;
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
                             
-                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + Projectile.velocity * 2.5f,
+                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity * 2.5f,
                                 vel.RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 3.0),
                                 ModContent.ProjectileType<SaucerLaser>(), Projectile.originalDamage / 2, Projectile.knockBack, Projectile.owner);
                         }
@@ -145,11 +145,11 @@ namespace FargowiltasSouls.Projectiles.Minions
                         if (possibleTarget >= 0) //shoot rocket
                         {
                             Vector2 vel = new Vector2(0f, -10f).RotatedBy((Main.rand.NextDouble() - 0.5) * Math.PI);
-                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<SaucerRocket>(),
+                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<SaucerRocket>(),
                                 Projectile.originalDamage, Projectile.knockBack * 4f, Projectile.owner, possibleTarget, 20f);
                         }
 
-                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.UnitY, ModContent.ProjectileType<SaucerDeathray>(),
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.UnitY, ModContent.ProjectileType<SaucerDeathray>(),
                             Projectile.originalDamage / 2, Projectile.knockBack / 2f, Projectile.owner, 0f, Projectile.identity);
                     }
                 }

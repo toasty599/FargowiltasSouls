@@ -146,9 +146,9 @@ Not consumed on use");
         {
             foreach (TooltipLine line2 in list)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                if (line2.Mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = Main.DiscoColor;
+                    line2.OverrideColor = Main.DiscoColor;
                 }
             }
         }

@@ -43,7 +43,7 @@ namespace FargowiltasSouls
                     else if (Main.expertMode)
                         debuffTimeMultiplier = Main.RegisteredGameModes[1].DebuffTimeMultiplier;
                 }
-                player.AddBuff(buffID, (int)(intendedTime / debuffTimeMultiplier));
+                player.AddBuff(buffID, (int)Math.Round(intendedTime / debuffTimeMultiplier, MidpointRounding.ToEven));
             }
             else
             {
@@ -64,23 +64,41 @@ namespace FargowiltasSouls
         public static void AllCritEquals(Player player, int crit)
         {
             player.GetCritChance(DamageClass.Generic) = crit;
+            player.GetCritChance(DamageClass.Melee) = 0;
+            player.GetCritChance(DamageClass.Ranged) = 0;
+            player.GetCritChance(DamageClass.Magic) = 0;
+            player.GetModPlayer<FargoSoulsPlayer>().SummonCrit = 0;
+        }
 
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            if (modPlayer.SpiderEnchantActive)
-            {
-                modPlayer.SummonCrit = crit;
-                if (!modPlayer.TerrariaSoul) //half crit rate because summoner dummy high damage boosts
-                    modPlayer.SummonCrit /= 2;
-            }
+        public static float ActualClassDamage(this Player player, DamageClass damageClass)
+            => (float)player.GetDamage(DamageClass.Generic).Additive + (float)player.GetDamage(damageClass).Additive - 1f;
+
+        /// <summary>
+        /// Gets the real crit chance for the damage type, including buffs to all damage.<br/>
+        /// Includes summoner, which uses our internal modPlayer SummonCrit and accounts for Spider Ench nerf!<br/>
+        /// Returns 0 if the class is no scaling
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="damageClass"></param>
+        /// <returns></returns>
+        public static int ActualClassCrit(this Player player, DamageClass damageClass)
+        {
+            if (damageClass == DamageClass.Summon)
+                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + (int)player.GetCritChance(DamageClass.Generic) / (player.GetModPlayer<FargoSoulsPlayer>().LifeForce ? 1 : 2);
+
+            if (damageClass == DamageClass.Default)
+                return 0;
+
+            return (int)player.GetCritChance(damageClass) + (int)player.GetCritChance(DamageClass.Generic);
         }
 
         public static int HighestDamageTypeScaling(Player player, int dmg)
         {
             List<float> types = new List<float> {  
-                player.GetDamage(DamageClass.Melee), 
-                player.GetDamage(DamageClass.Ranged), 
-                player.GetDamage(DamageClass.Magic),
-                player.GetDamage(DamageClass.Summon)
+                player.ActualClassDamage(DamageClass.Melee),
+                player.ActualClassDamage(DamageClass.Ranged),
+                player.ActualClassDamage(DamageClass.Magic),
+                player.ActualClassDamage(DamageClass.Summon)
             };
 
             return (int)(types.Max() * dmg);
@@ -89,10 +107,10 @@ namespace FargowiltasSouls
         public static int HighestCritChance(Player player)
         {
             List<int> types = new List<int> { 
-                player.GetCritChance(DamageClass.Melee), 
-                player.GetCritChance(DamageClass.Ranged), 
-                player.GetCritChance(DamageClass.Magic), 
-                player.GetModPlayer<FargoSoulsPlayer>().SummonCrit
+                player.ActualClassCrit(DamageClass.Melee), 
+                player.ActualClassCrit(DamageClass.Ranged), 
+                player.ActualClassCrit(DamageClass.Magic),
+                player.ActualClassCrit(DamageClass.Summon)
             };
 
             //Main.NewText(player.GetCritChance(DamageClass.Melee) + " " + player.GetCritChance(DamageClass.Ranged) + " " + player.GetCritChance(DamageClass.Magic));
@@ -140,7 +158,7 @@ namespace FargowiltasSouls
                 || (includeWhips && ProjectileID.Sets.IsAWhip[projectile.type]);
         }
 
-        public static bool CanDeleteProjectile(Projectile projectile, int deletionRank = 0)
+        public static bool CanDeleteProjectile(Projectile projectile, int deletionRank = 0, bool clearSummonProjs = false)
         {
             if (!projectile.active)
                 return false;
@@ -152,7 +170,7 @@ namespace FargowiltasSouls
             {
                 if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
                     return false;
-                if (IsSummonDamage(projectile, false))
+                if (IsSummonDamage(projectile, false) && !clearSummonProjs)
                     return false;
             }
             return true;
@@ -231,9 +249,9 @@ namespace FargowiltasSouls
             return false;
         }
 
-        public static void ClearFriendlyProjectiles(int deletionRank = 0, int bossNpc = -1)
+        public static void ClearFriendlyProjectiles(int deletionRank = 0, int bossNpc = -1, bool clearSummonProjs = false)
         {
-            ClearProjectiles(false, true, deletionRank, bossNpc);
+            ClearProjectiles(false, true, deletionRank, bossNpc, clearSummonProjs);
         }
 
         public static void ClearHostileProjectiles(int deletionRank = 0, int bossNpc = -1)
@@ -241,12 +259,12 @@ namespace FargowiltasSouls
             ClearProjectiles(true, false, deletionRank, bossNpc);
         }
 
-        public static void ClearAllProjectiles(int deletionRank = 0, int bossNpc = -1)
+        public static void ClearAllProjectiles(int deletionRank = 0, int bossNpc = -1, bool clearSummonProjs = false)
         {
-            ClearProjectiles(true, true, deletionRank, bossNpc);
+            ClearProjectiles(true, true, deletionRank, bossNpc, clearSummonProjs);
         }
 
-        private static void ClearProjectiles(bool clearHostile, bool clearFriendly, int deletionRank = 0, int bossNpc = -1)
+        private static void ClearProjectiles(bool clearHostile, bool clearFriendly, int deletionRank = 0, int bossNpc = -1, bool clearSummonProjs = false)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
@@ -259,7 +277,7 @@ namespace FargowiltasSouls
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile projectile = Main.projectile[i];
-                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile, deletionRank))
+                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile, deletionRank, clearSummonProjs))
                     {
                         projectile.Kill();
                     }
@@ -294,31 +312,31 @@ namespace FargowiltasSouls
                 }
             }
 
-            int index3 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index3 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index3].scale = 1.5f;
             Main.gore[index3].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index3].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index3].velocity *= 0.4f;
 
-            int index4 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index4 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index4].scale = 1.5f;
             Main.gore[index4].velocity.X = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index4].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index4].velocity *= 0.4f;
 
-            int index5 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index5 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index5].scale = 1.5f;
             Main.gore[index5].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index5].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index5].velocity *= 0.4f;
 
-            int index6 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index6 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index6].scale = 1.5f;
             Main.gore[index6].velocity.X = 1.5f - Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index6].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index6].velocity *= 0.4f;
 
-            int index7 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index7 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index7].scale = 1.5f;
             Main.gore[index7].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index7].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
@@ -795,7 +813,7 @@ namespace FargowiltasSouls
                 Vector2 value = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
                 value.Normalize();
                 value.X *= 0.66f;
-                int goreID = Gore.NewGore(codable.position + new Vector2(Main.rand.Next(codable.width + 1), Main.rand.Next(codable.height + 1)), value * Main.rand.Next(3, 6) * 0.33f, 331, Main.rand.Next(40, 121) * 0.01f);
+                int goreID = Gore.NewGore(codable.GetSource_FromThis(), codable.position + new Vector2(Main.rand.Next(codable.width + 1), Main.rand.Next(codable.height + 1)), value * Main.rand.Next(3, 6) * 0.33f, 331, Main.rand.Next(40, 121) * 0.01f);
                 Main.gore[goreID].sticky = false;
                 Main.gore[goreID].velocity *= 0.4f;
                 Main.gore[goreID].velocity.Y -= 0.6f;

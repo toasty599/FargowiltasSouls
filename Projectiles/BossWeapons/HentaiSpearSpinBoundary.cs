@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     for (int i = 0; i < 6; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, new Vector2(0, -9f).RotatedBy(Projectile.localAI[1] + Math.PI / 3 * i),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, new Vector2(0, -9f).RotatedBy(Projectile.localAI[1] + Math.PI / 3 * i),
                             ModContent.ProjectileType<PhantasmalEyeBoundary>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
                     }
                 }

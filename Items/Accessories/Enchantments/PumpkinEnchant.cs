@@ -64,7 +64,7 @@ Enemies that touch them will destroy them and take damage
                     if ((!Main.tile[x, y].HasTile && Main.tile[x, y].LiquidType == 0 && Main.tile[x, y + 1] != null && (WorldGen.SolidTile(x, y + 1) || Main.tile[x, y + 1].TileType == TileID.Platforms))
                         || modPlayer.LifeForce)
                     {
-                        Projectile.NewProjectile(player.GetProjectileSource_Accessory(accessorySource), player.Center, Vector2.Zero, ModContent.ProjectileType<GrowingPumpkin>(), 0, 0, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_Accessory(accessorySource), player.Center, Vector2.Zero, ModContent.ProjectileType<GrowingPumpkin>(), 0, 0, player.whoAmI);
                         modPlayer.PumpkinSpawnCD = 300;
                     }
                 }

@@ -72,7 +72,7 @@ Brandish a blade of infernal magic when fully charged";
                 fargoPlayer.StyxMeter -= METER_THRESHOLD;
                 if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[scytheType] < MAX_SCYTHES)
                 {
-                    Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center, Vector2.Zero, scytheType, 0, 10f, player.whoAmI, player.ownedProjectileCounts[scytheType], -1f);
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, scytheType, 0, 10f, player.whoAmI, player.ownedProjectileCounts[scytheType], -1f);
                 }
             }
 
@@ -96,7 +96,7 @@ Brandish a blade of infernal magic when fully charged";
                     {
                         if (!superAttack)
                         {
-                            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.projectile[i].Center, Vector2.Normalize(Main.projectile[i].velocity) * 24f, ModContent.ProjectileType<StyxArmorScythe2>(),
+                            Projectile.NewProjectile(player.GetSource_Accessory(Item), Main.projectile[i].Center, Vector2.Normalize(Main.projectile[i].velocity) * 24f, ModContent.ProjectileType<StyxArmorScythe2>(),
                                 Main.projectile[i].damage, Main.projectile[i].knockBack, player.whoAmI, -1, -1);
                         }
 
@@ -109,7 +109,7 @@ Brandish a blade of infernal magic when fully charged";
                     Vector2 speed = Vector2.Normalize(Main.MouseWorld - player.Center);
                     bool flip = speed.X < 0;
                     speed = speed.RotatedBy(MathHelper.PiOver2 * (flip ? 1 : -1 ));
-                    Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center, speed, ModContent.ProjectileType<StyxGazerArmor>(), 0, 14f, player.whoAmI, MathHelper.Pi / 120 * (flip ? -1 : 1));
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, speed, ModContent.ProjectileType<StyxGazerArmor>(), 0, 14f, player.whoAmI, MathHelper.Pi / 120 * (flip ? -1 : 1));
 
                     player.controlUseItem = false; //this kills other heldprojs
                     player.releaseUseItem = true;

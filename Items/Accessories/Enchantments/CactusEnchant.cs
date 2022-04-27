@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Cactus Enchantment");
             Tooltip.SetDefault(
 @"While attacking you release a spray of needles
-Enemies will explode into needles after a few seconds if they are struck with your needles
+Enemies will explode into needles on death if they are struck with your needles
 'It's the quenchiest!'");
 
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "仙人掌魔石");
@@ -72,7 +72,7 @@ Enemies will explode into needles after a few seconds if they are struck with yo
                 numNeedles = 16;
             }
 
-            Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetProjectileSource_Item(player.HeldItem), npc.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
+            Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetSource_ItemUse(player.HeldItem), npc.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
 
             double randomRotation = Main.rand.NextDouble() * MathHelper.Pi * 2;
 
@@ -100,7 +100,7 @@ Enemies will explode into needles after a few seconds if they are struck with yo
                     numNeedles = 16;
                 }
 
-                Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetProjectileSource_Item(player.HeldItem), player.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
+                Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetSource_ItemUse(player.HeldItem), player.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
 
                 double randomRotation = Main.rand.NextDouble() * MathHelper.Pi * 2;
 

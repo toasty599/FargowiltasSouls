@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void SetDefaults()
         {
-            Item.damage = 220;
+            Item.damage = 260;
             Item.DamageType = DamageClass.Magic;
             Item.width = 24;
             Item.height = 28;
@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.UseSound = SoundID.Item21;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<GolemHeadProj>();
-            Item.shootSpeed = 20f;
+            Item.shootSpeed = 10f;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

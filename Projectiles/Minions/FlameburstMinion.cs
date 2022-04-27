@@ -180,7 +180,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - Projectile.Center) * 10;
 
-                                int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<MegaFlameburst>(), FargoSoulsUtil.HighestDamageTypeScaling(player, 85), 4, Projectile.owner, Projectile.whoAmI);
+                                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<MegaFlameburst>(), FargoSoulsUtil.HighestDamageTypeScaling(player, 85), 4, Projectile.owner, Projectile.whoAmI);
                                 SoundEngine.PlaySound(SoundID.DD2_FlameburstTowerShot, Projectile.Center);
 
                                 const float rotationModifier = 0.08f;

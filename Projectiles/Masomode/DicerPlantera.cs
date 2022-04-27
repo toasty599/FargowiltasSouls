@@ -69,11 +69,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity,
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity,
                                 Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0], Projectile.ai[1] - 1);
                             if (Projectile.ai[0] == 1)
                             {
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(120)),
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(120)),
                                   Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, 0, Projectile.ai[1] - 1);
                             }
                         }
@@ -144,13 +144,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         }
                         else //do the actual attack
                         {
-                            const int time = 12;
+                            const int time = 16;
                             const int max = 16;
                             float rotation = Main.rand.NextFloat(MathHelper.TwoPi);
                             for (int i = 0; i < max; i++)
                             {
-                                int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, range / time * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i + rotation),
-                                    ModContent.ProjectileType<PoisonSeed2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                int type = FargoSoulsWorld.MasochistModeReal ? ProjectileID.PoisonSeedPlantera : ProjectileID.SeedPlantera;
+                                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, range / time * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i + rotation),
+                                    type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                                 if (p != Main.maxProjectiles)
                                     Main.projectile[p].timeLeft = time;
                             }
@@ -165,7 +166,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         /*public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Infested>(), 180);
             target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
         }*/
 

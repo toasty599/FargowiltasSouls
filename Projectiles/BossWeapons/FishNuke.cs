@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Projectile.NewProjectile(Projectile.Center, speed * baseVel.RotatedBy(2 * Math.PI / max * i),
                         ModContent.ProjectileType<RazorbladeTyphoonFriendly>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                 }*/
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FishNukeExplosion>(), Projectile.damage / 2, Projectile.knockBack * 2f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FishNukeExplosion>(), Projectile.damage / 2, Projectile.knockBack * 2f, Projectile.owner);
             }
             int num1 = 36;
             for (int index1 = 0; index1 < num1; ++index1)
@@ -157,7 +157,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             for (int i = 0; i < max; i++)
             {
                 vel = vel.RotatedBy(rotation);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel, type, Projectile.damage / 2,
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, type, Projectile.damage / 2,
                     Projectile.knockBack, Projectile.owner, rotationModifier, 6f);
             }
         }

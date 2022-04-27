@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 6f * Vector2.Normalize(Projectile.velocity),
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 6f * Vector2.Normalize(Projectile.velocity),
                     ProjectileID.CultistBossFireBall, Projectile.damage, 0f, Main.myPlayer);
             }
         }

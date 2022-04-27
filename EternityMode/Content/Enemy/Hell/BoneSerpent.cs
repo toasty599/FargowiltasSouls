@@ -30,7 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
             {
                 int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
                 if (t != -1 && npc.Distance(Main.player[t].Center) < 800 && Main.netMode != NetmodeID.MultiplayerClient)
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(), npc.Center, NPCID.BurningSphere);
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.BurningSphere);
             }
 
             if (Counter > 420)

@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
                 {
                     num274++;
                 }
-                int luminiteArrow = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.localAI[0], Projectile.localAI[1], velocity.X, velocity.Y, ProjectileID.MoonlordArrowTrail, Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, (float)num274);
+                int luminiteArrow = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.localAI[0], Projectile.localAI[1], velocity.X, velocity.Y, ProjectileID.MoonlordArrowTrail, Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, (float)num274);
                 timer = 0;
 
                 Main.projectile[luminiteArrow].localNPCHitCooldown = 5;
@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
             for (int num480 = 0; num480 < 3; num480++)
             {
                 if (!Main.dedServ)
-                    Gore.NewGore(Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
+                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
             }
             float x = Projectile.position.X + (float)Main.rand.Next(-400, 400);
             float y = Projectile.position.Y - (float)Main.rand.Next(600, 900);
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
             num483 *= num486;
             num484 *= num486;
             int num487 = Projectile.damage;
-            int num488 = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), x, y, num483, num484, ProjectileID.HallowStar, num487, Projectile.knockBack, Projectile.owner, 0f, 0);
+            int num488 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), x, y, num483, num484, ProjectileID.HallowStar, num487, Projectile.knockBack, Projectile.owner, 0f, 0);
             Main.projectile[num488].ai[1] = Projectile.position.Y;
             Main.projectile[num488].ai[0] = 1f;
 
@@ -181,13 +181,13 @@ namespace FargowiltasSouls.Projectiles.Ammos
                 num615 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
                 Main.dust[num615].velocity *= 2f;
             }
-            int num616 = Gore.NewGore(Projectile.position, default(Vector2), Main.rand.Next(61, 64), 1f);
+            int num616 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, default(Vector2), Main.rand.Next(61, 64), 1f);
             Main.gore[num616].velocity *= 0.4f;
             Gore expr_14419_cp_0 = Main.gore[num616];
             expr_14419_cp_0.velocity.X = expr_14419_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.1f;
             Gore expr_14449_cp_0 = Main.gore[num616];
             expr_14449_cp_0.velocity.Y = expr_14449_cp_0.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.1f;
-            num616 = Gore.NewGore(Projectile.position, default(Vector2), Main.rand.Next(61, 64), 1f);
+            num616 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, default(Vector2), Main.rand.Next(61, 64), 1f);
             Main.gore[num616].velocity *= 0.4f;
             Gore expr_144DD_cp_0 = Main.gore[num616];
             expr_144DD_cp_0.velocity.X = expr_144DD_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.1f;

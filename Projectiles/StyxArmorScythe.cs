@@ -32,6 +32,7 @@ namespace FargowiltasSouls.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
 
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
@@ -64,7 +65,7 @@ namespace FargowiltasSouls.Projectiles
             }
 
             Projectile.timeLeft = 240;
-            Projectile.damage = (int)(baseDamage * player.GetDamage(DamageClass.Melee));
+            Projectile.damage = (int)(baseDamage * player.GetDamage(DamageClass.Melee).Additive);
 
             Projectile.Center = player.Center;
 

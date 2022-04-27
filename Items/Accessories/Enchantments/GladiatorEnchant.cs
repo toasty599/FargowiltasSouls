@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                     speed.Normalize();
                     speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
 
-                    Projectile.NewProjectile(player.GetProjectileSource_Misc(0), spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
+                    Projectile.NewProjectile(player.GetSource_Misc(""), spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
                 }
 
                 modPlayer.GladiatorCD = modPlayer.WillForce ? 10 : 30;

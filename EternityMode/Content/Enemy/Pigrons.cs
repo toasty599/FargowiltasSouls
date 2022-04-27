@@ -20,6 +20,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(ModContent.BuffType<SqueakyToy>(), 120);
+            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
             target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
             target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
         }
@@ -29,7 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnKill(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.Cthulunado, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 16, 11);
+                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.Cthulunado, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 16, 11);
         }
     }
 }

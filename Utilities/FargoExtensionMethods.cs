@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Utilities
         /// </summary>
         public static TooltipLine ArticlePrefixAdjustment(this TooltipLine itemName, int prefixID, string[] localizationArticles)
         {
-            List<string> splitName = itemName.text.Split(' ').ToList();
+            List<string> splitName = itemName.Text.Split(' ').ToList();
 
             for (int i = 0; i < localizationArticles.Length; i++)
                 if (splitName.Remove(localizationArticles[i]))
@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Utilities
                     break;
                 }
 
-            itemName.text = string.Join(" ", splitName);
+            itemName.Text = string.Join(" ", splitName);
             return itemName;
         }
 
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Utilities
         /// </summary>
         public static bool TryFindTooltipLine(this List<TooltipLine> tooltips, string tooltipName, string tooltipMod, out TooltipLine tooltipLine)
         {
-            tooltipLine = tooltips.First(line => line.Name == tooltipName && line.mod == tooltipMod);
+            tooltipLine = tooltips.First(line => line.Name == tooltipName && line.Mod == tooltipMod);
 
             return tooltipLine != null;
         }

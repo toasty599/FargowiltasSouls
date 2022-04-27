@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void Kill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
 
         public override Color? GetAlpha(Color lightColor)

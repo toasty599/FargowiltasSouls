@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Items.Summons
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))
-                itemNameLine.overrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
+                itemNameLine.OverrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
         }
 
         public override void AddRecipes()

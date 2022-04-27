@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Buffs.Minions
         {
             player.GetModPlayer<FargoSoulsPlayer>().CrystalSkullMinion = true;
             if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.CrystalSkull>()] < 1)
-                FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.CrystalSkull>(), 30, 4f, player.whoAmI);
+                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.CrystalSkull>(), 30, 4f, player.whoAmI);
         }
     }
 }

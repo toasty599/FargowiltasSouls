@@ -47,7 +47,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
                 if (++Counter > 1800)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FusedExplosion>(), npc.damage, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FusedExplosion>(), npc.damage, 0f, Main.myPlayer);
                     npc.life = 0;
                     npc.HitEffect();
                     npc.StrikeNPCNoInteraction(999999, 0f, 0);

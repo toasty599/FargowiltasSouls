@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                         Player player = Main.player[Projectile.owner];
 
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<RetiDeathray>(), Projectile.damage, 1f, Projectile.owner, 0, Projectile.identity);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<RetiDeathray>(), Projectile.damage, 1f, Projectile.owner, 0, Projectile.identity);
                         Projectile.velocity = -velocity * 8;
 
                         if (empowered)
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                             const int max = 3;
                             for (int i = 0; i < max; i++)
                             {
-                                int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 1.25f * velocity.RotatedBy(MathHelper.TwoPi / max * i + baseRotation),
+                                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 1.25f * velocity.RotatedBy(MathHelper.TwoPi / max * i + baseRotation),
                                     ModContent.ProjectileType<DarkStarHomingFriendly>(), Projectile.damage, 1f, Projectile.owner, -1, 0);
                                 if (p != Main.maxProjectiles)
                                 {

@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void Kill(int timeleft)
         {
-            int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, Projectile.damage, 0, Projectile.owner);
+            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, Projectile.damage, 0, Projectile.owner);
             if (p != Main.maxProjectiles)
                 Main.projectile[p].timeLeft = 15;
         }

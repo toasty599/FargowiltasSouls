@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center, Main.rand.NextVector2Circular(-7f, 7f), ProjectileID.BoneGloveProj, Projectile.damage / 4, 0f, Projectile.owner);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Main.rand.NextVector2Circular(-7f, 7f), ProjectileID.BoneGloveProj, Projectile.damage / 4, 0f, Projectile.owner);
                     if (p != Main.maxProjectiles)
                         Main.projectile[p].timeLeft = 60;
                 }

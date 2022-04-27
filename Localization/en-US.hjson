@@ -8,11 +8,54 @@
 
 Mods: {
 	FargowiltasSouls: {
+
+		BossChecklist: {
+			DeviBossName: Deviantt
+			DeviBossDespawn: Deviantt bores of the battle...
+			DeviBossKilledAll: Deviantt is satisfied with its show of love.
+			
+			AbomBossName: Abominationn
+			AbomBossDespawn: Abominationn sees no worthy opponent...
+			AbomBossKilledAll: Abominationn has destroyed everyone.
+			
+			MutantBossName: Mutant
+			MutantBossDespawn: Mutant seals its power once more...
+			MutantBossKilledAll: Mutant has eviscerated everyone under its hands.
+
+			TimberChampionName: Champion of Timber
+			TimberChampionDespawn: Champion of Timber returns to its squirrel clan...
+
+			TerraChampionName: Champion of Terra
+			TerraChampionDespawn: Champion of Terra vanishes into the caverns...
+			
+			EarthChampionName: Champion of Earth
+			EarthChampionDespawn: Champion of Earth disappears beneath the magma...
+			
+			NatureChampionName: Champion of Nature
+			NatureChampionDespawn: Champion of Nature returns to its slumber...
+			
+			LifeChampionName: Champion of Life
+			LifeChampionDespawn: Champion of Life fades away...
+			
+			ShadowChampionName: Champion of Shadow
+			ShadowChampionDespawn: Champion of Shadow fades away...
+			
+			SpiritChampionName: Champion of Spirit
+			SpiritChampionDespawn: Champion of Spirit vanishes into the desert...
+			
+			WillChampionName: Champion of Will
+			WillChampionDespawn: Champion of Will returns to the depths...
+			
+			CosmosChampionName: Eridanus, Champion of Cosmos
+			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
+			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
+		}
 		
 		Bestiary: {
 			TophatSquirrelCritter: This squirrel found itself a dapper hat! What will it do with this newfound power? Probably not much, honestly.
 			GuttedCreeper: Continues to defend the heart of the Crimson even when it's stuffed in someone's pocket. They were bad, but now they're good!
 			RoyalSubject: The growth of these would-be queens has been stunted. The pheromones emitted by their liege have summoned them to her aid.
+			GelatinSubject: Elite guardians of the queen. They erect a magical barrier and give their lives to defend their liege.
 			AbomSaucer: The cockpit is filled with machine parts. Abominationn commands these remote control turrets using a chip in his blaster cannon.
 
 			LesserFairy: Drawn to the Champion of Life's radiance, these pixies care for nothing but fulfilling its commands.
@@ -20,7 +63,7 @@ Mods: {
 			ShadowOrb: Clusters of darkness that focus its power. They keep the curtain of night drawn low in service of their master.
 
 			TrojanSquirrel: Built by squirrels, for squirrels! Made of woods collected from numerous lands. It fits a lot more squirrels than it appears.
-			GuardianofTreasures: Lurks deep underground, jealously guarding its horde of jewels and precious metals. Its scales are as hard as stone.
+			GuardianOfAncientTreasures: Lurks deep underground, jealously guarding its horde of jewels and precious metals. Its scales are as hard as stone.
 			CursedCoffin: A mindless fusion of over a hundred wicked souls. It feeds on the bodies of lost travellers and adds their spirits to itself.
 			Lifelights: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms, which happily follow its bidding.
 			Silhouette: An elusive being that always travels under cover of a black fog in the night. It feels sensitive when its true form is exposed.

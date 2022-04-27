@@ -1,4 +1,4 @@
-﻿//using FargowiltasSouls.Items.Accessories.Forces;
+﻿using FargowiltasSouls.Items.Accessories.Forces;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Toggler.Content
@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Toggler.Content
         public override string SortCatagory => "Enchantments";
         public override int Priority => 0;
 
-        //public int WoodHeader = ModContent.ItemType<TimberForce>();
+        public int WoodHeader = ModContent.ItemType<TimberForce>();
         public string Boreal;
         public string Ebon;
         public string Shade;
@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string Palm;
         public string Pearl;
 
-        //public int EarthHeader = ModContent.ItemType<EarthForce>();
+        public int EarthHeader = ModContent.ItemType<EarthForce>();
         public string Adamantite;
         public string Cobalt;
         public string AncientCobalt;
@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string PalladiumOrb;
         public string Titanium;
 
-        //public int TerraHeader = ModContent.ItemType<TerraForce>();
+        public int TerraHeader = ModContent.ItemType<TerraForce>();
         public string Copper;
         public string IronS;
         public string IronM;
@@ -37,14 +37,14 @@ namespace FargowiltasSouls.Toggler.Content
         public string TungstenProj;
         public string Obsidian;
 
-        //public int WillHeader = ModContent.ItemType<WillForce>();
+        public int WillHeader = ModContent.ItemType<WillForce>();
         public string Gladiator;
         public string Gold;
         public string Huntress;
         public string Valhalla;
         public string SquirePanic;
 
-        //public int LifeHeader = ModContent.ItemType<LifeForce>();
+        public int LifeHeader = ModContent.ItemType<LifeForce>();
         public string Bee;
         public string Beetle;
         public string Cactus;
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string Spider;
         public string Turtle;
 
-        //public int NatureHeader = ModContent.ItemType<NatureForce>();
+        public int NatureHeader = ModContent.ItemType<NatureForce>();
         public string Chlorophyte;
         public string Crimson;
         public string Frost;
@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string Shroomite;
         public string ShroomiteShroom;
 
-        //public int ShadowHeader = ModContent.ItemType<ShadowForce>();
+        public int ShadowHeader = ModContent.ItemType<ShadowForce>();
         public string DarkArt;
         public string Apprentice;
         public string Necro;
@@ -77,9 +77,10 @@ namespace FargowiltasSouls.Toggler.Content
         public string ShinobiDash;
         public string Spooky;
 
-        //public int SpiritHeader = ModContent.ItemType<SpiritForce>();
+        public int SpiritHeader = ModContent.ItemType<SpiritForce>();
         public string Fossil;
         public string Forbidden;
+        public string HallowDodge;
         public string Hallowed;
         public string HallowS;
         public string Silver;
@@ -87,7 +88,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string Spectre;
         public string Tiki;
 
-        //public int CosmoHeader = ModContent.ItemType<CosmoForce>();
+        public int CosmoHeader = ModContent.ItemType<CosmoForce>();
         public string Meteor;
         public string Nebula;
         public string Solar;

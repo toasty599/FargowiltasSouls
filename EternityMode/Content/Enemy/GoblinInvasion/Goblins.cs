@@ -33,6 +33,17 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
                 npc.knockBackResist /= 10;
         }
 
+        public override void OnSpawn(NPC npc)
+        {
+            base.OnSpawn(npc);
+
+            if ((npc.type == NPCID.GoblinWarrior || npc.type == NPCID.GoblinThief || npc.type == NPCID.GoblinArcher)
+                && !Main.hardMode && !NPC.downedSlimeKing && !NPC.downedBoss1 && NPC.CountNPCS(npc.type) > 5)
+            {
+                npc.Transform(NPCID.GoblinPeon);
+            }
+        }
+
         public override void AI(NPC npc)
         {
             base.AI(npc);
@@ -99,16 +110,17 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
             base.OnKill(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
-
-            if (NPC.downedGoblins && FargoSoulsWorld.firstGoblins)
+                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
+            
+            if (NPC.downedGoblins && !FargoSoulsWorld.haveForcedAbomFromGoblins)
             {
-                FargoSoulsWorld.firstGoblins = false;
-                if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC abom) && !NPC.AnyNPCs(abom.Type))
+                FargoSoulsWorld.haveForcedAbomFromGoblins = true;
+
+                if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
                 {
                     int p = Player.FindClosest(npc.Center, 0, 0);
                     if (p != -1)
-                        NPC.SpawnOnPlayer(p, abom.Type);
+                        NPC.SpawnOnPlayer(p, modNPC.Type);
                 }
             }
         }

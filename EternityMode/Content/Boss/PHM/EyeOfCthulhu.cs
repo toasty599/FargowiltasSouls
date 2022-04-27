@@ -61,7 +61,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     Vector2 vel = new Vector2(3, 3);
                     for (int i = 0; i < 4; i++)
                     {
-                        int n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu);
+                        int n = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu);
                         if (n != Main.maxNPCs)
                         {
                             Main.npc[n].velocity = vel.RotatedBy(Math.PI / 2 * i);
@@ -82,13 +82,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     if (IsInFinalPhase && !FargoSoulsWorld.MasochistModeReal)
                     {
-                        int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
+                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = 75;
                     }
                     else
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
                     }
                 }
                 ScytheSpawnTimer--;
@@ -111,7 +111,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     ScytheRingIsOnCD = true;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        FargoSoulsUtil.XWay(8, npc.GetSpawnSource_ForProjectile(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
+                        FargoSoulsUtil.XWay(8, npc.GetSource_FromThis(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
                 }
             }
             else
@@ -175,7 +175,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     else if (AITimer < 90) //fade in, moving into position
                     {
-                        npc.alpha -= FargoSoulsWorld.MasochistModeReal ? 10 : 4;
+                        npc.alpha -= FargoSoulsWorld.MasochistModeReal ? 5 : 4;
                         if (npc.alpha < 0)
                         {
                             npc.alpha = 0;
@@ -260,7 +260,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             if (FargoSoulsWorld.MasochistModeReal)
                                 SpawnServants();
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                FargoSoulsUtil.XWay(8, npc.GetSpawnSource_ForProjectile(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
+                                FargoSoulsUtil.XWay(8, npc.GetSource_FromThis(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
 
                             npc.netUpdate = true;
                         }
@@ -415,7 +415,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.HasValidTarget ? Main.player[npc.target].Center : npc.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                     }
                     return false;
                 }
@@ -499,7 +499,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             Vector2 speed = Vector2.UnitY;
                             for (int i = 0; i < 30; i++)
                             {
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, speed, ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, speed, ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
                                 spawnPos.X += 72 * direction;
                                 speed.Y += 0.15f;
                             }

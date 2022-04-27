@@ -12,18 +12,10 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using FargowiltasSouls.EternityMode;
-//using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
-//using FargowiltasSouls.NPCs.AbomBoss;
-//using FargowiltasSouls.NPCs.Champions;
-//using FargowiltasSouls.NPCs.DeviBoss;
-//using FargowiltasSouls.NPCs.MutantBoss;
+using FargowiltasSouls.Shaders;
 using FargowiltasSouls.Sky;
-//using Fargowiltas.Items.Summons.Deviantt;
-//using Fargowiltas.Items.Misc;
-//using Fargowiltas.Items.Explosives;
-//using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.Toggler;
 using System.Linq;
 using Terraria.Chat;
@@ -43,6 +35,8 @@ using FargowiltasSouls.Items.Accessories.Souls;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Consumables;
+using FargowiltasSouls.Items.Armor;
+using FargowiltasSouls.UI;
 
 namespace FargowiltasSouls
 {
@@ -54,6 +48,7 @@ namespace FargowiltasSouls
         internal static ModKeybind BetsyDashKey;
         internal static ModKeybind MutantBombKey;
         internal static ModKeybind SoulToggleKey;
+        internal static ModKeybind PrecisionSealKey;
 
         internal static List<int> DebuffIDs;
 
@@ -65,7 +60,7 @@ namespace FargowiltasSouls
 
         public UserInterface CustomResources;
 
-        internal static readonly Dictionary<int, int> ModProjDict = new Dictionary<int, int>();
+        internal static Dictionary<int, int> ModProjDict = new Dictionary<int, int>();
 
         internal struct TextureBuffer
         {
@@ -143,6 +138,8 @@ namespace FargowiltasSouls
             SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
             SkyManager.Instance["FargowiltasSouls:MutantBoss2"] = new MutantSky2();
 
+            SkyManager.Instance["FargowiltasSouls:MoonLordSky"] = new MoonLordSky();
+
             //            if (Language.ActiveCulture == (int)GameCulture.CultureName.Chinese)
             //            {
             //                FreezeKey = RegisterHotKey("冻结时间", "P");
@@ -151,6 +148,7 @@ namespace FargowiltasSouls
             //                BetsyDashKey = RegisterHotKey("Betsy Dash", "C");
             //                MutantBombKey = RegisterHotKey("Mutant Bomb", "Z");
             //                SoulToggleKey = RegisterHotKey("Open Soul Toggler", ".");
+            //                PrecisionSealKey = RegisterHotKey("Precision Movement", "LeftShift");
             //            }
             //            else
             //            {
@@ -160,12 +158,15 @@ namespace FargowiltasSouls
             BetsyDashKey = KeybindLoader.RegisterKeybind(this, "Fireball Dash", "C");
             MutantBombKey = KeybindLoader.RegisterKeybind(this, "Mutant Bomb", "Z");
             SoulToggleKey = KeybindLoader.RegisterKeybind(this, "Open Soul Toggler", ".");
+            PrecisionSealKey = KeybindLoader.RegisterKeybind(this, "Precision Movement", "LeftShift");
             //            }
 
             ToggleLoader.Load();
 
             _userInterfaceManager = new UIManager();
             _userInterfaceManager.LoadUI();
+
+            AddLocalizations();
 
             #region Toggles
 
@@ -195,7 +196,7 @@ namespace FargowiltasSouls
             AddToggle("TerraHeader", "Terra Force", ModContent.ItemType<TerraForce>());
             AddToggle("CopperConfig", "Copper Lightning", ModContent.ItemType<CopperEnchant>(), "d56617");
             AddToggle("IronMConfig", "Iron Magnet", ModContent.ItemType<IronEnchant>(), "988e83");
-            AddToggle("IronSConfig", "Iron Shield", ModContent.ItemType<IronEnchant>(), "988e83");
+            AddToggle("IronSConfig", "Iron Parry", ModContent.ItemType<IronEnchant>(), "988e83");
             AddToggle("TinConfig", "Tin Crits", ModContent.ItemType<TinEnchant>(), "a28b4e");
             AddToggle("TungstenConfig", "Tungsten Item Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
             AddToggle("TungstenProjConfig", "Tungsten Projectile Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
@@ -244,8 +245,9 @@ namespace FargowiltasSouls
             AddToggle("SpiritHeader", "Force of Spirit", ModContent.ItemType<SpiritForce>());
             AddToggle("FossilConfig", "Fossil Bones On Hit", ModContent.ItemType<FossilEnchant>(), "8c5c3b");
             AddToggle("ForbiddenConfig", "Forbidden Storm", ModContent.ItemType<ForbiddenEnchant>(), "e7b21c");
-            AddToggle("HallowedConfig", "Hallowed Enchanted Sword Familiar", ModContent.ItemType<HallowEnchant>(), "968564");
-            AddToggle("HallowSConfig", "Hallowed Shield", ModContent.ItemType<HallowEnchant>(), "968564");
+            AddToggle("HallowDodgeConfig", "Hallowed Dodge", ModContent.ItemType<HallowEnchant>(), "968564");
+            AddToggle("HallowedConfig", "Ancient Hallowed Enchanted Sword Familiar", ModContent.ItemType<AncientHallowEnchant>(), "968564");
+            AddToggle("HallowSConfig", "Ancient Hallowed Shield", ModContent.ItemType<AncientHallowEnchant>(), "968564");
             AddToggle("SilverConfig", "Silver Sword Familiar", ModContent.ItemType<SilverEnchant>(), "b4b4cc");
             AddToggle("SilverSpeedConfig", "Silver Minion Speed", ModContent.ItemType<SilverEnchant>(), "b4b4cc");
             AddToggle("SpectreConfig", "Spectre Orbs", ModContent.ItemType<SpectreEnchant>(), "accdfc");
@@ -277,6 +279,8 @@ namespace FargowiltasSouls
             AddToggle("MasoGrazeConfig", "Graze", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoGrazeRingConfig", "Graze Radius Visual", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoDevianttHeartsConfig", "Homing Hearts On Hit", ModContent.ItemType<SparklingAdoration>());
+            AddToggle("DreadShellParryConfig", "Dread Shell Parry", ModContent.ItemType<DreadShell>());
+            AddToggle("PrecisionSealHurtboxConfig", "Reduced Hurtbox Size", ModContent.ItemType<PrecisionSeal>());
 
             //supreme death fairy header
             AddToggle("SupremeFairyHeader", "Supreme Deathbringer Fairy", ModContent.ItemType<SupremeDeathbringerFairy>());
@@ -336,17 +340,17 @@ namespace FargowiltasSouls
             AddToggle("CyclonicHeader", "Abominable Wand", ModContent.ItemType<AbominableWand>());
             AddToggle("MasoFishronConfig", "Spectral Abominationn", ModContent.ItemType<AbominableWand>());
 
-            //            //mutant armor
-            //            AddToggle("MutantArmorHeader", "True Mutant Armor", ModContent.ItemType<HeartoftheMasochist>());
-            //            AddToggle("MasoAbomConfig", "Abominationn Minion", ModContent.ItemType<MutantMask>());
-            //            AddToggle("MasoRingConfig", "Phantasmal Ring Minion", ModContent.ItemType<MutantMask>());
-            //            AddToggle("MasoReviveDeathrayConfig", "Deathray When Revived", ModContent.ItemType<MutantMask>());
+            //mutant armor
+            AddToggle("MutantArmorHeader", "True Mutant Armor", ModContent.ItemType<HeartoftheMasochist>());
+            AddToggle("MasoAbomConfig", "Abominationn Minion", ModContent.ItemType<MutantMask>());
+            AddToggle("MasoRingConfig", "Phantasmal Ring Minion", ModContent.ItemType<MutantMask>());
+            AddToggle("MasoReviveDeathrayConfig", "Deathray When Revived", ModContent.ItemType<MutantMask>());
 
             #endregion masomode toggles
 
             #region soul toggles
 
-            AddToggle("SoulHeader", "Souls", ModContent.ItemType<UniverseSoul>());
+            AddToggle("UniverseHeader", "Soul of the Universe", ModContent.ItemType<UniverseSoul>());
             AddToggle("MeleeConfig", "Melee Speed", ModContent.ItemType<BerserkerSoul>());
             AddToggle("MagmaStoneConfig", "Magma Stone", ModContent.ItemType<BerserkerSoul>());
             AddToggle("YoyoBagConfig", "Yoyo Bag", ModContent.ItemType<BerserkerSoul>());
@@ -354,19 +358,27 @@ namespace FargowiltasSouls
             AddToggle("NeptuneShellConfig", "Neptune's Shell", ModContent.ItemType<BerserkerSoul>());
             AddToggle("SniperConfig", "Sniper Scope", ModContent.ItemType<SnipersSoul>());
             AddToggle("UniverseConfig", "Universe Attack Speed", ModContent.ItemType<UniverseSoul>());
+
+            AddToggle("WorldShaperHeader", "World Shaper Soul", ModContent.ItemType<WorldShaperSoul>());
             AddToggle("MiningHuntConfig", "Mining Hunter Buff", ModContent.ItemType<MinerEnchant>());
             AddToggle("MiningDangerConfig", "Mining Dangersense Buff", ModContent.ItemType<MinerEnchant>());
             AddToggle("MiningSpelunkConfig", "Mining Spelunker Buff", ModContent.ItemType<MinerEnchant>());
             AddToggle("MiningShineConfig", "Mining Shine Buff", ModContent.ItemType<MinerEnchant>());
             AddToggle("BuilderConfig", "Builder Mode", ModContent.ItemType<WorldShaperSoul>());
-            AddToggle("TrawlerSporeConfig", "Spore Sac", ModContent.ItemType<TrawlerSoul>());
+
+            AddToggle("ColossusHeader", "Colossus Soul", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseStarConfig", "Stars On Hit", ModContent.ItemType<ColossusSoul>());
+            AddToggle("DefenseBrainConfig", "Brain of Confusion", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseBeeConfig", "Bees On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefensePanicConfig", "Panic On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseFleshKnuckleConfig", "Flesh Knuckles Aggro", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefensePaladinConfig", "Paladin's Shield", ModContent.ItemType<ColossusSoul>());
+
+            AddToggle("FlightMasteryHeader", "Flight Mastery Soul", ModContent.ItemType<FlightMasterySoul>());
             AddToggle("FlightMasteryInsigniaConfig", "Soaring Insignia Acceleration", ModContent.ItemType<FlightMasterySoul>());
             AddToggle("FlightMasteryGravityConfig", "Amplified Gravity", ModContent.ItemType<FlightMasterySoul>());
+
+            AddToggle("SupersonicHeader", "Supersonic Soul", ModContent.ItemType<SupersonicSoul>());
             AddToggle("RunSpeedConfig", "Higher Base Run Speed", ModContent.ItemType<SupersonicSoul>());
             AddToggle("MomentumConfig", "No Momentum", ModContent.ItemType<SupersonicSoul>());
             AddToggle("SupersonicTabiConfig", "Tabi Dash", ModContent.ItemType<SupersonicSoul>());
@@ -375,50 +387,55 @@ namespace FargowiltasSouls
             AddToggle("SupersonicJumpsConfig", "Supersonic Jumps", ModContent.ItemType<SupersonicSoul>());
             AddToggle("SupersonicRocketBootsConfig", "Supersonic Rocket Boots", ModContent.ItemType<SupersonicSoul>());
             AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", ModContent.ItemType<SupersonicSoul>());
-            //AddToggle("SupersonicFlowerConfig", "Flower Boots", ModContent.ItemType<SupersonicSoul>(), "248900");
+            AddToggle("SupersonicFlowerConfig", "Supersonic Flower Boots", ModContent.ItemType<SupersonicSoul>());
             AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", ModContent.ItemType<SupersonicSoul>());
             AddToggle("BlackBeltConfig", "Black Belt", ModContent.ItemType<SupersonicSoul>());
+
+            AddToggle("TrawlerHeader", "Trawler Soul", ModContent.ItemType<TrawlerSoul>());
+            AddToggle("TrawlerSporeConfig", "Spore Sac", ModContent.ItemType<TrawlerSoul>());
             AddToggle("TrawlerConfig", "Trawler Extra Lures", ModContent.ItemType<TrawlerSoul>());
             AddToggle("TrawlerJumpConfig", "Trawler Jump", ModContent.ItemType<TrawlerSoul>());
-            //            AddToggle("EternityConfig", "Eternity Stacking", ModContent.ItemType<EternitySoul>());
 
-            //            #endregion soul toggles
+            AddToggle("EternityHeader", "Soul of Eternity", ModContent.ItemType<EternitySoul>());
+            AddToggle("EternityConfig", "Eternity Stacking", ModContent.ItemType<EternitySoul>());
 
-            //            #region pet toggles
+            #endregion soul toggles
 
-            //            AddToggle("PetHeader", "Pets", ItemID.ZephyrFish);
-            //            AddToggle("PetBlackCatConfig", "Black Cat Pet", 1810);
-            //            AddToggle("PetCompanionCubeConfig", "Companion Cube Pet", 3628);
-            //            AddToggle("PetCursedSaplingConfig", "Cursed Sapling Pet", 1837);
-            //            AddToggle("PetDinoConfig", "Dino Pet", 1242);
-            //            AddToggle("PetDragonConfig", "Dragon Pet", 3857);
-            //            AddToggle("PetEaterConfig", "Eater Pet", 994);
-            //            AddToggle("PetEyeSpringConfig", "Eye Spring Pet", 1311);
-            //            AddToggle("PetFaceMonsterConfig", "Face Monster Pet", 3060);
-            //            AddToggle("PetGatoConfig", "Gato Pet", 3855);
-            //            AddToggle("PetHornetConfig", "Hornet Pet", 1170);
-            //            AddToggle("PetLizardConfig", "Lizard Pet", 1172);
-            //            AddToggle("PetMinitaurConfig", "Mini Minotaur Pet", 2587);
-            //            AddToggle("PetParrotConfig", "Parrot Pet", 1180);
-            //            AddToggle("PetPenguinConfig", "Penguin Pet", 669);
-            //            AddToggle("PetPupConfig", "Puppy Pet", 1927);
-            //            AddToggle("PetSeedConfig", "Seedling Pet", 1182);
-            //            AddToggle("PetDGConfig", "Skeletron Pet", 1169);
-            //            AddToggle("PetSnowmanConfig", "Snowman Pet", 1312);
-            //            AddToggle("PetGrinchConfig", "Grinch Pet", ItemID.BabyGrinchMischiefWhistle);
-            //            AddToggle("PetSpiderConfig", "Spider Pet", 1798);
-            //            AddToggle("PetSquashConfig", "Squashling Pet", 1799);
-            //            AddToggle("PetTikiConfig", "Tiki Pet", 1171);
-            //            AddToggle("PetShroomConfig", "Truffle Pet", 1181);
-            //            AddToggle("PetTurtleConfig", "Turtle Pet", 753);
-            //            AddToggle("PetZephyrConfig", "Zephyr Fish Pet", 2420);
-            //            AddToggle("PetHeartConfig", "Crimson Heart Pet", 3062);
-            //            AddToggle("PetNaviConfig", "Fairy Pet", 425);
-            //            AddToggle("PetFlickerConfig", "Flickerwick Pet", 3856);
-            //            AddToggle("PetLanternConfig", "Magic Lantern Pet", 3043);
-            //            AddToggle("PetOrbConfig", "Shadow Orb Pet", 115);
-            //            AddToggle("PetSuspEyeConfig", "Suspicious Eye Pet", 3577);
-            //            AddToggle("PetWispConfig", "Wisp Pet", 1183);
+            #region pet toggles
+
+            AddToggle("PetHeader", "Pets", ItemID.ZephyrFish);
+            AddToggle("PetBlackCatConfig", "Black Cat Pet", ItemID.UnluckyYarn);
+            AddToggle("PetCompanionCubeConfig", "Companion Cube Pet", ItemID.CompanionCube);
+            AddToggle("PetCursedSaplingConfig", "Cursed Sapling Pet", ItemID.CursedSapling);
+            AddToggle("PetDinoConfig", "Dino Pet", ItemID.AmberMosquito);
+            AddToggle("PetDragonConfig", "Dragon Pet", ItemID.DD2PetDragon);
+            AddToggle("PetEaterConfig", "Eater Pet", ItemID.EatersBone);
+            AddToggle("PetEyeSpringConfig", "Eye Spring Pet", ItemID.EyeSpring);
+            AddToggle("PetFaceMonsterConfig", "Face Monster Pet", ItemID.BoneRattle);
+            AddToggle("PetGatoConfig", "Gato Pet", ItemID.DD2PetGato);
+            AddToggle("PetHornetConfig", "Hornet Pet", ItemID.Nectar);
+            AddToggle("PetLizardConfig", "Lizard Pet", ItemID.LizardEgg);
+            AddToggle("PetMinitaurConfig", "Mini Minotaur Pet", ItemID.TartarSauce);
+            AddToggle("PetParrotConfig", "Parrot Pet", ItemID.ParrotCracker);
+            AddToggle("PetPenguinConfig", "Penguin Pet", ItemID.Fish);
+            AddToggle("PetPupConfig", "Puppy Pet", ItemID.DogWhistle);
+            AddToggle("PetSeedConfig", "Seedling Pet", ItemID.Seedling);
+            AddToggle("PetDGConfig", "Skeletron Pet", ItemID.BoneKey);
+            AddToggle("PetSnowmanConfig", "Snowman Pet", ItemID.ToySled);
+            AddToggle("PetGrinchConfig", "Grinch Pet", ItemID.BabyGrinchMischiefWhistle);
+            AddToggle("PetSpiderConfig", "Spider Pet", ItemID.SpiderEgg);
+            AddToggle("PetSquashConfig", "Squashling Pet", ItemID.MagicalPumpkinSeed);
+            AddToggle("PetTikiConfig", "Tiki Pet", ItemID.TikiTotem);
+            AddToggle("PetShroomConfig", "Truffle Pet", ItemID.StrangeGlowingMushroom);
+            AddToggle("PetTurtleConfig", "Turtle Pet", ItemID.Seaweed);
+            AddToggle("PetZephyrConfig", "Zephyr Fish Pet", ItemID.ZephyrFish);
+            AddToggle("PetHeartConfig", "Crimson Heart Pet", ItemID.CrimsonHeart);
+            AddToggle("PetNaviConfig", "Fairy Pet", ItemID.FairyBell);
+            AddToggle("PetFlickerConfig", "Flickerwick Pet", ItemID.DD2OgrePetItem);
+            AddToggle("PetLanternConfig", "Magic Lantern Pet", ItemID.MagicLantern);
+            AddToggle("PetOrbConfig", "Shadow Orb Pet", ItemID.ShadowOrb);
+            AddToggle("PetSuspEyeConfig", "Suspicious Eye Pet", ItemID.SuspiciousLookingTentacle);
+            AddToggle("PetWispConfig", "Wisp Pet", ItemID.WispinaBottle);
 
             #endregion pet toggles
 
@@ -438,7 +455,7 @@ namespace FargowiltasSouls
             AddToggle("PatreonPrime", "Prime Staff", ModContent.ItemType<Patreon.Purified.PrimeStaff>());
             AddToggle("PatreonCrimetroid", "Crimetroid", ModContent.ItemType<Patreon.Shucks.CrimetroidEgg>());
             #endregion patreon toggles
-            
+
             #endregion Toggles
 
             if (Main.netMode != NetmodeID.Server)
@@ -468,8 +485,13 @@ namespace FargowiltasSouls
                 GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
                 GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
 
+                Filters.Scene["FargowiltasSouls:FinalSpark"] = new Filter(new FinalSparkShader(finalSparkRef, "FinalSpark"), EffectPriority.High);
                 Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
-                Filters.Scene["FargowiltasSouls:FinalSpark"] = new Filter(new FinalSparkShader(finalSparkRef, "FinalSpark"), EffectPriority.VeryHigh);
+
+                Filters.Scene["FargowiltasSouls:Solar"] = new Filter(Filters.Scene["MonolithSolar"].GetShader(), EffectPriority.Medium);
+                Filters.Scene["FargowiltasSouls:Vortex"] = new Filter(Filters.Scene["MonolithVortex"].GetShader(), EffectPriority.Medium);
+                Filters.Scene["FargowiltasSouls:Nebula"] = new Filter(Filters.Scene["MonolithNebula"].GetShader(), EffectPriority.Medium);
+                Filters.Scene["FargowiltasSouls:Stardust"] = new Filter(Filters.Scene["MonolithStardust"].GetShader(), EffectPriority.Medium);
 
                 //Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(shockwaveRef, "Shockwave"), EffectPriority.VeryHigh);
                 //Filters.Scene["Shockwave"].Load();
@@ -479,10 +501,10 @@ namespace FargowiltasSouls
 
             //            PatreonMiscMethods.Load(this);
 
-            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanDrop += IsMasterModeOrEMode_CanDrop;
-            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI += IsMasterModeOrEMode_CanShowItemDropInUI;
-            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop += DropBasedOnMasterOrEMode_CanDrop;
-            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction += DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
+            //On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanDrop += IsMasterModeOrEMode_CanDrop;
+            //On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI += IsMasterModeOrEMode_CanShowItemDropInUI;
+            //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop += DropBasedOnMasterOrEMode_CanDrop;
+            //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction += DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
         }
 
         private static bool IsMasterModeOrEMode_CanDrop(
@@ -519,10 +541,10 @@ namespace FargowiltasSouls
 
         public override void Unload()
         {
-            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanDrop -= IsMasterModeOrEMode_CanDrop;
-            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI -= IsMasterModeOrEMode_CanShowItemDropInUI;
-            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop -= DropBasedOnMasterOrEMode_CanDrop;
-            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction -= DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
+            //On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanDrop -= IsMasterModeOrEMode_CanDrop;
+            //On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI -= IsMasterModeOrEMode_CanShowItemDropInUI;
+            //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop -= DropBasedOnMasterOrEMode_CanDrop;
+            //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction -= DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
 
             NPC.LunarShieldPowerExpert = 150;
 
@@ -555,21 +577,29 @@ namespace FargowiltasSouls
             if (TextureBuffer.Wof != null)
                 TextureAssets.Wof = TextureBuffer.Wof;
 
-            if (DebuffIDs != null)
-                DebuffIDs.Clear();
+            ToggleLoader.Unload();
 
-            //            OldMusicFade = 0;
-
-            //            //game will reload golem textures, this helps prevent the crash on reload
-            //            Main.NPCLoaded[NPCID.Golem] = false;
-            //            Main.NPCLoaded[NPCID.GolemFistLeft] = false;
-            //            Main.NPCLoaded[NPCID.GolemFistRight] = false;
-            //            Main.NPCLoaded[NPCID.GolemHead] = false;
-            //            Main.NPCLoaded[NPCID.GolemHeadFree] = false;
+            SoulToggler.RemoveItemTags = null;
+            ToggleBackend.ConfigPath = null;
 
             EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
 
-            ToggleLoader.Unload();
+            FreezeKey = null;
+            GoldKey = null;
+            SmokeBombKey = null;
+            BetsyDashKey = null;
+            MutantBombKey = null;
+            SoulToggleKey = null;
+            PrecisionSealKey = null;
+
+            if (DebuffIDs != null)
+                DebuffIDs.Clear();
+
+            ModProjDict.Clear();
+
+            _userInterfaceManager = null;
+
+            Instance = null;
         }
 
         public override object Call(params object[] args)
@@ -715,7 +745,7 @@ namespace FargowiltasSouls
                     case "MinionCritChance":
                     case "GetMinionCrit":
                     case "GetMinionCritChance":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SummonCrit;
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SpiderEnchantActive ? Main.LocalPlayer.ActualClassCrit(DamageClass.Summon) : 0;
                 }
             }
             catch (Exception e)
@@ -797,8 +827,11 @@ namespace FargowiltasSouls
                 //if (BossChecklistCompatibility != null)
                 //    BossChecklistCompatibility.Initialize();
 
+                BossChecklistCompatibility();
+
                 DebuffIDs = new List<int> { BuffID.Bleeding, BuffID.OnFire, BuffID.Rabies, BuffID.Confused, BuffID.Weak, BuffID.BrokenArmor, BuffID.Darkness, BuffID.Slow, BuffID.Cursed, BuffID.Poisoned, BuffID.Silenced, 39, 44, 46, 47, 67, 68, 69, 70, 80,
                             88, 94, 103, 137, 144, 145, 149, 156, 160, 163, 164, 195, 196, 197, 199 };
+                DebuffIDs.Add(ModContent.BuffType<Anticoagulation>());
                 DebuffIDs.Add(ModContent.BuffType<Antisocial>());
                 DebuffIDs.Add(ModContent.BuffType<Atrophied>());
                 DebuffIDs.Add(ModContent.BuffType<Berserked>());
@@ -817,7 +850,7 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<HolyPrice>());
                 DebuffIDs.Add(ModContent.BuffType<Hypothermia>());
                 DebuffIDs.Add(ModContent.BuffType<Infested>());
-                DebuffIDs.Add(ModContent.BuffType<InfestedEX>());
+                DebuffIDs.Add(ModContent.BuffType<Neurotoxin>());
                 DebuffIDs.Add(ModContent.BuffType<IvyVenom>());
                 DebuffIDs.Add(ModContent.BuffType<Jammed>());
                 DebuffIDs.Add(ModContent.BuffType<Lethargic>());
@@ -834,11 +867,13 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<OceanicMaul>());
                 DebuffIDs.Add(ModContent.BuffType<OceanicSeal>());
                 DebuffIDs.Add(ModContent.BuffType<Oiled>());
+                DebuffIDs.Add(ModContent.BuffType<Purged>());
                 DebuffIDs.Add(ModContent.BuffType<Purified>());
                 DebuffIDs.Add(ModContent.BuffType<Recovering>());
                 DebuffIDs.Add(ModContent.BuffType<ReverseManaFlow>());
                 DebuffIDs.Add(ModContent.BuffType<Rotting>());
                 DebuffIDs.Add(ModContent.BuffType<Shadowflame>());
+                DebuffIDs.Add(ModContent.BuffType<Smite>());
                 DebuffIDs.Add(ModContent.BuffType<Buffs.Masomode.SqueakyToy>());
                 DebuffIDs.Add(ModContent.BuffType<Stunned>());
                 DebuffIDs.Add(ModContent.BuffType<Swarming>());
@@ -891,10 +926,11 @@ namespace FargowiltasSouls
 
                 //mutant shop
                 Mod fargos = ModLoader.GetMod("Fargowiltas");
-                fargos.Call("AddSummon", 5.01f, "FargowiltasSouls", "DevisCurse", () => FargoSoulsWorld.downedDevi, Item.buyPrice(0, 17, 50));
-                fargos.Call("AddSummon", 14.01f, "FargowiltasSouls", "AbomsCurse", () => FargoSoulsWorld.downedAbom, 10000000);
-                fargos.Call("AddSummon", 14.02f, "FargowiltasSouls", "TruffleWormEX", () => FargoSoulsWorld.downedFishronEX, 10000000);
-                fargos.Call("AddSummon", 14.03f, "FargowiltasSouls", "MutantsCurse", () => FargoSoulsWorld.downedMutant, 20000000);
+                fargos.Call("AddSummon", 5.01f, "FargowiltasSouls", "DevisCurse", new Func<bool>(() => FargoSoulsWorld.downedDevi), Item.buyPrice(0, 17, 50));
+                fargos.Call("AddSummon", 14.009f, "FargowiltasSouls", "ChampionySigil", new Func<bool>(() => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion]), Item.buyPrice(5));
+                fargos.Call("AddSummon", 14.01f, "FargowiltasSouls", "AbomsCurse", new Func<bool>(() => FargoSoulsWorld.downedAbom), Item.buyPrice(10));
+                //fargos.Call("AddSummon", 14.02f, "FargowiltasSouls", "TruffleWormEX", () => FargoSoulsWorld.downedFishronEX, Item.buyPrice(10));
+                fargos.Call("AddSummon", 14.03f, "FargowiltasSouls", "MutantsCurse", new Func<bool>(() => FargoSoulsWorld.downedMutant), Item.buyPrice(20));
             }
             catch (Exception e)
             {
@@ -1120,14 +1156,15 @@ namespace FargowiltasSouls
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
-            switch (reader.ReadByte())
+            byte data = reader.ReadByte();
+            switch (data)
             {
                 case 0: //server side spawning creepers
                     if (Main.netMode == NetmodeID.Server)
                     {
                         byte p = reader.ReadByte();
                         int multiplier = reader.ReadByte();
-                        int n = NPC.NewNPC(NPC.GetSpawnSource_NPCRelease(p), (int)Main.player[p].Center.X, (int)Main.player[p].Center.Y, ModContent.NPCType<CreeperGutted>(), 0,
+                        int n = NPC.NewNPC(NPC.GetBossSpawnSource(p), (int)Main.player[p].Center.X, (int)Main.player[p].Center.Y, ModContent.NPCType<CreeperGutted>(), 0,
                             p, 0f, multiplier, 0);
                         if (n != Main.maxNPCs)
                         {
@@ -1224,7 +1261,7 @@ namespace FargowiltasSouls
                     {
                         int p = reader.ReadByte();
                         int n = reader.ReadByte();
-                        Item.NewItem(Main.player[p].GetItemSource_OnHit(Main.npc[n], ItemSourceID.None), Main.npc[n].Hitbox, ItemID.Heart);
+                        Item.NewItem(Main.player[p].GetSource_OnHit(Main.npc[n]), Main.npc[n].Hitbox, ItemID.Heart);
                     }
                     break;
 
@@ -1306,7 +1343,7 @@ namespace FargowiltasSouls
                         byte prefix = reader.ReadByte();
                         int stack = reader.ReadInt32();
 
-                        int i = Item.NewItem(Main.player[p].GetItemSource_Misc(ItemSourceID.PlayerDropItemCheck), Main.player[p].Hitbox, type, stack, true, prefix);
+                        int i = Item.NewItem(Main.player[p].GetSource_Misc(""), Main.player[p].Hitbox, type, stack, true, prefix);
                         Main.timeItemSlotCannotBeReusedFor[i] = 54000;
 
                         var netMessage = GetPacket();
@@ -1380,7 +1417,32 @@ namespace FargowiltasSouls
                 case 22: // New maso sync
                     {
                         int npcToSync = reader.ReadInt32();
-                        Main.npc[npcToSync].GetGlobalNPC<NewEModeGlobalNPC>().NetRecieve(reader);
+                        int npcType = reader.ReadInt32();
+                        int bytesLength = reader.ReadInt32();
+                        //Logger.Debug($"got {npcToSync} {npcType}, real is {Main.npc[npcToSync].active} {Main.npc[npcToSync].type}");
+                        if (Main.npc[npcToSync].active && Main.npc[npcToSync].type == npcType)
+                        {
+                            Main.npc[npcToSync].GetGlobalNPC<NewEModeGlobalNPC>().NetRecieve(reader);
+                        }
+                        else if (bytesLength > 0)
+                        {
+                            reader.ReadBytes(bytesLength);
+                        }
+                    }
+                    break;
+
+                case 23: //sync friendly proj turned hostile
+                    {
+                        int owner = reader.ReadInt32();
+                        int uuid = reader.ReadInt32();
+                        int projType = reader.ReadInt32();
+
+                        int byUUID = FargoSoulsUtil.GetByUUIDReal(owner, uuid, projType);
+                        if (byUUID != -1)
+                        {
+                            Main.projectile[byUUID].hostile = true;
+                            Main.projectile[byUUID].friendly = false;
+                        }
                     }
                     break;
 
@@ -1497,29 +1559,29 @@ namespace FargowiltasSouls
 
         public static bool NoInvasion(NPCSpawnInfo spawnInfo)
         {
-            return !spawnInfo.invasion && (!Main.pumpkinMoon && !Main.snowMoon || spawnInfo.spawnTileY > Main.worldSurface || Main.dayTime) &&
-                   (!Main.eclipse || spawnInfo.spawnTileY > Main.worldSurface || !Main.dayTime);
+            return !spawnInfo.Invasion && (!Main.pumpkinMoon && !Main.snowMoon || spawnInfo.SpawnTileY > Main.worldSurface || Main.dayTime) &&
+                   (!Main.eclipse || spawnInfo.SpawnTileY > Main.worldSurface || !Main.dayTime);
         }
 
         public static bool NoBiome(NPCSpawnInfo spawnInfo)
         {
-            Player player = spawnInfo.player;
+            Player player = spawnInfo.Player;
             return !player.ZoneJungle && !player.ZoneDungeon && !player.ZoneCorrupt && !player.ZoneCrimson && !player.ZoneHallow && !player.ZoneSnow && !player.ZoneUndergroundDesert;
         }
 
         public static bool NoZoneAllowWater(NPCSpawnInfo spawnInfo)
         {
-            return !spawnInfo.sky && !spawnInfo.player.ZoneMeteor && !spawnInfo.spiderCave;
+            return !spawnInfo.Sky && !spawnInfo.Player.ZoneMeteor && !spawnInfo.SpiderCave;
         }
 
         public static bool NoZone(NPCSpawnInfo spawnInfo)
         {
-            return NoZoneAllowWater(spawnInfo) && !spawnInfo.water;
+            return NoZoneAllowWater(spawnInfo) && !spawnInfo.Water;
         }
 
         public static bool NormalSpawn(NPCSpawnInfo spawnInfo)
         {
-            return !spawnInfo.playerInTown && NoInvasion(spawnInfo);
+            return !spawnInfo.PlayerInTown && NoInvasion(spawnInfo);
         }
 
         public static bool NoZoneNormalSpawn(NPCSpawnInfo spawnInfo)
@@ -1536,18 +1598,6 @@ namespace FargowiltasSouls
         {
             return NormalSpawn(spawnInfo) && NoBiome(spawnInfo) && NoZone(spawnInfo);
         }
-
-        //        public override void UpdateUI(GameTime gameTime)
-        //        {
-        //            base.UpdateUI(gameTime);
-        //            UserInterfaceManager.UpdateUI(gameTime);
-        //        }
-
-        //        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-        //        {
-        //            base.ModifyInterfaceLayers(layers);
-        //            UserInterfaceManager.ModifyInterfaceLayers(layers);
-        //        }
     }
 
     //    internal enum MsgType : byte

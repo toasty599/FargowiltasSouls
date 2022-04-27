@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.scale = 1f;
-            Projectile.timeLeft = 900;
+            Projectile.timeLeft = 180;
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
             Projectile.hide = true;
@@ -56,12 +56,18 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     headsStacked++;
                 }
 
+                if (headsStacked == maxHeadsStacked - 1)
+                {
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit41, Projectile.Center);
+                    FargoSoulsUtil.DustRing(Projectile.Center, 96, 87, 12f, default, 2f);
+                }
+
                 //just fire myself if too many
                 if (headsStacked >= maxHeadsStacked && Projectile.owner == Main.myPlayer)
                 {
                     headsStacked = 0; //cancel my damage boost
 
-                    Projectile.ai[1] = 1;
+                    Projectile.ai[1] = 1000; //fly immediately, no delay
                     Projectile.localAI[0] = Projectile.DirectionTo(Main.MouseWorld).ToRotation();
                     Projectile.netUpdate = true;
                 }
@@ -106,16 +112,16 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Projectile.velocity *= 0.97f;
 
                     //staggered launch
-                    if (++Projectile.ai[1] > headsStacked * 4)
+                    if (++Projectile.ai[1] > (player.ownedProjectileCounts[Projectile.type] - headsStacked) * 4)
                     {
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit41, Projectile.Center);
 
                         if (Projectile.owner == Main.myPlayer)
                         {
-                            Projectile.damage = (int)(Projectile.damage * (1.0 + 1.0 * headsStacked / maxHeadsStacked));
+                            Projectile.damage = (int)(Projectile.damage * (1.0 + 2.0 * headsStacked / maxHeadsStacked));
 
                             Projectile.ai[1] = -1;
-                            Projectile.velocity = 24f * Projectile.localAI[0].ToRotationVector2();
+                            Projectile.velocity = 24f * player.DirectionTo(Main.MouseWorld);
                             Projectile.netUpdate = true;
                         }
                     }
@@ -141,12 +147,14 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     if (++Projectile.localAI[1] > longestHomingDelay - headsStacked * 2)
                     {
                         Projectile.localAI[1] = 0;
-                        Projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 900, true);
+                        Projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 400f + 800f / maxHeadsStacked * headsStacked, true);
                         Projectile.netUpdate = true;
                     }
                 }
                 else //currently have target
                 {
+                    Projectile.timeLeft++; //dont despawn partway
+
                     NPC npc = Main.npc[(int)Projectile.ai[0]];
 
                     if (npc.active && npc.CanBeChasedBy()) //target is still valid
@@ -215,25 +223,25 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 float scaleFactor9 = 0.4f;
                 if (num619 == 1) scaleFactor9 = 0.8f;
-                int num620 = Gore.NewGore(Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                int num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore97 = Main.gore[num620];
                 gore97.velocity.X = gore97.velocity.X + 1f;
                 Gore gore98 = Main.gore[num620];
                 gore98.velocity.Y = gore98.velocity.Y + 1f;
-                num620 = Gore.NewGore(Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore99 = Main.gore[num620];
                 gore99.velocity.X = gore99.velocity.X - 1f;
                 Gore gore100 = Main.gore[num620];
                 gore100.velocity.Y = gore100.velocity.Y + 1f;
-                num620 = Gore.NewGore(Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore101 = Main.gore[num620];
                 gore101.velocity.X = gore101.velocity.X + 1f;
                 Gore gore102 = Main.gore[num620];
                 gore102.velocity.Y = gore102.velocity.Y - 1f;
-                num620 = Gore.NewGore(Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore103 = Main.gore[num620];
                 gore103.velocity.X = gore103.velocity.X - 1f;
@@ -243,8 +251,14 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             if (Projectile.owner == Main.myPlayer)
             {
-                for (int i = 0; i < 16; i++)
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 8 * i) * Main.rand.NextFloat(12f, 20f), ModContent.ProjectileType<GolemGib>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0, Main.rand.Next(11) + 1);
+                int max = Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type] < 16 ? 8 : 4;
+                for (int i = 0; i < max; i++)
+                {
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
+                        Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.TwoPi / max * i) * Main.rand.NextFloat(12f, 20f), ModContent.ProjectileType<GolemGib>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0, Main.rand.Next(11) + 1);
+                    if (p != Main.maxProjectiles)
+                        Main.projectile[p].timeLeft = Main.rand.Next(45, 90) * 2;
+                }
             }
         }
 

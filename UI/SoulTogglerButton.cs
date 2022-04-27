@@ -9,12 +9,13 @@ namespace FargowiltasSouls.UI
     {
         public UIImage Icon;
         public UIHoverTextImageButton IconHighlight;
+        public UIOncomingMutant OncomingMutant;
 
         public override void OnActivate()
         {
             Icon = new UIImage(FargowiltasSouls.UserInterfaceManager.SoulTogglerButtonTexture);
-            Icon.Left.Set(26, 0);
-            Icon.Top.Set(300, 0);
+            Icon.Left.Set(570, 0); //Icon.Left.Set(26, 0);
+            Icon.Top.Set(275, 0); //Icon.Top.Set(300, 0);
             Append(Icon);
 
             IconHighlight = new UIHoverTextImageButton(FargowiltasSouls.UserInterfaceManager.SoulTogglerButton_MouseOverTexture, "Configure Accessory Effects");
@@ -23,6 +24,11 @@ namespace FargowiltasSouls.UI
             IconHighlight.SetVisibility(1f, 0);
             IconHighlight.OnClick += IconHighlight_OnClick;
             Icon.Append(IconHighlight);
+
+            OncomingMutant = new UIOncomingMutant(FargowiltasSouls.UserInterfaceManager.OncomingMutantTexture.Value, "Eternity Mode is enabled", "Masochist Mode is enabled");
+            OncomingMutant.Left.Set(610, 0);
+            OncomingMutant.Top.Set(250, 0);
+            Append(OncomingMutant);
 
             base.OnActivate();
         }

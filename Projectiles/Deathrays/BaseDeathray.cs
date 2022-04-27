@@ -13,17 +13,20 @@ namespace FargowiltasSouls.Projectiles.Deathrays
         protected readonly string texture;
         protected readonly float transparency; //THIS IS A 0 TO 1 PERCENTAGE, NOT AN ALPHA
         protected readonly float hitboxModifier;
+        protected readonly int grazeCD;
+
         //by default, real hitbox is slightly more than the "white" of a vanilla ray
         //remember that the value passed into function is total width, i.e. on each side the distance is only half the width
         protected readonly int drawDistance;
 
-        protected BaseDeathray(float maxTime, string texture, float transparency = 0f, float hitboxModifier = 1f, int drawDistance = 2400)
+        protected BaseDeathray(float maxTime, string texture, float transparency = 0f, float hitboxModifier = 1f, int drawDistance = 2400, int grazeCD = 15)
         {
             this.maxTime = maxTime;
             this.texture = texture;
             this.transparency = transparency;
             this.hitboxModifier = hitboxModifier;
             this.drawDistance = drawDistance;
+            this.grazeCD = grazeCD;
         }
 
         public override void SetStaticDefaults()
@@ -68,8 +71,9 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 if (Projectile.friendly)
                     Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
             }
-            if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD > 15)
-                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 15;
+
+            if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD > grazeCD)
+                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = grazeCD;
         }
 
         public override bool PreDraw(ref Color lightColor)

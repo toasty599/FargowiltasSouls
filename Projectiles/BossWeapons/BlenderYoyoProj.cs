@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 25f;
 
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
@@ -48,13 +48,28 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             if (!yoyosSpawned && Projectile.owner == Main.myPlayer)
             {
+                float localAI1 = 0;
+
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].owner == Projectile.owner && Main.projectile[i].type == ModContent.ProjectileType<BlenderOrbital>())
+                    {
+                        localAI1 = Main.projectile[i].localAI[1] + MathHelper.Pi;
+                        break;
+                    }
+                }
+
                 int maxYoyos = 5;
                 for (int i = 0; i < maxYoyos; i++)
                 {
                     float radians = (360f / (float)maxYoyos) * i * (float)(Math.PI / 180);
-                    Projectile yoyo = FargoSoulsUtil.NewProjectileDirectSafe(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero,
+                    Projectile yoyo = FargoSoulsUtil.NewProjectileDirectSafe(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
                         ModContent.ProjectileType<BlenderOrbital>(), Projectile.damage, Projectile.knockBack, Projectile.owner, i, radians);
-                    yoyo.localAI[0] = Projectile.identity;
+                    if (yoyo != null)
+                    {
+                        yoyo.localAI[0] = Projectile.identity;
+                        yoyo.localAI[1] = localAI1;
+                    }
                 }
 
                 yoyosSpawned = true;
@@ -90,7 +105,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 hitcounter++;
                 if (player.ownedProjectileCounts[ProjectileID.BlackCounterweight] < 5)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, Main.rand.NextVector2Circular(10, 10), ProjectileID.BlackCounterweight, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, Main.rand.NextVector2Circular(10, 10), ProjectileID.BlackCounterweight, Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
                 if (hitcounter % 5 == 0)
                 {
@@ -99,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     for (int i = 0; i < 8; i++)
                     {
                         Vector2 newvel = velocity.RotatedBy(i * Math.PI / 4);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, newvel * 8, ModContent.ProjectileType<BlenderPetal>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel * 8, ModContent.ProjectileType<BlenderPetal>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
             }
@@ -132,13 +147,18 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f)
             {
-                Color color27 = color26 * 0.75f;
+                Color color27 = Color.LightGreen * Projectile.Opacity * 0.5f;
+                color27.A = 100;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
-                Vector2 value4 = Projectile.oldPos[i];
-                float num165 = Projectile.oldRot[i];
-                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
+                int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
+                if (max0 < 0)
+                    continue;
+                float num165 = Projectile.oldRot[max0];
+                Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
+                center += Projectile.Size / 2;
+                Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
 
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);

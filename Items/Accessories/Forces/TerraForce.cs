@@ -10,6 +10,16 @@ namespace FargowiltasSouls.Items.Accessories.Forces
     [AutoloadEquip(EquipType.Shield)]
     public class TerraForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<CopperEnchant>(),
+            ModContent.ItemType<TinEnchant>(),
+            ModContent.ItemType<IronEnchant>(),
+            ModContent.ItemType<LeadEnchant>(),
+            ModContent.ItemType<TungstenEnchant>(),
+            ModContent.ItemType<ObsidianEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -23,12 +33,13 @@ $"[i:{ModContent.ItemType<CopperEnchant>()}] Attacks have a chance to spawn ligh
 $"[i:{ModContent.ItemType<TinEnchant>()}] Sets your critical strike chance to 10%\n" +
 $"[i:{ModContent.ItemType<TinEnchant>()}] Every crit will increase it by 5% up to double your current crit chance\n" +
 $"[i:{ModContent.ItemType<IronEnchant>()}] Right Click to guard with your shield\n" +
+$"[i:{ModContent.ItemType<IronEnchant>()}] Guard just before being hit to parry the attack\n" +
 $"[i:{ModContent.ItemType<IronEnchant>()}] You attract items from a larger range\n" +
 $"[i:{ModContent.ItemType<LeadEnchant>()}] Attacks may inflict enemies with Lead Poisoning\n" +
-$"[i:{ModContent.ItemType<TungstenEnchant>()}] 150% increased sword size\n" +
-$"[i:{ModContent.ItemType<TungstenEnchant>()}] Every quarter second a projectile will be doubled in size\n" +
+$"[i:{ModContent.ItemType<TungstenEnchant>()}] 300% increased sword size\n" +
+$"[i:{ModContent.ItemType<TungstenEnchant>()}] Every quarter second a projectile will be tripled in size\n" +
 $"[i:{ModContent.ItemType<ObsidianEnchant>()}]Grants immunity to fire and lava\n" +
-$"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet, your attacks spawn explosions\n" +
+$"[i:{ModContent.ItemType<ObsidianEnchant>()}]Your attacks spawn explosions\n" +
 "'The land lends its strength'";
             Tooltip.SetDefault(tooltip);
 
@@ -45,16 +56,6 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
 你的攻击会引发爆炸
 '大地赐予它力量'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Purple;
-            Item.value = 600000;
-            //Item.shieldSlot = 5;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -78,24 +79,17 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
             if (player.GetToggleValue("IronM", false))
             {
                 modPlayer.IronEnchantActive = true;
+                player.treasureMagnet = true;
             }
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<CopperEnchant>())
-            .AddIngredient(ModContent.ItemType<TinEnchant>())
-            .AddIngredient(ModContent.ItemType<IronEnchant>())
-            .AddIngredient(ModContent.ItemType<LeadEnchant>())
-            .AddIngredient(ModContent.ItemType<TungstenEnchant>())
-            .AddIngredient(ModContent.ItemType<ObsidianEnchant>())
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

@@ -46,6 +46,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
         }
 
+        public override void PostAI()
+        {
+            base.PostAI();
+            Projectile.hide = true;
+        }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             base.OnHitPlayer(target, damage, crit);

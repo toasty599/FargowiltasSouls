@@ -5,6 +5,7 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Projectiles.Souls;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -65,11 +66,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 return false;
             }
 
-            if (JumpTimer > 300)
+            if (JumpTimer == 330 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                npc.velocity.X = 0;
-                JumpTimer++;
-                return false; //pause before jump
+                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
             }
 
             if (npc.ai[1] > 0f) //while jumping
@@ -111,9 +110,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 JumpTimer++;
             }
 
-            if (npc.velocity.Y == 0f && Jumped && Main.netMode != NetmodeID.MultiplayerClient)
+            if (npc.velocity.Y == 0f && Jumped)
             {
-                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.DD2OgreStomp, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                Jumped = false;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.DD2OgreStomp, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
 
             return result;

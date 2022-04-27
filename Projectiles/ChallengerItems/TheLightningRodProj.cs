@@ -49,7 +49,6 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
         }
 
         private const int maxTime = 80;
-        private bool shotLightning;
 
         public override void AI()
         {
@@ -116,7 +115,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
             }
             else //while thrown
             {
-                Projectile.damage = (int)(damage * Math.Pow(0.85, Projectile.numHits));
+                Projectile.damage = (int)(damage * Math.Pow(0.933, Projectile.numHits));
                 if (Projectile.damage < damage / 2)
                     Projectile.damage = damage / 2;
 
@@ -133,33 +132,25 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
                     player.itemRotation = (float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction);
                 }
 
-                //can hit solid surfaces while going out
+                //while going out
                 if (Projectile.localAI[0] < maxTime / 2)
                 {
+                    //rain lightning
+                    if (Projectile.localAI[0] % 6 == 0 && Projectile.owner == Main.myPlayer)
+                    {
+                        Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 4, Projectile.height / 2);
+                        spawnPos -= Main.rand.NextFloat(900f, 1800f) * Vector2.UnitY;
+                        float ai1 = Projectile.Center.Y + Main.rand.NextFloat(-Projectile.height / 4, Projectile.height / 4);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, 12f * Vector2.UnitY, ModContent.ProjectileType<TheLightning>(),
+                            Projectile.damage, Projectile.knockBack / 2, Projectile.owner, Vector2.UnitY.ToRotation(), ai1);
+                    }
+
                     //if hits a solid surface, immediately rebound
-                    if (Collision.SolidTiles(Projectile.Center, 2, 2, false))
+                    if (Collision.SolidTiles(Projectile.Center, 2, 2, false) && Projectile.owner == Main.myPlayer)
                     {
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
                         Projectile.localAI[0] = maxTime - Projectile.localAI[0];
-                    }
-                }
-                else
-                {
-                    if (!shotLightning)
-                    {
-                        shotLightning = true;
-
-                        if (Projectile.owner == Main.myPlayer) //rain lightning
-                        {
-                            for (int i = 0; i < 10; i++)
-                            {
-                                Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 4, Projectile.height / 2);
-                                spawnPos -= Main.rand.NextFloat(900f, 1800f) * Vector2.UnitY;
-                                float ai1 = Projectile.Center.Y + Main.rand.NextFloat(-Projectile.height / 4, Projectile.height / 4);
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, 12f * Vector2.UnitY, ModContent.ProjectileType<TheLightning>(),
-                                    Projectile.damage, Projectile.knockBack / 2, Projectile.owner, Vector2.UnitY.ToRotation(), ai1);
-                            }
-                        }
+                        Projectile.netUpdate = true;
                     }
                 }
 

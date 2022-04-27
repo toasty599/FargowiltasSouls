@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Toggler.Content
         public override string SortCatagory => "Souls";
         public override int Priority => 1;
 
-        //public int SoulHeader = ModContent.ItemType<UniverseSoul>();
+        public int UniverseHeader = ModContent.ItemType<UniverseSoul>();
         public string Melee;
         public string MagmaStone;
         public string YoyoBag;
@@ -18,25 +18,26 @@ namespace FargowiltasSouls.Toggler.Content
         public string Sniper;
         public string Universe;
 
-        //public int WorldShaperSoul = ModContent.ItemType<WorldShaperSoul>();
+        public int WorldShaperHeader = ModContent.ItemType<WorldShaperSoul>();
         public string MiningHunt;
         public string MiningDanger;
         public string MiningSpelunk;
         public string MiningShine;
         public string Builder;
 
-        //public int ColossusSoul = ModContent.ItemType<ColossusSoul>();
+        public int ColossusHeader = ModContent.ItemType<ColossusSoul>();
         public string DefenseStar;
         public string DefenseBee;
         public string DefensePanic;
         public string DefenseFleshKnuckle;
         public string DefensePaladin;
+        public string DefenseBrain;
 
-        //public int FlightMasterySoul = ModContent.ItemType<SupersonicSoul>();
+        public int FlightMasteryHeader = ModContent.ItemType<SupersonicSoul>();
         public string FlightMasteryInsignia;
         public string FlightMasteryGravity;
 
-        //public int SupersonicSoul = ModContent.ItemType<SupersonicSoul>();
+        public int SupersonicHeader = ModContent.ItemType<SupersonicSoul>();
         public string RunSpeed;
         public string Momentum;
         public string Supersonic;
@@ -50,12 +51,12 @@ namespace FargowiltasSouls.Toggler.Content
         public string CthulhuShield;
         public string BlackBelt;
 
-        //public int TrawlersSoul = ModContent.ItemType<TrawlerSoul>();
+        public int TrawlerHeader = ModContent.ItemType<TrawlerSoul>();
         public string Trawler;
         public string TrawlerJump;
         public string TrawlerSpore;
 
-        //public int SoulOfEternity = ModContent.ItemType<EternitySoul>();
+        public int EternityHeader = ModContent.ItemType<EternitySoul>();
         public string Eternity;
     }
 }

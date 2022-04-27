@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Projectiles.Pets
                     case 1: //spawn mutant
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            FargoSoulsUtil.NewNPCEasy(Projectile.GetNPCSource_FromThis(), Projectile.Center, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+                            FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), Projectile.Center, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
                             FargoSoulsUtil.PrintText("Mutant has awoken!", 175, 75, 255);
                         }
                         break;

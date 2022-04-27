@@ -8,6 +8,16 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 {
     public class NatureForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<CrimsonEnchant>(),
+            ModContent.ItemType<MoltenEnchant>(),
+            ModContent.ItemType<RainEnchant>(),
+            ModContent.ItemType<FrostEnchant>(),
+            ModContent.ItemType<ChlorophyteEnchant>(),
+            ModContent.ItemType<ShroomiteEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -72,19 +82,11 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<CrimsonEnchant>())
-            .AddIngredient(ModContent.ItemType<MoltenEnchant>())
-            .AddIngredient(ModContent.ItemType<RainEnchant>())
-            .AddIngredient(ModContent.ItemType<FrostEnchant>())
-            .AddIngredient(ModContent.ItemType<ChlorophyteEnchant>())
-            .AddIngredient(ModContent.ItemType<ShroomiteEnchant>())
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

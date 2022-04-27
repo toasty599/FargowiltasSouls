@@ -41,10 +41,18 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
             }
             if (Counter >= 60)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Navi").WithVolume(1f).WithPitchVariance(.5f), npc.Center);
+                if (!Main.dedServ)
+                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Navi").WithVolume(1f).WithPitchVariance(.5f), npc.Center);
                 Counter = 0;
             }
             EModeGlobalNPC.Aura(npc, 100, ModContent.BuffType<SqueakyToy>());
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.EmpressButterfly, 20));
         }
     }
 }

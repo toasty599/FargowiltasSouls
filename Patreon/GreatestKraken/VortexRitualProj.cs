@@ -156,9 +156,9 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                                     break;
 
                                 Vector2 baseVel = Vector2.Normalize(npc.Center - spawnPos);
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, 6f * baseVel, ProjectileID.MagnetSphereBolt,
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, 6f * baseVel, ProjectileID.MagnetSphereBolt,
                                     Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
-                                int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, 21f * baseVel, ModContent.ProjectileType<VortexBolt>(),
+                                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, 21f * baseVel, ModContent.ProjectileType<VortexBolt>(),
                                     Projectile.damage, Projectile.knockBack, Projectile.owner, baseVel.ToRotation(), Main.rand.Next(80));
                                 if (p != Main.maxProjectiles)
                                     Main.projectile[p].DamageType = DamageClass.Magic;

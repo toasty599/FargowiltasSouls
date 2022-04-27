@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Patreon
             base.SafeModifyTooltips(tooltips);
 
             TooltipLine line = new TooltipLine(Mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
+            line.OverrideColor = Color.Orange;
             tooltips.Add(line);
         }
     }

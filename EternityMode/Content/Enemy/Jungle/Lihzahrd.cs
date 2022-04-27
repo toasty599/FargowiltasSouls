@@ -48,7 +48,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
                     if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center) * 12f;
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ProjectileID.Fireball, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.Fireball, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                     }
                 }
             }

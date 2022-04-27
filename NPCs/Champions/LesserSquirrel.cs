@@ -80,7 +80,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 int n = NPC.FindFirstNPC(ModContent.NPCType<TimberChampion>());
                 if (p != -1 && n != -1)
                 {
-                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, 4f * NPC.DirectionTo(Main.player[p].Center),
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 4f * NPC.DirectionTo(Main.player[p].Center),
                         ModContent.ProjectileType<DeviLostSoul>(), FargoSoulsUtil.ScaledProjectileDamage(Main.npc[n].damage), 0, Main.myPlayer);
                 }
             }

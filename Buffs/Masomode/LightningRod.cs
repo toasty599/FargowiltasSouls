@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             if (player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer >= 60)
             {
                 player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer = 0;
-                SpawnLightning(player, ModContent.ProjectileType<Projectiles.LightningVortexHostile>(), 60 / 4, player.GetProjectileSource_Buff(buffIndex));
+                SpawnLightning(player, ModContent.ProjectileType<Projectiles.LightningVortexHostile>(), 60 / 4, player.GetSource_Buff(buffIndex));
             }
 
             //if (Main.rand.Next(60) == 1)
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             if (fargoNPC.lightningRodTimer >= 60)
             {
                 fargoNPC.lightningRodTimer = 0;
-                SpawnLightning(npc, ModContent.ProjectileType<Projectiles.LightningVortex>(), 60, npc.GetSpawnSource_ForProjectile());
+                SpawnLightning(npc, ModContent.ProjectileType<Projectiles.LightningVortex>(), 60, npc.GetSource_FromThis());
             }
         }
     }

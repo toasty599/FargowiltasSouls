@@ -35,9 +35,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
                     speed.Normalize();
 
                     int damage = Main.expertMode ? 48 : 60;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 4f * speed, ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(10f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(-10f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 4f * speed, ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(10f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(-10f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
                 }
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, npc.Center);
                 npc.ai[2] = 0f;

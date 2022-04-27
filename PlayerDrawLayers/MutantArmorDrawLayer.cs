@@ -17,6 +17,7 @@ namespace FargowiltasSouls.PlayerDrawLayers
             drawInfo.drawPlayer.active
             && !drawInfo.drawPlayer.dead
             && !drawInfo.drawPlayer.ghost
+            && drawInfo.shadow == 0
             && drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().MutantSetBonusItem != null;
 
         public override Position GetDefaultPosition() => new Between();

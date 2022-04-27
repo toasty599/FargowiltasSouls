@@ -43,7 +43,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                             Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.Pi / 6 * (Main.rand.NextDouble() - 0.5) + MathHelper.Pi / 2 * j);
                             float ai0 = Main.rand.NextFloat(1.04f, 1.05f);
                             float ai1 = Main.rand.NextFloat(0.03f);
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<PumpkingFlamingScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 2), 0f, Main.myPlayer, ai0, ai1);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<PumpkingFlamingScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 2), 0f, Main.myPlayer, ai0, ai1);
                         }
                     }
                 }

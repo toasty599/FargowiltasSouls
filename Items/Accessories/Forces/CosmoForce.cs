@@ -9,6 +9,15 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 {
     public class CosmoForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<MeteorEnchant>(),
+            ModContent.ItemType<SolarEnchant>(),
+            ModContent.ItemType<VortexEnchant>(),
+            ModContent.ItemType<NebulaEnchant>(),
+            ModContent.ItemType<StardustEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -63,19 +72,14 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
 
         public override void AddRecipes()
         {
-            CreateRecipe()
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
 
-            .AddIngredient(ModContent.ItemType<MeteorEnchant>())
-            .AddIngredient(ModContent.ItemType<SolarEnchant>())
-            .AddIngredient(ModContent.ItemType<VortexEnchant>())
-            .AddIngredient(ModContent.ItemType<NebulaEnchant>())
-            .AddIngredient(ModContent.ItemType<StardustEnchant>())
-            .AddIngredient(ModContent.ItemType<Eridanium>(), 5)
+            recipe.AddIngredient(ModContent.ItemType<Eridanium>(), 5);
 
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

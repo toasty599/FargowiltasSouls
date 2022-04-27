@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Patreon.Shucks
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, effects, 0);
 
 
-            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>(Texture + "Jelly", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Patreon/Shucks/CrimetroidJelly", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             const float jellyOpacity = 0.5f;
             Main.EntitySpriteDraw(texture2D14, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * jellyOpacity, Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;

@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
                     {
                         Vector2 shootVel = Projectile.DirectionTo(targetNPC.Center);
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
-                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, shootVel * 14f + targetNPC.velocity/2, ModContent.ProjectileType<JungleMimicSummonCoin>(), Projectile.originalDamage / 4, Projectile.knockBack, Main.myPlayer);
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootVel * 14f + targetNPC.velocity/2, ModContent.ProjectileType<JungleMimicSummonCoin>(), Projectile.originalDamage / 4, Projectile.knockBack, Main.myPlayer);
                     }
                 }
             }

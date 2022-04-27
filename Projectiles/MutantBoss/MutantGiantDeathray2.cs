@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Buffs.Souls;
+using System.IO;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
 {
@@ -15,17 +16,22 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public MutantGiantDeathray2() : base(FargoSoulsWorld.MasochistModeReal ? 600 + 180 : 600, "PhantasmalDeathrayML") { }
 
         public int dustTimer;
+        public bool stall;
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Phantasmal Deathray");
+            ProjectileID.Sets.DismountsPlayersOnHit[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
+
+            Projectile.netImportant = true;
+
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
@@ -35,10 +41,26 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             return Projectile.scale >= 5f;
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+
+            writer.Write(Projectile.localAI[0]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+
+            Projectile.localAI[0] = reader.ReadSingle();
+        }
+
         public override void AI()
         {
             if (!Main.dedServ && Main.LocalPlayer.active)
                 Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+
+            Projectile.timeLeft = 2;
 
             Vector2? vector78 = null;
             if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)
@@ -49,8 +71,29 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (npc != null)
             {
                 Projectile.Center = npc.Center + Main.rand.NextVector2Circular(5, 5) + Vector2.UnitX.RotatedBy(npc.ai[3]) * (npc.ai[0] == -7 ? 100 : 175) * Projectile.scale / 10f;
-                if (npc.ai[0] == -7)
+                if (npc.ai[0] == -7) //death animation, not actual attack
+                {
                     maxTime = 255;
+                }
+                else if (npc.ai[0] == -5) //final spark
+                {
+                    if (npc.localAI[2] > 30) //mutant is forcing a despawn
+                    {
+                        //so this should disappear too
+                        if (Projectile.localAI[0] < maxTime - 90)
+                            Projectile.localAI[0] = maxTime - 90;
+                    }
+                    else if (stall)
+                    {
+                        stall = false;
+
+                        Projectile.localAI[0] -= 1;
+                        Projectile.netUpdate = true;
+
+                        npc.ai[2] -= 1;
+                        npc.netUpdate = true;
+                    }
+                }
             }
             else
             {
@@ -75,7 +118,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             
             Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 5f * num801;
             if (FargoSoulsWorld.MasochistModeReal)
-                Projectile.scale *= 3f;
+                Projectile.scale *= 5f;
             
             if (Projectile.scale > num801)
                 Projectile.scale = num801;
@@ -131,33 +174,33 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            if (--dustTimer < -1 && npc.ai[0] != -7)
-            {
-                dustTimer = 50;
+            //if (--dustTimer < -1 && npc.ai[0] != -7)
+            //{
+            //    dustTimer = 50;
 
-                float diff = MathHelper.WrapAngle(Projectile.rotation - oldRot);
-                //if (npc.HasPlayerTarget && Math.Abs(MathHelper.WrapAngle(npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - Projectile.velocity.ToRotation())) < Math.Abs(diff)) diff = 0;
-                diff *= 15f;
+            //    float diff = MathHelper.WrapAngle(Projectile.rotation - oldRot);
+            //    //if (npc.HasPlayerTarget && Math.Abs(MathHelper.WrapAngle(npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - Projectile.velocity.ToRotation())) < Math.Abs(diff)) diff = 0;
+            //    diff *= 15f;
 
-                const int ring = 220; //LAUGH
-                for (int i = 0; i < ring; ++i)
-                {
-                    Vector2 speed = Projectile.velocity.RotatedBy(diff) * 24f;
+            //    const int ring = 220; //LAUGH
+            //    for (int i = 0; i < ring; ++i)
+            //    {
+            //        Vector2 speed = Projectile.velocity.RotatedBy(diff) * 24f;
 
-                    Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(Projectile.velocity.ToRotation() + diff);
-                    int index2 = Dust.NewDust(npc.Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
-                    Main.dust[index2].scale = 2.5f;
-                    Main.dust[index2].noGravity = true;
-                    Main.dust[index2].position = npc.Center;
-                    Main.dust[index2].velocity = vector2 * 2.5f + speed;
+            //        Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(Projectile.velocity.ToRotation() + diff);
+            //        int index2 = Dust.NewDust(npc.Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
+            //        Main.dust[index2].scale = 2.5f;
+            //        Main.dust[index2].noGravity = true;
+            //        Main.dust[index2].position = npc.Center;
+            //        Main.dust[index2].velocity = vector2 * 2.5f + speed;
 
-                    index2 = Dust.NewDust(npc.Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
-                    Main.dust[index2].scale = 2.5f;
-                    Main.dust[index2].noGravity = true;
-                    Main.dust[index2].position = npc.Center;
-                    Main.dust[index2].velocity = vector2 * 1.75f + speed * 2;
-                }
-            }
+            //        index2 = Dust.NewDust(npc.Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
+            //        Main.dust[index2].scale = 2.5f;
+            //        Main.dust[index2].noGravity = true;
+            //        Main.dust[index2].position = npc.Center;
+            //        Main.dust[index2].velocity = vector2 * 1.75f + speed * 2;
+            //    }
+            //}
 
 
             Projectile.frameCounter += Main.rand.Next(3);
@@ -201,7 +244,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             base.ModifyHitPlayer(target, ref damage, ref crit);
             DamageRampup(ref damage);
-            if (hits > 90)
+            if (hits > 180)
                 target.endurance = 0;
         }
 
@@ -209,12 +252,21 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             int tempHits = hits - 90;
             if (tempHits > 0)
-                damage = (int)(damage * (1.0 + tempHits / 6.0));
+            {
+                double modifier = Math.Min(1.0 + tempHits / 6.0, 100.0);
+                damage = (int)(damage * modifier);
+            }
+            else
+            {
+                damage = (int)(hits / 90.0 * damage);
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             hits++;
+
+            stall = true;
 
             if (FargoSoulsWorld.EternityMode)
             {
@@ -231,6 +283,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.immuneTime = 0;
             target.hurtCooldowns[0] = 0;
             target.hurtCooldowns[1] = 0;
+
+            target.velocity = -0.4f * Vector2.UnitY;
         }
 
         public override bool PreDraw(ref Color lightColor)

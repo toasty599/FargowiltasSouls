@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.NPCs;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +15,7 @@ namespace FargowiltasSouls.Buffs
             if (FargoSoulsWorld.EternityMode)
             {
                 if (type == BuffID.ShadowDodge)
-                    tip += "\nEternity Mode: Dodging will reduce your damage output";
+                    tip += "\nEternity Mode: Dodging will reduce your attack speed";
                 else if (type == BuffID.IceBarrier)
                     tip += "\nEternity Mode: Effectiveness reduced to 15%";
             }
@@ -26,6 +29,11 @@ namespace FargowiltasSouls.Buffs
                     Main.buffNoTimeDisplay[type] = false;
                     if (FargoSoulsWorld.EternityMode)
                         player.GetModPlayer<FargoSoulsPlayer>().Slimed = true;
+                    break;
+
+                case BuffID.BrainOfConfusionBuff:
+                    if (FargoSoulsWorld.EternityMode)
+                        player.AddBuff(ModContent.BuffType<BrainOfConfusionDebuff>(), player.buffTime[buffIndex] * 2);
                     break;
 
                 case BuffID.OnFire:
@@ -42,6 +50,18 @@ namespace FargowiltasSouls.Buffs
                 case BuffID.Dazed:
                     if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % 60 == 55)
                         Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/DizzyBird"));
+                    break;
+
+                case BuffID.SwordWhipPlayerBuff:
+                case BuffID.CoolWhipPlayerBuff:
+                case BuffID.ScytheWhipPlayerBuff:
+                case BuffID.ThornWhipPlayerBuff:
+                    if (FargoSoulsWorld.EternityMode)
+                    {
+                        if (player.GetModPlayer<FargoSoulsPlayer>().HasWhipBuff)
+                            player.buffTime[buffIndex] = Math.Min(player.buffTime[buffIndex], 1);
+                        player.GetModPlayer<FargoSoulsPlayer>().HasWhipBuff = true;
+                    }
                     break;
 
                 default:
@@ -72,7 +92,7 @@ namespace FargowiltasSouls.Buffs
                             if (target.active && !target.friendly && Vector2.Distance(npc.Center, target.Center) < 250)
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
-                                Projectile.NewProjectile(npc.GetSpawnSourceForProjectileNPC(), npc.Center, velocity, ProjectileID.ShadowFlame, 40 +FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_Buff(buffIndex), npc.Center, velocity, ProjectileID.ShadowFlame, 40 +FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
                                 if (Main.rand.NextBool(3))
                                     break;
                             }
@@ -94,30 +114,19 @@ namespace FargowiltasSouls.Buffs
                         npc.buffTime[buffIndex] -= 1;
                     break;
 
+                case BuffID.BoneWhipNPCDebuff:
+                case BuffID.MaceWhipNPCDebuff:
+                case BuffID.RainbowWhipNPCDebuff:
+                case BuffID.SwordWhipNPCDebuff:
+                case BuffID.ThornWhipNPCDebuff:
+                    if (FargoSoulsWorld.EternityMode && npc.GetGlobalNPC<EModeGlobalNPC>().HasWhipDebuff)
+                        npc.buffTime[buffIndex] = Math.Min(npc.buffTime[buffIndex], 1);
+                    npc.GetGlobalNPC<EModeGlobalNPC>().HasWhipDebuff = true;
+                    break;
+
                 default:
                     break;
             }
         }
-
-        //        public override bool ReApply(int type, Player player, int time, int buffIndex)
-        //        {
-        //            if (FargoSoulsWorld.EternityMode && time > 2)
-        //            {
-        //                switch(type)
-        //                {
-        //                    case BuffID.Cursed:
-        //                    case BuffID.Silenced:
-        //                    case BuffID.Frozen:
-        //                    case BuffID.Webbed:
-        //                    case BuffID.Stoned:
-        //                    case BuffID.VortexDebuff:
-        //                        return true;
-
-        //                    default: break;
-        //                }
-        //            }
-
-        //            return base.ReApply(type, player, time, buffIndex);
-        //        }
     }
 }

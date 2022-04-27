@@ -20,6 +20,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Melee;
+
+            Projectile.tileCollide = true;
+            Projectile.penetrate = 2;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

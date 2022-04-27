@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Dust dust2 = Main.dust[index3];
                 dust2.velocity *= 2f;
             }
-            int index4 = Gore.NewGore(new Vector2(Projectile.position.X - 10f, Projectile.position.Y - 10f), default(Vector2), Main.rand.Next(61, 64), 1f);
+            int index4 = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.position.X - 10f, Projectile.position.Y - 10f), default(Vector2), Main.rand.Next(61, 64), 1f);
             Gore gore = Main.gore[index4];
             gore.velocity *= 0.3f;
             Main.gore[index4].velocity.X += Main.rand.Next(-10, 11) * 0.05f;

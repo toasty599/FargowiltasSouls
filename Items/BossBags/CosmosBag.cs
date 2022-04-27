@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Items.BossBags
 
         public override void OpenBossBag(Player player)
         {
-            player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ModContent.ItemType<Eridanium>(), 10);
-            player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ModContent.ItemType<UniverseCore>());
+            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<Eridanium>(), 10);
+            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<UniverseCore>());
         }
     }
 }

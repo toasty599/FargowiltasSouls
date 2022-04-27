@@ -15,6 +15,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public virtual int TrailAdditive => 0;
 
+        protected bool DieOutsideArena;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Phantasmal Eye");
@@ -34,19 +36,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.tileCollide = false;
             Projectile.alpha = 0;
             CooldownSlot = 1;
+
+            //dont let others inherit this behaviour
+            DieOutsideArena = Projectile.type == ModContent.ProjectileType<MutantEye>();
         }
 
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            Rectangle bulletHellHurtbox = new Rectangle();
-            bulletHellHurtbox.Width = bulletHellHurtbox.Height = Math.Min(targetHitbox.Width, targetHitbox.Height);
-            bulletHellHurtbox.Location = targetHitbox.Center;
-            bulletHellHurtbox.X -= bulletHellHurtbox.Width / 2;
-            bulletHellHurtbox.Y -= bulletHellHurtbox.Height / 2;
-            if (!projHitbox.Intersects(bulletHellHurtbox))
-                return false;
-            return base.Colliding(projHitbox, targetHitbox);
-        }
+        private int ritualID = -1;
 
         public override void AI()
         {
@@ -60,6 +55,27 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Projectile.localAI[0] = ProjectileID.Sets.TrailCacheLength[Projectile.type];
 
             Projectile.localAI[1] += 0.25f;
+
+            if (DieOutsideArena)
+            {
+                if (ritualID == -1) //identify the ritual CLIENT SIDE
+                {
+                    ritualID = -2; //if cant find it, give up and dont try every tick
+
+                    for (int i = 0; i < Main.maxProjectiles; i++)
+                    {
+                        if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<MutantRitual>())
+                        {
+                            ritualID = i;
+                            break;
+                        }
+                    }
+                }
+
+                Projectile ritual = FargoSoulsUtil.ProjectileExists(ritualID, ModContent.ProjectileType<MutantRitual>());
+                if (ritual != null && Projectile.Distance(ritual.Center) > 1200f) //despawn faster
+                    Projectile.timeLeft = 0;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

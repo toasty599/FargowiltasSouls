@@ -49,11 +49,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Main.dust[num322].velocity /= 2f;
             }
             int num323 = 10;
-            int num324 = Gore.NewGore(Projectile.Center, Projectile.velocity * 0.8f, 584, 1f);
+            int num324 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 0.8f, 584, 1f);
             Main.gore[num324].timeLeft /= num323;
-            num324 = Gore.NewGore(Projectile.Center, Projectile.velocity * 0.9f, 585, 1f);
+            num324 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 0.9f, 585, 1f);
             Main.gore[num324].timeLeft /= num323;
-            num324 = Gore.NewGore(Projectile.Center, Projectile.velocity * 1f, 586, 1f);
+            num324 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 1f, 586, 1f);
             Main.gore[num324].timeLeft /= num323;
         }
 

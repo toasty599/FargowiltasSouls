@@ -72,7 +72,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
                 distance.X = distance.X / time;
                 distance.Y = distance.Y / time - 0.5f * gravity * time;
 
-                modPlayer.NinjaSmokeBombProj = Main.projectile[Projectile.NewProjectile(modPlayer.Player.GetProjectileSource_Misc(0), modPlayer.Player.Center, distance + Main.rand.NextVector2Square(0, 0) * 2,
+                modPlayer.NinjaSmokeBombProj = Main.projectile[Projectile.NewProjectile(modPlayer.Player.GetSource_Misc(""), modPlayer.Player.Center, distance + Main.rand.NextVector2Square(0, 0) * 2,
                         ProjectileID.SmokeBomb, 0, 0f, Main.myPlayer)];
 
                 modPlayer.SmokeBombCD = 15;

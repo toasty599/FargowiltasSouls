@@ -168,7 +168,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         spawnPos.Y -= (700 + Math.Abs(i) * 50) * j;
                                         float speed = 8 + spacing * 0.8f;
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, Vector2.UnitY * speed * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.UnitY * speed * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
                             }
@@ -185,7 +185,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         distance.Normalize();
                                         distance *= Main.rand.NextFloat(8f, 9f);
                                         distance = distance.RotatedByRandom(Math.PI / 24);
-                                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.npc[i].Center, distance,
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, distance,
                                             ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
@@ -208,12 +208,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     const float ai0 = spawnOffset / speed;
                                     for (int i = 0; i < max; i++)
                                     {
-                                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.player[npc.target].Center + spawnOffset * baseOffset.RotatedBy(2 * Math.PI / max * i),
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + spawnOffset * baseOffset.RotatedBy(2 * Math.PI / max * i),
                                             -speed * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<CultistFireball>(),
                                             damage / 3, 0f, Main.myPlayer, ai0);
                                     }
 
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                                 }
                             }
 
@@ -223,7 +223,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 {
                                     if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone)
                                     {
-                                        FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(), Main.npc[i].Center, NPCID.SolarFlare, target: npc.target);
+                                        FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), Main.npc[i].Center, NPCID.SolarFlare, target: npc.target);
                                     }
                                 }
                             }
@@ -240,7 +240,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 {
                                     if (EnteredPhase2) //vortex lightning
                                     {
-                                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.npc[i].Center, Main.rand.NextVector2Square(-15, 15), ModContent.ProjectileType<CultistVortex>(),
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, Main.rand.NextVector2Square(-15, 15), ModContent.ProjectileType<CultistVortex>(),
                                           damage / 15 * 6, 0, Main.myPlayer, 0f, cultistCount);
                                         cultistCount++;
                                     }
@@ -250,15 +250,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         {
                                             Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
                                             float ai1New = Main.rand.Next(100);
-                                            Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 6f;
-                                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
+                                            Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 24f;
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
                                                 damage / 15 * 6, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                                         }
                                         else
                                         {
                                             Vector2 vel = Main.npc[i].DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
                                             vel *= Main.rand.NextFloat(4f, 6f);
-                                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.npc[i].Center, vel, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, vel, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
                                         }
                                     }
                                 }
@@ -273,7 +273,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             {
                                 if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<CultistRitual>())
                                 {
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), new Vector2(Main.projectile[i].Center.X, Main.player[npc.target].Center.Y - 700),
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), new Vector2(Main.projectile[i].Center.X, Main.player[npc.target].Center.Y - 700),
                                         Vector2.Zero, ModContent.ProjectileType<StardustRain>(), damage / 3, 0f, Main.myPlayer);
                                 }
                             }
@@ -289,7 +289,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 for (int i = 0; i < Main.maxNPCs; i++)
                                 {
                                     if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone)
-                                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.npc[i].Center, Vector2.Zero, ProjectileID.NebulaSphere, damage / 15 * 6, 0f, Main.myPlayer);
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, Vector2.Zero, ProjectileID.NebulaSphere, damage / 15 * 6, 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -456,7 +456,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        FargoSoulsUtil.NewNPCEasy(cultist.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.CultistBossClone, 0, npc.ai[0], npc.ai[1], npc.ai[2], npc.ai[3], npc.target);
+                        FargoSoulsUtil.NewNPCEasy(cultist.GetSource_FromAI(), npc.Center, NPCID.CultistBossClone, 0, npc.ai[0], npc.ai[1], npc.ai[2], npc.ai[3], npc.target);
                     }
                 }
             }
@@ -630,7 +630,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax *= 2;
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
@@ -644,7 +643,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.Center = Main.npc[EModeGlobalNPC.cultBoss].Center;
 
                 if (NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4 && Main.netMode != NetmodeID.MultiplayerClient)
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.AncientCultistSquidhead);
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.AncientCultistSquidhead);
             }
         }
 

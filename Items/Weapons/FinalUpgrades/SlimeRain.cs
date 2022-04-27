@@ -28,8 +28,6 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             Item.DamageType = DamageClass.Melee;
             Item.width = 72;
             Item.height = 90;
-            Item.useTime = 10;
-            Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 6;
@@ -39,18 +37,19 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<SlimeRainBall>();
             Item.shootSpeed = 16f;
-            Item.useAnimation = 12;
+
             Item.useTime = 4;
-            Item.reuseDelay = 14;
+            Item.useAnimation = 12;
+            Item.reuseDelay = 0;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                if (line2.Mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(0, Main.DiscoG, 255);
+                    line2.OverrideColor = new Color(0, Main.DiscoG, 255);
                 }
             }
         }

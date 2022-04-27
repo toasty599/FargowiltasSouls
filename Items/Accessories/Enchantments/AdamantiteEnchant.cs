@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Adamantite Enchantment");
-            Tooltip.SetDefault("All projectiles you spawn will split into 3" +
-                "\nAll projectiles deal 66% damage" +
+            Tooltip.SetDefault("Every other projectile you spawn will split into 3" +
+                "\nAll projectiles deal 50% damage" +
                 "\n'Chaos'");
 
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
@@ -45,32 +45,24 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             FargoSoulsPlayer modplayer = player.GetModPlayer<FargoSoulsPlayer>();
             modplayer.AdamantiteEnchantActive = true;
 
-            if (modplayer.AdamantiteCD > 0)
-            {
-                modplayer.AdamantiteCD--;
-            }           
+            //if (modplayer.AdamantiteCD > 0)
+            //    modplayer.AdamantiteCD--;
         }
+
+        public static float ProjectileDamageRatio = 0.5f;
 
         public static void AdamantiteSplit(Projectile projectile)
         {
-            FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
+            //FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
+            //modPlayer.AdamantiteCD = 60;
+            //if (modPlayer.Eternity)
+            //    modPlayer.AdamantiteCD = 0;
+            //else if (modPlayer.TerrariaSoul)
+            //    modPlayer.AdamantiteCD = 30;
+            //else if (modPlayer.EarthForce || modPlayer.WizardEnchantActive)
+            //    modPlayer.AdamantiteCD = 45;
 
-            modPlayer.AdamantiteCD = 60;
-
-            if (modPlayer.Eternity)
-            {
-                modPlayer.AdamantiteCD = 0;
-            }
-            else if (modPlayer.TerrariaSoul)
-            {
-                modPlayer.AdamantiteCD = 30;
-            }
-            else if (modPlayer.EarthForce || modPlayer.WizardEnchantActive)
-            {
-                modPlayer.AdamantiteCD = 45;
-            }
-
-            float damageRatio = 2f / 3f; //projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
+            float damageRatio = ProjectileDamageRatio; //projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
 
             FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
             projectile.damage = (int)(projectile.damage * damageRatio);

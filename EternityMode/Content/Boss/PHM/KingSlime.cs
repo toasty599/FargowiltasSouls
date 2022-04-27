@@ -48,7 +48,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         {
                             for (int i = 0; i < 30; i++) //spike spray
                             {
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
                                     new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
                                     ProjectileID.SpikedSlimeSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                             }
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     speed.Normalize();
                                     speed *= IsBerserk ? 10f : 5f;
                                     speed = speed.RotatedByRandom(MathHelper.ToRadians(4));
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, speed, ModContent.ProjectileType<SlimeBallHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, speed, ModContent.ProjectileType<SlimeBallHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -108,7 +108,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
                         for (int i = 0; i < 15; i++)
                         {
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f),
                                 ModContent.ProjectileType<SlimeSpike>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                         }
                     }
@@ -132,7 +132,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             Vector2 spawnPos = Main.player[npc.target].Center;
                             spawnPos.X += 110 * i;
                             spawnPos.Y -= 500;
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, (IsBerserk ? 6f : 0f) * Vector2.UnitY,
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, (IsBerserk ? 6f : 0f) * Vector2.UnitY,
                                 ModContent.ProjectileType<SlimeSpike2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
                         }
                     }
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     distance.Y = distance.Y / time - 0.5f * gravity * time;
                     for (int i = 0; i < 15; i++)
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f) * 2f,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f) * 2f,
                             ModContent.ProjectileType<SlimeSpike>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                     }
                 }
@@ -256,7 +256,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                 && ModContent.TryFind("Fargowiltas", "Mutant", out ModNPC mutant) && !NPC.AnyNPCs(mutant.Type))
             {
-                int n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)npc.Center.X, (int)npc.Center.Y, mutant.Type);
+                int n = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, mutant.Type);
                 if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
             }

@@ -44,21 +44,20 @@ Increases jump height and negates fall damage
         {
             //terraspark
             player.accRunSpeed = 6.75f;
-            player.rocketBoots = 4;
+            player.rocketBoots = player.vanityRocketBoots = ArmorIDs.RocketBoots.TerrasparkBoots;
             player.moveSpeed += 0.08f;
             player.iceSkate = true;
 
             //lava wader
-            //player.waterWalk = true;
-            //player.fireWalk = true;
-            //player.lavaMax += 420;
-            //player.lavaRose = true;
+            player.waterWalk = true;
+            player.fireWalk = true;
+            player.lavaMax += 420;
+            player.lavaRose = true;
 
             //amph boot
             player.autoJump = true;
             player.frogLegJumpBoost = true;
             player.accFlipper = true;
-            player.spikedBoots += 2;
 
             //fairy boot
             if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoAeolusFlower"))
@@ -86,7 +85,9 @@ Increases jump height and negates fall damage
                 .AddIngredient(ItemID.AmphibianBoots)
                 .AddIngredient(ItemID.FairyBoots)
                 .AddIngredient(ItemID.SandBoots)
-                .AddIngredient(ItemID.ChlorophyteBar, 5)
+                .AddIngredient(ItemID.SoulofFright, 5)
+                .AddIngredient(ItemID.SoulofMight, 5)
+                .AddIngredient(ItemID.SoulofSight, 5)
                 .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -49,6 +50,18 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             return false;
         }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.localAI[1]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Projectile.localAI[1] = reader.ReadSingle();
+        }
+
+        private float localai1;
 
         public override void AI()
         {
@@ -109,7 +122,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center - Vector2.UnitY * 6f, speed, ModContent.ProjectileType<MutantTrueEyeDeathray>(),
                                 Projectile.damage, 0f, Projectile.owner, rotationDirection, Projectile.whoAmI);
-                        Projectile.localAI[1] = rotationDirection;
+                        localai1 = rotationDirection;
                         Projectile.netUpdate = true;
                     }
                     else if (Projectile.localAI[0] > 90f)
@@ -119,7 +132,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     }
                     else
                     {
-                        localAI0 += Projectile.localAI[1];
+                        localAI0 += localai1;
                     }
                     break;
 

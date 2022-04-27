@@ -50,6 +50,7 @@ Summons a Terraprisma familiar that scales with minion damage
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.AncientHallowEnchantActive = true;
+            modPlayer.SilverEnchantActive = true;
 
             modPlayer.AddMinion(item, player.GetToggleValue("Hallowed"), ModContent.ProjectileType<HallowSword>(), 50, 2);
 
@@ -109,8 +110,6 @@ Summons a Terraprisma familiar that scales with minion damage
                     player.AddBuff(ModContent.BuffType<HallowCooldown>(), 600);
                 });
             }
-
-            HallowEnchant.HallowEffect(player);
         }
 
         public static Color GetFairyQueenWeaponsColor(float alphaChannelMultiplier, float lerpToWhite, float rawHueOverride)
@@ -137,7 +136,7 @@ Summons a Terraprisma familiar that scales with minion damage
                 .AddRecipeGroup("FargowiltasSouls:AnyAncientHallowHead") //ancient
                 .AddIngredient(ItemID.AncientHallowedPlateMail)
                 .AddIngredient(ItemID.AncientHallowedGreaves)
-                .AddIngredient(ModContent.ItemType<HallowEnchant>())
+                .AddIngredient(ModContent.ItemType<SilverEnchant>())
                 .AddIngredient(ItemID.EmpressBlade) //terraprisma
                 .AddIngredient(ItemID.BouncingShield) //sergent united
                 .AddTile(TileID.CrystalBall)

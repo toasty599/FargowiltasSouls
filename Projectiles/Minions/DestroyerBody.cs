@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D glow = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/Minions/DestroyerBody_glow").Value;
+            Texture2D glow = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/Minions/DestroyerBody_glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num214 = TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type];
             int y6 = num214 * Projectile.frame;
             Microsoft.Xna.Framework.Color color25 = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
@@ -146,7 +146,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                     if (selectedTarget != -1) //shoot
                     {
-                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 10f * Projectile.DirectionTo(Main.npc[selectedTarget].Center),
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 10f * Projectile.DirectionTo(Main.npc[selectedTarget].Center),
                             ProjectileID.MiniRetinaLaser, Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
                         SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
                     }
@@ -166,8 +166,11 @@ namespace FargowiltasSouls.Projectiles.Minions
                     -Projectile.velocity.Y * 0.2f, 100);
                 Main.dust[dust].velocity *= 2f;
             }
-            int g = Gore.NewGore(Projectile.Center, Projectile.velocity/2, ModContent.Find<ModGore>("FargowiltasSouls/DestroyerBody").Type, Projectile.scale);
-            Main.gore[g].timeLeft = 20;
+            if (!Main.dedServ)
+            {
+                int g = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity / 2, ModContent.Find<ModGore>("FargowiltasSouls/DestroyerBody").Type, Projectile.scale);
+                Main.gore[g].timeLeft = 20;
+            }
         }
     }
 }

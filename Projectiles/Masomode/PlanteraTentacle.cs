@@ -142,7 +142,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 for (int i = 0; i < length; i += increment)
                 {
                     if (!Main.dedServ)
-                        Gore.NewGore(Projectile.Center + Projectile.DirectionTo(planteraCenter) * (i + Main.rand.NextFloat(increment)), Vector2.Zero,
+                        Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(planteraCenter) * (i + Main.rand.NextFloat(increment)), Vector2.Zero,
                         ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "Gore_386" : "Gore_387").Type, Projectile.scale);
                 }
             }
@@ -152,8 +152,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(ModContent.BuffType<Infested>(), 180);
             target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
         }
 

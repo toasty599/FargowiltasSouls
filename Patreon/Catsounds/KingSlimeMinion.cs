@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
                         {
                             for (int i = 0; i < 25; i++)
                             {
-                                FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + Main.rand.Next(-5, 5), Projectile.Center.Y - 15),
+                                FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + Main.rand.Next(-5, 5), Projectile.Center.Y - 15),
                                     new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
                                     ModContent.ProjectileType<KingSlimeSpike>(), Projectile.originalDamage, 0f, Main.myPlayer);
                             }
@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
                         Vector2 speed = Main.npc[target].Center - spawn;
                         speed.Normalize();
                         speed *= Main.rand.NextFloat(10f, 20f);
-                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), spawn, speed, ModContent.ProjectileType<KingSlimeBallPiercing>(), Projectile.originalDamage, 0f, Main.myPlayer);
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), spawn, speed, ModContent.ProjectileType<KingSlimeBallPiercing>(), Projectile.originalDamage, 0f, Main.myPlayer);
                     }
                 }
             }

@@ -15,6 +15,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
     {
         public override string Texture => "Terraria/Images/Projectile_454";
 
+        protected bool DieOutsideArena;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Phantasmal Sphere");
@@ -22,18 +24,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-        }
-
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            Rectangle bulletHellHurtbox = new Rectangle();
-            bulletHellHurtbox.Width = bulletHellHurtbox.Height = Math.Min(targetHitbox.Width, targetHitbox.Height);
-            bulletHellHurtbox.Location = targetHitbox.Center;
-            bulletHellHurtbox.X -= bulletHellHurtbox.Width / 2;
-            bulletHellHurtbox.Y -= bulletHellHurtbox.Height / 2;
-            if (!projHitbox.Intersects(bulletHellHurtbox))
-                return false;
-            return Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) <= Projectile.width / 2; ;
         }
 
         public override void SetDefaults()
@@ -47,16 +37,24 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.alpha = 200;
             CooldownSlot = 1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = 
-                FargoSoulsWorld.MasochistModeReal 
-                && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
-                && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5;
+            //dont let others inherit this behaviour
+            if (Projectile.type == ModContent.ProjectileType<MutantSphereRing>())
+            {
+                DieOutsideArena = true;
+
+                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune =
+                    FargoSoulsWorld.MasochistModeReal
+                    && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                    && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5;
+            }
         }
 
         public override bool CanHitPlayer(Player target)
         {
             return target.hurtCooldowns[1] == 0 || FargoSoulsWorld.MasochistModeReal;
         }
+
+        private int ritualID = -1;
 
         public override void AI()
         {
@@ -92,6 +90,27 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (++Projectile.frame > 1)
                     Projectile.frame = 0;
             }
+
+            if (DieOutsideArena)
+            {
+                if (ritualID == -1) //identify the ritual CLIENT SIDE
+                {
+                    ritualID = -2; //if cant find it, give up and dont try every tick
+
+                    for (int i = 0; i < Main.maxProjectiles; i++)
+                    {
+                        if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<MutantRitual>())
+                        {
+                            ritualID = i;
+                            break;
+                        }
+                    }
+                }
+
+                Projectile ritual = FargoSoulsUtil.ProjectileExists(ritualID, ModContent.ProjectileType<MutantRitual>());
+                if (ritual != null && Projectile.Distance(ritual.Center) > 1200f) //despawn faster
+                    Projectile.timeLeft = 0;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -118,7 +137,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeleft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 6);
+            if (Main.rand.NextBool(Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type] / 10 + 1))
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 6);
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.Center = Projectile.position;

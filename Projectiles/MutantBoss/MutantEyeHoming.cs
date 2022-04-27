@@ -34,9 +34,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 stopAttacking = true;
             }
 
-            if (stopAttacking)
+            Projectile.ai[1]--;
+
+            Player p = FargoSoulsUtil.PlayerExists(npc == null ? Projectile.ai[0] : npc.target);
+            if (stopAttacking || (Projectile.ai[1] > 0 && p != null && Projectile.Distance(p.Center) < 240))
             {
-                Player p = FargoSoulsUtil.PlayerExists(npc == null ? Projectile.ai[0] : npc.target);
                 if (p != null)
                 {
                     double angle = Projectile.DirectionFrom(p.Center).ToRotation() - Projectile.velocity.ToRotation();
@@ -51,9 +53,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (Projectile.timeLeft > 180)
                     Projectile.timeLeft = 180;
             }
-            else if (--Projectile.ai[1] < 0 && Projectile.ai[1] > endHomingTime)
+            else if (Projectile.ai[1] < 0 && Projectile.ai[1] > endHomingTime)
             {
-                Player p = FargoSoulsUtil.PlayerExists(npc == null ? Projectile.ai[0] : npc.target);
                 if (p != null)
                 {
                     float homingMaxSpeed = maxSpeed;

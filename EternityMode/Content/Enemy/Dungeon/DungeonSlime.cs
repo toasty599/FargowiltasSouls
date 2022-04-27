@@ -33,7 +33,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
 
             if (NPC.downedPlantBoss && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int n = FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.Paladin, velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 0)));
+                int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.Paladin, velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 0)));
                 if (n != Main.maxNPCs)
                 {
                     Main.npc[n].GetEModeNPCMod<Paladin>().IsSmallPaladin = true;

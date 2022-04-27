@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center, Main.rand.NextVector2Circular(12f, 12f), ModContent.ProjectileType<PufferSpray>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Main.rand.NextVector2Circular(12f, 12f), ModContent.ProjectileType<PufferSpray>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
 
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             float scaleFactor9 = 0.5f;
             for (int j = 0; j < 2; j++)
             {
-                int gore = Gore.NewGore(new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
                     default(Vector2),
                     Main.rand.Next(61, 64));
 

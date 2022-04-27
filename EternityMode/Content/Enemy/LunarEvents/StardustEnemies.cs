@@ -67,7 +67,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                 {
                     for (int i = 0; i < 3; i++) //spawn stardust cells
                     {
-                        int n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.StardustCellSmall);
+                        int n = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.StardustCellSmall);
                         if (n < Main.maxNPCs)
                         {
                             Main.npc[n].velocity.X = Main.rand.Next(-10, 11);

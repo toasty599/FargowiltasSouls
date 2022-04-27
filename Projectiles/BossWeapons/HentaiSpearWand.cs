@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.velocity), ModContent.ProjectileType<HentaiSpearBigDeathray>(),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.velocity), ModContent.ProjectileType<HentaiSpearBigDeathray>(),
                       Projectile.damage, Projectile.knockBack, player.whoAmI, 0, Projectile.identity);
                 }
             }
@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
                     Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);

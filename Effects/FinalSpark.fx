@@ -27,9 +27,12 @@ float4 FinalSpark(float2 coords : TEXCOORD0) : COLOR0
 {
 	float4 colour = tex2D(uImage0, coords);
 
-	float modifier = 1 + (1 - 0.5) * uOpacity;
+	//contrast
+	colour = float4(colour.r + (colour.r - 0.5) * uOpacity, colour.g + (colour.g - 0.5) * uOpacity, colour.b + (colour.b - 0.5) * uOpacity, colour.a);
 
-	colour = float4(colour.r * modifier, colour.g * modifier, colour.b * modifier, colour.a);
+	//hue shift
+	//float lerp = 1 - uOpacity;
+	//colour = float4(colour.r * lerp + colour.b * uOpacity, colour.g * lerp + colour.r * uOpacity, colour.b * lerp + colour.g * uOpacity, colour.a);
 	
 	return colour;
 }

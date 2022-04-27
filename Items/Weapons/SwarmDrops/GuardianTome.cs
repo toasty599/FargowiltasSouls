@@ -45,8 +45,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine tooltipItemNameLine = tooltips.FirstOrDefault(line => line.Name == "ItemName" && line.mod == "Terraria");
-            tooltipItemNameLine.overrideColor = new Color(255, Main.DiscoG, 0);
+            TooltipLine tooltipItemNameLine = tooltips.FirstOrDefault(line => line.Name == "ItemName" && line.Mod == "Terraria");
+            tooltipItemNameLine.OverrideColor = new Color(255, Main.DiscoG, 0);
         }
 
         public override void AddRecipes()

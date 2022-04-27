@@ -84,7 +84,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                     {
                         distance.Normalize();
                         distance *= 6f;
-                        int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance, ProjectileID.FlamesTrap, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance, ProjectileID.FlamesTrap, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                         Main.projectile[p].friendly = false;
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, npc.Center);
                     }
@@ -200,7 +200,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                 Vector2 velocity = Main.player[t].Center - npc.Center;
                 velocity.Normalize();
                 velocity *= 14f;
-                Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, velocity, ModContent.ProjectileType<DrakanianDaybreak>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
+                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ModContent.ProjectileType<DrakanianDaybreak>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
             }
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, npc.Center);
             if (Main.rand.NextBool())

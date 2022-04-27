@@ -34,7 +34,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
                     speed.Y += Main.rand.Next(-20, 21);
                     speed.Normalize();
                     Vector2 spinningpoint = speed;
-                    speed *= 8f;
+                    speed *= 7f;
 
                     int damage = Main.expertMode ? 36 : 45;
 
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
                         Vector2 vector2_5 = spinningpoint.RotatedBy(num3 * num8);
                         if (!flag4)
                             vector2_5 -= spinningpoint;
-                        int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + vector2_5, speed, ModContent.ProjectileType<ElfArcherArrow>(), damage, 0f, Main.myPlayer);
+                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + vector2_5, speed, ModContent.ProjectileType<ElfArcherArrow>(), damage, 0f, Main.myPlayer);
                         Main.projectile[p].noDropItem = true;
                     }
                 }

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -6,21 +7,25 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class CrystalBombShard : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_90";
+        public override string Texture => "Terraria/Images/Projectile_920";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Shard");
+            Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.QueenSlimeMinionBlueSpike];
         }
 
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.CrystalShard);
-            AIType = ProjectileID.CrystalShard;
-            Projectile.DamageType = DamageClass.NoScaling;
-            Projectile.friendly = false;
-            Projectile.hostile = true;
-            Projectile.alpha = 0;
+            Projectile.CloneDefaults(ProjectileID.QueenSlimeMinionBlueSpike);
+            AIType = ProjectileID.QueenSlimeMinionBlueSpike;
+            Projectile.scale *= 1.5f;
+            Projectile.timeLeft = 300;
+        }
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White * Projectile.Opacity;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

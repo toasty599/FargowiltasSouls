@@ -70,7 +70,7 @@ Collect the bones to heal for 20 HP each
 
                     float velX = Main.rand.Next(-5, 6) * 3f;
                     float velY = Main.rand.Next(-5, 6) * 3f;
-                    Projectile.NewProjectile(player.GetProjectileSource_Misc(0), player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
+                    Projectile.NewProjectile(player.GetSource_Misc(""), player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
                 }
             }
         }
@@ -108,7 +108,7 @@ Collect the bones to heal for 20 HP each
             //else
             //{
                 Revive(modPlayer.SpiritForce ? 200 : 50, 18000);
-                FargoSoulsUtil.XWay(modPlayer.SpiritForce ? 20 : 10, player.GetProjectileSource_Misc(0), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                FargoSoulsUtil.XWay(modPlayer.SpiritForce ? 20 : 10, player.GetSource_Misc(""), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
             //}
         }
 
