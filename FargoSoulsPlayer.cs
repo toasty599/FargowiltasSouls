@@ -3658,6 +3658,7 @@ namespace FargowiltasSouls
                                     Main.projectile[p].usesIDStaticNPCImmunity = true;
                                     Main.projectile[p].idStaticNPCHitCooldown = 60;
                                     Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+                                    Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
                                 }
                             }
 
