@@ -25,6 +25,8 @@ Attracts a legendary plant's offspring which flourishes in combat
 免疫毒液, 常春藤毒和蜂群
 增加生命回复
 吸引一株传奇植物的后代, 其会在战斗中茁壮成长");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

@@ -19,6 +19,8 @@ Attacks have a chance to squeak and deal 1 damage to you
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人心爱的玩具...?
 免疫吱吱响的玩具和净化
 敌人攻击概率发出吱吱声,并只造成1点伤害");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

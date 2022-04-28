@@ -35,6 +35,8 @@ Summons a friendly Cultist and plant to fight at your side
 根据武器类型定期发动额外的攻击
 受伤时爆发尖钉球和远古幻象攻击敌人
 召唤友善的邪教徒和植物为你而战");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

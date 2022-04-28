@@ -3246,7 +3246,6 @@ namespace FargowiltasSouls
             if (proj.coldDamage && Hypothermia)
                 damage = (int)(damage * 1.2);
 
-            //implement when projectile source IS ACTUALLY FUCKING USABLE
             //if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
             //damage = (int)(damage * 0.8);
 

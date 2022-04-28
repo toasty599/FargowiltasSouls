@@ -23,6 +23,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n免疫死亡标记" +
                 "\n根据武器类型定期发动额外的攻击" +
                 "\n受伤时创造一个友好的远古幻象来攻击敌人");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

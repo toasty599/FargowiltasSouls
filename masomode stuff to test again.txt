@@ -1281,3 +1281,16 @@ emode now makes debuffs end faster when you dont attack and havent been hit for 
 	stunned
 	time frozen
 numerous refactors for separating emode changes from other code
+fixed these not being journey researchable
+	wyvern feather
+	squeaky toy
+	chalice
+	betsy heart
+	celes rune
+	galactic globe
+	heart of sibling
+	magical bulb
+	mutant antibody
+fixed eri's nebula blazes being called cosmic meteor
+eri nebula meteor reticle now has smoother movement (should be slightly easier to misdirect with no momentum)
+qs mine slimes prevent stomp attack too but explode 0.5sec faster
