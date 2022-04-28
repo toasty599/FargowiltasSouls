@@ -1,6 +1,6 @@
 # You may find this .hjson file approach to translations easier for your mod.
 # .hjson files contain translations for the language specified in the filename. (Make sure this file is UTF-8 encoded only.)
-# The possible languages are: English ("en-US"), German ("de-DE"), Italian ("it-IT"), French ("fr-FR"), Spanish ("es-ES"), Russian ("ru-RU"), Chinese ("zh-Hans"), Portuguese ("pt-BR"), and Polish ("pl-PL")
+# The possible languages are: English (en-US"), German ("de-DE"), Italian ("it-IT"), French ("fr-FR"), Spanish ("es-ES"), Russian ("ru-RU"), Chinese ("zh-Hans"), Portuguese ("pt-BR"), and Polish ("pl-PL")
 # Here in ExampleMod we have organized these files in a folder called Localization. A single file per language makes it extremely easy to to integrate and maintain translations.
 # Each translation entry in .hjson files contains a key and a value. The key is determined following the rules of JSON [https://www.w3schools.com/js/js_json_syntax.asp]
 # The Key automatically inherits "Mods.ModNameHere.", which is useful to know if you want to use substitutions (as seen in the Paper Airplane example) or use Language.GetTextValue or Network text.
@@ -154,95 +154,95 @@ Mods: {
 			// == Accessories ==
 			// === Enchantments ===
 
-			AdamantiteEnchant: "Adamantite Enchantment"
-			AncientCobaltEnchant: "Ancient Cobalt Enchantment"
-			AncientHallowEnchant: "Ancient Hallowed Enchantment"
-			AncientShadowEnchant: "Ancient Shadow Enchantment"
-			AnglerEnchantment: "Angler Enchantment"
-			ApprenticeEnchant: "Apprentice Enchantment"
-			BeeEnchant: "Bee Enchantment"
-			BeetleEnchant: "Beetle Enchantment"
-			BorealWoodEnchant: "Boreal Wood Enchantment"
-			CactusEnchant: "Cactus Enchantment"
-			ChlorophyteEnchant: "Chlorophyte Enchantment"
-			CobaltEnchant: "Cobalt Enchantment"
-			CopperEnchant: "Copper Enchantment"
-			CrimsonEnchant: "Crimson Enchantment"
-			CrystalAssassinEnchant: "Crystal Assassin Enchantment"
-			DarkArtistEnchant: "Dark Artist Enchantment"
-			EbonwoodEnchant: "Ebonwood Enchantment"
-			ForbiddenEnchant: "Forbidden Enchantment"
-			FossilEnchant: "Fossil Enchantment"
-			FrostEnchant: "Frost Enchantment"
-			GladiatorEnchant: "Gladiator Enchantment"
-			GoldEnchant: "Gold Enchantment"
-			HallowEnchant: "Hallowed Enchantment"
-			HuntressEnchant: "Huntress Enchantment"
-			IronEnchant: "Iron Enchantment"
-			JungleEnchant: "Jungle Enchantment"
-			LeadEnchant: "Lead Enchantment"
-			MeteorEnchant: "Meteor Enchantment"
-			MinerEnchant: "Miner Enchantment"
-			MoltenEnchant: "Molten Enchantment"
-			MonkEnchant: "Monk Enchantment"
-			MythrilEnchant: "Mythril Enchantment"
-			NebulaEnchant: "Nebula Enchantment"
-			NecroEnchant: "Necro Enchantment"
-			NinjaEnchant: "Ninja Enchantment"
-			ObsidianEnchant: "Obsidian Enchantment"
-			OrichalcumEnchant: "Orichalcum Enchantment"
-			PalladiumEnchant: "Palladium Enchantment"
-			PalmWoodEnchant: "Palm Wood Enchantment"
-			PearlwoodEnchant: "Pearlwood Enchantment"
-			PlatinumEnchant: "Platinum Enchantment"
-			PumpkinEnchant: "Pumpkin Enchantment"
-			RainEnchant: "Rain Enchantment"
-			RedRidingEnchant: "Red Riding Enchantment"
-			RichMahoganyEnchant: "Rich Mahogany Enchantment"
-			ShadewoodEnchant: "Shadewood Enchantment"
-			ShadowEnchant: "Shadow Enchantment"
-			ShinobiEnchant: "Shinobi Infiltrator Enchantment"
-			ShroomiteEnchant: "Shroomite Enchantment"
-			SilverEnchant: "Silver Enchantment"
-			SnowEnchant: "Snow Enchantment"
-			SolarEnchant: "Solar Enchantment"
-			SpectreEnchant: "Spectre Enchantment"
-			SpiderEnchant: "Spider Enchantment"
-			SpookyEnchant: "Spooky Enchantment"
-			SquireEnchant: "Squire Enchantment"
-			StardustEnchant: "Stardust Enchantment"
-			TikiEnchant: "Tiki Enchantment"
-			TinEnchant: "Tin Enchantment"
-			TitaniumEnchant: "Titanium Enchantment"
-			TungstenEnchant: "Tungsten Enchantment"
-			TurtleEnchant: "Turtle Enchantment"
-			ValhallaKnightEnchant: "Valhalla Knight Enchantment"
-			VortexEnchant: "Vortex Enchantment"
-			WizardEnchant: "Wizard Enchantment"
-			WoodEnchant: "Wood Enchantment"
+			AdamantiteEnchant: Adamantite Enchantment
+			AncientCobaltEnchant: Ancient Cobalt Enchantment
+			AncientHallowEnchant: Ancient Hallowed Enchantment
+			AncientShadowEnchant: Ancient Shadow Enchantment
+			AnglerEnchantment: Angler Enchantment
+			ApprenticeEnchant: Apprentice Enchantment
+			BeeEnchant: Bee Enchantment
+			BeetleEnchant: Beetle Enchantment
+			BorealWoodEnchant: Boreal Wood Enchantment
+			CactusEnchant: Cactus Enchantment
+			ChlorophyteEnchant: Chlorophyte Enchantment
+			CobaltEnchant: Cobalt Enchantment
+			CopperEnchant: Copper Enchantment
+			CrimsonEnchant: Crimson Enchantment
+			CrystalAssassinEnchant: Crystal Assassin Enchantment
+			DarkArtistEnchant: Dark Artist Enchantment
+			EbonwoodEnchant: Ebonwood Enchantment
+			ForbiddenEnchant: Forbidden Enchantment
+			FossilEnchant: Fossil Enchantment
+			FrostEnchant: Frost Enchantment
+			GladiatorEnchant: Gladiator Enchantment
+			GoldEnchant: Gold Enchantment
+			HallowEnchant: Hallowed Enchantment
+			HuntressEnchant: Huntress Enchantment
+			IronEnchant: Iron Enchantment
+			JungleEnchant: Jungle Enchantment
+			LeadEnchant: Lead Enchantment
+			MeteorEnchant: Meteor Enchantment
+			MinerEnchant: Miner Enchantment
+			MoltenEnchant: Molten Enchantment
+			MonkEnchant: Monk Enchantment
+			MythrilEnchant: Mythril Enchantment
+			NebulaEnchant: Nebula Enchantment
+			NecroEnchant: Necro Enchantment
+			NinjaEnchant: Ninja Enchantment
+			ObsidianEnchant: Obsidian Enchantment
+			OrichalcumEnchant: Orichalcum Enchantment
+			PalladiumEnchant: Palladium Enchantment
+			PalmWoodEnchant: Palm Wood Enchantment
+			PearlwoodEnchant: Pearlwood Enchantment
+			PlatinumEnchant: Platinum Enchantment
+			PumpkinEnchant: Pumpkin Enchantment
+			RainEnchant: Rain Enchantment
+			RedRidingEnchant: Red Riding Enchantment
+			RichMahoganyEnchant: Rich Mahogany Enchantment
+			ShadewoodEnchant: Shadewood Enchantment
+			ShadowEnchant: Shadow Enchantment
+			ShinobiEnchant: Shinobi Infiltrator Enchantment
+			ShroomiteEnchant: Shroomite Enchantment
+			SilverEnchant: Silver Enchantment
+			SnowEnchant: Snow Enchantment
+			SolarEnchant: Solar Enchantment
+			SpectreEnchant: Spectre Enchantment
+			SpiderEnchant: Spider Enchantment
+			SpookyEnchant: Spooky Enchantment
+			SquireEnchant: Squire Enchantment
+			StardustEnchant: Stardust Enchantment
+			TikiEnchant: Tiki Enchantment
+			TinEnchant: Tin Enchantment
+			TitaniumEnchant: Titanium Enchantment
+			TungstenEnchant: Tungsten Enchantment
+			TurtleEnchant: Turtle Enchantment
+			ValhallaKnightEnchant: Valhalla Knight Enchantment
+			VortexEnchant: Vortex Enchantment
+			WizardEnchant: Wizard Enchantment
+			WoodEnchant: Wood Enchantment
 
 			// === Essences ===
 
-			ApprenticesEssence: "Apprentice's Essence"
-			BarbariansEssence: "Barbarian's Essence"
-			OccultistsEssence: "Occultist's Essence"
-			SharpshootersEssence: "Sharpshooter's Essence"
+			ApprenticesEssence: Apprentice's Essence
+			BarbariansEssence: Barbarian's Essence
+			OccultistsEssence: Occultist's Essence
+			SharpshootersEssence: Sharpshooter's Essence
 
 			// === Expert ===
 
-			UniverseCore: "Universe Core"
+			UniverseCore: Universe Core
 
 			// === Forces ===
 
-			CosmoForce: "Force of Cosmos"
-			EarthForce: "Force of Earth"
-			LifeForce: "Force of Life"
-			NatureForce: "Force of Nature"
-			ShadowForce: "Shadow Force"
-			SpiritForce: "Force of Spirit"
-			TerraForce: "Terra Force"
-			TimberForce: "Force of Timber"
-			WillForce: "Force of Will"
+			CosmoForce: Force of Cosmos
+			EarthForce: Force of Earth
+			LifeForce: Force of Life
+			NatureForce: Force of Nature
+			ShadowForce: Shadow Force
+			SpiritForce: Force of Spirit
+			TerraForce: Terra Force
+			TimberForce: Force of Timber
+			WillForce: Force of Will
 
 
 		}
@@ -404,12 +404,18 @@ Mods: {
 				'''
 			HuntressEnchant:
 				'''
+				
+				Arrows will stick in enemies and apply a stacking bleed debuff per arrow
+				Hit the enemy with a melee attack to deal bonus damage per arrow
+				
+				
+				
+				
 				Arrows will periodically fall towards your cursor
 				The arrow type is based on the first arrow in your inventory
 				Double tap down to create a localized rain of arrows at the cursor's position for a few seconds
 				This has a cooldown of 15 seconds
-				Explosive Traps recharge faster and oil enemies
-				Set oiled enemies on fire for extra damage
+				Boosts Explosive Traps
 				'The Hunt is On'
 				'''			
 			IronEnchant:
@@ -728,6 +734,7 @@ Mods: {
 				'''
 
 			// === Forces ===
+			// In ItemExtra
 
 
 
@@ -758,8 +765,33 @@ Mods: {
 				[i:{3}] Damaging debuffs deal 5x damage
 				[i:{4}] Every other projectile you spawn will split into 3
 				[i:{5}] Attacking generates a defensive barrier of titanium shards
-				'Gaia's blessing shines upon you'" 
+				'Gaia's blessing shines upon you'
 				'''
+			LifeForce:
+				'''
+				[i:{0}] You will grow pumpkins while walking on the ground
+				[i:{1}] Enemies may explode into needles on death
+				[i:{2}] Melee hits and most piercing attacks spawn bees
+				[i:{3}] 30% chance for minions and sentries to crit
+				[i:{4}] When standing still and not attacking, you will enter your shell
+				[i:{5}] Beetles aid both offense and defense
+				'Rare is a living thing that dare disobey your will'
+				'''
+			NatureForce:
+				'''
+				[i:{0}] After taking a hit, regen is greatly increased until the hit is healed off
+				[i:{1}] Nearby enemies are ignited
+				[i:{1}] When you are hurt, you violently explode to damage nearby enemies
+				[i:{2}] Spawns a miniature storm to follow you around
+				[i:{3}] Icicles will start to appear around you
+				[i:{4}] You have a small area around you that will slow projectiles to 1/2 speed
+				[i:{5}] Summons a ring of leaf crystals to shoot at nearby enemies
+				[i:{6}] Grants a double spore jump
+				[i:{7}] Not moving puts you in stealth
+				[i:{7}] All attacks gain trails of mushrooms
+				'Tapped into every secret of the wilds'
+				'''
+
 
 			EridanusArmorBonus:
 				'''

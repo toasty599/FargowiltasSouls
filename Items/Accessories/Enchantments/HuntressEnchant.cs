@@ -16,30 +16,30 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Huntress Enchantment");
-            Tooltip.SetDefault(
-@"
-Arrows will stick in enemies and apply a stacking bleed debuff per arrow
-Hit the enemy with a melee attack to deal bonus damage per arrow
+            //             DisplayName.SetDefault("Huntress Enchantment");
+            //             Tooltip.SetDefault(
+            // @"
+            // Arrows will stick in enemies and apply a stacking bleed debuff per arrow
+            // Hit the enemy with a melee attack to deal bonus damage per arrow
 
 
 
 
-Arrows will periodically fall towards your cursor
-The arrow type is based on the first arrow in your inventory
-Double tap down to create a localized rain of arrows at the cursor's position for a few seconds
-This has a cooldown of 15 seconds
-Boosts Explosive Traps
-'The Hunt is On'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "女猎人魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"箭矢会定期落至你光标周围
-箭矢的种类取决于你背包中第一个箭矢
-双击'下'键后令箭雨倾斜在光标位置
-此效果有15秒冷却时间
-爆炸机关攻击速度更快且会造成涂油减益
-点燃涂油的敌人以造成额外伤害
-'狩猎开始了'");
+            // Arrows will periodically fall towards your cursor
+            // The arrow type is based on the first arrow in your inventory
+            // Double tap down to create a localized rain of arrows at the cursor's position for a few seconds
+            // This has a cooldown of 15 seconds
+            // Boosts Explosive Traps
+            // 'The Hunt is On'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "女猎人魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"箭矢会定期落至你光标周围
+            // 箭矢的种类取决于你背包中第一个箭矢
+            // 双击'下'键后令箭雨倾斜在光标位置
+            // 此效果有15秒冷却时间
+            // 爆炸机关攻击速度更快且会造成涂油减益
+            // 点燃涂油的敌人以造成额外伤害
+            // '狩猎开始了'");
         }
 
         protected override Color nameColor => new Color(122, 192, 76);

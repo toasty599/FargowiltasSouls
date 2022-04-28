@@ -18,9 +18,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<StardustEnchant>()
         };
 
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
-            base.SetStaticDefaults();
+            base.SetDefaults();
             Tooltip.SetDefault(Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.CosmoForce", Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
             //             DisplayName.SetDefault("Force of Cosmos");
 
