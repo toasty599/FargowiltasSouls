@@ -12,6 +12,15 @@ Mods: {
 		ItemName: {
 			TerrariaSoul: 泰拉之魂
 			HentaiSpear: 洞察者
+			AdamantiteEnchant: 精金魔石
+			AncientCobaltEnchant: 远古钴魔石
+			AncientHallowEnchant: 远古神圣魔石
+			AncientShadowEnchant: 远古暗影魔石
+			AnglerEnchantment: 渔夫魔石
+			ApprenticeEnchant: 学徒魔石
+			BeeEnchant: 蜜蜂魔石
+			BeetleEnchant: 甲虫魔石
+			BorealWoodEnchant: 针叶木魔石
 		}
 
 		ItemTooltip: {
@@ -38,6 +47,65 @@ Mods: {
 				'拥有花靴和贪婪戒指效果'
 				'''
 			HentaiSpear: "\'屠戮众多的奖励...\'"
+			
+			AdamantiteEnchant: 
+				'''
+				每秒会随机使你的一个弹幕分裂成三个
+                		一气化三清！
+				'''
+			AncientCobaltEnchant: 
+				'''
+				你的弹幕有20%几率爆裂成毒刺
+				此效果在每秒内只会发生一次
+				古老的丛林赋予你力量
+				'''
+			AncientHallowEnchant:
+				'''
+				使你获得一面可以反弹弹幕的盾牌
+				召唤一柄附魔剑，附魔剑的伤害取决于你的召唤伤害
+				召唤一只魔法仙灵
+				愿人都尊你的剑与盾为圣
+				'''
+			AncientShadowEnchant:
+				'''
+				攻击有几率造成黑暗减益
+				身上带有黑暗减益的敌人有几率向其他敌人发射暗影焰触手
+				三颗暗影珠围绕着你旋转
+				'十分古老，却非常实用'
+				'''
+			AnglerEnchantment:
+				'''
+				增加渔力
+				你几乎能立刻就钓到鱼
+				拥有渔夫渔具袋效果
+				'只要不全是鞋子, 你就可以高高兴兴地回家'
+				'''
+			ApprenticeEnchant:
+				'''
+				持续攻击两秒后你将被火焰包裹
+				切换武器后使下次攻击的伤害增加50%
+				大幅增加爆炸烈焰哨兵的索敌范围和攻击距离
+				'追求完美的漫漫长路
+				'''
+			BeeEnchant:
+				'''
+				增加友好蜜蜂的力量
+				穿透类弹幕在击中敌人时会生成蜜蜂
+				'根据目前所知的所有航空原理, 蜜蜂应该根本不可能会飞
+				'''
+			BeetleEnchant:
+				'''
+				甲虫会保护你，减免下次受到的伤害，至多减免15%下次受到的伤害
+				延长25%飞行时间
+				'你的血管里流淌着看不见的粪便生命'
+				'''
+			BorealWoodEnchant:
+				'''
+				攻击时定期释放雪球
+				'冷木'
+				'''
+			
+		
 		}
 
 		NPCName: {
