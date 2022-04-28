@@ -794,6 +794,8 @@ namespace FargowiltasSouls.Projectiles
                 default:
                     break;
             }
+
+            firstTickAICheckDone = true;
         }
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
