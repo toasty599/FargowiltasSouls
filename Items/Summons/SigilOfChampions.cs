@@ -60,22 +60,25 @@ Not consumed on use");
             return true;
         }
 
+        private void PrintChampMessage(string key)
+        {
+            //using the raw name SigilOfChampions here because ChampionySigil runs this code too, can't use "Name"
+            Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.{key}"), new Color(175, 75, 255));
+        }
+
         public override bool? UseItem(Player player)
         {
-            Color color = new Color(175, 75, 255);
-
-            //using the raw name SigilOfChampions here because ChampionySigil runs this code too, can't use "Name"
             if (player.ZoneUndergroundDesert)
             {
                 if (player.altFunctionUse == 2)
-                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Spirit"), color);
+                    PrintChampMessage("Spirit");
                 else
                     NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<SpiritChampion>());
             }
             else if (player.ZoneUnderworldHeight)
             {
                 if (player.altFunctionUse == 2)
-                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Earth"), color);
+                    PrintChampMessage("Earth");
                 else
                     NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<EarthChampion>());
             }
@@ -84,14 +87,14 @@ Not consumed on use");
                 if (player.ZoneSnow)
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Nature"), color);
+                        PrintChampMessage("Nature");
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NatureChampion>());
                 }
                 else
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Terra"), color);
+                        PrintChampMessage("Terra");
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<TerraChampion>());
                 }
@@ -101,28 +104,28 @@ Not consumed on use");
                 if (player.ZoneSkyHeight)
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Cosmos"), color);
+                        PrintChampMessage("Cosmos");
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<CosmosChampion>());
                 }
                 else if (player.ZoneBeach)
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Will"), color);
+                        PrintChampMessage("Will");
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<WillChampion>());
                 }
                 else if (player.ZoneHallow && Main.dayTime)
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Life"), color);
+                        PrintChampMessage("Life");
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<LifeChampion>());
                 }
                 else if ((player.ZoneCorrupt || player.ZoneCrimson) && !Main.dayTime) //night
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Shadow"), color);
+                        PrintChampMessage("Shadow");
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<ShadowChampion>());
                 }
@@ -130,14 +133,14 @@ Not consumed on use");
                     && !player.ZoneDesert && !player.ZoneSnow && !player.ZoneJungle && Main.dayTime) //purity day
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Timber"), color);
+                        PrintChampMessage("Timber");
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<TimberChampion>());
                 }
                 else //nothing to summon
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.Nothing"), color);
+                        PrintChampMessage("Nothing");
                 }
             }
 
