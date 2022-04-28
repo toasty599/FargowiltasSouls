@@ -158,14 +158,30 @@ Mods: {
 			WizardEnchant: "Wizard Enchantment"
 			WoodEnchant: "Wood Enchantment"
 
-			// === Essences ==
+			// === Essences ===
 
 			ApprenticesEssence: "Apprentice's Essence"
 			BarbariansEssence: "Barbarian's Essence"
 			OccultistsEssence: "Occultist's Essence"
 			SharpshootersEssence: "Sharpshooter's Essence"
 
-			
+			// === Expert ===
+
+			UniverseCore: "Universe Core"
+
+			// === Forces ===
+
+			CosmoForce: "Force of Cosmos"
+			EarthForce: "Force of Earth"
+			LifeForce: "Force of Life"
+			NatureForce: "Force of Nature"
+			ShadowForce: "Shadow Force"
+			SpiritForce: "Force of Spirit"
+			TerraForce: "Terra Force"
+			TimberForce: "Force of Timber"
+			WillForce: "Force of Will"
+
+
 		}
 
 		ItemTooltip: {
@@ -332,9 +348,8 @@ Mods: {
 				Explosive Traps recharge faster and oil enemies
 				Set oiled enemies on fire for extra damage
 				'The Hunt is On'
-				'''
-			
-			Iron Enchantment:
+				'''			
+			IronEnchant:
 				'''
 				Right Click to guard with your shield
 				Guard just before being hit to negate damage
@@ -494,7 +509,7 @@ Mods: {
 				Greatly enhances Lightning Aura effectiveness
 				'Village Hidden in the Wall'
 				'''
-			Shroomite Enchantment:
+			ShroomiteEnchant:
 				'''
 				All attacks gain trails of mushrooms
 				Not moving puts you in stealth
@@ -609,7 +624,7 @@ Mods: {
 				You gain a shop discount based on bestiary completion
 				'''
 
-			// === Essences ==
+			// === Essences ===
 			
 			ApprenticesEssence:
 				'''
@@ -640,9 +655,49 @@ Mods: {
 				'This is only the beginning..'
 				'''
 			
+			// === Expert ===
+
+			UniverseCore:
+				'''
+				Crits deal 5x instead of 2x
+				All attacks inflict Flames of the Universe
+				'Bursting with ultra-high-energy cosmic rays'
+				'''
+
+			// === Forces ===
+
+
+
 		}
 
 		ItemExtra: {
+
+			// == Forces Tooltips ==
+
+			CosmoForce:
+				'''
+				[i:{0}] A meteor shower initiates every few seconds while attacking
+				[i:{1}] Solar shield allows you to dash through enemies
+				[i:{1}] Attacks may inflict the Solar Flare debuff
+				[i:{2}] Double tap down to toggle stealth and spawn a vortex
+				[i:{3}] Hurting enemies has a chance to spawn buff boosters
+				[i:{4}] A stardust guardian will protect you from nearby enemies
+				[i:{4}] Press the Freeze Key to freeze time for 5 seconds, 60 second cooldown
+				'Been around since the Big Bang'
+				'''
+			EarthForce: 
+				'''
+				[i:{0}] 25% chance for your projectiles to explode into shards
+				[i:{2}] 20% increased weapon use speed
+				[i:{1}] Greatly increases life regeneration after striking an enemy
+				[i:{1}] You spawn an orb of damaging life energy every 80 life regenerated
+				[i:{3}] Flower petals will cause extra damage to your target
+				[i:{3}] Damaging debuffs deal 5x damage
+				[i:{4}] Every other projectile you spawn will split into 3
+				[i:{5}] Attacking generates a defensive barrier of titanium shards
+				'Gaia's blessing shines upon you'" 
+				'''
+
 			EridanusArmorBonus:
 				'''
 				The blessing of Eridanus empowers your attacks
