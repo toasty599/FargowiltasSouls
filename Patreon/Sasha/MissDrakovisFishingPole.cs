@@ -207,7 +207,7 @@ namespace FargowiltasSouls.Patreon.Sasha
 
         private void ResetDamageType()
         {
-            Item.DamageType = DamageClass.NoScaling;
+            Item.DamageType = DamageClass.Generic;
             Item.mana = 0;
             Item.useAmmo = AmmoID.None;
         }

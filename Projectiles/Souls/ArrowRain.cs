@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             Projectile.height = 1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 250;
+            Projectile.timeLeft = 500;
         }
 
         public override bool? CanDamage()
@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
 
             //delay
-            if (Projectile.timeLeft > 220)
+            if (Projectile.timeLeft > 470)
             {
                 return;
             }
@@ -49,18 +49,23 @@ namespace FargowiltasSouls.Projectiles.Souls
                 Vector2 position = new Vector2(Projectile.Center.X + Main.rand.Next(-100, 100), Projectile.Center.Y + Main.rand.Next(-75, 75));
 
                 float direction = Projectile.ai[1];
-                Vector2 velocity;
+                //Vector2 velocity;
 
-                if (direction == 1)
-                {
-                    velocity = new Vector2(Main.rand.NextFloat(0, 2), Main.rand.NextFloat(20, 25));
-                }
-                else
-                {
-                    velocity = new Vector2(Main.rand.NextFloat(-2, 0), Main.rand.NextFloat(20, 25));
-                }
+                Vector2 mouse = Main.MouseWorld;
+                //Vector2 pos = new Vector2(mouse.X - player.direction * 100, mouse.Y - 800);
+                Vector2 velocity = Vector2.Normalize(mouse - Projectile.position) * 25;
 
-                int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), position, velocity, (int)Projectile.ai[0], Projectile.damage, 0, Projectile.owner);
+
+                //if (direction == 1)
+                //{
+                //    velocity = new Vector2(Main.rand.NextFloat(0, 2), Main.rand.NextFloat(20, 25));
+                //}
+                //else
+                //{
+                //    velocity = new Vector2(Main.rand.NextFloat(-2, 0), Main.rand.NextFloat(20, 25));
+                //}
+
+                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity, (int)Projectile.ai[0], Projectile.damage, 0, Projectile.owner);
                 Main.projectile[p].noDropItem = true;
 
                 launchArrow = false;

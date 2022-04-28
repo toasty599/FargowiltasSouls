@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 2 * i),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 2 * i),
                             ModContent.ProjectileType<SparklingLoveDeathray>(), Projectile.damage, Projectile.knockBack, Projectile.owner,
                             (float)Math.PI / 2 * 1.0717f * Projectile.direction, Projectile.identity);
                     }
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             for (int i = 0; i < 8; i++)
             {
                 Vector2 vel = 14f * Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 4 * (i + 0.5));
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<SparklingLoveHeart>(), Projectile.damage, Projectile.knockBack, Projectile.owner, -1, 45);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<SparklingLoveHeart>(), Projectile.damage, Projectile.knockBack, Projectile.owner, -1, 45);
                 FargoSoulsUtil.HeartDust(spawnPos, vel.ToRotation(), vel);
             }
 

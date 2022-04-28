@@ -21,6 +21,13 @@ namespace FargowiltasSouls.Buffs
             }
         }
 
+        public static int[] DebuffsToLetDecreaseNormally => new int[] {
+            BuffID.Stoned,
+            BuffID.Cursed,
+            ModContent.BuffType<Fused>(),
+            ModContent.BuffType<Stunned>()
+        };
+
         public override void Update(int type, Player player, ref int buffIndex)
         {
             switch (type)
@@ -58,14 +65,20 @@ namespace FargowiltasSouls.Buffs
                 case BuffID.ThornWhipPlayerBuff:
                     if (FargoSoulsWorld.EternityMode)
                     {
-                        if (player.GetModPlayer<FargoSoulsPlayer>().HasWhipBuff)
+                        if (player.GetModPlayer<EModePlayer>().HasWhipBuff)
                             player.buffTime[buffIndex] = Math.Min(player.buffTime[buffIndex], 1);
-                        player.GetModPlayer<FargoSoulsPlayer>().HasWhipBuff = true;
+                        player.GetModPlayer<EModePlayer>().HasWhipBuff = true;
                     }
                     break;
 
                 default:
                     break;
+            }
+
+            if (FargoSoulsWorld.EternityMode && player.buffTime[buffIndex] > 2 && Main.debuff[type] && !Main.buffNoTimeDisplay[type] && !BuffID.Sets.NurseCannotRemoveDebuff[type]
+                && player.GetModPlayer<EModePlayer>().ShorterDebuffsTimer <= 0)
+            {
+                player.buffTime[buffIndex] -= 1;
             }
 
             base.Update(type, player, ref buffIndex);
@@ -92,7 +105,7 @@ namespace FargowiltasSouls.Buffs
                             if (target.active && !target.friendly && Vector2.Distance(npc.Center, target.Center) < 250)
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
-                                Projectile.NewProjectile(npc.GetSpawnSourceForProjectileNPC(), npc.Center, velocity, ProjectileID.ShadowFlame, 40 +FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_Buff(buffIndex), npc.Center, velocity, ProjectileID.ShadowFlame, 40 +FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
                                 if (Main.rand.NextBool(3))
                                     break;
                             }

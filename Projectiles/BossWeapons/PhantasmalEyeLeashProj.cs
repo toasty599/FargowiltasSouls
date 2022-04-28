@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.timeLeft = 0;
             if (Projectile.owner == Main.myPlayer)
             {
-                int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
+                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
                     Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
             }
         }

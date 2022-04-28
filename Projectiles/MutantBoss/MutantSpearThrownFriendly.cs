@@ -7,7 +7,7 @@
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.DamageType = Terraria.ModLoader.DamageClass.NoScaling;
+            Projectile.DamageType = Terraria.ModLoader.DamageClass.Default;
         }
     }
 }

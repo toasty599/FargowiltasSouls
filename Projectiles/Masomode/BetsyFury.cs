@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BetsyElectrosphere>(), 
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BetsyElectrosphere>(), 
                     Projectile.damage, 0f, Main.myPlayer, spawn.X, spawn.Y);
             }
             

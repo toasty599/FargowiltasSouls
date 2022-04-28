@@ -29,7 +29,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             for (int i = 0; i < 9; i++)
             {
-                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.Zombie, velocity: Main.rand.NextVector2Circular(8, 8));
+                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.Zombie, velocity: Main.rand.NextVector2Circular(8, 8));
             }
         }
 
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                 return false;
             }
 
-            //if (JumpTimer == 150 && Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+            //if (JumpTimer == 150 && Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
 
             if (npc.ai[1] > 0f) //while jumping
             {
@@ -119,7 +119,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                         for (int i = 0; i <= 3; i++)
                         {
                             Vector2 vel = 16f * j * Vector2.UnitX.RotatedBy(MathHelper.PiOver4 / 3 * i * -j);
-                            int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ProjectileID.SharpTears, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(0.5f, 1f));
+                            int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.SharpTears, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(0.5f, 1f));
                             if (p != Main.maxProjectiles)
                             {
                                 Main.projectile[p].hostile = true;

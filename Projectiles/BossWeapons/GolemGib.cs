@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (Projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GibExplosion>(),
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GibExplosion>(),
                     Projectile.damage, Projectile.knockBack * 2f, Projectile.owner);
             return true;
         }
@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
             if (Projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GibExplosion>(),
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GibExplosion>(),
                     Projectile.damage, Projectile.knockBack * 2f, Projectile.owner);
         }
 

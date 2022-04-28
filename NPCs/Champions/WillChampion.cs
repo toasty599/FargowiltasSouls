@@ -190,7 +190,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     for (int i = 0; i < max; i++)
                                     {
                                         float rotation = offset + (float)Math.PI * 2 / max * i;
-                                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), player.Center + 450 * Vector2.UnitX.RotatedBy(rotation), Vector2.Zero,
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center + 450 * Vector2.UnitX.RotatedBy(rotation), Vector2.Zero,
                                             ModContent.ProjectileType<WillJavelin3>(), NPC.defDamage / 4, 0f, Main.myPlayer, 0f, rotation + (float)Math.PI);
                                     }
                                 }
@@ -213,12 +213,12 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<WillShell>(), 0, 0f, Main.myPlayer, 0f, NPC.whoAmI);
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, NPC.DirectionTo(player.Center) * 12f, ModContent.ProjectileType<WillBomb>(), NPC.defDamage / 4, 0f, Main.myPlayer, 12f / 40f, NPC.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<WillShell>(), 0, 0f, Main.myPlayer, 0f, NPC.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, NPC.DirectionTo(player.Center) * 12f, ModContent.ProjectileType<WillBomb>(), NPC.defDamage / 4, 0f, Main.myPlayer, 12f / 40f, NPC.whoAmI);
                             }
                             
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -6);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -6);
                         }
                         else if (NPC.ai[1] > 480)
                         {
@@ -242,7 +242,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             Vector2 speed = new Vector2(Main.rand.NextFloat(-20f, 20f), Main.rand.NextFloat(-20f, 20f));
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<WillJavelin2>(), NPC.defDamage / 4, 0f, Main.myPlayer, targetPos.X, targetPos.Y);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<WillJavelin2>(), NPC.defDamage / 4, 0f, Main.myPlayer, targetPos.X, targetPos.Y);
                             }
                             if (NPC.ai[2] < threshold)
                                 NPC.localAI[0] += gap;
@@ -264,7 +264,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Vector2 speed = new Vector2(Main.rand.NextFloat(-20f, 20f), Main.rand.NextFloat(-20f, 20f));
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<WillJavelin2>(), NPC.defDamage / 4, 0f, Main.myPlayer, targetPos.X, targetPos.Y);
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<WillJavelin2>(), NPC.defDamage / 4, 0f, Main.myPlayer, targetPos.X, targetPos.Y);
                                 }
                                 NPC.localAI[0] += gap;
                             }
@@ -289,8 +289,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<WillShell>(), 0, 0f, Main.myPlayer, 0f, NPC.whoAmI);
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.UnitY * -12f, ModContent.ProjectileType<WillBomb>(), NPC.defDamage / 4, 0f, Main.myPlayer, 0f, NPC.whoAmI);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<WillShell>(), 0, 0f, Main.myPlayer, 0f, NPC.whoAmI);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -12f, ModContent.ProjectileType<WillBomb>(), NPC.defDamage / 4, 0f, Main.myPlayer, 0f, NPC.whoAmI);
                             }
 
                             const int num226 = 80;
@@ -425,9 +425,9 @@ namespace FargowiltasSouls.NPCs.Champions
                         NPC.localAI[0] = 2;
                         if (Main.netMode != NetmodeID.MultiplayerClient && NPC.localAI[3] == 1)
                         {
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, 1.5f * Vector2.Normalize(NPC.velocity).RotatedBy(Math.PI / 2), 
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 1.5f * Vector2.Normalize(NPC.velocity).RotatedBy(Math.PI / 2), 
                                 ModContent.ProjectileType<WillFireball2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, 1.5f * Vector2.Normalize(NPC.velocity).RotatedBy(-Math.PI / 2),
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 1.5f * Vector2.Normalize(NPC.velocity).RotatedBy(-Math.PI / 2),
                                 ModContent.ProjectileType<WillFireball2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         }
                     }
@@ -454,7 +454,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, NPC.DirectionTo(player.Center) * 12f, ModContent.ProjectileType<WillBomb>(), NPC.defDamage / 4, 0f, Main.myPlayer, 12f / 40f, NPC.whoAmI);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, NPC.DirectionTo(player.Center) * 12f, ModContent.ProjectileType<WillBomb>(), NPC.defDamage / 4, 0f, Main.myPlayer, 12f / 40f, NPC.whoAmI);
                         }
                     }
                     else if (NPC.ai[1] > 120)
@@ -526,7 +526,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                         float speed = Main.rand.NextFloat(240, 720) / time * 2f;
                                         Vector2 velocity = speed * NPC.DirectionFrom(player.Center).RotatedByRandom(MathHelper.PiOver2);
                                         float ai1 = speed / time;
-                                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, velocity, ModContent.ProjectileType<WillJavelin>(), NPC.defDamage / 4, 0f, Main.myPlayer, 0f, ai1);
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, velocity, ModContent.ProjectileType<WillJavelin>(), NPC.defDamage / 4, 0f, Main.myPlayer, 0f, ai1);
                                     }
                                 }
                             }
@@ -610,7 +610,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     type = ModContent.ProjectileType<WillFireball>();
                                     projVel *= 2.5f;
                                 }
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawn, projVel, type, NPC.defDamage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), spawn, projVel, type, NPC.defDamage / 4, 0f, Main.myPlayer);
                             }
                         }
 
@@ -620,7 +620,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             if (NPC.localAI[2] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(player.Center.X, Math.Max(600f, player.Center.Y - 2000f)), Vector2.UnitY, ModContent.ProjectileType<WillDeathraySmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3), 0f, Main.myPlayer, player.Center.X, NPC.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(player.Center.X, Math.Max(600f, player.Center.Y - 2000f)), Vector2.UnitY, ModContent.ProjectileType<WillDeathraySmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3), 0f, Main.myPlayer, player.Center.X, NPC.whoAmI);
                             }
                         }
 
@@ -716,7 +716,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 {
                     Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
                     if (!Main.dedServ)
-                        Gore.NewGore(pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"WillGore{i}").Type, NPC.scale);
+                        Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"WillGore{i}").Type, NPC.scale);
                 }
             }
         }

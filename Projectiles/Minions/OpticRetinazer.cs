@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         Projectile.localAI[0] = 0;
                         if (Projectile.owner == Main.myPlayer)
                         {
-                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center,
+                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
                                 Projectile.DirectionTo(target) * 12, ModContent.ProjectileType<OpticLaser>(),
                                 Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
                             Projectile.ai[1] = Main.rand.NextFloat(10, 30);

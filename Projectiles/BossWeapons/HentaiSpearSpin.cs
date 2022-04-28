@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     Vector2 speed = -Vector2.UnitY.RotatedByRandom(Math.PI / 2) * Main.rand.NextFloat(9f, 12f);
                     float ai1 = Main.rand.Next(30, 60);
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.position + Main.rand.NextVector2Square(0f, Projectile.width),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position + Main.rand.NextVector2Square(0f, Projectile.width),
                         speed, ModContent.ProjectileType<PhantasmalEyeHoming>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, -1, ai1);
                 }
             }
@@ -100,8 +100,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     if (Projectile.owner == Main.myPlayer)
                     {
                         //Vector2 offset = Main.projectile[i].Center - Main.player[Projectile.owner].Center;
-                        //Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<Souls.IronParry>(), 0, 0f, Main.myPlayer, offset.X, offset.Y);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Main.projectile[i].Center, Vector2.Zero, ModContent.ProjectileType<Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                        //Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<Souls.IronParry>(), 0, 0f, Main.myPlayer, offset.X, offset.Y);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Main.projectile[i].Center, Vector2.Zero, ModContent.ProjectileType<Souls.IronParry>(), 0, 0f, Main.myPlayer);
                     }
 
                     Main.projectile[i].hostile = false;
@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
                     Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);

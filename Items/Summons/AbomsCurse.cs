@@ -41,9 +41,7 @@ namespace FargowiltasSouls.Items.Summons
             if (abom > -1 && Main.npc[abom].active)
             {
                 Main.npc[abom].Transform(ModContent.NPCType<AbomBoss>());
-                // TODO: Localization.
-                string message = "Abominationn has awoken!";
-                FargoSoulsUtil.PrintText(message, new Color(175, 75, 255));
+                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}", new Color(175, 75, 255));
             }
             else
                 NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<AbomBoss>());

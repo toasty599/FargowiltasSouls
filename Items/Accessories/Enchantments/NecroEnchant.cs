@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             if (player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 5)
             {
-                Projectile.NewProjectile(player.GetProjectileSource_Misc(0), npc.Center, new Vector2(0, -3), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, npc.lifeMax / 3);
+                Projectile.NewProjectile(player.GetSource_Misc(""), npc.Center, new Vector2(0, -3), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, npc.lifeMax / 3);
 
                 //if (modPlayer.ShadowForce || modPlayer.WizardEnchantActive)
                 //{
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             {
                 globalNPC.NecroDamage = 0;
 
-                Projectile.NewProjectile(player.GetProjectileSource_Misc(0), npc.Center, new Vector2(0, -3), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, npc.lifeMax / 25);
+                Projectile.NewProjectile(player.GetSource_Misc(""), npc.Center, new Vector2(0, -3), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, npc.lifeMax / 25);
             }
         }
 

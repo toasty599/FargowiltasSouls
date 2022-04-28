@@ -112,22 +112,22 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         if (Projectile.localAI[1] == 1 && Projectile.ai[1] == 1) //super dash rays on spawn, 1 tick delay
                         {
                             Vector2 speed = Projectile.ai[0].ToRotationVector2();
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center + speed * 1500, speed, ModContent.ProjectileType<HentaiSpearDeathray2>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center + speed * 1500, -speed, ModContent.ProjectileType<HentaiSpearDeathray2>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center + speed * 1500, speed, ModContent.ProjectileType<HentaiSpearDeathray2>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center + speed * 1500, -speed, ModContent.ProjectileType<HentaiSpearDeathray2>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                         }
 
                         if (Projectile.localAI[1] > 0) //edge case, dont do this on the tick it spawns
                         {
                             if (Projectile.ai[1] == 0) //regular dash trail
                             {
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center.X, player.Center.Y, 0, 0, ModContent.ProjectileType<PhantasmalSphere>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.Center.Y, 0, 0, ModContent.ProjectileType<PhantasmalSphere>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             }
                             else if (Projectile.ai[1] == 1) //super dash trail
                             {
                                 Vector2 baseVel = Projectile.ai[0].ToRotationVector2().RotatedBy(Math.PI / 2);
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, 16f * baseVel,
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, 16f * baseVel,
                                     ModContent.ProjectileType<PhantasmalSphere>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, 1f);
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, 16f * -baseVel,
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, 16f * -baseVel,
                                     ModContent.ProjectileType<PhantasmalSphere>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, 1f);
                             }
                         }
@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Vector2 spawnPos = player.Center;
                 spawnPos.Y -= 144 * 1.5f;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<HentaiNuke>(), Projectile.damage, Projectile.knockBack * 10f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<HentaiNuke>(), Projectile.damage, Projectile.knockBack * 10f, Projectile.owner);
             }
         }
 

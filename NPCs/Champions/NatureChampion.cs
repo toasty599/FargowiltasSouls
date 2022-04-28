@@ -144,7 +144,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, -3f, NPC.target);
+                    int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, -3f, NPC.target);
                     if (n != Main.maxNPCs)
                     {
                         heads[0] = n;
@@ -153,7 +153,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
-                    n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, -2f, NPC.target);
+                    n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, -2f, NPC.target);
                     if (n != Main.maxNPCs)
                     {
                         heads[1] = n;
@@ -162,7 +162,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
-                    n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, -1f, NPC.target);
+                    n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, -1f, NPC.target);
                     if (n != Main.maxNPCs)
                     {
                         heads[2] = n;
@@ -171,7 +171,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
-                    n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, 1f, NPC.target);
+                    n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, 1f, NPC.target);
                     if (n != Main.maxNPCs)
                     {
                         heads[3] = n;
@@ -180,7 +180,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
-                    n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, 2f, NPC.target);
+                    n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, 2f, NPC.target);
                     if (n != Main.maxNPCs)
                     {
                         heads[4] = n;
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
-                    n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, 3f, NPC.target);
+                    n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, 3f, NPC.target);
                     if (n != Main.maxNPCs)
                     {
                         heads[5] = n;
@@ -349,7 +349,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 float scaleFactor9 = 0.5f;
                                 for (int j = 0; j < 4; j++)
                                 {
-                                    int gore = Gore.NewGore(dustPos, default(Vector2), Main.rand.Next(61, 64));
+                                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default(Vector2), Main.rand.Next(61, 64));
                                     Main.gore[gore].velocity *= scaleFactor9;
                                     Main.gore[gore].velocity.X += 1f;
                                     Main.gore[gore].velocity.Y += 1f;
@@ -412,7 +412,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                         }
 
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
+                                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
                                     }
                                 }
 
@@ -480,7 +480,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             }
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, targetHead, glowType);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, targetHead, glowType);
                         };
 
                         NPC.ai[2] = 1;
@@ -568,7 +568,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             }
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
                         }
                     }
 
@@ -690,7 +690,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 {
                     Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
                     if (!Main.dedServ)
-                        Gore.NewGore(pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"NatureGore{i}").Type, NPC.scale);
+                        Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"NatureGore{i}").Type, NPC.scale);
                 }
                 
                 for (int i = 0; i < Main.maxNPCs; i++) //find neck segments, place gores there
@@ -721,14 +721,14 @@ namespace FargowiltasSouls.NPCs.Champions
                             spawnNeck = !spawnNeck;
                             if (spawnNeck)
                                 if (!Main.dedServ)
-                                    Gore.NewGore(lightPos, Main.npc[i].velocity, ModContent.Find<ModGore>(Mod.Name, "NatureGore7").Type, Main.npc[i].scale);
+                                    Gore.NewGore(NPC.GetSource_FromThis(), lightPos, Main.npc[i].velocity, ModContent.Find<ModGore>(Mod.Name, "NatureGore7").Type, Main.npc[i].scale);
                         }
 
                         for (int j = 8; j <= 10; j++) //head gores
                         {
                             Vector2 pos = Main.npc[i].position + new Vector2(Main.rand.NextFloat(Main.npc[i].width), Main.rand.NextFloat(Main.npc[i].height));
                             if (!Main.dedServ)
-                                Gore.NewGore(pos, Main.npc[i].velocity, ModContent.Find<ModGore>(Mod.Name, $"NatureGore{j}").Type, Main.npc[i].scale);
+                                Gore.NewGore(NPC.GetSource_FromThis(), pos, Main.npc[i].velocity, ModContent.Find<ModGore>(Mod.Name, $"NatureGore{j}").Type, Main.npc[i].scale);
                         }
                     }
                 }

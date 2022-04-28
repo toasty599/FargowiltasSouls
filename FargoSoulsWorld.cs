@@ -215,7 +215,7 @@ namespace FargowiltasSouls
                 if (EternityMode && !FargoSoulsUtil.WorldIsExpertOrHarder())
                 {
                     EternityMode = false;
-                    FargoSoulsUtil.PrintText("Difficulty too low, Eternity Mode deactivated...", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintText($"Mods.{Mod.Name}.Message.{Name}.EternityWrongDifficulty", new Color(175, 75, 255));
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
                     if (!Main.dedServ)
@@ -224,7 +224,7 @@ namespace FargowiltasSouls
                 else if (!EternityMode && FargoSoulsUtil.WorldIsExpertOrHarder())
                 {
                     EternityMode = true;
-                    FargoSoulsUtil.PrintText("Eternity Mode activated!", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintText($"Mods.{Mod.Name}.Message.{Name}.EternityOn", new Color(175, 75, 255));
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
                     if (!Main.dedServ)
@@ -234,7 +234,7 @@ namespace FargowiltasSouls
             else if (EternityMode)
             {
                 EternityMode = false;
-                FargoSoulsUtil.PrintText("Eternity Mode deactivated.", new Color(175, 75, 255));
+                FargoSoulsUtil.PrintText($"Mods.{Mod.Name}.Message.{Name}.EternityOff", new Color(175, 75, 255));
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
                 if (!Main.dedServ)
@@ -256,7 +256,7 @@ namespace FargowiltasSouls
                         Sandstorm.Happening = false;
                         Sandstorm.TimeLeft = 0;
                         if (Main.bloodMoon)
-                            FargoSoulsUtil.PrintText("The Blood Moon changed its mind and left...", new Color(175, 75, 255));
+                            FargoSoulsUtil.PrintText($"Mods.{Mod.Name}.Message.{Name}.BloodMoonCancel", new Color(175, 75, 255));
                         Main.bloodMoon = false;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.WorldData);
@@ -266,7 +266,7 @@ namespace FargowiltasSouls
                 if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso && !FargoSoulsUtil.AnyBossAlive())
                 {
                     MasochistModeReal = true;
-                    FargoSoulsUtil.PrintText("Master and Eternity combined: Masochist Mode activated!!", new Color(51, 255, 191, 0));
+                    FargoSoulsUtil.PrintText($"Mods.{Mod.Name}.Message.{Name}.MasochistOn", new Color(51, 255, 191, 0));
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
                     if (!Main.dedServ)
@@ -277,7 +277,7 @@ namespace FargowiltasSouls
             if (MasochistModeReal && !(EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso))
             {
                 MasochistModeReal = false;
-                FargoSoulsUtil.PrintText("Masochist Mode deactivated.", new Color(51, 255, 191, 0));
+                FargoSoulsUtil.PrintText($"Mods.{Mod.Name}.Message.{Name}.MasochistOff", new Color(51, 255, 191, 0));
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
                 if (!Main.dedServ)

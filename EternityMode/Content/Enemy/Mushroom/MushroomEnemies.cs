@@ -38,13 +38,13 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Mushroom
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(), npc.Center, NPCID.FungiSpore,
+                        FargoSoulsUtil.NewNPCEasy(npc.GetSource_Death(), npc.Center, NPCID.FungiSpore,
                             velocity: 0.5f * new Vector2(Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5)));
                     }
                 }
                 else if (npc.type != NPCID.SporeBat)
                 {
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(), npc.Center, NPCID.SporeBat,
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_Death(), npc.Center, NPCID.SporeBat,
                         velocity: 0.5f * new Vector2(Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5)));
                 }
             }

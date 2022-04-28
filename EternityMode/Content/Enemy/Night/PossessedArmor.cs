@@ -32,7 +32,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
             base.OnKill(npc);
 
             if (Main.rand.NextBool())
-                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.Ghost);
+                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.Ghost);
         }
     }
 }

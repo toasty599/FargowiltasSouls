@@ -49,13 +49,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
             Projectile.scale *= 2.5f;
 
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<MutantMark2>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<MutantMark2>());
+            if (byIdentity != -1)
             {
                 Vector2 offset = new Vector2(100, 0).RotatedBy(Projectile.ai[1]);
-                Projectile.Center = Main.projectile[byUUID].Center + offset;
+                Projectile.Center = Main.projectile[byIdentity].Center + offset;
 
-                Projectile.localAI[1] = Math.Max(0, 150 - Main.projectile[byUUID].ai[1]) / 150; //rampup
+                Projectile.localAI[1] = Math.Max(0, 150 - Main.projectile[byIdentity].ai[1]) / 150; //rampup
                 Projectile.ai[1] += 0.15f * Projectile.localAI[1];
 
                 if (Projectile.localAI[1] > 1f) //clamp it for use in draw

@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             Projectile.CloneDefaults(ProjectileID.SpikyBallTrap);
             AIType = ProjectileID.SpikyBallTrap;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
             Projectile.hostile = true;
             Projectile.friendly = false;
             Projectile.trap = false;

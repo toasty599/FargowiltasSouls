@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int p = Projectile.NewProjectile(player.GetProjectileSource_Item(source.Item), player.Center, velocity, type, damage, knockback, player.whoAmI);
+            int p = Projectile.NewProjectile(player.GetSource_ItemUse(source.Item), player.Center, velocity, type, damage, knockback, player.whoAmI);
 
             float spread = MathHelper.Pi / 8;
 

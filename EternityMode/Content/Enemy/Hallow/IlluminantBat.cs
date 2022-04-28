@@ -57,7 +57,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
                 if (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < 1000
                     && Main.netMode != NetmodeID.MultiplayerClient && NPC.CountNPCS(NPCID.IlluminantBat) < 10)
                 {
-                    int bat = FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, npc.type,
+                    int bat = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, npc.type,
                         velocity: new Vector2(Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5)));
                     if (bat != Main.maxNPCs)
                         Main.npc[bat].GetEModeNPCMod<IlluminantBat>().IsFakeBat = true;

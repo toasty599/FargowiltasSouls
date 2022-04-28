@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
 
             if (Projectile.damage == 0)
-                Projectile.damage = (int)(60f * player.GetDamage(DamageClass.Summon));
+                Projectile.damage = (int)(60f * player.GetDamage(DamageClass.Summon).Additive);
 
             //lighting effect?
             DelegateMethods.v3_1 = new Vector3(0.5f, 0.9f, 1f) * 1.5f;
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 {
                                     Vector2 spawnPos = Projectile.Center - Vector2.UnitY * 6f + new Vector2(distance, 0f).RotatedBy(rotation * i);
                                     if (Projectile.owner == Main.myPlayer)
-                                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphereTrueEye>(),
+                                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphereTrueEye>(),
                                             Projectile.originalDamage / 3 * 11, 10f, Projectile.owner, Projectile.whoAmI, i);
                                 }
                             }

@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Items
                 // If this item is exclusive to e-mode, give it a custom item "rarity" (not an actual rarity, wait for 1.4).
                 // This is often overridden.
                 if (Eternity)
-                    itemNameLine.overrideColor = FargowiltasSouls.EModeColor();
+                    itemNameLine.OverrideColor = FargowiltasSouls.EModeColor();
 
                 // Call the artcle-prefix adjustment method.
                 // This automatically handles fixing item names that begin with an article.

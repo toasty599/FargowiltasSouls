@@ -67,7 +67,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                     speed.Normalize();
                     speed *= 3f;
                     speed += npc.velocity * 2f;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.Skull, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer, -1f, 0);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ProjectileID.Skull, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer, -1f, 0);
                 }
             }
             if (++Counter2 > 6)
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                 speed += npc.velocity * 1.25f;
                 speed.Y -= Math.Abs(speed.X) * 0.2f;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<SkeletronBone>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<SkeletronBone>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }*/
 
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && npc.Hitbox.Intersects(Main.LocalPlayer.Hitbox))
@@ -139,9 +139,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.player[npc.target].Center, Vector2.UnitY,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center, Vector2.UnitY,
                                 ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.player[npc.target].Center, -Vector2.UnitY,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center, -Vector2.UnitY,
                                 ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
                     }
 
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                     spawnPos.Y -= Main.rand.NextFloat(700, 800);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, Vector2.UnitY * Main.rand.NextFloat(10f, 20f),
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.UnitY * Main.rand.NextFloat(10f, 20f),
                             ModContent.ProjectileType<SkeletronBone>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                     }
                 }
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(Math.PI / 3 * i),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(Math.PI / 3 * i),
                                 ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
                         }
                     }
@@ -197,7 +197,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                         speed *= 3f;
                         for (int i = 0; i < 6; i++)
                         {
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed.RotatedBy(Math.PI / 3 * i),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed.RotatedBy(Math.PI / 3 * i),
                                 ProjectileID.Skull, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0, Main.myPlayer, -1f, 0);
                         }
                     }
@@ -215,11 +215,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.player[npc.target].Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i),
                                 ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.player[npc.target].Center + 160 * Vector2.UnitY.RotatedBy(Math.PI / 2 * i), Vector2.UnitX.RotatedBy(Math.PI / 2 * i),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + 160 * Vector2.UnitY.RotatedBy(Math.PI / 2 * i), Vector2.UnitX.RotatedBy(Math.PI / 2 * i),
                                 ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.player[npc.target].Center + -160 * Vector2.UnitY.RotatedBy(Math.PI / 2 * i), Vector2.UnitX.RotatedBy(Math.PI / 2 * i),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + -160 * Vector2.UnitY.RotatedBy(Math.PI / 2 * i), Vector2.UnitX.RotatedBy(Math.PI / 2 * i),
                                 ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
                         }
                     }
@@ -246,7 +246,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                                 Vector2 vel = -18 * Vector2.UnitX;
                                 spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * i);
                                 vel = vel.RotatedBy(Math.PI / 2 * i);
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, vel, ModContent.ProjectileType<Projectiles.Champions.ShadowGuardian>(),
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<Projectiles.Champions.ShadowGuardian>(),
                                     FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                             }
                         }
@@ -261,7 +261,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.player[npc.target].Center, Vector2.UnitX.RotatedBy(Math.PI / 8 * i),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center, Vector2.UnitX.RotatedBy(Math.PI / 8 * i),
                                 ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
                         }
                     }
@@ -280,7 +280,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                         Vector2 baseOffset = npc.DirectionTo(Main.player[npc.target].Center);
                         for (int i = 0; i < max; i++)
                         {
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.player[npc.target].Center + 1000 * baseOffset.RotatedBy(2 * Math.PI / max * i),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + 1000 * baseOffset.RotatedBy(2 * Math.PI / max * i),
                                 -10f * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<Projectiles.DeviBoss.DeviGuardian>(),
                                 FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                         }
@@ -293,18 +293,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.UnitY,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.UnitY,
                             ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + -200 * Vector2.UnitX, Vector2.UnitY,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + -200 * Vector2.UnitX, Vector2.UnitY,
                             ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + 200 * Vector2.UnitX, Vector2.UnitY,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + 200 * Vector2.UnitX, Vector2.UnitY,
                             ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
 
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -Vector2.UnitY,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, -Vector2.UnitY,
                             ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + -200 * Vector2.UnitX, -Vector2.UnitY,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + -200 * Vector2.UnitX, -Vector2.UnitY,
                             ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + 200 * Vector2.UnitX, -Vector2.UnitY,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + 200 * Vector2.UnitX, -Vector2.UnitY,
                             ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
                     }
 
@@ -323,7 +323,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                     speed += npc.velocity * 1.25f;
                     speed.Y -= Math.Abs(speed.X) * 0.2f;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<SkeletronBone>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<SkeletronBone>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                 }
             }
             else if (AITimer < 820) //fuck everywhere except where you're standing
@@ -346,7 +346,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
                                         ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
                                 }
                             }
@@ -374,7 +374,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
                                         ModContent.ProjectileType<Projectiles.Champions.ShadowGuardian>(),
                                         FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                                 }

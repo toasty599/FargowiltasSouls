@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (Projectile.owner == Main.myPlayer)
                 {
                     int proj2 = ModContent.ProjectileType<DicerMine>();
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, proj2, Projectile.damage, 0, Main.myPlayer);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, proj2, Projectile.damage, 0, Main.myPlayer);
                 }
             }
         }

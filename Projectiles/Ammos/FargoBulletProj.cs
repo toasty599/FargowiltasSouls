@@ -193,7 +193,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
             {
                 float num492 = -Projectile.velocity.X * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
                 float num493 = -Projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.position.X + num492, Projectile.position.Y + num493, num492, num493, ProjectileID.CrystalShard, Projectile.damage, 0f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + num492, Projectile.position.Y + num493, num492, num493, ProjectileID.CrystalShard, Projectile.damage, 0f, Projectile.owner);
             }
 
             //explosion
@@ -208,7 +208,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
                 Main.dust[dust].velocity *= 2f;
             }
 
-            int gore = Gore.NewGore(new Vector2(Projectile.position.X - 10f, Projectile.position.Y - 10f), default(Vector2), Main.rand.Next(61, 64));
+            int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.position.X - 10f, Projectile.position.Y - 10f), default(Vector2), Main.rand.Next(61, 64));
             Main.gore[gore].velocity *= 0.3f;
             Gore gore1 = Main.gore[gore];
             gore1.velocity.X = gore1.velocity.X + Main.rand.Next(-10, 11) * 0.05f;
@@ -267,7 +267,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
             for (int i = 0; i < 5; i++)
             {
                 int rand = Main.rand.Next(276, 283);
-                int gore = Gore.NewGore(Projectile.position, -Projectile.velocity * 0.3f, rand);
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, -Projectile.velocity * 0.3f, rand);
                 Gore gore1 = Main.gore[gore];
                 gore1.velocity.X = gore1.velocity.X + Main.rand.Next(-50, 51) * 0.01f;
                 Gore gore2 = Main.gore[gore];

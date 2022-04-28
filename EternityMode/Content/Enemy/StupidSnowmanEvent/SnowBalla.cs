@@ -39,7 +39,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.StupidSnowmanEvent
                 {
                     int Damage = 35;
                     int Type = 109;
-                    int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), vector2.X, vector2.Y, SpeedX, SpeedY, Type, Damage, 0f, Main.myPlayer);
+                    int p = Projectile.NewProjectile(npc.GetSource_FromThis(), vector2.X, vector2.Y, SpeedX, SpeedY, Type, Damage, 0f, Main.myPlayer);
                     Main.projectile[p].ai[0] = 2f;
                     Main.projectile[p].timeLeft = 300;
                     Main.projectile[p].friendly = false;

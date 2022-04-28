@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.RedRidingEffect(hideVisual);
-            modPlayer.HuntressEffect();
+            HuntressEnchant.HuntressEffect(player);
         }
 
         public override void AddRecipes()

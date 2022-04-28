@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             Projectile.CloneDefaults(ProjectileID.VenomArrow);
             AIType = ProjectileID.VenomArrow;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
             Projectile.friendly = false;
             Projectile.arrow = false;
             Projectile.hostile = true;

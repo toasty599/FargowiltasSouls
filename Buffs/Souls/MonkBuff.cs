@@ -111,11 +111,11 @@ namespace FargowiltasSouls.Buffs.Souls
                 Main.dust[num18].scale *= 1f + (float)Main.rand.Next(20) * 0.01f;
                 //Main.dust[num18].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, this);
             }
-            int num19 = Gore.NewGore(new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 34f), default(Vector2), Main.rand.Next(61, 64), 1f);
+            int num19 = Gore.NewGore(player.GetSource_FromThis(), new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 34f), default(Vector2), Main.rand.Next(61, 64), 1f);
             Main.gore[num19].velocity.X = (float)Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[num19].velocity.Y = (float)Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[num19].velocity *= 0.4f;
-            num19 = Gore.NewGore(new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 14f), default(Vector2), Main.rand.Next(61, 64), 1f);
+            num19 = Gore.NewGore(player.GetSource_FromThis(), new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 14f), default(Vector2), Main.rand.Next(61, 64), 1f);
             Main.gore[num19].velocity.X = (float)Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[num19].velocity.Y = (float)Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[num19].velocity *= 0.4f;

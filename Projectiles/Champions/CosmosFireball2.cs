@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 int p = Player.FindClosest(Projectile.Center, 0, 0);
                 if (p != -1)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 12f * Projectile.DirectionTo(Main.player[p].Center),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 12f * Projectile.DirectionTo(Main.player[p].Center),
                         ProjectileID.CultistBossFireBall, Projectile.damage, 0f, Main.myPlayer);
                 }
             }

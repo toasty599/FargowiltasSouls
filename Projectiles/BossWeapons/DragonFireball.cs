@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void Kill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<DragonFireballBoom>(), 0, 0, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<DragonFireballBoom>(), 0, 0, Main.myPlayer);
             Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_BetsysWrathImpact, Projectile.Center);
 
             for (int i = 0; i < 30; i++)
@@ -96,7 +96,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             float scaleFactor9 = 0.5f;
             for (int j = 0; j < 4; j++)
             {
-                int gore = Gore.NewGore(new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
                     default(Vector2),
                     Main.rand.Next(61, 64));
 

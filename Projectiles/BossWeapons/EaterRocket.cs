@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             for (int i = 0; i < 2; i++)
             {
-                int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-10, 10)), ProjectileID.TinyEater, Projectile.damage / 6, 1f, Main.myPlayer);
+                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-10, 10)), ProjectileID.TinyEater, Projectile.damage / 6, 1f, Main.myPlayer);
                 
                 if (p != Main.maxProjectiles)
                 {

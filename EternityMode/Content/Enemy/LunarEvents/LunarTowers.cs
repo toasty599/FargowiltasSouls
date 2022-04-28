@@ -144,7 +144,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                     speed.Normalize();
                     speed *= 5f;
                     for (int i = -2; i <= 2; i++)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed.RotatedBy(i * rotate), ProjectileID.CultistBossFireBall, 40, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed.RotatedBy(i * rotate), ProjectileID.CultistBossFireBall, 40, 0f, Main.myPlayer);
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                         if (!Collision.SolidCollision(newPos, npc.width, npc.height))
                         {
                             //npc.Center = newPos;
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), newPos, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 10, npc.whoAmI);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), newPos, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 10, npc.whoAmI);
                             break;
                         }
                     }
@@ -324,7 +324,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                     for (int i = 0; i < 24; i++)
                     {
                         Vector2 vel = speed.RotatedBy(rotate * i);
-                        int n = NPC.NewNPC(npc.GetSpawnSourceForProjectileNPC(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.AncientLight, 0,
+                        int n = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.AncientLight, 0,
                             0f, (Main.rand.NextFloat() - 0.5f) * 0.3f * 6.28318548202515f / 60f, vel.X, vel.Y);
                         if (n != Main.maxNPCs)
                         {

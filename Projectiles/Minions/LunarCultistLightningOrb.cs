@@ -92,8 +92,8 @@ namespace FargowiltasSouls.Projectiles.Minions
                     Vector2 dir = Main.npc[nums[i]].Center - Projectile.Center;
                     float ai1 = Main.rand.Next(100);
                     Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 7f;
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<LunarCultistLightningArc>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, dir.ToRotation(), ai1);
-                    //Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel, ProjectileID.CultistBossLightningOrbArc, Projectile.damage, Projectile.knockBack / 2, Projectile.owner, dir.ToRotation(), ai1);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<LunarCultistLightningArc>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, dir.ToRotation(), ai1);
+                    //Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ProjectileID.CultistBossLightningOrbArc, Projectile.damage, Projectile.knockBack / 2, Projectile.owner, dir.ToRotation(), ai1);
                 }*/
 
                 int cultistTarget = -1;
@@ -110,7 +110,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             float ai1New = Main.rand.Next(100);
                             Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 7f;
                             if (Projectile.owner == Main.myPlayer)
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<LunarCultistLightningArc>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, dir.ToRotation(), ai1New);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<LunarCultistLightningArc>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, dir.ToRotation(), ai1New);
                         }
                     }
                 }
@@ -133,7 +133,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     float ai1 = Main.rand.Next(100);
                     Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 7f;
                     if (Projectile.owner == Main.myPlayer)
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<LunarCultistLightningArc>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, dir.ToRotation(), ai1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<LunarCultistLightningArc>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, dir.ToRotation(), ai1);
                 }
             }
 

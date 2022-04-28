@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Buffs.Pets
             player.GetModPlayer<FargoSoulsPlayer>().MutantSpawn = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Pets.MutantSpawn>()] <= 0 && player.whoAmI == Main.myPlayer)
             {
-                Projectile.NewProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Pets.MutantSpawn>(), 0, 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Pets.MutantSpawn>(), 0, 0f, player.whoAmI);
             }
         }
     }

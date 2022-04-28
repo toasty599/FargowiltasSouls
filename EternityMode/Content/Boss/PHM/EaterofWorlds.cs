@@ -172,7 +172,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     minimumToShoot--;
 
                                     Vector2 vel = (Main.player[npc.target].Center - Main.npc[i].Center) / 45;
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.npc[i].Center, vel,
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, vel,
                                         ModContent.ProjectileType<CursedFireballHoming>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.target, delay);
                                     
                                     delay += FargoSoulsWorld.MasochistModeReal ? 4 : 10;
@@ -184,7 +184,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     for (int i = 0; i < minimumToShoot; i++)
                     {
                         Vector2 vel = (Main.player[npc.target].Center - npc.Center) / 45;
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel,
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel,
                             ModContent.ProjectileType<CursedFireballHoming>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.target, delay);
                         delay += FargoSoulsWorld.MasochistModeReal ? 4 : 8;
                     }
@@ -225,7 +225,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient) //cursed flamethrower, roughly same direction as head
                     {
                         Vector2 velocity = new Vector2(5f, 0f).RotatedBy(npc.rotation - Math.PI / 2.0 + MathHelper.ToRadians(Main.rand.Next(-15, 16)));
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, velocity, ProjectileID.EyeFire, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, velocity, ProjectileID.EyeFire, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
                 }
 
@@ -405,7 +405,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     player.GetModPlayer<FargoSoulsPlayer>().FreeEaterSummon = false;
 
                     if (ModContent.TryFind("Fargowiltas", "WormyFood", out ModItem modItem))
-                        Item.NewItem(npc.GetItemSource_Loot(), player.Hitbox, modItem.Type);
+                        Item.NewItem(npc.GetSource_Loot(), player.Hitbox, modItem.Type);
 
                     DroppedSummon = true;
                 }

@@ -52,7 +52,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                         Vector2 spawnVel = npc.DirectionFrom(Main.player[npc.target].Center) * 10f;
                         for (int i = -3; i < 3; i++)
                         {
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(),
                                   npc.Center, spawnVel.RotatedBy(Math.PI / 7 * i),
                                   ModContent.ProjectileType<FakeHeart2>(),
                                   20, 0f, Main.myPlayer, 30, 90 + 10 * i);
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
                 Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
                 float ai1 = 30 + Main.rand.Next(30);
-                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), damage, 0f, Main.myPlayer, npc.whoAmI, ai1);
+                Projectile.NewProjectile(npc.GetSource_FromThis(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), damage, 0f, Main.myPlayer, npc.whoAmI, ai1);
 
                 damage = 0;
                 crit = false;

@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
         }
 
         // Remove the Crit Chance line because of a custom crit method
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips) => tooltips.Remove(tooltips.FirstOrDefault(line => line.Name == "CritChance" && line.mod == "Terraria"));
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips) => tooltips.Remove(tooltips.FirstOrDefault(line => line.Name == "CritChance" && line.Mod == "Terraria"));
 
         //make them hold it different
         public override Vector2? HoldoutOffset() => new Vector2(-10, 0);

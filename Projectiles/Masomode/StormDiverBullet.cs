@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             AIType = ProjectileID.MoonlordBullet;
             Projectile.friendly = false;
             Projectile.hostile = true;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;

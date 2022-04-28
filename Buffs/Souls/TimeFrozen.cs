@@ -39,6 +39,7 @@ namespace FargowiltasSouls.Buffs.Souls
             player.position = player.oldPosition;
 
             player.GetModPlayer<FargoSoulsPlayer>().MutantNibble = true; //no heal
+            player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
 
             FargowiltasSouls.Instance.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
 

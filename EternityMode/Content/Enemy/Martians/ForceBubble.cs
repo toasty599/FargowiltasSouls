@@ -27,10 +27,10 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Martians
             {
                 int Damage = Main.expertMode ? 28 : 35;
 
-                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 10f * Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi), ProjectileID.MartianTurretBolt, Damage, 0f, Main.myPlayer);
+                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 10f * Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi), ProjectileID.MartianTurretBolt, Damage, 0f, Main.myPlayer);
                 
                 if (Main.rand.NextBool(3))
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 10f * npc.DirectionTo(player.Center), ProjectileID.MartianTurretBolt, Damage, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 10f * npc.DirectionTo(player.Center), ProjectileID.MartianTurretBolt, Damage, 0f, Main.myPlayer);
             }
         }
     }

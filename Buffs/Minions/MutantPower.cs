@@ -29,14 +29,14 @@ namespace FargowiltasSouls.Buffs.Minions
                 {
                     fargoPlayer.AbomMinion = true;
                     if (player.ownedProjectileCounts[ModContent.ProjectileType<AbomMinion>()] < 1)
-                        FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<AbomMinion>(), 900, 10f, player.whoAmI, -1);
+                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<AbomMinion>(), 900, 10f, player.whoAmI, -1);
                 }
 
                 if (player.GetToggleValue("MasoRing"))
                 {
                     fargoPlayer.PhantasmalRing = true;
                     if (player.ownedProjectileCounts[ModContent.ProjectileType<PhantasmalRing>()] < 1)
-                        FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalRing>(), 1700, 0f, player.whoAmI);
+                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalRing>(), 1700, 0f, player.whoAmI);
                 }
             }
         }

@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 float num604 = (num599 + num600 - Projectile.ai[1] + 1f) * num601 / (num600 + num599);
                 center.Y -= num603 * num604 / 2f;
                 center.Y += 2f;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), center.X, center.Y, Projectile.velocity.X, Projectile.velocity.Y, ModContent.ProjectileType<Whirlpool>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 10f,
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), center.X, center.Y, Projectile.velocity.X, Projectile.velocity.Y, ModContent.ProjectileType<Whirlpool>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 10f,
                     Projectile.ai[1] - 1f);
                 int num605 = 2;
             }

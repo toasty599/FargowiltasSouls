@@ -65,8 +65,7 @@ namespace FargowiltasSouls.Items.Summons
                         {
                             mutant.Transform(ModContent.NPCType<MutantBoss>());
 
-                            // TODO: Localization
-                            FargoSoulsUtil.PrintText("Mutant has been enraged by the death of his brother!", new Color(175, 75, 255));
+                            FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}", new Color(175, 75, 255));
                         }
                     }
 
@@ -80,7 +79,7 @@ namespace FargowiltasSouls.Items.Summons
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))
-                itemNameLine.overrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
+                itemNameLine.OverrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
         }
 
         public override void AddRecipes()

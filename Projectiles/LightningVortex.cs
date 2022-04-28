@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles
                     int p = Player.FindClosest(Projectile.Center, 0, 0);
                     if (p != -1 && Main.player[p].active && !Main.player[p].dead && !Main.player[p].ghost && Projectile.Distance(Main.player[p].Center) < 1000)
                     {
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X - vector2_3.X, Projectile.Center.Y - vector2_3.Y, vector2_3.X, vector2_3.Y,
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X - vector2_3.X, Projectile.Center.Y - vector2_3.Y, vector2_3.X, vector2_3.Y,
                           ModContent.ProjectileType<LightningArc>(), Projectile.damage, Projectile.knockBack, Projectile.owner,
                           rotationVector2.ToRotation(), ai_1);
                     }

@@ -74,7 +74,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
                         float spread = SpawnedByOtherSlime ? 0.5f : 1.5f;
                         for (int i = 0; i < max; i++)
                         {
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance + spread * Main.rand.NextVector2Circular(-1f, 1f),
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance + spread * Main.rand.NextVector2Circular(-1f, 1f),
                                 ModContent.ProjectileType<RainbowSlimeSpike>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 8), 0f, Main.myPlayer, ai0);
                         }
                     }
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        int slimeIndex = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), NPCID.RainbowSlime);
+                        int slimeIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), NPCID.RainbowSlime);
                         if (slimeIndex != Main.maxNPCs)
                         {
                             NPC slime = Main.npc[slimeIndex];
@@ -137,7 +137,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
                         if (Main.rand.Next(3) != 0)
                             continue;
 
-                        int spawn = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), 1);
+                        int spawn = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), 1);
                         Main.npc[spawn].SetDefaults(slimes[i]);
                         Main.npc[spawn].velocity.X = npc.velocity.X * 2f;
                         Main.npc[spawn].velocity.Y = npc.velocity.Y;

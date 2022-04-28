@@ -71,7 +71,7 @@ namespace FargowiltasSouls
         }
 
         public static float ActualClassDamage(this Player player, DamageClass damageClass)
-            => (float)player.GetDamage(DamageClass.Generic) + (float)player.GetDamage(damageClass) - 1f;
+            => (float)player.GetDamage(DamageClass.Generic).Additive + (float)player.GetDamage(damageClass).Additive - 1f;
 
         /// <summary>
         /// Gets the real crit chance for the damage type, including buffs to all damage.<br/>
@@ -84,12 +84,12 @@ namespace FargowiltasSouls
         public static int ActualClassCrit(this Player player, DamageClass damageClass)
         {
             if (damageClass == DamageClass.Summon)
-                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + player.GetCritChance(DamageClass.Generic) / (player.GetModPlayer<FargoSoulsPlayer>().LifeForce ? 1 : 2);
+                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + (int)player.GetCritChance(DamageClass.Generic) / (player.GetModPlayer<FargoSoulsPlayer>().LifeForce ? 1 : 2);
 
-            if (damageClass == DamageClass.NoScaling)
+            if (damageClass == DamageClass.Default)
                 return 0;
 
-            return player.GetCritChance(damageClass) + player.GetCritChance(DamageClass.Generic);
+            return (int)player.GetCritChance(damageClass) + (int)player.GetCritChance(DamageClass.Generic);
         }
 
         public static int HighestDamageTypeScaling(Player player, int dmg)
@@ -133,12 +133,12 @@ namespace FargowiltasSouls
             return p < Main.maxProjectiles ? Main.projectile[p] : null;
         }
 
-        public static int GetByUUIDReal(int player, float projectileIdentity, params int[] projectileType)
+        public static int GetProjectileByIdentity(int player, float projectileIdentity, params int[] projectileType)
         {
-            return GetByUUIDReal(player, (int)projectileIdentity, projectileType);
+            return GetProjectileByIdentity(player, (int)projectileIdentity, projectileType);
         }
 
-        public static int GetByUUIDReal(int player, int projectileIdentity, params int[] projectileType)
+        public static int GetProjectileByIdentity(int player, int projectileIdentity, params int[] projectileType)
         {
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
@@ -312,31 +312,31 @@ namespace FargowiltasSouls
                 }
             }
 
-            int index3 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index3 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index3].scale = 1.5f;
             Main.gore[index3].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index3].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index3].velocity *= 0.4f;
 
-            int index4 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index4 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index4].scale = 1.5f;
             Main.gore[index4].velocity.X = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index4].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index4].velocity *= 0.4f;
 
-            int index5 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index5 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index5].scale = 1.5f;
             Main.gore[index5].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index5].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index5].velocity *= 0.4f;
 
-            int index6 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index6 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index6].scale = 1.5f;
             Main.gore[index6].velocity.X = 1.5f - Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index6].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index6].velocity *= 0.4f;
 
-            int index7 = Gore.NewGore(new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+            int index7 = Gore.NewGore(entity.GetSource_FromThis(), new Vector2(entity.Center.X - 24, entity.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
             Main.gore[index7].scale = 1.5f;
             Main.gore[index7].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index7].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
@@ -388,6 +388,13 @@ namespace FargowiltasSouls
         {
             PrintText(text, Color.White);
         }
+
+        public static void PrintLocalization(string localizationKey, Color color)
+        {
+            PrintText(Language.GetTextValue(localizationKey), color);
+        }
+
+        public static void PrintLocalization(string localizationKey, int r, int g, int b) => PrintLocalization(localizationKey, new Color(r, g, b));
 
         public static void PrintText(string text, Color color)
         {
@@ -813,7 +820,7 @@ namespace FargowiltasSouls
                 Vector2 value = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
                 value.Normalize();
                 value.X *= 0.66f;
-                int goreID = Gore.NewGore(codable.position + new Vector2(Main.rand.Next(codable.width + 1), Main.rand.Next(codable.height + 1)), value * Main.rand.Next(3, 6) * 0.33f, 331, Main.rand.Next(40, 121) * 0.01f);
+                int goreID = Gore.NewGore(codable.GetSource_FromThis(), codable.position + new Vector2(Main.rand.Next(codable.width + 1), Main.rand.Next(codable.height + 1)), value * Main.rand.Next(3, 6) * 0.33f, 331, Main.rand.Next(40, 121) * 0.01f);
                 Main.gore[goreID].sticky = false;
                 Main.gore[goreID].velocity *= 0.4f;
                 Main.gore[goreID].velocity.Y -= 0.6f;

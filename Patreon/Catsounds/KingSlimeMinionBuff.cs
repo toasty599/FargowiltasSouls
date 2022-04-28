@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<KingSlimeMinion>()] < 1)
-                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<KingSlimeMinion>(), 15, 3f, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<KingSlimeMinion>(), 15, 3f, player.whoAmI);
             }
         }
     }

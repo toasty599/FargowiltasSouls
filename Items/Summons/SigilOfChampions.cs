@@ -66,14 +66,14 @@ Not consumed on use");
             if (player.ZoneUndergroundDesert)
             {
                 if (player.altFunctionUse == 2)
-                    Main.NewText("A strong spirit stirs...", color);
+                    Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Spirit", color);
                 else
                     NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<SpiritChampion>());
             }
             else if (player.ZoneUnderworldHeight)
             {
                 if (player.altFunctionUse == 2)
-                    Main.NewText("The core of the planet rumbles...", color);
+                    Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Earth", color);
                 else
                     NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<EarthChampion>());
             }
@@ -82,14 +82,14 @@ Not consumed on use");
                 if (player.ZoneSnow)
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText("A verdant wind is blowing...", color);
+                        Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Nature", color);
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NatureChampion>());
                 }
                 else
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText("The stones tremble around you...", color);
+                        Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Terra", color);
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<TerraChampion>());
                 }
@@ -99,28 +99,28 @@ Not consumed on use");
                 if (player.ZoneSkyHeight)
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText("The stars are aligning...", color);
+                        Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Cosmos", color);
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<CosmosChampion>());
                 }
                 else if (player.ZoneBeach)
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText("Metallic groans echo from the depths...", color);
+                        Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Will", color);
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<WillChampion>());
                 }
                 else if (player.ZoneHallow && Main.dayTime)
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText("A wave of warmth passes over you...", color);
+                        Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Life", color);
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<LifeChampion>());
                 }
                 else if ((player.ZoneCorrupt || player.ZoneCrimson) && !Main.dayTime) //night
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText("The darkness of the night feels deeper...", color);
+                        Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Shadow", color);
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<ShadowChampion>());
                 }
@@ -128,14 +128,14 @@ Not consumed on use");
                     && !player.ZoneDesert && !player.ZoneSnow && !player.ZoneJungle && Main.dayTime) //purity day
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText("You are surrounded by the rustling of trees...", color);
+                        Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Timber", color);
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<TimberChampion>());
                 }
                 else //nothing to summon
                 {
                     if (player.altFunctionUse == 2)
-                        Main.NewText("Nothing seems to answer the call...", color);
+                        Main.NewText($"$Mods.{Mod.Name}.Message.{Name}.Nothing", color);
                 }
             }
 
@@ -146,9 +146,9 @@ Not consumed on use");
         {
             foreach (TooltipLine line2 in list)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                if (line2.Mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = Main.DiscoColor;
+                    line2.OverrideColor = Main.DiscoColor;
                 }
             }
         }

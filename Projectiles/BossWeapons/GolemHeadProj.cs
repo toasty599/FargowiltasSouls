@@ -223,25 +223,25 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 float scaleFactor9 = 0.4f;
                 if (num619 == 1) scaleFactor9 = 0.8f;
-                int num620 = Gore.NewGore(Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                int num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore97 = Main.gore[num620];
                 gore97.velocity.X = gore97.velocity.X + 1f;
                 Gore gore98 = Main.gore[num620];
                 gore98.velocity.Y = gore98.velocity.Y + 1f;
-                num620 = Gore.NewGore(Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore99 = Main.gore[num620];
                 gore99.velocity.X = gore99.velocity.X - 1f;
                 Gore gore100 = Main.gore[num620];
                 gore100.velocity.Y = gore100.velocity.Y + 1f;
-                num620 = Gore.NewGore(Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore101 = Main.gore[num620];
                 gore101.velocity.X = gore101.velocity.X + 1f;
                 Gore gore102 = Main.gore[num620];
                 gore102.velocity.Y = gore102.velocity.Y - 1f;
-                num620 = Gore.NewGore(Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore103 = Main.gore[num620];
                 gore103.velocity.X = gore103.velocity.X - 1f;
@@ -254,7 +254,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 int max = Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type] < 16 ? 8 : 4;
                 for (int i = 0; i < max; i++)
                 {
-                    int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center,
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
                         Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.TwoPi / max * i) * Main.rand.NextFloat(12f, 20f), ModContent.ProjectileType<GolemGib>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0, Main.rand.Next(11) + 1);
                     if (p != Main.maxProjectiles)
                         Main.projectile[p].timeLeft = Main.rand.Next(45, 90) * 2;

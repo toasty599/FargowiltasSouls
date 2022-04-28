@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
 
                 /*if (Projectile.localAI[0] % 2 == 0 && Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 10f * Vector2.UnitX.RotatedByRandom(2 * Math.PI), 
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 10f * Vector2.UnitX.RotatedByRandom(2 * Math.PI), 
                         ModContent.ProjectileType<DukeBubble>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
                 }*/
 
@@ -296,7 +296,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
             for (int i = 0; i < max; i++)
             {
                 vel = vel.RotatedBy(rotation);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel, type, Projectile.damage,
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, type, Projectile.damage,
                     Projectile.knockBack / 4f, Projectile.owner, rotationModifier * Projectile.spriteDirection);
             }
         }

@@ -86,9 +86,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 void TelegraphConfusion(Vector2 spawn)
                 {
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 180);
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 200);
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 220);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 180);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 200);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 220);
                 };
 
                 void LaserSpread(Vector2 spawn)
@@ -99,9 +99,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         int degree = FargoSoulsWorld.MasochistModeReal ? 2 : 3;
                         int laserDamage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3);
 
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                         for (int i = -max; i <= max; i++)
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, 0.2f * Main.player[npc.target].DirectionFrom(spawn).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), laserDamage, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, 0.2f * Main.player[npc.target].DirectionFrom(spawn).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), laserDamage, 0f, Main.myPlayer);
                     }
                 };
 
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                             void SpawnClone(Vector2 center)
                             {
-                                int n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)center.X, (int)center.Y, ModContent.NPCType<BrainIllusionAttack>(), npc.whoAmI, npc.whoAmI, alpha);
+                                int n = NPC.NewNPC(npc.GetSource_FromAI(), (int)center.X, (int)center.Y, ModContent.NPCType<BrainIllusionAttack>(), npc.whoAmI, npc.whoAmI, alpha);
                                 if (n != Main.maxNPCs)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }
@@ -204,7 +204,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         Vector2 spawn = Main.player[npc.target].Center + Main.rand.NextVector2CircularEdge(1200f, 1200f);
                         Vector2 speed = Main.player[npc.target].Center + Main.player[npc.target].velocity * 45f + Main.rand.NextVector2Circular(-600f, 600f) - spawn;
                         speed = Vector2.Normalize(speed) * Main.rand.NextFloat(12f, 48f);
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, speed, ModContent.ProjectileType<BrainIllusionProj>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, npc.whoAmI);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, speed, ModContent.ProjectileType<BrainIllusionProj>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, npc.whoAmI);
                     }
                 }
 
@@ -233,11 +233,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
                     int type = recolor ? ModContent.NPCType<BrainIllusion2>() : ModContent.NPCType<BrainIllusion>();
 
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, -1, 1);
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, 1, -1);
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, 1, 1);
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, -1, 1);
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, 1, -1);
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, 1, 1);
 
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<BrainClone>(), npc.whoAmI);
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, ModContent.NPCType<BrainClone>(), npc.whoAmI);
 
                     for (int i = 0; i < Main.maxProjectiles; i++) //clear old golden showers
                     {
@@ -268,8 +268,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.OnKill(npc);
 
             //to make up for no loot creepers
-            Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ItemID.TissueSample, 60);
-            Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ItemID.CrimtaneOre, 200);
+            Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ItemID.TissueSample, 60);
+            Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ItemID.CrimtaneOre, 200);
 
             npc.DropItemInstanced(npc.position, npc.Size, ItemID.CrimsonFishingCrate, 5);
         }
@@ -347,7 +347,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 10f * npc.DirectionFrom(Main.player[npc.target].Center).RotatedByRandom(Math.PI),
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 10f * npc.DirectionFrom(Main.player[npc.target].Center).RotatedByRandom(Math.PI),
                         ModContent.ProjectileType<GoldenShowerHoming>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target, -60f);
                 }
 

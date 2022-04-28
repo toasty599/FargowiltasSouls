@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             Projectile.CloneDefaults(ProjectileID.Bubble);
             AIType = ProjectileID.Bubble;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.hostile = true;
             Projectile.friendly = false;
             Projectile.light = 0f;

@@ -67,7 +67,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
                 {
                     int num269 = 10;
                     int num270 = 31;
-                    int proj = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), pos.X, pos.Y, velocityX, velocityY, num270, num269, 0f, Main.myPlayer, 0f, 0);
+                    int proj = Projectile.NewProjectile(npc.GetSource_FromThis(), pos.X, pos.Y, velocityX, velocityY, num270, num269, 0f, Main.myPlayer, 0f, 0);
                     if (proj != Main.maxProjectiles)
                     {
                         Main.projectile[proj].ai[0] = 2f;

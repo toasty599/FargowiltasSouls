@@ -39,7 +39,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             NPC.noTileCollide = true;
 
             NPC.scale *= 1.5f;
-            NPC.lifeMax *= 5;
+            NPC.lifeMax *= 3;
         }
 
         public override bool? CanHitNPC(NPC target) => false;
@@ -86,9 +86,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
                         for (int i = 0; i < 20; i++)
                         {
                             Projectile.NewProjectile(
-                                NPC.GetSpawnSource_ForProjectile(), 
+                                NPC.GetSource_FromThis(), 
                                 NPC.Center, 
-                                new Vector2(Main.rand.NextFloat(-0.75f, 0.75f), Main.rand.NextFloat(-16, -4)), 
+                                new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), Main.rand.NextFloat(-16, -4)), 
                                 ProjectileID.QueenSlimeMinionBlueSpike, 
                                 FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 
                                 0f, 

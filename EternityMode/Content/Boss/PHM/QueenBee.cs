@@ -16,6 +16,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Projectiles.Champions;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -68,12 +69,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 Vector2 vector72 = new Vector2(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
 
-                int n = FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), vector72, ModContent.NPCType<RoyalSubject>(),
+                int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), vector72, ModContent.NPCType<RoyalSubject>(),
                     velocity: new Vector2(Main.rand.Next(-200, 201) * 0.1f, Main.rand.Next(-200, 201) * 0.1f));
                 if (n != Main.maxNPCs)
                     Main.npc[n].localAI[0] = 60f;
 
-                FargoSoulsUtil.PrintText("Royal Subject has awoken!", new Color(175, 75, 255));
+                string name = Language.GetTextValue($"Mods.{mod.Name}.NPCName.RoyalSubject");
+                string hasAwoken = Language.GetTextValue($"Mods.{mod.Name}.Message.HasAwoken");
+                FargoSoulsUtil.PrintText($"{name} {hasAwoken}", new Color(175, 75, 255));
 
                 npc.netUpdate = true;
                 NetSync(npc);
@@ -88,12 +91,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 Vector2 vector72 = new Vector2(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
 
-                int n = FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), vector72, ModContent.NPCType<RoyalSubject>(),
+                int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), vector72, ModContent.NPCType<RoyalSubject>(),
                     velocity: new Vector2(Main.rand.Next(-200, 201) * 0.1f, Main.rand.Next(-200, 201) * 0.1f));
                 if (n != Main.maxNPCs)
                     Main.npc[n].localAI[0] = 60f;
 
-                FargoSoulsUtil.PrintText("Royal Subject has awoken!", new Color(175, 75, 255));
+                string name = Language.GetTextValue($"Mods.{mod.Name}.NPCName.RoyalSubject");
+                string hasAwoken = Language.GetTextValue($"Mods.{mod.Name}.Message.HasAwoken");
+                FargoSoulsUtil.PrintText($"{name} {hasAwoken}", new Color(175, 75, 255));
 
                 NPC.SpawnOnPlayer(npc.target, ModContent.NPCType<RoyalSubject>()); //so that both dont stack for being spawned from qb
 
@@ -144,7 +149,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (ForgorDeathrayTimer > 0 && --ForgorDeathrayTimer % 10 == 0 && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(),
+                    Projectile.NewProjectile(npc.GetSource_FromThis(),
                         Main.player[npc.target].Center - 2000 * Vector2.UnitY, Vector2.UnitY,
                         ModContent.ProjectileType<WillDeathraySmall>(),
                         (int)(npc.damage * .75), 0f, Main.myPlayer,
@@ -162,7 +167,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (StingerRingTimer % 90 == 0)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            FargoSoulsUtil.XWay(StingerRingTimer == 90 * 3 ? 16 : 8, npc.GetSpawnSource_ForProjectile(), npc.Center, ProjectileID.QueenBeeStinger, 6, 11, 1);
+                            FargoSoulsUtil.XWay(StingerRingTimer == 90 * 3 ? 16 : 8, npc.GetSource_FromThis(), npc.Center, ProjectileID.QueenBeeStinger, 6, 11, 1);
                     }
                 }
             }
@@ -183,7 +188,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     distance.Y = distance.Y / time - 0.5f * gravity * time;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance, ModContent.ProjectileType<Beehive>(),
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance, ModContent.ProjectileType<Beehive>(),
                             FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, time - 5);
                     }
                 }
@@ -209,7 +214,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             NetSync(npc);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
 
                             if (npc.HasValidTarget)
                                 Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
@@ -237,7 +242,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             const float rotation = 0.025f;
                             for (int i = -1; i <= 1; i += 2)
                             {
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + new Vector2(3 * npc.direction, 15), i * Main.rand.NextFloat(9f, 18f) * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-45, 45))),
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + new Vector2(3 * npc.direction, 15), i * Main.rand.NextFloat(9f, 18f) * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-45, 45))),
                                     ModContent.ProjectileType<Bee>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, FargoSoulsWorld.MasochistModeReal ? 4f / 3 : 1), 0f, Main.myPlayer, npc.target, Main.rand.NextBool() ? -rotation : rotation);
                             }
                         }
@@ -317,7 +322,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.OnKill(npc);
 
             if ((int)(Main.time / 60 - 30) % 60 == 22) //COOMEDY
-                Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ModContent.ItemType<TwentyTwoPainting>());
+                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.ItemType<TwentyTwoPainting>());
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

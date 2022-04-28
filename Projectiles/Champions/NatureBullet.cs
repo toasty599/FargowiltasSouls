@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             Projectile.CloneDefaults(ProjectileID.ExplosiveBullet);
             Projectile.aiStyle = -1;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 {
                     float SpeedX = Projectile.velocity.Length() * Main.rand.Next(-60, 61) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
                     float SpeedY = Projectile.velocity.Length() * Main.rand.Next(-60, 61) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, SpeedX, SpeedY,
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, SpeedX, SpeedY,
                         ModContent.ProjectileType<CrystalBombShard>(), Projectile.damage, 0f, Projectile.owner);
                 }
             }

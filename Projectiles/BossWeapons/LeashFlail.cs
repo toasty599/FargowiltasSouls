@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Vector2 position = target.Center + offset - new Vector2(4, 4);
                     Vector2 velocity = Vector2.Normalize(target.Center - position) * 25;
 
-                    int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), position, velocity,
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity,
                         ModContent.ProjectileType<EyeProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner, -10f);
 
                     if (p != Main.maxProjectiles)

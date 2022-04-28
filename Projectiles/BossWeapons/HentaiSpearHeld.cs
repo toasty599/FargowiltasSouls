@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.localAI[0] = 3;
                 if (Projectile.owner == Main.myPlayer)
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphere>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphere>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
             }
 
             if (Projectile.velocity != Vector2.Zero)
@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (Projectile.owner == Main.myPlayer)
             {
                 int damage = (int)(Projectile.damage * (1f + Projectile.ai[0] / useTime));
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<HentaiSpearThrown>(), damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<HentaiSpearThrown>(), damage, Projectile.knockBack, Projectile.owner);
             }
         }
 

@@ -29,7 +29,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
             for (int i = 0; i < 6; i++)
             {
-                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.FireImp, velocity: Main.rand.NextVector2Circular(8, 8));
+                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.FireImp, velocity: Main.rand.NextVector2Circular(8, 8));
             }
         }
 

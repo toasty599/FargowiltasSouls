@@ -24,8 +24,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
         {
             base.OnSpawn(npc);
 
-            FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center + 100 * Vector2.UnitX, NPCID.MothronSpawn);
-            FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center - 100 * Vector2.UnitX, NPCID.MothronSpawn);
+            FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center + 100 * Vector2.UnitX, NPCID.MothronSpawn);
+            FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center - 100 * Vector2.UnitX, NPCID.MothronSpawn);
         }
 
         public override void AI(NPC npc)
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
                     Vector2 vel = 2f * (targetPos - npc.Center) / zenithStartup;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<MothronZenith>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, -1f, direction);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<MothronZenith>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, -1f, direction);
                 }
             }
             else if ((npc.ai[0] == 3f || npc.ai[0] == 4f) && npc.ai[1] == 0f)
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
                     float rotation = MathHelper.TwoPi / max * i;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<MothronZenith>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, rotation);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<MothronZenith>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, rotation);
                 }
             }
             else if (npc.ai[0] == 4.1f || npc.ai[0] == 4.2f) //egg laying

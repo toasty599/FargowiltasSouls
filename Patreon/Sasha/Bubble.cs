@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                 Vector2 speed = 5f * Vector2.UnitX.RotatedByRandom(2 * Math.PI);
                 for (int i = 0; i < 4; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, speed.RotatedBy(2 * Math.PI / 4 * i), ProjectileID.WaterStream, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, speed.RotatedBy(2 * Math.PI / 4 * i), ProjectileID.WaterStream, Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
         }

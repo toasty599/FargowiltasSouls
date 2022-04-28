@@ -46,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
                     {
                         Vector2 spawnPos = Main.player[npc.target].Center + 180f * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 3 * i).RotatedByRandom(MathHelper.TwoPi / 3 / 2 * 0.75f);
                         float ai0 = Main.player[npc.target].DirectionFrom(spawnPos).ToRotation();
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowflamePortal>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, ai0);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowflamePortal>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, ai0);
                     }
                 }
             }
@@ -59,7 +59,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
             if (Main.rand.NextBool(3) && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
 
                 //Vector2 vel = new Vector2(9f, 0f).RotatedByRandom(2 * Math.PI);
                 //for (int i = 0; i < 6; i++)
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
                 //    float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
                 //    if (Main.rand.NextBool())
                 //        ai0 *= -1f;
-                //    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, ai0, ai1);
+                //    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, ai0, ai1);
                 //}
             }
         }
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, new Vector2(Main.rand.Next(-500, 501) / 100f, Main.rand.Next(-1000, 1) / 100f),
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, new Vector2(Main.rand.Next(-500, 501) / 100f, Main.rand.Next(-1000, 1) / 100f),
                         ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 8), 0, Main.myPlayer);
                 }
             }

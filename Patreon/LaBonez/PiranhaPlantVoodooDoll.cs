@@ -37,16 +37,9 @@ namespace FargowiltasSouls.Patreon.LaBonez
             PatreonPlayer patreonPlayer = player.GetModPlayer<PatreonPlayer>();
             patreonPlayer.PiranhaPlantMode = !patreonPlayer.PiranhaPlantMode;
 
-            string text = patreonPlayer.PiranhaPlantMode ? "The suffering continues." : "The suffering wanes.";
-            if (Main.netMode == NetmodeID.SinglePlayer)
-            {
-                Main.NewText(text, 175, 75, 255);
-            }
-            else if (Main.netMode == NetmodeID.Server)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), new Color(175, 75, 255));
+            FargoSoulsUtil.PrintLocalization(patreonPlayer.PiranhaPlantMode ? $"Mods.{Mod.Name}.Message.{Name}On" : $"Mods.{Mod.Name}.Message.{Name}Off", 175, 75, 255);
+            if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
-            }
 
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
 

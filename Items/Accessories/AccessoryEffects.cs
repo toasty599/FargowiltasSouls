@@ -297,7 +297,7 @@ namespace FargowiltasSouls
                 for (int i = 0; i < max; i++)
                 {
                     Vector2 spawnPos = Player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
-                    FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Misc(0), spawnPos, Vector2.Zero, ModContent.ProjectileType<Chlorofuck>(), dmg, 10f, Player.whoAmI, 0, rotation * i);
+                    FargoSoulsUtil.NewSummonProjectile(Player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<Chlorofuck>(), dmg, 10f, Player.whoAmI, 0, rotation * i);
                 }
             }
         }
@@ -355,7 +355,7 @@ namespace FargowiltasSouls
             if (Player.whoAmI == Main.myPlayer && DarkArtistSpawn && DarkArtistSpawnCD <= 0 && Player.GetToggleValue("DarkArt"))
             //&& Player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] < maxTowers)
             {
-                Projectile proj = Projectile.NewProjectileDirect(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, Player.whoAmI);
+                Projectile proj = Projectile.NewProjectileDirect(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, Player.whoAmI);
                 proj.netUpdate = true; // TODO make this proj sync meme
 
                 DarkArtistSpawn = false;
@@ -501,7 +501,7 @@ namespace FargowiltasSouls
             }
 
             int damage = (int)(20f * (1f + Player.GetDamage(DamageClass.Magic).Additive + Player.GetDamage(DamageClass.Summon).Additive - 2f));
-            Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), mouse, Vector2.Zero, ModContent.ProjectileType<ForbiddenTornado>(), damage, 0f, Main.myPlayer, 0f, 0f);
+            Projectile.NewProjectile(Player.GetSource_Misc(""), mouse, Vector2.Zero, ModContent.ProjectileType<ForbiddenTornado>(), damage, 0f, Main.myPlayer, 0f, 0f);
         }
 
 
@@ -532,7 +532,7 @@ namespace FargowiltasSouls
                     for (int i = 0; i < IcicleCount; i++)
                     {
                         float radians = (360f / IcicleCount) * i * (float)(Math.PI / 180);
-                        Projectile frost = FargoSoulsUtil.NewProjectileDirectSafe(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<FrostIcicle>(), 0, 0f, Player.whoAmI, 5, radians);
+                        Projectile frost = FargoSoulsUtil.NewProjectileDirectSafe(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<FrostIcicle>(), 0, 0f, Player.whoAmI, 5, radians);
                         frost.netUpdate = true;
                     }
 
@@ -578,7 +578,7 @@ namespace FargowiltasSouls
                         {
                             Vector2 vel = (Main.MouseWorld - proj.Center).SafeNormalize(-Vector2.UnitY) * 20f;
 
-                            int p = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), proj.Center, vel, ProjectileID.Blizzard, FargoSoulsUtil.HighestDamageTypeScaling(Player, dmg), 1f, Player.whoAmI);
+                            int p = Projectile.NewProjectile(Player.GetSource_Misc(""), proj.Center, vel, ProjectileID.Blizzard, FargoSoulsUtil.HighestDamageTypeScaling(Player, dmg), 1f, Player.whoAmI);
                             if (p != Main.maxProjectiles)
                             {
                                 Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
@@ -701,7 +701,7 @@ namespace FargowiltasSouls
 
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 62, 0.5f);
 
-                    foreach (Projectile p in FargoSoulsUtil.XWay(10, Player.GetProjectileSource_Misc(0), Player.Bottom, ProjectileID.SporeCloud, 4f, FargoSoulsUtil.HighestDamageTypeScaling(Player, dmg), 0f))
+                    foreach (Projectile p in FargoSoulsUtil.XWay(10, Player.GetSource_Misc(""), Player.Bottom, ProjectileID.SporeCloud, 4f, FargoSoulsUtil.HighestDamageTypeScaling(Player, dmg), 0f))
                     {
                         if (p == null)
                             continue;
@@ -740,7 +740,7 @@ namespace FargowiltasSouls
                 {
                     if (meteorTimer % 2 == 0)
                     {
-                        int p = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center.X + Main.rand.Next(-1000, 1000), Player.Center.Y - 1000, Main.rand.Next(-2, 2), 0f + Main.rand.Next(8, 12), Main.rand.Next(424, 427), FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0f, Player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
+                        int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X + Main.rand.Next(-1000, 1000), Player.Center.Y - 1000, Main.rand.Next(-2, 2), 0f + Main.rand.Next(8, 12), Main.rand.Next(424, 427), FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0f, Player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
                         if (p != Main.maxProjectiles)
                         {
                             Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
@@ -959,7 +959,7 @@ namespace FargowiltasSouls
                     for (int i = 0; i < max; i++)
                     {
                         Vector2 spawnPos = Player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
-                        int p = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, Player.whoAmI, 0, rotation * i);
+                        int p = Projectile.NewProjectile(Player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, Player.whoAmI, 0, rotation * i);
                         Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                     }
                 }
@@ -981,7 +981,7 @@ namespace FargowiltasSouls
                     for (int i = 0; i < max; i++)
                     {
                         Vector2 spawnPos = Player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
-                        int p = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, Player.whoAmI, 0, rotation * i);
+                        int p = Projectile.NewProjectile(Player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, Player.whoAmI, 0, rotation * i);
                         Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                     }
                 }
@@ -1148,7 +1148,7 @@ namespace FargowiltasSouls
                         }
                     }
                 }
-                Projectile.NewProjectile(proj.GetProjectileSource_FromThis(), proj.position.X, proj.position.Y, 0f, 0f, ProjectileID.SpiritHeal, 0, 0f, proj.owner, num4, num2);
+                Projectile.NewProjectile(proj.GetSource_FromThis(), proj.position.X, proj.position.Y, 0f, 0f, ProjectileID.SpiritHeal, 0, 0f, proj.owner, num4, num2);
             }
         }
 
@@ -1208,7 +1208,7 @@ namespace FargowiltasSouls
             num10 = num7 / num10;
             num8 *= num10;
             num9 *= num10;
-            Projectile.NewProjectile(proj.GetProjectileSource_FromThis(), proj.position.X, proj.position.Y, num8, num9, ProjectileID.SpectreWrath, num, 0f, proj.owner, (float)num6, 0);
+            Projectile.NewProjectile(proj.GetSource_FromThis(), proj.position.X, proj.position.Y, num8, num9, ProjectileID.SpectreWrath, num, 0f, proj.owner, (float)num6, 0);
         }
 
         public void SpiderEffect(bool hideVisual)
@@ -1236,7 +1236,7 @@ namespace FargowiltasSouls
             StardustEnchantActive = true;
             if (Player.ownedProjectileCounts[ProjectileID.StardustGuardian] < 1)
             {
-                FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Accessory(item), Player.Center, Vector2.Zero, ProjectileID.StardustGuardian, 30, 10f, Main.myPlayer);
+                FargoSoulsUtil.NewSummonProjectile(Player.GetSource_Accessory(item), Player.Center, Vector2.Zero, ProjectileID.StardustGuardian, 30, 10f, Main.myPlayer);
             }
 
             
@@ -1403,7 +1403,7 @@ namespace FargowiltasSouls
 
                 if (VortexStealth && Player.GetToggleValue("VortexV") && !Player.HasBuff(ModContent.BuffType<VortexCD>()))
                 {
-                    int p = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
+                    int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
                     Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                     Main.projectile[p].netUpdate = true;
 
@@ -1488,82 +1488,8 @@ namespace FargowiltasSouls
             }
         }
 
-        public void HuntressEffect()
-        {
-            if (Player.GetToggleValue("Huntress") && Player.whoAmI == Main.myPlayer)
-            {
-                huntressCD++;
 
-                Item firstAmmo = PickAmmo();
-                int arrowType = firstAmmo.shoot;
-                int damage = FargoSoulsUtil.HighestDamageTypeScaling(Player, (int)(firstAmmo.damage * 2.5f));
-
-                if (RedEnchantActive)
-                {
-                    damage *= 2;
-                }
-
-                //fire arrow at nearby enemy
-                if (huntressCD >= 30)
-                {
-                    Vector2 mouse = Main.MouseWorld;
-                    Vector2 pos = new Vector2(mouse.X - Player.direction * 100, mouse.Y - 800);
-                    Vector2 velocity = Vector2.Normalize(mouse - pos) * 25;
-
-                    int p = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), pos, velocity, arrowType, damage, 2, Player.whoAmI);
-                    Main.projectile[p].noDropItem = true;
-                    Main.projectile[p].extraUpdates = 2;
-
-                    huntressCD = 0;
-                }
-
-                //arrow rain ability
-                if (!Player.HasBuff(ModContent.BuffType<HuntressCD>()) && DoubleTap)
-                {
-                    Vector2 mouse = Main.MouseWorld;
-
-                    int heatray = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
-                    Main.projectile[heatray].tileCollide = false;
-                    //proj spawns arrows all around it until it dies
-                    Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), mouse.X, Player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, firstAmmo.damage), 0f, Player.whoAmI, arrowType, Player.direction);
-
-                    Player.AddBuff(ModContent.BuffType<HuntressCD>(), RedEnchantActive ? 600 : 900);
-                }
-            }
-        }
-
-        public Item PickAmmo()
-        {
-            Item item = new Item();
-            bool flag = false;
-            for (int i = 54; i < 58; i++)
-            {
-                if (Player.inventory[i].ammo == AmmoID.Arrow && Player.inventory[i].stack > 0)
-                {
-                    item = Player.inventory[i];
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag)
-            {
-                for (int j = 0; j < 54; j++)
-                {
-                    if (Player.inventory[j].ammo == AmmoID.Arrow && Player.inventory[j].stack > 0)
-                    {
-                        item = Player.inventory[j];
-                        break;
-                    }
-                }
-            }
-
-            if (item.ammo != AmmoID.Arrow)
-            {
-                item.SetDefaults(ItemID.WoodenArrow);
-            }
-
-            return item;
-        }
+        
 
         public void MonkEffect()
         {
@@ -1603,7 +1529,7 @@ namespace FargowiltasSouls
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<Snowstorm>()] < 1)
                 {
                     Vector2 mouse = Main.MouseWorld;
-                    Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), mouse, Vector2.Zero, ModContent.ProjectileType<Snowstorm>(), 0, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_Misc(""), mouse, Vector2.Zero, ModContent.ProjectileType<Snowstorm>(), 0, 0, Player.whoAmI);
                 }
 
                 //int dist = 200;

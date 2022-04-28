@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             //player.honey = true;
-            player.armorPenetration += 10;
+            player.GetArmorPenetration(Terraria.ModLoader.DamageClass.Generic) += 10;
             player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.Infested>()] = true;
 
             // Bees

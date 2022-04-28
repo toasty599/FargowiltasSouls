@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Patreon
         {
             if (SoulConfig.Instance.PatreonWolf && npc.type == NPCID.Wolf && damage > target.statLife)
             {
-                Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ModContent.ItemType<ParadoxWolf.ParadoxWolfSoul>());
+                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.ItemType<ParadoxWolf.ParadoxWolfSoul>());
             }
         }
 

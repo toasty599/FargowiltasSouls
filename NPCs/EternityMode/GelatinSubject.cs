@@ -97,7 +97,10 @@ namespace FargowiltasSouls.NPCs.EternityMode
             if (NPC.localAI[0] > 0)
             {
                 NPC.localAI[0]--;
-                NPC.position -= NPC.velocity / 2;
+
+                //if moving towards you, slow down
+                if (NPC.HasValidTarget && Math.Abs(MathHelper.WrapAngle(NPC.velocity.ToRotation() - NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation())) < MathHelper.PiOver2)
+                    NPC.position -= NPC.velocity * 0.6f;
             }
         }
 
@@ -134,7 +137,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
                 for (int i = 0; i < 2 ; i++)
                     if (!Main.dedServ)
-                            Gore.NewGore(NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)), NPC.velocity / 2, 1260, NPC.scale);
+                            Gore.NewGore(NPC.GetSource_FromThis(), NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)), NPC.velocity / 2, 1260, NPC.scale);
             }
         }
 

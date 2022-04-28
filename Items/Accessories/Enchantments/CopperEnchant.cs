@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                         float ai2 = Main.rand.Next(100);
                         Vector2 velocity = Vector2.Normalize(ai) * 20;
 
-                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(modPlayer.Player.GetProjectileSource_Item(modPlayer.Player.HeldItem), target.Center, velocity, ModContent.ProjectileType<CopperLightning>(), FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, dmg), 0f, modPlayer.Player.whoAmI, ai.ToRotation(), ai2);
+                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(modPlayer.Player.GetSource_ItemUse(modPlayer.Player.HeldItem), target.Center, velocity, ModContent.ProjectileType<CopperLightning>(), FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, dmg), 0f, modPlayer.Player.whoAmI, ai.ToRotation(), ai2);
                     }
                     else
                     {

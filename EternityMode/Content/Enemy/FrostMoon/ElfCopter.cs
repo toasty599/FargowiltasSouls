@@ -39,7 +39,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
                     float num16 = num13 * num14;
                     float SpeedX = num15 * (1f + Main.rand.Next(-20, 21) * 0.0125f);
                     float SpeedY = num16 * (1f + Main.rand.Next(-20, 21) * 0.0125f);
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center.X, npc.Center.Y, SpeedX, SpeedY, ModContent.ProjectileType<ElfCopterBullet>(), 32, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center.X, npc.Center.Y, SpeedX, SpeedY, ModContent.ProjectileType<ElfCopterBullet>(), 32, 0f, Main.myPlayer);
                 }
             }
         }

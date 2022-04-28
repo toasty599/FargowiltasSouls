@@ -65,6 +65,19 @@ Iron, Frost, Forbidden, Dark Artist, Crimson, Cobalt, Chlorophyte, Beetle, Appre
 
 
 
+fargotten land wip:
+
+-Huntress/Red Riding Enchant:
+increase arrow velocity, (extra update?)
+arrows stick in and/or apply stacking bleed
+
+
+default arrow type is now Chlorophyte arrow, increased arrow damage by 15%, arrow rain lasts twice as long, all arrow velocity increased by 50%
+
+
+
+
+
 
 
 

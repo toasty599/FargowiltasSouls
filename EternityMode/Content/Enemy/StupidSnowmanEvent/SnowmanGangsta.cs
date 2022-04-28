@@ -37,7 +37,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.StupidSnowmanEvent
                         Speed.Y += Main.rand.Next(-40, 41);
                         Speed.Normalize();
                         Speed *= 11f;
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center.X, npc.Center.Y, Speed.X, Speed.Y, ProjectileID.BulletSnowman, 20, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center.X, npc.Center.Y, Speed.X, Speed.Y, ProjectileID.BulletSnowman, 20, 0f, Main.myPlayer);
                     }
                 }
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item38, npc.Center);

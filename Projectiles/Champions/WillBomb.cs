@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             float scaleFactor9 = 2.5f;
             for (int j = 0; j < 20; j++)
             {
-                int gore = Gore.NewGore(Projectile.position + new Vector2(Main.rand.Next(Projectile.width), Main.rand.Next(Projectile.height)), Vector2.Zero, Main.rand.Next(61, 64), scaleFactor9);
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + new Vector2(Main.rand.Next(Projectile.width), Main.rand.Next(Projectile.height)), Vector2.Zero, Main.rand.Next(61, 64), scaleFactor9);
                 Main.gore[gore].velocity.Y += 2f;
                 Main.gore[gore].velocity *= 6f;
             }

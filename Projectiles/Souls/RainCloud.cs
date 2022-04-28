@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
                             Vector2 vector2_3 = rotationVector2 * 10f;
                             float ai_1 = Main.rand.Next(80);
-                            int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.position.X + Main.rand.NextFloat(Projectile.width), Projectile.position.Y + Main.rand.NextFloat(Projectile.height), vector2_3.X, vector2_3.Y,
+                            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + Main.rand.NextFloat(Projectile.width), Projectile.position.Y + Main.rand.NextFloat(Projectile.height), vector2_3.X, vector2_3.Y,
                                 ModContent.ProjectileType<LightningArc>(), proj.maxPenetrate == 1 ? proj.damage * 2 : (int)(proj.damage * 1.2), Projectile.knockBack, Projectile.owner,
                                 rotationVector2.ToRotation(), ai_1);
                             if (p != Main.maxProjectiles)
@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 {
                     int num414 = (int)(Projectile.Center.X + (float)Main.rand.Next((int)(-20 * Projectile.scale), (int)(20 * Projectile.scale)));
                     int num415 = (int)(Projectile.position.Y + (float)Projectile.height + 4f);
-                    int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), (float)num414, (float)num415, 0f, 5f, ProjectileID.RainFriendly, Projectile.damage / 4, 0f, Projectile.owner, 0f, 0);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), (float)num414, (float)num415, 0f, 5f, ProjectileID.RainFriendly, Projectile.damage / 4, 0f, Projectile.owner, 0f, 0);
                     if (p != Main.maxProjectiles)
                     {
                         Main.projectile[p].penetrate = 1;

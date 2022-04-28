@@ -15,7 +15,7 @@ namespace FargowiltasSouls.EternityMode
             {
                 Player player = Main.player[npc.target];
 
-                Item.NewItem(npc.GetItemSource_Loot(), player.Hitbox, itemType);
+                Item.NewItem(npc.GetSource_Loot(), player.Hitbox, itemType);
                 droppedSummonFlag = true;
             }
         }
@@ -27,7 +27,7 @@ namespace FargowiltasSouls.EternityMode
                 Player player = Main.player[npc.target];
 
                 if (ModContent.TryFind("Fargowiltas", itemName, out ModItem modItem))
-                    Item.NewItem(npc.GetItemSource_Loot(), player.Hitbox, modItem.Type);
+                    Item.NewItem(npc.GetSource_Loot(), player.Hitbox, modItem.Type);
                 droppedSummonFlag = true;
             }
         }

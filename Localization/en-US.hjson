@@ -10,45 +10,108 @@ Mods: {
 	FargowiltasSouls: {
 
 		BossChecklist: {
-			DeviBossName: Deviantt
 			DeviBossDespawn: Deviantt bores of the battle...
 			DeviBossKilledAll: Deviantt is satisfied with its show of love.
 			
-			AbomBossName: Abominationn
 			AbomBossDespawn: Abominationn sees no worthy opponent...
 			AbomBossKilledAll: Abominationn has destroyed everyone.
 			
-			MutantBossName: Mutant
 			MutantBossDespawn: Mutant seals its power once more...
 			MutantBossKilledAll: Mutant has eviscerated everyone under its hands.
 
-			TimberChampionName: Champion of Timber
 			TimberChampionDespawn: Champion of Timber returns to its squirrel clan...
-
-			TerraChampionName: Champion of Terra
 			TerraChampionDespawn: Champion of Terra vanishes into the caverns...
-			
-			EarthChampionName: Champion of Earth
 			EarthChampionDespawn: Champion of Earth disappears beneath the magma...
-			
-			NatureChampionName: Champion of Nature
 			NatureChampionDespawn: Champion of Nature returns to its slumber...
-			
-			LifeChampionName: Champion of Life
 			LifeChampionDespawn: Champion of Life fades away...
-			
-			ShadowChampionName: Champion of Shadow
 			ShadowChampionDespawn: Champion of Shadow fades away...
-			
-			SpiritChampionName: Champion of Spirit
 			SpiritChampionDespawn: Champion of Spirit vanishes into the desert...
-			
-			WillChampionName: Champion of Will
 			WillChampionDespawn: Champion of Will returns to the depths...
-			
-			CosmosChampionName: Eridanus, Champion of Cosmos
+
 			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
 			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
+		}
+
+		Message: {
+			HasAwoken: has awoken!
+			DevisCurse: "{$Mods.FargowiltasSouls.NPCName.DeviBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			AbomsCurse: "{$Mods.FargowiltasSouls.NPCName.AbomBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			MutantsCurse: "{$Mods.FargowiltasSouls.NPCName.MutantBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			
+			AbominationnVoodooDoll: "Mutant has been enraged by the death of his brother!"
+			
+			SigilOfChampions: {
+				Timber: You are surrounded by the rustling of trees...
+				Terra: The stones tremble around you...
+				Spirit: A strong spirit stirs...
+				Life: A wave of warmth passes over you...
+				Shadow: The darkness of the night feels deeper...
+				Nature: A verdant wind is blowing...
+				Will: Metallic groans echo from the depths...
+				Earth: The core of the planet rumbles...
+				Cosmos: The stars are aligning...
+				Nothing: Nothing seems to answer the call...
+			}
+
+			MutantsFuryOn: Mutant is angered!
+			MutantsFuryOff: Mutant is calm.
+
+			PiranhaPlantVoodooDollOn: The suffering continues...
+			PiranhaPlantVoodooDollOff: The suffering wanes...
+
+			MasochistSpawnDevi: Deviantt has awoken!
+			MasochistWrongDifficulty: World must be Expert difficulty or harder!
+			MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist} surges with new power...!"
+
+			FargoSoulsWorld: {
+				EternityOn: Eternity Mode activated!
+				EternityOff: Eternity Mode deactivated.
+				EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
+				
+				MasochistOn: Master and Eternity combined: Masochist Mode activated!!
+				MasochistOff: Masochist Mode deactivated.
+
+				BloodMoonCancel: The Blood Moon changed its mind and left...
+			}
+
+			MutantSkipP1: Mutant tires of the charade...
+
+			MutantSpawnMutantBoss: "{$Mods.FargowiltasSouls.Message.MutantsCurse}"
+			MutantSpawnNotSafe: You think you're safe?
+
+			OceanicMaulLifeUp: +5 max life
+			OceanicMaulLifeDown: -5 max life
+
+			ItemStolen: An item was stolen from you!
+
+			Revived: You've been revived!
+
+			NoMusic1: Fargo's Music Mod not found!
+			NoMusic2: Please install Fargo's Music Mod for the full experience!!
+
+			DeviBribe: {
+				Line1: Wait a second...
+				Line2: You're throwing money at me!
+				Line3: Trying to bribe me is pretty gutsy, you know!
+				Accept1: Then again, this is a LOT of money...
+				Accept2: But my big bro said not to! What to do, what to do...?
+				Accept3: Aw, what the heck! But this is our little secret, okay?
+				Reject1: Show you're tough enough and I won't mind, but not a second before!
+				Reject2: Here, you can have this back.
+				Reject3: Let's get this show back on the road!
+			}
+
+			IvyVenomTransform: Your Ivy Venom has become Neurotoxin!!
+
+			LihzahrdBlessing: The altar's light shines on you!
+
+			PatreonItem: ">> Patreon Item <<"
+			PatreonNameEffect: Your special patreon effects are active
+
+			SkeletronRegrow: has regrown its arms!
+			SkeletronGuardian: has entered Dungeon Guardian form!
+			TwinsEndure: endured the fatal blow to fight alongside its twin!
+			GelatinSubjects: Gelatin Subjects have awoken!
 		}
 		
 		Bestiary: {
@@ -83,7 +146,7 @@ Mods: {
 			
 			DeviBoss: Casts spells of light and love using a living axe made of evil. She must be very lax about death, given she never fights that hard to protect a town.
 			AbomBoss: His blade divides the soul itself. All supernatural phenomena are his domain, but he doesn't use celestial attacks out of respect for Mutant.
-			MutantBoss: The keeper of eternity. Ultimate power incarnate. Master of all with dominion over every aspect of combat. Perhaps it came from a world beyond the dimensional rift that opened as it fought...
+			MutantBoss: The keeper of eternity. Ultimate power incarnate. Master of all with dominion over every aspect of combat. Perhaps it came from a world beyond that dimensional rift...
 		}
 
 		ItemName: {

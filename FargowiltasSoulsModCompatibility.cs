@@ -32,7 +32,7 @@ namespace FargowiltasSouls
                     bossChecklist.Call(
                         $"Add{type}", 
                         this, 
-                        $"$Mods.{Name}.BossChecklist.{bossName}Name",
+                        $"$Mods.{Name}.NPCName.{bossName}",
                         npcIDs, 
                         progression,
                         downed, 

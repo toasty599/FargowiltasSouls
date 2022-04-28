@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
                 localProjX *= sqrtSpeed;
                 localProjY *= sqrtSpeed;
 
-                Projectile.NewProjectile(player.GetProjectileSource_Item(Item), position.X, position.Y, localProjX, localProjY, ModContent.ProjectileType<GolemGib>(), ItemDamage, ItemKnockBack, Main.myPlayer, 0, Main.rand.Next(1, 12));
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), position.X, position.Y, localProjX, localProjY, ModContent.ProjectileType<GolemGib>(), ItemDamage, ItemKnockBack, Main.myPlayer, 0, Main.rand.Next(1, 12));
             }
 
             return false;

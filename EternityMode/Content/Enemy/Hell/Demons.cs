@@ -48,7 +48,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
                 {
                     int amount = npc.type == NPCID.RedDevil ? 9 : 6;
                     int damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage, npc.type == NPCID.RedDevil ? 4f / 3 : 1);
-                    FargoSoulsUtil.XWay(amount, npc.GetSpawnSource_ForProjectile(), npc.Center, ProjectileID.DemonSickle, 1, damage, .5f);
+                    FargoSoulsUtil.XWay(amount, npc.GetSource_FromThis(), npc.Center, ProjectileID.DemonSickle, 1, damage, .5f);
                 }
             }
             else if (npc.type == NPCID.VoodooDemon) //can ignite itself to burn up its doll

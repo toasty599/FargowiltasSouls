@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     double spread = MathHelper.PiOver4 / max;
                     for (int i = -max; i <= max; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + HoldOffset * 2, 22f * Projectile.velocity.RotatedBy(spread * i),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + HoldOffset * 2, 22f * Projectile.velocity.RotatedBy(spread * i),
                             type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 105, 1f, -0.3f);
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 				{
 					int type = ModContent.ProjectileType<PrimeDeathray>();
 
-					int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, type, Projectile.damage, Projectile.knockBack, player.whoAmI, 0, Projectile.identity);
+					int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, type, Projectile.damage, Projectile.knockBack, player.whoAmI, 0, Projectile.identity);
 
 					if (p < Main.maxProjectiles)
 					{
@@ -198,7 +198,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 				{
 					int factor = (j == 0) ? 1 : -1;
 					float ai0 = (Projectile.type == ModContent.ProjectileType<PrimeDeathray>()) ? (i + 1) * factor : 0;
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedBy(factor * spread * (i + 1)), Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, 
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedBy(factor * spread * (i + 1)), Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, 
 						ai0, Projectile.ai[1]);
 				}
 			}

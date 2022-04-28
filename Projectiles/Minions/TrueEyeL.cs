@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
 
             if (Projectile.damage == 0)
-                Projectile.damage = (int)(60f * player.GetDamage(DamageClass.Summon));
+                Projectile.damage = (int)(60f * player.GetDamage(DamageClass.Summon).Additive);
 
             //lighting effect?
             DelegateMethods.v3_1 = new Vector3(0.5f, 0.9f, 1f) * 1.5f;
@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 localAI0 -= rotationDirection * 45f;
                                 Vector2 speed = -Vector2.UnitX.RotatedBy(localAI0);
                                 if (Projectile.owner == Main.myPlayer)
-                                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center - Vector2.UnitY * 6f, speed, ModContent.ProjectileType<PhantasmalDeathrayTrueEye>(),
+                                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center - Vector2.UnitY * 6f, speed, ModContent.ProjectileType<PhantasmalDeathrayTrueEye>(),
                                         Projectile.originalDamage / 3 * 10, 6f, Projectile.owner, rotationDirection, Projectile.identity);
                                 Projectile.localAI[1] = rotationDirection;
                             }

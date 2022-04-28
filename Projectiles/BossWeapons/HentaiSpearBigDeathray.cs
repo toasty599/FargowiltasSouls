@@ -55,8 +55,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>());
+            if (byIdentity != -1)
             {
                 Projectile.timeLeft = 2;
 
@@ -189,9 +189,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     for (int i = 0; i < ringMax; i++)
                     {
                         Vector2 vel = speed * Projectile.velocity.RotatedBy(2 * Math.PI / ringMax * i);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, vel, ModContent.ProjectileType<HentaiSphereRing>(),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, vel, ModContent.ProjectileType<HentaiSphereRing>(),
                             Projectile.damage, Projectile.knockBack, Projectile.owner, rotation, speed);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, vel, ModContent.ProjectileType<HentaiSphereRing>(),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, vel, ModContent.ProjectileType<HentaiSphereRing>(),
                             Projectile.damage, Projectile.knockBack, Projectile.owner, -rotation, speed);
                     }
                 }
