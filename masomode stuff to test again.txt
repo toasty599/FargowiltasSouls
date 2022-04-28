@@ -1273,4 +1273,11 @@ refactored stuff using onspawn() hook, check that:
 reduced devi curse recipe to one single recipe that can take either vertebrae or rotten chunk
 updated localization files
 fixed oddities with prime staff enemy iframes
+emode now makes debuffs end faster when you dont attack and havent been hit for 1sec, doesnt affect
+	any debuff with a hidden duration
+	any debuff that nurse can't remove
+	cursed
+	stoned
+	stunned
+	time frozen
 numerous refactors for separating emode changes from other code

@@ -21,6 +21,8 @@ namespace FargowiltasSouls.Items
             Tooltip.SetDefault(@"World must be in Expert Mode
 Toggles Eternity Mode
 Deviantt provides a starter pack and progress-based advice
+Improves base stats
+Debuffs wear off faster when not attacking
 Cannot be used while a boss is alive
 [i:1612][c/00ff00:Recommended to use Fargo's Mutant Mod Debuff Display (in config)]
 [c/ff0000:NOT INTENDED FOR USE WITH OTHER CONTENT MODS OR MODDED DIFFICULTIES]");

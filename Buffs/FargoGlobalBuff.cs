@@ -21,6 +21,13 @@ namespace FargowiltasSouls.Buffs
             }
         }
 
+        public static int[] DebuffsToLetDecreaseNormally => new int[] {
+            BuffID.Stoned,
+            BuffID.Cursed,
+            ModContent.BuffType<Fused>(),
+            ModContent.BuffType<Stunned>()
+        };
+
         public override void Update(int type, Player player, ref int buffIndex)
         {
             switch (type)
@@ -66,6 +73,12 @@ namespace FargowiltasSouls.Buffs
 
                 default:
                     break;
+            }
+
+            if (FargoSoulsWorld.EternityMode && player.buffTime[buffIndex] > 2 && Main.debuff[type] && !Main.buffNoTimeDisplay[type] && !BuffID.Sets.NurseCannotRemoveDebuff[type]
+                && player.GetModPlayer<EModePlayer>().ShorterDebuffsTimer <= 0)
+            {
+                player.buffTime[buffIndex] -= 1;
             }
 
             base.Update(type, player, ref buffIndex);

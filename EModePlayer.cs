@@ -28,6 +28,9 @@ namespace FargowiltasSouls
         public int HallowFlipCheckTimer;
         public int TorchGodTimer;
 
+        public int ShorterDebuffsTimer;
+        public const int MaxShorterDebuffsTimer = 60;
+
         public override void ResetEffects()
         {
             ReduceMasomodeMinionNerf = false;
@@ -38,6 +41,7 @@ namespace FargowiltasSouls
         {
             MasomodeWeaponUseTimer = 0;
             MasomodeMinionNerfTimer = 0;
+            ShorterDebuffsTimer = 0;
         }
 
         public override void PreUpdate()
@@ -354,15 +358,21 @@ namespace FargowiltasSouls
             {
                 MasomodeWeaponUseTimer -= 1;
                 MasomodeMinionNerfTimer += 1;
+                ShorterDebuffsTimer += 1;
             }
             else
             {
                 if (MasomodeMinionNerfTimer > 0)
                     MasomodeMinionNerfTimer -= 1;
+                if (ShorterDebuffsTimer > 0)
+                    ShorterDebuffsTimer -= 1;
             }
 
             if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer)
                 MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer;
+
+            if (ShorterDebuffsTimer > 60)
+                ShorterDebuffsTimer = 60;
 
             //Main.NewText($"{MasomodeWeaponUseTimer} {MasomodeMinionNerfTimer} {ReduceMasomodeMinionNerf}");
         }
@@ -429,6 +439,8 @@ namespace FargowiltasSouls
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
+            ShorterDebuffsTimer = MaxShorterDebuffsTimer;
+
             if (!FargoSoulsWorld.EternityMode)
                 return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
 
