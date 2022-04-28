@@ -1294,3 +1294,4 @@ fixed these not being journey researchable
 fixed eri's nebula blazes being called cosmic meteor
 eri nebula meteor reticle now has smoother movement (should be slightly easier to misdirect with no momentum)
 qs mine slimes prevent stomp attack too but explode 0.5sec faster
+fixed crab dropping calming potion, now drops crate potion like intended
