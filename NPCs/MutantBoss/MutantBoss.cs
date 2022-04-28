@@ -40,7 +40,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体");
 
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;

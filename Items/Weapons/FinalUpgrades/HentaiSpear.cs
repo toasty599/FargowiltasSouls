@@ -21,9 +21,6 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
                 "\nHas different attacks when used while holding up, down, or both" +
                 "\n'The reward for embracing eternity...'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "洞察者");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励...'");
-
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(3, 10));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 

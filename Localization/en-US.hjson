@@ -10,43 +10,24 @@ Mods: {
 	FargowiltasSouls: {
 
 		BossChecklist: {
-			DeviBossName: Deviantt
 			DeviBossDespawn: Deviantt bores of the battle...
 			DeviBossKilledAll: Deviantt is satisfied with its show of love.
 			
-			AbomBossName: Abominationn
 			AbomBossDespawn: Abominationn sees no worthy opponent...
 			AbomBossKilledAll: Abominationn has destroyed everyone.
 			
-			MutantBossName: Mutant
 			MutantBossDespawn: Mutant seals its power once more...
 			MutantBossKilledAll: Mutant has eviscerated everyone under its hands.
 
-			TimberChampionName: Champion of Timber
 			TimberChampionDespawn: Champion of Timber returns to its squirrel clan...
-
-			TerraChampionName: Champion of Terra
 			TerraChampionDespawn: Champion of Terra vanishes into the caverns...
-			
-			EarthChampionName: Champion of Earth
 			EarthChampionDespawn: Champion of Earth disappears beneath the magma...
-			
-			NatureChampionName: Champion of Nature
 			NatureChampionDespawn: Champion of Nature returns to its slumber...
-			
-			LifeChampionName: Champion of Life
 			LifeChampionDespawn: Champion of Life fades away...
-			
-			ShadowChampionName: Champion of Shadow
 			ShadowChampionDespawn: Champion of Shadow fades away...
-			
-			SpiritChampionName: Champion of Spirit
 			SpiritChampionDespawn: Champion of Spirit vanishes into the desert...
-			
-			WillChampionName: Champion of Will
 			WillChampionDespawn: Champion of Will returns to the depths...
-			
-			CosmosChampionName: Eridanus, Champion of Cosmos
+
 			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
 			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
 		}
@@ -72,8 +53,8 @@ Mods: {
 				Nothing: Nothing seems to answer the call...
 			}
 
-			MutantsFuryOn: "Mutant is angered!"
-			MutantsFuryOff: "Mutant is calm."
+			MutantsFuryOn: Mutant is angered!
+			MutantsFuryOff: Mutant is calm.
 
 			PiranhaPlantVoodooDollOn: The suffering continues...
 			PiranhaPlantVoodooDollOff: The suffering wanes...
@@ -124,6 +105,7 @@ Mods: {
 
 			LihzahrdBlessing: The altar's light shines on you!
 
+			PatreonItem: ">> Patreon Item <<"
 			PatreonNameEffect: Your special patreon effects are active
 
 			SkeletronRegrow: has regrown its arms!
@@ -164,7 +146,7 @@ Mods: {
 			
 			DeviBoss: Casts spells of light and love using a living axe made of evil. She must be very lax about death, given she never fights that hard to protect a town.
 			AbomBoss: His blade divides the soul itself. All supernatural phenomena are his domain, but he doesn't use celestial attacks out of respect for Mutant.
-			MutantBoss: The keeper of eternity. Ultimate power incarnate. Master of all with dominion over every aspect of combat. Perhaps it came from a world beyond the dimensional rift that opened as it fought...
+			MutantBoss: The keeper of eternity. Ultimate power incarnate. Master of all with dominion over every aspect of combat. Perhaps it came from a world beyond that dimensional rift...
 		}
 	}
 }

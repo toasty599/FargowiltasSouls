@@ -33,7 +33,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abominationn");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶");
 
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
