@@ -15,6 +15,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
@@ -386,7 +387,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (!HasSaidEndure)
                 {
                     HasSaidEndure = true;
-                    FargoSoulsUtil.PrintText("Retinazer endured the fatal blow to fight alongside its twin!", new Color(175, 75, 255));
+                    string text = Language.GetTextValue($"Mods.{mod.Name}.Message.TwinsEndure");
+                    FargoSoulsUtil.PrintText($"{npc.FullName} {text}", new Color(175, 75, 255));
                 }
                 return false;
             }
@@ -773,7 +775,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (!HasSaidEndure)
                 {
                     HasSaidEndure = true;
-                    FargoSoulsUtil.PrintText("Spazmatism endured the fatal blow to fight alongside its twin!", new Color(175, 75, 255));
+                    string text = Language.GetTextValue($"Mods.{mod.Name}.Message.TwinsEndure");
+                    FargoSoulsUtil.PrintText($"{npc.FullName} {text}", new Color(175, 75, 255));
                 }
                 return false;
             }

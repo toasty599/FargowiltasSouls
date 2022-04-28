@@ -3337,7 +3337,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 if (Main.LocalPlayer.active)
                 {
                     if (!Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso && Main.netMode != NetmodeID.Server)
-                        Main.NewText("Mutant's Gift surges with new power...!", new Color(51, 255, 191, 0));
+                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.MasochistModeUnlocked"), new Color(51, 255, 191, 0));
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso = true;
                 }
                 FargoSoulsWorld.CanPlayMaso = true;

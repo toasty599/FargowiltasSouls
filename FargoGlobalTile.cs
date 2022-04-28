@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls
@@ -221,7 +222,7 @@ namespace FargowiltasSouls
                 {
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<Buffs.Masomode.LihzahrdBlessing>()))
                     {
-                        Main.NewText("The altar's light shines on you!", Color.Orange);
+                        Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.LihzahrdBlessing"), Color.Orange);
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item4, Main.LocalPlayer.Center);
                         for (int k = 0; k < 50; k++)
                         {

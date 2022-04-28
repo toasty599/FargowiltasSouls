@@ -16,6 +16,7 @@ using System.Linq;
 using Terraria.Audio;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -58,7 +59,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
                 FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
 
-                FargoSoulsUtil.PrintText("Skeletron has regrown its arms!", new Color(175, 75, 255));
+                string text = Language.GetTextValue($"Mods.{mod.Name}.Message.SkeletronRegrow");
+                FargoSoulsUtil.PrintLocalization($"{npc.FullName} {text}", new Color(175, 75, 255));
             }
 
             if (npc.ai[1] == 0f)
@@ -286,7 +288,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (!HasSaidEndure)
                 {
                     HasSaidEndure = true;
-                    FargoSoulsUtil.PrintText("Skeletron has entered Dungeon Guardian form!", new Color(175, 75, 255));
+                    string text = Language.GetTextValue($"Mods.{mod.Name}.Message.SkeletronGuardian");
+                    FargoSoulsUtil.PrintLocalization($"{npc.FullName} {text}", new Color(175, 75, 255));
                 }
                 return false;
             }

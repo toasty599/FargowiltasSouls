@@ -105,7 +105,7 @@ namespace FargowiltasSouls
         public bool DarkArtistSpawn;
         public int DarkArtistSpawnCD;
         public bool ForbiddenEnchantActive;
-        public bool FossilEnchantActive;
+        public Item FossilEnchantItem;
         public bool FrostEnchantActive;
         public int IcicleCount;
         private int icicleCD;
@@ -455,8 +455,8 @@ namespace FargowiltasSouls
 
             if (!ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod))
             {
-                Main.NewText("Fargo's Music Mod not found!", Color.LimeGreen);
-                Main.NewText("Please install Fargo's Music Mod for the full experience!!", Color.LimeGreen);
+                Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoMusic1"), Color.LimeGreen);
+                Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoMusic2"), Color.LimeGreen);
             }
 
             if (Toggler.CanPlayMaso)
@@ -740,7 +740,7 @@ namespace FargowiltasSouls
             SpiderEnchantActive = false;
             StardustEnchantActive = false;
             MythrilEnchantActive = false;
-            FossilEnchantActive = false;
+            FossilEnchantItem = null;
             JungleEnchantActive = false;
             ShroomEnchantActive = false;
             CobaltEnchantActive = false;
@@ -3936,7 +3936,7 @@ namespace FargowiltasSouls
                     p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             }
 
-            if (FossilEnchantActive)
+            if (FossilEnchantItem != null)
             {
                 FossilEnchant.FossilHurt(this, (int)damage);
             }
@@ -3998,7 +3998,6 @@ namespace FargowiltasSouls
                     if (!WasHurtBySomething)
                     {
                         Player.statLife = 1;
-                        //CombatText.NewText(Player.Hitbox, Color.SandyBrown, "You've been revived!");
                         return false; //short circuits the rest, this is deliberate
                     }
                 }
@@ -4011,14 +4010,15 @@ namespace FargowiltasSouls
                     Player.immuneTime = 180;
                     Player.hurtCooldowns[0] = 180;
                     Player.hurtCooldowns[1] = 180;
-                    Main.NewText("You've been revived!", Color.LimeGreen);
+                    string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.Revived");
+                    Main.NewText(text, Color.LimeGreen);
                     Player.AddBuff(ModContent.BuffType<MutantRebirth>(), 10800);
                     retVal = false;
 
                     Projectile.NewProjectile(Player.GetSource_Accessory(MutantSetBonusItem), Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.ActualClassDamage(DamageClass.Magic)), 10f, Player.whoAmI);
                 }
 
-                if (Player.whoAmI == Main.myPlayer && retVal && FossilEnchantActive && Player.FindBuffIndex(ModContent.BuffType<FossilReviveCD>()) == -1)
+                if (Player.whoAmI == Main.myPlayer && retVal && FossilEnchantItem != null && Player.FindBuffIndex(ModContent.BuffType<FossilReviveCD>()) == -1)
                 {
                     FossilEnchant.FossilRevive(this);
                     retVal = false;
@@ -4034,8 +4034,9 @@ namespace FargowiltasSouls
                     Player.immuneTime = 120;
                     Player.hurtCooldowns[0] = 120;
                     Player.hurtCooldowns[1] = 120;
-                    CombatText.NewText(Player.Hitbox, Color.Yellow, "You've been revived!", true);
-                    Main.NewText("You've been revived!", Color.Yellow);
+                    string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.Revived");
+                    CombatText.NewText(Player.Hitbox, Color.Yellow, text, true);
+                    Main.NewText(text, Color.Yellow);
                     Player.AddBuff(ModContent.BuffType<AbomRebirth>(), 300);
                     retVal = false;
                     for (int i = 0; i < 24; i++)

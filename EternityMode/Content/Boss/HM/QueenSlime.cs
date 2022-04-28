@@ -15,6 +15,7 @@ using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
@@ -71,7 +72,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     check = true;
 
-                    FargoSoulsUtil.PrintText("Gelatin Subjects have awoken!", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintLocalization($"Mods.{mod.Name}.Message.GelatinSubjects", new Color(175, 75, 255));
 
                     for (int i = 0; i < 6; i++)
                     {

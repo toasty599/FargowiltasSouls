@@ -16,6 +16,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Projectiles.Champions;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -73,7 +74,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (n != Main.maxNPCs)
                     Main.npc[n].localAI[0] = 60f;
 
-                FargoSoulsUtil.PrintText("Royal Subject has awoken!", new Color(175, 75, 255));
+                string name = Language.GetTextValue($"Mods.{mod.Name}.NPCName.RoyalSubject");
+                string hasAwoken = Language.GetTextValue($"Mods.{mod.Name}.Message.HasAwoken");
+                FargoSoulsUtil.PrintText($"{name} {hasAwoken}", new Color(175, 75, 255));
 
                 npc.netUpdate = true;
                 NetSync(npc);
@@ -93,7 +96,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (n != Main.maxNPCs)
                     Main.npc[n].localAI[0] = 60f;
 
-                FargoSoulsUtil.PrintText("Royal Subject has awoken!", new Color(175, 75, 255));
+                string name = Language.GetTextValue($"Mods.{mod.Name}.NPCName.RoyalSubject");
+                string hasAwoken = Language.GetTextValue($"Mods.{mod.Name}.Message.HasAwoken");
+                FargoSoulsUtil.PrintText($"{name} {hasAwoken}", new Color(175, 75, 255));
 
                 NPC.SpawnOnPlayer(npc.target, ModContent.NPCType<RoyalSubject>()); //so that both dont stack for being spawned from qb
 

@@ -75,8 +75,12 @@ Mods: {
 			MutantsFuryOn: "Mutant is angered!"
 			MutantsFuryOff: "Mutant is calm."
 
+			PiranhaPlantVoodooDollOn: The suffering continues...
+			PiranhaPlantVoodooDollOff: The suffering wanes...
+
 			MasochistSpawnDevi: Deviantt has awoken!
 			MasochistWrongDifficulty: World must be Expert difficulty or harder!
+			MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist} surges with new power...!"
 
 			FargoSoulsWorld: {
 				EternityOn: Eternity Mode activated!
@@ -96,6 +100,36 @@ Mods: {
 
 			OceanicMaulLifeUp: +5 max life
 			OceanicMaulLifeDown: -5 max life
+
+			ItemStolen: An item was stolen from you!
+
+			Revived: You've been revived!
+
+			NoMusic1: Fargo's Music Mod not found!
+			NoMusic2: Please install Fargo's Music Mod for the full experience!!
+
+			DeviBribe: {
+				Line1: Wait a second...
+				Line2: You're throwing money at me!
+				Line3: Trying to bribe me is pretty gutsy, you know!
+				Accept1: Then again, this is a LOT of money...
+				Accept2: But my big bro said not to! What to do, what to do...?
+				Accept3: Aw, what the heck! But this is our little secret, okay?
+				Reject1: Show you're tough enough and I won't mind, but not a second before!
+				Reject2: Here, you can have this back.
+				Reject3: Let's get this show back on the road!
+			}
+
+			IvyVenomTransform: Your Ivy Venom has become Neurotoxin!!
+
+			LihzahrdBlessing: The altar's light shines on you!
+
+			PatreonNameEffect: Your special patreon effects are active
+
+			SkeletronRegrow: has regrown its arms!
+			SkeletronGuardian: has entered Dungeon Guardian form!
+			TwinsEndure: endured the fatal blow to fight alongside its twin!
+			GelatinSubjects: Gelatin Subjects have awoken!
 		}
 		
 		Bestiary: {

@@ -15,6 +15,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
@@ -162,6 +163,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.PrimeCannon, npc.whoAmI, -1f, npc.whoAmI, 0f, 150f, npc.target);
                     if (!NPC.AnyNPCs(NPCID.PrimeVice))
                         FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.PrimeVice, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
+
+                    string text = Language.GetTextValue($"Mods.{mod.Name}.Message.SkeletronRegrow");
+                    FargoSoulsUtil.PrintLocalization($"{npc.FullName} {text}", new Color(175, 75, 255));
 
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
                     return result;
@@ -325,7 +329,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (!HasSaidEndure)
                 {
                     HasSaidEndure = true;
-                    FargoSoulsUtil.PrintText("Skeletron Prime has entered Dungeon Guardian form!", new Color(175, 75, 255));
+                    string text = Language.GetTextValue($"Mods.{mod.Name}.Message.SkeletronGuardian");
+                    FargoSoulsUtil.PrintLocalization($"{npc.FullName} {text}", new Color(175, 75, 255));
                 }
 
                 if (!FargoSoulsWorld.MasochistModeReal)

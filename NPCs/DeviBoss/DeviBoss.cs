@@ -20,6 +20,7 @@ using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.Patreon.Phupperbat;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.NPCs.DeviBoss
 {
@@ -1518,36 +1519,36 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         }
                         else if (NPC.ai[1] == 60)
                         {
-                            CombatText.NewText(displayPoint, Color.HotPink, "Wait a second...");
+                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("DeviBribe.Line1"));
                         }
                         else if (NPC.ai[1] == 150)
                         {
-                            CombatText.NewText(displayPoint, Color.HotPink, "You're throwing money at me!", true);
+                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("DeviBribe.Line2"), true);
                         }
                         else if (NPC.ai[1] == 300)
                         {
-                            CombatText.NewText(displayPoint, Color.HotPink, "Trying to bribe me is pretty gutsy, you know!", true);
+                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("DeviBribe.Line3"), true);
                         }
                         else if (NPC.ai[1] == 450)
                         {
                             if (FargoSoulsWorld.downedDevi)
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, "Then again, this is a LOT of money...");
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("DeviBribe.Accept1"));
                             }
                             else
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, "Show you're tough enough and I won't mind, but not a second before!", true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("DeviBribe.Reject1"), true);
                             }
                         }
                         else if (NPC.ai[1] == 600)
                         {
                             if (FargoSoulsWorld.downedDevi)
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, "But my big bro said not to! What to do, what to do...?", true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("DeviBribe.Accept2"), true);
                             }
                             else
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, "Here, you can have this back.", true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("DeviBribe.Reject2"), true);
 
                                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item28, player.Center);
                                 Vector2 spawnPos = NPC.Center + Vector2.UnitX * NPC.width * 2 * (player.Center.X < NPC.Center.X ? -1 : 1);
@@ -1571,11 +1572,11 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         {
                             if (FargoSoulsWorld.downedDevi)
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, "Aw, what the heck! But this is our little secret, okay?", true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("DeviBribe.Accept3"), true);
                             }
                             else
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, "Let's get this show back on the road!", true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("DeviBribe.Reject3"), true);
                             }
                         }
 
