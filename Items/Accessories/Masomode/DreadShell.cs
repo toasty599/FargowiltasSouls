@@ -7,11 +7,9 @@ using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
-    //[AutoloadEquip(EquipType.Shield)]
+    [AutoloadEquip(EquipType.Shield)]
     public class DreadShell : SoulsItem
     {
-        public override string Texture => "FargowiltasSouls/Items/Placeholder";
-
         public override bool Eternity => true;
 
         public override void SetStaticDefaults()

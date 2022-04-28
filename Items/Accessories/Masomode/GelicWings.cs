@@ -10,8 +10,6 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
     [AutoloadEquip(EquipType.Wings)]
     public class GelicWings : SoulsItem
     {
-        public override string Texture => "FargowiltasSouls/Items/Placeholder";
-
         public override bool Eternity => true;
 
         public override void SetStaticDefaults()
