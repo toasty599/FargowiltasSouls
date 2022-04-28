@@ -128,7 +128,10 @@ namespace FargowiltasSouls.Patreon.Purified
                         {
                             int p = FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 10f * Projectile.DirectionTo(targetnpc.Center), ProjectileID.MiniRetinaLaser, Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
                             if (p != Main.maxProjectiles)
+                            {
                                 Main.projectile[p].usesIDStaticNPCImmunity = false;
+                                Main.projectile[p].usesLocalNPCImmunity = false;
+                            }
                         }
                     }
                 }

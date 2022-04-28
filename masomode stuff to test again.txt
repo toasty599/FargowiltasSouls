@@ -1272,3 +1272,4 @@ refactored stuff using onspawn() hook, check that:
 	shadow champ sandnados do correct damage
 reduced devi curse recipe to one single recipe that can take either vertebrae or rotten chunk
 updated localization files
+fixed oddities with prime staff enemy iframes
