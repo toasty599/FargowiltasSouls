@@ -1298,4 +1298,5 @@ emode gives +100 base mana, but halves your attack speed with mana sickness
 fixed(?) twins sometimes dropping two rangs
 fixed(?) eow sometimes dropping too much loot
 gold ench auto sends your money to piggy bank when you pick up money
+fixed championy sigil being lost on right click
 updated localization files
