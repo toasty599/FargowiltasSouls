@@ -6,33 +6,11 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Events;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Projectiles.Masomode;
-using FargowiltasSouls.Toggler;
-using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Projectiles.Souls;
-using FargowiltasSouls.NPCs.EternityMode;
-using FargowiltasSouls.Projectiles;
-using FargowiltasSouls.Projectiles.Minions;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Projectiles.BossWeapons;
-using FargowiltasSouls.Items.Accessories.Souls;
-using Terraria.Graphics.Shaders;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
-using FargowiltasSouls.Items.Armor;
-using Terraria.IO;
-using System.IO;
-using FargowiltasSouls.Items.Dyes;
-using FargowiltasSouls.Buffs;
-using Terraria.Graphics.Capture;
 
 namespace FargowiltasSouls
 {
