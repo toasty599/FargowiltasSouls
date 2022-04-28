@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -80,7 +81,8 @@ namespace FargowiltasSouls
         {
             if (Gittle || Sasha || ManliestDove || Cat || JojoTheGamer)
             {
-                Main.NewText("Your special patreon effects are active " + Player.name + "!");
+                string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.PatreonNameEffect");
+                Main.NewText($"{text}, {Player.name}!");
             }
         }
 
@@ -162,7 +164,7 @@ namespace FargowiltasSouls
                     }
                 }
 
-                if (ModLoader.GetMod("CalamityMod") != null)
+                if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
                 {
                     target.StrikeNPC(target.lifeMax, 0f, 0);
                 }

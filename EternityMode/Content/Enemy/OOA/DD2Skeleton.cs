@@ -39,7 +39,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
             {
                 AttackTimer = 0;
 
-                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(), npc.Center, NPCID.ChaosBall);
+                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.ChaosBall);
             }
         }
 

@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             Projectile.CloneDefaults(ProjectileID.EyeFire); //has 4 updates per tick
             AIType = ProjectileID.EyeFire;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.tileCollide = false;
             Projectile.width = 20;
             Projectile.height = 400;

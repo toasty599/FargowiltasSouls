@@ -98,7 +98,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
                         int heal = (int)(head.lifeMax / 100f * Main.rand.NextFloat(0.95f, 1.05f)); //heal back roughly 1 percent per heal
                         float ai1 = 30 + Main.rand.Next(30);
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<SpiritHeal>(), heal, 0f, Main.myPlayer, head.whoAmI, ai1);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<SpiritHeal>(), heal, 0f, Main.myPlayer, head.whoAmI, ai1);
                     }
                 }
             }

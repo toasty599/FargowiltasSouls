@@ -122,9 +122,9 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                     int current = Projectile.whoAmI;
                     for (int i = 0; i <= modifier * 3; i++)
-                        current = FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerBody>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
+                        current = FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerBody>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
                     int previous = current;
-                    current = FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerTail>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
+                    current = FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerTail>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
                     Main.projectile[previous].localAI[1] = Main.projectile[current].identity;
                     Main.projectile[previous].netUpdate = true;
                 }
@@ -164,7 +164,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     -Projectile.velocity.Y * 0.2f, 100);
                 Main.dust[dust].velocity *= 2f;
             }
-            int g = Gore.NewGore(Projectile.Center, Projectile.velocity / 2, ModContent.Find<ModGore>("FargowiltasSouls/DestroyerHead").Type, Projectile.scale);
+            int g = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity / 2, ModContent.Find<ModGore>("FargowiltasSouls/DestroyerHead").Type, Projectile.scale);
             Main.gore[g].timeLeft = 20;
             SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 14);
         }

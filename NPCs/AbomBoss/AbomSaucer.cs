@@ -112,7 +112,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                     if (NPC.whoAmI == NPC.FindFirstNPC(NPC.type) && Main.netMode != NetmodeID.MultiplayerClient) //reticle telegraph
                     {
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), Main.player[NPC.target].Center, Vector2.Zero, ModContent.ProjectileType<AbomReticle>(), 0, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), Main.player[NPC.target].Center, Vector2.Zero, ModContent.ProjectileType<AbomReticle>(), 0, 0f, Main.myPlayer);
                     }
                 }
 
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         {
                             Vector2 speed = 16f * NPC.ai[3].ToRotationVector2().RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 12.0);
                             speed *= Main.rand.NextFloat(0.9f, 1.1f);
-                            int p = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<AbomLaser>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
+                            int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<AbomLaser>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].timeLeft = (int)(NPC.localAI[2] / speed.Length()) + 1;
                         }

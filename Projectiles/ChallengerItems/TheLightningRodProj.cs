@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
                         Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 4, Projectile.height / 2);
                         spawnPos -= Main.rand.NextFloat(900f, 1800f) * Vector2.UnitY;
                         float ai1 = Projectile.Center.Y + Main.rand.NextFloat(-Projectile.height / 4, Projectile.height / 4);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, 12f * Vector2.UnitY, ModContent.ProjectileType<TheLightning>(),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, 12f * Vector2.UnitY, ModContent.ProjectileType<TheLightning>(),
                             Projectile.damage, Projectile.knockBack / 2, Projectile.owner, Vector2.UnitY.ToRotation(), ai1);
                     }
 

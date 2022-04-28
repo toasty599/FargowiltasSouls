@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                         Vector2 spawnFromMe = Main.player[Projectile.owner].Center + (Projectile.Center - Main.player[Projectile.owner].Center).RotatedBy(MathHelper.TwoPi / 4 * Main.rand.Next(4));
                         Vector2 vel = speed * Vector2.Normalize(targetnpc.Center + targetnpc.velocity * 15 - spawnFromMe);
-                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), spawnFromMe, vel, type, damage, Projectile.knockBack, Projectile.owner, Projectile.scale);
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), spawnFromMe, vel, type, damage, Projectile.knockBack, Projectile.owner, Projectile.scale);
                     }
                 }
             }

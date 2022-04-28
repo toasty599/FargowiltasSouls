@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                             Vector2 dir = Projectile.DirectionTo(player.Center).RotatedByRandom(MathHelper.ToRadians(10));
                             float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                             Vector2 vel = Vector2.Normalize(dir) * 6f;
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, vel * 6, ModContent.ProjectileType<Champions.CosmosLightning>(),
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel * 6, ModContent.ProjectileType<Champions.CosmosLightning>(),
                                 Projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                         }
                         p.Kill();

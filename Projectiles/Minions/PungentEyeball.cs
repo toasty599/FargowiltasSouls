@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 Projectile.timeLeft = 2;
 
             if (Projectile.damage == 0)
-                Projectile.damage = (int)(50f * player.GetDamage(DamageClass.Summon));
+                Projectile.damage = (int)(50f * player.GetDamage(DamageClass.Summon).Additive);
 
             Vector2 vector2_1 = new Vector2(0f, -85f); //movement code
             Vector2 vector2_2 = player.MountedCenter + vector2_1;
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     if (Projectile.owner == Main.myPlayer) //fully charged
                     {
                         Projectile.netUpdate = true;
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -1);
                     }
                 }
                 if (Projectile.localAI[0] > chargeTime * 2f)
@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         Projectile.netUpdate = true;
                     Projectile.localAI[1] = 120f;
                     if (Projectile.owner == Main.myPlayer)
-                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.UnitX.RotatedBy(Projectile.rotation), ModContent.ProjectileType<PhantasmalDeathrayPungent>(),
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.UnitX.RotatedBy(Projectile.rotation), ModContent.ProjectileType<PhantasmalDeathrayPungent>(),
                             Projectile.originalDamage, 4f, Projectile.owner, Projectile.identity, (Projectile.localAI[0] >= chargeTime * 2f) ? 1f : 0f);
                 }
                 Projectile.localAI[0] = 0;

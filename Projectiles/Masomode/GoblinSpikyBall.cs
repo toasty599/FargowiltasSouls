@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             AIType = ProjectileID.SpikyBall;
             Projectile.hostile = true;
             Projectile.friendly = false;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 180;
             Projectile.scale = 1.5f;

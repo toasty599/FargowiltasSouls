@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile.CloneDefaults(ProjectileID.JestersArrow);
             AIType = ProjectileID.JestersArrow;
             Projectile.friendly = false;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
             Projectile.arrow = false;
             Projectile.hostile = true;
             Projectile.timeLeft *= 2;

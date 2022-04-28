@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
@@ -132,8 +133,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
 
                 if (stolen)
                 {
-                    Main.NewText("An item was stolen from you!", new Color(255, 50, 50));
-                    CombatText.NewText(target.Hitbox, new Color(255, 50, 50), "An item was stolen from you!", true);
+                    string text = Language.GetTextValue($"Mods.{mod.Name}.Message.ItemStolen");
+                    Main.NewText(text, new Color(255, 50, 50));
+                    CombatText.NewText(target.Hitbox, new Color(255, 50, 50), text, true);
                 }
             }
         }

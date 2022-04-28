@@ -42,13 +42,13 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FossilEffect(player);
+            FossilEffect(player, Item);
         }
 
-        public static void FossilEffect(Player player)
+        public static void FossilEffect(Player player, Item item)
         {
             //bone zone
-            player.GetModPlayer<FargoSoulsPlayer>().FossilEnchantActive = true;
+            player.GetModPlayer<FargoSoulsPlayer>().FossilEnchantItem = item;
         }
 
         public static void FossilHurt(FargoSoulsPlayer modPlayer, int damage)
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
                     float velX = Main.rand.Next(-5, 6) * 3f;
                     float velY = Main.rand.Next(-5, 6) * 3f;
-                    Projectile.NewProjectile(player.GetProjectileSource_Misc(0), player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
+                    Projectile.NewProjectile(player.GetSource_Misc(""), player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
                 }
             }
         }
@@ -89,27 +89,28 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                 player.hurtCooldowns[0] = 120;
                 player.hurtCooldowns[1] = 120;
 
-                CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!", true);
-                Main.NewText("You've been revived!", Color.SandyBrown);
+                string text = Language.GetTextValue($"Mods.{FargowiltasSouls.Instance.Name}.Message.Revived");
+                CombatText.NewText(player.Hitbox, Color.SandyBrown, text, true);
+                Main.NewText(text, Color.SandyBrown);
 
                 player.AddBuff(ModContent.BuffType<FossilReviveCD>(), reviveCooldown);
             };
 
-            //if (Eternity)
-            //{
-            //    Revive(player.statLifeMax2 / 2 > 200 ? player.statLifeMax2 / 2 : 200, 10800);
-            //    FargoSoulsUtil.XWay(30, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
-            //}
-            //else if (TerrariaSoul)
-            //{
-            //    Revive(200, 14400);
-            //    FargoSoulsUtil.XWay(25, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
-            //}
-            //else
-            //{
-            Revive(modPlayer.SpiritForce ? 200 : 50, 18000);
-            FargoSoulsUtil.XWay(modPlayer.SpiritForce ? 20 : 10, player.GetProjectileSource_Misc(0), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
-            //}
+            if (modPlayer.Eternity)
+            {
+                Revive(player.statLifeMax2 / 2 > 200 ? player.statLifeMax2 / 2 : 200, 10800);
+                FargoSoulsUtil.XWay(30, player.GetSource_Accessory(modPlayer.FossilEnchantItem), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+            }
+            else if (modPlayer.TerrariaSoul)
+            {
+                Revive(200, 14400);
+                FargoSoulsUtil.XWay(25, player.GetSource_Accessory(modPlayer.FossilEnchantItem), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+            }
+            else
+            {
+                Revive(modPlayer.SpiritForce ? 200 : 50, 18000);
+                FargoSoulsUtil.XWay(modPlayer.SpiritForce ? 20 : 10, player.GetSource_Accessory(modPlayer.FossilEnchantItem), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+            }
         }
 
         public override void AddRecipes()

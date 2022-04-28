@@ -65,7 +65,7 @@ Reduces defense by 20, max life by 10%, and damage reduction by 15%";
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.GaiaSet = true;
 
-            player.meleeSpeed += 0.1f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.1f;
             player.manaCost -= 0.1f;
             player.maxMinions += 1;
             player.maxTurrets += 1;
@@ -95,7 +95,7 @@ Reduces defense by 20, max life by 10%, and damage reduction by 15%";
             {
                 player.GetDamage(DamageClass.Generic) += 0.30f;
                 player.GetCritChance(DamageClass.Generic) += 15;
-                player.armorPenetration += 20;
+                player.GetArmorPenetration(DamageClass.Generic) += 20;
                 player.statDefense -= 20;
                 player.statLifeMax2 -= player.statLifeMax / 10;
                 player.endurance -= 0.15f;

@@ -52,7 +52,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
                     Vector2 vel = Vector2.Normalize(npc.velocity) * 1.5f;
                     for (int i = 0; i < max; i++)
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel.RotatedBy(2f * MathHelper.Pi / max * i),
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel.RotatedBy(2f * MathHelper.Pi / max * i),
                             ModContent.ProjectileType<LightBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, 0f, .01f * npc.direction);
                     }
                 }

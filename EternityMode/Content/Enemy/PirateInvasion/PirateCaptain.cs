@@ -42,7 +42,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
                         Vector2 cannonSpeed = speed;
                         cannonSpeed.X += Main.rand.Next(-10, 11) * 0.3f;
                         cannonSpeed.Y += Main.rand.Next(-10, 11) * 0.3f;
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, cannonSpeed, ProjectileID.CannonballHostile, Main.expertMode ? 80 : 100, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, cannonSpeed, ProjectileID.CannonballHostile, Main.expertMode ? 80 : 100, 0f, Main.myPlayer);
                     }
                 }
                 //npc.ai[2] = 0f;

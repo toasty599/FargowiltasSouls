@@ -55,7 +55,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                     speed.Normalize();
                     speed *= 12f;
 
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<CultistArrow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f * 4 / 9), 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<CultistArrow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f * 4 / 9), 0f, Main.myPlayer);
                 }
             }
         }

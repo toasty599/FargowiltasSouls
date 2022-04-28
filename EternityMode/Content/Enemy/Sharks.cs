@@ -141,7 +141,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             if (npc.type == NPCID.Shark)
             {
                 if (Main.hardMode && Main.rand.NextBool(4) && Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.Cthulunado, npc.defDamage / 2, 0f, Main.myPlayer, 16, 11);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.Cthulunado, npc.defDamage / 2, 0f, Main.myPlayer, 16, 11);
 
                 if (!Main.dedServ && Main.rand.NextBool(1000))
                 {

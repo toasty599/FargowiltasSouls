@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                             if (Projectile.owner == Main.myPlayer)
                             {
-                                FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(),
+                                FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(),
                                     Projectile.Center, speed, type, (int)damage, Projectile.knockBack, Projectile.owner);
                             }
                         }

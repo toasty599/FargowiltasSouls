@@ -15,11 +15,11 @@ namespace FargowiltasSouls.Items.BossBags
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ModContent.ItemType<EternalEnergy>(), Main.rand.Next(6) + 15);
+                player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<EternalEnergy>(), Main.rand.Next(6) + 15);
             }
 
-            player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ModContent.ItemType<Masochist>());
-            player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ModContent.ItemType<MutantsFury>());
+            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<Masochist>());
+            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<MutantsFury>());
         }
     }
 }

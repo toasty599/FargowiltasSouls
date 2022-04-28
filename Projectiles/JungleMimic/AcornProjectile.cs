@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
         {
         	if (Projectile.owner == Main.myPlayer)
         	{
-        		Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<AcornProjectileExplosion>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0f, 0);
+        		Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<AcornProjectileExplosion>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0f, 0);
         	}
         	SoundEngine.PlaySound(SoundID.Item62, Projectile.position);
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);

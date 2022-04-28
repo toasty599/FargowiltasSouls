@@ -41,10 +41,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             //the important part
             int ai1 = (int)Projectile.ai[1];
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
+            if (byIdentity != -1)
             {
-                Projectile devi = Main.projectile[byUUID];
+                Projectile devi = Main.projectile[byIdentity];
                 if (Projectile.timeLeft > 15)
                 {
                     Vector2 offset = new Vector2(0, -360).RotatedBy(Math.PI / 4 * devi.spriteDirection);
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     Projectile.localAI[0] = 1;
                     if (Projectile.owner == Main.myPlayer)
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
                     MakeDust();
@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
             if (Projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
 
             if (Projectile.owner == Main.myPlayer)
             {
@@ -176,10 +176,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Vector2 speed = 2 * target / 90;
                     float acceleration = -speed.Length() / 90;
                     float rotation = speed.ToRotation() + (float)Math.PI / 2;
-                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, speed, ModContent.ProjectileType<SparklingLoveEnergyHeart>(),
+                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, speed, ModContent.ProjectileType<SparklingLoveEnergyHeart>(),
                         Projectile.originalDamage, Projectile.knockBack, Projectile.owner, rotation, acceleration);
 
-                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 14f * Vector2.UnitY.RotatedBy(2 * Math.PI / max * (i + 0.5) + Projectile.localAI[1]),
+                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 14f * Vector2.UnitY.RotatedBy(2 * Math.PI / max * (i + 0.5) + Projectile.localAI[1]),
                         ModContent.ProjectileType<SparklingLoveHeart2>(), Projectile.originalDamage, Projectile.knockBack,
                         Projectile.owner, -1, 45);
                 }

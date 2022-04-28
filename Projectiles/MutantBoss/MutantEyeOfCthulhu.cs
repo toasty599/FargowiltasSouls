@@ -238,9 +238,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 if (!Main.dedServ)
                 {
-                    Gore.NewGore(Projectile.position + new Vector2(Main.rand.NextFloat(Projectile.width), Main.rand.NextFloat(Projectile.height)), goreSpeed, ModContent.Find<ModGore>(Mod.Name, $"Gore_8").Type);
-                    Gore.NewGore(Projectile.position + new Vector2(Main.rand.NextFloat(Projectile.width), Main.rand.NextFloat(Projectile.height)), goreSpeed, ModContent.Find<ModGore>(Mod.Name, $"Gore_9").Type);
-                    Gore.NewGore(Projectile.position + new Vector2(Main.rand.NextFloat(Projectile.width), Main.rand.NextFloat(Projectile.height)), goreSpeed, ModContent.Find<ModGore>(Mod.Name, $"Gore_10").Type);
+                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + new Vector2(Main.rand.NextFloat(Projectile.width), Main.rand.NextFloat(Projectile.height)), goreSpeed, ModContent.Find<ModGore>(Mod.Name, $"Gore_8").Type);
+                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + new Vector2(Main.rand.NextFloat(Projectile.width), Main.rand.NextFloat(Projectile.height)), goreSpeed, ModContent.Find<ModGore>(Mod.Name, $"Gore_9").Type);
+                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + new Vector2(Main.rand.NextFloat(Projectile.width), Main.rand.NextFloat(Projectile.height)), goreSpeed, ModContent.Find<ModGore>(Mod.Name, $"Gore_10").Type);
                 }
             }
         }

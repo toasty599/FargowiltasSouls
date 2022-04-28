@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
@@ -86,8 +87,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
 
                     if (stolen)
                     {
-                        Main.NewText("An item was stolen from you!", new Color(255, 50, 50));
-                        CombatText.NewText(target.Hitbox, new Color(255, 50, 50), "An item was stolen from you!", true);
+                        string text = Language.GetTextValue($"Mods.{mod.Name}.Message.ItemStolen");
+                        Main.NewText(text, new Color(255, 50, 50));
+                        CombatText.NewText(target.Hitbox, new Color(255, 50, 50), text, true);
                     }
 
                     /*byte extraTries = 30;
@@ -110,7 +112,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
             base.OnKill(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
+                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
             
             if (NPC.downedGoblins && !FargoSoulsWorld.haveForcedAbomFromGoblins)
             {

@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 105, 1f, -0.3f);
                     Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / max);
-                    int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, newvel / 2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel / 2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     if (p < Main.maxProjectiles)
                     {
                         Main.projectile[p].DamageType = DamageClass.Melee;
@@ -107,7 +107,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     for(int i = 0; i < 5; i++)
                     {
                         Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 5);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center, newvel, ModContent.ProjectileType<SpazmaglaiveExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai0, target.whoAmI);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, newvel, ModContent.ProjectileType<SpazmaglaiveExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai0, target.whoAmI);
                     }
                     /*if (empowered)
                     {

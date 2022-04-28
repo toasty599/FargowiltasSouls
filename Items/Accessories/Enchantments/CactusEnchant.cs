@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                 numNeedles = 16;
             }
 
-            Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetProjectileSource_Item(player.HeldItem), npc.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
+            Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetSource_ItemUse(player.HeldItem), npc.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
 
             double randomRotation = Main.rand.NextDouble() * MathHelper.Pi * 2;
 
@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                     numNeedles = 16;
                 }
 
-                Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetProjectileSource_Item(player.HeldItem), player.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
+                Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetSource_ItemUse(player.HeldItem), player.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
 
                 double randomRotation = Main.rand.NextDouble() * MathHelper.Pi * 2;
 

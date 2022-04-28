@@ -1,6 +1,7 @@
 using FargowiltasSouls.Items;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon
@@ -18,8 +19,8 @@ namespace FargowiltasSouls.Patreon
         {
             base.SafeModifyTooltips(tooltips);
 
-            TooltipLine line = new TooltipLine(Mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
+            TooltipLine line = new TooltipLine(Mod, "tooltip", Language.GetTextValue($"Mods.{Mod.Name}.Message.PatreonItem"));
+            line.OverrideColor = Color.Orange;
             tooltips.Add(line);
         }
     }

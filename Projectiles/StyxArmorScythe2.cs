@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles
                 Projectile.velocity = -Vector2.UnitY;
 
             Player player = Main.player[Projectile.owner];
-            Projectile.damage = (int)(baseDamage * player.ownedProjectileCounts[Projectile.type] * player.GetDamage(DamageClass.Magic));
+            Projectile.damage = (int)(baseDamage * player.ownedProjectileCounts[Projectile.type] * player.GetDamage(DamageClass.Magic).Additive);
             if (++Projectile.ai[0] > 10)
             {
                 Projectile.ai[0] = 0;
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles
             float scaleFactor9 = 0.5f;
             for (int j = 0; j < 4; j++)
             {
-                int gore = Gore.NewGore(new Vector2(Projectile.Center.X, Projectile.Center.Y), default(Vector2), Main.rand.Next(61, 64));
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[gore].velocity *= scaleFactor9;
                 Main.gore[gore].velocity.X += 1f;
                 Main.gore[gore].velocity.Y += 1f;

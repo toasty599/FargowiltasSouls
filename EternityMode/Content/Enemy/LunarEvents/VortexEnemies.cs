@@ -52,7 +52,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             {
                 Counter = Main.rand.Next(30);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<LightningVortexHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<LightningVortexHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
         }
     }
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                         for (int index = 0; index < 4; ++index)
                         {
                             Vector2 vector2_2 = vec + Utils.RandomVector2(Main.rand, -0.8f, 0.8f);
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), vector2_1.X, vector2_1.Y, vector2_2.X, vector2_2.Y, ModContent.ProjectileType<StormDiverBullet>(), Damage, 1f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), vector2_1.X, vector2_1.Y, vector2_2.X, vector2_2.Y, ModContent.ProjectileType<StormDiverBullet>(), Damage, 1f, Main.myPlayer);
                         }
                     }
 

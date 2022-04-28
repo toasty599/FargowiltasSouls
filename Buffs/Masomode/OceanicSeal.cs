@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Buffs.Masomode
                     && player.whoAmI == Main.myPlayer
                     && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Masomode.FishronRitual2>()] < 1)
                 {
-                    Projectile.NewProjectile(Main.npc[EModeGlobalNPC.fishBoss].GetSpawnSource_ForProjectile(), Main.npc[EModeGlobalNPC.fishBoss].Center, Vector2.Zero,
+                    Projectile.NewProjectile(Main.npc[EModeGlobalNPC.fishBoss].GetSource_FromThis(), Main.npc[EModeGlobalNPC.fishBoss].Center, Vector2.Zero,
                         ModContent.ProjectileType<Projectiles.Masomode.FishronRitual2>(), 0, 0f, player.whoAmI, 0f, EModeGlobalNPC.fishBoss);
                 }
             }

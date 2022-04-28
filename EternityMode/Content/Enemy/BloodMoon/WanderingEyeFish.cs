@@ -19,7 +19,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             for (int i = 0; i < 9; i++)
             {
-                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.DemonEye, velocity: Main.rand.NextVector2Circular(8, 8));
+                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.DemonEye, velocity: Main.rand.NextVector2Circular(8, 8));
             }
         }
 
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             {
                 SickleTimer = 0;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 1.5f * Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 1.5f * Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
         }
 

@@ -42,13 +42,13 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<PhantasmalRing>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<PhantasmalRing>());
+            if (byIdentity != -1)
             {
-                Projectile.Center = Main.projectile[byUUID].Center;
-                Projectile.position += Vector2.UnitX.RotatedBy(2 * Math.PI / 7 * Projectile.ai[1] + Main.projectile[byUUID].ai[0]) * 350 * 0.25f;
-                if (Projectile.whoAmI < Main.projectile[byUUID].whoAmI)
-                    Projectile.position += Main.player[Main.projectile[byUUID].owner].position - Main.player[Main.projectile[byUUID].owner].oldPosition;
+                Projectile.Center = Main.projectile[byIdentity].Center;
+                Projectile.position += Vector2.UnitX.RotatedBy(2 * Math.PI / 7 * Projectile.ai[1] + Main.projectile[byIdentity].ai[0]) * 350 * 0.25f;
+                if (Projectile.whoAmI < Main.projectile[byIdentity].whoAmI)
+                    Projectile.position += Main.player[Main.projectile[byIdentity].owner].position - Main.player[Main.projectile[byIdentity].owner].oldPosition;
             }
             else if (Projectile.owner == Main.myPlayer && Projectile.localAI[0] > 5)
             {

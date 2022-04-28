@@ -35,12 +35,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<StyxGazer>(), ModContent.ProjectileType<StyxGazerArmor>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<StyxGazer>(), ModContent.ProjectileType<StyxGazerArmor>());
+            if (byIdentity != -1)
             {
-                Projectile.Center = Main.projectile[byUUID].Center;
-                Projectile.position += Main.projectile[byUUID].velocity * 75;
-                Projectile.velocity = Main.projectile[byUUID].velocity.RotatedBy(Projectile.ai[0]);
+                Projectile.Center = Main.projectile[byIdentity].Center;
+                Projectile.position += Main.projectile[byIdentity].velocity * 75;
+                Projectile.velocity = Main.projectile[byIdentity].velocity.RotatedBy(Projectile.ai[0]);
             }
             else if (Projectile.owner == Main.myPlayer && Projectile.localAI[0] > 5)
             {

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
         {
             type = ModContent.ProjectileType<PrimeLaser>();
 
-            int p = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), position, velocity, type, damage, knockback, player.whoAmI);
+            int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), position, velocity, type, damage, knockback, player.whoAmI);
 
             if (p < 1000)
             {
@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
                 for (int j = 0; j < 2; j++)
                 {
                     int factor = (j == 0) ? 1 : -1;
-                    Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
                 }
             }
 

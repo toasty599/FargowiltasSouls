@@ -39,7 +39,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                     Vector2 vel = npc.DirectionFrom(Main.player[npc.target].Center) * 8f;
                     for (int i = 0; i < 5; i++)
                     {
-                        int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel.RotatedBy(2 * Math.PI / 5 * i),
+                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel.RotatedBy(2 * Math.PI / 5 * i),
                             ProjectileID.RuneBlast, 30, 0f, Main.myPlayer, 1);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = 300;

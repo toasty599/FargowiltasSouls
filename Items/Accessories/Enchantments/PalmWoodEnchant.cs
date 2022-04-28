@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                     }
                 }
 
-                FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Misc(0), mouse - 10 * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), modPlayer.WoodForce ? 45 : 15, 0f, player.whoAmI);
+                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), mouse - 10 * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), modPlayer.WoodForce ? 45 : 15, 0f, player.whoAmI);
             }
         }
 

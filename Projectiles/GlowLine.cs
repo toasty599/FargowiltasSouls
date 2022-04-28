@@ -416,7 +416,7 @@ namespace FargowiltasSouls.Projectiles
                         maxTime = 180;
                         alphaModifier = 5;
 
-                        Projectile vortex = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetByUUIDReal(Projectile.owner, Projectile.ai[1], ModContent.ProjectileType<MoonLordVortex>()));
+                        Projectile vortex = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, Projectile.ai[1], ModContent.ProjectileType<MoonLordVortex>()));
                         if (vortex != null)
                         {
                             Projectile.Center = vortex.Center;

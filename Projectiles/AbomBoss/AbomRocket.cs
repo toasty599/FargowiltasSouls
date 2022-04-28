@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
             for (int index1 = 0; index1 < 1; ++index1)
             {
-                int index2 = Gore.NewGore(Projectile.position + new Vector2((float)(Projectile.width * Main.rand.Next(100)) / 100f, (float)(Projectile.height * Main.rand.Next(100)) / 100f) - Vector2.One * 10f, new Vector2(), Main.rand.Next(61, 64), 1f);
+                int index2 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + new Vector2((float)(Projectile.width * Main.rand.Next(100)) / 100f, (float)(Projectile.height * Main.rand.Next(100)) / 100f) - Vector2.One * 10f, new Vector2(), Main.rand.Next(61, 64), 1f);
                 Gore gore = Main.gore[index2];
                 gore.velocity = gore.velocity * 0.3f;
                 Main.gore[index2].velocity.X += (float)Main.rand.Next(-10, 11) * 0.05f;

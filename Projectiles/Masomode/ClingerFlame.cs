@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.friendly = false;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.timeLeft = 10 * 60;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }

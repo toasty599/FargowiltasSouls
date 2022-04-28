@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 vel.Normalize();
                                 vel *= Main.rand.NextFloat(6f, 10f);
                                 if (Projectile.owner == Main.myPlayer)
-                                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawn, vel, ModContent.ProjectileType<LunarCultistFireball>(), Projectile.damage, 9f, Projectile.owner, 0f, Projectile.ai[0]);
+                                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawn, vel, ModContent.ProjectileType<LunarCultistFireball>(), Projectile.damage, 9f, Projectile.owner, 0f, Projectile.ai[0]);
                             }
                             if (Projectile.localAI[0] > 60f)
                             {
@@ -144,7 +144,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 Vector2 spawn = Projectile.Center;
                                 spawn.Y -= 100;
                                 if (Projectile.owner == Main.myPlayer)
-                                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<LunarCultistLightningOrb>(), Projectile.damage, 8f, Projectile.owner, Projectile.whoAmI);
+                                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<LunarCultistLightningOrb>(), Projectile.damage, 8f, Projectile.owner, Projectile.whoAmI);
                             }
                             if (Projectile.localAI[0] > 90f)
                             {
@@ -166,7 +166,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 vel.Normalize();
                                 vel *= 4.25f;
                                 if (Projectile.owner == Main.myPlayer)
-                                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawn, vel, ModContent.ProjectileType<LunarCultistIceMist>(), Projectile.damage, Projectile.knockBack * 2f, Projectile.owner);
+                                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawn, vel, ModContent.ProjectileType<LunarCultistIceMist>(), Projectile.damage, Projectile.knockBack * 2f, Projectile.owner);
                             }
                             if (Projectile.localAI[0] > 60f)
                             {
@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 Vector2 spawn = Projectile.Center;
                                 spawn.Y -= Projectile.height;
                                 if (Projectile.owner == Main.myPlayer)
-                                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), spawn, Vector2.UnitX * -Projectile.spriteDirection * 12f, ModContent.ProjectileType<AncientVisionLunarCultist>(), Projectile.originalDamage, Projectile.knockBack * 3f, Projectile.owner);
+                                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), spawn, Vector2.UnitX * -Projectile.spriteDirection * 12f, ModContent.ProjectileType<AncientVisionLunarCultist>(), Projectile.originalDamage, Projectile.knockBack * 3f, Projectile.owner);
                             }
                             if (Projectile.localAI[0] > 90f)
                             {
@@ -208,7 +208,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 for (int i = -2; i <= 2; i++)
                                 {
                                     if (Projectile.owner == Main.myPlayer)
-                                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawn, vel.RotatedBy(Math.PI / 7 * i), ModContent.ProjectileType<LunarCultistLight>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, (Main.rand.NextFloat() - 0.5f) * 0.3f * 6.28318548202515f / 60f);
+                                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawn, vel.RotatedBy(Math.PI / 7 * i), ModContent.ProjectileType<LunarCultistLight>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, (Main.rand.NextFloat() - 0.5f) * 0.3f * 6.28318548202515f / 60f);
                                 }
                             }
                             if (Projectile.localAI[0] > 60f)

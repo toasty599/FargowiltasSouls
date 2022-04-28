@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Patreon.Duck
                 float scaleFactor9 = 2;
                 for (int j = 0; j < 20; j++)
                 {
-                    int gore = Gore.NewGore(dustPos, -Projectile.velocity, Main.rand.Next(61, 64), scaleFactor9);
+                    int gore = Gore.NewGore(Projectile.GetSource_FromThis(), dustPos, -Projectile.velocity, Main.rand.Next(61, 64), scaleFactor9);
                     Main.gore[gore].velocity -= Projectile.velocity;
                     Main.gore[gore].velocity.Y += 2f;
                     Main.gore[gore].velocity *= 4f;
@@ -204,7 +204,7 @@ namespace FargowiltasSouls.Patreon.Duck
                         if (--count < 0)
                             break;
                         Vector2 vel = Main.rand.NextFloat(10f, 20f) * target.DirectionTo(n.Center);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
                             Projectile.damage / 10, Projectile.knockBack / 10, Projectile.owner, vel.ToRotation(), Main.rand.Next(80));
                     }
                 }
@@ -212,7 +212,7 @@ namespace FargowiltasSouls.Patreon.Duck
                 for (int i = -spray; i <= spray; i++)
                 {
                     Vector2 vel = Main.rand.NextFloat(10f, 20f) * Projectile.velocity.RotatedBy(MathHelper.ToRadians(30) / spray * (i + Main.rand.NextFloat(-0.5f, 0.5f)));
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
                         Projectile.damage / 10, Projectile.knockBack / 10, Projectile.owner, vel.ToRotation(), Main.rand.Next(80));
                 }
                 Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] += max * 2;

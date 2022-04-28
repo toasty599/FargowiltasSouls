@@ -182,7 +182,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.CreeperHitbox>(), NPC.damage, 6f, (int)NPC.ai[0]);
+            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.CreeperHitbox>(), NPC.damage, 6f, (int)NPC.ai[0]);
 
             if (NPC.life <= 0)
             {

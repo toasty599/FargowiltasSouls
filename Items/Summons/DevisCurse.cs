@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Items.Summons
             if (deviantt > -1 && Main.npc[deviantt].active)
             {
                 Main.npc[deviantt].Transform(ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
-                FargoSoulsUtil.PrintText("Deviantt has awoken!", new Color(175, 75, 255));
+                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}", new Color(175, 75, 255));
             }
             else
             {
@@ -57,22 +57,9 @@ namespace FargowiltasSouls.Items.Summons
             CreateRecipe()
             .AddIngredient(ItemID.Gel)
             .AddIngredient(ItemID.Lens)
-            .AddIngredient(ItemID.RottenChunk)
+            .AddRecipeGroup("FargowiltasSouls:AnyRottenChunk")
             .AddIngredient(ItemID.Stinger)
-            //.AddIngredient(ItemID.Bone);
-            .AddIngredient(ItemID.HellstoneBar)
-            //.AddIngredient(ModContent.ItemType<CrackedGem>(), 5);
-            .AddTile(TileID.DemonAltar)
-            .Register();
-
-            CreateRecipe()
-            .AddIngredient(ItemID.Gel)
-            .AddIngredient(ItemID.Lens)
-            .AddIngredient(ItemID.Vertebrae)
-            .AddIngredient(ItemID.Stinger)
-            //.AddIngredient(ItemID.Bone);
-            .AddIngredient(ItemID.HellstoneBar)
-            //.AddIngredient(ModContent.ItemType<CrackedGem>(), 5);
+            .AddIngredient(ItemID.ChumBucket)
             .AddTile(TileID.DemonAltar)
             .Register();
         }

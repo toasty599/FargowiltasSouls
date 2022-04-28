@@ -15,6 +15,7 @@ using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
@@ -71,17 +72,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     check = true;
 
-                    FargoSoulsUtil.PrintText("Gelatin Subjects have awoken!", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintLocalization($"Mods.{mod.Name}.Message.GelatinSubjects", new Color(175, 75, 255));
 
                     for (int i = 0; i < 6; i++)
                     {
-                        FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<GelatinSubject>(), npc.whoAmI, target: npc.target, 
+                        FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, ModContent.NPCType<GelatinSubject>(), npc.whoAmI, target: npc.target, 
                             velocity: Main.rand.NextFloat(8f) * npc.DirectionFrom(Main.player[npc.target].Center).RotatedByRandom(MathHelper.PiOver2));
                     }
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                     }
                 }
             }
@@ -130,7 +131,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             vel.X = vel.X / minionTravelTime;
                             vel.Y = vel.Y / minionTravelTime - 0.5f * minionGravity * minionTravelTime;
 
-                            FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<GelatinSlime>(), npc.whoAmI, minionTravelTime, minionGravity, vel.X, vel.Y, target: npc.target);
+                            FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, ModContent.NPCType<GelatinSlime>(), npc.whoAmI, minionTravelTime, minionGravity, vel.X, vel.Y, target: npc.target);
                         }
                     }
                 }
@@ -165,7 +166,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -16);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -16);
                         }
                     }
                     else if (RainTimer > 0) //actually doing rain
@@ -199,7 +200,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 spawnPos.X += 330 * i;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, 8f * Vector2.UnitY,
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 8f * Vector2.UnitY,
                                       ProjectileID.QueenSlimeMinionBlueSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                 }
                             }
@@ -248,7 +249,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.WallofFleshEye);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.WallofFleshEye);
 
                         npc.netUpdate = true;
                         NetSync(npc);
@@ -355,7 +356,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         for (int i = 0; i < max; i++)
                                         {
                                             Vector2 vel = Main.rand.NextFloat(9f, 15f) * j * baseVel.RotatedBy(MathHelper.PiOver4 * 0.8f / max * i * -j);
-                                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                         }
                                     }
                                 }

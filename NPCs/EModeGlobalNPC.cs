@@ -174,13 +174,13 @@ namespace FargowiltasSouls.NPCs
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
             //layers
-            int y = spawnInfo.spawnTileY;
+            int y = spawnInfo.SpawnTileY;
             bool cavern = y >= Main.maxTilesY * 0.4f && y <= Main.maxTilesY * 0.8f;
             bool underground = y > Main.worldSurface && y <= Main.maxTilesY * 0.4f;
-            bool surface = y < Main.worldSurface && !spawnInfo.sky;
+            bool surface = y < Main.worldSurface && !spawnInfo.Sky;
             bool wideUnderground = cavern || underground;
-            bool underworld = spawnInfo.player.ZoneUnderworldHeight;
-            bool sky = spawnInfo.sky;
+            bool underworld = spawnInfo.Player.ZoneUnderworldHeight;
+            bool sky = spawnInfo.Sky;
 
             //times
             bool night = !Main.dayTime;
@@ -188,32 +188,32 @@ namespace FargowiltasSouls.NPCs
 
             //biomes
             bool noBiome = FargowiltasSouls.NoBiomeNormalSpawn(spawnInfo);
-            bool ocean = spawnInfo.player.ZoneBeach;
-            bool dungeon = spawnInfo.player.ZoneDungeon;
-            bool meteor = spawnInfo.player.ZoneMeteor;
-            bool spiderCave = spawnInfo.spiderCave;
-            bool mushroom = spawnInfo.player.ZoneGlowshroom;
-            bool jungle = spawnInfo.player.ZoneJungle;
-            bool granite = spawnInfo.granite;
-            bool marble = spawnInfo.marble;
-            bool corruption = spawnInfo.player.ZoneCorrupt;
-            bool crimson = spawnInfo.player.ZoneCrimson;
-            bool snow = spawnInfo.player.ZoneSnow;
-            bool hallow = spawnInfo.player.ZoneHallow;
-            bool desert = spawnInfo.player.ZoneDesert;
+            bool ocean = spawnInfo.Player.ZoneBeach;
+            bool dungeon = spawnInfo.Player.ZoneDungeon;
+            bool meteor = spawnInfo.Player.ZoneMeteor;
+            bool spiderCave = spawnInfo.SpiderCave;
+            bool mushroom = spawnInfo.Player.ZoneGlowshroom;
+            bool jungle = spawnInfo.Player.ZoneJungle;
+            bool granite = spawnInfo.Granite;
+            bool marble = spawnInfo.Marble;
+            bool corruption = spawnInfo.Player.ZoneCorrupt;
+            bool crimson = spawnInfo.Player.ZoneCrimson;
+            bool snow = spawnInfo.Player.ZoneSnow;
+            bool hallow = spawnInfo.Player.ZoneHallow;
+            bool desert = spawnInfo.Player.ZoneDesert;
 
-            bool nebulaTower = spawnInfo.player.ZoneTowerNebula;
-            bool vortexTower = spawnInfo.player.ZoneTowerVortex;
-            bool stardustTower = spawnInfo.player.ZoneTowerStardust;
-            bool solarTower = spawnInfo.player.ZoneTowerSolar;
+            bool nebulaTower = spawnInfo.Player.ZoneTowerNebula;
+            bool vortexTower = spawnInfo.Player.ZoneTowerVortex;
+            bool stardustTower = spawnInfo.Player.ZoneTowerStardust;
+            bool solarTower = spawnInfo.Player.ZoneTowerSolar;
 
-            bool water = spawnInfo.water;
+            bool water = spawnInfo.Water;
 
             //events
             bool goblinArmy = Main.invasionType == 1;
             bool frostLegion = Main.invasionType == 2;
             bool pirates = Main.invasionType == 3;
-            bool oldOnesArmy = DD2Event.Ongoing && spawnInfo.player.ZoneOldOneArmy;
+            bool oldOnesArmy = DD2Event.Ongoing && spawnInfo.Player.ZoneOldOneArmy;
             bool frostMoon = surface && night && Main.snowMoon;
             bool pumpkinMoon = surface && night && Main.pumpkinMoon;
             bool solarEclipse = surface && day && Main.eclipse;
@@ -223,11 +223,11 @@ namespace FargowiltasSouls.NPCs
 
             //no work?
             //is lava on screen
-            bool nearLava = Collision.LavaCollision(spawnInfo.player.position, spawnInfo.spawnTileX, spawnInfo.spawnTileY);
+            bool nearLava = Collision.LavaCollision(spawnInfo.Player.position, spawnInfo.SpawnTileX, spawnInfo.SpawnTileY);
             bool noInvasion = FargowiltasSouls.NoInvasion(spawnInfo);
-            bool normalSpawn = !spawnInfo.playerInTown && noInvasion && !oldOnesArmy;
+            bool normalSpawn = !spawnInfo.PlayerInTown && noInvasion && !oldOnesArmy;
 
-            bool sinisterIcon = spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SinisterIcon;
+            bool sinisterIcon = spawnInfo.Player.GetModPlayer<FargoSoulsPlayer>().SinisterIcon;
 
             //MASOCHIST MODE
             if (FargoSoulsWorld.EternityMode)
@@ -296,7 +296,7 @@ namespace FargowiltasSouls.NPCs
                                 pool[NPCID.DarkCaster] = .025f;
                         }
 
-                        if (spawnInfo.player.armor[0].type == ItemID.MiningHelmet)
+                        if (spawnInfo.Player.armor[0].type == ItemID.MiningHelmet)
                             pool[NPCID.UndeadMiner] = .2f;
 
                         if (NPC.downedGoblins && !NPC.savedGoblin && !NPC.AnyNPCs(NPCID.BoundGoblin))
@@ -526,7 +526,7 @@ namespace FargowiltasSouls.NPCs
 
                         if (snow && noInvasion)
                         {
-                            if (!Main.raining && !spawnInfo.playerInTown)
+                            if (!Main.raining && !spawnInfo.PlayerInTown)
                                 pool[NPCID.IceGolem] = .01f;
                             /*pool[NPCID.SnowBalla] = .04f;
                             pool[NPCID.MisterStabby] = .04f;
@@ -585,7 +585,7 @@ namespace FargowiltasSouls.NPCs
                                 pool[NPCID.DarkCaster] = .05f;
                         }
 
-                        if (spawnInfo.player.armor[0].type == ItemID.MiningHelmet)
+                        if (spawnInfo.Player.armor[0].type == ItemID.MiningHelmet)
                             pool[NPCID.UndeadMiner] = .2f;
 
                         if (!NPC.savedWizard && !NPC.AnyNPCs(NPCID.BoundWizard))
@@ -613,7 +613,7 @@ namespace FargowiltasSouls.NPCs
                         if (NPC.downedAncientCultist && dungeon && !sinisterIcon && !FargoSoulsUtil.AnyBossAlive())
                             pool[NPCID.CultistBoss] = 0.00002f;
 
-                        if (spawnInfo.player.ZoneUndergroundDesert)
+                        if (spawnInfo.Player.ZoneUndergroundDesert)
                         {
                             if (!hallow && !corruption && !crimson)
                             {
@@ -714,7 +714,7 @@ namespace FargowiltasSouls.NPCs
                         }
                     }
 
-                    if (spawnInfo.lihzahrd && spawnInfo.spawnTileType == TileID.LihzahrdBrick)
+                    if (spawnInfo.Lihzahrd && spawnInfo.SpawnTileType == TileID.LihzahrdBrick)
                     {
                         pool[NPCID.BlazingWheel] = .1f;
                         pool[NPCID.SpikeBall] = .1f;
@@ -733,7 +733,7 @@ namespace FargowiltasSouls.NPCs
                         }
                     }
 
-                    if (ocean && spawnInfo.water)
+                    if (ocean && spawnInfo.Water)
                     {
                         pool[NPCID.AnglerFish] = .1f;
                     }
@@ -791,7 +791,7 @@ namespace FargowiltasSouls.NPCs
             base.OnKill(npc);
 
             if (npc.type == NPCID.Painter && FargoSoulsWorld.downedMutant && NPC.AnyNPCs(ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
-                Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ModContent.ItemType<ScremPainting>());
+                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.ItemType<ScremPainting>());
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -1210,7 +1210,7 @@ namespace FargowiltasSouls.NPCs
                 target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown = 360; //trust me, keep these separate
                 target.AddBuff(ModContent.BuffType<ThiefCD>(), 360);
 
-                int i = Item.NewItem(target.GetItemSource_Misc(ItemSourceID.PlayerDropItemCheck), (int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, item.stack, false, -1, false, false);
+                int i = Item.NewItem(target.GetSource_Misc("Stolen"), (int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, item.stack, false, -1, false, false);
                 Vector2 position = Main.item[i].position;
 
                 Main.item[i] = item.Clone();
@@ -1275,7 +1275,7 @@ namespace FargowiltasSouls.NPCs
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int j = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
+                    int j = NPC.NewNPC(npc.GetSource_FromAI(), (int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
                     if (j != Main.maxNPCs)
                     {
                         NPC newNPC = Main.npc[j];

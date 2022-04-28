@@ -40,7 +40,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
             //    speed.Y -= Math.Abs(speed.X) * 0.2f;
             //    speed.Y -= 3f;
             //    if (Main.netMode != NetmodeID.MultiplayerClient)
-            //        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.SkeletonBone, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+            //        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ProjectileID.SkeletonBone, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             //}
 
             if (npc.justHit)
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
             {
                 BabyTimer = 0;
                 if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<SkeletronGuardian2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<SkeletronGuardian2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
         }
 
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (Main.rand.NextBool(5))
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.CursedSkull);
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.CursedSkull);
 
                 for (int i = 0; i < 15; i++)
                 {
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
                     speed.Y -= Math.Abs(speed.X) * 0.2f;
                     speed.Y -= 3f;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.SkeletonBone, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ProjectileID.SkeletonBone, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                 }
             }
         }

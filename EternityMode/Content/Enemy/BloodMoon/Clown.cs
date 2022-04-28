@@ -67,13 +67,13 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                 {
                     if (FargoSoulsUtil.AnyBossAlive())
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.BouncyGrenade, 60, 8f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.BouncyGrenade, 60, 8f, Main.myPlayer);
                     }
                     else
                     {
                         for (int i = 0; i < 30; i++)
                         {
-                            int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height), Main.rand.Next(-1000, 1001) / 100, Main.rand.Next(-2000, 101) / 100, ModContent.ProjectileType<ClownBomb>(), 100, 8f, Main.myPlayer);
+                            int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height), Main.rand.Next(-1000, 1001) / 100, Main.rand.Next(-2000, 101) / 100, ModContent.ProjectileType<ClownBomb>(), 100, 8f, Main.myPlayer);
                             Main.projectile[p].timeLeft -= Main.rand.Next(120);
                         }
 
@@ -96,13 +96,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                                 case 9: type = ProjectileID.StickyGrenade; break;
                             }
 
-                            int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height), Main.rand.Next(-1000, 1001) / 100, Main.rand.Next(-2000, 101) / 100, type, damage, knockback, Main.myPlayer);
+                            int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height), Main.rand.Next(-1000, 1001) / 100, Main.rand.Next(-2000, 101) / 100, type, damage, knockback, Main.myPlayer);
                             Main.projectile[p].timeLeft += Main.rand.Next(-120, 120);
                         }
                     }
                 }
-
-                FargoSoulsUtil.PrintText("A Clown has exploded!", new Color(175, 75, 255));
             }
         }
 

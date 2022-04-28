@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
             if (player.ownedProjectileCounts[ModContent.ProjectileType<TurtleShield>()] < 1)
             {
-                Projectile.NewProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<TurtleShield>(), 0, 0, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<TurtleShield>(), 0, 0, player.whoAmI);
             }
 
             if (modPlayer.TurtleCounter > 80)

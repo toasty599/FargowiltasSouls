@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int n = FargoSoulsUtil.NewNPCEasy(Projectile.GetNPCSource_FromThis(), npc.Center, type);
+                int n = FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), npc.Center, type);
                 if (n != Main.maxNPCs)
                     FargoSoulsUtil.PrintText(Main.npc[n].FullName + " has awoken!", 175, 75, 255);
             }

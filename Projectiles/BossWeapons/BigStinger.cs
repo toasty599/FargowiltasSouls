@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         Vector2 baseVel = Vector2.UnitX.RotatedByRandom(Math.PI * 2 / max);
                         for (int j = 0; j < max; j++)
                         {
-                            int proj = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), p.Center, range / time * baseVel.RotatedBy(Math.PI * 2 / max * j),
+                            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), p.Center, range / time * baseVel.RotatedBy(Math.PI * 2 / max * j),
                                 ModContent.ProjectileType<Stinger>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                             if (proj != Main.maxProjectiles)
                                 Main.projectile[proj].timeLeft = time;
@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         targetPos.X += Main.rand.NextFloat(target.width);
                         targetPos.Y += Main.rand.NextFloat(target.height);
                         Vector2 vel = 22f * Vector2.Normalize(targetPos - spawn);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawn, vel, ModContent.ProjectileType<BigSting22>(), Projectile.damage / 2, Projectile.knockBack * 2f, Projectile.owner, -1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawn, vel, ModContent.ProjectileType<BigSting22>(), Projectile.damage / 2, Projectile.knockBack * 2f, Projectile.owner, -1);
                     }
                     break;
                 }

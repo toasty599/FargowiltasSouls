@@ -119,8 +119,8 @@ namespace FargowiltasSouls.NPCs.Champions
                     NPC.Center = Main.player[NPC.target].Center + new Vector2(500 * Math.Sign(NPC.Center.X - Main.player[NPC.target].Center.X), -250);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center + Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, -Vector2.UnitY.ToRotation(), 10);
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center - Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, Vector2.UnitY.ToRotation(), 10);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, -Vector2.UnitY.ToRotation(), 10);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, Vector2.UnitY.ToRotation(), 10);
                     }
                 }
 
@@ -140,11 +140,11 @@ namespace FargowiltasSouls.NPCs.Champions
                         for (int i = 0; i < max; i++)
                         {
                             float rotation = baseRotation * (i + Main.rand.NextFloat(-0.5f, 0.5f));
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, rotation, 3);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, rotation, 3);
                         }
 
-                        FargoSoulsUtil.NewNPCEasy(NPC.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, ModContent.NPCType<EarthChampionHand>(), NPC.whoAmI, 0, 0, NPC.whoAmI, 1);
-                        FargoSoulsUtil.NewNPCEasy(NPC.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, ModContent.NPCType<EarthChampionHand>(), NPC.whoAmI, 0, 0, NPC.whoAmI, -1);
+                        FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromAI(), NPC.Center, ModContent.NPCType<EarthChampionHand>(), NPC.whoAmI, 0, 0, NPC.whoAmI, 1);
+                        FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromAI(), NPC.Center, ModContent.NPCType<EarthChampionHand>(), NPC.whoAmI, 0, 0, NPC.whoAmI, -1);
                     }
                 }
                 return;
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            //Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -3);
+                            //Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -3);
 
                             if (!Main.dedServ && Main.LocalPlayer.active)
                                 Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
@@ -195,7 +195,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 for (int i = 0; i < max; i++)
                                 {
                                     float rotation = baseRotation + MathHelper.TwoPi / max * (i + Main.rand.NextFloat(-0.5f, 0.5f));
-                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, rotation, 3);
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, rotation, 3);
                                 }
                             }
                         }
@@ -312,7 +312,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 for (int i = -1; i <= 1; i++)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center + Vector2.UnitY * 60,
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Vector2.UnitY * 60,
                                         (NPC.localAI[2] == 1 ? 12 : 8) * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(8 * i)),
                                         ProjectileID.Fireball, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                                 }
@@ -424,7 +424,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 {
                     Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
                     if (!Main.dedServ)
-                        Gore.NewGore(pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"EarthGore{i}").Type, NPC.scale);
+                        Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"EarthGore{i}").Type, NPC.scale);
                 }
             }
         }

@@ -15,6 +15,7 @@ using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Buffs.Masomode;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -139,6 +140,42 @@ namespace FargowiltasSouls.Projectiles
             }
 
             //            Fargowiltas.ModProjDict.TryGetValue(projectile.type, out ModProjID);
+        }
+
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            switch (projectile.type)
+            {
+                case ProjectileID.DesertDjinnCurse:
+                    {
+                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+                            projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
+                    }
+                    break;
+
+                case ProjectileID.SandnadoHostile:
+                    {
+                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active)
+                        {
+                            if (npc.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+                            {
+                                projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
+                                if (npc.ai[0] == 5)
+                                    projectile.timeLeft = Math.Min(projectile.timeLeft, 360 + 90 - (int)npc.ai[1]);
+                                else
+                                    projectile.timeLeft = 90;
+                            }
+                            else if (npc.type == ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+                            {
+                                projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
+                            }
+                        }
+                    }
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         public static int[] noSplit => new int[] {
@@ -290,7 +327,7 @@ namespace FargowiltasSouls.Projectiles
                                     projectile.Kill();
                                     Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 11, 0.5f);
                                     int proj2 = ModContent.ProjectileType<BlenderProj3>();
-                                    Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
                                 }
                             }
                         }
@@ -385,7 +422,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     if (modPlayer.Jammed && projectile.DamageType == DamageClass.Ranged && projectile.type != ProjectileID.ConfettiGun)
                     {
-                        Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
                         projectile.active = false;
                     }
 
@@ -407,7 +444,7 @@ namespace FargowiltasSouls.Projectiles
                                 shroomiteMushroomCD = 10;
                             }
 
-                            Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
                         }
                         shroomiteMushroomCD++;
                     }
@@ -436,7 +473,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 20;
 
-                                int p = Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
+                                int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
 
                                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 62, 0.5f);
 
@@ -582,7 +619,7 @@ namespace FargowiltasSouls.Projectiles
                 for (int j = 0; j < 2; j++)
                 {
                     int factor = (j == 0) ? 1 : -1;
-                    split = FargoSoulsUtil.NewProjectileDirectSafe(projectile.GetProjectileSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, (int)(projectile.damage * damageRatio), projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
+                    split = FargoSoulsUtil.NewProjectileDirectSafe(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, (int)(projectile.damage * damageRatio), projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
                     if (split != null)
                     {
                         split.localAI[0] = projectile.localAI[0];
@@ -750,7 +787,7 @@ namespace FargowiltasSouls.Projectiles
                                 float rotationOffset = MathHelper.ToRadians(5) * Main.rand.NextFloat(-1f, 1f);
                                 for (int i = -max; i <= max; i++)
                                 {
-                                    Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), spawnPos, length * Vector2.Normalize(vel).RotatedBy(rotation / max * i + rotationOffset),
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnPos, length * Vector2.Normalize(vel).RotatedBy(rotation / max * i + rotationOffset),
                                         ModContent.ProjectileType<StardustKnife>(), damage, 4f, Main.myPlayer);
                                 }
                             }
@@ -834,28 +871,6 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                case ProjectileID.DesertDjinnCurse:
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>())
-                        && projectile.damage > 0)
-                    {
-                        projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(Main.npc[EModeGlobalNPC.championBoss].damage);
-                    }
-                    break;
-
-                case ProjectileID.SandnadoHostile:
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
-                        && projectile.Distance(Main.npc[EModeGlobalNPC.deviBoss].Center) < 2000f)
-                    {
-                        projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(Main.npc[EModeGlobalNPC.deviBoss].damage);
-                        if (Main.npc[EModeGlobalNPC.deviBoss].ai[0] != 5 && projectile.timeLeft > 90)
-                            projectile.timeLeft = 90;
-                    }
-                    else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>()))
-                    {
-                        projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(Main.npc[EModeGlobalNPC.championBoss].damage);
-                    }
-                    break;
-
                 case ProjectileID.RuneBlast:
                     if (projectile.ai[0] == 1f)
                     {
@@ -919,6 +934,42 @@ namespace FargowiltasSouls.Projectiles
                 if (projectile.wet && projectile.ai[0] == 0 && projectile.localAI[1] < 655 /*&& Main.player[projectile.owner].FishingLevel() != -1*/) //fishron check
                     projectile.localAI[1] = 655; //quick catch. not 660 and up, may break things
             }
+
+            if (modPlayer.HuntressEnchantActive && projectile.arrow)
+            {
+                //stuck in enemy
+                if (projectile.localAI[0] == 1)
+                {
+                    projectile.aiStyle = -1;
+
+                    projectile.ignoreWater = true;
+                    projectile.tileCollide = false;
+
+                    bool kill = false;
+                    int npcIndex = (int)projectile.localAI[1];
+
+                    if (npcIndex < 0 || npcIndex >= 200 || projectile.timeLeft <= 5)
+                    {
+                        kill = true;
+                    }
+                    else if (Main.npc[npcIndex].active && !Main.npc[npcIndex].dontTakeDamage)
+                    {
+                        projectile.Center = Main.npc[npcIndex].Center - projectile.velocity * 2f;
+                        projectile.gfxOffY = Main.npc[npcIndex].gfxOffY;
+                    }
+                    else
+                    {
+                        kill = true;
+                    }
+
+                    if (kill)
+                    {
+                        //remove stack of bleed
+
+                        projectile.Kill();
+                    }
+                }
+            }
         }
 
         public override void PostAI(Projectile projectile)
@@ -937,7 +988,7 @@ namespace FargowiltasSouls.Projectiles
                 DeletionImmuneRank = 2;
 
                 if (!FargoSoulsUtil.IsSummonDamage(projectile))
-                    modPlayer.MasomodeWeaponUseTimer = 30;
+                    Main.player[projectile.owner].GetModPlayer<EModePlayer>().MasomodeWeaponUseTimer = 30;
 
                 modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
             }
@@ -1110,6 +1161,23 @@ namespace FargowiltasSouls.Projectiles
                     target.AddBuff(debuff, duration);
                 }
             }
+
+            Player player = Main.player[projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (projectile.owner == player.whoAmI && modPlayer.HuntressEnchantActive && projectile.arrow)
+            {
+                //start sticking in enemy
+                projectile.localAI[0] = 1;
+                projectile.localAI[1] = (float)target.whoAmI;
+                projectile.velocity = (Main.npc[target.whoAmI].Center - projectile.Center) * 0.5f; //distance it sticks out
+                projectile.aiStyle = -1;
+                projectile.damage = 0;
+                projectile.timeLeft = 305;
+                projectile.netUpdate = true;
+
+                //add stack of bleed
+            }
         }
 
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref int damage, ref bool crit)
@@ -1134,7 +1202,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
 
-                        int damage = (int)(25 * player.GetDamage(DamageClass.Ranged));
+                        int damage = (int)(25 * player.GetDamage(DamageClass.Ranged).Additive);
 
                         if (modPlayer.TerrariaSoul)
                         {
@@ -1155,7 +1223,7 @@ namespace FargowiltasSouls.Projectiles
                         {
                             float velX = -projectile.velocity.X * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
                             float velY = -projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                            int p = Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, damage, 0f, projectile.owner);
+                            int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, damage, 0f, projectile.owner);
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                         }
@@ -1163,7 +1231,7 @@ namespace FargowiltasSouls.Projectiles
                 }
                 else if (modPlayer.AncientCobaltEnchantActive && !modPlayer.CobaltEnchantActive && player.GetToggleValue("AncientCobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(5))
                 {
-                    Projectile[] projs = FargoSoulsUtil.XWay(3, projectile.GetProjectileSource_FromThis(), projectile.Center, ProjectileID.HornetStinger, 5f, projectile.damage / 2, 0);
+                    Projectile[] projs = FargoSoulsUtil.XWay(3, projectile.GetSource_FromThis(), projectile.Center, ProjectileID.HornetStinger, 5f, projectile.damage / 2, 0);
 
                     for (int i = 0; i < projs.Length; i++)
                     {

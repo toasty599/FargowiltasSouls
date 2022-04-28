@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
 
                 for (int i = 0; i < 4; i++)
                 {
-                    int prevUUID = FargoSoulsUtil.GetByUUIDReal(player.whoAmI, Main.projectile[previous].identity);
+                    int prevUUID = FargoSoulsUtil.GetProjectileByIdentity(player.whoAmI, Main.projectile[previous].identity);
                     current = FargoSoulsUtil.NewSummonProjectile(source, position, velocity, ModContent.ProjectileType<EaterBody>(),
                         Item.damage, knockback, player.whoAmI, prevUUID, 0);
 
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
 
                 Main.projectile[current].localAI[1] = Main.projectile[tailCheck].identity;
 
-                Main.projectile[tailCheck].ai[0] = FargoSoulsUtil.GetByUUIDReal(player.whoAmI, Main.projectile[current].identity);
+                Main.projectile[tailCheck].ai[0] = FargoSoulsUtil.GetProjectileByIdentity(player.whoAmI, Main.projectile[current].identity);
                 Main.projectile[tailCheck].netUpdate = true;
                 Main.projectile[tailCheck].ai[1] = 1f;
             }

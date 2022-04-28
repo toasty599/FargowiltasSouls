@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             num483 *= num486;
             num484 *= num486;
             int num487 = damage;
-            int num488 = Projectile.NewProjectile(player.GetProjectileSource_Misc(0), x, y, num483, num484, ProjectileID.HallowBossRainbowStreak, num487, 0, player.whoAmI, 0f, 0);
+            int num488 = Projectile.NewProjectile(player.GetSource_Misc(""), x, y, num483, num484, ProjectileID.HallowBossRainbowStreak, num487, 0, player.whoAmI, 0f, 0);
             if (num488 != 1000)
             {
                 Main.projectile[num488].hostile = false;

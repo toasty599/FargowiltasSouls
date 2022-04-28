@@ -54,8 +54,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         int soundtimer;
         public override void AI()
         {
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.localAI[0], ModContent.ProjectileType<BlenderYoyoProj>());
-            if (byUUID == -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.localAI[0], ModContent.ProjectileType<BlenderYoyoProj>());
+            if (byIdentity == -1)
             {
                 if (Projectile.owner == Main.myPlayer && Projectile.rotation > 0)
                 {
@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
             else
             {
-                Projectile proj = Main.projectile[byUUID];
+                Projectile proj = Main.projectile[byIdentity];
 
                 //rotation mumbo jumbo
                 float distanceFromPlayer = 150 + 150 * (1 - (float)Math.Cos(Projectile.localAI[1])); // + Projectile.ai[0] * 32;

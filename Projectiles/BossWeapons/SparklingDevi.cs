@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (Projectile.owner == Main.myPlayer)
                 {
                     Vector2 offset = new Vector2(0, -275).RotatedBy(Math.PI / 4 * Projectile.spriteDirection);
-                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + offset, Vector2.Zero, ModContent.ProjectileType<SparklingLoveBig>(), 
+                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center + offset, Vector2.Zero, ModContent.ProjectileType<SparklingLoveBig>(), 
                         Projectile.originalDamage, Projectile.knockBack, Projectile.owner, 0f, Projectile.identity);
                 }
             }

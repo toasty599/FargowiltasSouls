@@ -78,14 +78,14 @@ namespace FargowiltasSouls.Projectiles.Champions
                         if (i == 0)
                             continue;
                         Vector2 offset = Projectile.width * 1.25f * baseDirection.RotatedBy(MathHelper.ToRadians(60) * i + Main.rand.NextFloat(-random, random));
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + offset, Vector2.Zero, Projectile.type,
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + offset, Vector2.Zero, Projectile.type,
                             Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
                     }
                 }
                 else
                 {
                     Vector2 offset = Projectile.width * 2.25f * baseDirection.RotatedBy(Main.rand.NextFloat(-random, random));
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + offset, Vector2.Zero, Projectile.type,
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + offset, Vector2.Zero, Projectile.type,
                         Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
                 }
             }
@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             }*/
             if (Main.rand.NextBool(8))
             {
-                int i2 = Gore.NewGore(Projectile.position + new Vector2(Projectile.width * Main.rand.Next(100) / 100f, Projectile.height * Main.rand.Next(100) / 100f) - Vector2.One * 10f, new Vector2(), Main.rand.Next(61, 64), 1f);
+                int i2 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + new Vector2(Projectile.width * Main.rand.Next(100) / 100f, Projectile.height * Main.rand.Next(100) / 100f) - Vector2.One * 10f, new Vector2(), Main.rand.Next(61, 64), 1f);
                 Main.gore[i2].velocity *= 0.3f;
                 Main.gore[i2].velocity.X += Main.rand.Next(-10, 11) * 0.05f;
                 Main.gore[i2].velocity.Y += Main.rand.Next(-10, 11) * 0.05f;

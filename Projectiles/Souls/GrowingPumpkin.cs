@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
 
             //leave some fire behind
-            Projectile[] fires = FargoSoulsUtil.XWay(5, Projectile.GetProjectileSource_FromThis(), Projectile.Center, ModContent.ProjectileType<PumpkinFlame>(), 3, FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, damage), 0);
+            Projectile[] fires = FargoSoulsUtil.XWay(5, Projectile.GetSource_FromThis(), Projectile.Center, ModContent.ProjectileType<PumpkinFlame>(), 3, FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, damage), 0);
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
         }
 

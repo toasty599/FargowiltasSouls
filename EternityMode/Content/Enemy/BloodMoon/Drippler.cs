@@ -36,7 +36,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.DemonEye, 
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.DemonEye, 
                         velocity: new Vector2(Main.rand.NextFloat(-3, 3), Main.rand.NextFloat(-3, 3)));
                 }
             }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Pets
@@ -113,15 +114,15 @@ namespace FargowiltasSouls.Projectiles.Pets
                     case 1: //spawn mutant
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            FargoSoulsUtil.NewNPCEasy(Projectile.GetNPCSource_FromThis(), Projectile.Center, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
-                            FargoSoulsUtil.PrintText("Mutant has awoken!", 175, 75, 255);
+                            FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), Projectile.Center, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+                            FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}MutantBoss", 175, 75, 255);
                         }
                         break;
 
                     default:
                         if (Projectile.owner == Main.myPlayer)
                         {
-                            CombatText.NewText(Projectile.Hitbox, Color.LimeGreen, "You think you're safe?");
+                            CombatText.NewText(Projectile.Hitbox, Color.LimeGreen, Language.GetTextValue($"Mods.{Mod.Name}.Message.{Name}NotSafe"));
                         }
                         break;
                 }

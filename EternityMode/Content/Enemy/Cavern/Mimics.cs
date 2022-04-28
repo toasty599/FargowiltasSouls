@@ -58,7 +58,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             {
                 int max = 5;
                 for (int i = 0; i < max; i++)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
                         Main.rand.Next(-30, 31) * .1f, Main.rand.Next(-40, -15) * .1f, ModContent.ProjectileType<FakeHeart>(), 20, 0f, Main.myPlayer);
             }
         }

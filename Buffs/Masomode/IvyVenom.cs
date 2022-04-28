@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Buffs.Masomode
                 player.buffTime[buffIndex] = 1;
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.Center.X, (int)player.Center.Y, 0);
                 if (player.whoAmI == Main.myPlayer)
-                    Main.NewText("Your Ivy Venom has become Neurotoxin!", 175, 75, 255);
+                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.IvyVenomTransform"), 175, 75, 255);
             }
             player.venom = true;
         }

@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Items.Accessories.Essences
             base.SafeModifyTooltips(tooltips);
 
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))
-                itemNameLine.overrideColor = nameColor;
+                itemNameLine.OverrideColor = nameColor;
         }
 
         public override void SetDefaults()

@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Buffs.Minions
             player.GetModPlayer<FargoSoulsPlayer>().LunarCultist = true;
             const int damage = 80;
             if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.LunarCultist>()] < 1)
-                FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.LunarCultist>(), damage, 2f, player.whoAmI, -1f);
+                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.LunarCultist>(), damage, 2f, player.whoAmI, -1f);
         }
     }
 }

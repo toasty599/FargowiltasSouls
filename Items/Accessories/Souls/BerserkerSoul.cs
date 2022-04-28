@@ -47,7 +47,7 @@ Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
             player.GetCritChance(DamageClass.Melee) += 15;
 
             if (player.GetToggleValue("Melee"))
-                player.meleeSpeed += .2f;
+                player.GetAttackSpeed(DamageClass.Melee) += .2f;
 
             //gauntlet
             if (player.GetToggleValue("MagmaStone"))

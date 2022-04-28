@@ -33,7 +33,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PumpkinMoon
                     Vector2 vel = (Main.player[npc.target].Center - npc.Center) / 60f;
                     if (vel.Length() < 12f)
                         vel = Vector2.Normalize(vel) * 12f;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<HorsemansBlade>(),
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<HorsemansBlade>(),
                         FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.target);
                 }
             }

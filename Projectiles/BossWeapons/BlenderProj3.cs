@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             for (int i = 0; i < 2; i++)
             {
                 if (!Main.dedServ)
-                    Gore.NewGore(new Vector2(Projectile.position.X + (float)Main.rand.Next(Projectile.width), 
+                    Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.position.X + (float)Main.rand.Next(Projectile.width), 
                     Projectile.position.Y + (float)Main.rand.Next(Projectile.height)), 
                     Projectile.velocity, 
                     ModContent.Find<ModGore>(Mod.Name, $"Tentacle{i}").Type,
@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             for (int i = 0; i < 8; i++)
             {
                 Vector2 newvel = velocity.RotatedBy(i * Math.PI / 4);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, newvel * 4, ModContent.ProjectileType<BlenderPetal>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel * 4, ModContent.ProjectileType<BlenderPetal>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
         }
 

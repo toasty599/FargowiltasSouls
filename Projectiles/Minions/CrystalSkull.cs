@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     if (Projectile.owner == Main.myPlayer)
                     {
                         FargoSoulsUtil.NewSummonProjectile(
-                            Projectile.GetProjectileSource_FromThis(), Projectile.Center,
+                            Projectile.GetSource_FromThis(), Projectile.Center,
                             12f * Projectile.DirectionTo(Main.MouseWorld).RotatedByRandom(MathHelper.ToRadians(4)),
                             ModContent.ProjectileType<ShadowflamesFriendly>(), Projectile.originalDamage, Projectile.knockBack, 
                             Projectile.owner);

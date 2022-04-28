@@ -41,12 +41,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<MutantTrueEyeR>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<MutantTrueEyeR>());
+            if (byIdentity != -1)
             {
                 if (Projectile.timeLeft > 295)
                 {
-                    if (Main.projectile[byUUID].ai[1] == 0f) //stop following true eye if true eye lost target & isn't preparing to charge
+                    if (Main.projectile[byIdentity].ai[1] == 0f) //stop following true eye if true eye lost target & isn't preparing to charge
                     {
                         Projectile.ai[0] = -1f;
                         Projectile.velocity = Vector2.Zero;
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     }
                     else
                     {
-                        Projectile.velocity = Main.projectile[byUUID].velocity;
+                        Projectile.velocity = Main.projectile[byIdentity].velocity;
                     }
                 }
             }

@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Buffs.Minions
             {
                 const int damage = 45;
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.SuperFlocko>()] < 1)
-                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, new Vector2(0f, -10f), ModContent.ProjectileType<Projectiles.Minions.SuperFlocko>(), damage, 4f, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, new Vector2(0f, -10f), ModContent.ProjectileType<Projectiles.Minions.SuperFlocko>(), damage, 4f, player.whoAmI);
             }
         }
     }

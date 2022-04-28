@@ -30,7 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnKill(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.Cthulunado, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 16, 11);
+                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.Cthulunado, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 16, 11);
         }
     }
 }

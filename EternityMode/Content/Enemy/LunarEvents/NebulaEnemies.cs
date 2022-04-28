@@ -66,7 +66,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                     boltVel2 *= Main.rand.NextFloat(0.8f, 1.2f);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, boltVel2, ProjectileID.NebulaLaser, 48, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, boltVel2, ProjectileID.NebulaLaser, 48, 0f, Main.myPlayer);
                 }
             }
 
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             if (++Counter >= 300)
             {
                 if (npc.ai[0] != 5f && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient) //if not latched on player
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 6 * npc.DirectionTo(Main.player[npc.target].Center), ProjectileID.NebulaLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 6 * npc.DirectionTo(Main.player[npc.target].Center), ProjectileID.NebulaLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
                 Counter = (short)Main.rand.Next(120);
             }
         }

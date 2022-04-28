@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             else
                 shoot = ModContent.ProjectileType<Bonez>();
 
-            Main.projectile[Projectile.NewProjectile(player.GetProjectileSource_Item(Item), position, velocity, shoot, damage, knockback, player.whoAmI)].DamageType = DamageClass.Ranged;
+            Main.projectile[Projectile.NewProjectile(player.GetSource_ItemUse(Item), position, velocity, shoot, damage, knockback, player.whoAmI)].DamageType = DamageClass.Ranged;
 
             counter++;
 

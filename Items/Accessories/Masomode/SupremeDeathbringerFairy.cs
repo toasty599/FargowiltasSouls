@@ -77,7 +77,7 @@ Summons 2 Skeletron arms to whack enemies
             //queen stinger
             player.buffImmune[ModContent.BuffType<Infested>()] = true;
             //player.honey = true;
-            player.armorPenetration += 10;
+            player.GetArmorPenetration(DamageClass.Generic) += 10;
             player.npcTypeNoAggro[210] = true;
             player.npcTypeNoAggro[211] = true;
             player.npcTypeNoAggro[42] = true;

@@ -36,7 +36,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                     speed *= 11f;
 
                     int damage = Main.expertMode ? 28 : 35;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<SkeletonArcherArrow>(), damage, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<SkeletonArcherArrow>(), damage, 0f, Main.myPlayer);
                 }
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item5, npc.Center);
                 npc.ai[2] = 0f;

@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             AIType = ProjectileID.Daybreak;
             Projectile.friendly = false;
             Projectile.hostile = true;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
         }
 
         public override void AI()

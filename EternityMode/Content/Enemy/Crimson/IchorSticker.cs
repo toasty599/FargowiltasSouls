@@ -32,7 +32,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Crimson
             base.OnKill(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                FargoSoulsUtil.XWay(5, npc.GetSpawnSource_ForProjectile(), npc.Center, ProjectileID.GoldenShowerHostile, 4, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 2);
+                FargoSoulsUtil.XWay(5, npc.GetSource_FromThis(), npc.Center, ProjectileID.GoldenShowerHostile, 4, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 2);
         }
     }
 }

@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                             Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
                             speed.Normalize();
                             speed *= 8f;
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), Projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
                     }
                     if (Main.player[npc.target].active && !Main.player[npc.target].dead && Main.player[npc.target].Center.Y < Projectile.Center.Y)
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Vector2 vel = Projectile.DirectionTo(Main.player[npc.target].Center + new Vector2(Main.rand.Next(-200, 201), Main.rand.Next(-200, 201))) * 12f;
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Projectile.Center, vel, ModContent.ProjectileType<AbomFrostWave>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<AbomFrostWave>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
                     }
                 }

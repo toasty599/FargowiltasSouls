@@ -34,7 +34,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Snow
             {
                 if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, new Vector2(6f, 0f).RotatedByRandom(2 * Math.PI),
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, new Vector2(6f, 0f).RotatedByRandom(2 * Math.PI),
                         ModContent.ProjectileType<FrostfireballHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.target, 30f);
                 }
             }
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Snow
                     const int max = 16;
                     for (int i = 0; i < max; i++)
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 6f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.TwoPi / max * i),
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 6f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.TwoPi / max * i),
                             ModContent.ProjectileType<FrostfireballHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target, 180f);
                     }
                 }

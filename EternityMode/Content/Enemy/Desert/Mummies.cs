@@ -46,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
             if (Main.rand.NextBool(5))
             {
                 for (int i = 0; i < 4; i++)
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.WallCreeper, velocity: new Vector2(Main.rand.NextFloat(-5f, 5f), -Main.rand.NextFloat(10f)));
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.WallCreeper, velocity: new Vector2(Main.rand.NextFloat(-5f, 5f), -Main.rand.NextFloat(10f)));
             }
         }
     }

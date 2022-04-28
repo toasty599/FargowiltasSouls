@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             Projectile.CloneDefaults(ProjectileID.IceSickle);
             AIType = ProjectileID.IceSickle;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
             Projectile.hostile = true;
             Projectile.friendly = false;
             Projectile.light = 0f;

@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Items.Misc
         public override bool? UseItem(Player player)
         {
             FargoSoulsWorld.AngryMutant = !FargoSoulsWorld.AngryMutant;
-            string text = FargoSoulsWorld.AngryMutant ? "Mutant is angered!" : "Mutant is calm.";
+            string text = FargoSoulsWorld.AngryMutant ? $"$Mods.{Mod.Name}.Message.{Name}On" : $"$Mods.{Mod.Name}.Message.{Name}Off";
             FargoSoulsUtil.PrintText(text, 175, 75, 255);
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
@@ -48,9 +48,9 @@ namespace FargowiltasSouls.Items.Misc
         {
             foreach (TooltipLine line2 in list)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                if (line2.Mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
+                    line2.OverrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
                 }
             }
         }

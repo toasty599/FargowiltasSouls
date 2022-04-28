@@ -64,10 +64,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Projectile.localAI[0] = Projectile.damage;
 
             Projectile.damage = (int)Projectile.localAI[0];
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<Dash>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<Dash>());
+            if (byIdentity != -1)
             {
-                if (Main.projectile[byUUID].localAI[0] != 0) //if dash has slowed down for some reason, do less damage
+                if (Main.projectile[byIdentity].localAI[0] != 0) //if dash has slowed down for some reason, do less damage
                 {
                     Projectile.damage /= 2;
                     Projectile.localAI[1] = 1;
@@ -87,16 +87,16 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 if (Projectile.ai[1] != 0f && Projectile.localAI[1] == 0)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
                         Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
                         Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
                         Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
                 }
                 else if (Projectile.numHits % 3 == 0)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
                         Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
                 }
             }

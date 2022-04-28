@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
@@ -37,7 +38,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                     speed.Y += Main.rand.Next(-20, 21);
                     speed.Normalize();
                     speed *= 12f;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.BombSkeletronPrime, (int)(npc.damage * .7), 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ProjectileID.BombSkeletronPrime, (int)(npc.damage * .7), 0f, Main.myPlayer);
                 }
             }
         }
@@ -62,8 +63,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 }
                 if (stolen)
                 {
-                    Main.NewText("An item was stolen from you!", new Color(255, 50, 50));
-                    CombatText.NewText(target.Hitbox, new Color(255, 50, 50), "An item was stolen from you!", true);
+                    string text = Language.GetTextValue($"Mods.{mod.Name}.Message.ItemStolen");
+                    Main.NewText(text, new Color(255, 50, 50));
+                    CombatText.NewText(target.Hitbox, new Color(255, 50, 50), text, true);
                 }
             }
         }

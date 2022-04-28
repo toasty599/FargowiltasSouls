@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             int snowballDamage = damage / 2;
             if (!modPlayer.TerrariaSoul)
                 snowballDamage = Math.Min(snowballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.WoodForce ? 300 : 20));
-            int p = Projectile.NewProjectile(player.GetProjectileSource_Misc(0), player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
+            int p = Projectile.NewProjectile(player.GetSource_Misc(""), player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
 
             int numSnowballs = modPlayer.WoodForce ? 5 : 3;
             if (p != Main.maxProjectiles)

@@ -163,7 +163,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
                 case NPCID.BigSlimedZombie:
                 case NPCID.ArmedZombieSlimed:
                     if (Main.rand.NextBool() && Main.netMode != NetmodeID.MultiplayerClient)
-                        FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.BlueSlime);
+                        FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.BlueSlime);
                     break;
 
                 default: 

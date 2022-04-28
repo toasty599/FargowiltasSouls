@@ -126,7 +126,7 @@ Summons the aid of all Eternity Mode bosses to your side
             player.endurance += 0.1f;
             player.maxMinions += 2;
             player.maxTurrets += 2;
-            player.armorPenetration += 50;
+            player.GetArmorPenetration(DamageClass.Generic) += 50;
             player.statLifeMax2 += player.statLifeMax;
             if (!fargoPlayer.MutantPresence)
             {

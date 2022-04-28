@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 for (int i = 0; i < maxYoyos; i++)
                 {
                     float radians = (360f / (float)maxYoyos) * i * (float)(Math.PI / 180);
-                    Projectile yoyo = FargoSoulsUtil.NewProjectileDirectSafe(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero,
+                    Projectile yoyo = FargoSoulsUtil.NewProjectileDirectSafe(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
                         ModContent.ProjectileType<BlenderOrbital>(), Projectile.damage, Projectile.knockBack, Projectile.owner, i, radians);
                     if (yoyo != null)
                     {
@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 hitcounter++;
                 if (player.ownedProjectileCounts[ProjectileID.BlackCounterweight] < 5)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), player.Center, Main.rand.NextVector2Circular(10, 10), ProjectileID.BlackCounterweight, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, Main.rand.NextVector2Circular(10, 10), ProjectileID.BlackCounterweight, Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
                 if (hitcounter % 5 == 0)
                 {
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     for (int i = 0; i < 8; i++)
                     {
                         Vector2 newvel = velocity.RotatedBy(i * Math.PI / 4);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, newvel * 8, ModContent.ProjectileType<BlenderPetal>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel * 8, ModContent.ProjectileType<BlenderPetal>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
             }

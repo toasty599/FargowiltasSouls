@@ -118,7 +118,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
                             vector2_2 *= num1;
                         }
 
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center.X, npc.position.Y + npc.width / 4f, vector2_2.X, vector2_2.Y, ProjectileID.Nail, (int)(npc.damage * 0.15), 1f);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center.X, npc.position.Y + npc.width / 4f, vector2_2.X, vector2_2.Y, ProjectileID.Nail, (int)(npc.damage * 0.15), 1f);
                     }
                 }
             }

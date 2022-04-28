@@ -971,7 +971,7 @@ namespace FargowiltasSouls.NPCs
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     const float speed = 12f;
-                    Projectile.NewProjectile(npc.GetSpawnSource_NPCHurt(), npc.Center, Main.rand.NextVector2Circular(speed, speed), ModContent.ProjectileType<Bloodshed>(), 0, 0f, Main.myPlayer, 1f);
+                    Projectile.NewProjectile(npc.GetSource_OnHurt(player), npc.Center, Main.rand.NextVector2Circular(speed, speed), ModContent.ProjectileType<Bloodshed>(), 0, 0f, Main.myPlayer, 1f);
                 }
             }
         }

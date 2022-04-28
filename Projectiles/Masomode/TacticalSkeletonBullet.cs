@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             Projectile.CloneDefaults(ProjectileID.MeteorShot);
             AIType = ProjectileID.MeteorShot;
-            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.DamageType = DamageClass.Default;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.penetrate = 3;

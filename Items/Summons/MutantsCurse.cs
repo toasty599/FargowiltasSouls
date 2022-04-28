@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Items.Summons
             if (mutant > -1 && Main.npc[mutant].active)
             {
                 Main.npc[mutant].Transform(ModContent.NPCType<MutantBoss>());
-                FargoSoulsUtil.PrintText("Mutant has awoken!", 175, 75, 255);
+                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}", 175, 75, 255);
             }
             else
             {

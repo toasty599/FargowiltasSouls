@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         for (int i = 0; i < max; i++)
                         {
                             Vector2 spawnPos = Projectile.Center + new Vector2(dist, 0f).RotatedBy(rotation * i);
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphere2>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphere2>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                         }
 
                         const int boltMax = 32;
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         for (int i = 0; i < boltMax; i++)
                         {
                             Vector2 speed = 10f * Vector2.UnitX.RotatedBy(rotationOffset + MathHelper.TwoPi / boltMax * i);
-                            int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, speed, ModContent.ProjectileType<PhantasmalBolt>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, speed, ModContent.ProjectileType<PhantasmalBolt>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].timeLeft /= 2;
                         }
@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Vector2 position = target.Center + offset - new Vector2(4, 4);
                     Vector2 velocity = Vector2.Normalize(target.Center - position) * 50;
 
-                    int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), position, velocity,
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity,
                         type, Projectile.damage / 2, Projectile.knockBack, Projectile.owner, -10f);
                 }
             }
