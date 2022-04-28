@@ -48,12 +48,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.ModifyNPCLoot(npc, npcLoot);
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<CorruptHeart>()));
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.CorruptFishingCrate, 5));
+            LeadingConditionRule lastEater = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
+            emodeRule.OnSuccess(lastEater);
+            lastEater.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<CorruptHeart>()));
+            lastEater.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.CorruptFishingCrate, 5));
 
             //to make up for no loot until dead
-            emodeRule.OnSuccess(ItemDropRule.Common(ItemID.ShadowScale, 1, 60, 60));
-            emodeRule.OnSuccess(ItemDropRule.Common(ItemID.DemoniteOre, 1, 200, 200));
+            lastEater.OnSuccess(ItemDropRule.Common(ItemID.ShadowScale, 1, 60, 60));
+            lastEater.OnSuccess(ItemDropRule.Common(ItemID.DemoniteOre, 1, 200, 200));
 
             npcLoot.Add(emodeRule);
         }

@@ -57,10 +57,16 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void AI()
         {
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss)
-                && Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer > -90)
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
             {
-                Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer = -90;
+                if (Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer > -90)
+                    Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer = -90;
+
+                if (!FargoSoulsWorld.MasochistModeReal)
+                {
+                    if (Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().StompTimer > -30)
+                        Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().StompTimer = -30;
+                }
             }
 
             if (--NPC.ai[0] > 0)
@@ -79,7 +85,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
                     NPC.position.Y -= 16;
 
-                if (NPC.ai[0] < -240)
+                if (NPC.ai[0] < -210)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

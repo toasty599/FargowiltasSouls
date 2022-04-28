@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace FargowiltasSouls.Items
 {
@@ -42,6 +43,16 @@ namespace FargowiltasSouls.Items
                     grabRange -= (p.TerraForce || p.WizardEnchantActive) ? 500 : 125;
                 }
             }
+        }
+
+        public override bool OnPickup(Item item, Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (modPlayer.GoldEnchantActive && player.whoAmI == Main.myPlayer && player.GetToggleValue("GoldToPiggy", false))
+                modPlayer.GoldEnchMoveCoins = true;
+
+            return base.OnPickup(item, player);
         }
 
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)

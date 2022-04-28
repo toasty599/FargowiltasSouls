@@ -1271,7 +1271,6 @@ refactored stuff using onspawn() hook, check that:
 	devi p2 sandnados do correct damage and despawn after she finishes that attack
 	shadow champ sandnados do correct damage
 reduced devi curse recipe to one single recipe that can take either vertebrae or rotten chunk
-updated localization files
 fixed oddities with prime staff enemy iframes
 emode now makes debuffs end faster when you dont attack and havent been hit for 1sec, doesnt affect
 	any debuff with a hidden duration
@@ -1281,3 +1280,22 @@ emode now makes debuffs end faster when you dont attack and havent been hit for 
 	stunned
 	time frozen
 numerous refactors for separating emode changes from other code
+fixed these not being journey researchable
+	wyvern feather
+	squeaky toy
+	chalice
+	betsy heart
+	celes rune
+	galactic globe
+	heart of sibling
+	magical bulb
+	mutant antibody
+fixed eri's nebula blazes being called cosmic meteor
+eri nebula meteor reticle now has smoother movement (should be slightly easier to misdirect with no momentum)
+qs mine slimes prevent stomp attack too but explode 0.5sec faster
+fixed crab dropping calming potion, now drops crate potion like intended
+emode gives +100 base mana, but halves your attack speed with mana sickness
+fixed(?) twins sometimes dropping two rangs
+fixed(?) eow sometimes dropping too much loot
+gold ench auto sends your money to piggy bank when you pick up money
+updated localization files

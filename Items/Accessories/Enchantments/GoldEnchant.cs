@@ -13,15 +13,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Gold Enchantment");
-            //             string tooltip =
-            // @"Your attacks inflict Midas
-            // Press the Gold hotkey to be encased in a Golden Shell
-            // You will not be able to move or attack, but will be immune to all damage
-            // Press again to exit early
-            // Effects of Greedy Ring
-            // 'Gold makes the world go round'";
-            //             Tooltip.SetDefault(tooltip);
+            DisplayName.SetDefault("Gold Enchantment");
+            string tooltip =
+@"Your attacks inflict Midas
+Automatically sends coins to your piggy bank when picked up
+Press the Gold hotkey to be encased in a Golden Shell
+You will not be able to move or attack, but will be immune to all damage
+Press again to exit early
+Effects of Greedy Ring
+'Gold makes the world go round'";
+            Tooltip.SetDefault(tooltip);
 
             //             //attacks spawn coins, collect them to reduce cooldown?
 

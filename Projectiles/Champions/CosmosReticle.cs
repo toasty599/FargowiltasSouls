@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,6 +30,16 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override bool? CanDamage()
         {
             return false;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.localAI[0]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Projectile.localAI[0] = reader.ReadSingle();
         }
 
         public override void AI()
@@ -63,6 +74,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 if (Projectile.ai[1] > 90)
                 {
                     Projectile.ai[1] = 0;
+                    Projectile.localAI[0] = 0;
                     Projectile.netUpdate = true;
                 }
 
@@ -73,7 +85,8 @@ namespace FargowiltasSouls.Projectiles.Champions
             else
             {
                 Projectile.Center = player.Center;
-                Projectile.position.X += player.velocity.X * 30;
+                Projectile.localAI[0] = MathHelper.Lerp(Projectile.localAI[0], player.velocity.X * 30, 0.1f);
+                Projectile.position.X += Projectile.localAI[0];
 
                 if (Projectile.ai[1] == 45)
                 {

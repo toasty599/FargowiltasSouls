@@ -14,111 +14,108 @@ namespace FargowiltasSouls
         public override ConfigScope Mode => ConfigScope.ServerSide;
         public static SoulConfig Instance => ModContent.GetInstance<SoulConfig>();
 
-        [Label("Only show effect toggler when inventory is open")]
-        [Description("If true, the effect toggler is automatically hidden when your inventory is closed.")]
+        private const string ModName = "FargowiltasSouls";
+
+        [Label($"$Mods.{ModName}.Config.HideToggler")]
+        [Tooltip($"$Mods.{ModName}.Config.HideTogglerDescription")]
         [DefaultValue(true)]
         public bool HideTogglerWhenInventoryIsClosed;
 
-        [Label("Mutant boss music effect")]
+        #region maso
+
+        [Header($"$Mods.{ModName}.Config.MasoHeader")]
+
+        [Label($"$Mods.{ModName}.Config.MasoBossRecolors")]
         [DefaultValue(true)]
-        public bool MutantMusicIsRePrologue;
+        [ReloadRequired]
+        public bool BossRecolors;
+
+        [Label($"$Mods.{ModName}.Config.Precision")]
+        [Tooltip($"$Mods.{ModName}.Config.PrecisionTooltip")]
+        [DefaultValue(true)]
+        public bool PrecisionSealIsHold;
 
         private const float max4kX = 3840f;
-        private const float max4kY = 2160f;
-
-        [Label("Inventory icon X position")]
+        [Label($"$Mods.{ModName}.Config.OncomingMutantX")]
         [Increment(1f)]
         [Range(0f, max4kX)]
         [DefaultValue(610f)]
         public float OncomingMutantX;
 
-        [Label("Inventory icon Y position")]
+        private const float max4kY = 2160f;
+        [Label($"$Mods.{ModName}.Config.OncomingMutantY")]
         [Increment(1f)]
         [Range(0f, max4kY)]
         [DefaultValue(250f)]
         public float OncomingMutantY;
 
-        [Label("Precision Seal Key must be held")]
-        [Description("If false, precision mode is instead toggled with the key.")]
-        [DefaultValue(true)]
-        public bool PrecisionSealIsHold;
-
-        #region maso
-
-        [Header("$Mods.FargowiltasSouls.MasoHeader")]
-
-        [Label("$Mods.FargowiltasSouls.MasoBossRecolors")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool BossRecolors;
-        
         #endregion
 
 
         #region patreon
 
-        [Header("$Mods.FargowiltasSouls.PatreonHeader")]
-        [Label("$Mods.FargowiltasSouls.PatreonRoomba")]
+        [Header($"$Mods.{ModName}.PatreonHeader")]
+        [Label($"$Mods.{ModName}.PatreonRoomba")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonRoomba;
 
-        [Label("$Mods.FargowiltasSouls.PatreonOrb")]
+        [Label($"$Mods.{ModName}.PatreonOrb")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonOrb;
 
-        [Label("$Mods.FargowiltasSouls.PatreonFishingRod")]
+        [Label($"$Mods.{ModName}.PatreonFishingRod")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonFishingRod;
 
-        [Label("$Mods.FargowiltasSouls.PatreonDoor")]
+        [Label($"$Mods.{ModName}.PatreonDoor")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonDoor;
 
-        [Label("$Mods.FargowiltasSouls.PatreonWolf")]
+        [Label($"$Mods.{ModName}.PatreonWolf")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonWolf;
 
-        [Label("$Mods.FargowiltasSouls.PatreonDove")]
+        [Label($"$Mods.{ModName}.PatreonDove")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonDove;
 
-        [Label("$Mods.FargowiltasSouls.PatreonKingSlime")]
+        [Label($"$Mods.{ModName}.PatreonKingSlime")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonKingSlime;
 
-        [Label("$Mods.FargowiltasSouls.PatreonFishron")]
+        [Label($"$Mods.{ModName}.PatreonFishron")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonFishron;
 
-        [Label("$Mods.FargowiltasSouls.PatreonPlant")]
+        [Label($"$Mods.{ModName}.PatreonPlant")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonPlant;
 
-        [Label("$Mods.FargowiltasSouls.PatreonDevious")]
+        [Label($"$Mods.{ModName}.PatreonDevious")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonDevious;
 
-        [Label("$Mods.FargowiltasSouls.PatreonVortex")]
+        [Label($"$Mods.{ModName}.PatreonVortex")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonVortex;
 
-        [Label("$Mods.FargowiltasSouls.PatreonPrime")]
+        [Label($"$Mods.{ModName}.PatreonPrime")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonPrime;
 
-        [Label("$Mods.FargowiltasSouls.PatreonCrimetroid")]
+        [Label($"$Mods.{ModName}.PatreonCrimetroid")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonCrimetroid;
@@ -126,10 +123,10 @@ namespace FargowiltasSouls
         #endregion
 
 
-        /*[Label("$Mods.FargowiltasSouls.ThoriumHeader")]
+        /*[Label($"$Mods.{ModName}.ThoriumHeader")]
         public ThoriumToggles thoriumToggles = new ThoriumToggles();
 
-        [Label("$Mods.FargowiltasSouls.CalamityHeader")]
+        [Label($"$Mods.{ModName}.CalamityHeader")]
         public CalamityToggles calamityToggles = new CalamityToggles();*/
 
 
