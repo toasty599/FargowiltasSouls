@@ -104,6 +104,7 @@ namespace FargowiltasSouls
             AddToggle("WillHeader", "Force of Will", ModContent.ItemType<WillForce>());
             AddToggle("GladiatorConfig", "Gladiator Rain", ModContent.ItemType<GladiatorEnchant>(), "9c924e");
             AddToggle("GoldConfig", "Gold Lucky Coin", ModContent.ItemType<GoldEnchant>(), "e7b21c");
+            AddToggle("GoldToPiggyConfig", "Gold To Piggy Bank", ModContent.ItemType<GoldEnchant>(), "e7b21c");
             AddToggle("HuntressConfig", "Huntress Ability", ModContent.ItemType<HuntressEnchant>(), "7ac04c");
             AddToggle("ValhallaConfig", "Squire/Valhalla Healing", ModContent.ItemType<ValhallaKnightEnchant>(), "93651e");
             AddToggle("SquirePanicConfig", "Ballista Panic On Hit", ModContent.ItemType<SquireEnchant>(), "948f8c");

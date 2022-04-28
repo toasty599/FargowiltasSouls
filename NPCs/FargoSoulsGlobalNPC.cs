@@ -809,7 +809,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.EaterofWorldsTail:
                     {
                         LeadingConditionRule lastEater = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
-                        lastEater.OnSuccess(BossDrop(ModContent.ItemType<EaterStaff>())));
+                        lastEater.OnSuccess(BossDrop(ModContent.ItemType<EaterStaff>()));
                         npcLoot.Add(lastEater);
                     }
                     break;
