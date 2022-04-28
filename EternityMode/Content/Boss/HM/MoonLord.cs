@@ -538,7 +538,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     case 2: HandleScene("Nebula"); break;
                     case 3: HandleScene("Stardust");
                         if (VulnerabilityTimer < 120) //so that player isn't punished for using weapons during prior phase
-                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MasomodeMinionNerfTimer = 0;
+                            Main.LocalPlayer.GetModPlayer<EModePlayer>().MasomodeMinionNerfTimer = 0;
                         break;
                     default: break;
                 }

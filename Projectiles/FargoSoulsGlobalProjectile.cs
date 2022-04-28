@@ -988,7 +988,7 @@ namespace FargowiltasSouls.Projectiles
                 DeletionImmuneRank = 2;
 
                 if (!FargoSoulsUtil.IsSummonDamage(projectile))
-                    modPlayer.MasomodeWeaponUseTimer = 30;
+                    Main.player[projectile.owner].GetModPlayer<EModePlayer>().MasomodeWeaponUseTimer = 30;
 
                 modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
             }

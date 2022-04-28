@@ -67,12 +67,6 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                case ProjectileID.Flamelash:
-                case ProjectileID.MagicMissile:
-                case ProjectileID.RainbowRodBullet:
-                    projectile.timeLeft = 300;
-                    break;
-
                 case ProjectileID.SpiritHeal:
                     projectile.timeLeft = 240 * 4; //account for extraupdates
                     break;
@@ -1350,10 +1344,10 @@ namespace FargowiltasSouls.Projectiles
 
             if (projectile.owner == Main.myPlayer && HasKillCooldown)
             {
-                if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().MasomodeCrystalTimer > 60)
+                if (Main.player[projectile.owner].GetModPlayer<EModePlayer>().MasomodeCrystalTimer > 60)
                     return false;
 
-                Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().MasomodeCrystalTimer += 12;
+                Main.player[projectile.owner].GetModPlayer<EModePlayer>().MasomodeCrystalTimer += 12;
                 return true;
             }
 

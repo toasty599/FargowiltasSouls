@@ -58,9 +58,9 @@ namespace FargowiltasSouls.Buffs
                 case BuffID.ThornWhipPlayerBuff:
                     if (FargoSoulsWorld.EternityMode)
                     {
-                        if (player.GetModPlayer<FargoSoulsPlayer>().HasWhipBuff)
+                        if (player.GetModPlayer<EModePlayer>().HasWhipBuff)
                             player.buffTime[buffIndex] = Math.Min(player.buffTime[buffIndex], 1);
-                        player.GetModPlayer<FargoSoulsPlayer>().HasWhipBuff = true;
+                        player.GetModPlayer<EModePlayer>().HasWhipBuff = true;
                     }
                     break;
 

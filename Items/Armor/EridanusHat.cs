@@ -70,7 +70,7 @@ Eridanus fights alongside you when you use the empowered class
                     case 2: type = 242; break; //nebula
                     default: //stardust
                         type = 135; 
-                        fargoPlayer.MasomodeMinionNerfTimer = 0; //so that player isn't punished for using weapons during prior phase
+                        player.GetModPlayer<EModePlayer>().MasomodeMinionNerfTimer = 0; //so that player isn't punished for using weapons during prior phase
                         break;
                 }
 
