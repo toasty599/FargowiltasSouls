@@ -28,6 +28,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             
             string tooltip =
 $"[i:{ModContent.ItemType<GoldEnchant>()}] Press the Gold hotkey to be encased in a Golden Shell\n" +
+$"[i:{ModContent.ItemType<GoldEnchant>()}] Automatically sends coins to your piggy bank when picked up\n" +
 $"[i:{ModContent.ItemType<PlatinumEnchant>()}] 20% chance for enemies to drop 5x loot\n" +
 $"[i:{ModContent.ItemType<GladiatorEnchant>()}] Spears will rain down on struck enemies\n" +
 $"[i:{ModContent.ItemType<RedRidingEnchant>()}] Double tap down to create a localized rain of arrows\n" +
