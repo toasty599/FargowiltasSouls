@@ -92,17 +92,17 @@ namespace FargowiltasSouls.Projectiles.Minions
                 Projectile.netUpdate = true;
             }
 
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[0], Projectile.type, ModContent.ProjectileType<DestroyerHead>());
-            if (byUUID >= 0 && Main.projectile[byUUID].active)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], Projectile.type, ModContent.ProjectileType<DestroyerHead>());
+            if (byIdentity >= 0 && Main.projectile[byIdentity].active)
             {
                 flag67 = true;
-                value67 = Main.projectile[byUUID].Center;
-                Vector2 arg_2D957_0 = Main.projectile[byUUID].velocity;
-                num1052 = Main.projectile[byUUID].rotation;
-                float num1053 = MathHelper.Clamp(Main.projectile[byUUID].scale, 0f, 50f);
-                int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
-                Main.projectile[byUUID].localAI[0] = Projectile.localAI[0] + 1f;
-                if (Main.projectile[byUUID].type != ModContent.ProjectileType<DestroyerHead>()) Main.projectile[byUUID].localAI[1] = Projectile.identity;
+                value67 = Main.projectile[byIdentity].Center;
+                Vector2 arg_2D957_0 = Main.projectile[byIdentity].velocity;
+                num1052 = Main.projectile[byIdentity].rotation;
+                float num1053 = MathHelper.Clamp(Main.projectile[byIdentity].scale, 0f, 50f);
+                int arg_2D9AD_0 = Main.projectile[byIdentity].alpha;
+                Main.projectile[byIdentity].localAI[0] = Projectile.localAI[0] + 1f;
+                if (Main.projectile[byIdentity].type != ModContent.ProjectileType<DestroyerHead>()) Main.projectile[byIdentity].localAI[1] = Projectile.identity;
             }
 
             if (!flag67) return;

@@ -37,10 +37,10 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<MiniSaucer>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<MiniSaucer>());
+            if (byIdentity != -1)
             {
-                Projectile.Center = Main.projectile[byUUID].Center;
+                Projectile.Center = Main.projectile[byIdentity].Center;
             }
             else
             {

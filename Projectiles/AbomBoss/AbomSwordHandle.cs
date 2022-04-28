@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            int sword = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<AbomSword>());
+            int sword = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<AbomSword>());
             if (sword != -1)
             {
                 Projectile.Center = Main.projectile[sword].Center + Main.projectile[sword].velocity * 75;

@@ -64,10 +64,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Projectile.localAI[0] = Projectile.damage;
 
             Projectile.damage = (int)Projectile.localAI[0];
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<Dash>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<Dash>());
+            if (byIdentity != -1)
             {
-                if (Main.projectile[byUUID].localAI[0] != 0) //if dash has slowed down for some reason, do less damage
+                if (Main.projectile[byIdentity].localAI[0] != 0) //if dash has slowed down for some reason, do less damage
                 {
                     Projectile.damage /= 2;
                     Projectile.localAI[1] = 1;

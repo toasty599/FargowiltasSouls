@@ -1142,11 +1142,11 @@ namespace FargowiltasSouls
                         int uuid = reader.ReadInt32();
                         int projType = reader.ReadInt32();
 
-                        int byUUID = FargoSoulsUtil.GetByUUIDReal(owner, uuid, projType);
-                        if (byUUID != -1)
+                        int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(owner, uuid, projType);
+                        if (byIdentity != -1)
                         {
-                            Main.projectile[byUUID].hostile = true;
-                            Main.projectile[byUUID].friendly = false;
+                            Main.projectile[byIdentity].hostile = true;
+                            Main.projectile[byIdentity].friendly = false;
                         }
                     }
                     break;

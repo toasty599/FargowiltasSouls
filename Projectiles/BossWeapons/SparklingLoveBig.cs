@@ -41,10 +41,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             //the important part
             int ai1 = (int)Projectile.ai[1];
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
+            if (byIdentity != -1)
             {
-                Projectile devi = Main.projectile[byUUID];
+                Projectile devi = Main.projectile[byIdentity];
                 if (Projectile.timeLeft > 15)
                 {
                     Vector2 offset = new Vector2(0, -360).RotatedBy(Math.PI / 4 * devi.spriteDirection);

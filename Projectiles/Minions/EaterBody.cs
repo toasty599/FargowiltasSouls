@@ -113,17 +113,17 @@ namespace FargowiltasSouls.Projectiles.Minions
                 Projectile.netUpdate = true;
             }
 
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[0], Projectile.type, ModContent.ProjectileType<EaterHead>());
-            if (byUUID >= 0 && Main.projectile[byUUID].active)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], Projectile.type, ModContent.ProjectileType<EaterHead>());
+            if (byIdentity >= 0 && Main.projectile[byIdentity].active)
             {
                 flag67 = true;
-                value67 = Main.projectile[byUUID].Center;
-                Vector2 arg_2D957_0 = Main.projectile[byUUID].velocity;
-                num1052 = Main.projectile[byUUID].rotation;
-                float num1053 = MathHelper.Clamp(Main.projectile[byUUID].scale, 0f, 50f);
-                int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
-                Main.projectile[byUUID].localAI[0] = Projectile.localAI[0] + 1f;
-                if (Main.projectile[byUUID].type != ModContent.ProjectileType<EaterHead>()) Main.projectile[byUUID].localAI[1] = Projectile.identity;
+                value67 = Main.projectile[byIdentity].Center;
+                Vector2 arg_2D957_0 = Main.projectile[byIdentity].velocity;
+                num1052 = Main.projectile[byIdentity].rotation;
+                float num1053 = MathHelper.Clamp(Main.projectile[byIdentity].scale, 0f, 50f);
+                int arg_2D9AD_0 = Main.projectile[byIdentity].alpha;
+                Main.projectile[byIdentity].localAI[0] = Projectile.localAI[0] + 1f;
+                if (Main.projectile[byIdentity].type != ModContent.ProjectileType<EaterHead>()) Main.projectile[byIdentity].localAI[1] = Projectile.identity;
             }
 
             if (!flag67) return;
@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             float dist = 26;
 
-            if (Main.projectile[byUUID].type == ModContent.ProjectileType<EaterHead>())
+            if (Main.projectile[byIdentity].type == ModContent.ProjectileType<EaterHead>())
             {
                 dist = 32;
             }
@@ -166,15 +166,15 @@ namespace FargowiltasSouls.Projectiles.Minions
             Player player = Main.player[Projectile.owner];
             if (player.slotsMinions + Projectile.minionSlots > player.maxMinions && Projectile.owner == Main.myPlayer)
             {
-                int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[0], Projectile.type, ModContent.ProjectileType<EaterHead>());
-                if (byUUID != -1)
+                int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], Projectile.type, ModContent.ProjectileType<EaterHead>());
+                if (byIdentity != -1)
                 {
-                    Projectile Projectile1 = Main.projectile[byUUID];
+                    Projectile Projectile1 = Main.projectile[byIdentity];
                     if (Projectile1.type != ModContent.ProjectileType<EaterHead>()) Projectile1.localAI[1] = Projectile.localAI[1];
-                    int byUUID2 = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.localAI[1], Projectile.type, ModContent.ProjectileType<EaterHead>());
-                    if (byUUID2 != -1)
+                    int byIdentity2 = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.localAI[1], Projectile.type, ModContent.ProjectileType<EaterHead>());
+                    if (byIdentity2 != -1)
                     {
-                        Projectile1 = Main.projectile[byUUID2];
+                        Projectile1 = Main.projectile[byIdentity2];
                         Projectile1.ai[0] = Projectile.ai[0];
                         Projectile1.ai[1] = 1f;
                         Projectile1.netUpdate = true;

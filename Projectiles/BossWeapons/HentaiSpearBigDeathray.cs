@@ -55,8 +55,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            int byUUID = FargoSoulsUtil.GetByUUIDReal(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>());
-            if (byUUID != -1)
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>());
+            if (byIdentity != -1)
             {
                 Projectile.timeLeft = 2;
 
