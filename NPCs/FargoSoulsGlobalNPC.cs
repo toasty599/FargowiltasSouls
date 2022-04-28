@@ -807,7 +807,11 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.EaterofWorldsHead:
                 case NPCID.EaterofWorldsBody:
                 case NPCID.EaterofWorldsTail:
-                    npcLoot.Add(new LeadingConditionRule(new Conditions.LegacyHack_IsABoss()).OnSuccess(BossDrop(ModContent.ItemType<EaterStaff>())));
+                    {
+                        LeadingConditionRule lastEater = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
+                        lastEater.OnSuccess(BossDrop(ModContent.ItemType<EaterStaff>()));
+                        npcLoot.Add(lastEater);
+                    }
                     break;
 
                 case NPCID.BrainofCthulhu:
@@ -837,7 +841,11 @@ namespace FargowiltasSouls.NPCs
 
                 case NPCID.Retinazer:
                 case NPCID.Spazmatism:
-                    npcLoot.Add(new LeadingConditionRule(new Conditions.MissingTwin()).OnSuccess(BossDrop(ModContent.ItemType<TwinRangs>())));
+                    {
+                        LeadingConditionRule noTwin = new LeadingConditionRule(new Conditions.MissingTwin());
+                        noTwin.OnSuccess(BossDrop(ModContent.ItemType<TwinRangs>()));
+                        npcLoot.Add(noTwin);
+                    }
                     break;
 
                 case NPCID.Plantera:

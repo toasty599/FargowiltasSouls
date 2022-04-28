@@ -33,6 +33,7 @@ using System.IO;
 using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.Buffs;
 using Terraria.Graphics.Capture;
+using Terraria.UI;
 
 namespace FargowiltasSouls
 {
@@ -112,6 +113,7 @@ namespace FargowiltasSouls
         public bool GladiatorEnchantActive;
         public int GladiatorCD;
         public bool GoldEnchantActive;
+        public bool GoldEnchMoveCoins;
         public bool GoldShell;
         private int goldHP;
         public bool HallowEnchantActive;
@@ -1876,6 +1878,13 @@ namespace FargowiltasSouls
             if (ShinobiEnchantActive)
                 Player.setMonkT3 = true;
 
+
+            if (GoldEnchMoveCoins)
+            {
+                ChestUI.MoveCoins(Player.inventory, Player.bank.item);
+                GoldEnchMoveCoins = false;
+            }
+
             if (ParryDebuffImmuneTime > 0)
             {
                 ParryDebuffImmuneTime--;
@@ -3246,7 +3255,6 @@ namespace FargowiltasSouls
             if (proj.coldDamage && Hypothermia)
                 damage = (int)(damage * 1.2);
 
-            //implement when projectile source IS ACTUALLY FUCKING USABLE
             //if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
             //damage = (int)(damage * 0.8);
 

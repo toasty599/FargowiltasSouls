@@ -22,6 +22,8 @@ Your attacks have a 10% chance to inflict Clipped Wings on non-boss enemies
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'触感温暖'
 免疫剪除羽翼和残疾
 攻击有10%概率对非Boss单位造成剪除羽翼效果");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

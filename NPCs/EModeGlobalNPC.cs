@@ -922,7 +922,7 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.Crab:
-                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.CalmingPotion, 2, 1, 3).OnFailedRoll(ItemDropRule.Common(ItemID.FishingPotion, 1, 1, 3)));
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.CratePotion, 2, 1, 3).OnFailedRoll(ItemDropRule.Common(ItemID.FishingPotion, 1, 1, 3)));
                     break;
 
                 case NPCID.IceSlime:

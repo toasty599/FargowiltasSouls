@@ -96,6 +96,7 @@ namespace FargowiltasSouls.Toggler
             //player.SetToggleValue("Tin", true);
             player.SetToggleValue("Beetle", true);
             player.SetToggleValue("Spider", true);
+            player.SetToggleValue("GoldToPiggy", true);
             player.SetToggleValue("JungleDash", true);
             player.SetToggleValue("SupersonicTabi", true);
             player.SetToggleValue("Valhalla", true);

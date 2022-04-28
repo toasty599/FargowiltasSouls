@@ -22,68 +22,18 @@ Mods: {
 			MutantBossDespawn: Mutant seals its power once more...
 			MutantBossKilledAll: Mutant has eviscerated everyone under its hands.
 
-			TimberChampionName: Champion of Timber
-			TimberChampionDespawn: Champion of Timber returns to its squirrel clan...
-
-			TerraChampionName: Champion of Terra
-			TerraChampionDespawn: Champion of Terra vanishes into the caverns...
-			
-			EarthChampionName: Champion of Earth
-			EarthChampionDespawn: Champion of Earth disappears beneath the magma...
-			
-			NatureChampionName: Champion of Nature
-			NatureChampionDespawn: Champion of Nature returns to its slumber...
-			
-			LifeChampionName: Champion of Life
-			LifeChampionDespawn: Champion of Life fades away...
-			
-			ShadowChampionName: Champion of Shadow
-			ShadowChampionDespawn: Champion of Shadow fades away...
-			
-			SpiritChampionName: Champion of Spirit
-			SpiritChampionDespawn: Champion of Spirit vanishes into the desert...
-			
-			WillChampionName: Champion of Will
-			WillChampionDespawn: Champion of Will returns to the depths...
-			
-			CosmosChampionName: Eridanus, Champion of Cosmos
-			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
-			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
-		}
-		
-		Bestiary: {
-			TophatSquirrelCritter: This squirrel found itself a dapper hat! What will it do with this newfound power? Probably not much, honestly.
-			GuttedCreeper: Continues to defend the heart of the Crimson even when it's stuffed in someone's pocket. They were bad, but now they're good!
-			RoyalSubject: The growth of these would-be queens has been stunted. The pheromones emitted by their liege have summoned them to her aid.
-			GelatinSubject: Elite guardians of the queen. They erect a magical barrier and give their lives to defend their liege.
-			AbomSaucer: The cockpit is filled with machine parts. Abominationn commands these remote control turrets using a chip in his blaster cannon.
-
-			LesserFairy: Drawn to the Champion of Life's radiance, these pixies care for nothing but fulfilling its commands.
-			LesserSquirrel: These little critters helped build the Trojan Squirrel. Not aware of the small explosives attached to them.
-			ShadowOrb: Clusters of darkness that focus its power. They keep the curtain of night drawn low in service of their master.
-
-			TrojanSquirrel: Built by squirrels, for squirrels! Made of woods collected from numerous lands. It fits a lot more squirrels than it appears.
-			GuardianOfAncientTreasures: Lurks deep underground, jealously guarding its horde of jewels and precious metals. Its scales are as hard as stone.
-			CursedCoffin: A mindless fusion of over a hundred wicked souls. It feeds on the bodies of lost travellers and adds their spirits to itself.
-			Lifelights: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms, which happily follow its bidding.
-			Silhouette: An elusive being that always travels under cover of a black fog in the night. It feels sensitive when its true form is exposed.
-			FrigidHydrangaea: This draconic beast hibernates in the frozen caverns, only waking when provoked. Should it really be living in the cold?
-			BanishedBaron: Cast out from the hierarchy, it hid itself while it tried to repair itself. Imperfect work left its strength and speed hindered.
-			MagmaConstruct: Overseer of the planet's core. It has taken over the underworld in the absence of the land's former master. It has no organic parts.
-			
-			TimberChampion: Channeling a Force has granted this wooden contraption fantastic power. But doesn't that squirrel in the cockpit look familiar?
-			TerraChampion: Only the brain of this colossal serpent is still organic. Transformed into enchanted rock and metal, its body is impervious to attack.
-			SpiritChampion: These lost souls regained higher intelligence by absorbing a Force. Not that it's going to stop eating humans any time soon.
-			LifeChampion: Its feathers are said to be blessed relics that ward off nightmares. Has a low opinion of other lifeforms and is very territorial.
-			ShadowChampion: Feeds on the negative emotions of other creatures. Breathing its fog is said to inflict an endless sleep fraught with nightmares.
-			NatureChampion: This creature was driven from its home by a giant plant. Sometimes it thinks about going back, but the cold doesn't bother it anymore.
-			WillChampion: Overflowing with rage. Strikes with great power and withstands attacks through sheer force of anger alone. Just who is this nameless exile?
-			EarthChampion: Merging with a Force has given it a power high. This Champion erupts from the magma and rampages through all who cross its path.
-			CosmosChampion: This noble warrior once travelled the stars in search of worthy opponents. It settled nearby after encountering a certain mutated trio.
-			
-			DeviBoss: Casts spells of light and love using a living axe made of evil. She must be very lax about death, given she never fights that hard to protect a town.
-			AbomBoss: His blade divides the soul itself. All supernatural phenomena are his domain, but he doesn't use celestial attacks out of respect for Mutant.
-			MutantBoss: The keeper of eternity. Ultimate power incarnate. Master of all with dominion over every aspect of combat. Perhaps it came from a world beyond the dimensional rift that opened as it fought...
+		ItemName: {
+			TerrariaSoul: 泰拉之魂
+			HentaiSpear: 洞察者
+			AdamantiteEnchant: 精金魔石
+			AncientCobaltEnchant: 远古钴魔石
+			AncientHallowEnchant: 远古神圣魔石
+			AncientShadowEnchant: 远古暗影魔石
+			AnglerEnchantment: 渔夫魔石
+			ApprenticeEnchant: 学徒魔石
+			BeeEnchant: 蜜蜂魔石
+			BeetleEnchant: 甲虫魔石
+			BorealWoodEnchant: 针叶木魔石
 		}
 
 		ItemTooltip: {
@@ -93,6 +43,66 @@ Mods: {
 				所有的弹幕仅造成66%的伤害
 				“混乱”
 				'''
+			HentaiSpear: "\'屠戮众多的奖励...\'"
+			
+			AdamantiteEnchant: 
+				'''
+				每秒会随机使你的一个弹幕分裂成三个
+                '一气化三清！'
+				'''
+			AncientCobaltEnchant: 
+				'''
+				你的弹幕有20%几率爆裂成毒刺
+				此效果在每秒内只会发生一次
+				古老的丛林赋予你力量
+				'''
+			AncientHallowEnchant:
+				'''
+				使你获得一面可以反弹弹幕的盾牌
+				召唤一柄附魔剑，附魔剑的伤害取决于你的召唤伤害
+				召唤一只魔法仙灵
+				愿人都尊你的剑与盾为圣
+				'''
+			AncientShadowEnchant:
+				'''
+				攻击有几率造成黑暗减益
+				身上带有黑暗减益的敌人有几率向其他敌人发射暗影焰触手
+				三颗暗影珠围绕着你旋转
+				'十分古老，却非常实用'
+				'''
+			AnglerEnchantment:
+				'''
+				增加渔力
+				你几乎能立刻就钓到鱼
+				拥有渔夫渔具袋效果
+				'只要不全是鞋子, 你就可以高高兴兴地回家'
+				'''
+			ApprenticeEnchant:
+				'''
+				持续攻击两秒后你将被火焰包裹
+				切换武器后使下次攻击的伤害增加50%
+				大幅增加爆炸烈焰哨兵的索敌范围和攻击距离
+				'追求完美的漫漫长路'
+				'''
+			BeeEnchant:
+				'''
+				增加友好蜜蜂的力量
+				穿透类弹幕在击中敌人时会生成蜜蜂
+				'根据目前所知的所有航空原理, 蜜蜂应该根本不可能会飞'
+				'''
+			BeetleEnchant:
+				'''
+				甲虫会保护你，减免下次受到的伤害，至多减免15%下次受到的伤害
+				延长25%飞行时间
+				'你的血管里流淌着看不见的粪便生命'
+				'''
+			BorealWoodEnchant:
+				'''
+				攻击时定期释放雪球
+				'冷木'
+				'''
+			
+		
 		}
 
 		ItemName: {

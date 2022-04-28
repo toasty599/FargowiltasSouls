@@ -27,6 +27,8 @@ Increases flight time by 100%
 允许使用者改变重力
 召唤真·克苏鲁之眼保护你
 增加100%飞行时间");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

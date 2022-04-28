@@ -24,6 +24,8 @@ Increases damage by 20%, but decreases life regeneration
 免疫大部分由水造成的Debuff
 骑乘猪鲨坐骑时获得潮湿状态
 增加20%伤害");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

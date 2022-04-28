@@ -23,6 +23,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n攻击造成暴击时造成双足翼龙诅咒减益" +
                 "\n按下'火球冲刺'键后会进行短距离无敌冲刺" +
                 "\n'微烤，五分熟'");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

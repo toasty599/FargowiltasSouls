@@ -319,6 +319,7 @@ namespace FargowiltasSouls
 
             Player.moveSpeed += 0.25f;
 
+            Player.statManaMax2 += 100;
             Player.manaRegenDelay = Math.Min(Player.manaRegenDelay, 30);
             Player.manaRegenBonus += 5;
 
@@ -477,6 +478,16 @@ namespace FargowiltasSouls
             //        damage += Player.bulletDamage.Multiplicative - 1f;
             //    }
             //}
+        }
+
+        public override float UseSpeedMultiplier(Item item)
+        {
+            float modifier = base.UseSpeedMultiplier(item);
+
+            if (Player.manaSick)
+                modifier *= 0.5f;
+
+            return modifier;
         }
 
         private float MasoItemNerfs(int type)

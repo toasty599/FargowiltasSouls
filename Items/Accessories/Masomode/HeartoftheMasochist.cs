@@ -44,6 +44,8 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
 召唤一个友善的超级圣诞雪灵,迷你飞碟和真·克苏鲁之眼");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 5));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
