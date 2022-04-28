@@ -133,18 +133,6 @@ namespace FargowiltasSouls
 
             SkyManager.Instance["FargowiltasSouls:MoonLordSky"] = new MoonLordSky();
 
-            //            if (Language.ActiveCulture == (int)GameCulture.CultureName.Chinese)
-            //            {
-            //                FreezeKey = RegisterHotKey("冻结时间", "P");
-            //                GoldKey = RegisterHotKey("金身", "O");
-            //                SmokeBombKey = RegisterHotKey("Throw Smoke Bomb", "I");
-            //                BetsyDashKey = RegisterHotKey("Betsy Dash", "C");
-            //                MutantBombKey = RegisterHotKey("Mutant Bomb", "Z");
-            //                SoulToggleKey = RegisterHotKey("Open Soul Toggler", ".");
-            //                PrecisionSealKey = RegisterHotKey("Precision Movement", "LeftShift");
-            //            }
-            //            else
-            //            {
             FreezeKey = KeybindLoader.RegisterKeybind(this, "Freeze Time", "P");
             GoldKey = KeybindLoader.RegisterKeybind(this, "Turn Gold", "O");
             SmokeBombKey = KeybindLoader.RegisterKeybind(this, "Throw Smoke Bomb", "I");
@@ -152,7 +140,6 @@ namespace FargowiltasSouls
             MutantBombKey = KeybindLoader.RegisterKeybind(this, "Mutant Bomb", "Z");
             SoulToggleKey = KeybindLoader.RegisterKeybind(this, "Open Soul Toggler", ".");
             PrecisionSealKey = KeybindLoader.RegisterKeybind(this, "Precision Movement", "LeftShift");
-            //            }
 
             ToggleLoader.Load();
 

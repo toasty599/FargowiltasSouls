@@ -151,6 +151,17 @@ Mods: {
 			GelatinSubjects: Gelatin Subjects have awoken!
 		}
 
+		Config: {
+			HideToggler: Only show effect toggler when inventory is open
+			HideTogglerTooltip: If true, the effect toggler is automatically hidden when your inventory is closed.
+			MasoHeader: Eternity Mode
+			MasoBossRecolors: Bosses use alternative sprites
+			OncomingMutantX: Eternity Mode inventory icon X position
+			OncomingMutantY: Eternity Mode inventory icon Y position
+			Precision: Precision Seal Key must be held
+			PrecisionTooltip: If false, precision mode is instead toggled with the key.
+		}
+
 		Toggler: {
 			WoodHeader: Force of Timber
 			BorealConfig: Boreal Snowballs

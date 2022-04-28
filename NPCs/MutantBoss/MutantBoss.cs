@@ -725,7 +725,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 {
                     if (FargoSoulsWorld.MasochistModeReal && musicMod.Version >= Version.Parse("0.1.1"))
                         Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Storia");
-                    else if (SoulConfig.Instance.MutantMusicIsRePrologue)
+                    else
                         Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/rePrologue");
                 }
             }
