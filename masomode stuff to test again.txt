@@ -1296,3 +1296,5 @@ eri nebula meteor reticle now has smoother movement (should be slightly easier t
 qs mine slimes prevent stomp attack too but explode 0.5sec faster
 fixed crab dropping calming potion, now drops crate potion like intended
 emode gives +100 base mana, but halves your attack speed with mana sickness
+fixed(?) twins sometimes dropping two rangs
+fixed(?) eow sometimes dropping too much loot
