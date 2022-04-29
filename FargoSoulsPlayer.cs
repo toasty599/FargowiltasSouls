@@ -4047,12 +4047,12 @@ namespace FargowiltasSouls
         {
             float bonus = 0f;
 
-            if (Player.GetToggleValue("Valhalla", false))
+            if ((SquireEnchantActive || ValhallaEnchantActive) && Player.GetToggleValue("Valhalla", false))
             {
                 //if (TerrariaSoul) bonus = 1f; else 
-                if (WillForce || (ValhallaEnchantActive && WizardEnchantActive))
+                if (WillForce && ValhallaEnchantActive)
                     bonus = 1f / 2f;
-                else if (ValhallaEnchantActive || (SquireEnchantActive && WizardEnchantActive))
+                else if (ValhallaEnchantActive || (WillForce && SquireEnchantActive))
                     bonus = 1f / 3f;
                 else if (SquireEnchantActive)
                     bonus = 1f / 4f;

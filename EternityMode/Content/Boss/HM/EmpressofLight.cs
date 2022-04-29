@@ -88,7 +88,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         NetSync(npc);
                     }
 
-                    //p2 only, extra circle of swords around player
+                    //p2 only, sword circle around player
                     if (npc.ai[1] > 97 && useP2Attacks)
                     {
                         int startDelay = FargoSoulsWorld.MasochistModeReal ? 40 : 60;
@@ -107,7 +107,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         const float radius = 600;
                         if (Main.player[npc.target].Distance(targetPos) > radius)
-                            targetPos = Vector2.Lerp(targetPos, Main.player[npc.target].Center, 0.05f);
+                            targetPos = Main.player[npc.target].Center + Main.player[npc.target].DirectionTo(targetPos) * radius;
 
                         if (AttackTimer % 90 == 0) //rapid fire sound effect
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item164, Main.player[npc.target].Center);
@@ -119,16 +119,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             int max = FargoSoulsWorld.MasochistModeReal ? 3 : 2;
                             for (int i = 0; i < max; i++)
                             {
-                                Vector2 spawnPos = targetPos + radius * Vector2.UnitX.RotatedBy(startRotation + MathHelper.TwoPi / spinTime * AttackTimer + MathHelper.TwoPi / max * i);
+                                Vector2 offsetDirection = Vector2.UnitX.RotatedBy(startRotation + MathHelper.TwoPi / spinTime * AttackTimer + MathHelper.TwoPi / max * i);
+                                Vector2 spawnPos = targetPos + radius * offsetDirection;
                                 Vector2 vel = Vector2.Normalize(targetPos - spawnPos);
                                 float ai1 = ((float)(AttackTimer - startDelay) / spinTime) % 1;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, vel.ToRotation(), ai1);
-                                    float offset = MathHelper.ToRadians(45);
+                                    float angleOffset = MathHelper.ToRadians(45);
                                     for (int j = -1; j <= 1; j++)
                                     {
-                                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, vel.ToRotation() + MathHelper.Pi + offset * j, ai1);
+                                        float length = 128f * (j + 2) + radius;
+                                        Vector2 newPos = targetPos + length * offsetDirection;
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), newPos, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, vel.ToRotation() + MathHelper.Pi + angleOffset * j, ai1);
                                     }
                                 }
                             }
@@ -143,6 +146,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         if (AttackTimer < spinTime * spins + startDelay * 2)
                             npc.ai[1] = 97; //stop vanilla ai from progressing
+                        else
+                            npc.ai[1] = -1;
                     }
                     break;
 
