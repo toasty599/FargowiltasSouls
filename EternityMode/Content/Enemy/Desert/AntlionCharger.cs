@@ -32,6 +32,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Dazed, 60);
+            target.AddBuff(BuffID.Slow, 120);
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FastClock, 50));
         }
     }
 }

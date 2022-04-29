@@ -1307,3 +1307,4 @@ fixed rock golem going super saiyan if you broke line of sight exactly as he tel
 fixed wizard improving healing potions without squire/valhalla
 restored eternity advisor
 refined supersonic movement
+antlion chargers inflict slow and drop fast clock
