@@ -15,10 +15,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            // DisplayName.SetDefault("Adamantite Enchantment");
-            // Tooltip.SetDefault("Every other projectile you spawn will split into 3" +
-            //     "\nAll projectiles deal 50% damage" +
-            //     "\n'Chaos'");
+            DisplayName.SetDefault("Adamantite Enchantment");
+            Tooltip.SetDefault("Every other projectile you spawn will split into 3" +
+                "\nAll projectiles deal 50% damage" +
+                "\n'Chaos'");
 
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
             // Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "每秒会随机使你的一个弹幕分裂成三个" +

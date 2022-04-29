@@ -14,11 +14,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Hallowed Enchantment");
+            DisplayName.SetDefault("Hallowed Enchantment");
 
-            //             Tooltip.SetDefault(
-            // @"Become immune after striking an enemy
-            // 'Hit me with your best shot'");
+            Tooltip.SetDefault(
+@"Become immune after striking an enemy
+'Hit me with your best shot'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神圣魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"使你获得一面可以反弹弹幕的盾牌

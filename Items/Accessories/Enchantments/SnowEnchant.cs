@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Snow Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Spawns a snowstorm at your cursor
-            // Any projectiles or npcs in the snowstorm are slowed by 50%
-            // 'It's Burning Cold Outside'");
+            DisplayName.SetDefault("Snow Enchantment");
+            Tooltip.SetDefault(
+@"Spawns a snowstorm at your cursor
+Any projectiles or npcs in the snowstorm are slowed by 50%
+'It's Burning Cold Outside'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰雪魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"在光标位置生成暴雪

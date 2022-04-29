@@ -14,11 +14,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Ninja Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
-            // First Strike ensures your next attack hits a vital spot dealing 3x damage and reducing defense by 10
-            // 'Now you see me, now you don’t'");
+            DisplayName.SetDefault("Ninja Enchantment");
+            Tooltip.SetDefault(
+@"Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
+First Strike ensures your next attack hits a vital spot dealing 3x damage and reducing defense by 10
+'Now you see me, now you don’t'");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "忍者魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 

@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Tiki Enchantment");
-            //             Tooltip.SetDefault(
-            // @"You may continue to summon temporary minions and sentries after maxing out on your slots
-            // Reduces attack speed of summon weapons when effect is activated
-            // 'Aku Aku!'");
+            DisplayName.SetDefault("Tiki Enchantment");
+            Tooltip.SetDefault(
+@"You may continue to summon temporary minions and sentries after maxing out on your slots
+Reduces attack speed of summon weapons when effect is activated
+'Aku Aku!'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "提基魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"在召唤栏用光后你仍可以召唤临时的哨兵和仆从

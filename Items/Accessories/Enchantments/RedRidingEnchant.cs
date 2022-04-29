@@ -13,14 +13,14 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Red Riding Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Arrows will periodically fall towards your cursor
-            // Double tap down to create a rain of arrows that follows the cursor's position for a few seconds
-            // The arrow type is based on the first arrow in your inventory
-            // This has a cooldown of 10 seconds
-            // Greatly enhances Explosive Traps effectiveness
-            // 'Big Bad Red Riding Hood'");
+            DisplayName.SetDefault("Red Riding Enchantment");
+            Tooltip.SetDefault(
+@"Arrows will periodically fall towards your cursor
+Double tap down to create a rain of arrows that follows the cursor's position for a few seconds
+The arrow type is based on the first arrow in your inventory
+This has a cooldown of 10 seconds
+Greatly enhances Explosive Traps effectiveness
+'Big Bad Red Riding Hood'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "红色游侠魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"箭矢会定期落至你光标周围

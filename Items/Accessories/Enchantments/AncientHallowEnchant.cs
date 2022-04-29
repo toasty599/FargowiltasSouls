@@ -18,11 +18,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Ancient Hallowed Enchantment");
-            //             Tooltip.SetDefault(
-            // @"You gain a shield that can reflect projectiles
-            // Summons a Terraprisma familiar that scales with minion damage
-            // 'Hallowed be your sword and shield'");
+            DisplayName.SetDefault("Ancient Hallowed Enchantment");
+            Tooltip.SetDefault(
+@"You gain a shield that can reflect projectiles
+Summons a Terraprisma familiar that scales with minion damage
+'Hallowed be your sword and shield'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "远古神圣魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"使你获得一面可以反弹弹幕的盾牌

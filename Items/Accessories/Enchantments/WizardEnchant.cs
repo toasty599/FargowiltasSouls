@@ -13,10 +13,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Wizard Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Enhances the power of all other Enchantments to their Force effects
-            // 'I'm a what?'");
+            DisplayName.SetDefault("Wizard Enchantment");
+            Tooltip.SetDefault(
+@"Enhances the power of all other Enchantments to their Force effects
+'I'm a what?'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巫师魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"强化其它魔石，使它们获得在上级合成中才能获得的增强

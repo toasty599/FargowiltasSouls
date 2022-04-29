@@ -17,11 +17,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Shadewood Enchantment");
-            //             Tooltip.SetDefault(
-            // @"You have an aura of Bleeding
-            // Enemies struck while Bleeding spew damaging blood
-            // 'Surprisingly clean'");
+            DisplayName.SetDefault("Shadewood Enchantment");
+            Tooltip.SetDefault(
+@"You have an aura of Bleeding
+Enemies struck while Bleeding spew damaging blood
+'Surprisingly clean'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "阴影木魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"一圈流血光环环绕着你

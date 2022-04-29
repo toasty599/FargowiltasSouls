@@ -17,10 +17,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Wood Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Bestiary entries complete twice as fast
-            // You gain a shop discount based on bestiary completion");
+            DisplayName.SetDefault("Wood Enchantment");
+            Tooltip.SetDefault(
+@"Bestiary entries complete twice as fast
+You gain a shop discount based on bestiary completion");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "木魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"将某些动物转化为武器

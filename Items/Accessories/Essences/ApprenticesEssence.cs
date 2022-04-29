@@ -13,12 +13,12 @@ namespace FargowiltasSouls.Items.Accessories.Essences
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Apprentice's Essence");
-            //             Tooltip.SetDefault(
-            // @"18% increased magic damage
-            // 5% increased magic crit
-            // Increases your maximum mana by 50
-            // 'This is only the beginning..'");
+            DisplayName.SetDefault("Apprentice's Essence");
+            Tooltip.SetDefault(
+@"18% increased magic damage
+5% increased magic crit
+Increases your maximum mana by 50
+'This is only the beginning..'");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "学徒精华");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,

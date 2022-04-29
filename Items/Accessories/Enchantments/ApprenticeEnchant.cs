@@ -13,12 +13,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Apprentice Enchantment");
-            //             Tooltip.SetDefault(
-            // @"After attacking for 2 seconds you will be enveloped in flames
-            // Switching weapons will increase the next attack's damage by 50% and spawn an inferno
-            // Flameburst field of view and range are dramatically increased
-            // 'A long way to perfection'");
+            DisplayName.SetDefault("Apprentice Enchantment");
+            Tooltip.SetDefault(
+@"After attacking for 2 seconds you will be enveloped in flames
+Switching weapons will increase the next attack's damage by 50% and spawn an inferno
+Flameburst field of view and range are dramatically increased
+'A long way to perfection'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "学徒魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"持续攻击两秒后你将被火焰包裹

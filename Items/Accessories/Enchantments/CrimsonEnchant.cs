@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Crimson Enchantment");
-            //             Tooltip.SetDefault(
-            // @"After taking a hit, regen is greatly increased until the half the hit is healed off
-            // If you take another hit before it's healed, you lose the heal in addition to normal damage
-            // 'The blood of your enemy is your rebirth'");
+            DisplayName.SetDefault("Crimson Enchantment");
+            Tooltip.SetDefault(
+@"After taking a hit, regen is greatly increased until the half the hit is healed off
+If you take another hit before it's healed, you lose the heal in addition to normal damage
+'The blood of your enemy is your rebirth'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "猩红魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量的一半

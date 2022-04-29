@@ -13,10 +13,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Obsidian Enchantment");
-            //             Tooltip.SetDefault(
-            // @"
-            // 'The earth calls'");
+            DisplayName.SetDefault("Obsidian Enchantment");
+            Tooltip.SetDefault(
+@"
+'The earth calls'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "黑曜石魔石");
             //@"使你免疫火与岩浆
             //使你可以在岩浆中正常移动和游泳

@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Ancient Cobalt Enchantment");
-            //             Tooltip.SetDefault(
-            // @"20% chance for your projectiles to explode into stingers
-            // This can only happen once every second
-            // 'The jungle of old empowers you'");
+            DisplayName.SetDefault("Ancient Cobalt Enchantment");
+            Tooltip.SetDefault(
+@"20% chance for your projectiles to explode into stingers
+This can only happen once every second
+'The jungle of old empowers you'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "远古钴魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"你的弹幕有20%几率爆裂成毒刺

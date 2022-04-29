@@ -13,12 +13,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Solar Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Solar shield allows you to dash through enemies
-            // Solar shield is not depleted on hit, but has reduced damage reduction
-            // Attacks may inflict the Solar Flare debuff
-            // 'Too hot to handle'");
+            DisplayName.SetDefault("Solar Enchantment");
+            Tooltip.SetDefault(
+@"Solar shield allows you to dash through enemies
+Solar shield is not depleted on hit, but has reduced damage reduction
+Attacks may inflict the Solar Flare debuff
+'Too hot to handle'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "日耀魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"允许你使用日耀护盾进行冲刺

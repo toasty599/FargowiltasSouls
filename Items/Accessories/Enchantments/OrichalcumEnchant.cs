@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Orichalcum Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Flower petals will cause extra damage to your target and inflict Orichalcum Poison
-            // Damaging debuffs deal 3x damage
-            // 'Nature blesses you'");
+            DisplayName.SetDefault("Orichalcum Enchantment");
+            Tooltip.SetDefault(
+@"Flower petals will cause extra damage to your target and inflict Orichalcum Poison
+Damaging debuffs deal 3x damage
+'Nature blesses you'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "山铜魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"花瓣将落到被你攻击的敌人的身上以造成额外伤害和山铜中毒减益

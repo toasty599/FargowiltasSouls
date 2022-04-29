@@ -1,6 +1,6 @@
 # You may find this .hjson file approach to translations easier for your mod.
 # .hjson files contain translations for the language specified in the filename. (Make sure this file is UTF-8 encoded only.)
-# The possible languages are: English ("en-US"), German ("de-DE"), Italian ("it-IT"), French ("fr-FR"), Spanish ("es-ES"), Russian ("ru-RU"), Chinese ("zh-Hans"), Portuguese ("pt-BR"), and Polish ("pl-PL")
+# The possible languages are: English (en-US"), German ("de-DE"), Italian ("it-IT"), French ("fr-FR"), Spanish ("es-ES"), Russian ("ru-RU"), Chinese ("zh-Hans"), Portuguese ("pt-BR"), and Polish ("pl-PL")
 # Here in ExampleMod we have organized these files in a folder called Localization. A single file per language makes it extremely easy to to integrate and maintain translations.
 # Each translation entry in .hjson files contains a key and a value. The key is determined following the rules of JSON [https://www.w3schools.com/js/js_json_syntax.asp]
 # The Key automatically inherits "Mods.ModNameHere.", which is useful to know if you want to use substitutions (as seen in the Paper Airplane example) or use Language.GetTextValue or Network text.
@@ -8,23 +8,427 @@
 
 Mods: {
 	FargowiltasSouls: {
+		
+		Bestiary: {
+			TophatSquirrelCritter: This squirrel found itself a dapper hat! What will it do with this newfound power? Probably not much, honestly.
+			GuttedCreeper: Continues to defend the heart of the Crimson even when it's stuffed in someone's pocket. They were bad, but now they're good!
+			RoyalSubject: The growth of these would-be queens has been stunted. The pheromones emitted by their liege have summoned them to her aid.
+			GelatinSubject: Elite guardians of the queen. They erect a magical barrier and give their lives to defend their liege.
+			AbomSaucer: The cockpit is filled with machine parts. Abominationn commands these remote control turrets using a chip in his blaster cannon.
+
+			LesserFairy: Drawn to the Champion of Life's radiance, these pixies care for nothing but fulfilling its commands.
+			LesserSquirrel: These little critters helped build the Trojan Squirrel. Not aware of the small explosives attached to them.
+			ShadowOrb: Clusters of darkness that focus its power. They keep the curtain of night drawn low in service of their master.
+
+			TrojanSquirrel: Built by squirrels, for squirrels! Made of woods collected from numerous lands. It fits a lot more squirrels than it appears.
+			GuardianOfAncientTreasures: Lurks deep underground, jealously guarding its horde of jewels and precious metals. Its scales are as hard as stone.
+			CursedCoffin: A mindless fusion of over a hundred wicked souls. It feeds on the bodies of lost travellers and adds their spirits to itself.
+			Lifelights: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms, which happily follow its bidding.
+			Silhouette: An elusive being that always travels under cover of a black fog in the night. It feels sensitive when its true form is exposed.
+			FrigidHydrangaea: This draconic beast hibernates in the frozen caverns, only waking when provoked. Should it really be living in the cold?
+			BanishedBaron: Cast out from the hierarchy, it hid itself while it tried to repair itself. Imperfect work left its strength and speed hindered.
+			MagmaConstruct: Overseer of the planet's core. It has taken over the underworld in the absence of the land's former master. It has no organic parts.
+			
+			TimberChampion: Channeling a Force has granted this wooden contraption fantastic power. But doesn't that squirrel in the cockpit look familiar?
+			TerraChampion: Only the brain of this colossal serpent is still organic. Transformed into enchanted rock and metal, its body is impervious to attack.
+			SpiritChampion: These lost souls regained higher intelligence by absorbing a Force. Not that it's going to stop eating humans any time soon.
+			LifeChampion: Its feathers are said to be blessed relics that ward off nightmares. Has a low opinion of other lifeforms and is very territorial.
+			ShadowChampion: Feeds on the negative emotions of other creatures. Breathing its fog is said to inflict an endless sleep fraught with nightmares.
+			NatureChampion: This creature was driven from its home by a giant plant. Sometimes it thinks about going back, but the cold doesn't bother it anymore.
+			WillChampion: Overflowing with rage. Strikes with great power and withstands attacks through sheer force of anger alone. Just who is this nameless exile?
+			EarthChampion: Merging with a Force has given it a power high. This Champion erupts from the magma and rampages through all who cross its path.
+			CosmosChampion: This noble warrior once travelled the stars in search of worthy opponents. It settled nearby after encountering a certain mutated trio.
+			
+			DeviBoss: Casts spells of light and love using a living axe made of evil. She must be very lax about death, given she never fights that hard to protect a town.
+			AbomBoss: His blade divides the soul itself. All supernatural phenomena are his domain, but he doesn't use celestial attacks out of respect for Mutant.
+			MutantBoss: The keeper of eternity. Ultimate power incarnate. Master of all with dominion over every aspect of combat. Perhaps it came from a world beyond that dimensional rift...
+		}
 
 		BossChecklist: {
-			DeviBossName: Deviantt
 			DeviBossDespawn: Deviantt bores of the battle...
 			DeviBossKilledAll: Deviantt is satisfied with its show of love.
 			
-			AbomBossName: Abominationn
 			AbomBossDespawn: Abominationn sees no worthy opponent...
 			AbomBossKilledAll: Abominationn has destroyed everyone.
 			
-			MutantBossName: Mutant
 			MutantBossDespawn: Mutant seals its power once more...
 			MutantBossKilledAll: Mutant has eviscerated everyone under its hands.
 
+			TimberChampionDespawn: Champion of Timber returns to its squirrel clan...
+			TerraChampionDespawn: Champion of Terra vanishes into the caverns...
+			EarthChampionDespawn: Champion of Earth disappears beneath the magma...
+			NatureChampionDespawn: Champion of Nature returns to its slumber...
+			LifeChampionDespawn: Champion of Life fades away...
+			ShadowChampionDespawn: Champion of Shadow fades away...
+			SpiritChampionDespawn: Champion of Spirit vanishes into the desert...
+			WillChampionDespawn: Champion of Will returns to the depths...
+
+			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
+			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
+		}
+
+		Message: {
+			HasAwoken: has awoken!
+			DevisCurse: "{$Mods.FargowiltasSouls.NPCName.DeviBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			AbomsCurse: "{$Mods.FargowiltasSouls.NPCName.AbomBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			MutantsCurse: "{$Mods.FargowiltasSouls.NPCName.MutantBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			
+			AbominationnVoodooDoll: "Mutant has been enraged by the death of his brother!"
+			
+			SigilOfChampions: {
+				Timber: You are surrounded by the rustling of trees...
+				Terra: The stones tremble around you...
+				Spirit: A strong spirit stirs...
+				Life: A wave of warmth passes over you...
+				Shadow: The darkness of the night feels deeper...
+				Nature: A verdant wind is blowing...
+				Will: Metallic groans echo from the depths...
+				Earth: The core of the planet rumbles...
+				Cosmos: The stars are aligning...
+				Nothing: Nothing seems to answer the call...
+			}
+
+			MutantsFuryOn: Mutant is angered!
+			MutantsFuryOff: Mutant is calm.
+
+			PiranhaPlantVoodooDollOn: The suffering continues...
+			PiranhaPlantVoodooDollOff: The suffering wanes...
+
+			MasochistSpawnDevi: Deviantt has awoken!
+			MasochistWrongDifficulty: World must be Expert difficulty or harder!
+			MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist} surges with new power...!"
+			MasochistPreTooltip: Enables Masochist Mode when used in Master Mode
+
+			FargoSoulsWorld: {
+				EternityOn: Eternity Mode activated!
+				EternityOff: Eternity Mode deactivated.
+				EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
+				
+				MasochistOn: Master and Eternity combined: Masochist Mode activated!!
+				MasochistOff: Masochist Mode deactivated.
+
+				BloodMoonCancel: The Blood Moon changed its mind and left...
+			}
+
+			MutantSkipP1: Mutant tires of the charade...
+
+			MutantSpawnMutantBoss: "{$Mods.FargowiltasSouls.Message.MutantsCurse}"
+			MutantSpawnNotSafe: You think you're safe?
+
+			OceanicMaulLifeUp: +5 max life
+			OceanicMaulLifeDown: -5 max life
+
+			ItemStolen: An item was stolen from you!
+
+			Revived: You've been revived!
+
+			NoMusic1: Fargo's Music Mod not found!
+			NoMusic2: Please install Fargo's Music Mod for the full experience!!
+
+			DeviBribe: {
+				Line1: Wait a second...
+				Line2: You're throwing money at me!
+				Line3: Trying to bribe me is pretty gutsy, you know!
+				Accept1: Then again, this is a LOT of money...
+				Accept2: But my big bro said not to! What to do, what to do...?
+				Accept3: Aw, what the heck! But this is our little secret, okay?
+				Reject1: Show you're tough enough and I won't mind, but not a second before!
+				Reject2: Here, you can have this back.
+				Reject3: Let's get this show back on the road!
+			}
+
+			IvyVenomTransform: Your Ivy Venom has become Neurotoxin!!
+
+			LihzahrdBlessing: The altar's light shines on you!
+
+			EternityItem: Eternity
+			PatreonItem: ">> Patreon Item <<"
+			PatreonNameEffect: Your special patreon effects are active
+
+			SkeletronRegrow: has regrown its arms!
+			SkeletronGuardian: has entered Dungeon Guardian form!
+			TwinsEndure: endured the fatal blow to fight alongside its twin!
+			GelatinSubjects: Gelatin Subjects have awoken!
+		}
+
+		Config: {
+			HideToggler: Only show effect toggler when inventory is open
+			HideTogglerTooltip: If true, the effect toggler is automatically hidden when your inventory is closed.
+			MasoHeader: Eternity Mode
+			MasoBossRecolors: Bosses use alternative sprites
+			OncomingMutantX: Eternity Mode inventory icon X position
+			OncomingMutantY: Eternity Mode inventory icon Y position
+			Precision: Precision Seal Key must be held
+			PrecisionTooltip: If false, precision mode is instead toggled with the key.
+		}
+
+		Toggler: {
+			WoodHeader: Force of Timber
+			BorealConfig: Boreal Snowballs
+			MahoganyConfig: Mahogany Hook Speed
+			EbonConfig: Ebonwood Shadowflame
+			ShadeConfig: Blood Geyser On Hit
+			ShadeOnHitConfig: Proximity Triggers On Hit Effects
+			PalmConfig: Palmwood Sentry
+			PearlConfig: Pearlwood Rain
+
+			EarthHeader: Force of Earth
+			AdamantiteConfig: Adamantite Projectile Splitting
+			CobaltConfig: Cobalt Shards
+			AncientCobaltConfig: Ancient Cobalt Stingers
+			MythrilConfig: Mythril Weapon Speed
+			OrichalcumConfig: Orichalcum Petals
+			PalladiumConfig: Palladium Healing
+			PalladiumOrbConfig: Palladium Orbs
+			TitaniumConfig: Titanium Shadow Dodge
+
+			TerraHeader: Terra Force
+			CopperConfig: Copper Lightning
+			IronMConfig: Iron Magnet
+			IronSConfig: Iron Parry
+			TinConfig: Tin Crits
+			TungstenConfig: Tungsten Item Effect
+			TungstenProjConfig: Tungsten Projectile Effect
+			ObsidianConfig: Obsidian Explosions
+
+			WillHeader: Force of Will
+			GladiatorConfig: Gladiator Rain
+			GoldConfig: Gold Lucky Coin
+			GoldToPiggyConfig: Gold To Piggy Bank
+			HuntressConfig: Huntress Ability
+			ValhallaConfig: Squire/Valhalla Healing
+			SquirePanicConfig: Ballista Panic On Hit
+
+			LifeHeader: Force of Life
+			BeeConfig: Bees
+			BeetleConfig: Beetles
+			CactusConfig: Cactus Needles
+			PumpkinConfig: Grow Pumpkins
+			SpiderConfig: Spider Crits
+			TurtleConfig: Turtle Shell Buff
+
+			NatureHeader: Force of Nature
+			ChlorophyteConfig: Chlorophyte Leaf Crystal
+			CrimsonConfig: Crimson Regen
+			RainConfig: Rain Clouds
+			FrostConfig: Frost Icicles
+			SnowConfig: Snowstorm
+			JungleConfig: Jungle Spores
+			JungleDashConfig: Jungle Dash
+			MoltenConfig: Molten Inferno Buff
+			MoltenEConfig: Molten Explosion On Hit
+			ShroomiteConfig: Shroomite Stealth
+			ShroomiteShroomConfig: Shroomite Mushrooms
+
+			ShadowHeader: Shadow Force
+			DarkArtConfig: Flameburst Minion
+			ApprenticeConfig: Apprentice Effect
+			NecroConfig: Necro Graves
+			NecroGloveConfig: Necro Bone Glove
+			ShadowConfig: Shadow Orbs
+			AncientShadowConfig: Ancient Shadow Darkness
+			MonkConfig: Monk Dash
+			ShinobiDashConfig: Shinobi Teleport Dash
+			ShinobiConfig: Shinobi Through Walls
+			SpookyConfig: Spooky Scythes
+
+			SpiritHeader: Force of Spirit
+			FossilConfig: Fossil Bones On Hit
+			ForbiddenConfig: Forbidden Storm
+			HallowDodgeConfig: Hallowed Dodge
+			HallowedConfig: Ancient Hallowed Enchanted Sword Familiar
+			HallowSConfig: Ancient Hallowed Shield
+			SilverConfig: Silver Sword Familiar
+			SilverSpeedConfig: Silver Minion Speed
+			SpectreConfig: Spectre Orbs
+			TikiConfig: Tiki Minions
+
+			CosmoHeader: Force of Cosmos
+			MeteorConfig: Meteor Shower
+			NebulaConfig: Nebula Boosters
+			SolarConfig: Solar Shield
+			SolarFlareConfig: Inflict Solar Flare
+			StardustConfig: Stardust Guardian
+			VortexSConfig: Vortex Stealth
+			VortexVConfig: Vortex Voids
+
+
+			MasoHeader: Eternity Mode
+			MasoBossRecolors: Boss Recolors
+			MasoCanPlay: Masochist Mode Available
+
+			MasoHeader2: Eternity Mode Accessories
+			MasoAeolusConfig: Aeolus Jump
+			MasoAeolusFlowerConfig: Flower Boots
+			MasoIconConfig: Sinister Icon Spawn Rates
+			MasoIconDropsConfig: Sinister Icon Drops
+			MasoGrazeConfig: Graze
+			MasoGrazeRingConfig: Graze Radius Visual
+			MasoDevianttHeartsConfig: Homing Hearts On Hit
+			DreadShellParryConfig: Dread Shell Parry
+			PrecisionSealHurtboxConfig: Reduced Hurtbox Size
+
+			SupremeFairyHeader: Supreme Deathbringer Fairy
+			MasoSlimeConfig: Slimy Balls
+			SlimeFallingConfig: Increased Fall Speed
+			MasoEyeConfig: Scythes When Dashing
+			MasoHoneyConfig: Honey When Hitting Enemies
+			MasoSkeleConfig: Skeletron Arms Minion
+
+			BionomicHeader: Bionomic Cluster
+			MasoConcoctionConfig: Tim's Concoction
+			MasoCarrotConfig: Carrot View
+			MasoRainbowConfig: Rainbow Slime Minion
+			MasoFrigidConfig: Frostfireballs
+			MasoNymphConfig: Attacks Spawn Hearts
+			MasoSqueakConfig: Squeaky Toy On Hit
+			MasoPouchConfig: Shadowflame Tentacles
+			MasoClippedConfig: Inflict Clipped Wings
+			TribalCharmConfig: Tribal Charm Auto Swing
+
+			DubiousHeader: Dubious Circuitry
+			MasoLightningConfig: Inflict Lightning Rod
+			MasoProbeConfig: Probes Minion
+
+			PureHeartHeader: Pure Heart
+			MasoEaterConfig: Tiny Eaters
+			MasoBrainConfig: Creeper Shield
+
+			LumpofFleshHeader: Lump of Flesh
+			MasoPugentConfig: Pungent Eye Minion
+
+			ChaliceHeader: Chalice of the Moon
+			MasoCultistConfig: Cultist Minion
+			MasoPlantConfig: Plantera Minion
+			MasoGolemConfig: Lihzahrd Ground Pound
+			MasoBoulderConfig: Boulder Spray
+			MasoCelestConfig: Celestial Rune Support
+			MasoVisionConfig: Ancient Visions On Hit
+
+			HeartHeader: Heart of the Eternal
+			MasoPumpConfig: Pumpking's Cape Support
+			IceQueensCrownConfig: Freeze On Hit
+			MasoFlockoConfig: Flocko Minion
+			MasoUfoConfig: Saucer Minion
+			MasoGravConfig: Gravity Control
+			MasoGrav2Config: Stabilized Gravity
+			MasoTrueEyeConfig: True Eyes Minion
+
+			CyclonicHeader: Abominable Wand
+			MasoFishronConfig: Spectral Abominationn
+
+			MutantArmorHeader: True Mutant Armor
+			MasoAbomConfig: Abominationn Minion
+			MasoRingConfig: Phantasmal Ring Minion
+			MasoReviveDeathrayConfig: Deathray When Revived
+
+
+			UniverseHeader: Soul of the Universe
+			MeleeConfig: Melee Speed
+			MagmaStoneConfig: Magma Stone
+			YoyoBagConfig: Yoyo Bag
+			MoonCharmConfig: Moon Charm
+			NeptuneShellConfig: Neptune's Shell
+			SniperConfig: Sniper Scope
+			UniverseConfig: Universe Attack Speed
+
+			WorldShaperHeader: World Shaper Soul
+			MiningHuntConfig: Mining Hunter Buff
+			MiningDangerConfig: Mining Dangersense Buff
+			MiningSpelunkConfig: Mining Spelunker Buff
+			MiningShineConfig: Mining Shine Buff
+			BuilderConfig: Builder Mode
+
+			ColossusHeader: Colossus Soul
+			DefenseStarConfig: Stars On Hit
+			DefenseBrainConfig: Brain of Confusion
+			DefenseBeeConfig: Bees On Hit
+			DefensePanicConfig: Panic On Hit
+			DefenseFleshKnuckleConfig: Flesh Knuckles Aggro
+			DefensePaladinConfig: Paladin's Shield
+
+			FlightMasteryHeader: Flight Mastery Soul
+			FlightMasteryInsigniaConfig: Soaring Insignia Acceleration
+			FlightMasteryGravityConfig: Amplified Gravity
+
+			SupersonicHeader: Supersonic Soul
+			RunSpeedConfig: Higher Base Run Speed
+			MomentumConfig: No Momentum
+			SupersonicTabiConfig: Tabi Dash
+			SupersonicClimbingConfig: Tiger Climbing Gear
+			SupersonicConfig: Supersonic Speed Boosts
+			SupersonicJumpsConfig: Supersonic Jumps
+			SupersonicRocketBootsConfig: Supersonic Rocket Boots
+			SupersonicCarpetConfig: Supersonic Carpet
+			SupersonicFlowerConfig: Supersonic Flower Boots
+			CthulhuShieldConfig: Shield of Cthulhu
+			BlackBeltConfig: Black Belt
+
+			TrawlerHeader: Trawler Soul
+			TrawlerSporeConfig: Spore Sac
+			TrawlerConfig: Trawler Extra Lures
+			TrawlerJumpConfig: Trawler Jump
+
+			EternityHeader: Soul of Eternity
+			EternityConfig: Eternity Stacking
+
+
+			PetHeader: Pets
+			PetBlackCatConfig: Black Cat Pet
+			PetCompanionCubeConfig: Companion Cube Pet
+			PetCursedSaplingConfig: Cursed Sapling Pet
+			PetDinoConfig: Dino Pet
+			PetDragonConfig: Dragon Pet
+			PetEaterConfig: Eater Pet
+			PetEyeSpringConfig: Eye Spring Pet
+			PetFaceMonsterConfig: Face Monster Pet
+			PetGatoConfig: Gato Pet
+			PetHornetConfig: Hornet Pet
+			PetLizardConfig: Lizard Pet
+			PetMinitaurConfig: Mini Minotaur Pet
+			PetParrotConfig: Parrot Pet
+			PetPenguinConfig: Penguin Pet
+			PetPupConfig: Puppy Pet
+			PetSeedConfig: Seedling Pet
+			PetDGConfig: Skeletron Pet
+			PetSnowmanConfig: Snowman Pet
+			PetGrinchConfig: Grinch Pet
+			PetSpiderConfig: Spider Pet
+			PetSquashConfig: Squashling Pet
+			PetTikiConfig: Tiki Pet
+			PetShroomConfig: Truffle Pet
+			PetTurtleConfig: Turtle Pet
+			PetZephyrConfig: Zephyr Fish Pet
+			PetHeartConfig: Crimson Heart Pet
+			PetNaviConfig: Fairy Pet
+			PetFlickerConfig: Flickerwick Pet
+			PetLanternConfig: Magic Lantern Pet
+			PetOrbConfig: Shadow Orb Pet
+			PetSuspEyeConfig: Suspicious Eye Pet
+			PetWispConfig: Wisp Pet
+
+
+			PatreonHeader: Patreon Items
+			PatreonRoomba: Roomba
+			PatreonOrb: Computation Orb
+			PatreonFishingRod: Miss Drakovi's Fishing Pole
+			PatreonDoor: Squidward Door
+			PatreonWolf: Paradox Wolf Soul
+			PatreonDove: Fig Branch
+			PatreonKingSlime: Medallion of the Fallen King
+			PatreonFishron: Staff Of Unleashed Ocean
+			PatreonPlant: Piranha Plant Voodoo Doll
+			PatreonDevious: Devious Aestheticus
+			PatreonVortex: Vortex Ritual
+			PatreonPrime: Prime Staff
+			PatreonCrimetroid: Crimetroid
+		}
+
 		ItemName: {
-			TerrariaSoul: 泰拉之魂
-			HentaiSpear: 洞察者
+			
+			// == Accessories ==
+			// === Enchantments ===
+
 			AdamantiteEnchant: 精金魔石
 			AncientCobaltEnchant: 远古钴魔石
 			AncientHallowEnchant: 远古神圣魔石
@@ -34,79 +438,644 @@ Mods: {
 			BeeEnchant: 蜜蜂魔石
 			BeetleEnchant: 甲虫魔石
 			BorealWoodEnchant: 针叶木魔石
+			CactusEnchant: 仙人掌魔石
+			ChlorophyteEnchant: 叶绿魔石
+			CobaltEnchant: 钴蓝魔石
+			CopperEnchant: 铜魔石
+			CrimsonEnchant: 猩红魔石
+			CrystalAssassinEnchant: 水晶刺客魔石
+			DarkArtistEnchant: 暗黑艺术家魔石
+			EbonwoodEnchant: 乌木魔石
+			ForbiddenEnchant: 禁戒魔石
+			FossilEnchant: 化石魔石
+			FrostEnchant: 冰霜魔石
+			GladiatorEnchant: 角斗士魔石
+			GoldEnchant: 金魔石
+			HallowEnchant: 神圣魔石
+			HuntressEnchant: 女猎人魔石
+			IronEnchant: 铁魔石
+			JungleEnchant: 丛林魔石
+			LeadEnchant: 铅魔石
+			MeteorEnchant: 流星魔石
+			MinerEnchant: 矿工魔石
+			MoltenEnchant: 熔岩魔石
+			MonkEnchant: 武僧魔石
+			MythrilEnchant: 秘银魔石
+			NebulaEnchant: 星云魔石
+			NecroEnchant: 死灵魔石
+			NinjaEnchant: 忍者魔石
+			ObsidianEnchant: 黑曜石魔石
+			OrichalcumEnchant: 山铜魔石
+			PalladiumEnchant: 钯金魔石
+			PalmWoodEnchant: 棕榈木魔石
+			PearlwoodEnchant: 珍珠木魔石
+			PinkEskimoEnchant: 粉爱斯基摩魔石
+			PlatinumEnchant: 铂金魔石
+			PumpkinEnchant: 南瓜魔石
+			RainEnchant: 雨云魔石
+			RedRidingEnchant: 红色骑术魔石
+			RichMahoganyEnchant: 红木魔石
+			ShadewoodEnchant: 阴影木魔石
+			ShadowEnchant: 暗影魔石
+			ShinobiEnchant: 渗透忍者魔石
+			ShroomiteEnchant: 蘑菇魔石
+			SilverEnchant: 银魔石
+			SnowEnchant: 冰雪魔石
+			SolarEnchant: 耀斑魔石
+			SpectreEnchant: 幽魂魔石
+			SpiderEnchant: 蜘蛛魔石
+			SpookyEnchant: 阴森魔石
+			SquireEnchant: 侍卫魔石
+			StardustEnchant: 星尘魔石
+			TikiEnchant: 提基魔石
+			TinEnchant: 锡魔石
+			TitaniumEnchant: 钛金魔石
+			TungstenEnchant: 钨魔石
+			TurtleEnchant: 乌龟魔石
+			ValhallaKnightEnchant: 英灵殿骑士魔石
+			VortexEnchant: 星旋魔石
+			WizardEnchant: 巫师魔石
+			WoodEnchant: 木魔石
+
+			// === Essences ===
+
+			ApprenticesEssence: 学徒精华
+			BarbariansEssence: 野蛮人精华
+			OccultistsEssence: 术士精华
+			SharpshootersEssence: 神射手精华
+
+			// === Expert ===
+
+			UniverseCore: 宇宙之核
+
+			// === Forces ===
+
+			CosmoForce: 宇宙之力
+			EarthForce: 大地之力
+			LifeForce: 生命之力
+			NatureForce: 自然之力
+			ShadowForce: 暗影之力
+			SpiritForce: 心灵之力
+			TerraForce: 泰拉之力
+			TimberForce: 森林之力
+			WillForce: 意志之力
+
 		}
 
 		ItemTooltip: {
-			AdamantiteEnchantment:
+			
+			// == Accessories ==
+			// === Enchantments ===
+
+			AdamantiteEnchant:
 				'''
-				你的每个弹幕都会分裂成三个
-				所有的弹幕仅造成66%的伤害
+				你每次发射的第二个弹幕会分裂成三个
+				所有的弹幕仅造成一半的伤害
 				“混乱”
 				'''
-			HentaiSpear: "\'屠戮众多的奖励...\'"
-			
-			AdamantiteEnchant: 
+			AncientCobaltEnchant:
 				'''
-				每秒会随机使你的一个弹幕分裂成三个
-                '一气化三清！'
-				'''
-			AncientCobaltEnchant: 
-				'''
-				你的弹幕有20%几率爆裂成毒刺
-				此效果在每秒内只会发生一次
-				古老的丛林赋予你力量
+				20% chance for your projectiles to explode into stingers
+				This can only happen once every second
+				'The jungle of old empowers you'
 				'''
 			AncientHallowEnchant:
 				'''
-				使你获得一面可以反弹弹幕的盾牌
-				召唤一柄附魔剑，附魔剑的伤害取决于你的召唤伤害
-				召唤一只魔法仙灵
-				愿人都尊你的剑与盾为圣
+				You gain a shield that can reflect projectiles
+				Summons a Terraprisma familiar that scales with minion damage
+				'Hallowed be your sword and shield'
 				'''
 			AncientShadowEnchant:
 				'''
-				攻击有几率造成黑暗减益
-				身上带有黑暗减益的敌人有几率向其他敌人发射暗影焰触手
-				三颗暗影珠围绕着你旋转
-				'十分古老，却非常实用'
+				Your attacks may inflict Darkness on enemies
+				Darkened enemies occasionally fire shadowflame tentacles at other enemies
+				Three Shadow Orbs will orbit around you
 				'''
 			AnglerEnchantment:
 				'''
-				增加渔力
-				你几乎能立刻就钓到鱼
-				拥有渔夫渔具袋效果
-				'只要不全是鞋子, 你就可以高高兴兴地回家'
+				Increases fishing power
+				You catch fish almost instantly
+				Effects of Lavaproof Tackle Bag
+				'As long as they aren't all shoes, you can go home happily'
 				'''
 			ApprenticeEnchant:
 				'''
-				持续攻击两秒后你将被火焰包裹
-				切换武器后使下次攻击的伤害增加50%
-				大幅增加爆炸烈焰哨兵的索敌范围和攻击距离
-				'追求完美的漫漫长路'
+				After attacking for 2 seconds you will be enveloped in flames
+				Switching weapons will increase the next attack's damage by 50% and spawn an inferno
+				Flameburst field of view and range are dramatically increased
+				'A long way to perfection'
 				'''
 			BeeEnchant:
 				'''
-				增加友好蜜蜂的力量
-				穿透类弹幕在击中敌人时会生成蜜蜂
-				'根据目前所知的所有航空原理, 蜜蜂应该根本不可能会飞'
+				Increases the strength of friendly bees
+				Melee hits and most piercing attacks spawn bees
+				'According to all known laws of aviation, there is no way a bee should be able to fly'
 				'''
 			BeetleEnchant:
 				'''
-				甲虫会保护你，减免下次受到的伤害，至多减免15%下次受到的伤害
-				延长25%飞行时间
-				'你的血管里流淌着看不见的粪便生命'
+				Beetles increase your damage and melee speed
+				When hit, beetles instead protect you from damage for 10 seconds
+				Beetle defense capped at 30% damage reduction
+				'The unseen life of dung courses through your veins'
 				'''
 			BorealWoodEnchant:
 				'''
-				攻击时定期释放雪球
-				'冷木'
+				Attacks will periodically be accompanied by several snowballs
+				'The cooler wood'
+				'''
+			CactusEnchant:
+				'''
+				While attacking you release a spray of needles
+				Enemies will explode into needles on death if they are struck with your needles
+				'It's the quenchiest!'
+				'''
+			ChlorophyteEnchant:
+				'''
+				Summons a ring of leaf crystals to shoot at nearby enemies
+				Grants a double spore jump
+				While using wings, spores will continuously spawn
+				Allows the ability to dash slightly
+				Double tap a direction
+				'The jungle's essence crystallizes around you'
+				'''
+			CobaltEnchant:
+				'''
+				25% chance for your projectiles to explode into shards
+				This can only happen once every second
+				'I can't believe it's not Palladium'
+				'''
+			CopperEnchant:
+				'''
+				Attacks have a chance to shock enemies with chain lightning
+				'Behold'
+				'''
+			CrimsonEnchant:
+				'''
+				After taking a hit, regen is greatly increased until the half the hit is healed off
+				If you take another hit before it's healed, you lose the heal in addition to normal damage
+				'The blood of your enemy is your rebirth'
+				'''
+			CrystalAssassinEnchant:
+				'''
+				Allows the ability to dash
+				Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
+				Using the Rod of Discord will also grant this buff
+				When you teleport, you also spawn several homing blades
+				Effects of Volatile Gel''
+				'''
+			DarkArtistEnchant:
+				'''
+				Summons a Flameburst minion that will travel to your mouse after charging up
+				It will then act as a sentry
+				After attacking for 2 seconds you will be enveloped in flames
+				Switching weapons will increase the next attack's damage by 50% and spawn an inferno
+				Greatly enhances Flameburst effectiveness
+				'The shadows hold more than they seem'
+				'''
+			EbonwoodEnchant:
+				'''
+				You have an aura of Shadowflame
+				'Untapped potential'
+				'''
+			ForbiddenEnchant:
+				'''
+				Double tap down to call an ancient storm to the cursor location
+				Any projectiles shot through your storm gain 30% damage
+				'Walk like an Egyptian'
+				'''
+			FossilEnchant:
+				'''
+				If you reach zero HP you will revive with 50 HP and spawn several bones
+				You will also spawn a few bones on every hit
+				Collect the bones to heal for 20 HP each
+				'Beyond a forgotten age'
+				'''
+			FrostEnchant:
+				'''
+				Icicles will start to appear around you
+				Attacking will launch them towards the cursor
+				When they hit an enemy they are frozen solid
+				All hostile projectiles move at half speed
+				'Let's coat the world in a deep freeze'
+				'''
+			GladiatorEnchant:
+				'''
+				Spears will rain down on struck enemies
+				'Are you not entertained?'
+				'''
+			GoldEnchant:
+				'''
+				Your attacks inflict Midas
+				Automatically sends coins to your piggy bank when picked up
+				Press the Gold hotkey to be encased in a Golden Shell
+				You will not be able to move or attack, but will be immune to all damage
+				Press again to exit early
+				Effects of Greedy Ring
+				'Gold makes the world go round'
+				'''
+			HallowEnchant:
+				'''
+				Become immune after striking an enemy
+				'Hit me with your best shot'
+				'''
+			HuntressEnchant:
+				'''
+				
+				Arrows will stick in enemies and apply a stacking bleed debuff per arrow
+				Hit the enemy with a melee attack to deal bonus damage per arrow
+				
+				
+				
+				
+				Arrows will periodically fall towards your cursor
+				The arrow type is based on the first arrow in your inventory
+				Double tap down to create a localized rain of arrows at the cursor's position for a few seconds
+				This has a cooldown of 15 seconds
+				Boosts Explosive Traps
+				'The Hunt is On'
+				'''			
+			IronEnchant:
+				'''
+				Right Click to guard with your shield
+				Guard just before being hit to negate damage
+				You attract items from a larger range
+				'Strike while the iron is hot'
+				'''
+			JungleEnchant:
+				'''
+				Grants a double spore jump
+				Allows the ability to dash slightly
+				Double tap a direction
+				'The wrath of the jungle dwells within'
+				'''
+			LeadEnchant:
+				'''
+				Attacks inflict enemies with Lead Poisoning
+				Lead Poisoning deals damage over time and spreads to nearby enemies
+				'Not recommended for eating'
+				'''
+			MeteorEnchant:
+				'''
+				A meteor shower initiates every few seconds while attacking
+				'Cosmic power builds your destructive prowess'
+				'''
+			MinerEnchant:
+				'''
+				50% increased mining speed
+				Shows the location of enemies, traps, and treasures
+				Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
+				'The planet trembles with each swing of your pick'
+				'''
+			MoltenEnchant:
+				'''
+				Grants immunity to fire and lava
+				You have normal movement and can swim in lava
+				Nearby enemies are ignited
+				The closer they are to you the more damage they take
+				While standing in lava or lava wet, your attacks spawn explosions
+				'They shall know the fury of hell'
+				'''
+			MonkEnchant:
+				'''
+				Allows the ability to dash
+				Double tap a direction
+				You are immune to damage and debuffs for half a second after dashing
+				Dash cooldown is twice as long as normal dashes
+				Lightning Aura can now crit and strikes faster
+				'Return to Monk'
+				'''
+			MythrilEnchant:
+				'''
+				15% increased weapon use speed
+				Taking damage temporarily removes this weapon use speed increase
+				'You feel the knowledge of your weapons seep into your mind'
+				'''
+			NebulaEnchant:
+				'''
+				Hurting enemies has a chance to spawn buff boosters
+				Buff booster stacking capped at 2
+				'The pillars of creation have shined upon you'
+				'''
+			NecroEnchant:
+				'''
+				Slain enemies may drop a pile of bones
+				Touch a pile of bones to spawn a friendly Dungeon Guardian
+				Damage scales with the defeated enemy's max HP
+				Bosses will drop bones every 10% of their HP lost
+				Effects of Bone Glove
+				'Welcome to the bone zone'
+				'''
+			NinjaEnchant:
+				'''
+				Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
+				First Strike ensures your next attack hits a vital spot dealing 3x damage and reducing defense by 10
+				'Now you see me, now you don’t'
+				'''
+			ObsidianEnchant:
+				'''
+				'The earth calls'
+				'''
+			OrichalcumEnchant:
+				'''
+				Flower petals will cause extra damage to your target and inflict Orichalcum Poison
+				Damaging debuffs deal 3x damage
+				'Nature blesses you'
+				'''
+			PalladiumEnchant:
+				'''
+				Briefly increases life regeneration after striking an enemy
+				You spawn an orb of damaging life energy every 80 life regenerated
+				'You feel your wounds slowly healing'
+				'''
+			PalmWoodEnchant:
+				'''
+				Double tap down to spawn a palm tree sentry that throws nuts at enemies
+				'Alarmingly calm'
+				'''
+			PearlwoodEnchant:
+				'''
+				Attacks may spawn a homing star when they hit something
+				'Too little, too late…'
+				'''
+			PlatinumEnchant:
+				'''
+				20% chance for enemies to drop 5x loot
+				'Its value is immeasurable'
+				'''
+			PumpkinEnchant:
+				'''
+				You will grow pumpkins while walking on the ground
+				When fully grown, they will heal 25 HP and spawn damaging embers
+				Enemies that touch them will destroy them and take damage
+				'Your sudden pumpkin craving will never be satisfied'
+				'''
+			RainEnchant:
+				'''
+				Grants immunity to Wet
+				Spawns a miniature storm to follow you around
+				Shooting it will make it grow
+				At maximum size, attacks will turn into lightning bolts
+				'Come again some other day'
+				'''
+			RedRidingEnchant:
+				'''
+				Arrows will periodically fall towards your cursor
+				Double tap down to create a rain of arrows that follows the cursor's position for a few seconds
+				The arrow type is based on the first arrow in your inventory
+				This has a cooldown of 10 seconds
+				Greatly enhances Explosive Traps effectiveness
+				'Big Bad Red Riding Hood'
+				'''
+			RichMahoganyEnchant:
+				'''
+				All grappling hooks pull 1.5x as fast, shoot 2x as fast, and retract 3x as fast
+				While grappling you gain 10 defense and a 50% thorns effect
+				'Guaranteed to keep you hooked'
+				'''
+			ShadewoodEnchant:
+				'''
+				You have an aura of Bleeding
+				Enemies struck while Bleeding spew damaging blood
+				'Surprisingly clean'
+				'''
+			ShadowEnchant:
+				'''
+				Two Shadow Orbs will orbit around you
+				Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
+				'You feel your body slip into the deepest of shadows'
+				'''
+			ShinobiEnchant:
+				'''
+				Dash into any walls, to teleport through them to the next opening
+				Allows the ability to dash
+				Double tap a direction
+				Throw a smoke bomb to teleport to it and gain the First Strike Buff
+				Using the Rod of Discord will also grant this buff
+				Greatly enhances Lightning Aura effectiveness
+				'Village Hidden in the Wall'
+				'''
+			ShroomiteEnchant:
+				'''
+				All attacks gain trails of mushrooms
+				Not moving puts you in stealth
+				While in stealth, more mushrooms will spawn
+				'Made with real shrooms!'
+				'''
+			SilverEnchant:
+				'''
+				Summons a sword familiar that scales with minion damage
+				Drastically increases minion speed
+				Reduces minion damage to compensate for increased speed
+				'Have you power enough to wield me?'
+				'''	
+			SnowEnchant:
+				'''
+				Spawns a snowstorm at your cursor
+				Any projectiles or npcs in the snowstorm are slowed by 50%
+				'It's Burning Cold Outside'
+				'''
+			SolarEnchant:
+				'''
+				Solar shield allows you to dash through enemies
+				Solar shield is not depleted on hit, but has reduced damage reduction
+				Attacks may inflict the Solar Flare debuff
+				'Too hot to handle'
+				'''
+			SpectreEnchant:
+				'''
+				Damage has a chance to spawn damaging orbs
+				If you crit, you might also get a healing orb
+				'Their lifeforce will be their undoing'
+				'''
+			SpiderEnchant:
+				'''
+				Your minions and sentries can now crit with a 15% chance
+				'Arachnophobia is punishable by arachnid induced death'
+				'''
+			SpookyEnchant:
+				'''
+				All of your minions gain an extra scythe attack
+				'Melting souls since 1902'
+				'''
+			SquireEnchant:
+				'''
+				Increases the effectiveness of healing sources by 25%
+				Ballista pierces more targets and panics when you take damage
+				'Squire, will you hurry?'
+				'''
+			StardustEnchant:
+				'''
+				A stardust guardian will protect you from nearby enemies
+				Press the Freeze Key to freeze time for 5 seconds
+				While time is frozen, your minions will continue to attack and Stardust Guardian gains a new attack
+				There is a 60 second cooldown for this effect
+				'The power of the Stand is yours'
+				'''
+			TikiEnchant:
+				'''
+				You may continue to summon temporary minions and sentries after maxing out on your slots
+				Reduces attack speed of summon weapons when effect is activated
+				'Aku Aku!'
+				'''
+			TinEnchant:
+				'''
+				Sets your critical strike chance to 5%
+				Every crit will increase it by 5% up to double your critical strike chance or 15%
+				Getting hit resets your crit to 5%
+				'Return of the Crit'
+				'''
+			TitaniumEnchant:
+				'''
+				Attacking generates a defensive barrier of titanium shards
+				'''
+			TungstenEnchant:
+				'''
+				150% increased weapon size
+				Every half second a projectile will be doubled in size
+				Enlarged swords and projectiles deal 10% more damage and have an additional chance to crit
+				'Bigger is always better'
+				'''
+			TurtleEnchant:
+				'''
+				100% of contact damage is reflected
+				When standing still and not attacking, you will enter your shell
+				While in your shell, you will gain 90% damage resistance
+				Additionally you will destroy incoming projectiles and deal 10x more thorns damage
+				The shell lasts at least 1 second and up to 25 attacks blocked
+				Enemies may explode into needles on death
+				'You suddenly have the urge to hide in a shell'
+				'''
+			ValhallaKnightEnchant:
+				'''
+				Increases the effectiveness of healing sources by 33%
+				Greatly enhances Ballista effectiveness
+				'Valhalla calls'
+				'''
+			VortexEnchant:
+				'''
+				Double tap down to toggle stealth, reducing chance for enemies to target you but slowing movement
+				When entering stealth, spawn a vortex that draws in enemies and projectiles
+				While in stealth, your own projectiles will not be sucked in
+				'Tear into reality'
+				'''
+			WizardEnchant:
+				'''
+				Enhances the power of all other Enchantments to their Force effects
+				'I'm a what?'
+				'''
+			WoodEnchant:
+				'''
+				Bestiary entries complete twice as fast
+				You gain a shop discount based on bestiary completion
+				'''
+
+			// === Essences ===
+			
+			ApprenticesEssence:
+				'''
+				18% increased magic damage
+				5% increased magic crit
+				Increases your maximum mana by 50
+				'This is only the beginning..'
+				'''
+			BarbariansEssence:
+				'''
+				18% increased melee damage
+				10% increased melee speed
+				5% increased melee crit chance
+				'This is only the beginning..'
+				'''
+			OccultistsEssence:
+				'''
+				18% increased summon damage
+				Increases your max number of minions by 1
+				Increases your max number of sentries by 1
+				'This is only the beginning..'
+				'''
+			SharpshootersEssence:
+				'''
+				18% increased ranged damage
+				10% chance to not consume ammo
+				5% increased ranged critical chance
+				'This is only the beginning..'
 				'''
 			
-		
+			// === Expert ===
+
+			UniverseCore:
+				'''
+				Crits deal 5x instead of 2x
+				All attacks inflict Flames of the Universe
+				'Bursting with ultra-high-energy cosmic rays'
+				'''
+
+			// === Forces ===
+			// In ItemExtra
+
+
+
 		}
 
-		ItemName: {
-			AdamantiteEnchantment: "精金魔石"
+		ItemExtra: {
+
+			// == Forces Tooltips ==
+
+			CosmoForce:
+				'''
+				[i:{0}] 攻击时每过几秒便会召唤一次流星雨
+				[i:{1}] 允许你使用日耀护盾进行冲刺
+				[i:{1}] 攻击有几率造成太阳耀斑减益
+				[i:{2}] 双击“下”键切换至隐形模式，生成一个旋涡
+				[i:{3}] 对敌人造成伤害时有几率生成强化焰
+				[i:{4}] 星尘守卫将保护你不受附近敌人的伤害
+				[i:{4}] 按下“冻结”键后会冻结时间，持续5秒，有60秒冷却时间
+				“自宇宙大爆炸以来就一直存在”
+				'''
+			EarthForce: 
+				'''
+				[i:{0}] 25% chance for your projectiles to explode into shards
+				[i:{2}] 20% increased weapon use speed
+				[i:{1}] Greatly increases life regeneration after striking an enemy
+				[i:{1}] You spawn an orb of damaging life energy every 80 life regenerated
+				[i:{3}] Flower petals will cause extra damage to your target
+				[i:{3}] Damaging debuffs deal 5x damage
+				[i:{4}] Every other projectile you spawn will split into 3
+				[i:{5}] Attacking generates a defensive barrier of titanium shards
+				'Gaia's blessing shines upon you'
+				'''
+			LifeForce:
+				'''
+				[i:{0}] You will grow pumpkins while walking on the ground
+				[i:{1}] Enemies may explode into needles on death
+				[i:{2}] Melee hits and most piercing attacks spawn bees
+				[i:{3}] 30% chance for minions and sentries to crit
+				[i:{4}] When standing still and not attacking, you will enter your shell
+				[i:{5}] Beetles aid both offense and defense
+				'Rare is a living thing that dare disobey your will'
+				'''
+			NatureForce:
+				'''
+				[i:{0}] After taking a hit, regen is greatly increased until the hit is healed off
+				[i:{1}] Nearby enemies are ignited
+				[i:{1}] When you are hurt, you violently explode to damage nearby enemies
+				[i:{2}] Spawns a miniature storm to follow you around
+				[i:{3}] Icicles will start to appear around you
+				[i:{4}] You have a small area around you that will slow projectiles to 1/2 speed
+				[i:{5}] Summons a ring of leaf crystals to shoot at nearby enemies
+				[i:{6}] Grants a double spore jump
+				[i:{7}] Not moving puts you in stealth
+				[i:{7}] All attacks gain trails of mushrooms
+				'Tapped into every secret of the wilds'
+				'''
+
+
+			EridanusArmorBonus:
+				'''
+				The blessing of Eridanus empowers your attacks
+				The empowered class changes every 10 seconds
+				Eridanus fights alongside you when you use the empowered class
+				75% increased damage, 30% increased attack speed, and 20% increased critical strike chance for the empowered class
+				'''
 		}
 	}
 }

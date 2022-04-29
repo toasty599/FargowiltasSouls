@@ -13,16 +13,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Shroomite Enchantment");
+            DisplayName.SetDefault("Shroomite Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蘑菇魔石");
 
-            //             string tooltip =
-            // @"All attacks gain trails of mushrooms
-            // Not moving puts you in stealth
-            // While in stealth, more mushrooms will spawn
-            // 'Made with real shrooms!'";
-            //             Tooltip.SetDefault(tooltip);
+            string tooltip =
+@"All attacks gain trails of mushrooms
+Not moving puts you in stealth
+While in stealth, more mushrooms will spawn
+'Made with real shrooms!'";
+            Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"所有攻击都会留下蘑菇尾迹

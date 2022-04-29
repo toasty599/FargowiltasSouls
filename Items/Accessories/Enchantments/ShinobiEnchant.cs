@@ -13,19 +13,19 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Shinobi Infiltrator Enchantment");
+            DisplayName.SetDefault("Shinobi Infiltrator Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "渗透忍者魔石");
 
-            //             string tooltip =
-            // @"Dash into any walls, to teleport through them to the next opening
-            // Allows the ability to dash
-            // Double tap a direction
-            // Throw a smoke bomb to teleport to it and gain the First Strike Buff
-            // Using the Rod of Discord will also grant this buff
-            // Greatly enhances Lightning Aura effectiveness
-            // 'Village Hidden in the Wall'";
-            //             Tooltip.SetDefault(tooltip);
+            string tooltip =
+@"Dash into any walls, to teleport through them to the next opening
+Allows the ability to dash
+Double tap a direction
+Throw a smoke bomb to teleport to it and gain the First Strike Buff
+Using the Rod of Discord will also grant this buff
+Greatly enhances Lightning Aura effectiveness
+'Village Hidden in the Wall'";
+            Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"冲进墙壁时会直接穿过去

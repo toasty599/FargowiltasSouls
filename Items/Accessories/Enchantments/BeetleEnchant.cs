@@ -13,16 +13,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Beetle Enchantment");
+            DisplayName.SetDefault("Beetle Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "甲虫魔石");
 
-            //             string tooltip =
-            // @"Beetles increase your damage and melee speed
-            // When hit, beetles instead protect you from damage for 10 seconds
-            // Beetle defense capped at 30% damage reduction
-            // 'The unseen life of dung courses through your veins'";
-            //             Tooltip.SetDefault(tooltip);
+            string tooltip =
+@"Beetles increase your damage and melee speed
+When hit, beetles instead protect you from damage for 10 seconds
+Beetle defense capped at 30% damage reduction
+'The unseen life of dung courses through your veins'";
+            Tooltip.SetDefault(tooltip);
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "甲虫魔石");
 

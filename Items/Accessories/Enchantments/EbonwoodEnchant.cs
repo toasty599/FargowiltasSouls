@@ -15,10 +15,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Ebonwood Enchantment");
-            //             Tooltip.SetDefault(
-            // @"You have an aura of Shadowflame
-            // 'Untapped potential'");
+            DisplayName.SetDefault("Ebonwood Enchantment");
+            Tooltip.SetDefault(
+@"You have an aura of Shadowflame
+'Untapped potential'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "乌木魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"一圈暗影焰光环环绕着你

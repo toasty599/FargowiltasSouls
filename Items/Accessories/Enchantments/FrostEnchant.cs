@@ -13,17 +13,17 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Frost Enchantment");
+            DisplayName.SetDefault("Frost Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰霜魔石");
 
-            //             string tooltip =
-            // @"Icicles will start to appear around you
-            // Attacking will launch them towards the cursor
-            // When they hit an enemy they are frozen solid
-            // All hostile projectiles move at half speed
-            // 'Let's coat the world in a deep freeze'";
-            //             Tooltip.SetDefault(tooltip);
+            string tooltip =
+@"Icicles will start to appear around you
+Attacking will launch them towards the cursor
+When they hit an enemy they are frozen solid
+All hostile projectiles move at half speed
+'Let's coat the world in a deep freeze'";
+            Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"你的周围会出现冰锥

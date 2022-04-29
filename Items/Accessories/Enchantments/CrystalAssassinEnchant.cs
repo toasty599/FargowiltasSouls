@@ -13,12 +13,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Crystal Assassin Enchantment");
-            //             Tooltip.SetDefault(@"Allows the ability to dash
-            // Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
-            // Using the Rod of Discord will also grant this buff
-            // When you teleport, you also spawn several homing blades
-            // Effects of Volatile Gel''");
+            DisplayName.SetDefault("Crystal Assassin Enchantment");
+            Tooltip.SetDefault(@"Allows the ability to dash
+Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
+Using the Rod of Discord will also grant this buff
+When you teleport, you also spawn several homing blades
+Effects of Volatile Gel''");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "水晶刺客魔石");
             //             string tooltip_ch =

@@ -22,20 +22,20 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Tooltip.SetDefault(Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EarthForce", Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4], Enchants[5]));
+            DisplayName.SetDefault("Force of Earth");
 
-            //             DisplayName.SetDefault("Force of Earth");
+            Tooltip.SetDefault(
+$"[i:{ModContent.ItemType<CobaltEnchant>()}] 25% chance for your projectiles to explode into shards\n" +
+$"[i:{ModContent.ItemType<MythrilEnchant>()}] 20% increased weapon use speed\n" +
+$"[i:{ModContent.ItemType<PalladiumEnchant>()}] Greatly increases life regeneration after striking an enemy\n" +
+$"[i:{ModContent.ItemType<PalladiumEnchant>()}] You spawn an orb of damaging life energy every 80 life regenerated\n" +
+$"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Flower petals will cause extra damage to your target\n" +
+$"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Damaging debuffs deal 5x damage\n" +
+$"[i:{ModContent.ItemType<AdamantiteEnchant>()}] Every other projectile you spawn will split into 3\n" +
+$"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacking generates a defensive barrier of titanium shards\n" +
+"'Gaia's blessing shines upon you'");
 
-            //             Tooltip.SetDefault(
-            // $"[i:{ModContent.ItemType<CobaltEnchant>()}] 25% chance for your projectiles to explode into shards\n" +
-            // $"[i:{ModContent.ItemType<MythrilEnchant>()}] 20% increased weapon use speed\n" +
-            // $"[i:{ModContent.ItemType<PalladiumEnchant>()}] Greatly increases life regeneration after striking an enemy\n" +
-            // $"[i:{ModContent.ItemType<PalladiumEnchant>()}] You spawn an orb of damaging life energy every 80 life regenerated\n" +
-            // $"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Flower petals will cause extra damage to your target\n" +
-            // $"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Damaging debuffs deal 5x damage\n" +
-            // $"[i:{ModContent.ItemType<AdamantiteEnchant>()}] One of your projectiles will split into 3 every 3/4 of a second\n" +
-            // $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after striking an enemy\n" +
-            // "'Gaia's blessing shines upon you'");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EarthForce", Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4], Enchants[5]));
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大地之力");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 

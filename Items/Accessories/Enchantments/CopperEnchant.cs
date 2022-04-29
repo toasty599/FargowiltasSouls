@@ -15,10 +15,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Copper Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Attacks have a chance to shock enemies with chain lightning
-            // 'Behold'");
+            DisplayName.SetDefault("Copper Enchantment");
+            Tooltip.SetDefault(
+@"Attacks have a chance to shock enemies with chain lightning
+'Behold'");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铜魔石");
             //             string tooltip_ch =

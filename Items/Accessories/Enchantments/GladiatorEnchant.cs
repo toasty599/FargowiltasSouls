@@ -15,10 +15,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Gladiator Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Spears will rain down on struck enemies
-            // 'Are you not entertained?'");
+            DisplayName.SetDefault("Gladiator Enchantment");
+            Tooltip.SetDefault(
+@"Spears will rain down on struck enemies
+'Are you not entertained?'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "角斗士魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"长矛将倾泄在被攻击的敌人身上

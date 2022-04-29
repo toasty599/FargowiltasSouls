@@ -20,18 +20,16 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Tooltip.SetDefault(Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.LifeForce", Enchants[0], ModContent.ItemType<CactusEnchant>(), Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
+            DisplayName.SetDefault("Force of Life");
 
-            //             DisplayName.SetDefault("Force of Life");
-
-            //             string tooltip =
-            // $"[i:{ModContent.ItemType<PumpkinEnchant>()}] You will grow pumpkins while walking on the ground\n" +
-            // $"[i:{ModContent.ItemType<CactusEnchant>()}] Enemies may explode into needles on death\n" +
-            // $"[i:{ModContent.ItemType<BeeEnchant>()}] Melee hits and most piercing attacks spawn bees\n" +
-            // $"[i:{ModContent.ItemType<SpiderEnchant>()}] 30% chance for minions and sentries to crit\n" +
-            // $"[i:{ModContent.ItemType<TurtleEnchant>()}] When standing still and not attacking, you will enter your shell\n" +
-            // $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defense\n" +
-            // "'Rare is a living thing that dare disobey your will'";
+            string tooltip =
+$"[i:{ModContent.ItemType<PumpkinEnchant>()}] You will grow pumpkins while walking on the ground\n" +
+$"[i:{ModContent.ItemType<CactusEnchant>()}] Enemies may explode into needles on death\n" +
+$"[i:{ModContent.ItemType<BeeEnchant>()}] Melee hits and most piercing attacks spawn bees\n" +
+$"[i:{ModContent.ItemType<SpiderEnchant>()}] 30% chance for minions and sentries to crit\n" +
+$"[i:{ModContent.ItemType<TurtleEnchant>()}] When standing still and not attacking, you will enter your shell\n" +
+$"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defense\n" +
+"'Rare is a living thing that dare disobey your will'";
             //             string tooltip_ch =
             // @"你在草地上行走时会种下南瓜
             // 反弹100%接触伤害
@@ -43,9 +41,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             // 延长50%飞行时间
             // '罕有活物敢违背你的意愿'";
 
-            //             Tooltip.SetDefault(tooltip);
+            Tooltip.SetDefault(tooltip);
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生命之力");
-            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.LifeForce", Enchants[0], ModContent.ItemType<CactusEnchant>(), Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -15,16 +15,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Iron Enchantment");
+            DisplayName.SetDefault("Iron Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铁魔石");
 
-            //             string tooltip =
-            // @"Right Click to guard with your shield
-            // Guard just before being hit to negate damage
-            // You attract items from a larger range
-            // 'Strike while the iron is hot'";
-            //             Tooltip.SetDefault(tooltip);
+            string tooltip =
+@"Right Click to guard with your shield
+Guard just before being hit to negate damage
+You attract items from a larger range
+'Strike while the iron is hot'";
+            Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"右键进行盾牌格挡

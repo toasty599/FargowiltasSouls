@@ -13,10 +13,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Spooky Enchantment");
-            //             Tooltip.SetDefault(
-            // @"All of your minions gain an extra scythe attack
-            // 'Melting souls since 1902'");
+            DisplayName.SetDefault("Spooky Enchantment");
+            Tooltip.SetDefault(
+@"All of your minions gain an extra scythe attack
+'Melting souls since 1902'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "阴森魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"你的召唤物获得了额外的镰刀攻击

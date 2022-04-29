@@ -16,12 +16,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Fossil Enchantment");
-            //             Tooltip.SetDefault(
-            // @"If you reach zero HP you will revive with 50 HP and spawn several bones
-            // You will also spawn a few bones on every hit
-            // Collect the bones to heal for 20 HP each
-            // 'Beyond a forgotten age'");
+            DisplayName.SetDefault("Fossil Enchantment");
+            Tooltip.SetDefault(
+@"If you reach zero HP you will revive with 50 HP and spawn several bones
+You will also spawn a few bones on every hit
+Collect the bones to heal for 20 HP each
+'Beyond a forgotten age'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "化石魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"受到致死伤害时会以1生命值重生并爆出几根骨头

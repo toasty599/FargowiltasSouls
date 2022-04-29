@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Platinum Enchantment");
-            //             string tooltip =
-            // @"20% chance for enemies to drop 5x loot
-            // 'Its value is immeasurable'";
-            //             Tooltip.SetDefault(tooltip);
+            DisplayName.SetDefault("Platinum Enchantment");
+            string tooltip =
+@"20% chance for enemies to drop 5x loot
+'Its value is immeasurable'";
+            Tooltip.SetDefault(tooltip);
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铂金魔石");
             //             string tooltip_ch = 

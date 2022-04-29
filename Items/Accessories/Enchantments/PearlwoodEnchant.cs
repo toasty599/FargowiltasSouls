@@ -15,10 +15,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Pearlwood Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Attacks may spawn a homing star when they hit something
-            // 'Too little, too late…'");
+            DisplayName.SetDefault("Pearlwood Enchantment");
+            Tooltip.SetDefault(
+@"Attacks may spawn a homing star when they hit something
+'Too little, too late…'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "珍珠木魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"弹幕在击中敌人或物块时有几率生成一颗星星

@@ -14,11 +14,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Mythril Enchantment");
-            //             Tooltip.SetDefault(
-            // @"15% increased weapon use speed
-            // Taking damage temporarily removes this weapon use speed increase
-            // 'You feel the knowledge of your weapons seep into your mind'");
+            DisplayName.SetDefault("Mythril Enchantment");
+            Tooltip.SetDefault(
+@"15% increased weapon use speed
+Taking damage temporarily removes this weapon use speed increase
+'You feel the knowledge of your weapons seep into your mind'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "秘银魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"增加15%武器使用速度

@@ -13,12 +13,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Ancient Shadow Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Your attacks may inflict Darkness on enemies
-            // Darkened enemies occasionally fire shadowflame tentacles at other enemies
-            // Three Shadow Orbs will orbit around you
-            // 'Archaic, yet functional'");
+            DisplayName.SetDefault("Ancient Shadow Enchantment");
+            Tooltip.SetDefault(
+@"Your attacks may inflict Darkness on enemies
+Darkened enemies occasionally fire shadowflame tentacles at other enemies
+Three Shadow Orbs will orbit around you
+'Archaic, yet functional'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "远古暗影魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"攻击有几率造成黑暗减益

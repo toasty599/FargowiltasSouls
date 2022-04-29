@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Shadow Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Two Shadow Orbs will orbit around you
-            // Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
-            // 'You feel your body slip into the deepest of shadows'");
+            DisplayName.SetDefault("Shadow Enchantment");
+            Tooltip.SetDefault(
+@"Two Shadow Orbs will orbit around you
+Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
+'You feel your body slip into the deepest of shadows'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"两颗暗影珠围绕着你旋转

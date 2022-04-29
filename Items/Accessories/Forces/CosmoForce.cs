@@ -21,20 +21,20 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Tooltip.SetDefault(Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.CosmoForce", Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
-            //             DisplayName.SetDefault("Force of Cosmos");
+            DisplayName.SetDefault("Force of Cosmos");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宇宙之力");
 
-            //             string tooltip =
-            // $"[i:{ModContent.ItemType<MeteorEnchant>()}] A meteor shower initiates every few seconds while attacking\n" +
-            // $"[i:{ModContent.ItemType<SolarEnchant>()}] Solar shield allows you to dash through enemies\n" +
-            // $"[i:{ModContent.ItemType<SolarEnchant>()}] Attacks may inflict the Solar Flare debuff\n" +
-            // $"[i:{ModContent.ItemType<VortexEnchant>()}] Double tap down to toggle stealth and spawn a vortex\n" +
-            // $"[i:{ModContent.ItemType<NebulaEnchant>()}] Hurting enemies has a chance to spawn buff boosters\n" +
-            // $"[i:{ModContent.ItemType<StardustEnchant>()}] A stardust guardian will protect you from nearby enemies\n" +
-            // $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze time for 5 seconds, 60 second cooldown\n" +
-            // "'Been around since the Big Bang'";
+            string tooltip =
+$"[i:{ModContent.ItemType<MeteorEnchant>()}] A meteor shower initiates every few seconds while attacking\n" +
+$"[i:{ModContent.ItemType<SolarEnchant>()}] Solar shield allows you to dash through enemies\n" +
+$"[i:{ModContent.ItemType<SolarEnchant>()}] Attacks may inflict the Solar Flare debuff\n" +
+$"[i:{ModContent.ItemType<VortexEnchant>()}] Double tap down to toggle stealth and spawn a vortex\n" +
+$"[i:{ModContent.ItemType<NebulaEnchant>()}] Hurting enemies has a chance to spawn buff boosters\n" +
+$"[i:{ModContent.ItemType<StardustEnchant>()}] A stardust guardian will protect you from nearby enemies\n" +
+$"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze time for 5 seconds, 60 second cooldown\n" +
+"'Been around since the Big Bang'";
+            Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"攻击时每过几秒便会释放一次流星雨
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             // 星尘守卫不受时间冻结影响且在此期间会获得全新的强力攻击
             // 此效果有60秒冷却时间，冷却结束时会播放音效
             // '自宇宙大爆炸以来就一直存在";
-            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.CosmoForce", Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

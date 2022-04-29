@@ -14,10 +14,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Titanium Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Attacking generates a defensive barrier of titanium shards
-            // ''");
+            DisplayName.SetDefault("Titanium Enchantment");
+            Tooltip.SetDefault(
+@"Attacking generates a defensive barrier of titanium shards
+''");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钛金魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,

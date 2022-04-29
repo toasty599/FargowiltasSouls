@@ -22,10 +22,10 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Shadow Force");
-            
+
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影之力");
-            
-            string tooltip = 
+
+            string tooltip =
 $"[i:{ModContent.ItemType<ShadowEnchant>()}] Four Shadow Orbs will orbit around you\n" +
 $"[i:{ModContent.ItemType<AncientShadowEnchant>()}] Your attacks may inflict Darkness on enemies\n" +
 $"[i:{ModContent.ItemType<NecroEnchant>()}] Slain enemies may drop a pile of bones\n" +

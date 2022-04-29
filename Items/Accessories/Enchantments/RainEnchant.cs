@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Rain Enchantment");
-            //             Tooltip.SetDefault(
-            // @"Grants immunity to Wet
-            // Spawns a miniature storm to follow you around
-            // Shooting it will make it grow
-            // At maximum size, attacks will turn into lightning bolts
-            // 'Come again some other day'");
+            DisplayName.SetDefault("Rain Enchantment");
+            Tooltip.SetDefault(
+@"Grants immunity to Wet
+Spawns a miniature storm to follow you around
+Shooting it will make it grow
+At maximum size, attacks will turn into lightning bolts
+'Come again some other day'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "雨云魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"使你免疫潮湿减益
