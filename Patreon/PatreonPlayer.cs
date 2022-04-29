@@ -241,6 +241,17 @@ namespace FargowiltasSouls
             }
         }
 
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            if (SoulConfig.Instance.PatreonWolf)
+            {
+                if (damageSource.TryGetCausingEntity(out Entity entity) && entity is NPC npc && npc.active && npc.type == NPCID.Wolf)
+                {
+                    Item.NewItem(Player.GetSource_Death(), Player.Hitbox, ModContent.ItemType<Patreon.ParadoxWolf.ParadoxWolfSoul>());
+                }
+            }
+        }
+
         public override void HideDrawLayers(PlayerDrawSet drawInfo)
         {
             base.HideDrawLayers(drawInfo);

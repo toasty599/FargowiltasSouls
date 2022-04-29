@@ -24,6 +24,8 @@ namespace FargowiltasSouls.Items.Summons
 
         public override bool CanUseItem(Player player) => true;
 
+        public override bool ConsumeItem(Player player) => player.altFunctionUse != 2;
+
         public override void AddRecipes() { }
     }
 }
