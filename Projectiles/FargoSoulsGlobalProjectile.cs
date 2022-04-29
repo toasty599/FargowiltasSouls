@@ -931,7 +931,7 @@ namespace FargowiltasSouls.Projectiles
             if (projectile.bobber && modPlayer.FishSoul1)
             {
                 //ai0 = in water, localai1 = counter up to catching an item
-                if (projectile.wet && projectile.ai[0] == 0 && projectile.localAI[1] < 655 /*&& Main.player[projectile.owner].FishingLevel() != -1*/) //fishron check
+                if (projectile.wet && projectile.ai[0] == 0 && projectile.ai[1] == 0 && projectile.localAI[1] < 655)
                     projectile.localAI[1] = 655; //quick catch. not 660 and up, may break things
             }
 
