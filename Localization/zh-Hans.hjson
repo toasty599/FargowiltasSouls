@@ -1017,9 +1017,9 @@ Mods: {
 
 		}
 
-		ItemExtra: {
+		SetBonus: {
 
-			EridanusArmorBonus:
+			Eridanus:
 				'''
 				The blessing of Eridanus empowers your attacks
 				The empowered class changes every 10 seconds
