@@ -25,7 +25,7 @@ namespace FargowiltasSouls.UI
             IconHighlight.OnClick += IconHighlight_OnClick;
             Icon.Append(IconHighlight);
 
-            OncomingMutant = new UIOncomingMutant(FargowiltasSouls.UserInterfaceManager.OncomingMutantTexture.Value, "Eternity Mode is enabled", "Masochist Mode is enabled");
+            OncomingMutant = new UIOncomingMutant(FargowiltasSouls.UserInterfaceManager.OncomingMutantTexture.Value, FargowiltasSouls.UserInterfaceManager.OncomingMutantAuraTexture.Value, "Eternity Mode is enabled", "Masochist Mode is enabled");
             OncomingMutant.Left.Set(610, 0);
             OncomingMutant.Top.Set(250, 0);
             Append(OncomingMutant);
