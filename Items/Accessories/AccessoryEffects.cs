@@ -1658,8 +1658,18 @@ namespace FargowiltasSouls
             }
             else
             {
-                //6.75 same as frostspark
-                Player.accRunSpeed = Player.GetToggleValue("RunSpeed", false) ? 18.25f : 6.75f;
+                //calculated to match flight mastery soul, 6.75 same as frostspark
+                Player.accRunSpeed = Player.GetToggleValue("RunSpeed", false) ? 15.6f : 6.75f;
+            }
+
+            if (!Player.mount.Active && Player.GetToggleValue("Momentum", false))
+            {
+                Player.runAcceleration *= 5f;
+                Player.runSlowdown *= 5f;
+
+                bool isStillHoldingInSameDirectionAsMovement = (Player.velocity.X > 0 && Player.controlRight) || (Player.velocity.X < 0 && Player.controlLeft);
+                if (!isStillHoldingInSameDirectionAsMovement)
+                    Player.runSlowdown += 7f;
             }
 
             Player.moveSpeed += 0.5f;
@@ -1710,8 +1720,6 @@ namespace FargowiltasSouls
                 Player.dashType = 2;
 
             //ninja gear
-            if (Player.GetToggleValue("Momentum", false))
-                Player.runSlowdown = 5f;
             else if (Player.GetToggleValue("SupersonicTabi", false))
                 Player.dashType = 1;
             if (Player.GetToggleValue("BlackBelt"))

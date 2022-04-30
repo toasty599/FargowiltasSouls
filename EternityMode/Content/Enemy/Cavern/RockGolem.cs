@@ -66,9 +66,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 return false;
             }
 
-            if (JumpTimer == 330 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (JumpTimer == 330)
             {
-                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+                JumpTimer++; //avoid edge case
+
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
             }
 
             if (npc.ai[1] > 0f) //while jumping

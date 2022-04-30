@@ -37,6 +37,7 @@ using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Consumables;
 using FargowiltasSouls.Items.Armor;
 using FargowiltasSouls.UI;
+using FargowiltasSouls.Items.Misc;
 
 namespace FargowiltasSouls
 {
@@ -460,7 +461,7 @@ namespace FargowiltasSouls
                 Item.NewItem(null, player.Center, ItemID.WormholePotion, 15);
 
             //Item.NewItem(null, player.Center, ModContent.ItemType<DevianttsSundial>());
-            //Item.NewItem(null, player.Center, ModContent.ItemType<EternityAdvisor>());
+            Item.NewItem(null, player.Center, ModContent.ItemType<EternityAdvisor>());
 
             void GiveItem(string modName, string itemName, int amount = 1)
             {

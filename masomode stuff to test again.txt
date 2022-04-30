@@ -1302,3 +1302,9 @@ fixed championy sigil being lost on right click
 updated localization files
 fixed angler ench replacing all fished up enemies with ebonwood bow
 fixed(?) paradox wolf soul not dropping in mp (drops when a wolf kills you)
+improved empress sword circle appearance
+fixed rock golem going super saiyan if you broke line of sight exactly as he telegraphs jump
+fixed wizard improving healing potions without squire/valhalla
+restored eternity advisor
+refined supersonic movement
+antlion chargers inflict slow and drop fast clock

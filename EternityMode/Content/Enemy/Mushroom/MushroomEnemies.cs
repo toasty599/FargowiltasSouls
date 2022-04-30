@@ -25,6 +25,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Mushroom
             NPCID.SporeBat,
             NPCID.ZombieMushroom,
             NPCID.ZombieMushroomHat,
+            NPCID.SporeSkeleton,
             NPCID.FungoFish
         );
 
