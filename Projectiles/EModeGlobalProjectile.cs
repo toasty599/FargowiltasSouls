@@ -13,6 +13,7 @@ using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Projectiles.Champions;
 using FargowiltasSouls.NPCs.Champions;
 using Terraria.DataStructures;
+using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -160,6 +161,10 @@ namespace FargowiltasSouls.Projectiles
                     projectile.tileCollide = false;
                     break;
 
+                case ProjectileID.DeerclopsRangedProjectile:
+                    projectile.extraUpdates = 1;
+                    break;
+
                 default:
                     break;
             }
@@ -172,6 +177,86 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.DeerclopsIceSpike:
+                    {
+                        if (FargoSoulsWorld.MasochistModeReal)
+                            projectile.ai[0] -= 20;
+
+                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deerBoss, NPCID.Deerclops))
+                        {
+                            if (Main.npc[EModeGlobalNPC.deerBoss].ai[0] == 4) //double walls
+                            {
+                                if (Main.npc[EModeGlobalNPC.deerBoss].GetEModeNPCMod<Deerclops>().EnteredPhase2)
+                                    projectile.ai[0] -= 60;
+                                if (Main.npc[EModeGlobalNPC.deerBoss].GetEModeNPCMod<Deerclops>().EnteredPhase3)
+                                    projectile.ai[0] -= 180;
+                            }
+                        }
+
+                        if (source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == NPCID.Deerclops)
+                        {
+                            //is a final spike of the attack
+                            if ((npc.ai[0] == 1 && npc.ai[1] == 52) || (npc.ai[0] == 4 && npc.ai[1] == 70))
+                            {
+                                bool isSingleWaveAttack = npc.ai[0] == 1;
+
+                                bool shouldSplit = true;
+                                if (isSingleWaveAttack) //because deerclops spawns like 4 of them stacked on each other?
+                                {
+                                    for (int i = 0; i < Main.maxProjectiles; i++)
+                                    {
+                                        if (Main.projectile[i].active && Main.projectile[i].type == projectile.type
+                                            && Main.projectile[i].scale == projectile.scale
+                                            && Math.Sign(Main.projectile[i].velocity.X) == Math.Sign(projectile.velocity.X))
+                                        {
+                                            if (i != projectile.whoAmI)
+                                                shouldSplit = false;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (shouldSplit)
+                                {
+                                    //projectile.ai[0] -= 60;
+                                    //projectile.netUpdate = true;
+
+                                    float ai1 = 1.3f;
+                                    if (npc.GetEModeNPCMod<Deerclops>().EnteredPhase2)
+                                        ai1 = 1.35f; //triggers recursive ai
+                                    //if (npc.GetEModeNPCMod<Deerclops>().EnteredPhase3 || FargoSoulsWorld.MasochistModeReal)
+                                    //    ai1 = 1.4f;
+                                    Vector2 spawnPos = projectile.Center + 200 * Vector2.Normalize(projectile.velocity);
+
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnPos, projectile.velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+
+                                        if (isSingleWaveAttack)
+                                        {
+                                            Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnPos, Vector2.UnitX * Math.Sign(projectile.velocity.X) * projectile.velocity.Length(), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+                                            Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnPos, new Vector2(projectile.velocity.X, -projectile.velocity.Y), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+                                        }
+                                        else
+                                        {
+                                            Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, new Vector2(-projectile.velocity.X, projectile.velocity.Y), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+                                            if (projectile.Center.Y < npc.Center.Y)
+                                            {
+                                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, -projectile.velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+                                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, new Vector2(projectile.velocity.X, -projectile.velocity.Y), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+                                            }
+                                            else
+                                            {
+                                                Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnPos, new Vector2(-projectile.velocity.X, projectile.velocity.Y), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+
                 case ProjectileID.BloodShot:
                     {
                         if (source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == NPCID.BloodSquid)
@@ -279,6 +364,44 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.InsanityShadowHostile:
+                    if (Main.player[projectile.owner].ownedProjectileCounts[projectile.type] >= 4)
+                    {
+                        projectile.extraUpdates = 1;
+                        projectile.position += projectile.velocity * 0.5f;
+                        EModeCanHurt = true;
+                        counter = -600;
+                    }
+                    else if (!FargoSoulsWorld.MasochistModeReal)
+                    {
+                        EModeCanHurt = false;
+                        projectile.position -= projectile.velocity;
+                        projectile.ai[0]--;
+                        projectile.alpha = 255;
+
+                        if (counter > 30 && Main.player[projectile.owner].ownedProjectileCounts[projectile.type] <= 1)
+                            projectile.timeLeft = 0;
+                    }
+                    break;
+
+                case ProjectileID.DeerclopsIceSpike:
+                    if (counter == 2f && projectile.ai[1] > 1.3f) //only larger spikes
+                    {
+                        float ai1 = 1.3f;
+                        if (projectile.ai[1] > 1.35f)
+                            ai1 = 1.35f;
+
+                        for (int i = -1; i <= 1; i++) //recursive fractal spread
+                        {
+                            Vector2 baseVel = Vector2.Lerp(projectile.velocity, Vector2.UnitX * projectile.velocity.Length() * Math.Sign(projectile.velocity.X), 0.75f);
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center + 200f * Vector2.Normalize(projectile.velocity), baseVel.RotatedBy(MathHelper.ToRadians(30) * i), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+                            }
+                        }
+                    }
+                    break;
+
                 case ProjectileID.BloodShot:
                 case ProjectileID.BloodNautilusTears:
                 case ProjectileID.BloodNautilusShot:
@@ -910,6 +1033,14 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.InsanityShadowHostile:
+                case ProjectileID.DeerclopsIceSpike:
+                case ProjectileID.DeerclopsRangedProjectile:
+                    target.AddBuff(BuffID.Frostburn, 90);
+                    target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 900);
+                    target.AddBuff(ModContent.BuffType<Hypothermia>(), 1200);
+                    break;
+
                 case ProjectileID.BloodShot:
                 case ProjectileID.BloodNautilusTears:
                 case ProjectileID.BloodNautilusShot:

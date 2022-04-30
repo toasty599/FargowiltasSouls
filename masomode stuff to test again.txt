@@ -1308,3 +1308,23 @@ fixed wizard improving healing potions without squire/valhalla
 restored eternity advisor
 refined supersonic movement
 antlion chargers inflict slow and drop fast clock
+deerclops emode
+	x1.25 life
+	attacks inflict hypothermia, frostburn, and marked for death (he hits like a wet noodle its ok)
+	spike attacks are bigger
+	debris moves faster
+	can actually despawn
+	literally just removed random ghost hands because i hate them
+deerclops has a 66% p2
+	can teleport behind you
+	spike attacks are gigantic
+	less startup on double wall
+	spike double wall persists a bit longer
+deerclops has a 33% p3
+	faster
+	roar comes with a stomp on you
+	double wall spike persists for VERY long (can stunlock)
+deerclops has maso changes
+	all ice persists longer
+	adds the ghost hands back
+	everything is dumbfuck faster
