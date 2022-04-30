@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -14,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ice Queen's Crown");
-            Tooltip.SetDefault(@"Grants immunity to Frozen and Hypothermia
+            Tooltip.SetDefault(@"Grants immunity to Hypothermia
 Increases damage reduction by 5%
 Freeze nearby enemies when hurt
 Summons a friendly super Flocko
@@ -41,8 +42,7 @@ Summons a friendly super Flocko
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.endurance += 0.05f;
-            player.buffImmune[BuffID.Frozen] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Hypothermia>()] = true;
+            player.buffImmune[ModContent.BuffType<Hypothermia>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().IceQueensCrown = true;
             if (player.GetToggleValue("MasoFlocko"))
                 player.AddBuff(ModContent.BuffType<Buffs.Minions.SuperFlocko>(), 2);

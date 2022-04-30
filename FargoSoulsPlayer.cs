@@ -241,6 +241,8 @@ namespace FargowiltasSouls
         public bool GuttedHeart;
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         public Item NecromanticBrewItem;
+        public Item DeerclawpsItem;
+        public int DeerclawpsDashTimer;
         public bool PureHeart;
         public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
@@ -827,6 +829,7 @@ namespace FargowiltasSouls
             CorruptHeartItem = null;
             GuttedHeart = false;
             NecromanticBrewItem = null;
+            DeerclawpsItem = null;
             PureHeart = false;
             PungentEyeballMinion = false;
             CrystalSkullMinion = false;
@@ -1031,6 +1034,8 @@ namespace FargowiltasSouls
             CorruptHeartCD = 60;
             GuttedHeartCD = 60;
             NecromanticBrewItem = null;
+            DeerclawpsItem = null;
+            DeerclawpsDashTimer = 0;
             GroundPound = 0;
             NymphsPerfume = false;
             NymphsPerfumeCD = 30;
@@ -1747,6 +1752,29 @@ namespace FargowiltasSouls
                 else if (Player.velocity.Y > 3f)
                 {
                     SlimyShieldFalling = true;
+                }
+            }
+
+            if (DeerclawpsItem != null)
+            {
+                if (Player.dashDelay == -1 && DeerclawpsDashTimer < 2) //avoiding possible clash with modded dashes?
+                    DeerclawpsDashTimer = 2;
+
+                if (DeerclawpsDashTimer > 0)
+                {
+                    DeerclawpsDashTimer--;
+
+                    if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Deerclawps"))
+                    {
+                        int dam = 64;
+                        dam = (int)(dam * Player.ActualClassDamage(DamageClass.Melee));
+                        Vector2 vel = 16f * -Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(30));
+                        float ai1 = Main.rand.NextFloat(0.8f, 1.3f);
+                        if (Player.velocity.Y == 0)
+                            Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), Player.Bottom, vel, ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1);
+                        else
+                            Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), Player.Bottom, vel * (Main.rand.NextBool() ? 1 : -1), ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1 / 2);
+                    }
                 }
             }
 

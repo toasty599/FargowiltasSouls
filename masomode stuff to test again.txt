@@ -1331,3 +1331,5 @@ added recipes
 	eurus sock
 	puff in bottle
 updated localization files
+added deerclawps
+lump of flesh now contains deerclawps

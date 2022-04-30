@@ -179,7 +179,6 @@ namespace FargowiltasSouls
             AddToggle("MasoGrazeConfig", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoGrazeRingConfig", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoDevianttHeartsConfig", ModContent.ItemType<SparklingAdoration>());
-            AddToggle("DreadShellParryConfig", ModContent.ItemType<DreadShell>());
             AddToggle("PrecisionSealHurtboxConfig", ModContent.ItemType<PrecisionSeal>());
 
             //supreme death fairy header
@@ -216,6 +215,8 @@ namespace FargowiltasSouls
             //lump of flesh
             AddToggle("LumpofFleshHeader", ModContent.ItemType<LumpOfFlesh>());
             AddToggle("MasoPugentConfig", ModContent.ItemType<LumpOfFlesh>());
+            AddToggle("DreadShellParryConfig", ModContent.ItemType<DreadShell>());
+            AddToggle("DeerclawpsConfig", ModContent.ItemType<Deerclawps>());
 
             //chalice
             AddToggle("ChaliceHeader", ModContent.ItemType<ChaliceoftheMoon>());

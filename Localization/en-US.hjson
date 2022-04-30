@@ -304,7 +304,6 @@ Mods: {
 			MasoGrazeConfig: Graze
 			MasoGrazeRingConfig: Graze Radius Visual
 			MasoDevianttHeartsConfig: Homing Hearts On Hit
-			DreadShellParryConfig: Dread Shell Parry
 			PrecisionSealHurtboxConfig: Reduced Hurtbox Size
 
 			SupremeFairyHeader: Supreme Deathbringer Fairy
@@ -335,6 +334,8 @@ Mods: {
 
 			LumpofFleshHeader: Lump of Flesh
 			MasoPugentConfig: Pungent Eye Minion
+			DeerclawpsConfig: Ice Spike Dash Trail
+			DreadShellParryConfig: Dread Shell Parry
 
 			ChaliceHeader: Chalice of the Moon
 			MasoCultistConfig: Cultist Minion

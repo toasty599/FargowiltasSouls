@@ -316,7 +316,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.ModifyNPCLoot(npc, npcLoot);
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
-            //emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<DEERCLOPSDROP>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<Deerclawps>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.FrozenCrate, 5));
             npcLoot.Add(emodeRule);
         }

@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heart of the Eternal");
-            Tooltip.SetDefault(@"Grants immunity to Living Wasteland, Frozen, Hypothermia, Oozed, Withered Weapon, and Withered Armor
+            Tooltip.SetDefault(@"Grants immunity to Living Wasteland, Hypothermia, Oozed, Withered Weapon, and Withered Armor
 Grants immunity to Feral Bite, Mutant Nibble, Flipped, Unstable, Distorted, and Curse of the Moon
 Grants immunity to Wet, Electrified, Oceanic Maul, Moon Leech, Nullification Curse, and water debuffs
 Increases damage and critical strike chance by 10% and increases damage reduction by 5%
@@ -72,9 +72,8 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
             fargoPlayer.AdditionalAttacks = true;
 
             //ice queen's crown
-            player.buffImmune[BuffID.Frozen] = true;
-            player.buffImmune[ModContent.BuffType<Hypothermia>()] = true;
             fargoPlayer.IceQueensCrown = true;
+            player.buffImmune[ModContent.BuffType<Hypothermia>()] = true;
             if (player.GetToggleValue("MasoFlocko"))
                 player.AddBuff(ModContent.BuffType<SuperFlocko>(), 2);
 

@@ -16,12 +16,13 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lump of Flesh");
-            Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, and Stunned
+            Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, Chilled, Frozen, and Stunned
 Increases minion damage by 16%
 Increases your max number of minions by 2
 Increases your max number of sentries by 2
 Right Click to parry attacks with extremely tight timing
 Defense and damage reduction drastically decreased while and shortly after guarding
+Dashing leaves a trail of ice spikes
 The pungent eyeball charges energy to fire a laser as you attack
 Enemies are less likely to target you
 'It's growing'");
@@ -80,6 +81,10 @@ Enemies are less likely to target you
             player.noKnockback = true;
             if (player.GetToggleValue("DreadShellParry"))
                 player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
+
+            player.buffImmune[BuffID.Chilled] = true;
+            player.buffImmune[BuffID.Frozen] = true;
+            player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
         }
 
         public override void AddRecipes()
@@ -89,6 +94,7 @@ Enemies are less likely to target you
             .AddIngredient(ModContent.ItemType<PungentEyeball>())
             .AddIngredient(ModContent.ItemType<SkullCharm>())
             .AddIngredient(ModContent.ItemType<DreadShell>())
+            .AddIngredient(ModContent.ItemType<Deerclawps>())
             .AddIngredient(ItemID.SpectreBar, 10)
             .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 

@@ -16,6 +16,8 @@ using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Buffs.Masomode;
 using Terraria.DataStructures;
+using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -146,6 +148,29 @@ namespace FargowiltasSouls.Projectiles
         {
             switch (projectile.type)
             {
+                case ProjectileID.DeerclopsIceSpike:
+                    {
+                        if (source is EntitySource_ItemUse parent && (parent.Item.type == ModContent.ItemType<Deerclawps>() || parent.Item.type == ModContent.ItemType<LumpOfFlesh>() || parent.Item.type == ModContent.ItemType<MasochistSoul>()))
+                        {
+                            projectile.hostile = false;
+                            projectile.friendly = true;
+                            projectile.DamageType = DamageClass.Melee;
+                            projectile.penetrate = -1;
+
+                            projectile.usesIDStaticNPCImmunity = true;
+                            projectile.idStaticNPCHitCooldown = 10;
+
+                            projectile.ai[0] -= 20;
+
+                            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+
+                            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
+                                fargo.Call("LowRenderProj", projectile);
+                        }
+                    }
+                    break;
+
                 case ProjectileID.DesertDjinnCurse:
                     {
                         if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == ModContent.NPCType<NPCs.Champions.ShadowChampion>())

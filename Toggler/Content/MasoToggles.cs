@@ -19,7 +19,6 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoGraze;
         public string MasoGrazeRing;
         public string MasoDevianttHearts;
-        public string DreadShellParry;
         public string PrecisionSealHurtbox;
         public string MasoFishron;
 
@@ -51,6 +50,8 @@ namespace FargowiltasSouls.Toggler.Content
 
         public int LumpofFleshHeader = ModContent.ItemType<LumpOfFlesh>();
         public string MasoPugent;
+        public string Deerclawps;
+        public string DreadShellParry;
 
         public int ChaliceHeader = ModContent.ItemType<ChaliceoftheMoon>();
         public string MasoCultist;

@@ -74,6 +74,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             player.itemTime = 2;
             player.itemAnimation = 2;
 
+            player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsDashTimer = 0;
+
             if (baseSpeed == 0 && Projectile.velocity != Vector2.Zero)
             {
                 baseSpeed = Projectile.velocity.Length();

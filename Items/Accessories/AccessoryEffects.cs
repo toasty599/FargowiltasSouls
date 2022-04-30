@@ -636,6 +636,8 @@ namespace FargowiltasSouls
                     if (Player.doubleTapCardinalTimer[2] > 0 && Player.doubleTapCardinalTimer[2] != 15)
                     {
                         dashCD = 60;
+                        if (DeerclawpsDashTimer < 10)
+                            DeerclawpsDashTimer = 10;
                         Player.velocity.X = dashSpeed;
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                             NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
@@ -647,6 +649,8 @@ namespace FargowiltasSouls
                     if (Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
                     {
                         dashCD = 60;
+                        if (DeerclawpsDashTimer < 10)
+                            DeerclawpsDashTimer = 10;
                         Player.velocity.X = -dashSpeed;
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                             NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
@@ -1018,7 +1022,24 @@ namespace FargowiltasSouls
                 {
                     for (int i = 0; i < length; i += 16)
                     {
+                        //need a check for when this acc is in higher slot than deerclawps
+                        //if (DeerclawpsItem != null)
+                        //{
+                        //    if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Deerclawps"))
+                        //    {
+                        //        int dam = 64;
+                        //        dam = (int)(dam * Player.ActualClassDamage(DamageClass.Melee));
+                        //        Vector2 vel = 16f * -Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(30));
+                        //        float ai1 = Main.rand.NextFloat(0.8f, 1.3f);
+                        //        if (Player.velocity.Y == 0)
+                        //            Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), new Vector2(teleportPos.X, Player.Bottom.Y), vel, ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1);
+                        //        else
+                        //            Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), Player.Bottom, vel * (Main.rand.NextBool() ? 1 : -1), ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1 / 2);
+                        //    }
+                        //}
+
                         teleportPos.X += 16 * direction;
+
                         if (Collision.SolidCollision(teleportPos, Player.width, Player.height))
                         {
                             teleportPos.X -= 16 * direction;
@@ -1035,6 +1056,10 @@ namespace FargowiltasSouls
                     NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
                     Player.velocity.X = 12f * direction;
+
+                    if (player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsDashTimer < 20)
+                        player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsDashTimer = 20;
+
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                         NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
                 }
