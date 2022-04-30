@@ -1327,4 +1327,7 @@ deerclops has maso changes
 	all ice persists longer
 	adds the ghost hands back
 	everything is dumbfuck faster
+added recipes
+	eurus sock
+	puff in bottle
 updated localization files
