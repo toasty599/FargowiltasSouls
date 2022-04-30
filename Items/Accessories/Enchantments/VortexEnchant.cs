@@ -19,12 +19,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 When entering stealth, spawn a vortex that draws in enemies and projectiles
 While in stealth, your own projectiles will not be sucked in
 'Tear into reality'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "星旋魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"双击'下'键切换至隐形模式，减少敌人以你为目标的几率，但大幅降低移动速度
-进入隐形状态时生成一个会吸引敌人和弹幕的旋涡
-处于隐形状态时你的弹幕不会被旋涡吸引
-'撕裂现实'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "星旋魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"双击'下'键切换至隐形模式，减少敌人以你为目标的几率，但大幅降低移动速度
+            // 进入隐形状态时生成一个会吸引敌人和弹幕的旋涡
+            // 处于隐形状态时你的弹幕不会被旋涡吸引
+            // '撕裂现实'");
         }
 
         protected override Color nameColor => new Color(0, 242, 170);
@@ -32,7 +32,7 @@ While in stealth, your own projectiles will not be sucked in
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Red;
             Item.value = 400000;
         }

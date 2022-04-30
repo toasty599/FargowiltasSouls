@@ -22,11 +22,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"You have an aura of Bleeding
 Enemies struck while Bleeding spew damaging blood
 'Surprisingly clean'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "阴影木魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"一圈流血光环环绕着你
-在流血光环内被攻击的敌人会喷出伤害性血液
-'出奇的干净'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "阴影木魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"一圈流血光环环绕着你
+            // 在流血光环内被攻击的敌人会喷出伤害性血液
+            // '出奇的干净'");
         }
 
         protected override Color nameColor => new Color(88, 104, 118);
@@ -34,7 +34,7 @@ Enemies struck while Bleeding spew damaging blood
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }

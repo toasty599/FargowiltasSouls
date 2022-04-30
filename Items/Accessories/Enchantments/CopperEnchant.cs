@@ -20,11 +20,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Attacks have a chance to shock enemies with chain lightning
 'Behold'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铜魔石");
-            string tooltip_ch =
-@"攻击有几率释放闪电击打敌人
-'凝视'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铜魔石");
+            //             string tooltip_ch =
+            // @"攻击有几率释放闪电击打敌人
+            // '凝视'";
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         protected override Color nameColor => new Color(213, 102, 23);
@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Orange;
             Item.value = 100000;
         }
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                 .AddIngredient(ItemID.CopperShortsword)
                 .AddIngredient(ItemID.WandofSparking)
                 .AddIngredient(ItemID.ThunderStaff)
-                
+
             .AddTile(TileID.DemonAltar)
             .Register();
         }

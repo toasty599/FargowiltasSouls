@@ -18,14 +18,14 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<ShroomiteEnchant>()
         };
 
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
-            base.SetStaticDefaults();
+            base.SetDefaults();
 
             DisplayName.SetDefault("Force of Nature");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然之力");
-           
+
+            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然之力");
+
             string tooltip =
 $"[i:{ModContent.ItemType<CrimsonEnchant>()}] After taking a hit, regen is greatly increased until the hit is healed off\n" +
 $"[i:{ModContent.ItemType<MoltenEnchant>()}] Nearby enemies are ignited\n" +
@@ -41,21 +41,18 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
             Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
-@"在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量
-如果你在恢复前再次受伤则不会触发增加生命恢复的效果
-引燃你附近的敌人
-离你越近的敌人受到的伤害越高
-你受到伤害时会剧烈爆炸并伤害附近的敌人
-使你免疫潮湿减益
-召唤一个微型风暴跟着你
-你的周围会出现冰锥
-一个可以将弹幕速度减半的光环环绕着你
-召唤一圈叶状水晶射击附近的敌人
-使你获得孢子二段跳能力
-站定不动时使你进入隐身状态
-处于隐身状态时攻击会留下更多蘑菇尾迹
-'挖掘了荒野的每一个秘密'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+@"[i:{0}] 在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量
+[i:{1}] 引燃你附近的敌人
+[i:{1}] 你受到伤害时会剧烈爆炸并伤害附近的敌人
+[i:{2}] 召唤一个微型雨云跟着你
+[i:{3}] 你的周围会出现冰锥
+[i:{4}] 在你周围生成一个可以将弹幕速度减半的冰雪光环
+[i:{5}] 召唤一圈叶状攻击附近的敌人
+[i:{6}] 使你获得孢子二段跳能力
+[i:{7}] 站定不动时使你进入隐身状态
+[i:{7}] 所有攻击都会留下蘑菇尾迹
+“走遍荒野的每一个秘密角落”";
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, string.Format(tooltip_ch, Enchants[0], Enchants[1], Enchants[2], Enchants[3], ModContent.ItemType<SnowEnchant>(), Enchants[4], ModContent.ItemType<JungleEnchant>(), Enchants[5]));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

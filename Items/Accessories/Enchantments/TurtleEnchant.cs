@@ -22,15 +22,15 @@ Additionally you will destroy incoming projectiles and deal 10x more thorns dama
 The shell lasts at least 1 second and up to 25 attacks blocked
 Enemies may explode into needles on death
 'You suddenly have the urge to hide in a shell'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "乌龟魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"反弹100%接触伤害
-站定不动时且不攻击时你会缩进壳里
-当你缩进壳里时增加90%伤害减免
-当你缩进壳里时你会摧毁来犯的敌对弹幕且反弹10倍近战伤害
-壳可以在消失前手动取消且能抵挡25次攻击
-敌人死亡时有几率爆裂出针刺
-'你突然有一种想躲进壳里的冲动'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "乌龟魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"反弹100%接触伤害
+            // 站定不动时且不攻击时你会缩进壳里
+            // 当你缩进壳里时增加90%伤害减免
+            // 当你缩进壳里时你会摧毁来犯的敌对弹幕且反弹10倍近战伤害
+            // 壳可以在消失前手动取消且能抵挡25次攻击
+            // 敌人死亡时有几率爆裂出针刺
+            // '你突然有一种想躲进壳里的冲动'");
         }
 
         protected override Color nameColor => new Color(248, 156, 92);
@@ -38,7 +38,7 @@ Enemies may explode into needles on death
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Yellow;
             Item.value = 250000;
         }

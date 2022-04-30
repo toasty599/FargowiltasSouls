@@ -18,11 +18,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Spawns a snowstorm at your cursor
 Any projectiles or npcs in the snowstorm are slowed by 50%
 'It's Burning Cold Outside'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰雪魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"在光标位置生成暴雪
-暴雪中的所有弹幕和NPC的速度减缓50%（NPC包括敌人）
-'冷的要死'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰雪魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"在光标位置生成暴雪
+            // 暴雪中的所有弹幕和NPC的速度减缓50%（NPC包括敌人）
+            // '冷的要死'");
         }
 
         protected override Color nameColor => new Color(37, 195, 242);
@@ -30,7 +30,7 @@ Any projectiles or npcs in the snowstorm are slowed by 50%
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Blue;
             Item.value = 50000;
         }

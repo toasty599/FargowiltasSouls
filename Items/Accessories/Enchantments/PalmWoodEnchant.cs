@@ -19,10 +19,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"Double tap down to spawn a palm tree sentry that throws nuts at enemies
 'Alarmingly calm'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "棕榈木魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"双击'下'键会召唤一个会向敌人扔橡子的棕榈树哨兵
-'出奇的宁静'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "棕榈木魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"双击'下'键会召唤一个会向敌人扔橡子的棕榈树哨兵
+            // '出奇的宁静'");
         }
 
         protected override Color nameColor => new Color(183, 141, 86);
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }

@@ -16,9 +16,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Iron Enchantment");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铁魔石");
-            
+
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铁魔石");
+
             string tooltip =
 @"Right Click to guard with your shield
 Guard just before being hit to negate damage
@@ -26,12 +26,12 @@ You attract items from a larger range
 'Strike while the iron is hot'";
             Tooltip.SetDefault(tooltip);
 
-            string tooltip_ch =
-@"右键进行盾牌格挡
-如果时机正确则抵消这次伤害
-扩大你的拾取范围
-'趁热打铁'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            //             string tooltip_ch =
+            // @"右键进行盾牌格挡
+            // 如果时机正确则抵消这次伤害
+            // 扩大你的拾取范围
+            // '趁热打铁'";
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         protected override Color nameColor => new Color(152, 142, 131);
@@ -39,7 +39,7 @@ You attract items from a larger range
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 40000;
             //Item.shieldSlot = 5;

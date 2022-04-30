@@ -14,18 +14,18 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Meteor Enchantment");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "陨星魔石");
-            
+
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "陨星魔石");
+
             string tooltip =
 @"A meteor shower initiates every few seconds while attacking
 'Cosmic power builds your destructive prowess'";
             Tooltip.SetDefault(tooltip);
 
-            string tooltip_ch =
-@"攻击时每过几秒便会释放一次流星雨
-'宇宙之力构建你的毁灭力量'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            //             string tooltip_ch =
+            // @"攻击时每过几秒便会释放一次流星雨
+            // '宇宙之力构建你的毁灭力量'";
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         protected override Color nameColor => new Color(95, 71, 82);
@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }

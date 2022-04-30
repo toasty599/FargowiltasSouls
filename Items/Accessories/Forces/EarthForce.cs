@@ -19,10 +19,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<TitaniumEnchant>()
         };
 
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
-            base.SetStaticDefaults();
-
+            base.SetDefaults();
             DisplayName.SetDefault("Force of Earth");
 
             Tooltip.SetDefault(
@@ -32,21 +31,22 @@ $"[i:{ModContent.ItemType<PalladiumEnchant>()}] Greatly increases life regenerat
 $"[i:{ModContent.ItemType<PalladiumEnchant>()}] You spawn an orb of damaging life energy every 80 life regenerated\n" +
 $"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Flower petals will cause extra damage to your target\n" +
 $"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Damaging debuffs deal 5x damage\n" +
-$"[i:{ModContent.ItemType<AdamantiteEnchant>()}] One of your projectiles will split into 3 every 3/4 of a second\n" +
-$"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after striking an enemy\n" +
+$"[i:{ModContent.ItemType<AdamantiteEnchant>()}] Every other projectile you spawn will split into 3\n" +
+$"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacking generates a defensive barrier of titanium shards\n" +
 "'Gaia's blessing shines upon you'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大地之力");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"你的弹幕有25%几率爆裂成碎片
-增加20%武器使用速度
-攻击敌人后大幅增加生命恢复速度
-你每恢复80点生命值便会生成一个伤害性的生命能量球
-花瓣将落到被你攻击的敌人的身上以造成额外伤害
-伤害性减益造成的伤害x5
-每过3/4秒便会随机使你的一个弹幕分裂成三个
-攻击敌人后会使你无敌一小段时间
-'盖亚的祝福照耀着你'");
+            string tooltip_ch =
+@"[i:{0}] 你的弹幕有25%几率爆裂成碎片
+[i:{2}] 武器攻击速度增加20%
+[i:{1}] 击中敌人后大幅增加生命恢复速度
+[i:{1}] 你每恢复80点生命值便会生成一个会造成伤害的生命能量球
+[i:{3}] 花瓣将飞向你的攻击目标，造成额外伤害
+[i:{3}] 伤害性减益造成的伤害×5
+[i:{4}] 你每次发射的第二个弹幕会分裂成三个
+[i:{5}] 攻击生成钛金碎片防御屏障
+“盖亚的祝福照耀着你”";
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, string.Format(tooltip_ch, Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4], Enchants[5]));
+
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

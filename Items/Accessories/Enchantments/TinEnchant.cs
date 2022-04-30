@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Tin Enchantment");
-            
+
             string tooltip =
 @"Sets your critical strike chance to 5%
 Every crit will increase it by 5% up to double your critical strike chance or 15%
@@ -24,13 +24,13 @@ Getting hit resets your crit to 5%
 'Return of the Crit'";
             Tooltip.SetDefault(tooltip);
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "锡魔石");
-            string tooltip_ch =
-@"将你的基础暴击率设为5%
-每次暴击时都会增加5%暴击率，增加的暴击率的最大值为你当前最大暴击率数值x2
-被击中后会降低暴击率
-'暴击回归'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "锡魔石");
+            //             string tooltip_ch =
+            // @"将你的基础暴击率设为5%
+            // 每次暴击时都会增加5%暴击率，增加的暴击率的最大值为你当前最大暴击率数值x2
+            // 被击中后会降低暴击率
+            // '暴击回归'";
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         protected override Color nameColor => new Color(162, 139, 78);
@@ -38,7 +38,7 @@ Getting hit resets your crit to 5%
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Blue;
             Item.value = 30000;
         }

@@ -20,12 +20,12 @@ Increases your max number of minions by 1
 Increases your max number of sentries by 1
 'This is only the beginning..'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "术士精华");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"增加18%召唤伤害
-            +1最大召唤栏
-            +1最大哨兵栏
-            '这只是个开始...'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "术士精华");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"增加18%召唤伤害
+            //             +1最大召唤栏
+            //             +1最大哨兵栏
+            //             '这只是个开始...'");
         }
 
         protected override Color nameColor => new Color(0, 255, 255);

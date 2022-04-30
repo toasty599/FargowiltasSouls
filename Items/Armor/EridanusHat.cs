@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Armor
 {
@@ -50,10 +51,7 @@ Increases your max number of sentries by 4");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = @"The blessing of Eridanus empowers your attacks
-The empowered class changes every 10 seconds
-Eridanus fights alongside you when you use the empowered class
-75% increased damage, 30% increased attack speed, and 20% increased critical strike chance for the empowered class";
+            player.setBonus = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EridanusArmorBonus");
 
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.EridanusEmpower = true;
@@ -69,7 +67,7 @@ Eridanus fights alongside you when you use the empowered class
                     case 1: type = 229; break; //vortex
                     case 2: type = 242; break; //nebula
                     default: //stardust
-                        type = 135; 
+                        type = 135;
                         player.GetModPlayer<EModePlayer>().MasomodeMinionNerfTimer = 0; //so that player isn't punished for using weapons during prior phase
                         break;
                 }
@@ -115,7 +113,7 @@ Eridanus fights alongside you when you use the empowered class
             void Bonuses(DamageClass damageClass)
             {
                 player.GetDamage(damageClass) += 0.75f;
-                
+
                 if (damageClass == DamageClass.Summon)
                     fargoPlayer.SpiderEnchantActive = true;
                 else
@@ -151,7 +149,7 @@ Eridanus fights alongside you when you use the empowered class
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Eridanium>(), 5)
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-            
+
             .Register();
         }
     }

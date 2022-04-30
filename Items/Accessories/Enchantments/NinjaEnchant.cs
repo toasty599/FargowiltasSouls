@@ -20,12 +20,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 First Strike ensures your next attack hits a vital spot dealing 3x damage and reducing defense by 10
 'Now you see me, now you don’t'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "忍者魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"按下'忍者秘技'键后会扔出一颗烟雾弹，再次按下'忍者秘技'键时会将你传送至其落点的位置并使你获得先发制人增益
-使用混沌传送杖也会获得先发制人增益
-先发制人增益会使你下次攻击必定暴击且造成3倍伤害
-'你现在能看到我了，诶，你又看不到我了'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "忍者魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"按下'忍者秘技'键后会扔出一颗烟雾弹，再次按下'忍者秘技'键时会将你传送至其落点的位置并使你获得先发制人增益
+            // 使用混沌传送杖也会获得先发制人增益
+            // 先发制人增益会使你下次攻击必定暴击且造成3倍伤害
+            // '你现在能看到我了，诶，你又看不到我了'");
         }
 
         protected override Color nameColor => new Color(48, 49, 52);
@@ -33,7 +33,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 30000;
         }

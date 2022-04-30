@@ -22,12 +22,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 You will also spawn a few bones on every hit
 Collect the bones to heal for 20 HP each
 'Beyond a forgotten age'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "化石魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"受到致死伤害时会以1生命值重生并爆出几根骨头
-你攻击敌人时也会扔出骨头
-每根骨头会回复15点生命值
-'被遗忘已久的记忆'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "化石魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"受到致死伤害时会以1生命值重生并爆出几根骨头
+            // 你攻击敌人时也会扔出骨头
+            // 每根骨头会回复15点生命值
+            // '被遗忘已久的记忆'");
         }
 
         protected override Color nameColor => new Color(140, 92, 59);
@@ -35,7 +35,7 @@ Collect the bones to heal for 20 HP each
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 40000;
         }

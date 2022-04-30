@@ -18,11 +18,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Hurting enemies has a chance to spawn buff boosters
 Buff booster stacking capped at 2
 'The pillars of creation have shined upon you'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "星云魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"伤害敌人时有几率生成强化增益
-强化增益最大堆叠上限为2
-'创生之柱照耀着你'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "星云魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"伤害敌人时有几率生成强化增益
+            // 强化增益最大堆叠上限为2
+            // '创生之柱照耀着你'");
         }
 
         protected override Color nameColor => new Color(254, 126, 229);
@@ -30,7 +30,7 @@ Buff booster stacking capped at 2
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Red;
             Item.value = 400000;
         }

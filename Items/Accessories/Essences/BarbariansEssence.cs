@@ -20,12 +20,12 @@ namespace FargowiltasSouls.Items.Accessories.Essences
 5% increased melee crit chance
 'This is only the beginning..'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "野蛮人精华");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"增加18%近战伤害
-增加10%近战攻速
-增加5%近战暴击率
-'这只是个开始...'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "野蛮人精华");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"增加18%近战伤害
+            // 增加10%近战攻速
+            // 增加5%近战暴击率
+            // '这只是个开始...'");
         }
 
         protected override Color nameColor => new Color(255, 111, 6);

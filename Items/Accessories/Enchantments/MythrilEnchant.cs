@@ -19,11 +19,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"15% increased weapon use speed
 Taking damage temporarily removes this weapon use speed increase
 'You feel the knowledge of your weapons seep into your mind'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "秘银魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"增加15%武器使用速度
-受到伤害时武器使用速度增加效果会暂时失效
-'你感觉你对武器的知识渗透进了你的脑海中");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "秘银魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"增加15%武器使用速度
+            // 受到伤害时武器使用速度增加效果会暂时失效
+            // '你感觉你对武器的知识渗透进了你的脑海中");
         }
 
         protected override Color nameColor => new Color(157, 210, 144);
@@ -31,7 +31,7 @@ Taking damage temporarily removes this weapon use speed increase
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }

@@ -22,11 +22,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 Enemies will explode into needles on death if they are struck with your needles
 'It's the quenchiest!'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "仙人掌魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"反弹25%接触伤害
-敌人死亡时有几率爆裂出针刺
-'太解渴了！'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "仙人掌魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"反弹25%接触伤害
+            // 敌人死亡时有几率爆裂出针刺
+            // '太解渴了！'");
         }
 
         protected override Color nameColor => new Color(121, 158, 29);
@@ -34,7 +34,7 @@ Enemies will explode into needles on death if they are struck with your needles
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 20000;
         }

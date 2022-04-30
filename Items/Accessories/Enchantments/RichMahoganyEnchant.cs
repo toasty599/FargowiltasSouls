@@ -18,10 +18,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"All grappling hooks pull 1.5x as fast, shoot 2x as fast, and retract 3x as fast
 While grappling you gain 10 defense and a 50% thorns effect
 'Guaranteed to keep you hooked'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "红木魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"所有钩爪的抛出速度、牵引速度和回收速度x1.5
-'保证钩到你'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "红木魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"所有钩爪的抛出速度、牵引速度和回收速度x1.5
+            // '保证钩到你'");
         }
 
         protected override Color nameColor => new Color(181, 108, 100);
@@ -29,7 +29,7 @@ While grappling you gain 10 defense and a 50% thorns effect
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }

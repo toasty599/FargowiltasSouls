@@ -19,10 +19,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"You have an aura of Shadowflame
 'Untapped potential'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "乌木魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"一圈暗影焰光环环绕着你
-'未开发的潜力'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "乌木魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"一圈暗影焰光环环绕着你
+            // '未开发的潜力'");
         }
 
         protected override Color nameColor => new Color(100, 90, 141);
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }

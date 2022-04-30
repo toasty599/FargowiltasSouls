@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles
         public float TungstenScale = 1;
         public bool tikiMinion;
         private int tikiTimer = 300;
-        public int shroomiteMushroomCD ;
+        public int shroomiteMushroomCD;
         private int spookyCD;
         public bool FrostFreeze;
         //        public bool SuperBee;
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Projectiles
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
             projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius
-            && (projectile.ModProjectile == null ? true : projectile.ModProjectile.CanDamage() != false) 
+            && (projectile.ModProjectile == null ? true : projectile.ModProjectile.CanDamage() != false)
             && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
         private bool firstTick = true;
@@ -202,7 +202,7 @@ namespace FargowiltasSouls.Projectiles
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             counter++;
-             
+
             if (spookyCD > 0)
             {
                 spookyCD--;
@@ -261,7 +261,7 @@ namespace FargowiltasSouls.Projectiles
                     //}
 
                     if (modPlayer.AdamantiteEnchantActive && player.GetToggleValue("Adamantite") /*&& modPlayer.AdamantiteCD == 0*/ && CanSplit
-                        && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0 
+                        && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0
                         && Array.IndexOf(noSplit, projectile.type) <= -1
                         && !projectile.minion && !projectile.sentry && !ProjectileID.Sets.IsAWhip[projectile.type]
                         && projectile.minionSlots == 0 && projectile.aiStyle != 19 && projectile.aiStyle != 99
@@ -1066,7 +1066,7 @@ namespace FargowiltasSouls.Projectiles
         {
             if (!canHurt)
                 return false;
-            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates) 
+            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
                 return false;
             if (target.GetModPlayer<FargoSoulsPlayer>().PrecisionSealHurtbox && !projectile.Colliding(projectile.Hitbox, target.GetModPlayer<FargoSoulsPlayer>().GetPrecisionHurtbox()))
                 return false;
@@ -1077,7 +1077,7 @@ namespace FargowiltasSouls.Projectiles
         {
             if (!canHurt)
                 return false;
-            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates) 
+            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
                 return false;
             return null;
         }

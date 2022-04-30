@@ -20,9 +20,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                 "\nAll projectiles deal 50% damage" +
                 "\n'Chaos'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "每秒会随机使你的一个弹幕分裂成三个" +
-                "\n'一气化三清！'");
+            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
+            // Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "每秒会随机使你的一个弹幕分裂成三个" +
+            //     "\n'一气化三清！'");
         }
 
         protected override Color nameColor => new Color(221, 85, 125);
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Lime;
             Item.value = 100000;
         }

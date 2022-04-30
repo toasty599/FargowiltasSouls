@@ -17,10 +17,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<BeetleEnchant>()
         };
 
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
-            base.SetStaticDefaults();
-
+            base.SetDefaults();
             DisplayName.SetDefault("Force of Life");
 
             string tooltip =
@@ -31,20 +30,18 @@ $"[i:{ModContent.ItemType<SpiderEnchant>()}] 30% chance for minions and sentries
 $"[i:{ModContent.ItemType<TurtleEnchant>()}] When standing still and not attacking, you will enter your shell\n" +
 $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defense\n" +
 "'Rare is a living thing that dare disobey your will'";
-            string tooltip_ch =
-@"你在草地上行走时会种下南瓜
-反弹100%接触伤害
-敌人死亡时有几率爆裂出针刺
-使友方蜜蜂或黄蜂转化为大型蜜蜂
-你的仆从和哨兵现在可以造成暴击且有30%基础暴击率
-站定不动时且不攻击时你会缩进壳里
-甲虫会保护你，减免下次受到的伤害
-延长50%飞行时间
-'罕有活物敢违背你的意愿'";
 
             Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生命之力");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+
+            string tooltip_ch =
+@"[i:{0}] 你在地上行走时会种下南瓜
+[i:{1}] 敌人死亡时有几率爆裂出针刺
+[i:{2}] 近战攻击和大多数穿透类弹幕击中敌人时会生成蜜蜂
+[i:{3}] 仆从和哨兵可以造成暴击，且有30%基础暴击率
+[i:{4}] 站定不动时且不攻击时你会缩进壳里
+[i:{5}] 甲虫会提高你的攻击属性和防御属性
+“罕有生灵敢违背你的意愿”";
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, string.Format(tooltip_ch, Enchants[0], ModContent.ItemType<CactusEnchant>(), Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

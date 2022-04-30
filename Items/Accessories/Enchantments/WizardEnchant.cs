@@ -17,11 +17,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"Enhances the power of all other Enchantments to their Force effects
 'I'm a what?'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巫师魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"强化其它魔石，使它们获得在上级合成中才能获得的增强
-（上级合成指 Forces/力）
-'我是啥？'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巫师魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"强化其它魔石，使它们获得在上级合成中才能获得的增强
+            // （上级合成指 Forces/力）
+            // '我是啥？'");
         }
 
         protected override Color nameColor => new Color(50, 80, 193);
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.LightRed;
             Item.value = 100000;
         }
