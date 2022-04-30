@@ -39,6 +39,7 @@ namespace FargowiltasSouls.NPCs
         public static int brainBoss = -1;
         public static int beeBoss = -1;
         public static int skeleBoss = -1;
+        public static int deerBoss = -1;
         public static int wallBoss = -1;
         public static int retiBoss = -1;
         public static int spazBoss = -1;
