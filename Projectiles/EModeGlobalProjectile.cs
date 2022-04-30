@@ -186,10 +186,11 @@ namespace FargowiltasSouls.Projectiles
                         {
                             if (Main.npc[EModeGlobalNPC.deerBoss].ai[0] == 4) //double walls
                             {
+                                projectile.ai[0] -= 30;
                                 if (Main.npc[EModeGlobalNPC.deerBoss].GetEModeNPCMod<Deerclops>().EnteredPhase2)
-                                    projectile.ai[0] -= 60;
+                                    projectile.ai[0] -= 30;
                                 if (Main.npc[EModeGlobalNPC.deerBoss].GetEModeNPCMod<Deerclops>().EnteredPhase3)
-                                    projectile.ai[0] -= 180;
+                                    projectile.ai[0] -= 120;
                             }
                         }
 
