@@ -1757,25 +1757,19 @@ namespace FargowiltasSouls
 
             if (DeerclawpsItem != null)
             {
-                if (Player.dashDelay == -1 && DeerclawpsDashTimer < 2) //avoiding possible clash with modded dashes?
+                if (Player.dashDelay == -1 && DeerclawpsDashTimer < 2) //avoiding possible clash with modded dashes
                     DeerclawpsDashTimer = 2;
 
                 if (DeerclawpsDashTimer > 0)
                 {
                     DeerclawpsDashTimer--;
-
-                    if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Deerclawps"))
-                    {
-                        int dam = 64;
-                        dam = (int)(dam * Player.ActualClassDamage(DamageClass.Melee));
-                        Vector2 vel = 16f * -Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(30));
-                        float ai1 = Main.rand.NextFloat(0.8f, 1.3f);
-                        if (Player.velocity.Y == 0)
-                            Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), Player.Bottom, vel, ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1);
-                        else
-                            Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), Player.Bottom, vel * (Main.rand.NextBool() ? 1 : -1), ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1 / 2);
-                    }
+                    DeerclawpsAttack(Player.Bottom);
                 }
+            }
+
+            if (ShinobiEnchantActive)
+            {
+                ShinobiDashChecks();
             }
 
             if (AgitatingLensItem != null)
@@ -1874,8 +1868,10 @@ namespace FargowiltasSouls
                 Player.hasJumpOption_Blizzard = false;
                 Player.hasJumpOption_Fart = false;
                 Player.hasJumpOption_Sail = false;
+                Player.hasJumpOption_Unicorn = false;
                 jungleJumping = false;
                 CanJungleJump = false;
+                dashCD = 2;
             }
         }
 
