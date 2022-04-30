@@ -163,8 +163,6 @@ namespace FargowiltasSouls.Projectiles
                             projectile.usesIDStaticNPCImmunity = true;
                             projectile.idStaticNPCHitCooldown = 10;
 
-                            projectile.ai[0] -= 20;
-
                             projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                             projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
 
