@@ -57,6 +57,7 @@ Enemies are less likely to target you
             player.GetDamage(DamageClass.Summon) += 0.16f;
             player.aggro -= 400;
             player.GetModPlayer<FargoSoulsPlayer>().SkullCharm = true;
+            player.GetModPlayer<FargoSoulsPlayer>().LumpOfFlesh = true;
             /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;

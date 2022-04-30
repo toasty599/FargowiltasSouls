@@ -148,6 +148,7 @@ namespace FargowiltasSouls.Projectiles
         {
             switch (projectile.type)
             {
+                case ProjectileID.SharpTears:
                 case ProjectileID.DeerclopsIceSpike:
                     {
                         if (source is EntitySource_ItemUse parent && (parent.Item.type == ModContent.ItemType<Deerclawps>() || parent.Item.type == ModContent.ItemType<LumpOfFlesh>() || parent.Item.type == ModContent.ItemType<MasochistSoul>()))
@@ -156,6 +157,8 @@ namespace FargowiltasSouls.Projectiles
                             projectile.friendly = true;
                             projectile.DamageType = DamageClass.Melee;
                             projectile.penetrate = -1;
+
+                            projectile.usesLocalNPCImmunity = false;
 
                             projectile.usesIDStaticNPCImmunity = true;
                             projectile.idStaticNPCHitCooldown = 10;
@@ -1142,7 +1145,7 @@ namespace FargowiltasSouls.Projectiles
                 }
             }
 
-            if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && noInteractionWithNPCImmunityFrames)
+            if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
             {
                 crit = true;
             }
@@ -1153,7 +1156,7 @@ namespace FargowiltasSouls.Projectiles
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
 
-            if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && noInteractionWithNPCImmunityFrames)
+            if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
             {
                 target.AddBuff(ModContent.BuffType<Anticoagulation>(), 360);
 

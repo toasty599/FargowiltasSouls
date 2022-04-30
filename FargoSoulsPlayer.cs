@@ -251,6 +251,7 @@ namespace FargowiltasSouls
         public bool Probes;
         public bool MagicalBulb;
         public bool SkullCharm;
+        public bool LumpOfFlesh;
         public Item PumpkingsCapeItem;
         public Item LihzahrdTreasureBoxItem;
         public int GroundPound;
@@ -838,6 +839,7 @@ namespace FargowiltasSouls
             Probes = false;
             MagicalBulb = false;
             SkullCharm = false;
+            LumpOfFlesh = false;
             PumpkingsCapeItem = null;
             LihzahrdTreasureBoxItem = null;
             BetsysHeartItem = null;

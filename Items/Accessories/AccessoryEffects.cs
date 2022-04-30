@@ -1087,11 +1087,19 @@ namespace FargowiltasSouls
                 int dam = 64;
                 dam = (int)(dam * Player.ActualClassDamage(DamageClass.Melee));
                 Vector2 vel = 16f * -Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(30));
-                float ai1 = Main.rand.NextFloat(0.8f, 1.3f);
+                
+                int type = ProjectileID.DeerclopsIceSpike;
+                float ai1 = Main.rand.NextFloat(0.5f, 1f);
+                if (LumpOfFlesh)
+                {
+                    type = ProjectileID.SharpTears;
+                    ai1 *= 2; //bigger
+                }
+
                 if (Player.velocity.Y == 0)
-                    Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), pos, vel, ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), pos, vel, type, dam, 4f, Main.myPlayer, 0, ai1);
                 else
-                    Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), pos, vel * (Main.rand.NextBool() ? 1 : -1), ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1 / 2);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), pos, vel * (Main.rand.NextBool() ? 1 : -1), type, dam, 4f, Main.myPlayer, 0, ai1 / 2);
             }
         }
 

@@ -197,6 +197,7 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.Obstructed] = true;
             player.buffImmune[BuffID.Dazed] = true;
             fargoPlayer.SkullCharm = true;
+            fargoPlayer.LumpOfFlesh = true;
             player.buffImmune[ModContent.BuffType<CrystalSkull>()] = true;
             /*if (!player.ZoneDungeon)
             {

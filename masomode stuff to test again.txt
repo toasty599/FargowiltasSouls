@@ -1333,4 +1333,5 @@ added recipes
 updated localization files
 added deerclawps
 lump of flesh now contains deerclawps
+lump of flesh visually changes deerclawps spikes to blood thorns
 added maso aura to inventory ui indicator for maso
