@@ -41,9 +41,9 @@ You spawn mini eaters to seek out enemies every few attacks
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Rotting>()] = true;
             player.moveSpeed += 0.1f;
             player.hasMagiluminescence = true;
-            modPlayer.CorruptHeartItem = Item;
-            if (modPlayer.CorruptHeartCD > 0)
-                modPlayer.CorruptHeartCD--;
+            modPlayer.DarkenedHeartItem = Item;
+            if (modPlayer.DarkenedHeartCD > 0)
+                modPlayer.DarkenedHeartCD--;
 
             player.endurance -= 0.1f;
         }
