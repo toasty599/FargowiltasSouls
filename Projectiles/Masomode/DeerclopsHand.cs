@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     if (player.active && !player.dead && !player.ghost && Projectile.Colliding(Projectile.Hitbox, player.Hitbox))
                     {
-                        FargoSoulsUtil.AddDebuffFixedDuration(player, BuffID.Frozen, 2);
+                        player.frozen = true;
                         player.AddBuff(ModContent.BuffType<MarkedforDeath>(), 2);
                         player.AddBuff(ModContent.BuffType<Grabbed>(), 2);
                     }

@@ -1362,3 +1362,4 @@ corrupt heart rename to darkened heart and nerfed, causes -10% DR
 deerclawps immunes slow instead of chilled
 fixed tungsten ench tooltip not mentioning melee speed nerf
 soul of terraria removes tungsten ench melee speed nerf
+deerclops teleport hands now just freeze you instead of inflicting frozen debuff
