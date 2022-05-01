@@ -23,7 +23,6 @@ namespace FargowiltasSouls.Projectiles
 
         public bool HasKillCooldown;
         public bool NerfDamageBasedOnProjCount;
-        public bool FriendlyProjTurnedHostile;
         public bool EModeCanHurt = true;
 
         private int counter;
@@ -147,6 +146,22 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.SharpTears:
+                case ProjectileID.JestersArrow:
+                case ProjectileID.MeteorShot:
+                case ProjectileID.ShadowFlame:
+                case ProjectileID.MoonlordBullet:
+                case ProjectileID.WaterBolt:
+                case ProjectileID.WaterStream:
+                case ProjectileID.DeathSickle:
+                case ProjectileID.IceSickle:
+                    if (SourceNPC is NPC && !SourceNPC.friendly && !SourceNPC.townNPC)
+                    {
+                        projectile.friendly = false;
+                        projectile.hostile = true;
+                    }
+                    break;
+
                 case ProjectileID.CultistBossFireBall: //disable proj
                     if (NonSwarmFight(NPCID.CultistBoss) && SourceNPC.GetEModeNPCMod<LunaticCultist>().EnteredPhase2)
                     {
@@ -356,17 +371,6 @@ namespace FargowiltasSouls.Projectiles
                 return base.PreAI(projectile);
 
             counter++;
-
-            //spam clients with packets to make sure this is synced to them
-            if (FriendlyProjTurnedHostile && counter <= 60 && counter % 10 == 0 && Main.netMode == NetmodeID.Server)
-            {
-                ModPacket packet = FargowiltasSouls.Instance.GetPacket();
-                packet.Write((byte)23);
-                packet.Write(projectile.owner);
-                packet.Write(projectile.identity);
-                packet.Write(projectile.type);
-                packet.Send();
-            }
 
             //delay the very bottom piece of sharknados spawning in, also delays spawning sharkrons
             if (counter < 30 && projectile.ai[0] == 15 && !FargoSoulsWorld.MasochistModeReal
@@ -1118,10 +1122,6 @@ namespace FargowiltasSouls.Projectiles
                         target.AddBuff(BuffID.OnFire, 300);
                     break;
 
-                case ProjectileID.DeathSickle:
-                    target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
-                    break;
-
                 case ProjectileID.DrManFlyFlask:
                     switch (Main.rand.Next(7))
                     {
@@ -1408,7 +1408,45 @@ namespace FargowiltasSouls.Projectiles
                         target.AddBuff(BuffID.Electrified, 60);
                     break;
 
+                case ProjectileID.MoonlordBullet:
+                    if (SourceNPC is NPC && SourceNPC.type == NPCID.VortexRifleman)
+                    {
+                        target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
+                        target.AddBuff(ModContent.BuffType<ClippedWings>(), 120);
+                    }
+                    break;
+
+                case ProjectileID.IceSickle:
+                    target.AddBuff(BuffID.Frostburn, 240);
+                    target.AddBuff(BuffID.Chilled, 120);
+                    break;
+
+                case ProjectileID.WaterBolt:
+                case ProjectileID.WaterStream:
+                    target.AddBuff(BuffID.Wet, 600);
+                    break;
+
+                case ProjectileID.DeathSickle:
+                    target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
+                    target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
+                    break;
+
+                case ProjectileID.MeteorShot:
+                    if (SourceNPC is NPC && SourceNPC.type == NPCID.TacticalSkeleton)
+                    {
+                        target.AddBuff(BuffID.OnFire, 360);
+                        target.AddBuff(BuffID.Burning, 180);
+                    }
+                    goto case ProjectileID.BulletDeadeye;
+                case ProjectileID.JestersArrow:
+                    if (SourceNPC is NPC && SourceNPC.type == NPCID.BigMimicHallow)
+                        target.AddBuff(ModContent.BuffType<Smite>(), 600);
+                    goto case ProjectileID.BulletDeadeye;
                 case ProjectileID.BulletDeadeye:
+                    if (SourceNPC is NPC && (SourceNPC.type == NPCID.PirateShipCannon || SourceNPC.type == NPCID.PirateDeadeye || SourceNPC.type == NPCID.PirateCrossbower))
+                        target.AddBuff(ModContent.BuffType<Midas>(), 600);
+                    break;
+
                 case ProjectileID.CannonballHostile:
                     target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
                     target.AddBuff(ModContent.BuffType<Midas>(), 900);
@@ -1416,6 +1454,10 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.AncientDoomProjectile:
                     target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
+                    target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                    break;
+
+                case ProjectileID.ShadowFlame:
                     target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
                     break;
 

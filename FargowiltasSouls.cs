@@ -1124,21 +1124,6 @@ namespace FargowiltasSouls
                     }
                     break;
 
-                case 23: //sync friendly proj turned hostile
-                    {
-                        int owner = reader.ReadInt32();
-                        int uuid = reader.ReadInt32();
-                        int projType = reader.ReadInt32();
-
-                        int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(owner, uuid, projType);
-                        if (byIdentity != -1)
-                        {
-                            Main.projectile[byIdentity].hostile = true;
-                            Main.projectile[byIdentity].friendly = false;
-                        }
-                    }
-                    break;
-
                 case 77: //server side spawning fishron EX
                     if (Main.netMode == NetmodeID.Server)
                     {

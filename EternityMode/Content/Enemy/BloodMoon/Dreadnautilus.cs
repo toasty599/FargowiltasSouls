@@ -127,13 +127,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                                     {
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos + vel * 50, 0.6f * vel, ModContent.ProjectileType<BloodThornMissile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
 
-                                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 16f * vel.RotatedByRandom(MathHelper.ToRadians(10)), ProjectileID.SharpTears, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(0.5f, 1f));
-                                        if (p != Main.maxProjectiles)
-                                        {
-                                            Main.projectile[p].hostile = true;
-                                            Main.projectile[p].friendly = false;
-                                            Main.projectile[p].GetGlobalProjectile<EModeGlobalProjectile>().FriendlyProjTurnedHostile = true;
-                                        }
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 16f * vel.RotatedByRandom(MathHelper.ToRadians(10)), ProjectileID.SharpTears, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(0.5f, 1f));
                                     }
                                 }
                             }

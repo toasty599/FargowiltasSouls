@@ -1347,6 +1347,12 @@ refactored numerous projs, test
 	ml eyes having nerfed movement
 	ml HAND ONLY spheres having accel startup
 	betsy flame breath shooting bonus projs
+refactored a bunch of projs so they dont take up their own projs anymore
+	dreadnaut/hemogoblin/blood zombie blood thorns
+	pirate crossbower arrow
+	pirate deadeye meteor shot
+	storm diver luminite bullets
+	etc.
 also refactored their debuffs so make sure those still work, e.g. rune wizard flames of universe
 removed post plant dungeon skeleton mage enemies inflicting class-seal debuffs
 added maso aura to inventory ui indicator for maso

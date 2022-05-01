@@ -52,13 +52,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                     {
                         Vector2 target = Main.player[npc.target].Center + Main.rand.NextVector2Circular(8, 8);
                         Vector2 spawnPos = FindSharpTearsSpot(Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) ? npc.Center : Main.player[npc.target].Center, target).ToWorldCoordinates(Main.rand.Next(17), Main.rand.Next(17));
-                        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 16f * Vector2.Normalize(target - spawnPos), ProjectileID.SharpTears, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(0.5f, 1f));
-                        if (p != Main.maxProjectiles)
-                        {
-                            Main.projectile[p].hostile = true;
-                            Main.projectile[p].friendly = false;
-                            Main.projectile[p].GetGlobalProjectile<EModeGlobalProjectile>().FriendlyProjTurnedHostile = true;
-                        }
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 16f * Vector2.Normalize(target - spawnPos), ProjectileID.SharpTears, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(0.5f, 1f));
                     }
                 }
             }

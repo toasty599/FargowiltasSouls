@@ -41,7 +41,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
                         float SpeedX = num18 * num11;
                         float SpeedY = num20 * num11;
                         int damage = Main.expertMode ? 40 : 50;
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center.X, npc.Center.Y, SpeedX, SpeedY, ModContent.ProjectileType<TacticalSkeletonBullet>(), damage, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center.X, npc.Center.Y, SpeedX, SpeedY, ProjectileID.MeteorShot, damage, 0f, Main.myPlayer);
                     }
                 }
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item38, npc.Center);
