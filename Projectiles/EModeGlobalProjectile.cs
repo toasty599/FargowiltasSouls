@@ -159,6 +159,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         projectile.friendly = false;
                         projectile.hostile = true;
+                        projectile.DamageType = DamageClass.Default;
                     }
                     break;
 

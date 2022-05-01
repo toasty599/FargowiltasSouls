@@ -1374,3 +1374,4 @@ internal refactor for multiplayer packets, check nothing is blatantly broken in 
 	devi gift
 	maso enabled on server if any player joins who can play maso
 fixed(?) tungsten ench growing too big
+fixed teleporting enemies (e.g. tim) in mp not being able to tp while being hit

@@ -91,14 +91,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 TeleportTimer = 0;
                 DoTeleport = false;
             }
-        }
-
-        public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
-        {
-            base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
-            
-            DoTeleport = true;
-            NetSync(npc, false);
+            else if (npc.justHit && !DoTeleport)
+            {
+                DoTeleport = true;
+                npc.netUpdate = true;
+                NetSync(npc);
+            }
         }
     }
 }
