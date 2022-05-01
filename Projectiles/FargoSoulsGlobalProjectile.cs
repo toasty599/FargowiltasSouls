@@ -448,7 +448,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     if (modPlayer.Jammed && projectile.DamageType == DamageClass.Ranged && projectile.type != ProjectileID.ConfettiGun)
                     {
-                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
+                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
                         projectile.active = false;
                     }
 

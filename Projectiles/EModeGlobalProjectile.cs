@@ -170,7 +170,7 @@ namespace FargowiltasSouls.Projectiles
                         {
                             for (int i = -2; i <= 2; i++)
                             {
-                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center,
+                                Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center,
                                     1.5f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 / 2 * i),
                                     ModContent.ProjectileType<PhantasmalBolt2>(), projectile.damage, 0f, Main.myPlayer);
                             }
@@ -779,7 +779,7 @@ namespace FargowiltasSouls.Projectiles
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, ModContent.ProjectileType<PhantasmalSphereDeathray>(),
+                                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ModContent.ProjectileType<PhantasmalSphereDeathray>(),
                                             0, 0f, Main.myPlayer, 0f, projectile.identity);
                                     }
 
@@ -897,7 +897,7 @@ namespace FargowiltasSouls.Projectiles
                                 Vector2 vel = Main.rand.NextFloat(14f, 18f) * j * baseVel.RotatedBy(MathHelper.PiOver4 / max * i * -j);
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage, 0f, Main.myPlayer);
                             }
                         }
                     }

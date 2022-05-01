@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            FargoSoulsUtil.XWay(16, Projectile.GetSource_FromThis(), Projectile.Center, ProjectileID.PineNeedleHostile, 5, Projectile.damage, 0);
+            FargoSoulsUtil.XWay(16, Entity.InheritSource(Projectile), Projectile.Center, ProjectileID.PineNeedleHostile, 5, Projectile.damage, 0);
         }
 
         public override bool PreDraw(ref Color lightColor)

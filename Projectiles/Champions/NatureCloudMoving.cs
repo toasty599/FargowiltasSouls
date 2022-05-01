@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<NatureCloudRaining>(), Projectile.damage, 0f, Main.myPlayer);
+                Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<NatureCloudRaining>(), Projectile.damage, 0f, Main.myPlayer);
             }
         }
 

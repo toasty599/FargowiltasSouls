@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 {
                     Vector2 dir = Vector2.UnitX.RotatedBy(2 * (float)Math.PI / 8 * i);
                     Vector2 vel = Vector2.Normalize(dir);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<TerraLightningOrbDeathray>(),
+                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<TerraLightningOrbDeathray>(),
                         Projectile.damage, 0, Main.myPlayer, dir.ToRotation(), Projectile.whoAmI);
                 }
                 Projectile.rotation = Projectile.localAI[0];
@@ -209,7 +209,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Vector2 dir = Vector2.UnitX.RotatedBy((2 * (float)Math.PI / 8 * i) + Projectile.rotation);
                     float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                     Vector2 vel = Vector2.Normalize(dir) * 54f;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(),
+                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(),
                         Projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New/2);
                 }
             }
