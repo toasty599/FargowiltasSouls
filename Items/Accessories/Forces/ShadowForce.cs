@@ -39,19 +39,19 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
 "'Dark, Darker, Yet Darker'";
             Tooltip.SetDefault(tooltip);
 
-            string tooltip_ch = @"四颗暗影珠围绕着你旋转
-攻击有几率造成黑暗减益
-击杀敌人时有几率爆出一摞骨头
-你的召唤物获得了额外的镰刀攻击
-扔出烟雾弹后会将你传送至其落点的位置并使你获得先发制人增益
-不攻击一段时间后使你获得武僧冲刺增益
-冲进墙壁时会直接穿过去
-召唤一个爆炸烈焰哨兵，在充能完毕后会移动至光标位置
-持续攻击两秒后你将被火焰包裹
-切换武器后使下次攻击的伤害增加100%
-大幅强化爆炸烈焰哨兵和闪电光环的效果
-'Dark, Darker, Yet Darker（出自Undertale）'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            string tooltip_ch =
+@"[i:{0}] 四颗暗影珠绕着你旋转
+[i:{1}] 攻击有几率造成黑暗减益
+[i:{2}] 击杀敌人时有几率爆出一个骨堆
+[i:{3}] 你的召唤物能进行额外的镰刀攻击
+[i:{4}] 你可以扔出烟雾弹、传送至烟雾弹的位置获得先发制人增益
+[i:{5}] 每隔几秒，你能进行一次武僧冲刺
+[i:{6}] 朝墙壁冲刺时会直接穿过去
+[i:{7}] 召唤一个爆炸烈焰仆从，在充能完毕后会移动至光标位置
+[i:{8}] 持续攻击两秒后你将被火焰包裹
+[i:{8}] 切换武器后，下次攻击的伤害增加150%
+“Dark, Darker, Yet Darker”";
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, string.Format(tooltip_ch, ModContent.ItemType<ShadowEnchant>(), Enchants[0], Enchants[1], Enchants[2], ModContent.ItemType<NinjaEnchant>(), ModContent.ItemType<MonkEnchant>(), Enchants[3], Enchants[4], ModContent.ItemType<ApprenticeEnchant>()));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
