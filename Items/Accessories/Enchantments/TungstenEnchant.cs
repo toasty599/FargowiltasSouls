@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钨魔石");
 
             string tooltip =
-@"150% increased weapon size
+@"150% increased weapon size but reduces melee speed
 Every half second a projectile will be doubled in size
 Enlarged swords and projectiles deal 10% more damage and have an additional chance to crit
 'Bigger is always better'";
