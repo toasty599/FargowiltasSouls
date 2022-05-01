@@ -101,6 +101,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.PhantasmalDeathray:
+                case ProjectileID.DeerclopsIceSpike:
                 case ProjectileID.FairyQueenSunDance:
                 case ProjectileID.SaucerDeathray:
                 case ProjectileID.SandnadoHostile:
@@ -937,19 +938,6 @@ namespace FargowiltasSouls.Projectiles
 
             if (SilverMinion && projectile.owner == Main.myPlayer)
             {
-                /*if (counter == 60) //i hate netcode, proj array desyncs between clients
-                {
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                    {
-                        var netMessage = mod.GetPacket();
-                        netMessage.Write((byte)19);
-                        netMessage.Write(projectile.whoAmI);
-                        netMessage.Write(projectile.type);
-                        netMessage.Write(projectile.extraUpdates);
-                        netMessage.Send();
-                    }
-                }*/
-
                 if (!(modPlayer.SilverEnchantActive && player.GetToggleValue("SilverSpeed")))
                     projectile.Kill();
             }

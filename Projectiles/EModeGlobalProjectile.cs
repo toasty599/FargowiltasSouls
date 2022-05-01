@@ -234,7 +234,7 @@ namespace FargowiltasSouls.Projectiles
                     if (SourceNPC is NPC && SourceNPC.type == NPCID.Deerclops)
                     {
                         //is a final spike of the attack
-                        if ((SourceNPC.ai[0] == 1 && SourceNPC.ai[1] == 52) || (SourceNPC.ai[0] == 4 && SourceNPC.ai[1] == 70))
+                        if ((SourceNPC.ai[0] == 1 && SourceNPC.ai[1] == 52) || (SourceNPC.ai[0] == 4 && SourceNPC.ai[1] == 70 && !SourceNPC.GetEModeNPCMod<Deerclops>().DoLaserAttack))
                         {
                             bool isSingleWaveAttack = SourceNPC.ai[0] == 1;
 
@@ -623,7 +623,7 @@ namespace FargowiltasSouls.Projectiles
                                     LunaticCultist cultistData = npc.GetEModeNPCMod<LunaticCultist>();
 
                                     var netMessage = Mod.GetPacket(); //sync damage contribution (which is client side) to server
-                                    netMessage.Write((byte)10);
+                                    netMessage.Write((byte)FargowiltasSouls.PacketID.SyncCultistDamageCounterToServer);
                                     netMessage.Write((byte)npc.whoAmI);
                                     netMessage.Write(cultistData.MeleeDamageCounter);
                                     netMessage.Write(cultistData.RangedDamageCounter);

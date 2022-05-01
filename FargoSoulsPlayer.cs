@@ -465,7 +465,7 @@ namespace FargowiltasSouls
                 {
                     //Main.NewText("send it");
                     ModPacket packet = Mod.GetPacket();
-                    packet.Write((byte)81);
+                    packet.Write((byte)FargowiltasSouls.PacketID.SyncCanPlayMaso);
                     packet.Write(Toggler.CanPlayMaso);
                     packet.Send();
                 }
@@ -1646,7 +1646,7 @@ namespace FargowiltasSouls
                             else if (Main.netMode == NetmodeID.MultiplayerClient)
                             {
                                 var netMessage = Mod.GetPacket();
-                                netMessage.Write((byte)0);
+                                netMessage.Write((byte)FargowiltasSouls.PacketID.RequestGuttedCreeper);
                                 netMessage.Write((byte)Player.whoAmI);
                                 netMessage.Write((byte)multiplier);
                                 netMessage.Send();
@@ -1676,7 +1676,7 @@ namespace FargowiltasSouls
                                 else if (Main.netMode == NetmodeID.MultiplayerClient)
                                 {
                                     var netMessage = Mod.GetPacket();
-                                    netMessage.Write((byte)11);
+                                    netMessage.Write((byte)FargowiltasSouls.PacketID.RequestCreeperHeal);
                                     netMessage.Write((byte)Player.whoAmI);
                                     netMessage.Write((byte)lowestHealth);
                                     netMessage.Send();
@@ -2962,7 +2962,7 @@ namespace FargowiltasSouls
                 else if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     var netMessage = Mod.GetPacket();
-                    netMessage.Write((byte)9);
+                    netMessage.Write((byte)FargowiltasSouls.PacketID.RequestPerfumeHeart);
                     netMessage.Write((byte)Player.whoAmI);
                     netMessage.Write((byte)target.whoAmI);
                     netMessage.Send();
@@ -3935,7 +3935,7 @@ namespace FargowiltasSouls
         //                            else if (Main.netMode == NetmodeID.MultiPlayerClient) //MP, broadcast(?) packet from spawning Player's client
         //                            {
         //                                var netMessage = mod.GetPacket();
-        //                                netMessage.Write((byte)77);
+        //                                netMessage.Write((byte)FargowiltasSouls.PacketID.SpawnFishronEX);
         //                                netMessage.Write((byte)Player.whoAmI);
         //                                netMessage.Write((int)Main.projectile[i].Center.X);
         //                                netMessage.Write((int)Main.projectile[i].Center.Y + 100);
@@ -3980,7 +3980,7 @@ namespace FargowiltasSouls
                         else if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
                             var netMessage = Mod.GetPacket();
-                            netMessage.Write((byte)11);
+                            netMessage.Write((byte)FargowiltasSouls.PacketID.RequestCreeperHeal);
                             netMessage.Write((byte)Player.whoAmI);
                             netMessage.Write((byte)i);
                             netMessage.Send();
@@ -4129,7 +4129,7 @@ namespace FargowiltasSouls
             {
                 ModPacket packet = Mod.GetPacket();
 
-                packet.Write((byte)80);
+                packet.Write((byte)FargowiltasSouls.PacketID.SyncOneToggle);
                 packet.Write((byte)Player.whoAmI);
                 packet.Write(toggle.Key);
                 packet.Write(toggle.Value);
@@ -4146,7 +4146,7 @@ namespace FargowiltasSouls
             if (modPlayer.Toggler.Toggles != Toggler.Toggles)
             {
                 ModPacket packet = Mod.GetPacket();
-                packet.Write((byte)79);
+                packet.Write((byte)FargowiltasSouls.PacketID.SyncTogglesOnJoin);
                 packet.Write((byte)Player.whoAmI);
                 packet.Write((byte)Toggler.Toggles.Count);
 

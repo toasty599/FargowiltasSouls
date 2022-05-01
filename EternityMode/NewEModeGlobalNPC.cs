@@ -347,7 +347,7 @@ namespace FargowiltasSouls.EternityMode
                 return;
 
             ModPacket packet = FargowiltasSouls.Instance.GetPacket();
-            packet.Write((byte)22); // New maso sync packet id
+            packet.Write((byte)FargowiltasSouls.PacketID.SyncEModeNPC);
             packet.Write(npc.whoAmI);
             packet.Write(npc.type);
 

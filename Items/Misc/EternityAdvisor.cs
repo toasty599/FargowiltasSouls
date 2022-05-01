@@ -84,7 +84,6 @@ namespace FargowiltasSouls.Items.Misc
                     ItemID.ShinyRedBalloon,
                     ItemID.BandofRegeneration,
                     ItemID.SharkToothNecklace,
-                    ModContent.ItemType<IronEnchant>(),
                     ModContent.ItemType<EbonwoodEnchant>(),
                     ModContent.ItemType<CactusEnchant>(),
                     ModContent.ItemType<PalmWoodEnchant>(),
@@ -104,7 +103,6 @@ namespace FargowiltasSouls.Items.Misc
                     ItemID.SharkToothNecklace,
                     ModContent.ItemType<SlimyShield>(),
                     ModContent.ItemType<BorealWoodEnchant>(),
-                    ModContent.ItemType<IronEnchant>(),
                     ModContent.ItemType<PalmWoodEnchant>(),
                     ModContent.ItemType<CactusEnchant>(),
                     ModContent.ItemType<JungleEnchant>()
@@ -164,15 +162,15 @@ namespace FargowiltasSouls.Items.Misc
             {
                 summonType = ModContent.TryFind("Fargowiltas", "DeerThing2", out ModItem modItem) ? modItem.Type : ItemID.DeerThing;
                 build = GetBuildText(
-                    ItemID.EoCShield,
+                    ModContent.ItemType<JungleEnchant>(),
                     ItemID.LightningBoots,
                     ItemID.BalloonHorseshoeFart
                 ) + GetBuildTextRandom(
                     2,
                     ItemID.HandWarmer,
-                    ModContent.ItemType<GuttedHeart>(),
-                    ModContent.ItemType<DarkenedHeart>(),
-                    ModContent.ItemType<QueenStinger>()
+                    ItemID.CharmofMyths,
+                    ItemID.CrossNecklace,
+                    ModContent.ItemType<DarkenedHeart>()
                 );
             }
             else if (!FargoSoulsWorld.downedDevi)
