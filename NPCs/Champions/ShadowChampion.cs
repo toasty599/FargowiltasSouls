@@ -547,7 +547,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
                                 if (Main.rand.NextBool())
                                     ai0 *= -1f;
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0, ai1);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ProjectileID.ShadowFlame, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0, ai1);
                             }
                         }
                     }

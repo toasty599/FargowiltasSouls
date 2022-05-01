@@ -197,6 +197,7 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.Obstructed] = true;
             player.buffImmune[BuffID.Dazed] = true;
             fargoPlayer.SkullCharm = true;
+            fargoPlayer.LumpOfFlesh = true;
             player.buffImmune[ModContent.BuffType<CrystalSkull>()] = true;
             /*if (!player.ZoneDungeon)
             {
@@ -291,7 +292,6 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.Venom] = true;
 
             //ice queen's crown
-            player.buffImmune[BuffID.Frozen] = true;
             fargoPlayer.IceQueensCrown = true;
 
             //lihzahrd treasure
@@ -336,6 +336,11 @@ Summons the aid of all Eternity Mode bosses to your side
             //dread shell
             if (player.GetToggleValue("DreadShellParry"))
                 player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
+
+            //deerclaws
+            player.buffImmune[BuffID.Chilled] = true;
+            player.buffImmune[BuffID.Frozen] = true;
+            player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
 
             //sadism
             player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;

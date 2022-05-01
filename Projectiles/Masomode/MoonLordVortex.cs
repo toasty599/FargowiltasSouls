@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                             Vector2 dir = Projectile.DirectionTo(player.Center).RotatedByRandom(MathHelper.ToRadians(10));
                             float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                             Vector2 vel = Vector2.Normalize(dir) * 6f;
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel * 6, ModContent.ProjectileType<Champions.CosmosLightning>(),
+                            Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel * 6, ModContent.ProjectileType<Champions.CosmosLightning>(),
                                 Projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                         }
                         p.Kill();
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         for (int i = -1; i <= 1; i++)
                         {
                             Vector2 vel = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(maxAttackSpread) * i);
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 14f, Projectile.identity);
+                            Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 14f, Projectile.identity);
                         }
                     }
                 }
@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     {
                         Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(maxAttackSpread));
                         float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(), Projectile.damage, Projectile.knockBack, Projectile.owner, vel.ToRotation(), ai1New * 0.75f);
+                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(), Projectile.damage, Projectile.knockBack, Projectile.owner, vel.ToRotation(), ai1New * 0.75f);
                     }
                 }
 

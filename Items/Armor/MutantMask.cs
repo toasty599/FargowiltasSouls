@@ -60,11 +60,7 @@ Increases max number of minions and sentries by 10
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = @"Phantasmal Spheres shoot deathrays at nearby enemies
-Abominationn's Visage fights alongside you
-Your attacks inflict God Eater and Hellfire
-You erupt into a massive deathray whenever revived
-20% increased weapon use speed";
+            player.setBonus = Language.GetTextValue($"Mods.{Mod.Name}.SetBonus.Mutant");
 
             player.AddBuff(ModContent.BuffType<MutantPower>(), 2);
 

@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     vel = vel.RotatedBy(2f * (float)Math.PI / 6f);
                     if (Projectile.owner == Main.myPlayer)
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<CelestialRuneIceSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.velocity.X, Projectile.velocity.Y);
+                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<CelestialRuneIceSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.velocity.X, Projectile.velocity.Y);
                 }
             }
 

@@ -23,5 +23,13 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             player.hasJumpOption_Cloud = true;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Bottle)
+                .AddIngredient(ItemID.Cloud)
+                .Register();
+        }
     }
 }

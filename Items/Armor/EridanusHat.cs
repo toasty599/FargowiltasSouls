@@ -51,7 +51,7 @@ Increases your max number of sentries by 4");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EridanusArmorBonus");
+            player.setBonus = Language.GetTextValue("Mods.FargowiltasSouls.SetBonus.Eridanus");
 
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.EridanusEmpower = true;

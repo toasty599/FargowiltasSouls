@@ -32,5 +32,14 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             player.accRunSpeed = 4f;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Leather, 2)
+                .AddIngredient(ItemID.Silk, 2)
+                .AddTile(TileID.Loom)
+                .Register();
+        }
     }
 }

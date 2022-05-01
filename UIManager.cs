@@ -28,6 +28,7 @@ namespace FargowiltasSouls
         public Asset<Texture2D> PresetOnButton;
         public Asset<Texture2D> PresetMinimalButton;
         public Asset<Texture2D> OncomingMutantTexture;
+        public Asset<Texture2D> OncomingMutantAuraTexture;
 
         public void LoadUI()
         {
@@ -43,6 +44,7 @@ namespace FargowiltasSouls
                 PresetOnButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOn", AssetRequestMode.ImmediateLoad);
                 PresetMinimalButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetMinimal", AssetRequestMode.ImmediateLoad);
                 OncomingMutantTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/OncomingMutant", AssetRequestMode.ImmediateLoad);
+                OncomingMutantAuraTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/OncomingMutantAura", AssetRequestMode.ImmediateLoad);
 
                 // Initialize UserInterfaces
                 TogglerUserInterface = new UserInterface();

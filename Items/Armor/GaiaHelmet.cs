@@ -2,6 +2,7 @@
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Armor
@@ -53,14 +54,7 @@ Increases max number of minions and sentries by 1");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = @"10% increased melee speed
-Reduces mana usage by 10%
-10% chance to not consume ammo
-Increases max number of minions and sentries by 1
-Double tap down to toggle offensive mode, which has the following effects:
-30% increased damage and 15% increased critical strike chance
-Increases armor penetration by 20
-Reduces defense by 20, max life by 10%, and damage reduction by 15%";
+            player.setBonus = Language.GetTextValue("Mods.FargowiltasSouls.SetBonus.Gaia");
 
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.GaiaSet = true;

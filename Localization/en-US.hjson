@@ -8,6 +8,45 @@
 
 Mods: {
 	FargowiltasSouls: {
+		SetBonus: {
+			Gaia:
+				'''
+				10% increased melee speed
+				Reduces mana usage by 10%
+				10% chance to not consume ammo
+				Increases max number of minions and sentries by 1
+				Double tap down to toggle offensive mode, which has the following effects:
+				30% increased damage and 15% increased critical strike chance
+				Increases armor penetration by 20
+				Reduces defense by 20, max life by 10%, and damage reduction by 15%
+				'''
+
+			Eridanus:
+				'''
+				The blessing of Eridanus empowers your attacks
+				The empowered class changes every 10 seconds
+				Eridanus fights alongside you when you use the empowered class
+				75% increased damage, 30% increased attack speed, and 20% increased critical strike chance for the empowered class
+				'''
+
+			Styx:
+				'''
+				20% increased damage
+				Attack enemies to charge energy
+				Reduces damage taken at the cost of some energy
+				Double tap {0} to release energy as homing shots
+				Brandish a blade of infernal magic when fully charged
+				'''
+
+			Mutant:
+				'''
+				Phantasmal Spheres shoot deathrays at nearby enemies
+				Abominationn's Visage fights alongside you
+				Your attacks inflict God Eater and Hellfire
+				You erupt into a massive deathray whenever revived
+				20% increased weapon use speed
+				'''
+		}
 		
 		Bestiary: {
 			TophatSquirrelCritter: This squirrel found itself a dapper hat! What will it do with this newfound power? Probably not much, honestly.
@@ -265,7 +304,6 @@ Mods: {
 			MasoGrazeConfig: Graze
 			MasoGrazeRingConfig: Graze Radius Visual
 			MasoDevianttHeartsConfig: Homing Hearts On Hit
-			DreadShellParryConfig: Dread Shell Parry
 			PrecisionSealHurtboxConfig: Reduced Hurtbox Size
 
 			SupremeFairyHeader: Supreme Deathbringer Fairy
@@ -296,6 +334,8 @@ Mods: {
 
 			LumpofFleshHeader: Lump of Flesh
 			MasoPugentConfig: Pungent Eye Minion
+			DeerclawpsConfig: Ice Spike Dash Trail
+			DreadShellParryConfig: Dread Shell Parry
 
 			ChaliceHeader: Chalice of the Moon
 			MasoCultistConfig: Cultist Minion

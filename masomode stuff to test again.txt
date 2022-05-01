@@ -1299,7 +1299,6 @@ fixed(?) twins sometimes dropping two rangs
 fixed(?) eow sometimes dropping too much loot
 gold ench auto sends your money to piggy bank when you pick up money
 fixed championy sigil being lost on right click
-updated localization files
 fixed angler ench replacing all fished up enemies with ebonwood bow
 fixed(?) paradox wolf soul not dropping in mp (drops when a wolf kills you)
 improved empress sword circle appearance
@@ -1316,7 +1315,7 @@ deerclops emode
 	can actually despawn
 	literally just removed random ghost hands because i hate them
 deerclops has a 66% p2
-	can teleport behind you
+	summons hands to grab and hold you and teleports behind you
 	spike attacks are gigantic
 	less startup on double wall
 	spike double wall persists a bit longer
@@ -1325,6 +1324,35 @@ deerclops has a 33% p3
 	roar comes with a stomp on you
 	double wall spike persists for VERY long (can stunlock)
 deerclops has maso changes
+	faster
 	all ice persists longer
 	adds the ghost hands back
-	everything is dumbfuck faster
+added recipes
+	eurus sock
+	puff in bottle
+updated localization files
+added deerclawps
+lump of flesh now contains deerclawps
+lump of flesh visually changes deerclawps spikes to blood thorns
+refactored numerous projs, test
+	queen slime stomp having no hitbox
+	golem geysers ignoring tiles and despawning faster than vanilla geyser
+	golem eye beams having accel startup
+	cultist not having vanilla fireballs in p2
+	cultist clones not shooting vanilla shadowflame fireballs
+	cultist fireballs having accel startup
+	cultist nebula spheres having faster movement
+	sandnados NOT spawning sharks during spirit champ/devi fights
+	ml bolts being accel split shots
+	ml homing phantasmal eyes having nerfed movement
+	ml HAND ONLY spheres having accel startup
+	betsy flame breath shooting bonus projs
+refactored a bunch of projs so they dont take up their own projs anymore
+	dreadnaut/hemogoblin/blood zombie blood thorns
+	pirate crossbower arrow
+	pirate deadeye meteor shot
+	storm diver luminite bullets
+	etc.
+also refactored their debuffs so make sure those still work, e.g. rune wizard flames of universe
+removed post plant dungeon skeleton mage enemies inflicting class-seal debuffs
+added maso aura to inventory ui indicator for maso

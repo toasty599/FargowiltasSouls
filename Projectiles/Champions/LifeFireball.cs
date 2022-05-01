@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-10, 0),
+                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-10, 0),
                               Main.rand.Next(326, 329), Projectile.damage / 4, 0f, Main.myPlayer);
                     }
                 }

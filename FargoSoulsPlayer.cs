@@ -241,6 +241,8 @@ namespace FargowiltasSouls
         public bool GuttedHeart;
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         public Item NecromanticBrewItem;
+        public Item DeerclawpsItem;
+        public int DeerclawpsDashTimer;
         public bool PureHeart;
         public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
@@ -249,6 +251,7 @@ namespace FargowiltasSouls
         public bool Probes;
         public bool MagicalBulb;
         public bool SkullCharm;
+        public bool LumpOfFlesh;
         public Item PumpkingsCapeItem;
         public Item LihzahrdTreasureBoxItem;
         public int GroundPound;
@@ -827,6 +830,7 @@ namespace FargowiltasSouls
             CorruptHeartItem = null;
             GuttedHeart = false;
             NecromanticBrewItem = null;
+            DeerclawpsItem = null;
             PureHeart = false;
             PungentEyeballMinion = false;
             CrystalSkullMinion = false;
@@ -835,6 +839,7 @@ namespace FargowiltasSouls
             Probes = false;
             MagicalBulb = false;
             SkullCharm = false;
+            LumpOfFlesh = false;
             PumpkingsCapeItem = null;
             LihzahrdTreasureBoxItem = null;
             BetsysHeartItem = null;
@@ -1031,6 +1036,8 @@ namespace FargowiltasSouls
             CorruptHeartCD = 60;
             GuttedHeartCD = 60;
             NecromanticBrewItem = null;
+            DeerclawpsItem = null;
+            DeerclawpsDashTimer = 0;
             GroundPound = 0;
             NymphsPerfume = false;
             NymphsPerfumeCD = 30;
@@ -1750,6 +1757,23 @@ namespace FargowiltasSouls
                 }
             }
 
+            if (DeerclawpsItem != null)
+            {
+                if (Player.dashDelay == -1 && DeerclawpsDashTimer < 2) //avoiding possible clash with modded dashes
+                    DeerclawpsDashTimer = 2;
+
+                if (DeerclawpsDashTimer > 0)
+                {
+                    DeerclawpsDashTimer--;
+                    DeerclawpsAttack(Player.Bottom);
+                }
+            }
+
+            if (ShinobiEnchantActive)
+            {
+                ShinobiDashChecks();
+            }
+
             if (AgitatingLensItem != null)
             {
                 if (AgitatingLensCD++ > 15)
@@ -1846,8 +1870,10 @@ namespace FargowiltasSouls
                 Player.hasJumpOption_Blizzard = false;
                 Player.hasJumpOption_Fart = false;
                 Player.hasJumpOption_Sail = false;
+                Player.hasJumpOption_Unicorn = false;
                 jungleJumping = false;
                 CanJungleJump = false;
+                dashCD = 2;
             }
         }
 

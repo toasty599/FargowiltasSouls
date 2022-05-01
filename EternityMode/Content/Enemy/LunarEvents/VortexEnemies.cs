@@ -88,7 +88,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                         for (int index = 0; index < 4; ++index)
                         {
                             Vector2 vector2_2 = vec + Utils.RandomVector2(Main.rand, -0.8f, 0.8f);
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), vector2_1.X, vector2_1.Y, vector2_2.X, vector2_2.Y, ModContent.ProjectileType<StormDiverBullet>(), Damage, 1f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), vector2_1.X, vector2_1.Y, vector2_2.X, vector2_2.Y, ProjectileID.MoonlordBullet, Damage, 1f, Main.myPlayer);
                         }
                     }
 

@@ -636,6 +636,8 @@ namespace FargowiltasSouls
                     if (Player.doubleTapCardinalTimer[2] > 0 && Player.doubleTapCardinalTimer[2] != 15)
                     {
                         dashCD = 60;
+                        if (DeerclawpsDashTimer < 10)
+                            DeerclawpsDashTimer = 10;
                         Player.velocity.X = dashSpeed;
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                             NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
@@ -647,6 +649,8 @@ namespace FargowiltasSouls
                     if (Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
                     {
                         dashCD = 60;
+                        if (DeerclawpsDashTimer < 10)
+                            DeerclawpsDashTimer = 10;
                         Player.velocity.X = -dashSpeed;
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                             NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
@@ -988,58 +992,74 @@ namespace FargowiltasSouls
             }
         }
 
-        public void ShinobiEffect(bool hideVisual)
+        private void ShinobiDash(int direction)
         {
-            void ShinobiDash(int direction)
+            dashCD = 90;
+
+            var teleportPos = Player.position;
+
+            const int length = 400; //make sure this is divisible by 16 btw
+
+            if (Player.GetToggleValue("Shinobi")) //go through walls
             {
-                dashCD = 90;
+                teleportPos.X += length * direction;
 
-                var teleportPos = Player.position;
-
-                const int length = 400; //make sure this is divisible by 16 btw
-
-                if (Player.GetToggleValue("Shinobi"))
+                while (Collision.SolidCollision(teleportPos, Player.width, Player.height))
                 {
-                    teleportPos.X += length * direction;
-
-                    while (Collision.SolidCollision(teleportPos, Player.width, Player.height))
+                    if (direction == 1)
                     {
-                        if (direction == 1)
-                        {
-                            teleportPos.X++;
-                        }
-                        else
-                        {
-                            teleportPos.X--;
-                        }
+                        teleportPos.X++;
+                    }
+                    else
+                    {
+                        teleportPos.X--;
                     }
                 }
-                else
+            }
+            else
+            {
+                for (int i = 0; i < length; i += 16)
                 {
-                    for (int i = 0; i < length; i += 16)
+                    if (DeerclawpsItem != null)
                     {
-                        teleportPos.X += 16 * direction;
-                        if (Collision.SolidCollision(teleportPos, Player.width, Player.height))
+                        if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Deerclawps"))
                         {
-                            teleportPos.X -= 16 * direction;
-                            break;
+                            int dam = 64;
+                            dam = (int)(dam * Player.ActualClassDamage(DamageClass.Melee));
+                            Vector2 vel = 16f * -Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(30));
+                            float ai1 = Main.rand.NextFloat(0.8f, 1.3f);
+                            if (Player.velocity.Y == 0)
+                                Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), new Vector2(teleportPos.X, Player.Bottom.Y), vel, ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1);
+                            else
+                                Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), new Vector2(teleportPos.X, Player.Bottom.Y), vel * (Main.rand.NextBool() ? 1 : -1), ProjectileID.DeerclopsIceSpike, dam, 8f, Main.myPlayer, 0, ai1 / 2);
                         }
                     }
+
+                    teleportPos.X += 16 * direction;
+
+                    if (Collision.SolidCollision(teleportPos, Player.width, Player.height))
+                    {
+                        teleportPos.X -= 16 * direction;
+                        break;
+                    }
                 }
+            }
 
-                if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
-                {
-                    FargoSoulsUtil.GrossVanillaDodgeDust(Player);
-                    Player.Teleport(teleportPos, 1);
-                    FargoSoulsUtil.GrossVanillaDodgeDust(Player);
-                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+            if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
+            {
+                FargoSoulsUtil.GrossVanillaDodgeDust(Player);
+                Player.Teleport(teleportPos, 1);
+                FargoSoulsUtil.GrossVanillaDodgeDust(Player);
+                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
-                    Player.velocity.X = 12f * direction;
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                        NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
-                }
-            };
+                Player.velocity.X = 12f * direction;
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
+            }
+        }
 
+        private void ShinobiDashChecks()
+        {
             if (Player.GetToggleValue("ShinobiDash") && Player.whoAmI == Main.myPlayer & dashCD <= 0 && !Player.mount.Active)
             {
                 if ((Player.controlRight && Player.releaseRight))
@@ -1058,7 +1078,36 @@ namespace FargowiltasSouls
                     }
                 }
             }
+        }
 
+        private void DeerclawpsAttack(Vector2 pos)
+        {
+            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Deerclawps"))
+            {
+                Vector2 vel = 16f * -Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(30));
+                
+                int dam = 44;
+                int type = ProjectileID.DeerclopsIceSpike;
+                float ai0 = -15f;
+                float ai1 = Main.rand.NextFloat(0.5f, 1f);
+                if (LumpOfFlesh)
+                {
+                    dam = 66;
+                    type = ProjectileID.SharpTears;
+                    ai0 *= 2f;
+                    ai1 += 0.5f;
+                }
+                dam = (int)(dam * Player.ActualClassDamage(DamageClass.Melee));
+
+                if (Player.velocity.Y == 0)
+                    Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), pos, vel, type, dam, 4f, Main.myPlayer, ai0, ai1);
+                else
+                    Projectile.NewProjectile(Player.GetSource_Accessory(DeerclawpsItem), pos, vel * (Main.rand.NextBool() ? 1 : -1), type, dam, 4f, Main.myPlayer, ai0, ai1 / 2);
+            }
+        }
+
+        public void ShinobiEffect(bool hideVisual)
+        {
             //tele through wall until open space on dash into wall
             /*if (Player.GetToggleValue("Shinobi") && Player.whoAmI == Main.myPlayer && Player.dashDelay == -1 && Player.mount.Type == -1 && Player.velocity.X == 0)
             {

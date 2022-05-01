@@ -174,7 +174,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 if (IndividualAttackTimer == 10)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 9f * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<PirateCrossbowerArrow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 9f * npc.DirectionTo(Main.player[npc.target].Center), ProjectileID.JestersArrow, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                 }
 
                 if (IndividualAttackTimer % 10 == 0 && !Main.player[npc.target].ZoneRockLayerHeight)
@@ -185,7 +185,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                     Vector2 speed = 10f * Vector2.Normalize(Main.player[npc.target].Center + Main.rand.NextVector2Square(-100, 100) - spawn);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, speed, ModContent.ProjectileType<PirateCrossbowerArrow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, speed, ProjectileID.JestersArrow, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
 
                     for (int i = 0; i < 40; i++)

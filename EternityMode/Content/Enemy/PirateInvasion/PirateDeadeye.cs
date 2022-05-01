@@ -36,7 +36,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
                     speed *= 14f;
 
                     int damage = Main.expertMode ? 20 : 25;
-                    Projectile.NewProjectile(npc.GetSource_FromThis(),  npc.Center, speed, ModContent.ProjectileType<PirateDeadeyeBullet>(), damage, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(),  npc.Center, speed, ProjectileID.MeteorShot, damage, 0f, Main.myPlayer);
                 }
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, npc.Center);
                 npc.ai[2] = 0f;

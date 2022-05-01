@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Items.Materials;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Armor
 {
@@ -55,11 +56,8 @@ Increases max number of minions and sentries by 3");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = @"20% increased damage
-Attack enemies to charge energy
-Reduces damage taken at the cost of some energy
-Double tap " + Terraria.Localization.Language.GetTextValue(Main.ReversedUpDownArmorSetBonuses ? "Key.UP" : "Key.DOWN") + @" to release energy as homing shots
-Brandish a blade of infernal magic when fully charged";
+            string key = Language.GetTextValue(Main.ReversedUpDownArmorSetBonuses ? "Key.UP" : "Key.DOWN");
+            player.setBonus = Language.GetTextValue($"Mods.{Mod.Name}.SetBonus.Styx", key);
 
             player.GetDamage(DamageClass.Generic) += 0.20f;
 

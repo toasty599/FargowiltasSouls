@@ -17,7 +17,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
 {
     public class FlyingFish : Shooters
     {
-        public FlyingFish() : base(70, ModContent.ProjectileType<WaterStreamHostile>(), 10, 1, DustID.Water, 250) { }
+        public FlyingFish() : base(70, ProjectileID.WaterStream, 10, 1, DustID.Water, 250) { }
 
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.FlyingFish);
 

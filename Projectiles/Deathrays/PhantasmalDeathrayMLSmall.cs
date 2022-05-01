@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<PhantasmalDeathrayML>(), 
+                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<PhantasmalDeathrayML>(), 
                         Projectile.damage, Projectile.knockBack, Projectile.owner, 0, Projectile.ai[1]);
                 }
 

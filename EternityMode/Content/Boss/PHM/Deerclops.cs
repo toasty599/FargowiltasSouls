@@ -54,6 +54,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.25, MidpointRounding.ToEven);
         }
 
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
+        {
+            if (npc.alpha > 0)
+                return false;
+
+            return base.CanHitPlayer(npc, target, ref CooldownSlot);
+        }
+
         public override bool PreAI(NPC npc)
         {
             bool result = base.PreAI(npc);
@@ -96,7 +104,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (EnteredPhase3)
                             npc.position.X += npc.velocity.X;
 
-                        if (npc.velocity.Y == 0 || FargoSoulsWorld.MasochistModeReal)
+                        if (npc.velocity.Y == 0)
                         {
                             if (EnteredPhase2)
                                 npc.position.X += npc.velocity.X;
@@ -128,9 +136,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             }
 
                             if (npc.alpha == 0)
+                            {
                                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
-                            npc.alpha += FargoSoulsWorld.MasochistModeReal || EnteredPhase3 ? 10 : 5;
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    for (int i = 0; i < 6; i++)
+                                    {
+                                        Vector2 spawnPos = Main.player[npc.target].Center + Main.rand.NextVector2CircularEdge(16 * 30, 16 * 30);
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<DeerclopsHand>(), 0, 0f, Main.myPlayer, npc.target);
+                                    }
+                                }
+                            }
+
+                            npc.alpha += 5;
                             if (npc.alpha > 255)
                             {
                                 npc.alpha = 255;
@@ -146,7 +165,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     {
                                         if (Main.rand.NextBool())
                                             distance *= -1f;
-                                        npc.netUpdate = true;
+                                        if (Main.netMode == NetmodeID.Server)
+                                            NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
                                     }
 
                                     npc.Bottom = Main.player[npc.target].Bottom + distance * Vector2.UnitX;
@@ -155,11 +175,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     npc.velocity.X = 3.4f * npc.direction;
                                     npc.velocity.Y = 0;
 
-                                    int addedThreshold = 90;
+                                    int addedThreshold = 180;
                                     if (EnteredPhase3)
-                                        addedThreshold = 60;
+                                        addedThreshold -= 30;
                                     if (FargoSoulsWorld.MasochistModeReal)
-                                        addedThreshold = 45;
+                                        addedThreshold -= 30;
+
                                     if (TeleportTimer > TeleportThreshold + addedThreshold)
                                     {
                                         TeleportTimer = 0;
@@ -258,8 +279,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         int threshold = 0;
                         if (EnteredPhase2)
                             threshold = 30;
-                        if (FargoSoulsWorld.MasochistModeReal)
-                            threshold = 40;
 
                         if (EnteredPhase2 && npc.ai[1] < threshold)
                             npc.ai[1]++;
@@ -297,7 +316,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.ModifyNPCLoot(npc, npcLoot);
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
-            //emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<DEERCLOPSDROP>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<Deerclawps>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.FrozenCrate, 5));
             npcLoot.Add(emodeRule);
         }
