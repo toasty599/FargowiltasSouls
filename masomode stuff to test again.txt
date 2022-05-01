@@ -1363,3 +1363,5 @@ deerclawps immunes slow instead of chilled
 fixed tungsten ench tooltip not mentioning melee speed nerf
 soul of terraria removes tungsten ench melee speed nerf
 deerclops teleport hands now just freeze you instead of inflicting frozen debuff
+deerclops has permanent fancy effect in p3 (just visual, not invul always)
+fixed(?) tungsten ench growing too big

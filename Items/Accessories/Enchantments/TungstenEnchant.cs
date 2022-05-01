@@ -67,6 +67,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             //{
             modPlayer.TungstenPrevSizeSave = item.scale;
             item.scale *= tungstenScale;
+            modPlayer.TungstenEnlargedItem = item;
             //}
             //else if (((modPlayer.Toggler != null && !player.GetToggleValue("Tungsten", false)) || !TungstenEnchant) && modPlayer.TungstenPrevSizeSave != -1)
             //{

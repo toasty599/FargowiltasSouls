@@ -186,6 +186,7 @@ namespace FargowiltasSouls
         public bool TinCritBuffered;
         public bool TungstenEnchantActive;
         public float TungstenPrevSizeSave = -1;
+        public Item TungstenEnlargedItem;
         public int TungstenCD;
         public bool TurtleEnchantActive;
         public int TurtleCounter;
@@ -3886,14 +3887,14 @@ namespace FargowiltasSouls
         {
             if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee && Player.HeldItem.useTime > 0 && Player.HeldItem.useAnimation > 0 && Player.HeldItem.pick == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.axe == 0)
             {
-                if (TungstenPrevSizeSave != -1)
+                if (TungstenEnlargedItem != null)
                 {
-                    Player.HeldItem.scale = TungstenPrevSizeSave;
-                    if (Main.mouseItem != null && !Main.mouseItem.IsAir)
-                        Main.mouseItem.scale = TungstenPrevSizeSave;
+                    TungstenEnlargedItem.scale = TungstenPrevSizeSave;
+                    //if (Main.mouseItem != null && !Main.mouseItem.IsAir) Main.mouseItem.scale = TungstenPrevSizeSave;
                     TungstenPrevSizeSave = -1;
+                    TungstenEnlargedItem = null;
                 }
-
+                
                 if (TungstenEnchantActive && Player.GetToggleValue("Tungsten"))
                     TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
             }
