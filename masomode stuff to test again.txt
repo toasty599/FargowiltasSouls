@@ -1334,4 +1334,19 @@ updated localization files
 added deerclawps
 lump of flesh now contains deerclawps
 lump of flesh visually changes deerclawps spikes to blood thorns
+refactored numerous projs, test
+	queen slime stomp having no hitbox
+	golem geysers ignoring tiles and despawning faster
+	golem eye beams having accel startup
+	cultist not having vanilla fireballs in p2
+	cultist clones not shooting vanilla shadowflame fireballs
+	cultist fireballs having accel startup
+	cultist nebula spheres having faster movement
+	sandnados NOT spawning sharks during spirit champ/devi fights
+	ml bolts being accel split shots
+	ml eyes having nerfed movement
+	ml HAND ONLY spheres having accel startup
+	betsy flame breath shooting bonus projs
+also refactored their debuffs so make sure those still work, e.g. rune wizard flames of universe
+removed post plant dungeon skeleton mage enemies inflicting class-seal debuffs
 added maso aura to inventory ui indicator for maso
