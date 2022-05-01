@@ -63,7 +63,7 @@ Creeper respawn speed increases when not moving
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<CorruptHeart>())
+            .AddIngredient(ModContent.ItemType<DarkenedHeart>())
             .AddIngredient(ModContent.ItemType<GuttedHeart>())
             //.AddIngredient(ModContent.ItemType<VolatileEnergy>(), 20);
             .AddIngredient(ItemID.PurificationPowder, 30)

@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Items.Misc
                     Main.rand.Next(new int[] {
                                 ItemID.WormScarf,
                                 ModContent.ItemType<GuttedHeart>(),
-                                ModContent.ItemType<CorruptHeart>(),
+                                ModContent.ItemType<DarkenedHeart>(),
                                 ModContent.ItemType<TungstenEnchant>()
                     })
                 );
@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Items.Misc
                 ) + GetBuildTextRandom(
                     2,
                     ItemID.CharmofMyths,
-                    Main.rand.NextBool() ? ModContent.ItemType<GuttedHeart>() : ModContent.ItemType<CorruptHeart>(),
+                    Main.rand.NextBool() ? ModContent.ItemType<GuttedHeart>() : ModContent.ItemType<DarkenedHeart>(),
                     ModContent.ItemType<QueenStinger>(),
                     ModContent.ItemType<ShadowEnchant>(),
                     ModContent.ItemType<IronEnchant>(),
@@ -171,7 +171,7 @@ namespace FargowiltasSouls.Items.Misc
                     2,
                     ItemID.HandWarmer,
                     ModContent.ItemType<GuttedHeart>(),
-                    ModContent.ItemType<CorruptHeart>(),
+                    ModContent.ItemType<DarkenedHeart>(),
                     ModContent.ItemType<QueenStinger>()
                 );
             }
@@ -186,7 +186,7 @@ namespace FargowiltasSouls.Items.Misc
                 ) + GetBuildTextRandom(
                     1,
                     ItemID.CharmofMyths,
-                    ModContent.ItemType<CorruptHeart>(),
+                    ModContent.ItemType<DarkenedHeart>(),
                     ModContent.ItemType<QueenStinger>(),
                     ModContent.ItemType<IronEnchant>(),
                     ModContent.ItemType<TungstenEnchant>()
@@ -204,7 +204,7 @@ namespace FargowiltasSouls.Items.Misc
                     ItemID.CharmofMyths,
                     ItemID.CrossNecklace,
                     ModContent.ItemType<SparklingAdoration>(),
-                    ModContent.ItemType<CorruptHeart>(),
+                    ModContent.ItemType<DarkenedHeart>(),
                     ModContent.ItemType<GuttedHeart>(),
                     ModContent.ItemType<MoltenEnchant>()
                 );

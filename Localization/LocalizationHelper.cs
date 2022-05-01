@@ -209,7 +209,7 @@ namespace FargowiltasSouls
 
             //pure heart
             AddToggle("PureHeartHeader", ModContent.ItemType<PureHeart>());
-            AddToggle("MasoEaterConfig", ModContent.ItemType<CorruptHeart>());
+            AddToggle("MasoEaterConfig", ModContent.ItemType<DarkenedHeart>());
             AddToggle("MasoBrainConfig", ModContent.ItemType<GuttedHeart>());
 
             //lump of flesh

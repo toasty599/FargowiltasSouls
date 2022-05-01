@@ -1358,3 +1358,4 @@ removed post plant dungeon skeleton mage enemies inflicting class-seal debuffs
 added maso aura to inventory ui indicator for maso
 
 fixed eternity advisor formatting issue with biocluster
+corrupt heart rename to darkened heart and nerfed, causes -10% DR
