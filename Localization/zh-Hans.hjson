@@ -11,14 +11,14 @@ Mods: {
 	FargowiltasSouls: {
 		
 		Bestiary: {
-			TophatSquirrelCritter: This squirrel found itself a dapper hat! What will it do with this newfound power? Probably not much, honestly.
-			GuttedCreeper: Continues to defend the heart of the Crimson even when it's stuffed in someone's pocket. They were bad, but now they're good!
-			RoyalSubject: The growth of these would-be queens has been stunted. The pheromones emitted by their liege have summoned them to her aid.
-			GelatinSubject: Elite guardians of the queen. They erect a magical barrier and give their lives to defend their liege.
-			AbomSaucer: The cockpit is filled with machine parts. Abominationn commands these remote control turrets using a chip in his blaster cannon.
+			TophatSquirrelCritter: 这只松鼠为自己找到了一顶小巧的帽子！它会用得到的全新力量做什么呢？事实上，或许，它能做的事情不多。
+			GuttedCreeper: 就算被装到某人的口袋里，它们仍然一直保护着血腥之心。它们过去很讨嫌，但现在表现不错！
+			RoyalSubject: 如果成长不受阻碍，它们本来也可成长为蜂群之后。蜂后释放信息素，召唤出皇家工蜂来帮助她。
+			GelatinSubject: 史莱姆皇后的精英守护者。它们竖起了一道魔法屏障，宁愿为保卫皇后而牺牲。
+			AbomSaucer: 驾驶舱里全是机械零件。憎恶用爆能炮中的芯片指挥这些遥控炮塔。
 
-			LesserFairy: Drawn to the Champion of Life's radiance, these pixies care for nothing but fulfilling its commands.
-			LesserSquirrel: These little critters helped build the Trojan Squirrel. Not aware of the small explosives attached to them.
+			LesserFairy: 这些小精灵被生命英灵的光辉所吸引，它们只关心如何实现它的命令。
+			LesserSquirrel: 这些小动物These little critters helped build the Trojan Squirrel. Not aware of the small explosives attached to them.
 			ShadowOrb: Clusters of darkness that focus its power. They keep the curtain of night drawn low in service of their master.
 
 			TrojanSquirrel: Built by squirrels, for squirrels! Made of woods collected from numerous lands. It fits a lot more squirrels than it appears.
@@ -69,10 +69,10 @@ Mods: {
 		}
 
 		Message: {
-			HasAwoken: has awoken!
-			DevisCurse: "{$Mods.FargowiltasSouls.NPCName.DeviBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
-			AbomsCurse: "{$Mods.FargowiltasSouls.NPCName.AbomBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
-			MutantsCurse: "{$Mods.FargowiltasSouls.NPCName.MutantBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			HasAwoken:已苏醒！
+			DevisCurse: "{$Mods.FargowiltasSouls.NPCName.DeviBoss}{$Mods.FargowiltasSouls.Message.HasAwoken}"
+			AbomsCurse: "{$Mods.FargowiltasSouls.NPCName.AbomBoss}{$Mods.FargowiltasSouls.Message.HasAwoken}"
+			MutantsCurse: "{$Mods.FargowiltasSouls.NPCName.MutantBoss}{$Mods.FargowiltasSouls.Message.HasAwoken}"
 			
 			AbominationnVoodooDoll: "Mutant has been enraged by the death of his brother!"
 			
@@ -536,48 +536,49 @@ Mods: {
 				'''
 			AncientCobaltEnchant:
 				'''
-				20% chance for your projectiles to explode into stingers
-				This can only happen once every second
-				'The jungle of old empowers you'
+				你的弹幕有20%几率爆裂成毒刺
+				此效果每秒内只会发生一次
+				“古老的丛林赋予你力量”
 				'''
 			AncientHallowEnchant:
 				'''
-				You gain a shield that can reflect projectiles
-				Summons a Terraprisma familiar that scales with minion damage
-				'Hallowed be your sword and shield'
+				使你获得一面可以反弹弹幕的盾牌
+				召唤一柄泰拉棱镜，其伤害接受召唤伤害加成
+				“汝之剑盾，即为圣迹”
 				'''
 			AncientShadowEnchant:
 				'''
-				Your attacks may inflict Darkness on enemies
-				Darkened enemies occasionally fire shadowflame tentacles at other enemies
-				Three Shadow Orbs will orbit around you
+				攻击有几率造成黑暗减益
+				身上带有黑暗减益的敌人偶尔会向其他敌人发射暗影焰触手
+				三颗暗影珠围绕着你旋转\n攻击暗影珠会使其释放追踪暗影能量
+				“十分古老，却非常实用”
 				'''
 			AnglerEnchantment:
 				'''
-				Increases fishing power
-				You catch fish almost instantly
-				Effects of Lavaproof Tackle Bag
-				'As long as they aren't all shoes, you can go home happily'
+				增加渔力
+				你几乎可以立即钓到鱼
+				拥有渔夫渔具袋效果
+				“只要不全是旧鞋，你就能高高兴兴地回家”
 				'''
 			ApprenticeEnchant:
 				'''
-				After attacking for 2 seconds you will be enveloped in flames
-				Switching weapons will increase the next attack's damage by 50% and spawn an inferno
-				Flameburst field of view and range are dramatically increased
-				'A long way to perfection'
+				持续攻击两秒后你将被火焰包裹
+				切换武器后，下次攻击的伤害增加50%，并造成地狱爆炸
+				大幅增加爆炸烈焰哨兵的索敌范围和攻击距离
+				“追求完美的漫漫长路”
 				'''
 			BeeEnchant:
 				'''
-				Increases the strength of friendly bees
-				Melee hits and most piercing attacks spawn bees
-				'According to all known laws of aviation, there is no way a bee should be able to fly'
+				增加友好蜜蜂的力量
+				近战攻击和大多数穿透类弹幕击中敌人时会生成蜜蜂
+				“根据目前所知的所有航空原理，蜜蜂应该根本不可能会飞”
 				'''
 			BeetleEnchant:
 				'''
-				Beetles increase your damage and melee speed
-				When hit, beetles instead protect you from damage for 10 seconds
-				Beetle defense capped at 30% damage reduction
-				'The unseen life of dung courses through your veins'
+				甲虫增加你的近战伤害和速度
+				受到伤害时，力量甲虫会转化为耐力甲虫，在十秒内保护你不受伤害
+				甲虫耐力至多减免30%伤害
+				“你的血管里流淌着看不见的粪便生命”
 				'''
 			BorealWoodEnchant:
 				'''
