@@ -124,11 +124,9 @@ namespace FargowiltasSouls.UI
 
             // Drawing
             Vector2 position = style.Position();
-            position += new Vector2(2);
-            Rectangle frame = Texture.Bounds;
-            spriteBatch.Draw(Texture, position, frame, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(Texture, position + new Vector2(2), Texture.Bounds, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
             if (FargoSoulsWorld.MasochistModeReal)
-                spriteBatch.Draw(AuraTexture, position, frame, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                spriteBatch.Draw(AuraTexture, position, AuraTexture.Bounds, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
     }
 }
