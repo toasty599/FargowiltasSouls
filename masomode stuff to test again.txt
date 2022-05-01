@@ -1356,3 +1356,5 @@ refactored a bunch of projs so they dont take up their own projs anymore
 also refactored their debuffs so make sure those still work, e.g. rune wizard flames of universe
 removed post plant dungeon skeleton mage enemies inflicting class-seal debuffs
 added maso aura to inventory ui indicator for maso
+
+fixed eternity advisor formatting issue with biocluster

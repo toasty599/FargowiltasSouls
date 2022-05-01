@@ -493,7 +493,7 @@ namespace FargowiltasSouls.Items.Misc
                     && !player.armor.Any(i => !i.IsAir && i.type == ModContent.ItemType<BionomicCluster>())
                     && !player.armor.Any(i => !i.IsAir && i.type == ModContent.ItemType<MasochistSoul>()))
                 {
-                    build += $" [i:{GetBuildText(ModContent.ItemType<BionomicCluster>())}]";
+                    build += $" [i:{ModContent.ItemType<BionomicCluster>()}]";
                 }
 
                 if (ModContent.TryFind("Fargowiltas", "Omnistation", out ModItem omni1) && ModContent.TryFind("Fargowiltas", "Omnistation2", out ModItem omni2))
