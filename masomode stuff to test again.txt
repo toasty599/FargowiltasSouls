@@ -1359,3 +1359,4 @@ added maso aura to inventory ui indicator for maso
 
 fixed eternity advisor formatting issue with biocluster
 corrupt heart rename to darkened heart and nerfed, causes -10% DR
+deerclawps immunes slow instead of chilled

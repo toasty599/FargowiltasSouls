@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lump of Flesh");
-            Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, Chilled, Frozen, and Stunned
+            Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, Slow, Frozen, and Stunned
 Increases minion damage by 16%
 Increases your max number of minions by 2
 Increases your max number of sentries by 2
@@ -83,7 +83,7 @@ Enemies are less likely to target you
             if (player.GetToggleValue("DreadShellParry"))
                 player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
 
-            player.buffImmune[BuffID.Chilled] = true;
+            player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
             player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
         }

@@ -338,7 +338,7 @@ Summons the aid of all Eternity Mode bosses to your side
                 player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
 
             //deerclaws
-            player.buffImmune[BuffID.Chilled] = true;
+            player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
             player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
 
