@@ -50,7 +50,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
             LeadingConditionRule lastEater = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
             emodeRule.OnSuccess(lastEater);
-            lastEater.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<CorruptHeart>()));
+            lastEater.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<DarkenedHeart>()));
             lastEater.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.CorruptFishingCrate, 5));
 
             //to make up for no loot until dead

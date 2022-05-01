@@ -5,15 +5,16 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
-    public class CorruptHeart : SoulsItem
+    public class DarkenedHeart : SoulsItem
     {
         public override bool Eternity => true;
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Corrupt Heart");
+            DisplayName.SetDefault("Darkened Heart");
             Tooltip.SetDefault(@"Grants immunity to Rotting
 10% increased movement speed and increased acceleration
+Increases damage taken by 10%
 You spawn mini eaters to seek out enemies every few attacks
 'Flies refuse to approach it'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "腐化之心");
@@ -40,9 +41,11 @@ You spawn mini eaters to seek out enemies every few attacks
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Rotting>()] = true;
             player.moveSpeed += 0.1f;
             player.hasMagiluminescence = true;
-            modPlayer.CorruptHeartItem = Item;
-            if (modPlayer.CorruptHeartCD > 0)
-                modPlayer.CorruptHeartCD--;
+            modPlayer.DarkenedHeartItem = Item;
+            if (modPlayer.DarkenedHeartCD > 0)
+                modPlayer.DarkenedHeartCD--;
+
+            player.endurance -= 0.1f;
         }
     }
 }

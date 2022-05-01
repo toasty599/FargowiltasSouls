@@ -176,10 +176,10 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.PureHeart = true;
 
             //corrupt heart
-            fargoPlayer.CorruptHeartItem = Item;
+            fargoPlayer.DarkenedHeartItem = Item;
             player.hasMagiluminescence = true;
-            if (fargoPlayer.CorruptHeartCD > 0)
-                fargoPlayer.CorruptHeartCD -= 2;
+            if (fargoPlayer.DarkenedHeartCD > 0)
+                fargoPlayer.DarkenedHeartCD -= 2;
 
             //gutted heart
             fargoPlayer.GuttedHeart = true;
@@ -338,7 +338,7 @@ Summons the aid of all Eternity Mode bosses to your side
                 player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
 
             //deerclaws
-            player.buffImmune[BuffID.Chilled] = true;
+            player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
             player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
 
