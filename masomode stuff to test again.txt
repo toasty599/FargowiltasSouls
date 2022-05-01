@@ -1336,7 +1336,7 @@ lump of flesh now contains deerclawps
 lump of flesh visually changes deerclawps spikes to blood thorns
 refactored numerous projs, test
 	queen slime stomp having no hitbox
-	golem geysers ignoring tiles and despawning faster
+	golem geysers ignoring tiles and despawning faster than vanilla geyser
 	golem eye beams having accel startup
 	cultist not having vanilla fireballs in p2
 	cultist clones not shooting vanilla shadowflame fireballs
@@ -1344,7 +1344,7 @@ refactored numerous projs, test
 	cultist nebula spheres having faster movement
 	sandnados NOT spawning sharks during spirit champ/devi fights
 	ml bolts being accel split shots
-	ml eyes having nerfed movement
+	ml homing phantasmal eyes having nerfed movement
 	ml HAND ONLY spheres having accel startup
 	betsy flame breath shooting bonus projs
 refactored a bunch of projs so they dont take up their own projs anymore
