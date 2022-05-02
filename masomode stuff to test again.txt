@@ -1375,3 +1375,17 @@ internal refactor for multiplayer packets, check nothing is blatantly broken in 
 	maso enabled on server if any player joins who can play maso
 fixed(?) tungsten ench growing too big
 fixed teleporting enemies (e.g. tim) in mp not being able to tp while being hit
+
+qs
+	flipped mine counter, now does spike mines on first bouncy balls attack
+	can super stomp in p1
+	does bouncy balls attack slower when subjects alive
+	nerfed random minions, slimes can't fall on the player at all until they land once
+	purple flying slimes have halved move speed
+	nerfed gelatin subject speed
+	nerfed crystal mines spike upwards speed, nerfed more in p1
+	removed smite because this fight is ass and i hate it
+emode allows blood moon if goblins have been defeated and an abom spawned from that
+nerfed gelic wing flight time a bit because of its inherent double jump
+fixed mutant final spark not persisting for proper duration in maso
+nerfed deerclawps damage (44 to 32)

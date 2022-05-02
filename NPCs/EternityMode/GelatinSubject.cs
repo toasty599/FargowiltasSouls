@@ -97,17 +97,21 @@ namespace FargowiltasSouls.NPCs.EternityMode
             if (NPC.localAI[0] > 0)
             {
                 NPC.localAI[0]--;
+            }
 
-                //if moving towards you, slow down
-                if (NPC.HasValidTarget && Math.Abs(MathHelper.WrapAngle(NPC.velocity.ToRotation() - NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation())) < MathHelper.PiOver2)
-                    NPC.position -= NPC.velocity * 0.6f;
+            //if moving towards you, slow down
+            if (NPC.HasValidTarget && Math.Abs(MathHelper.WrapAngle(NPC.velocity.ToRotation() - NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation())) < MathHelper.PiOver2)
+            {
+                if (NPC.localAI[0] > 0)
+                    NPC.position -= NPC.velocity * 0.66f;
+                else if (NPC.Distance(Main.player[NPC.target].Center) < 16 * 5)
+                    NPC.position -= NPC.velocity * 0.33f;
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Slimed, 180);
-            target.AddBuff(ModContent.BuffType<Smite>(), 360);
         }
 
         public override bool CheckActive()

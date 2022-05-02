@@ -89,12 +89,17 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
+                        float maxSpeed =
+                            FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss)
+                            && Main.npc[EModeGlobalNPC.queenSlimeBoss].life < Main.npc[EModeGlobalNPC.queenSlimeBoss].lifeMax / 2
+                            ? 12 : 8;
+
                         for (int i = 0; i < 20; i++)
                         {
                             Projectile.NewProjectile(
                                 NPC.GetSource_FromThis(), 
                                 NPC.Center, 
-                                new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), Main.rand.NextFloat(-16, -4)), 
+                                new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), Main.rand.NextFloat(-maxSpeed, -4)), 
                                 ProjectileID.QueenSlimeMinionBlueSpike, 
                                 FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 
                                 0f, 

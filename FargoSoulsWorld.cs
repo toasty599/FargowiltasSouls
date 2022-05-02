@@ -245,7 +245,7 @@ namespace FargowiltasSouls
             {
                 NPC.LunarShieldPowerExpert = 50;
 
-                if (!NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable some events
+                if (!haveForcedAbomFromGoblins && !NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable some events
                     && ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC abom) && !NPC.AnyNPCs(abom.Type))
                 {
                     if (Main.raining || Sandstorm.Happening || Main.bloodMoon)
