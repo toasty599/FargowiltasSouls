@@ -39,9 +39,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
                 { new Ref<object>(AttackTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.hardMode && Main.rand.NextBool(4))
                 npc.Transform(NPCID.WanderingEye);
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
             npc.lifeMax *= 2;
         }
 
-        public override void OnSpawn(NPC npc) { }
+        public override void OnFirstTick(NPC npc) { }
 
         public override void AI(NPC npc)
         {
@@ -127,7 +127,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.ServantofCthulhu);
 
-        public override void OnSpawn(NPC npc) { }
+        public override void OnFirstTick(NPC npc) { }
 
         public override void SetDefaults(NPC npc)
         {

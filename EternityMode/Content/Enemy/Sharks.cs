@@ -43,9 +43,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             JumpTimer = Main.rand.Next(60);
         }
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (npc.type == NPCID.Shark && Main.rand.NextBool(3))
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(1, 5));
@@ -190,9 +190,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             NPCID.PinkJellyfish
         );
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.rand.NextBool(6)) //random sharks
                 npc.Transform(NPCID.Shark);

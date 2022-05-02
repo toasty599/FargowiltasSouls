@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -61,6 +62,17 @@ namespace FargowiltasSouls.EternityMode
         }
 
         #region Behaviour Hooks
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+            {
+                behaviour.OnSpawn(npc, source);
+            }
+        }
+
         public override bool PreAI(NPC npc)
         {
             if (!FargoSoulsWorld.EternityMode)
@@ -71,7 +83,7 @@ namespace FargowiltasSouls.EternityMode
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
                 if (FirstTick)
-                    behaviour.OnSpawn(npc);
+                    behaviour.OnFirstTick(npc);
 
                 result &= behaviour.PreAI(npc);
             }

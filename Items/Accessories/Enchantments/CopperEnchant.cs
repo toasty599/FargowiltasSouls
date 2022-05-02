@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                     {
                         NPC npc = Main.npc[j];
 
-                        if (npc.active && npc.whoAmI != target.whoAmI && npc.Distance(target.Center) < closestDist && !npcIndexes.Contains(npc.whoAmI)
+                        if (npc.active && npc.whoAmI != target.whoAmI && npc.CanBeChasedBy() && npc.Distance(target.Center) < closestDist && !npcIndexes.Contains(npc.whoAmI)
                             && Collision.CanHitLine(npc.Center, 0, 0, target.Center, 0, 0))
                         {
                             closestNPC = npc;

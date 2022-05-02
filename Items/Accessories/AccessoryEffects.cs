@@ -795,6 +795,8 @@ namespace FargowiltasSouls
             MoltenEnchantActive = true;
 
             Player.lavaImmune = true;
+            Player.fireWalk = true;
+            Player.buffImmune[BuffID.OnFire] = true;
 
             if (Player.GetToggleValue("Molten") && Player.whoAmI == Main.myPlayer)
             {

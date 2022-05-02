@@ -27,9 +27,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
             NPCID.RaggedCasterOpenCoat
         );
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             switch (npc.type)
             {

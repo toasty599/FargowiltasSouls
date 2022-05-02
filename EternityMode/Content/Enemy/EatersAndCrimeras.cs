@@ -26,9 +26,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 NPCID.LittleCrimera
             );
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (NPC.downedBoss2 && Main.rand.NextBool(5))
                 NPCs.EModeGlobalNPC.Horde(npc, 5);

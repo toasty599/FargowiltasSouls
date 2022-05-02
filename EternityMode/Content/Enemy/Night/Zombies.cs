@@ -61,9 +61,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
                 npc.Transform(armedId);
         }
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             switch (npc.type)
             {

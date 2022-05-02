@@ -202,7 +202,7 @@ Mods: {
 		}
 
 		Toggler: {
-			WoodHeader: Force of Timber
+			WoodHeader: "{$Mods.FargowiltasSouls.ItemName.TimberForce}"
 			BorealConfig: Boreal Snowballs
 			MahoganyConfig: Mahogany Hook Speed
 			EbonConfig: Ebonwood Shadowflame
@@ -211,7 +211,7 @@ Mods: {
 			PalmConfig: Palmwood Sentry
 			PearlConfig: Pearlwood Rain
 
-			EarthHeader: Force of Earth
+			EarthHeader: "{$Mods.FargowiltasSouls.ItemName.EarthForce}"
 			AdamantiteConfig: Adamantite Projectile Splitting
 			CobaltConfig: Cobalt Shards
 			AncientCobaltConfig: Ancient Cobalt Stingers
@@ -221,7 +221,7 @@ Mods: {
 			PalladiumOrbConfig: Palladium Orbs
 			TitaniumConfig: Titanium Shards
 
-			TerraHeader: Terra Force
+			TerraHeader: "{$Mods.FargowiltasSouls.ItemName.TerraForce}"
 			CopperConfig: Copper Lightning
 			IronMConfig: Iron Magnet
 			IronSConfig: Iron Parry
@@ -230,7 +230,7 @@ Mods: {
 			TungstenProjConfig: Tungsten Projectile Effect
 			ObsidianConfig: Obsidian Explosions
 
-			WillHeader: Force of Will
+			WillHeader: "{$Mods.FargowiltasSouls.ItemName.WillForce}"
 			GladiatorConfig: Gladiator Rain
 			GoldConfig: Gold Lucky Coin
 			GoldToPiggyConfig: Gold To Piggy Bank
@@ -238,7 +238,7 @@ Mods: {
 			ValhallaConfig: Squire/Valhalla Healing
 			SquirePanicConfig: Ballista Panic On Hit
 
-			LifeHeader: Force of Life
+			LifeHeader: "{$Mods.FargowiltasSouls.ItemName.LifeForce}"
 			BeeConfig: Bees
 			BeetleConfig: Beetles
 			CactusConfig: Cactus Needles
@@ -246,7 +246,7 @@ Mods: {
 			SpiderConfig: Spider Crits
 			TurtleConfig: Turtle Shell Buff
 
-			NatureHeader: Force of Nature
+			NatureHeader: "{$Mods.FargowiltasSouls.ItemName.NatureForce}"
 			ChlorophyteConfig: Chlorophyte Leaf Crystal
 			CrimsonConfig: Crimson Regen
 			RainConfig: Rain Clouds
@@ -259,7 +259,7 @@ Mods: {
 			ShroomiteConfig: Shroomite Stealth
 			ShroomiteShroomConfig: Shroomite Mushrooms
 
-			ShadowHeader: Shadow Force
+			ShadowHeader: "{$Mods.FargowiltasSouls.ItemName.ShadowForce}"
 			DarkArtConfig: Flameburst Minion
 			ApprenticeConfig: Apprentice Effect
 			NecroConfig: Necro Graves
@@ -271,7 +271,7 @@ Mods: {
 			ShinobiConfig: Shinobi Through Walls
 			SpookyConfig: Spooky Scythes
 
-			SpiritHeader: Force of Spirit
+			SpiritHeader: "{$Mods.FargowiltasSouls.ItemName.SpiritForce}"
 			FossilConfig: Fossil Bones On Hit
 			ForbiddenConfig: Forbidden Storm
 			HallowDodgeConfig: Hallowed Dodge
@@ -282,7 +282,7 @@ Mods: {
 			SpectreConfig: Spectre Orbs
 			TikiConfig: Tiki Minions
 
-			CosmoHeader: Force of Cosmos
+			CosmoHeader: "{$Mods.FargowiltasSouls.ItemName.CosmoForce}"
 			MeteorConfig: Meteor Shower
 			NebulaConfig: Nebula Boosters
 			SolarConfig: Solar Shield
@@ -306,14 +306,14 @@ Mods: {
 			MasoDevianttHeartsConfig: Homing Hearts On Hit
 			PrecisionSealHurtboxConfig: Reduced Hurtbox Size
 
-			SupremeFairyHeader: Supreme Deathbringer Fairy
+			SupremeFairyHeader: "{$Mods.FargowiltasSouls.ItemName.SupremeDeathbringerFairy}"
 			MasoSlimeConfig: Slimy Balls
 			SlimeFallingConfig: Increased Fall Speed
 			MasoEyeConfig: Scythes When Dashing
 			MasoHoneyConfig: Honey When Hitting Enemies
 			MasoSkeleConfig: Skeletron Arms Minion
 
-			BionomicHeader: Bionomic Cluster
+			BionomicHeader: "{$Mods.FargowiltasSouls.ItemName.BionomicCluster}"
 			MasoConcoctionConfig: Tim's Concoction
 			MasoCarrotConfig: Carrot View
 			MasoRainbowConfig: Rainbow Slime Minion
@@ -324,20 +324,20 @@ Mods: {
 			MasoClippedConfig: Inflict Clipped Wings
 			TribalCharmConfig: Tribal Charm Auto Swing
 
-			DubiousHeader: Dubious Circuitry
+			DubiousHeader: "{$Mods.FargowiltasSouls.ItemName.DubiousCircuitry}"
 			MasoLightningConfig: Inflict Lightning Rod
 			MasoProbeConfig: Probes Minion
 
-			PureHeartHeader: Pure Heart
+			PureHeartHeader: "{$Mods.FargowiltasSouls.ItemName.PureHeart}"
 			MasoEaterConfig: Tiny Eaters
 			MasoBrainConfig: Creeper Shield
 
-			LumpofFleshHeader: Lump of Flesh
+			LumpofFleshHeader: "{$Mods.FargowiltasSouls.ItemName.LumpOfFlesh}"
 			MasoPugentConfig: Pungent Eye Minion
 			DeerclawpsConfig: Ice Spike Dash Trail
 			DreadShellParryConfig: Dread Shell Parry
 
-			ChaliceHeader: Chalice of the Moon
+			ChaliceHeader: "{$Mods.FargowiltasSouls.ItemName.ChaliceoftheMoon}"
 			MasoCultistConfig: Cultist Minion
 			MasoPlantConfig: Plantera Minion
 			MasoGolemConfig: Lihzahrd Ground Pound
@@ -345,7 +345,7 @@ Mods: {
 			MasoCelestConfig: Celestial Rune Support
 			MasoVisionConfig: Ancient Visions On Hit
 
-			HeartHeader: Heart of the Eternal
+			HeartHeader: "{$Mods.FargowiltasSouls.ItemName.HeartoftheMasochist}"
 			MasoPumpConfig: Pumpking's Cape Support
 			IceQueensCrownConfig: Freeze On Hit
 			MasoFlockoConfig: Flocko Minion
@@ -354,7 +354,7 @@ Mods: {
 			MasoGrav2Config: Stabilized Gravity
 			MasoTrueEyeConfig: True Eyes Minion
 
-			CyclonicHeader: Abominable Wand
+			CyclonicHeader: "{$Mods.FargowiltasSouls.ItemName.AbominableWand}"
 			MasoFishronConfig: Spectral Abominationn
 
 			MutantArmorHeader: True Mutant Armor
@@ -363,7 +363,7 @@ Mods: {
 			MasoReviveDeathrayConfig: Deathray When Revived
 
 
-			UniverseHeader: Soul of the Universe
+			UniverseHeader: "{$Mods.FargowiltasSouls.ItemName.UniverseSoul}"
 			MeleeConfig: Melee Speed
 			MagmaStoneConfig: Magma Stone
 			YoyoBagConfig: Yoyo Bag
@@ -372,14 +372,14 @@ Mods: {
 			SniperConfig: Sniper Scope
 			UniverseConfig: Universe Attack Speed
 
-			WorldShaperHeader: World Shaper Soul
+			WorldShaperHeader: "{$Mods.FargowiltasSouls.ItemName.WorldShaperSoul}"
 			MiningHuntConfig: Mining Hunter Buff
 			MiningDangerConfig: Mining Dangersense Buff
 			MiningSpelunkConfig: Mining Spelunker Buff
 			MiningShineConfig: Mining Shine Buff
 			BuilderConfig: Builder Mode
 
-			ColossusHeader: Colossus Soul
+			ColossusHeader: "{$Mods.FargowiltasSouls.ItemName.ColossusSoul}"
 			DefenseStarConfig: Stars On Hit
 			DefenseBrainConfig: Brain of Confusion
 			DefenseBeeConfig: Bees On Hit
@@ -387,11 +387,11 @@ Mods: {
 			DefenseFleshKnuckleConfig: Flesh Knuckles Aggro
 			DefensePaladinConfig: Paladin's Shield
 
-			FlightMasteryHeader: Flight Mastery Soul
+			FlightMasteryHeader: "{$Mods.FargowiltasSouls.ItemName.FlightMasterySoul}"
 			FlightMasteryInsigniaConfig: Soaring Insignia Acceleration
 			FlightMasteryGravityConfig: Amplified Gravity
 
-			SupersonicHeader: Supersonic Soul
+			SupersonicHeader: "{$Mods.FargowiltasSouls.ItemName.SupersonicSoul}"
 			RunSpeedConfig: Higher Base Run Speed
 			MomentumConfig: No Momentum
 			SupersonicTabiConfig: Tabi Dash
@@ -404,12 +404,12 @@ Mods: {
 			CthulhuShieldConfig: Shield of Cthulhu
 			BlackBeltConfig: Black Belt
 
-			TrawlerHeader: Trawler Soul
+			TrawlerHeader: "{$Mods.FargowiltasSouls.ItemName.TrawlerSoul}"
 			TrawlerSporeConfig: Spore Sac
 			TrawlerConfig: Trawler Extra Lures
 			TrawlerJumpConfig: Trawler Jump
 
-			EternityHeader: Soul of Eternity
+			EternityHeader: "{$Mods.FargowiltasSouls.ItemName.EternitySoul}"
 			EternityConfig: Eternity Stacking
 
 

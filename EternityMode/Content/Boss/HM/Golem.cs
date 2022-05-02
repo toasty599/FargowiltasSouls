@@ -36,6 +36,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Poisoned] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+
+            npc.damage = (int)Math.Round(npc.damage * 1.1);
         }
 
         public override bool PreAI(NPC npc)

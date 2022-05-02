@@ -23,13 +23,13 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             npc.damage /= 2;
         }
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             for (int i = 0; i < 6; i++)
             {
-                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.FireImp, velocity: Main.rand.NextVector2Circular(8, 8));
+                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromThis(), npc.Center, NPCID.DarkCaster, velocity: Main.rand.NextVector2Circular(8, 8));
             }
         }
 
@@ -37,7 +37,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.AI(npc);
 
-            EModeGlobalNPC.Aura(npc, 450, BuffID.Silenced, true, 15);
+            EModeGlobalNPC.Aura(npc, 450, BuffID.WitheredWeapon, true, 15);
             EModeGlobalNPC.Aura(npc, 150, BuffID.Cursed, false, 20);
         }
 

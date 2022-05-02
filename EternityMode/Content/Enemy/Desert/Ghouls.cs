@@ -25,9 +25,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
             NPCID.DesertGhoulHallow
         );
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.rand.NextBool(4))
                 npc.Transform(Main.rand.Next(NPCID.DesertGhoulCorruption, NPCID.DesertGhoulHallow + 1));

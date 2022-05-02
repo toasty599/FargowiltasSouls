@@ -2699,6 +2699,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 NPC.ai[2] = attackThreshold;
 
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item162, player.Center);
+
                 if (Math.Abs(MathHelper.WrapAngle(NPC.DirectionFrom(player.Center).ToRotation() - NPC.ai[3])) > MathHelper.PiOver2)
                     NPC.ai[3] += MathHelper.Pi; //swords always spawn closer to player
 
@@ -2775,6 +2777,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             if (++NPC.ai[1] > swordSwarmTime + 30)
             {
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item164, player.Center);
+
                 ChooseNextAttack(11, 13, 16, 21, FargoSoulsWorld.MasochistModeReal ? 26 : 24, 29, 31, 35, 37, 39, 41, 45);
             }
         }

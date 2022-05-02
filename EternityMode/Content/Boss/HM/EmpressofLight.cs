@@ -146,8 +146,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         if (AttackTimer < spinTime * spins + startDelay * 2)
                             npc.ai[1] = 97; //stop vanilla ai from progressing
-                        else
-                            npc.ai[1] = -1;
                     }
                     break;
 

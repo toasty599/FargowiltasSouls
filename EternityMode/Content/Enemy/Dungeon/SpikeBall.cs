@@ -23,9 +23,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
         public int Counter;
         public bool OutsideDungeon;
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Framing.GetTileSafely(npc.Center).WallType == WallID.LihzahrdBrickUnsafe)
             {

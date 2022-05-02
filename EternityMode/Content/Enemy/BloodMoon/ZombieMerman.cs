@@ -25,7 +25,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                 { new Ref<object>(JumpTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
             for (int i = 0; i < 9; i++)
             {

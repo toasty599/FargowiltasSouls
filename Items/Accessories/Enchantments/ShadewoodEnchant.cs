@@ -58,7 +58,7 @@ Enemies struck while Bleeding spew damaging blood
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (modPlayer.WoodForce || Collision.CanHitLine(player.Left, 0, 0, npc.Center, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, npc.Center, 0, 0)))
                     npc.AddBuff(ModContent.BuffType<SuperBleed>(), 120);
 
                 npc.netUpdate = true;
@@ -71,7 +71,7 @@ Enemies struck while Bleeding spew damaging blood
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
                 Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-                if (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
+                if (modPlayer.WoodForce || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
                         spawnPos, 0, 0,

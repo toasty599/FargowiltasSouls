@@ -60,9 +60,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
         public int Counter;
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             //slimes target nearest player on spawn
             npc.TargetClosest(true);

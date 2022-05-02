@@ -29,9 +29,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             npc.lifeMax *= 2;
         }
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.rand.NextBool(3) && NPC.downedGolemBoss)
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(2, 10)); 

@@ -33,9 +33,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
             NPCID.HellArmoredBonesSword
         );
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.rand.NextBool(5))
                 npc.Transform(Main.rand.Next(NPCID.RustyArmoredBonesAxe, NPCID.HellArmoredBonesSword + 1));
