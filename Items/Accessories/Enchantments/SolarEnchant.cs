@@ -41,9 +41,8 @@ Attacks may inflict the Solar Flare debuff
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //solar shields and flare debuff
-            modPlayer.SolarEffect();
             //flare debuff
-            //modPlayer.SolarEnchantActive = true;
+            modPlayer.SolarEnchantActive = true;
         }
 
         public override void AddRecipes()

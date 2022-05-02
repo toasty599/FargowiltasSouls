@@ -1398,9 +1398,18 @@ fixed molten ench not actually giving fire immune
 tim spawns with a pack of dark casters instead of fire imps (they dont drop loot)
 tim outer aura is now withered weapon instead of silenced
 
+nerfs
+	beetle ench caps at level 2 on both offense and defense buffs
+	sdf no longer gives damage up, inflicts poisoned instead of venom
+	lump gives +15% all damage (was +16% summon only), now gives -10% DR
+	frigid gemstone frostfireballs inflict 2sec frostburn (was 4)
+	rainbow slime minion inflicts 2sec flames of universe (was 3)
+	halved the DOT of flames of universe, for you and enemies
+	darkenened/pure heart no longer give magilumi, instead give traction (weaker no momentum)
+	darkened heart has no DR penalty
+	spectre ench has a short cooldown on spawning spectres
+various refactors for accessory effects
 fixed ebon/shadewood ench auras not working properly when you hug a wall
 updated localization files
 landslide now orbits around you, should be less obtrusive to your vision when dodging
 deerclops sets night again while doing phase transition to help tp visual
-beetle ench nerf
-	caps at level 2 beetle offense as well

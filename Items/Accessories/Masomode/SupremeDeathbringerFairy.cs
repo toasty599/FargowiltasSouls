@@ -18,12 +18,12 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Supreme Deathbringer Fairy");
             Tooltip.SetDefault(@"Grants immunity to Slimed, Berserked, Lethargic, and Infested
-Increases damage by 10% and armor penetration by 10
+Increases armor penetration by 10
 Increased fall speed
 When you land after a jump, slime will fall from the sky over your cursor
 While dashing or running quickly you will create a trail of blood scythes
-Your attacks inflict Venom and spray honey that increases your life regeneration
-Bees and weak Hornets become friendly
+Your attacks inflict Poisoned and spray honey that increases your life regeneration
+Bees and weak Hornets become friendlier
 Summons 2 Skeletron arms to whack enemies
 'Supremacy not necessarily guaranteed'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "至高告死精灵");
@@ -71,7 +71,7 @@ Summons 2 Skeletron arms to whack enemies
 
             //agitating lens
             player.buffImmune[ModContent.BuffType<Berserked>()] = true;
-            player.GetDamage(DamageClass.Generic) += 0.1f;
+            //player.GetDamage(DamageClass.Generic) += 0.1f;
             fargoPlayer.AgitatingLensItem = Item;
 
             //queen stinger

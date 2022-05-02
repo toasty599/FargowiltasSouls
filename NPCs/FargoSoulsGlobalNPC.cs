@@ -663,7 +663,7 @@ namespace FargowiltasSouls.NPCs
             {
                 if (npc.lifeRegen > 0)
                     npc.lifeRegen = 0;
-                npc.lifeRegen -= 30 + 50 + 48 + 30;
+                npc.lifeRegen -= (30 + 50 + 48 + 30) / 2;
                 if (damage < 20)
                     damage = 20;
             }
