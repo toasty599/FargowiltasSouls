@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Buffs.Masomode;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
