@@ -698,12 +698,17 @@ namespace FargowiltasSouls
         private bool jungleJumping = false;
         private int savedRocketTime;
 
-        public void JungleEffect()
+        public void JungleDash()
         {
-            if (Player.whoAmI != Main.myPlayer)
+            if (Player.mount.Active)
                 return;
 
-            if (dashCD <= 0 && Player.GetToggleValue("JungleDash", false) && !Player.mount.Active)
+            if (HasDash)
+                return;
+
+            HasDash = true;
+
+            if (dashCD <= 0)
             {
                 float dashSpeed = ChloroEnchantActive ? 12f : 9f;
 
@@ -712,8 +717,8 @@ namespace FargowiltasSouls
                     if (Player.doubleTapCardinalTimer[2] > 0 && Player.doubleTapCardinalTimer[2] != 15)
                     {
                         dashCD = 60;
-                        if (DeerclawpsDashTimer < 10)
-                            DeerclawpsDashTimer = 10;
+                        if (IsDashingTimer < 10)
+                            IsDashingTimer = 10;
                         Player.velocity.X = dashSpeed;
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                             NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
@@ -725,14 +730,23 @@ namespace FargowiltasSouls
                     if (Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
                     {
                         dashCD = 60;
-                        if (DeerclawpsDashTimer < 10)
-                            DeerclawpsDashTimer = 10;
+                        if (IsDashingTimer < 10)
+                            IsDashingTimer = 10;
                         Player.velocity.X = -dashSpeed;
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                             NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
                     }
                 }
             }
+        }
+
+        public void JungleEffect()
+        {
+            if (Player.whoAmI != Main.myPlayer)
+                return;
+
+            if (Player.GetToggleValue("JungleDash", false))
+                JungleDash();
 
             if (Player.controlJump && Player.GetToggleValue("Jungle"))
             {
@@ -1227,6 +1241,11 @@ namespace FargowiltasSouls
 
         private void ShinobiDashChecks()
         {
+            if (HasDash)
+                return;
+
+            HasDash = true;
+
             if (Player.GetToggleValue("ShinobiDash") && Player.whoAmI == Main.myPlayer & dashCD <= 0 && !Player.mount.Active)
             {
                 if ((Player.controlRight && Player.releaseRight))
@@ -1370,7 +1389,7 @@ namespace FargowiltasSouls
             {
                 if (Player.solarShields > 0 && Player.solarShields < 3)
                 {
-                    for (int i = 0; i < 22; i++)
+                    for (int i = 0; i < Player.MaxBuffs; i++)
                     {
                         if (Player.buffType[i] >= BuffID.SolarShield1 && Player.buffType[i] <= BuffID.SolarShield2)
                         {
@@ -1416,6 +1435,7 @@ namespace FargowiltasSouls
             if (Player.solarShields > 0 || flag)
             {
                 Player.dashType = 3;
+                HasDash = true; //doesnt check this itself, so overrides most other dashes(?)
             }
         }
 
@@ -2031,7 +2051,7 @@ namespace FargowiltasSouls
                 Player.dashType = 2;
 
             //ninja gear
-            else if (Player.GetToggleValue("SupersonicTabi", false))
+            if (Player.GetToggleValue("SupersonicTabi", false))
                 Player.dashType = 1;
             if (Player.GetToggleValue("BlackBelt"))
                 Player.blackBelt = true;
@@ -2925,6 +2945,57 @@ namespace FargowiltasSouls
                             break;
                         }
                     }
+                }
+            }
+        }
+
+        public void DeerSinewEffect()
+        {
+            if (!Player.GetToggleValue("DeerSinewDash", false) || HasDash || Player.mount.Active || Player.whoAmI != Main.myPlayer)
+                return;
+
+            HasDash = true;
+
+            DeerSinewNerf = true;
+
+            if (dashCD <= 0)
+            {
+                float dashSpeed = 12f;
+
+                if (Player.controlRight && Player.releaseRight)
+                {
+                    if (Player.doubleTapCardinalTimer[2] > 0 && Player.doubleTapCardinalTimer[2] != 15)
+                    {
+                        dashCD = 60;
+                        if (IsDashingTimer < 20)
+                            IsDashingTimer = 20;
+                        Player.velocity.X = dashSpeed;
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                            NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
+                    }
+                }
+
+                if (Player.controlLeft && Player.releaseLeft)
+                {
+                    if (Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
+                    {
+                        dashCD = 60;
+                        if (IsDashingTimer < 20)
+                            IsDashingTimer = 20;
+                        Player.velocity.X = -dashSpeed;
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                            NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
+                    }
+                }
+            }
+
+            if (IsDashingTimer > 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.GemSapphire, Scale: 1.25f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 0.2f;
                 }
             }
         }

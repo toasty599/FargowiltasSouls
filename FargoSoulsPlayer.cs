@@ -196,7 +196,7 @@ namespace FargowiltasSouls
         public bool ShellHide;
         public bool ValhallaEnchantActive;
         public bool VortexEnchantActive;
-        public bool VortexStealth = false;
+        public bool VortexStealth;
         public bool WizardEnchantActive;
         public bool WoodEnchantActive;
         public bool NebulaEnchantActive;
@@ -244,7 +244,8 @@ namespace FargowiltasSouls
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         public Item NecromanticBrewItem;
         public Item DeerclawpsItem;
-        public int DeerclawpsDashTimer;
+        public int IsDashingTimer;
+        public bool DeerSinewNerf;
         public bool PureHeart;
         public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
@@ -297,6 +298,7 @@ namespace FargowiltasSouls
         public bool PhantasmalRing;
         public bool MutantsDiscountCard;
         public bool MutantsCreditCard;
+        public bool DeerSinew;
         public bool RabiesVaccine;
         public bool TwinsEX;
         public bool TimsConcoction;
@@ -393,6 +395,8 @@ namespace FargowiltasSouls
 
         public bool NoUsingItems;
 
+        public bool HasDash;
+
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
         public Dictionary<int, bool> KnownBuffsToPurify = new Dictionary<int, bool>();
@@ -407,8 +411,11 @@ namespace FargowiltasSouls
             }
         }
 
-        public bool IsStillHoldingInSameDirectionAsMovement => 
-            (Player.velocity.X > 0 && Player.controlRight) || (Player.velocity.X < 0 && Player.controlLeft);
+        public bool IsStillHoldingInSameDirectionAsMovement
+            => (Player.velocity.X > 0 && Player.controlRight) 
+            || (Player.velocity.X < 0 && Player.controlLeft)
+            || Player.dashDelay < 0
+            || IsDashingTimer > 0;
 
         public override void SaveData(TagCompound tag)
         {
@@ -418,6 +425,7 @@ namespace FargowiltasSouls
             if (MutantsCreditCard) playerData.Add("MutantsCreditCard");
             if (ReceivedMasoGift) playerData.Add("ReceivedMasoGift");
             if (RabiesVaccine) playerData.Add("RabiesVaccine");
+            if (DeerSinew) playerData.Add("DeerSinew");
             tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
             var togglesOff = new List<string>();
@@ -439,6 +447,7 @@ namespace FargowiltasSouls
             MutantsCreditCard = playerData.Contains("MutantsCreditCard");
             ReceivedMasoGift = playerData.Contains("ReceivedMasoGift");
             RabiesVaccine = playerData.Contains("RabiesVaccine");
+            DeerSinew = playerData.Contains("DeerSinew");
 
             disabledToggles = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff");
         }
@@ -607,6 +616,8 @@ namespace FargowiltasSouls
         {
             SummonCrit = 0;
 
+            HasDash = false;
+
             AttackSpeed = 1f;
             if (Screenshake > 0)
                 Screenshake--;
@@ -737,6 +748,7 @@ namespace FargowiltasSouls
             GuttedHeart = false;
             NecromanticBrewItem = null;
             DeerclawpsItem = null;
+            DeerSinewNerf = false;
             PureHeart = false;
             PungentEyeballMinion = false;
             CrystalSkullMinion = false;
@@ -943,7 +955,8 @@ namespace FargowiltasSouls
             GuttedHeartCD = 60;
             NecromanticBrewItem = null;
             DeerclawpsItem = null;
-            DeerclawpsDashTimer = 0;
+            DeerSinewNerf = false;
+            IsDashingTimer = 0;
             GroundPound = 0;
             NymphsPerfume = false;
             NymphsPerfumeCD = 30;
@@ -1179,9 +1192,6 @@ namespace FargowiltasSouls
             if (RabiesVaccine)
                 Player.buffImmune[BuffID.Rabies] = true;
 
-            if (SolarEnchantActive)
-                SolarEffect();
-
             if (AbomWandItem != null)
                 AbomWandUpdate();
 
@@ -1218,23 +1228,6 @@ namespace FargowiltasSouls
             if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null || GelicWingsItem != null)
                 OnLandingEffects();
 
-            if (DeerclawpsItem != null)
-            {
-                if (Player.dashDelay == -1 && DeerclawpsDashTimer < 2) //avoiding possible clash with modded dashes
-                    DeerclawpsDashTimer = 2;
-
-                if (DeerclawpsDashTimer > 0)
-                {
-                    DeerclawpsDashTimer--;
-                    DeerclawpsAttack(Player.Bottom);
-                }
-            }
-
-            if (ShinobiEnchantActive)
-            {
-                ShinobiDashChecks();
-            }
-
             if (AgitatingLensItem != null)
                 AgitatingLensEffect();
 
@@ -1256,6 +1249,25 @@ namespace FargowiltasSouls
                 GuttedHeart = false;
             }
 
+            #region dashes
+
+            if (Player.dashType != 0)
+                HasDash = true;
+
+            if (SolarEnchantActive)
+                SolarEffect();
+
+            if (ShinobiEnchantActive)
+                ShinobiDashChecks();
+
+            if (JungleEnchantActive)
+                JungleEffect();
+
+            if (DeerSinew)
+                DeerSinewEffect();
+
+            #endregion dashes
+
             if (PrecisionSealNoDashNoJump)
             {
                 Player.dashType = 0;
@@ -1268,6 +1280,14 @@ namespace FargowiltasSouls
                 jungleJumping = false;
                 CanJungleJump = false;
                 dashCD = 2;
+                IsDashingTimer = 0;
+                HasDash = false;
+            }
+
+            if (DeerclawpsItem != null)
+            {
+                if (Player.dashDelay == -1 || IsDashingTimer > 0)
+                    DeerclawpsAttack(Player.Bottom);
             }
         }
 
@@ -1298,6 +1318,12 @@ namespace FargowiltasSouls
             if (ShinobiEnchantActive)
                 Player.setMonkT3 = true;
 
+
+            if (IsDashingTimer > 0)
+            {
+                IsDashingTimer--;
+                Player.dashDelay = -1;
+            }
 
             if (GoldEnchMoveCoins)
             {
@@ -1401,11 +1427,6 @@ namespace FargowiltasSouls
 
                 if (getNumSentries() >= actualSentries)
                     TikiSentry = true;
-            }
-
-            if (JungleEnchantActive)
-            {
-                JungleEffect();
             }
 
             if (Atrophied)
@@ -2056,7 +2077,9 @@ namespace FargowiltasSouls
                 if (Eternity)
                     damage *= 5;
                 else if (UniverseCore)
-                    damage = (int)(damage * 2.5);
+                    damage = (int)Math.Round(damage * 2.5);
+                else if (DeerSinewNerf)
+                    damage = (int)Math.Round(damage * 0.75);
             }
 
             if (CerebralMindbreak)
@@ -2577,6 +2600,9 @@ namespace FargowiltasSouls
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
             WasHurtBySomething = true;
+
+            if (DeerSinewNerf)
+                FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 20, false);
 
             if (BeetleEnchantActive)
                 BeetleHurt();

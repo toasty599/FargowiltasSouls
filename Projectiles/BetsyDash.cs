@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Projectiles
 
             player.GetModPlayer<FargoSoulsPlayer>().BetsyDashing = true;
             player.GetModPlayer<FargoSoulsPlayer>().dashCD = 5;
-            player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsDashTimer = 0;
+            player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer = 0;
 
             player.Center = Projectile.Center;
             if (Projectile.timeLeft > 1) //trying to avoid wallclipping

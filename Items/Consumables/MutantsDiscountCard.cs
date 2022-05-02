@@ -8,6 +8,8 @@ namespace FargowiltasSouls.Items.Consumables
 {
     public class MutantsDiscountCard : SoulsItem
     {
+        public override bool Eternity => true;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant's Discount Card");
@@ -42,17 +44,6 @@ namespace FargowiltasSouls.Items.Consumables
                 player.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard = true;
             }
             return true;
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.OverrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
-                }
-            }
         }
     }
 }

@@ -19,6 +19,7 @@ using FargowiltasSouls.Projectiles.Champions;
 using Terraria.Localization;
 using System;
 using FargowiltasSouls.Projectiles.Deathrays;
+using FargowiltasSouls.Items.Consumables;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -390,6 +391,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<Deerclawps>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<DeerSinew>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.FrozenCrate, 5));
             npcLoot.Add(emodeRule);
         }

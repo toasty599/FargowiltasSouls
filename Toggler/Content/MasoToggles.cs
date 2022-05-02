@@ -12,6 +12,7 @@ namespace FargowiltasSouls.Toggler.Content
         public override int Priority => 2;
 
         public int MasoHeader2 = ModContent.ItemType<DeviatingEnergy>();
+        public string DeerSinewDash;
         public string MasoAeolus;
         public string MasoAeolusFlower;
         public string MasoIcon;

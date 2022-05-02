@@ -1415,3 +1415,5 @@ deerclops sets night again while doing phase transition to help tp visual
 reverted iron ench recipe/effect, no more treasure magnet
 tungsten ench always enlarges flails
 adjusted visuals of deerclops hands
+added deer sinew
+refactors to how dashes work, they shouldnt be usable at the same time now i think, check nothing's buggy
