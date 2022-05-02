@@ -18,8 +18,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             DisplayName.SetDefault("Lump of Flesh");
             Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, Slow, Frozen, and Stunned
 Increases damage dealt by 15% and damage taken by 10%
-Increases your max number of minions by 2
-Increases your max number of sentries by 2
+Increases your max number of minions and sentries by 1
 Right Click to parry attacks with extremely tight timing
 Defense and damage reduction drastically decreased while and shortly after guarding
 Dashing leaves a trail of blood spikes
@@ -71,8 +70,8 @@ Enemies are less likely to target you
                 player.npcTypeNoAggro[NPCID.RaggedCaster] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCasterOpenCoat] = true;
             }*/
-            player.maxMinions += 2;
-            player.maxTurrets += 2;
+            player.maxMinions += 1;
+            player.maxTurrets += 1;
             if (player.GetToggleValue("MasoPugent"))
             {
                 player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkull>()] = true;

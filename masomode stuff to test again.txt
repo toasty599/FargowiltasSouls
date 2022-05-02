@@ -1400,6 +1400,7 @@ nerfs
 	beetle ench caps at level 2 on both offense and defense buffs
 	sdf no longer gives damage up, inflicts poisoned instead of venom
 	lump gives +15% all damage (was +16% summon only), now gives -10% DR
+	lump only gives +1 minion/sentry slot (was +2 each)
 	frigid gemstone frostfireballs inflict 2sec frostburn (was 4)
 	rainbow slime minion inflicts 2sec flames of universe (was 3)
 	halved the DOT of flames of universe, for you and enemies
@@ -1412,3 +1413,4 @@ updated localization files
 landslide now orbits around you, should be less obtrusive to your vision when dodging
 deerclops sets night again while doing phase transition to help tp visual
 reverted iron ench recipe/effect, no more treasure magnet
+tungsten ench always enlarges flails

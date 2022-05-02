@@ -80,6 +80,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             return projectile.aiStyle == ProjAIStyleID.Spear
                 || projectile.aiStyle == ProjAIStyleID.Yoyo
                 || projectile.aiStyle == ProjAIStyleID.ShortSword
+                || projectile.aiStyle == ProjAIStyleID.Flail
                 || ProjectileID.Sets.IsAWhip[projectile.type]
                 || projectile.type == ProjectileID.MonkStaffT2
                 || projectile.type == ProjectileID.Arkhalis
