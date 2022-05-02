@@ -133,7 +133,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.dontTakeDamage = true;
                             npc.localAI[1] = 0; //reset walls attack counter
 
-                            if (EnteredPhase3 && Main.LocalPlayer.active && !Main.LocalPlayer.ghost && !Main.LocalPlayer.dead)
+                            if (EnteredPhase2 && Main.LocalPlayer.active && !Main.LocalPlayer.ghost && !Main.LocalPlayer.dead)
                             {
                                 FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Darkness, 2);
                                 FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Blackout, 2);

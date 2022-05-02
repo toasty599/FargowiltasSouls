@@ -3,6 +3,7 @@ using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -50,11 +51,23 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                     Projectile.velocity = (player.Center - Projectile.Center) / 10f;
                     Projectile.position += player.position - player.oldPosition;
+
+                    Projectile.direction = Projectile.spriteDirection = Math.Sign(player.Center.X - Projectile.Center.X);
+                    Projectile.rotation = Projectile.DirectionTo(player.Center).ToRotation();
+
+                    const float IdleAccel = 0.05f;
+                    foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == Projectile.type && p.whoAmI != Projectile.whoAmI && p.Distance(Projectile.Center) < Projectile.width))
+                    {
+                        Projectile.velocity.X += IdleAccel * (Projectile.position.X < p.position.X ? -1 : 1);
+                        Projectile.velocity.Y += IdleAccel * (Projectile.position.Y < p.position.Y ? -1 : 1);
+                        p.velocity.X += IdleAccel * (p.position.X < Projectile.position.X ? -1 : 1);
+                        p.velocity.Y += IdleAccel * (p.position.Y < Projectile.position.Y ? -1 : 1);
+                    }
                 }
                 else
                 {
                     if (Projectile.velocity == Vector2.Zero)
-                        Projectile.velocity = Main.rand.NextVector2CircularEdge(1, 1) * 12f;
+                        Projectile.velocity = Main.rand.NextVector2CircularEdge(1, 1) * 16f;
 
                     Projectile.velocity *= -1f;
 
@@ -79,10 +92,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Projectile.Kill();
                     return;
                 }
+
+                Projectile.direction = Projectile.spriteDirection = Math.Sign(Projectile.velocity.X);
+                Projectile.rotation = Projectile.velocity.ToRotation();
             }
 
-            Projectile.direction = Projectile.spriteDirection = Math.Sign(Projectile.velocity.X);
-            Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.spriteDirection < 0)
                 Projectile.rotation += MathHelper.Pi;
         }
@@ -114,11 +128,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color27 = Color.LightBlue * Projectile.Opacity * 0.5f;
+                Color color27 = Color.LightBlue * Projectile.Opacity * 0.75f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];
-                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale * 1.1f, effects, 0);
             }
 
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, effects, 0);
