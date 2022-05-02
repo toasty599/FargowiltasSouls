@@ -1356,3 +1356,12 @@ refactored a bunch of projs so they dont take up their own projs anymore
 also refactored their debuffs so make sure those still work, e.g. rune wizard flames of universe
 removed post plant dungeon skeleton mage enemies inflicting class-seal debuffs
 added maso aura to inventory ui indicator for maso
+
+fixed eternity advisor formatting issue with biocluster
+corrupt heart rename to darkened heart and nerfed, causes -10% DR
+deerclawps immunes slow instead of chilled
+fixed tungsten ench tooltip not mentioning melee speed nerf
+soul of terraria removes tungsten ench melee speed nerf
+deerclops teleport hands now just freeze you instead of inflicting frozen debuff
+deerclops has permanent fancy effect in p3 (just visual, not invul always)
+fixed(?) tungsten ench growing too big

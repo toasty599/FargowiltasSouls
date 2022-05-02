@@ -186,6 +186,7 @@ namespace FargowiltasSouls
         public bool TinCritBuffered;
         public bool TungstenEnchantActive;
         public float TungstenPrevSizeSave = -1;
+        public Item TungstenEnlargedItem;
         public int TungstenCD;
         public bool TurtleEnchantActive;
         public int TurtleCounter;
@@ -236,8 +237,8 @@ namespace FargowiltasSouls
         public bool SlimyShieldFalling;
         public Item AgitatingLensItem;
         public int AgitatingLensCD;
-        public Item CorruptHeartItem;
-        public int CorruptHeartCD;
+        public Item DarkenedHeartItem;
+        public int DarkenedHeartCD;
         public bool GuttedHeart;
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         public Item NecromanticBrewItem;
@@ -827,7 +828,7 @@ namespace FargowiltasSouls
             //maso
             SlimyShieldItem = null;
             AgitatingLensItem = null;
-            CorruptHeartItem = null;
+            DarkenedHeartItem = null;
             GuttedHeart = false;
             NecromanticBrewItem = null;
             DeerclawpsItem = null;
@@ -1033,7 +1034,7 @@ namespace FargowiltasSouls
             BuilderMode = false;
 
             SlimyShieldFalling = false;
-            CorruptHeartCD = 60;
+            DarkenedHeartCD = 60;
             GuttedHeartCD = 60;
             NecromanticBrewItem = null;
             DeerclawpsItem = null;
@@ -3088,9 +3089,9 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (CorruptHeartItem != null && CorruptHeartCD <= 0)
+            if (DarkenedHeartItem != null && DarkenedHeartCD <= 0)
             {
-                CorruptHeartCD = 60;
+                DarkenedHeartCD = 60;
                 if (Player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
                 {
                     SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.Center.X, (int)Player.Center.Y, 1, 1f, 0);
@@ -3121,7 +3122,7 @@ namespace FargowiltasSouls
                     if (MasochistSoul)
                         dam *= 2;
                     for (int index = 0; index < num; ++index)
-                        Projectile.NewProjectile(Player.GetSource_Accessory(CorruptHeartItem), Player.Center.X, Player.Center.Y, Main.rand.Next(-35, 36) * 0.02f * 10f,
+                        Projectile.NewProjectile(Player.GetSource_Accessory(DarkenedHeartItem), Player.Center.X, Player.Center.Y, Main.rand.Next(-35, 36) * 0.02f * 10f,
                             Main.rand.Next(-35, 36) * 0.02f * 10f, ProjectileID.TinyEater, (int)(dam * Player.ActualClassDamage(DamageClass.Melee)), 1.75f, Player.whoAmI);
                 }
             }
@@ -3886,14 +3887,14 @@ namespace FargowiltasSouls
         {
             if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee && Player.HeldItem.useTime > 0 && Player.HeldItem.useAnimation > 0 && Player.HeldItem.pick == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.axe == 0)
             {
-                if (TungstenPrevSizeSave != -1)
+                if (TungstenEnlargedItem != null)
                 {
-                    Player.HeldItem.scale = TungstenPrevSizeSave;
-                    if (Main.mouseItem != null && !Main.mouseItem.IsAir)
-                        Main.mouseItem.scale = TungstenPrevSizeSave;
+                    TungstenEnlargedItem.scale = TungstenPrevSizeSave;
+                    //if (Main.mouseItem != null && !Main.mouseItem.IsAir) Main.mouseItem.scale = TungstenPrevSizeSave;
                     TungstenPrevSizeSave = -1;
+                    TungstenEnlargedItem = null;
                 }
-
+                
                 if (TungstenEnchantActive && Player.GetToggleValue("Tungsten"))
                     TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
             }

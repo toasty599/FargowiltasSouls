@@ -71,8 +71,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (FargoSoulsWorld.SwarmActive)
                 return result;
 
-            //localai[3] seems to be invul timer, up to 30
-
             const int MaxBerserkTime = 600;
 
             BerserkSpeedupTimer -= 1;
@@ -254,8 +252,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             if (npc.HasValidTarget) //fly over player
                                 npc.position = Vector2.Lerp(npc.position, Main.player[npc.target].Center - 450 * Vector2.UnitY, 0.2f);
 
-                            Main.dayTime = false;
-                            Main.time = 16200; //midnight for cool factor
+                            //Main.dayTime = false;
+                            //Main.time = 16200; //midnight for cool factor
                         }
                     }
                     else if (npc.life < npc.lifeMax * .33)
@@ -303,6 +301,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 default:
                     break;
             }
+
+            if (EnteredPhase3 && TeleportTimer < TeleportThreshold)
+                npc.localAI[3] = 30;
 
             //FargoSoulsUtil.PrintAI(npc);
 

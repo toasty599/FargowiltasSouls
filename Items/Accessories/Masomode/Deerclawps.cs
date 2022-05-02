@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deerclawps");
-            Tooltip.SetDefault("Grants immunity to Chilled and Frozen" +
+            Tooltip.SetDefault("Grants immunity to Slow and Frozen" +
                 "\nDashing leaves a trail of ice spikes" +
                 "\n'The trimmed nails of a defeated foe'");
 
@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[BuffID.Chilled] = true;
+            player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
 
             player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
