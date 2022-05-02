@@ -893,8 +893,8 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.RainbowRodBullet:
                     if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().TribalCharm)
                     {
-                        if (projectile.timeLeft > 300)
-                            projectile.timeLeft = 300;
+                        if (counter > 300)
+                            projectile.Kill();
                     }
                     break;
 
