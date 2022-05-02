@@ -246,6 +246,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     {
                         npc.localAI[1] = 0; //ensure this is always the same
                         npc.localAI[3] = 30; //go invul
+
+                        if (npc.ai[1] > 30)
+                        {
+                            Main.dayTime = false;
+                            Main.time = 16200; //midnight, to help teleport visual
+                        }
                     }
                     else if (npc.life < npc.lifeMax * .66)
                     {
@@ -262,9 +268,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         {
                             if (npc.HasValidTarget) //fly over player
                                 npc.position = Vector2.Lerp(npc.position, Main.player[npc.target].Center - 450 * Vector2.UnitY, 0.2f);
-
-                            //Main.dayTime = false;
-                            //Main.time = 16200; //midnight for cool factor
                         }
                     }
                     else if (npc.life < npc.lifeMax * .33)

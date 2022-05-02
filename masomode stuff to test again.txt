@@ -1401,3 +1401,4 @@ tim outer aura is now withered weapon instead of silenced
 fixed ebon/shadewood ench auras not working properly when you hug a wall
 updated localization files
 landslide now orbits around you, should be less obtrusive to your vision when dodging
+deerclops sets night again while doing phase transition to help tp visual

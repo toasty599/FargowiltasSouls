@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     }
 
                     Projectile.velocity = (player.Center - Projectile.Center) / 10f;
-                    Projectile.position += (player.position - player.oldPosition) / 2;
+                    Projectile.position += player.position - player.oldPosition;
                 }
                 else
                 {
