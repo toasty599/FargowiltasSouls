@@ -1017,6 +1017,12 @@ namespace FargowiltasSouls
 
         public override void PreUpdate()
         {
+            if (Player.CCed)
+            {
+                Player.doubleTapCardinalTimer[2] = 2;
+                Player.doubleTapCardinalTimer[3] = 2;
+            }
+
             if (HurtTimer > 0)
                 HurtTimer--;
 
@@ -1137,7 +1143,7 @@ namespace FargowiltasSouls
             if (DarkenedHeartItem != null)
             {
                 if (!IsStillHoldingInSameDirectionAsMovement)
-                    Player.runSlowdown += 1f;
+                    Player.runSlowdown += 0.2f;
             }
 
             if (!StardustEnchantActive)
@@ -2897,12 +2903,17 @@ namespace FargowiltasSouls
             {
                 if (TungstenEnlargedItem != null)
                 {
+                    if (Main.mouseItem != null && Main.mouseItem.type == TungstenEnlargedItem.type)
+                    {
+                        TungstenPrevSizeSave = Math.Min(TungstenPrevSizeSave, Main.mouseItem.scale);
+                        Main.mouseItem.scale = TungstenPrevSizeSave;
+                    }
                     TungstenEnlargedItem.scale = TungstenPrevSizeSave;
-                    //if (Main.mouseItem != null && !Main.mouseItem.IsAir) Main.mouseItem.scale = TungstenPrevSizeSave;
                     TungstenPrevSizeSave = -1;
+
                     TungstenEnlargedItem = null;
                 }
-                
+
                 if (TungstenEnchantActive && Player.GetToggleValue("Tungsten"))
                     TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
             }

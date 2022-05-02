@@ -1417,3 +1417,5 @@ tungsten ench always enlarges flails
 adjusted visuals of deerclops hands
 added deer sinew
 refactors to how dashes work, they shouldnt be usable at the same time now i think, check nothing's buggy
+fixed(?) tungsten ench item scaling
+fixed(?) a vanilla(?) issue with dashing where being frozen/stoned/etc runs your dash timers, causing you to dash immediately upon the debuff ending even if all you did was just hold the key

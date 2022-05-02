@@ -738,6 +738,16 @@ namespace FargowiltasSouls
                     }
                 }
             }
+
+            if (IsDashingTimer > 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.JunglePlants, Scale: 1.5f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 0.2f;
+                }
+            }
         }
 
         public void JungleEffect()
@@ -2958,6 +2968,8 @@ namespace FargowiltasSouls
 
             DeerSinewNerf = true;
 
+            Main.NewText($"{Player.frozen} {dashCD} {Player.controlRight} {Player.releaseRight} {Player.doubleTapCardinalTimer[2]}");
+
             if (dashCD <= 0)
             {
                 float dashSpeed = 12f;
@@ -2967,8 +2979,8 @@ namespace FargowiltasSouls
                     if (Player.doubleTapCardinalTimer[2] > 0 && Player.doubleTapCardinalTimer[2] != 15)
                     {
                         dashCD = 60;
-                        if (IsDashingTimer < 20)
-                            IsDashingTimer = 20;
+                        if (IsDashingTimer < 15)
+                            IsDashingTimer = 15;
                         Player.velocity.X = dashSpeed;
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                             NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
@@ -2980,8 +2992,8 @@ namespace FargowiltasSouls
                     if (Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
                     {
                         dashCD = 60;
-                        if (IsDashingTimer < 20)
-                            IsDashingTimer = 20;
+                        if (IsDashingTimer < 15)
+                            IsDashingTimer = 15;
                         Player.velocity.X = -dashSpeed;
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                             NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);

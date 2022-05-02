@@ -55,13 +55,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Projectile.direction = Projectile.spriteDirection = Math.Sign(player.Center.X - Projectile.Center.X);
                     Projectile.rotation = Projectile.DirectionTo(player.Center).ToRotation();
 
-                    const float IdleAccel = 0.05f;
+                    const float IdleAccel = 2f;
                     foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == Projectile.type && p.whoAmI != Projectile.whoAmI && p.Distance(Projectile.Center) < Projectile.width))
                     {
-                        Projectile.velocity.X += IdleAccel * (Projectile.position.X < p.position.X ? -1 : 1);
-                        Projectile.velocity.Y += IdleAccel * (Projectile.position.Y < p.position.Y ? -1 : 1);
-                        p.velocity.X += IdleAccel * (p.position.X < Projectile.position.X ? -1 : 1);
-                        p.velocity.Y += IdleAccel * (p.position.Y < Projectile.position.Y ? -1 : 1);
+                        p.position.X += IdleAccel * (p.position.X < Projectile.position.X ? -1 : 1);
+                        p.position.Y += IdleAccel * (p.position.Y < Projectile.position.Y ? -1 : 1);
                     }
                 }
                 else
