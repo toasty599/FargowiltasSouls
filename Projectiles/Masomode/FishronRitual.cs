@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 if (fishron.ai[0] < 4f && Main.netMode == NetmodeID.Server) //ensure synchronized max life(?)
                 {
                     var netMessage = Mod.GetPacket();
-                    netMessage.Write((byte)78);
+                    netMessage.Write((byte)FargowiltasSouls.PacketID.SyncFishronEXLife);
                     netMessage.Write((int)Projectile.ai[1]);
                     netMessage.Write((int)Projectile.ai[0] * 25);
                     netMessage.Send();

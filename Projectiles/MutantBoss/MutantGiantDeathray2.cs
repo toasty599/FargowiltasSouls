@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantGiantDeathray2 : Deathrays.BaseDeathray
     {
-        public MutantGiantDeathray2() : base(FargoSoulsWorld.MasochistModeReal ? 600 + 180 : 600, "PhantasmalDeathrayML") { }
+        public MutantGiantDeathray2() : base(600, "PhantasmalDeathrayML") { }
 
         public int dustTimer;
         public bool stall;
@@ -34,6 +34,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+
+            if (FargoSoulsWorld.MasochistModeReal)
+                maxTime += 180;
         }
 
         public override bool? CanDamage()

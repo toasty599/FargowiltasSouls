@@ -254,6 +254,16 @@ namespace FargowiltasSouls.Projectiles
                     maxTime = 60;
                     break;
 
+                case NPCID.Deerclops:
+                    color = Color.LightSkyBlue;
+                    color.A = 0;
+                    scale = 9f;
+                    maxTime = 30;
+
+                    if (npc != null)
+                        Projectile.Center = npc.direction < 0 ? npc.TopLeft : npc.TopRight;
+                    break;
+
                 default:
                     Main.NewText("glow ring: you shouldnt be seeing this text, show terry");
                     break;
