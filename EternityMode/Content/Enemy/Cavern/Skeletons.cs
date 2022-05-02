@@ -31,9 +31,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             NPCID.BoneThrowingSkeleton4
         );
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             switch (npc.type)
             {

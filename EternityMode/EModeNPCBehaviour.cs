@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using FargowiltasSouls.EternityMode.Net.Strategies;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.EternityMode
 {
@@ -93,9 +94,11 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void SetDefaults(NPC npc) { }
 
+        public virtual void OnSpawn(NPC npc, IEntitySource source) { }
+
         public virtual bool PreAI(NPC npc) => true;
 
-        public virtual void OnSpawn(NPC npc) { }
+        public virtual void OnFirstTick(NPC npc) { }
 
         public virtual void AI(NPC npc) { }
 

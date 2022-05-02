@@ -17,9 +17,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.GoblinSorcerer);
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (!Main.hardMode && !NPC.downedSlimeKing && !NPC.downedBoss1 && NPC.CountNPCS(npc.type) > 2)
                 npc.Transform(NPCID.GoblinPeon);

@@ -31,9 +31,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
             AttackTimer = Main.rand.Next(180);
         }
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.hardMode && Main.rand.NextBool(10))
                 NPCs.EModeGlobalNPC.Horde(npc, 2);

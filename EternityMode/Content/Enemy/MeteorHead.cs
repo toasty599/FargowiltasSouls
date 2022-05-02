@@ -26,9 +26,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 { new Ref<object>(Counter), IntStrategies.CompoundStrategy },
             };
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (NPC.downedGolemBoss && Main.rand.NextBool(4))
                 npc.Transform(NPCID.SolarCorite);

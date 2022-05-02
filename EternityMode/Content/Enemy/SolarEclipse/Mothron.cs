@@ -20,9 +20,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
             npc.knockBackResist *= 0.1f;
         }
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center + 100 * Vector2.UnitX, NPCID.MothronSpawn);
             FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center - 100 * Vector2.UnitX, NPCID.MothronSpawn);

@@ -59,9 +59,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.buffImmune[BuffID.OnFire3] = true;
         }
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 13, npc.whoAmI);

@@ -19,9 +19,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Snow
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Wolf);
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.rand.NextBool(3))
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(10) + 1);

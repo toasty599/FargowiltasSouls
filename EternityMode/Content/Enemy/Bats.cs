@@ -23,9 +23,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             NPCID.SporeBat
         );
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             //if (Main.rand.NextBool(4)) Horde(npc, Main.rand.Next(5) + 1);
         }

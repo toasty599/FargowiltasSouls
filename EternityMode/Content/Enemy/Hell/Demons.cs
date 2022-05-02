@@ -26,9 +26,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
 
         public int Counter;
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.hardMode && Main.rand.NextBool(4))
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(5) + 1);

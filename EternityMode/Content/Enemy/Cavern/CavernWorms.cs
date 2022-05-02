@@ -22,9 +22,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             NPCID.DiggerHead
         );
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.rand.NextBool(4))
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(6) + 1);

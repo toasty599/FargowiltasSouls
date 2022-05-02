@@ -1395,3 +1395,6 @@ removed low ground secretly applying -15% DR
 golem has blanket x1.1 damage on contact and emode proj attacks to compensate above
 deerclops inflicts low ground
 fixed copper ench targeting friendly npcs
+fixed molten ench not actually giving fire immune
+tim spawns with a pack of dark casters instead of fire imps (they dont drop loot)
+tim outer aura is now withered weapon instead of silenced

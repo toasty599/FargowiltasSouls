@@ -15,7 +15,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
 
         public int SickleTimer;
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
             for (int i = 0; i < 9; i++)
             {

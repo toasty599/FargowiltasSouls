@@ -19,9 +19,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Ghost);
 
-        public override void OnSpawn(NPC npc)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.OnFirstTick(npc);
 
             if (Main.rand.NextBool(5))
                 EModeGlobalNPC.Horde(npc, 3);
