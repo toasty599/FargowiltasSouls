@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip =
 @"Beetles increase your damage and melee speed
 When hit, beetles instead protect you from damage for 10 seconds
+Beetle offense capped at 20% damage up
 Beetle defense capped at 30% damage reduction
 'The unseen life of dung courses through your veins'";
             Tooltip.SetDefault(tooltip);

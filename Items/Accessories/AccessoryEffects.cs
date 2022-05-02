@@ -182,7 +182,7 @@ namespace FargowiltasSouls
 
                 if (Player.beetleCounter > num2 + num3 + num4 + num3)
                     Player.beetleCounter = num2 + num3 + num4 + num3;
-                if (Player.beetleCounter > num2 + num3 + num4)
+                if (TerrariaSoul && Player.beetleCounter > num2 + num3 + num4)
                 {
                     Player.AddBuff(BuffID.BeetleMight3, 5, false);
                     beetles = 3;
