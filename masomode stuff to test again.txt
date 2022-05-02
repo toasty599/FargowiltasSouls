@@ -1389,3 +1389,4 @@ emode allows blood moon if goblins have been defeated and an abom spawned from t
 nerfed gelic wing flight time a bit because of its inherent double jump
 fixed mutant final spark not persisting for proper duration in maso
 nerfed deerclawps damage (44 to 32)
+removed debug code that made empress loop one attack forever
