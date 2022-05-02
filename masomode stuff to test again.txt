@@ -1330,7 +1330,6 @@ deerclops has maso changes
 added recipes
 	eurus sock
 	puff in bottle
-updated localization files
 added deerclawps
 lump of flesh now contains deerclawps
 lump of flesh visually changes deerclawps spikes to blood thorns
@@ -1398,3 +1397,6 @@ fixed copper ench targeting friendly npcs
 fixed molten ench not actually giving fire immune
 tim spawns with a pack of dark casters instead of fire imps (they dont drop loot)
 tim outer aura is now withered weapon instead of silenced
+
+fixed ebon/shadewood ench auras not working properly when you hug a wall
+updated localization files
