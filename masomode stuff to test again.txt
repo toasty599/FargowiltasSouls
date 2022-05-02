@@ -1394,3 +1394,4 @@ added sfx to mutant empress sword attack
 removed low ground secretly applying -15% DR
 golem has blanket x1.1 damage on contact and emode proj attacks to compensate above
 deerclops inflicts low ground
+fixed copper ench targeting friendly npcs
