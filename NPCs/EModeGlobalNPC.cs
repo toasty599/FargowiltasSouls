@@ -1237,25 +1237,6 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
-        /*public void NetUpdateMaso(int npc) //MAKE SURE THAT YOU CALL THIS FROM THE GLOBALNPC INSTANCE OF THE NPC ITSELF
-        {
-            if (Main.netMode == NetmodeID.SinglePlayer)
-                return;
-
-            var netMessage = mod.GetPacket();
-            netMessage.Write((byte)2);
-            netMessage.Write((byte)npc);
-            netMessage.Write(masoBool[0]); //these are the variables of the instance THAT CALLS THIS METHOD
-            netMessage.Write(masoBool[1]); //rule of thumb is to only call this method server-side
-            netMessage.Write(masoBool[2]);
-            netMessage.Write(masoBool[3]);
-            netMessage.Write(Counter[0]);
-            netMessage.Write(Counter[1]);
-            netMessage.Write(Counter[2]);
-            netMessage.Write(Counter[3]);
-            netMessage.Send();
-        }*/
-
         public static void Horde(NPC npc, int size)
         {
             int repeatTries = 50;

@@ -159,6 +159,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         projectile.friendly = false;
                         projectile.hostile = true;
+                        projectile.DamageType = DamageClass.Default;
                     }
                     break;
 
@@ -234,7 +235,7 @@ namespace FargowiltasSouls.Projectiles
                     if (SourceNPC is NPC && SourceNPC.type == NPCID.Deerclops)
                     {
                         //is a final spike of the attack
-                        if ((SourceNPC.ai[0] == 1 && SourceNPC.ai[1] == 52) || (SourceNPC.ai[0] == 4 && SourceNPC.ai[1] == 70))
+                        if ((SourceNPC.ai[0] == 1 && SourceNPC.ai[1] == 52) || (SourceNPC.ai[0] == 4 && SourceNPC.ai[1] == 70 && !SourceNPC.GetEModeNPCMod<Deerclops>().DoLaserAttack))
                         {
                             bool isSingleWaveAttack = SourceNPC.ai[0] == 1;
 
@@ -623,7 +624,7 @@ namespace FargowiltasSouls.Projectiles
                                     LunaticCultist cultistData = npc.GetEModeNPCMod<LunaticCultist>();
 
                                     var netMessage = Mod.GetPacket(); //sync damage contribution (which is client side) to server
-                                    netMessage.Write((byte)10);
+                                    netMessage.Write((byte)FargowiltasSouls.PacketID.SyncCultistDamageCounterToServer);
                                     netMessage.Write((byte)npc.whoAmI);
                                     netMessage.Write(cultistData.MeleeDamageCounter);
                                     netMessage.Write(cultistData.RangedDamageCounter);
@@ -881,7 +882,7 @@ namespace FargowiltasSouls.Projectiles
 
                         //p1 always shoots up
                         if (SourceNPC is NPC && SourceNPC.type == NPCID.QueenSlimeBoss && SourceNPC.life > SourceNPC.lifeMax / 2)
-                            projectile.velocity.Y -= 8f;
+                            projectile.velocity.Y -= 6f;
                     }
 
                     //when begins falling, spray out
@@ -894,12 +895,11 @@ namespace FargowiltasSouls.Projectiles
                             if (Math.Sign(projectile.velocity.X) == -j) //very specific phrasing so 0 horiz sprays both ways
                                 continue;
 
-                            Vector2 baseVel = Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(10) * j));
-                            const int max = 8;
+                            Vector2 baseVel = Vector2.UnitX.RotatedBy(MathHelper.ToRadians(10 * j));
+                            const int max = 10;
                             for (int i = 0; i < max; i++)
                             {
-                                Vector2 vel = Main.rand.NextFloat(14f, 18f) * j * baseVel.RotatedBy(MathHelper.PiOver4 / max * i * -j);
-
+                                Vector2 vel = Main.rand.NextFloat(12f, 18f) * j * baseVel.RotatedBy(MathHelper.PiOver4 * 0.8f / max * i * -j);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage, 0f, Main.myPlayer);
                             }
@@ -1162,7 +1162,6 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.QueenSlimeMinionPinkBall:
                 case ProjectileID.QueenSlimeSmash:
                     target.AddBuff(BuffID.Slimed, 180);
-                    target.AddBuff(ModContent.BuffType<Smite>(), 360);
                     break;
 
                 case ProjectileID.CultistBossLightningOrb:

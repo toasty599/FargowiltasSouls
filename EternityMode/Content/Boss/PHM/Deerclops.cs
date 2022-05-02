@@ -18,6 +18,7 @@ using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Projectiles.Champions;
 using Terraria.Localization;
 using System;
+using FargowiltasSouls.Projectiles.Deathrays;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -30,6 +31,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public bool EnteredPhase2;
         public bool EnteredPhase3;
+        public bool DoLaserAttack;
 
         public bool DroppedSummon;
 
@@ -40,6 +42,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 { new Ref<object>(EnteredPhase2), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(EnteredPhase3), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(DoLaserAttack), BoolStrategies.CompoundStrategy },
             };
 
         public override void SetDefaults(NPC npc)
@@ -78,7 +81,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (npc.localAI[3] > 0 || EnteredPhase3)
                 npc.localAI[2]++; //cry about it
 
-            const int TeleportThreshold = 660;
+            const int TeleportThreshold = 780;
 
             if (npc.ai[0] != 0)
             {
@@ -139,9 +142,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    for (int i = 0; i < 6; i++)
+                                    const int max = 12;
+                                    for (int i = 0; i < 12; i++)
                                     {
-                                        Vector2 spawnPos = Main.player[npc.target].Center + Main.rand.NextVector2CircularEdge(16 * 30, 16 * 30);
+                                        Vector2 spawnPos = Main.player[npc.target].Center + 16 * Main.rand.NextFloat(6, 36) * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / max * (i + Main.rand.NextFloat()));
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<DeerclopsHand>(), 0, 0f, Main.myPlayer, npc.target);
                                     }
                                 }
@@ -163,8 +167,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     {
                                         if (Main.rand.NextBool())
                                             distance *= -1f;
+
                                         if (Main.netMode == NetmodeID.Server)
                                             NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
+
+                                        DoLaserAttack = !DoLaserAttack; //guarantee he alternates wall attacks at some point in the fight
+                                        NetSync(npc);
                                     }
 
                                     npc.Bottom = Main.player[npc.target].Bottom + distance * Vector2.UnitX;
@@ -268,18 +276,72 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 case 4: //both sides ice wave, attacks at ai1=50, last spike 70, ends at ai1=90
                     {
-                        int cooldown = 100;
+                        int cooldown = 100; //stops deerclops from teleporting while old ice walls are still there
                         if (EnteredPhase3)
                             cooldown *= 2;
                         if (TeleportTimer > TeleportThreshold - cooldown)
                             TeleportTimer = TeleportThreshold - cooldown;
 
-                        int threshold = 0;
-                        if (EnteredPhase2)
-                            threshold = 30;
+                        if (EnteredPhase2 && npc.ai[1] == 0)
+                        {
+                            if (npc.alpha == 0) //i.e. dont randomize when coming out of tp
+                                DoLaserAttack = Main.rand.NextBool();
+                            NetSync(npc);
 
-                        if (EnteredPhase2 && npc.ai[1] < threshold)
-                            npc.ai[1]++;
+                            if (DoLaserAttack && Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                        }
+
+                        Vector2 eye = npc.Center + new Vector2(64 * npc.direction, -24f) * npc.scale;
+
+                        if (FargoSoulsWorld.MasochistModeReal)
+                        {
+                            const int desiredStartup = 30; //effectively changes startup from 50 to this value
+                            const int threshold = 50 - desiredStartup / 2;
+                            if (npc.ai[1] < threshold)
+                                npc.ai[1]++;
+                        }
+
+                        if (DoLaserAttack && npc.ai[1] >= 70)
+                        {
+                            if (EnteredPhase3)
+                            {
+                                const float baseIncrement = 0.33f;
+                                float increment = baseIncrement;
+                                //if (FargoSoulsWorld.MasochistModeReal) increment *= 2;
+
+                                if (npc.ai[1] == 70) //shoot laser
+                                {
+                                    float time = (90 - 70) / baseIncrement - 5;
+                                    time *= 5; //account for the ray having extra updates
+                                    float rotation = MathHelper.Pi * (FargoSoulsWorld.MasochistModeReal ? 1f : 0.8f) / time * -npc.direction;
+
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), eye, Vector2.UnitY, ModContent.ProjectileType<DeerclopsDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 2f), 0f, Main.myPlayer, rotation, time);
+                                }
+
+                                npc.ai[1] += increment; //more endlag than normal
+
+                                if (npc.ai[1] < 90)
+                                    return false; //stop deerclops from turning around
+                            }
+                            else
+                            {
+                                npc.ai[1] += 0.33f; //more endlag than normal
+
+                                if (npc.ai[1] >= 89)
+                                {
+                                    npc.ai[0] = 2; //force debris attack instead
+                                    npc.ai[1] = 0;
+                                    npc.frameCounter = 0;
+                                    npc.netUpdate = true;
+                                    break;
+                                }
+                            }
+
+                            if (npc.ai[1] < 90)
+                                return false; //stop deerclops from turning around
+                        }
                     }
                     break;
 
@@ -302,8 +364,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     break;
             }
 
-            if (EnteredPhase3 && TeleportTimer < TeleportThreshold)
-                npc.localAI[3] = 30;
+            if (EnteredPhase3 && !(npc.ai[0] == 0 && npc.alpha > 0))
+            {
+                npc.localAI[3] += 3;
+                if (npc.localAI[3] > 30)
+                    npc.localAI[3] = 30;
+            }
 
             //FargoSoulsUtil.PrintAI(npc);
 
