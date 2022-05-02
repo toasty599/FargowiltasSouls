@@ -22,8 +22,6 @@ namespace FargowiltasSouls.Buffs.Masomode
         {
             player.GetModPlayer<FargoSoulsPlayer>().LowGround = true;
 
-            player.endurance -= 0.15f;
-
             if (player.mount.Active)
                 player.mount.Dismount(player);
 
