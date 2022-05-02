@@ -79,7 +79,7 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]Your attacks spawn explosions\n" +
             if (player.GetToggleValue("IronM", false))
             {
                 modPlayer.IronEnchantActive = true;
-                player.treasureMagnet = true;
+                //player.treasureMagnet = true;
             }
         }
 
