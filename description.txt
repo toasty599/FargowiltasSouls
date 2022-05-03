@@ -66,6 +66,9 @@ Iron, Frost, Forbidden, Dark Artist, Crimson, Cobalt, Chlorophyte, Beetle, Appre
 
 
 fargotten land wip:
+-Adamantite split now only affects projectiles directly fired by a weapon. No secondary splitting. Projectile damage nerf reduced from 50% to 66%. 
+
+
 
 -Huntress/Red Riding Enchant:
 increase arrow velocity, (extra update?)

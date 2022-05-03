@@ -147,12 +147,15 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            Player player = Main.player[Main.myPlayer];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
             switch (projectile.type)
             {
                 case ProjectileID.SharpTears:
                 case ProjectileID.DeerclopsIceSpike:
                     {
-                        if (source is EntitySource_ItemUse parent && (parent.Item.type == ModContent.ItemType<Deerclawps>() || parent.Item.type == ModContent.ItemType<LumpOfFlesh>() || parent.Item.type == ModContent.ItemType<MasochistSoul>()))
+                        if (source is EntitySource_ItemUse parent1 && (parent1.Item.type == ModContent.ItemType<Deerclawps>() || parent1.Item.type == ModContent.ItemType<LumpOfFlesh>() || parent1.Item.type == ModContent.ItemType<MasochistSoul>()))
                         {
                             projectile.hostile = false;
                             projectile.friendly = true;
@@ -203,6 +206,25 @@ namespace FargowiltasSouls.Projectiles
                 default:
                     break;
             }
+
+            /*if ( 
+                        )
+                    {
+                
+            }*/
+
+            if (modPlayer.AdamantiteEnchantActive && projectile.owner == Main.myPlayer
+                && source is EntitySource_ItemUse parent2 && player.GetToggleValue("Adamantite") && CanSplit
+                        && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0
+                        && Array.IndexOf(noSplit, projectile.type) <= -1
+                        && !projectile.minion && !projectile.sentry && !ProjectileID.Sets.IsAWhip[projectile.type] && projectile.minionSlots == 0 && projectile.aiStyle != 19 && projectile.aiStyle != 99)
+            {
+                modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
+                if (modPlayer.AdamantiteCanSplit)
+                    AdamantiteEnchant.AdamantiteSplit(projectile);
+                else //cut damage anyway
+                    projectile.damage = (int)(projectile.damage * AdamantiteEnchant.ProjectileDamageRatio);
+            }
         }
 
         public static int[] noSplit => new int[] {
@@ -225,7 +247,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override bool PreAI(Projectile projectile)
         {
-            bool retVal = true;
+            bool retVal = true; 
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             counter++;
@@ -286,20 +308,6 @@ namespace FargowiltasSouls.Projectiles
                     //{
                     //    projectile.damage *= 5;
                     //}
-
-                    if (modPlayer.AdamantiteEnchantActive && player.GetToggleValue("Adamantite") /*&& modPlayer.AdamantiteCD == 0*/ && CanSplit
-                        && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0
-                        && Array.IndexOf(noSplit, projectile.type) <= -1
-                        && !projectile.minion && !projectile.sentry && !ProjectileID.Sets.IsAWhip[projectile.type]
-                        && projectile.minionSlots == 0 && projectile.aiStyle != 19 && projectile.aiStyle != 99
-                        && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
-                    {
-                        modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
-                        if (modPlayer.AdamantiteCanSplit)
-                            AdamantiteEnchant.AdamantiteSplit(projectile);
-                        else //cut damage anyway
-                            projectile.damage = (int)(projectile.damage * AdamantiteEnchant.ProjectileDamageRatio);
-                    }
 
                     if (projectile.bobber && CanSplit)
                     {
