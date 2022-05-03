@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             const int homingDelay = 15;
             const float desiredFlySpeedInPixelsPerFrame = 60;
 
-            float amountOfFramesToLerpBy = 65; //120 - 33 * modifier; // minimum of 1, please keep in full numbers even though it's a float!
+            float amountOfFramesToLerpBy = 40; //120 - 33 * modifier; // minimum of 1, please keep in full numbers even though it's a float!
 
             Projectile.ai[aislotHomingCooldown]++;
             if (Projectile.ai[aislotHomingCooldown] > homingDelay)

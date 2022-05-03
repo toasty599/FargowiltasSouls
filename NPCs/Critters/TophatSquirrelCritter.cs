@@ -15,7 +15,7 @@ namespace FargowiltasSouls.NPCs.Critters
             DisplayName.SetDefault("Top Hat Squirrel");
             Main.npcFrameCount[NPC.type] = 6;
             NPCID.Sets.TownCritter[NPC.type] = true;
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "高顶礼帽松鼠");
+            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "高顶礼帽松鼠");
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

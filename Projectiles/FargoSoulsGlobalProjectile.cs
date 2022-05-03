@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             switch (projectile.type)
@@ -207,12 +207,6 @@ namespace FargowiltasSouls.Projectiles
                     break;
             }
 
-            /*if ( 
-                        )
-                    {
-                
-            }*/
-
             if (modPlayer.AdamantiteEnchantActive && projectile.owner == Main.myPlayer
                 && source is EntitySource_ItemUse parent2 && player.GetToggleValue("Adamantite") && CanSplit
                         && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0
@@ -224,6 +218,11 @@ namespace FargowiltasSouls.Projectiles
                     AdamantiteEnchant.AdamantiteSplit(projectile);
                 else //cut damage anyway
                     projectile.damage = (int)(projectile.damage * AdamantiteEnchant.ProjectileDamageRatio);
+            }
+
+            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
+            {
+                TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source is EntitySource_Parent parent && parent.Entity is Projectile proj ? proj : null);
             }
         }
 
@@ -247,8 +246,8 @@ namespace FargowiltasSouls.Projectiles
 
         public override bool PreAI(Projectile projectile)
         {
-            bool retVal = true; 
-            Player player = Main.player[Main.myPlayer];
+            bool retVal = true;
+            Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             counter++;
 
@@ -278,11 +277,6 @@ namespace FargowiltasSouls.Projectiles
                     {
                         SilverMinion = true;
                         projectile.extraUpdates++;
-                    }
-
-                    if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
-                    {
-                        TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer);
                     }
 
                     if (modPlayer.TikiEnchantActive)

@@ -98,9 +98,38 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                 && !(FargoSoulsUtil.IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
         }
 
-        public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer)
+        public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer, Projectile sourceProj)
         {
-            if (TungstenAlwaysAffectProj(projectile) || (modPlayer.TungstenCD == 0 && TungstenCanAffectProj(projectile)))
+            bool canAffect = false;
+            bool hasCD = true;
+            if (TungstenAlwaysAffectProj(projectile))
+            {
+                canAffect = true;
+                hasCD = false;
+            }
+            else if (TungstenCanAffectProj(projectile))
+            {
+                if (sourceProj == null)
+                {
+                    if (modPlayer.TungstenCD == 0)
+                        canAffect = true;
+                }
+                else
+                {
+                    if (sourceProj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale != 1)
+                    {
+                        canAffect = true;
+                        hasCD = false;
+                    }
+                    else if (FargoSoulsUtil.IsSummonDamage(sourceProj, false))
+                    {
+                        if (modPlayer.TungstenCD == 0)
+                            canAffect = true;
+                    }
+                }
+            }
+
+            if (canAffect)
             {
                 float scale = modPlayer.TerraForce ? 3f : 2f;
 
@@ -111,7 +140,8 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                 projectile.Center = projectile.position;
                 FargoSoulsGlobalProjectile globalProjectile = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
                 globalProjectile.TungstenScale = scale;
-                modPlayer.TungstenCD = 30;
+                if (hasCD)
+                    modPlayer.TungstenCD = 30;
 
                 //    if (modPlayer.Eternity)
                 //    {

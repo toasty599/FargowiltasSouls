@@ -203,7 +203,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 {
                     NPC npc = Main.npc[j];
 
-                    if (npc.active && npc.whoAmI != target.whoAmI && npc.Distance(target.Center) < closestDist && !npc.HasBuff(BuffID.Electrified))
+                    if (npc.active && npc.CanBeChasedBy() && npc.whoAmI != target.whoAmI && npc.Distance(target.Center) < closestDist && !npc.HasBuff(BuffID.Electrified))
                     {
                         closestNPC = npc;
                         closestDist = npc.Distance(target.Center);

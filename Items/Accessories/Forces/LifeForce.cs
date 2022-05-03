@@ -39,7 +39,7 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defens
 [i:{2}] 近战攻击和大多数穿透类弹幕击中敌人时会生成蜜蜂
 [i:{3}] 仆从和哨兵可以造成暴击，且有30%基础暴击率
 [i:{4}] 站定不动时且不攻击时你会缩进壳里
-[i:{5}] 甲虫会提高你的攻击属性和防御属性
+[i:{5}] 甲虫会提高你的攻击能力和防御能力
 “罕有生灵敢违背你的意愿”";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, string.Format(tooltip_ch, Enchants[0], ModContent.ItemType<CactusEnchant>(), Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
         }

@@ -2968,8 +2968,6 @@ namespace FargowiltasSouls
 
             DeerSinewNerf = true;
 
-            Main.NewText($"{Player.frozen} {dashCD} {Player.controlRight} {Player.releaseRight} {Player.doubleTapCardinalTimer[2]}");
-
             if (dashCD <= 0)
             {
                 float dashSpeed = 12f;
