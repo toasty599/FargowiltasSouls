@@ -1422,3 +1422,4 @@ fixed(?) a vanilla(?) issue with dashing where being frozen/stoned/etc runs your
 fixed magic missile and similar projs being infinitely stackable with tribal charm
 
 removed sinew debug text
+fixed copper ench targeting friendly npcs
