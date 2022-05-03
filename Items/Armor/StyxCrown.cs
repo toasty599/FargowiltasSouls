@@ -94,7 +94,7 @@ Increases max number of minions and sentries by 3");
                     {
                         if (!superAttack)
                         {
-                            Projectile.NewProjectile(player.GetSource_Accessory(Item), Main.projectile[i].Center, Vector2.Normalize(Main.projectile[i].velocity) * 24f, ModContent.ProjectileType<StyxArmorScythe2>(),
+                            Projectile.NewProjectile(Main.projectile[i].GetSource_FromThis(), Main.projectile[i].Center, Vector2.Normalize(Main.projectile[i].velocity) * 24f, ModContent.ProjectileType<StyxArmorScythe2>(),
                                 Main.projectile[i].damage, Main.projectile[i].knockBack, player.whoAmI, -1, -1);
                         }
 

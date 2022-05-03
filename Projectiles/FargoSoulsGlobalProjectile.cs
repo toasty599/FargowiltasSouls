@@ -147,6 +147,9 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            Player player = Main.player[projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
             switch (projectile.type)
             {
                 case ProjectileID.SharpTears:
@@ -203,6 +206,11 @@ namespace FargowiltasSouls.Projectiles
                 default:
                     break;
             }
+
+            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
+            {
+                TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source is EntitySource_Parent parent && parent.Entity is Projectile proj ? proj : null);
+            }
         }
 
         public static int[] noSplit => new int[] {
@@ -226,7 +234,7 @@ namespace FargowiltasSouls.Projectiles
         public override bool PreAI(Projectile projectile)
         {
             bool retVal = true;
-            Player player = Main.player[Main.myPlayer];
+            Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             counter++;
 
@@ -256,11 +264,6 @@ namespace FargowiltasSouls.Projectiles
                     {
                         SilverMinion = true;
                         projectile.extraUpdates++;
-                    }
-
-                    if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
-                    {
-                        TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer);
                     }
 
                     if (modPlayer.TikiEnchantActive)

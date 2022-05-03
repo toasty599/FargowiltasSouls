@@ -1422,4 +1422,9 @@ fixed(?) a vanilla(?) issue with dashing where being frozen/stoned/etc runs your
 fixed magic missile and similar projs being infinitely stackable with tribal charm
 
 removed sinew debug text
+tungsten ench
+	cooldown only applies to projs spawned by you
+	all projs spawned by a large proj will also be large
+	all projs spawned by a normal proj will also be normal (except minion shots)
 fixed copper ench targeting friendly npcs
+buffed flesh hand homing
