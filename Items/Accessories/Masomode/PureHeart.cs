@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             DisplayName.SetDefault("Pure Heart");
             Tooltip.SetDefault(@"Grants immunity to Rotting and Bloodthirsty
 Grants immunity to biome debuffs
-10% increased movement speed, 10% increased max life, increased acceleration
+10% increased movement speed, 10% increased max life, increased turnaround traction
 You spawn mini eaters to seek out enemies every few attacks
 Creepers hover around you blocking some damage
 A new Creeper appears every 15 seconds, and 5 can exist at once
@@ -49,7 +49,6 @@ Creeper respawn speed increases when not moving
             
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Rotting>()] = true;
             player.moveSpeed += 0.1f;
-            player.hasMagiluminescence = true;
             fargoPlayer.DarkenedHeartItem = Item;
             if (fargoPlayer.DarkenedHeartCD > 0)
                 fargoPlayer.DarkenedHeartCD--;

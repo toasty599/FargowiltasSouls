@@ -1067,7 +1067,6 @@ fixed aeolus boots having wall cling for some reason
 fixed lunar towers not having suffocation immunity
 biocluster passively grants guilty immunity
 iron ench
-	recipe now requires treasure magnet
 	cannot gain striking moment
 tungsten ench
 	refactored proj scaling internally to be more flexible
@@ -1076,7 +1075,6 @@ tungsten ench
 	always boosts starlight
 terra force
 	iron can striking moment
-	iron gives true treasure magnet PLUS iron ench magnet
 	tungsten makes things even bigger
 	tungsten makes them do x1.2 damage instead of 1.1
 	tungsten rolls another chance to crit
@@ -1398,5 +1396,27 @@ fixed molten ench not actually giving fire immune
 tim spawns with a pack of dark casters instead of fire imps (they dont drop loot)
 tim outer aura is now withered weapon instead of silenced
 
+nerfs
+	beetle ench caps at level 2 on both offense and defense buffs
+	sdf no longer gives damage up, inflicts poisoned instead of venom
+	lump gives +15% all damage (was +16% summon only), now gives -10% DR
+	lump only gives +1 minion/sentry slot (was +2 each)
+	frigid gemstone frostfireballs inflict 2sec frostburn (was 4)
+	rainbow slime minion inflicts 2sec flames of universe (was 3)
+	halved the DOT of flames of universe, for you and enemies
+	darkenened/pure heart no longer give magilumi, instead give traction (weaker no momentum)
+	darkened heart has no DR penalty
+	spectre ench has a short cooldown on spawning spectres
+various refactors for accessory effects
 fixed ebon/shadewood ench auras not working properly when you hug a wall
 updated localization files
+landslide now orbits around you, should be less obtrusive to your vision when dodging
+deerclops sets night again while doing phase transition to help tp visual
+reverted iron ench recipe/effect, no more treasure magnet
+tungsten ench always enlarges flails
+adjusted visuals of deerclops hands
+added deer sinew
+refactors to how dashes work, they shouldnt be usable at the same time now i think, check nothing's buggy
+fixed(?) tungsten ench item scaling
+fixed(?) a vanilla(?) issue with dashing where being frozen/stoned/etc runs your dash timers, causing you to dash immediately upon the debuff ending even if all you did was just hold the key
+fixed magic missile and similar projs being infinitely stackable with tribal charm

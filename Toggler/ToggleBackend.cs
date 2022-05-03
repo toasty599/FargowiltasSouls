@@ -103,6 +103,7 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("Nebula", true);
             player.SetToggleValue("Solar", true);
 
+            player.SetToggleValue("DeerSinewDash", true);
             player.SetToggleValue("MasoGraze", true);
             //player.SetToggleValue("MasoGrazeRing", true);
             player.SetToggleValue("MasoIconDrops", true);

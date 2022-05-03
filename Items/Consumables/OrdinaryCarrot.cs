@@ -7,6 +7,8 @@ namespace FargowiltasSouls.Items.Consumables
 {
     public class OrdinaryCarrot : SoulsItem
     {
+        public override bool Eternity => true;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ordinary Carrot");

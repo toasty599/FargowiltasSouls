@@ -19,6 +19,7 @@ using FargowiltasSouls.Projectiles.Champions;
 using Terraria.Localization;
 using System;
 using FargowiltasSouls.Projectiles.Deathrays;
+using FargowiltasSouls.Items.Consumables;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -133,7 +134,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.dontTakeDamage = true;
                             npc.localAI[1] = 0; //reset walls attack counter
 
-                            if (EnteredPhase3 && Main.LocalPlayer.active && !Main.LocalPlayer.ghost && !Main.LocalPlayer.dead)
+                            if (EnteredPhase2 && Main.LocalPlayer.active && !Main.LocalPlayer.ghost && !Main.LocalPlayer.dead)
                             {
                                 FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Darkness, 2);
                                 FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Blackout, 2);
@@ -246,6 +247,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     {
                         npc.localAI[1] = 0; //ensure this is always the same
                         npc.localAI[3] = 30; //go invul
+
+                        if (npc.ai[1] > 30)
+                        {
+                            Main.dayTime = false;
+                            Main.time = 16200; //midnight, to help teleport visual
+                        }
                     }
                     else if (npc.life < npc.lifeMax * .66)
                     {
@@ -262,9 +269,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         {
                             if (npc.HasValidTarget) //fly over player
                                 npc.position = Vector2.Lerp(npc.position, Main.player[npc.target].Center - 450 * Vector2.UnitY, 0.2f);
-
-                            //Main.dayTime = false;
-                            //Main.time = 16200; //midnight for cool factor
                         }
                     }
                     else if (npc.life < npc.lifeMax * .33)
@@ -387,6 +391,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<Deerclawps>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<DeerSinew>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.FrozenCrate, 5));
             npcLoot.Add(emodeRule);
         }

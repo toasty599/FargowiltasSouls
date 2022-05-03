@@ -39,8 +39,8 @@ namespace FargowiltasSouls.Patreon.ParadoxWolf
             }
 
             player.GetModPlayer<PatreonPlayer>().WolfDashing = true;
-            if (player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsDashTimer < 2)
-                player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsDashTimer = 2;
+            if (player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer < 2)
+                player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer = 2;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoSoulsPlayer>().StardustEnchantActive;
 
             player.Center = Projectile.Center;

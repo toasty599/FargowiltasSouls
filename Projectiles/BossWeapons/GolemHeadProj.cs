@@ -85,10 +85,16 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                 Projectile.position += (player.position - player.oldPosition) * 0.9f;
 
-                if (Projectile.Distance(player.Center) > 16 * 6)
+                if (Projectile.Center != player.Center)
                 {
-                    Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * desiredFlySpeedInPixelsPerFrame * 0.5f;
-                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    if (Projectile.Distance(player.Center) < 120)
+                        Projectile.velocity += Projectile.DirectionFrom(player.Center) * 0.75f;
+
+                    if (Projectile.Distance(player.Center) > 16 * 6)
+                    {
+                        Vector2 desiredVelocity = desiredFlySpeedInPixelsPerFrame * 0.5f * Projectile.DirectionTo(player.Center);
+                        Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    }
                 }
 
                 const float IdleAccel = 0.1f;

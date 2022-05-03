@@ -31,7 +31,7 @@ namespace FargowiltasSouls
             return Main.masterMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 3);
         }
 
-        public static void AddDebuffFixedDuration(Player player, int buffID, int intendedTime)
+        public static void AddDebuffFixedDuration(Player player, int buffID, int intendedTime, bool quiet = true)
         {
             if (WorldIsExpertOrHarder() && BuffID.Sets.LongerExpertDebuff[buffID])
             {
@@ -43,11 +43,11 @@ namespace FargowiltasSouls
                     else if (Main.expertMode)
                         debuffTimeMultiplier = Main.RegisteredGameModes[1].DebuffTimeMultiplier;
                 }
-                player.AddBuff(buffID, (int)Math.Round(intendedTime / debuffTimeMultiplier, MidpointRounding.ToEven));
+                player.AddBuff(buffID, (int)Math.Round(intendedTime / debuffTimeMultiplier, MidpointRounding.ToEven), quiet);
             }
             else
             {
-                player.AddBuff(buffID, intendedTime);
+                player.AddBuff(buffID, intendedTime, quiet);
             }
         }
 

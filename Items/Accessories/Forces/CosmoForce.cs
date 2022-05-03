@@ -57,11 +57,11 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
             //meteor shower
             modPlayer.MeteorEffect();
             //solar shields
-            modPlayer.SolarEffect();
+            modPlayer.SolarEnchantActive = true;
             //stealth, voids, pet
             modPlayer.VortexEffect(hideVisual);
             //boosters and meme speed
-            modPlayer.NebulaEffect();
+            modPlayer.NebulaEnchantActive = true;
             //guardian and time freeze
             modPlayer.StardustEffect(Item);
         }

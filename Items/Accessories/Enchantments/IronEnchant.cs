@@ -71,7 +71,7 @@ You attract items from a larger range
             .AddIngredient(ItemID.IronBroadsword)
             //.AddIngredient(ItemID.IronBow);
             //apricot (high in iron pog)
-            .AddIngredient(ItemID.TreasureMagnet)
+            //.AddIngredient(ItemID.TreasureMagnet)
 
             .AddTile(TileID.DemonAltar)
             .Register();

@@ -17,12 +17,11 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Lump of Flesh");
             Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, Slow, Frozen, and Stunned
-Increases minion damage by 16%
-Increases your max number of minions by 2
-Increases your max number of sentries by 2
+Increases damage dealt by 15% and damage taken by 10%
+Increases your max number of minions and sentries by 1
 Right Click to parry attacks with extremely tight timing
 Defense and damage reduction drastically decreased while and shortly after guarding
-Dashing leaves a trail of ice spikes
+Dashing leaves a trail of blood spikes
 The pungent eyeball charges energy to fire a laser as you attack
 Enemies are less likely to target you
 'It's growing'");
@@ -54,7 +53,8 @@ Enemies are less likely to target you
             player.buffImmune[BuffID.Obstructed] = true;
             player.buffImmune[BuffID.Dazed] = true;
             player.buffImmune[ModContent.BuffType<Stunned>()] = true;
-            player.GetDamage(DamageClass.Summon) += 0.16f;
+            player.GetDamage(DamageClass.Generic) += 0.15f;
+            player.endurance -= 0.10f;
             player.aggro -= 400;
             player.GetModPlayer<FargoSoulsPlayer>().SkullCharm = true;
             player.GetModPlayer<FargoSoulsPlayer>().LumpOfFlesh = true;
@@ -70,8 +70,8 @@ Enemies are less likely to target you
                 player.npcTypeNoAggro[NPCID.RaggedCaster] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCasterOpenCoat] = true;
             }*/
-            player.maxMinions += 2;
-            player.maxTurrets += 2;
+            player.maxMinions += 1;
+            player.maxTurrets += 1;
             if (player.GetToggleValue("MasoPugent"))
             {
                 player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkull>()] = true;

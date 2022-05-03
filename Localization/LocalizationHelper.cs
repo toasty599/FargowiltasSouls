@@ -172,6 +172,7 @@ namespace FargowiltasSouls
             AddToggle("MasoCanPlay", ModContent.ItemType<Masochist>(), "ff0000");
 
             AddToggle("MasoHeader2", ModContent.ItemType<DeviatingEnergy>());
+            AddToggle("DeerSinewDashConfig", ModContent.ItemType<DeerSinew>());
             AddToggle("MasoAeolusConfig", ModContent.ItemType<AeolusBoots>());
             AddToggle("MasoAeolusFlowerConfig", ModContent.ItemType<AeolusBoots>());
             AddToggle("MasoIconConfig", ModContent.ItemType<SinisterIcon>());
