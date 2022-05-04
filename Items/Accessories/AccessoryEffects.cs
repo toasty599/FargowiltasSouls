@@ -2790,7 +2790,8 @@ namespace FargowiltasSouls
             Player.buffImmune[BuffID.WindPushed] = true;
             Player.buffImmune[BuffID.Suffocation] = true;
             Player.buffImmune[ModContent.BuffType<Guilty>()] = true;
-            Player.manaFlower = true;
+            if (Player.GetToggleValue("ManaFlowerConfig", false))
+                Player.manaFlower = true;
             Player.nightVision = true;
             SandsofTime = true;
             SecurityWallet = true;

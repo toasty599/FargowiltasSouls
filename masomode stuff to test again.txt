@@ -1433,3 +1433,4 @@ sprite updates
 	overgrown key buff icon
 buffed flesh hand homing
 tried fixing glitch involving genning new worlds, emode flag, and mutant gift spawning devi?
+added toggle for mana flower effect (controls both arch wizard soul and mystic skull)

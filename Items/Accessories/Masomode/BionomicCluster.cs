@@ -114,7 +114,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
             // Mystic skull
             player.buffImmune[BuffID.Suffocation] = true;
-            player.manaFlower = true;
+            if (player.GetToggleValue("ManaFlowerConfig", false))
+                player.manaFlower = true;
 
             // Security wallet
             player.buffImmune[ModContent.BuffType<Midas>()] = true;

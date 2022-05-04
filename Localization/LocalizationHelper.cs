@@ -259,6 +259,7 @@ namespace FargowiltasSouls
             AddToggle("MoonCharmConfig", ModContent.ItemType<BerserkerSoul>());
             AddToggle("NeptuneShellConfig", ModContent.ItemType<BerserkerSoul>());
             AddToggle("SniperConfig", ModContent.ItemType<SnipersSoul>());
+            AddToggle("ManaFlowerConfig", ModContent.ItemType<ArchWizardsSoul>());
             AddToggle("UniverseConfig", ModContent.ItemType<UniverseSoul>());
 
             AddToggle("WorldShaperHeader", ModContent.ItemType<WorldShaperSoul>());

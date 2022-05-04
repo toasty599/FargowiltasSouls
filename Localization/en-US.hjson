@@ -370,6 +370,7 @@ Mods: {
 			MoonCharmConfig: Moon Charm
 			NeptuneShellConfig: Neptune's Shell
 			SniperConfig: Sniper Scope
+			ManaFlowerConfig: Mana Flower
 			UniverseConfig: Universe Attack Speed
 
 			WorldShaperHeader: "{$Mods.FargowiltasSouls.ItemName.WorldShaperSoul}"

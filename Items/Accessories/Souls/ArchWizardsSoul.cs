@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using Terraria.ID;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
@@ -45,7 +46,8 @@ Effects of Celestial Cuffs and Mana Flower
             player.GetCritChance(DamageClass.Magic) += 15;
             player.statManaMax2 += 200;
             //accessorys
-            player.manaFlower = true;
+            if (player.GetToggleValue("ManaFlowerConfig", false))
+                player.manaFlower = true;
             //add mana cloak
             player.manaMagnet = true;
             player.magicCuffs = true;

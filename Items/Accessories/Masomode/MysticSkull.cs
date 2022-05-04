@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -43,8 +44,11 @@ Automatically use mana potions when needed
         public override void UpdateInventory(Player player)
         {
             player.buffImmune[BuffID.Suffocation] = true;
-            player.GetDamage(DamageClass.Magic) -= 0.1f;
-            player.manaFlower = true;
+            if (player.GetToggleValue("ManaFlowerConfig", false))
+            {
+                player.GetDamage(DamageClass.Magic) -= 0.1f;
+                player.manaFlower = true;
+            }
         }
     }
 }

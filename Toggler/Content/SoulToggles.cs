@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string MoonCharm;
         public string NeptuneShell;
         public string Sniper;
+        public string ManaFlower;
         public string Universe;
 
         public int WorldShaperHeader = ModContent.ItemType<WorldShaperSoul>();
