@@ -52,7 +52,7 @@ namespace FargowiltasSouls
 
         public static bool[] downedChampions = new bool[9];
 
-        public override void OnWorldLoad()
+        private void ResetFlags()
         {
             downedBetsy = false;
 
@@ -74,6 +74,16 @@ namespace FargowiltasSouls
 
             for (int i = 0; i < downedChampions.Length; i++)
                 downedChampions[i] = false;
+        }
+
+        public override void OnWorldLoad()
+        {
+            ResetFlags();
+        }
+
+        public override void OnWorldUnload()
+        {
+            ResetFlags();
         }
 
         public override void SaveWorldData(TagCompound tag)

@@ -1432,3 +1432,4 @@ sprite updates
 	lightning rod
 	overgrown key buff icon
 buffed flesh hand homing
+tried fixing glitch involving genning new worlds, emode flag, and mutant gift spawning devi?
