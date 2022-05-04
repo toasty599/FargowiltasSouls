@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,6 +35,8 @@ namespace FargowiltasSouls.Patreon.Phupperbat
         private int sitTimer;
         private float realFrameCounter;
         private int realFrame;
+
+        private bool squeak;
 
         public override void AI()
         {
@@ -105,7 +108,8 @@ namespace FargowiltasSouls.Patreon.Phupperbat
 
                     if (sitTimer >= 600)
                     {
-                        //if (sitTimer == 600 && !Main.dedServ) Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, $"Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), Projectile.Center);
+                        if (sitTimer == 600 && squeak && !Main.dedServ)
+                            Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, $"Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), Projectile.Center);
                         realFrame = sitFrame;
                     }
                     else
@@ -113,12 +117,17 @@ namespace FargowiltasSouls.Patreon.Phupperbat
                         sitTimer += 1;
 
                         //face player when standing idle
-                        Projectile.direction = System.Math.Sign(player.Center.X - Projectile.Center.X);
+                        Projectile.direction = Math.Sign(player.Center.X - Projectile.Center.X);
+
+                        //dont squeak if player moves at all
+                        if (player.velocity.X != 0 || Math.Abs(player.velocity.Y) > 0.5f)
+                            squeak = false;
                     }
                 }
                 else
                 {
                     sitTimer = 0;
+                    squeak = true;
                 }
 
                 if (realFrame > sitFrame)
