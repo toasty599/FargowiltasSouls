@@ -199,9 +199,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             AttackTimer = start;
 
                             if (FargoSoulsWorld.MasochistModeReal) //RANDOM ATTACKS
-                            {
-                                npc.ai[2] += Main.rand.Next(10);
-                            }
+                                npc.ai[2] += Main.rand.Next(3);
 
                             npc.netUpdate = true;
                             NetSync(npc);

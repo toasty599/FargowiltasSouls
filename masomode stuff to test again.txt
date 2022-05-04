@@ -1434,3 +1434,4 @@ sprite updates
 buffed flesh hand homing
 tried fixing glitch involving genning new worlds, emode flag, and mutant gift spawning devi?
 added toggle for mana flower effect (controls both arch wizard soul and mystic skull)
+reduced randomness of maso empress (should stop her from doing dash 4+ times in a row)
