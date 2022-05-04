@@ -1427,4 +1427,8 @@ tungsten ench
 	all projs spawned by a large proj will also be large
 	all projs spawned by a normal proj will also be normal (except minion shots)
 fixed copper ench targeting friendly npcs
+sprite updates
+	slimy shield
+	lightning rod
+	overgrown key buff icon
 buffed flesh hand homing
