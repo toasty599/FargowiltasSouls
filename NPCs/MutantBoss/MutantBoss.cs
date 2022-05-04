@@ -512,7 +512,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         void P1NextAttackOrMasoOptions(float sourceAI)
         {
-            if (FargoSoulsWorld.MasochistModeReal && Main.rand.NextBool(5))
+            if (FargoSoulsWorld.MasochistModeReal && Main.rand.NextBool(3))
             {
                 int[] options = new int[] { 0, 1, 2, 4, 7, 9, 9 };
                 NPC.ai[0] = Main.rand.Next(options);
