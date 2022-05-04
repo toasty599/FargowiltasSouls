@@ -44,7 +44,7 @@ Automatically use mana potions when needed
         public override void UpdateInventory(Player player)
         {
             player.buffImmune[BuffID.Suffocation] = true;
-            if (player.GetToggleValue("ManaFlowerConfig", false))
+            if (player.GetToggleValue("ManaFlower", false))
             {
                 player.GetDamage(DamageClass.Magic) -= 0.1f;
                 player.manaFlower = true;

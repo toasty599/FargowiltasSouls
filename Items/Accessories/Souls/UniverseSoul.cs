@@ -109,7 +109,7 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             {
                 player.scope = true;
             }
-            if (player.GetToggleValue("ManaFlowerConfig", false))
+            if (player.GetToggleValue("ManaFlower", false))
                 player.manaFlower = true;
             player.manaMagnet = true;
             player.magicCuffs = true;

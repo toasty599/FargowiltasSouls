@@ -46,7 +46,7 @@ Effects of Celestial Cuffs and Mana Flower
             player.GetCritChance(DamageClass.Magic) += 15;
             player.statManaMax2 += 200;
             //accessorys
-            if (player.GetToggleValue("ManaFlowerConfig", false))
+            if (player.GetToggleValue("ManaFlower", false))
                 player.manaFlower = true;
             //add mana cloak
             player.manaMagnet = true;

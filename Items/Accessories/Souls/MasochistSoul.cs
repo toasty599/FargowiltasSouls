@@ -249,7 +249,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //mystic skull
             player.buffImmune[BuffID.Suffocation] = true;
-            if (player.GetToggleValue("ManaFlowerConfig", false))
+            if (player.GetToggleValue("ManaFlower", false))
                 player.manaFlower = true;
 
             //security wallet

@@ -108,9 +108,15 @@ namespace FargowiltasSouls.Patreon.Phupperbat
 
                     if (sitTimer >= 600)
                     {
-                        if (sitTimer == 600 && squeak && !Main.dedServ)
-                            Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, $"Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), Projectile.Center);
                         realFrame = sitFrame;
+
+                        if (sitTimer == 600 && squeak)
+                        {
+                            squeak = false;
+
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, $"Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), Projectile.Center);
+                        }
                     }
                     else
                     {
