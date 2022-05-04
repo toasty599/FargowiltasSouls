@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             string tooltip =
 @"A meteor shower initiates every few seconds while attacking
-'Cosmic power builds your destructive prowess'";
+'Drop a draco on 'em'";
             Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
