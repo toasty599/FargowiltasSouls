@@ -324,6 +324,17 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case ProjectileID.FairyQueenLance:
+                    EModeCanHurt = false;
+                    if (NonSwarmFight(NPCID.HallowBoss) && SourceNPC.ai[0] == 7 && SourceNPC.ai[1] < 255)
+                    {
+                        Vector2 appearVel = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2();
+                        appearVel *= 2f;
+                        projectile.position -= appearVel * 60f;
+                        projectile.velocity = appearVel;
+                    }
+                    break;
+
                 case ProjectileID.Meowmere:
                     if (source is EntitySource_ItemUse)
                         FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(30), 1f);
@@ -461,6 +472,14 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.HallowBossRainbowStreak:
                     EModeCanHurt = FargoSoulsWorld.MasochistModeReal || FargoSoulsWorld.SwarmActive || projectile.timeLeft < 100;
+                    break;
+
+                case ProjectileID.FairyQueenLance:
+                    EModeCanHurt = projectile.localAI[0] > 60;
+                    if (NonSwarmFight(NPCID.HallowBoss) && SourceNPC.ai[0] == 6 && SourceNPC.ai[1] > 60)
+                    {
+                        projectile.position += SourceNPC.position - SourceNPC.oldPosition;
+                    }
                     break;
 
                 case ProjectileID.FairyQueenSunDance:

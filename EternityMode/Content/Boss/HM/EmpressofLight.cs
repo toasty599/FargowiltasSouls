@@ -125,13 +125,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 float ai1 = ((float)(AttackTimer - startDelay) / spinTime) % 1;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, vel.ToRotation(), ai1);
+                                    Vector2 appearVel = 2.5f * -vel;
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos - appearVel * 60, appearVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, vel.ToRotation(), ai1);
+
                                     float angleOffset = MathHelper.ToRadians(45);
                                     for (int j = -1; j <= 1; j++)
                                     {
                                         float length = 128f * (j + 2) + radius;
                                         Vector2 newPos = targetPos + length * offsetDirection;
-                                        Projectile.NewProjectile(npc.GetSource_FromThis(), newPos, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, vel.ToRotation() + MathHelper.Pi + angleOffset * j, ai1);
+                                        Vector2 fancyVel = 2.5f * (j + 2) * vel.RotatedBy(MathHelper.PiOver2 * j);
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), newPos - fancyVel * 60f, fancyVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, vel.ToRotation() + MathHelper.Pi + angleOffset * j, ai1);
                                     }
                                 }
                             }
@@ -214,7 +217,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 startRotation = Main.rand.NextFloat(MathHelper.TwoPi);
                             }
 
-                            int waveDelay = FargoSoulsWorld.MasochistModeReal ? 20 : 30;
+                            int waveDelay = /*FargoSoulsWorld.MasochistModeReal ? 20 :*/ 30;
                             const int spaceCovered = 800;
                             if (++AttackTimer > 0)
                             {
@@ -238,7 +241,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item163, Main.player[npc.target].Center);
                                 }
 
-                                if (AttackTimer % (FargoSoulsWorld.MasochistModeReal ? 2 : 3) == 0)
+                                if (AttackTimer % /*(FargoSoulsWorld.MasochistModeReal ? 2 : 3)*/ 3 == 0)
                                 {
                                     float ai1 = (float)(AttackTimer % waveDelay) / waveDelay;
                                     Vector2 spawnPos = targetPos;
@@ -246,7 +249,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     spawnPos += MathHelper.Lerp(-spaceCovered, spaceCovered, ai1) * Vector2.UnitY.RotatedBy(startRotation);
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, startRotation + MathHelper.Pi, ai1);
+                                    {
+                                        Vector2 vel = (startRotation + MathHelper.Pi).ToRotationVector2();
+                                        Vector2 appearVel = vel.RotatedBy(-MathHelper.PiOver2);
+                                        appearVel *= FargoSoulsWorld.MasochistModeReal ? 1f : 0.5f;
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos - 60f * appearVel, appearVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, vel.ToRotation(), ai1);
+                                    }
                                 }
                             }
 
@@ -280,7 +288,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                             else if (FargoSoulsWorld.MasochistModeReal) //RANDOM ATTACKS
                             {
-                                npc.ai[2] += Main.rand.Next(10);
+                                npc.ai[2] += Main.rand.Next(3);
                             }
 
                             npc.netUpdate = true;
@@ -343,10 +351,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 10: //p2 transition
-                    if (npc.dontTakeDamage && npc.life < npc.lifeMax / 2)
+                    if (npc.dontTakeDamage && npc.ai[1] > 120)
                     {
-                        npc.HealEffect(npc.lifeMax / 2 - npc.life);
-                        npc.life = npc.lifeMax / 2;
+                        if (npc.life < npc.lifeMax / 2)
+                        {
+                            npc.HealEffect(npc.lifeMax / 2 - npc.life);
+                            npc.life = npc.lifeMax / 2;
+                        }
                     }
                     break;
 
@@ -389,7 +400,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                                 float spread = MathHelper.ToRadians(24);
                                 float swordRotation = startRotation + MathHelper.Lerp(-spread, spread, ai1);
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.3f), 0f, Main.myPlayer, swordRotation, ai1);
+                                Vector2 appearVel = swordRotation.ToRotationVector2();
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + appearVel * 160f + appearVel * 5f * 60f, -appearVel * 5f, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.3f), 0f, Main.myPlayer, swordRotation, ai1);
                             }
                         }
 

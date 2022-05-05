@@ -1440,3 +1440,5 @@ chibii remii will squeak on sit if you are perfectly still for whole time she st
 increased empress smite duration
 fixed mystic skull doing nothing when equipped as an accessory
 added a layer of recursion to onspawn checks, fixes devi sandnados spawning sharks
+fixed empress swords giving graze before they do damage
+adjusted empress visuals
