@@ -1054,7 +1054,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.FairyQueenLance:
-                    if (SourceNPC is NPC && SourceNPC.type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                    if (FargoSoulsWorld.EternityMode && SourceNPC is NPC && SourceNPC.type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                     {
                         target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                         target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
@@ -1068,7 +1068,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.HallowBossLastingRainbow:
                 case ProjectileID.HallowBossSplitShotCore:
                     target.AddBuff(ModContent.BuffType<Purified>(), 300);
-                    target.AddBuff(ModContent.BuffType<Smite>(), 1200);
+                    target.AddBuff(ModContent.BuffType<Smite>(), 1800);
                     break;
 
                 case ProjectileID.RollingCactus:
@@ -1295,7 +1295,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.PhantasmalEye:
                 case ProjectileID.PhantasmalSphere:
                     target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
-                    if (SourceNPC is NPC && SourceNPC.type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                    if (FargoSoulsWorld.EternityMode && SourceNPC is NPC && SourceNPC.type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                     {
                         target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                         target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);

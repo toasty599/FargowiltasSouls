@@ -412,7 +412,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(ModContent.BuffType<Purified>(), 300);
-            target.AddBuff(ModContent.BuffType<Smite>(), 1200);
+            target.AddBuff(ModContent.BuffType<Smite>(), 1800);
         }
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)

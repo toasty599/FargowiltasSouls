@@ -1437,3 +1437,4 @@ added toggle for mana flower effect (controls both arch wizard soul and mystic s
 reduced randomness of maso empress (should stop her from doing dash 4+ times in a row)
 increased chance of maso mutant p1 using random order
 chibii remii will squeak on sit if you are perfectly still for whole time she stands still
+increased empress smite duration
