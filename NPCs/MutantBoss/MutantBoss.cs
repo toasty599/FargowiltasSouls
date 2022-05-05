@@ -2686,11 +2686,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.ai[3] = Main.rand.NextFloat(MathHelper.TwoPi);
             }
 
-            void Sword(Vector2 pos, float ai0, float ai1)
+            void Sword(Vector2 pos, float ai0, float ai1, Vector2 vel)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, Vector2.Zero,
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), pos - vel * 60f, vel,
                         ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0, ai1);
                 }
             }
@@ -2736,13 +2736,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 {
                     Vector2 spawnPos = focusPoint + spawnOffset * spawnDistance + spawnOffset.RotatedBy(MathHelper.PiOver2) * gap * i;
                     float Ai1 = swordCounter++ / (max * 2f + 1);
-                    Sword(spawnPos, attackAngle + MathHelper.PiOver4, Ai1);
-                    Sword(spawnPos, attackAngle - MathHelper.PiOver4, Ai1);
+                    
+                    Sword(spawnPos, attackAngle + MathHelper.PiOver4, Ai1, Main.rand.NextVector2Unit());
+                    Sword(spawnPos, attackAngle - MathHelper.PiOver4, Ai1, Main.rand.NextVector2Unit());
 
                     if (FargoSoulsWorld.MasochistModeReal)
                     {
-                        Sword(spawnPos + mirrorLength * (attackAngle + MathHelper.PiOver4).ToRotationVector2(), attackAngle + MathHelper.PiOver4 + MathHelper.Pi, Ai1);
-                        Sword(spawnPos + mirrorLength * (attackAngle - MathHelper.PiOver4).ToRotationVector2(), attackAngle - MathHelper.PiOver4 + MathHelper.Pi, Ai1);
+                        Sword(spawnPos + mirrorLength * (attackAngle + MathHelper.PiOver4).ToRotationVector2(), attackAngle + MathHelper.PiOver4 + MathHelper.Pi, Ai1, Main.rand.NextVector2Unit());
+                        Sword(spawnPos + mirrorLength * (attackAngle - MathHelper.PiOver4).ToRotationVector2(), attackAngle - MathHelper.PiOver4 + MathHelper.Pi, Ai1, Main.rand.NextVector2Unit());
                     }
                 }
 
@@ -2756,6 +2757,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             int swordSwarmTime = startup + attackThreshold * timesToAttack + 40;
             if (NPC.ai[1] == swordSwarmTime)
             {
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item164, player.Center);
+
                 float safeAngle = NPC.ai[3];
                 float safeRange = MathHelper.ToRadians(10);
                 int max = FargoSoulsWorld.MasochistModeReal ? 80 : 60;
@@ -2771,14 +2774,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         target += Main.rand.NextFloat(600) * safeAngle.ToRotationVector2();
 
                     Vector2 spawnPos = player.Center + offset;
-                    Sword(spawnPos, (target - spawnPos).ToRotation(), (float)i / max);
+                    Vector2 vel = (target - spawnPos) / 60f;
+                    Sword(spawnPos, vel.ToRotation(), (float)i / max, -vel * 0.75f);
                 }
             }
 
             if (++NPC.ai[1] > swordSwarmTime + 30)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item164, player.Center);
-
                 ChooseNextAttack(11, 13, 16, 21, FargoSoulsWorld.MasochistModeReal ? 26 : 24, 29, 31, 35, 37, 39, 41, 45);
             }
         }
