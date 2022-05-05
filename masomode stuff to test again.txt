@@ -1438,3 +1438,4 @@ reduced randomness of maso empress (should stop her from doing dash 4+ times in 
 increased chance of maso mutant p1 using random order
 chibii remii will squeak on sit if you are perfectly still for whole time she stands still
 increased empress smite duration
+fixed mystic skull doing nothing when equipped as an accessory
