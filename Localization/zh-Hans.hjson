@@ -104,10 +104,13 @@ Mods: {
 
 			CosmosChampionDespawn: 宇宙英灵回归群星之中……
 			CosmosChampionKilledAll: 宇宙英灵击败了每一个敌人。
+
+			TrojanSquirrelDespawn: 特洛伊松鼠回到了它的松鼠聚落中……
 		}
 
 		Message: {
 			HasAwoken:已苏醒！
+			SquirrelCoatofArms: "{$Mods.FargowiltasSouls.NPCName.TrojanSquirrel}{$Mods.FargowiltasSouls.Message.HasAwoken}"
 			DevisCurse: "{$Mods.FargowiltasSouls.NPCName.DeviBoss}{$Mods.FargowiltasSouls.Message.HasAwoken}"
 			AbomsCurse: "{$Mods.FargowiltasSouls.NPCName.AbomBoss}{$Mods.FargowiltasSouls.Message.HasAwoken}"
 			MutantsCurse: "{$Mods.FargowiltasSouls.NPCName.MutantBoss}{$Mods.FargowiltasSouls.Message.HasAwoken}"
@@ -297,6 +300,7 @@ Mods: {
 			MasoCanPlay: 是否能激活受虐模式
 
 			MasoHeader2: 永恒模式饰品
+			DeerSinewDashConfig: 鹿筋冲刺
 			MasoAeolusConfig: 风神跳跃
 			MasoAeolusFlowerConfig: 花靴
 			MasoIconConfig: 刷怪率提升
@@ -304,7 +308,7 @@ Mods: {
 			MasoGrazeConfig: 擦弹
 			MasoGrazeRingConfig: 擦弹范围可视化
 			MasoDevianttHeartsConfig: 追踪红心攻击
-			PrecisionSealHurtboxConfig: 减少碰撞箱
+			PrecisionSealHurtboxConfig: 缩小碰撞箱
 
 			SupremeFairyHeader: 至高告死精灵
 			MasoSlimeConfig: 凝胶球
@@ -370,6 +374,7 @@ Mods: {
 			MoonCharmConfig: 月光护身符
 			NeptuneShellConfig: 海神贝壳
 			SniperConfig: 狙击镜
+			ManaFlowerConfig: 魔力花
 			UniverseConfig: 寰宇之魂攻击速度加成
 
 			WorldShaperHeader: 铸世者之魂
@@ -570,7 +575,7 @@ Mods: {
 			AdamantiteEnchant:
 				'''
 				你每次发射的第二个弹幕会分裂成三个
-				所有的弹幕仅造成一半的伤害
+				所有的弹幕仅造成66%的伤害
 				“混乱”
 				'''
 			AncientCobaltEnchant:
@@ -758,7 +763,7 @@ Mods: {
 			MeteorEnchant:
 				'''
 				A meteor shower initiates every few seconds while attacking
-				'Cosmic power builds your destructive prowess'
+				'Drop a draco on 'em'
 				'''
 			MinerEnchant:
 				'''
