@@ -596,7 +596,13 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            
+            //boss bag
+            //trophy
+            //weapons
+            npcLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 10));
+            npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.SquirrelHook, ItemID.ShinyRedBalloon, ItemID.CloudinaBottle));
+            npcLoot.Add(ItemDropRule.Common(ItemID.WoodenCrate, maximumDropped: 5));
+            npcLoot.Add(ItemDropRule.Common(ItemID.HerbBag, maximumDropped: 5));
         }
 
         public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
