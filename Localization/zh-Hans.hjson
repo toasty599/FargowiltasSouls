@@ -621,88 +621,89 @@ Mods: {
 				'''
 				甲虫增加你的近战伤害和速度
 				受到伤害时，力量甲虫会转化为耐力甲虫，在十秒内保护你不受伤害
-				甲虫耐力至多减免30%伤害
+				甲虫增益至多堆叠两层
 				“你的血管里流淌着看不见的粪便生命”
 				'''
 			BorealWoodEnchant:
 				'''
-				Attacks will periodically be accompanied by several snowballs
-				'The cooler wood'
+				攻击时定期释放几个雪球
+				“又酷又冷”
 				'''
 			CactusEnchant:
 				'''
-				While attacking you release a spray of needles
-				Enemies will explode into needles on death if they are struck with your needles
-				'It's the quenchiest!'
+				攻击时，你会释放出一圈针刺
+				被你的针刺扎死的敌人会爆裂出更多针刺
+				“太解渴了！”
 				'''
 			ChlorophyteEnchant:
 				'''
-				Summons a ring of leaf crystals to shoot at nearby enemies
-				Grants a double spore jump
-				While using wings, spores will continuously spawn
-				Allows the ability to dash slightly
-				Double tap a direction
-				'The jungle's essence crystallizes around you'
+				召唤一圈叶状水晶攻击附近的敌人
+				使你获得孢子二段跳能力
+				使用翅膀进行飞行时，你周围会不断生成孢子
+				你能进行短程冲刺
+				“丛林的精华在你周围凝结成晶体”
 				'''
 			CobaltEnchant:
 				'''
-				25% chance for your projectiles to explode into shards
-				This can only happen once every second
-				'I can't believe it's not Palladium'
+				你的弹幕有25%几率爆裂成碎片
+				此效果每秒内只会发生一次
+				“真不敢相信这竟然不是钯金”
 				'''
 			CopperEnchant:
 				'''
-				Attacks have a chance to shock enemies with chain lightning
-				'Behold'
+				攻击有几率释放闪电攻击敌人
+				“瞧！”
 				'''
 			CrimsonEnchant:
 				'''
-				After taking a hit, regen is greatly increased until the half the hit is healed off
-				If you take another hit before it's healed, you lose the heal in addition to normal damage
-				'The blood of your enemy is your rebirth'
+				在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量的一半
+				如果你在完成恢复前再次受伤，生命恢复效果不会叠加
+				“你从敌人的鲜血中重生”
 				'''
 			CrystalAssassinEnchant:
 				'''
-				Allows the ability to dash
-				Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
-				Using the Rod of Discord will also grant this buff
-				When you teleport, you also spawn several homing blades
-				Effects of Volatile Gel''
+				获得冲刺能力
+				若背包中有烟雾弹，按下“投掷烟雾弹”键后会扔出一颗烟雾弹，再次按下该键时会将你传送至烟雾弹的位置并给予你先发制人增益
+				使用混沌传送杖时也会获得增益
+				传送时，你会丢出几把追踪飞刀
+				拥有挥发明胶的效果
+				“啥效果都没有，还没做完，急个锤子”
+				（如果你在它的效果已经做完后还看到这消息，请及时告诉棱镜）
 				'''
 			DarkArtistEnchant:
 				'''
-				Summons a Flameburst minion that will travel to your mouse after charging up
-				It will then act as a sentry
-				After attacking for 2 seconds you will be enveloped in flames
-				Switching weapons will increase the next attack's damage by 50% and spawn an inferno
-				Greatly enhances Flameburst effectiveness
-				'The shadows hold more than they seem'
+				召唤一个爆炸烈焰仆从，在充能完毕后会移动至光标位置
+				然后它会如同一个哨兵，固定在该位置并发射爆炸火球
+				持续攻击会使你被火焰包裹并为仆从充能，持续攻击两秒后完成充能
+				切换武器后，下次攻击的伤害增加50%，并造成地狱爆炸
+				大幅增加爆炸烈焰哨兵的索敌范围和攻击距离
+				“阴影蕴含之物远超其表象”
 				'''
 			EbonwoodEnchant:
 				'''
-				You have an aura of Shadowflame
-				'Untapped potential'
+				召唤一圈暗影焰光环
+				“潜力未完全开发”
 				'''
 			ForbiddenEnchant:
 				'''
-				Double tap down to call an ancient storm to the cursor location
-				Any projectiles shot through your storm gain 30% damage
-				'Walk like an Egyptian'
+				双击“下”键会在光标位置召唤远古风暴
+				穿过风暴的弹幕会额外造成30%伤害
+				“走路像个埃及人”
 				'''
 			FossilEnchant:
 				'''
-				If you reach zero HP you will revive with 50 HP and spawn several bones
-				You will also spawn a few bones on every hit
-				Collect the bones to heal for 20 HP each
-				'Beyond a forgotten age'
+				受到致死伤害时会以50生命值重生并爆出几根骨头
+				你受伤时也会生成骨头
+				接触骨头时会回复20点生命值
+				“被遗忘已久的记忆”
 				'''
 			FrostEnchant:
 				'''
-				Icicles will start to appear around you
-				Attacking will launch them towards the cursor
-				When they hit an enemy they are frozen solid
-				All hostile projectiles move at half speed
-				'Let's coat the world in a deep freeze'
+				你的周围会出现冰锥
+				攻击时会将冰锥发射至光标位置
+				冰锥击中敌人时会使其短暂冻结
+				在光标位置生成暴雪，其中的敌对弹幕飞行速度减半
+				“让我们给这个世界披上一层厚厚的冰衣”
 				'''
 			GladiatorEnchant:
 				'''
