@@ -84,7 +84,12 @@ namespace FargowiltasSouls.NPCs.Challengers
                 case 0:
                     {
                         if (body.ai[0] == 0 && body.localAI[0] <= 0)
+                        {
                             NPC.ai[1] += FargoSoulsWorld.EternityMode ? 1.5f : 1f;
+
+                            if (body.dontTakeDamage)
+                                NPC.ai[1] += 1f;
+                        }
 
                         int threshold = 360;
                         if (NPC.ai[1] > threshold && Math.Abs(body.velocity.Y) < 0.05f)
@@ -97,7 +102,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                     break;
 
                 case 1:
-                    if (++NPC.ai[1] % 60 == 0)
+                    if (++NPC.ai[1] % (body.dontTakeDamage || FargoSoulsWorld.MasochistModeReal ? 45 : 60) == 0)
                     {
                         const float gravity = 0.2f;
                         float time = FargoSoulsWorld.MasochistModeReal ? 60f : 90f;
@@ -107,7 +112,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                         for (int i = 0; i < 10; i++)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance + Main.rand.NextVector2Square(-0.5f, 0.5f),
-                                ModContent.ProjectileType<Projectiles.Champions.TimberAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.5f), 0f, Main.myPlayer);
+                                ModContent.ProjectileType<Projectiles.Champions.TimberAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         }
                     }
 

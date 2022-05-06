@@ -40,21 +40,21 @@ namespace FargowiltasSouls.NPCs.Challengers
         {
             base.SetDefaults();
 
-            NPC.damage = 32;
+            NPC.damage = 24;
             NPC.defense = 2;
             NPC.HitSound = SoundID.NPCHit7;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.knockBackResist = 0f;
-            NPC.lavaImmune = false;
+            NPC.lavaImmune = true;
             NPC.aiStyle = -1;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax * Math.Sqrt(bossLifeScale));
+            NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
         }
     }
 
@@ -72,9 +72,9 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 CustomTexturePath = $"FargowiltasSouls/NPCs/Challengers/{Name}_Still",
-                Position = new Vector2(16 * 4, 16 * 9),
-                PortraitPositionXOverride = 16,
-                PortraitPositionYOverride = 16 * 7
+                Position = new Vector2(16 * 4, 16 * 4),
+                PortraitPositionXOverride = 16 * 1.5f,
+                PortraitPositionYOverride = 16 * 3
             });
         }
 
@@ -277,7 +277,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                             if (FargoSoulsWorld.EternityMode && head == null && NPC.localAI[0] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Top.X, NPC.Top.Y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5),
-                                    Main.rand.Next(326, 329), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.5f), 0f, Main.myPlayer);
+                                    Main.rand.Next(326, 329), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                         else if (!NPC.HasValidTarget || NPC.Distance(player.Center) > 1600)
@@ -315,6 +315,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                                 increment += 0.5f;
                             if (FargoSoulsWorld.MasochistModeReal)
                                 increment += 1f;
+                            if (NPC.dontTakeDamage)
+                                increment /= 2;
 
                             if (target.Y > NPC.Top.Y)
                                 NPC.ai[1] += increment;
@@ -525,7 +527,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 Main.dust[d].noGravity = true;
             }
 
-            NPC.dontTakeDamage = NPC.life < NPC.lifeMax / 2 && head != null && arms != null;
+            NPC.dontTakeDamage = NPC.life < NPC.lifeMax / 2 && (head != null || arms != null);
         }
 
         public override void FindFrame(int frameHeight)
