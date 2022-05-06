@@ -444,8 +444,6 @@ namespace FargowiltasSouls.NPCs.Challengers
                     goto case 0;
             }
 
-            //FargoSoulsUtil.PrintAI(NPC);
-
             if (despawn)
             {
                 if (NPC.timeLeft > 60)
@@ -527,7 +525,56 @@ namespace FargowiltasSouls.NPCs.Challengers
                 Main.dust[d].noGravity = true;
             }
 
-            NPC.dontTakeDamage = NPC.life < NPC.lifeMax / 2 && (head != null || arms != null);
+            if (FargoSoulsWorld.EternityMode)
+            {
+                bool wasImmune = NPC.dontTakeDamage;
+                NPC.dontTakeDamage = NPC.life < NPC.lifeMax / 2 && (head != null || arms != null);
+
+                if (!wasImmune && NPC.dontTakeDamage) //became immune, explode
+                {
+                    for (int i = 0; i < 6; i++)
+                        Explode(NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)));
+                }
+            }
+            else
+            {
+                NPC.dontTakeDamage = false;
+            }
+        }
+
+        private void Explode(Vector2 center)
+        {
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, center, 14);
+
+            const int width = 32;
+            const int height = 32;
+
+            Vector2 pos = center - new Vector2(width, height) / 2f;
+
+            for (int i = 0; i < 20; i++)
+            {
+                int dust = Dust.NewDust(pos, width, height, DustID.Smoke, 0f, 0f, 100, default(Color), 3f);
+                Main.dust[dust].velocity *= 1.4f;
+            }
+
+            for (int i = 0; i < 15; i++)
+            {
+                int dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 7f;
+
+                dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
+                Main.dust[dust].velocity *= 3f;
+            }
+
+            float scaleFactor9 = 0.5f;
+            for (int j = 0; j < 3; j++)
+            {
+                int gore = Gore.NewGore(NPC.GetSource_FromThis(), center, default(Vector2), Main.rand.Next(61, 64));
+                Main.gore[gore].velocity *= scaleFactor9;
+                Main.gore[gore].velocity.X += 1f;
+                Main.gore[gore].velocity.Y += 1f;
+            }
         }
 
         public override void FindFrame(int frameHeight)
@@ -602,7 +649,6 @@ namespace FargowiltasSouls.NPCs.Challengers
             //trophy
             //weapons
             npcLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 10));
-            npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.SquirrelHook, ItemID.ShinyRedBalloon, ItemID.CloudinaBottle));
             npcLoot.Add(ItemDropRule.Common(ItemID.WoodenCrate, maximumDropped: 5));
             npcLoot.Add(ItemDropRule.Common(ItemID.HerbBag, maximumDropped: 5));
         }
