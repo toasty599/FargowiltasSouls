@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 //dust from stinger
                 if (Main.rand.NextBool())
                 {
-                    int num92 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 18, 0f, 0f, 0, default(Color), 0.9f);
+                    int num92 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 18, 0f, 0f, 0, default(Color), 0.9f);
                     Main.dust[num92].noGravity = true;
                     Main.dust[num92].velocity *= 0.5f;
                 }
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             for(int i = 0; i < 10; i++)
             {
-                int num92 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 18, Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color), 0.9f);
+                int num92 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 18, Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color), 0.9f);
                 Main.dust[num92].noGravity = true;
                 Main.dust[num92].velocity *= 0.25f;
                 Main.dust[num92].fadeIn = 1.3f;

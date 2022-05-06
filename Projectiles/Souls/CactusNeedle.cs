@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			int num11;
 			for (int num420 = 0; num420 < 6; num420 = num11 + 1)
 			{
-				int num421 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 196, 0f, 0f, 0, default(Color), 1f);
+				int num421 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 196, 0f, 0f, 0, default(Color), 1f);
 				Main.dust[num421].noGravity = true;
 				Main.dust[num421].scale = Projectile.scale;
 				num11 = num420;

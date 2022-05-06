@@ -367,7 +367,7 @@ namespace FargowiltasSouls.Projectiles
                                     projectile.Kill();
                                     Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 11, 0.5f);
                                     int proj2 = ModContent.ProjectileType<BlenderProj3>();
-                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
                                 }
                             }
                         }
@@ -399,11 +399,11 @@ namespace FargowiltasSouls.Projectiles
                     {
                         for (int num468 = 0; num468 < 20; num468++)
                         {
-                            int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
+                            int num469 = Dust.NewDust(projectile.Center, projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
                                 -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, 1f);
                             Main.dust[num469].noGravity = true;
                             Main.dust[num469].velocity *= 2f;
-                            num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
+                            num469 = Dust.NewDust(projectile.Center, projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
                                 -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, .5f);
                             Main.dust[num469].velocity *= 2f;
                         }

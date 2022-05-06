@@ -189,14 +189,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
               59,
               88
                     });
-                int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, Type3, 0.0f, 0.0f, 200, new Color(), Scale1);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Type3, 0.0f, 0.0f, 200, new Color(), Scale1);
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitY.RotatedByRandom(3.14159274101257) * (float)Main.rand.NextDouble() * (float)Projectile.width / 2f;
                 Main.dust[index2].noGravity = true;
                 Dust dust1 = Main.dust[index2];
                 dust1.velocity = dust1.velocity * 3f;
                 Dust dust2 = Main.dust[index2];
                 dust2.velocity = dust2.velocity + vector2 * Main.rand.NextFloat();
-                int index3 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, Type1, 0.0f, 0.0f, 100, new Color(), Scale2);
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Type1, 0.0f, 0.0f, 100, new Color(), Scale2);
                 Main.dust[index3].position = Projectile.Center + Vector2.UnitY.RotatedByRandom(3.14159274101257) * (float)Main.rand.NextDouble() * (float)Projectile.width / 2f;
                 Dust dust3 = Main.dust[index3];
                 dust3.velocity = dust3.velocity * 2f;
@@ -208,7 +208,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             for (int index1 = 0; index1 < 20; ++index1)
             {
-                int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, Type2, 0.0f, 0.0f, 0, new Color(), Scale3);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Type2, 0.0f, 0.0f, 0, new Color(), Scale3);
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitX.RotatedByRandom(3.14159274101257).RotatedBy((double)Projectile.velocity.ToRotation(), new Vector2()) * (float)Projectile.width / 3f;
                 Main.dust[index2].noGravity = true;
                 Dust dust1 = Main.dust[index2];

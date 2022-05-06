@@ -118,10 +118,10 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
                 }
                 for (int i = 0; i < 20; i++)
                 {
-                    int num469 = Dust.NewDust(new Vector2(npc.Center.X, npc.Center.Y), npc.width, npc.height, DustID.RainbowMk2, -npc.velocity.X * 0.2f, -npc.velocity.Y * 0.2f, 100, default(Color), 5f);
+                    int num469 = Dust.NewDust(npc.Center, npc.width, npc.height, DustID.RainbowMk2, -npc.velocity.X * 0.2f, -npc.velocity.Y * 0.2f, 100, default(Color), 5f);
                     Main.dust[num469].noGravity = true;
                     Main.dust[num469].velocity *= 2f;
-                    num469 = Dust.NewDust(new Vector2(npc.Center.X, npc.Center.Y), npc.width, npc.height, DustID.RainbowMk2, -npc.velocity.X * 0.2f, -npc.velocity.Y * 0.2f, 100, default(Color), 2f);
+                    num469 = Dust.NewDust(npc.Center, npc.width, npc.height, DustID.RainbowMk2, -npc.velocity.X * 0.2f, -npc.velocity.Y * 0.2f, 100, default(Color), 2f);
                     Main.dust[num469].velocity *= 2f;
                 }
                 return false;
