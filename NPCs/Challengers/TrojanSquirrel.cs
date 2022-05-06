@@ -179,10 +179,15 @@ namespace FargowiltasSouls.NPCs.Challengers
                 float maxwalkSpeed = BaseWalkSpeed;
 
                 if (goFast)
+                {
                     maxwalkSpeed *= 3f;
-
-                if (!FargoSoulsWorld.MasochistModeReal)
+                    if (!FargoSoulsWorld.EternityMode)
+                        maxwalkSpeed *= 0.75f;
+                }
+                else if (!FargoSoulsWorld.MasochistModeReal)
+                {
                     maxwalkSpeed *= 0.75f;
+                }
 
                 if (NPC.dontTakeDamage)
                     maxwalkSpeed *= 0.75f;
@@ -222,7 +227,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 case 0: //mourning wood movement
                     {
-                        Vector2 target = player.Center;
+                        Vector2 target = player.Bottom - Vector2.UnitY;
                         if (NPC.localAI[0] > 0) //doing running attack
                         {
                             NPC.localAI[0] -= 1f;
@@ -289,7 +294,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 case 1: //telegraph something
                     NPC.velocity.X *= 0.9f;
 
-                    TileCollision();
+                    TileCollision(player.Bottom.Y - 1 > NPC.Bottom.Y, Math.Abs(player.Center.X - NPC.Center.X) < NPC.width / 2 && NPC.Bottom.Y < player.Bottom.Y - 1);
 
                     if (++NPC.localAI[0] > 90)
                     {
@@ -300,7 +305,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                         {
                             NPC.ai[0] = 0f;
 
-                            NPC.localAI[0] = 240f;
+                            NPC.localAI[0] = 300f;
                             NPC.localAI[1] = Math.Sign(player.Center.X - NPC.Center.X);
                             NPC.localAI[2] = player.Center.X;
                         }
@@ -337,6 +342,10 @@ namespace FargowiltasSouls.NPCs.Challengers
                         {
                             NPC.TargetClosest(false);
 
+                            float cap = BaseWalkSpeed * 5;
+                            NPC.velocity.X = Utils.Clamp(NPC.velocity.X, -cap, cap);
+                            NPC.velocity.Y = Utils.Clamp(NPC.velocity.Y, -cap, cap);
+
                             NPC.ai[0] = 0f;
                             NPC.localAI[0] = 0f;
                             NPC.netUpdate = true;
@@ -360,6 +369,64 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 if (NPC.timeLeft < 600)
                     NPC.timeLeft = 600;
+            }
+
+            if (FargoSoulsUtil.NPCExists(head/*, ModContent.NPCType<TrojanSquirrelHead>()*/) == null)
+            {
+                head = -1;
+
+                Vector2 pos = NPC.Top;
+                pos.X += 2f * 16f * NPC.direction;
+                pos.Y -= 8f;
+
+                int width = 4 * 16;
+                int height = 2 * 16;
+
+                pos.X -= width / 2f;
+                pos.Y -= height / 2f;
+
+                for (int i = 0; i < 3; i++)
+                {
+                    int d = Dust.NewDust(pos, width, height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default(Color), 3f);
+                    Main.dust[d].velocity.Y -= 1.5f;
+                    Main.dust[d].velocity *= 1.5f;
+                    Main.dust[d].noGravity = true;
+                }
+
+                if (Main.rand.NextBool(3))
+                {
+                    int d = Dust.NewDust(pos, width, height, DustID.Torch, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default(Color), 3.5f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity.Y -= 3f;
+                    Main.dust[d].velocity *= 1.5f;
+                }
+            }
+
+            if (FargoSoulsUtil.NPCExists(arms/*, ModContent.NPCType<TrojanSquirrelArms>()*/) == null)
+            {
+                arms = -1;
+
+                Vector2 pos = NPC.Center;
+                pos.X -= 16f * NPC.direction;
+                pos.Y -= 3f * 16f;
+
+                int width = 2 * 16;
+                int height = 2 * 16;
+
+                pos.X -= width / 2f;
+                pos.Y -= height / 2f;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    int d = Dust.NewDust(pos, width, height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default(Color), 1.5f);
+                    Main.dust[d].noGravity = true;
+                }
+
+                if (Main.rand.NextBool())
+                {
+                    int d2 = Dust.NewDust(pos, width, height, DustID.Torch, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    Main.dust[d2].noGravity = true;
+                }
             }
         }
 
