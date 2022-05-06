@@ -58,6 +58,102 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
     }
 
+    public abstract class TrojanSquirrelLimb : TrojanSquirrelPart
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+
+            NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
+            });
+        }
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+
+            NPC.hide = true;
+        }
+
+        public override void DrawBehind(int index)
+        {
+            Main.instance.DrawCacheNPCProjectiles.Add(index);
+        }
+
+        protected NPC body;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+
+            if (source is EntitySource_Parent parent && parent.Entity is NPC sourceNPC)
+                body = sourceNPC;
+        }
+
+        public override bool PreAI()
+        {
+            if (body != null)
+                body = FargoSoulsUtil.NPCExists(body.whoAmI, ModContent.NPCType<TrojanSquirrel>());
+
+            if (body == null)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    NPC.life = 0;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+                    NPC.active = false;
+                }
+                return false;
+            }
+
+            return base.PreAI();
+        }
+
+        public override bool CheckActive() => false;
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npcLoot);
+
+            npcLoot.Add(ItemDropRule.DropNothing());
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            base.FindFrame(frameHeight);
+
+            if (body != null)
+                NPC.frame = body.frame;
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (body == null)
+                return base.PreDraw(spriteBatch, screenPos, drawColor);
+
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+            Rectangle rectangle = NPC.frame;
+            Vector2 origin2 = rectangle.Size() / 2f;
+
+            Color color26 = drawColor;
+            color26 = NPC.GetAlpha(color26);
+
+            SpriteEffects effects = NPC.direction < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Vector2 center = body.Center;
+
+            Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY - 53 * body.scale), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, NPC.rotation, origin2, NPC.scale, effects, 0);
+
+            return false;
+        }
+    }
+
     [AutoloadBossHead]
     public class TrojanSquirrel : TrojanSquirrelPart
     {
@@ -90,7 +186,8 @@ namespace FargowiltasSouls.NPCs.Challengers
         {
             base.SetDefaults();
 
-            NPC.lifeMax = 200;
+            NPC.lifeMax = 700;
+
             NPC.width = 100;
             NPC.height = 120; //234
 
@@ -102,8 +199,8 @@ namespace FargowiltasSouls.NPCs.Challengers
             SceneEffectPriority = SceneEffectPriority.BossLow;
         }
 
-        NPC head;
-        NPC arms;
+        public NPC head;
+        public NPC arms;
 
         private bool spawned;
 
@@ -238,7 +335,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     head = FargoSoulsUtil.NPCExists(FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromThis(), NPC.Center, ModContent.NPCType<TrojanSquirrelHead>(), NPC.whoAmI, target: NPC.target));
-                    //arms = FargoSoulsUtil.NPCExists(FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromThis(), NPC.Center, ModContent.NPCType<TrojanSquirrelArms>(), NPC.whoAmI, target: NPC.target));
+                    arms = FargoSoulsUtil.NPCExists(FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromThis(), NPC.Center, ModContent.NPCType<TrojanSquirrelArms>(), NPC.whoAmI, target: NPC.target));
                 }
 
                 //drop summon
@@ -276,8 +373,10 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                             if (FargoSoulsWorld.EternityMode && head == null && NPC.localAI[0] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Top.X, NPC.Top.Y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5),
+                                int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Top.X, NPC.Top.Y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5),
                                     Main.rand.Next(326, 329), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
+                                if (p != Main.maxProjectiles)
+                                    Main.projectile[p].timeLeft = 90;
                             }
                         }
                         else if (!NPC.HasValidTarget || NPC.Distance(player.Center) > 1600)
@@ -289,7 +388,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                             despawn = true;
                         }
 
-                        if (Math.Abs(NPC.velocity.Y) < 0.05f && NPC.localAI[3] == 1)
+                        if (Math.Abs(NPC.velocity.Y) < 0.05f && NPC.localAI[3] == 2)
                         {
                             NPC.localAI[3] = 0f;
 
@@ -304,6 +403,9 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                         bool goFast = despawn || NPC.localAI[0] > 0;
                         Movement(target, goFast);
+
+                        if (arms != null && (NPC.localAI[3] == -1 || NPC.localAI[3] == 1)) //from arms
+                            NPC.direction = NPC.spriteDirection = (int)NPC.localAI[3];
 
                         bool canDoAttacks = !goFast && (!NPC.dontTakeDamage || FargoSoulsWorld.EternityMode);
                         if (canDoAttacks) //decide next action
@@ -323,27 +425,44 @@ namespace FargowiltasSouls.NPCs.Challengers
                             else
                                 NPC.ai[2] += increment;
 
-                            if (Math.Abs(NPC.velocity.Y) < 0.05f && !(head != null && head.ai[0] != 0) && !(arms != null && arms.ai[0] != 0))
+                            if (Math.Abs(NPC.velocity.Y) < 0.05f)
                             {
-                                int threshold = 300;
+                                //its structured like this to ensure body picks the right attack for the situation after being delayed by head/arms
+                                bool canProceed = !(head != null && head.ai[0] != 0) && !(arms != null && arms.ai[0] != 0);
 
+                                int threshold = 300;
                                 if (NPC.ai[1] > threshold)
                                 {
-                                    NPC.ai[0] = 1f;
-                                    NPC.ai[1] = 0f;
-                                    //NPC.ai[2] = 0f;
-                                    NPC.ai[3] = 0f;
-                                    NPC.localAI[0] = 0f;
-                                    NPC.netUpdate = true;
+                                    if (canProceed)
+                                    {
+                                        NPC.ai[0] = 1f;
+                                        NPC.ai[1] = 0f;
+                                        //NPC.ai[2] = 0f;
+                                        NPC.ai[3] = 0f;
+                                        NPC.localAI[0] = 0f;
+                                        NPC.netUpdate = true;
+                                    }
+                                    else
+                                    {
+                                        NPC.ai[1] -= 10f;
+                                    }
                                 }
-                                else if (NPC.ai[2] > threshold)
+
+                                if (NPC.ai[2] > threshold)
                                 {
-                                    NPC.ai[0] = 1f;
-                                    //NPC.ai[1] = 0f;
-                                    NPC.ai[2] = 0f;
-                                    NPC.ai[3] = 1f;
-                                    NPC.localAI[0] = 0f;
-                                    NPC.netUpdate = true;
+                                    if (canProceed)
+                                    {
+                                        NPC.ai[0] = 1f;
+                                        //NPC.ai[1] = 0f;
+                                        NPC.ai[2] = 0f;
+                                        NPC.ai[3] = 1f;
+                                        NPC.localAI[0] = 0f;
+                                        NPC.netUpdate = true;
+                                    }
+                                    else
+                                    {
+                                        NPC.ai[2] -= 10f;
+                                    }
                                 }
                             }
                         }
@@ -393,7 +512,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 case 2: //jump
                     {
                         const float gravity = 0.4f;
-                        const float time = 90f;
+                        float time = FargoSoulsWorld.EternityMode && arms == null ? 60f : 90f;
 
                         if (NPC.localAI[0]++ == 0)
                         {
@@ -409,7 +528,7 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                             if (FargoSoulsWorld.EternityMode && arms == null)
                             {
-                                NPC.localAI[3] = 1; //flag to stomp again on landing
+                                NPC.localAI[3] = 2; //flag to stomp again on landing
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -514,7 +633,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             else
             {
-                arms = FargoSoulsUtil.NPCExists(arms.whoAmI/*, ModContent.NPCType<TrojanSquirrelArms>()*/);
+                arms = FargoSoulsUtil.NPCExists(arms.whoAmI, ModContent.NPCType<TrojanSquirrelArms>());
             }
 
             if (NPC.life < NPC.lifeMax / 2 && Main.rand.NextBool(3))
@@ -594,6 +713,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                         if (NPC.frame.Y >= frameHeight * 6)
                             NPC.frame.Y = 0;
 
+                        if (arms != null && arms.ai[0] == 1 && arms.ai[3] == 1)
+                            NPC.frame.Y = frameHeight * 6;
+
                         if (NPC.velocity.X == 0)
                             NPC.frame.Y = frameHeight; //stationary sprite if standing still
 
@@ -625,8 +747,6 @@ namespace FargowiltasSouls.NPCs.Challengers
                     if (!Main.dedServ)
                         Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"TrojanSquirrelGore{i}").Type, NPC.scale);
                 }
-
-                //8, 9, 10 for arms
             }
         }
 
@@ -649,8 +769,8 @@ namespace FargowiltasSouls.NPCs.Challengers
             //trophy
             //weapons
             npcLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 10));
-            npcLoot.Add(ItemDropRule.Common(ItemID.WoodenCrate, maximumDropped: 5));
-            npcLoot.Add(ItemDropRule.Common(ItemID.HerbBag, maximumDropped: 5));
+            npcLoot.Add(ItemDropRule.Common(ItemID.WoodenCrate, 1, 3, 5));
+            npcLoot.Add(ItemDropRule.Common(ItemID.HerbBag, 1, 3, 5));
         }
 
         public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
