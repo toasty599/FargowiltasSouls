@@ -765,9 +765,6 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.SandnadoHostile:
                     if (projectile.timeLeft == 1199 && NPC.CountNPCS(NPCID.SandShark) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Main.NewText($"source is npc: {SourceNPC is NPC}");
-                        if (SourceNPC is NPC)
-                            Main.NewText($"type: {SourceNPC.type} vs {ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()}");
                         if (!(SourceNPC is NPC && (SourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>() || SourceNPC.type == ModContent.NPCType<SpiritChampion>())))
                         {
                             FargoSoulsUtil.NewNPCEasy(Entity.InheritSource(projectile), projectile.Center, NPCID.SandShark,

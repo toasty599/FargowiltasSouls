@@ -152,6 +152,17 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.DD2ExplosiveTrapT3Explosion:
+                    {
+                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == ModContent.NPCType<NPCs.Challengers.TrojanSquirrel>())
+                        {
+                            projectile.DamageType = DamageClass.Default;
+                            projectile.friendly = false;
+                            projectile.hostile = true;
+                        }
+                    }
+                    break;
+
                 case ProjectileID.SharpTears:
                 case ProjectileID.DeerclopsIceSpike:
                     {
