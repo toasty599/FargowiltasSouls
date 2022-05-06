@@ -73,7 +73,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     AttackModeTimer = P2_COIL_BEGIN_TIME;
                     npc.netUpdate = true;
                     if (npc.HasPlayerTarget)
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)Main.player[npc.target].position.X, (int)Main.player[npc.target].position.Y, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
                 }
             }
             else

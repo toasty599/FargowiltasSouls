@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 case 2: //ramming
                     if (Projectile.localAI[0] == 1f)
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 102, 1f, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, Projectile.Center, 102);
                         Projectile.velocity = target.Center - Projectile.Center;
                         if (Projectile.velocity != Vector2.Zero)
                         {
@@ -154,7 +154,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         Main.dust[d].noLight = true;
                         Main.dust[d].velocity *= 8f;
                     }
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 102, 1f, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, Projectile.Center, 102);
                     Projectile.Kill();
                     break;
             }

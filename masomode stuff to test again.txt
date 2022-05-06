@@ -1448,3 +1448,4 @@ adjusted mutant empress attack visual
 rewrote how downed flags are synced in mp
 fixed siblings doing the emode qol "boss drops spawner until beaten" outside emode
 removed devi sandnado debug text
+refactor to how MANY sfx are called, probably nothing to test

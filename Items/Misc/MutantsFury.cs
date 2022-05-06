@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Items.Misc
             FargoSoulsUtil.PrintText(text, 175, 75, 255);
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
             return true;
         }
 

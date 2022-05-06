@@ -528,7 +528,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     Vector2 vel = -Vector2.UnitY.RotatedBy(MathHelper.Pi * 0.4f * j);
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<CosmosGlowything>(), 0, 0f, Main.myPlayer);
                                 }
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)NPC.position.X, (int)NPC.position.Y, 7, 1f, 0);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, NPC.Center, 7);
                             }
                         }
 

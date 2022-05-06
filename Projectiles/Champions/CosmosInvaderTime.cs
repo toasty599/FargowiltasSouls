@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Projectile.localAI[1] = Projectile.velocity.Length();
                 Projectile.velocity = Vector2.Zero;
 
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 7, 0.5f, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, 7, 0.5f, 0);
 
                 for (int index1 = 0; index1 < 4; ++index1)
                 {

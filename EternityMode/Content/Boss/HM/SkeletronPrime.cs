@@ -167,7 +167,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     string text = Language.GetTextValue($"Mods.{mod.Name}.Message.SkeletronRegrow");
                     FargoSoulsUtil.PrintLocalization($"{npc.FullName} {text}", new Color(175, 75, 255));
 
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                     return result;
                 }
             }
@@ -185,7 +185,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         int damage = npc.defDamage / 3;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.position.X, (int)npc.position.Y, 105, 2f, -0.3f);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.Center.X, (int)npc.Center.Y, 105, 2f, -0.3f);
 
                             float modifier = (float)npc.life / npc.lifeMax;
                             if (FargoSoulsWorld.MasochistModeReal)
@@ -263,7 +263,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         npc.ai[3] = -1f;
                         npc.netUpdate = true;
 
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -315,7 +315,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             if (npc.ai[1] != 2f && !FargoSoulsWorld.SwarmActive)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                 npc.life = npc.lifeMax / 630;
                 if (npc.life < 100)
                     npc.life = 100;
@@ -559,7 +559,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (npc.ai[2] == 140)
                         {
                             float pitch = -0.3f + Main.rand.Next(-20, 21) / 100;
-                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.position.X, (int)npc.position.Y, 15, 1.5f, pitch);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.Center.X, (int)npc.Center.Y, 15, 1.5f, pitch);
                             for (int i = 0; i < 20; i++)
                             {
                                 int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Clentaminator_Red, npc.velocity.X * .4f, npc.velocity.Y * .4f, 0, Color.White, 2);
@@ -578,7 +578,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else if (npc.ai[2] == 180)
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.position.X, (int)npc.position.Y, 18, 1.25f, 1f);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.Center.X, (int)npc.Center.Y, 18, 1.25f, 1f);
                         npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * 20f;
                         IdleOffsetX *= -1;
                         IdleOffsetY *= -1;
@@ -825,7 +825,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                             else if (AttackTimer == 90)
                             {
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.position.X, (int)npc.position.Y, 18, 1.25f, -0.5f);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.Center.X, (int)npc.Center.Y, 18, 1.25f, -0.5f);
                                 npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * (npc.dontTakeDamage ? 20f : 25f);
                                 npc.rotation = npc.velocity.ToRotation() - (float)Math.PI / 2;
 
@@ -863,7 +863,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                             else if (AttackTimer == 90) //slash down
                             {
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.position.X, (int)npc.position.Y, 1, 1.25f, 0.5f);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)npc.Center.X, (int)npc.Center.Y, 1, 1.25f, 0.5f);
                                 Vector2 vel = Main.player[npc.target].Center - npc.Center;
                                 vel.Y += Math.Abs(vel.X) * 0.25f;
                                 vel.X *= 0.75f;

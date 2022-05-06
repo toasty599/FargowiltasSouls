@@ -334,7 +334,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 if (NPC.Distance(Main.player[NPC.target].Center) < 1500)
                 {
                     NPC.localAI[3] = 1;
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
                     //EdgyBossText("I hope you're ready to embrace suffering.");
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -904,7 +904,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.ai[0]++;
                 NPC.ai[1] = 0;
                 NPC.netUpdate = true;
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
             }
         }
 
@@ -1376,7 +1376,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             }
             else if (NPC.ai[1] == 150)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -1532,7 +1532,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (NPC.ai[2] == NPC.localAI[1] - 1)
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, 4);
@@ -1800,7 +1800,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         for (int i = 0; i < 8; i++)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(Math.PI / 4 * i) * 10f, ModContent.ProjectileType<MutantScythe1>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.8f), 0f, Main.myPlayer, NPC.whoAmI);
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, (int)NPC.Center.X, (int)NPC.Center.Y, -1, 1f, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, NPC.Center, -1);
                 }
                 NPC.netUpdate = true;
                 break;
@@ -2211,7 +2211,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             Movement(targetPos, 1.2f, false);
             if (++NPC.ai[1] > 60)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float gravity = 0.2f;
@@ -2495,7 +2495,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 NPC.ai[2] = Main.rand.NextBool() ? -1 : 1;
                 NPC.ai[3] = Main.rand.NextFloat((float)Math.PI * 2);
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -2);
             }
@@ -2852,7 +2852,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     NPC.ai[1] = 0;
                     NPC.ai[2] = NPC.DirectionFrom(player.Center).ToRotation();
                     NPC.ai[3] = (float)Math.PI / 20f;
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
                     if (player.Center.X < NPC.Center.X)
                         NPC.ai[3] *= -1;
                     //EdgyBossText("But we're not done yet!");

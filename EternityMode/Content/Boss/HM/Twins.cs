@@ -123,7 +123,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     //npc.ai[0] = 4f;
                     npc.ai[0] = 604f; //initiate spin immediately
                     npc.netUpdate = true;
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 11, npc.whoAmI);
@@ -218,7 +218,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
 
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0); //eoc roar
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1); //eoc roar
                             }
                             npc.netUpdate = true;
                             NetSync(npc);
@@ -510,7 +510,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     npc.ai[0] = 4f;
                     npc.netUpdate = true;
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                     int index = npc.FindBuffIndex(BuffID.CursedInferno);
                     if (index != -1)

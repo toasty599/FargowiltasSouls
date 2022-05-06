@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Items.Consumables
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
                 player.GetModPlayer<FargoSoulsPlayer>().MutantsCreditCard = true;
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
             }
             return true;
         }

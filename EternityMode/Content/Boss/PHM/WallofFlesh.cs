@@ -501,7 +501,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (t != -1)
                         {
                             if (npc.Distance(Main.player[t].Center) < 3000)
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)Main.player[t].position.X, (int)Main.player[t].position.Y, 0);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[t].Center, 0);
                             npc.ai[2] = -2f;
                             npc.ai[3] = (npc.Center - Main.player[t].Center).ToRotation();
                             if (npc.realLife != -1 && Main.npc[npc.realLife].velocity.X > 0)

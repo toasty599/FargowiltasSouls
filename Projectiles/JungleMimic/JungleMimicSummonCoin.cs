@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
         }
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 1f, 0);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             int dusttype;
             switch (coinType)
             {

@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             }
             /*if (Projectile.localAI[0] == 0f)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.position.X, (int)Projectile.position.Y, 104, 1f, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, Projectile.Center, 104);
             }*/
             float num801 = 0.3f;
             Projectile.localAI[0] += 1f;

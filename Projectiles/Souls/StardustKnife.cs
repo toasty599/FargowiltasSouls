@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             Projectile.width = Projectile.height = 80;
             Projectile.Center = Projectile.position;
 
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 7, 0.5f, 0);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, 7, 0.5f, 0);
 
             for (int index1 = 0; index1 < 2; ++index1)
             {

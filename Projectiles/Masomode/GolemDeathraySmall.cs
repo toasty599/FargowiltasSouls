@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             if (Projectile.localAI[0] == 0f)
             {
-                //SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.position.X, (int)Projectile.position.Y, 104, 1f, 0);
+                //SoundEngine.PlaySound(SoundID.Zombie, Projectile.Center, 104);
             }
             float num801 = 0.15f;
             Projectile.localAI[0] += 1f;

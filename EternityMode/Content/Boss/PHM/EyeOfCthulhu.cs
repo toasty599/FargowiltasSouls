@@ -485,7 +485,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (npc.HasValidTarget)
                     {
                         Player player = Main.player[npc.target];
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item9, (int)player.position.X, (int)player.position.Y, 104, 1f, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item9, player.Center, 104);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Vector2 spawnPos = player.Center;

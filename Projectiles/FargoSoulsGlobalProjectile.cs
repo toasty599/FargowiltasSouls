@@ -515,7 +515,7 @@ namespace FargowiltasSouls.Projectiles
 
                                 int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
 
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 62, 0.5f);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 62, 0.5f);
 
                                 spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
 
@@ -1227,7 +1227,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(4))
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, player.Center, 27);
 
                         int damage = (int)(25 * player.GetDamage(DamageClass.Ranged).Additive);
 

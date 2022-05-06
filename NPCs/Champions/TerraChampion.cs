@@ -573,7 +573,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     NPC.soundDelay = 10;
                 if (NPC.soundDelay > 20)
                     NPC.soundDelay = 20;
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 1);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
             }
 
             int pastPos = NPCID.Sets.TrailCacheLength[NPC.type] - (int)NPC.ai[3] - 1; //ai3 check is to trace better and coil tightly
