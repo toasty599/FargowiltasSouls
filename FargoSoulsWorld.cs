@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -13,7 +14,7 @@ namespace FargowiltasSouls
 {
     public class FargoSoulsWorld : ModSystem
     {
-        internal enum Downed //for champions specifically to keep them organized and synced, DO NOT rearrange
+        internal enum Downed //to keep them organized and synced, DO NOT rearrange
         {
             TimberChampion,
             TerraChampion,
@@ -23,7 +24,8 @@ namespace FargowiltasSouls
             ShadowChampion,
             SpiritChampion,
             WillChampion,
-            CosmosChampion
+            CosmosChampion,
+            TrojanSquirrel
         }
 
         public static bool SwarmActive => ModLoader.TryGetMod("Fargowiltas", out Mod fargo) && (bool)fargo.Call("SwarmActive");
@@ -50,7 +52,7 @@ namespace FargowiltasSouls
         public static bool ReceivedTerraStorage;
         public static bool spawnedDevi;
 
-        public static bool[] downedChampions = new bool[9];
+        public static bool[] downedBoss = new bool[Enum.GetValues(typeof(Downed)).Length];
 
         private void ResetFlags()
         {
@@ -72,8 +74,8 @@ namespace FargowiltasSouls
             ReceivedTerraStorage = false;
             spawnedDevi = false;
 
-            for (int i = 0; i < downedChampions.Length; i++)
-                downedChampions[i] = false;
+            for (int i = 0; i < downedBoss.Length; i++)
+                downedBoss[i] = false;
         }
 
         public override void OnWorldLoad()
@@ -104,10 +106,10 @@ namespace FargowiltasSouls
             if (ReceivedTerraStorage) downed.Add("ReceivedTerraStorage");
             if (spawnedDevi) downed.Add("spawnedDevi");
 
-            for (int i = 0; i < downedChampions.Length; i++)
+            for (int i = 0; i < downedBoss.Length; i++)
             {
-                if (downedChampions[i])
-                    downed.Add("downedChampion" + i.ToString());
+                if (downedBoss[i])
+                    downed.Add("downedBoss" + i.ToString());
             }
 
             tag.Add("downed", downed);
@@ -131,8 +133,8 @@ namespace FargowiltasSouls
             ReceivedTerraStorage = downed.Contains("ReceivedTerraStorage");
             spawnedDevi = downed.Contains("spawnedDevi");
 
-            for (int i = 0; i < downedChampions.Length; i++)
-                downedChampions[i] = downed.Contains($"downedChampion{i}");
+            for (int i = 0; i < downedBoss.Length; i++)
+                downedBoss[i] = downed.Contains($"downedBoss{i}") || downed.Contains($"downedChampion{i}");
 
             if (tag.ContainsKey("mutantP1"))
                 skipMutantP1 = tag.GetAsInt("mutantP1");
@@ -159,18 +161,14 @@ namespace FargowiltasSouls
             CanPlayMaso = flags[3];
             ShouldBeEternityMode = flags[4];
 
-            flags = reader.ReadByte();
-            downedChampions[0] = flags[0];
-            downedChampions[1] = flags[1];
-            downedChampions[2] = flags[2];
-            downedChampions[3] = flags[3];
-            downedChampions[4] = flags[4];
-            downedChampions[5] = flags[5];
-            downedChampions[6] = flags[6];
-            downedChampions[7] = flags[7];
+            for (int i = 0; i < downedBoss.Length; i++)
+            {
+                int bits = i % 8;
+                if (bits == 0)
+                    flags = reader.ReadByte();
 
-            flags = reader.ReadByte();
-            downedChampions[8] = flags[0];
+                downedBoss[i] = flags[bits];
+            }
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -198,22 +196,20 @@ namespace FargowiltasSouls
                 [4] = ShouldBeEternityMode
             });
 
-            writer.Write(new BitsByte
+            BitsByte bitsByte = new BitsByte();
+            for (int i = 0; i < downedBoss.Length; i++)
             {
-                [0] = downedChampions[0],
-                [1] = downedChampions[1],
-                [2] = downedChampions[2],
-                [3] = downedChampions[3],
-                [4] = downedChampions[4],
-                [5] = downedChampions[5],
-                [6] = downedChampions[6],
-                [7] = downedChampions[7]
-            });
+                int bit = i % 8;
 
-            writer.Write(new BitsByte
-            {
-                [0] = downedChampions[8]
-            });
+                if (bit == 0 && i != 0)
+                {
+                    writer.Write(bitsByte);
+                    bitsByte = new BitsByte();
+                }
+
+                bitsByte[bit] = downedBoss[i];
+            }
+            writer.Write(bitsByte);
         }
 
         public override void PostUpdateWorld()

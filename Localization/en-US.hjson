@@ -104,10 +104,13 @@ Mods: {
 
 			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
 			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
+
+			TrojanSquirrelDespawn: Trojan Squirrel returns to its squirrel clan...
 		}
 
 		Message: {
 			HasAwoken: has awoken!
+			SquirrelCoatofArms: "{$Mods.FargowiltasSouls.NPCName.TrojanSquirrel} {$Mods.FargowiltasSouls.Message.HasAwoken}"
 			DevisCurse: "{$Mods.FargowiltasSouls.NPCName.DeviBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
 			AbomsCurse: "{$Mods.FargowiltasSouls.NPCName.AbomBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
 			MutantsCurse: "{$Mods.FargowiltasSouls.NPCName.MutantBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
@@ -297,6 +300,7 @@ Mods: {
 			MasoCanPlay: Masochist Mode Available
 
 			MasoHeader2: Eternity Mode Accessories
+			DeerSinewDashConfig: Deer Sinew Dash
 			MasoAeolusConfig: Aeolus Jump
 			MasoAeolusFlowerConfig: Flower Boots
 			MasoIconConfig: Sinister Icon Spawn Rates

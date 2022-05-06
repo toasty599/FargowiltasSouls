@@ -140,7 +140,7 @@ namespace FargowiltasSouls.Items
                         string bossesToKill = "";
                         if (!FargoSoulsWorld.downedAbom)
                         {
-                            if (!FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion])
+                            if (!FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion])
                                 bossesToKill += " Eridanus,";
 
                             bossesToKill += " Abominationn,";

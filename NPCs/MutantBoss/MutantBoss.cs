@@ -312,7 +312,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 playerInvulTriggered = true;
 
             //drop summon
-            if (FargoSoulsWorld.downedAbom && !FargoSoulsWorld.downedMutant && Main.netMode != NetmodeID.MultiplayerClient && NPC.HasPlayerTarget && !droppedSummon)
+            if (FargoSoulsWorld.EternityMode && FargoSoulsWorld.downedAbom && !FargoSoulsWorld.downedMutant && Main.netMode != NetmodeID.MultiplayerClient && NPC.HasPlayerTarget && !droppedSummon)
             {
                 Item.NewItem(NPC.GetSource_Loot(), player.Hitbox, ModContent.ItemType<MutantsCurse>());
                 droppedSummon = true;

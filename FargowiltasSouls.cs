@@ -272,6 +272,7 @@ namespace FargowiltasSouls
 
             SoulToggler.RemoveItemTags = null;
             ToggleBackend.ConfigPath = null;
+            FargoSoulsWorld.downedBoss = null;
 
             EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
 
@@ -327,15 +328,15 @@ namespace FargowiltasSouls
                         return FargoSoulsWorld.downedAbom;
 
                     case "DownedChamp":
-                    case "DownedChampion":
-                        return FargoSoulsWorld.downedChampions[(int)args[1]];
+                    case "DownedChampion": //arg is internal string name of champ
+                        return FargoSoulsWorld.downedBoss[(int)Enum.Parse<FargoSoulsWorld.Downed>(args[1] as string, true)];
 
                     case "DownedEri":
                     case "DownedEridanus":
                     case "DownedCosmos":
                     case "DownedCosmosChamp":
                     case "DownedCosmosChampion":
-                        return FargoSoulsWorld.downedChampions[8];
+                        return FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion];
 
                     case "DownedDevi":
                     case "DownedDeviantt":
@@ -354,10 +355,10 @@ namespace FargowiltasSouls
                         return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SinisterIcon;
 
                     case "AbomAlive":
-                        return false; //FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
 
                     case "MutantAlive":
-                        return false; //FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
 
                     case "DeviAlive":
                     case "DeviBossAlive":
@@ -395,7 +396,6 @@ namespace FargowiltasSouls
                             netMessage.Write((byte)Main.LocalPlayer.whoAmI);
                             netMessage.Send();
                         }
-
                         Main.npcChatText = "This world looks tougher than usual, so you can have these on the house just this once! Talk to me if you need any tips, yeah?";
                         break;
 
@@ -593,7 +593,7 @@ namespace FargowiltasSouls
                 //mutant shop
                 Mod fargos = ModLoader.GetMod("Fargowiltas");
                 fargos.Call("AddSummon", 5.01f, "FargowiltasSouls", "DevisCurse", new Func<bool>(() => FargoSoulsWorld.downedDevi), Item.buyPrice(0, 17, 50));
-                fargos.Call("AddSummon", 14.009f, "FargowiltasSouls", "ChampionySigil", new Func<bool>(() => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion]), Item.buyPrice(5));
+                fargos.Call("AddSummon", 14.009f, "FargowiltasSouls", "ChampionySigil", new Func<bool>(() => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion]), Item.buyPrice(5));
                 fargos.Call("AddSummon", 14.01f, "FargowiltasSouls", "AbomsCurse", new Func<bool>(() => FargoSoulsWorld.downedAbom), Item.buyPrice(10));
                 //fargos.Call("AddSummon", 14.02f, "FargowiltasSouls", "TruffleWormEX", () => FargoSoulsWorld.downedFishronEX, Item.buyPrice(10));
                 fargos.Call("AddSummon", 14.03f, "FargowiltasSouls", "MutantsCurse", new Func<bool>(() => FargoSoulsWorld.downedMutant), Item.buyPrice(20));

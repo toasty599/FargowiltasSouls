@@ -5,6 +5,7 @@ using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.NPCs.AbomBoss;
+using FargowiltasSouls.NPCs.Challengers;
 using FargowiltasSouls.NPCs.Champions;
 using FargowiltasSouls.NPCs.DeviBoss;
 using FargowiltasSouls.NPCs.MutantBoss;
@@ -111,11 +112,13 @@ namespace FargowiltasSouls
                 );
 
 
+                #region champions
+
                 Add("MiniBoss",
                     "TimberChampion",
                     new List<int> { ModContent.NPCType<TimberChampion>() },
                     17.001f,
-                    () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.TimberChampion],
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TimberChampion],
                     () => true,
                     TryAddMusicBoxToCollectibles(
                         "ChampionMusicBox",
@@ -128,7 +131,7 @@ namespace FargowiltasSouls
                     "TerraChampion",
                     new List<int> { ModContent.NPCType<TerraChampion>(), ModContent.NPCType<TerraChampionBody>(), ModContent.NPCType<TerraChampionTail>() },
                     17.002f,
-                    () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.TerraChampion],
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TerraChampion],
                     () => true,
                     TryAddMusicBoxToCollectibles(
                         "ChampionMusicBox",
@@ -142,7 +145,7 @@ namespace FargowiltasSouls
                     "EarthChampion",
                     new List<int> { ModContent.NPCType<EarthChampion>(), ModContent.NPCType<EarthChampionHand>() },
                     17.003f,
-                    () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.EarthChampion],
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.EarthChampion],
                     () => true,
                     TryAddMusicBoxToCollectibles(
                         "ChampionMusicBox",
@@ -156,7 +159,7 @@ namespace FargowiltasSouls
                     "NatureChampion",
                     new List<int> { ModContent.NPCType<NatureChampion>(), ModContent.NPCType<NatureChampionHead>() },
                     17.004f,
-                    () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.NatureChampion],
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.NatureChampion],
                     () => true,
                     TryAddMusicBoxToCollectibles(
                         "ChampionMusicBox",
@@ -170,7 +173,7 @@ namespace FargowiltasSouls
                     "LifeChampion",
                     new List<int> { ModContent.NPCType<LifeChampion>() },
                     17.005f,
-                    () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.LifeChampion],
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.LifeChampion],
                     () => true,
                     TryAddMusicBoxToCollectibles(
                         "ChampionMusicBox",
@@ -184,7 +187,7 @@ namespace FargowiltasSouls
                     "ShadowChampion",
                     new List<int> { ModContent.NPCType<ShadowChampion>() },
                     17.006f,
-                    () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.ShadowChampion],
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.ShadowChampion],
                     () => true,
                     TryAddMusicBoxToCollectibles(
                         "ChampionMusicBox",
@@ -197,7 +200,7 @@ namespace FargowiltasSouls
                     "SpiritChampion",
                     new List<int> { ModContent.NPCType<SpiritChampion>(), ModContent.NPCType<SpiritChampionHand>() },
                     17.007f,
-                    () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.SpiritChampion],
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.SpiritChampion],
                     () => true,
                     TryAddMusicBoxToCollectibles(
                         "ChampionMusicBox",
@@ -211,7 +214,7 @@ namespace FargowiltasSouls
                     "WillChampion",
                     new List<int> { ModContent.NPCType<WillChampion>() },
                     17.008f,
-                    () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.WillChampion],
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.WillChampion],
                     () => true,
                     TryAddMusicBoxToCollectibles(
                         "ChampionMusicBox",
@@ -225,7 +228,7 @@ namespace FargowiltasSouls
                     "CosmosChampion",
                     new List<int> { ModContent.NPCType<CosmosChampion>() },
                     17.009f,
-                    () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion],
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion],
                     () => true,
                     TryAddMusicBoxToCollectibles(
                         "ChampionMusicBox",
@@ -234,6 +237,32 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     true
                 );
+
+                #endregion champions
+
+
+                #region challengers
+
+                Add("Boss",
+                    "TrojanSquirrel",
+                    new List<int> { ModContent.NPCType<TrojanSquirrel>() },
+                    0.5f,
+                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TrojanSquirrel],
+                    () => true,
+                    //TryAddMusicBoxToCollectibles(
+                    //    "DeviMusicBox",
+                    //    ModContent.ItemType<DeviatingEnergy>(),
+                    //    ModContent.ItemType<DeviTrophy>(),
+                    //    ModContent.ItemType<ChibiHat>(),
+                    //    ModContent.ItemType<BrokenBlade>()
+                    //)
+                    new List<int>(),
+                    new List<int> { ModContent.ItemType<SquirrelCoatofArms>() },
+                    false,
+                    "NPCs/Challengers/TrojanSquirrel_Still"
+                );
+
+                #endregion challengers
             }
         }
     }

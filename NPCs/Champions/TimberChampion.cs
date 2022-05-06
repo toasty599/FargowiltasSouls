@@ -544,7 +544,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.TimberChampion], -1);
+            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TimberChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

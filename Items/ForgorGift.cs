@@ -72,8 +72,8 @@ namespace FargowiltasSouls.Items
             FargoSoulsWorld.downedDevi = false;
             FargoSoulsWorld.downedFishronEX = false;
             FargoSoulsWorld.downedMutant = false;
-            for (int i = 0; i < FargoSoulsWorld.downedChampions.Length; i++)
-                FargoSoulsWorld.downedChampions[i] = false;
+            for (int i = 0; i < FargoSoulsWorld.downedBoss.Length; i++)
+                FargoSoulsWorld.downedBoss[i] = false;
 
             FargoSoulsUtil.PrintText("forgor");
             if (Main.netMode == NetmodeID.Server)

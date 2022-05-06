@@ -138,7 +138,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     NPC.noGravity = true;
                     NPC.alpha = 0;
 
-                    if (FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.SpiritChampion] && NPC.ai[1] < 120)
+                    if (FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.SpiritChampion] && NPC.ai[1] < 120)
                         NPC.ai[1] = 120;
 
                     if (NPC.ai[1] == 180)
@@ -971,7 +971,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.SpiritChampion], -1);
+            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.SpiritChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

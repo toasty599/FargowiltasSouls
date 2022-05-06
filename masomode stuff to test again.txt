@@ -1444,3 +1444,6 @@ added a layer of recursion to onspawn checks, fixes devi sandnados spawning shar
 fixed empress swords giving graze before they do damage
 adjusted empress visuals
 adjusted mutant empress attack visual
+
+rewrote how downed flags are synced in mp
+fixed siblings doing the emode qol "boss drops spawner until beaten" outside emode

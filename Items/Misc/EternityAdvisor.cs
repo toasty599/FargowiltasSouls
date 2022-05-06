@@ -410,7 +410,7 @@ namespace FargowiltasSouls.Items.Misc
                     ModContent.ItemType<SparklingAdoration>()
                 );
             }
-            else if (!FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion])
+            else if (!FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion])
             {
                 summonType = ModContent.ItemType<SigilOfChampions>();
                 build = GetBuildText(

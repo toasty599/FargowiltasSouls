@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Projectiles
                         projectile.usesIDStaticNPCImmunity = true;
                         if (FargoSoulsWorld.downedAbom) 
                             projectile.idStaticNPCHitCooldown = 4;
-                        else if (FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion]) 
+                        else if (FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion]) 
                             projectile.idStaticNPCHitCooldown = 6;
                         else
                             projectile.idStaticNPCHitCooldown = 7;

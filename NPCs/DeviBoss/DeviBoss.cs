@@ -1610,7 +1610,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 playerInvulTriggered = true;
 
             //drop summon
-            if (!FargoSoulsWorld.downedDevi && Main.netMode != NetmodeID.MultiplayerClient && NPC.HasPlayerTarget && !droppedSummon)
+            if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.downedDevi && Main.netMode != NetmodeID.MultiplayerClient && NPC.HasPlayerTarget && !droppedSummon)
             {
                 Item.NewItem(NPC.GetSource_Loot(), player.Hitbox, ModContent.ItemType<DevisCurse>());
                 droppedSummon = true;
