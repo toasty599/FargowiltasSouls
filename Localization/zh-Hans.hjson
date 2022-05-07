@@ -59,7 +59,7 @@ Mods: {
 			LesserSquirrel: 这些小动物帮助造出了特洛伊松鼠，但没注意到自己的身上多出了一些小爆炸物。
 			ShadowOrb: 凝聚着黑暗力量的能量球。它们的能量使夜幕低垂，它们的目的只是为主人服务。
 
-			TrojanSquirrel: 由松鼠建造，由松鼠拥有！从广阔土地上搜集的木头构成了它的躯体。它比外观看起来更适合松鼠。
+			TrojanSquirrel: 由松鼠建造，由松鼠拥有！从广阔土地上搜集的木头构成了它的身体。它比外观看起来更适合松鼠。
 			GuardianOfAncientTreasures: 潜伏在地底深处，小心翼翼地守护着成堆的珠宝和贵金属。它的鳞片坚硬如石。
 			CursedCoffin: 一百多个邪恶灵魂的无意识的融合体。它以迷路旅行者的尸体为食，并将他们的心灵为己所用。
 			Lifelights: 从它的核心散发出的光辉令人舒心，但有催眠效果。它会控制那些乐意听从它的命令的小生物。
@@ -707,371 +707,361 @@ Mods: {
 				'''
 			GladiatorEnchant:
 				'''
-				Spears will rain down on struck enemies
-				'Are you not entertained?'
+				长矛将倾泄在被攻击的敌人身上
+				“难道你不高兴吗？”
 				'''
 			GoldEnchant:
 				'''
-				Your attacks inflict Midas
-				Automatically sends coins to your piggy bank when picked up
-				Press the Gold hotkey to be encased in a Golden Shell
-				You will not be able to move or attack, but will be immune to all damage
-				Press again to exit early
-				Effects of Greedy Ring
-				'Gold makes the world go round'
+				攻击会造成迈达斯减益
+				捡起钱币时，自动将它们存进猪猪存钱罐中
+				按下“金身”键会将你包裹在一个黄金壳中
+				被包裹时你无法移动或攻击，但你免疫所有伤害
+				再次按下“金身”键会使你提前离开黄金壳
+				拥有贪婪戒指的效果
+				“有钱能使鬼推磨”
 				'''
 			HallowEnchant:
 				'''
-				Become immune after striking an enemy
-				'Hit me with your best shot'
+				攻击敌人后会使你无敌一小段时间
+				《Hit me with your best shot》
 				'''
 			HuntressEnchant:
 				'''
-				
-				Arrows will stick in enemies and apply a stacking bleed debuff per arrow
-				Hit the enemy with a melee attack to deal bonus damage per arrow
-				
-				
-				
-				
-				Arrows will periodically fall towards your cursor
-				The arrow type is based on the first arrow in your inventory
-				Double tap down to create a localized rain of arrows at the cursor's position for a few seconds
-				This has a cooldown of 15 seconds
-				Boosts Explosive Traps
-				'The Hunt is On'
+				箭矢会插在敌怪身上，每只插上的箭都会给予一层流血减益
+				近战攻击击中被箭矢插中的敌怪时，会依据箭矢数目造成额外伤害
+				（未做完）
+
+
+				箭矢会定期落至你光标周围
+				箭矢的种类取决于你背包中第一个箭矢	
+				双击“下”键后令箭雨倾泄在光标位置							
+				此效果有15秒冷却时间
+				爆炸机关攻击速度更快且会造成涂油减益
+				“狩猎开始了”
 				'''			
 			IronEnchant:
 				'''
-				Right Click to guard with your shield
-				Guard just before being hit to negate damage
-				You attract items from a larger range
-				'Strike while the iron is hot'
+				右键进行盾牌格挡
+				如果时机正确则抵消这次伤害
+				扩大你的拾取范围
+				“趁热打铁”
 				'''
 			JungleEnchant:
 				'''
-				Grants a double spore jump
-				Allows the ability to dash slightly
-				Double tap a direction
-				'The wrath of the jungle dwells within'
+				使你获得孢子二段跳能力
+				你能进行短程冲刺
+				“丛林之怒深藏其中”
 				'''
 			LeadEnchant:
 				'''
-				Attacks inflict enemies with Lead Poisoning
-				Lead Poisoning deals damage over time and spreads to nearby enemies
-				'Not recommended for eating'
+				攻击有几率造成铅中毒减益
+				铅中毒减益持续造成伤害并会扩散至周围的敌人
+				“不建议食用”
 				'''
 			MeteorEnchant:
 				'''
-				A meteor shower initiates every few seconds while attacking
-				'Drop a draco on 'em'
+				攻击时每过几秒便会召唤一次流星雨
+				《Drop a draco on 'em》
 				'''
 			MinerEnchant:
 				'''
-				50% increased mining speed
-				Shows the location of enemies, traps, and treasures
-				Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
-				'The planet trembles with each swing of your pick'
+				增加50%挖掘速度
+				高亮显示敌人、陷阱和宝藏
+				拥有夜猫子、洞穴探险、狩猎、光芒和危险感效果
+				“大地随着你的每一次挥镐而颤动”
 				'''
 			MoltenEnchant:
 				'''
-				Grants immunity to fire and lava
-				You have normal movement and can swim in lava
-				Nearby enemies are ignited
-				The closer they are to you the more damage they take
-				While standing in lava or lava wet, your attacks spawn explosions
-				'They shall know the fury of hell'
+				免疫着火了！减益、火块和熔岩
+				你可以在熔岩中自由移动和游泳
+				引燃你附近的敌人
+				敌人离你越近，受到的伤害越高
+				你受到伤害时会剧烈爆炸并对附近的敌人造成伤害
+				“他们将感受到地狱的愤怒”
 				'''
 			MonkEnchant:
 				'''
-				Allows the ability to dash
-				Double tap a direction
-				You are immune to damage and debuffs for half a second after dashing
-				Dash cooldown is twice as long as normal dashes
-				Lightning Aura can now crit and strikes faster
-				'Return to Monk'
+				使你获得冲刺能力
+				双击“左”或“右”键进行冲刺
+				在冲刺后的0.5秒内你免疫伤害和减益
+				冲刺冷却是普通冲刺的二倍
+				闪电光环现在可以暴击且攻击速度更快
+				“返本还僧”
 				'''
 			MythrilEnchant:
 				'''
-				15% increased weapon use speed
-				Taking damage temporarily removes this weapon use speed increase
-				'You feel the knowledge of your weapons seep into your mind'
+				武器使用速度增加15%
+				受到伤害时，武器使用速度增加效果会暂时失效
+				“你感觉武器的知识渗透进你的脑海中”
 				'''
 			NebulaEnchant:
 				'''
-				Hurting enemies has a chance to spawn buff boosters
-				Buff booster stacking capped at 2
-				'The pillars of creation have shined upon you'
+				对敌人造成伤害时有几率生成强化焰
+				强化增益堆叠上限为2
+				“创生之柱照耀着你”
 				'''
 			NecroEnchant:
 				'''
-				Slain enemies may drop a pile of bones
-				Touch a pile of bones to spawn a friendly Dungeon Guardian
-				Damage scales with the defeated enemy's max HP
-				Bosses will drop bones every 10% of their HP lost
-				Effects of Bone Glove
-				'Welcome to the bone zone'
+				击杀敌人时有几率爆出一个骨堆
+				玩家接触骨堆时会生成一个友好的地牢守卫
+				地牢守卫的伤害取决于被击杀的敌人的最大生命值
+				Boss每损失10%生命值便会掉落骨堆
+				拥有骨头手套的效果
+				“欢迎来到骸骨领域”
 				'''
 			NinjaEnchant:
 				'''
-				Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
-				First Strike ensures your next attack hits a vital spot dealing 3x damage and reducing defense by 10
-				'Now you see me, now you don’t'
+				若背包中有烟雾弹，按下“投掷烟雾弹”键后会扔出一颗烟雾弹，再次按下该键时会将你传送至烟雾弹的位置并给予你先发制人增益
+				先发制人增益会使你下次攻击必定暴击且造成3倍伤害，并降低目标10点防御力
+				“你现在能看到我了。诶，你又看不到我了”
 				'''
 			ObsidianEnchant:
 				'''
-				'The earth calls'
+				使你免疫火块与熔岩
+				你可以在熔岩中正常移动和游泳
+				在熔岩中会获得“浸入熔岩”增益
+				拥有该增益时，你的攻击会引发爆炸
+				（没有做完）
+				“大地在呼唤”
 				'''
 			OrichalcumEnchant:
 				'''
-				Flower petals will cause extra damage to your target and inflict Orichalcum Poison
-				Damaging debuffs deal 3x damage
-				'Nature blesses you'
+				花瓣将落到你攻击的敌人的身上，造成额外伤害和山铜中毒减益
+				伤害性减益造成的伤害×3
+				“自然祝福着你”
 				'''
 			PalladiumEnchant:
 				'''
-				Briefly increases life regeneration after striking an enemy
-				You spawn an orb of damaging life energy every 80 life regenerated
-				'You feel your wounds slowly healing'
+				击中敌人后暂时增加你的生命恢复速度
+				你每恢复80点生命值便会生成一个伤害性的生命能量球
+				“你感到你的伤口在慢慢愈合”
 				'''
 			PalmWoodEnchant:
 				'''
-				Double tap down to spawn a palm tree sentry that throws nuts at enemies
-				'Alarmingly calm'
+				双击“下”键会召唤一个会向敌人扔橡实的棕榈树哨兵
+				“出奇的宁静”
 				'''
 			PearlwoodEnchant:
 				'''
-				Attacks may spawn a homing star when they hit something
-				'Too little, too late…'
+				弹幕击中敌人或物块时有几率生成一颗星星
+				“既渺小无力，又慢人一步……”
 				'''
 			PlatinumEnchant:
 				'''
-				20% chance for enemies to drop 5x loot
-				'Its value is immeasurable'
+				敌人死亡时有20%的几率获得五倍的战利品
+				“无价之宝”
 				'''
 			PumpkinEnchant:
 				'''
-				You will grow pumpkins while walking on the ground
-				When fully grown, they will heal 25 HP and spawn damaging embers
-				Enemies that touch them will destroy them and take damage
-				'Your sudden pumpkin craving will never be satisfied'
+				你在地上行走时会种下南瓜
+				南瓜成熟时会为你回复25点生命值并产生伤害余烬
+				敌人与南瓜接触时会摧毁南瓜但会受到伤害
+				“你对南瓜的突发渴望永远不会得到满足”
 				'''
 			RainEnchant:
 				'''
-				Grants immunity to Wet
-				Spawns a miniature storm to follow you around
-				Shooting it will make it grow
-				At maximum size, attacks will turn into lightning bolts
-				'Come again some other day'
+				使你免疫潮湿减益
+				召唤一个微型雨云跟着你
+				攻击它会使其变大
+				达到最大时，继续攻击会使它发射闪电
+				“改日再来”
 				'''
 			RedRidingEnchant:
 				'''
-				Arrows will periodically fall towards your cursor
-				Double tap down to create a rain of arrows that follows the cursor's position for a few seconds
-				The arrow type is based on the first arrow in your inventory
-				This has a cooldown of 10 seconds
-				Greatly enhances Explosive Traps effectiveness
-				'Big Bad Red Riding Hood'
+				箭矢会定期落至你光标周围
+				箭矢的种类取决于你背包中第一个箭矢
+				双击“下”键后令箭雨倾泄在光标位置
+				此效果有10秒冷却时间
+				大幅强化爆炸陷阱的效果
+				“小红帽，大坏蛋！”
 				'''
 			RichMahoganyEnchant:
 				'''
-				All grappling hooks pull 1.5x as fast, shoot 2x as fast, and retract 3x as fast
-				While grappling you gain 10 defense and a 50% thorns effect
-				'Guaranteed to keep you hooked'
+				所有钩爪的抛出速度、牵引速度和回收速度×1.5
+				被钩爪拉动时你获得10点防御力和50%的荆棘效果
+				“保证钩到你”
 				'''
 			ShadewoodEnchant:
 				'''
-				You have an aura of Bleeding
-				Enemies struck while Bleeding spew damaging blood
-				'Surprisingly clean'
+				召唤一圈鲜血光环
+				在鲜血光环内被攻击的敌人会喷出伤害性血液
+				“出奇的干净”
 				'''
 			ShadowEnchant:
 				'''
-				Two Shadow Orbs will orbit around you
-				Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
-				'You feel your body slip into the deepest of shadows'
+				两颗暗影珠围绕着你旋转
+				攻击暗影珠会使其释放追踪暗影能量
+				“你感觉你的身体堕入黑暗的深渊之中”
 				'''
 			ShinobiEnchant:
 				'''
-				Dash into any walls, to teleport through them to the next opening
-				Allows the ability to dash
-				Double tap a direction
-				Throw a smoke bomb to teleport to it and gain the First Strike Buff
-				Using the Rod of Discord will also grant this buff
-				Greatly enhances Lightning Aura effectiveness
-				'Village Hidden in the Wall'
+				朝墙壁冲刺时会直接穿过去
+				使你获得冲刺能力
+				按下“投掷烟雾弹”键后会扔出一颗烟雾弹，再次按下该键时会将你传送至烟雾弹的位置并给予你先发制人增益
+				使用混沌传送杖也会获得先发制人增益
+				大幅强化闪电光环的效果
+				“藏匿于墙中的村庄”
 				'''
 			ShroomiteEnchant:
 				'''
-				All attacks gain trails of mushrooms
-				Not moving puts you in stealth
-				While in stealth, more mushrooms will spawn
-				'Made with real shrooms!'
+				所有攻击都会留下蘑菇尾迹
+				站定不动时使你进入隐身状态
+				处于隐身状态时，攻击会产生更多蘑菇
+				“是用真的蘑菇做的！”
 				'''
 			SilverEnchant:
 				'''
-				Summons a sword familiar that scales with minion damage
-				Drastically increases minion speed
-				Reduces minion damage to compensate for increased speed
-				'Have you power enough to wield me?'
+				召唤一柄剑，剑的伤害接受召唤伤害加成
+				大大增加召唤物攻击速度，但攻击力会降低
+				“你有足够的力量驾驭我吗？”
 				'''	
 			SnowEnchant:
 				'''
-				Spawns a snowstorm at your cursor
-				Any projectiles or npcs in the snowstorm are slowed by 50%
-				'It's Burning Cold Outside'
+				在光标位置生成暴雪
+				暴雪中的所有弹幕和NPC的速度减缓50%
+				“冷的要死”
 				'''
 			SolarEnchant:
 				'''
-				Solar shield allows you to dash through enemies
-				Solar shield is not depleted on hit, but has reduced damage reduction
-				Attacks may inflict the Solar Flare debuff
-				'Too hot to handle'
+				召唤日耀护盾，让你能冲撞敌人
+				被击中时日耀护盾不会耗尽，但伤害减免效果会降低
+				攻击有几率造成太阳耀斑减益
+				“烫手魔石”
 				'''
 			SpectreEnchant:
 				'''
-				Damage has a chance to spawn damaging orbs
-				If you crit, you might also get a healing orb
-				'Their lifeforce will be their undoing'
+				对敌人造成伤害时有几率生成幽灵珠
+				暴击时有几率生成治疗珠
+				“他们的生命力将毁灭他们自己”
 				'''
 			SpiderEnchant:
 				'''
-				Your minions and sentries can now crit with a 15% chance
-				'Arachnophobia is punishable by arachnid induced death'
+				召唤伤害可以造成暴击，且有15%基础暴击率
+				“蜘蛛恐惧者？作为惩罚，让他被蜘蛛干掉吧！”
 				'''
 			SpookyEnchant:
 				'''
-				All of your minions gain an extra scythe attack
-				'Melting souls since 1902'
+				你的召唤物能进行额外的镰刀攻击
+				“自1902年以来融化的灵魂”
 				'''
 			SquireEnchant:
 				'''
-				Increases the effectiveness of healing sources by 25%
-				Ballista pierces more targets and panics when you take damage
-				'Squire, will you hurry?'
+				回复生命值时，治疗量增加25%
+				弩车可以穿透更多目标，你受到伤害时会得到弩车恐慌增益
+				“侍卫，你能快点吗？”
 				'''
 			StardustEnchant:
 				'''
-				A stardust guardian will protect you from nearby enemies
-				Press the Freeze Key to freeze time for 5 seconds
-				While time is frozen, your minions will continue to attack and Stardust Guardian gains a new attack
-				There is a 60 second cooldown for this effect
-				'The power of the Stand is yours'
+				双击“下”键将你的守卫引至光标位置
+				按下“冻结”键后会冻结时间，持续5秒
+				你的召唤物不受时间冻结影响，星尘守卫在时间冻结期间获得全新的攻击
+				此效果有60秒冷却时间
+				“你成为了替身使者”
 				'''
 			TikiEnchant:
 				'''
-				You may continue to summon temporary minions and sentries after maxing out on your slots
-				Reduces attack speed of summon weapons when effect is activated
-				'Aku Aku!'
+				召唤栏位用光后你仍可以召唤临时的哨兵和仆从
+				效果激活时，降低召唤武器的攻击速度
+				“Aku Aku!”
 				'''
 			TinEnchant:
 				'''
-				Sets your critical strike chance to 5%
-				Every crit will increase it by 5% up to double your critical strike chance or 15%
-				Getting hit resets your crit to 5%
-				'Return of the Crit'
+				将你的基础暴击率设为5%
+				每次暴击时都会增加5%暴击率，暴击率的最大值为你当前最大暴击率数值×2，至少为15%
+				被击中会使暴击率恢复为5%
+				“暴击回归”
 				'''
 			TitaniumEnchant:
 				'''
-				Attacking generates a defensive barrier of titanium shards
+				攻击生成钛金碎片防御屏障
 				'''
 			TungstenEnchant:
 				'''
-				150% increased weapon size
-				Every half second a projectile will be doubled in size
-				Enlarged swords and projectiles deal 10% more damage and have an additional chance to crit
-				'Bigger is always better'
+				武器大小增加150%
+				每过0.5秒便会有一个随机弹幕的尺寸翻倍
+				变大的剑和弹幕会额外造成10%伤害并且有更高几率造成暴击
+				“大就是好”
 				'''
 			TurtleEnchant:
 				'''
-				100% of contact damage is reflected
-				When standing still and not attacking, you will enter your shell
-				While in your shell, you will gain 90% damage resistance
-				Additionally you will destroy incoming projectiles and deal 10x more thorns damage
-				The shell lasts at least 1 second and up to 25 attacks blocked
-				Enemies may explode into needles on death
-				'You suddenly have the urge to hide in a shell'
+				反弹100%接触伤害
+				站定不动时且不攻击时你会缩进壳里
+				当你缩进壳里时，增加90%伤害减免
+				同时，你可以摧毁来犯的敌对弹幕且反弹10倍接触伤害
+				壳至少能存在1秒，且能抵挡25次攻击
+				攻击时，你会释放出一圈针刺
+				被你的针刺扎死的敌人会爆裂出更多针刺
+				“你突然有一种想躲进壳里的冲动”
 				'''
 			ValhallaKnightEnchant:
 				'''
-				Increases the effectiveness of healing sources by 33%
-				Greatly enhances Ballista effectiveness
-				'Valhalla calls'
+				回复生命值时，治疗量增加33%
+				大幅强化弩车的效果
+				“瓦尔哈拉的呼唤”
 				'''
 			VortexEnchant:
 				'''
-				Double tap down to toggle stealth, reducing chance for enemies to target you but slowing movement
-				When entering stealth, spawn a vortex that draws in enemies and projectiles
-				While in stealth, your own projectiles will not be sucked in
-				'Tear into reality'
+				双击“下”键切换至隐形模式，减少敌人以你为目标的几率，但大幅降低移动速度
+				进入隐形状态时生成一个会吸引敌人和弹幕的旋涡
+				处于隐形状态时你的弹幕不会被旋涡吸引
+				“撕裂现实”
 				'''
 			WizardEnchant:
 				'''
-				Enhances the power of all other Enchantments to their Force effects
-				'I'm a what?'
+				强化其它魔石，使它们获得在合成“力”等级饰品后才能获得的效果
+				“我是啥？”
 				'''
 			WoodEnchant:
 				'''
-				Bestiary entries complete twice as fast
-				You gain a shop discount based on bestiary completion
+				怪物图鉴解锁速度翻倍
+				商店价格会依据你的图鉴解锁度降低
 				'''
 
 			// === Essences ===
 			
 			ApprenticesEssence:
 				'''
-				18% increased magic damage
-				5% increased magic crit
-				Increases your maximum mana by 50
-				'This is only the beginning..'
+				增加18%魔法伤害
+				增加5%魔法暴击率
+				增加50点最大魔力值
+				“这只是个开始……”
 				'''
 			BarbariansEssence:
 				'''
-				18% increased melee damage
-				10% increased melee speed
-				5% increased melee crit chance
-				'This is only the beginning..'
+				增加18%近战伤害
+				增加10%近战攻速
+				增加5%近战暴击率
+				“这只是个开始……”
 				'''
 			OccultistsEssence:
 				'''
-				18% increased summon damage
-				Increases your max number of minions by 1
-				Increases your max number of sentries by 1
-				'This is only the beginning..'
+				增加18%召唤伤害
+				增加1个召唤栏位
+				增加1个哨兵栏位
+				“这只是个开始……”
 				'''
 			SharpshootersEssence:
 				'''
-				18% increased ranged damage
-				10% chance to not consume ammo
-				5% increased ranged critical chance
-				'This is only the beginning..'
+				增加18%远程伤害
+				10%几率不消耗弹药
+				增加5%远程暴击率
+				“这只是个开始……”
 				'''
 			
 			// === Expert ===
 
 			UniverseCore:
 				'''
-				Crits deal 5x instead of 2x
-				All attacks inflict Flames of the Universe
-				'Bursting with ultra-high-energy cosmic rays'
+				暴击造成5倍伤害，而不是两倍
+				所有的攻击都会造成宇宙之火减益
+				“爆发出超高能宇宙射线”
 				'''
 
 			// === Forces ===
-			// In ItemExtra
+			// In Original Files
 
 
 
-		}
-
-		SetBonus: {
-
-			Eridanus:
-				'''
-				The blessing of Eridanus empowers your attacks
-				The empowered class changes every 10 seconds
-				Eridanus fights alongside you when you use the empowered class
-				75% increased damage, 30% increased attack speed, and 20% increased critical strike chance for the empowered class
-				'''
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 
             DisplayName.SetDefault("Shadow Force");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影之力");
+            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影之力");
 
             string tooltip =
 $"[i:{ModContent.ItemType<ShadowEnchant>()}] Four Shadow Orbs will orbit around you\n" +

@@ -37,17 +37,14 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
             Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
-@"攻击会造成迈达斯减益
-按下'金身'键后会将你包裹在一个黄金壳中
-被包裹时你无法移动或攻击，但你免疫所有伤害
-敌人死亡时掉落的战利品有20%几率翻5倍
-长矛将倾泄在被攻击的敌人身上
-双击'下'键后令箭雨倾斜在光标位置
-增加50%受治疗量
-大幅强化弩车和爆炸机关的效果
-拥有贪婪戒指效果
-'坚不可摧的决心'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+@"[i:{0}] 按下“金身”键会将你包裹在一个黄金壳中
+[i:{0}] 捡起钱币时，自动将它们存进猪猪存钱罐中
+[i:{1}] 敌人死亡时有20%的几率获得五倍的战利品
+[i:{2}] 长矛将倾泄在被攻击的敌人身上
+[i:{3}] 双击'下'键后令箭雨倾斜在光标位置
+[i:{4}] 回复生命值时，治疗量增加50%
+“坚不可摧的决心”";
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, string.Format(tooltip_ch, Enchants[0], Enchants[1], Enchants[2], Enchants[4], Enchants[5]));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
