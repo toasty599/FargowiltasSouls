@@ -143,6 +143,9 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                 if (hasCD)
                     modPlayer.TungstenCD = 30;
 
+                if (projectile.aiStyle == ProjAIStyleID.Spear || projectile.aiStyle == ProjAIStyleID.ShortSword)
+                    projectile.velocity *= scale;
+
                 //    if (modPlayer.Eternity)
                 //    {
                 //        modPlayer.TungstenCD = 0;

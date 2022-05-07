@@ -1465,3 +1465,6 @@ trojan squrrl has a larger radius before it despawns when outside emode
 squrrl rain now starts far and comes closer
 squirrel has a 3 stomp after head/arms gone
 maso empress sword circle adjusted so there's slightly more of a visual cue
+
+fixed spears and shortswords not actually going out further with tungsten ench
+fixed autofire causing you to wield a limitless number of stacking spears
