@@ -1458,3 +1458,4 @@ reduced lava slime/fire imp spawns outside hell
 moved terraprisma from ancient hallowed ench recipe to conjurist soul recipe
 ancient hallow ench recipe uses durendal instead
 added box of gizmos (not yet dropped)
+added trojan squirrel trophy
