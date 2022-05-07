@@ -124,11 +124,11 @@ Getting hit resets your crit to 5%
                     }
                     else if (modPlayer.TerraForce)
                     {
-                        modPlayer.TinProcCD = 20;
+                        modPlayer.TinProcCD = 30;
                     }
                     else
                     {
-                        modPlayer.TinProcCD = 30;
+                        modPlayer.TinProcCD = 60;
                     }
                 }
             }

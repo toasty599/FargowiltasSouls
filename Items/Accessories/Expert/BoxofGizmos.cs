@@ -7,19 +7,13 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Expert
 {
-    public class UniverseCore : SoulsItem
+    public class BoxofGizmos : SoulsItem
     {
-        public override int NumFrames => 8;
-
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Universe Core");
-            Tooltip.SetDefault(@"Crits deal 5x instead of 2x
-All attacks inflict Flames of the Universe
-'Bursting with ultra-high-energy cosmic rays'");
-
-            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 8));
-            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+            DisplayName.SetDefault("Box of Gizmos");
+            Tooltip.SetDefault(@"Grants autofire to all items
+-20% use speed on affected items");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -30,18 +24,14 @@ All attacks inflict Flames of the Universe
             Item.height = 20;
             Item.accessory = true;
             Item.rare = ItemRarityID.Expert;
-            Item.value = Item.sellPrice(0, 50);
-
-            Item.scale *= 0.5f;
+            Item.value = Item.sellPrice(0, 1);
 
             Item.expert = true;
         }
 
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().UniverseCore = true;
+            player.GetModPlayer<FargoSoulsPlayer>().BoxofGizmos = true;
         }
     }
 }

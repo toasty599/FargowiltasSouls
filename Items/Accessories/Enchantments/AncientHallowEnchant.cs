@@ -137,7 +137,7 @@ Summons a Terraprisma familiar that scales with minion damage
                 .AddIngredient(ItemID.AncientHallowedPlateMail)
                 .AddIngredient(ItemID.AncientHallowedGreaves)
                 .AddIngredient(ModContent.ItemType<SilverEnchant>())
-                .AddIngredient(ItemID.EmpressBlade) //terraprisma
+                .AddIngredient(ItemID.SwordWhip) //durendal
                 .AddIngredient(ItemID.BouncingShield) //sergent united
                 .AddTile(TileID.CrystalBall)
                 .Register();

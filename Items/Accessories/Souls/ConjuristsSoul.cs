@@ -71,6 +71,7 @@ Increased minion knockback
             .AddIngredient(ItemID.TempestStaff)
             .AddIngredient(ItemID.RavenStaff)
             .AddIngredient(ItemID.XenoStaff)
+            .AddIngredient(ItemID.EmpressBlade) //terraprisma
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
