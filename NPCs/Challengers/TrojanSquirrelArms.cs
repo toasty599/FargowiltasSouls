@@ -65,7 +65,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                             {
                                 NPC.ai[0] = 1 + NPC.ai[2];
                                 NPC.ai[1] = 0;
-                                NPC.ai[2] = NPC.ai[2] == 0 ? 1 : 0;
+                                if (Main.expertMode)
+                                    NPC.ai[2] = NPC.ai[2] == 0 ? 1 : 0;
                                 NPC.netUpdate = true;
 
                                 body.localAI[3] = Math.Sign(body.DirectionTo(Main.player[body.target].Center).X);
@@ -110,6 +111,10 @@ namespace FargowiltasSouls.NPCs.Challengers
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, 8f * NPC.DirectionTo(target), ModContent.ProjectileType<TrojanHook>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                                 }
+                            }
+                            else if (FargoSoulsWorld.EternityMode) //when crossed up, end faster
+                            {
+                                NPC.ai[1] += 35;
                             }
                         }
 

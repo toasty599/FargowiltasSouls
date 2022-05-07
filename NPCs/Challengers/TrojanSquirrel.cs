@@ -345,6 +345,16 @@ namespace FargowiltasSouls.NPCs.Challengers
                 //start by jumping
                 NPC.ai[0] = 1f;
                 NPC.ai[3] = 1f;
+
+                for (int i = 0; i < 80; i++)
+                {
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default(Color), 4f);
+                    Main.dust[d].velocity.Y -= 1.5f;
+                    Main.dust[d].velocity *= 1.5f;
+                    Main.dust[d].noGravity = true;
+                }
+
+                FargoSoulsUtil.GrossVanillaDodgeDust(NPC);
             }
 
             Player player = Main.player[NPC.target];
@@ -407,7 +417,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                         if (arms != null && (NPC.localAI[3] == -1 || NPC.localAI[3] == 1)) //from arms
                             NPC.direction = NPC.spriteDirection = (int)NPC.localAI[3];
 
-                        bool canDoAttacks = !goFast && (!NPC.dontTakeDamage || FargoSoulsWorld.EternityMode);
+                        bool canDoAttacks = FargoSoulsWorld.EternityMode && !goFast;
                         if (canDoAttacks) //decide next action
                         {
                             float increment = 1f;

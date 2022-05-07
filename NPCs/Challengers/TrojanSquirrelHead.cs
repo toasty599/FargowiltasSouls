@@ -4,6 +4,8 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ID;
+using FargowiltasSouls.Projectiles.Champions;
+using FargowiltasSouls.Projectiles.Challengers;
 
 namespace FargowiltasSouls.NPCs.Challengers
 {
@@ -54,18 +56,24 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                         if (NPC.ai[1] > threshold && Math.Abs(body.velocity.Y) < 0.05f)
                         {
-                            NPC.ai[0] = 1;
+                            NPC.ai[0] = 1 + NPC.ai[2];
                             NPC.ai[1] = 0;
+                            if (Main.expertMode)
+                                NPC.ai[2] = NPC.ai[2] == 0 ? 1 : 0;
                             NPC.netUpdate = true;
                         }
                     }
                     break;
 
-                case 1:
+                case 1: //acorn spray
                     if (++NPC.ai[1] % (body.dontTakeDamage || FargoSoulsWorld.MasochistModeReal ? 30 : 45) == 0)
                     {
                         const float gravity = 0.2f;
-                        float time = FargoSoulsWorld.MasochistModeReal ? 50f : 80f;
+                        float time = 80f;
+                        if (body.dontTakeDamage)
+                            time = 60f;
+                        if (FargoSoulsWorld.MasochistModeReal)
+                            time = 45f;
                         Vector2 distance = Main.player[NPC.target].Center - NPC.Center;// + player.velocity * 30f;
                         distance.X = distance.X / time;
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
@@ -74,12 +82,48 @@ namespace FargowiltasSouls.NPCs.Challengers
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance + Main.rand.NextVector2Square(-0.5f, 0.5f),
-                                    ModContent.ProjectileType<Projectiles.Champions.TimberAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<TimberAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                     }
 
                     if (NPC.ai[1] > 210)
+                    {
+                        NPC.ai[0] = 0;
+                        NPC.ai[1] = 0;
+                        NPC.netUpdate = true;
+                    }
+                    break;
+
+                case 2: //squirrel barrage
+                    NPC.ai[1]++;
+
+                    if (NPC.ai[1] > 60 && NPC.ai[1] % 5 == 0)
+                    {
+                        float gravity = 0.6f;
+                        const float origTime = 80;
+                        float time = origTime;
+                        if (body.dontTakeDamage)
+                            time -= 15;
+                        if (FargoSoulsWorld.MasochistModeReal)
+                            time -= 15;
+
+                        float ratio = origTime / time;
+                        gravity *= ratio;
+
+                        Vector2 distance = Main.player[NPC.target].Center - NPC.Center;// + player.velocity * 30f;
+                        distance.X += Main.rand.NextFloat(-64, 64);
+                        distance.X = distance.X / time;
+                        distance.Y = distance.Y / time - 0.5f * gravity * time;
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            float ai1 = time + Main.rand.Next(-10, 11) - 1;
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance,
+                                ModContent.ProjectileType<TrojanSquirrelProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, gravity, ai1);
+                        }
+                    }
+
+                    if (NPC.ai[1] > 60 + 180)
                     {
                         NPC.ai[0] = 0;
                         NPC.ai[1] = 0;

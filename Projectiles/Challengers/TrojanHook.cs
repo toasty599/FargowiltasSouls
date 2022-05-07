@@ -29,8 +29,6 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
 
-            Projectile.extraUpdates = FargoSoulsWorld.EternityMode ? 1 : 0;
-
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
@@ -57,6 +55,8 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 return;
             }
 
+            Projectile.extraUpdates = FargoSoulsWorld.EternityMode ? 1 : 0;
+
             if (Projectile.ai[0] == 0)
             {
                 if (!Collision.SolidTiles(Projectile.Center, 0, 0))
@@ -76,6 +76,8 @@ namespace FargowiltasSouls.Projectiles.Challengers
             
             if (Projectile.ai[0] == 2f)
             {
+                Projectile.extraUpdates++;
+
                 Projectile.tileCollide = false;
 
                 const float speed = 12;
