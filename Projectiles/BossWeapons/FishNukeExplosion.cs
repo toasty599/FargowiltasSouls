@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                     for (int j = 0; j < 4; j++)
                     {
-                        int gore = Gore.NewGore(new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                        int gore = Gore.NewGore(Projectile.Center,
                             default(Vector2),
                             Main.rand.Next(61, 64));
 

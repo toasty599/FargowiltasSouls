@@ -323,7 +323,7 @@ namespace FargowiltasSouls.Items
                 if (modPlayer.JungleCD == 0)
                 {
                     int dmg = (modPlayer.NatureForce || modPlayer.WizardEnchantActive) ? 150 : 75;
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 62, 0.5f);
                     FargoSoulsUtil.XWay(10, player.GetSource_Accessory(modPlayer.ChloroEnchantItem), new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
 
                     modPlayer.JungleCD = 8;

@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void Kill(int timeleft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f, 0);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, 6, 0.5f, 0);
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.position.X -= (float)(Projectile.width / 2);

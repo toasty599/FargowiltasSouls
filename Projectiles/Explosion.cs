@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int) Projectile.position.X, (int) Projectile.position.Y, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item,  Projectile.Center, 14);
             Projectile.position.X = Projectile.position.X + Projectile.width / 2f;
             Projectile.position.Y = Projectile.position.Y + Projectile.height / 2f;
             Projectile.position.X = Projectile.position.X - Projectile.width / 2f;
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Projectiles
 
                 for (int j = 0; j < 4; j++)
                 {
-                    int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                    int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center,
                         default(Vector2),
                         Main.rand.Next(61, 64));
 

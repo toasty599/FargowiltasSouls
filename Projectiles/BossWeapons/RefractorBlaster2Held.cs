@@ -146,7 +146,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + HoldOffset * 2, 22f * Projectile.velocity.RotatedBy(spread * i),
                             type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 105, 1f, -0.3f);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 105, 1f, -0.3f);
                     /*int p = Projectile.NewProjectile(Projectile.Center + HoldOffset * 2, Projectile.velocity * 22, type, Projectile.damage, Projectile.knockBack, player.whoAmI);
 					if (p < 1000)
 					{

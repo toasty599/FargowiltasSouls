@@ -54,6 +54,7 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
                 new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
             });
         }

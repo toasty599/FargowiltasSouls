@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Patreon.Sasha
 
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
 
             for (int i = 0; i < 20; i++)
             {
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             float scaleFactor9 = 0.5f;
             for (int j = 0; j < 2; j++)
             {
-                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center,
                     default(Vector2),
                     Main.rand.Next(61, 64));
 

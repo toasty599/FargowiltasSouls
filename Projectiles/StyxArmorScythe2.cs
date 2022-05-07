@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles
             float scaleFactor9 = 0.5f;
             for (int j = 0; j < 4; j++)
             {
-                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), default(Vector2), Main.rand.Next(61, 64));
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[gore].velocity *= scaleFactor9;
                 Main.gore[gore].velocity.X += 1f;
                 Main.gore[gore].velocity.Y += 1f;

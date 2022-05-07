@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
 
             for (int num615 = 0; num615 < 45; num615++)
             {

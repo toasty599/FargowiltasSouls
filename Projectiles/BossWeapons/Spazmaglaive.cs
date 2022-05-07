@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 const int max = 24;
                 for (int i = 0; i < max; i++)
                 {
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 105, 1f, -0.3f);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 105, 1f, -0.3f);
                     Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / max);
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel / 2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     if (p < Main.maxProjectiles)
@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     {
                         for (int i = 0; i < 12; i++)
                         {
-                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 105, 1f, -0.3f);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 105, 1f, -0.3f);
                             Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 12);
                             int p = Projectile.NewProjectile(target.Center, newvel/2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, target.whoAmI);
                             if(p < 1000)

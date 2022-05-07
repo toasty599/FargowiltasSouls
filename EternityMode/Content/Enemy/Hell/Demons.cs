@@ -65,7 +65,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
 
                 if (npc.onFire || npc.onFire3)
                 {
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)npc.position.X, (int)npc.position.Y, 10, 1f, 0.5f);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)npc.Center.X, (int)npc.Center.Y, 10, 1f, 0.5f);
 
                     for (int i = 0; i < 3; i++) //NOTICE ME
                     {

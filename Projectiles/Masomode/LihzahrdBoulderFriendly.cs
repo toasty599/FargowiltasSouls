@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 }
 
                 float scaleFactor9 = 0.5f;
-                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), default(Vector2), Main.rand.Next(61, 64));
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
                 Main.gore[gore].velocity *= scaleFactor9;
                 Main.gore[gore].velocity.X += 1f;
                 Main.gore[gore].velocity.Y += 1f;
@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 1f, 0);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             for (int index = 0; index < 10; ++index)
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.t_Lihzahrd, 0.0f, 0.0f, 0, default, 1.5f);
         }

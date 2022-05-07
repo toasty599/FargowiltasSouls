@@ -218,7 +218,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
                         }
 
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 14);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
 
                         for (int k = -2; k <= 2; k++) //explosions
                         {

@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Patreon.Sasha
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[Projectile.owner] = 7;
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
 
             if (Projectile.owner == Main.myPlayer)
             {
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             float scaleFactor9 = 0.5f;
             for (int j = 0; j < 2; j++)
             {
-                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center,
                     default(Vector2),
                     Main.rand.Next(61, 64));
 

@@ -152,6 +152,17 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.DD2ExplosiveTrapT3Explosion:
+                    {
+                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == ModContent.NPCType<NPCs.Challengers.TrojanSquirrel>())
+                        {
+                            projectile.DamageType = DamageClass.Default;
+                            projectile.friendly = false;
+                            projectile.hostile = true;
+                        }
+                    }
+                    break;
+
                 case ProjectileID.SharpTears:
                 case ProjectileID.DeerclopsIceSpike:
                     {
@@ -356,7 +367,7 @@ namespace FargowiltasSouls.Projectiles
                                     projectile.Kill();
                                     Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 11, 0.5f);
                                     int proj2 = ModContent.ProjectileType<BlenderProj3>();
-                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
                                 }
                             }
                         }
@@ -388,11 +399,11 @@ namespace FargowiltasSouls.Projectiles
                     {
                         for (int num468 = 0; num468 < 20; num468++)
                         {
-                            int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
+                            int num469 = Dust.NewDust(projectile.Center, projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
                                 -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, 1f);
                             Main.dust[num469].noGravity = true;
                             Main.dust[num469].velocity *= 2f;
-                            num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
+                            num469 = Dust.NewDust(projectile.Center, projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
                                 -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, .5f);
                             Main.dust[num469].velocity *= 2f;
                         }
@@ -504,7 +515,7 @@ namespace FargowiltasSouls.Projectiles
 
                                 int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
 
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 62, 0.5f);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 62, 0.5f);
 
                                 spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
 
@@ -1216,7 +1227,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(4))
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, player.Center, 27);
 
                         int damage = (int)(25 * player.GetDamage(DamageClass.Ranged).Additive);
 

@@ -765,9 +765,6 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.SandnadoHostile:
                     if (projectile.timeLeft == 1199 && NPC.CountNPCS(NPCID.SandShark) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Main.NewText($"source is npc: {SourceNPC is NPC}");
-                        if (SourceNPC is NPC)
-                            Main.NewText($"type: {SourceNPC.type} vs {ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()}");
                         if (!(SourceNPC is NPC && (SourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>() || SourceNPC.type == ModContent.NPCType<SpiritChampion>())))
                         {
                             FargoSoulsUtil.NewNPCEasy(Entity.InheritSource(projectile), projectile.Center, NPCID.SandShark,
@@ -1013,7 +1010,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.SandBallFalling:
                     if (projectile.ai[0] == 2f) //antlion sand
                     {
-                        int num129 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 32, 0f, projectile.velocity.Y / 2f, 0, default(Color), 1f);
+                        int num129 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 32, 0f, projectile.velocity.Y / 2f, 0, default(Color), 1f);
                         Dust expr_59B0_cp_0 = Main.dust[num129];
                         expr_59B0_cp_0.velocity.X = expr_59B0_cp_0.velocity.X * 0.4f;
                         projectile.active = false;

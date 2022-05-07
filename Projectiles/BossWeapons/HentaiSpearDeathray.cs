@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (!Main.dedServ)
                     Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104").WithVolume(0.6f), Projectile.Center);
                 //Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
-                //Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, 6, 1f, 0);
+                //Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 6);
             }
             float num801 = .5f;
             Projectile.localAI[0] += 1f;

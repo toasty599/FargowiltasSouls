@@ -71,7 +71,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             if (Main.rand.NextBool(40))
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Pixie, NPC.Center, 1);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Pixie, NPC.Center);
             }
 
             NPC.direction = NPC.spriteDirection = NPC.velocity.X < 0 ? -1 : 1;

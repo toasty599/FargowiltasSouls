@@ -117,7 +117,7 @@ There is a cooldown of 3 seconds between uses");
 
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, new Vector2(player.velocity.X, 0), ModContent.ProjectileType<WolfDashProj>(), (int)(50 * player.GetDamage(DamageClass.Melee).Additive), 0f, player.whoAmI);
 
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)player.Center.X, (int)player.Center.Y, 8);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, player.Center, 8);
             }
         }
     }

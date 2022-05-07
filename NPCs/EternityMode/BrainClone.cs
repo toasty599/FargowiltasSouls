@@ -92,7 +92,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                     NPC.Center = stayAwayFromHere + NPC.DirectionFrom(stayAwayFromHere) * safeRange;
             }
 
-            Vector2 vector2 = new Vector2(NPC.Center.X, NPC.Center.Y);
+            Vector2 vector2 = NPC.Center;
             float num1 = Main.player[NPC.target].Center.X - vector2.X;
             float num2 = Main.player[NPC.target].Center.Y - vector2.Y;
             float num3 = (NPC.Distance(Main.player[NPC.target].Center) > 500 ? 8f : 4f) / (float)Math.Sqrt(num1 * num1 + num2 * num2);

@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center, 1);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             for (int index = 0; index < 10; ++index)
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 7);
         }

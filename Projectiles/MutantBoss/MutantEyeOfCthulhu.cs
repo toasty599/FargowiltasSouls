@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             if (Projectile.ai[1]++ == 0)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, (int)Projectile.Center.X, (int)Projectile.Center.Y, -1, 1f, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Projectile.Center, -1);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, NPCID.EyeofCthulhu);
@@ -176,7 +176,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 Projectile.velocity = dashSpeed * Projectile.DirectionTo(new Vector2(Projectile.localAI[0], Projectile.localAI[1])).RotatedBy(MathHelper.ToRadians(degreesOffset));
                 Projectile.netUpdate = true;
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, (int)Projectile.Center.X, (int)Projectile.Center.Y, -1, 1f, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Projectile.Center, -1);
             }
             else if (Projectile.ai[1] < 120 + baseDistance / dashSpeed * 2)
             {

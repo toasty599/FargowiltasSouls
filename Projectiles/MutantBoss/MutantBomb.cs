@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 
                 float scaleFactor9 = 0.5f;
                 
-                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center,
                     default(Vector2),
                     Main.rand.Next(61, 64));
 
