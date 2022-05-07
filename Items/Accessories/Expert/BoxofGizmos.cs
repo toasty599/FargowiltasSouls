@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Expert
         {
             DisplayName.SetDefault("Box of Gizmos");
             Tooltip.SetDefault(@"Grants autofire to all items
--20% use speed on affected items");
+Reduces use speed of affected items by 20%");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

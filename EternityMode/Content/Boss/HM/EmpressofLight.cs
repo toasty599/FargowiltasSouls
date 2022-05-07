@@ -125,7 +125,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 float ai1 = ((float)(AttackTimer - startDelay) / spinTime) % 1;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Vector2 appearVel = 2.5f * -vel;
+                                    Vector2 appearVel = -vel;
+                                    appearVel *= FargoSoulsWorld.MasochistModeReal ? 7.5f : 2.5f;
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos - appearVel * 60, appearVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, vel.ToRotation(), ai1);
 
                                     float angleOffset = MathHelper.ToRadians(45);

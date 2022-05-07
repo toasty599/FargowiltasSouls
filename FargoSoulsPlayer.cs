@@ -1646,8 +1646,6 @@ namespace FargowiltasSouls
                 AttackSpeed -= .1f;
             }
 
-            Main.NewText(AttackSpeed);
-
             return 1f / AttackSpeed;
         }
 
