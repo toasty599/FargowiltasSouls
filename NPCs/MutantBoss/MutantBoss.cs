@@ -2699,7 +2699,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 NPC.ai[2] = attackThreshold;
 
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item162, player.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item163, player.Center);
 
                 if (Math.Abs(MathHelper.WrapAngle(NPC.DirectionFrom(player.Center).ToRotation() - NPC.ai[3])) > MathHelper.PiOver2)
                     NPC.ai[3] += MathHelper.Pi; //swords always spawn closer to player

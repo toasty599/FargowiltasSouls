@@ -78,13 +78,6 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                 case 1: //chains
                     {
-                        NPC.ai[1]++;
-
-                        if (NPC.ai[1] == 10)
-                        {
-                            //add sfx here...
-                        }
-
                         int start = 90;
                         if (FargoSoulsWorld.EternityMode)
                             start -= 30;
@@ -95,7 +88,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                         int teabagInterval = start / (FargoSoulsWorld.MasochistModeReal ? 3 : 2);
 
                         if (NPC.ai[1] < start) //better for animation
+                        {
                             body.velocity.X *= 0.9f;
+                            if (NPC.ai[1] % teabagInterval == 0)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit41, NPC.Center);
+                        }
+
+                        NPC.ai[1]++;
 
                         //to help animate body
                         NPC.ai[3] = NPC.ai[1] < start && NPC.ai[1] % teabagInterval < teabagInterval / 2 ? 1 : 0;
@@ -104,18 +103,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                         {
                             Vector2 pos = GetShootPos();
 
-                            Vector2 target = Main.player[NPC.target].Center;
-                            if (NPC.direction == Math.Sign(target.X - NPC.Center.X)) //cant shoot if player gets behind
-                            {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, 8f * NPC.DirectionTo(target), ModContent.ProjectileType<TrojanHook>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
-                                }
-                            }
-                            else if (FargoSoulsWorld.EternityMode) //when crossed up, end faster
-                            {
-                                NPC.ai[1] += 35;
-                            }
+                            float baseAngle = NPC.direction > 0 ? 0f : MathHelper.Pi;
+                            float angle = NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation();
+                            if (Math.Abs(MathHelper.WrapAngle(angle - baseAngle)) > MathHelper.PiOver2)
+                                angle = MathHelper.PiOver2 * Math.Sign(angle);
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, 8f * angle.ToRotationVector2(), ModContent.ProjectileType<TrojanHook>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         }
 
                         if (NPC.ai[1] > 300 && Main.netMode != NetmodeID.MultiplayerClient && Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<TrojanHook>()] <= 0)

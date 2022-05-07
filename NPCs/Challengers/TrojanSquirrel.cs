@@ -356,6 +356,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                 }
 
                 FargoSoulsUtil.GrossVanillaDodgeDust(NPC);
+
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[NPC.target].Center, 0);
             }
 
             Player player = Main.player[NPC.target];
@@ -390,7 +392,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                                     Main.projectile[p].timeLeft = 90;
                             }
                         }
-                        else if (!NPC.HasValidTarget || NPC.Distance(player.Center) > 1600)
+                        else if (!NPC.HasValidTarget || NPC.Distance(player.Center) > (FargoSoulsWorld.EternityMode ? 1600 : 2400))
                         {
                             target = NPC.Center + new Vector2(256f * Math.Sign(NPC.Center.X - player.Center.X), -128);
 
@@ -399,9 +401,20 @@ namespace FargowiltasSouls.NPCs.Challengers
                             despawn = true;
                         }
 
-                        if (Math.Abs(NPC.velocity.Y) < 0.05f && NPC.localAI[3] == 2)
+                        if (Math.Abs(NPC.velocity.Y) < 0.05f && NPC.localAI[3] >= 2)
                         {
-                            NPC.localAI[3] = 0f;
+                            if (NPC.localAI[3] == 2)
+                            {
+                                NPC.localAI[3] = 0f;
+                            }
+                            else
+                            {
+                                NPC.localAI[3] -= 1;
+                                NPC.ai[0] = 1f;
+                                NPC.ai[3] = 1f;
+                            }
+
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -495,6 +508,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                                 threshold -= 20;
                             if (head == null && arms == null)
                                 threshold -= 30;
+                            if (NPC.localAI[3] >= 2)
+                                threshold -= 20;
                         }
                         if (FargoSoulsWorld.MasochistModeReal)
                             threshold -= 20;
@@ -539,7 +554,12 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                             if (FargoSoulsWorld.EternityMode && arms == null)
                             {
-                                NPC.localAI[3] = 2; //flag to stomp again on landing
+                                if (NPC.localAI[3] < 2)
+                                {
+                                    NPC.localAI[3] = 2; //flag to stomp again on landing
+                                    if (head == null)
+                                        NPC.localAI[3] += 2; //flag to do more stomps
+                                }
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -660,7 +680,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 bool wasImmune = NPC.dontTakeDamage;
                 NPC.dontTakeDamage = NPC.life < NPC.lifeMax / 2 && (head != null || arms != null);
 
-                if (!wasImmune && NPC.dontTakeDamage) //became immune, explode
+                if (wasImmune != NPC.dontTakeDamage)
                 {
                     for (int i = 0; i < 6; i++)
                         Explode(NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)));

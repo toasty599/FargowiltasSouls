@@ -55,6 +55,12 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 return;
             }
 
+            if (Projectile.localAI[0] == 0)
+            {
+                Projectile.localAI[0] = 1;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
+            }
+
             Projectile.extraUpdates = FargoSoulsWorld.EternityMode ? 1 : 0;
 
             if (Projectile.ai[0] == 0)
@@ -67,7 +73,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 Projectile.tileCollide = false;
                 Projectile.velocity = Vector2.Zero;
 
-                //if (++Projectile.localAI[0] > 60 || !FargoSoulsWorld.EternityMode)
+                //if (++Projectile.localAI[1] > 60 || !FargoSoulsWorld.EternityMode)
                 //{
                 Projectile.ai[0] = 2f;
                 Projectile.netUpdate = true;
@@ -108,10 +114,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (projHitbox.Intersects(targetHitbox))
-                return true;
-
-            if (npc == null)
+            if (npc == null || !FargoSoulsWorld.EternityMode)
                 return base.Colliding(projHitbox, targetHitbox);
 
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), ChainOrigin, Projectile.Center);
@@ -119,6 +122,8 @@ namespace FargowiltasSouls.Projectiles.Challengers
 
         public override bool PreDraw(ref Color lightColor)
         {
+            bool flashingZapEffect = FargoSoulsWorld.EternityMode && Projectile.timeLeft % 10 < 5;
+
             if (npc != null && TextureAssets.Chain.IsLoaded)
             {
                 Texture2D texture = TextureAssets.Chain.Value;
@@ -146,8 +151,13 @@ namespace FargowiltasSouls.Projectiles.Challengers
                         position += vector21 * num1;
                         vector24 = mountedCenter - position;
                         Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
-                        color2 = Projectile.GetAlpha(color2);
+                        color2 = flashingZapEffect ? Color.White * Projectile.Opacity : Projectile.GetAlpha(color2);
                         Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
+                        if (flashingZapEffect)
+                        {
+                            color2.A = 0;
+                            Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
+                        }
                     }
             }
 
@@ -157,7 +167,13 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = SpriteEffects.None;
+            Color color = flashingZapEffect ? Color.White * Projectile.Opacity : Projectile.GetAlpha(lightColor);
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+            if (flashingZapEffect)
+            {
+                color.A = 0;
+                Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+            }
             return false;
         }
     }
