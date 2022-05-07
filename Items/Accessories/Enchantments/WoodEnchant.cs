@@ -35,8 +35,8 @@ You gain a shop discount based on bestiary completion");
             double discount = (Main.GetBestiaryProgressReport().CompletionPercent / 2);
             discount *= 100;
             discount = Math.Round(discount, 2);
-            list.Add(new TooltipLine(Mod, "Discount", "Current discount: " + discount + "%"));
-            list.Add(new TooltipLine(Mod, "Flavor", "'Humble beginnings…'"));
+            list.Add(new TooltipLine(Mod, "Discount", Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.WoodenDiscount", discount)));
+            list.Add(new TooltipLine(Mod, "Flavor", Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.WoodenTooltip")));
         }
 
         public override void SetDefaults()

@@ -205,7 +205,7 @@ Mods: {
 		}
 
 		Toggler: {
-			WoodHeader: 森林之力
+			WoodHeader: "{$Mods.FargowiltasSouls.ItemName.TimberForce}"
 			BorealConfig: 针叶木 雪球
 			MahoganyConfig: 红木 钩爪加成
 			EbonConfig: 乌木 暗影焰光环
@@ -214,7 +214,7 @@ Mods: {
 			PalmConfig: 棕榈木 仆从
 			PearlConfig: 珍珠木 星星雨
 
-			EarthHeader: 大地之力
+			EarthHeader: "{$Mods.FargowiltasSouls.ItemName.EarthForce}"
 			AdamantiteConfig: 精金 弹幕分裂
 			CobaltConfig: 钴蓝 碎片
 			AncientCobaltConfig: 远古钴蓝 毒刺
@@ -224,7 +224,7 @@ Mods: {
 			PalladiumOrbConfig: 钯金 伤害珠
 			TitaniumConfig: 钛金 碎片
 
-			TerraHeader: 泰拉之力
+			TerraHeader: "{$Mods.FargowiltasSouls.ItemName.TerraForce}"
 			CopperConfig: 铜 闪电
 			IronMConfig: 铁 吸引掉落物
 			IronSConfig: 铁 护盾
@@ -233,15 +233,15 @@ Mods: {
 			TungstenProjConfig: 钨 弹幕变大
 			ObsidianConfig: 黑曜石 未完成（记得提醒棱镜修改）
 
-			WillHeader: 意志之力
+			WillHeader: "{$Mods.FargowiltasSouls.ItemName.WillForce}"
 			GladiatorConfig: 角斗士 长矛雨
 			GoldConfig: 金 幸运币
 			GoldToPiggyConfig: 金 自动将钱存进储蓄罐
-			HuntressConfig: 女猎人 相关效果
+			HuntressConfig: 女猎人 相关效果 未完成（记得提醒棱镜修改）
 			ValhallaConfig: 侍卫/英灵殿骑士 治疗提升
 			SquirePanicConfig: “弩车恐慌！”效果
 
-			LifeHeader: 生命之力
+			LifeHeader: "{$Mods.FargowiltasSouls.ItemName.LifeForce}"
 			BeeConfig: 蜜蜂 相关效果
 			BeetleConfig: 甲虫 相关效果
 			CactusConfig: 仙人掌 针刺
@@ -249,7 +249,7 @@ Mods: {
 			SpiderConfig: 蜘蛛 召唤物暴击
 			TurtleConfig: 乌龟 缩壳减伤
 
-			NatureHeader: 自然之力
+			NatureHeader: "{$Mods.FargowiltasSouls.ItemName.NatureForce}"
 			ChlorophyteConfig: 叶绿 水晶
 			CrimsonConfig: 猩红 生命恢复
 			RainConfig: 雨云 相关效果
@@ -262,7 +262,7 @@ Mods: {
 			ShroomiteConfig: 蘑菇 潜行
 			ShroomiteShroomConfig: 蘑菇 蘑菇尾迹
 
-			ShadowHeader: 暗影之力
+			ShadowHeader: "{$Mods.FargowiltasSouls.ItemName.ShadowForce}"
 			DarkArtConfig: 暗黑艺术家 爆炸烈焰仆从
 			ApprenticeConfig: 学徒 相关效果
 			NecroConfig: 死灵 骨堆
@@ -274,7 +274,7 @@ Mods: {
 			ShinobiConfig: 渗透忍者 穿墙冲刺
 			SpookyConfig: 阴森 镰刀攻击
 
-			SpiritHeader: 心灵之力
+			SpiritHeader: "{$Mods.FargowiltasSouls.ItemName.SpiritForce}"
 			FossilConfig: 化石 受击释放骨头
 			ForbiddenConfig: 禁戒 远古风暴
 			HallowDodgeConfig: 神圣 神圣防护
@@ -285,7 +285,7 @@ Mods: {
 			SpectreConfig: 幽魂 幽魂珠
 			TikiConfig: 提基 额外仆从
 
-			CosmoHeader: 宇宙之力
+			CosmoHeader: "{$Mods.FargowiltasSouls.ItemName.CosmoForce}"
 			MeteorConfig: 流星 流星雨
 			NebulaConfig: 星云 强化焰
 			SolarConfig: 耀斑 护盾
@@ -310,14 +310,14 @@ Mods: {
 			MasoDevianttHeartsConfig: 追踪红心攻击
 			PrecisionSealHurtboxConfig: 缩小碰撞箱
 
-			SupremeFairyHeader: 至高告死精灵
+			SupremeFairyHeader: "{$Mods.FargowiltasSouls.ItemName.SupremeDeathbringerFairy}"
 			MasoSlimeConfig: 凝胶球
 			SlimeFallingConfig: 提高下落速度
 			MasoEyeConfig: 鲜血镰刀
 			MasoHoneyConfig: 蜂蜜喷溅
 			MasoSkeleConfig: 骷髅王手臂
 
-			BionomicHeader: 生态球
+			BionomicHeader: "{$Mods.FargowiltasSouls.ItemName.BionomicCluster}"
 			MasoConcoctionConfig: 蒂姆的秘药
 			MasoCarrotConfig: 狙击镜效果
 			MasoRainbowConfig: 彩虹史莱姆仆从
@@ -328,20 +328,20 @@ Mods: {
 			MasoClippedConfig: 造成折翼减益
 			TribalCharmConfig: 武器自动攻击
 
-			DubiousHeader: 可疑电路
+			DubiousHeader: "{$Mods.FargowiltasSouls.ItemName.DubiousCircuitry}"
 			MasoLightningConfig: 造成避雷针减益
 			MasoProbeConfig: 探测器仆从
 
-			PureHeartHeader: 纯净之心
+			PureHeartHeader: "{$Mods.FargowiltasSouls.ItemName.PureHeart}"
 			MasoEaterConfig: 迷你噬魂者
 			MasoBrainConfig: 飞眼怪
 
-			LumpofFleshHeader: 血肉团
+			LumpofFleshHeader: "{$Mods.FargowiltasSouls.ItemName.LumpOfFlesh}"
 			MasoPugentConfig: 眼球仆从
 			DeerclawpsConfig: 冲刺留下冰刺
 			DreadShellParryConfig: 恐惧螺壳格挡
 
-			ChaliceHeader: 月之圣杯
+			ChaliceHeader: "{$Mods.FargowiltasSouls.ItemName.ChaliceoftheMoon}"
 			MasoCultistConfig: 拜月教徒仆从
 			MasoPlantConfig: 世纪之花仆从
 			MasoGolemConfig: 下落坠地火焰
@@ -349,7 +349,7 @@ Mods: {
 			MasoCelestConfig: 天界符文额外攻击
 			MasoVisionConfig: 受伤释放远古幻影妖
 
-			HeartHeader: 永恒者之心
+			HeartHeader: "{$Mods.FargowiltasSouls.ItemName.HeartoftheMasochist}"
 			MasoPumpConfig: 南瓜王披肩效果
 			IceQueensCrownConfig: 受击时冻住敌人
 			MasoFlockoConfig: 超级雪花仆从
@@ -358,7 +358,7 @@ Mods: {
 			MasoGrav2Config: 重力稳定
 			MasoTrueEyeConfig: 克苏鲁真眼仆从
 
-			CyclonicHeader: 憎恶手杖
+			CyclonicHeader: "{$Mods.FargowiltasSouls.ItemName.AbominableWand}"
 			MasoFishronConfig: 幽灵憎恶
 
 			MutantArmorHeader: 真·突变体套装
@@ -367,7 +367,7 @@ Mods: {
 			MasoReviveDeathrayConfig: 复活死光
 
 
-			UniverseHeader: 寰宇之魂
+			UniverseHeader: "{$Mods.FargowiltasSouls.ItemName.UniverseSoul}"
 			MeleeConfig: 近战攻速加成
 			MagmaStoneConfig: 岩浆石
 			YoyoBagConfig: 悠悠球袋
@@ -377,14 +377,14 @@ Mods: {
 			ManaFlowerConfig: 魔力花
 			UniverseConfig: 寰宇之魂攻击速度加成
 
-			WorldShaperHeader: 铸世者之魂
+			WorldShaperHeader: "{$Mods.FargowiltasSouls.ItemName.WorldShaperSoul}"
 			MiningHuntConfig: 狩猎药水效果
 			MiningDangerConfig: 危险感药水效果
 			MiningSpelunkConfig: 洞穴探险药水效果
 			MiningShineConfig: 光芒药水效果
 			BuilderConfig: 建筑师模式
 
-			ColossusHeader: 巨像之魂
+			ColossusHeader: "{$Mods.FargowiltasSouls.ItemName.ColossusSoul}"
 			DefenseStarConfig: 受伤产生落星
 			DefenseBrainConfig: 混乱之脑受伤效果
 			DefenseBeeConfig: 受伤产生蜜蜂
@@ -392,11 +392,11 @@ Mods: {
 			DefenseFleshKnuckleConfig: 血肉指虎仇恨
 			DefensePaladinConfig: 圣骑士护盾
 
-			FlightMasteryHeader: 飞行大师之魂
+			FlightMasteryHeader: "{$Mods.FargowiltasSouls.ItemName.FlightMasterySoul}"
 			FlightMasteryInsigniaConfig: 翱翔徽章加速
 			FlightMasteryGravityConfig: 太空中重力正常
 
-			SupersonicHeader: 超音速之魂
+			SupersonicHeader: "{$Mods.FargowiltasSouls.ItemName.SupersonicSoul}"
 			RunSpeedConfig: 提高基础奔跑速度
 			MomentumConfig: 不计算动量
 			SupersonicTabiConfig: 分趾厚底袜冲刺
@@ -409,12 +409,12 @@ Mods: {
 			CthulhuShieldConfig: 克苏鲁护盾
 			BlackBeltConfig: 黑腰带闪避
 			
-			TrawlerHeader: 捕鱼之魂
+			TrawlerHeader: "{$Mods.FargowiltasSouls.ItemName.TrawlerSoul}"
 			TrawlerSporeConfig: 孢子囊
 			TrawlerConfig: 额外鱼线
 			TrawlerJumpConfig: 捕鱼之魂跳跃
 
-			EternityHeader: 永恒之魂
+			EternityHeader: "{$Mods.FargowiltasSouls.ItemName.EternitySoul}"
 			EternityConfig: 永恒之魂属性叠加
 
 
@@ -468,6 +468,14 @@ Mods: {
 			PatreonPrime: 机械骷髅王法杖
 			PatreonCrimetroid: 血水母的蛋
 		}
+
+    ItemExtra: {
+      WoodenDiscount: 当前折扣：{0}%
+      WoodenTooltip: “卑微的开始……”
+
+      TinCritUp: +5%暴击率
+      TinCritReset: -{0}%暴击率
+    }
 
 		ItemName: {
 			
@@ -729,9 +737,7 @@ Mods: {
 				'''
 				箭矢会插在敌怪身上，每只插上的箭都会给予一层流血减益
 				近战攻击击中被箭矢插中的敌怪时，会依据箭矢数目造成额外伤害
-				（未做完）
-
-
+				（未做完）\n\n
 				箭矢会定期落至你光标周围
 				箭矢的种类取决于你背包中第一个箭矢	
 				双击“下”键后令箭雨倾泄在光标位置							

@@ -468,5 +468,13 @@ Mods: {
 			PatreonPrime: Prime Staff
 			PatreonCrimetroid: Crimetroid
 		}
+
+    ItemExtra: {
+      WoodenDiscount: Current discount: {0}%
+      WoodenTooltip: 'Humble beginnings…'
+
+      TinCritUp: +5% crit
+      TinCritReset: -{0}% crit
+    }
 	}
 }
