@@ -1459,3 +1459,9 @@ moved terraprisma from ancient hallowed ench recipe to conjurist soul recipe
 ancient hallow ench recipe uses durendal instead
 added box of gizmos (not yet dropped)
 added trojan squirrel trophy
+squirrel coat of arms is crafted at workbench, was altar
+trojan hook flashes to denote chain hitbox, chain only has hitbox in emode
+trojan squrrl has a larger radius before it despawns when outside emode
+squrrl rain now starts far and comes closer
+squirrel has a 3 stomp after head/arms gone
+maso empress sword circle adjusted so there's slightly more of a visual cue

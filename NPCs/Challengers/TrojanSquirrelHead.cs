@@ -82,7 +82,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance + Main.rand.NextVector2Square(-0.5f, 0.5f),
-                                    ModContent.ProjectileType<TimberAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<TrojanAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -96,40 +96,68 @@ namespace FargowiltasSouls.NPCs.Challengers
                     break;
 
                 case 2: //squirrel barrage
-                    NPC.ai[1]++;
-
-                    if (NPC.ai[1] > 60 && NPC.ai[1] % 5 == 0)
                     {
-                        float gravity = 0.6f;
-                        const float origTime = 80;
-                        float time = origTime;
-                        if (body.dontTakeDamage)
-                            time -= 15;
+                        NPC.ai[1]++;
+
+                        int start = 60;
+                        int end = 300;
                         if (FargoSoulsWorld.MasochistModeReal)
-                            time -= 15;
-
-                        float ratio = origTime / time;
-                        gravity *= ratio;
-
-                        Vector2 distance = Main.player[NPC.target].Center - NPC.Center;// + player.velocity * 30f;
-                        distance.X += Main.rand.NextFloat(-64, 64);
-                        distance.X = distance.X / time;
-                        distance.Y = distance.Y / time - 0.5f * gravity * time;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            float ai1 = time + Main.rand.Next(-10, 11) - 1;
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance,
-                                ModContent.ProjectileType<TrojanSquirrelProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, gravity, ai1);
+                            start -= 30;
+                            end -= 90;
+                        }
+
+                        body.velocity.X *= 0.99f;
+
+                        if (NPC.ai[1] % 4 == 0)
+                        {
+                            ShootSquirrelAt(body.Center + Main.rand.NextVector2Circular(200, 200));
+
+                            if (NPC.ai[1] > start)
+                            {
+                                float ratio = (NPC.ai[1] - start) / (end - start);
+                                Vector2 target = new Vector2(NPC.Center.X, Main.player[NPC.target].Center.Y);
+                                target.X += Math.Sign(NPC.direction) * (550f + (FargoSoulsWorld.EternityMode ? 1800f : 1200f) * (1f - ratio));
+
+                                ShootSquirrelAt(target);
+                            }
+                        }
+
+                        if (NPC.ai[1] > end)
+                        {
+                            NPC.ai[0] = 0;
+                            NPC.ai[1] = 0;
+                            NPC.netUpdate = true;
                         }
                     }
-
-                    if (NPC.ai[1] > 60 + 180)
-                    {
-                        NPC.ai[0] = 0;
-                        NPC.ai[1] = 0;
-                        NPC.netUpdate = true;
-                    }
                     break;
+            }
+        }
+
+        private void ShootSquirrelAt(Vector2 target)
+        {
+            float gravity = 0.6f;
+            const float origTime = 75;
+            float time = origTime;
+            if (body.dontTakeDamage)
+                time -= 15;
+            if (FargoSoulsWorld.MasochistModeReal)
+                time -= 15;
+
+            gravity *= origTime / time;
+
+            Vector2 distance = target - NPC.Center;// + player.velocity * 30f;
+            distance.X += Main.rand.NextFloat(-128, 128);
+            distance.X = distance.X / time;
+            distance.Y = distance.Y / time - 0.5f * gravity * time;
+
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                float ai1 = time + Main.rand.Next(-10, 11) - 1;
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance,
+                    ModContent.ProjectileType<TrojanSquirrelProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, gravity, ai1);
             }
         }
 
