@@ -22,6 +22,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"You gain a shield that can reflect projectiles
 Summons a Terraprisma familiar that scales with minion damage
+Drastically increases minion speed
 'Hallowed be your sword and shield'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "远古神圣魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
