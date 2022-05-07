@@ -15,7 +15,7 @@ namespace FargowiltasSouls.NPCs.Challengers
         {
             base.SetDefaults();
 
-            NPC.lifeMax = 400;
+            NPC.lifeMax = 600;
 
             NPC.width = 80;
             NPC.height = 76;
