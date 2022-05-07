@@ -95,6 +95,9 @@ namespace FargowiltasSouls.Items
             if (modPlayer.TribalCharm && item.type != ItemID.RodofDiscord && item.fishingPole == 0)
                 return true;
 
+            if (modPlayer.BoxofGizmos && !item.autoReuse)
+                return true;
+
             return base.CanAutoReuseItem(item, player);
         }
 

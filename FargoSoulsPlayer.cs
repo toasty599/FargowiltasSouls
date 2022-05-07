@@ -384,6 +384,8 @@ namespace FargowiltasSouls
 
         public int ReallyAwfulDebuffCooldown;
 
+        public bool BoxofGizmos;
+
         
 
         public bool IronEnchantShield;
@@ -849,6 +851,7 @@ namespace FargowiltasSouls
             CerebralMindbreak = false;
             NanoInjection = false;
             Stunned = false;
+            BoxofGizmos = false;
             IronEnchantShield = false;
             DreadShellItem = null;
             NoUsingItems = false;
@@ -1607,6 +1610,11 @@ namespace FargowiltasSouls
                 return 1f;
             }
 
+            if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse)
+            {
+                AttackSpeed -= .2f;
+            }
+
             if (Berserked)
             {
                 AttackSpeed += .1f;
@@ -1637,6 +1645,8 @@ namespace FargowiltasSouls
             {
                 AttackSpeed -= .1f;
             }
+
+            Main.NewText(AttackSpeed);
 
             return 1f / AttackSpeed;
         }
