@@ -1459,3 +1459,4 @@ moved terraprisma from ancient hallowed ench recipe to conjurist soul recipe
 ancient hallow ench recipe uses durendal instead
 added box of gizmos (not yet dropped)
 added trojan squirrel trophy
+squirrel coat of arms is crafted at workbench, was altar
