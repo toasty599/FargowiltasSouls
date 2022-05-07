@@ -1455,3 +1455,5 @@ tin ench nerfs
 	base cd 60 ticks (was 30)
 	force cd 30 (was 20)
 reduced lava slime/fire imp spawns outside hell
+moved terraprisma from ancient hallowed ench recipe to conjurist soul recipe
+ancient hallow ench recipe uses durendal instead
