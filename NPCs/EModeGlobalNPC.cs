@@ -276,8 +276,8 @@ namespace FargowiltasSouls.NPCs
                     {
                         if (nearLava)
                         {
-                            pool[NPCID.FireImp] = .05f;
-                            pool[NPCID.LavaSlime] = .05f;
+                            pool[NPCID.FireImp] = .02f;
+                            pool[NPCID.LavaSlime] = .02f;
                         }
 
                         if (marble && NPC.downedBoss2)
