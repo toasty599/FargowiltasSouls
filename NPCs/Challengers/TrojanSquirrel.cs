@@ -777,6 +777,8 @@ namespace FargowiltasSouls.NPCs.Challengers
         {
             //boss bag
             //trophy
+
+            //todo, make drops notexpert
             //weapons
             npcLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 10));
             npcLoot.Add(ItemDropRule.Common(ItemID.WoodenCrate, 1, 3, 5));
