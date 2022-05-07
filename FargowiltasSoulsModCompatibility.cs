@@ -256,7 +256,10 @@ namespace FargowiltasSouls
                     //    ModContent.ItemType<ChibiHat>(),
                     //    ModContent.ItemType<BrokenBlade>()
                     //)
-                    new List<int>(),
+                    new List<int>(new int[]
+                    {
+                        ModContent.ItemType<TrojanSquirrelTrophy>()
+                    }),
                     new List<int> { ModContent.ItemType<SquirrelCoatofArms>() },
                     false,
                     "NPCs/Challengers/TrojanSquirrel_Still"

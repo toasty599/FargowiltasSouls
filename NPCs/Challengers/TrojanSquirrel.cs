@@ -12,6 +12,7 @@ using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.DataStructures;
 using System.IO;
 using FargowiltasSouls.Items.Summons;
+using FargowiltasSouls.Items.Placeables;
 
 namespace FargowiltasSouls.NPCs.Challengers
 {
@@ -776,7 +777,10 @@ namespace FargowiltasSouls.NPCs.Challengers
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             //boss bag
-            //trophy
+
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TrojanSquirrelTrophy>(), 10));
+
+            //todo, make drops notexpert
             //weapons
             npcLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 10));
             npcLoot.Add(ItemDropRule.Common(ItemID.WoodenCrate, 1, 3, 5));
