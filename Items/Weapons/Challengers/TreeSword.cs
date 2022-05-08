@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Weapons.Challengers
 {
@@ -12,6 +13,9 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Shoots an acorn");
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "树剑");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "射出橡实");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
