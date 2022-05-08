@@ -14,6 +14,7 @@ using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Terraria.DataStructures;
 using FargowiltasSouls.Items.Accessories.Forces;
+using FargowiltasSouls.BossBars;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -82,6 +83,8 @@ namespace FargowiltasSouls.NPCs.Champions
             SceneEffectPriority = SceneEffectPriority.BossLow;
 
             NPC.dontTakeDamage = true;
+
+            NPC.BossBar = ModContent.GetInstance<CompositeBossBar>();
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
