@@ -392,12 +392,9 @@ namespace FargowiltasSouls
             {
                 TorchGodTimer = 0;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    float ai0 = Main.rand.NextFloat(-2f, 2f);
-                    float ai1 = Main.rand.NextFloat(-2f, 2f);
-                    Projectile.NewProjectile(Player.GetSource_Misc("TorchGod"), Main.rand.NextVector2FromRectangle(Player.Hitbox), Vector2.Zero, ModContent.ProjectileType<TorchGodFlame>(), 20, 0f, Main.myPlayer, ai0, ai1);
-                }
+                float ai0 = Main.rand.NextFloat(-2f, 2f);
+                float ai1 = Main.rand.NextFloat(-2f, 2f);
+                Projectile.NewProjectile(Player.GetSource_Misc("TorchGod"), Main.rand.NextVector2FromRectangle(Player.Hitbox), Vector2.Zero, ModContent.ProjectileType<TorchGodFlame>(), 20, 0f, Main.myPlayer, ai0, ai1);
             }
         }
 

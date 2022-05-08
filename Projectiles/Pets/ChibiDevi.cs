@@ -182,7 +182,8 @@ namespace FargowiltasSouls.Projectiles.Pets
 
             Projectile.spriteDirection = Projectile.direction;
 
-            if (FargoSoulsUtil.AnyBossAlive())
+            bool bossAlive = FargoSoulsUtil.AnyBossAlive();
+            if (bossAlive)
             {
                 if (Main.npc[FargoSoulsGlobalNPC.boss].life < Main.npc[FargoSoulsGlobalNPC.boss].lifeMax / 4)
                     TryTalkWithCD(TalkType.BossAlmostDead, LongCD);
@@ -206,6 +207,9 @@ namespace FargowiltasSouls.Projectiles.Pets
             {
                 for (int i = 0; i < TalkCDs.Length; i++)
                 {
+                    if (bossAlive && i == (int)TalkType.Idle) //dont run this timer during boss fight
+                        continue;
+
                     if (TalkCDs[i] > 0)
                         TalkCDs[i]--;
                 }
@@ -355,7 +359,7 @@ namespace FargowiltasSouls.Projectiles.Pets
                     DurationInFrames = 360,
                     Velocity = new Vector2(Projectile.direction * 7, -7),
                     Color = Color.HotPink * 1.15f
-                }, Main.player[Projectile.owner].Top + 0.5f * (Projectile.Center - Main.player[Projectile.owner].Top));
+                }, Main.player[Projectile.owner].Top + 0.5f * (Projectile.Top - Main.player[Projectile.owner].Top));
             }
         }
     }

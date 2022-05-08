@@ -192,7 +192,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             const float speed = 4f;
             if (Projectile.velocity.Length() < speed)
             {
-                Projectile.velocity.SafeNormalize(Vector2.UnitX);
+                Projectile.velocity = Projectile.velocity.SafeNormalize(Vector2.UnitX);
                 Projectile.velocity *= speed;
             }
             if (Projectile.Distance(mousePos) <= speed)

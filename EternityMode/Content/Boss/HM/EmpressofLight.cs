@@ -377,7 +377,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         Vector2 offset = Main.player[npc.target].velocity;
                         if (offset == Vector2.Zero || offset.Length() < 1)
-                            offset.SafeNormalize(-Vector2.UnitY);
+                            offset = offset.SafeNormalize(-Vector2.UnitY);
                         offset = 90f * offset.RotatedBy(MathHelper.PiOver2);
 
                         Vector2 spawnPos = Main.player[npc.target].Center + offset;

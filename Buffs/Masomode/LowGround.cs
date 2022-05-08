@@ -34,9 +34,15 @@ namespace FargowiltasSouls.Buffs.Masomode
                     pos.Y += player.mount.HeightBoost;
                 pos.Y += 8;
 
-                Tile tile = Framing.GetTileSafely((int)(pos.X / 16), (int)(pos.Y / 16));
-                if (tile.TileType == TileID.Platforms || tile.TileType == TileID.PlanterBox)
+                int x = (int)(pos.X / 16);
+                int y = (int)(pos.Y / 16);
+                Tile tile = Framing.GetTileSafely(x, y);
+                if ((tile.TileType == TileID.Platforms || tile.TileType == TileID.PlanterBox) && !tile.IsActuated)
+                {
                     tile.IsActuated = true;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendTileSquare(-1, x, y, 1);
+                }
             }
         }
     }
