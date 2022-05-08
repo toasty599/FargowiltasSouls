@@ -161,6 +161,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                         {
                             Vector2 pos = GetShootPos();
 
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, pos);
+
                             float ratio = (NPC.ai[1] - start) / (end - start);
 
                             Vector2 target = NPC.Center;
