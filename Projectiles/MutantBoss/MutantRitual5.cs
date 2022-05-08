@@ -46,6 +46,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             else
             {
+                Projectile.ai[1] = -1;
                 Projectile.velocity = Vector2.Zero;
                 Projectile.alpha += 2;
                 if (Projectile.alpha > 255)

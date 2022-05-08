@@ -13,6 +13,8 @@ using Terraria.DataStructures;
 using System.IO;
 using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Items.Placeables;
+using FargowiltasSouls.Items.Weapons.Challengers;
+using FargowiltasSouls.Items.BossBags;
 
 namespace FargowiltasSouls.NPCs.Challengers
 {
@@ -796,15 +798,15 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //boss bag
-
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<TrojanSquirrelBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TrojanSquirrelTrophy>(), 10));
 
-            //todo, make drops notexpert
-            //weapons
-            npcLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 10));
-            npcLoot.Add(ItemDropRule.Common(ItemID.WoodenCrate, 1, 3, 5));
-            npcLoot.Add(ItemDropRule.Common(ItemID.HerbBag, 1, 3, 5));
+            LeadingConditionRule rule = new LeadingConditionRule(new Conditions.NotExpert());
+            rule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<TreeSword>(), ModContent.ItemType<MountedAcornGun>(), ModContent.ItemType<SnowballStaff>(), ModContent.ItemType<KamikazeSquirrelStaff>()));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.WoodenCrate, 1, 1, 5));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.HerbBag, 1, 1, 5));
+            rule.OnSuccess(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 10));
+            npcLoot.Add(rule);
         }
 
         public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)

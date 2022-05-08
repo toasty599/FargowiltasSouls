@@ -854,7 +854,6 @@ namespace FargowiltasSouls
             BoxofGizmos = false;
             IronEnchantShield = false;
             DreadShellItem = null;
-            NoUsingItems = false;
 
             if (WizardEnchantActive)
             {
@@ -952,6 +951,7 @@ namespace FargowiltasSouls
             lightningRodTimer = 0;
 
             BuilderMode = false;
+            NoUsingItems = false;
 
             SlimyShieldFalling = false;
             DarkenedHeartCD = 60;
@@ -1598,6 +1598,11 @@ namespace FargowiltasSouls
                 MaxLifeReduction = 0;
                 LifeReductionUpdateTimer = 0;
             }
+        }
+
+        public override void PostUpdate()
+        {
+            NoUsingItems = false; //set here so that when something else sets this, it actually blocks items
         }
 
         public override float UseTimeMultiplier(Item item)
