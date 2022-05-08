@@ -60,6 +60,8 @@ namespace FargowiltasSouls.Projectiles.Pets
 
                 for (int i = 0; i < TalkCounters.Length; i++)
                     TalkCounters[i] = Main.rand.Next(MaxThingsToSay[i]);
+
+                TalkCounters[(int)TalkType.Idle] = MediumCD;
             }
 
             TryTalkWithCD(usePlayerDiedSpawnText ? TalkType.Respawn : TalkType.Spawn, ShortCD);
@@ -215,7 +217,7 @@ namespace FargowiltasSouls.Projectiles.Pets
             Player player = Main.player[Projectile.owner];
             if (player.dead || player.ghost)
             {
-                TryTalkWithCD(TalkType.PlayerDeath, LongCD);
+                TryTalkWithCD(TalkType.PlayerDeath, MediumCD);
                 if (Projectile.owner == Main.myPlayer)
                     usePlayerDiedSpawnText = true;
             }
@@ -339,7 +341,8 @@ namespace FargowiltasSouls.Projectiles.Pets
 
             if (Projectile.owner == Main.myPlayer && ModContent.GetInstance<SoulConfig>().DeviChatter)
             {
-                EmoteBubble.MakeLocalPlayerEmote(EmoteID.EmotionLove);
+                if (!Main.player[Projectile.owner].dead && !Main.player[Projectile.owner].ghost)
+                    EmoteBubble.MakeLocalPlayerEmote(EmoteID.EmotionLove);
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.LucyTheAxeTalk, Projectile.Center);
 
                 string key = Enum.GetName(talkType);
