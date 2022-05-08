@@ -337,7 +337,7 @@ namespace FargowiltasSouls.Projectiles.Pets
 
             TalkCounters[talkInt] = (TalkCounters[talkInt] + 1) % MaxThingsToSay[talkInt];
             TalkCDs[talkInt] = CD;
-            universalTalkCD = 360;
+            universalTalkCD = 180;
 
             if (Projectile.owner == Main.myPlayer && ModContent.GetInstance<SoulConfig>().DeviChatter)
             {
