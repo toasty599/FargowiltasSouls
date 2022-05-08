@@ -469,6 +469,12 @@ Mods: {
 			PatreonCrimetroid: 血水母的蛋
 		}
 
+    UI: {
+        SoulTogglerButton: 设置饰品效果
+        EternityEnabled: 永恒模式已开启
+        MasochistEnabled: 受虐模式已开启
+    }
+
     ItemExtra: {
       WoodenDiscount: 当前折扣：{0}%
       WoodenTooltip: “卑微的开始……”
