@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
 
             if (!Main.dedServ)
             {
-                int g = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, -0.1f * Projectile.oldVelocity.RotatedByRandom(MathHelper.PiOver4), ModContent.Find<ModGore>(Mod.Name, $"TrojanSquirrelGore2").Type, Projectile.scale);
+                int g = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, -0.1f * Projectile.oldVelocity.RotatedByRandom(MathHelper.PiOver4), ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "TrojanSquirrelGore2" : "TrojanSquirrelGore2_2").Type, Projectile.scale);
                 Main.gore[g].rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
         }

@@ -1468,3 +1468,4 @@ maso empress sword circle adjusted so there's slightly more of a visual cue
 
 fixed spears and shortswords not actually going out further with tungsten ench
 fixed autofire causing you to wield a limitless number of stacking spears
+added all trojan squirrel loot
