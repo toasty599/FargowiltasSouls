@@ -1471,3 +1471,4 @@ added all trojan squirrel loot
 fixed magic missile and similar projs being infinitely stackable with tribal charm
 fixed devi not properly despawning sandnados after that attack
 fixed mutant phase transitions not actually blocking item use
+fixed crab not being able to drop both crate and fishing potion
