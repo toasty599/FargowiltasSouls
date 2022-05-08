@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Creates a snowball that grows as you roll it\nRight click to recall the snowball to yourself");
+            Tooltip.SetDefault("Creates a snowball that grows as you roll it\nMust use continuously to sustain snowball\nRight click to recall the snowball to yourself");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
