@@ -1477,3 +1477,4 @@ fixed crab not being able to drop both crate and fishing potion
 
 sibling pets are master drop now instead of emode nohit
 devi pet talks because fuck you i can do that (has toggle)
+fixed mutants fury localization on use

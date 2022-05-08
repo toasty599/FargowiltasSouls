@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Items.Misc
         {
             FargoSoulsWorld.AngryMutant = !FargoSoulsWorld.AngryMutant;
             string text = FargoSoulsWorld.AngryMutant ? $"$Mods.{Mod.Name}.Message.{Name}On" : $"$Mods.{Mod.Name}.Message.{Name}Off";
-            FargoSoulsUtil.PrintText(text, 175, 75, 255);
+            FargoSoulsUtil.PrintLocalization(text, 175, 75, 255);
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
