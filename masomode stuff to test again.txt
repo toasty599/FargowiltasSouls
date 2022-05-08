@@ -1469,3 +1469,5 @@ fixed spears and shortswords not actually going out further with tungsten ench
 fixed autofire causing you to wield a limitless number of stacking spears
 added all trojan squirrel loot
 fixed magic missile and similar projs being infinitely stackable with tribal charm
+fixed devi not properly despawning sandnados after that attack
+fixed mutant phase transitions not actually blocking item use

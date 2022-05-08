@@ -619,7 +619,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].type == ModContent.ProjectileType<FrostfireballHostile>()
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && (Main.projectile[i].type == ModContent.ProjectileType<FrostfireballHostile>() || Main.projectile[i].type == ProjectileID.SandnadoHostile)
                                 && Main.projectile[i].timeLeft > 120)
                             {
                                 Main.projectile[i].timeLeft = 120;
