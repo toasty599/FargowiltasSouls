@@ -910,10 +910,10 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.Flamelash:
                 case ProjectileID.MagicMissile:
                 case ProjectileID.RainbowRodBullet:
-                    if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().TribalCharm)
+                    if (counter > 300 && Main.player[projectile.owner].ownedProjectileCounts[projectile.type] > 1)
                     {
-                        if (counter > 300)
-                            projectile.Kill();
+                        projectile.Kill();
+                        Main.player[projectile.owner].ownedProjectileCounts[projectile.type] -= 1;
                     }
                     break;
 

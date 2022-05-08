@@ -1419,7 +1419,6 @@ added deer sinew
 refactors to how dashes work, they shouldnt be usable at the same time now i think, check nothing's buggy
 fixed(?) tungsten ench item scaling
 fixed(?) a vanilla(?) issue with dashing where being frozen/stoned/etc runs your dash timers, causing you to dash immediately upon the debuff ending even if all you did was just hold the key
-fixed magic missile and similar projs being infinitely stackable with tribal charm
 
 removed sinew debug text
 tungsten ench
@@ -1469,3 +1468,4 @@ maso empress sword circle adjusted so there's slightly more of a visual cue
 fixed spears and shortswords not actually going out further with tungsten ench
 fixed autofire causing you to wield a limitless number of stacking spears
 added all trojan squirrel loot
+fixed magic missile and similar projs being infinitely stackable with tribal charm
