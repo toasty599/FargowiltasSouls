@@ -15,6 +15,7 @@ using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.Items.Weapons.Challengers;
 using FargowiltasSouls.Items.BossBags;
+using FargowiltasSouls.BossBars;
 
 namespace FargowiltasSouls.NPCs.Challengers
 {
@@ -197,13 +198,16 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.value = Item.buyPrice(silver: 75);
             NPC.boss = true;
 
-            Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions") : MusicID.OtherworldlyBoss1;
+            Music = MusicID.OtherworldlyBoss1;
             SceneEffectPriority = SceneEffectPriority.BossLow;
+
+            NPC.BossBar = ModContent.GetInstance<CompositeBossBar>();
         }
 
         public NPC head;
         public NPC arms;
+        public int lifeMaxHead;
+        public int lifeMaxArms;
 
         private bool spawned;
 
@@ -637,6 +641,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             else
             {
+                lifeMaxHead = head.lifeMax;
                 head = FargoSoulsUtil.NPCExists(head.whoAmI, ModContent.NPCType<TrojanSquirrelHead>());
             }
 
@@ -666,6 +671,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             else
             {
+                lifeMaxArms = arms.lifeMax;
                 arms = FargoSoulsUtil.NPCExists(arms.whoAmI, ModContent.NPCType<TrojanSquirrelArms>());
             }
 

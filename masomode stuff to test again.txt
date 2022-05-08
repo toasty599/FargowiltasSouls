@@ -1465,9 +1465,11 @@ squrrl rain now starts far and comes closer
 squirrel has a 3 stomp after head/arms gone
 maso empress sword circle adjusted so there's slightly more of a visual cue
 
+added all trojan squirrel loot
+shadow champ health bar indicates invul now
+fixed trojan squirrel health bar not including head/arms
 fixed spears and shortswords not actually going out further with tungsten ench
 fixed autofire causing you to wield a limitless number of stacking spears
-added all trojan squirrel loot
 fixed magic missile and similar projs being infinitely stackable with tribal charm
 fixed devi not properly despawning sandnados after that attack
 fixed mutant phase transitions not actually blocking item use
