@@ -16,15 +16,15 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Magical Bulb");
-            Tooltip.SetDefault(@"Grants immunity to Venom, Ivy Venom, and Swarming
+            Tooltip.SetDefault(@"Grants immunity to Acid Venom, Ivy Venom, and Swarming
 Increases life regeneration
 Attracts a legendary plant's offspring which flourishes in combat
 'Matricide?'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "魔法球茎");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'杀妈?'
-免疫毒液, 常春藤毒和蜂群
-增加生命回复
-吸引一株传奇植物的后代, 其会在战斗中茁壮成长");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "魔法球茎");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'杀妈?'
+            // 免疫毒液, 常春藤毒和蜂群
+            // 增加生命回复
+            // 吸引一株传奇植物的后代, 其会在战斗中茁壮成长");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

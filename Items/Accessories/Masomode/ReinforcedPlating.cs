@@ -16,10 +16,10 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Grants immunity to Defenseless, Nano Injection, and knockback
 Reduces damage taken by 5%
 'The sturdiest piece of a defeated foe'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "强化钢板");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人最坚强的一面'
-免疫毫无防御,昏迷和击退
-减少10%所受伤害");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "强化钢板");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人最坚强的一面'
+            // 免疫毫无防御,昏迷和击退
+            // 减少10%所受伤害");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

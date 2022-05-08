@@ -21,12 +21,12 @@ Flowers grow on the grass you walk on
 Allows the holder to double jump
 Increases jump height and negates fall damage
 'Back and better than ever'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "埃俄罗斯之靴");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"使你获得飞行和快速奔跑能力，提供冰面上的额外机动性
-增加8%移动速度
-使你获得二段跳能力
-增加跳跃高度并免疫摔落伤害
-'像风一样奔跑'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "埃俄罗斯之靴");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"使你获得飞行和快速奔跑能力，提供冰面上的额外机动性
+            // 增加8%移动速度
+            // 使你获得二段跳能力
+            // 增加跳跃高度并免疫摔落伤害
+            // '像风一样奔跑'");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

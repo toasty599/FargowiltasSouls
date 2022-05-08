@@ -18,10 +18,10 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Grants immunity to Clipped Wings and Crippled
 Your attacks have a 10% chance to inflict Clipped Wings on non-boss enemies
 'Warm to the touch'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "龙牙");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'触感温暖'
-免疫剪除羽翼和残疾
-攻击有10%概率对非Boss单位造成剪除羽翼效果");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "龙牙");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'触感温暖'
+            // 免疫剪除羽翼和残疾
+            // 攻击有10%概率对非Boss单位造成剪除羽翼效果");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

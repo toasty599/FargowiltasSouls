@@ -17,10 +17,10 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 Grants immunity to Webbed and Purified
 Grants autofire to all weapons
 'An idol of the ancient jungle dwellers'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "部落挂坠");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'远古丛林居民的偶像'
-免疫织网和净化
-所有武器自动连发");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "部落挂坠");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'远古丛林居民的偶像'
+            // 免疫织网和净化
+            // 所有武器自动连发");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

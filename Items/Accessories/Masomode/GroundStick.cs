@@ -19,11 +19,11 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 Your attacks have a small chance to inflict Lightning Rod
 Two friendly probes fight by your side
 'A defeated foe's segment with an antenna glued on'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "遥控装置");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被击败敌人的残片,上面粘着天线'
-免疫避雷针
-攻击小概率造成避雷针效果
-召唤2个友善的探测器为你而战");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "遥控装置");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被击败敌人的残片,上面粘着天线'
+            // 免疫避雷针
+            // 攻击小概率造成避雷针效果
+            // 召唤2个友善的探测器为你而战");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

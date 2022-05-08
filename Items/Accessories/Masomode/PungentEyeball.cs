@@ -15,11 +15,11 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 Increases your max number of minions by 2
 Increases your max number of sentries by 2
 'It's fermenting'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "辛辣的眼球");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'它在发酵'
-免疫致盲和阻塞
-+2最大召唤栏
-+2最大哨兵栏");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "辛辣的眼球");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'它在发酵'
+            // 免疫致盲和阻塞
+            // +2最大召唤栏
+            // +2最大哨兵栏");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

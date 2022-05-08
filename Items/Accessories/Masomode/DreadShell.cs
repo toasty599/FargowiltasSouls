@@ -22,13 +22,13 @@ Defense and damage reduction drastically decreased while and shortly after guard
 Guard exactly as an attack touches you to counter it on a very long cooldown
 Counterattack deals massive damage and inflicts Anticoagulation
 'It was a mistake to chum here'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "恐惧螺壳");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"免疫凝血失效和击退
-右键点击来用护盾防护
-防护时和防护后短时间内，防御力和伤害减免大幅下降
-如果你在防护时正好受到攻击，你会进行反击，反击有很长的冷却时间
-反击会造成巨量伤害，并造成凝血失效减益
-“在这钓鱼是个错误”");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "恐惧螺壳");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"免疫凝血失效和击退
+            // 右键点击来用护盾防护
+            // 防护时和防护后短时间内，防御力和伤害减免大幅下降
+            // 如果你在防护时正好受到攻击，你会进行反击，反击有很长的冷却时间
+            // 反击会造成巨量伤害，并造成凝血失效减益
+            // “在这钓鱼是个错误”");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

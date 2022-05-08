@@ -20,11 +20,11 @@ Increases damage reduction by 5%
 Freeze nearby enemies when hurt
 Summons a friendly super Flocko
 'The royal symbol of a defeated foe'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰雪女王的皇冠");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人的皇家象征'
-免疫冻结
-增加5%伤害减免
-召唤一个友善的超级圣诞雪灵");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰雪女王的皇冠");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人的皇家象征'
+            // 免疫冻结
+            // 增加5%伤害减免
+            // 召唤一个友善的超级圣诞雪灵");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

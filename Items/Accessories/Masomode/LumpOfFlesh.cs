@@ -25,15 +25,15 @@ Dashing leaves a trail of blood spikes
 The pungent eyeball charges energy to fire a laser as you attack
 Enemies are less likely to target you
 'It's growing'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "肉团");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'它在增长'
-免疫致盲,阻塞和眩晕
-增加16%召唤伤害,但略微减少防御
-+2最大召唤栏
-+2最大哨兵栏
-当你攻击时,尖刻眼球会充能来发射激光
-敌人不太可能以你为目标
-地牢外的装甲和魔法骷髅敌意减小");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "肉团");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'它在增长'
+            // 免疫致盲,阻塞和眩晕
+            // 增加16%召唤伤害,但略微减少防御
+            // +2最大召唤栏
+            // +2最大哨兵栏
+            // 当你攻击时,尖刻眼球会充能来发射激光
+            // 敌人不太可能以你为目标
+            // 地牢外的装甲和魔法骷髅敌意减小");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -100,7 +100,7 @@ Enemies are less likely to target you
             .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
             .AddTile(TileID.MythrilAnvil)
-            
+
             .Register();
         }
     }

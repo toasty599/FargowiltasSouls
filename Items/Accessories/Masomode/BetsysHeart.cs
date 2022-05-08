@@ -18,11 +18,11 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nPress the Fireball Dash key to perform a short invincible dash" +
                 "\n'Lightly roasted, medium rare'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "双足翼龙之心");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "使你免疫分泌物、枯萎武器和枯萎盔甲减益" +
-                "\n攻击造成暴击时造成双足翼龙诅咒减益" +
-                "\n按下'火球冲刺'键后会进行短距离无敌冲刺" +
-                "\n'微烤，五分熟'");
+            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "双足翼龙之心");
+            // Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "使你免疫分泌物、枯萎武器和枯萎盔甲减益" +
+            //     "\n攻击造成暴击时造成双足翼龙诅咒减益" +
+            //     "\n按下'火球冲刺'键后会进行短距离无敌冲刺" +
+            //     "\n'微烤，五分熟'");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

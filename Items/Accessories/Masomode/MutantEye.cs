@@ -23,14 +23,14 @@ Increases Spectral Abominationn respawn rate and damage
 Press the Mutant Bomb key to unleash a wave of spheres and destroy most hostile projectiles
 Mutant Bomb has a 60 second cooldown
 'Only a little suspicious'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变者之眼");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'有点可疑'
-擦弹增加暴击伤害的上限增加50%
-每次擦弹增加暴击伤害的数值增加
-增加幽灵憎恶的重生频率和伤害
-减少憎恶手杖复活效果禁止回血的时间
-按下Mutant Bomb快捷键释放一波球并破坏多数敌对抛射物
-Mutant Bomb有60秒的冷却");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变者之眼");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'有点可疑'
+            // 擦弹增加暴击伤害的上限增加50%
+            // 每次擦弹增加暴击伤害的数值增加
+            // 增加幽灵憎恶的重生频率和伤害
+            // 减少憎恶手杖复活效果禁止回血的时间
+            // 按下Mutant Bomb快捷键释放一波球并破坏多数敌对抛射物
+            // Mutant Bomb有60秒的冷却");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 18));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 

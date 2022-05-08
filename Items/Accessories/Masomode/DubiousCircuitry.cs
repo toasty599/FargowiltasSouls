@@ -20,13 +20,13 @@ Your attacks have a small chance to inflict Lightning Rod
 Two friendly probes fight by your side
 Reduces damage taken by 5%
 'Malware probably not included'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "可疑电路");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'里面也许没有恶意软件'
-免疫诅咒地狱,脓液,避雷针,毫无防御,昏迷和击退
-攻击造成诅咒地狱和脓液效果
-攻击小概率造成避雷针效果
-召唤2个友善的探测器为你而战
-减少6%所受伤害");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "可疑电路");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'里面也许没有恶意软件'
+            // 免疫诅咒地狱,脓液,避雷针,毫无防御,昏迷和击退
+            // 攻击造成诅咒地狱和脓液效果
+            // 攻击小概率造成避雷针效果
+            // 召唤2个友善的探测器为你而战
+            // 减少6%所受伤害");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -72,7 +72,7 @@ Reduces damage taken by 5%
             .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
             .AddTile(TileID.MythrilAnvil)
-            
+
             .Register();
         }
     }

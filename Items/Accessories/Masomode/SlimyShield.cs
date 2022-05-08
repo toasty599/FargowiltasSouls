@@ -18,11 +18,11 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 Increases fall speed
 When you land after a jump, slime will fall from the sky over your cursor
 'Torn from the innards of a defeated foe'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "粘液盾");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'从被打败的敌人的内脏中撕裂而来'
-免疫黏糊
-增加15%下落速度
-跳跃落地后,在光标处落下史莱姆");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "粘液盾");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'从被打败的敌人的内脏中撕裂而来'
+            // 免疫黏糊
+            // 增加15%下落速度
+            // 跳跃落地后,在光标处落下史莱姆");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

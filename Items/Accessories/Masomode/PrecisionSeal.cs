@@ -20,12 +20,12 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 Reduces your hurtbox size for projectiles
 Hold the Precision Seal key to disable dashes and double jumps
 'Dodge so close you can almost taste it'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "玲珑圣印");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"使你免疫惩戒减益
-缩小你对于敌对弹幕的碰撞判定
-按下“玲珑圣印”键后开启精确模式，禁用冲刺和二段跳
-“躲得那么近，你都能舔到那个弹幕了”
-（此翻译是在缺失贴图的情况下给出的，更新贴图后请及时告诉棱镜以进行修改）");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "玲珑圣印");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"使你免疫惩戒减益
+            // 缩小你对于敌对弹幕的碰撞判定
+            // 按下“玲珑圣印”键后开启精确模式，禁用冲刺和二段跳
+            // “躲得那么近，你都能舔到那个弹幕了”
+            // （此翻译是在缺失贴图的情况下给出的，更新贴图后请及时告诉棱镜以进行修改）");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
