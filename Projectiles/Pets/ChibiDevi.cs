@@ -1,9 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.NPCs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent.UI;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Pets
@@ -43,11 +49,30 @@ namespace FargowiltasSouls.Projectiles.Pets
             Projectile.direction = reader.ReadInt32();
         }
 
+        private static bool haveDoneInitScramble;
+        private static bool usePlayerDiedSpawnText;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (!haveDoneInitScramble)
+            {
+                haveDoneInitScramble = true;
+
+                for (int i = 0; i < TalkCounters.Length; i++)
+                    TalkCounters[i] = Main.rand.Next(MaxThingsToSay[i]);
+            }
+
+            TryTalkWithCD(usePlayerDiedSpawnText ? TalkType.Respawn : TalkType.Spawn, ShortCD);
+
+            if (Projectile.owner == Main.myPlayer)
+                usePlayerDiedSpawnText = false;
+        }
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            if (player.dead)
+            if (player.dead || player.ghost)
             {
                 modPlayer.ChibiDevi = false;
             }
@@ -60,7 +85,8 @@ namespace FargowiltasSouls.Projectiles.Pets
             Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * 6f, 20f, DelegateMethods.CastLightOpen);
             Utils.PlotTileLine(Projectile.Left, Projectile.Right, 20f, DelegateMethods.CastLightOpen);
 
-            if (Projectile.ai[0] == 1)
+            bool asleep = Projectile.ai[0] == 1;
+            if (asleep)
             {
                 Projectile.tileCollide = true;
                 Projectile.ignoreWater = false;
@@ -74,6 +100,8 @@ namespace FargowiltasSouls.Projectiles.Pets
                 if (Projectile.owner == Main.myPlayer && Projectile.Distance(Main.MouseWorld) > 180)
                 {
                     Projectile.ai[0] = 0;
+
+                    TryTalkWithCD(TalkType.Wake, ShortCD);
                 }
             }
             else
@@ -126,6 +154,8 @@ namespace FargowiltasSouls.Projectiles.Pets
                             {
                                 Projectile.ai[0] = 1;
                                 Projectile.ai[1] = 0;
+
+                                TryTalkWithCD(TalkType.Sleep, ShortCD);
                             }
                             else //try again in a bit
                             {
@@ -149,7 +179,53 @@ namespace FargowiltasSouls.Projectiles.Pets
             }
 
             Projectile.spriteDirection = Projectile.direction;
+
+            if (FargoSoulsUtil.AnyBossAlive())
+            {
+                if (Main.npc[FargoSoulsGlobalNPC.boss].life < Main.npc[FargoSoulsGlobalNPC.boss].lifeMax / 4)
+                    TryTalkWithCD(TalkType.BossAlmostDead, LongCD);
+            }   
+            else
+            {
+                //only do idle talk when awake, not a boss fight, and not in danger
+                if (!asleep && player.statLife > player.statLifeMax2 / 2)
+                    TryTalkWithCD(TalkType.Idle, MediumCD);
+
+                //wont cheer in boss fight unless over 30 seconds
+                const int timeRequirement = 30 * 60;
+                TalkCDs[(int)TalkType.BossAlmostDead] = Math.Max(TalkCDs[(int)TalkType.BossAlmostDead], timeRequirement);
+                TalkCDs[(int)TalkType.KillBoss] = Math.Max(TalkCDs[(int)TalkType.KillBoss], timeRequirement);
+            }
+
+            if (universalTalkCD > 0)
+                universalTalkCD--;
+
+            if (Projectile.owner == Main.myPlayer)
+            {
+                for (int i = 0; i < TalkCDs.Length; i++)
+                {
+                    if (TalkCDs[i] > 0)
+                        TalkCDs[i]--;
+                }
+            }
         }
+
+        public override void Kill(int timeLeft)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (player.dead || player.ghost)
+            {
+                TryTalkWithCD(TalkType.PlayerDeath, LongCD);
+                if (Projectile.owner == Main.myPlayer)
+                    usePlayerDiedSpawnText = true;
+            }
+            else
+            {
+                TryTalkWithCD(TalkType.ProjDeath, ShortCD);
+            }
+        }
+
+        #region
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
@@ -204,6 +280,93 @@ namespace FargowiltasSouls.Projectiles.Pets
             SpriteEffects spriteEffects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, spriteEffects, 0);
             return false;
+        }
+
+        #endregion
+
+        public override void Unload()
+        {
+            TalkCounters = null;
+            TalkCDs = null;
+        }
+
+        public static int[] TalkCounters = new int[(int)TalkType.Count];
+        public static int[] TalkCDs = new int[(int)TalkType.Count];
+
+        int universalTalkCD;
+
+        public enum TalkType
+        {
+            Spawn,
+            Respawn,
+            Idle,
+            Sleep,
+            Wake,
+            ProjDeath,
+            PlayerDeath,
+            BossAlmostDead,
+            KillBoss,
+
+            Count
+        };
+        private int[] MaxThingsToSay = new int[] {
+            5, //Spawn
+            5, //Respawn
+            8, //Idle
+            5, //Sleep
+            5, //Wake
+            4, //ProjDeath
+            7, //PlayerDeath
+            5, //BossAlmostDead
+            7, //KillBoss
+            1 //Count
+        };
+
+        public int ShortCD => 600;
+        public int MediumCD => Main.rand.Next(3600, 7200);
+        public int LongCD => MediumCD * 2;
+
+        public void TryTalkWithCD(TalkType talkType, int CD)
+        {
+            int talkInt = (int)talkType;
+
+            if (TalkCDs[talkInt] > 0 || universalTalkCD > 0)
+                return;
+
+            TalkCounters[talkInt] = (TalkCounters[talkInt] + 1) % MaxThingsToSay[talkInt];
+            TalkCDs[talkInt] = CD;
+            universalTalkCD = 360;
+
+            if (Projectile.owner == Main.myPlayer && ModContent.GetInstance<SoulConfig>().DeviChatter)
+            {
+                EmoteBubble.MakeLocalPlayerEmote(EmoteID.EmotionLove);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.LucyTheAxeTalk, Projectile.Center);
+
+                string key = Enum.GetName(talkType);
+                int actualSay = TalkCounters[talkInt] + 1;
+                string text = Language.GetTextValue($"Mods.FargowiltasSouls.DeviChatter.{key}{actualSay}");
+
+                PopupText.NewText(new AdvancedPopupRequest()
+                {
+                    Text = text,
+                    DurationInFrames = 360,
+                    Velocity = new Vector2(Projectile.direction * 7, -7),
+                    Color = Color.HotPink * 1.15f
+                }, Main.player[Projectile.owner].Top + 0.5f * (Projectile.Center - Main.player[Projectile.owner].Top));
+            }
+        }
+    }
+
+    public class DeviTalkGlobalNPC : GlobalNPC
+    {
+        public override void OnKill(NPC npc)
+        {
+            if (npc.boss && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().ChibiDevi)
+            {
+                Projectile p = Main.projectile.FirstOrDefault(p => p.active && p.owner == Main.myPlayer && p.type == ModContent.ProjectileType<ChibiDevi>());
+                if (p != null && p.ModProjectile is ChibiDevi devi)
+                    devi.TryTalkWithCD(ChibiDevi.TalkType.KillBoss, devi.LongCD);
+            }
         }
     }
 }

@@ -3334,7 +3334,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
                 Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<PhantasmalEnergy>());
-                Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<SpawnSack>());
             }
 
             if (FargoSoulsWorld.EternityMode)
@@ -3359,6 +3358,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<MutantBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MutantTrophy>(), 10));
+
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SpawnSack>(), 4));
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<Items.Accessories.Masomode.MutantEye>()));

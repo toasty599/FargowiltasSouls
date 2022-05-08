@@ -21,6 +21,10 @@ namespace FargowiltasSouls
         [DefaultValue(true)]
         public bool HideTogglerWhenInventoryIsClosed;
 
+        [Label($"$Mods.{ModName}.Config.DeviChatter")]
+        [DefaultValue(true)]
+        public bool DeviChatter;
+
         #region maso
 
         [Header($"$Mods.{ModName}.Config.MasoHeader")]

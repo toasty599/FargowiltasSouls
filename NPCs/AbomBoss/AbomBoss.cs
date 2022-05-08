@@ -1484,7 +1484,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
                 Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<BrokenHilt>());
-                Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<BabyScythe>());
             }
 
             NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedAbom, -1);
@@ -1497,6 +1496,8 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<AbomEnergy>(), 1, 10, 20));
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<AbomBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AbomTrophy>(), 10));
+
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<BabyScythe>(), 4));
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<AbominableWand>()));

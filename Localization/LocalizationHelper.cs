@@ -64,6 +64,8 @@ namespace FargowiltasSouls
             AddBossSpawnInfo("WillChampion", $"Spawn by using [i:{ModContent.ItemType<SigilOfChampions>()}] at the ocean.");
             AddBossSpawnInfo("CosmosChampion", $"Spawn by using [i:{ModContent.ItemType<SigilOfChampions>()}] in space.");
 
+            AddBossSpawnInfo("TrojanSquirrel", $"Spawn by using [i:{ModContent.ItemType<SquirrelCoatofArms>()}]");
+
             #endregion boss spawn info
 
 
