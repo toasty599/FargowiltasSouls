@@ -177,7 +177,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.CultistBossFireBallClone: //disable proj
-                    if (NonSwarmFight(NPCID.CultistBossClone))
+                    if (NonSwarmFight(NPCID.CultistBoss))
                     {
                         projectile.timeLeft = 0;
                         EModeCanHurt = false;
@@ -570,8 +570,12 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.Fireball:
-                    if (!FargoSoulsWorld.MasochistModeReal && NonSwarmFight(NPCID.Golem) && !SourceNPC.dontTakeDamage)
-                        projectile.timeLeft = 0;
+                    if (!FargoSoulsWorld.MasochistModeReal)
+                    {
+                        NPC golem = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);
+                        if (golem != null && !golem.dontTakeDamage)
+                            projectile.timeLeft = 0;
+                    }
                     break;
 
                 case ProjectileID.GeyserTrap:
@@ -598,7 +602,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         if (!firstTickAICheckDone)
                         {
-                            projectile.velocity.SafeNormalize(Vector2.UnitY);
+                            projectile.velocity = projectile.velocity.SafeNormalize(Vector2.UnitY);
                             projectile.timeLeft = 180 * projectile.MaxUpdates;
                         }
 
@@ -771,6 +775,9 @@ namespace FargowiltasSouls.Projectiles
                                 velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-20, -10)));
                         }
                     }
+
+                    if (SourceNPC is NPC && SourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>() && SourceNPC.ai[0] != 5)
+                        projectile.ai[0] += 2; //despawn faster
                     break;
 
                 case ProjectileID.PhantasmalEye:
@@ -843,7 +850,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.DD2BetsyFlameBreath:
-                    if (!firstTickAICheckDone && NonSwarmFight(NPCID.DD2Betsy))
+                    if (NonSwarmFight(NPCID.DD2Betsy))
                     {
                         bool phase2 = SourceNPC.GetEModeNPCMod<Betsy>().InPhase2;
 

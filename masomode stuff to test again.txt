@@ -1474,3 +1474,13 @@ fixed magic missile and similar projs being infinitely stackable with tribal cha
 fixed devi not properly despawning sandnados after that attack
 fixed mutant phase transitions not actually blocking item use
 fixed crab not being able to drop both crate and fishing potion
+
+sibling pets are master drop now instead of emode nohit
+devi pet talks because fuck you i can do that (has toggle)
+fixed mutants fury localization on use
+improved low ground mp, syncs when you walk over a platform and actuating it breaks something e.g. piggy bank
+fixed new torch god attack not working in mp
+fixed golem eye beams not reducing their speed on spawn as intended
+fixed cultist clones still shooting shadow fireballs
+fixed betsy flame breath not having additional projs
+fixed devi sandnados not despawning faster after attack

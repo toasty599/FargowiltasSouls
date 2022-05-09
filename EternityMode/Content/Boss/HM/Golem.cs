@@ -134,8 +134,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }*/
 
-            if (Main.LocalPlayer.active && Main.LocalPlayer.Distance(npc.Center) < 2000)
-                Main.LocalPlayer.AddBuff(ModContent.BuffType<LowGround>(), 2);
+            foreach (Player p in Main.player)
+            {
+                if (p.active && p.Distance(npc.Center) < 2000)
+                    p.AddBuff(ModContent.BuffType<LowGround>(), 2);
+            }
 
             HealPerSecond = FargoSoulsWorld.MasochistModeReal ? 240 : 180;
             if (!IsInTemple) //temple enrage, more horiz move and fast jumps

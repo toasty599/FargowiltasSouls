@@ -619,7 +619,9 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && (Main.projectile[i].type == ModContent.ProjectileType<FrostfireballHostile>() || Main.projectile[i].type == ProjectileID.SandnadoHostile)
+                            if (Main.projectile[i].active
+                                && Main.projectile[i].hostile
+                                && Main.projectile[i].type == ModContent.ProjectileType<FrostfireballHostile>()
                                 && Main.projectile[i].timeLeft > 120)
                             {
                                 Main.projectile[i].timeLeft = 120;
@@ -1859,7 +1861,6 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
                 Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<BrokenBlade>());
-                Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<ChibiHat>());
                 if (Main.bloodMoon)
                     Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<VermillionTopHat>());
             }
@@ -1874,6 +1875,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<DeviatingEnergy>(), 1, 15, 30));
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<DeviBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DeviTrophy>(), 10));
+
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<ChibiHat>(), 4));
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<SparklingAdoration>()));

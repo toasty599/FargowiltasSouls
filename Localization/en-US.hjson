@@ -84,6 +84,8 @@ Mods: {
 		}
 
 		BossChecklist: {
+			#remember to add spawn conditions with LocalizationHelper!
+
 			DeviBossDespawn: Deviantt bores of the battle...
 			DeviBossKilledAll: Deviantt is satisfied with its show of love.
 			
@@ -193,9 +195,75 @@ Mods: {
 			GelatinSubjects: Gelatin Subjects have awoken!
 		}
 
+		DeviChatter: {
+			Spawn1: Heya! Mind if I come with?
+			Spawn2: I'll light your way!
+			Spawn3: Onwards to the next big adventure!
+			Spawn4: I'll be in your care!
+			Spawn5: Hello world!
+
+			Respawn1: We won't let it end the same way again!
+			Respawn2: Time to run it back!
+			Respawn3: We can do this!
+			Respawn4: Takes more than that to keep us down!
+			Respawn5: Let's see what we can do to change it up!
+
+			Idle1: We'll collect everything there is to collect!
+			Idle2: Battle, blood, money - nothing beats, am I right?
+			Idle3: Just remember, I'm not an emergency ration.
+			Idle4: Stars and bombs together do anything!
+			Idle5: We should take over the world. Kidding! Mostly.
+			Idle6: I wanna see you kill more things!
+			Idle7: Still feels weird to be called a light pet.
+			Idle8: Nothing else to do? Might as well murder something.
+			Idle9: Bet you there's a quality of life trick we could try out.
+
+			Sleep1: I feel asleep...
+			Sleep2: Good night...
+			Sleep3: Gonna squeeze in a quick nap...
+			Sleep4: Gotta recharge...
+			Sleep5: Wake me up when there's violence...
+
+			Wake1: What did I miss?
+			Wake2: Morning!
+			Wake3: Go time? Go time!
+			Wake4: Rise and shine!
+			Wake5: Devi has awoken! Hand over the money!
+
+			ProjDeath1: No! Don't put me back in the hat!
+			ProjDeath2: But I have so much to explore!
+			ProjDeath3: Hello darkness, my old friend...
+			ProjDeath4: Please, I'll do anything!
+
+			PlayerDeath1: You can do it! You can - oh.
+			PlayerDeath2: We'll make you pay for this!
+			PlayerDeath3: Noooo!!
+			PlayerDeath4: Where did that come from?! That wasn't fair!
+			PlayerDeath5: Dang! We'll get 'em next time.
+			PlayerDeath6: What?! No way!
+			PlayerDeath7: That wasn't very cash money of them!
+
+			BossAlmostDead1: Almost there!
+			BossAlmostDead2: You got this!
+			BossAlmostDead3: In the home stretch now!
+			BossAlmostDead4: Just a little bit more!
+			BossAlmostDead5: Finish them off!
+
+			KillBoss1: What a fun beatdown! Who's next?
+			KillBoss2: Nothing like the feeling of victory!
+			KillBoss3: Again! Again! Again!
+			KillBoss4: Blood for the blood gods! And by that I mean us.
+			KillBoss5: Devi gaming.
+			KillBoss6: YATTA! Uh, you didn't hear that.
+			KillBoss7: Yeah! That's what I've been waiting for! That's what it's all about!
+
+			Count1: Psst... can you hear me? This is a secret message! Hi!
+		}
+
 		Config: {
 			HideToggler: Only show effect toggler when inventory is open
 			HideTogglerDescription: If true, the effect toggler is automatically hidden when your inventory is closed.
+			DeviChatter: Chibi Devi can talk
 			MasoHeader: Eternity Mode
 			MasoBossRecolors: Bosses use alternative sprites
 			OncomingMutantX: Eternity Mode inventory icon X position
