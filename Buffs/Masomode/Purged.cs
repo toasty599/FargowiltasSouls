@@ -6,8 +6,6 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class Purged : ModBuff
     {
-        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Purged");
