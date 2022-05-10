@@ -221,12 +221,13 @@ namespace FargowiltasSouls.NPCs
             bool martianMadness = Main.invasionType == 4;
             bool lunarEvents = NPC.LunarApocalypseIsUp && (nebulaTower || vortexTower || stardustTower || solarTower);
             //bool monsterMadhouse = MMWorld.MMArmy;
+            bool noEvent = Main.invasionType == 0 && !oldOnesArmy && !frostMoon && !pumpkinMoon && !solarEclipse && !lunarEvents;
 
             //no work?
             //is lava on screen
             bool nearLava = Collision.LavaCollision(spawnInfo.Player.position, spawnInfo.SpawnTileX, spawnInfo.SpawnTileY);
             bool noInvasion = FargowiltasSouls.NoInvasion(spawnInfo);
-            bool normalSpawn = !spawnInfo.PlayerInTown && noInvasion && !oldOnesArmy;
+            bool normalSpawn = !spawnInfo.PlayerInTown && noInvasion && !oldOnesArmy && noEvent;
 
             bool sinisterIcon = spawnInfo.Player.GetModPlayer<FargoSoulsPlayer>().SinisterIcon;
 

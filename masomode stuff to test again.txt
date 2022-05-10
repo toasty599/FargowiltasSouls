@@ -1492,3 +1492,4 @@ forgor gift m2 resets more persistent data
 agi lens/sdf: below 50% life, grants +10% damage/move speed/attack speed
 mining helmet tooltip mentions it boosts miner rates
 mutant fang maul effect ticks much faster
+made emode spawn conditions generally stricter about making enemies during events
