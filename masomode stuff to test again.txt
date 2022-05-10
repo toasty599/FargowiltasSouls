@@ -1500,3 +1500,5 @@ emode faster debuff cleanse
 	applies to potion sickness and mana sickness
 fixed deerclops broken attack
 nerfed undead miner bomb damage
+frozen turtle shell gives its full DR, instead it causes damage down when active
+colossus soul has toggle for frozen turtle shell now

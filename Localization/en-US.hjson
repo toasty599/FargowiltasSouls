@@ -459,6 +459,7 @@ Mods: {
 			DefensePanicConfig: Panic On Hit
 			DefenseFleshKnuckleConfig: Flesh Knuckles Aggro
 			DefensePaladinConfig: Paladin's Shield
+			DefenseFrozenConfig: Frozen Turtle Shell
 
 			FlightMasteryHeader: "{$Mods.FargowiltasSouls.ItemName.FlightMasterySoul}"
 			FlightMasteryInsigniaConfig: Soaring Insignia Acceleration

@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Items
 
                 case ItemID.FrozenTurtleShell:
                 case ItemID.FrozenShield:
-                    tooltips.Add(new TooltipLine(Mod, "masoNerf", "[c/ff0000:Eternity Mode:] Damage reduction is 15% instead of 25%"));
+                    tooltips.Add(new TooltipLine(Mod, "masoNerf", "[c/ff0000:Eternity Mode:] Frozen barrier slightly reduces your damage dealt"));
                     break;
 
                 case ItemID.BrainOfConfusion:

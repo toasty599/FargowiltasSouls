@@ -278,6 +278,7 @@ namespace FargowiltasSouls
             AddToggle("DefensePanicConfig", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseFleshKnuckleConfig", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefensePaladinConfig", ModContent.ItemType<ColossusSoul>());
+            AddToggle("DefenseFrozenConfig", ModContent.ItemType<ColossusSoul>());
 
             AddToggle("FlightMasteryHeader", ModContent.ItemType<FlightMasterySoul>());
             AddToggle("FlightMasteryInsigniaConfig", ModContent.ItemType<FlightMasterySoul>());

@@ -1969,7 +1969,12 @@ namespace FargowiltasSouls
             }
 
             //frozen turtle shell
-            if (Player.statLife <= Player.statLifeMax2 * 0.5) Player.AddBuff(BuffID.IceBarrier, 5, true);
+            if (Player.GetToggleValue("DefenseFrozen",  false))
+            {
+                if (Player.statLife <= Player.statLifeMax2 * 0.5) 
+                    Player.AddBuff(BuffID.IceBarrier, 5, true);
+            }
+
             //paladins shield
             if (Player.GetToggleValue("DefensePaladin", false) && Player.statLife > Player.statLifeMax2 * .25)
             {
