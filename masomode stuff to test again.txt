@@ -1484,3 +1484,6 @@ fixed golem eye beams not reducing their speed on spawn as intended
 fixed cultist clones still shooting shadow fireballs
 fixed betsy flame breath not having additional projs
 fixed devi sandnados not despawning faster after attack
+
+added purged debuff icon
+resprited timber champ
