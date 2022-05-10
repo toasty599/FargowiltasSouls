@@ -1495,7 +1495,6 @@ mutant fang maul effect ticks much faster
 made emode spawn conditions generally stricter about making enemies during events
 soul toggler button flashes until clicked
 
-resprited empress of night
 emode faster debuff cleanse
 	doesnt apply to tipsy
 	applies to potion sickness and mana sickness
@@ -1506,3 +1505,5 @@ colossus soul has toggle for frozen turtle shell now
 snatchers, man eaters, angry trappers have 0.5% chance to drop planteras fruit
 duke fishron wont give free handout spawners in pre hm anymore
 reimplemented thieving enemies to ABSOLUTELY fix all mp issues forever
+
+resprited empress of night
