@@ -1495,4 +1495,7 @@ mutant fang maul effect ticks much faster
 made emode spawn conditions generally stricter about making enemies during events
 soul toggler button flashes until clicked
 
+emode faster debuff cleanse
+	doesnt apply to tipsy
+	applies to potion sickness and mana sickness
 fixed deerclops broken attack
