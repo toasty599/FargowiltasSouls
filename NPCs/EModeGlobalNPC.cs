@@ -1216,23 +1216,26 @@ namespace FargowiltasSouls.NPCs
                 target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown = 360; //trust me, keep these separate
                 target.AddBuff(ModContent.BuffType<ThiefCD>(), 360);
 
-                int i = Item.NewItem(target.GetSource_Misc("Stolen"), (int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, item.stack, false, -1, false, false);
-                Vector2 position = Main.item[i].position;
 
-                Main.item[i] = item.Clone();
-                Main.item[i].whoAmI = i;
-                Main.item[i].position = position;
-                Main.item[i].stack = item.stack;
+                //int i = Item.NewItem(target.GetSource_Misc("Stolen"), (int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, item.stack, false, -1, false, false);
+                //Vector2 position = Main.item[i].position;
 
-                Main.item[i].velocity.X = Main.rand.Next(-20, 21) * 0.2f;
-                Main.item[i].velocity.Y = Main.rand.Next(-20, 1) * 0.2f;
-                Main.item[i].noGrabDelay = 100;
-                Main.item[i].newAndShiny = false;
+                //Main.item[i] = item.Clone();
+                //Main.item[i].whoAmI = i;
+                //Main.item[i].position = position;
+                //Main.item[i].stack = item.stack;
 
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, i, 1f);
+                //Main.item[i].velocity.X = Main.rand.Next(-20, 21) * 0.2f;
+                //Main.item[i].velocity.Y = Main.rand.Next(-20, 1) * 0.2f;
+                //Main.item[i].noGrabDelay = 100;
+                //Main.item[i].newAndShiny = false;
 
-                item.TurnToAir();
+                //if (Main.netMode == NetmodeID.MultiplayerClient)
+                //    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, i, 1f);
+
+                //item.TurnToAir();
+
+                target.DropItem(target.GetSource_DropAsItem("Stolen"), target.Center, ref item);
 
                 return true;
             }
