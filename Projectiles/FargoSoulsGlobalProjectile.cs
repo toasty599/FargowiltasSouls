@@ -163,6 +163,19 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case ProjectileID.FairyQueenMagicItemShot:
+                    {
+                        if (source is EntitySource_Misc misc && misc.Context.Equals("Pearlwood"))
+                        {
+                            projectile.usesLocalNPCImmunity = false;
+
+                            projectile.usesIDStaticNPCImmunity = true;
+                            projectile.idStaticNPCHitCooldown = 10;
+                            noInteractionWithNPCImmunityFrames = true;
+                        }
+                    }
+                    break;
+
                 case ProjectileID.SharpTears:
                 case ProjectileID.DeerclopsIceSpike:
                     {
