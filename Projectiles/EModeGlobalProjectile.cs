@@ -141,12 +141,20 @@ namespace FargowiltasSouls.Projectiles
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
+            Projectile sourceProj = null;
             if (source is EntitySource_Parent parent)
             {
                 if (parent.Entity is NPC)
+                {
                     SourceNPC = parent.Entity as NPC;
-                else if (parent.Entity is Projectile sourceProj && sourceProj.GetGlobalProjectile<EModeGlobalProjectile>().SourceNPC is NPC sourceNPC)
-                    SourceNPC = sourceNPC;
+                }
+                else if (parent.Entity is Projectile)
+                {
+                    sourceProj = parent.Entity as Projectile;
+
+                    if (sourceProj.GetGlobalProjectile<EModeGlobalProjectile>().SourceNPC is NPC sourceNPC)
+                        SourceNPC = sourceNPC;
+                }
             }
 
             switch (projectile.type)
@@ -237,7 +245,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }
 
-                    if (SourceNPC is NPC && SourceNPC.type == NPCID.Deerclops)
+                    if (SourceNPC is NPC && SourceNPC.type == NPCID.Deerclops && sourceProj is not Projectile)
                     {
                         //is a final spike of the attack
                         if ((SourceNPC.ai[0] == 1 && SourceNPC.ai[1] == 52) || (SourceNPC.ai[0] == 4 && SourceNPC.ai[1] == 70 && !SourceNPC.GetEModeNPCMod<Deerclops>().DoLaserAttack))
