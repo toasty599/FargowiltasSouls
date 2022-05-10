@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Buffs
                 if (type == BuffID.ShadowDodge)
                     tip += "\nEternity Mode: Dodging will reduce your attack speed";
                 else if (type == BuffID.IceBarrier)
-                    tip += "\nEternity Mode: Reduced damage";
+                    tip += "\nEternity Mode: 10% reduced damage";
                 else if (type == BuffID.ManaSickness)
                     tip += "\nEternity Mode: Halved attack speed";
             }
