@@ -274,6 +274,7 @@ namespace FargowiltasSouls
         public bool MasochistSoul;
         public bool MasochistHeart;
         public bool MutantsPactSlot;
+        public bool HasClickedWrench;
         public bool SandsofTime;
         public bool DragonFang;
         public bool SecurityWallet;
@@ -429,6 +430,7 @@ namespace FargowiltasSouls
             if (ReceivedMasoGift) playerData.Add("ReceivedMasoGift");
             if (RabiesVaccine) playerData.Add("RabiesVaccine");
             if (DeerSinew) playerData.Add("DeerSinew");
+            if (HasClickedWrench) playerData.Add("HasClickedWrench");
             tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
             var togglesOff = new List<string>();
@@ -451,6 +453,7 @@ namespace FargowiltasSouls
             ReceivedMasoGift = playerData.Contains("ReceivedMasoGift");
             RabiesVaccine = playerData.Contains("RabiesVaccine");
             DeerSinew = playerData.Contains("DeerSinew");
+            HasClickedWrench = playerData.Contains("HasClickedWrench");
 
             disabledToggles = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff");
         }

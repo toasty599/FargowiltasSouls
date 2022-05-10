@@ -1493,3 +1493,4 @@ agi lens/sdf: below 50% life, grants +10% damage/move speed/attack speed
 mining helmet tooltip mentions it boosts miner rates
 mutant fang maul effect ticks much faster
 made emode spawn conditions generally stricter about making enemies during events
+soul toggler button flashes until clicked

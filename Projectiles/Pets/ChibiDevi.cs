@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Projectiles.Pets
                 for (int i = 0; i < TalkCounters.Length; i++)
                     TalkCounters[i] = Main.rand.Next(MaxThingsToSay[i]);
 
-                TalkCounters[(int)TalkType.Idle] = MediumCD;
+                TalkCDs[(int)TalkType.Idle] = MediumCD;
             }
 
             TryTalkWithCD(usePlayerDiedSpawnText ? TalkType.Respawn : TalkType.Spawn, ShortCD);

@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forgor Gift");
-            Tooltip.SetDefault("[c/ff0000:Debug item]\nResets vanilla and Souls mod invasion/boss flags\nRight click to reset all flags INCLUDING hardmode (Wall of Flesh downed flag)\nRight click also allows getting a new gift from Deviantt, resets credit/discount card, resets your emode slot, rabies vaccine, sinew dash, etc.\ni forgor");
+            Tooltip.SetDefault("[c/ff0000:Debug item]\nResets vanilla and Souls mod invasion/boss flags, INCLUDING hardmode (Wall of Flesh downed flag)\nRight click allows getting a new gift from Deviantt, resets credit/discount card, resets your emode slot, rabies vaccine, sinew dash, etc.\ni forgor");
         }
 
         public override void SetDefaults()
@@ -34,8 +34,6 @@ namespace FargowiltasSouls.Items
         {
             if (player.altFunctionUse == 2)
             {
-                Main.hardMode = false;
-
                 FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
                 modPlayer.MutantsPactSlot = false;
                 modPlayer.MutantsDiscountCard = false;
@@ -43,47 +41,52 @@ namespace FargowiltasSouls.Items
                 modPlayer.ReceivedMasoGift = false;
                 modPlayer.RabiesVaccine = false;
                 modPlayer.DeerSinew = false;
+                modPlayer.HasClickedWrench = false;
             }
+            else
+            {
+                Main.hardMode = false;
 
-            NPC.downedAncientCultist = false;
-            NPC.downedBoss1 = false;
-            NPC.downedBoss2 = false;
-            NPC.downedBoss3 = false;
-            NPC.downedChristmasIceQueen = false;
-            NPC.downedChristmasSantank = false;
-            NPC.downedChristmasTree = false;
-            NPC.downedClown = false;
-            NPC.downedDeerclops = false;
-            NPC.downedEmpressOfLight = false;
-            NPC.downedFishron = false;
-            NPC.downedFrost = false;
-            NPC.downedGoblins = false;
-            NPC.downedGolemBoss = false;
-            NPC.downedHalloweenKing = false;
-            NPC.downedHalloweenTree = false;
-            NPC.downedMartians = false;
-            NPC.downedMechBoss1 = false;
-            NPC.downedMechBoss2 = false;
-            NPC.downedMechBoss3 = false;
-            NPC.downedMechBossAny = false;
-            NPC.downedMoonlord = false;
-            NPC.downedPirates = false;
-            NPC.downedPlantBoss = false;
-            NPC.downedQueenBee = false;
-            NPC.downedQueenSlime = false;
-            NPC.downedSlimeKing = false;
-            NPC.downedTowerNebula = false;
-            NPC.downedTowerSolar = false;
-            NPC.downedTowerStardust = false;
-            NPC.downedTowerVortex = false;
-            
-            FargoSoulsWorld.downedAbom = false;
-            FargoSoulsWorld.downedBetsy = false;
-            FargoSoulsWorld.downedDevi = false;
-            FargoSoulsWorld.downedFishronEX = false;
-            FargoSoulsWorld.downedMutant = false;
-            for (int i = 0; i < FargoSoulsWorld.downedBoss.Length; i++)
-                FargoSoulsWorld.downedBoss[i] = false;
+                NPC.downedAncientCultist = false;
+                NPC.downedBoss1 = false;
+                NPC.downedBoss2 = false;
+                NPC.downedBoss3 = false;
+                NPC.downedChristmasIceQueen = false;
+                NPC.downedChristmasSantank = false;
+                NPC.downedChristmasTree = false;
+                NPC.downedClown = false;
+                NPC.downedDeerclops = false;
+                NPC.downedEmpressOfLight = false;
+                NPC.downedFishron = false;
+                NPC.downedFrost = false;
+                NPC.downedGoblins = false;
+                NPC.downedGolemBoss = false;
+                NPC.downedHalloweenKing = false;
+                NPC.downedHalloweenTree = false;
+                NPC.downedMartians = false;
+                NPC.downedMechBoss1 = false;
+                NPC.downedMechBoss2 = false;
+                NPC.downedMechBoss3 = false;
+                NPC.downedMechBossAny = false;
+                NPC.downedMoonlord = false;
+                NPC.downedPirates = false;
+                NPC.downedPlantBoss = false;
+                NPC.downedQueenBee = false;
+                NPC.downedQueenSlime = false;
+                NPC.downedSlimeKing = false;
+                NPC.downedTowerNebula = false;
+                NPC.downedTowerSolar = false;
+                NPC.downedTowerStardust = false;
+                NPC.downedTowerVortex = false;
+
+                FargoSoulsWorld.downedAbom = false;
+                FargoSoulsWorld.downedBetsy = false;
+                FargoSoulsWorld.downedDevi = false;
+                FargoSoulsWorld.downedFishronEX = false;
+                FargoSoulsWorld.downedMutant = false;
+                for (int i = 0; i < FargoSoulsWorld.downedBoss.Length; i++)
+                    FargoSoulsWorld.downedBoss[i] = false;
+            }
 
             FargoSoulsUtil.PrintText("forgor");
             if (Main.netMode == NetmodeID.Server)
