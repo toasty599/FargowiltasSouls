@@ -460,10 +460,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.LoadSprites(npc, recolor);
 
-            //LoadNPCSprite(recolor, npc.type);
-            //LoadBossHeadSprite(recolor, 37);
+            LoadNPCSprite(recolor, npc.type);
+            LoadBossHeadSprite(recolor, 37);
+
             //LoadGoreRange(recolor, 1262, 1268);
-            //extra_188?
+
+            LoadExtra(recolor, 156); //shader, but isnt working...
+            LoadExtra(recolor, 157);
+            LoadExtra(recolor, 158);
+            LoadExtra(recolor, 159);
+            LoadExtra(recolor, 160);
+            LoadExtra(recolor, 187);
+            LoadExtra(recolor, 188);
         }
     }
 }

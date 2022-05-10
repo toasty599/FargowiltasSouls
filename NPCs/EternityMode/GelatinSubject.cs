@@ -83,12 +83,14 @@ namespace FargowiltasSouls.NPCs.EternityMode
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = Math.Abs(NPC.velocity.X * .1f) * NPC.direction;
 
+            const int cooldown = 90;
+
             //move slower during rain attack
             if (NPC.Distance(Main.player[NPC.target].Center) < 600 &&
                 (Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer > 0
                 || NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>())))
             {
-                NPC.localAI[0] = 90;
+                NPC.localAI[0] = cooldown;
             }
 
             if (NPC.Distance(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center) > 2000)
@@ -102,10 +104,15 @@ namespace FargowiltasSouls.NPCs.EternityMode
             //if moving towards you, slow down
             if (NPC.HasValidTarget && Math.Abs(MathHelper.WrapAngle(NPC.velocity.ToRotation() - NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation())) < MathHelper.PiOver2)
             {
-                if (NPC.localAI[0] > 0)
-                    NPC.position -= NPC.velocity * 0.66f;
-                else if (NPC.Distance(Main.player[NPC.target].Center) < 16 * 5)
+                if (NPC.Distance(Main.player[NPC.target].Center) < 16 * 5)
+                {
                     NPC.position -= NPC.velocity * 0.33f;
+                }
+                else if (NPC.localAI[0] > 0)
+                {
+                    float ratio = NPC.localAI[0] / cooldown;
+                    NPC.position -= NPC.velocity * 0.66f * ratio;
+                }
             }
         }
 
