@@ -367,6 +367,7 @@ namespace FargowiltasSouls
         public int LifeReductionUpdateTimer;
         public bool Midas;
         public bool MutantPresence;
+        public bool MutantFang;
         public bool DevianttPresence;
         public bool Swarming;
         public bool LowGround;
@@ -841,6 +842,7 @@ namespace FargowiltasSouls
             Hypothermia = false;
             Midas = false;
             MutantPresence = MutantPresence ? Player.HasBuff(ModContent.BuffType<Buffs.Boss.MutantPresence>()) : false;
+            MutantFang = false;
             DevianttPresence = false;
             Swarming = false;
             LowGround = false;
@@ -1564,12 +1566,16 @@ namespace FargowiltasSouls
 
             if (LifeReductionUpdateTimer > 0)
             {
-                if (LifeReductionUpdateTimer++ > 30)
+                const int threshold = 30;
+                if (LifeReductionUpdateTimer++ > threshold)
                 {
                     LifeReductionUpdateTimer = 1;
 
                     if (OceanicMaul) //with maul, real max life gradually decreases to the desired point
                     {
+                        if (MutantFang) //update faster
+                            LifeReductionUpdateTimer = threshold - 10;
+
                         int newLifeReduction = CurrentLifeReduction + 5;
                         if (newLifeReduction > MaxLifeReduction)
                             newLifeReduction = MaxLifeReduction;
