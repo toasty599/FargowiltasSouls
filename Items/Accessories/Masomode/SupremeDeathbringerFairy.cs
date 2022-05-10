@@ -18,6 +18,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Supreme Deathbringer Fairy");
             Tooltip.SetDefault(@"Grants immunity to Slimed, Berserked, Lethargic, and Infested
+When below half HP, gain 10% increased damage, speed, and attack speed
 Increases armor penetration by 10
 Increased fall speed
 When you land after a jump, slime will fall from the sky over your cursor
