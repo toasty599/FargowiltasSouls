@@ -112,6 +112,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 
             if (npc.type == NPCID.AngryTrapper)
                 FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Vine, 2));
+
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "PlanterasFruit").Type, 200));
         }
     }
 }
