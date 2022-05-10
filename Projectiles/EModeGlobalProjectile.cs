@@ -835,6 +835,8 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.BombSkeletronPrime: //needs to be set every tick
+                    if (SourceNPC is NPC && SourceNPC.type == NPCID.UndeadMiner)
+                        projectile.damage = SourceNPC.damage / 2;
                     if (!FargoSoulsWorld.SwarmActive)
                         projectile.damage = 40;
                     break;

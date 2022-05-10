@@ -1499,3 +1499,4 @@ emode faster debuff cleanse
 	doesnt apply to tipsy
 	applies to potion sickness and mana sickness
 fixed deerclops broken attack
+nerfed undead miner bomb damage
