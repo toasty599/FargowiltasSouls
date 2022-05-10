@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forgor Gift");
-            Tooltip.SetDefault("[c/ff0000:Debug item]\nResets vanilla and Souls mod invasion/boss flags\nRight click to reset all flags INCLUDING hardmode (Wall of Flesh downed flag)\ni forgor");
+            Tooltip.SetDefault("[c/ff0000:Debug item]\nResets vanilla and Souls mod invasion/boss flags\nRight click to reset all flags INCLUDING hardmode (Wall of Flesh downed flag)\nRight click also allows getting a new gift from Deviantt, resets credit/discount card, resets your emode slot, rabies vaccine, sinew dash, etc.\ni forgor");
         }
 
         public override void SetDefaults()
@@ -33,7 +33,17 @@ namespace FargowiltasSouls.Items
         public override bool? UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
+            {
                 Main.hardMode = false;
+
+                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                modPlayer.MutantsPactSlot = false;
+                modPlayer.MutantsDiscountCard = false;
+                modPlayer.MutantsCreditCard = false;
+                modPlayer.ReceivedMasoGift = false;
+                modPlayer.RabiesVaccine = false;
+                modPlayer.DeerSinew = false;
+            }
 
             NPC.downedAncientCultist = false;
             NPC.downedBoss1 = false;

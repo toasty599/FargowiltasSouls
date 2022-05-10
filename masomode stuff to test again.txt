@@ -1488,3 +1488,4 @@ fixed devi sandnados not despawning faster after attack
 added purged debuff icon
 resprited timber champ
 pearlwood ench uses nightglow proj, fixes an interaction with empress ai too
+forgor gift m2 resets more persistent data
