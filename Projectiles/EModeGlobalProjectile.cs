@@ -309,11 +309,14 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.HallowBossRainbowStreak:
-                    if (!FargoSoulsWorld.MasochistModeReal && NonSwarmFight(NPCID.HallowBoss))
+                    if (NonSwarmFight(NPCID.HallowBoss))
                     {
                         EModeCanHurt = false;
 
-                        if (SourceNPC.type == NPCID.HallowBoss && SourceNPC.ai[0] == 12)
+                        if (FargoSoulsWorld.MasochistModeReal && SourceNPC.ai[0] != 8 && SourceNPC.ai[0] != 9)
+                            EModeCanHurt = true;
+
+                        if (SourceNPC.ai[0] == 12)
                             projectile.velocity *= 0.7f;
                     }
                     break;
@@ -485,7 +488,8 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.HallowBossRainbowStreak:
-                    EModeCanHurt = FargoSoulsWorld.MasochistModeReal || FargoSoulsWorld.SwarmActive || projectile.timeLeft < 100;
+                    if (!EModeCanHurt)
+                        EModeCanHurt = FargoSoulsWorld.SwarmActive || projectile.timeLeft < 100;
                     break;
 
                 case ProjectileID.FairyQueenLance:
@@ -519,7 +523,7 @@ namespace FargowiltasSouls.Projectiles
                                 projectile.timeLeft = 0;
                             }
 
-                            if (SourceNPC.ai[0] == 6 && SourceNPC.GetEModeNPCMod<EmpressofLight>().AttackCounter % 2 == 0)
+                            if (npc.ai[0] == 6 && npc.GetEModeNPCMod<EmpressofLight>().AttackCounter % 2 == 0)
                             {
                                 projectile.scale *= Utils.Clamp(SourceNPC.ai[1] / 80f, 0f, 2.5f);
                             }

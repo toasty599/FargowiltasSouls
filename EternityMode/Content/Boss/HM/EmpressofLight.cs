@@ -170,20 +170,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 5: //stupid long trail circle ring
-                    if (AttackCounter % 2 == 0)
+                    if (AttackTimer < 2)
                     {
                         if (npc.ai[1] > 1f)
                             npc.ai[1] -= 0.5f; //progress slower
 
-                        if (npc.ai[1] == 30 && AttackTimer < 2) //repeat attack
+                        if (npc.ai[1] == 30) //repeat attack
                         {
                             npc.ai[1] = 0f;
                             AttackTimer++;
-                        } 
-                    }
-                    else
-                    {
-                        AttackTimer = 2;
+                        }
                     }
 
                     //p2, do sword rings
@@ -197,7 +193,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             npc.position -= npc.velocity;
                             npc.velocity = Vector2.Zero;
 
-                            if (npc.ai[1] % 2.5 == 0)
+                            if (npc.ai[1] % 5 == 0)
                             {
                                 for (float i = 0; i < 1; i += 1f / 24f)
                                 {
@@ -229,29 +225,46 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         if (npc.ai[1] == 0)
                         {
-                            AttackTimer = start;
-                            P2SwordsAttackCounter++;
-
                             if (FargoSoulsWorld.MasochistModeReal && npc.life < npc.lifeMax / 2) //RANDOM ATTACKS
                             {
                                 npc.ai[2] += Main.rand.Next(3);
                             }
 
                             npc.netUpdate = true;
-                            NetSync(npc);
+                            NetSync(npc); //sync it in advance to prepare for actual attacks
+                        }
+
+                        if (npc.ai[1] == 255)
+                        {
+                            AttackTimer = start;
+                            P2SwordsAttackCounter++;
+                            startRotation = Main.rand.NextFloat(MathHelper.TwoPi);
                         }
 
                         if (npc.ai[1] > 255)
                         {
-                            if (P2SwordsAttackCounter % 2 == 0) //sword walls
+                            int cap = FargoSoulsWorld.MasochistModeReal ? 4 : 3;
+                            if (P2SwordsAttackCounter % cap > 0) //sword walls
                             {
                                 if (AttackTimer == 0)
                                 {
                                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item161, npc.HasValidTarget ? Main.player[npc.target].Center : npc.Center);
-                                    startRotation = Main.rand.NextFloat(MathHelper.TwoPi);
+                                    
+                                    //rainbow trails to prevent running out of range
+                                    for (float i = 0; i < 1; i += 1f / 24f)
+                                    {
+                                        Vector2 spinningpoint = Vector2.UnitY.RotatedBy(MathHelper.PiOver2 + MathHelper.TwoPi * i + startRotation);
+                                        const float speed = 6.5f;
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        {
+                                            int p = Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + spinningpoint.RotatedBy(-MathHelper.PiOver2) * 30f, spinningpoint * speed, ProjectileID.HallowBossLastingRainbow, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, 0f, i);
+                                            if (p != Main.maxProjectiles)
+                                                Main.projectile[p].timeLeft = 165 * 3;
+                                        }
+                                    }
                                 }
 
-                                const int delay = 60;
+                                const int delay = 15;
                                 int attackTime = FargoSoulsWorld.MasochistModeReal ? 60 : 90;
 
                                 int effectiveTimer = AttackTimer - delay;
@@ -262,7 +275,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 }
                                 if (effectiveTimer >= 0 && effectiveTimer <= attackTime)
                                 {
-                                    const float coverage = 900f;
+                                    const float coverage = 1200f;
 
                                     int interval = FargoSoulsWorld.MasochistModeReal ? 3 : 4;
                                     if (effectiveTimer % interval == 0)
@@ -282,18 +295,21 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                             float ai0 = rotation;
                                             float ai1 = (float)effectiveTimer / attackTime;
 
-                                            Vector2 appearVel = -ai0.ToRotationVector2() * 600f / 60f;
+                                            Vector2 appearVel = -coverage / 60f * 0.8f * ai0.ToRotationVector2();
                                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                            {
                                                 Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos - appearVel * 60, appearVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, ai0, ai1);
-                                                Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos - appearVel * 60 - rotation.ToRotationVector2() * 128f, appearVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, ai0 + MathHelper.Pi, ai1);
-                                            }
                                         }
                                     }
                                 }
-
-                                if (++AttackTimer <= delay * 2 + attackTime)
-                                    npc.ai[1] = 255; //stop vanilla ai from progressing
+                                
+                                if (++AttackTimer <= delay + 60 + attackTime) //stop vanilla ai from progressing
+                                {
+                                    npc.ai[1] = 255;
+                                }
+                                else if (P2SwordsAttackCounter % cap != cap - 1) //increment the sword counter and repeat this attack
+                                {
+                                     npc.ai[1] = 255 - 1;
+                                }
                             }
                             else //excel spreadsheet
                             {
@@ -408,7 +424,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                                     float ai1 = (npc.ai[1] - 10) / 30f;
 
-                                    Vector2 vel = Main.rand.NextFloat(20f) * direction * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(15));
+                                    Vector2 vel = Main.rand.NextFloat(24f) * direction * Vector2.UnitY;
+                                    vel.X += 30f * Math.Sign(npc.DirectionTo(Main.player[npc.target].Center).X);
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.HallowBossRainbowStreak, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, npc.target, ai1);
@@ -563,10 +580,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             target.AddBuff(ModContent.BuffType<Smite>(), 1800);
         }
 
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+
+            if (ProjectileID.Sets.CultistIsResistantTo[projectile.type])
+                damage = (int)(damage * 0.75);
+        }
+
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (npc.life < npc.lifeMax / 2)
-                damage *= 0.5;
+                damage *= 2.0 / 3.0;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }

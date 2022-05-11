@@ -1518,4 +1518,10 @@ empress
 
 tungsten ench no longer procs on town npc projs
 fixed molten ench tooltip not mentioning you explode on hit
+empress
+	p2 DR reduced to 33%
+	has cultist's homing resist (25%, stacks with p2 dr for effective 50% dr)
+	rainbow trails is always 3-shot version
+	alt spreadsheet is repeated and has trailing rainbows to stop cheese
+	alt dash homing bolts now sprays forward
 eternity advisor recommends helpful explosives for qb, plantera, golem
