@@ -329,6 +329,9 @@ namespace FargowiltasSouls.Projectiles
                         EModeCanHurt = false;
                         projectile.timeLeft += 60;
                         projectile.localAI[1] = projectile.velocity.ToRotation();
+
+                        if (SourceNPC is NPC && SourceNPC.type == NPCID.HallowBoss && SourceNPC.GetEModeNPCMod<EmpressofLight>().AttackTimer == 1)
+                            projectile.localAI[0] = 1f;
                     }
                     break;
 
@@ -475,6 +478,9 @@ namespace FargowiltasSouls.Projectiles
                         if (Math.Abs(MathHelper.WrapAngle(projectile.velocity.ToRotation() - projectile.localAI[1])) > MathHelper.Pi * 0.9f)
                             EModeCanHurt = true;
                         projectile.extraUpdates = EModeCanHurt ? 1 : 3;
+
+                        if (projectile.localAI[0] == 1f)
+                            projectile.velocity = projectile.velocity.RotatedBy(-projectile.ai[0] * 2f);
                     }
                     break;
 
@@ -512,8 +518,12 @@ namespace FargowiltasSouls.Projectiles
                                 counter = 0;
                                 projectile.timeLeft = 0;
                             }
-                            
-                            if (counter >= 60 && projectile.scale > 0.5f && counter % 10 == 0)
+
+                            if (SourceNPC.ai[0] == 6 && SourceNPC.GetEModeNPCMod<EmpressofLight>().AttackCounter % 2 == 0)
+                            {
+                                projectile.scale *= Utils.Clamp(SourceNPC.ai[1] / 80f, 0f, 2.5f);
+                            }
+                            else if (counter >= 60 && projectile.scale > 0.5f && counter % 10 == 0)
                             {
                                 float offset = MathHelper.ToRadians(90) * MathHelper.Lerp(0f, 1f, (counter % 50f) / 50f);
                                 for (int i = -1; i <= 1; i += 2)
@@ -523,8 +533,8 @@ namespace FargowiltasSouls.Projectiles
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        const float spawnOffset = 800;
-                                        Projectile.NewProjectile(Projectile.InheritSource(projectile), projectile.Center + projectile.rotation.ToRotationVector2() * spawnOffset, Vector2.Zero, ProjectileID.FairyQueenLance, projectile.damage, projectile.knockBack, projectile.owner, projectile.rotation + offset * i, projectile.ai[0]);
+                                        float spawnOffset = 800;
+                                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center + projectile.rotation.ToRotationVector2() * spawnOffset, Vector2.Zero, ProjectileID.FairyQueenLance, projectile.damage, projectile.knockBack, projectile.owner, projectile.rotation + offset * i, projectile.ai[0]);
                                     }
                                 }
                             }

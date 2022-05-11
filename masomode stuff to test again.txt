@@ -1506,4 +1506,12 @@ snatchers, man eaters, angry trappers have 0.5% chance to drop planteras fruit
 duke fishron wont give free handout spawners in pre hm anymore
 reimplemented thieving enemies to ABSOLUTELY fix all mp issues forever
 
-resprited empress of night
+empress
+	of night
+	no longer uses stock boss roar
+	has an alternative homing bolt attack to sun wings dash
+	sun beams have an alternative large version
+	less likely to do the p2 homing bolt ring from offscreen
+	buffed excel spreadsheet (the guaranteed 2nd attack in phase 2)
+	has an alternative for excel spreadsheet
+	can triple down on the spiral shot of long trail rainbows
