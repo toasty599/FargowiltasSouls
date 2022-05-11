@@ -2183,7 +2183,7 @@ namespace FargowiltasSouls
                 Player.beetleCounter += damage;
             }
 
-            if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && (projectile == null || projectile.type != ProjectileID.HallowBossRainbowStreak))
+            if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames))
             {
                 PearlwoodEnchant.PearlwoodStarDrop(this, target, damage);
             }

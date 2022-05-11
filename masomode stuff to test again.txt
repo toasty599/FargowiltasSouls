@@ -1529,3 +1529,4 @@ sprites
 	dread shell (shield also applies to lump, soul of siblings)
 renamed heart of eternal and soul of siblings to heart/soul of master, fuck you master mode
 eternity advisor recommends helpful explosives for qb, plantera, golem
+pearlwood wont proc itself
