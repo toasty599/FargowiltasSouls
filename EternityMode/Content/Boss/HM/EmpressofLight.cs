@@ -187,7 +187,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
 
                     //p2, do sword rings
-                    if (useP2Attacks && AttackTimer >= (FargoSoulsWorld.MasochistModeReal ? 1 : 2))
+                    if (useP2Attacks && AttackTimer == (FargoSoulsWorld.MasochistModeReal ? 1 : 2))
                     {
                         if (npc.ai[1] == 20)
                             startRotation = Main.rand.NextFloat(MathHelper.TwoPi);
