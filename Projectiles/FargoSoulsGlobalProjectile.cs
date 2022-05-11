@@ -232,10 +232,10 @@ namespace FargowiltasSouls.Projectiles
             }
 
             if (modPlayer.AdamantiteEnchantActive && projectile.owner == Main.myPlayer
-                && source is EntitySource_ItemUse parent2 && player.GetToggleValue("Adamantite") && CanSplit
-                        && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0
-                        && Array.IndexOf(noSplit, projectile.type) <= -1
-                        && !projectile.minion && !projectile.sentry && !ProjectileID.Sets.IsAWhip[projectile.type] && projectile.minionSlots == 0 && projectile.aiStyle != 19 && projectile.aiStyle != 99)
+                && source is EntitySource_ItemUse && player.GetToggleValue("Adamantite") && CanSplit
+                && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0
+                && Array.IndexOf(noSplit, projectile.type) <= -1
+                && !projectile.minion && !projectile.sentry && !ProjectileID.Sets.IsAWhip[projectile.type] && projectile.minionSlots == 0 && projectile.aiStyle != 19 && projectile.aiStyle != 99)
             {
                 modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
                 if (modPlayer.AdamantiteCanSplit)
@@ -244,7 +244,7 @@ namespace FargowiltasSouls.Projectiles
                     projectile.damage = (int)(projectile.damage * AdamantiteEnchant.ProjectileDamageRatio);
             }
 
-            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
+            if (modPlayer.TungstenEnchantActive && !projectile.npcProj && player.GetToggleValue("TungstenProj"))
             {
                 TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source is EntitySource_Parent parent && parent.Entity is Projectile proj ? proj : null);
             }
