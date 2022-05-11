@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Buffs
                 if (type == BuffID.ShadowDodge)
                     tip += "\nEternity Mode: Dodging will reduce your attack speed";
                 else if (type == BuffID.IceBarrier)
-                    tip += "\nEternity Mode: Effectiveness reduced to 15%";
+                    tip += "\nEternity Mode: 10% reduced damage";
                 else if (type == BuffID.ManaSickness)
                     tip += "\nEternity Mode: Halved attack speed";
             }
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Buffs
 
                 case BuffID.OnFire:
                     if (FargoSoulsWorld.EternityMode && Main.raining && player.position.Y < Main.worldSurface
-                        && Framing.GetTileSafely(player.Center).WallType == WallID.None && player.buffTime[buffIndex] > 1)
+                        && Framing.GetTileSafely(player.Center).WallType == WallID.None && player.buffTime[buffIndex] > 2)
                         player.buffTime[buffIndex] -= 1;
                     break;
 
@@ -77,8 +77,8 @@ namespace FargowiltasSouls.Buffs
                     break;
             }
 
-            if (FargoSoulsWorld.EternityMode && player.buffTime[buffIndex] > 2 && Main.debuff[type] && !Main.buffNoTimeDisplay[type] && !BuffID.Sets.NurseCannotRemoveDebuff[type]
-                && player.GetModPlayer<EModePlayer>().ShorterDebuffsTimer <= 0)
+            if (FargoSoulsWorld.EternityMode && player.buffTime[buffIndex] > 2 && Main.debuff[type] && player.GetModPlayer<EModePlayer>().ShorterDebuffsTimer <= 0
+                && !Main.buffNoTimeDisplay[type] && type != BuffID.Tipsy && (!BuffID.Sets.NurseCannotRemoveDebuff[type] || type == BuffID.ManaSickness || type == BuffID.PotionSickness))
             {
                 player.buffTime[buffIndex] -= 1;
             }
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Buffs
 
                 case BuffID.OnFire:
                     if (FargoSoulsWorld.EternityMode && Main.raining && npc.position.Y < Main.worldSurface
-                        && Framing.GetTileSafely(npc.Center).WallType == WallID.None && npc.buffTime[buffIndex] > 1)
+                        && Framing.GetTileSafely(npc.Center).WallType == WallID.None && npc.buffTime[buffIndex] > 2)
                         npc.buffTime[buffIndex] -= 1;
                     break;
 

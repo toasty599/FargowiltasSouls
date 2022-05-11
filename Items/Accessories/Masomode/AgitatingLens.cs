@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Agitating Lens");
             Tooltip.SetDefault("Grants immunity to Berserked" +
-                "\n10% increased damage when below half HP" +
+                "\nWhen below half HP, gain 10% increased damage, speed, and attack speed" +
                 "\nWhile dashing or running quickly you will create a trail of demon scythes" +
                 "\n'The irritable remnant of a defeated foe'");
 
@@ -39,9 +39,6 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[ModContent.BuffType<Berserked>()] = true;
-
-            if (player.statLife < player.statLifeMax2 / 2)
-                player.GetDamage(DamageClass.Generic) += 0.10f;
 
             player.GetModPlayer<FargoSoulsPlayer>().AgitatingLensItem = Item;
         }

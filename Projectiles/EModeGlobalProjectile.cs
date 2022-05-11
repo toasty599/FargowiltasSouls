@@ -141,12 +141,20 @@ namespace FargowiltasSouls.Projectiles
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
+            Projectile sourceProj = null;
             if (source is EntitySource_Parent parent)
             {
                 if (parent.Entity is NPC)
+                {
                     SourceNPC = parent.Entity as NPC;
-                else if (parent.Entity is Projectile sourceProj && sourceProj.GetGlobalProjectile<EModeGlobalProjectile>().SourceNPC is NPC sourceNPC)
-                    SourceNPC = sourceNPC;
+                }
+                else if (parent.Entity is Projectile)
+                {
+                    sourceProj = parent.Entity as Projectile;
+
+                    if (sourceProj.GetGlobalProjectile<EModeGlobalProjectile>().SourceNPC is NPC sourceNPC)
+                        SourceNPC = sourceNPC;
+                }
             }
 
             switch (projectile.type)
@@ -237,7 +245,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }
 
-                    if (SourceNPC is NPC && SourceNPC.type == NPCID.Deerclops)
+                    if (SourceNPC is NPC && SourceNPC.type == NPCID.Deerclops && sourceProj is not Projectile)
                     {
                         //is a final spike of the attack
                         if ((SourceNPC.ai[0] == 1 && SourceNPC.ai[1] == 52) || (SourceNPC.ai[0] == 4 && SourceNPC.ai[1] == 70 && !SourceNPC.GetEModeNPCMod<Deerclops>().DoLaserAttack))
@@ -321,6 +329,9 @@ namespace FargowiltasSouls.Projectiles
                         EModeCanHurt = false;
                         projectile.timeLeft += 60;
                         projectile.localAI[1] = projectile.velocity.ToRotation();
+
+                        if (SourceNPC is NPC && SourceNPC.type == NPCID.HallowBoss && SourceNPC.GetEModeNPCMod<EmpressofLight>().AttackTimer == 1)
+                            projectile.localAI[0] = 1f;
                     }
                     break;
 
@@ -467,6 +478,9 @@ namespace FargowiltasSouls.Projectiles
                         if (Math.Abs(MathHelper.WrapAngle(projectile.velocity.ToRotation() - projectile.localAI[1])) > MathHelper.Pi * 0.9f)
                             EModeCanHurt = true;
                         projectile.extraUpdates = EModeCanHurt ? 1 : 3;
+
+                        if (projectile.localAI[0] == 1f)
+                            projectile.velocity = projectile.velocity.RotatedBy(-projectile.ai[0] * 2f);
                     }
                     break;
 
@@ -504,8 +518,12 @@ namespace FargowiltasSouls.Projectiles
                                 counter = 0;
                                 projectile.timeLeft = 0;
                             }
-                            
-                            if (counter >= 60 && projectile.scale > 0.5f && counter % 10 == 0)
+
+                            if (SourceNPC.ai[0] == 6 && SourceNPC.GetEModeNPCMod<EmpressofLight>().AttackCounter % 2 == 0)
+                            {
+                                projectile.scale *= Utils.Clamp(SourceNPC.ai[1] / 80f, 0f, 2.5f);
+                            }
+                            else if (counter >= 60 && projectile.scale > 0.5f && counter % 10 == 0)
                             {
                                 float offset = MathHelper.ToRadians(90) * MathHelper.Lerp(0f, 1f, (counter % 50f) / 50f);
                                 for (int i = -1; i <= 1; i += 2)
@@ -515,8 +533,8 @@ namespace FargowiltasSouls.Projectiles
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        const float spawnOffset = 800;
-                                        Projectile.NewProjectile(Projectile.InheritSource(projectile), projectile.Center + projectile.rotation.ToRotationVector2() * spawnOffset, Vector2.Zero, ProjectileID.FairyQueenLance, projectile.damage, projectile.knockBack, projectile.owner, projectile.rotation + offset * i, projectile.ai[0]);
+                                        float spawnOffset = 800;
+                                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center + projectile.rotation.ToRotationVector2() * spawnOffset, Vector2.Zero, ProjectileID.FairyQueenLance, projectile.damage, projectile.knockBack, projectile.owner, projectile.rotation + offset * i, projectile.ai[0]);
                                     }
                                 }
                             }
@@ -827,6 +845,8 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.BombSkeletronPrime: //needs to be set every tick
+                    if (SourceNPC is NPC && SourceNPC.type == NPCID.UndeadMiner)
+                        projectile.damage = SourceNPC.damage / 2;
                     if (!FargoSoulsWorld.SwarmActive)
                         projectile.damage = 40;
                     break;

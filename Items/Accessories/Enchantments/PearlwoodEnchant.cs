@@ -64,12 +64,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             num483 *= num486;
             num484 *= num486;
             int num487 = damage;
-            int num488 = Projectile.NewProjectile(player.GetSource_Misc(""), x, y, num483, num484, ProjectileID.HallowBossRainbowStreak, num487, 0, player.whoAmI, 0f, 0);
-            if (num488 != 1000)
-            {
-                Main.projectile[num488].hostile = false;
-                Main.projectile[num488].friendly = true;
-            }
+            //if you change this source, make sure the check for this proj type in OnSpawn fargosoulsglobalproj matches!
+            Projectile.NewProjectile(player.GetSource_Misc("Pearlwood"), x, y, num483, num484, ProjectileID.FairyQueenMagicItemShot, num487, 0, player.whoAmI, 0f, 0);
 
             modPlayer.PearlwoodCD = (modPlayer.WoodForce) ? 15 : 30;
         }

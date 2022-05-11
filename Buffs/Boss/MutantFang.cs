@@ -26,8 +26,7 @@ namespace FargowiltasSouls.Buffs.Boss
             player.ichor = true;
             player.onFire2 = true;
             player.electrified = true;
-            if (FargoSoulsWorld.MasochistModeReal)
-                fargoPlayer.OceanicMaul = true;
+            fargoPlayer.OceanicMaul = true;
             fargoPlayer.CurseoftheMoon = true;
             if (fargoPlayer.FirstInfection)
             {
@@ -40,6 +39,7 @@ namespace FargowiltasSouls.Buffs.Boss
             fargoPlayer.noDodge = true;
             fargoPlayer.noSupersonic = true;
             fargoPlayer.MutantPresence = true;
+            fargoPlayer.MutantFang = true;
             player.moonLeech = true;
             player.potionDelay = player.buffTime[buffIndex];
             /*if (FargowiltasSouls.Instance.MasomodeEXLoaded && !FargoSoulsWorld.downedFishronEX && player.buffTime[buffIndex] > 1
