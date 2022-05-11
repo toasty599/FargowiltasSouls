@@ -254,7 +254,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     for (float i = 0; i < 1; i += 1f / 24f)
                                     {
                                         Vector2 spinningpoint = Vector2.UnitY.RotatedBy(MathHelper.PiOver2 + MathHelper.TwoPi * i + startRotation);
-                                        const float speed = 6.5f;
+                                        const float speed = 6f;
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                         {
                                             int p = Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + spinningpoint.RotatedBy(-MathHelper.PiOver2) * 30f, spinningpoint * speed, ProjectileID.HallowBossLastingRainbow, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.5f), 0f, Main.myPlayer, 0f, i);
