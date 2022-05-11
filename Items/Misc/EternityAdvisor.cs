@@ -140,6 +140,7 @@ namespace FargowiltasSouls.Items.Misc
                                 ModContent.ItemType<TungstenEnchant>()
                     })
                 );
+                build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "CityBuster").Type}]";
             }
             else if (!NPC.downedBoss3)
             {
@@ -206,6 +207,7 @@ namespace FargowiltasSouls.Items.Misc
                     ModContent.ItemType<GuttedHeart>(),
                     ModContent.ItemType<MoltenEnchant>()
                 );
+                build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "DoubleObsidianInstabridge").Type}]";
             }
             else if (!NPC.downedQueenSlime)
             {
@@ -299,6 +301,7 @@ namespace FargowiltasSouls.Items.Misc
                     ModContent.ItemType<HallowEnchant>(),
                     ItemID.AvengerEmblem
                 );
+                build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "CityBuster").Type}]";
             }
             else if (!NPC.downedGolemBoss)
             {
@@ -317,6 +320,7 @@ namespace FargowiltasSouls.Items.Misc
                     ModContent.ItemType<HallowEnchant>(),
                     ModContent.ItemType<LumpOfFlesh>()
                 );
+                build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "LihzahrdInstactuationBomb").Type}]";
             }
             else if (!FargoSoulsWorld.downedBetsy)
             {

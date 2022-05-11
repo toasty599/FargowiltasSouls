@@ -1518,3 +1518,4 @@ empress
 
 tungsten ench no longer procs on town npc projs
 fixed molten ench tooltip not mentioning you explode on hit
+eternity advisor recommends helpful explosives for qb, plantera, golem
