@@ -1517,3 +1517,4 @@ empress
 	can triple down on the spiral shot of long trail rainbows
 
 tungsten ench no longer procs on town npc projs
+fixed molten ench tooltip not mentioning you explode on hit
