@@ -197,7 +197,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             npc.position -= npc.velocity;
                             npc.velocity = Vector2.Zero;
 
-                            if (npc.ai[1] % 5 == 0)
+                            if (npc.ai[1] % 2.5 == 0)
                             {
                                 for (float i = 0; i < 1; i += 1f / 24f)
                                 {
