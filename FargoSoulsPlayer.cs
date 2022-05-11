@@ -274,6 +274,7 @@ namespace FargowiltasSouls
         public bool MasochistSoul;
         public bool MasochistHeart;
         public bool MutantsPactSlot;
+        public bool HasClickedWrench;
         public bool SandsofTime;
         public bool DragonFang;
         public bool SecurityWallet;
@@ -367,6 +368,7 @@ namespace FargowiltasSouls
         public int LifeReductionUpdateTimer;
         public bool Midas;
         public bool MutantPresence;
+        public bool MutantFang;
         public bool DevianttPresence;
         public bool Swarming;
         public bool LowGround;
@@ -428,6 +430,7 @@ namespace FargowiltasSouls
             if (ReceivedMasoGift) playerData.Add("ReceivedMasoGift");
             if (RabiesVaccine) playerData.Add("RabiesVaccine");
             if (DeerSinew) playerData.Add("DeerSinew");
+            if (HasClickedWrench) playerData.Add("HasClickedWrench");
             tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
             var togglesOff = new List<string>();
@@ -450,6 +453,7 @@ namespace FargowiltasSouls
             ReceivedMasoGift = playerData.Contains("ReceivedMasoGift");
             RabiesVaccine = playerData.Contains("RabiesVaccine");
             DeerSinew = playerData.Contains("DeerSinew");
+            HasClickedWrench = playerData.Contains("HasClickedWrench");
 
             disabledToggles = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff");
         }
@@ -841,6 +845,7 @@ namespace FargowiltasSouls
             Hypothermia = false;
             Midas = false;
             MutantPresence = MutantPresence ? Player.HasBuff(ModContent.BuffType<Buffs.Boss.MutantPresence>()) : false;
+            MutantFang = false;
             DevianttPresence = false;
             Swarming = false;
             LowGround = false;
@@ -1527,6 +1532,13 @@ namespace FargowiltasSouls
 
             ManageLifeReduction();
 
+            if (AgitatingLensItem != null && Player.statLife < Player.statLifeMax2 / 2)
+            {
+                Player.GetDamage(DamageClass.Generic) += 0.10f;
+                AttackSpeed += 0.10f;
+                Player.moveSpeed += 0.10f;
+            }
+
             if (Eternity)
                 Player.statManaMax2 = 999;
             else if (UniverseSoul)
@@ -1557,12 +1569,16 @@ namespace FargowiltasSouls
 
             if (LifeReductionUpdateTimer > 0)
             {
-                if (LifeReductionUpdateTimer++ > 30)
+                const int threshold = 30;
+                if (LifeReductionUpdateTimer++ > threshold)
                 {
                     LifeReductionUpdateTimer = 1;
 
                     if (OceanicMaul) //with maul, real max life gradually decreases to the desired point
                     {
+                        if (MutantFang) //update faster
+                            LifeReductionUpdateTimer = threshold - 10;
+
                         int newLifeReduction = CurrentLifeReduction + 5;
                         if (newLifeReduction > MaxLifeReduction)
                             newLifeReduction = MaxLifeReduction;

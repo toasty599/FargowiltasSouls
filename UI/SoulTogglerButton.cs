@@ -9,13 +9,22 @@ namespace FargowiltasSouls.UI
     {
         public UIImage Icon;
         public UIHoverTextImageButton IconHighlight;
+        public UIImage IconFlash;
         public UIOncomingMutant OncomingMutant;
 
         public override void OnActivate()
         {
+            const int x = 570;
+            const int y = 275;
+
+            IconFlash = new UIImage(FargowiltasSouls.UserInterfaceManager.SoulTogglerButton_MouseOverTexture);
+            IconFlash.Left.Set(x - 2, 0);
+            IconFlash.Top.Set(y - 2, 0);
+            Append(IconFlash);
+
             Icon = new UIImage(FargowiltasSouls.UserInterfaceManager.SoulTogglerButtonTexture);
-            Icon.Left.Set(570, 0); //Icon.Left.Set(26, 0);
-            Icon.Top.Set(275, 0); //Icon.Top.Set(300, 0);
+            Icon.Left.Set(x, 0); //26
+            Icon.Top.Set(y, 0); //300
             Append(Icon);
 
             IconHighlight = new UIHoverTextImageButton(FargowiltasSouls.UserInterfaceManager.SoulTogglerButton_MouseOverTexture, "Configure Accessory Effects");
@@ -41,12 +50,21 @@ namespace FargowiltasSouls.UI
             }
 
             FargowiltasSouls.UserInterfaceManager.ToggleSoulToggler();
+            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HasClickedWrench = true;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (Main.playerInventory)
-                base.Draw(spriteBatch);
+            {
+                //base.Draw(spriteBatch);
+
+                Icon.Draw(spriteBatch);
+                IconHighlight.Draw(spriteBatch);
+                OncomingMutant.Draw(spriteBatch);
+                if (!Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HasClickedWrench && Main.GlobalTimeWrappedHourly % 0.5f < 0.25f)
+                    IconFlash.Draw(spriteBatch);
+            }
         }
     }
 }

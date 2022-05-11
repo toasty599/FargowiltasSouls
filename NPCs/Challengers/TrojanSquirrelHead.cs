@@ -151,6 +151,8 @@ namespace FargowiltasSouls.NPCs.Challengers
             distance.X = distance.X / time;
             distance.Y = distance.Y / time - 0.5f * gravity * time;
 
+            distance.X += Math.Min(4f, Math.Abs(NPC.velocity.X)) * Math.Sign(NPC.velocity.X);
+
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
