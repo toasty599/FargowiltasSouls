@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart of the Eternal");
+            DisplayName.SetDefault("Heart of the Master");
             Tooltip.SetDefault(@"Grants immunity to Living Wasteland, Hypothermia, Oozed, Withered Weapon, and Withered Armor
 Grants immunity to Feral Bite, Mutant Nibble, Flipped, Unstable, Distorted, and Curse of the Moon
 Grants immunity to Wet, Electrified, Oceanic Maul, Moon Leech, Nullification Curse, and water debuffs

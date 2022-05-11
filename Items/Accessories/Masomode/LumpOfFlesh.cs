@@ -8,7 +8,7 @@ using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
-    //[AutoloadEquip(EquipType.Shield)]
+    [AutoloadEquip(EquipType.Shield)]
     public class LumpOfFlesh : SoulsItem
     {
         public override bool Eternity => true;

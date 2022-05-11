@@ -8,8 +8,6 @@ namespace FargowiltasSouls.Items.Summons
 {
     public class SquirrelCoatofArms : SoulsItem
     {
-        public override string Texture => "FargowiltasSouls/Items/Placeholder";
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Squirrel Coat of Arms");

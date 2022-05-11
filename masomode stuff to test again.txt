@@ -1524,4 +1524,8 @@ empress
 	rainbow trails is always 3-shot version
 	alt spreadsheet is repeated and has trailing rainbows to stop cheese
 	alt dash homing bolts now sprays forward
+sprites
+	squirrel coat of arms
+	dread shell (shield also applies to lump, soul of siblings)
+renamed heart of eternal and soul of siblings to heart/soul of master, fuck you master mode
 eternity advisor recommends helpful explosives for qb, plantera, golem
