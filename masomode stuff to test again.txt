@@ -1530,3 +1530,5 @@ sprites
 renamed heart of eternal and soul of siblings to heart/soul of master, fuck you master mode
 eternity advisor recommends helpful explosives for qb, plantera, golem
 pearlwood wont proc itself
+
+fixed emode mana sickness speed nerf applying outside emode

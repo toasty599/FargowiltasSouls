@@ -481,6 +481,9 @@ namespace FargowiltasSouls
         {
             float modifier = base.UseSpeedMultiplier(item);
 
+            if (!FargoSoulsWorld.EternityMode)
+                return modifier;
+
             if (Player.manaSick)
                 modifier *= 0.5f;
 
