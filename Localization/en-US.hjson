@@ -549,5 +549,19 @@ Mods: {
 			PatreonPrime: Prime Staff
 			PatreonCrimetroid: Crimetroid
 		}
+    
+        UI: {
+            SoulTogglerButton: Configure Accessory Effects
+            EternityEnabled: Eternity Mode is enabled
+            MasochistEnabled: Masochist Mode is enabled
+        }
+
+        ItemExtra: {
+            WoodenDiscount: Current discount: {0}%
+            WoodenTooltip: 'Humble beginnings…'
+
+            TinCritUp: +5% crit
+            TinCritReset: -{0}% crit
+        }
 	}
 }

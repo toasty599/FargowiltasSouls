@@ -97,7 +97,7 @@ Getting hit resets your crit to 5%
                     if (modPlayer.TinCrit > modPlayer.TinCritMax)
                         modPlayer.TinCrit = modPlayer.TinCritMax;
                     else
-                        CombatText.NewText(modPlayer.Player.Hitbox, Color.Yellow, "+5% crit");
+                        CombatText.NewText(modPlayer.Player.Hitbox, Color.Yellow, Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.TinCritUp"));
 
 
                     void TryHeal(int healDenominator, int healCooldown)
@@ -157,7 +157,7 @@ Getting hit resets your crit to 5%
             }
             int diff = oldCrit - modPlayer.TinCrit;
             if (diff > 0)
-                CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, $"-{diff}% crit", true);
+                CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.TinCritReset", diff), true);
         }
 
         public override void AddRecipes()

@@ -27,17 +27,17 @@ Your attacks inflict Poisoned and spray honey that increases your life regenerat
 Bees and weak Hornets become friendlier
 Summons 2 Skeletron arms to whack enemies
 'Supremacy not necessarily guaranteed'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "至高告死精灵");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'霸权不一定能得到保证'
-免疫黏糊, 狂暴, 昏昏欲睡和感染
-增加10%伤害, 增加10点护甲穿透
-增加15%掉落速度
-跳跃落地后, 在光标处落下史莱姆
-冲刺或快速奔跑时发射一串血镰
-攻击造成毒液效果
-蜜蜂和虚弱黄蜂变得友好
-永久蜂蜜Buff效果
-召唤2个骷髅王手臂重击敌人");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "至高告死精灵");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'霸权不一定能得到保证'
+            // 免疫黏糊, 狂暴, 昏昏欲睡和感染
+            // 增加10%伤害, 增加10点护甲穿透
+            // 增加15%掉落速度
+            // 跳跃落地后, 在光标处落下史莱姆
+            // 冲刺或快速奔跑时发射一串血镰
+            // 攻击造成毒液效果
+            // 蜜蜂和虚弱黄蜂变得友好
+            // 永久蜂蜜Buff效果
+            // 召唤2个骷髅王手臂重击敌人");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -108,7 +108,7 @@ Summons 2 Skeletron arms to whack enemies
             .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 5)
 
             .AddTile(TileID.DemonAltar)
-            
+
             .Register();
         }
     }

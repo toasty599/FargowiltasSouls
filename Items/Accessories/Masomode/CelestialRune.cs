@@ -18,11 +18,11 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nTaking damage creates a friendly Ancient Vision to attack enemies" +
                 "\n'A fallen enemy's spells, repurposed'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "天界符文");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'堕落的敌人的咒语,被改换用途'" +
-                "\n免疫死亡标记" +
-                "\n根据武器类型定期发动额外的攻击" +
-                "\n受伤时创造一个友好的远古幻象来攻击敌人");
+            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "天界符文");
+            // Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'堕落的敌人的咒语,被改换用途'" +
+            //     "\n免疫死亡标记" +
+            //     "\n根据武器类型定期发动额外的攻击" +
+            //     "\n受伤时创造一个友好的远古幻象来攻击敌人");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

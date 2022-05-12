@@ -265,7 +265,8 @@ namespace FargowiltasSouls.Projectiles
             ProjectileID.WireKite,
             ProjectileID.DD2PhoenixBow,
             ProjectileID.LaserMachinegun,
-            ProjectileID.PiercingStarlight
+            ProjectileID.PiercingStarlight,
+            ProjectileID.Celeb2Weapon
         };
 
         public override bool PreAI(Projectile projectile)
@@ -563,12 +564,12 @@ namespace FargowiltasSouls.Projectiles
                     ChilledProj = false;
             }
 
-            if (modPlayer.SnowEnchantActive && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
-            {
-                ChilledProj = true;
-                projectile.timeLeft *= 2;
-                projectile.netUpdate = true;
-            }
+            // if (modPlayer.SnowEnchantActive && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
+            // {
+            //     ChilledProj = true;
+            //     projectile.timeLeft *= 2;
+            //     projectile.netUpdate = true;
+            // }
 
             if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
             {

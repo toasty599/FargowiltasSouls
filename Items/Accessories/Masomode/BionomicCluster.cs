@@ -33,18 +33,18 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n    Right click to zoom and 50% discount on reforges" +
                 "\n'The amalgamate born of a thousand common enemies'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生态集群");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "使你免疫霜冻、暗影焰、吱吱作响的玩具、愧疚、强风和窒息减益" +
-                "\n使你免疫宇宙之火、剪除羽翼、残废、被网住和净化减益" +
-                "\n使你免热恋、恶臭、迈达斯、邪咒减益，同时免疫仙人掌刺伤和敌人的偷取物品效果" +
-                "\n攻击会造成剪除羽翼减益并生成霜火球和红心" +
-                "\n允许所有武器自动挥舞、增强夜视效果并在非Boss战期间加快你的重生速度" +
-                "\n在需要时自动使用魔力药水\r\n你在受到伤害时有几率发出吱吱声，并使这次受到的伤害降至1点" +
-                "\n在你受到伤害后会发射暗影焰触手，你在重生时以更多生命重生" +
-                "\n大多敌人在死亡时会掉落随机的药水，减少50%重铸价格" +
-                "\n召唤一只彩虹史莱姆" +
-                "\n使用此饰品后会将你传送至上一次死亡时的地点，右键缩放视域" +
-                "\n'由上千普通敌人融合而成'");
+            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生态集群");
+            // Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "使你免疫霜冻、暗影焰、吱吱作响的玩具、愧疚、强风和窒息减益" +
+            //     "\n使你免疫宇宙之火、剪除羽翼、残废、被网住和净化减益" +
+            //     "\n使你免热恋、恶臭、迈达斯、邪咒减益，同时免疫仙人掌刺伤和敌人的偷取物品效果" +
+            //     "\n攻击会造成剪除羽翼减益并生成霜火球和红心" +
+            //     "\n允许所有武器自动挥舞、增强夜视效果并在非Boss战期间加快你的重生速度" +
+            //     "\n在需要时自动使用魔力药水\r\n你在受到伤害时有几率发出吱吱声，并使这次受到的伤害降至1点" +
+            //     "\n在你受到伤害后会发射暗影焰触手，你在重生时以更多生命重生" +
+            //     "\n大多敌人在死亡时会掉落随机的药水，减少50%重铸价格" +
+            //     "\n召唤一只彩虹史莱姆" +
+            //     "\n使用此饰品后会将你传送至上一次死亡时的地点，右键缩放视域" +
+            //     "\n'由上千普通敌人融合而成'");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -202,7 +202,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
             .AddTile(TileID.MythrilAnvil)
-            
+
             .Register();
         }
     }

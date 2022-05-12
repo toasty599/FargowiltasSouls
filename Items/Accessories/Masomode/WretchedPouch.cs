@@ -18,10 +18,10 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 @"Grants immunity to Shadowflame
 Shadowflame tentacles lash out at nearby enemies
 'The accursed incendiary powder of a defeated foe'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "诅咒袋子");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人的诅咒燃烧炸药'
-免疫暗影烈焰
-受伤时爆发暗影烈焰触须");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "诅咒袋子");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人的诅咒燃烧炸药'
+            // 免疫暗影烈焰
+            // 受伤时爆发暗影烈焰触须");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

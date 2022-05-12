@@ -21,14 +21,14 @@ Creepers hover around you blocking some damage
 A new Creeper appears every 15 seconds, and 5 can exist at once
 Creeper respawn speed increases when not moving
 'It pulses with vitality'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "纯净之心");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"它充满活力地跳动着'
-免疫腐败和嗜血
-免疫地形Debuff
-增加20%移动速度和最大生命值
-每隔几次攻击就会产生一个迷你噬魂者追踪敌人
-爬行者徘徊在周围来阻挡伤害
-每15秒生成一个新的爬行者,最多同时存在5个");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "纯净之心");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"它充满活力地跳动着'
+            // 免疫腐败和嗜血
+            // 免疫地形Debuff
+            // 增加20%移动速度和最大生命值
+            // 每隔几次攻击就会产生一个迷你噬魂者追踪敌人
+            // 爬行者徘徊在周围来阻挡伤害
+            // 每15秒生成一个新的爬行者,最多同时存在5个");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -46,7 +46,7 @@ Creeper respawn speed increases when not moving
         {
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.PureHeart = true;
-            
+
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Rotting>()] = true;
             player.moveSpeed += 0.1f;
             fargoPlayer.DarkenedHeartItem = Item;
@@ -71,7 +71,7 @@ Creeper respawn speed increases when not moving
             .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
             .AddTile(TileID.MythrilAnvil)
-            
+
             .Register();
         }
     }

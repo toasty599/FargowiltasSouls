@@ -19,12 +19,12 @@ Increases damage and critical strike chance by 5%
 Your critical strikes inflict Rotting
 You may periodically fire additional attacks depending on weapon type
 'Somehow, it's the right size'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "南瓜王的披肩");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'不知怎么的,它的尺寸正好合适'
-免疫人形废土
-增加5%伤害和暴击率
-暴击造成腐败
-根据武器类型定期发动额外的攻击");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "南瓜王的披肩");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'不知怎么的,它的尺寸正好合适'
+            // 免疫人形废土
+            // 增加5%伤害和暴击率
+            // 暴击造成腐败
+            // 根据武器类型定期发动额外的攻击");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

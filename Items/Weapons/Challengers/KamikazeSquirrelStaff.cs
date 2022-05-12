@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Weapons.Challengers
 {
@@ -14,6 +15,9 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Summons friendly squirrels to cuddle your foes\nRight click to make them explode");
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神风松鼠杖");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "召唤出友善的松鼠，拥抱你的敌人\n右键点击让松鼠爆炸");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

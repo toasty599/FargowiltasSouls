@@ -21,15 +21,15 @@ You can endure any attack and survive with 1 life
 Endurance recovers when you reach full life again
 'Seems like something's missing'");
             //Upgrades Cute Fishron to Cute Fishron EX");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶手杖");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"免疫憎恶毒牙
-擦弹增加暴击伤害的上限增加20%
-暴击时显现幽灵憎恶
-幽灵憎恶会造成突变啃啄,阻止敌人再生
-受到致命伤害时，保留1血不死
-该效果发动时，10秒钟内禁止回复血量
-该效果在回复到满血时才能够下一次发动
-'看起来像是什么遗失了的东西'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶手杖");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"免疫憎恶毒牙
+            // 擦弹增加暴击伤害的上限增加20%
+            // 暴击时显现幽灵憎恶
+            // 幽灵憎恶会造成突变啃啄,阻止敌人再生
+            // 受到致命伤害时，保留1血不死
+            // 该效果发动时，10秒钟内禁止回复血量
+            // 该效果在回复到满血时才能够下一次发动
+            // '看起来像是什么遗失了的东西'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 14));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 

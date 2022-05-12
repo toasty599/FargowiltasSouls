@@ -25,9 +25,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Terra Force");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉之力");
-            
+
+            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉之力");
+
             string tooltip =
 $"[i:{ModContent.ItemType<CopperEnchant>()}] Attacks have a chance to spawn lightning and explosions\n" +
 $"[i:{ModContent.ItemType<TinEnchant>()}] Sets your critical strike chance to 10%\n" +
@@ -43,19 +43,20 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]Your attacks spawn explosions\n" +
 "'The land lends its strength'";
             Tooltip.SetDefault(tooltip);
 
-            string tooltip_ch =@"攻击有几率释放闪电击打敌人
-将你的基础暴击率设为10%
-每次暴击时都会增加5%暴击率，增加的暴击率的最大值为你当前最大暴击率数值x2
-被击中后会降低暴击率
-右键进行盾牌格挡
-扩大你的拾取范围
-增加150%剑的尺寸
-每过1/4秒便会使一个弹幕的尺寸翻倍
-攻击有几率造成铅中毒减益
-使你免疫火与岩浆并获得在岩浆中的机动性
-你的攻击会引发爆炸
-'大地赐予它力量'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            string tooltip_ch =
+@"[i:{0}] 攻击有几率释放闪电攻击敌人
+[i:{1}] 将你的基础暴击率设为10%
+[i:{1}] 每次暴击时都会增加5%暴击率，增加的暴击率的最大值为你当前最大暴击率数值x2
+[i:{2}] 被击中后会降低暴击率
+[i:{2}] 右键进行盾牌格挡，如果时机正确则抵消这次伤害
+[i:{2}] 扩大你的拾取范围
+[i:{3}] 攻击有几率造成铅中毒减益
+[i:{4}] 剑的大小增加300%
+[i:{4}] 每过0.25秒便会有一个随机弹幕的尺寸翻倍
+[i:{5}] 使你免疫火块与熔岩
+[i:{5}] 你的攻击会引发爆炸
+“大地赐予它力量”";
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, string.Format(tooltip_ch, Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4], Enchants[5]));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -16,11 +16,11 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 Increases spawn rate
 Enemies with 2000 or less max life will drop doubled loot
 'Most definitely not alive'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "邪恶画像");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'肯定不是活着的'
-阻止受虐模式导致的Boss自然生成
-提高刷怪速率
-小于等于2000血量的敌人掉落双倍物品，但不掉落钱币");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "邪恶画像");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'肯定不是活着的'
+            // 阻止受虐模式导致的Boss自然生成
+            // 提高刷怪速率
+            // 小于等于2000血量的敌人掉落双倍物品，但不掉落钱币");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

@@ -17,12 +17,12 @@ Grants immunity to Mighty Wind
 You respawn twice as fast when no boss is alive
 Use to teleport to your last death point
 'Whatever you do, don't drop it'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "时之沙");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'无论你做什么,都不要丢下它'
-放在物品栏中即可生效
-免疫强风和仙人掌伤害
-当没有Boss存活时,重生速度加倍
-按下快捷键传送到上次死亡地点");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "时之沙");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'无论你做什么,都不要丢下它'
+            // 放在物品栏中即可生效
+            // 免疫强风和仙人掌伤害
+            // 当没有Boss存活时,重生速度加倍
+            // 按下快捷键传送到上次死亡地点");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
