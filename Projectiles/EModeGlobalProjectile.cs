@@ -26,6 +26,7 @@ namespace FargowiltasSouls.Projectiles
         public bool EModeCanHurt = true;
 
         private int counter;
+        private bool altBehaviour;
         private bool firstTickAICheckDone;
 
         public NPC SourceNPC = null;
@@ -327,25 +328,34 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.HallowBossLastingRainbow:
-                    if (!FargoSoulsWorld.SwarmActive)
+                    if (NonSwarmFight(NPCID.HallowBoss))
                     {
                         EModeCanHurt = false;
                         projectile.timeLeft += 60;
                         projectile.localAI[1] = projectile.velocity.ToRotation();
 
-                        if (SourceNPC is NPC && SourceNPC.type == NPCID.HallowBoss && SourceNPC.GetEModeNPCMod<EmpressofLight>().AttackTimer == 1)
+                        if (SourceNPC.ai[0] == 7 && SourceNPC.ai[1] >= 255 && SourceNPC.GetEModeNPCMod<EmpressofLight>().DoParallelSwordWalls)
+                            altBehaviour = true;
+                        else if (SourceNPC.GetEModeNPCMod<EmpressofLight>().AttackTimer == 1)
                             projectile.localAI[0] = 1f;
                     }
                     break;
 
                 case ProjectileID.FairyQueenLance:
                     EModeCanHurt = false;
-                    if (NonSwarmFight(NPCID.HallowBoss) && SourceNPC.ai[0] == 7 && SourceNPC.ai[1] < 255)
+                    if (NonSwarmFight(NPCID.HallowBoss) && SourceNPC.ai[0] == 7)
                     {
-                        Vector2 appearVel = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2();
-                        appearVel *= 2f;
-                        projectile.position -= appearVel * 60f;
-                        projectile.velocity = appearVel;
+                        if (SourceNPC.ai[1] < 255) //vanilla attack has random variation, purely visual
+                        {
+                            Vector2 appearVel = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2();
+                            appearVel *= 2f;
+                            projectile.position -= appearVel * 60f;
+                            projectile.velocity = appearVel;
+                        }
+                        else if (SourceNPC.GetEModeNPCMod<EmpressofLight>().DoParallelSwordWalls)
+                        {
+                            altBehaviour = true;
+                        }
                     }
                     break;
 
@@ -485,6 +495,12 @@ namespace FargowiltasSouls.Projectiles
                         if (projectile.localAI[0] == 1f)
                             projectile.velocity = projectile.velocity.RotatedBy(-projectile.ai[0] * 2f);
                     }
+
+                    if (altBehaviour)
+                    {
+                        if (EModeCanHurt)
+                            projectile.velocity = projectile.velocity.RotatedBy(-projectile.ai[0] * 0.5f);
+                    }
                     break;
 
                 case ProjectileID.HallowBossRainbowStreak:
@@ -494,7 +510,20 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.FairyQueenLance:
                     EModeCanHurt = projectile.localAI[0] > 60;
-                    if (NonSwarmFight(NPCID.HallowBoss) && SourceNPC.ai[0] == 6 && SourceNPC.ai[1] > 60)
+                    if (altBehaviour)
+                    {
+                        const float slowdown = 0.33f;
+
+                        if (!EModeCanHurt)
+                        {
+                            counter = 0;
+                            projectile.timeLeft++;
+                            projectile.localAI[0] -= slowdown;
+                        }
+
+                        projectile.position -= projectile.velocity * slowdown * Utils.Clamp((float)Math.Sqrt(1f - counter / 60f), 0f, 1f);
+                    }
+                    else if (NonSwarmFight(NPCID.HallowBoss) && SourceNPC.ai[0] == 6 && SourceNPC.ai[1] > 60)
                     {
                         projectile.position += SourceNPC.position - SourceNPC.oldPosition;
                     }

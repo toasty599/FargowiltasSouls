@@ -204,18 +204,20 @@ Mods: {
 
 			Respawn1: We won't let it end the same way again!
 			Respawn2: Time to run it back!
-			Respawn3: We can do this!
-			Respawn4: Takes more than that to keep us down!
+			Respawn3: Take a deep breath. We'll get this eventually!
+			Respawn4: Gotta do more than that to keep us down!
 			Respawn5: Let's see what we can do to change it up!
+			Respawn6: We can do this!
+			Respawn7: How about a minute to rest and refresh? Couldn't hurt!
 
 			Idle1: We'll collect everything there is to collect!
 			Idle2: Battle, blood, money - nothing beats, am I right?
 			Idle3: Just remember, I'm not an emergency ration.
-			Idle4: Stars and bombs together do anything!
+			Idle4: Ever tried mining with Boom Shurikens? Heh heh...
 			Idle5: We should take over the world. Kidding! Mostly.
 			Idle6: I wanna see you kill more things!
-			Idle7: Still feels weird to be called a light pet.
-			Idle8: Nothing else to do? Might as well murder something.
+			Idle7: Still feels weird to be called a light pet...
+			Idle8: Nothing to do? Murder something!
 			Idle9: Bet you there's a quality of life trick we could try out.
 
 			Sleep1: I feel asleep...
@@ -233,21 +235,22 @@ Mods: {
 			ProjDeath1: No! Don't put me back in the hat!
 			ProjDeath2: But I have so much to explore!
 			ProjDeath3: Hello darkness, my old friend...
-			ProjDeath4: Please, I'll do anything!
+			ProjDeath4: Please don't put me away, I'll do anything!
 
 			PlayerDeath1: You can do it! You can - oh.
 			PlayerDeath2: We'll make you pay for this!
 			PlayerDeath3: Noooo!!
 			PlayerDeath4: Where did that come from?! That wasn't fair!
-			PlayerDeath5: Dang! We'll get 'em next time.
+			PlayerDeath5: Dang! We'll get them next time.
 			PlayerDeath6: What?! No way!
-			PlayerDeath7: That wasn't very cash money of them!
+			PlayerDeath7: That wasn't very cash money...
 
 			BossAlmostDead1: Almost there!
 			BossAlmostDead2: You got this!
 			BossAlmostDead3: In the home stretch now!
 			BossAlmostDead4: Just a little bit more!
 			BossAlmostDead5: Finish them off!
+			BossAlmostDead6: This is our chance!
 
 			KillBoss1: What a fun beatdown! Who's next?
 			KillBoss2: Nothing like the feeling of victory!
@@ -256,6 +259,15 @@ Mods: {
 			KillBoss5: Devi gaming.
 			KillBoss6: YATTA! Uh, you didn't hear that.
 			KillBoss7: Yeah! That's what I've been waiting for! That's what it's all about!
+
+			BossSpawn1: You can do it!
+			BossSpawn2: Here they come!
+			BossSpawn3: I'm cheering you on! Go!
+			BossSpawn4: Bring it on!
+			BossSpawn5: We can take them!
+			BossSpawn6: Do your best!
+			BossSpawn7: Wipe the floor with them!
+			BossSpawn8: Let's do this!
 
 			Count1: Psst... can you hear me? This is a secret message! Hi!
 		}

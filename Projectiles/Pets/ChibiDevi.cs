@@ -185,8 +185,10 @@ namespace FargowiltasSouls.Projectiles.Pets
             bool bossAlive = FargoSoulsUtil.AnyBossAlive();
             if (bossAlive)
             {
+                TryTalkWithCD(TalkType.BossSpawn, ShortCD);
+
                 if (Main.npc[FargoSoulsGlobalNPC.boss].life < Main.npc[FargoSoulsGlobalNPC.boss].lifeMax / 4)
-                    TryTalkWithCD(TalkType.BossAlmostDead, LongCD);
+                    TryTalkWithCD(TalkType.BossAlmostDead, MediumCD);
             }   
             else
             {
@@ -207,7 +209,8 @@ namespace FargowiltasSouls.Projectiles.Pets
             {
                 for (int i = 0; i < TalkCDs.Length; i++)
                 {
-                    if (bossAlive && i == (int)TalkType.Idle) //dont run this timer during boss fight
+                    //dont run these timer during a boss fight
+                    if (bossAlive && (i == (int)TalkType.Idle || i == (int)TalkType.BossSpawn))
                         continue;
 
                     if (TalkCDs[i] > 0)
@@ -312,25 +315,26 @@ namespace FargowiltasSouls.Projectiles.Pets
             PlayerDeath,
             BossAlmostDead,
             KillBoss,
+            BossSpawn,
 
             Count
         };
         private int[] MaxThingsToSay = new int[] {
             5, //Spawn
-            5, //Respawn
+            7, //Respawn
             9, //Idle
             5, //Sleep
             5, //Wake
             4, //ProjDeath
             7, //PlayerDeath
-            5, //BossAlmostDead
+            6, //BossAlmostDead
             7, //KillBoss
+            8, //BossSpawn
             1 //Count
         };
 
         public int ShortCD => 600;
         public int MediumCD => Main.rand.Next(3600, 7200);
-        public int LongCD => MediumCD * 2;
 
         public void TryTalkWithCD(TalkType talkType, int CD)
         {
@@ -341,7 +345,7 @@ namespace FargowiltasSouls.Projectiles.Pets
 
             TalkCounters[talkInt] = (TalkCounters[talkInt] + 1) % MaxThingsToSay[talkInt];
             TalkCDs[talkInt] = CD;
-            universalTalkCD = 180;
+            universalTalkCD = 0;
 
             if (Projectile.owner == Main.myPlayer && ModContent.GetInstance<SoulConfig>().DeviChatter)
             {
@@ -353,13 +357,16 @@ namespace FargowiltasSouls.Projectiles.Pets
                 int actualSay = TalkCounters[talkInt] + 1;
                 string text = Language.GetTextValue($"Mods.FargowiltasSouls.DeviChatter.{key}{actualSay}");
 
+                Vector2 pos = Vector2.Lerp(Main.MouseWorld, Projectile.Center, 0.5f);
+                pos = Vector2.Lerp(pos, Main.player[Projectile.owner].Center, 0.5f);
+
                 PopupText.NewText(new AdvancedPopupRequest()
                 {
                     Text = text,
-                    DurationInFrames = 360,
-                    Velocity = new Vector2(Projectile.direction * 7, -7),
+                    DurationInFrames = 420,
+                    Velocity = 7 * -Vector2.UnitY,
                     Color = Color.HotPink * 1.15f
-                }, Main.player[Projectile.owner].Top + 0.5f * (Projectile.Top - Main.player[Projectile.owner].Top));
+                }, pos);
             }
         }
     }
@@ -372,7 +379,7 @@ namespace FargowiltasSouls.Projectiles.Pets
             {
                 Projectile p = Main.projectile.FirstOrDefault(p => p.active && p.owner == Main.myPlayer && p.type == ModContent.ProjectileType<ChibiDevi>());
                 if (p != null && p.ModProjectile is ChibiDevi devi)
-                    devi.TryTalkWithCD(ChibiDevi.TalkType.KillBoss, devi.LongCD);
+                    devi.TryTalkWithCD(ChibiDevi.TalkType.KillBoss, devi.MediumCD);
             }
         }
     }
