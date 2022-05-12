@@ -33,6 +33,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override void SetDefaults()
         {
             NPC.CloneDefaults(NPCID.QueenSlimeMinionBlue);
+
+            //because they will double dip on expert/master scaling otherwise
+            NPC.lifeMax = 40;
+            NPC.damage = 30;
+
             NPC.aiStyle = -1;
             NPC.knockBackResist = 0;
             NPC.timeLeft = NPC.activeTime * 30;
@@ -45,15 +50,6 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override bool? CanHitNPC(NPC target) => false;
 
         public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
-
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            if (!FargoSoulsWorld.MasochistModeReal)
-            {
-                NPC.lifeMax /= 2; //for some reason they're double dipping????? idgi
-                NPC.damage /= 2;
-            }
-        }
 
         public override void AI()
         {

@@ -497,11 +497,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            if (FargoSoulsWorld.MasochistModeReal)
-            {
-                npc.lifeMax *= 2;
-                npc.knockBackResist = 0;
-            }
+            npc.knockBackResist = 0;
         }
 
         public override void AI(NPC npc)

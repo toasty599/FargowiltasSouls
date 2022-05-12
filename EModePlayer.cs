@@ -485,7 +485,7 @@ namespace FargowiltasSouls
                 return modifier;
 
             if (Player.manaSick)
-                modifier *= 0.5f;
+                modifier *= 2f / 3f;
 
             return modifier;
         }
