@@ -1540,6 +1540,6 @@ fixed emode mana sickness speed nerf applying outside emode
 mutant no longer timestops you for stopping time
 stardust ench timestop now gives you temporary immunity to timestop from others
 removed maso doubling qs minion life which by extension doubled gelatin subject life
-fixed a compounding npc scaling issue that caused gelatin subject to have 5x its life in maso
-yes those compounded
+fixed a compounding npc scaling issue that caused gelatin subject to have 4.5x its intended life in maso
+yes those stacked
 emode mana sickness is -33% speed, was -50%
