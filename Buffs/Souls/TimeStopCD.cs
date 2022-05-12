@@ -11,9 +11,8 @@ namespace FargowiltasSouls.Buffs.Souls
         {
             DisplayName.SetDefault("Time Stop Cooldown");
             Description.SetDefault("You cannot stop time yet");
-            Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
-            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

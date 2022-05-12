@@ -174,7 +174,8 @@ namespace FargowiltasSouls
         public bool squireReduceIframes;
         public bool StardustEnchantActive;
         public bool FreezeTime;
-        public int freezeLength = 540; //300
+        public int freezeLength = TIMESTOP_DURATION;
+        public const int TIMESTOP_DURATION = 540; //300
         public bool TikiEnchantActive;
         public bool TikiMinion;
         public int actualMinions;
@@ -563,10 +564,9 @@ namespace FargowiltasSouls
                     cooldownInSeconds = 30;
                 Player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
                 FreezeTime = true;
-                freezeLength = 540;
+                freezeLength = TIMESTOP_DURATION;
                 SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
             }
-
 
 
             if (FargowiltasSouls.SmokeBombKey.JustPressed && NinjaEnchantActive && SmokeBombCD == 0)

@@ -1536,3 +1536,6 @@ empress
 	miscellaneous attack adjustments
 	various subtle nerfs to maso
 fixed emode mana sickness speed nerf applying outside emode
+
+mutant no longer timestops you for stopping time
+stardust ench timestop now gives you temporary immunity to timestop from others

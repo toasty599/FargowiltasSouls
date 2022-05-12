@@ -1588,6 +1588,8 @@ namespace FargowiltasSouls
 
             if (FreezeTime && freezeLength > 0)
             {
+                Player.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
+
                 if (Main.netMode != NetmodeID.Server)
                 {
                     if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive())
@@ -1595,14 +1597,6 @@ namespace FargowiltasSouls
 
                     if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
                         Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Player.Center);
-                }
-
-                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
-                {
-                    Player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
-
-                    if (Main.netMode != NetmodeID.Server && Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
                 }
 
                 for (int i = 0; i < Main.maxNPCs; i++)
@@ -1638,13 +1632,13 @@ namespace FargowiltasSouls
                 if (freezeLength == 90)
                 {
                     if (!Main.dedServ)
-                        Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
+                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
                 }
 
                 if (freezeLength <= 0)
                 {
                     FreezeTime = false;
-                    freezeLength = 540;
+                    freezeLength = TIMESTOP_DURATION;
 
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {
