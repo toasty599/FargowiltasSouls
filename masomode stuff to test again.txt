@@ -1563,3 +1563,5 @@ timber head
 fire imps can spawn in hordes but only when youre in hell
 goblins no longer slide down when you die
 fixed zephyr boots falsely claiming to have frog legs effect
+projs on mutant slime safespot edges have consistent speed (should help see it moving in maso)
+undead miner attack rate nerfed and it telegraphs bomb toss

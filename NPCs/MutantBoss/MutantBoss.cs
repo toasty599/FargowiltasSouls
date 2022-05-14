@@ -2391,8 +2391,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
 
                     //spawn right on safespot borders
-                    Slime(basePos + Vector2.UnitX * (NPC.localAI[0] + safeRange), yOffset, Vector2.UnitY * Main.rand.NextFloat(15f, 20f));
-                    Slime(basePos + Vector2.UnitX * (NPC.localAI[0] - safeRange), yOffset, Vector2.UnitY * Main.rand.NextFloat(15f, 20f));
+                    Slime(basePos + Vector2.UnitX * (NPC.localAI[0] + safeRange), yOffset, Vector2.UnitY * 20f);
+                    Slime(basePos + Vector2.UnitX * (NPC.localAI[0] - safeRange), yOffset, Vector2.UnitY * 20f);
                 }
             }
             if (++NPC.ai[1] > 180)
