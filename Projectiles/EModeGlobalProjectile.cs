@@ -1122,6 +1122,11 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.DD2ExplosiveTrapT3Explosion:
+                    if (SourceNPC is NPC && SourceNPC.type == ModContent.NPCType<TimberChampion>())
+                        target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
+                    break;
+
                 case ProjectileID.InsanityShadowHostile:
                 case ProjectileID.DeerclopsIceSpike:
                 case ProjectileID.DeerclopsRangedProjectile:

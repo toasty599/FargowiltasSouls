@@ -45,27 +45,27 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
             }
         }
 
-        public override void AI(NPC npc)
-        {
-            base.AI(npc);
+        //public override void AI(NPC npc)
+        //{
+        //    base.AI(npc);
 
-            if (npc.type != NPCID.GoblinSummoner)
-            {
-                if (npc.HasPlayerTarget && (!Main.player[npc.target].active || Main.player[npc.target].dead))
-                {
-                    npc.TargetClosest();
-                    if (npc.HasPlayerTarget && (!Main.player[npc.target].active || Main.player[npc.target].dead))
-                    {
-                        npc.noTileCollide = true;
-                    }
-                }
-                if (npc.noTileCollide) //fall through the floor
-                {
-                    npc.position.Y++;
-                    npc.velocity.Y++;
-                }
-            }
-        }
+        //    if (npc.type != NPCID.GoblinSummoner)
+        //    {
+        //        if (npc.HasPlayerTarget && (!Main.player[npc.target].active || Main.player[npc.target].dead))
+        //        {
+        //            npc.TargetClosest();
+        //            if (npc.HasPlayerTarget && (!Main.player[npc.target].active || Main.player[npc.target].dead))
+        //            {
+        //                npc.noTileCollide = true;
+        //            }
+        //        }
+        //        if (npc.noTileCollide) //fall through the floor
+        //        {
+        //            npc.position.Y++;
+        //            npc.velocity.Y++;
+        //        }
+        //    }
+        //}
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {

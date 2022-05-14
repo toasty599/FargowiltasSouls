@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -41,22 +42,21 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.damage = 0;
             NPC.defense = 0;
             NPC.lifeMax = 1800;
-            //Main.npcCatchable[NPC.type] = true;
-            //NPC.catchItem = (short)ModContent.ItemType<TophatSquirrel>();
+            
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.value = 0f;
-            NPC.knockBackResist = .25f;
-            //banner = NPC.type;
-            //bannerItem = ModContent.ItemType<TophatSquirrelBanner>();
-
+            NPC.knockBackResist = .1f;
+            
             AnimationType = NPCID.Squirrel;
+
             NPC.aiStyle = 7;
             AIType = NPCID.Squirrel;
-
-            //NPCID.Sets.TownCritter[NPC.type] = true;
-
-            //NPC.closeDoor;
+            if (FargoSoulsWorld.EternityMode)
+            {
+                NPC.aiStyle = NPCAIStyleID.Herpling;
+                AIType = NPCID.Herpling;
+            }
 
             NPC.dontTakeDamage = true;
         }
@@ -66,9 +66,19 @@ namespace FargowiltasSouls.NPCs.Champions
             if (NPC.velocity.Y == 0)
                 NPC.dontTakeDamage = false;
 
-            if (++counter > 600)
+            if (++counter > 900)
             {
                 NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+            }
+
+            if (!NPC.dontTakeDamage && FargoSoulsWorld.EternityMode)
+            {
+                Vector2 nextPos = NPC.position;
+                nextPos.X += NPC.velocity.X * 1.5f;
+                if (NPC.velocity.Y < 0)
+                    nextPos.Y += NPC.velocity.Y;
+                if (!Collision.SolidTiles(nextPos, NPC.width, NPC.height))
+                    NPC.position = nextPos;
             }
         }
 
@@ -90,8 +100,16 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void HitEffect(int hitDirection, double damage)
         {
             if (NPC.life <= 0)
+            {
                 for (int k = 0; k < 20; k++)
                     Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hitDirection, -1f);
+
+                if (!Main.dedServ)
+                {
+                    int g = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, Main.rand.NextFloat(6f) * -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver4), ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "TrojanSquirrelGore2" : "TrojanSquirrelGore2_2").Type, NPC.scale);
+                    Main.gore[g].rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+                }
+            }
         }
     }
 }
