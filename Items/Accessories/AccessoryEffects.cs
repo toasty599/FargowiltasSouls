@@ -138,8 +138,6 @@ namespace FargowiltasSouls
             if (Player.beetleDefense || Player.beetleOffense)
                 return;
 
-            BeetleEnchantActive = true;
-
             if (BeetleEnchantDefenseTimer > 0) //do defensive beetle things
             {
                 Player.beetleDefense = true;

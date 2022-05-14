@@ -1148,6 +1148,9 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
+            if (BeetleEnchantActive)
+                BeetleEffect();
+
             if (DarkenedHeartItem != null)
             {
                 if (!IsStillHoldingInSameDirectionAsMovement)
