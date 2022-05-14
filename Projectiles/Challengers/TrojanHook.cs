@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
 
         public override void PostAI()
         {
-            if (dir != npc.direction)
+            if (npc != null && dir != npc.direction)
             {
                 dir = npc.direction;
                 offset *= -1;

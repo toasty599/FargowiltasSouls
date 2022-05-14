@@ -1566,3 +1566,4 @@ fixed zephyr boots falsely claiming to have frog legs effect
 projs on mutant slime safespot edges have consistent speed (should help see it moving in maso)
 undead miner attack rate nerfed and it telegraphs bomb toss
 fixed beetle ench stacking with beetle armor set bonus
+trojan jumps now aim ahead of you and more explosion
