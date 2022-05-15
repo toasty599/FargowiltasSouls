@@ -2,6 +2,7 @@ using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,14 +24,6 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
-        }
-
-        public override bool? CanDamage()
-        {
-            //if (Projectile.velocity.Y < 0)
-            //    return false;
-
-            return base.CanDamage();
         }
 
         public override void AI()
@@ -69,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             for (int k = 0; k < 20; k++)
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -1f);
 
-            if (!Main.dedServ)
+            if (Main.rand.NextBool(5) && !Main.dedServ)
             {
                 int g = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, -0.1f * Projectile.oldVelocity.RotatedByRandom(MathHelper.PiOver4), ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "TrojanSquirrelGore2" : "TrojanSquirrelGore2_2").Type, Projectile.scale);
                 Main.gore[g].rotation = Main.rand.NextFloat(MathHelper.TwoPi);

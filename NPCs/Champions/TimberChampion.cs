@@ -63,7 +63,7 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             NPC.width = 120;
             NPC.height = 234;
-            NPC.damage = 130;
+            NPC.damage = 110;
             NPC.defense = 50;
             NPC.lifeMax = 240000;
             NPC.HitSound = SoundID.NPCHit7;
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.NPCs.Champions
             return true;
         }
 
-        int JumpTreshold => FargoSoulsWorld.EternityMode ? 40 : 60;
+        int JumpTreshold => FargoSoulsWorld.MasochistModeReal ? 30 : 60;
 
         bool drawTrail;
 
@@ -152,7 +152,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             }
 
                             Vector2 distance = player.Top - NPC.Bottom;
-                            distance.X += 420 * Math.Sign(player.Center.X - NPC.Center.X);
+                            distance.X += FargoSoulsWorld.MasochistModeReal ? player.velocity.X * time : 420 * Math.Sign(distance.X);
 
                             distance.X = distance.X / time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
@@ -162,7 +162,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             NPC.noGravity = true;
                             NPC.netUpdate = true;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient) //explosive jump
+                            if (Main.netMode != NetmodeID.MultiplayerClient) //ogre smash jump
                             {
                                 int dam = FargoSoulsWorld.MasochistModeReal ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage) : 0;
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, dam, 0, Main.myPlayer);
@@ -170,7 +170,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
 
-                            for (int k = -2; k <= 2; k++) //explosions
+                            //visual explosions
+                            for (int k = -2; k <= 2; k++)
                             {
                                 Vector2 dustPos = NPC.Center;
                                 int width = NPC.width / 5;
@@ -202,6 +203,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 }
                             }
 
+                            //chain blast jump
                             if (FargoSoulsWorld.EternityMode)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -282,7 +284,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (FargoSoulsWorld.EternityMode && NPC.ai[3] == 2)
                     {
-                        if (NPC.ai[2] == 0)
+                        if (NPC.ai[2] == 0) //shotgun
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item36, NPC.Center);
 
                         NPC.velocity.X *= 0.9f;
@@ -496,6 +498,9 @@ namespace FargowiltasSouls.NPCs.Champions
                     }
                     goto case -1;
 
+                //NOTE: make sure the grapple and the walk afterwards is the final attack!
+                //this is so it uses the ai0=0 jump, which cant despawn
+
                 default:
                     NPC.ai[0] = 0;
                     goto case 0;
@@ -564,7 +569,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 if (FargoSoulsWorld.MasochistModeReal)
                     maxwalkSpeed *= 2;
 
-                int walkModifier = 40;
+                int walkModifier = 30;
 
                 if (NPC.direction > 0)
                     NPC.velocity.X = (NPC.velocity.X * walkModifier + maxwalkSpeed) / (walkModifier + 1);

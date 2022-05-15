@@ -33,20 +33,15 @@ namespace FargowiltasSouls.Projectiles.Champions
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
             if (npc != null)
             {
-                if (Projectile.Distance(npc.Center) < Projectile.ai[1])
+                if (Projectile.Colliding(Projectile.Hitbox, npc.Hitbox))
                 {
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit4, Projectile.Center); //indicate it hit squrrl
                     for (int i = 0; i < 10; i++)
-                        Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 226, Projectile.velocity.X * 0.4f, -Projectile.velocity.Y * 0.4f);
+                        Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric, Projectile.velocity.X * 0.4f, -Projectile.velocity.Y * 0.4f);
                     
                     Projectile.Kill();
                     return;
                 }
-            }
-            else
-            {
-                Projectile.Kill();
-                return;
             }
 
             if (Projectile.alpha > 0)
@@ -56,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Projectile.alpha = 0;
             }
 
-            Lighting.AddLight(Projectile.Center, 0.525f, 0f, 0.75f);
+            //Lighting.AddLight(Projectile.Center, 0.525f, 0f, 0.75f);
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
 

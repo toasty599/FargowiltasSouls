@@ -1,3 +1,4 @@
+using FargowiltasSouls.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -26,33 +27,11 @@ namespace FargowiltasSouls.Projectiles.Champions
             Projectile.alpha = 255;
         }
 
-        public override bool? CanDamage()
-        {
-            return false;
-        }
+        public override bool? CanDamage() => false;
 
         public override void AI()
         {
             Projectile.velocity.Y += 1f;
-
-            /*if (Projectile.scale < 1f)
-            {
-                Projectile.position.X += Projectile.width / 2f;
-                Projectile.position.Y += Projectile.height;
-
-                Projectile.width = (int)(Projectile.width / Projectile.scale);
-                Projectile.height = (int)(Projectile.height / Projectile.scale);
-
-                Projectile.scale += 0.01f;
-                if (Projectile.scale > 1f)
-                    Projectile.scale = 1f;
-
-                Projectile.width = (int)(Projectile.width * Projectile.scale);
-                Projectile.height = (int)(Projectile.height * Projectile.scale);
-
-                Projectile.position.X -= Projectile.width / 2f;
-                Projectile.position.Y -= Projectile.height;
-            }*/
 
             if (Projectile.alpha > 0)
             {
@@ -69,10 +48,13 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
+            if (FargoSoulsWorld.EternityMode)
+                FargoSoulsUtil.NewNPCEasy(Entity.InheritSource(Projectile), Projectile.Top - 20 * Vector2.UnitY, ModContent.NPCType<LesserSquirrel>(), velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-20, -10)));
+
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int p = Player.FindClosest(Projectile.position, Projectile.width, Projectile.height);
-                if (p != -1)
+                Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[0]);
+                if (player != null)
                 {
                     for (int i = 0; i < 10; i++)
                     {
@@ -82,18 +64,15 @@ namespace FargowiltasSouls.Projectiles.Champions
 
                         const float gravity = 0.2f;
                         float time = 30f;
-                        Vector2 distance = Main.player[p].Center - spawnPos;
-                        distance.X = Main.rand.NextFloat(-2f, 2f);
+                        Vector2 distance = player.Center - spawnPos;
+                        distance.X = Main.rand.NextFloat(-1.5f, 1.5f);
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
                         float minimumY = Main.rand.NextFloat(-12f, -9f);
                         if (distance.Y > minimumY)
                             distance.Y = minimumY;
-                        distance += Main.rand.NextVector2Square(-0.5f, 0.5f) * 2;
+                        distance += Main.rand.NextVector2Square(-0.5f, 0.5f);
 
-                        if (Math.Abs(Main.player[(int)Projectile.ai[0]].velocity.X) > 9f)
-                            distance.X += Main.player[(int)Projectile.ai[0]].velocity.X * 0.75f;
-
-                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), spawnPos, distance, ModContent.ProjectileType<TimberAcorn>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Entity.InheritSource(Projectile), spawnPos, distance, ModContent.ProjectileType<TimberAcorn>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
             }

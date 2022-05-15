@@ -468,6 +468,45 @@ namespace FargowiltasSouls
             return n;
         }
 
+        public static void AuraDust(Entity entity, float distance, int dustid, Color color = default, bool reverse = false, float dustScaleModifier = 1f)
+        {
+            const int baseDistance = 500;
+            const int baseMax = 20;
+
+            int dustMax = (int)(distance / baseDistance * baseMax);
+            if (dustMax < 10)
+                dustMax = 10;
+            if (dustMax > 40)
+                dustMax = 40;
+
+            float dustScale = distance / baseDistance;
+            if (dustScale < 0.75f)
+                dustScale = 0.75f;
+            if (dustScale > 2f)
+                dustScale = 2f;
+
+            for (int i = 0; i < dustMax; i++)
+            {
+                Vector2 spawnPos = entity.Center + Main.rand.NextVector2CircularEdge(distance, distance);
+                Vector2 offset = spawnPos - Main.LocalPlayer.Center;
+                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
+                    continue;
+                Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, dustid, 0, 0, 100, Color.White)];
+                dust.scale = dustScale * dustScaleModifier;
+                dust.velocity = entity.velocity;
+                if (Main.rand.NextBool(3))
+                {
+                    dust.velocity += Vector2.Normalize(entity.Center - dust.position) * Main.rand.NextFloat(5f) * (reverse ? -1f : 1f);
+                    dust.position += dust.velocity * 5f;
+                }
+                dust.noGravity = true;
+                if (color != default)
+                    dust.color = color;
+            }
+        }
+
+        #region npcloot
+
         public static bool LockEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)
         {
             EModeEarlyBirdLockDropCondition lockCondition = new EModeEarlyBirdLockDropCondition();
@@ -497,6 +536,8 @@ namespace FargowiltasSouls
         {
             return new DropLocalPerClientAndResetsNPCMoneyTo0(itemType, 1, amount, amount, null);
         }
+
+        #endregion npcloot
 
         /// ALL below From BaseDrawing meme, only used in golem Gib?? prob destroy, update
 

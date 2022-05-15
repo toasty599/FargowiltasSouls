@@ -1290,38 +1290,7 @@ namespace FargowiltasSouls.NPCs
 
             //if (FargowiltasSouls.Instance.MasomodeEXLoaded) distance *= reverse ? 0.5f : 2f;
 
-            const int baseDistance = 500;
-            const int baseMax = 20;
-            
-            int dustMax = (int)(distance / baseDistance * baseMax);
-            if (dustMax < 10)
-                dustMax = 10;
-            if (dustMax > 40)
-                dustMax = 40;
-
-            float dustScale = distance / baseDistance;
-            if (dustScale < 0.75f)
-                dustScale = 0.75f;
-            if (dustScale > 2f)
-                dustScale = 2f;
-
-            for (int i = 0; i < dustMax; i++)
-            {
-                Vector2 spawnPos = npc.Center + Main.rand.NextVector2CircularEdge(distance, distance);
-                Vector2 offset = spawnPos - p.Center;
-                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
-                    continue;
-                Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, dustid, 0, 0, 100, Color.White, dustScale)];
-                dust.velocity = npc.velocity;
-                if (Main.rand.NextBool(3))
-                {
-                    dust.velocity += Vector2.Normalize(npc.Center - dust.position) * Main.rand.NextFloat(5f) * (reverse ? -1f : 1f);
-                    dust.position += dust.velocity * 5f;
-                }
-                dust.noGravity = true;
-                if (color != default)
-                    dust.color = color;
-            }
+            FargoSoulsUtil.AuraDust(npc, distance, dustid, color, reverse);
 
             if (buffs.Length == 0 || buffs[0] < 0)
                 return;

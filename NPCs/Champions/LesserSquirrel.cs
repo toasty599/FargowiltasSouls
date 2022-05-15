@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.DeviBoss;
 using Terraria.GameContent.Bestiary;
+using System.Linq;
+using FargowiltasSouls.Projectiles.Champions;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -64,7 +66,10 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void AI()
         {
             if (NPC.velocity.Y == 0)
-                NPC.dontTakeDamage = false;
+            {
+                if (!Main.projectile.Any(p => p.active && (p.type == ModContent.ProjectileType<TimberTree>() || p.type == ModContent.ProjectileType<TimberTreeAcorn>())))
+                    NPC.dontTakeDamage = false;
+            }
 
             if (++counter > 900)
             {
@@ -87,11 +92,11 @@ namespace FargowiltasSouls.NPCs.Champions
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int p = Player.FindClosest(NPC.Center, 0, 0);
-                int n = NPC.FindFirstNPC(ModContent.NPCType<TimberChampion>());
-                if (p != -1 && n != -1)
+                NPC npc = Main.npc.FirstOrDefault(n => n.active && (n.type == ModContent.NPCType<TimberChampion>() || n.type == ModContent.NPCType<TimberChampionHead>()));
+                if (p != -1 && npc is NPC)
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 4f * NPC.DirectionTo(Main.player[p].Center),
-                        ModContent.ProjectileType<DeviLostSoul>(), FargoSoulsUtil.ScaledProjectileDamage(Main.npc[n].damage), 0, Main.myPlayer);
+                        ModContent.ProjectileType<DeviLostSoul>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
                 }
             }
             return true;
