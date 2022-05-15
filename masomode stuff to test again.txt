@@ -1577,4 +1577,10 @@ fixed zephyr boots falsely claiming to have frog legs effect
 projs on mutant slime safespot edges have consistent speed (should help see it moving in maso)
 undead miner attack rate nerfed and it telegraphs bomb toss
 fixed beetle ench stacking with beetle armor set bonus
+dreadnaut
+	no longer nerfed by blood squids
+	spin has perfect tracking on you
+	cant hurt you with contact damage during spin
+	can eat ANY enemy with 1500 or less max life after you soften them up
+	shots make blood fountains
 after arms gone, trojan jumps now aim ahead of you and more explosion

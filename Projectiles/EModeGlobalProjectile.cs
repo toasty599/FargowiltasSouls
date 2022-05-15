@@ -121,8 +121,6 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.BloodShot:
-                case ProjectileID.BloodNautilusTears:
-                case ProjectileID.BloodNautilusShot:
                     projectile.tileCollide = false;
                     break;
 
@@ -1596,6 +1594,24 @@ namespace FargowiltasSouls.Projectiles
             }
 
             return base.PreKill(projectile, timeLeft);
+        }
+
+        public override void Kill(Projectile projectile, int timeLeft)
+        {
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
+            switch (projectile.type)
+            {
+                case ProjectileID.BloodNautilusTears:
+                case ProjectileID.BloodNautilusShot:
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, Vector2.Zero, ModContent.ProjectileType<BloodFountain>(), projectile.damage, 0f, Main.myPlayer, Main.rand.Next(16, 48));
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         public override Color? GetAlpha(Projectile projectile, Color lightColor)
