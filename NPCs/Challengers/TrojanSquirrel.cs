@@ -543,18 +543,11 @@ namespace FargowiltasSouls.NPCs.Challengers
                         if (NPC.localAI[0]++ == 0)
                         {
                             Vector2 distance = player.Top - NPC.Bottom;
-                            distance.X += NPC.width * Math.Sign(player.Center.X - NPC.Center.X);
-
-                            distance.X = distance.X / time;
-                            distance.Y = distance.Y / time - 0.5f * gravity * time;
-                            NPC.velocity = distance;
-
-                            NPC.netUpdate = true;
-
-                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
 
                             if (FargoSoulsWorld.EternityMode && arms == null)
                             {
+                                distance.X += NPC.width * Math.Sign(player.Center.X - NPC.Center.X);
+
                                 if (NPC.localAI[3] < 2)
                                 {
                                     NPC.localAI[3] = 2; //flag to stomp again on landing
@@ -564,6 +557,14 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                                 ExplodeAttack();
                             }
+
+                            distance.X = distance.X / time;
+                            distance.Y = distance.Y / time - 0.5f * gravity * time;
+                            NPC.velocity = distance;
+
+                            NPC.netUpdate = true;
+
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
                         }
                         else
                         {
