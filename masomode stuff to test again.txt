@@ -1569,7 +1569,7 @@ timber head
 	made it move slower, mostly
 	spins around player while making electric chains in emode
 	acorn shot now combos into a snowball spread in emode
-	tracking snowballs replaced with kamikaze squrrls in all modes below maso
+	tracking snowball rain replaced with kamikaze squrrls in all modes below maso
 	trees spawn lesser squrrls in emode
 fire imps can spawn in hordes but only when youre in hell
 goblins no longer slide down when you die
