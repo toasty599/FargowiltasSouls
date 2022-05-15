@@ -47,8 +47,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void SetDefaults()
         {
-            NPC.width = 98;
-            NPC.height = 76;
+            NPC.width = 100;
+            NPC.height = 100;
             NPC.damage = 140;
             NPC.defense = 50;
             NPC.lifeMax = 160000;
@@ -223,24 +223,31 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (NPC.ai[3] > snowballThreshold && FargoSoulsWorld.EternityMode) //snowball shotgun
                         {
+                            bool feedbackFX = NPC.ai[2] == 1;
+
                             NPC.velocity *= 0.9f;
 
                             NPC.ai[1] -= 0.5f; //slower to proceed
 
                             if (NPC.ai[2] > 60)
                             {
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item36, NPC.Center); //shotgun sfx
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, NPC.Center); //snowball cannon sfx
-
                                 NPC.ai[2] -= 15;
 
-                                Vector2 vel = 24f * player.DirectionFrom(NPC.Center);
+                                Vector2 vel = 20f * player.DirectionFrom(NPC.Center);
                                 int max = (int)NPC.ai[3]++ - snowballThreshold; //more snowballs the more times its used
                                 for (int i = -max; i <= max; i++)
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel.RotatedBy(MathHelper.ToRadians(75) / max * i), ModContent.ProjectileType<TimberSnowball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1f);
                                 }
+
+                                feedbackFX = true;
+                            }
+
+                            if (feedbackFX)
+                            {
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item36, NPC.Center); //shotgun sfx
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, NPC.Center); //snowball cannon sfx
 
                                 for (int j = 0; j < 20; j++)
                                 {
@@ -346,6 +353,8 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 case 6:
+                    if (!FargoSoulsWorld.MasochistModeReal)
+                        NPC.ai[1] -= 0.5f; //more time to kill lesser squrrls
                     goto case 0;
 
                 case 7: //chains
@@ -488,6 +497,11 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                         else //kamikaze squrrl streams
                         {
+                            targetPos = player.Center;
+                            targetPos.X += NPC.Center.X < player.Center.X ? -200 : 200;
+                            targetPos.Y -= 200;
+                            Movement(targetPos, 0.25f, 32f);
+
                             NPC.velocity *= 0.9f;
 
                             NPC.ai[1]++;

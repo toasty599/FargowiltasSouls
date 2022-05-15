@@ -1557,6 +1557,7 @@ timber
 	lesser squrrls move more aggressively in emode
 	support palm trees are maso only
 	jump explosion doing damage is maso only
+	lesser squrrls create empress' homing bolt on death
 	buffed hp
 	nerfed damage
 timber head

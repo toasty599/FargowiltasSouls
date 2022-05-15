@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Squirrel Hook");
-            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 4800;
         }
 
         public override void SetDefaults()
@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             if (!Projectile.tileCollide && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
                 Projectile.tileCollide = true;
 
-            Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2;
+            Projectile.rotation = Projectile.DirectionFrom(npc.Center).ToRotation() + (float)Math.PI / 2;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

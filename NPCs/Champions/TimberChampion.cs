@@ -660,6 +660,8 @@ namespace FargowiltasSouls.NPCs.Champions
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.Guilty>(), 600);
         }
 
+        bool spawnPhase2 => Main.expertMode;
+
         public override void HitEffect(int hitDirection, double damage)
         {
             if (NPC.life <= 0)
@@ -671,14 +673,54 @@ namespace FargowiltasSouls.NPCs.Champions
                         Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"TimberGore{i}").Type, NPC.scale);
                 }
 
-                if (Main.expertMode)
+                if (spawnPhase2)
                     FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromAI(), NPC.Center, ModContent.NPCType<TimberChampionHead>(), NPC.whoAmI, target: NPC.target);
+
+                FargoSoulsUtil.GrossVanillaDodgeDust(NPC);
+
+                for (int i = 0; i < 6; i++)
+                    ExplodeDust(NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)));
+            }
+        }
+
+        private void ExplodeDust(Vector2 center)
+        {
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, center, 14);
+
+            const int width = 32;
+            const int height = 32;
+
+            Vector2 pos = center - new Vector2(width, height) / 2f;
+
+            for (int i = 0; i < 20; i++)
+            {
+                int dust = Dust.NewDust(pos, width, height, DustID.Smoke, 0f, 0f, 100, default(Color), 3f);
+                Main.dust[dust].velocity *= 1.4f;
+            }
+
+            for (int i = 0; i < 15; i++)
+            {
+                int dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 7f;
+
+                dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
+                Main.dust[dust].velocity *= 3f;
+            }
+
+            float scaleFactor9 = 0.5f;
+            for (int j = 0; j < 3; j++)
+            {
+                int gore = Gore.NewGore(NPC.GetSource_FromThis(), center, default(Vector2), Main.rand.Next(61, 64));
+                Main.gore[gore].velocity *= scaleFactor9;
+                Main.gore[gore].velocity.X += 1f;
+                Main.gore[gore].velocity.Y += 1f;
             }
         }
 
         public override bool PreKill()
         {
-            return !FargoSoulsWorld.EternityMode;
+            return !spawnPhase2;
         }
 
         public override void BossLoot(ref string name, ref int potionType)

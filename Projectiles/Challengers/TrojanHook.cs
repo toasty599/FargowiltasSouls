@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Squirrel Hook");
-            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 4800;
         }
 
         public override void SetDefaults()
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             if (npc != null && dir != npc.direction)
             {
                 dir = npc.direction;
-                offset *= -1;
+                offset.X *= -1;
             }
         }
 

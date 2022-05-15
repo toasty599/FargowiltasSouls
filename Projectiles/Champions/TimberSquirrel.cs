@@ -44,6 +44,14 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (source is EntitySource_Parent parent && parent.Entity is NPC sourceNPC)
                 npc = sourceNPC;
+
+            for (int i = 0; i < 50; i++)
+            {
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WoodFurniture, Scale: 3f);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= 3f;
+                Main.dust[d].velocity += Projectile.velocity * Main.rand.NextFloat(9f);
+            }
         }
 
         public override void AI()
@@ -99,7 +107,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                         {
                             float ai0 = npc is NPC ? npc.whoAmI : -1;
                             
-                            const float speed = 16f / 5f;
+                            const float speed = 20f / 5f;
 
                             float rotationBaseOffset = MathHelper.TwoPi / max;
                             Vector2 vel = speed * (Projectile.rotation + rotationBaseOffset * i).ToRotationVector2();

@@ -7,6 +7,7 @@ using FargowiltasSouls.Projectiles.DeviBoss;
 using Terraria.GameContent.Bestiary;
 using System.Linq;
 using FargowiltasSouls.Projectiles.Champions;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -95,8 +96,19 @@ namespace FargowiltasSouls.NPCs.Champions
                 NPC npc = Main.npc.FirstOrDefault(n => n.active && (n.type == ModContent.NPCType<TimberChampion>() || n.type == ModContent.NPCType<TimberChampionHead>()));
                 if (p != -1 && npc is NPC)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 4f * NPC.DirectionTo(Main.player[p].Center),
-                        ModContent.ProjectileType<DeviLostSoul>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
+                    //Vector2 vel = 4f * NPC.DirectionTo(Main.player[p].Center);
+                    //int type = ModContent.ProjectileType<DeviLostSoul>();
+                    //float ai0 = 0;
+                    //float ai1 = 0;
+                    //if (npc.type == ModContent.NPCType<TimberChampionHead>())
+                    //{
+                    //    vel = 6f * -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver4);
+                    //    type = ProjectileID.HallowBossRainbowStreak;
+                    //    ai0 = npc.target;
+                    //    ai1 = Main.rand.NextFloat();
+                    //}
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 6f * -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver4),
+                        ProjectileID.HallowBossRainbowStreak, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer, npc.target, Main.rand.NextFloat());
                 }
             }
             return true;
@@ -107,7 +119,31 @@ namespace FargowiltasSouls.NPCs.Champions
             if (NPC.life <= 0)
             {
                 for (int k = 0; k < 20; k++)
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hitDirection, -1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hitDirection, -1f);
+
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
+
+                for (int i = 0; i < 20; i++)
+                {
+                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default(Color), 1.5f);
+                    Main.dust[dust].velocity *= 1.4f;
+                }
+
+                for (int i = 0; i < 10; i++)
+                {
+                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default(Color), 2.5f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 5f;
+                    dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default(Color), 1f);
+                    Main.dust[dust].velocity *= 3f;
+                }
+
+                for (int j = 0; j < 4; j++)
+                {
+                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default(Vector2), Main.rand.Next(61, 64));
+                    Main.gore[gore].velocity *= 0.4f;
+                    Main.gore[gore].velocity += new Vector2(1f, 1f).RotatedBy(MathHelper.TwoPi / 4 * j);
+                }
 
                 if (!Main.dedServ)
                 {
