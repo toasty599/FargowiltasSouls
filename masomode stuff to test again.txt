@@ -1586,3 +1586,4 @@ dreadnaut
 after arms gone, trojan jumps now aim ahead of you and more explosion
 
 fixed aeolus/supersonic flower boots not working
+fixed stardust tower using the wrong debuff set
