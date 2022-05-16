@@ -60,8 +60,12 @@ Increases jump height and negates fall damage
             player.accFlipper = true;
 
             //fairy boot
-            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoAeolusFlower"))
+            if (!player.flowerBoots && player.GetToggleValue("MasoAeolusFlower"))
+            {
                 player.flowerBoots = true;
+                if (player.whoAmI == Main.myPlayer)
+                    player.DoBootsEffect(new Utils.TileActionAttempt(player.DoBootsEffect_PlaceFlowersOnTile));
+            }
 
             //dunerider boot
             player.desertBoots = true;

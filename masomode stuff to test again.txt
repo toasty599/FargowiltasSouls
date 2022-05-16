@@ -1584,3 +1584,5 @@ dreadnaut
 	can eat ANY enemy with 1500 or less max life after you soften them up
 	shots make blood fountains
 after arms gone, trojan jumps now aim ahead of you and more explosion
+
+fixed aeolus/supersonic flower boots not working
