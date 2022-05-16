@@ -1590,3 +1590,7 @@ fixed stardust tower using the wrong debuff set
 town npc projs cannot use your tungsten
 adam ench base checks changed, now applies to projs spawned by your weapon and also minion shots
 adam ench is now a straight -50%, was -33%
+boulder inflicts defenseless
+explosives inflicts stunned
+super dart trap, spear trap, spiky ball trap inflict ivy venom
+fixed sibling spawners and squirrel coat of arms not working in mp sometimes

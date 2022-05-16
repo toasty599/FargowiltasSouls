@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.NPCs.DeviBoss;
 
 namespace FargowiltasSouls.Items.Summons
 {
@@ -39,16 +40,7 @@ namespace FargowiltasSouls.Items.Summons
 
         public override bool? UseItem(Player player)
         {
-            int deviantt = ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) ? NPC.FindFirstNPC(modNPC.Type) : -1;
-            if (deviantt > -1 && Main.npc[deviantt].active)
-            {
-                Main.npc[deviantt].Transform(ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
-                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}", new Color(175, 75, 255));
-            }
-            else
-            {
-                NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
-            }
+            FargoSoulsUtil.SpawnBossTryFromNPC(player.whoAmI, "Fargowiltas/Deviantt", ModContent.NPCType<DeviBoss>());
             return true;
         }
 

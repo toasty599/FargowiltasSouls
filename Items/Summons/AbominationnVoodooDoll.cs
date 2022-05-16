@@ -50,23 +50,16 @@ namespace FargowiltasSouls.Items.Summons
         {
             if (Item.lavaWet)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient
-                    && ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC a)
-                    && ModContent.TryFind("Fargowiltas", "Mutant", out ModNPC m))
+                if (Main.netMode != NetmodeID.MultiplayerClient && ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC a))
                 {
+                    int p = Player.FindClosest(Item.Center, 0, 0);
                     NPC abom = FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(a.Type));
-                    NPC mutant = FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(m.Type));
-
-                    if (abom != null)
+                    if (p != -1 && abom != null)
                     {
+                        abom.life = 0;
                         abom.StrikeNPC(9999, 0f, 0);
 
-                        if (mutant != null)
-                        {
-                            mutant.Transform(ModContent.NPCType<MutantBoss>());
-
-                            FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}", new Color(175, 75, 255));
-                        }
+                        FargoSoulsUtil.SpawnBossTryFromNPC(p, "Fargowiltas/Mutant", ModContent.NPCType<MutantBoss>());
                     }
 
                     Item.active = false;

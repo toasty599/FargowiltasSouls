@@ -516,6 +516,41 @@ namespace FargowiltasSouls
                 && !(IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
         }
 
+        public static void SpawnBossTryFromNPC(int playerTarget, int originalType, int bossType)
+        {
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                var packet = FargowiltasSouls.Instance.GetPacket();
+                packet.Write((byte)FargowiltasSouls.PacketID.SpawnBossTryFromNPC);
+                packet.Write(playerTarget);
+                packet.Write(originalType);
+                packet.Write(bossType);
+                return;
+            }
+
+            NPC npc = NPCExists(NPC.FindFirstNPC(originalType));
+            if (npc != null)
+            {
+                Vector2 pos = npc.Bottom;
+                npc.Transform(bossType);
+                npc.Bottom = pos;
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
+
+                PrintText($"{npc.GivenOrTypeName} {Language.GetTextValue("Mods.FargowiltasSouls.Message.HasAwoken")}");
+            }
+            else
+            {
+                NPC.SpawnOnPlayer(playerTarget, bossType);
+            }
+        }
+
+        public static void SpawnBossTryFromNPC(int playerTarget, string originalType, int bossType)
+        {
+            int type = ModContent.TryFind(originalType, out ModNPC modNPC) ? modNPC.Type : 0;
+            SpawnBossTryFromNPC(playerTarget, type, bossType);
+        }
+
         #region npcloot
 
         public static bool LockEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)

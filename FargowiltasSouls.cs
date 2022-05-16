@@ -835,7 +835,8 @@ namespace FargowiltasSouls
             SyncFishronEXLife,
             SyncTogglesOnJoin,
             SyncOneToggle,
-            SyncCanPlayMaso
+            SyncCanPlayMaso,
+            SpawnBossTryFromNPC
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -972,6 +973,16 @@ namespace FargowiltasSouls
                         if (Main.netMode == NetmodeID.Server)
                         {
                             FargoSoulsWorld.CanPlayMaso = reader.ReadBoolean();
+                        }
+                        break;
+
+                    case PacketID.SpawnBossTryFromNPC:
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            int p = reader.ReadInt32();
+                            int originalType = reader.ReadInt32();
+                            int bossType = reader.ReadInt32();
+                            FargoSoulsUtil.SpawnBossTryFromNPC(p, originalType, bossType);
                         }
                         break;
 

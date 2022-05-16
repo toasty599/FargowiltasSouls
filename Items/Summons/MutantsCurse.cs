@@ -37,18 +37,7 @@ namespace FargowiltasSouls.Items.Summons
 
         public override bool? UseItem(Player player)
         {
-            int mutant = ModContent.TryFind("Fargowiltas", "Mutant", out ModNPC modNPC) ? NPC.FindFirstNPC(modNPC.Type) : -1;
-
-            if (mutant > -1 && Main.npc[mutant].active)
-            {
-                Main.npc[mutant].Transform(ModContent.NPCType<MutantBoss>());
-                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}", 175, 75, 255);
-            }
-            else
-            {
-                NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<MutantBoss>());
-            }
-
+            FargoSoulsUtil.SpawnBossTryFromNPC(player.whoAmI, "Fargowiltas/Mutant", ModContent.NPCType<MutantBoss>());
             return true;
         }
 

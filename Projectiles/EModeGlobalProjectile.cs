@@ -213,6 +213,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.FlamesTrap:
+                case ProjectileID.FlamethrowerTrap:
                     if (SourceNPC is NPC && SourceNPC.type == NPCID.Golem)
                         projectile.tileCollide = false;
                     break;
@@ -1168,7 +1169,17 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.Boulder:
-                    target.AddBuff(BuffID.BrokenArmor, 600);
+                    target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                    break;
+
+                case ProjectileID.Explosives:
+                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+                    break;
+
+                case ProjectileID.PoisonDartTrap:
+                case ProjectileID.SpearTrap:
+                case ProjectileID.SpikyBallTrap:
+                    target.AddBuff(ModContent.BuffType<IvyVenom>(), 360);
                     break;
 
                 case ProjectileID.JavelinHostile:
@@ -1396,6 +1407,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.FlamesTrap:
+                case ProjectileID.FlamethrowerTrap:
                 case ProjectileID.GeyserTrap:
                 case ProjectileID.Fireball:
                 case ProjectileID.EyeBeam:
