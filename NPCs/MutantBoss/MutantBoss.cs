@@ -17,6 +17,7 @@ using FargowiltasSouls.Items.Summons;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Materials;
+using FargowiltasSouls.Items.Placeables.Relics;
 using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Pets;
@@ -3357,6 +3358,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<MutantBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MutantTrophy>(), 10));
 
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<MutantRelic>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SpawnSack>(), 4));
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());

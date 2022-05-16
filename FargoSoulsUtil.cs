@@ -423,7 +423,7 @@ namespace FargowiltasSouls
             return ClosestPointInHitbox(entity.Hitbox, desiredLocation);
         }
 
-        public static void HeartDust(Vector2 position, float rotationOffset = MathHelper.PiOver2, Vector2 addedVel = default)
+        public static void HeartDust(Vector2 position, float rotationOffset = MathHelper.PiOver2, Vector2 addedVel = default, float spreadModifier = 1f, float scaleModifier = 1f)
         {
             for (float j = 0; j < MathHelper.TwoPi; j += MathHelper.ToRadians(360 / 60))
             {
@@ -433,9 +433,9 @@ namespace FargowiltasSouls
                 dustPos.Y *= -1;
                 dustPos = dustPos.RotatedBy(rotationOffset - MathHelper.PiOver2);
 
-                int d = Dust.NewDust(position, 0, 0, 86, 0);
-                Main.dust[d].velocity = dustPos * 0.25f + addedVel;
-                Main.dust[d].scale = 2f;
+                int d = Dust.NewDust(position, 0, 0, DustID.GemAmethyst, 0);
+                Main.dust[d].velocity = dustPos * 0.25f * spreadModifier + addedVel;
+                Main.dust[d].scale = 2f * scaleModifier;
                 Main.dust[d].noGravity = true;
             }
         }

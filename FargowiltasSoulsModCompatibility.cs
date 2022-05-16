@@ -2,7 +2,7 @@
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Pets;
-using FargowiltasSouls.Items.Placeables;
+using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.NPCs.AbomBoss;
 using FargowiltasSouls.NPCs.Challengers;
