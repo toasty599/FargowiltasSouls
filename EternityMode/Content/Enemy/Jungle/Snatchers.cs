@@ -39,8 +39,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
         {
             base.SetDefaults(npc);
 
+            npc.damage = (int)(2.0 / 3.0 * npc.damage);
+
             npc.buffImmune[BuffID.Poisoned] = true;
             npc.buffImmune[BuffID.Venom] = true;
+
         }
 
         public override void AI(NPC npc)

@@ -1597,3 +1597,4 @@ fixed sibling spawners and squirrel coat of arms not working in mp sometimes
 refactored trophies
 added mutant relic
 leash has actual usetime now (previously always took 5 ticks to reuse no matter what)
+man eaters, snatchers, angry trappers have -33% damage to compensate their grab
