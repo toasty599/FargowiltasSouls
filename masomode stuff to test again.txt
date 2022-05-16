@@ -1595,3 +1595,4 @@ explosives inflicts stunned
 super dart trap, spear trap, spiky ball trap inflict ivy venom
 fixed sibling spawners and squirrel coat of arms not working in mp sometimes
 refactored trophies
+added mutant relic

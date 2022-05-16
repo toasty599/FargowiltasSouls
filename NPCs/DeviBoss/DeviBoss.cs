@@ -11,7 +11,7 @@ using FargowiltasSouls.Projectiles.DeviBoss;
 using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Items.Placeables;
+using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.ItemDropRules.Conditions;

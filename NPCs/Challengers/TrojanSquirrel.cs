@@ -12,7 +12,7 @@ using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.DataStructures;
 using System.IO;
 using FargowiltasSouls.Items.Summons;
-using FargowiltasSouls.Items.Placeables;
+using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Items.Weapons.Challengers;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.BossBars;
