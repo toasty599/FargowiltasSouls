@@ -12,7 +12,6 @@ namespace FargowiltasSouls.Buffs.Masomode
             Description.SetDefault("Your muscles are deteriorating");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "萎缩");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的肌肉正在退化");
         }

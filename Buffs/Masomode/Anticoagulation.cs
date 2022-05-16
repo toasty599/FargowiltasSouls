@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "生命流失，受伤时鲜血四溅，敌怪会吸收你溅出的鲜血并变得更强");
 
             Main.debuff[Type] = true;
+            Main.pvpBuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

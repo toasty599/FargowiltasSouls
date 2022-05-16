@@ -12,7 +12,6 @@ namespace FargowiltasSouls.Buffs.Masomode
             Description.SetDefault("Your magic weapons cost life instead of mana");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "反魔力流");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "魔法武器消耗生命,而不是法力");
         }
