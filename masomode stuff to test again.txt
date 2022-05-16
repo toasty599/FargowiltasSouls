@@ -1599,3 +1599,4 @@ added mutant relic
 leash has actual usetime now (previously always took 5 ticks to reuse no matter what)
 man eaters, snatchers, angry trappers have -33% damage to compensate their grab
 fixed eternia crystal still dying while you fight betsy
+spider ench no longer has silent crit chance nerf, instead it reduces summon crit damage multiplier

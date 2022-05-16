@@ -84,7 +84,7 @@ namespace FargowiltasSouls
         public static int ActualClassCrit(this Player player, DamageClass damageClass)
         {
             if (damageClass == DamageClass.Summon)
-                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + (int)player.GetCritChance(DamageClass.Generic) / (player.GetModPlayer<FargoSoulsPlayer>().LifeForce ? 1 : 2);
+                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + (int)player.GetCritChance(DamageClass.Generic);
 
             if (damageClass == DamageClass.Default)
                 return 0;
