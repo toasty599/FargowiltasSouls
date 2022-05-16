@@ -2117,7 +2117,7 @@ namespace FargowiltasSouls
                     damage *= 5;
                 else if (UniverseCore)
                     damage = (int)Math.Round(damage * 2.5);
-                else if (SpiderEnchantActive && damageClass == DamageClass.Summon)
+                else if (SpiderEnchantActive && damageClass == DamageClass.Summon && !TerrariaSoul)
                     damage = (int)Math.Round(damage * (LifeForce ? 0.75 : 0.625));
                 else if (DeerSinewNerf)
                     damage = (int)Math.Round(damage * 0.75);
