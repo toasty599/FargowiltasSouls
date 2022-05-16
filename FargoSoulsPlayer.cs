@@ -562,6 +562,7 @@ namespace FargowiltasSouls
                     cooldownInSeconds = 40;
                 if (Eternity)
                     cooldownInSeconds = 30;
+                Player.ClearBuff(ModContent.BuffType<TimeFrozen>());
                 Player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
                 FreezeTime = true;
                 freezeLength = TIMESTOP_DURATION;
