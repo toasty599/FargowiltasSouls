@@ -505,6 +505,17 @@ namespace FargowiltasSouls
             }
         }
 
+        public static bool OnSpawnEnchCanAffectProjectile(Projectile projectile, IEntitySource source)
+        {
+            return projectile.friendly
+                && projectile.damage > 0
+                && !projectile.hostile
+                && !projectile.npcProj
+                && !projectile.trap
+                && projectile.DamageType != DamageClass.Default
+                && !(IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
+        }
+
         #region npcloot
 
         public static bool LockEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)

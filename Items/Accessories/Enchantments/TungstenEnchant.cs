@@ -6,6 +6,7 @@ using Terraria.Localization;
 using System.Collections.Generic;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Projectiles;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -88,17 +89,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                 || projectile.type == ProjectileID.PiercingStarlight;
         }
 
-        public static bool TungstenCanAffectProj(Projectile projectile)
-        {
-            return projectile.friendly
-                && projectile.aiStyle != 99
-                && projectile.damage != 0
-                && !projectile.npcProj
-                && !projectile.trap
-                && !(FargoSoulsUtil.IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
-        }
-
-        public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer, Projectile sourceProj)
+        public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer, IEntitySource source)
         {
             bool canAffect = false;
             bool hasCD = true;
@@ -107,14 +98,14 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                 canAffect = true;
                 hasCD = false;
             }
-            else if (TungstenCanAffectProj(projectile))
+            else if (FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source))
             {
-                if (sourceProj == null)
+                if (source is EntitySource_ItemUse)
                 {
                     if (modPlayer.TungstenCD == 0)
                         canAffect = true;
                 }
-                else
+                else if (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj)
                 {
                     if (sourceProj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale != 1)
                     {

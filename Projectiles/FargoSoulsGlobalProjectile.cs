@@ -233,22 +233,25 @@ namespace FargowiltasSouls.Projectiles
                     break;
             }
 
-            if (modPlayer.AdamantiteEnchantActive && projectile.owner == Main.myPlayer
-                && source is EntitySource_ItemUse && player.GetToggleValue("Adamantite") && CanSplit
-                && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0
-                && Array.IndexOf(noSplit, projectile.type) <= -1
-                && !projectile.minion && !projectile.sentry && !ProjectileID.Sets.IsAWhip[projectile.type] && projectile.minionSlots == 0 && projectile.aiStyle != 19 && projectile.aiStyle != 99)
+            if (modPlayer.AdamantiteEnchantActive && player.GetToggleValue("Adamantite") 
+                && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source)
+                && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
             {
-                modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
-                if (modPlayer.AdamantiteCanSplit)
-                    AdamantiteEnchant.AdamantiteSplit(projectile);
-                else //cut damage anyway
-                    projectile.damage = (int)(projectile.damage * AdamantiteEnchant.ProjectileDamageRatio);
+                if (projectile.owner == Main.myPlayer)
+                {
+                    modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
+                    if (modPlayer.AdamantiteCanSplit)
+                        AdamantiteEnchant.AdamantiteSplit(projectile);
+                }
+                
+                //cut damage AFTERWARDS
+                //this is to avoid double dipping on it for the split projs
+                projectile.damage /= 2;
             }
 
-            if (modPlayer.TungstenEnchantActive && !projectile.npcProj && player.GetToggleValue("TungstenProj"))
+            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
             {
-                TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source is EntitySource_Parent parent && parent.Entity is Projectile proj ? proj : null);
+                TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source);
             }
         }
 

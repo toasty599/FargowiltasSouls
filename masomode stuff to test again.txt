@@ -1587,3 +1587,6 @@ after arms gone, trojan jumps now aim ahead of you and more explosion
 
 fixed aeolus/supersonic flower boots not working
 fixed stardust tower using the wrong debuff set
+town npc projs cannot use your tungsten
+adam ench base checks changed, now applies to projs spawned by your weapon and also minion shots
+adam ench is now a straight -50%, was -33%
