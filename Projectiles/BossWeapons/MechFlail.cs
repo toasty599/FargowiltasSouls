@@ -38,8 +38,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 return;
             }
 
-            Main.player[Projectile.owner].itemAnimation = 5;
-            Main.player[Projectile.owner].itemTime = 5;
+            Main.player[Projectile.owner].itemAnimation = Math.Max(Main.player[Projectile.owner].itemAnimation, 5);
+            Main.player[Projectile.owner].itemTime = Math.Max(Main.player[Projectile.owner].itemTime, 5);
 
             if (Projectile.alpha == 0)
             {
