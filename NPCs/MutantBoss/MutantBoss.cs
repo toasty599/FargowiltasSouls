@@ -3063,8 +3063,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int damage = FargoSoulsUtil.ScaledProjectileDamage(NPC.damage);
-                    if (FargoSoulsWorld.MasochistModeReal)
-                        damage /= 2; //because they inflict timestop instead.
                     SpawnSphereRing(10, 6f, damage, 0.5f);
                     SpawnSphereRing(10, 6f, damage, -.5f);
                 }
