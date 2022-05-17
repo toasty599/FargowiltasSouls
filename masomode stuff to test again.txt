@@ -1615,3 +1615,4 @@ deerclawps no longer makes forever spikes if you grapple mid-dash
 	known: makes a few spikes when you release hook
 	i dont care enough to fix this (the fix would prob break even more things)
 antisocial is now -90% summon damage multiplicative
+tried making hell npcs properly immune to on fire, test that they are
