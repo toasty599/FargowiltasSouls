@@ -1611,4 +1611,7 @@ refactor to death message from DOTs
 	shadowflame
 	nano injection
 updated localization files
+deerclawps no longer makes forever spikes if you grapple mid-dash
+	known: makes a few spikes when you release hook
+	i dont care enough to fix this (the fix would prob break even more things)
 antisocial is now -90% summon damage multiplicative

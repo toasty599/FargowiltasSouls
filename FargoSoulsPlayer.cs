@@ -1304,7 +1304,8 @@ namespace FargowiltasSouls
 
             if (DeerclawpsItem != null)
             {
-                if (Player.dashDelay == -1 || IsDashingTimer > 0)
+                //grapple check needed because grapple state extends dash state forever
+                if ((Player.dashDelay == -1 || IsDashingTimer > 0) && Player.grapCount <= 0)
                     DeerclawpsAttack(Player.Bottom);
             }
         }
