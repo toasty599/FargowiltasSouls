@@ -441,10 +441,10 @@ namespace FargowiltasSouls
 
             if (!FargoSoulsWorld.EternityMode)
                 return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
-
-            //all damage in ml fight inflicts debuff
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore) && Player.Distance(Main.npc[EModeGlobalNPC.moonBoss].Center) < 2500)
-                Player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
+            
+            //because NO MODIFY/ONHITPLAYER HOOK WORKS
+            if (damageSource.SourceProjectileType is int && damageSource.SourceProjectileType == ProjectileID.Explosives)
+                Player.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
 
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
         }

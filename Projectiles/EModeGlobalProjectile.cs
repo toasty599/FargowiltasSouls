@@ -1119,6 +1119,12 @@ namespace FargowiltasSouls.Projectiles
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
+            if (SourceNPC is NPC && SourceNPC.GetEModeNPCMod<MoonLordBodyPart>() is MoonLordBodyPart)
+                target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
+
+            //if (SourceNPC is NPC && SourceNPC.ModNPC is NPCs.MutantBoss.MutantBoss)
+            //    target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+
             switch (projectile.type)
             {
                 case ProjectileID.DD2ExplosiveTrapT3Explosion:
@@ -1170,10 +1176,6 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.Boulder:
                     target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                    break;
-
-                case ProjectileID.Explosives:
-                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
                     break;
 
                 case ProjectileID.PoisonDartTrap:

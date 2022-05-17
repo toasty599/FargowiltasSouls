@@ -161,6 +161,7 @@ namespace FargowiltasSouls.Projectiles
                             projectile.friendly = false;
                             projectile.hostile = true;
                             projectile.alpha = 0;
+                            DeletionImmuneRank = 1;
                         }
                     }
                     break;
