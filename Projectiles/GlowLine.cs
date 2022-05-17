@@ -560,6 +560,21 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 19: //timber head squrrl warning
+                    {
+                        color = new Color(93, 255, 241, 0) * 0.75f;
+                        alphaModifier = 1;
+                        Projectile.scale = 2f;
+
+                        maxTime = 20 * 2;
+                        if (counter < maxTime / 2) //effectively start at max brightness then fade
+                            counter = maxTime / 2;
+
+                        Projectile.position -= Projectile.velocity;
+                        Projectile.rotation = Projectile.velocity.ToRotation();
+                    }
+                    break;
+
                 default:
                     Main.NewText("glow line: you shouldnt be seeing this text, show terry");
                     break;

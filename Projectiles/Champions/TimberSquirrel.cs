@@ -94,8 +94,8 @@ namespace FargowiltasSouls.Projectiles.Champions
                     {
                         Projectile.localAI[0] = 15;
 
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath52, Projectile.Center);
-
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item157, Projectile.Center);
+                        
                         int lasersToAddPerAttack = 3;
 
                         int modifier = (int)Projectile.localAI[1]; //scale up to halfway

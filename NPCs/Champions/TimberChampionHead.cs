@@ -12,6 +12,7 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Projectiles.Challengers;
 using System.Linq;
+using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -165,22 +166,42 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (++NPC.ai[1] < 120)
                     {
-                        /*for (int i = 0; i < 5; i++) //warning dust
+                        if (NPC.ai[3] == 0)
                         {
-                            int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 16, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default, 1.5f);
-                            Main.dust[d].velocity *= 3f;
-                            Main.dust[d].noGravity = true;
-                        }*/
+                            if (NPC.ai[1] == 90) //telegraphs
+                            {
+                                NPC.velocity = Vector2.Zero;
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -Vector2.UnitY, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 19);
+                            }
+
+                            if (NPC.ai[1] > 90 && NPC.ai[1] % 3 == 0) //glow line tells
+                            {
+                                float current = NPC.ai[1] - 90;
+                                current /= 3;
+
+                                float offset = 16 * 12 * current;
+                                for (int i = -1; i <= 1; i += 2)
+                                {
+                                    Vector2 spawnPos = new Vector2(NPC.Center.X + offset * i, player.Center.Y + 1500);
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, -Vector2.UnitY, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 19);
+                                }
+                            }
+                        }
                     }
                     else if (NPC.ai[1] == 120)
                     {
-                        NPC.netUpdate = true;
+                        
                     }
                     else if (NPC.ai[1] < 270) //spam lasers everywhere
                     {
                         if (NPC.ai[3] == 0) //only if not flagged
                         {
-                            for (int i = 0; i < 8; i++)
+                            if (NPC.ai[1] % 3 == 0)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item157, NPC.Center);
+
+                            for (int i = 0; i < 5; i++)
                             {
                                 Vector2 spawnPos = player.Center;
                                 spawnPos.X += Main.rand.NextFloat(-1000, 1000);
