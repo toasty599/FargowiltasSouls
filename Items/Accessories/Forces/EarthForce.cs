@@ -25,13 +25,13 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             DisplayName.SetDefault("Force of Earth");
 
             Tooltip.SetDefault(
-$"[i:{ModContent.ItemType<CobaltEnchant>()}] 25% chance for your projectiles to explode into shards\n" +
+$"[i:{ModContent.ItemType<CobaltEnchant>()}] Grants an explosion jump and you explode on hit\n" +
 $"[i:{ModContent.ItemType<MythrilEnchant>()}] 20% increased weapon use speed\n" +
 $"[i:{ModContent.ItemType<PalladiumEnchant>()}] Greatly increases life regeneration after striking an enemy\n" +
 $"[i:{ModContent.ItemType<PalladiumEnchant>()}] You spawn an orb of damaging life energy every 80 life regenerated\n" +
 $"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Flower petals will cause extra damage to your target\n" +
 $"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Damaging debuffs deal 5x damage\n" +
-$"[i:{ModContent.ItemType<AdamantiteEnchant>()}] Every other projectile you spawn will split into 3\n" +
+$"[i:{ModContent.ItemType<AdamantiteEnchant>()}] Every weapon shot will split into 3, deal 50% damage and have 50% less iframes\n" +
 $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacking generates a defensive barrier of titanium shards\n" +
 "'Gaia's blessing shines upon you'");
 
@@ -61,13 +61,13 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacking generates a defensive b
                     modPlayer.AttackSpeed += .2f;
             }
             //shards
-            modPlayer.CobaltEnchantActive = true;
+            modPlayer.CobaltEnchantItem = Item;
             //regen on hit, heals
             modPlayer.PalladiumEffect();
             //fireballs and petals
             modPlayer.OrichalcumEffect();
-            AdamantiteEnchant.AdamantiteEffect(player);
-            TitaniumEnchant.TitaniumEffect(player);
+            AdamantiteEnchant.AdamantiteEffect(player, Item);
+            TitaniumEnchant.TitaniumEffect(player, Item);
         }
 
         public override void AddRecipes()

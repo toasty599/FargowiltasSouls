@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -15,8 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             DisplayName.SetDefault("Cobalt Enchantment");
             Tooltip.SetDefault(
-@"25% chance for your projectiles to explode into shards
-This can only happen once every second
+@"Grants an explosion jump
+When you are hurt, you violently explode to damage nearby enemies
 'I can't believe it's not Palladium'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钴蓝魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
@@ -37,7 +39,42 @@ This can only happen once every second
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CobaltEnchantActive = true;
+            player.GetModPlayer<FargoSoulsPlayer>().CobaltEnchantItem = Item;
+            AncientCobaltEnchant.AncientCobaltEffect(player, Item, 250);
+        }
+
+        public static void CobaltHurt(Player player, double damage)
+        {
+            if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer)
+            {
+                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+                int baseDamage = 50;
+                int multiplier = 2;
+                int cap = 150;
+
+                if (modPlayer.EarthForce)
+                {
+                    baseDamage = 50;
+                    multiplier = 4;
+                    cap = 250;
+                }
+
+                if (modPlayer.TerrariaSoul)
+                {
+                    baseDamage = 250;
+                    multiplier = 5;
+                    cap = 500;
+                }
+
+                int explosionDamage = baseDamage + (int)damage * multiplier;
+                if (explosionDamage > cap)
+                    explosionDamage = cap;
+
+                Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_Accessory(modPlayer.CobaltEnchantItem), player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.ActualClassDamage(DamageClass.Melee)), 0f, Main.myPlayer);
+                if (p != null)
+                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            }
         }
 
         public override void AddRecipes()
@@ -47,9 +84,8 @@ This can only happen once every second
             .AddIngredient(ItemID.CobaltBreastplate)
             .AddIngredient(ItemID.CobaltLeggings)
             .AddIngredient(null, "AncientCobaltEnchant")
-            //.AddIngredient(ItemID.Chik);
-            .AddIngredient(ItemID.CrystalStorm)
-            .AddIngredient(ItemID.CrystalVileShard)
+            .AddIngredient(ItemID.ScarabBomb, 10)
+            .AddIngredient(ItemID.DD2ExplosiveTrapT1Popper)
 
             .AddTile(TileID.CrystalBall)
             .Register();

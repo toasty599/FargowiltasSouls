@@ -695,7 +695,7 @@ namespace FargowiltasSouls
         }
 
         public bool CanJungleJump = false;
-        private bool jungleJumping = false;
+        public bool JungleJumping = false;
         private int savedRocketTime;
 
         public void JungleDash()
@@ -770,7 +770,7 @@ namespace FargowiltasSouls
                         Player.velocity.Y = -Player.jumpSpeed * Player.gravDir;
                         Player.jump = (int)((double)Player.jumpHeight * 3);
 
-                        jungleJumping = true;
+                        JungleJumping = true;
                         JungleCD = 0;
                         CanJungleJump = false;
 
@@ -780,7 +780,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (jungleJumping && Player.GetToggleValue("Jungle"))
+            if (JungleJumping && Player.GetToggleValue("Jungle"))
             {
                 if (Player.rocketBoots > 0)
                 {
@@ -817,7 +817,7 @@ namespace FargowiltasSouls
 
                 if (Player.jump == 0 || Player.velocity == Vector2.Zero)
                 {
-                    jungleJumping = false;
+                    JungleJumping = false;
                     Player.rocketTime = savedRocketTime;
                 }
             }
@@ -954,37 +954,7 @@ namespace FargowiltasSouls
             }
         }
 
-        public void MoltenHurt(double damage)
-        {
-            if (Player.GetToggleValue("MoltenE") && Player.whoAmI == Main.myPlayer)
-            {
-                int baseDamage = 50;
-                int multiplier = 2;
-                int cap = 150;
-
-                if (NatureForce)
-                {
-                    baseDamage = 50;
-                    multiplier = 4;
-                    cap = 250;
-                }
-
-                if (TerrariaSoul)
-                {
-                    baseDamage = 250;
-                    multiplier = 5;
-                    cap = 500;
-                }
-
-                int explosionDamage = baseDamage + (int)damage * multiplier;
-                if (explosionDamage > cap)
-                    explosionDamage = cap;
-
-                Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * Player.ActualClassDamage(DamageClass.Melee)), 0f, Main.myPlayer);
-                if (p != null)
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            }
-        }
+        
 
         public void NebulaEffect()
         {

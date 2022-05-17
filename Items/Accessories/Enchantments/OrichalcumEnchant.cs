@@ -46,13 +46,9 @@ Damaging debuffs deal 3x damage
             .AddRecipeGroup("FargowiltasSouls:AnyOriHead")
             .AddIngredient(ItemID.OrichalcumBreastplate)
             .AddIngredient(ItemID.OrichalcumLeggings)
-            //.AddIngredient(ItemID.OrichalcumWaraxe);
-            //ori sword
-            //flare gun
             .AddIngredient(ItemID.FlowerofFire)
             .AddIngredient(ItemID.FlowerofFrost)
             .AddIngredient(ItemID.CursedFlames)
-            //flamethrower
 
             .AddTile(TileID.CrystalBall)
             .Register();

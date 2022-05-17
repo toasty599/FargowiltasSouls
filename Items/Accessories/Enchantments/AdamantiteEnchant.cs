@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Adamantite Enchantment");
-            Tooltip.SetDefault("Every other weapon projectile you spawn will split into 3" +
-                "\nAll projectiles deal 66% damage" +
+            Tooltip.SetDefault("Every weapon shot will split into 3" +
+                "\nAll weapon shots deal 50% damage and have 50% less iframes" +
                 "\n'Chaos'");
 
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
@@ -37,31 +37,39 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            AdamantiteEffect(player);
+            AdamantiteEffect(player, Item);
         }
 
-        public static void AdamantiteEffect(Player player)
+        public static void AdamantiteEffect(Player player, Item item)
         {
             FargoSoulsPlayer modplayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modplayer.AdamantiteEnchantActive = true;
+            modplayer.AdamantiteEnchantItem = item;
         }
 
-        public static float ProjectileDamageRatio = 0.66f;
+        public static float ProjectileDamageRatio = 0.5f;
 
         public static void AdamantiteSplit(Projectile projectile)
         {
-            //FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
-            //modPlayer.AdamantiteCD = 60;
-            //if (modPlayer.Eternity)
-            //    modPlayer.AdamantiteCD = 0;
-            //else if (modPlayer.TerrariaSoul)
-            //    modPlayer.AdamantiteCD = 30;
-            //else if (modPlayer.EarthForce || modPlayer.WizardEnchantActive)
-            //    modPlayer.AdamantiteCD = 45;
+            float damageRatio = ProjectileDamageRatio;
 
-            float damageRatio = ProjectileDamageRatio; //projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
+            List<Projectile> projectiles = FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
+            projectiles.Add(projectile);
 
-            FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
+            foreach (Projectile proj in projectiles)
+            {
+                //standard iframes is 10
+                //half if they aready use local, otherwise do 5 (half of standard) ??
+                if (proj.usesLocalNPCImmunity)
+                {
+                    proj.localNPCHitCooldown /= 2;
+                }
+                else
+                {
+                    proj.usesLocalNPCImmunity = true;
+                    proj.localNPCHitCooldown = 5;
+                }
+            }
+
             projectile.damage = (int)(projectile.damage * damageRatio);
         }
 

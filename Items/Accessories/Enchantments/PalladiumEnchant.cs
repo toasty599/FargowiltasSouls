@@ -46,10 +46,8 @@ You spawn an orb of damaging life energy every 80 life regenerated
             .AddRecipeGroup("FargowiltasSouls:AnyPallaHead")
             .AddIngredient(ItemID.PalladiumBreastplate)
             .AddIngredient(ItemID.PalladiumLeggings)
-            .AddIngredient(ItemID.PalladiumSword)
+            .AddIngredient(ItemID.BatBat)
             .AddIngredient(ItemID.SoulDrain)
-            //sanguine staff
-            //.AddIngredient(ItemID.VampireKnives);
             .AddIngredient(ItemID.UndergroundReward)
 
             .AddTile(TileID.CrystalBall)

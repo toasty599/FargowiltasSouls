@@ -78,10 +78,26 @@ namespace FargowiltasSouls
         public bool PetsActive;
 
         #region enchantments
-        public bool AdamantiteEnchantActive;
-        //public int AdamantiteCD;
+        //force of earth
+        public Item AdamantiteEnchantItem;
         public bool AdamantiteCanSplit;
-        public bool AncientCobaltEnchantActive;
+        public Item CobaltEnchantItem;
+        public bool CanCobaltJump;
+        public bool JustCobaltJumped;
+        public bool MythrilEnchantActive;
+        public bool OriEnchantActive;
+        public bool PalladEnchantActive;
+        public int PalladCounter;
+        public Item TitaniumEnchantItem;
+
+
+
+
+
+
+
+
+
         public bool AncientHallowEnchantActive;
         public bool AncientShadowEnchantActive;
         public bool ApprenticeEnchantActive;
@@ -93,8 +109,7 @@ namespace FargowiltasSouls
         public int CactusProcCD;
         public bool ChloroEnchantActive;
         public Item ChloroEnchantItem;
-        public bool CobaltEnchantActive;
-        public int CobaltCD;
+        
         public bool CopperEnchantActive;
         public int CopperProcCD;
         public bool CrimsonEnchantActive;
@@ -134,7 +149,7 @@ namespace FargowiltasSouls
         public bool MonkEnchantActive;
         public int MonkDashing;
         private int monkTimer;
-        public bool MythrilEnchantActive;
+        
         public bool NecroEnchantActive;
         public int NecroCD;
         public bool NinjaEnchantActive;
@@ -144,10 +159,8 @@ namespace FargowiltasSouls
         public bool ObsidianEnchantActive;
         private int obsidianCD;
         public bool LavaWet;
-        public bool OriEnchantActive;
-        public bool PalladEnchantActive;
-        public int PalladCounter;
-        //private int palladiumCD;
+        
+        
         public bool PalmEnchantActive;
         public bool PearlwoodEnchantActive;
         public int PearlwoodCD;
@@ -661,7 +674,7 @@ namespace FargowiltasSouls
             FossilEnchantItem = null;
             JungleEnchantActive = false;
             ShroomEnchantActive = false;
-            CobaltEnchantActive = false;
+            CobaltEnchantItem = null;
             SpookyEnchantActive = false;
             NebulaEnchantActive = false;
             BeetleEnchantActive = false;
@@ -670,7 +683,7 @@ namespace FargowiltasSouls
             ChloroEnchantActive = false;
             ChloroEnchantItem = null;
             VortexEnchantActive = false;
-            AdamantiteEnchantActive = false;
+            AdamantiteEnchantItem = null;
             FrostEnchantActive = false;
             PalladEnchantActive = false;
             OriEnchantActive = false;
@@ -712,7 +725,7 @@ namespace FargowiltasSouls
             PearlwoodEnchantActive = false;
 
             RainEnchantActive = false;
-            AncientCobaltEnchantActive = false;
+            //AncientCobaltEnchantActive = false;
             AncientShadowEnchantActive = false;
             SquireEnchantActive = false;
             ApprenticeEnchantActive = false;
@@ -720,7 +733,7 @@ namespace FargowiltasSouls
             MonkEnchantActive = false;
             SnowEnchantActive = false;
             SnowVisual = false;
-
+            TitaniumEnchantItem = null;
 
             CosmoForce = false;
             EarthForce = false;
@@ -1093,8 +1106,8 @@ namespace FargowiltasSouls
                 GoldUpdate();
             }
 
-            if ((CobaltEnchantActive || AncientCobaltEnchantActive) && CobaltCD > 0)
-                CobaltCD--;
+            //if ((CobaltEnchantActive || AncientCobaltEnchantActive) && CobaltCD > 0)
+            //    CobaltCD--;
 
 
             if (LihzahrdTreasureBoxItem != null)
@@ -1291,7 +1304,7 @@ namespace FargowiltasSouls
                 Player.hasJumpOption_Fart = false;
                 Player.hasJumpOption_Sail = false;
                 Player.hasJumpOption_Unicorn = false;
-                jungleJumping = false;
+                JungleJumping = false;
                 CanJungleJump = false;
                 dashCD = 2;
                 IsDashingTimer = 0;
@@ -2166,10 +2179,6 @@ namespace FargowiltasSouls
         private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, DamageClass damageClass, Projectile projectile = null, Item item = null)
         {
 
-            //if (CactusEnchantActive)
-            //    target.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = true;
-
-
 
             if (StyxSet)
             {
@@ -2237,6 +2246,12 @@ namespace FargowiltasSouls
             {
                 ShadewoodEnchant.ShadewoodProc(this, target, projectile);
             }
+
+            if (TitaniumEnchantItem != null && (projectile == null || projectile.type != ProjectileID.TitaniumStormShard))
+            {
+                TitaniumEnchant.TitaniumShards(this, Player);
+            }
+
 
             if (Player.GetToggleValue("Obsidian") && ObsidianEnchantActive && obsidianCD == 0)
             {
@@ -2690,8 +2705,8 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (MoltenEnchantActive)
-                MoltenHurt(damage);
+            if (CobaltEnchantItem != null)
+                CobaltEnchant.CobaltHurt(Player, damage);
 
             if (FossilEnchantItem != null)
                 FossilEnchant.FossilHurt(this, (int)damage);

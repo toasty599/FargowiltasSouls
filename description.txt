@@ -61,12 +61,35 @@ Iron, Frost, Forbidden, Dark Artist, Crimson, Cobalt, Chlorophyte, Beetle, Appre
 -Betsy Dash, Gold Shell, and Turtle Shell now hide the player correctly
 -Ported Forces, SoT, SoE, and SoV 
 
-
+-Adamantite split now only affects projectiles directly fired by a weapon. No secondary splitting. Projectile damage nerf reduced from 50% to 66%. 
 
 
 
 fargotten land wip:
--Adamantite split now only affects projectiles directly fired by a weapon. No secondary splitting. Projectile damage nerf reduced from 50% to 66%. 
+
+
+-Adamantite Enchant: updated tooltip to be more clear, changed to every weapon shot being split, reduced projectile damage back to 50%, but also reduced these projectiles iframes. Additionally it will now work on yoyos
+-Ancient Cobalt rework: now grants an explosion jump, updated recipe
+-Cobalt rework: grants a bigger more deadly explosion jump (which also effects vertical wing acceleration), also grants explosion on hit, updated recipe
+-Molten Enchant: removed explosion on hit
+-Palladium Enchant, replaced Palldium Sword with Bat Bat in recipe
+-Titanium Enchant: now can grants up to 25 shards, updated recipe
+
+
+
+
+
+-Updated Force tooltips to match all new effects
+
+-Updated sprites for Tungsten, Cobalt, and Hallowed Enchants
+
+
+
+
+
+
+
+
 
 
 
