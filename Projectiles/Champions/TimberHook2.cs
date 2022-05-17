@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Squirrel Hook");
-            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 4800;
         }
 
         public override void SetDefaults()
@@ -23,7 +23,6 @@ namespace FargowiltasSouls.Projectiles.Champions
             Projectile.width = 18;
             Projectile.height = 18;
             Projectile.aiStyle = -1;
-            Projectile.timeLeft = 420;
             Projectile.hostile = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -44,23 +43,27 @@ namespace FargowiltasSouls.Projectiles.Champions
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
-        public override bool? CanDamage()
-        {
-            return Projectile.ai[1] == 1;
-        }
+        public override bool? CanDamage() => canHurt;
+
+        bool canHurt => Projectile.ai[1] < 0;
 
         public override void AI()
         {
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
-            if (npc == null || !(npc.ai[0] == 7 || npc.ai[0] == 8))
+            if (npc == null)
             {
                 Projectile.Kill();
                 return;
             }
 
-            if (npc.ai[0] == 8) //deal damage
+            if (--Projectile.ai[1] < 0) //deal damage
             {
-                Projectile.ai[1] = 1;
+                if (Projectile.ai[1] < -120)
+                {
+                    Projectile.Kill();
+                    return;
+                }
+
                 Projectile.localAI[0] = npc.Center.X;
                 Projectile.localAI[1] = npc.Center.Y;
 
@@ -74,7 +77,8 @@ namespace FargowiltasSouls.Projectiles.Champions
                         offset = 0;
                     if (offset > distance)
                         offset = distance;
-                    int d = Dust.NewDust(Projectile.Center + direction * offset, 0, 0, 92, 0f, 0f, 0, default(Color), 0.8f);
+                    int d = Dust.NewDust(Projectile.Center + direction * offset, 0, 0, DustID.Frost);
+                    Main.dust[d].scale = 0.75f;
                     Main.dust[d].noGravity = true;
                 }
             }
@@ -85,17 +89,13 @@ namespace FargowiltasSouls.Projectiles.Champions
             if (!Projectile.tileCollide && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
                 Projectile.tileCollide = true;
 
-            Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2;
+            Projectile.rotation = Projectile.DirectionFrom(npc.Center).ToRotation() + (float)Math.PI / 2;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (Projectile.ai[1] == 1)
-            {
-                return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(),
-                    new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Projectile.Center);
-            }
-            return false;
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(),
+                new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Projectile.Center);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override bool PreDraw(ref Color lightColor)
         {
-            bool flashingZapEffect = Projectile.ai[1] == 1 && Projectile.timeLeft % 10 < 5;
+            bool flashingZapEffect = canHurt && Projectile.timeLeft % 10 < 5;
 
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
             if (npc != null && TextureAssets.Chain.IsLoaded)

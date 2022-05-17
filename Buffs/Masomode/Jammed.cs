@@ -12,7 +12,6 @@ namespace FargowiltasSouls.Buffs.Masomode
             Description.SetDefault("Your ranged weapons are faulty");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "卡壳");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的远程武器出故障了");
         }

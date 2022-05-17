@@ -22,13 +22,25 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
         public int Counter;
 
+        public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
+            new Dictionary<Ref<object>, CompoundStrategy> {
+                { new Ref<object>(Counter), IntStrategies.CompoundStrategy }
+            };
+
         public override void AI(NPC npc)
         {
             base.AI(npc);
 
-            if (++Counter > 180)
+            if (Counter == 180)
+            {
+                Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
+                FargoSoulsUtil.DustRing(npc.Center, 32, DustID.Teleporter, 5f, default, 2f);
+            }
+
+            if (++Counter > 240)
             {
                 Counter = 0;
+                NetSync(npc);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 800)
                 {

@@ -21,16 +21,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.BloodNautilus);
 
-        public bool StupidIdiotSquidsAreAround;
-
-        public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
-            new Dictionary<Ref<object>, CompoundStrategy> {
-                { new Ref<object>(StupidIdiotSquidsAreAround), BoolStrategies.CompoundStrategy },
-            };
-
         public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
-            if (npc.Distance(FargoSoulsUtil.ClosestPointInHitbox(target.Hitbox, npc.Center)) > npc.height / 2)
+            if (npc.ai[0] == 1)
                 return false;
 
             return base.CanHitPlayer(npc, target, ref CooldownSlot);
@@ -41,12 +34,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             if (!npc.HasValidTarget)
             {
                 npc.velocity.Y -= 1f;
-            }
-
-            if (npc.ai[1] == 0)
-            {
-                StupidIdiotSquidsAreAround = NPC.AnyNPCs(NPCID.BloodSquid);
-                NetSync(npc);
             }
 
             switch ((int)npc.ai[0])
@@ -71,12 +58,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                     }
                     else
                     {
-                        if (StupidIdiotSquidsAreAround)
-                            npc.position -= npc.velocity / 2;
-                        else if (!npc.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)
-                            npc.position -= npc.velocity / 4;
+                        if (npc.HasValidTarget)
+                            npc.position += Main.player[npc.target].position - Main.player[npc.target].oldPosition;
 
-                        if (npc.ai[1] % 2 == 0) //spawn thorn missiles on outside of spin
+                        //spawn thorn missiles on outside of spin
+                        if (npc.ai[1] % 2 == 0 && npc.Distance(FargoSoulsUtil.ClosestPointInHitbox(Main.player[npc.target], npc.Center)) > 30)
                         {
                             float rotation = npc.velocity.ToRotation();
                             float diff = MathHelper.WrapAngle(rotation - npc.DirectionTo(Main.player[npc.target].Center).ToRotation());
@@ -148,7 +134,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             }
 
             //suck in and kill blood squids
-            foreach (NPC n in Main.npc.Where(n => n.active && n.type == NPCID.BloodSquid && n.life < n.lifeMax * 0.6 && npc.Distance(n.Center) < 600))
+            foreach (NPC n in Main.npc.Where(n => n.active && !n.boss && n.lifeMax <= 1500 && n.life < n.lifeMax * 0.6 && npc.Distance(n.Center) < 600 && Collision.CanHitLine(n.Center, 0, 0, npc.Center, 0, 0)))
             {
                 if (npc.Distance(n.Center) < npc.width / 4)
                 {
@@ -169,19 +155,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                 else
                 {
                     n.position -= n.velocity;
-                    n.position += npc.velocity / 3;
-                    n.position += n.DirectionTo(npc.Center) * n.velocity.Length() * 1.5f;
+                    n.position += npc.velocity / 2;
+                    n.position += n.DirectionTo(npc.Center) * n.velocity.Length() * 2f;
                 }
             }
 
             return base.PreAI(npc);
-        }
-
-        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-        {
-            //if (StupidIdiotSquidsAreAround) damage *= 0.5;
-
-            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

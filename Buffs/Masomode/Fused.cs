@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             DisplayName.SetDefault("Fused");
             Description.SetDefault("You're going out with a bang");
             Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
+            Main.pvpBuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "导火线");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你和爆炸有个约会");
         }

@@ -30,13 +30,15 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
                 DD2Event.TimeLeftBetweenWaves = 600;
 
             //cant use HasValidTarget for this because that returns true even if betsy is targeting the crystal (npc.target seems to become -1)
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy) && Main.npc[EModeGlobalNPC.betsyBoss].HasPlayerTarget
-                && Main.player[Main.npc[EModeGlobalNPC.betsyBoss].target].active && !Main.player[Main.npc[EModeGlobalNPC.betsyBoss].target].dead && !Main.player[Main.npc[EModeGlobalNPC.betsyBoss].target].ghost
-                && npc.Distance(Main.player[Main.npc[EModeGlobalNPC.betsyBoss].target].Center) < 3000)
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
             {
-                InvulTimer = 30; //even if betsy targets crystal, wait before becoming fully vulnerable
-                if (npc.life < npc.lifeMax && npc.life < 500)
-                    npc.life++;
+                int p = npc.FindClosestPlayer(out float distanceToPlayer);
+                if (p != -1 && distanceToPlayer < 3000)
+                {
+                    InvulTimer = 30; //wait before becoming fully vulnerable
+                    if (npc.life < npc.lifeMax && npc.life < 500)
+                        npc.life++;
+                }
             }
 
             if (InvulTimer > 0)

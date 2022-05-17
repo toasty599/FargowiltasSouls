@@ -12,7 +12,6 @@ namespace FargowiltasSouls.Buffs.Masomode
             Description.SetDefault("The moon's wrath consumes you");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "月之诅咒");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "月亮的愤怒吞噬了你");
         }

@@ -121,8 +121,6 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.BloodShot:
-                case ProjectileID.BloodNautilusTears:
-                case ProjectileID.BloodNautilusShot:
                     projectile.tileCollide = false;
                     break;
 
@@ -215,6 +213,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.FlamesTrap:
+                case ProjectileID.FlamethrowerTrap:
                     if (SourceNPC is NPC && SourceNPC.type == NPCID.Golem)
                         projectile.tileCollide = false;
                     break;
@@ -1120,8 +1119,19 @@ namespace FargowiltasSouls.Projectiles
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
+            if (SourceNPC is NPC && SourceNPC.GetEModeNPCMod<MoonLordBodyPart>() is MoonLordBodyPart)
+                target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
+
+            //if (SourceNPC is NPC && SourceNPC.ModNPC is NPCs.MutantBoss.MutantBoss)
+            //    target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+
             switch (projectile.type)
             {
+                case ProjectileID.DD2ExplosiveTrapT3Explosion:
+                    if (SourceNPC is NPC && SourceNPC.type == ModContent.NPCType<TimberChampion>())
+                        target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
+                    break;
+
                 case ProjectileID.InsanityShadowHostile:
                 case ProjectileID.DeerclopsIceSpike:
                 case ProjectileID.DeerclopsRangedProjectile:
@@ -1165,7 +1175,13 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.Boulder:
-                    target.AddBuff(BuffID.BrokenArmor, 600);
+                    target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                    break;
+
+                case ProjectileID.PoisonDartTrap:
+                case ProjectileID.SpearTrap:
+                case ProjectileID.SpikyBallTrap:
+                    target.AddBuff(ModContent.BuffType<IvyVenom>(), 360);
                     break;
 
                 case ProjectileID.JavelinHostile:
@@ -1393,6 +1409,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.FlamesTrap:
+                case ProjectileID.FlamethrowerTrap:
                 case ProjectileID.GeyserTrap:
                 case ProjectileID.Fireball:
                 case ProjectileID.EyeBeam:
@@ -1591,6 +1608,24 @@ namespace FargowiltasSouls.Projectiles
             }
 
             return base.PreKill(projectile, timeLeft);
+        }
+
+        public override void Kill(Projectile projectile, int timeLeft)
+        {
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
+            switch (projectile.type)
+            {
+                case ProjectileID.BloodNautilusTears:
+                case ProjectileID.BloodNautilusShot:
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, Vector2.Zero, ModContent.ProjectileType<BloodFountain>(), projectile.damage, 0f, Main.myPlayer, Main.rand.Next(16, 48));
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         public override Color? GetAlpha(Projectile projectile, Color lightColor)

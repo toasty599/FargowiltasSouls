@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Squirrel Hook");
-            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 4800;
         }
 
         public override void SetDefaults()
@@ -28,12 +28,11 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         NPC npc;
         Vector2 offset;
+        int dir;
 
         public override void OnSpawn(IEntitySource source)
         {
@@ -41,6 +40,16 @@ namespace FargowiltasSouls.Projectiles.Challengers
             {
                 npc = sourceNPC;
                 offset = Projectile.Center - npc.Center;
+                dir = sourceNPC.direction;
+            }
+        }
+
+        public override void PostAI()
+        {
+            if (npc != null && dir != npc.direction)
+            {
+                dir = npc.direction;
+                offset.X *= -1;
             }
         }
 
@@ -120,10 +129,10 @@ namespace FargowiltasSouls.Projectiles.Challengers
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), ChainOrigin, Projectile.Center);
         }
 
+        protected virtual bool flashingZapEffect => FargoSoulsWorld.EternityMode && Projectile.timeLeft % 10 < 5;
+
         public override bool PreDraw(ref Color lightColor)
         {
-            bool flashingZapEffect = FargoSoulsWorld.EternityMode && Projectile.timeLeft % 10 < 5;
-
             if (npc != null && TextureAssets.Chain.IsLoaded)
             {
                 Texture2D texture = TextureAssets.Chain.Value;

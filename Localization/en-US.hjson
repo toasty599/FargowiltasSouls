@@ -195,6 +195,15 @@ Mods: {
 			GelatinSubjects: Gelatin Subjects have awoken!
 		}
 
+		DeathMessage: {
+			Rotting: rotted away.
+			Infested: could not handle the infection.
+			Anticoagulation: bled out.
+			DivineWrath: was annihilated by divine wrath.
+			Shadowflame: burned up in shadowy flames.
+			NanoInjection: was consumed from within by nanites.
+		}
+
 		DeviChatter: {
 			Spawn1: Heya! Mind if I come with?
 			Spawn2: I'll light your way!

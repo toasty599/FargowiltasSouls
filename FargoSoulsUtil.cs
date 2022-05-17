@@ -84,7 +84,7 @@ namespace FargowiltasSouls
         public static int ActualClassCrit(this Player player, DamageClass damageClass)
         {
             if (damageClass == DamageClass.Summon)
-                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + (int)player.GetCritChance(DamageClass.Generic) / (player.GetModPlayer<FargoSoulsPlayer>().LifeForce ? 1 : 2);
+                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + (int)player.GetCritChance(DamageClass.Generic);
 
             if (damageClass == DamageClass.Default)
                 return 0;
@@ -423,7 +423,7 @@ namespace FargowiltasSouls
             return ClosestPointInHitbox(entity.Hitbox, desiredLocation);
         }
 
-        public static void HeartDust(Vector2 position, float rotationOffset = MathHelper.PiOver2, Vector2 addedVel = default)
+        public static void HeartDust(Vector2 position, float rotationOffset = MathHelper.PiOver2, Vector2 addedVel = default, float spreadModifier = 1f, float scaleModifier = 1f)
         {
             for (float j = 0; j < MathHelper.TwoPi; j += MathHelper.ToRadians(360 / 60))
             {
@@ -433,9 +433,9 @@ namespace FargowiltasSouls
                 dustPos.Y *= -1;
                 dustPos = dustPos.RotatedBy(rotationOffset - MathHelper.PiOver2);
 
-                int d = Dust.NewDust(position, 0, 0, 86, 0);
-                Main.dust[d].velocity = dustPos * 0.25f + addedVel;
-                Main.dust[d].scale = 2f;
+                int d = Dust.NewDust(position, 0, 0, DustID.GemAmethyst, 0);
+                Main.dust[d].velocity = dustPos * 0.25f * spreadModifier + addedVel;
+                Main.dust[d].scale = 2f * scaleModifier;
                 Main.dust[d].noGravity = true;
             }
         }
@@ -468,6 +468,91 @@ namespace FargowiltasSouls
             return n;
         }
 
+        public static void AuraDust(Entity entity, float distance, int dustid, Color color = default, bool reverse = false, float dustScaleModifier = 1f)
+        {
+            const int baseDistance = 500;
+            const int baseMax = 20;
+
+            int dustMax = (int)(distance / baseDistance * baseMax);
+            if (dustMax < 10)
+                dustMax = 10;
+            if (dustMax > 40)
+                dustMax = 40;
+
+            float dustScale = distance / baseDistance;
+            if (dustScale < 0.75f)
+                dustScale = 0.75f;
+            if (dustScale > 2f)
+                dustScale = 2f;
+
+            for (int i = 0; i < dustMax; i++)
+            {
+                Vector2 spawnPos = entity.Center + Main.rand.NextVector2CircularEdge(distance, distance);
+                Vector2 offset = spawnPos - Main.LocalPlayer.Center;
+                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
+                    continue;
+                Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, dustid, 0, 0, 100, Color.White)];
+                dust.scale = dustScale * dustScaleModifier;
+                dust.velocity = entity.velocity;
+                if (Main.rand.NextBool(3))
+                {
+                    dust.velocity += Vector2.Normalize(entity.Center - dust.position) * Main.rand.NextFloat(5f) * (reverse ? -1f : 1f);
+                    dust.position += dust.velocity * 5f;
+                }
+                dust.noGravity = true;
+                if (color != default)
+                    dust.color = color;
+            }
+        }
+
+        public static bool OnSpawnEnchCanAffectProjectile(Projectile projectile, IEntitySource source)
+        {
+            return projectile.friendly
+                && projectile.damage > 0
+                && !projectile.hostile
+                && !projectile.npcProj
+                && !projectile.trap
+                && projectile.DamageType != DamageClass.Default
+                && !(IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
+        }
+
+        public static void SpawnBossTryFromNPC(int playerTarget, int originalType, int bossType)
+        {
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                var packet = FargowiltasSouls.Instance.GetPacket();
+                packet.Write((byte)FargowiltasSouls.PacketID.SpawnBossTryFromNPC);
+                packet.Write(playerTarget);
+                packet.Write(originalType);
+                packet.Write(bossType);
+                return;
+            }
+
+            NPC npc = NPCExists(NPC.FindFirstNPC(originalType));
+            if (npc != null)
+            {
+                Vector2 pos = npc.Bottom;
+                npc.Transform(bossType);
+                npc.Bottom = pos;
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
+
+                PrintText($"{npc.GivenOrTypeName} {Language.GetTextValue("Mods.FargowiltasSouls.Message.HasAwoken")}");
+            }
+            else
+            {
+                NPC.SpawnOnPlayer(playerTarget, bossType);
+            }
+        }
+
+        public static void SpawnBossTryFromNPC(int playerTarget, string originalType, int bossType)
+        {
+            int type = ModContent.TryFind(originalType, out ModNPC modNPC) ? modNPC.Type : 0;
+            SpawnBossTryFromNPC(playerTarget, type, bossType);
+        }
+
+        #region npcloot
+
         public static bool LockEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)
         {
             EModeEarlyBirdLockDropCondition lockCondition = new EModeEarlyBirdLockDropCondition();
@@ -497,6 +582,8 @@ namespace FargowiltasSouls
         {
             return new DropLocalPerClientAndResetsNPCMoneyTo0(itemType, 1, amount, amount, null);
         }
+
+        #endregion npcloot
 
         /// ALL below From BaseDrawing meme, only used in golem Gib?? prob destroy, update
 

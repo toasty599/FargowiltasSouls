@@ -68,12 +68,14 @@ Iron, Frost, Forbidden, Dark Artist, Crimson, Cobalt, Chlorophyte, Beetle, Appre
 fargotten land wip:
 
 
--Adamantite Enchant: updated tooltip to be more clear, changed to every weapon shot being split, reduced projectile damage back to 50%, but also reduced these projectiles iframes. Additionally it will now work on yoyos
+-Adamantite Enchant: updated tooltip to be more clear, changed to every weapon shot being split
 -Ancient Cobalt rework: now grants an explosion jump, updated recipe
 -Cobalt rework: grants a bigger more deadly explosion jump (which also effects vertical wing acceleration), also grants explosion on hit, updated recipe
 -Molten Enchant: removed explosion on hit
 -Palladium Enchant, replaced Palldium Sword with Bat Bat in recipe
 -Titanium Enchant: now can grants up to 25 shards, updated recipe
+-Meteor Enchant: updated recipe
+
 
 
 

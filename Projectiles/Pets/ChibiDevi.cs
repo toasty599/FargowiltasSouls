@@ -367,6 +367,13 @@ namespace FargowiltasSouls.Projectiles.Pets
                     Velocity = 7 * -Vector2.UnitY,
                     Color = Color.HotPink * 1.15f
                 }, pos);
+
+                //FargoSoulsUtil.HeartDust(
+                //    Projectile.Center, 
+                //    addedVel: 0.5f * new Vector2(7 * Projectile.direction, -7),
+                //    spreadModifier: 0.5f,
+                //    scaleModifier: 0.5f
+                //);
             }
         }
     }

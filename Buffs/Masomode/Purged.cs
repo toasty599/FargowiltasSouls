@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             DisplayName.SetDefault("Purged");
             Description.SetDefault("Dodge effects don't work");
             Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
+            Main.pvpBuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 

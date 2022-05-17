@@ -1409,7 +1409,6 @@ nerfs
 	spectre ench has a short cooldown on spawning spectres
 various refactors for accessory effects
 fixed ebon/shadewood ench auras not working properly when you hug a wall
-updated localization files
 landslide now orbits around you, should be less obtrusive to your vision when dodging
 deerclops sets night again while doing phase transition to help tp visual
 reverted iron ench recipe/effect, no more treasure magnet
@@ -1543,3 +1542,79 @@ removed maso doubling qs minion life which by extension doubled gelatin subject 
 fixed a compounding npc scaling issue that caused gelatin subject to have 4.5x its intended life in maso
 yes those stacked
 emode mana sickness is -33% speed, was -50%
+
+timber
+	gores updated
+	replaced old hook grab, it now swings on its hooks to ram you
+	emode snowballs are slower spread shot
+	emode acorns fire differently
+	refined movement
+	emode increases base speed
+	jump is faster in emode
+	can chain jump with explosions in emode
+	head appears in expert mode
+	lesser squrrls move more aggressively in emode
+	support palm trees are maso only
+	jump explosion doing damage is maso only
+	lesser squrrls create empress' homing bolt on death
+	buffed hp
+	nerfed damage
+timber head
+	nerfed hp
+	buffed damage
+	has an alt squirrel bomb attack
+	tree attack acorns no longer track your horiz speed
+	smaller despawn range in emode
+	made it move slower, mostly
+	spins around player while making electric chains in emode
+	acorn shot now combos into a snowball spread in emode
+	tracking snowball rain replaced with kamikaze squrrls in all modes below maso
+	trees spawn lesser squrrls in emode
+fire imps can spawn in hordes but only when youre in hell
+goblins no longer slide down when you die
+fixed zephyr boots falsely claiming to have frog legs effect
+projs on mutant slime safespot edges have consistent speed (should help see it moving in maso)
+undead miner attack rate nerfed and it telegraphs bomb toss
+fixed beetle ench stacking with beetle armor set bonus
+dreadnaut
+	no longer nerfed by blood squids
+	spin has perfect tracking on you
+	cant hurt you with contact damage during spin
+	can eat ANY enemy with 1500 or less max life after you soften them up
+	shots make blood fountains
+after arms gone, trojan jumps now aim ahead of you and more explosion
+
+fixed aeolus/supersonic flower boots not working
+fixed stardust tower using the wrong debuff set
+town npc projs cannot use your tungsten
+adam ench base checks changed, now applies to projs spawned by your weapon and also minion shots
+adam ench makes pierce hit twice as fast
+adam ench is now a straight -50%, was -33%
+to better interact with adam ench,
+	vortex ritual proj no longer splits
+	rockeater projs use local iframes
+boulder inflicts defenseless
+explosives inflicts stunned
+super dart trap, spear trap, spiky ball trap inflict ivy venom
+fixed sibling spawners and squirrel coat of arms not working in mp sometimes
+refactored trophies
+added mutant relic
+leash has actual usetime now (previously always took 5 ticks to reuse no matter what)
+man eaters, snatchers, angry trappers have -33% damage to compensate their grab
+fixed eternia crystal still dying while you fight betsy
+spider ench no longer has silent crit chance nerf, instead it reduces summon crit damage multiplier
+
+refactor to death message from DOTs
+	rotting
+	infested
+	god eater/mutant fang/curse of moon
+	shadowflame
+	nano injection
+updated localization files
+deerclawps no longer makes forever spikes if you grapple mid-dash
+	known: makes a few spikes when you release hook
+	i dont care enough to fix this (the fix would prob break even more things)
+antisocial is now -90% summon damage multiplicative
+tried making hell npcs properly immune to on fire, test that they are
+timber head repels from the squrrl laser orb (cant sit on it and block all lasers)
+timber has slight tells for the laser barrage

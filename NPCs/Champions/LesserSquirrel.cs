@@ -1,9 +1,13 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.DeviBoss;
 using Terraria.GameContent.Bestiary;
+using System.Linq;
+using FargowiltasSouls.Projectiles.Champions;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -41,22 +45,21 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.damage = 0;
             NPC.defense = 0;
             NPC.lifeMax = 1800;
-            //Main.npcCatchable[NPC.type] = true;
-            //NPC.catchItem = (short)ModContent.ItemType<TophatSquirrel>();
+            
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.value = 0f;
-            NPC.knockBackResist = .25f;
-            //banner = NPC.type;
-            //bannerItem = ModContent.ItemType<TophatSquirrelBanner>();
-
+            NPC.knockBackResist = .1f;
+            
             AnimationType = NPCID.Squirrel;
+
             NPC.aiStyle = 7;
             AIType = NPCID.Squirrel;
-
-            //NPCID.Sets.TownCritter[NPC.type] = true;
-
-            //NPC.closeDoor;
+            if (FargoSoulsWorld.EternityMode)
+            {
+                NPC.aiStyle = NPCAIStyleID.Herpling;
+                AIType = NPCID.Herpling;
+            }
 
             NPC.dontTakeDamage = true;
         }
@@ -64,11 +67,24 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void AI()
         {
             if (NPC.velocity.Y == 0)
-                NPC.dontTakeDamage = false;
+            {
+                if (!Main.projectile.Any(p => p.active && (p.type == ModContent.ProjectileType<TimberTree>() || p.type == ModContent.ProjectileType<TimberTreeAcorn>())))
+                    NPC.dontTakeDamage = false;
+            }
 
-            if (++counter > 600)
+            if (++counter > 900)
             {
                 NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+            }
+
+            if (!NPC.dontTakeDamage && FargoSoulsWorld.EternityMode)
+            {
+                Vector2 nextPos = NPC.position;
+                nextPos.X += NPC.velocity.X * 1.5f;
+                if (NPC.velocity.Y < 0)
+                    nextPos.Y += NPC.velocity.Y;
+                if (!Collision.SolidTiles(nextPos, NPC.width, NPC.height))
+                    NPC.position = nextPos;
             }
         }
 
@@ -77,11 +93,22 @@ namespace FargowiltasSouls.NPCs.Champions
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int p = Player.FindClosest(NPC.Center, 0, 0);
-                int n = NPC.FindFirstNPC(ModContent.NPCType<TimberChampion>());
-                if (p != -1 && n != -1)
+                NPC npc = Main.npc.FirstOrDefault(n => n.active && (n.type == ModContent.NPCType<TimberChampion>() || n.type == ModContent.NPCType<TimberChampionHead>()));
+                if (p != -1 && npc is NPC)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 4f * NPC.DirectionTo(Main.player[p].Center),
-                        ModContent.ProjectileType<DeviLostSoul>(), FargoSoulsUtil.ScaledProjectileDamage(Main.npc[n].damage), 0, Main.myPlayer);
+                    //Vector2 vel = 4f * NPC.DirectionTo(Main.player[p].Center);
+                    //int type = ModContent.ProjectileType<DeviLostSoul>();
+                    //float ai0 = 0;
+                    //float ai1 = 0;
+                    //if (npc.type == ModContent.NPCType<TimberChampionHead>())
+                    //{
+                    //    vel = 6f * -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver4);
+                    //    type = ProjectileID.HallowBossRainbowStreak;
+                    //    ai0 = npc.target;
+                    //    ai1 = Main.rand.NextFloat();
+                    //}
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 6f * -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver4),
+                        ProjectileID.HallowBossRainbowStreak, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer, npc.target, Main.rand.NextFloat());
                 }
             }
             return true;
@@ -90,8 +117,40 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void HitEffect(int hitDirection, double damage)
         {
             if (NPC.life <= 0)
+            {
                 for (int k = 0; k < 20; k++)
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hitDirection, -1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hitDirection, -1f);
+
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
+
+                for (int i = 0; i < 20; i++)
+                {
+                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default(Color), 1.5f);
+                    Main.dust[dust].velocity *= 1.4f;
+                }
+
+                for (int i = 0; i < 10; i++)
+                {
+                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default(Color), 2.5f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 5f;
+                    dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default(Color), 1f);
+                    Main.dust[dust].velocity *= 3f;
+                }
+
+                for (int j = 0; j < 4; j++)
+                {
+                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default(Vector2), Main.rand.Next(61, 64));
+                    Main.gore[gore].velocity *= 0.4f;
+                    Main.gore[gore].velocity += new Vector2(1f, 1f).RotatedBy(MathHelper.TwoPi / 4 * j);
+                }
+
+                if (!Main.dedServ)
+                {
+                    int g = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, Main.rand.NextFloat(6f) * -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver4), ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "TrojanSquirrelGore2" : "TrojanSquirrelGore2_2").Type, NPC.scale);
+                    Main.gore[g].rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+                }
+            }
         }
     }
 }

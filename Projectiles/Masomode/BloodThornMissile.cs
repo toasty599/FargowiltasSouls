@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override bool? CanDamage()
         {
-            if (Projectile.alpha > 0)
+            if (Projectile.alpha > 100)
                 return false;
 
             return base.CanDamage();

@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             DisplayName.SetDefault("Adamantite Enchantment");
             Tooltip.SetDefault("Every weapon shot will split into 3" +
-                "\nAll weapon shots deal 50% damage and have 50% less iframes" +
+                "\nAll weapon shots deal 50% damage and hit twice as fast" +
                 "\n'Chaos'");
 
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
@@ -46,31 +46,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             modplayer.AdamantiteEnchantItem = item;
         }
 
-        public static float ProjectileDamageRatio = 0.5f;
-
         public static void AdamantiteSplit(Projectile projectile)
         {
-            float damageRatio = ProjectileDamageRatio;
-
-            List<Projectile> projectiles = FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
-            projectiles.Add(projectile);
-
-            foreach (Projectile proj in projectiles)
-            {
-                //standard iframes is 10
-                //half if they aready use local, otherwise do 5 (half of standard) ??
-                if (proj.usesLocalNPCImmunity)
-                {
-                    proj.localNPCHitCooldown /= 2;
-                }
-                else
-                {
-                    proj.usesLocalNPCImmunity = true;
-                    proj.localNPCHitCooldown = 5;
-                }
-            }
-
-            projectile.damage = (int)(projectile.damage * damageRatio);
+            FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, 1f);
         }
 
         public override void AddRecipes()

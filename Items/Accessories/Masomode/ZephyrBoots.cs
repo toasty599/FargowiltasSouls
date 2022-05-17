@@ -14,7 +14,6 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             DisplayName.SetDefault("Zephyr Boots");
             Tooltip.SetDefault(@"Allows flight and super fast running
 8% increased movement speed
-Increases jump speed and allows auto-jump
 Allows the holder to double jump
 Increases jump height and negates fall damage
 'Run like the wind'");

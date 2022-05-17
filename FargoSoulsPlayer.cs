@@ -575,6 +575,7 @@ namespace FargowiltasSouls
                     cooldownInSeconds = 40;
                 if (Eternity)
                     cooldownInSeconds = 30;
+                Player.ClearBuff(ModContent.BuffType<TimeFrozen>());
                 Player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
                 FreezeTime = true;
                 freezeLength = TIMESTOP_DURATION;
@@ -1161,6 +1162,9 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
+            if (BeetleEnchantActive)
+                BeetleEffect();
+
             if (DarkenedHeartItem != null)
             {
                 if (!IsStillHoldingInSameDirectionAsMovement)
@@ -1313,7 +1317,8 @@ namespace FargowiltasSouls
 
             if (DeerclawpsItem != null)
             {
-                if (Player.dashDelay == -1 || IsDashingTimer > 0)
+                //grapple check needed because grapple state extends dash state forever
+                if ((Player.dashDelay == -1 || IsDashingTimer > 0) && Player.grapCount <= 0)
                     DeerclawpsAttack(Player.Bottom);
             }
         }
@@ -1518,7 +1523,6 @@ namespace FargowiltasSouls
                 KillPets();
                 Player.maxMinions = 0;
                 Player.maxTurrets = 0;
-                Player.GetDamage(DamageClass.Summon) -= .5f;
             }
             else if (WasAsocial) //should only occur when above debuffs end
             {
@@ -2126,6 +2130,8 @@ namespace FargowiltasSouls
                     damage *= 5;
                 else if (UniverseCore)
                     damage = (int)Math.Round(damage * 2.5);
+                else if (SpiderEnchantActive && damageClass == DamageClass.Summon && !TerrariaSoul)
+                    damage = (int)Math.Round(damage * (LifeForce ? 0.75 : 0.625));
                 else if (DeerSinewNerf)
                     damage = (int)Math.Round(damage * 0.75);
             }
@@ -2721,6 +2727,12 @@ namespace FargowiltasSouls
             GrazeCounter = 0;
         }
 
+        private PlayerDeathReason DeathByLocalization(string key)
+        {
+            string death = Language.GetTextValue($"Mods.FargowiltasSouls.DeathMessage.{key}");
+            return PlayerDeathReason.ByCustomReason($"{Player.name} {death}");
+        }
+
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             bool retVal = true;
@@ -2781,30 +2793,26 @@ namespace FargowiltasSouls
                 }
             }
 
-            //add more tbh
-            if (Infested && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
+            //killed by damage over time
+            if (damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
             {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " could not handle the infection.");
-            }
+                if (GodEater || FlamesoftheUniverse || CurseoftheMoon || MutantFang)
+                    damageSource = DeathByLocalization("DivineWrath");
 
-            if (Anticoagulation && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
-            {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " bled out.");
-            }
+                if (Infested)
+                    damageSource = DeathByLocalization("Infested");
 
-            if (Rotting && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
-            {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " rotted away.");
-            }
+                if (Anticoagulation)
+                    damageSource = DeathByLocalization("Anticoagulation");
 
-            if ((GodEater || FlamesoftheUniverse || CurseoftheMoon) && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
-            {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " was annihilated by divine wrath.");
-            }
+                if (Rotting)
+                    damageSource = DeathByLocalization("Rotting");
 
-            if (DeathMarked)
-            {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " was reaped by the cold hand of death.");
+                if (Shadowflame)
+                    damageSource = DeathByLocalization("Shadowflame");
+
+                if (NanoInjection)
+                    damageSource = DeathByLocalization("NanoInjection");
             }
 
             /*if (MutantPresence)

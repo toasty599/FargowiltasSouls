@@ -12,7 +12,7 @@ using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.DataStructures;
 using System.IO;
 using FargowiltasSouls.Items.Summons;
-using FargowiltasSouls.Items.Placeables;
+using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Items.Weapons.Challengers;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.BossBars;
@@ -422,13 +422,7 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                float offsetX = NPC.width;
-                                const float offsetY = 65;
-                                for (int i = -1; i <= 1; i++)
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(offsetX * i, -offsetY), Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
-                            }
+                            ExplodeAttack();
                         }
 
                         bool goFast = despawn || NPC.localAI[0] > 0;
@@ -550,16 +544,10 @@ namespace FargowiltasSouls.NPCs.Challengers
                         {
                             Vector2 distance = player.Top - NPC.Bottom;
 
-                            distance.X = distance.X / time;
-                            distance.Y = distance.Y / time - 0.5f * gravity * time;
-                            NPC.velocity = distance;
-
-                            NPC.netUpdate = true;
-
-                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
-
                             if (FargoSoulsWorld.EternityMode && arms == null)
                             {
+                                distance.X += NPC.width * Math.Sign(player.Center.X - NPC.Center.X);
+
                                 if (NPC.localAI[3] < 2)
                                 {
                                     NPC.localAI[3] = 2; //flag to stomp again on landing
@@ -567,14 +555,16 @@ namespace FargowiltasSouls.NPCs.Challengers
                                         NPC.localAI[3] += 2; //flag to do more stomps
                                 }
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    float offsetX = NPC.width;
-                                    const float offsetY = 65;
-                                    for (int i = -1; i <= 1; i++)
-                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(offsetX * i, -offsetY), Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
-                                }
+                                ExplodeAttack();
                             }
+
+                            distance.X = distance.X / time;
+                            distance.Y = distance.Y / time - 0.5f * gravity * time;
+                            NPC.velocity = distance;
+
+                            NPC.netUpdate = true;
+
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, NPC.Center, 14);
                         }
                         else
                         {
@@ -691,7 +681,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 if (wasImmune != NPC.dontTakeDamage)
                 {
                     for (int i = 0; i < 6; i++)
-                        Explode(NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)));
+                        ExplodeDust(NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)));
                 }
             }
             else
@@ -700,7 +690,19 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
         }
 
-        private void Explode(Vector2 center)
+        private void ExplodeAttack()
+        {
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                float offsetX = NPC.width;
+                const float offsetY = 65;
+                int max = FargoSoulsWorld.MasochistModeReal ? 4 : 2;
+                for (int i = -max; i <= max; i++)
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(offsetX * i, -offsetY), Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
+            }
+        }
+
+        private void ExplodeDust(Vector2 center)
         {
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, center, 14);
 

@@ -30,16 +30,7 @@ namespace FargowiltasSouls.Items.Summons
 
         public override bool? UseItem(Player player)
         {
-            int squrrl = ModContent.TryFind("Fargowiltas", "Squirrel", out ModNPC modNPC) ? NPC.FindFirstNPC(modNPC.Type) : -1;
-            if (squrrl > -1 && Main.npc[squrrl].active)
-            {
-                Main.npc[squrrl].Transform(ModContent.NPCType<TrojanSquirrel>());
-                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}", new Color(175, 75, 255));
-            }
-            else
-            {
-                NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<TrojanSquirrel>());
-            }
+            FargoSoulsUtil.SpawnBossTryFromNPC(player.whoAmI, "Fargowiltas/Squirrel", ModContent.NPCType<TrojanSquirrel>());
             return true;
         }
 

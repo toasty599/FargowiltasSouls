@@ -142,11 +142,10 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                         if (NPC.ai[1] == 10)
                         {
-                            //add a sfx here...
-
                             for (int i = 0; i < 2; i++)
                             {
                                 Vector2 pos = GetShootPos();
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, pos);
                                 for (int j = 0; j < 20; j++)
                                 {
                                     int d = Dust.NewDust(pos, 0, 0, DustID.SnowBlock, Scale: 3f);

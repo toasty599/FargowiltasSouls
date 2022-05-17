@@ -17,7 +17,8 @@ using FargowiltasSouls.Items.Summons;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Items.Placeables;
+using FargowiltasSouls.Items.Placeables.Relics;
+using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Pets;
 using Terraria.GameContent.Creative;
@@ -2391,8 +2392,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
 
                     //spawn right on safespot borders
-                    Slime(basePos + Vector2.UnitX * (NPC.localAI[0] + safeRange), yOffset, Vector2.UnitY * Main.rand.NextFloat(15f, 20f));
-                    Slime(basePos + Vector2.UnitX * (NPC.localAI[0] - safeRange), yOffset, Vector2.UnitY * Main.rand.NextFloat(15f, 20f));
+                    Slime(basePos + Vector2.UnitX * (NPC.localAI[0] + safeRange), yOffset, Vector2.UnitY * 20f);
+                    Slime(basePos + Vector2.UnitX * (NPC.localAI[0] - safeRange), yOffset, Vector2.UnitY * 20f);
                 }
             }
             if (++NPC.ai[1] > 180)
@@ -3063,8 +3064,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int damage = FargoSoulsUtil.ScaledProjectileDamage(NPC.damage);
-                    if (FargoSoulsWorld.MasochistModeReal)
-                        damage /= 2; //because they inflict timestop instead.
                     SpawnSphereRing(10, 6f, damage, 0.5f);
                     SpawnSphereRing(10, 6f, damage, -.5f);
                 }
@@ -3359,6 +3358,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<MutantBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MutantTrophy>(), 10));
 
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<MutantRelic>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SpawnSack>(), 4));
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());

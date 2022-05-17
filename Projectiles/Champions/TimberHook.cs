@@ -8,29 +8,23 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Champions
 {
-    public class TimberHook : ModProjectile
+    public class TimberHook : Challengers.TrojanHook
     {
         public override string Texture => "Terraria/Images/Projectile_13";
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Squirrel Hook");
-            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
-        }
-
         public override void SetDefaults()
         {
-            Projectile.width = 18;
-            Projectile.height = 18;
-            Projectile.aiStyle = -1;
-            Projectile.timeLeft = 240;
-            Projectile.hostile = true;
-            Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;
+            base.SetDefaults();
+
+            Projectile.extraUpdates = 2;
 
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
+
+        public override bool? CanDamage() => false;
+        protected override bool flashingZapEffect => false;
+
+        Vector2 oldPos;
 
         public override void AI()
         {
@@ -40,92 +34,55 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Projectile.Kill();
                 return;
             }
-            Player player = Main.player[npc.target];
 
-            const float speed = 24f;
+            Projectile.rotation = npc.DirectionTo(Projectile.Center).ToRotation() + MathHelper.PiOver2;
 
-            if (!npc.HasValidTarget)
+            if (--Projectile.ai[1] > 0)
             {
-                Projectile.velocity = Projectile.DirectionTo(npc.Center) * speed;
-                Projectile.ai[1] = 0;
-                return;
-            }
+                if (!Projectile.tileCollide && !Collision.SolidCollision(Projectile.Center, 0, 0))
+                    Projectile.tileCollide = true;
 
-            if (Projectile.ai[1] == 0)
-            {
-                Projectile.velocity = Projectile.DirectionTo(player.Center) * speed + player.velocity / 4f;
-                Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2;
-
-                if (Projectile.Distance(player.Center) < speed) //in range
-                {
-                    Projectile.ai[1] = 1;
-                    Projectile.netUpdate = true;
-                }
+                Projectile.velocity = npc.DirectionTo(Main.player[npc.target].Center) * Projectile.velocity.Length();
             }
             else
             {
-                Projectile.rotation = npc.DirectionTo(player.Center).ToRotation() + (float)Math.PI / 2;
+                Projectile.extraUpdates = 0;
+                Projectile.tileCollide = false;
+                Projectile.velocity = Vector2.Zero;
 
-                if (Projectile.Distance(player.Center) > 64) //out of range somehow
+                if (Projectile.localAI[0] == 0)
                 {
-                    Projectile.ai[1] = 0;
-                    Projectile.netUpdate = true;
-                }
-                else
-                {
-                    float dragSpeed = Projectile.Distance(npc.Center) / 50;
-                    
-                    player.position += Projectile.DirectionTo(npc.Center) * dragSpeed;
-                    Projectile.Center = player.Center - player.velocity;
+                    //flag to turn off y collision
+                    npc.localAI[0] = Math.Sign(Projectile.Center.X - npc.Center.X);
 
-                    if (Projectile.timeLeft == 1)
-                        player.velocity /= 3;
+                    Projectile.localAI[0] = 1;
+
+                    Projectile.localAI[1] = npc.DirectionTo(Projectile.Center).ToRotation();
                 }
+
+                if (Projectile.Distance(npc.Center) > 600)
+                    npc.localAI[0] = Math.Sign(Projectile.Center.X - npc.Center.X);
+
+                if (Math.Abs(MathHelper.WrapAngle(npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - npc.DirectionTo(Projectile.Center).ToRotation())) > MathHelper.PiOver2)
+                {
+                    Projectile.Kill();
+                    return;
+                }
+
+                Vector2 tug = 42f * npc.DirectionTo(Projectile.Center);
+                float lerp = Math.Min(npc.Distance(Projectile.Center) / 2400, 1f);
+                lerp = lerp * 0.8f + 0.2f;
+                lerp *= 0.06f;
+                npc.velocity = Vector2.Lerp(npc.velocity, tug, lerp);
+
+                if (Projectile.timeLeft > 180)
+                    Projectile.timeLeft = 180;
             }
         }
 
-        public override bool PreDraw(ref Color lightColor)
+        public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampion>());
-            if (npc != null && TextureAssets.Chain.IsLoaded)
-            {
-                Texture2D texture = TextureAssets.Chain.Value;
-                Vector2 position = Projectile.Center;
-                Vector2 mountedCenter = Main.npc[(int)Projectile.ai[0]].Center;
-                Rectangle? sourceRectangle = new Rectangle?();
-                Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
-                float num1 = texture.Height;
-                Vector2 vector24 = mountedCenter - position;
-                float rotation = (float)Math.Atan2(vector24.Y, vector24.X) - 1.57f;
-                bool flag = true;
-                if (float.IsNaN(position.X) && float.IsNaN(position.Y))
-                    flag = false;
-                if (float.IsNaN(vector24.X) && float.IsNaN(vector24.Y))
-                    flag = false;
-                while (flag)
-                    if (vector24.Length() < num1 + 1.0)
-                    {
-                        flag = false;
-                    }
-                    else
-                    {
-                        Vector2 vector21 = vector24;
-                        vector21.Normalize();
-                        position += vector21 * num1;
-                        vector24 = mountedCenter - position;
-                        Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
-                        color2 = Projectile.GetAlpha(color2);
-                        Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
-                    }
-            }
-
-            Texture2D texture2D13 = TextureAssets.Projectile[Projectile.type].Value;
-            int num156 = TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
-            Vector2 origin2 = rectangle.Size() / 2f;
-            SpriteEffects effects = SpriteEffects.None;
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+            Projectile.ai[1] = 0;
             return false;
         }
     }

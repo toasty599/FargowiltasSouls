@@ -294,7 +294,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         public override NPCMatcher CreateMatcher() =>
             new NPCMatcher().MatchType(NPCID.LunarTowerStardust);
 
-        public LunarTowerStardust() : base(ModContent.BuffType<ReverseManaFlow>(), 20) { }
+        public LunarTowerStardust() : base(ModContent.BuffType<Antisocial>(), 20) { }
 
         public override void ShieldsDownAI(NPC npc)
         {

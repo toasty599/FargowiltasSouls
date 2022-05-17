@@ -14,12 +14,12 @@ using FargowiltasSouls.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Buffs.Boss;
 using FargowiltasSouls.Items.BossBags;
+using FargowiltasSouls.Items.Placeables.Trophies;
 
 namespace FargowiltasSouls.NPCs.AbomBoss
 {
