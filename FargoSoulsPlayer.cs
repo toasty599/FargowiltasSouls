@@ -2712,6 +2712,12 @@ namespace FargowiltasSouls
             GrazeCounter = 0;
         }
 
+        private PlayerDeathReason DeathByLocalization(string key)
+        {
+            string death = Language.GetTextValue($"Mods.FargowiltasSouls.DeathMessage.{key}");
+            return PlayerDeathReason.ByCustomReason($"{Player.name} {death}");
+        }
+
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             bool retVal = true;
@@ -2772,30 +2778,20 @@ namespace FargowiltasSouls
                 }
             }
 
-            //add more tbh
-            if (Infested && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
+            //killed by damage over time
+            if (damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
             {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " could not handle the infection.");
-            }
+                if (GodEater || FlamesoftheUniverse || CurseoftheMoon || MutantFang)
+                    damageSource = DeathByLocalization("DivineWrath");
 
-            if (Anticoagulation && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
-            {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " bled out.");
-            }
+                if (Infested)
+                    damageSource = DeathByLocalization("Infested");
 
-            if (Rotting && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
-            {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " rotted away.");
-            }
+                if (Anticoagulation)
+                    damageSource = DeathByLocalization("Anticoagulation");
 
-            if ((GodEater || FlamesoftheUniverse || CurseoftheMoon) && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
-            {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " was annihilated by divine wrath.");
-            }
-
-            if (DeathMarked)
-            {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " was reaped by the cold hand of death.");
+                if (Rotting)
+                    damageSource = DeathByLocalization("Rotting");
             }
 
             /*if (MutantPresence)

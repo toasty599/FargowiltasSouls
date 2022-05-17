@@ -1409,7 +1409,6 @@ nerfs
 	spectre ench has a short cooldown on spawning spectres
 various refactors for accessory effects
 fixed ebon/shadewood ench auras not working properly when you hug a wall
-updated localization files
 landslide now orbits around you, should be less obtrusive to your vision when dodging
 deerclops sets night again while doing phase transition to help tp visual
 reverted iron ench recipe/effect, no more treasure magnet
@@ -1604,3 +1603,5 @@ leash has actual usetime now (previously always took 5 ticks to reuse no matter 
 man eaters, snatchers, angry trappers have -33% damage to compensate their grab
 fixed eternia crystal still dying while you fight betsy
 spider ench no longer has silent crit chance nerf, instead it reduces summon crit damage multiplier
+
+updated localization files
