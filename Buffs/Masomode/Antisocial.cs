@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Buffs.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Antisocial");
-            Description.SetDefault("You have no friends");
+            Description.SetDefault("You have no friends and no summon damage");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "反社交");
@@ -19,8 +19,10 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            //disables minions, disables pets, -50% minion dmg
+            //disables minions, disables pets
             player.GetModPlayer<FargoSoulsPlayer>().Asocial = true;
+
+            player.GetDamage(DamageClass.Summon) *= 0.1f;
         }
     }
 }

@@ -1611,3 +1611,4 @@ refactor to death message from DOTs
 	shadowflame
 	nano injection
 updated localization files
+antisocial is now -90% summon damage multiplicative

@@ -1509,7 +1509,6 @@ namespace FargowiltasSouls
                 KillPets();
                 Player.maxMinions = 0;
                 Player.maxTurrets = 0;
-                Player.GetDamage(DamageClass.Summon) -= .5f;
             }
             else if (WasAsocial) //should only occur when above debuffs end
             {
