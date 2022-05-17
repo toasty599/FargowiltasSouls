@@ -38,6 +38,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             Projectile.penetrate = -1;
             Projectile.scale = 0.5f;
 
+            Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().CanSplit = false;
             Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
             Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }

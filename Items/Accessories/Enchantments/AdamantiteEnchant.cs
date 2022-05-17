@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             DisplayName.SetDefault("Adamantite Enchantment");
             Tooltip.SetDefault("Every other weapon projectile you spawn will split into 3" +
+                "\nPiercing projectiles hit twice as fast" +
                 "\nAll projectiles deal 50% damage" +
                 "\n'Chaos'");
 

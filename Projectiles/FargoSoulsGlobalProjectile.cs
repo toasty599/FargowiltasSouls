@@ -35,6 +35,7 @@ namespace FargowiltasSouls.Projectiles
         private int numSplits = 1;
         public int stormTimer;
         public float TungstenScale = 1;
+        public bool AdamProj;
         public bool tikiMinion;
         private int tikiTimer = 300;
         public int shroomiteMushroomCD;
@@ -238,16 +239,14 @@ namespace FargowiltasSouls.Projectiles
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source)
                 && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
             {
-                if (projectile.owner == Main.myPlayer)
+                if (projectile.owner == Main.myPlayer && (source is EntitySource_ItemUse || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && FargoSoulsUtil.IsSummonDamage(sourceProj, false))))
                 {
                     modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
                     if (modPlayer.AdamantiteCanSplit)
                         AdamantiteEnchant.AdamantiteSplit(projectile);
                 }
                 
-                //cut damage AFTERWARDS
-                //this is to avoid double dipping on it for the split projs
-                projectile.damage /= 2;
+                AdamProj = true;
             }
 
             if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
@@ -1137,6 +1136,9 @@ namespace FargowiltasSouls.Projectiles
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
+            if (AdamProj)
+                damage /= 2;
+
             if (stormTimer > 0)
                 damage = (int)(damage * (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6 : 1.3));
 
@@ -1230,6 +1232,19 @@ namespace FargowiltasSouls.Projectiles
                 projectile.netUpdate = true;
 
                 //add stack of bleed
+            }
+
+            if (AdamProj && !projectile.usesLocalNPCImmunity)
+            {
+                if (projectile.usesIDStaticNPCImmunity)
+                {
+                    if (projectile.idStaticNPCHitCooldown > 1)
+                        Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] = Main.GameUpdateCount + (uint)projectile.idStaticNPCHitCooldown / 2;
+                }
+                else if (!noInteractionWithNPCImmunityFrames && target.immune[projectile.owner] > 1)
+                {
+                    target.immune[projectile.owner] /= 2;
+                }
             }
         }
 
