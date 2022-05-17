@@ -200,6 +200,8 @@ Mods: {
 			Infested: could not handle the infection.
 			Anticoagulation: bled out.
 			DivineWrath: was annihilated by divine wrath.
+			Shadowflame: burned up in shadowy flames.
+			NanoInjection: was consumed from within by nanites.
 		}
 
 		DeviChatter: {

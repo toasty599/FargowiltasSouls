@@ -2792,6 +2792,12 @@ namespace FargowiltasSouls
 
                 if (Rotting)
                     damageSource = DeathByLocalization("Rotting");
+
+                if (Shadowflame)
+                    damageSource = DeathByLocalization("Shadowflame");
+
+                if (NanoInjection)
+                    damageSource = DeathByLocalization("NanoInjection");
             }
 
             /*if (MutantPresence)
