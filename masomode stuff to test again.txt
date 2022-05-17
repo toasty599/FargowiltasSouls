@@ -1616,3 +1616,4 @@ deerclawps no longer makes forever spikes if you grapple mid-dash
 	i dont care enough to fix this (the fix would prob break even more things)
 antisocial is now -90% summon damage multiplicative
 tried making hell npcs properly immune to on fire, test that they are
+timber head repels from the squrrl laser orb (cant sit on it and block all lasers)

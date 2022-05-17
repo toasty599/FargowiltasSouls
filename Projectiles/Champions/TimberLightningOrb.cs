@@ -43,10 +43,15 @@ namespace FargowiltasSouls.Projectiles.Champions
             return Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) <= Projectile.width / 2;
         }
 
+        NPC npc;
+
         public override void OnSpawn(IEntitySource source)
         {
             if (!Main.dedServ)
                 Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(0.5f), Projectile.Center);
+
+            if (source is EntitySource_Parent parent && parent.Entity is NPC sourceNPC)
+                npc = sourceNPC;
         }
 
         public override void AI()
@@ -109,12 +114,20 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.dust[index2].position = Projectile.Center + vector2 * Projectile.scale;
                 Main.dust[index2].noGravity = true;
             }
+
+            //push head away from self
+            float distance = npc.width / 2 + Projectile.width;
+            if (Projectile.Distance(npc.Center) < distance)
+            {
+                Vector2 target = Projectile.Center + Projectile.DirectionTo(npc.Center) * distance;
+                npc.Center = Vector2.Lerp(npc.Center, target, 0.1f);
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Guilty>(), 300);
+                target.AddBuff(ModContent.BuffType<Guilty>(), 300);
         }
 
         public override Color? GetAlpha(Color lightColor)
