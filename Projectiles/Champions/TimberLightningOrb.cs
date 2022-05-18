@@ -54,7 +54,17 @@ namespace FargowiltasSouls.Projectiles.Champions
                 npc = sourceNPC;
         }
 
-        public override void AI()
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+            writer.Write(npc is NPC ? npc.whoAmI : -1);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+            npc = FargoSoulsUtil.NPCExists(reader.ReadInt32());
+		}
+
+		public override void AI()
         {
             Projectile.rotation += Main.rand.NextFloat(-0.2f, 0.2f);
 

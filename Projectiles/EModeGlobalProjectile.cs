@@ -14,6 +14,7 @@ using FargowiltasSouls.Projectiles.Champions;
 using FargowiltasSouls.NPCs.Champions;
 using Terraria.DataStructures;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
+using System.IO;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -27,6 +28,7 @@ namespace FargowiltasSouls.Projectiles
 
         private int counter;
         private bool altBehaviour;
+        private bool preAICheckDone;
         private bool firstTickAICheckDone;
 
         public NPC SourceNPC = null;
@@ -128,6 +130,14 @@ namespace FargowiltasSouls.Projectiles
                     projectile.extraUpdates = 1;
                     break;
 
+                case ProjectileID.FairyQueenLance: //these are here due to mp sync concerns and edge case on spawn
+                case ProjectileID.HallowBossLastingRainbow:
+                case ProjectileID.HallowBossRainbowStreak:
+                case ProjectileID.QueenSlimeSmash:
+                case ProjectileID.PhantasmalSphere:
+                    EModeCanHurt = false;
+                    break;
+
                 default:
                     break;
             }
@@ -158,75 +168,27 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
-                case ProjectileID.SharpTears:
-                case ProjectileID.JestersArrow:
-                case ProjectileID.MeteorShot:
-                case ProjectileID.ShadowFlame:
-                case ProjectileID.MoonlordBullet:
-                case ProjectileID.WaterBolt:
-                case ProjectileID.WaterStream:
-                case ProjectileID.DeathSickle:
-                case ProjectileID.IceSickle:
-                    if (SourceNPC is NPC && !SourceNPC.friendly && !SourceNPC.townNPC)
-                    {
-                        projectile.friendly = false;
-                        projectile.hostile = true;
-                        projectile.DamageType = DamageClass.Default;
-                    }
+                case ProjectileID.Meowmere:
+                    if (source is EntitySource_ItemUse && projectile.owner == Main.myPlayer)
+                        FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(30), 1f);
                     break;
 
-                case ProjectileID.CultistBossFireBall: //disable proj
-                    if (NonSwarmFight(NPCID.CultistBoss) && SourceNPC.GetEModeNPCMod<LunaticCultist>().EnteredPhase2)
-                    {
-                        projectile.timeLeft = 0;
-                        EModeCanHurt = false;
-                    }
+                case ProjectileID.FallingStar:
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+                        projectile.active = false;
                     break;
 
-                case ProjectileID.CultistBossFireBallClone: //disable proj
-                    if (NonSwarmFight(NPCID.CultistBoss))
-                    {
-                        projectile.timeLeft = 0;
-                        EModeCanHurt = false;
-                    }
+                case ProjectileID.VampireHeal:
+                    //each lifesteal hits timer again when above 33% life (total, halved lifesteal rate)
+                    if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 / 3)
+                        Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
+
+                    //each lifesteal hits timer again when above 33% life (stacks with above, total 1/3rd lifesteal rate)
+                    if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 * 2 / 3)
+                        Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
                     break;
 
-                case ProjectileID.PhantasmalBolt:
-                    if (!FargoSoulsWorld.MasochistModeReal && NonSwarmFight(NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye))
-                    {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            for (int i = -2; i <= 2; i++)
-                            {
-                                Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center,
-                                    1.5f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 / 2 * i),
-                                    ModContent.ProjectileType<PhantasmalBolt2>(), projectile.damage, 0f, Main.myPlayer);
-                            }
-                            projectile.Kill();
-                        }
-                    }
-                    break;
-
-                case ProjectileID.SharknadoBolt:
-                    if (SourceNPC is NPC && SourceNPC.type == NPCID.DukeFishron && SourceNPC.GetEModeNPCMod<DukeFishron>().IsEX)
-                        projectile.extraUpdates++;
-                    break;
-
-                case ProjectileID.FlamesTrap:
-                case ProjectileID.FlamethrowerTrap:
-                    if (SourceNPC is NPC && SourceNPC.type == NPCID.Golem)
-                        projectile.tileCollide = false;
-                    break;
-
-                case ProjectileID.QueenSlimeSmash:
-                    if (!FargoSoulsWorld.MasochistModeReal && NonSwarmFight(NPCID.QueenSlimeBoss))
-                    {
-                        projectile.timeLeft = 0;
-                        EModeCanHurt = false;
-                    }
-                    break;
-
-                case ProjectileID.DeerclopsIceSpike:
+                case ProjectileID.DeerclopsIceSpike: //note to future self: these are all mp compatible apparently?
                     if (FargoSoulsWorld.SwarmActive)
                         break;
 
@@ -276,8 +238,8 @@ namespace FargowiltasSouls.Projectiles
                                 float ai1 = 1.3f;
                                 if (SourceNPC.GetEModeNPCMod<Deerclops>().EnteredPhase2)
                                     ai1 = 1.35f; //triggers recursive ai
-                                //if (SourceNPC.GetEModeNPCMod<Deerclops>().EnteredPhase3 || FargoSoulsWorld.MasochistModeReal)
-                                //    ai1 = 1.4f;
+                                                 //if (SourceNPC.GetEModeNPCMod<Deerclops>().EnteredPhase3 || FargoSoulsWorld.MasochistModeReal)
+                                                 //    ai1 = 1.4f;
                                 Vector2 spawnPos = projectile.Center + 200 * Vector2.Normalize(projectile.velocity);
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -308,80 +270,20 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                case ProjectileID.HallowBossRainbowStreak:
-                    if (NonSwarmFight(NPCID.HallowBoss))
-                    {
-                        EModeCanHurt = false;
-
-                        if (FargoSoulsWorld.MasochistModeReal && SourceNPC.ai[0] != 8 && SourceNPC.ai[0] != 9)
-                            EModeCanHurt = true;
-
-                        if (SourceNPC.ai[0] == 12)
-                            projectile.velocity *= 0.7f;
-                    }
-                    break;
-
-                case ProjectileID.BloodShot:
-                    if (SourceNPC is NPC && SourceNPC.type == NPCID.BloodSquid)
-                        projectile.damage /= 2;
-                    break;
-
-                case ProjectileID.HallowBossLastingRainbow:
-                    if (NonSwarmFight(NPCID.HallowBoss))
-                    {
-                        EModeCanHurt = false;
-                        projectile.timeLeft += 60;
-                        projectile.localAI[1] = projectile.velocity.ToRotation();
-
-                        if (SourceNPC.ai[0] == 7 && SourceNPC.ai[1] >= 255 && SourceNPC.GetEModeNPCMod<EmpressofLight>().DoParallelSwordWalls)
-                            altBehaviour = true;
-                        else if (SourceNPC.GetEModeNPCMod<EmpressofLight>().AttackTimer == 1)
-                            projectile.localAI[0] = 1f;
-                    }
-                    break;
-
-                case ProjectileID.FairyQueenLance:
-                    EModeCanHurt = false;
-                    if (NonSwarmFight(NPCID.HallowBoss) && SourceNPC.ai[0] == 7)
-                    {
-                        if (SourceNPC.ai[1] < 255) //vanilla attack has random variation, purely visual
-                        {
-                            Vector2 appearVel = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2();
-                            appearVel *= 2f;
-                            projectile.position -= appearVel * 60f;
-                            projectile.velocity = appearVel;
-                        }
-                        else if (SourceNPC.GetEModeNPCMod<EmpressofLight>().DoParallelSwordWalls)
-                        {
-                            altBehaviour = true;
-                        }
-                    }
-                    break;
-
-                case ProjectileID.Meowmere:
-                    if (source is EntitySource_ItemUse)
-                        FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(30), 1f);
-                    break;
-
-                case ProjectileID.FallingStar:
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
-                        projectile.active = false;
-                    break;
-
-                case ProjectileID.VampireHeal:
-                    //each lifesteal hits timer again when above 33% life (total, halved lifesteal rate)
-                    if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 / 3)
-                        Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
-
-                    //each lifesteal hits timer again when above 33% life (stacks with above, total 1/3rd lifesteal rate)
-                    if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 * 2 / 3)
-                        Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
-                    break;
-
                 default:
                     break;
             }
         }
+
+        //public override void SendExtraAI(Projectile projectile, BinaryWriter writer)
+        //{
+        //    writer.Write(SourceNPC is NPC ? SourceNPC.whoAmI : -1);
+        //}
+
+        //public override void ReceiveExtraAI(Projectile projectile, BinaryReader reader)
+        //{
+        //    SourceNPC = FargoSoulsUtil.NPCExists(reader.ReadInt32());
+        //}
 
         public override bool CanHitPlayer(Projectile projectile, Player target)
         {
@@ -408,7 +310,133 @@ namespace FargowiltasSouls.Projectiles
         public override bool PreAI(Projectile projectile)
         {
             if (!FargoSoulsWorld.EternityMode)
+            {
+                preAICheckDone = true;
                 return base.PreAI(projectile);
+            }
+
+            if (!preAICheckDone)
+			{
+                preAICheckDone = true;
+
+                switch (projectile.type)
+				{
+                    case ProjectileID.SharpTears:
+                    case ProjectileID.JestersArrow:
+                    case ProjectileID.MeteorShot:
+                    case ProjectileID.ShadowFlame:
+                    case ProjectileID.MoonlordBullet:
+                    case ProjectileID.WaterBolt:
+                    case ProjectileID.WaterStream:
+                    case ProjectileID.DeathSickle:
+                    case ProjectileID.IceSickle:
+                        if (SourceNPC is NPC && !SourceNPC.friendly && !SourceNPC.townNPC)
+                        {
+                            projectile.friendly = false;
+                            projectile.hostile = true;
+                            projectile.DamageType = DamageClass.Default;
+                        }
+                        break;
+
+                    case ProjectileID.CultistBossFireBall: //disable proj
+                        if (NonSwarmFight(NPCID.CultistBoss) && SourceNPC.GetEModeNPCMod<LunaticCultist>().EnteredPhase2)
+                        {
+                            projectile.timeLeft = 0;
+                            EModeCanHurt = false;
+                        }
+                        break;
+
+                    case ProjectileID.CultistBossFireBallClone: //disable proj
+                        if (NonSwarmFight(NPCID.CultistBoss))
+                        {
+                            projectile.timeLeft = 0;
+                            EModeCanHurt = false;
+                        }
+                        break;
+
+                    case ProjectileID.PhantasmalBolt:
+                        if (!FargoSoulsWorld.MasochistModeReal && NonSwarmFight(NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye))
+                        {
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                for (int i = -2; i <= 2; i++)
+                                {
+                                    Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center,
+                                        1.5f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 / 2 * i),
+                                        ModContent.ProjectileType<PhantasmalBolt2>(), projectile.damage, 0f, Main.myPlayer);
+                                }
+                            }
+                            projectile.Kill();
+                        }
+                        break;
+
+                    case ProjectileID.SharknadoBolt:
+                        if (SourceNPC is NPC && SourceNPC.type == NPCID.DukeFishron && SourceNPC.GetEModeNPCMod<DukeFishron>().IsEX)
+                            projectile.extraUpdates++;
+                        break;
+
+                    case ProjectileID.QueenSlimeSmash:
+                        if (!FargoSoulsWorld.MasochistModeReal && NonSwarmFight(NPCID.QueenSlimeBoss))
+                        {
+                            projectile.timeLeft = 0;
+                            EModeCanHurt = false;
+                        }
+                        else
+						{
+                            EModeCanHurt = true;
+						}
+                        break;
+
+                    case ProjectileID.HallowBossRainbowStreak:
+                        if (NonSwarmFight(NPCID.HallowBoss))
+                        {
+                            if (FargoSoulsWorld.MasochistModeReal && SourceNPC.ai[0] != 8 && SourceNPC.ai[0] != 9)
+                                EModeCanHurt = true;
+
+                            if (SourceNPC.ai[0] == 12)
+                                projectile.velocity *= 0.7f;
+                        }
+                        break;
+
+                    case ProjectileID.BloodShot:
+                        if (SourceNPC is NPC && SourceNPC.type == NPCID.BloodSquid)
+                            projectile.damage /= 2;
+                        break;
+
+                    case ProjectileID.HallowBossLastingRainbow:
+                        if (NonSwarmFight(NPCID.HallowBoss))
+                        {
+                            projectile.timeLeft += 60;
+                            projectile.localAI[1] = projectile.velocity.ToRotation();
+
+                            if (SourceNPC.ai[0] == 7 && SourceNPC.ai[1] >= 255 && SourceNPC.GetEModeNPCMod<EmpressofLight>().DoParallelSwordWalls)
+                                altBehaviour = true;
+                            else if (SourceNPC.GetEModeNPCMod<EmpressofLight>().AttackTimer == 1)
+                                projectile.localAI[0] = 1f;
+                        }
+                        break;
+
+                    case ProjectileID.FairyQueenLance:
+                        if (NonSwarmFight(NPCID.HallowBoss) && SourceNPC.ai[0] == 7)
+                        {
+                            if (SourceNPC.ai[1] < 255) //vanilla attack has random variation, purely visual
+                            {
+                                Vector2 appearVel = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2();
+                                appearVel *= 2f;
+                                projectile.position -= appearVel * 60f;
+                                projectile.velocity = appearVel;
+                            }
+                            else if (SourceNPC.GetEModeNPCMod<EmpressofLight>().DoParallelSwordWalls)
+                            {
+                                altBehaviour = true;
+                            }
+                        }
+                        break;
+
+                    default:
+                        break;
+				}
+			}
 
             counter++;
 
@@ -485,6 +513,13 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.HallowBossLastingRainbow:
+                    if (!NonSwarmFight(NPCID.HallowBoss))
+                    {
+                        EModeCanHurt = true;
+                        altBehaviour = false;
+                        break;
+                    }
+
                     if (!FargoSoulsWorld.SwarmActive)
                     {
                         if (Math.Abs(MathHelper.WrapAngle(projectile.velocity.ToRotation() - projectile.localAI[1])) > MathHelper.Pi * 0.9f)
@@ -874,6 +909,10 @@ namespace FargowiltasSouls.Projectiles
                             }
                         }
                     }
+                    else
+					{
+                        EModeCanHurt = true;
+					}
                     break;
 
                 case ProjectileID.BombSkeletronPrime: //needs to be set every tick

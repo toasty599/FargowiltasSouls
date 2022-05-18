@@ -25,6 +25,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
 
         public bool SpawnedByTim;
 
+        public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
+            new Dictionary<Ref<object>, CompoundStrategy> {
+                { new Ref<object>(SpawnedByTim), BoolStrategies.CompoundStrategy },
+            };
+
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
             base.OnSpawn(npc, source);

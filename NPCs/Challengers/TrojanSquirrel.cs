@@ -99,7 +99,21 @@ namespace FargowiltasSouls.NPCs.Challengers
                 body = sourceNPC;
         }
 
-        public override bool PreAI()
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			base.SendExtraAI(writer);
+
+            writer.Write(body is NPC ? body.whoAmI : -1);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			base.ReceiveExtraAI(reader);
+
+            body = FargoSoulsUtil.NPCExists(reader.ReadInt32());
+		}
+
+		public override bool PreAI()
         {
             if (body != null)
                 body = FargoSoulsUtil.NPCExists(body.whoAmI, ModContent.NPCType<TrojanSquirrel>());
@@ -217,8 +231,8 @@ namespace FargowiltasSouls.NPCs.Challengers
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
             writer.Write(NPC.localAI[3]);
-            writer.Write(head.whoAmI);
-            writer.Write(arms.whoAmI);
+            writer.Write(head is NPC ? head.whoAmI : -1);
+            writer.Write(arms is NPC ? arms.whoAmI : -1);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -227,8 +241,8 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
             NPC.localAI[3] = reader.ReadSingle();
-            head = Main.npc[reader.ReadInt32()];
-            arms = Main.npc[reader.ReadInt32()];
+            head = FargoSoulsUtil.NPCExists(reader.ReadInt32());
+            arms = FargoSoulsUtil.NPCExists(reader.ReadInt32());
         }
 
         public override void DrawBehind(int index)

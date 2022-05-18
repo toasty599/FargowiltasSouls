@@ -42,8 +42,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is EntitySource_Parent parent && parent.Entity is NPC sourceNPC)
-                npc = sourceNPC;
+            npc = FargoSoulsUtil.NPCExists(Projectile.ai[1]);
 
             for (int i = 0; i < 50; i++)
             {

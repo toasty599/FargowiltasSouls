@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -44,7 +45,23 @@ namespace FargowiltasSouls.Projectiles.Challengers
             }
         }
 
-        public override void PostAI()
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+            writer.Write(npc is NPC ? npc.whoAmI : -1);
+            writer.Write(offset.X);
+            writer.Write(offset.Y);
+            writer.Write(dir);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+            npc = FargoSoulsUtil.NPCExists(reader.ReadInt32());
+            offset.X = reader.ReadSingle();
+            offset.Y = reader.ReadSingle();
+            dir = reader.ReadInt32();
+		}
+
+		public override void PostAI()
         {
             if (npc != null && dir != npc.direction)
             {

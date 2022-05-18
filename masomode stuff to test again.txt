@@ -1617,4 +1617,13 @@ deerclawps no longer makes forever spikes if you grapple mid-dash
 antisocial is now -90% summon damage multiplicative
 tried making hell npcs properly immune to on fire, test that they are
 timber head repels from the squrrl laser orb (cant sit on it and block all lasers)
+did things for future mp sync (will make sense on preview), test
+	empress homing bolts no damage on spawn
+	empress rainbow trails no damage on spawn
+	ml split bolts
+	ml nerfed homing eyes
+	ml accel hand spheres
+	deerclops ice spikes
+	trojan squrrl chains
+	timber champ big squrrl
 timber has slight tells for the laser barrage
