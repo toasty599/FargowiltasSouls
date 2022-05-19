@@ -66,6 +66,13 @@ namespace FargowiltasSouls.Projectiles
         public bool noInteractionWithNPCImmunityFrames;
         private int tempIframe;
 
+        public override void SetStaticDefaults()
+        {
+            a_SourceNPCGlobalProjectile.NeedsSyncByType[ProjectileID.DD2ExplosiveTrapT3Explosion] = true;
+            a_SourceNPCGlobalProjectile.NeedsSyncByType[ProjectileID.DesertDjinnCurse] = true;
+            a_SourceNPCGlobalProjectile.NeedsSyncByType[ProjectileID.SandnadoHostile] = true;
+        }
+
         public override void SetDefaults(Projectile projectile)
         {
             switch (projectile.type)

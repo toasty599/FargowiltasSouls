@@ -38,6 +38,7 @@ using FargowiltasSouls.Items.Consumables;
 using FargowiltasSouls.Items.Armor;
 using FargowiltasSouls.UI;
 using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls
 {
@@ -275,6 +276,7 @@ namespace FargowiltasSouls
             FargoSoulsWorld.downedBoss = null;
 
             EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
+            a_SourceNPCGlobalProjectile.NeedsSyncByType.Clear();
 
             FreezeKey = null;
             GoldKey = null;

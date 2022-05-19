@@ -81,6 +81,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         AttackTimer = 0;
                         AttackCounter++;
+                        NetSync(npc);
                     }
                     break;
 
@@ -152,6 +153,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             npc.ai[1] -= 30;
                             npc.netUpdate = true;
                         }
+
+                        if (npc.ai[1] == 1)
+                            NetSync(npc);
 
                         npc.position -= npc.velocity / (npc.ai[3] == 0 ? 2 : 4); //move slower
                     }
