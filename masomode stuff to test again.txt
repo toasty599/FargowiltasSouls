@@ -1627,3 +1627,4 @@ did things for future mp sync (will make sense on preview), test
 	trojan squrrl chains
 	timber champ big squrrl
 timber has slight tells for the laser barrage
+dust for hostile kamikaze squrrls

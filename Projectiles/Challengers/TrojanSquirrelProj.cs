@@ -67,6 +67,33 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 int g = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, -0.1f * Projectile.oldVelocity.RotatedByRandom(MathHelper.PiOver4), ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "TrojanSquirrelGore2" : "TrojanSquirrelGore2_2").Type, Projectile.scale);
                 Main.gore[g].rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
+
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
+
+            for (int i = 0; i < 10; i++)
+            {
+                int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, DustID.Smoke, 0f, 0f, 100, default(Color), 1.5f);
+                Main.dust[dust].velocity *= 1.4f;
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default(Color), 2.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 5f;
+                dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default(Color), 1f);
+                Main.dust[dust].velocity *= 3f;
+            }
+
+            for (int j = 0; j < 2; j++)
+            {
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
+                Main.gore[gore].velocity *= 0.4f;
+                Main.gore[gore].velocity += new Vector2(1f, 1f).RotatedBy(MathHelper.TwoPi / 2 * j);
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)
