@@ -2901,13 +2901,13 @@ namespace FargowiltasSouls
                 if (DreadShellItem != null)
                 {
                     invul += 60;
-                    extrashieldCD = 360;
+                    extrashieldCD = DREAD_SHIELD_COOLDOWN;
 
                     DreadParryCounter();
                 }
                 else if (IronEnchantShield)
                 {
-                    extrashieldCD = 40;
+                    extrashieldCD = IRON_SHIELD_COOLDOWN;
 
                     if (TerraForce)
                         Player.AddBuff(BuffID.ParryDamageBuff, 300);
@@ -2932,6 +2932,11 @@ namespace FargowiltasSouls
 
             return false;
         }
+
+        private const int IRON_PARRY_WINDOW = 20;
+        private const int IRON_SHIELD_COOLDOWN = 100;
+        private const int DREAD_PARRY_WINDOW = 10;
+        private const int DREAD_SHIELD_COOLDOWN = 360;
 
         public void Shield()
         {
@@ -2970,9 +2975,9 @@ namespace FargowiltasSouls
                     if (shieldCD == 0) //if cooldown over, enable parry
                     {
                         if (DreadShellItem != null)
-                            shieldTimer = 10;
+                            shieldTimer = DREAD_PARRY_WINDOW;
                         else if (IronEnchantShield)
-                            shieldTimer = 20;
+                            shieldTimer = IRON_PARRY_WINDOW;
                     }
 
                     Player.itemAnimation = 0;
@@ -3014,11 +3019,11 @@ namespace FargowiltasSouls
                         Player.velocity.Y *= 0.85f;
                 }
 
-                int cooldown = 40;
+                int cooldown = IRON_SHIELD_COOLDOWN;
                 if (DreadShellItem != null)
-                    cooldown = 300;
+                    cooldown = DREAD_SHIELD_COOLDOWN;
                 else if (IronEnchantShield)
-                    cooldown = 40;
+                    cooldown = IRON_SHIELD_COOLDOWN;
                 if (shieldCD < cooldown)
                     shieldCD = cooldown;
             }
