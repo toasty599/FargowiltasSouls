@@ -2682,7 +2682,7 @@ namespace FargowiltasSouls
         {
             if (Player.gravDir > 0 && Player.GetToggleValue("MasoGolem"))
             {
-                if (Player.controlDown && !Player.mount.Active && !Player.controlJump)
+                if (!Player.mount.Active && Player.controlDown && !Player.controlJump && Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
                 {
                     if (Player.velocity.Y != 0f)
                     {

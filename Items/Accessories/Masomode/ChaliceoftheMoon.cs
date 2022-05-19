@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Grants immunity to Venom, Ivy Venom, Burning, Fused, Low Ground, and Marked for Death
 Grants immunity to Swarming, Atrophied, Jammed, Reverse Mana Flow, and Antisocial
 Increases life regeneration
-Press down in the air to fastfall
+Double tap DOWN in the air to fastfall
 Fastfall will create a fiery eruption on impact after falling a certain distance
 When you land after a jump, you create a burst of boulders
 You fire additional attacks depending on weapon type and erupt into Ancient Visions when injured

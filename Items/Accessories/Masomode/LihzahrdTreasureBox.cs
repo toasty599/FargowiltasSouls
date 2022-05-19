@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Lihzahrd Treasure Box");
             Tooltip.SetDefault(@"Grants immunity to Burning, Fused, and Low Ground
-Press down in the air to fastfall
+Double tap DOWN in the air to fastfall
 Fastfall will create a fiery eruption on impact after falling a certain distance
 When you land after a jump, you create a burst of boulders
 'Too many booby traps to open'");
