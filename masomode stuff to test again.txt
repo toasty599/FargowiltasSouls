@@ -1629,3 +1629,4 @@ did things for future mp sync (will make sense on preview), test
 timber has slight tells for the laser barrage
 dust for hostile kamikaze squrrls
 iron ench nerf, parry cooldown +1sec
+mech leash has faster use speed (compensates its use time fix)

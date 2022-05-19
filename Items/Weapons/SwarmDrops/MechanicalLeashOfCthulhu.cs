@@ -27,8 +27,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.noMelee = true;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
-            Item.useAnimation = 25;
-            Item.useTime = 25;
+            Item.useAnimation = 16;
+            Item.useTime = 16;
             Item.knockBack = 6f;
             Item.noUseGraphic = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.MechFlail>();
