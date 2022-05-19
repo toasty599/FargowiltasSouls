@@ -2678,18 +2678,27 @@ namespace FargowiltasSouls
                 Player.scope = true;
         }
 
+        int lihzahrdFallCD;
         public void LihzahrdTreasureBoxUpdate()
         {
+            if (lihzahrdFallCD > 0)
+                lihzahrdFallCD--;
+
             if (Player.gravDir > 0 && Player.GetToggleValue("MasoGolem"))
             {
-                if (!Player.mount.Active && Player.controlDown && !Player.controlJump && Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
+                if (lihzahrdFallCD <= 0 && !Player.mount.Active && Player.controlDown && !Player.controlJump && Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
                 {
                     if (Player.velocity.Y != 0f)
                     {
                         if (Player.velocity.Y < 15f)
+                        {
                             Player.velocity.Y = 15f;
+                        }
                         if (GroundPound <= 0)
+                        {
                             GroundPound = 1;
+                            lihzahrdFallCD = 60;
+                        }
                     }
                 }
                 if (GroundPound > 0)
