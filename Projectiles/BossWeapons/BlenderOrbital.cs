@@ -37,6 +37,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.aiStyle = -1;
 
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

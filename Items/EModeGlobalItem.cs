@@ -36,9 +36,6 @@ namespace FargowiltasSouls.Items
                     return false;
             }
 
-            if (item.damage > 0 && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.Magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
-                player.GetModPlayer<EModePlayer>().MasomodeWeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 30);
-
             if (item.type == ItemID.RodofDiscord && FargoSoulsUtil.AnyBossAlive())
                 player.chaosState = true;
 

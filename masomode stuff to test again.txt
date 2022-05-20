@@ -1634,3 +1634,14 @@ lihzahrd box fastfall is now a vertical dash input, has 1sec cd
 grabbed debuff icon
 devi relic
 eridanus relic
+fixed adam ench minion crash
+adjusted tungsten "projectile from minion/sentry" check
+deer sinew crit nerf is now affected by speed and mentions its toggleable
+changed sparkling adoration heart homing
+reverted beetle ench changes to prevent stacking with armor because this code is fucked and i give up
+did another thing so you cant stack beetle ench with armor to get +50% damage
+fixed blender using normal static iframes (which reset normal iframes on hit) which made it obscenely powerful with adam ench
+fixed mutant maso spawning eoc without the telegraph
+mythril ench reworked, not attacking charges up for a burst of attack speed
+nerfed royal subject life
+buffed qs life

@@ -201,6 +201,9 @@ namespace FargowiltasSouls.Items
                 player.GetModPlayer<FargoSoulsPlayer>().WasHurtBySomething = true; //with abom rebirth, die to chaos state
             }
 
+            if (item.damage > 0 && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.Magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+                player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 30);
+
             return true;
         }
 

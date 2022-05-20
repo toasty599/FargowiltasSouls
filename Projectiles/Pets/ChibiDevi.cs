@@ -324,7 +324,7 @@ namespace FargowiltasSouls.Projectiles.Pets
         private int[] MaxThingsToSay = new int[] {
             5, //Spawn
             7, //Respawn
-            9, //Idle
+            10, //Idle
             5, //Sleep
             5, //Wake
             4, //ProjDeath

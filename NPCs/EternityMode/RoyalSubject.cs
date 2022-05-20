@@ -47,7 +47,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             AIType = NPCID.QueenBee;
             NPC.damage = 25;
             NPC.defense = 8;
-            NPC.lifeMax = 750;
+            NPC.lifeMax = 600;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0f;

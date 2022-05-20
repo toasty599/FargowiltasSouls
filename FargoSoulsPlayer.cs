@@ -149,6 +149,10 @@ namespace FargowiltasSouls
         public bool MonkEnchantActive;
         public int MonkDashing;
         private int monkTimer;
+
+        public int MythrilTimer;
+        private int MythrilMaxTime => /*EarthForce ? 360 :*/ 300;
+        private float MythrilMaxSpeedBonus => /*EarthForce ? 3.0f :*/ 2.0f;
         
         public bool NecroEnchantActive;
         public int NecroCD;
@@ -414,6 +418,8 @@ namespace FargowiltasSouls
         public bool NoUsingItems;
 
         public bool HasDash;
+
+        public int WeaponUseTimer;
 
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
@@ -1162,9 +1168,6 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
-            if (BeetleEnchantActive)
-                BeetleEffect();
-
             if (DarkenedHeartItem != null)
             {
                 if (!IsStillHoldingInSameDirectionAsMovement)
@@ -1350,6 +1353,9 @@ namespace FargowiltasSouls
             if (ShinobiEnchantActive)
                 Player.setMonkT3 = true;
 
+
+            if (--WeaponUseTimer < 0)
+                WeaponUseTimer = 0;
 
             if (IsDashingTimer > 0)
             {
@@ -1638,7 +1644,7 @@ namespace FargowiltasSouls
             NoUsingItems = false; //set here so that when something else sets this, it actually blocks items
         }
 
-        public override float UseTimeMultiplier(Item item)
+        public override float UseSpeedMultiplier(Item item)
         {
             int useTime = item.useTime;
             int useAnimate = item.useAnimation;
@@ -1663,14 +1669,15 @@ namespace FargowiltasSouls
                 AttackSpeed += .2f;
             }
 
-            //            if (ThrowSoul && item.thrown)
-            //            {
-            //                AttackSpeed += .2f;
-            //            }
-
             if (item.DamageType == DamageClass.Summon && !ProjectileID.Sets.IsAWhip[item.shoot] && (TikiMinion || TikiSentry))
             {
                 AttackSpeed *= 0.75f;
+            }
+
+            if (MythrilEnchantActive)
+            {
+                float ratio = Math.Max((float)MythrilTimer / MythrilMaxTime, 0);
+                AttackSpeed += MythrilMaxSpeedBonus * ratio;
             }
 
             //checks so weapons dont break
@@ -1684,7 +1691,7 @@ namespace FargowiltasSouls
                 AttackSpeed -= .1f;
             }
 
-            return 1f / AttackSpeed;
+            return AttackSpeed;
         }
 
         public override void UpdateBadLifeRegen()
@@ -2132,8 +2139,12 @@ namespace FargowiltasSouls
                     damage = (int)Math.Round(damage * 2.5);
                 else if (SpiderEnchantActive && damageClass == DamageClass.Summon && !TerrariaSoul)
                     damage = (int)Math.Round(damage * (LifeForce ? 0.75 : 0.625));
-                else if (DeerSinewNerf)
-                    damage = (int)Math.Round(damage * 0.75);
+
+                if (DeerSinewNerf)
+                {
+                    float ratio = Math.Min(Player.velocity.Length() / 20f, 1f);
+                    damage = (int)Math.Round(damage * MathHelper.Lerp(1f, 0.75f, ratio));
+                }
             }
 
             if (CerebralMindbreak)
@@ -2662,9 +2673,6 @@ namespace FargowiltasSouls
 
             if (BeetleEnchantActive)
                 BeetleHurt();
-
-            if (MythrilEnchantActive && !TerrariaSoul)
-                Player.AddBuff(ModContent.BuffType<DisruptedFocus>(), 300);
 
             if (TinEnchantActive)
                 TinEnchant.TinHurt(this);

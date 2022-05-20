@@ -19,7 +19,6 @@ namespace FargowiltasSouls
         public int MasomodeCrystalTimer;
         public int MasomodeFreezeTimer;
         public int MasomodeSpaceBreathTimer;
-        public int MasomodeWeaponUseTimer;
         public int MasomodeMinionNerfTimer;
         public const int MaxMasomodeMinionNerfTimer = 300;
 
@@ -31,6 +30,8 @@ namespace FargowiltasSouls
         public int ShorterDebuffsTimer;
         public const int MaxShorterDebuffsTimer = 60;
 
+        private int WeaponUseTimer => Player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer;
+
         public override void ResetEffects()
         {
             ReduceMasomodeMinionNerf = false;
@@ -39,7 +40,6 @@ namespace FargowiltasSouls
 
         public override void UpdateDead()
         {
-            MasomodeWeaponUseTimer = 0;
             MasomodeMinionNerfTimer = 0;
             ShorterDebuffsTimer = 0;
         }
@@ -355,9 +355,8 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (MasomodeWeaponUseTimer > 0)
+            if (WeaponUseTimer > 0)
             {
-                MasomodeWeaponUseTimer -= 1;
                 MasomodeMinionNerfTimer += 1;
                 ShorterDebuffsTimer += 1;
             }

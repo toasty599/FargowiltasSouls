@@ -19,8 +19,8 @@ namespace FargowiltasSouls.Items.Consumables
 @"Allows the ability to dash
 Double tap a direction
 Taking damage briefly freezes you
-Crits deal 1.5x instead of 2x
-All effects negated if another dash is already in use
+Crit damage multiplier ranges from x2 to x1.5, decreasing with your speed
+All effects negated if toggled off or another dash is already in use
 'Cold but twitching'");
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

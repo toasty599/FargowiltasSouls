@@ -519,7 +519,9 @@ namespace FargowiltasSouls
                 && !projectile.npcProj
                 && !projectile.trap
                 && projectile.DamageType != DamageClass.Default
-                && !(IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
+                && !projectile.minion
+                && !projectile.sentry
+                && projectile.minionSlots <= 0;
         }
 
         public static void SpawnBossTryFromNPC(int playerTarget, int originalType, int bossType)
@@ -543,7 +545,7 @@ namespace FargowiltasSouls
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
 
-                PrintText($"{npc.GivenOrTypeName} {Language.GetTextValue("Mods.FargowiltasSouls.Message.HasAwoken")}");
+                PrintText($"{npc.GivenOrTypeName} {Language.GetTextValue("Mods.FargowiltasSouls.Message.HasAwoken")}", new Color(175, 75, 255));
             }
             else
             {

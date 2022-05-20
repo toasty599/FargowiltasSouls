@@ -261,7 +261,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 for (int i = 0; i < max; i++)
                 {
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
-                        Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.TwoPi / max * i) * Main.rand.NextFloat(12f, 20f), ModContent.ProjectileType<GolemGib>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0, Main.rand.Next(11) + 1);
+                        Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.TwoPi / max * (i + Main.rand.NextFloat(-0.5f, 0.5f))) * Main.rand.NextFloat(12f, 20f), ModContent.ProjectileType<GolemGib>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0, Main.rand.Next(11) + 1);
                     if (p != Main.maxProjectiles)
                         Main.projectile[p].timeLeft = Main.rand.Next(45, 90) * 2;
                 }

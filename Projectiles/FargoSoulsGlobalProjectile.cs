@@ -250,11 +250,11 @@ namespace FargowiltasSouls.Projectiles
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source)
                 && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
             {
-                if (projectile.owner == Main.myPlayer && (source is EntitySource_ItemUse || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && FargoSoulsUtil.IsSummonDamage(sourceProj, false))))
+                if (projectile.owner == Main.myPlayer 
+                    && (source is EntitySource_ItemUse 
+                    || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.minion || sourceProj.sentry || ProjectileID.Sets.IsAWhip[sourceProj.type]))))
                 {
-                    //modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
-                    //if (modPlayer.AdamantiteCanSplit)
-                        AdamantiteEnchant.AdamantiteSplit(projectile);
+                    AdamantiteEnchant.AdamantiteSplit(projectile);
                 }
                 
                 AdamProj = true;
@@ -1055,7 +1055,7 @@ namespace FargowiltasSouls.Projectiles
                 DeletionImmuneRank = 2;
 
                 if (!FargoSoulsUtil.IsSummonDamage(projectile))
-                    Main.player[projectile.owner].GetModPlayer<EModePlayer>().MasomodeWeaponUseTimer = 30;
+                    Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = 30;
 
                 modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
             }

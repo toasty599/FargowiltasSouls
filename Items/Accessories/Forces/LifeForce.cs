@@ -50,7 +50,7 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defens
             modPlayer.LifeForce = true;
             modPlayer.BeeEffect(hideVisual);
             modPlayer.SpiderEffect(hideVisual);
-            modPlayer.BeetleEnchantActive = true;
+            modPlayer.BeetleEffect();
             PumpkinEnchant.PumpkinEffect(player, Item);
             modPlayer.TurtleEffect(hideVisual);
             CactusEnchant.CactusEffect(player);

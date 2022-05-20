@@ -44,6 +44,8 @@ namespace FargowiltasSouls
             if (Player.beetleDefense || Player.beetleOffense)
                 return;
 
+            BeetleEnchantActive = true;
+
             if (BeetleEnchantDefenseTimer > 0) //do defensive beetle things
             {
                 Player.beetleDefense = true;
@@ -97,15 +99,20 @@ namespace FargowiltasSouls
                     Player.AddBuff(BuffID.BeetleMight3, 5, false);
                     beetles = 3;
                 }
-                else if (Player.beetleCounter > num2 + num3)
+                else
                 {
-                    Player.AddBuff(BuffID.BeetleMight2, 5, false);
-                    beetles = 2;
-                }
-                else if (Player.beetleCounter > num2)
-                {
-                    Player.AddBuff(BuffID.BeetleMight1, 5, false);
-                    beetles = 1;
+                    Player.buffImmune[BuffID.BeetleMight3] = true;
+
+                    if (Player.beetleCounter > num2 + num3)
+                    {
+                        Player.AddBuff(BuffID.BeetleMight2, 5, false);
+                        beetles = 2;
+                    }
+                    else if (Player.beetleCounter > num2)
+                    {
+                        Player.AddBuff(BuffID.BeetleMight1, 5, false);
+                        beetles = 1;
+                    }
                 }
                 
                 if (beetles < Player.beetleOrbs)
@@ -856,6 +863,26 @@ namespace FargowiltasSouls
                     }
                 }
             }
+        }
+
+
+
+        public void MythrilEffect()
+        {
+            if (!Player.GetToggleValue("Mythril") || MythrilEnchantActive)
+                return;
+
+            MythrilEnchantActive = true;
+
+            if (WeaponUseTimer > 0)
+                MythrilTimer--;
+            else
+                MythrilTimer++;
+
+            if (MythrilTimer > MythrilMaxTime)
+                MythrilTimer = MythrilMaxTime;
+            if (MythrilTimer < 0)
+                MythrilTimer = 0;
         }
 
         
@@ -2895,6 +2922,12 @@ namespace FargowiltasSouls
                     Main.dust[d].velocity *= 0.2f;
                 }
             }
+        }
+
+        public float DeerSinewCritNerf()
+        {
+            float ratio = Math.Min(Player.velocity.Length() / 16f, 1f);
+            return MathHelper.Lerp(1f, 0.75f, ratio);
         }
 
         #endregion maso acc

@@ -26,6 +26,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.extraUpdates = 1;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override void AI()

@@ -53,7 +53,7 @@ Beetle buffs capped at level two
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //beetle bois
-            modPlayer.BeetleEnchantActive = true;
+            modPlayer.BeetleEffect();
         }
 
         public override void AddRecipes()

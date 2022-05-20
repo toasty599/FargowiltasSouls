@@ -41,6 +41,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 15;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         int soundtimer;

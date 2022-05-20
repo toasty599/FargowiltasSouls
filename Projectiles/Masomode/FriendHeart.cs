@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Friend Heart");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -40,23 +41,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Projectile.ai[0] = -1;
             }
 
-            if (Projectile.ai[0] >= 0 && Projectile.ai[0] < 200)
+            NPC target = FargoSoulsUtil.NPCExists(Projectile.ai[0]);
+            if (target != null)
             {
-                int ai0 = (int)Projectile.ai[0];
-                if (Main.npc[ai0].CanBeChasedBy())
+                if (target.CanBeChasedBy())
                 {
-                    if (Projectile.localAI[1] < 0.16f)
-                    {
-                        float rotation = Projectile.velocity.ToRotation();
-                        Vector2 vel = Main.npc[ai0].Center - Projectile.Center;
-                        float targetAngle = vel.ToRotation();
-                        Projectile.localAI[1] += 1f / 1500f;
-                        Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, Projectile.localAI[1]));
-                    }
-                    else //eventually just switch to direct aim
-                    {
-                        Projectile.velocity = Projectile.DirectionTo(Main.npc[ai0].Center) * Projectile.velocity.Length();
-                    }
+                    if (Projectile.Distance(target.Center) > 40f)
+                        Projectile.velocity = (Projectile.velocity * 16f + 17f * Projectile.DirectionTo(target.Center)) / 17f;
+                    else if (Projectile.velocity.Length() < 17)
+                        Projectile.velocity *= 1.05f;
                 }
                 else
                 {

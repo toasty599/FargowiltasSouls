@@ -17,6 +17,7 @@ using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Projectiles.Champions;
 using Terraria.Localization;
+using System;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -49,6 +50,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
+
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.4005);
 
             npc.buffImmune[BuffID.Poisoned] = true;
         }
