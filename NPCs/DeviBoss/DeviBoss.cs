@@ -21,6 +21,7 @@ using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.Patreon.Phupperbat;
 using Terraria.Localization;
+using FargowiltasSouls.Items.Placeables.Relics;
 
 namespace FargowiltasSouls.NPCs.DeviBoss
 {
@@ -1876,6 +1877,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<DeviBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DeviTrophy>(), 10));
 
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<DeviRelic>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<ChibiHat>(), 4));
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
