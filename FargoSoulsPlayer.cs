@@ -204,8 +204,8 @@ namespace FargowiltasSouls
         public int TinProcCD;
         public bool TinCritBuffered;
         public bool TungstenEnchantActive;
-        public float TungstenPrevSizeSave = -1;
-        public Item TungstenEnlargedItem;
+        //public float TungstenPrevSizeSave = -1;
+        //public Item TungstenEnlargedItem;
         public int TungstenCD;
         public bool TurtleEnchantActive;
         public int TurtleCounter;
@@ -2959,24 +2959,24 @@ namespace FargowiltasSouls
 
         public override bool PreItemCheck()
         {
-            if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee && Player.HeldItem.useTime > 0 && Player.HeldItem.useAnimation > 0 && Player.HeldItem.pick == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.axe == 0)
-            {
-                if (TungstenEnlargedItem != null)
-                {
-                    if (Main.mouseItem != null && Main.mouseItem.type == TungstenEnlargedItem.type)
-                    {
-                        TungstenPrevSizeSave = Math.Min(TungstenPrevSizeSave, Main.mouseItem.scale);
-                        Main.mouseItem.scale = TungstenPrevSizeSave;
-                    }
-                    TungstenEnlargedItem.scale = TungstenPrevSizeSave;
-                    TungstenPrevSizeSave = -1;
+            //if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee && Player.HeldItem.useTime > 0 && Player.HeldItem.useAnimation > 0 && Player.HeldItem.pick == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.axe == 0)
+            //{
+            //    if (TungstenEnlargedItem != null)
+            //    {
+            //        if (Main.mouseItem != null && Main.mouseItem.type == TungstenEnlargedItem.type)
+            //        {
+            //            TungstenPrevSizeSave = Math.Min(TungstenPrevSizeSave, Main.mouseItem.scale);
+            //            Main.mouseItem.scale = TungstenPrevSizeSave;
+            //        }
+            //        TungstenEnlargedItem.scale = TungstenPrevSizeSave;
+            //        TungstenPrevSizeSave = -1;
 
-                    TungstenEnlargedItem = null;
-                }
+            //        TungstenEnlargedItem = null;
+            //    }
 
-                if (TungstenEnchantActive && Player.GetToggleValue("Tungsten"))
-                    TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
-            }
+            //    if (TungstenEnchantActive && Player.GetToggleValue("Tungsten"))
+            //        TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
+            //}
 
             return base.PreItemCheck();
         }

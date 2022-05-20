@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 //using FargowiltasSouls.Buffs.Souls;
 //using FargowiltasSouls.Projectiles.Critters;
 using FargowiltasSouls.Toggler;
@@ -74,6 +75,14 @@ namespace FargowiltasSouls.Items
         //                return false;
         //            return true;
         //        }
+
+        public override void ModifyItemScale(Item item, Player player, ref float scale)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("Tungsten"))
+                scale *= TungstenEnchant.TungstenIncreaseWeaponSize(modPlayer);
+        }
 
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {

@@ -1645,3 +1645,5 @@ fixed mutant maso spawning eoc without the telegraph
 mythril ench reworked, not attacking charges up for a burst of attack speed
 nerfed royal subject life
 buffed qs life
+
+reimplemented tungsten ench for the 5000th time
