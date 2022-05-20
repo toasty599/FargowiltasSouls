@@ -68,9 +68,13 @@ namespace FargowiltasSouls.Projectiles
 
         public override void SetStaticDefaults()
         {
-            a_SourceNPCGlobalProjectile.NeedsSyncByType[ProjectileID.DD2ExplosiveTrapT3Explosion] = true;
-            a_SourceNPCGlobalProjectile.NeedsSyncByType[ProjectileID.DesertDjinnCurse] = true;
-            a_SourceNPCGlobalProjectile.NeedsSyncByType[ProjectileID.SandnadoHostile] = true;
+            a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.DD2ExplosiveTrapT3Explosion] = true;
+            a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.DesertDjinnCurse] = true;
+            a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.SandnadoHostile] = true;
+
+            a_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.DD2ExplosiveTrapT3Explosion] = true;
+            a_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.SharpTears] = true;
+            a_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.DeerclopsIceSpike] = true;
         }
 
         public override void SetDefaults(Projectile projectile)

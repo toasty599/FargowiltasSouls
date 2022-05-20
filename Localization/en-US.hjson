@@ -427,7 +427,7 @@ Mods: {
 
 			LumpofFleshHeader: "{$Mods.FargowiltasSouls.ItemName.LumpOfFlesh}"
 			MasoPugentConfig: Pungent Eye Minion
-			DeerclawpsConfig: Ice Spike Dash Trail
+			DeerclawpsConfig: Deerclawps Spike Dash Trail
 			DreadShellParryConfig: Dread Shell Parry
 
 			ChaliceHeader: "{$Mods.FargowiltasSouls.ItemName.ChaliceoftheMoon}"

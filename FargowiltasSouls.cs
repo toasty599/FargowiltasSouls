@@ -276,7 +276,8 @@ namespace FargowiltasSouls
             FargoSoulsWorld.downedBoss = null;
 
             EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
-            a_SourceNPCGlobalProjectile.NeedsSyncByType.Clear();
+            a_SourceNPCGlobalProjectile.SourceNPCSync.Clear();
+            a_SourceNPCGlobalProjectile.DamagingSync.Clear();
 
             FreezeKey = null;
             GoldKey = null;

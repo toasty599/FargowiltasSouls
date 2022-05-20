@@ -193,7 +193,9 @@ namespace FargowiltasSouls.Projectiles.Pets
             else
             {
                 //only do idle talk when awake, not a boss fight, and not in danger
-                if (!asleep && player.statLife > player.statLifeMax2 / 2)
+                if (asleep)
+                    TalkCDs[(int)TalkType.Idle] = Math.Max(TalkCDs[(int)TalkType.Idle], 12 * 60);
+                else if (player.statLife > player.statLifeMax2 / 2)
                     TryTalkWithCD(TalkType.Idle, MediumCD);
 
                 //wont cheer in boss fight unless over 30 seconds

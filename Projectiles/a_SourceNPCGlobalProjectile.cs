@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -11,7 +12,8 @@ namespace FargowiltasSouls.Projectiles
     //TODO: make this a proper inherited class and a modproj equivalent, axe the dictionary
     public class a_SourceNPCGlobalProjectile : GlobalProjectile
     {
-        public static Dictionary<int, bool> NeedsSyncByType = new Dictionary<int, bool>();
+        public static Dictionary<int, bool> SourceNPCSync = new Dictionary<int, bool>();
+        public static Dictionary<int, bool> DamagingSync = new Dictionary<int, bool>();
 
         public override bool InstancePerEntity => true;
 
@@ -33,19 +35,40 @@ namespace FargowiltasSouls.Projectiles
             }
         }
 
-        private bool NeedsSync(Projectile projectile)
-            => NeedsSyncByType.TryGetValue(projectile.type, out bool value) && value;
+        private bool NeedsNPCSync(Projectile projectile)
+            => SourceNPCSync.TryGetValue(projectile.type, out bool value) && value;
 
-        public override void SendExtraAI(Projectile projectile, BinaryWriter writer)
+        private bool NeedsDmgSync(Projectile projectile)
+            => DamagingSync.TryGetValue(projectile.type, out bool value) && value;
+
+        private bool NeedsSync(Dictionary<int, bool> dict, Projectile projectile)
+            => dict.TryGetValue(projectile.type, out bool value) && value;
+
+        public override void SendExtraAI(Projectile projectile, BitWriter bits, BinaryWriter writer)
         {
-            if (NeedsSync(projectile))
-            writer.Write(sourceNPC is NPC ? sourceNPC.whoAmI : -1);
+            if (NeedsSync(SourceNPCSync, projectile))
+                writer.Write(sourceNPC is NPC ? sourceNPC.whoAmI : -1);
+
+            if (NeedsSync(DamagingSync, projectile))
+            {
+                bits.WriteBit(projectile.friendly);
+                bits.WriteBit(projectile.hostile);
+                bits.WriteBit(projectile.DamageType == DamageClass.Default);
+            }
         }
 
-        public override void ReceiveExtraAI(Projectile projectile, BinaryReader reader)
+        public override void ReceiveExtraAI(Projectile projectile, BitReader bits, BinaryReader reader)
         {
-            if (NeedsSync(projectile))
+            if (NeedsSync(SourceNPCSync, projectile))
                 sourceNPC = FargoSoulsUtil.NPCExists(reader.ReadInt32());
+
+            if (NeedsSync(DamagingSync, projectile))
+            {
+                projectile.friendly = bits.ReadBit();
+                projectile.hostile = bits.ReadBit();
+                if (bits.ReadBit())
+                    projectile.DamageType = DamageClass.Default;
+            }
         }
 
         public override bool PreAI(Projectile projectile)
