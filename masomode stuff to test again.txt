@@ -1617,7 +1617,7 @@ deerclawps no longer makes forever spikes if you grapple mid-dash
 antisocial is now -90% summon damage multiplicative
 tried making hell npcs properly immune to on fire, test that they are
 timber head repels from the squrrl laser orb (cant sit on it and block all lasers)
-committed crimes against design for future mp sync, test in mp
+committed crimes against design for mp sync, test in mp
 	empress homing bolts no damage on spawn
 	empress rainbow trails no damage on spawn
 	ml split bolts
