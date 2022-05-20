@@ -1674,7 +1674,7 @@ namespace FargowiltasSouls
                 AttackSpeed *= 0.75f;
             }
 
-            if (MythrilEnchantActive)
+            if (MythrilEnchantActive && item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0)
             {
                 float ratio = Math.Max((float)MythrilTimer / MythrilMaxTime, 0);
                 AttackSpeed += MythrilMaxSpeedBonus * ratio;
