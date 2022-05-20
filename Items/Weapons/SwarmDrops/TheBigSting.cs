@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override Vector2? HoldoutOffset() => new Vector2(-10, 0);
 
-        public override bool CanConsumeAmmo(Player player) => Main.rand.NextBool(3);
+        public override bool CanConsumeAmmo(Item ammo, Player player) => Main.rand.NextBool(3);
 
         public override void AddRecipes()
         {

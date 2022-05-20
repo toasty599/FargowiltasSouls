@@ -55,11 +55,9 @@ namespace FargowiltasSouls.Items
             return base.OnPickup(item, player);
         }
 
-        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
+        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
-            if (modPlayer.Jammed && weapon.DamageType == DamageClass.Ranged)
+            if (weapon.DamageType == DamageClass.Ranged && player.GetModPlayer<FargoSoulsPlayer>().Jammed)
                 type = ProjectileID.ConfettiGun;
         }
 
@@ -136,7 +134,7 @@ namespace FargowiltasSouls.Items
                 item.useAnimation = 1;
             }
 
-            if (item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
+            if (item.damage > 0 && player.HasAmmo(item) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
                 && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
                 && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
             {

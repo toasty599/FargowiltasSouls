@@ -81,10 +81,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             return false;
         }
 
-        public override bool CanConsumeAmmo(Player player)
-        {
-            return Main.rand.NextBool(5);
-        }
+        public override bool CanConsumeAmmo(Item ammo, Player player) => Main.rand.NextBool(5);
 
         //make them hold it different
         public override Vector2? HoldoutOffset()

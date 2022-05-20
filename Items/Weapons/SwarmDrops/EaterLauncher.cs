@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             type = ModContent.ProjectileType<EaterRocket>();
         }
 
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return Main.rand.NextBool();
         }

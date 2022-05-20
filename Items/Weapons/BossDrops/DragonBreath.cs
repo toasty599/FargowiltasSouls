@@ -55,9 +55,6 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             return true;
         }
 
-        public override bool CanConsumeAmmo(Player player)
-        {
-            return Main.rand.Next(3) != 0;
-        }
+        public override bool CanConsumeAmmo(Item ammo, Player player) => !Main.rand.NextBool(3);
     }
 }

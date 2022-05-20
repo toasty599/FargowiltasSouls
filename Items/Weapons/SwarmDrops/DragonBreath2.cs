@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             return false;
         }
 
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return Main.rand.NextBool(3);
         }

@@ -53,6 +53,6 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
         //make them hold it different
         public override Vector2? HoldoutOffset() => new Vector2(-10, 0);
 
-        public override bool CanConsumeAmmo(Player player) => Main.rand.NextBool();
+        public override bool CanConsumeAmmo(Item ammo, Player player) => Main.rand.NextBool();
     }
 }
