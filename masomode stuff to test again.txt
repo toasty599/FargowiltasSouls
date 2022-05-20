@@ -1631,3 +1631,4 @@ dust for hostile kamikaze squrrls
 iron ench nerf, parry cooldown +1sec
 mech leash has faster use speed (compensates its use time fix)
 lihzahrd box fastfall is now a vertical dash input, has 1sec cd
+grabbed debuff icon
