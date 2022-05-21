@@ -15,6 +15,14 @@ namespace FargowiltasSouls.Projectiles
         public static Dictionary<int, bool> SourceNPCSync = new Dictionary<int, bool>();
         public static Dictionary<int, bool> DamagingSync = new Dictionary<int, bool>();
 
+        public override void Unload()
+        {
+            base.Unload();
+
+            SourceNPCSync.Clear();
+            DamagingSync.Clear();
+        }
+
         public override bool InstancePerEntity => true;
 
         public NPC sourceNPC;

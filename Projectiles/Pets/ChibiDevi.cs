@@ -321,7 +321,7 @@ namespace FargowiltasSouls.Projectiles.Pets
 
             Count
         };
-        private int[] MaxThingsToSay = new int[] {
+        private int[] MaxThingsToSay => new int[] {
             5, //Spawn
             7, //Respawn
             10, //Idle

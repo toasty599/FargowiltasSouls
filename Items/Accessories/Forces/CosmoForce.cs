@@ -18,9 +18,10 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<StardustEnchant>()
         };
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            base.SetDefaults();
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Cosmos");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宇宙之力");

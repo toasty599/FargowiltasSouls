@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.NPCs;
 using Microsoft.Xna.Framework;
 using System;
@@ -24,9 +25,11 @@ namespace FargowiltasSouls.Buffs
         }
 
         public static int[] DebuffsToLetDecreaseNormally => new int[] {
+            BuffID.Frozen,
             BuffID.Stoned,
             BuffID.Cursed,
             ModContent.BuffType<Fused>(),
+            ModContent.BuffType<TimeFrozen>(),
             ModContent.BuffType<Stunned>()
         };
 

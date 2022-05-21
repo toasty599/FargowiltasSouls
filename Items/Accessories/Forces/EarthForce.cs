@@ -19,9 +19,10 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<TitaniumEnchant>()
         };
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            base.SetDefaults();
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Earth");
 
             Tooltip.SetDefault(

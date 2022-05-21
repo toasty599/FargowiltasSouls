@@ -61,6 +61,11 @@ namespace FargowiltasSouls.EternityMode
             Register();
         }
 
+        public static void Unload()
+        {
+            AllEModeNpcBehaviours.Clear();
+        }
+
         public virtual Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() => default;
 
         public int GetBytesNeeded()

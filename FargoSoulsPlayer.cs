@@ -404,6 +404,8 @@ namespace FargowiltasSouls
         public bool NanoInjection;
         public bool Stunned;
 
+        
+
         public int ReallyAwfulDebuffCooldown;
 
         public bool BoxofGizmos;

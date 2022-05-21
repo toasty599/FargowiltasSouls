@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -49,8 +50,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
             if (npc.type == NPCID.Shark && Main.rand.NextBool(3))
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(1, 5));
-            else if (npc.type == NPCID.SandShark && Main.rand.NextBool(4))
-                npc.Transform(Main.rand.Next(NPCID.SandsharkCorrupt, NPCID.SandsharkHallow + 1));
         }
 
         public override void AI(NPC npc)
@@ -132,6 +131,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Bleeding, 240);
+
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
+            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 600);
         }
 
         public override void OnKill(NPC npc)
@@ -140,8 +142,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
             if (npc.type == NPCID.Shark)
             {
-                if (Main.hardMode && Main.rand.NextBool(4) && Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.Cthulunado, npc.defDamage / 2, 0f, Main.myPlayer, 16, 11);
+                if (Main.hardMode && Main.rand.NextBool(4) && Collision.CanHitLine(npc.Top, 0, 0, npc.Top - 2f * 16f * Vector2.UnitY, 0, 0))
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.Sharknado, FargoSoulsUtil.ScaledProjectileDamage(npc.defDamage, 0.5f), 0f, Main.myPlayer, 15, 15);
+                }
 
                 if (!Main.dedServ && Main.rand.NextBool(1000))
                 {
@@ -195,7 +200,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnFirstTick(npc);
 
             if (Main.rand.NextBool(6)) //random sharks
+            {
+                npc.position = npc.Bottom;
                 npc.Transform(NPCID.Shark);
+                npc.Bottom = npc.position;
+            }
         }
     }
 }

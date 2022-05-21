@@ -270,14 +270,10 @@ namespace FargowiltasSouls
                 TextureAssets.Wof = TextureBuffer.Wof;
 
             ToggleLoader.Unload();
+            EModeNPCBehaviour.Unload();
 
             SoulToggler.RemoveItemTags = null;
             ToggleBackend.ConfigPath = null;
-            FargoSoulsWorld.downedBoss = null;
-
-            EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
-            a_SourceNPCGlobalProjectile.SourceNPCSync.Clear();
-            a_SourceNPCGlobalProjectile.DamagingSync.Clear();
 
             FreezeKey = null;
             GoldKey = null;

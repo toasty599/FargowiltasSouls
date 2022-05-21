@@ -54,6 +54,13 @@ namespace FargowiltasSouls
 
         public static bool[] downedBoss = new bool[Enum.GetValues(typeof(Downed)).Length];
 
+        public override void Unload()
+        {
+            base.Unload();
+
+            downedBoss = null;
+        }
+
         private void ResetFlags()
         {
             downedBetsy = false;

@@ -8,8 +8,6 @@ namespace FargowiltasSouls.Items.Ammos
 {
     public class FargoArrow : SoulsItem
     {
-        private Mod fargos = ModLoader.GetMod("Fargowiltas");
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Amalgamated Arrow Quiver");
@@ -39,21 +37,21 @@ namespace FargowiltasSouls.Items.Ammos
         public override void AddRecipes()
         {
             CreateRecipe()
-            //.AddIngredient(ItemID.EndlessQuiver);
-            .AddIngredient(fargos, "FlameQuiver")
-            .AddIngredient(fargos, "FrostburnQuiver")
-            .AddIngredient(fargos, "UnholyQuiver")
-            .AddIngredient(fargos, "BoneQuiver")
-            .AddIngredient(fargos, "JesterQuiver")
-            .AddIngredient(fargos, "HellfireQuiver")
-            .AddIngredient(fargos, "CursedQuiver")
-            .AddIngredient(fargos, "IchorQuiver")
-            .AddIngredient(fargos, "HolyQuiver")
-            .AddIngredient(fargos, "VenomQuiver")
-            .AddIngredient(fargos, "ChlorophyteQuiver")
-            .AddIngredient(fargos, "LuminiteQuiver")
+            .AddIngredient(ItemID.EndlessQuiver)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "FlameQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "FrostburnQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "UnholyQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "BoneQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "JesterQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "HellfireQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "CursedQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "IchorQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "HolyQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "VenomQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "ChlorophyteQuiver").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "LuminiteQuiver").Type)
             .AddIngredient(ModContent.ItemType<EternalEnergy>(), 15)
-            .AddTile(fargos, "CrucibleCosmosSheet")
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
         }
     }

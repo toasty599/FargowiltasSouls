@@ -763,7 +763,7 @@ namespace FargowiltasSouls.NPCs
         }
 
         private bool lootMultiplierCheck;
-        private static readonly int[] illegalLootMultiplierNPCs = new int[] {
+        private static int[] illegalLootMultiplierNPCs => new int[] {
             NPCID.DD2Betsy,
             NPCID.EaterofWorldsBody, 
             NPCID.EaterofWorldsHead, 

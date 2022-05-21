@@ -8,8 +8,6 @@ namespace FargowiltasSouls.Items.Ammos
 {
     public class FargoBullet : SoulsItem
     {
-        private Mod fargos = ModLoader.GetMod("Fargowiltas");
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Amalgamated Bullet Pouch");
@@ -42,22 +40,22 @@ namespace FargowiltasSouls.Items.Ammos
         public override void AddRecipes()
         {
             CreateRecipe()
-            //.AddIngredient(ItemID.EndlessMusketPouch);
-            .AddIngredient(fargos, "SilverPouch")
-            .AddIngredient(fargos, "MeteorPouch")
-            .AddIngredient(fargos, "CursedPouch")
-            .AddIngredient(fargos, "IchorPouch")
-            .AddIngredient(fargos, "CrystalPouch")
-            .AddIngredient(fargos, "VelocityPouch")
-            .AddIngredient(fargos, "VenomPouch")
-            .AddIngredient(fargos, "ExplosivePouch")
-            .AddIngredient(fargos, "GoldenPouch")
-            .AddIngredient(fargos, "PartyPouch")
-            .AddIngredient(fargos, "ChlorophytePouch")
-            .AddIngredient(fargos, "NanoPouch")
-            .AddIngredient(fargos, "LuminitePouch")
+            .AddIngredient(ItemID.EndlessMusketPouch)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "SilverPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "MeteorPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "CursedPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "IchorPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "CrystalPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "VelocityPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "VenomPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "ExplosivePouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "GoldenPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "PartyPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "ChlorophytePouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "NanoPouch").Type)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "LuminitePouch").Type)
             .AddIngredient(ModContent.ItemType<EternalEnergy>(), 15)
-            .AddTile(fargos, "CrucibleCosmosSheet")
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
         }
     }

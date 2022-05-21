@@ -1661,4 +1661,8 @@ reworked snow ench, it is now stardust ench lite (scuffed rn but w/e)
 lihzahrd curse
 	has debuff icon
 	now passively applies around the temple
+sharks
+	in hm, spawn sharknados instead of ctulhunados
+	wont spawn sharknado if it would go through blocks
+	inflict oceanic maul
 security wallet guarantees no bad reforges ever
