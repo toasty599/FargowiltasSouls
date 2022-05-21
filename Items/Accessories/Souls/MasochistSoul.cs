@@ -30,7 +30,7 @@ Grants gravity control, fastfall, and immunity to knockback, almost all Eternity
 Grants autofire to all weapons and you automatically use mana potions when needed
 Your attacks create additional attacks, hearts, and inflict a cocktail of Eternity Mode debuffs
 Press the Fireball Dash key to perform a short invincible dash, zoom with right click
-Certain enemies will drop potions when defeated, 50% discount on reforges, you respawn with more life
+Certain enemies will drop potions when defeated, drastically improves reforges, you respawn with more life
 You respawn twice as fast, attacks spawn honey, have improved night vision, and erupt into various attacks when injured
 Prevents boss spawns, increases spawn rate, increases loot, and attacks may squeak and deal 1 damage to you
 Reduces hurtbox size, hold the Precision Seal key to disable dashes and double jumps

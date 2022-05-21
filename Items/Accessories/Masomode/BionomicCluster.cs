@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n    Grants immunity to Mighty Wind, Suffocation, and Guilty" +
                 "\n    You have autofire, improved night vision, and automatically use mana potions when needed" +
                 "\n    You respawn with more life and when no boss is alive, respawn faster" +
-                "\n    Right click to zoom and 50% discount on reforges" +
+                "\n    Right click to zoom and drastically improves reforges" +
                 "\n'The amalgamate born of a thousand common enemies'");
 
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生态集群");

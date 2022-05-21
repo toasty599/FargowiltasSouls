@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 //using FargowiltasSouls.Buffs.Souls;
@@ -370,6 +371,88 @@ namespace FargowiltasSouls.Items
                 TooltipLine helperLine = new TooltipLine(mod, "help", "Right click to convert");
                 tooltips.Add(helperLine);
             }*/
+        }
+
+        public override bool AllowPrefix(Item item, int pre)
+        {
+            if (!Main.gameMenu && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
+            {
+                switch (pre)
+                {
+                    #region actually bad
+
+                    case PrefixID.Hard:
+                    case PrefixID.Guarding:
+                    case PrefixID.Jagged:
+                    case PrefixID.Spiked:
+                    case PrefixID.Brisk:
+                    case PrefixID.Fleeting:
+                    case PrefixID.Wild:
+                    case PrefixID.Rash:
+
+                    case PrefixID.Broken:
+                    case PrefixID.Damaged:
+                    case PrefixID.Shoddy:
+                    case PrefixID.Weak:
+
+                    case PrefixID.Slow:
+                    case PrefixID.Sluggish:
+                    case PrefixID.Lazy:
+                    case PrefixID.Annoying:
+
+                    case PrefixID.Tiny:
+                    case PrefixID.Small:
+                    case PrefixID.Dull:
+                    case PrefixID.Shameful:
+                    case PrefixID.Terrible:
+                    case PrefixID.Unhappy:
+
+                    case PrefixID.Awful:
+                    case PrefixID.Lethargic:
+                    case PrefixID.Awkward:
+
+                    case PrefixID.Inept:
+                    case PrefixID.Ignorant:
+                    case PrefixID.Deranged:
+
+                    #endregion actually bad
+
+                    #region mediocre
+
+                    case PrefixID.Hasty:
+                    case PrefixID.Intrepid:
+
+                    case PrefixID.Intense:
+                    case PrefixID.Frenzying:
+                    case PrefixID.Dangerous:
+                    case PrefixID.Bulky:
+                    case PrefixID.Heavy:
+                    case PrefixID.Sighted:
+                    case PrefixID.Adept:
+                    case PrefixID.Taboo:
+                    case PrefixID.Furious:
+                    case PrefixID.Keen:
+                    case PrefixID.Forceful:
+                    case PrefixID.Quick:
+                    case PrefixID.Nimble:
+                    case PrefixID.Nasty:
+                    case PrefixID.Manic:
+                    case PrefixID.Strong:
+                    case PrefixID.Zealous:
+                    case PrefixID.Large:
+                    case PrefixID.Intimidating:
+                    case PrefixID.Unpleasant:
+
+                    #endregion mediocre
+
+                        return false;
+
+                    default:
+                        break;
+                }
+            }
+
+            return base.AllowPrefix(item, pre);
         }
     }
 }
