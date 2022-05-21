@@ -64,10 +64,11 @@ namespace FargowiltasSouls
         public static void AllCritEquals(Player player, int crit)
         {
             player.GetCritChance(DamageClass.Generic) = crit;
+
             player.GetCritChance(DamageClass.Melee) = 0;
             player.GetCritChance(DamageClass.Ranged) = 0;
             player.GetCritChance(DamageClass.Magic) = 0;
-            player.GetModPlayer<FargoSoulsPlayer>().SummonCrit = 0;
+            player.GetCritChance(DamageClass.Summon) = 0;
         }
 
         public static NPC GetSourceNPC(this Projectile projectile)
@@ -77,26 +78,10 @@ namespace FargowiltasSouls
             => projectile.GetGlobalProjectile<a_SourceNPCGlobalProjectile>().sourceNPC = npc;
 
         public static float ActualClassDamage(this Player player, DamageClass damageClass)
-            => (float)player.GetDamage(DamageClass.Generic).Additive + (float)player.GetDamage(damageClass).Additive - 1f;
+            => player.GetTotalDamage(damageClass).Additive * player.GetTotalDamage(damageClass).Multiplicative;
 
-        /// <summary>
-        /// Gets the real crit chance for the damage type, including buffs to all damage.<br/>
-        /// Includes summoner, which uses our internal modPlayer SummonCrit and accounts for Spider Ench nerf!<br/>
-        /// Returns 0 if the class is no scaling
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="damageClass"></param>
-        /// <returns></returns>
-        public static int ActualClassCrit(this Player player, DamageClass damageClass)
-        {
-            if (damageClass == DamageClass.Summon)
-                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + (int)player.GetCritChance(DamageClass.Generic);
-
-            if (damageClass == DamageClass.Default)
-                return 0;
-
-            return (int)player.GetCritChance(damageClass) + (int)player.GetCritChance(DamageClass.Generic);
-        }
+        public static float ActualClassCrit(this Player player, DamageClass damageClass)
+            => player.GetTotalCritChance(damageClass);
 
         public static int HighestDamageTypeScaling(Player player, int dmg)
         {
@@ -110,16 +95,14 @@ namespace FargowiltasSouls
             return (int)(types.Max() * dmg);
         }
 
-        public static int HighestCritChance(Player player)
+        public static float HighestCritChance(Player player)
         {
-            List<int> types = new List<int> { 
+            List<float> types = new List<float> { 
                 player.ActualClassCrit(DamageClass.Melee), 
                 player.ActualClassCrit(DamageClass.Ranged), 
                 player.ActualClassCrit(DamageClass.Magic),
                 player.ActualClassCrit(DamageClass.Summon)
             };
-
-            //Main.NewText(player.GetCritChance(DamageClass.Melee) + " " + player.GetCritChance(DamageClass.Ranged) + " " + player.GetCritChance(DamageClass.Magic));
 
             return types.Max();
         }

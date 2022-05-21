@@ -185,7 +185,6 @@ namespace FargowiltasSouls
         public bool SpectreEnchantActive;
         public int SpectreCD;
         public bool SpiderEnchantActive;
-        public int SummonCrit;
         public bool SpookyEnchantActive;
         public bool SquireEnchantActive;
         public bool squireReduceIframes;
@@ -640,8 +639,6 @@ namespace FargowiltasSouls
 
         public override void ResetEffects()
         {
-            SummonCrit = 0;
-
             HasDash = false;
 
             AttackSpeed = 1f;
@@ -1391,17 +1388,6 @@ namespace FargowiltasSouls
             if (HealTimer > 0)
                 HealTimer--;
 
-            if (SpiderEnchantActive)
-            {
-                SummonCrit = 4;
-                if (TerrariaSoul)
-                {
-                    SummonCrit = Math.Max(SummonCrit, (int)Player.GetCritChance(DamageClass.Melee));
-                    SummonCrit = Math.Max(SummonCrit, (int)Player.GetCritChance(DamageClass.Ranged));
-                    SummonCrit = Math.Max(SummonCrit, (int)Player.GetCritChance(DamageClass.Magic));
-                }
-            }
-
             if (TinEnchantActive)
                 TinEnchant.TinPostUpdate(this);
 
@@ -2015,6 +2001,12 @@ namespace FargowiltasSouls
             if (proj.hostile)
                 return;
 
+            if (SpiderEnchantActive && Player.GetToggleValue("Spider", false))
+            {
+                if (Main.rand.Next(100) < proj.CritChance)
+                    crit = true;
+            }
+
             if (apprenticeBonusDamage)
             {
                 if (ShadowForce)
@@ -2137,7 +2129,8 @@ namespace FargowiltasSouls
                     damage *= 5;
                 else if (UniverseCore)
                     damage = (int)Math.Round(damage * 2.5);
-                else if (SpiderEnchantActive && damageClass == DamageClass.Summon && !TerrariaSoul)
+                
+                if (SpiderEnchantActive && damageClass == DamageClass.Summon && !TerrariaSoul)
                     damage = (int)Math.Round(damage * (LifeForce ? 0.75 : 0.625));
 
                 if (DeerSinewNerf)

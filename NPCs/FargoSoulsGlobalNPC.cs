@@ -936,20 +936,6 @@ namespace FargowiltasSouls.NPCs
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             ModifyHitByBoth(npc, player, ref damage);
-
-             if (FargoSoulsUtil.IsSummonDamage(projectile))
-            {
-                if (modPlayer.SpiderEnchantActive && player.GetToggleValue("Spider", false))
-                {
-                    if (Main.rand.Next(100) < player.ActualClassCrit(DamageClass.Summon))
-                        crit = true;
-                }
-                else if (modPlayer.Graze)
-                {
-                    if (Main.rand.Next(100) < FargoSoulsUtil.HighestCritChance(player))
-                        damage = (int)(damage * (1.0 + modPlayer.GrazeBonus));
-                }
-            }
         }
 
         public void ModifyHitByBoth(NPC npc, Player player, ref int damage)

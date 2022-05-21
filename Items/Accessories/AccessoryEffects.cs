@@ -1459,12 +1459,7 @@ namespace FargowiltasSouls
             //minion crits
             SpiderEnchantActive = true;
 
-            /*if (!TinEnchant)
-            {
-                SummonCrit = 20;
-            }*/
-
-
+            Player.GetCritChance(DamageClass.Summon) += 4;
         }
 
         public void SpookyEffect(bool hideVisual)
