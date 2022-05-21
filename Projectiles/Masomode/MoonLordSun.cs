@@ -187,7 +187,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (socket == null || core == null || socket.ai[3] != core.whoAmI || core.ai[0] == 2f)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, Projectile.owner);
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, Projectile.owner);
             }
             else
             {
@@ -197,16 +197,16 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 if (Main.netMode != NetmodeID.MultiplayerClient) //chain explosions
                 {
                     //perpendicular
-                    /*Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
+                    /*Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
                         Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.velocity.ToRotation() + MathHelper.PiOver2, 5);
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
                         Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.velocity.ToRotation() - MathHelper.PiOver2, 5);*/
 
                     const int max = 4; //spread
                     for (int i = 0; i < max; i++)
                     {
                         Vector2 offset = Projectile.width / 2 * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i);
-                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
                             Projectile.damage, Projectile.knockBack, Projectile.owner, MathHelper.WrapAngle(offset.ToRotation()), 32);
                     }
                 }

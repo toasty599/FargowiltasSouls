@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 for (int i = -1; i <= 1; i++)
                 {
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(45) * i),
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(45) * i),
                         Projectile.type, (int)(Projectile.damage / 3.0 * 4.0), 0f, Projectile.owner, 1);
                 }
             }

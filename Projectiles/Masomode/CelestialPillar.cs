@@ -191,7 +191,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 const float rotationInterval = 2f * (float)Math.PI / max;
                 for (int i = 0; i < max; i++)
                 {
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(rotationInterval * i),
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(rotationInterval * i),
                           ModContent.ProjectileType<GlowLine>(), Projectile.damage / 3, 0f, Main.myPlayer, 7, Projectile.ai[0]);
                 }
             }

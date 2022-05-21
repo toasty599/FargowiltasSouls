@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -14,6 +15,12 @@ namespace FargowiltasSouls.Tiles
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
+            if (type == TileID.LihzahrdBrick && Framing.GetTileSafely(i, j).WallType == WallID.LihzahrdBrickUnsafe)
+            {
+                if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8)) < 3000)
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<LihzahrdCurse>(), 10);
+            }
+
             if (type == TileID.LihzahrdAltar && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
                 && Collision.CanHit(new Vector2(i * 16 + 8, j * 16 + 8), 0, 0, Main.LocalPlayer.Center, 0, 0)
                 && Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8)) < 3000
@@ -21,7 +28,7 @@ namespace FargowiltasSouls.Tiles
             {
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.ghost && !Main.LocalPlayer.dead)
                 {
-                    if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<Buffs.Masomode.LihzahrdBlessing>()))
+                    if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<LihzahrdBlessing>()))
                     {
                         Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.LihzahrdBlessing"), Color.Orange);
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item4, Main.LocalPlayer.Center);
@@ -32,14 +39,14 @@ namespace FargowiltasSouls.Tiles
                             Main.dust[d].velocity *= 9f;
                         }
                     }
-                    Main.LocalPlayer.AddBuff(ModContent.BuffType<Buffs.Masomode.LihzahrdBlessing>(), 60 * 60 * 10 - 1); //10mins
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<LihzahrdBlessing>(), 60 * 60 * 10 - 1); //10mins
                 }
             }
         }
 
         private bool CanBreakTileMaso(int i, int j, int type)
         {
-            if (Framing.GetTileSafely(i, j).WallType == WallID.LihzahrdBrickUnsafe && (type == TileID.Traps || type == TileID.PressurePlates))
+            if ((type == TileID.Traps || type == TileID.PressurePlates) && Framing.GetTileSafely(i, j).WallType == WallID.LihzahrdBrickUnsafe)
             {
                 int p = Player.FindClosest(new Vector2(i * 16 + 8, j * 16 + 8), 0, 0);
                 if (p != -1)
@@ -60,8 +67,10 @@ namespace FargowiltasSouls.Tiles
             if (!FargoSoulsWorld.EternityMode)
                 return base.CanExplode(i, j, type);
 
+
             if (!CanBreakTileMaso(i, j, type))
                 return false;
+
 
             return base.CanExplode(i, j, type);
         }
@@ -71,9 +80,11 @@ namespace FargowiltasSouls.Tiles
             if (!FargoSoulsWorld.EternityMode)
                 return base.CanKillTile(i, j, type, ref blockDamaged);
 
+
             if (!CanBreakTileMaso(i, j, type))
                 return false;
 
+            
             return base.CanKillTile(i, j, type, ref blockDamaged);
         }
 

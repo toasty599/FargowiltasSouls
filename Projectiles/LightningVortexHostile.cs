@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     Vector2 vector2_3 = 24f * (player != null && Projectile.ai[0] == 0 ? Projectile.DirectionTo(player.Center) : Projectile.ai[1].ToRotationVector2());
                     float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
-                    int p = Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vector2_3,
+                    int p = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vector2_3,
                         ModContent.ProjectileType<HostileLightning>(), Projectile.damage, Projectile.knockBack, Projectile.owner,
                         vector2_3.ToRotation(), ai1New * 0.75f);
                     Main.projectile[p].localAI[1] = shadertype; //change projectile's ai if the recolored vortex portal is being used, so that purple ones always fire purple lightning

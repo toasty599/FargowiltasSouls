@@ -110,9 +110,9 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 int max = 10;
                 for (int i = 0; i < max; i++)
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MutantBoss.MutantBomb>(), 0, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MutantBoss.MutantBomb>(), 0, Projectile.knockBack, Projectile.owner);
                 if (!FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, Projectile.knockBack, Projectile.owner, -Vector2.UnitY.ToRotation(), 32);
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, Projectile.knockBack, Projectile.owner, -Vector2.UnitY.ToRotation(), 32);
             }
 
             Vector2 size = new Vector2(500, 500);

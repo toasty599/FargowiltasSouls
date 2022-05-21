@@ -385,7 +385,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 for (int i = -2; i <= 2; i++)
                                 {
-                                    Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center,
+                                    Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center,
                                         1.5f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 / 2 * i),
                                         ModContent.ProjectileType<PhantasmalBolt2>(), projectile.damage, 0f, Main.myPlayer);
                                 }
@@ -520,7 +520,7 @@ namespace FargowiltasSouls.Projectiles
                             Vector2 baseVel = Vector2.Lerp(projectile.velocity, Vector2.UnitX * projectile.velocity.Length() * Math.Sign(projectile.velocity.X), 0.75f);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center + 200f * Vector2.Normalize(projectile.velocity), baseVel.RotatedBy(MathHelper.ToRadians(30) * i), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+                                Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center + 200f * Vector2.Normalize(projectile.velocity), baseVel.RotatedBy(MathHelper.ToRadians(30) * i), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
                             }
                         }
                     }
@@ -627,7 +627,7 @@ namespace FargowiltasSouls.Projectiles
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
                                         float spawnOffset = 800;
-                                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center + projectile.rotation.ToRotationVector2() * spawnOffset, Vector2.Zero, ProjectileID.FairyQueenLance, projectile.damage, projectile.knockBack, projectile.owner, projectile.rotation + offset * i, projectile.ai[0]);
+                                        Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center + projectile.rotation.ToRotationVector2() * spawnOffset, Vector2.Zero, ProjectileID.FairyQueenLance, projectile.damage, projectile.knockBack, projectile.owner, projectile.rotation + offset * i, projectile.ai[0]);
                                     }
                                 }
                             }
@@ -673,8 +673,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.WireKite:
-                    if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse
-                        && Framing.GetTileSafely(projectile.Center).WallType == WallID.LihzahrdBrickUnsafe)
+                    if (projectile.owner == Main.myPlayer && Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse)
                     {
                         projectile.Kill();
                     }
@@ -882,7 +881,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         if (!(sourceNPC is NPC && (sourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>() || sourceNPC.type == ModContent.NPCType<SpiritChampion>())))
                         {
-                            FargoSoulsUtil.NewNPCEasy(Entity.InheritSource(projectile), projectile.Center, NPCID.SandShark,
+                            FargoSoulsUtil.NewNPCEasy(Terraria.Entity.InheritSource(projectile), projectile.Center, NPCID.SandShark,
                                 velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-20, -10)));
                         }
                     }
@@ -926,7 +925,7 @@ namespace FargowiltasSouls.Projectiles
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ModContent.ProjectileType<PhantasmalSphereDeathray>(),
+                                        Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ModContent.ProjectileType<PhantasmalSphereDeathray>(),
                                             0, 0f, Main.myPlayer, 0f, projectile.identity);
                                     }
 
@@ -959,7 +958,7 @@ namespace FargowiltasSouls.Projectiles
                             float ai1 = phase2 ? 60 + Main.rand.Next(60) : 90 + Main.rand.Next(30);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, speed, ModContent.ProjectileType<BetsyPhoenix>(),
+                                Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, speed, ModContent.ProjectileType<BetsyPhoenix>(),
                                     projectile.damage, 0f, Main.myPlayer, Player.FindClosest(projectile.Center, 0, 0), ai1);
                             }
                         }
@@ -975,7 +974,7 @@ namespace FargowiltasSouls.Projectiles
                         if (phase2 && !firstTickAICheckDone && FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(
-                                Entity.InheritSource(projectile),
+                                Terraria.Entity.InheritSource(projectile),
                                 projectile.Center + 100f * Vector2.Normalize(sourceNPC.velocity),
                                 Vector2.Zero,
                                 ModContent.ProjectileType<EarthChainBlast>(),
@@ -1007,7 +1006,7 @@ namespace FargowiltasSouls.Projectiles
                             }
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, projVel, type, projectile.damage, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, projVel, type, projectile.damage, 0f, Main.myPlayer);
                         }
                     }
                     break;
@@ -1049,7 +1048,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 Vector2 vel = Main.rand.NextFloat(12f, 18f) * j * baseVel.RotatedBy(MathHelper.PiOver4 * 0.8f / max * i * -j);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -1684,7 +1683,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.BloodNautilusTears:
                 case ProjectileID.BloodNautilusShot:
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, Vector2.Zero, ModContent.ProjectileType<BloodFountain>(), projectile.damage, 0f, Main.myPlayer, Main.rand.Next(16, 48));
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, Vector2.Zero, ModContent.ProjectileType<BloodFountain>(), projectile.damage, 0f, Main.myPlayer, Main.rand.Next(16, 48));
                     break;
 
                 default:

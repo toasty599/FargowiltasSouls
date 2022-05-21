@@ -100,9 +100,6 @@ namespace FargowiltasSouls
 
                 if (Player.ZoneJungle)
                 {
-                    if (Framing.GetTileSafely(Player.Center).WallType == WallID.LihzahrdBrickUnsafe)
-                        Player.AddBuff(ModContent.BuffType<LihzahrdCurse>(), 2);
-
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !fargoSoulsPlayer.MutantAntibodies)
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Poisoned, 2);
                 }

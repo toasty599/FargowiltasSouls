@@ -1452,12 +1452,6 @@ namespace FargowiltasSouls
                 Player.InfoAccMechShowWires = false;
             }
 
-            if ((Player.HeldItem.type == ItemID.WireCutter || Player.HeldItem.type == ItemID.WireKite)
-                && (LihzahrdCurse || !Player.buffImmune[ModContent.BuffType<LihzahrdCurse>()])
-                && (Framing.GetTileSafely(Player.Center).WallType == WallID.LihzahrdBrickUnsafe
-                || Framing.GetTileSafely(Main.MouseWorld).WallType == WallID.LihzahrdBrickUnsafe))
-                Player.controlUseItem = false;
-
             if (Graze && ++GrazeCounter > 60) //decrease graze bonus over time
             {
                 GrazeCounter = 0;

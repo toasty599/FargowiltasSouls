@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
         {
 			if (Projectile.owner == Main.myPlayer && Projectile.localAI[1] == 1)
 			{
-				Projectile[] projs = FargoSoulsUtil.XWay(Main.rand.Next(3, 7), Entity.InheritSource(Projectile), Projectile.Center, Projectile.type, 6, Projectile.damage, Projectile.knockBack);
+				Projectile[] projs = FargoSoulsUtil.XWay(Main.rand.Next(3, 7), Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.type, 6, Projectile.damage, Projectile.knockBack);
                 foreach (Projectile proj in projs)
                 {
                     if (proj != null)

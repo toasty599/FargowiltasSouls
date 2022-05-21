@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, 12f * Vector2.UnitX.RotatedBy(Projectile.rotation),
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, 12f * Vector2.UnitX.RotatedBy(Projectile.rotation),
                         ProjectileID.CultistBossFireBall, Projectile.damage, 0f, Main.myPlayer);
                 }
             }

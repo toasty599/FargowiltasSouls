@@ -78,14 +78,14 @@ namespace FargowiltasSouls.Projectiles.Champions
                         if (i == 0)
                             continue;
                         Vector2 offset = Projectile.width * 1.25f * baseDirection.RotatedBy(MathHelper.ToRadians(60) * i + Main.rand.NextFloat(-random, random));
-                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center + offset, Vector2.Zero, Projectile.type,
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + offset, Vector2.Zero, Projectile.type,
                             Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
                     }
                 }
                 else
                 {
                     Vector2 offset = Projectile.width * 2.25f * baseDirection.RotatedBy(Main.rand.NextFloat(-random, random));
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center + offset, Vector2.Zero, Projectile.type,
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + offset, Vector2.Zero, Projectile.type,
                         Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
                 }
             }

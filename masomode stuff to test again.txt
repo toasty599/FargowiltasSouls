@@ -1658,4 +1658,7 @@ buffed crimetroid
 plantera and fishron no longer lose defense in later phases
 tentatively removed a fix, see whether spears extend/stack infinitely with autofire again
 reworked snow ench, it is now stardust ench lite (scuffed rn but w/e)
+lihzahrd curse
+	has debuff icon
+	now passively applies around the temple
 security wallet guarantees no bad reforges ever

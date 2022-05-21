@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.position.X + 14 + Main.rand.Next(Projectile.width - 28),
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.position.X + 14 + Main.rand.Next(Projectile.width - 28),
                         Projectile.position.Y + Projectile.height + 4, 0f, 5f,
                         ModContent.ProjectileType<NatureRain>(), Projectile.damage, 0f, Main.myPlayer);
                 }

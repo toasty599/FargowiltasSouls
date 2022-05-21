@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 4 * i),
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 4 * i),
                         ModContent.ProjectileType<ShadowFlamingScythe>(), Projectile.damage, 0f, Main.myPlayer);
                 }
             }

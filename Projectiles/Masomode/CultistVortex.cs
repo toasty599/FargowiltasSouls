@@ -144,7 +144,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         Vector2 dir = Vector2.UnitY;
                         float ai1New = Main.rand.Next(100);
                         Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 5f;
-                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel, ProjectileID.CultistBossLightningOrbArc,
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel, ProjectileID.CultistBossLightningOrbArc,
                             Projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                     }
                 }

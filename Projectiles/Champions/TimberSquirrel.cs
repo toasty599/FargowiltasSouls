@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 if (Counter == baseTimeleft)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TimberLightningOrb>(), Projectile.damage, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TimberLightningOrb>(), Projectile.damage, 0f, Main.myPlayer);
                 }
 
                 if (Counter > baseTimeleft)
@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                             Vector2 vel = speed * (Projectile.rotation + rotationBaseOffset * i).ToRotationVector2();
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, vel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
+                                Projectile.NewProjectile(Terraria.Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, vel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
 
                             if (npc is NPC)
                             {
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                                 edgeVel *= speed * 3f;
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(Entity.InheritSource(npc), spawnPos, edgeVel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
+                                    Projectile.NewProjectile(Terraria.Entity.InheritSource(npc), spawnPos, edgeVel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
                             }
                         }
 
