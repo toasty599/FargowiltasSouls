@@ -33,6 +33,7 @@ namespace FargowiltasSouls.Projectiles
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 
             Projectile.penetrate = 2;
+            Projectile.hide = true;
         }
 
         public override void AI()
@@ -44,6 +45,8 @@ namespace FargowiltasSouls.Projectiles
             int dustId3 = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height + 5, 56, Projectile.velocity.X * 0.2f,
                 Projectile.velocity.Y * 0.2f, 100, default(Color), .5f);
             Main.dust[dustId3].noGravity = true;*/
+
+            Projectile.hide = false;
 
             if (++Projectile.localAI[0] == 20)
             {

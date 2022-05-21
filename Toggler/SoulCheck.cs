@@ -23,7 +23,10 @@ namespace FargowiltasSouls.Toggler
 
         public static void SetToggleValue(this Player player, string name, bool value)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles[name].ToggleBool = value;
+            if (player.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles.ContainsKey(name))
+                player.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles[name].ToggleBool = value;
+            else
+                FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {name}");
         }
 
         /*public static void SetPlayerBoolValue(this Player player, string name, bool value)

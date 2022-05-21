@@ -1754,50 +1754,38 @@ namespace FargowiltasSouls
         {
             SnowEnchantActive = true;
 
-            if (Player.GetToggleValue("Snow"))
+            if (ChillSnowstorm)
             {
                 SnowVisual = true;
 
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<Snowstorm>()] < 1)
+                for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    Vector2 mouse = Main.MouseWorld;
-                    Projectile.NewProjectile(Player.GetSource_Misc(""), mouse, Vector2.Zero, ModContent.ProjectileType<Snowstorm>(), 0, 0, Player.whoAmI);
+                    Projectile proj = Main.projectile[i];
+
+                    if (proj.active && proj.hostile && proj.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(proj) && !proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune)
+                    {
+                        FargoSoulsGlobalProjectile globalProj = proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
+                        globalProj.ChilledProj = true;
+                        globalProj.ChilledTimer = 6;
+                        proj.netUpdate = true;
+                    }
                 }
 
-                //int dist = 200;
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
 
-                //if (FrostEnchant)
-                //{
-                //    dist = 300;
-                //}
+                    if (npc.active && !npc.friendly && npc.damage > 0 && !npc.dontTakeDamage && !npc.buffImmune[ModContent.BuffType<TimeFrozen>()])
+                    {
+                        npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
+                        npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = 6;
+                        npc.netUpdate = true;
+                    }
+                }
 
-                ////dust
-                //for (int i = 0; i < 3; i++)
-                //{
-                //    Vector2 offset = new Vector2();
-                //    double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                //    offset.X += (float)(Math.Sin(angle) * Main.rand.Next(dist + 1));
-                //    offset.Y += (float)(Math.Cos(angle) * Main.rand.Next(dist + 1));
-                //    Dust dust = Main.dust[Dust.NewDust(
-                //        Player.Center + offset - new Vector2(4, 4), 0, 0,
-                //        76, 0, 0, 100, Color.White, .75f)];
-
-                //    dust.noGravity = true;
-                //}
-
-                //for (int i = 0; i < 1000; i++)
-                //{
-                //    Projectile proj = Main.projectile[i];
-
-                //    if (proj.active && proj.hostile && proj.damage > 0 && Vector2.Distance(proj.Center, Player.Center) < dist)
-                //    {
-                //        proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledProj = true;
-                //        proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledTimer = 30;
-                //    }
-                //}
+                if (--chillLength <= 0)
+                    ChillSnowstorm = false;
             }
-
-
         }
 
         public void AncientShadowEffect()

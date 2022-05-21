@@ -105,11 +105,13 @@ namespace FargowiltasSouls.NPCs
             if (npc.boss || npc.type == NPCID.EaterofWorldsHead)
                 boss = npc.whoAmI;
 
+            bool retval = base.PreAI(npc);
+
             if (TimeFrozen)
             {
                 npc.position = npc.oldPosition;
                 npc.frameCounter = 0;
-                return false;
+                retval = false;
             }
 
             if (!FirstTick)
@@ -184,7 +186,7 @@ namespace FargowiltasSouls.NPCs
             if (Lethargic && ++LethargicCounter > 3)
             {
                 LethargicCounter = 0;
-                return false;
+                retval = false;
             }
 
             //            if (ExplosiveCritter)
@@ -216,11 +218,14 @@ namespace FargowiltasSouls.NPCs
                 if (SnowChilledTimer <= 0)
                     SnowChilled = false;
 
-                if (SnowChilledTimer % 2 == 1)
-                    return false;
+                if (SnowChilledTimer % 3 == 1)
+                {
+                    npc.position = npc.oldPosition;
+                    retval = false;
+                }
             }
 
-            return true;
+            return retval;
         }
 
         public override void AI(NPC npc)

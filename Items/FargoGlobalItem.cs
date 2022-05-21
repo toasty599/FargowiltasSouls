@@ -80,8 +80,11 @@ namespace FargowiltasSouls.Items
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("Tungsten"))
+            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("Tungsten")
+                && !item.IsAir && item.damage > 0 && !item.noMelee && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+            {
                 scale *= TungstenEnchant.TungstenIncreaseWeaponSize(modPlayer);
+            }
         }
 
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)

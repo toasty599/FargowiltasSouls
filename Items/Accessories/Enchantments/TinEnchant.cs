@@ -137,7 +137,7 @@ Getting hit resets your crit to 5%
         //reset crit
         public static void TinHurt(FargoSoulsPlayer modPlayer)
         {
-            int oldCrit = modPlayer.TinCrit;
+            float oldCrit = modPlayer.TinCrit;
             if (modPlayer.Eternity)
             {
                 modPlayer.TinCrit = 50;
@@ -155,7 +155,8 @@ Getting hit resets your crit to 5%
             {
                 modPlayer.TinCrit = 5;
             }
-            int diff = oldCrit - modPlayer.TinCrit;
+
+            double diff = Math.Round(oldCrit - modPlayer.TinCrit, 1);
             if (diff > 0)
                 CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.TinCritReset", diff), true);
         }

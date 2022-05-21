@@ -124,7 +124,6 @@ namespace FargowiltasSouls
             AddToggle("CrimsonConfig", ModContent.ItemType<CrimsonEnchant>(), "C8364B");
             AddToggle("RainConfig", ModContent.ItemType<RainEnchant>(), "ffec00");
             AddToggle("FrostConfig", ModContent.ItemType<FrostEnchant>(), "7abdb9");
-            AddToggle("SnowConfig", ModContent.ItemType<SnowEnchant>(), "25c3f2");
             AddToggle("JungleConfig", ModContent.ItemType<JungleEnchant>(), "71971f");
             AddToggle("JungleDashConfig", ModContent.ItemType<JungleEnchant>(), "71971f");
             AddToggle("MoltenConfig", ModContent.ItemType<MoltenEnchant>(), "c12b2b");

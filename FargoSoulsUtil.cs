@@ -61,7 +61,7 @@ namespace FargowiltasSouls
             return (int)(modifier * npcDamage / inherentHostileProjMultiplier / Math.Max(npcDamageCalculationsOffset, worldDamage));
         }
 
-        public static void AllCritEquals(Player player, int crit)
+        public static void AllCritEquals(Player player, float crit)
         {
             player.GetCritChance(DamageClass.Generic) = crit;
 

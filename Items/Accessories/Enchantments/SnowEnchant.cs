@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             DisplayName.SetDefault("Snow Enchantment");
             Tooltip.SetDefault(
-@"Spawns a snowstorm at your cursor
-Any projectiles or npcs in the snowstorm are slowed by 50%
+@"Press the Freeze Key to chill everything for 10 seconds
+There is a 60 second cooldown for this effect
 'It's Burning Cold Outside'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰雪魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 

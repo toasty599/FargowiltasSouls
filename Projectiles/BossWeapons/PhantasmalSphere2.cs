@@ -31,6 +31,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Projectile.velocity.Y * 0.2f, 100, default(Color), .5f);
             Main.dust[dustId3].noGravity = true;*/
 
+            Projectile.hide = false;
+
             if (++Projectile.localAI[0] == 20)
             {
                 //Projectile.localAI[0] = 0;

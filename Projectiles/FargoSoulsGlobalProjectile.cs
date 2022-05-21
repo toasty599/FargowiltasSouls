@@ -252,6 +252,11 @@ namespace FargowiltasSouls.Projectiles
                     break;
             }
 
+            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
+            {
+                TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source);
+            }
+
             if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue("Adamantite") 
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source)
                 && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
@@ -264,11 +269,6 @@ namespace FargowiltasSouls.Projectiles
                 }
                 
                 AdamProj = true;
-            }
-
-            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
-            {
-                TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source);
             }
 
             if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
@@ -534,9 +534,10 @@ namespace FargowiltasSouls.Projectiles
             {
                 ChilledTimer--;
 
-                if (retVal && ChilledTimer % 2 == 1)
+                if (retVal && ChilledTimer % 3 == 1)
                 {
                     retVal = false;
+                    projectile.position = projectile.oldPosition;
                     projectile.timeLeft++;
                 }
 

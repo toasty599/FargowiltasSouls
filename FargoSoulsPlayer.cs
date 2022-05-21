@@ -192,14 +192,17 @@ namespace FargowiltasSouls
         public bool FreezeTime;
         public int freezeLength = TIMESTOP_DURATION;
         public const int TIMESTOP_DURATION = 540; //300
+        public bool ChillSnowstorm;
+        public int chillLength = CHILL_DURATION;
+        public const int CHILL_DURATION = 600;
         public bool TikiEnchantActive;
         public bool TikiMinion;
         public int actualMinions;
         public bool TikiSentry;
         public int actualSentries;
         public bool TinEnchantActive;
-        public int TinCritMax;
-        public int TinCrit = 5;
+        public float TinCritMax;
+        public float TinCrit = 5;
         public int TinProcCD;
         public bool TinCritBuffered;
         public bool TungstenEnchantActive;
@@ -571,20 +574,41 @@ namespace FargowiltasSouls
                 return;
             }
 
-            if (FargowiltasSouls.FreezeKey.JustPressed && StardustEnchantActive && !Player.HasBuff(ModContent.BuffType<TimeStopCD>()))
+            if (FargowiltasSouls.FreezeKey.JustPressed)
             {
-                int cooldownInSeconds = 60;
-                if (CosmoForce)
-                    cooldownInSeconds = 50;
-                if (TerrariaSoul)
-                    cooldownInSeconds = 40;
-                if (Eternity)
-                    cooldownInSeconds = 30;
-                Player.ClearBuff(ModContent.BuffType<TimeFrozen>());
-                Player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
-                FreezeTime = true;
-                freezeLength = TIMESTOP_DURATION;
-                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
+                if (StardustEnchantActive && !Player.HasBuff(ModContent.BuffType<TimeStopCD>()))
+                {
+                    int cooldownInSeconds = 60;
+                    if (CosmoForce)
+                        cooldownInSeconds = 50;
+                    if (TerrariaSoul)
+                        cooldownInSeconds = 40;
+                    if (Eternity)
+                        cooldownInSeconds = 30;
+                    Player.ClearBuff(ModContent.BuffType<TimeFrozen>());
+                    Player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
+                    
+                    FreezeTime = true;
+                    freezeLength = TIMESTOP_DURATION;
+                    
+                    SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
+                }
+                else if (SnowEnchantActive && !Player.HasBuff(ModContent.BuffType<SnowstormCD>()))
+                {
+                    Player.AddBuff(ModContent.BuffType<SnowstormCD>(), 60 * 60);
+                    
+                    ChillSnowstorm = true;
+                    chillLength = CHILL_DURATION;
+
+                    SoundEngine.PlaySound(SoundID.Item27, Player.Center);
+
+                    for (int i = 0; i < 30; i++)
+                    {
+                        int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.GemSapphire, 0, 0, 0, default, 3f);
+                        Main.dust[d].noGravity = true;
+                        Main.dust[d].velocity *= 9f;
+                    }
+                }
             }
 
 
@@ -974,6 +998,12 @@ namespace FargowiltasSouls
 
             BuilderMode = false;
             NoUsingItems = false;
+
+            FreezeTime = false;
+            freezeLength = TIMESTOP_DURATION;
+
+            ChillSnowstorm = false;
+            chillLength = CHILL_DURATION;
 
             SlimyShieldFalling = false;
             DarkenedHeartCD = 60;
