@@ -765,9 +765,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return result;
         }
 
-        public override void AI(NPC npc)
+        public override void PostAI(NPC npc)
         {
-            base.AI(npc);
+            base.PostAI(npc);
 
             if (IsEX || FargoSoulsWorld.MasochistModeReal)
             {
@@ -775,9 +775,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 //npc.damage = (int)(npc.defDamage * 1.2f * (Main.expertMode ? 0.6f * Main.damageMultiplier : 1f));
                 if (npc.ai[0] >= 9) //phase 3
                     npc.damage = Math.Max(npc.damage, (int)(npc.defDamage * 1.3));
-
-                npc.defense = Math.Max(npc.defense, npc.defDefense);
             }
+
+            npc.defense = Math.Max(npc.defense, npc.defDefense);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

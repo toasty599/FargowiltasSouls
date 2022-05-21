@@ -106,6 +106,19 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
+        public override void PostAI(NPC npc)
+        {
+            base.PostAI(npc);
+
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+            {
+                behaviour.PostAI(npc);
+            }
+        }
+
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);

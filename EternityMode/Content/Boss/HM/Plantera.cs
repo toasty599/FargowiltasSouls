@@ -348,12 +348,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return result;
         }
 
-        public override void AI(NPC npc)
+        public override void PostAI(NPC npc)
         {
-            base.AI(npc);
+            base.PostAI(npc);
 
-            if (FargoSoulsWorld.MasochistModeReal && npc.defense < npc.defDefense)
-                npc.defense = npc.defDefense;
+            npc.defense = Math.Max(npc.defense, npc.defDefense);
         }
 
         public override Color? GetAlpha(NPC npc, Color drawColor)
