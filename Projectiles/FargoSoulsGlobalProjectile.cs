@@ -27,10 +27,16 @@ namespace FargowiltasSouls.Projectiles
 
         //        private bool townNPCProj;
         public int counter;
-        public bool Rainbow = false;
+        public bool Rainbow;
         public int GrazeCD;
 
         //enchants
+
+        /// <summary>
+        /// Whether effects like Adamantite Enchantment or generally most SplitProj calls work.
+        /// <br/>When trying to disable it, do so in SetDefaults!
+        /// <br/>When checking it, bear in mind that OnSpawn comes before a Projectile.NewProjectile() returns! High danger of infinite recursion
+        /// </summary>
         public bool CanSplit = true;
        // private int numSplits = 1;
         public int stormTimer;
@@ -251,7 +257,7 @@ namespace FargowiltasSouls.Projectiles
                 && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
             {
                 if (projectile.owner == Main.myPlayer 
-                    && (source is EntitySource_ItemUse 
+                    && (source is EntitySource_ItemUse
                     || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.minion || sourceProj.sentry || ProjectileID.Sets.IsAWhip[sourceProj.type]))))
                 {
                     AdamantiteEnchant.AdamantiteSplit(projectile);
@@ -263,6 +269,45 @@ namespace FargowiltasSouls.Projectiles
             if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
             {
                 TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source);
+            }
+
+            if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
+            {
+                SilverMinion = true;
+                projectile.extraUpdates++;
+
+                int armorPen = 20;
+                if (modPlayer.SpiritForce)
+                    armorPen *= 2;
+                if (modPlayer.TerrariaSoul)
+                    armorPen *= 3;
+
+                projectile.ArmorPenetration += armorPen;
+            }
+
+            if (modPlayer.TikiEnchantActive)
+            {
+                if (FargoSoulsUtil.IsSummonDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
+                {
+                    tikiMinion = true;
+
+                    if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
+                    {
+                        tikiMinion = true;
+                        tikiTimer = 300;
+
+                        if (modPlayer.SpiritForce || modPlayer.WizardEnchantActive)
+                        {
+                            tikiTimer = 480;
+                        }
+                    }
+                }
+            }
+
+            if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)
+            {
+                if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
+                    SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
             }
         }
 
@@ -299,75 +344,6 @@ namespace FargowiltasSouls.Projectiles
 
             if (projectile.owner == Main.myPlayer)
             {
-                if (firstTick)
-                {
-                    //townNPCProj = projectile.friendly && !projectile.hostile
-                    //    && !projectile.melee && !projectile.ranged && !projectile.magic && !projectile.minion && !projectile.thrown
-                    //    && !projectile.sentry && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type];
-                    /*for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        NPC npc = Main.npc[i];
-
-                        if (npc.active && npc.townNPC && projectile.Hitbox.Intersects(npc.Hitbox))
-                        {
-                            townNPCProj = true;
-                        }
-                    }*/
-
-                    if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
-                    {
-                        SilverMinion = true;
-                        projectile.extraUpdates++;
-                    }
-
-                    if (modPlayer.TikiEnchantActive)
-                    {
-                        if (FargoSoulsUtil.IsSummonDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
-                        {
-                            tikiMinion = true;
-
-                            if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
-                            {
-                                tikiMinion = true;
-                                tikiTimer = 300;
-
-                                if (modPlayer.SpiritForce || modPlayer.WizardEnchantActive)
-                                {
-                                    tikiTimer = 480;
-                                }
-                            }
-                        }
-                    }
-
-                    //if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardianExplosion)
-                    //{
-                    //    projectile.damage *= 5;
-                    //}
-
-                    if (projectile.bobber && CanSplit)
-                    {
-                        /*if (modPlayer.FishSoul1)
-                        {
-                            SplitProj(projectile, 5);
-                        }*/
-                        if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
-                        {
-                            SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
-                        }
-                    }
-
-                    /*if (modPlayer.BeeEnchant && (projectile.type == ProjectileID.GiantBee || projectile.type == ProjectileID.Bee || projectile.type == ProjectileID.Wasp))
-                    {
-                        projectile.usesLocalNPCImmunity = true;
-                        projectile.localNPCHitCooldown = 5;
-                        projectile.penetrate *= 2;
-                        projectile.timeLeft *= 2;
-                        projectile.scale *= 2.5f;
-                        //projectile.damage = (int)(projectile.damage * 1.5);
-                        SuperBee = true;
-                    }*/
-                }
-
                 //reset tungsten size
                 if (TungstenScale != 1 && (!modPlayer.TungstenEnchantActive || !player.GetToggleValue("TungstenProj")))
                 {
@@ -471,17 +447,6 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
 
-                //if (SuperBee && (modPlayer.LifeForce || modPlayer.WizardEnchant))
-                //{
-                //    projectile.position += projectile.velocity;
-                //}
-
-                ////prob change in 1.4
-                //if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardian)
-                //{
-                //    projectile.localAI[0] = 0f;
-                //}
-
                 //hook ai
                 if (modPlayer.MahoganyEnchantActive && player.GetToggleValue("Mahogany", false) && projectile.aiStyle == 7)
                 {
@@ -499,7 +464,6 @@ namespace FargowiltasSouls.Projectiles
                     if (modPlayer.Atrophied && projectile.DamageType == DamageClass.Throwing)
                     {
                         projectile.damage = 0;
-                        projectile.position = new Vector2(Main.maxTilesX);
                         projectile.Kill();
                     }
 
@@ -543,7 +507,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 20;
 
-                                int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
+                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
 
                                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 62, 0.5f);
 
@@ -1172,19 +1136,7 @@ namespace FargowiltasSouls.Projectiles
             if (SilverMinion)
             {
                 if (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity || projectile.type == ProjectileID.StardustCellMinionShot)
-                {
-                    //reduce final damage but ignore some defense to compensate
                     damage /= 2;
-
-                    FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
-                    int armorPen = 20;
-                    if (modPlayer.SpiritForce)
-                        armorPen *= 2;
-                    if (modPlayer.TerrariaSoul)
-                        armorPen *= 3;
-
-                    damage += Math.Min(target.defense / 4, armorPen / 2);
-                }
             }
 
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)

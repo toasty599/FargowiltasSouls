@@ -60,6 +60,11 @@ namespace FargowiltasSouls.NPCs.Challengers
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
         }
+
+        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
+        {
+            boundingBox = NPC.Hitbox;
+        }
     }
 
     public abstract class TrojanSquirrelLimb : TrojanSquirrelPart

@@ -1055,10 +1055,4 @@ namespace FargowiltasSouls
             return NormalSpawn(spawnInfo) && NoBiome(spawnInfo) && NoZone(spawnInfo);
         }
     }
-
-    //    internal enum MsgType : byte
-    //    {
-    //        ProjectileHostility,
-    //        SyncAI
-    //    }
 }
