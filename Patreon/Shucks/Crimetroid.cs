@@ -24,7 +24,9 @@ namespace FargowiltasSouls.Patreon.Shucks
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
         }
-        
+
+        public override bool MinionContactDamage() => true;
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

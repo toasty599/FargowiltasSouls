@@ -1654,3 +1654,4 @@ onspawn refactor, test
 fixed trojan squirrel name on hover appearing weirdly, is now properly mapped to its hitboxes
 reimplemented spider ench
 reimplemented how class damage is calculated for many projs, mainly ones spawned by accs
+buffed crimetroid
