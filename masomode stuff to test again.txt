@@ -1656,3 +1656,4 @@ reimplemented spider ench
 reimplemented how class damage is calculated for many projs, mainly ones spawned by accs
 buffed crimetroid
 plantera and fishron no longer lose defense in later phases
+tentatively removed a fix, see whether spears extend/stack infinitely with autofire again

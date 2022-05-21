@@ -694,11 +694,11 @@ namespace FargowiltasSouls.Projectiles
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (projectile.aiStyle == ProjAIStyleID.Spear)
-            {
-                if (player.itemTime == 1 && player.whoAmI == Main.myPlayer) //fix spears stacking when autoreuse
-                    projectile.Kill();
-            }
+            //if (projectile.aiStyle == ProjAIStyleID.Spear)
+            //{
+            //    if (player.itemTime == 1 && player.whoAmI == Main.myPlayer) //fix spears stacking when autoreuse
+            //        projectile.Kill();
+            //}
 
             switch (projectile.type)
             {
