@@ -1650,13 +1650,13 @@ reimplemented tungsten ench for the 5000th time
 onspawn refactor, test
 	tiki ench
 	trawler soul bobber split
-	silver ench gives armor penetration
+	silver ench gives armor penetration to summons
 fixed trojan squirrel name on hover appearing weirdly, is now properly mapped to its hitboxes
-reimplemented spider ench
+reimplemented spider ench, check no bugs
 reimplemented how class damage is calculated for many projs, mainly ones spawned by accs
 buffed crimetroid
 plantera and fishron no longer lose defense in later phases
-tentatively removed a fix, see whether spears extend/stack infinitely with autofire again
+removed a now-obsolete fix, see whether spears extend/stack infinitely with autofire again
 reworked snow ench, it is now stardust ench lite (scuffed rn but w/e)
 lihzahrd curse
 	has debuff icon

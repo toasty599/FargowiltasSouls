@@ -142,7 +142,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
             if (npc.type == NPCID.Shark)
             {
-                if (Main.hardMode && Main.rand.NextBool(4) && Collision.CanHitLine(npc.Top, 0, 0, npc.Top - 2f * 16f * Vector2.UnitY, 0, 0))
+                if (Main.hardMode && Main.rand.NextBool(4) && Collision.CanHitLine(npc.Top, 0, 0, npc.Top - 30 * 16f * Vector2.UnitY, 0, 0))
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.Sharknado, FargoSoulsUtil.ScaledProjectileDamage(npc.defDamage, 0.5f), 0f, Main.myPlayer, 15, 15);

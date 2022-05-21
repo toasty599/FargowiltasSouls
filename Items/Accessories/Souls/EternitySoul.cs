@@ -81,7 +81,7 @@ This stacks up to 950 times until you get hit");
 
             string description = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EternitySoul.Additional");
             ulong seed = Main.GameUpdateCount / 5;
-            for (int i = 0; i < section; i++)
+            for (int i = 0; i < linesToShow; i++)
             {
                 int start = section * i;
                 description += "\n" + lines[start + Utils.RandomInt(ref seed, section)];
