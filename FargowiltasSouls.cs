@@ -444,7 +444,7 @@ namespace FargowiltasSouls
             }
 
             GiveItem("Fargowiltas", "AutoHouse", 5);
-            GiveItem("Fargowiltas", "MiniInstabridge", 5);
+            GiveItem("Fargowiltas", "MiniInstaBridge", 5);
             GiveItem("Fargowiltas", "HalfInstavator");
 
             Item.NewItem(null, player.Center, ModContent.ItemType<EurusSock>());

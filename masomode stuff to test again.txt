@@ -1666,3 +1666,5 @@ sharks
 	wont spawn sharknado if it would go through blocks
 	inflict oceanic maul
 security wallet guarantees no bad reforges ever
+
+fixed a typo that made devi unable to give mini instabridges in starter pack
