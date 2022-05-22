@@ -1668,3 +1668,9 @@ sharks
 security wallet guarantees no bad reforges ever
 
 fixed a typo that made devi unable to give mini instabridges in starter pack
+in maso, ml vanilla rays spins faster and head ray is big
+adjusted visual of ml moons exploding (cosmetic)
+added trojan squrrl to eternity advisor
+fixed fishron's fishrons dying as wrong fishron
+penetrator final spark no longer forces you to move slower while using it
+empress sword walls have a better outer ring to dissuade shinobi tp dash

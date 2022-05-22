@@ -434,9 +434,13 @@ namespace FargowiltasSouls.Projectiles
                             projectile.localAI[1] = projectile.velocity.ToRotation();
 
                             if (sourceNPC.ai[0] == 7 && sourceNPC.ai[1] >= 255 && sourceNPC.GetEModeNPCMod<EmpressofLight>().DoParallelSwordWalls)
+                            {
                                 altBehaviour = true;
+                            }
                             else if (sourceNPC.GetEModeNPCMod<EmpressofLight>().AttackTimer == 1)
+                            {
                                 projectile.localAI[0] = 1f;
+                            }
                         }
                         break;
 
@@ -550,6 +554,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         if (Math.Abs(MathHelper.WrapAngle(projectile.velocity.ToRotation() - projectile.localAI[1])) > MathHelper.Pi * 0.9f)
                             EModeCanHurt = true;
+
                         projectile.extraUpdates = EModeCanHurt ? 1 : 3;
 
                         if (projectile.localAI[0] == 1f)
@@ -938,6 +943,22 @@ namespace FargowiltasSouls.Projectiles
 					{
                         EModeCanHurt = true;
 					}
+                    break;
+
+                case ProjectileID.PhantasmalDeathray:
+                    if (FargoSoulsWorld.MasochistModeReal)
+                    {
+                        projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[0] * 0.5f);
+                        projectile.rotation = projectile.velocity.ToRotation() - MathHelper.PiOver2;
+
+                        if (sourceNPC is NPC && sourceNPC.type == NPCID.MoonLordHead)
+                        {
+                            projectile.scale *= 4f;
+
+                            if (!Main.dedServ && Main.LocalPlayer.active)
+                                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                        }
+                    }
                     break;
 
                 case ProjectileID.BombSkeletronPrime: //needs to be set every tick

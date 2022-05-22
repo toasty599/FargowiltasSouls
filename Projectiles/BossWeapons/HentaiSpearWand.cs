@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             Projectile.width = 58;
             Projectile.height = 58;
-            Projectile.aiStyle = 19;
+            Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 return;
             }
 
-            if (player.dead || !player.active)
+            if (player.dead || player.ghost || !player.active)
             {
                 Projectile.Kill();
                 return;
@@ -96,8 +96,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                       Projectile.damage, Projectile.knockBack, player.whoAmI, 0, Projectile.identity);
                 }
             }
-
-            player.velocity *= 0.9f; //move slower while holding it
 
             Vector2 ownerMountedCenter = player.RotatedRelativePoint(player.MountedCenter);
             player.heldProj = Projectile.whoAmI;
@@ -131,6 +129,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             player.itemRotation = Projectile.velocity.ToRotation() + itemrotate;
             player.itemRotation = MathHelper.WrapAngle(player.itemRotation);
             player.ChangeDir(Math.Sign(Projectile.velocity.X));
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

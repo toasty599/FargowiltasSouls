@@ -43,6 +43,16 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             behindProjectiles.Add(index);
         }
 
+        public Vector2 TipOffset => 9f * Projectile.velocity * Projectile.scale; //offset to look like is at tip proper
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) < TipOffset.Length() * 2)
+                return true;
+
+            return base.Colliding(projHitbox, targetHitbox);
+        }
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -55,41 +65,28 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>());
-            if (byIdentity != -1)
+
+            Projectile spear = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>()));
+            if (spear != null)
             {
                 Projectile.timeLeft = 2;
-
                 float itemrotate = player.direction < 0 ? MathHelper.Pi : 0;
                 if (Math.Abs(player.itemRotation) > Math.PI / 2)
                     itemrotate = itemrotate == 0 ? MathHelper.Pi : 0;
                 Projectile.velocity = (player.itemRotation + itemrotate).ToRotationVector2();
-                Projectile.Center = player.Center + Main.rand.NextVector2Circular(5, 5);
+                Projectile.Center = spear.Center + Main.rand.NextVector2Circular(5, 5);
 
-                Projectile.position += Projectile.velocity * 164 * 1.3f / 4f; //offset by part of spear's length (wand)
-                Projectile.position += Projectile.velocity * 164 * 1.3f * 0.75f; //part of penetrator's length (ray)
+                Projectile.position += Projectile.velocity * 164 * spear.scale * 0.45f; //offset by part of spear's length (wand)
 
                 Projectile.damage = player.GetWeaponDamage(player.HeldItem);
                 Projectile.knockBack = player.GetWeaponKnockback(player.HeldItem, player.HeldItem.knockBack);
-
-                /*Projectile.Center = Main.projectile[player.heldProj].Center + Main.rand.NextVector2Circular(5, 5);
-                Projectile.timeLeft = 2;
-
-                Projectile.velocity = Vector2.Normalize(Main.projectile[player.heldProj].velocity);
-                Projectile.position += Projectile.velocity * 164 * 1.3f * 0.75f; //part of penetrator's length
-
-                Projectile.damage = Main.projectile[player.heldProj].damage;
-                Projectile.knockBack = Main.projectile[player.heldProj].knockBack;*/
             }
-            else if (Projectile.localAI[0] > 5) //leeway for mp lag
+            else if (++Projectile.localAI[0] > 5) //leeway for mp lag
             {
                 Projectile.Kill();
                 return;
             }
-            if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)
-            {
-                Projectile.velocity = -Vector2.UnitY;
-            }
+
             if (Projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
@@ -120,6 +117,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.scale = num801;
             }
+
+            Projectile.scale *= spear.scale / 1.3f;
+            Projectile.position += TipOffset;
+
             //float num804 = Projectile.velocity.ToRotation();
             //num804 += Projectile.ai[0];
             //Projectile.rotation = num804 - 1.57079637f;
@@ -241,7 +242,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void PostAI()
         {
             base.PostAI();
+
             Projectile.hide = true;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

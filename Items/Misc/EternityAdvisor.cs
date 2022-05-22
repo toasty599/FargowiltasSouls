@@ -73,7 +73,15 @@ namespace FargowiltasSouls.Items.Misc
         {
             int summonType = -1;
 
-            if (!NPC.downedSlimeKing)
+            if (!FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TrojanSquirrel])
+            {
+                summonType = ModContent.ItemType<SquirrelCoatofArms>();
+                build = GetBuildText(
+                    ModContent.ItemType<EurusSock>(),
+                    ModContent.ItemType<PuffInABottle>()
+                );
+            }
+            else if (!NPC.downedSlimeKing)
             {
                 summonType = ItemID.SlimeCrown;
                 build = GetBuildText(

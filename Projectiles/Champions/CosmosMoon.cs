@@ -108,9 +108,14 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int max = 10;
+                const int max = 8;
+                const float baseRotation = MathHelper.TwoPi / max;
                 for (int i = 0; i < max; i++)
-                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MutantBoss.MutantBomb>(), 0, Projectile.knockBack, Projectile.owner);
+                {
+                    float rotation = baseRotation * (i + Main.rand.NextFloat(-0.5f, 0.5f));
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, Projectile.knockBack, Projectile.owner, rotation, 3);
+                }
+
                 if (!FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, Projectile.knockBack, Projectile.owner, -Vector2.UnitY.ToRotation(), 32);
             }

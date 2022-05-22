@@ -363,7 +363,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item161, npc.HasValidTarget ? Main.player[npc.target].Center : npc.Center);
 
                 //rainbow trails to prevent running out of range
-                for (float i = 0; i < 1; i += 1f / 24f)
+                for (float i = 0; i < 1; i += 1f / 13f)
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedBy(MathHelper.PiOver2 + MathHelper.TwoPi * i + startRotation);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -376,9 +376,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 Main.projectile[p].timeLeft = timeLeft;
                         }
 
-                        LastingRainbow(6f * spinningpoint, 500 + 240);
-                        //LastingRainbow(-9f * spinningpoint, 500 + 90);
-                        //LastingRainbow(12f * spinningpoint.RotatedBy(MathHelper.PiOver2), 500 + 120);
+                        LastingRainbow(6f * spinningpoint, 500 + 120);
+                        LastingRainbow(-7f * spinningpoint, 500 + 120);
+                        LastingRainbow(8.5f * spinningpoint.RotatedBy(MathHelper.PiOver2), 500 + 120);
                     }
                 }
             }
