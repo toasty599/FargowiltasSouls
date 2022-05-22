@@ -1674,3 +1674,8 @@ added trojan squrrl to eternity advisor
 fixed fishron's fishrons dying as wrong fishron
 penetrator final spark no longer forces you to move slower while using it
 empress sword walls have a better outer ring to dissuade shinobi tp dash
+
+removed the middle proj from adam ench splits to keep it "balanced"
+	trust me on this, halving iframes is already iffy enough, thirding it will shit the game
+	made the spread a bit tighter to compensate
+adam ench no longer crashes with whips

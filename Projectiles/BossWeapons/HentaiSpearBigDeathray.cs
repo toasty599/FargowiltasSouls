@@ -198,33 +198,33 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 }
             }
 
-            if (--dustTimer < -1)
-            {
-                dustTimer = 50;
+            //if (--dustTimer < -1)
+            //{
+            //    dustTimer = 50;
 
-                float diff = MathHelper.WrapAngle(Projectile.rotation - oldRot);
-                //if (npc.HasPlayerTarget && Math.Abs(MathHelper.WrapAngle(npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - Projectile.velocity.ToRotation())) < Math.Abs(diff)) diff = 0;
-                diff *= 15f;
+            //    float diff = MathHelper.WrapAngle(Projectile.rotation - oldRot);
+            //    //if (npc.HasPlayerTarget && Math.Abs(MathHelper.WrapAngle(npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - Projectile.velocity.ToRotation())) < Math.Abs(diff)) diff = 0;
+            //    diff *= 15f;
 
-                const int ring = 220; //LAUGH
-                for (int i = 0; i < ring; ++i)
-                {
-                    Vector2 speed = Projectile.velocity.RotatedBy(diff) * 24f;
+            //    const int ring = 220; //LAUGH
+            //    for (int i = 0; i < ring; ++i)
+            //    {
+            //        Vector2 speed = Projectile.velocity.RotatedBy(diff) * 24f;
 
-                    Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(Projectile.velocity.ToRotation() + diff);
-                    int index2 = Dust.NewDust(Main.player[Projectile.owner].Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
-                    Main.dust[index2].scale = 2.5f;
-                    Main.dust[index2].noGravity = true;
-                    Main.dust[index2].position = Main.player[Projectile.owner].Center;
-                    Main.dust[index2].velocity = vector2 * 2.5f + speed;
+            //        Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(Projectile.velocity.ToRotation() + diff);
+            //        int index2 = Dust.NewDust(Main.player[Projectile.owner].Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
+            //        Main.dust[index2].scale = 2.5f;
+            //        Main.dust[index2].noGravity = true;
+            //        Main.dust[index2].position = Main.player[Projectile.owner].Center;
+            //        Main.dust[index2].velocity = vector2 * 2.5f + speed;
 
-                    index2 = Dust.NewDust(Main.player[Projectile.owner].Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
-                    Main.dust[index2].scale = 2.5f;
-                    Main.dust[index2].noGravity = true;
-                    Main.dust[index2].position = Main.player[Projectile.owner].Center;
-                    Main.dust[index2].velocity = vector2 * 1.75f + speed * 2;
-                }
-            }
+            //        index2 = Dust.NewDust(Main.player[Projectile.owner].Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
+            //        Main.dust[index2].scale = 2.5f;
+            //        Main.dust[index2].noGravity = true;
+            //        Main.dust[index2].position = Main.player[Projectile.owner].Center;
+            //        Main.dust[index2].velocity = vector2 * 1.75f + speed * 2;
+            //    }
+            //}
 
 
             Projectile.frameCounter += Main.rand.Next(3);

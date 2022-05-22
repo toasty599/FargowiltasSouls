@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Adamantite Enchantment");
-            Tooltip.SetDefault("Every weapon shot will split into 3" +
+            Tooltip.SetDefault("Every weapon shot will split into 2" +
                 "\nAll weapon shots deal 50% damage and hit twice as fast" +
                 "\n'Chaos'");
 
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public static void AdamantiteSplit(Projectile projectile)
         {
-            FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, 1f);
+            FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(8), 1f);
         }
 
         public override void AddRecipes()

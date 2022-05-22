@@ -263,9 +263,12 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (projectile.owner == Main.myPlayer 
                     && (source is EntitySource_ItemUse
-                    || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.minion || sourceProj.sentry || ProjectileID.Sets.IsAWhip[sourceProj.type]))))
+                    || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.minion || sourceProj.sentry || (ProjectileID.Sets.IsAWhip[sourceProj.type] && !ProjectileID.Sets.IsAWhip[projectile.type])))))
                 {
                     AdamantiteEnchant.AdamantiteSplit(projectile);
+                    projectile.timeLeft = 0;
+                    projectile.active = false;
+                    return;
                 }
                 
                 AdamProj = true;

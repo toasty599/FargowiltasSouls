@@ -32,7 +32,7 @@ $"[i:{ModContent.ItemType<PalladiumEnchant>()}] Greatly increases life regenerat
 $"[i:{ModContent.ItemType<PalladiumEnchant>()}] You spawn an orb of damaging life energy every 80 life regenerated\n" +
 $"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Flower petals will cause extra damage to your target\n" +
 $"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Damaging debuffs deal 5x damage\n" +
-$"[i:{ModContent.ItemType<AdamantiteEnchant>()}] Every weapon shot will split into 3, deal 50% damage and have 50% less iframes\n" +
+$"[i:{ModContent.ItemType<AdamantiteEnchant>()}] Every weapon shot will split into 2, deal 50% damage and have 50% less iframes\n" +
 $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacking generates a defensive barrier of titanium shards\n" +
 "'Gaia's blessing shines upon you'");
 
