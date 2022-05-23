@@ -135,7 +135,7 @@ namespace FargowiltasSouls
 
             SkyManager.Instance["FargowiltasSouls:MoonLordSky"] = new MoonLordSky();
 
-            FreezeKey = KeybindLoader.RegisterKeybind(this, "Freeze Time", "P");
+            FreezeKey = KeybindLoader.RegisterKeybind(this, "Freeze", "P");
             GoldKey = KeybindLoader.RegisterKeybind(this, "Turn Gold", "O");
             SmokeBombKey = KeybindLoader.RegisterKeybind(this, "Throw Smoke Bomb", "I");
             BetsyDashKey = KeybindLoader.RegisterKeybind(this, "Fireball Dash", "C");

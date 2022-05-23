@@ -200,6 +200,10 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.ZapinatorLaser:
+                    projectile.originalDamage = projectile.damage;
+                    break;
+
                 case ProjectileID.Meowmere:
                     if (source is EntitySource_ItemUse && projectile.owner == Main.myPlayer)
                         FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(30), 1f);
@@ -489,6 +493,11 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.ZapinatorLaser:
+                    if (projectile.damage > projectile.originalDamage)
+                        projectile.damage = projectile.originalDamage;
+                    break;
+
                 case ProjectileID.InsanityShadowHostile:
                     if (FargoSoulsWorld.SwarmActive)
                         break;

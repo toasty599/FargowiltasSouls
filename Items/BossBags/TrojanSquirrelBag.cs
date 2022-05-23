@@ -26,6 +26,7 @@ namespace FargowiltasSouls.Items.BossBags
 
             player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ItemID.WoodenCrate, 5);
             player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ItemID.HerbBag, 5);
+            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ItemID.Acorn, 100);
 
             if (Main.rand.NextBool(5))
                 player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type);

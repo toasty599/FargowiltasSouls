@@ -832,6 +832,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             rule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<TreeSword>(), ModContent.ItemType<MountedAcornGun>(), ModContent.ItemType<SnowballStaff>(), ModContent.ItemType<KamikazeSquirrelStaff>()));
             rule.OnSuccess(ItemDropRule.Common(ItemID.WoodenCrate, 1, 1, 5));
             rule.OnSuccess(ItemDropRule.Common(ItemID.HerbBag, 1, 1, 5));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.Acorn, 1, 100, 100));
             rule.OnSuccess(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 10));
             npcLoot.Add(rule);
         }

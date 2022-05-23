@@ -29,13 +29,15 @@ namespace FargowiltasSouls.BossBars
         {
             NPC npc = FargoSoulsUtil.NPCExists(info.npcIndexToAimAt);
             
-            if (npc == null)
-                return base.ModifyInfo(ref info, ref lifePercent, ref shieldPercent);
+            if (npc == null || !npc.active)
+                return false;
 
             bossHeadIndex = npc.GetBossHeadTextureIndex();
 
             int life = npc.life;
             int lifeMax = npc.lifeMax;
+
+            bool retval = true;
 
             if (npc.ModNPC is TrojanSquirrel trojanSquirrel)
             {
@@ -66,10 +68,14 @@ namespace FargowiltasSouls.BossBars
                     shieldPercent = Utils.Clamp((float)untouchedBalls / ballCount, 0f, 1f);
                 }
             }
+            else
+            {
+                retval = false;
+            }
 
             lifePercent = Utils.Clamp((float)life / lifeMax, 0f, 1f);
 
-            return true;
+            return retval;
         }
     }
 }

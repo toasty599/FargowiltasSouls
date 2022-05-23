@@ -509,7 +509,7 @@ namespace FargowiltasSouls
 
         public static void SpawnBossTryFromNPC(int playerTarget, int originalType, int bossType)
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode == NetmodeID.MultiplayerClient && playerTarget == Main.myPlayer)
             {
                 var packet = FargowiltasSouls.Instance.GetPacket();
                 packet.Write((byte)FargowiltasSouls.PacketID.SpawnBossTryFromNPC);

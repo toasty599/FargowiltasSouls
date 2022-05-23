@@ -519,6 +519,11 @@ namespace FargowiltasSouls
         {
             if (Mash)
             {
+                Player.doubleTapCardinalTimer[0] = 0;
+                Player.doubleTapCardinalTimer[1] = 0;
+                Player.doubleTapCardinalTimer[2] = 0;
+                Player.doubleTapCardinalTimer[3] = 0;
+
                 const int increment = 1;
 
                 if (triggersSet.Up)

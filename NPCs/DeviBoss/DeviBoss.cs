@@ -1211,7 +1211,13 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         }
                     }
 
-                    if (++NPC.ai[2] > (FargoSoulsWorld.MasochistModeReal ? 30 : 60))
+                    if (FargoSoulsWorld.MasochistModeReal && NPC.ai[3] < 7)
+                    {
+                        NPC.ai[1]++;
+                        NPC.ai[2]++;
+                    }
+
+                    if (++NPC.ai[2] > 60)
                     {
                         NPC.ai[2] = 0;
                         //only make rings in p2 and before firing ray
@@ -1299,16 +1305,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         }
                     }
 
-                    if (NPC.ai[3] >= 7) //firing laser dust
-                    {
-                        /*for (int i = 0; i < 5; i++)
-                        {
-                            int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 86, -NPC.velocity.X, -NPC.velocity.Y, 0, default(Color), 2.5f);
-                            Main.dust[d].noGravity = true;
-                            Main.dust[d].velocity *= 12f;
-                        }*/
-                    }
-                    else //charge up dust
+                    if (NPC.ai[3] < 7) //charge up dust
                     {
                         float num1 = 0.99f;
                         if (NPC.ai[3] >= 1f)
@@ -1421,7 +1418,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         NPC.direction = NPC.spriteDirection = Math.Sign(NPC.ai[2]);
 
-                        if (Math.Sign(targetPos.X - NPC.Center.X) != Math.Sign(NPC.ai[2]))
+                        if (!FargoSoulsWorld.MasochistModeReal && Math.Sign(targetPos.X - NPC.Center.X) != Math.Sign(NPC.ai[2]))
                             NPC.velocity.X *= 0.5f; //worse movement if you're behind her
                     }
                     else if (NPC.ai[1] < 180)

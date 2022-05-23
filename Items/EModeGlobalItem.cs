@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Items
             if (!FargoSoulsWorld.EternityMode)
                 return base.CanUseItem(item, player);
 
-            if (item.type == ItemID.RodofDiscord || item.type == ItemID.WireKite || item.type == ItemID.WireCutter)
+            if (item.type == ItemID.RodofDiscord || item.type == ItemID.WireKite || item.type == ItemID.WireCutter || item.type == ItemID.Wrench || item.type == ItemID.BlueWrench || item.type == ItemID.GreenWrench || item.type == ItemID.MulticolorWrench || item.type == ItemID.YellowWrench || item.type == ItemID.Actuator)
             {
                 //either player is affected by lihzahrd curse, or cursor is targeting a place in temple (player standing outside)
                 if (player.GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse || (Framing.GetTileSafely(Main.MouseWorld).WallType == WallID.LihzahrdBrickUnsafe && !player.buffImmune[ModContent.BuffType<Buffs.Masomode.LihzahrdCurse>()]))

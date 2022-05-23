@@ -202,6 +202,19 @@ namespace FargowiltasSouls.EternityMode
             return result;
         }
 
+        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
+        {
+            base.ModifyHitPlayer(npc, target, ref damage, ref crit);
+
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+            {
+                behaviour.ModifyHitPlayer(npc, target, ref damage, ref crit);
+            }
+        }
+
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);

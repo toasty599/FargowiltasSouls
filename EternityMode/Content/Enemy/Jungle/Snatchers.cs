@@ -92,6 +92,13 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
                 BiteTimer--;
         }
 
+        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
+        {
+            base.ModifyHitPlayer(npc, target, ref damage, ref crit);
+
+            target.longInvince = true;
+        }
+
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
