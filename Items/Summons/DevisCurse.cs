@@ -1,10 +1,9 @@
+using FargowiltasSouls.NPCs.DeviBoss;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
-using FargowiltasSouls.NPCs.DeviBoss;
 
 namespace FargowiltasSouls.Items.Summons
 {

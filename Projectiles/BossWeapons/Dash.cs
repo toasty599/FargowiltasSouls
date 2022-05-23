@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     }
                 }
             }
-            
+
             if ((Projectile.ai[1] != 2 || Projectile.localAI[1] > 0) //dont give invul on the tick it spawns for dive
                 && Projectile.localAI[0] == 0) //only give invul with a full speed dash
             {

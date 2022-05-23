@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Projectiles.Masomode;
 
 namespace FargowiltasSouls
 {
@@ -437,7 +435,7 @@ namespace FargowiltasSouls
 
             if (!FargoSoulsWorld.EternityMode)
                 return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
-            
+
             //because NO MODIFY/ONHITPLAYER HOOK WORKS
             if (damageSource.SourceProjectileType is int && damageSource.SourceProjectileType == ProjectileID.Explosives)
                 Player.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);

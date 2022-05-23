@@ -1,20 +1,20 @@
-using System;
-using System.Linq;
 using FargowiltasSouls.Buffs.Boss;
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Projectiles.Masomode;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
-using FargowiltasSouls.Projectiles.Champions;
-using FargowiltasSouls.NPCs.Champions;
-using Terraria.DataStructures;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
-using System.IO;
+using FargowiltasSouls.NPCs;
+using FargowiltasSouls.NPCs.Champions;
+using FargowiltasSouls.Projectiles.Champions;
+using FargowiltasSouls.Projectiles.Masomode;
+using Microsoft.Xna.Framework;
+using System;
+using System.Linq;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -96,9 +96,9 @@ namespace FargowiltasSouls.Projectiles
                         projectile.localNPCHitCooldown = 0;
 
                         projectile.usesIDStaticNPCImmunity = true;
-                        if (FargoSoulsWorld.downedAbom) 
+                        if (FargoSoulsWorld.downedAbom)
                             projectile.idStaticNPCHitCooldown = 4;
-                        else if (FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion]) 
+                        else if (FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion])
                             projectile.idStaticNPCHitCooldown = 6;
                         else
                             projectile.idStaticNPCHitCooldown = 7;
@@ -318,7 +318,7 @@ namespace FargowiltasSouls.Projectiles
 
             if (!EModeCanHurt)
                 return false;
-            
+
             return base.CanHitPlayer(projectile, target);
         }
 
@@ -344,11 +344,11 @@ namespace FargowiltasSouls.Projectiles
             NPC sourceNPC = projectile.GetSourceNPC();
 
             if (!preAICheckDone)
-			{
+            {
                 preAICheckDone = true;
 
                 switch (projectile.type)
-				{
+                {
                     case ProjectileID.SharpTears:
                     case ProjectileID.JestersArrow:
                     case ProjectileID.MeteorShot:
@@ -410,9 +410,9 @@ namespace FargowiltasSouls.Projectiles
                             EModeCanHurt = false;
                         }
                         else
-						{
+                        {
                             EModeCanHurt = true;
-						}
+                        }
                         break;
 
                     case ProjectileID.HallowBossRainbowStreak:
@@ -467,8 +467,8 @@ namespace FargowiltasSouls.Projectiles
 
                     default:
                         break;
-				}
-			}
+                }
+            }
 
             counter++;
 
@@ -795,7 +795,7 @@ namespace FargowiltasSouls.Projectiles
                                         }
                                     }
 
-                                    Projectile.NewProjectile(npc.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<CultistRitual>(),FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<CultistRitual>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, npc.whoAmI);
                                     const int max = 16;
                                     const float appearRadius = 1600f - 100f;
                                     for (int i = 0; i < max; i++)
@@ -949,9 +949,9 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }
                     else
-					{
+                    {
                         EModeCanHurt = true;
-					}
+                    }
                     break;
 
                 case ProjectileID.PhantasmalDeathray:
@@ -1020,7 +1020,7 @@ namespace FargowiltasSouls.Projectiles
                         {
                             counter = 0;
 
-                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, projectile.Center);
+                            SoundEngine.PlaySound(SoundID.Item34, projectile.Center);
 
                             Vector2 projVel = projectile.velocity.RotatedBy((Main.rand.NextDouble() - 0.5) * Math.PI / 10);
                             projVel.Normalize();

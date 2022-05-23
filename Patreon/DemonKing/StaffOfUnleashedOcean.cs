@@ -1,10 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Collections.Generic;
-using FargowiltasSouls.Items;
-using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Patreon.DemonKing
 {
@@ -31,7 +29,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
             Item.noMelee = true;
             Item.knockBack = 4f;
             Item.rare = 11;
-            Item.UseSound = new Terraria.Audio.LegacySoundStyle(SoundID.Zombie, 20);
+            Item.UseSound = SoundHelper.LegacySoundStyle("Zombie", 20);
             Item.shoot = ModContent.ProjectileType<DukeFishronMinion>();
             Item.shootSpeed = 10f;
             Item.buffType = ModContent.BuffType<DukeFishronBuff>();

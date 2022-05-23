@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.NPCs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
+using Terraria.Audio;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.Champions
 {
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             if (Projectile.localAI[1] == 0)
             {
                 Projectile.localAI[1] = 1;
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
+                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
             }
 
             if (Projectile.timeLeft % (Projectile.extraUpdates + 1) == 0 && ++Projectile.localAI[1] > 30)
@@ -89,8 +89,8 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
 
             //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
-            
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
+
+            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
 
             for (int i = 0; i < 20; i++)
             {

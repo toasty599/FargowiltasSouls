@@ -1,10 +1,10 @@
+using FargowiltasSouls.NPCs.MutantBoss;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.NPCs.MutantBoss;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Summons
 {

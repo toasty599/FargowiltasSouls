@@ -1,4 +1,4 @@
-using On.Terraria.ID;
+using Terraria.ID;
 using Terraria;
 
 namespace FargowiltasSouls.Items.Summons

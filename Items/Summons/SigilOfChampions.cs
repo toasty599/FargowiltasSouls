@@ -1,10 +1,10 @@
+using FargowiltasSouls.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using FargowiltasSouls.NPCs.Champions;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Summons
 {
@@ -173,7 +173,7 @@ Not consumed on use");
             .AddIngredient(ItemID.LunarBar, 5)
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-            
+
             .Register();
         }
     }

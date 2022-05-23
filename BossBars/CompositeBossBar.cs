@@ -3,12 +3,10 @@ using FargowiltasSouls.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.BigProgressBar;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.BossBars
@@ -28,7 +26,7 @@ namespace FargowiltasSouls.BossBars
         public override bool? ModifyInfo(ref BigProgressBarInfo info, ref float lifePercent, ref float shieldPercent)
         {
             NPC npc = FargoSoulsUtil.NPCExists(info.npcIndexToAimAt);
-            
+
             if (npc == null || !npc.active)
                 return false;
 

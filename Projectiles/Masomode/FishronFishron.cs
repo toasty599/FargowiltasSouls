@@ -1,11 +1,12 @@
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -66,8 +67,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 5, 2 * Projectile.direction, -2f);
             }
 
-            int soundtype = (Main.rand.NextBool()) ? 17 : 30;
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, soundtype, 0.75f, 0.2f);
+            int soundtype = Main.rand.NextBool() ? 17 : 30;
+            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", soundtype, 0.75f, 0.2f), Projectile.Center);
 
             if (!Main.dedServ)
                 Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center - Vector2.UnitX * 20f * Projectile.direction, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_576_Vanilla").Type, Projectile.scale);

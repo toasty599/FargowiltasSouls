@@ -1,9 +1,8 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using FargowiltasSouls.Items.Materials;
+﻿using FargowiltasSouls.Items.Accessories.Expert;
 using FargowiltasSouls.Items.Weapons.Challengers;
+using Terraria;
 using Terraria.ID;
-using FargowiltasSouls.Items.Accessories.Expert;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.BossBags
 {

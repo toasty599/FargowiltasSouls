@@ -1,8 +1,7 @@
-using Microsoft.Xna.Framework;
+using FargowiltasSouls.NPCs.Challengers;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs.Challengers;
 
 namespace FargowiltasSouls.Items.Summons
 {

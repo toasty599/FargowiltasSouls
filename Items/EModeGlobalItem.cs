@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 

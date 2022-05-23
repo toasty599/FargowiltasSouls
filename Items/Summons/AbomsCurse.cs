@@ -1,11 +1,9 @@
+using FargowiltasSouls.NPCs.AbomBoss;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
-using FargowiltasSouls.NPCs.AbomBoss;
-using Terraria.Chat;
 
 namespace FargowiltasSouls.Items.Summons
 {

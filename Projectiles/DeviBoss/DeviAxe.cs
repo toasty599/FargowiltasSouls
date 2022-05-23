@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.DeviBoss
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 6);
+            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 6), Projectile.Center);
             /*Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.Center = Projectile.position;
