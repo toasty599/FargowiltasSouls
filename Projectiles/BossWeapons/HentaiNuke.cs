@@ -33,7 +33,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.alpha = 0;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+
+            Projectile.hide = true;
         }
+
+        public override bool? CanDamage() => Projectile.localAI[0] != 0;
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -68,6 +72,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.localAI[0] = 1f;
                 SoundEngine.PlaySound(SoundID.Item88, Projectile.Center);
+
+                Projectile.hide = false;
+                Projectile.position.Y -= 144 * Projectile.scale;
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;

@@ -1688,4 +1688,5 @@ fixed zapinator being able to stack damage and do x100 or more after hitting man
 fixed killing trojan squirrel causing a health bar to appear when it shouldnt
 tried fixing special boss spawners like the sibling spawners not always working in mp
 trojan squirrel drops 100 acorns
+fixed penetrator dive blast offset not working properly when upscaled by tungsten
 a truly genuinely unspeakable number of sound refactors because tml exploded a fundamental system again
