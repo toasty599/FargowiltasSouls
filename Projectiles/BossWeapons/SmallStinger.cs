@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     target.AddBuff(BuffID.Poisoned, 600);
                     DustRing(p, 16);
                     p.Kill();
-                    SoundEngine.PlaySound(SoundID.Item27 with { Volume = 1f, Pitch = -0.4f }, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item27 with { Pitch = -0.4f }, Projectile.Center);
                     break;
                 }
             }
