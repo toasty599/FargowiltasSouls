@@ -1705,3 +1705,7 @@ fixed whips not losing use speed with mythril ench
 censored trojan squirrel
 proper item sprites for sibling relics
 updated timestop debuff icon
+maso twins revive instead of endure
+maso eow vile spit corrupts
+maso boc ichor crimsons
+maso qs bouncy ball hallows

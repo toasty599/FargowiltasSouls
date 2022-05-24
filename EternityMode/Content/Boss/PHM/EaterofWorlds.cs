@@ -482,7 +482,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             npc.scale *= 2;
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.eaterBoss, NPCID.EaterofWorldsHead) && FargoSoulsWorld.MasochistModeReal)
+            if (FargoSoulsWorld.MasochistModeReal)
                 npc.dontTakeDamage = true;
         }
 
@@ -492,6 +492,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             if (++SuicideCounter > 600)
                 npc.StrikeNPCNoInteraction(9999, 0f, 0);
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            base.OnKill(npc);
+
+            if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                for (int i = 0; i < 8; i++)
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.CorruptSpray, 0, 0f, Main.myPlayer, 8f);
+            }
         }
     }
 }
