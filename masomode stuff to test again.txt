@@ -1696,3 +1696,5 @@ fixed space suffocation having the wrong sound effect
 zapinators have tooltip for nerf
 fixed armored skeletons hurting themselves with beam swords
 fixed a bug that caused maso prime to shoot stars at double the intended rate
+fishron p3 emode heals to 33%, was 50%
+fishron p3 maso heals to 50%, was 100%

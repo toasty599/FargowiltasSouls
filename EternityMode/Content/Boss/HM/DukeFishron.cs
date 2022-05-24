@@ -509,7 +509,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     if (npc.ai[2] == 120)
                     {
-                        int max = /*Fargowiltas.Instance.MasomodeEXLoaded ||*/ FargoSoulsWorld.MasochistModeReal ? npc.lifeMax : npc.lifeMax / 2; //heal
+                        int max = FargoSoulsWorld.MasochistModeReal ? npc.lifeMax / 2 : npc.lifeMax / 3;
                         int heal = max - npc.life;
                         npc.life = max;
                         CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
