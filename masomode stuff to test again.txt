@@ -1702,3 +1702,6 @@ added abom relic
 adjustments to abom/mutant special deathrays, test them and railgun
 fixed a sound issue with mutant rays
 fixed whips not losing use speed with mythril ench
+censored trojan squirrel
+proper item sprites for sibling relics
+updated timestop debuff icon
