@@ -5,6 +5,7 @@ using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Pets;
+using FargowiltasSouls.Items.Placeables.Relics;
 using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Projectiles;
@@ -1497,6 +1498,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<AbomBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AbomTrophy>(), 10));
 
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<AbomRelic>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<BabyScythe>(), 4));
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
