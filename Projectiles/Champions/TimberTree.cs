@@ -1,7 +1,6 @@
 using FargowiltasSouls.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -49,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void Kill(int timeLeft)
         {
             if (FargoSoulsWorld.EternityMode)
-                FargoSoulsUtil.NewNPCEasy(Entity.InheritSource(Projectile), Projectile.Top - 20 * Vector2.UnitY, ModContent.NPCType<LesserSquirrel>(), velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-20, -10)));
+                FargoSoulsUtil.NewNPCEasy(Terraria.Entity.InheritSource(Projectile), Projectile.Top - 20 * Vector2.UnitY, ModContent.NPCType<LesserSquirrel>(), velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-20, -10)));
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
@@ -72,7 +71,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                             distance.Y = minimumY;
                         distance += Main.rand.NextVector2Square(-0.5f, 0.5f);
 
-                        Projectile.NewProjectile(Entity.InheritSource(Projectile), spawnPos, distance, ModContent.ProjectileType<TimberAcorn>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), spawnPos, distance, ModContent.ProjectileType<TimberAcorn>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
             }

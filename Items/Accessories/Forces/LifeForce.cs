@@ -1,8 +1,7 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Localization;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using Terraria;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -17,9 +16,10 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<BeetleEnchant>()
         };
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            base.SetDefaults();
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Life");
 
             string tooltip =
@@ -50,7 +50,7 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defens
             modPlayer.LifeForce = true;
             modPlayer.BeeEffect(hideVisual);
             modPlayer.SpiderEffect(hideVisual);
-            modPlayer.BeetleEnchantActive = true;
+            modPlayer.BeetleEffect();
             PumpkinEnchant.PumpkinEffect(player, Item);
             modPlayer.TurtleEffect(hideVisual);
             CactusEnchant.CactusEffect(player);

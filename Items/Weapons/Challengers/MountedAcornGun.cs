@@ -1,10 +1,8 @@
 using FargowiltasSouls.Projectiles.ChallengerItems;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Weapons.Challengers
 {
@@ -41,12 +39,6 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
             Item.noMelee = true;
         }
 
-        public override bool CanConsumeAmmo(Player player)
-        {
-            if (Main.rand.NextBool())
-                return false;
-
-            return base.CanConsumeAmmo(player);
-        }
+        public override bool CanConsumeAmmo(Item ammo, Player player) => Main.rand.NextBool();
     }
 }

@@ -1,14 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Localization;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Toggler;
+﻿using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Minions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Materials;
+using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
@@ -30,7 +29,7 @@ Grants gravity control, fastfall, and immunity to knockback, almost all Eternity
 Grants autofire to all weapons and you automatically use mana potions when needed
 Your attacks create additional attacks, hearts, and inflict a cocktail of Eternity Mode debuffs
 Press the Fireball Dash key to perform a short invincible dash, zoom with right click
-Certain enemies will drop potions when defeated, 50% discount on reforges, you respawn with more life
+Certain enemies will drop potions when defeated, drastically improves reforges, you respawn with more life
 You respawn twice as fast, attacks spawn honey, have improved night vision, and erupt into various attacks when injured
 Prevents boss spawns, increases spawn rate, increases loot, and attacks may squeak and deal 1 damage to you
 Reduces hurtbox size, hold the Precision Seal key to disable dashes and double jumps
@@ -40,7 +39,7 @@ Summons the aid of all Eternity Mode bosses to your side
 'Embrace mastery, embrace eternity'");
 
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐之魂");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"延长200%飞行时间，增加50点护甲穿透和20%移动速度
 增加100%最大生命值、50%伤害和10%伤害减免
 大幅增加生命恢复速度，+10最大召唤和哨兵栏
@@ -406,7 +405,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            
+
             .Register();
         }
     }

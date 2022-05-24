@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Projectiles;
+﻿using FargowiltasSouls.ItemDropRules.Conditions;
+using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,13 +10,11 @@ using Terraria;
 using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.ItemDropRules.Conditions;
-using Terraria.GameContent.ItemDropRules;
 //using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls
@@ -61,40 +61,31 @@ namespace FargowiltasSouls
             return (int)(modifier * npcDamage / inherentHostileProjMultiplier / Math.Max(npcDamageCalculationsOffset, worldDamage));
         }
 
-        public static void AllCritEquals(Player player, int crit)
+        public static void AllCritEquals(Player player, float crit)
         {
             player.GetCritChance(DamageClass.Generic) = crit;
+
             player.GetCritChance(DamageClass.Melee) = 0;
             player.GetCritChance(DamageClass.Ranged) = 0;
             player.GetCritChance(DamageClass.Magic) = 0;
-            player.GetModPlayer<FargoSoulsPlayer>().SummonCrit = 0;
+            player.GetCritChance(DamageClass.Summon) = 0;
         }
+
+        public static NPC GetSourceNPC(this Projectile projectile)
+            => projectile.GetGlobalProjectile<a_SourceNPCGlobalProjectile>().sourceNPC;
+
+        public static void SetSourceNPC(this Projectile projectile, NPC npc)
+            => projectile.GetGlobalProjectile<a_SourceNPCGlobalProjectile>().sourceNPC = npc;
 
         public static float ActualClassDamage(this Player player, DamageClass damageClass)
-            => (float)player.GetDamage(DamageClass.Generic).Additive + (float)player.GetDamage(damageClass).Additive - 1f;
+            => player.GetTotalDamage(damageClass).Additive * player.GetTotalDamage(damageClass).Multiplicative;
 
-        /// <summary>
-        /// Gets the real crit chance for the damage type, including buffs to all damage.<br/>
-        /// Includes summoner, which uses our internal modPlayer SummonCrit and accounts for Spider Ench nerf!<br/>
-        /// Returns 0 if the class is no scaling
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="damageClass"></param>
-        /// <returns></returns>
-        public static int ActualClassCrit(this Player player, DamageClass damageClass)
-        {
-            if (damageClass == DamageClass.Summon)
-                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + (int)player.GetCritChance(DamageClass.Generic);
-
-            if (damageClass == DamageClass.Default)
-                return 0;
-
-            return (int)player.GetCritChance(damageClass) + (int)player.GetCritChance(DamageClass.Generic);
-        }
+        public static float ActualClassCrit(this Player player, DamageClass damageClass)
+            => player.GetTotalCritChance(damageClass);
 
         public static int HighestDamageTypeScaling(Player player, int dmg)
         {
-            List<float> types = new List<float> {  
+            List<float> types = new List<float> {
                 player.ActualClassDamage(DamageClass.Melee),
                 player.ActualClassDamage(DamageClass.Ranged),
                 player.ActualClassDamage(DamageClass.Magic),
@@ -104,16 +95,14 @@ namespace FargowiltasSouls
             return (int)(types.Max() * dmg);
         }
 
-        public static int HighestCritChance(Player player)
+        public static float HighestCritChance(Player player)
         {
-            List<int> types = new List<int> { 
-                player.ActualClassCrit(DamageClass.Melee), 
-                player.ActualClassCrit(DamageClass.Ranged), 
+            List<float> types = new List<float> {
+                player.ActualClassCrit(DamageClass.Melee),
+                player.ActualClassCrit(DamageClass.Ranged),
                 player.ActualClassCrit(DamageClass.Magic),
                 player.ActualClassCrit(DamageClass.Summon)
             };
-
-            //Main.NewText(player.GetCritChance(DamageClass.Melee) + " " + player.GetCritChance(DamageClass.Ranged) + " " + player.GetCritChance(DamageClass.Magic));
 
             return types.Max();
         }
@@ -513,12 +502,14 @@ namespace FargowiltasSouls
                 && !projectile.npcProj
                 && !projectile.trap
                 && projectile.DamageType != DamageClass.Default
-                && !(IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
+                && !projectile.minion
+                && !projectile.sentry
+                && projectile.minionSlots <= 0;
         }
 
         public static void SpawnBossTryFromNPC(int playerTarget, int originalType, int bossType)
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode == NetmodeID.MultiplayerClient && playerTarget == Main.myPlayer)
             {
                 var packet = FargowiltasSouls.Instance.GetPacket();
                 packet.Write((byte)FargowiltasSouls.PacketID.SpawnBossTryFromNPC);
@@ -537,7 +528,7 @@ namespace FargowiltasSouls
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
 
-                PrintText($"{npc.GivenOrTypeName} {Language.GetTextValue("Mods.FargowiltasSouls.Message.HasAwoken")}");
+                PrintText($"{npc.GivenOrTypeName} {Language.GetTextValue("Mods.FargowiltasSouls.Message.HasAwoken")}", new Color(175, 75, 255));
             }
             else
             {

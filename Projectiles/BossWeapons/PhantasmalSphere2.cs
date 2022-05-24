@@ -31,6 +31,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Projectile.velocity.Y * 0.2f, 100, default(Color), .5f);
             Main.dust[dustId3].noGravity = true;*/
 
+            Projectile.hide = false;
+
             if (++Projectile.localAI[0] == 20)
             {
                 //Projectile.localAI[0] = 0;
@@ -45,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Projectile.velocity = Projectile.DirectionTo(n.Center + n.velocity * Main.rand.NextFloat(60)) * 32f;
                 }
             }
-            
+
             if (Projectile.alpha > 0)
             {
                 Projectile.alpha -= 20;

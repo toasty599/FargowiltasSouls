@@ -1,26 +1,25 @@
-﻿using System;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.NPCs;
+using FargowiltasSouls.NPCs.EternityMode;
+using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Projectiles.Minions;
+using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameInput;
+using Terraria.Graphics.Capture;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Capture;
-using FargowiltasSouls.Toggler;
-using FargowiltasSouls.Projectiles.Souls;
-using FargowiltasSouls.Projectiles;
-using FargowiltasSouls.Buffs.Souls;
-using System.Collections.Generic;
-using FargowiltasSouls.Projectiles.Minions;
-using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.NPCs.MutantBoss;
-using FargowiltasSouls.NPCs.EternityMode;
-using System.Linq;
-using Terraria.Audio;
-using FargowiltasSouls.Projectiles.Masomode;
-using FargowiltasSouls.Projectiles.BossWeapons;
-using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls
 {
@@ -43,6 +42,8 @@ namespace FargowiltasSouls
             //don't let this stack
             if (Player.beetleDefense || Player.beetleOffense)
                 return;
+
+            BeetleEnchantActive = true;
 
             if (BeetleEnchantDefenseTimer > 0) //do defensive beetle things
             {
@@ -97,17 +98,22 @@ namespace FargowiltasSouls
                     Player.AddBuff(BuffID.BeetleMight3, 5, false);
                     beetles = 3;
                 }
-                else if (Player.beetleCounter > num2 + num3)
+                else
                 {
-                    Player.AddBuff(BuffID.BeetleMight2, 5, false);
-                    beetles = 2;
+                    Player.buffImmune[BuffID.BeetleMight3] = true;
+
+                    if (Player.beetleCounter > num2 + num3)
+                    {
+                        Player.AddBuff(BuffID.BeetleMight2, 5, false);
+                        beetles = 2;
+                    }
+                    else if (Player.beetleCounter > num2)
+                    {
+                        Player.AddBuff(BuffID.BeetleMight1, 5, false);
+                        beetles = 1;
+                    }
                 }
-                else if (Player.beetleCounter > num2)
-                {
-                    Player.AddBuff(BuffID.BeetleMight1, 5, false);
-                    beetles = 1;
-                }
-                
+
                 if (beetles < Player.beetleOrbs)
                     Player.beetleCountdown = 0;
                 else if (beetles > Player.beetleOrbs)
@@ -568,7 +574,7 @@ namespace FargowiltasSouls
                 goldHP = Player.statLife;
 
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zhonyas").WithVolume(1f), Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zhonyas"), Player.Center);
             }
             //cancel it early
             else
@@ -707,7 +713,7 @@ namespace FargowiltasSouls
                     JungleCD = 17 - tier * tier;
                     int dmg = 12 * tier * tier;
 
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 62, 0.5f);
+                    SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, Player.Center);
 
                     foreach (Projectile p in FargoSoulsUtil.XWay(10, Player.GetSource_Misc(""), Player.Bottom, ProjectileID.SporeCloud, 4f, FargoSoulsUtil.HighestDamageTypeScaling(Player, dmg), 0f))
                     {
@@ -858,11 +864,31 @@ namespace FargowiltasSouls
             }
         }
 
-        
+
+
+        public void MythrilEffect()
+        {
+            if (!Player.GetToggleValue("Mythril") || MythrilEnchantActive)
+                return;
+
+            MythrilEnchantActive = true;
+
+            if (WeaponUseTimer > 0)
+                MythrilTimer--;
+            else
+                MythrilTimer++;
+
+            if (MythrilTimer > MythrilMaxTime)
+                MythrilTimer = MythrilMaxTime;
+            if (MythrilTimer < 0)
+                MythrilTimer = 0;
+        }
+
+
 
         public void NebulaEffect()
         {
-            if (!Player.GetToggleValue("Nebula", false)) 
+            if (!Player.GetToggleValue("Nebula", false))
                 return;
 
             if (Player.setNebula)
@@ -1432,12 +1458,7 @@ namespace FargowiltasSouls
             //minion crits
             SpiderEnchantActive = true;
 
-            /*if (!TinEnchant)
-            {
-                SummonCrit = 20;
-            }*/
-
-
+            Player.GetCritChance(DamageClass.Summon) += 4;
         }
 
         public void SpookyEffect(bool hideVisual)
@@ -1455,7 +1476,7 @@ namespace FargowiltasSouls
                 FargoSoulsUtil.NewSummonProjectile(Player.GetSource_Accessory(item), Player.Center, Vector2.Zero, ProjectileID.StardustGuardian, 30, 10f, Main.myPlayer);
             }
 
-            
+
             //AddMinion(item, Player.GetToggleValue("Stardust"), ProjectileID.StardustGuardian, 30, 10f);
             //AddPet(Player.GetToggleValue("Stardust"), false, BuffID.StardustGuardianMinion, ProjectileID.StardustGuardian);
             Player.setStardust = true;
@@ -1506,7 +1527,7 @@ namespace FargowiltasSouls
                 if (freezeLength == 90)
                 {
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudoResume"), Player.Center);
                 }
 
                 if (freezeLength <= 0)
@@ -1558,7 +1579,7 @@ namespace FargowiltasSouls
             TurtleEnchantActive = true;
 
 
-            if (Player.GetToggleValue("Turtle") && !Player.HasBuff(ModContent.BuffType<BrokenShell>()) 
+            if (Player.GetToggleValue("Turtle") && !Player.HasBuff(ModContent.BuffType<BrokenShell>())
                 && IsStandingStill && !Player.controlUseItem && Player.whoAmI == Main.myPlayer && !noDodge)
             {
                 TurtleCounter++;
@@ -1699,7 +1720,7 @@ namespace FargowiltasSouls
         }
 
 
-        
+
 
         public void MonkEffect()
         {
@@ -1732,50 +1753,38 @@ namespace FargowiltasSouls
         {
             SnowEnchantActive = true;
 
-            if (Player.GetToggleValue("Snow"))
+            if (ChillSnowstorm)
             {
                 SnowVisual = true;
 
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<Snowstorm>()] < 1)
+                for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    Vector2 mouse = Main.MouseWorld;
-                    Projectile.NewProjectile(Player.GetSource_Misc(""), mouse, Vector2.Zero, ModContent.ProjectileType<Snowstorm>(), 0, 0, Player.whoAmI);
+                    Projectile proj = Main.projectile[i];
+
+                    if (proj.active && proj.hostile && proj.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(proj) && !proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune)
+                    {
+                        FargoSoulsGlobalProjectile globalProj = proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
+                        globalProj.ChilledProj = true;
+                        globalProj.ChilledTimer = 6;
+                        proj.netUpdate = true;
+                    }
                 }
 
-                //int dist = 200;
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
 
-                //if (FrostEnchant)
-                //{
-                //    dist = 300;
-                //}
+                    if (npc.active && !npc.friendly && npc.damage > 0 && !npc.dontTakeDamage && !npc.buffImmune[ModContent.BuffType<TimeFrozen>()])
+                    {
+                        npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
+                        npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = 6;
+                        npc.netUpdate = true;
+                    }
+                }
 
-                ////dust
-                //for (int i = 0; i < 3; i++)
-                //{
-                //    Vector2 offset = new Vector2();
-                //    double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                //    offset.X += (float)(Math.Sin(angle) * Main.rand.Next(dist + 1));
-                //    offset.Y += (float)(Math.Cos(angle) * Main.rand.Next(dist + 1));
-                //    Dust dust = Main.dust[Dust.NewDust(
-                //        Player.Center + offset - new Vector2(4, 4), 0, 0,
-                //        76, 0, 0, 100, Color.White, .75f)];
-
-                //    dust.noGravity = true;
-                //}
-
-                //for (int i = 0; i < 1000; i++)
-                //{
-                //    Projectile proj = Main.projectile[i];
-
-                //    if (proj.active && proj.hostile && proj.damage > 0 && Vector2.Distance(proj.Center, Player.Center) < dist)
-                //    {
-                //        proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledProj = true;
-                //        proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledTimer = 30;
-                //    }
-                //}
+                if (--chillLength <= 0)
+                    ChillSnowstorm = false;
             }
-
-
         }
 
         public void AncientShadowEffect()
@@ -1837,9 +1846,9 @@ namespace FargowiltasSouls
             }
 
             //frozen turtle shell
-            if (Player.GetToggleValue("DefenseFrozen",  false))
+            if (Player.GetToggleValue("DefenseFrozen", false))
             {
-                if (Player.statLife <= Player.statLifeMax2 * 0.5) 
+                if (Player.statLife <= Player.statLifeMax2 * 0.5)
                     Player.AddBuff(BuffID.IceBarrier, 5, true);
             }
 
@@ -1895,13 +1904,13 @@ namespace FargowiltasSouls
             }
 
             Player.iceSkate = true;
-            
+
             //lava waders
             Player.waterWalk = true;
             Player.fireWalk = true;
             Player.lavaImmune = true;
             Player.noFallDmg = true;
-            
+
             //bundle
             if (Player.GetToggleValue("SupersonicJumps") && Player.wingTime == 0)
             {
@@ -1928,7 +1937,7 @@ namespace FargowiltasSouls
                     Player.carpetTime = 1000;
                 }
             }
-            
+
             //EoC Shield
             if (Player.GetToggleValue("CthulhuShield"))
                 Player.dashType = 2;
@@ -2387,7 +2396,7 @@ namespace FargowiltasSouls
 
                 if (Player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
                 {
-                    SoundEngine.PlaySound(SoundID.NPCHit, Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/NPC_Hit_0"), Player.Center);
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
                         int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
@@ -2678,18 +2687,27 @@ namespace FargowiltasSouls
                 Player.scope = true;
         }
 
+        int lihzahrdFallCD;
         public void LihzahrdTreasureBoxUpdate()
         {
+            if (lihzahrdFallCD > 0)
+                lihzahrdFallCD--;
+
             if (Player.gravDir > 0 && Player.GetToggleValue("MasoGolem"))
             {
-                if (Player.controlDown && !Player.mount.Active && !Player.controlJump)
+                if (lihzahrdFallCD <= 0 && !Player.mount.Active && Player.controlDown && !Player.controlJump && Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
                 {
                     if (Player.velocity.Y != 0f)
                     {
                         if (Player.velocity.Y < 15f)
+                        {
                             Player.velocity.Y = 15f;
+                        }
                         if (GroundPound <= 0)
+                        {
                             GroundPound = 1;
+                            lihzahrdFallCD = 60;
+                        }
                     }
                 }
                 if (GroundPound > 0)
@@ -2888,6 +2906,12 @@ namespace FargowiltasSouls
             }
         }
 
+        public float DeerSinewCritNerf()
+        {
+            float ratio = Math.Min(Player.velocity.Length() / 16f, 1f);
+            return MathHelper.Lerp(1f, 0.75f, ratio);
+        }
+
         #endregion maso acc
 
         public bool TryParryAttack()
@@ -2901,13 +2925,13 @@ namespace FargowiltasSouls
                 if (DreadShellItem != null)
                 {
                     invul += 60;
-                    extrashieldCD = 360;
+                    extrashieldCD = DREAD_SHIELD_COOLDOWN;
 
                     DreadParryCounter();
                 }
                 else if (IronEnchantShield)
                 {
-                    extrashieldCD = 40;
+                    extrashieldCD = IRON_SHIELD_COOLDOWN;
 
                     if (TerraForce)
                         Player.AddBuff(BuffID.ParryDamageBuff, 300);
@@ -2932,6 +2956,11 @@ namespace FargowiltasSouls
 
             return false;
         }
+
+        private const int IRON_PARRY_WINDOW = 20;
+        private const int IRON_SHIELD_COOLDOWN = 100;
+        private const int DREAD_PARRY_WINDOW = 10;
+        private const int DREAD_SHIELD_COOLDOWN = 360;
 
         public void Shield()
         {
@@ -2970,9 +2999,9 @@ namespace FargowiltasSouls
                     if (shieldCD == 0) //if cooldown over, enable parry
                     {
                         if (DreadShellItem != null)
-                            shieldTimer = 10;
+                            shieldTimer = DREAD_PARRY_WINDOW;
                         else if (IronEnchantShield)
-                            shieldTimer = 20;
+                            shieldTimer = IRON_PARRY_WINDOW;
                     }
 
                     Player.itemAnimation = 0;
@@ -3014,11 +3043,11 @@ namespace FargowiltasSouls
                         Player.velocity.Y *= 0.85f;
                 }
 
-                int cooldown = 40;
+                int cooldown = IRON_SHIELD_COOLDOWN;
                 if (DreadShellItem != null)
-                    cooldown = 300;
+                    cooldown = DREAD_SHIELD_COOLDOWN;
                 else if (IronEnchantShield)
-                    cooldown = 40;
+                    cooldown = IRON_SHIELD_COOLDOWN;
                 if (shieldCD < cooldown)
                     shieldCD = cooldown;
             }

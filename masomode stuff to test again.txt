@@ -1617,4 +1617,87 @@ deerclawps no longer makes forever spikes if you grapple mid-dash
 antisocial is now -90% summon damage multiplicative
 tried making hell npcs properly immune to on fire, test that they are
 timber head repels from the squrrl laser orb (cant sit on it and block all lasers)
+committed crimes against design for mp sync, test in mp
+	empress homing bolts no damage on spawn
+	empress rainbow trails no damage on spawn
+	ml split bolts
+	ml nerfed homing eyes
+	ml accel hand spheres
+	deerclops ice spikes
+	trojan squrrl chains
+	timber champ big squrrl
 timber has slight tells for the laser barrage
+dust for hostile kamikaze squrrls
+iron ench nerf, parry cooldown +1sec
+mech leash has faster use speed (compensates its use time fix)
+lihzahrd box fastfall is now a vertical dash input, has 1sec cd
+grabbed debuff icon
+devi relic
+eridanus relic
+fixed adam ench minion crash
+adjusted tungsten "projectile from minion/sentry" check
+deer sinew crit nerf is now affected by speed and mentions its toggleable
+changed sparkling adoration heart homing
+reverted beetle ench changes to prevent stacking with armor because this code is fucked and i give up
+did another thing so you cant stack beetle ench with armor to get +50% damage
+fixed blender using normal static iframes (which reset normal iframes on hit) which made it obscenely powerful with adam ench
+fixed mutant maso spawning eoc without the telegraph
+mythril ench reworked, not attacking charges up for a burst of attack speed
+nerfed royal subject life
+buffed qs life
+
+reimplemented tungsten ench for the 5000th time
+onspawn refactor, test
+	tiki ench
+	trawler soul bobber split
+	silver ench gives armor penetration to summons
+fixed trojan squirrel name on hover appearing weirdly, is now properly mapped to its hitboxes
+reimplemented spider ench, check no bugs
+reimplemented how class damage is calculated for many projs, mainly ones spawned by accs
+buffed crimetroid
+plantera and fishron no longer lose defense in later phases
+removed a now-obsolete fix, see whether spears extend/stack infinitely with autofire again
+reworked snow ench, it is now stardust ench lite (scuffed rn but w/e)
+lihzahrd curse
+	has debuff icon
+	now passively applies around the temple
+sharks
+	in hm, spawn sharknados instead of ctulhunados
+	wont spawn sharknado if it would go through blocks
+	inflict oceanic maul
+security wallet guarantees no bad reforges ever
+
+fixed a typo that made devi unable to give mini instabridges in starter pack
+in maso, ml vanilla rays spins faster and head ray is big
+adjusted visual of ml moons exploding (cosmetic)
+added trojan squrrl to eternity advisor
+fixed fishron's fishrons dying as wrong fishron
+penetrator final spark no longer forces you to move slower while using it
+empress sword walls have a better outer ring to dissuade shinobi tp dash
+
+removed the middle proj from adam ench splits to keep it "balanced"
+	trust me on this, halving iframes is already iffy enough, thirding it will shit the game
+	made the spread a bit tighter to compensate
+adam ench no longer crashes with whips
+fixed a conspicuously long delay after devi's mega ray in maso
+devi maso sparkling love doesnt have worse aim when youre behind her
+lihzahrd curse disables wrenches and blocks placing actuators better
+snatchers nerfed, gives you longer iframes to compensate grab
+fixed grabbed causing you to dash on escape if you input a dash at any point while mashing
+fixed zapinator being able to stack damage and do x100 or more after hitting many enemies
+fixed killing trojan squirrel causing a health bar to appear when it shouldnt
+tried fixing special boss spawners like the sibling spawners not always working in mp
+trojan squirrel drops 100 acorns
+fixed penetrator dive blast offset not working properly when upscaled by tungsten
+a truly genuinely unspeakable number of sound refactors because tml exploded a fundamental system again
+
+more sound refactors
+fixed space suffocation having the wrong sound effect
+zapinators have tooltip for nerf
+fixed armored skeletons hurting themselves with beam swords
+fixed a bug that caused maso prime to shoot stars at double the intended rate
+fishron p3 emode heals to 33%, was 50%
+fishron p3 maso heals to 50%, was 100%
+added abom relic
+adjustments to abom/mutant special deathrays, test them and railgun
+fixed a sound issue with mutant rays

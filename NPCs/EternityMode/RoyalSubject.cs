@@ -1,13 +1,14 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Localization;
+using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FargowiltasSouls.Buffs.Masomode;
+using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
@@ -47,7 +48,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             AIType = NPCID.QueenBee;
             NPC.damage = 25;
             NPC.defense = 8;
-            NPC.lifeMax = 750;
+            NPC.lifeMax = 600;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0f;
@@ -111,7 +112,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 queenBee.netUpdate = true;
             }
 
-            Terraria.Audio.SoundEngine.PlaySound(NPC.DeathSound, NPC.Center);
+            if (NPC.DeathSound != null)
+                SoundEngine.PlaySound(NPC.DeathSound.Value, NPC.Center);
+
             NPC.active = false;
 
             return false;

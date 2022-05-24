@@ -1,14 +1,14 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System;
-using Terraria.Localization;
-using System.Collections.Generic;
-using Terraria.DataStructures;
+﻿using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
-using FargowiltasSouls.Toggler;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
@@ -16,321 +16,6 @@ namespace FargowiltasSouls.Items.Accessories.Souls
     public class EternitySoul : FlightMasteryWings
     {
         protected override bool HasSupersonicSpeed => true;
-
-        public static int[] tooltipIndex = new int[7];
-        public static int Counter = 5;
-
-        private List<String> tooltipsFull = new List<String>();
-
-        private String[] vanillaTooltips = new String[]
-        {
-    "250% increased damage",
-    "250% increased attack speed",
-    "100% increased shoot speed",
-    "100% increased knockback",
-    "Increases armor penetration by 50",
-    "Crits deal 10x damage",
-    "Drastically increases life regeneration",
-    "Increases your maximum mana to 999",
-    "Increases your maximum minions by 30",
-    "Increases your maximum sentries by 20",
-    "Increases your maximum HP by 50%",
-    "Reduces your mana usage by 50%",
-    "All attacks inflict Flames of the Universe",
-    "All attacks inflict Sadism",
-    "All attacks inflict Midas",
-    "All attacks reduce enemy immunity frames",
-    "Summons fireballs arund you",
-    "Summons 2 shadow orbs around you",
-    "Summons icicles around you",
-    "Summons leaf crystals around you",
-    "Summons a hallowed sword and shield",
-    "Summons beetles to protect you",
-    "Summons a Flameburst minion",
-    "Summons a ton of pets",
-    "Summons all Eternity Mode bosses to your side ",
-    "Attacks may spawn lightning",
-    "Attacks may spawn flower petals",
-    "Attacks may spawn spectre orbs",
-    "Attacks may spawn a Dungeon Guardian",
-    "Attacks may spawn snowballs",
-    "Attacks may spawn spears",
-    "Attacks may spawn hearts",
-    "Attacks may spawn a miniture storm",
-    "Attacks may spawn buff boosters",
-    "Attacks cause increased life regen",
-    "Attacks cause shadow dodge",
-    "Attacks cause Flameburst shots",
-    "Attacks cause Pumpking attacks",
-    "Attacks cause Cultist spells",
-    "Attacks cause meteor showers",
-    "All Projectiles will split",
-    "Projectiles may shatter",
-    "Projectiles spawn stars",
-    "Item and projectile size increased",
-    "You leave a trail of fire",
-    "Nearby enemies are ignited",
-    "Minions occasionally spew scythes",
-    "You may spawn temporary minions",
-    "Critters have increased defense",
-    "Critter's souls may aid you",
-    "Enemies explode into needles",
-    "Greatly enhances all DD2 sentries",
-    "Double-tap down to spawn a palm tree sentry",
-    "Double-tap down to call an ancient storm",
-    "Double-tap down to call a rain of arrows",
-    "Double-tap down to toggle stealth",
-    "Double-tap down to spawn a portal",
-    "Double-tap down to direct your empowered guardian",
-    "Right Click to Guard",
-    "Press the Gold Key to encase yourself in gold",
-    "Press the Freeze Key to freeze time for 5 seconds",
-    "Solar shield allows you to dash",
-    "Dashing into solid blocks teleports you through them",
-    "Throw a smoke bomb to teleport to it and gain the first strike buff",
-    "Jumping will release a spore explosion",
-    "Enemies getting too close will trigger all on hit effects",
-    "Getting hit reflects damage",
-    "Getting hit triggers a blood geyser",
-    "Getting hit may squeak",
-    "Getting hit causes you to erupt into spiky balls",
-    "Getting hit causes you to erupt into Ancient Visions",
-    "Grants Crimson regen",
-    "Grants immunity to fire",
-    "Grants immunity to fall damage",
-    "Grants immunity to lava",
-    "Grants immunity to knockback",
-    "Grants immunity to most debuffs", //expand?? ech
-	"Grants doubled herb collection",
-    "Grants 50% chance for Mega Bees",
-    "15% chance for minion crits",
-    "20% chance for bonus loot",
-    "Allows Supersonic running and ",
-    "Allows infinite flight",
-    "Increases fishing skill substantially",
-    "All fishing rods will have 10 extra lures",
-    "You respawn 10x as fast",
-    "Prevents boss spawns",
-    "Increases spawn rates",
-    "Reduces skeletons hostility outside of the dungeon",
-    "Empowers Cute Fishron",
-    "Grants autofire",
-    "Grants modifier protection",
-    "Grants gravity control",
-    "Grants fast fall",
-    "Enhances grappling hooks",
-    "You attract Items from further away",
-    "Increased block and wall placement speed by 50%",
-    "Near infinite block placement",
-    "Near infinite mining reach",
-    "Mining speed dramatically increased",
-    "You reflect all projectiles",
-    "When you are hurt, you violently explode to damage nearby enemies",
-    "When you die, you revive with full HP",
-    "Effects of Fire Gauntlet",
-    "Effects of Yoyo Bag",
-    "Effects of Sniper Scope",
-    "Effects of Celestial Cuffs",
-    "Effects of Mana Flower",
-    "Effects of Brain of Confusion",
-    "Effects of Star Veil",
-    "Effects of Sweetheart Necklace",
-    "Effects of Bee Cloak",
-    "Effects of Spore Sac",
-    "Effects of Paladin's Shield",
-    "Effects of Frozen Turtle Shell",
-    "Effects of Arctic Diving Gear",
-    "Effects of Frog Legs",
-    "Effects of Flying Carpet",
-    "Effects of Lava Waders",
-    "Effects of Angler Tackle Bag",
-    "Effects of Paint Sprayer",
-    "Effects of Presserator",
-    "Effects of Cell Phone",
-    "Effects of Flower Boots",
-    "Effects of Master Ninja Gear",
-    "Effects of Greedy Ring",
-    "Effects of Celestial Shell",
-    "Effects of Shiny Stone",
-    "Effects of Spelunker potion",
-    "Effects of Dangersense potion",
-    "Effects of Hunter potion",
-    "Effects of Shine potion",
-    "Effects of Builder Mode"
-        };
-
-        private String[] thoriumTooltips = new String[]
-        {
-            "Armor bonuses from Living Wood",
-            "Armor bonuses from Life Bloom",
-            "Armor bonuses from Yew Wood",
-            "Armor bonuses from Tide Hunter",
-            "Armor bonuses from Icy",
-            "Armor bonuses from Cryo Magus",
-            "Armor bonuses from Whispering",
-            "Armor bonuses from Sacred",
-            "Armor bonuses from Warlock",
-            "Armor bonuses from Biotech",
-            "Armor bonuses from Cyber Punk",
-            "Armor bonuses from Maestro",
-            "Armor bonuses from Bronze",
-            "Armor bonuses from Darksteel",
-            "Armor bonuses from Durasteel",
-            "Armor bonuses from Conduit",
-            "Armor bonuses from Lodestone",
-            "Armor bonuses from Illumite",
-            "Armor bonuses from Jester",
-            "Armor bonuses from Thorium",
-            "Armor bonuses from Terrarium",
-            "Armor bonuses from Malignant",
-            "Armor bonuses from Folv",
-            "Armor bonuses from White Dwarf",
-            "Armor bonuses from Celestial",
-            "Armor bonuses from Spirit Trapper",
-            "Armor bonuses from Dragon",
-            "Armor bonuses from Dread",
-            "Armor bonuses from Flesh",
-            "Armor bonuses from Demon Blood",
-            "Armor bonuses from Tide Turner",
-            "Armor bonuses from Assassin",
-            "Armor bonuses from Pyromancer",
-            "Armor bonuses from Dream Weaver",
-            "Effects of Flawless Chrysalis",
-            "Effects of Bubble Magnet",
-            "Effects of Agnor's Bowl",
-            "Effects of Ice Bound Strider Hide",
-            "Effects of Ring of Unity",
-            "Effects of Mix Tape",
-            "Effects of Eye of the Storm",
-            "Effects of Champion's Rebuttal",
-            "Effects of Incandescent Spark",
-            "Effects of Greedy Magnet",
-            "Effects of Abyssal Shell",
-            "Effects of Astro-Beetle Husk",
-            "Effects of Eye of the Beholder",
-            "Effects of Crietz",
-            "Effects of Mana-Charged Rocketeers",
-            "Effects of Inner Flame",
-            "Effects of Crash Boots",
-            "Effects of Vampire Gland",
-            "Effects of Demon Blood Badge",
-            "Effects of Lich's Gaze",
-            "Effects of Plague Lord's Flask",
-            "Effects of Phylactery",
-            "Effects of Crystal Scorpion",
-            "Effects of Guide to Expert Throwing - Volume III",
-            "Effects of Mermaid's Canteen",
-            "Effects of Deadman's Patch",
-            "Effects of Support Sash",
-            "Effects of Saving Grace",
-            "Effects of Soul Guard",
-            "Effects of Archdemon's Curse",
-            "Effects of Archangel's Heart",
-            "Effects of Medical Bag",
-            "Effects of Epic Mouthpiece",
-            "Effects of Straight Mute",
-            "Effects of Digital Tuner",
-            "Effects of Guitar Pick Claw",
-            "Effects of Ocean's Retaliation",
-            "Effects of Terrarium Defender",
-            "Effects of Air Walkers",
-            "Effects of Survivalist Boots",
-            "Effects of Weighted Winglets"
-        };
-
-        private String[] calamityTooltips = new String[]
-        {
-            "Armor bonuses from Aerospec",
-            "Armor bonuses from Statigel",
-            "Armor bonuses from Daedalus",
-            "Armor bonuses from Bloodflare",
-            "Armor bonuses from Victide",
-            "Armor bonuses from Xeroc",
-            "Armor bonuses from Omega Blue",
-            "Armor bonuses from God Slayer",
-            "Armor bonuses from Silva",
-            "Armor bonuses from Auric Tesla",
-            "Armor bonuses from Mollusk",
-            "Armor bonuses from Reaver",
-            "Armor bonuses from Ataxia",
-            "Armor bonuses from Astral",
-            "Armor bonuses from Tarragon",
-            "Armor bonuses from Demonshade",
-            "Effects of Spirit Glyph",
-            "Effects of Raider's Talisman",
-            "Effects of Trinket of Chi",
-            "Effects of Gladiator's Locket",
-            "Effects of Unstable Prism",
-            "Effects of Counter Scarf",
-            "Effects of Fungal Symbiote",
-            "Effects of Permafrost's Concoction",
-            "Effects of Regenator",
-            "Effects of Core of the Blood God",
-            "Effects of Affliction",
-            "Effects of Deep Dive",
-            "Effects of The Transformer",
-            "Effects of Luxor's Gift",
-            "Effects of The Community",
-            "Effects of Abyssal Diving Suit",
-            "Effects of Lumenous Amulet",
-            "Effects of Aquatic Emblem",
-            "Effects of Nebulous Core",
-            "Effects of Draedon's Heart",
-            "Effects of The Amalgam",
-            "Effects of Godly Soul Artifact",
-            "Effects of Yharim's Gift",
-            "Effects of Heart of the Elements",
-            "Effects of The Sponge",
-            "Effects of Giant Pearl",
-            "Effects of Amidias' Pendant",
-            "Effects of Fabled Tortoise Shell",
-            "Effects of Plague Hive",
-            "Effects of Astral Arcanum",
-            "Effects of Hide of Astrum Deus",
-            "Effects of Profaned Soul Artifact",
-            "Effects of Dark Sun Ring",
-            "Effects of Elemental Gauntlet",
-            "Effects of Elemental Quiver",
-            "Effects of Ethereal Talisman",
-            "Effects of Statis' Belt of Curses",
-            "Effects of Nanotech",
-            "Effects of Asgardian Aegis"
-        };
-
-        private String[] dbtTooltips = new String[]
-        {
-            "Effects of Zenkai Charm",
-            "Effects of Aspera Crystallite"
-        };
-
-        private String[] soaTooltips = new String[]
-        {
-            "Armor bonuses from Bismuth",
-            "Armor bonuses from Frosthunter",
-            "Armor bonuses from Blightbone",
-            "Armor bonuses from Dreadfire",
-            "Armor bonuses from Space Junk",
-            "Armor bonuses from Marstech",
-            "Armor bonuses from Blazing Brute",
-            "Armor bonuses from Cosmic Commander",
-            "Armor bonuses from Nebulous Apprentic",
-            "Armor bonuses from Stellar Priest",
-            "Armor bonuses from Fallen Prince",
-            "Armor bonuses from Void Warden",
-            "Armor bonuses from Vulcan Reaper",
-            "Armor bonuses from Flarium",
-            "Armor bonuses from Asthraltite",
-            "Effects of Dreadflame Emblem",
-            "Effects of Lapis Pendant",
-            "Effects of Frigid Pendant",
-            "Effects of Pumpkin Amulet",
-            "Effects of Nuba's Blessing",
-            "Effects of Novaniel's Resolve",
-            "Effects of Celestial Ring",
-            "Effects of Ring of the Fallen",
-            "Effects of Memento Mori",
-            "Effects of Arcanum of the Caster"
-        };
 
         public override bool Eternity => true;
         public override int NumFrames => 10;
@@ -387,29 +72,21 @@ This stacks up to 950 times until you get hit");
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltipsFull.AddRange(vanillaTooltips);
+            string text = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EternitySoul.Vanilla");
+            string[] lines = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            string description = "Additionally grants:";
+            const int linesToShow = 7;
+            int section = lines.Length / linesToShow;
 
-            for (int i = 0; i < tooltipIndex.Length; i++)
+            string description = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EternitySoul.Additional");
+            ulong seed = Main.GameUpdateCount / 5;
+            for (int i = 0; i < linesToShow; i++)
             {
-                description += "\n" + tooltipsFull[tooltipIndex[i]];
+                int start = section * i;
+                description += "\n" + lines[start + Utils.RandomInt(ref seed, section)];
             }
 
             tooltips.Add(new TooltipLine(Mod, "tooltip", description));
-
-            Counter--;
-
-            if (Counter <= 0)
-            {
-                int segment = tooltipsFull.Count / tooltipIndex.Length;
-                for (int i = 0; i < tooltipIndex.Length; i++)
-                {
-                    tooltipIndex[i] = segment * i + Main.rand.Next(segment);
-                }
-
-                Counter = 5;
-            }
         }
 
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)

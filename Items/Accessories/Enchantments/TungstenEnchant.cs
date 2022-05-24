@@ -1,12 +1,9 @@
+using FargowiltasSouls.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
-using System.Collections.Generic;
-using FargowiltasSouls.Toggler;
-using FargowiltasSouls.Projectiles;
-using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -55,25 +52,27 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             modPlayer.TungstenEnchantActive = true;
-        }
 
-        public static void TungstenIncreaseWeaponSize(Item item, FargoSoulsPlayer modPlayer)
-        {
             if (!modPlayer.TerrariaSoul)
                 modPlayer.Player.GetAttackSpeed(DamageClass.Melee) -= 0.5f;
+        }
 
-            float tungstenScale = modPlayer.TerraForce ? 4f : 2.5f;
+        public static float TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
+        {
+            //float tungstenScale = modPlayer.TerraForce ? 4f : 2.5f;
 
             //if (heldItem.damage > 0 && !heldItem.noMelee)
             //{
-            modPlayer.TungstenPrevSizeSave = item.scale;
-            item.scale *= tungstenScale;
-            modPlayer.TungstenEnlargedItem = item;
+            //modPlayer.TungstenPrevSizeSave = item.scale;
+            //item.scale *= tungstenScale;
+            //modPlayer.TungstenEnlargedItem = item;
             //}
             //else if (((modPlayer.Toggler != null && !player.GetToggleValue("Tungsten", false)) || !TungstenEnchant) && modPlayer.TungstenPrevSizeSave != -1)
             //{
             //    heldItem.scale = modPlayer.TungstenPrevSizeSave;
             //}
+
+            return modPlayer.TerraForce ? 4f : 2.5f;
         }
 
         public static bool TungstenAlwaysAffectProj(Projectile projectile)
@@ -112,7 +111,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                         canAffect = true;
                         hasCD = false;
                     }
-                    else if (FargoSoulsUtil.IsSummonDamage(sourceProj, false))
+                    else if (sourceProj.minion || sourceProj.sentry || ProjectileID.Sets.IsAWhip[sourceProj.type])
                     {
                         if (modPlayer.TungstenCD == 0)
                             canAffect = true;

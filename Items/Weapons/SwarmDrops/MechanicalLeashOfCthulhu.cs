@@ -1,8 +1,8 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Items.Weapons.BossDrops;
+using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.Items.Weapons.BossDrops;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {
@@ -27,8 +27,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.noMelee = true;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
-            Item.useAnimation = 25;
-            Item.useTime = 25;
+            Item.useAnimation = 16;
+            Item.useTime = 16;
             Item.knockBack = 6f;
             Item.noUseGraphic = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.MechFlail>();
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             .AddIngredient(ItemID.LunarBar, 10)
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-            
+
             .Register();
         }
     }

@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.BossWeapons
 {
-    public class HentaiSpearBigDeathray : Deathrays.BaseDeathray
+    public class HentaiSpearBigDeathray : Deathrays.MutantSpecialDeathray
     {
-        public HentaiSpearBigDeathray() : base(60, "PhantasmalDeathrayML", hitboxModifier: 1.5f) { }
-
-        int dustTimer;
+        public HentaiSpearBigDeathray() : base(60, 1.5f) { }
 
         public override void SetStaticDefaults()
         {
@@ -43,8 +42,20 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             behindProjectiles.Add(index);
         }
 
+        public Vector2 TipOffset => 9f * Projectile.velocity * Projectile.scale; //offset to look like is at tip proper
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) < TipOffset.Length() * 2)
+                return true;
+
+            return base.Colliding(projHitbox, targetHitbox);
+        }
+
         public override void AI()
         {
+            base.AI();
+
             Player player = Main.player[Projectile.owner];
 
             if (!Main.dedServ && Main.LocalPlayer.active)
@@ -55,45 +66,32 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>());
-            if (byIdentity != -1)
+
+            Projectile spear = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>()));
+            if (spear != null)
             {
                 Projectile.timeLeft = 2;
-
                 float itemrotate = player.direction < 0 ? MathHelper.Pi : 0;
                 if (Math.Abs(player.itemRotation) > Math.PI / 2)
                     itemrotate = itemrotate == 0 ? MathHelper.Pi : 0;
                 Projectile.velocity = (player.itemRotation + itemrotate).ToRotationVector2();
-                Projectile.Center = player.Center + Main.rand.NextVector2Circular(5, 5);
+                Projectile.Center = spear.Center + Main.rand.NextVector2Circular(5, 5);
 
-                Projectile.position += Projectile.velocity * 164 * 1.3f / 4f; //offset by part of spear's length (wand)
-                Projectile.position += Projectile.velocity * 164 * 1.3f * 0.75f; //part of penetrator's length (ray)
+                Projectile.position += Projectile.velocity * 164 * spear.scale * 0.45f; //offset by part of spear's length (wand)
 
                 Projectile.damage = player.GetWeaponDamage(player.HeldItem);
                 Projectile.knockBack = player.GetWeaponKnockback(player.HeldItem, player.HeldItem.knockBack);
-
-                /*Projectile.Center = Main.projectile[player.heldProj].Center + Main.rand.NextVector2Circular(5, 5);
-                Projectile.timeLeft = 2;
-
-                Projectile.velocity = Vector2.Normalize(Main.projectile[player.heldProj].velocity);
-                Projectile.position += Projectile.velocity * 164 * 1.3f * 0.75f; //part of penetrator's length
-
-                Projectile.damage = Main.projectile[player.heldProj].damage;
-                Projectile.knockBack = Main.projectile[player.heldProj].knockBack;*/
             }
-            else if (Projectile.localAI[0] > 5) //leeway for mp lag
+            else if (++Projectile.localAI[0] > 5) //leeway for mp lag
             {
                 Projectile.Kill();
                 return;
             }
-            if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)
-            {
-                Projectile.velocity = -Vector2.UnitY;
-            }
+
             if (Projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
-                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104"), Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zombie_104"), Projectile.Center);
             }
             float num801 = 10f;
 
@@ -120,6 +118,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.scale = num801;
             }
+
+            Projectile.scale *= spear.scale / 1.3f;
+            Projectile.position += TipOffset;
+
             //float num804 = Projectile.velocity.ToRotation();
             //num804 += Projectile.ai[0];
             //Projectile.rotation = num804 - 1.57079637f;
@@ -179,7 +181,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.ai[0] = 0;
 
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, player.Center);
+                SoundEngine.PlaySound(SoundID.Item84, player.Center);
 
                 if (Projectile.owner == Main.myPlayer)
                 {
@@ -197,108 +199,51 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 }
             }
 
-            if (--dustTimer < -1)
-            {
-                dustTimer = 50;
+            //if (--dustTimer < -1)
+            //{
+            //    dustTimer = 50;
 
-                float diff = MathHelper.WrapAngle(Projectile.rotation - oldRot);
-                //if (npc.HasPlayerTarget && Math.Abs(MathHelper.WrapAngle(npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - Projectile.velocity.ToRotation())) < Math.Abs(diff)) diff = 0;
-                diff *= 15f;
+            //    float diff = MathHelper.WrapAngle(Projectile.rotation - oldRot);
+            //    //if (npc.HasPlayerTarget && Math.Abs(MathHelper.WrapAngle(npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - Projectile.velocity.ToRotation())) < Math.Abs(diff)) diff = 0;
+            //    diff *= 15f;
 
-                const int ring = 220; //LAUGH
-                for (int i = 0; i < ring; ++i)
-                {
-                    Vector2 speed = Projectile.velocity.RotatedBy(diff) * 24f;
+            //    const int ring = 220; //LAUGH
+            //    for (int i = 0; i < ring; ++i)
+            //    {
+            //        Vector2 speed = Projectile.velocity.RotatedBy(diff) * 24f;
 
-                    Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(Projectile.velocity.ToRotation() + diff);
-                    int index2 = Dust.NewDust(Main.player[Projectile.owner].Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
-                    Main.dust[index2].scale = 2.5f;
-                    Main.dust[index2].noGravity = true;
-                    Main.dust[index2].position = Main.player[Projectile.owner].Center;
-                    Main.dust[index2].velocity = vector2 * 2.5f + speed;
+            //        Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(Projectile.velocity.ToRotation() + diff);
+            //        int index2 = Dust.NewDust(Main.player[Projectile.owner].Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
+            //        Main.dust[index2].scale = 2.5f;
+            //        Main.dust[index2].noGravity = true;
+            //        Main.dust[index2].position = Main.player[Projectile.owner].Center;
+            //        Main.dust[index2].velocity = vector2 * 2.5f + speed;
 
-                    index2 = Dust.NewDust(Main.player[Projectile.owner].Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
-                    Main.dust[index2].scale = 2.5f;
-                    Main.dust[index2].noGravity = true;
-                    Main.dust[index2].position = Main.player[Projectile.owner].Center;
-                    Main.dust[index2].velocity = vector2 * 1.75f + speed * 2;
-                }
-            }
-
-
-            Projectile.frameCounter += Main.rand.Next(3);
-            if (++Projectile.frameCounter > 3)
-            {
-                Projectile.frameCounter = 0;
-                if (++Projectile.frame > 15)
-                    Projectile.frame = 0;
-            }
-
-            if (Main.rand.NextBool(10))
-                Projectile.spriteDirection *= -1;
+            //        index2 = Dust.NewDust(Main.player[Projectile.owner].Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
+            //        Main.dust[index2].scale = 2.5f;
+            //        Main.dust[index2].noGravity = true;
+            //        Main.dust[index2].position = Main.player[Projectile.owner].Center;
+            //        Main.dust[index2].velocity = vector2 * 1.75f + speed * 2;
+            //    }
+            //}
         }
 
         public override void PostAI()
         {
             base.PostAI();
+
             Projectile.hide = true;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[Projectile.owner] = 1; //balanceing
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
-        }
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            if (Projectile.velocity == Vector2.Zero)
-            {
-                return false;
-            }
-
-            SpriteEffects spriteEffects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-
-            Texture2D texture2D19 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Deathrays/Mutant/MutantDeathray_" + Projectile.frame.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D texture2D20 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Deathrays/Mutant/MutantDeathray2_" + Projectile.frame.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D texture2D21 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Deathrays/" + texture + "3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            float num223 = Projectile.localAI[1];
-            Color color44 = new Color(255, 255, 255, 100) * 0.9f;
-            SpriteBatch arg_ABD8_0 = Main.spriteBatch;
-            Texture2D arg_ABD8_1 = texture2D19;
-            Vector2 arg_ABD8_2 = Projectile.Center - Main.screenPosition;
-            Rectangle? sourceRectangle2 = null;
-            arg_ABD8_0.Draw(arg_ABD8_1, arg_ABD8_2, sourceRectangle2, color44, Projectile.rotation, texture2D19.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
-            num223 -= (texture2D19.Height / 2 + texture2D21.Height) * Projectile.scale;
-            Vector2 value20 = Projectile.Center;
-            value20 += Projectile.velocity * Projectile.scale * texture2D19.Height / 2f;
-            if (num223 > 0f)
-            {
-                float num224 = 0f;
-                Rectangle rectangle7 = new Rectangle(0, 0, texture2D20.Width, 30);
-                while (num224 + 1f < num223)
-                {
-                    if (num223 - num224 < rectangle7.Height)
-                    {
-                        rectangle7.Height = (int)(num223 - num224);
-                    }
-
-                    Main.EntitySpriteDraw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, Projectile.rotation, new Vector2(rectangle7.Width / 2, 0f), Projectile.scale, spriteEffects, 0);
-                    num224 += rectangle7.Height * Projectile.scale;
-                    value20 += Projectile.velocity * rectangle7.Height * Projectile.scale;
-                    rectangle7.Y += 30;
-                    if (rectangle7.Y + rectangle7.Height > texture2D20.Height)
-                    {
-                        rectangle7.Y = 0;
-                    }
-                }
-            }
-            SpriteBatch arg_AE2D_0 = Main.spriteBatch;
-            Texture2D arg_AE2D_1 = texture2D21;
-            Vector2 arg_AE2D_2 = value20 - Main.screenPosition;
-            sourceRectangle2 = null;
-            arg_AE2D_0.Draw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, Projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), Projectile.scale, spriteEffects, 0);
-            return false;
         }
     }
 }

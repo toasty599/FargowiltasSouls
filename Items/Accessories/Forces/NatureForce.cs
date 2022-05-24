@@ -1,8 +1,7 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Localization;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using Terraria;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -18,9 +17,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<ShroomiteEnchant>()
         };
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            base.SetDefaults();
+            base.SetStaticDefaults();
 
             DisplayName.SetDefault("Force of Nature");
 

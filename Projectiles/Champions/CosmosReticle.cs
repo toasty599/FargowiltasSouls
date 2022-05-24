@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.hostile = true;
-            
+
             //CooldownSlot = 1;
         }
 
@@ -59,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 if (Projectile.ai[1] % 5 == 0)
                 {
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item89, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item89, Projectile.Center);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient) //rain meteors
                     {
@@ -67,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                         spawnPos.X += Main.rand.Next(-200, 201);
                         spawnPos.Y -= 700;
                         Vector2 vel = Main.rand.NextFloat(10, 15f) * Vector2.Normalize(Projectile.Center - spawnPos);
-                        Projectile.NewProjectile(Entity.InheritSource(Projectile), spawnPos, vel, ModContent.ProjectileType<CosmosMeteor>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(1f, 1.5f));
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), spawnPos, vel, ModContent.ProjectileType<CosmosMeteor>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(1f, 1.5f));
                     }
                 }
 
@@ -93,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Projectile.netUpdate = true;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -5);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -5);
                 }
 
                 float spindown = 1f - Projectile.ai[1] / 45f;

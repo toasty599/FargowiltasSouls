@@ -1,23 +1,24 @@
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Accessories.Souls;
+using FargowiltasSouls.Items.Weapons.SwarmDrops;
+using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Projectiles.Minions;
+using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Toggler;
-using FargowiltasSouls.NPCs;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Items.Weapons.SwarmDrops;
-using FargowiltasSouls.Projectiles.BossWeapons;
-using FargowiltasSouls.Projectiles.Souls;
-using FargowiltasSouls.Projectiles.Minions;
-using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Buffs.Masomode;
-using Terraria.DataStructures;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -27,12 +28,18 @@ namespace FargowiltasSouls.Projectiles
 
         //        private bool townNPCProj;
         public int counter;
-        public bool Rainbow = false;
+        public bool Rainbow;
         public int GrazeCD;
 
         //enchants
+
+        /// <summary>
+        /// Whether effects like Adamantite Enchantment or generally most SplitProj calls work.
+        /// <br/>When trying to disable it, do so in SetDefaults!
+        /// <br/>When checking it, bear in mind that OnSpawn comes before a Projectile.NewProjectile() returns! High danger of infinite recursion
+        /// </summary>
         public bool CanSplit = true;
-       // private int numSplits = 1;
+        // private int numSplits = 1;
         public int stormTimer;
         public float TungstenScale = 1;
         public bool AdamProj;
@@ -65,6 +72,17 @@ namespace FargowiltasSouls.Projectiles
 
         public bool noInteractionWithNPCImmunityFrames;
         private int tempIframe;
+
+        public override void SetStaticDefaults()
+        {
+            a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.DD2ExplosiveTrapT3Explosion] = true;
+            a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.DesertDjinnCurse] = true;
+            a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.SandnadoHostile] = true;
+
+            a_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.DD2ExplosiveTrapT3Explosion] = true;
+            a_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.SharpTears] = true;
+            a_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.DeerclopsIceSpike] = true;
+        }
 
         public override void SetDefaults(Projectile projectile)
         {
@@ -155,7 +173,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 case ProjectileID.DD2ExplosiveTrapT3Explosion:
                     {
-                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active 
+                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active
                             && (npc.type == ModContent.NPCType<NPCs.Challengers.TrojanSquirrel>() || npc.type == ModContent.NPCType<NPCs.Champions.TimberChampion>()))
                         {
                             projectile.DamageType = DamageClass.Default;
@@ -235,23 +253,65 @@ namespace FargowiltasSouls.Projectiles
                     break;
             }
 
-            if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue("Adamantite") 
-                && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source)
-                && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
-            {
-                if (projectile.owner == Main.myPlayer && (source is EntitySource_ItemUse || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && FargoSoulsUtil.IsSummonDamage(sourceProj, false))))
-                {
-                    //modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
-                    //if (modPlayer.AdamantiteCanSplit)
-                        AdamantiteEnchant.AdamantiteSplit(projectile);
-                }
-                
-                AdamProj = true;
-            }
-
             if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
             {
                 TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source);
+            }
+
+            if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue("Adamantite")
+                && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source)
+                && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
+            {
+                if (projectile.owner == Main.myPlayer
+                    && (source is EntitySource_ItemUse
+                    || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.minion || sourceProj.sentry || (ProjectileID.Sets.IsAWhip[sourceProj.type] && !ProjectileID.Sets.IsAWhip[projectile.type])))))
+                {
+                    AdamantiteEnchant.AdamantiteSplit(projectile);
+                    projectile.timeLeft = 0;
+                    projectile.active = false;
+                    return;
+                }
+
+                AdamProj = true;
+            }
+
+            if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
+            {
+                SilverMinion = true;
+                projectile.extraUpdates++;
+
+                int armorPen = 20;
+                if (modPlayer.SpiritForce)
+                    armorPen *= 2;
+                if (modPlayer.TerrariaSoul)
+                    armorPen *= 3;
+
+                projectile.ArmorPenetration += armorPen;
+            }
+
+            if (modPlayer.TikiEnchantActive)
+            {
+                if (FargoSoulsUtil.IsSummonDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
+                {
+                    tikiMinion = true;
+
+                    if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
+                    {
+                        tikiMinion = true;
+                        tikiTimer = 300;
+
+                        if (modPlayer.SpiritForce || modPlayer.WizardEnchantActive)
+                        {
+                            tikiTimer = 480;
+                        }
+                    }
+                }
+            }
+
+            if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)
+            {
+                if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
+                    SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
             }
         }
 
@@ -288,75 +348,6 @@ namespace FargowiltasSouls.Projectiles
 
             if (projectile.owner == Main.myPlayer)
             {
-                if (firstTick)
-                {
-                    //townNPCProj = projectile.friendly && !projectile.hostile
-                    //    && !projectile.melee && !projectile.ranged && !projectile.magic && !projectile.minion && !projectile.thrown
-                    //    && !projectile.sentry && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type];
-                    /*for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        NPC npc = Main.npc[i];
-
-                        if (npc.active && npc.townNPC && projectile.Hitbox.Intersects(npc.Hitbox))
-                        {
-                            townNPCProj = true;
-                        }
-                    }*/
-
-                    if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
-                    {
-                        SilverMinion = true;
-                        projectile.extraUpdates++;
-                    }
-
-                    if (modPlayer.TikiEnchantActive)
-                    {
-                        if (FargoSoulsUtil.IsSummonDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
-                        {
-                            tikiMinion = true;
-
-                            if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
-                            {
-                                tikiMinion = true;
-                                tikiTimer = 300;
-
-                                if (modPlayer.SpiritForce || modPlayer.WizardEnchantActive)
-                                {
-                                    tikiTimer = 480;
-                                }
-                            }
-                        }
-                    }
-
-                    //if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardianExplosion)
-                    //{
-                    //    projectile.damage *= 5;
-                    //}
-
-                    if (projectile.bobber && CanSplit)
-                    {
-                        /*if (modPlayer.FishSoul1)
-                        {
-                            SplitProj(projectile, 5);
-                        }*/
-                        if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
-                        {
-                            SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
-                        }
-                    }
-
-                    /*if (modPlayer.BeeEnchant && (projectile.type == ProjectileID.GiantBee || projectile.type == ProjectileID.Bee || projectile.type == ProjectileID.Wasp))
-                    {
-                        projectile.usesLocalNPCImmunity = true;
-                        projectile.localNPCHitCooldown = 5;
-                        projectile.penetrate *= 2;
-                        projectile.timeLeft *= 2;
-                        projectile.scale *= 2.5f;
-                        //projectile.damage = (int)(projectile.damage * 1.5);
-                        SuperBee = true;
-                    }*/
-                }
-
                 //reset tungsten size
                 if (TungstenScale != 1 && (!modPlayer.TungstenEnchantActive || !player.GetToggleValue("TungstenProj")))
                 {
@@ -384,7 +375,7 @@ namespace FargowiltasSouls.Projectiles
                                 if (projectile.localAI[0] > 60)
                                 {
                                     projectile.Kill();
-                                    Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 11, 0.5f);
+                                    SoundEngine.PlaySound(SoundID.NPCDeath11 with { Volume = 0.5f }, projectile.Center);
                                     int proj2 = ModContent.ProjectileType<BlenderProj3>();
                                     Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
                                 }
@@ -460,17 +451,6 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
 
-                //if (SuperBee && (modPlayer.LifeForce || modPlayer.WizardEnchant))
-                //{
-                //    projectile.position += projectile.velocity;
-                //}
-
-                ////prob change in 1.4
-                //if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardian)
-                //{
-                //    projectile.localAI[0] = 0f;
-                //}
-
                 //hook ai
                 if (modPlayer.MahoganyEnchantActive && player.GetToggleValue("Mahogany", false) && projectile.aiStyle == 7)
                 {
@@ -481,14 +461,13 @@ namespace FargowiltasSouls.Projectiles
                 {
                     if (modPlayer.Jammed && projectile.DamageType == DamageClass.Ranged && projectile.type != ProjectileID.ConfettiGun)
                     {
-                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
                         projectile.active = false;
                     }
 
                     if (modPlayer.Atrophied && projectile.DamageType == DamageClass.Throwing)
                     {
                         projectile.damage = 0;
-                        projectile.position = new Vector2(Main.maxTilesX);
                         projectile.Kill();
                     }
 
@@ -532,9 +511,9 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 20;
 
-                                int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
+                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
 
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 62, 0.5f);
+                                SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, projectile.Center);
 
                                 spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
 
@@ -559,9 +538,10 @@ namespace FargowiltasSouls.Projectiles
             {
                 ChilledTimer--;
 
-                if (retVal && ChilledTimer % 2 == 1)
+                if (retVal && ChilledTimer % 3 == 1)
                 {
                     retVal = false;
+                    projectile.position = projectile.oldPosition;
                     projectile.timeLeft++;
                 }
 
@@ -718,12 +698,6 @@ namespace FargowiltasSouls.Projectiles
         {
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
-            if (projectile.aiStyle == ProjAIStyleID.Spear)
-            {
-                if (player.itemTime == 1 && player.whoAmI == Main.myPlayer) //fix spears stacking when autoreuse
-                    projectile.Kill();
-            }
 
             switch (projectile.type)
             {
@@ -1044,7 +1018,7 @@ namespace FargowiltasSouls.Projectiles
                 DeletionImmuneRank = 2;
 
                 if (!FargoSoulsUtil.IsSummonDamage(projectile))
-                    Main.player[projectile.owner].GetModPlayer<EModePlayer>().MasomodeWeaponUseTimer = 30;
+                    Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = 30;
 
                 modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
             }
@@ -1076,7 +1050,7 @@ namespace FargowiltasSouls.Projectiles
 
                         if (!Main.dedServ)
                         {
-                            Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Graze").WithVolume(0.5f), Main.LocalPlayer.Center);
+                            SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Graze") { Volume = 0.5f }, Main.LocalPlayer.Center);
                         }
 
                         Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);
@@ -1161,19 +1135,7 @@ namespace FargowiltasSouls.Projectiles
             if (SilverMinion)
             {
                 if (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity || projectile.type == ProjectileID.StardustCellMinionShot)
-                {
-                    //reduce final damage but ignore some defense to compensate
                     damage /= 2;
-
-                    FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
-                    int armorPen = 20;
-                    if (modPlayer.SpiritForce)
-                        armorPen *= 2;
-                    if (modPlayer.TerrariaSoul)
-                        armorPen *= 3;
-
-                    damage += Math.Min(target.defense / 4, armorPen / 2);
-                }
             }
 
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
@@ -1268,51 +1230,51 @@ namespace FargowiltasSouls.Projectiles
 
             //if (!projectile.npcProj && CanSplit && projectile.friendly && projectile.damage > 0 && !projectile.minion && projectile.aiStyle != 19)
             //{
-                //if (modPlayer.CobaltEnchantActive)
-                //{
-                //    if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(4))
-                //    {
-                //        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, player.Center, 27);
+            //if (modPlayer.CobaltEnchantActive)
+            //{
+            //    if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(4))
+            //    {
+            //        SoundEngine.PlaySound(SoundID.Item27, player.Center);
 
-                //        int damage = (int)(25 * player.GetDamage(DamageClass.Ranged).Additive);
+            //        int damage = (int)(25 * player.GetDamage(DamageClass.Ranged).Additive);
 
-                //        if (modPlayer.TerrariaSoul)
-                //        {
-                //            damage *= 5;
-                //            modPlayer.CobaltCD = 10;
-                //        }
-                //        else if (modPlayer.EarthForce || modPlayer.WizardEnchantActive)
-                //        {
-                //            damage *= 2;
-                //            modPlayer.CobaltCD = 20;
-                //        }
-                //        else
-                //        {
-                //            modPlayer.CobaltCD = 30;
-                //        }
+            //        if (modPlayer.TerrariaSoul)
+            //        {
+            //            damage *= 5;
+            //            modPlayer.CobaltCD = 10;
+            //        }
+            //        else if (modPlayer.EarthForce || modPlayer.WizardEnchantActive)
+            //        {
+            //            damage *= 2;
+            //            modPlayer.CobaltCD = 20;
+            //        }
+            //        else
+            //        {
+            //            modPlayer.CobaltCD = 30;
+            //        }
 
-                //        for (int i = 0; i < 5; i++)
-                //        {
-                //            float velX = -projectile.velocity.X * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                //            float velY = -projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                //            int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, damage, 0f, projectile.owner);
-                //            if (p != Main.maxProjectiles)
-                //                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-                //        }
-                //    }
-                //}
-                //else if (modPlayer.AncientCobaltEnchantActive && !modPlayer.CobaltEnchantActive && player.GetToggleValue("AncientCobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(5))
-                //{
-                //    Projectile[] projs = FargoSoulsUtil.XWay(3, projectile.GetSource_FromThis(), projectile.Center, ProjectileID.HornetStinger, 5f, projectile.damage / 2, 0);
+            //        for (int i = 0; i < 5; i++)
+            //        {
+            //            float velX = -projectile.velocity.X * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
+            //            float velY = -projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
+            //            int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, damage, 0f, projectile.owner);
+            //            if (p != Main.maxProjectiles)
+            //                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            //        }
+            //    }
+            //}
+            //else if (modPlayer.AncientCobaltEnchantActive && !modPlayer.CobaltEnchantActive && player.GetToggleValue("AncientCobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(5))
+            //{
+            //    Projectile[] projs = FargoSoulsUtil.XWay(3, projectile.GetSource_FromThis(), projectile.Center, ProjectileID.HornetStinger, 5f, projectile.damage / 2, 0);
 
-                //    for (int i = 0; i < projs.Length; i++)
-                //    {
-                //        projs[i].penetrate = 3;
-                //        projs[i].timeLeft /= 2;
-                //    }
+            //    for (int i = 0; i < projs.Length; i++)
+            //    {
+            //        projs[i].penetrate = 3;
+            //        projs[i].timeLeft /= 2;
+            //    }
 
-                //    modPlayer.CobaltCD = 60;
-                //}
+            //    modPlayer.CobaltCD = 60;
+            //}
             //}
         }
 

@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.EternityMode;
-using FargowiltasSouls.EternityMode.Content.Boss.HM;
-using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Projectile.Center = target;
             else if (Projectile.Distance(target) > threshold)
                 Projectile.velocity = (target - Projectile.Center) / 30;
-            else if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState == 4 && npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityTimer < 60)
+            else if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState == 4 && npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityTimer < 60 && npc.ai[0] != 2)
                 Projectile.velocity = (Main.player[npc.target].Center - Projectile.Center) * 0.05f;
             else
                 Projectile.velocity = Projectile.DirectionTo(target);

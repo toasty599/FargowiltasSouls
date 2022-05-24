@@ -1,4 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.ItemDropRules.Conditions;
+using FargowiltasSouls.Items.Placeables;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +11,6 @@ using Terraria.GameContent.Events;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.EternityMode;
-using FargowiltasSouls.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Placeables;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.NPCs
             if (!FargoSoulsWorld.EternityMode) return;
 
             npc.value = (int)(npc.value * 1.3);
-            
+
             //VERY old masomode boss scaling numbers, leaving here in case we ever want to do the funny again
             // +2.5% hp each kill 
             // +1.25% damage each kill
@@ -90,6 +90,9 @@ namespace FargowiltasSouls.NPCs
 
         public override bool PreAI(NPC npc)
         {
+            if (!FargoSoulsWorld.EternityMode)
+                return base.PreAI(npc);
+
             //in pre-hm, enemies glow slightly at night
             if (!Main.dayTime && !Main.hardMode)
             {
@@ -112,27 +115,28 @@ namespace FargowiltasSouls.NPCs
                 npc.frameCounter = 0;
             }*/
 
-            if (FargoSoulsWorld.EternityMode)
+            if (!npc.dontTakeDamage)
             {
-                if (!npc.dontTakeDamage && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.position.Y / 16 < Main.worldSurface * 0.35f) //enemy in space
+                    npc.AddBuff(BuffID.Suffocation, 2, true);
+                else if (npc.position.Y / 16 > Main.maxTilesY - 200) //enemy in hell
                 {
-                    if (npc.position.Y / 16 < Main.worldSurface * 0.35f) //enemy in space
-                        npc.AddBuff(BuffID.Suffocation, 2);
-                    else if (npc.position.Y / 16 > Main.maxTilesY - 200) //enemy in hell
+                    //because of funny bug where town npcs fall forever in mp, including into hell
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                         npc.AddBuff(BuffID.OnFire, 2);
+                }
 
-                    if (npc.wet && !npc.noTileCollide && !isWaterEnemy && npc.HasPlayerTarget)
-                    {
-                        npc.AddBuff(ModContent.BuffType<Lethargic>(), 2);
-                        if (Main.player[npc.target].ZoneCorrupt)
-                            npc.AddBuff(BuffID.CursedInferno, 2);
-                        if (Main.player[npc.target].ZoneCrimson)
-                            npc.AddBuff(BuffID.Ichor, 2);
-                        if (Main.player[npc.target].ZoneHallow)
-                            npc.AddBuff(ModContent.BuffType<Smite>(), 2);
-                        if (Main.player[npc.target].ZoneJungle)
-                            npc.AddBuff(BuffID.Poisoned, 2);
-                    }
+                if (npc.wet && !npc.noTileCollide && !isWaterEnemy && npc.HasPlayerTarget)
+                {
+                    npc.AddBuff(ModContent.BuffType<Lethargic>(), 2, true);
+                    if (Main.player[npc.target].ZoneCorrupt)
+                        npc.AddBuff(BuffID.CursedInferno, 2, true);
+                    if (Main.player[npc.target].ZoneCrimson)
+                        npc.AddBuff(BuffID.Ichor, 2, true);
+                    if (Main.player[npc.target].ZoneHallow)
+                        npc.AddBuff(ModContent.BuffType<Smite>(), 2, true);
+                    if (Main.player[npc.target].ZoneJungle)
+                        npc.AddBuff(BuffID.Poisoned, 2, true);
                 }
             }
 
@@ -312,7 +316,7 @@ namespace FargowiltasSouls.NPCs
                         pool[NPCID.LeechHead] = .05f;
                         pool[NPCID.BlazingWheel] = .1f;
                         //if (!FargoSoulsUtil.BossIsAlive(ref wallBoss, NPCID.WallofFlesh))
-                            //pool[NPCID.RedDevil] = .025f;
+                        //pool[NPCID.RedDevil] = .025f;
                     }
                     else if (sky)
                     {
@@ -382,7 +386,7 @@ namespace FargowiltasSouls.NPCs
                                 if (NPC.downedMechBossAny && (noBiome || dungeon))
                                     pool[NPCID.CultistArcherWhite] = .01f;
 
-                                if(jungle)
+                                if (jungle)
                                     pool[NPCID.Parrot] = .05f;
 
                             }
@@ -406,7 +410,7 @@ namespace FargowiltasSouls.NPCs
                                     }
                                 }*/
                             }
-                            
+
                             if (noInvasion && !oldOnesArmy && !sinisterIcon)
                                 pool[NPCID.Clown] = 0.01f;
 
@@ -541,7 +545,7 @@ namespace FargowiltasSouls.NPCs
                             {
                                 pool[NPCID.CreatureFromTheDeep] = .02f;
                             }
-                           
+
                             pool[NPCID.PigronCorruption] = .01f;
                             pool[NPCID.PigronCrimson] = .01f;
                             pool[NPCID.PigronHallow] = .01f;
@@ -645,7 +649,7 @@ namespace FargowiltasSouls.NPCs
                         {
                             pool[NPCID.BlazingWheel] = .05f;
                         }
-                        
+
                         if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SkullCharm)
                         {
                             pool[NPCID.DiabolistRed] = .001f;

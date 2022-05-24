@@ -1,12 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using FargowiltasSouls.Dusts;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Buffs.Masomode;
-using Microsoft.Xna.Framework.Graphics;
-using System.Linq;
-using FargowiltasSouls.Dusts;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -33,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 if (--Projectile.ai[0] > 0)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center - 16 * Vector2.UnitY, Vector2.Zero, Projectile.type, Projectile.damage, 0f, Main.myPlayer, Projectile.ai[0]);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center - 16 * Vector2.UnitY, Vector2.Zero, Projectile.type, Projectile.damage, 0f, Main.myPlayer, Projectile.ai[0]);
                 }
             }
 

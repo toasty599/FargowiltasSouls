@@ -1,9 +1,6 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Localization;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -53,7 +50,7 @@ Beetle buffs capped at level two
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //beetle bois
-            modPlayer.BeetleEnchantActive = true;
+            modPlayer.BeetleEffect();
         }
 
         public override void AddRecipes()

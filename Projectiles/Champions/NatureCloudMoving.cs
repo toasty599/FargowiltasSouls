@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             Projectile.hostile = true;
             Projectile.timeLeft = 40;
             Projectile.tileCollide = false;
-            
+
             CooldownSlot = 1;
         }
 
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<NatureCloudRaining>(), Projectile.damage, 0f, Main.myPlayer);
+                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<NatureCloudRaining>(), Projectile.damage, 0f, Main.myPlayer);
             }
         }
 

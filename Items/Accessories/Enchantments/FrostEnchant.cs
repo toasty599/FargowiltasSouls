@@ -2,8 +2,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
-using System.Collections.Generic;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -21,7 +19,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Icicles will start to appear around you
 Attacking will launch them towards the cursor
 When they hit an enemy they are frozen solid
-All hostile projectiles move at half speed
+Press the Freeze Key to chill everything for 10 seconds
+There is a 60 second cooldown for this effect
 'Let's coat the world in a deep freeze'";
             Tooltip.SetDefault(tooltip);
 

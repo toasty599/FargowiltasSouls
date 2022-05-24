@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -66,14 +67,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                     if (Projectile.ai[1] > 0) //propagate
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity,
+                            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity,
                                 Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0], Projectile.ai[1] - 1);
                             if (Projectile.ai[0] == 1)
                             {
-                                Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(120)),
+                                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.ToRadians(120)),
                                   Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, 0, Projectile.ai[1] - 1);
                             }
                         }
@@ -131,8 +132,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Projectile.localAI[0] = 0;
                     Projectile.netUpdate = true;
 
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14); //spray
-                    
+                    SoundEngine.PlaySound(SoundID.Item14, Projectile.Center); //spray
+
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         bool planteraAlive = NPC.plantBoss > -1 && NPC.plantBoss < Main.maxNPCs && Main.npc[NPC.plantBoss].active && Main.npc[NPC.plantBoss].type == NPCID.Plantera;
@@ -150,7 +151,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                             for (int i = 0; i < max; i++)
                             {
                                 int type = FargoSoulsWorld.MasochistModeReal ? ProjectileID.PoisonSeedPlantera : ProjectileID.SeedPlantera;
-                                int p = Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, range / time * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i + rotation),
+                                int p = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, range / time * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i + rotation),
                                     type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                                 if (p != Main.maxProjectiles)
                                     Main.projectile[p].timeLeft = time;
@@ -171,7 +172,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
         }
 
         public override bool PreDraw(ref Color lightColor)

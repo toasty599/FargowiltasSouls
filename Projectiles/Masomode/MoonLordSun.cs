@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.IO;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile.hostile = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            
+
             Projectile.extraUpdates = 0;
             CooldownSlot = 1;
 
@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         /*public void Dusts()
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 6);
+            SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             for (int index1 = 0; index1 < 15; ++index1)
             {
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
@@ -187,7 +187,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (socket == null || core == null || socket.ai[3] != core.whoAmI || core.ai[0] == 2f)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, Projectile.owner);
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, Projectile.owner);
             }
             else
             {
@@ -197,16 +197,16 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 if (Main.netMode != NetmodeID.MultiplayerClient) //chain explosions
                 {
                     //perpendicular
-                    /*Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
+                    /*Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
                         Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.velocity.ToRotation() + MathHelper.PiOver2, 5);
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
                         Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.velocity.ToRotation() - MathHelper.PiOver2, 5);*/
 
                     const int max = 4; //spread
                     for (int i = 0; i < max; i++)
                     {
                         Vector2 offset = Projectile.width / 2 * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i);
-                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
                             Projectile.damage, Projectile.knockBack, Projectile.owner, MathHelper.WrapAngle(offset.ToRotation()), 32);
                     }
                 }

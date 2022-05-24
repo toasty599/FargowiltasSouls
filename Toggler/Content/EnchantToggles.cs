@@ -57,7 +57,6 @@ namespace FargowiltasSouls.Toggler.Content
         public string Chlorophyte;
         public string Crimson;
         public string Frost;
-        public string Snow;
         public string Jungle;
         public string JungleDash;
         public string Molten;

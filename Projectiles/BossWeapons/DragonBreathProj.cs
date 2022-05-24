@@ -64,12 +64,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                 if (timer == 0 || timer == 12)
                 {
-                    int shoot = 0; //dummy values so i can use pickammo
-                    float speed = 0;
-                    bool canshoot = true;
-                    int damage = 0;
-                    float knockback = 0;
-                    player.PickAmmo(player.inventory[player.selectedItem], ref shoot, ref speed, ref canshoot, ref damage, ref knockback, out int ammoUsed, false);
+                    player.PickAmmo(player.inventory[player.selectedItem], out int _, out float _, out int _, out float _, out int _);
                 }
                 Projectile.timeLeft++;
             }
@@ -106,12 +101,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.ai[0] += 1f;
             if (Projectile.ai[0] > halfRangeReduced * 1.1f)
             {
-                if (player.channel && player.HasAmmo(player.inventory[player.selectedItem], true))
+                if (player.channel && player.HasAmmo(player.inventory[player.selectedItem]))
                     Projectile.ai[0] = halfRangeReduced * 0.9f;
             }
 
             if (Projectile.ai[0] <= halfRangeReduced * 1.1f && timer == 0)
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, Projectile.Center + (Projectile.velocity * 600)); //dd2 sound effects are weird so this is temporary(?) fix to sound effect being too loud
+                SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, Projectile.Center + (Projectile.velocity * 600)); //dd2 sound effects are weird so this is temporary(?) fix to sound effect being too loud
 
             if (Projectile.ai[0] >= halfRangeReduced * 1.95f)
             {
@@ -213,7 +208,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             target.AddBuff(BuffID.Oiled, 180, false);
             target.AddBuff(BuffID.BetsysCurse, 180, false);
 
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, target.Center);
+            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, target.Center);
 
             Vector2 vel = Projectile.rotation.ToRotationVector2() * 2.5f;
 

@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Projectiles.Masomode;
 
 namespace FargowiltasSouls
 {
@@ -19,7 +17,6 @@ namespace FargowiltasSouls
         public int MasomodeCrystalTimer;
         public int MasomodeFreezeTimer;
         public int MasomodeSpaceBreathTimer;
-        public int MasomodeWeaponUseTimer;
         public int MasomodeMinionNerfTimer;
         public const int MaxMasomodeMinionNerfTimer = 300;
 
@@ -31,6 +28,8 @@ namespace FargowiltasSouls
         public int ShorterDebuffsTimer;
         public const int MaxShorterDebuffsTimer = 60;
 
+        private int WeaponUseTimer => Player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer;
+
         public override void ResetEffects()
         {
             ReduceMasomodeMinionNerf = false;
@@ -39,7 +38,6 @@ namespace FargowiltasSouls
 
         public override void UpdateDead()
         {
-            MasomodeWeaponUseTimer = 0;
             MasomodeMinionNerfTimer = 0;
             ShorterDebuffsTimer = 0;
         }
@@ -100,9 +98,6 @@ namespace FargowiltasSouls
 
                 if (Player.ZoneJungle)
                 {
-                    if (Framing.GetTileSafely(Player.Center).WallType == WallID.LihzahrdBrickUnsafe)
-                        Player.AddBuff(ModContent.BuffType<LihzahrdCurse>(), 2);
-
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !fargoSoulsPlayer.MutantAntibodies)
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Poisoned, 2);
                 }
@@ -228,7 +223,7 @@ namespace FargowiltasSouls
 
                 if (!fargoSoulsPlayer.PureHeart && !Player.buffImmune[BuffID.Suffocation] && Player.ZoneSkyHeight && Player.whoAmI == Main.myPlayer)
                 {
-                    bool inLiquid = Collision.DrownCollision(Player.position, Player.width, Player.height, Player.gravDir);
+                    bool inLiquid = Collision.DrownCollision(Player.position, Player.width, Player.height, Player.gravDir) || (!Player.armor[0].IsAir && (Player.armor[0].type == ItemID.FishBowl || Player.armor[0].type == ItemID.GoldGoldfishBowl));
                     if (!inLiquid)
                     {
                         Player.breath -= 3;
@@ -238,7 +233,7 @@ namespace FargowiltasSouls
                             Player.breath--;
                         }
                         if (Player.breath == 0)
-                            SoundEngine.PlaySound(SoundID.Item3);
+                            SoundEngine.PlaySound(SoundID.Drown);
                         if (Player.breath <= 0)
                             Player.AddBuff(BuffID.Suffocation, 2);
                     }
@@ -355,9 +350,8 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (MasomodeWeaponUseTimer > 0)
+            if (WeaponUseTimer > 0)
             {
-                MasomodeWeaponUseTimer -= 1;
                 MasomodeMinionNerfTimer += 1;
                 ShorterDebuffsTimer += 1;
             }
@@ -441,7 +435,7 @@ namespace FargowiltasSouls
 
             if (!FargoSoulsWorld.EternityMode)
                 return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
-            
+
             //because NO MODIFY/ONHITPLAYER HOOK WORKS
             if (damageSource.SourceProjectileType is int && damageSource.SourceProjectileType == ProjectileID.Explosives)
                 Player.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);

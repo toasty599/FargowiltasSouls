@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Localization;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -137,7 +135,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int n = FargoSoulsUtil.NewNPCEasy(Entity.InheritSource(Projectile), npc.Center, type);
+                int n = FargoSoulsUtil.NewNPCEasy(Terraria.Entity.InheritSource(Projectile), npc.Center, type);
                 if (n != Main.maxNPCs)
                     FargoSoulsUtil.PrintText(Main.npc[n].FullName + " has awoken!", 175, 75, 255);
             }

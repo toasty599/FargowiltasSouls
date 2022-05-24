@@ -1,9 +1,10 @@
+using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -33,6 +34,7 @@ namespace FargowiltasSouls.Projectiles
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 
             Projectile.penetrate = 2;
+            Projectile.hide = true;
         }
 
         public override void AI()
@@ -44,6 +46,8 @@ namespace FargowiltasSouls.Projectiles
             int dustId3 = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height + 5, 56, Projectile.velocity.X * 0.2f,
                 Projectile.velocity.Y * 0.2f, 100, default(Color), .5f);
             Main.dust[dustId3].noGravity = true;*/
+
+            Projectile.hide = false;
 
             if (++Projectile.localAI[0] == 20)
             {
@@ -59,7 +63,7 @@ namespace FargowiltasSouls.Projectiles
                     Projectile.velocity = Projectile.DirectionTo(n.Center + n.velocity * 10) * 32f;
                 }
             }
-            
+
             if (Projectile.alpha > 0)
             {
                 Projectile.alpha -= 20;
@@ -90,7 +94,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeleft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 6);
+            SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.Center = Projectile.position;

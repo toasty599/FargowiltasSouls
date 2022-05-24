@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Projectile.localAI[0] = Projectile.DirectionTo(player.Center).ToRotation();
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Projectile.DirectionTo(player.Center), ModContent.ProjectileType<ShadowDeathraySmall>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.DirectionTo(player.Center), ModContent.ProjectileType<ShadowDeathraySmall>(), 0, 0f, Main.myPlayer);
                 }
             }
             else if (Projectile.ai[1] == -30)

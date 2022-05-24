@@ -1,19 +1,19 @@
 using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Weapons.BossDrops;
+using FargowiltasSouls.Items.Weapons.Misc;
+using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Toggler;
-using FargowiltasSouls.ItemDropRules.Conditions;
-using Terraria.GameContent.ItemDropRules;
-using FargowiltasSouls.Items.Weapons.BossDrops;
-using FargowiltasSouls.Items.Weapons.Misc;
-using System.Linq;
-using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Projectiles.Masomode;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -73,7 +73,7 @@ namespace FargowiltasSouls.NPCs
         {
             BrokenArmor = false;
             TimeFrozen = false;
-            SBleed = false; 
+            SBleed = false;
             //            Shock = false;
             Rotting = false;
             LeadPoison = false;
@@ -105,11 +105,13 @@ namespace FargowiltasSouls.NPCs
             if (npc.boss || npc.type == NPCID.EaterofWorldsHead)
                 boss = npc.whoAmI;
 
+            bool retval = base.PreAI(npc);
+
             if (TimeFrozen)
             {
                 npc.position = npc.oldPosition;
                 npc.frameCounter = 0;
-                return false;
+                retval = false;
             }
 
             if (!FirstTick)
@@ -184,7 +186,7 @@ namespace FargowiltasSouls.NPCs
             if (Lethargic && ++LethargicCounter > 3)
             {
                 LethargicCounter = 0;
-                return false;
+                retval = false;
             }
 
             //            if (ExplosiveCritter)
@@ -216,11 +218,14 @@ namespace FargowiltasSouls.NPCs
                 if (SnowChilledTimer <= 0)
                     SnowChilled = false;
 
-                if (SnowChilledTimer % 2 == 1)
-                    return false;
+                if (SnowChilledTimer % 3 == 1)
+                {
+                    npc.position = npc.oldPosition;
+                    retval = false;
+                }
             }
 
-            return true;
+            return retval;
         }
 
         public override void AI(NPC npc)
@@ -758,10 +763,10 @@ namespace FargowiltasSouls.NPCs
         }
 
         private bool lootMultiplierCheck;
-        private static readonly int[] illegalLootMultiplierNPCs = new int[] {
+        private static int[] illegalLootMultiplierNPCs => new int[] {
             NPCID.DD2Betsy,
-            NPCID.EaterofWorldsBody, 
-            NPCID.EaterofWorldsHead, 
+            NPCID.EaterofWorldsBody,
+            NPCID.EaterofWorldsHead,
             NPCID.EaterofWorldsTail
         };
 
@@ -865,7 +870,7 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.BigMimicJungle:
-                    npcLoot.Add(ItemDropRule.OneFromOptions(1, 
+                    npcLoot.Add(ItemDropRule.OneFromOptions(1,
                         ModContent.ItemType<Vineslinger>(),
                         ModContent.ItemType<Mahoguny>(),
                         ModContent.ItemType<OvergrownKey>()));
@@ -900,7 +905,7 @@ namespace FargowiltasSouls.NPCs
             //            /*if (npc.boss && FargoSoulsUtil.BossIsAlive(ref mutantBoss, ModContent.NPCType<MutantBoss.MutantBoss>()) && npc.type != ModContent.NPCType<MutantBoss.MutantBoss>())
             //            {
             //                npc.active = false;
-            //                Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
+            //                SoundEngine.PlaySound(npc.DeathSound, npc.Center);
             //                return false;
             //            }*/
 
@@ -936,20 +941,6 @@ namespace FargowiltasSouls.NPCs
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             ModifyHitByBoth(npc, player, ref damage);
-
-             if (FargoSoulsUtil.IsSummonDamage(projectile))
-            {
-                if (modPlayer.SpiderEnchantActive && player.GetToggleValue("Spider", false))
-                {
-                    if (Main.rand.Next(100) < player.ActualClassCrit(DamageClass.Summon))
-                        crit = true;
-                }
-                else if (modPlayer.Graze)
-                {
-                    if (Main.rand.Next(100) < FargoSoulsUtil.HighestCritChance(player))
-                        damage = (int)(damage * (1.0 + modPlayer.GrazeBonus));
-                }
-            }
         }
 
         public void ModifyHitByBoth(NPC npc, Player player, ref int damage)

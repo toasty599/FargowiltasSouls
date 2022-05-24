@@ -1,10 +1,10 @@
+using FargowiltasSouls.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Localization;
-using FargowiltasSouls.Projectiles.BossWeapons;
 using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {
@@ -81,10 +81,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             return false;
         }
 
-        public override bool CanConsumeAmmo(Player player)
-        {
-            return Main.rand.NextBool(5);
-        }
+        public override bool CanConsumeAmmo(Item ammo, Player player) => Main.rand.NextBool(5);
 
         //make them hold it different
         public override Vector2? HoldoutOffset()
@@ -100,7 +97,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             .AddIngredient(ItemID.LunarBar, 10)
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-            
+
             .Register();
         }
     }

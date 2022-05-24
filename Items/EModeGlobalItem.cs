@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,16 +8,16 @@ namespace FargowiltasSouls.Items
 {
     public class EModeGlobalItem : GlobalItem
     {
-        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
+        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
             //ammo nerf
-            if (ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet || ammo.ammo == AmmoID.Dart)
-            {
-                damage -= (int)Math.Round(ammo.damage * player.GetDamage(DamageClass.Ranged).Additive * 0.5, MidpointRounding.AwayFromZero); //always round up
-            }
+            //if (ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet || ammo.ammo == AmmoID.Dart)
+            //{
+            //    damage -= (int)Math.Round(ammo.damage * player.GetDamage(DamageClass.Ranged).Additive * 0.5, MidpointRounding.AwayFromZero); //always round up
+            //}
         }
 
         public override bool CanUseItem(Item item, Player player)
@@ -29,15 +25,12 @@ namespace FargowiltasSouls.Items
             if (!FargoSoulsWorld.EternityMode)
                 return base.CanUseItem(item, player);
 
-            if (item.type == ItemID.RodofDiscord || item.type == ItemID.WireKite || item.type == ItemID.WireCutter)
+            if (item.type == ItemID.RodofDiscord || item.type == ItemID.WireKite || item.type == ItemID.WireCutter || item.type == ItemID.Wrench || item.type == ItemID.BlueWrench || item.type == ItemID.GreenWrench || item.type == ItemID.MulticolorWrench || item.type == ItemID.YellowWrench || item.type == ItemID.Actuator)
             {
                 //either player is affected by lihzahrd curse, or cursor is targeting a place in temple (player standing outside)
                 if (player.GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse || (Framing.GetTileSafely(Main.MouseWorld).WallType == WallID.LihzahrdBrickUnsafe && !player.buffImmune[ModContent.BuffType<Buffs.Masomode.LihzahrdCurse>()]))
                     return false;
             }
-
-            if (item.damage > 0 && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.Magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
-                player.GetModPlayer<EModePlayer>().MasomodeWeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 30);
 
             if (item.type == ItemID.RodofDiscord && FargoSoulsUtil.AnyBossAlive())
                 player.chaosState = true;
@@ -68,10 +61,10 @@ namespace FargowiltasSouls.Items
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
-            if (item.damage > 0 && (item.ammo == AmmoID.Arrow || item.ammo == AmmoID.Bullet || item.ammo == AmmoID.Dart))
-            {
-                tooltips.Add(new TooltipLine(Mod, "masoAmmoNerf", "[c/ff0000:Eternity Mode:] Contributes 50% less damage to weapons"));
-            }
+            //if (item.damage > 0 && (item.ammo == AmmoID.Arrow || item.ammo == AmmoID.Bullet || item.ammo == AmmoID.Dart))
+            //{
+            //    tooltips.Add(new TooltipLine(Mod, "masoAmmoNerf", "[c/ff0000:Eternity Mode:] Contributes 50% less damage to weapons"));
+            //}
 
             switch (item.type)
             {
@@ -152,6 +145,11 @@ namespace FargowiltasSouls.Items
 
                 case ItemID.VampireKnives:
                     tooltips.Add(new TooltipLine(Mod, "masoNerf3", "[c/ff0000:Eternity Mode:] Reduced lifesteal rate when above 33% life"));
+                    break;
+
+                case ItemID.ZapinatorGray:
+                case ItemID.ZapinatorOrange:
+                    tooltips.Add(new TooltipLine(Mod, "masoNerf3", "[c/ff0000:Eternity Mode:] Cannot stack damage multipliers"));
                     break;
 
                 //case ItemID.EmpressBlade:

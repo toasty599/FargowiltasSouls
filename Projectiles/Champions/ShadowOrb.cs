@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.timeLeft = 45;
-            
+
             CooldownSlot = 1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
@@ -54,12 +55,12 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 4 * i),
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 4 * i),
                         ModContent.ProjectileType<ShadowFlamingScythe>(), Projectile.damage, 0f, Main.myPlayer);
                 }
             }
-            
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
+
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             const int num226 = 36;
             for (int num227 = 0; num227 < num226; num227++)

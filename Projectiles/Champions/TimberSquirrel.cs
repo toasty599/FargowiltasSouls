@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -42,8 +43,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is EntitySource_Parent parent && parent.Entity is NPC sourceNPC)
-                npc = sourceNPC;
+            npc = FargoSoulsUtil.NPCExists(Projectile.ai[1]);
 
             for (int i = 0; i < 50; i++)
             {
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 if (Counter == baseTimeleft)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TimberLightningOrb>(), Projectile.damage, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TimberLightningOrb>(), Projectile.damage, 0f, Main.myPlayer);
                 }
 
                 if (Counter > baseTimeleft)
@@ -94,8 +94,8 @@ namespace FargowiltasSouls.Projectiles.Champions
                     {
                         Projectile.localAI[0] = 15;
 
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item157, Projectile.Center);
-                        
+                        SoundEngine.PlaySound(SoundID.Item157, Projectile.Center);
+
                         int lasersToAddPerAttack = 3;
 
                         int modifier = (int)Projectile.localAI[1]; //scale up to halfway
@@ -106,14 +106,14 @@ namespace FargowiltasSouls.Projectiles.Champions
                         for (int i = 0; i < max; i++)
                         {
                             float ai0 = npc is NPC ? npc.whoAmI : -1;
-                            
+
                             const float speed = 20f / 5f;
 
                             float rotationBaseOffset = MathHelper.TwoPi / max;
                             Vector2 vel = speed * (Projectile.rotation + rotationBaseOffset * i).ToRotationVector2();
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, vel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
+                                Projectile.NewProjectile(Terraria.Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, vel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
 
                             if (npc is NPC)
                             {
@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                                 edgeVel *= speed * 3f;
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(Entity.InheritSource(npc), spawnPos, edgeVel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
+                                    Projectile.NewProjectile(Terraria.Entity.InheritSource(npc), spawnPos, edgeVel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
                             }
                         }
 

@@ -1,15 +1,16 @@
-using System;
-using System.Collections.Generic;
 using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 //using FargowiltasSouls.Buffs.Souls;
 //using FargowiltasSouls.Projectiles.Critters;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace FargowiltasSouls.Items
 {
@@ -55,11 +56,9 @@ namespace FargowiltasSouls.Items
             return base.OnPickup(item, player);
         }
 
-        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
+        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
-            if (modPlayer.Jammed && weapon.DamageType == DamageClass.Ranged)
+            if (weapon.DamageType == DamageClass.Ranged && player.GetModPlayer<FargoSoulsPlayer>().Jammed)
                 type = ProjectileID.ConfettiGun;
         }
 
@@ -77,6 +76,17 @@ namespace FargowiltasSouls.Items
         //            return true;
         //        }
 
+        public override void ModifyItemScale(Item item, Player player, ref float scale)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (modPlayer.TungstenEnchantActive && player.GetToggleValue("Tungsten")
+                && !item.IsAir && item.damage > 0 && !item.noMelee && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+            {
+                scale *= TungstenEnchant.TungstenIncreaseWeaponSize(modPlayer);
+            }
+        }
+
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
@@ -88,7 +98,7 @@ namespace FargowiltasSouls.Items
         public override bool? CanAutoReuseItem(Item item, Player player)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            
+
             if (modPlayer.Berserked)
                 return true;
 
@@ -136,7 +146,7 @@ namespace FargowiltasSouls.Items
                 item.useAnimation = 1;
             }
 
-            if (item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
+            if (item.damage > 0 && player.HasAmmo(item) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
                 && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
                 && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
             {
@@ -202,6 +212,9 @@ namespace FargowiltasSouls.Items
             {
                 player.GetModPlayer<FargoSoulsPlayer>().WasHurtBySomething = true; //with abom rebirth, die to chaos state
             }
+
+            if (item.damage > 0 && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.Magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+                player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 30);
 
             return true;
         }
@@ -326,7 +339,7 @@ namespace FargowiltasSouls.Items
                 if (modPlayer.JungleCD == 0)
                 {
                     int dmg = (modPlayer.NatureForce || modPlayer.WizardEnchantActive) ? 150 : 75;
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 62, 0.5f);
+                    SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, player.Center);
                     FargoSoulsUtil.XWay(10, player.GetSource_Accessory(modPlayer.ChloroEnchantItem), new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
 
                     modPlayer.JungleCD = 8;
@@ -357,6 +370,88 @@ namespace FargowiltasSouls.Items
                 TooltipLine helperLine = new TooltipLine(mod, "help", "Right click to convert");
                 tooltips.Add(helperLine);
             }*/
+        }
+
+        public override bool AllowPrefix(Item item, int pre)
+        {
+            if (!Main.gameMenu && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
+            {
+                switch (pre)
+                {
+                    #region actually bad
+
+                    case PrefixID.Hard:
+                    case PrefixID.Guarding:
+                    case PrefixID.Jagged:
+                    case PrefixID.Spiked:
+                    case PrefixID.Brisk:
+                    case PrefixID.Fleeting:
+                    case PrefixID.Wild:
+                    case PrefixID.Rash:
+
+                    case PrefixID.Broken:
+                    case PrefixID.Damaged:
+                    case PrefixID.Shoddy:
+                    case PrefixID.Weak:
+
+                    case PrefixID.Slow:
+                    case PrefixID.Sluggish:
+                    case PrefixID.Lazy:
+                    case PrefixID.Annoying:
+
+                    case PrefixID.Tiny:
+                    case PrefixID.Small:
+                    case PrefixID.Dull:
+                    case PrefixID.Shameful:
+                    case PrefixID.Terrible:
+                    case PrefixID.Unhappy:
+
+                    case PrefixID.Awful:
+                    case PrefixID.Lethargic:
+                    case PrefixID.Awkward:
+
+                    case PrefixID.Inept:
+                    case PrefixID.Ignorant:
+                    case PrefixID.Deranged:
+
+                    #endregion actually bad
+
+                    #region mediocre
+
+                    case PrefixID.Hasty:
+                    case PrefixID.Intrepid:
+
+                    case PrefixID.Intense:
+                    case PrefixID.Frenzying:
+                    case PrefixID.Dangerous:
+                    case PrefixID.Bulky:
+                    case PrefixID.Heavy:
+                    case PrefixID.Sighted:
+                    case PrefixID.Adept:
+                    case PrefixID.Taboo:
+                    case PrefixID.Furious:
+                    case PrefixID.Keen:
+                    case PrefixID.Forceful:
+                    case PrefixID.Quick:
+                    case PrefixID.Nimble:
+                    case PrefixID.Nasty:
+                    case PrefixID.Manic:
+                    case PrefixID.Strong:
+                    case PrefixID.Zealous:
+                    case PrefixID.Large:
+                    case PrefixID.Intimidating:
+                    case PrefixID.Unpleasant:
+
+                        #endregion mediocre
+
+                        return false;
+
+                    default:
+                        break;
+                }
+            }
+
+            return base.AllowPrefix(item, pre);
         }
     }
 }

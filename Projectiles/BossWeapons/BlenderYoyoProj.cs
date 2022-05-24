@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -41,6 +42,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 15;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         int soundtimer;
@@ -119,10 +121,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 }
             }
 
-            if(soundtimer == 0)
+            if (soundtimer == 0)
             {
                 soundtimer = 15;
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 22, 1.5f, 1f);
+                SoundEngine.PlaySound(SoundID.Item22 with { Volume = 1.5f, Pitch = 1f }, Projectile.Center);
             }
         }
 

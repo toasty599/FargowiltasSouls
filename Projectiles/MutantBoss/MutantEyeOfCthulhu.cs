@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -43,6 +45,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override bool CanHitPlayer(Player target)
         {
             return target.hurtCooldowns[1] == 0;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            SoundEngine.PlaySound(SoundID.ForceRoarPitched, Projectile.Center);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, NPCID.EyeofCthulhu);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -92,14 +102,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     Main.projectile[p].timeLeft = Projectile.timeLeft + 180 + 30 + 150; //+ 60 + 240;
             };
 
-            if (Projectile.ai[1]++ == 0)
-            {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Projectile.Center, -1);
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, NPCID.EyeofCthulhu);
-            }
-            else if (Projectile.ai[1] < 120)
+            if (++Projectile.ai[1] < 120)
             {
                 Projectile.alpha -= 8;
                 if (Projectile.alpha < 0)
@@ -160,6 +163,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
+                    SpawnProjectile(Projectile.Center - Projectile.velocity / 2);
+
                     float accel = 0.025f;
                     Vector2 target = new Vector2(Projectile.localAI[0], Projectile.localAI[1]); //+ 150f * Vector2.UnitX.RotatedBy(goldScytheAngleOffset);
                     float angle = Projectile.DirectionTo(target).ToRotation();
@@ -176,7 +181,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 Projectile.velocity = dashSpeed * Projectile.DirectionTo(new Vector2(Projectile.localAI[0], Projectile.localAI[1])).RotatedBy(MathHelper.ToRadians(degreesOffset));
                 Projectile.netUpdate = true;
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Projectile.Center, -1);
+                SoundEngine.PlaySound(SoundID.ForceRoarPitched, Projectile.Center);
             }
             else if (Projectile.ai[1] < 120 + baseDistance / dashSpeed * 2)
             {

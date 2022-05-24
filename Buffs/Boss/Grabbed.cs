@@ -1,13 +1,11 @@
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Buffs.Boss
 {
     public class Grabbed : ModBuff
     {
-        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Grabbed");

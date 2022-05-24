@@ -1,9 +1,8 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Localization;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Items.Materials;
+using Terraria;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -18,9 +17,10 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<StardustEnchant>()
         };
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            base.SetDefaults();
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Cosmos");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宇宙之力");

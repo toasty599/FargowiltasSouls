@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -59,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 Projectile.localAI[0] = 1;
 
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
                 Projectile.rotation = Projectile.ai[0];
             }
@@ -101,18 +102,23 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item89, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item89, Projectile.position);
 
             if (!Main.dedServ && Main.LocalPlayer.active)
                 Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int max = 10;
+                const int max = 8;
+                const float baseRotation = MathHelper.TwoPi / max;
                 for (int i = 0; i < max; i++)
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MutantBoss.MutantBomb>(), 0, Projectile.knockBack, Projectile.owner);
+                {
+                    float rotation = baseRotation * (i + Main.rand.NextFloat(-0.5f, 0.5f));
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, Projectile.knockBack, Projectile.owner, rotation, 3);
+                }
+
                 if (!FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, Projectile.knockBack, Projectile.owner, -Vector2.UnitY.ToRotation(), 32);
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, Projectile.knockBack, Projectile.owner, -Vector2.UnitY.ToRotation(), 32);
             }
 
             Vector2 size = new Vector2(500, 500);
