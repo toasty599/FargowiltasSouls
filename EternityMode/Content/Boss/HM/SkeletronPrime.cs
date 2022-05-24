@@ -26,19 +26,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.SkeletronPrime);
 
         public int DungeonGuardianStartup;
-        public int ProjectileAttackTimer;
         public int MemorizedTarget;
 
         public bool FullySpawnedLimbs;
         public bool HaveShotGuardians;
 
+        public int ProjectileAttackTimer;
+        public int RocketTimer;
         public bool DroppedSummon;
         public bool HasSaidEndure;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(DungeonGuardianStartup), IntStrategies.CompoundStrategy },
-                { new Ref<object>(ProjectileAttackTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(MemorizedTarget), IntStrategies.CompoundStrategy },
 
                 { new Ref<object>(FullySpawnedLimbs), BoolStrategies.CompoundStrategy },
@@ -119,9 +119,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                 }
 
-                if (++ProjectileAttackTimer >= 360)
+                if (++RocketTimer >= 360)
                 {
-                    ProjectileAttackTimer = 0;
+                    RocketTimer = 0;
 
                     if (npc.HasPlayerTarget) //skeleton commando rockets LUL
                     {
