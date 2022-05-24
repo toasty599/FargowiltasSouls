@@ -50,6 +50,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                 return;
             }
 
+
+
+
 			List<int> ai156_blacklistedTargets = new List<int>();
 
             DelegateMethods.v3_1 = Color.Transparent.ToVector3();
@@ -76,6 +79,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 				Projectile.ai[0] = 0f;
 				Projectile.ai[1] = 0f;
 				Projectile.netUpdate = true;
+				Projectile.Center = player.Center;
 			}
 			if (Projectile.ai[0] == -1f)
 			{

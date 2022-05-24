@@ -72,9 +72,11 @@ fargotten land wip:
 -Ancient Cobalt rework: now grants an explosion jump, updated recipe
 -Cobalt rework: grants a bigger more deadly explosion jump (which also effects vertical wing acceleration), also grants explosion on hit, updated recipe
 -Molten Enchant: removed explosion on hit
--Palladium Enchant, replaced Palldium Sword with Bat Bat in recipe
+-Palladium Enchant, replaced Palladium Sword with Bat Bat in recipe
 -Titanium Enchant: now can grants up to 25 shards, updated recipe
 -Meteor Enchant: updated recipe
+
+
 
 
 
