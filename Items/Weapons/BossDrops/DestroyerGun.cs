@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 1.5f;
-            Item.UseSound = SoundHelper.LegacySoundStyle("NPC_Killed", 13);
+            Item.UseSound = SoundID.NPCDeath13;
             Item.value = 50000;
             Item.rare = ItemRarityID.Pink;
             Item.autoReuse = true;

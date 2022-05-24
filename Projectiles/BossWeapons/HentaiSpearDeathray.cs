@@ -53,9 +53,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (Projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(SoundHelper.FargoSound("Zombie_104", 0.6f), Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zombie_104") { Volume = 0.6f }, Projectile.Center);
                 //SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
-                //SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 6), Projectile.Center);
+                //SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             }
             float num801 = .5f;
             Projectile.localAI[0] += 1f;

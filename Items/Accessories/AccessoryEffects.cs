@@ -574,7 +574,7 @@ namespace FargowiltasSouls
                 goldHP = Player.statLife;
 
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(SoundHelper.Zhonyas, Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zhonyas"), Player.Center);
             }
             //cancel it early
             else
@@ -713,7 +713,7 @@ namespace FargowiltasSouls
                     JungleCD = 17 - tier * tier;
                     int dmg = 12 * tier * tier;
 
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 62, 0.5f), Player.Center);
+                    SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, Player.Center);
 
                     foreach (Projectile p in FargoSoulsUtil.XWay(10, Player.GetSource_Misc(""), Player.Bottom, ProjectileID.SporeCloud, 4f, FargoSoulsUtil.HighestDamageTypeScaling(Player, dmg), 0f))
                     {
@@ -1527,7 +1527,7 @@ namespace FargowiltasSouls
                 if (freezeLength == 90)
                 {
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundHelper.ZaWarudoResume, Player.Center);
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudoResume"), Player.Center);
                 }
 
                 if (freezeLength <= 0)
@@ -2396,7 +2396,7 @@ namespace FargowiltasSouls
 
                 if (Player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
                 {
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Hit", 0), Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/NPC_Hit_0"), Player.Center);
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
                         int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);

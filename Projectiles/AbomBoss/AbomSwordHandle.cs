@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
             if (Projectile.localAI[0] == 0f)
             {
-                //SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Zombie", 104), Projectile.Center);
+                //SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Zombie_104"), Projectile.Center);
             }
             float num801 = 1f;
             Projectile.localAI[0] += 1f;

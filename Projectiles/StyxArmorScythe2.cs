@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Projectiles
                 Projectile.Damage();
             }
 
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             for (int i = 0; i < 20; i++)
             {

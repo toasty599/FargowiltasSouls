@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (FargoSoulsWorld.MasochistModeReal && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5)
                 {
                     if (!target.HasBuff(ModContent.BuffType<TimeFrozen>()))
-                        SoundEngine.PlaySound(SoundHelper.FargoSound("ZaWarudo"), target.Center);
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudo"), target.Center);
                     target.AddBuff(ModContent.BuffType<TimeFrozen>(), 300);
                 }
             }
@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void Kill(int timeleft)
         {
             if (Main.rand.NextBool(Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type] / 10 + 1))
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 6), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.Center = Projectile.position;

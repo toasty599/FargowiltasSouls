@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
 
@@ -115,7 +116,7 @@ There is a cooldown of 3 seconds between uses");
 
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, new Vector2(player.velocity.X, 0), ModContent.ProjectileType<WolfDashProj>(), (int)(50 * player.GetDamage(DamageClass.Melee).Additive), 0f, player.whoAmI);
 
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 8), player.Center);
+                SoundEngine.PlaySound(SoundID.NPCDeath8, player.Center);
             }
         }
     }

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Projectile.localAI[1] = Projectile.velocity.Length();
                 Projectile.velocity = Vector2.Zero;
 
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 7, 0.5f, 0), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.NPCDeath7 with { Volume = 0.5f, Pitch = 0 }, Projectile.Center);
 
                 for (int index1 = 0; index1 < 4; ++index1)
                 {

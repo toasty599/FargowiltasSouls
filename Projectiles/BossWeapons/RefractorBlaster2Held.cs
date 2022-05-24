@@ -146,7 +146,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + HoldOffset * 2, 22f * Projectile.velocity.RotatedBy(spread * i),
                             type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 105, 1f, -0.3f), Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item105 with { Volume = 1f, Pitch = -0.3f }, Projectile.Center);
                     /*int p = Projectile.NewProjectile(Projectile.Center + HoldOffset * 2, Projectile.velocity * 22, type, Projectile.damage, Projectile.knockBack, player.whoAmI);
 					if (p < 1000)
 					{

@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             MakeDust();
         }

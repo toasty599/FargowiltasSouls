@@ -531,7 +531,7 @@ namespace FargowiltasSouls.Items.Misc
             GetBossHelp(ref dialogue, player);
             Main.NewText(dialogue);
 
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Meowmere", 5 + Main.rand.Next(5)), player.Center); //meow
+            SoundEngine.PlaySound(new SoundStyle($"Terraria/Sounds/Meowmere_{Main.rand.Next(5, 10)}"), player.Center); //meow
             return true;
         }
     }

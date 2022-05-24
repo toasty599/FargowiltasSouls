@@ -145,7 +145,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 52, 0.5f, 0.2f), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath52 with { Volume = 0.5f, Pitch = 0.2f }, Projectile.Center);
 
             for (int i = 0; i < 15; i++)
             {

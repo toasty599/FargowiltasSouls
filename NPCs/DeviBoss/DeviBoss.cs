@@ -1248,7 +1248,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         }
                         else if (NPC.ai[3] == 4) //petrify
                         {
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 17), NPC.Center);
+                            SoundEngine.PlaySound(SoundID.NPCDeath17, NPC.Center);
 
                             if (NPC.Distance(Main.LocalPlayer.Center) < 3000 && Collision.CanHitLine(NPC.Center, 0, 0, Main.LocalPlayer.Center, 0, 0)
                                 && Math.Sign(Main.LocalPlayer.direction) == Math.Sign(NPC.Center.X - Main.LocalPlayer.Center.X)

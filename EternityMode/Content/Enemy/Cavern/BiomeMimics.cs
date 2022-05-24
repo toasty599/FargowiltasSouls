@@ -48,7 +48,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 if (npc.velocity.Y == 0f) //spawn smash
                 {
                     DoStompAttack = false;
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), npc.Center);
+                    SoundEngine.PlaySound(SoundID.Item14, npc.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         for (int i = -1; i <= 1; i++)
@@ -231,7 +231,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                               Main.rand.Next(-30, 31) * .1f, Main.rand.Next(-40, -15) * .1f, ModContent.ProjectileType<FakeHeart>(), 20, 0f, Main.myPlayer);
                     }
 
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), npc.Center);
+                    SoundEngine.PlaySound(SoundID.Item14, npc.Center);
 
                     for (int i = 0; i < 30; i++)
                     {

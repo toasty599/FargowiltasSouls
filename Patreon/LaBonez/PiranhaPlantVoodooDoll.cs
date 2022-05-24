@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Patreon.LaBonez
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
 
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 0), player.Center);
+            SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
             return true;
         }

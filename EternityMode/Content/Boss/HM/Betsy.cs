@@ -99,7 +99,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         case 0:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundHelper.FargoSound("Thunder"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder"), Main.player[npc.target].Center);
                             break;
 
                         case 1:
@@ -116,42 +116,42 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         case 4:
                             if (!Main.dedServ)
-                            SoundEngine.PlaySound(SoundHelper.FargoSound("Monster94"), Main.player[npc.target].Center);
+                            SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster94"), Main.player[npc.target].Center);
                             break;
 
                         case 5:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundHelper.FargoSound("Monster5", 1.5f), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster5") { Volume = 1.5f }, Main.player[npc.target].Center);
                             break;
 
                         case 6:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundHelper.FargoSound("Thunder", 1.5f, 1.5f), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder") { Volume = 1.5f, Pitch = 1.5f }, Main.player[npc.target].Center);
                             break;
 
                         case 7:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundHelper.FargoSound("Zombie_104"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zombie_104"), Main.player[npc.target].Center);
                             break;
 
                         case 8:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundHelper.FargoSound("Monster70"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster70"), Main.player[npc.target].Center);
                             break;
 
                         case 9:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundHelper.FargoSound("Railgun"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Railgun"), Main.player[npc.target].Center);
                             break;
 
                         case 10:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundHelper.FargoSound("Navi"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Navi"), Main.player[npc.target].Center);
                             break;
 
                         case 11:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundHelper.FargoSound("ZaWarudo", 1.5f), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudo") { Volume = 1.5f }, Main.player[npc.target].Center);
                             break;
 
                         default:

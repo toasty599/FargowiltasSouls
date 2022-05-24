@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 1.5f;
-            Item.UseSound = SoundHelper.LegacySoundStyle("NPC_Killed", 13);
+            Item.UseSound = SoundID.NPCDeath13;
             Item.value = Item.sellPrice(0, 25);
             Item.rare = ItemRarityID.Purple;
             Item.autoReuse = true;

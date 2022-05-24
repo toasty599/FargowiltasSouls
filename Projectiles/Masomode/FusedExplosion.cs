@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (++Projectile.localAI[1] == 6)
             {
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
                 for (int num615 = 0; num615 < 45; num615++)
                 {

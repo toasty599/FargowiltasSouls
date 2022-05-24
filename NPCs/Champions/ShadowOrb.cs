@@ -134,7 +134,7 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.netUpdate = true;
             damage = 0;
 
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), NPC.Center);
+            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
             const int num226 = 36;
             for (int num227 = 0; num227 < num226; num227++)

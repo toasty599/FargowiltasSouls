@@ -149,7 +149,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         NPC.ai[2] = 0;
 
-                        SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {

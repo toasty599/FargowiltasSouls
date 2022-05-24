@@ -96,7 +96,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
             if (Projectile.timeLeft == 8)
             {
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 6), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
                 SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)

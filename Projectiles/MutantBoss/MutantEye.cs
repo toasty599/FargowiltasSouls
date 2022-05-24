@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeleft)
         {
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Zombie", 103), Projectile.Center);
+            SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Zombie_103"), Projectile.Center);
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 144;
             Projectile.position.X -= (float)(Projectile.width / 2);

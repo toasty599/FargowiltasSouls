@@ -176,7 +176,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     -Projectile.velocity.Y * 0.2f, 100);
                 Main.dust[dust].velocity *= 2f;
             }
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
         }
     }
 }

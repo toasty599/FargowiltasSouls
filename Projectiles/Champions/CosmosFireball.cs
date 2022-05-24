@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 Projectile.localAI[1] = 1;
 
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
                 for (int i = 0; i < 30; i++)
                 {

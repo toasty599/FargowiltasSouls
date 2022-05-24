@@ -120,7 +120,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 for (int k = 0; k < 20; k++)
                     Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hitDirection, -1f);
 
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), NPC.Center);
+                SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                 for (int i = 0; i < 20; i++)
                 {

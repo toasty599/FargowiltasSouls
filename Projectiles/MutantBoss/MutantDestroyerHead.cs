@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
@@ -115,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             //int g = Gore.NewGore(Projectile.Center, Projectile.velocity / 2, mod.GetGoreSlot("Gores/DestroyerGun/DestroyerHead"), Projectile.scale);
             // Main.gore[g].timeLeft = 20;
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
         }
     }
 }

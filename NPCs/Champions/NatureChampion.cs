@@ -322,7 +322,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         void StompDust()
                         {
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), NPC.Center);
+                            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                             for (int k = -2; k <= 2; k++) //explosions
                             {

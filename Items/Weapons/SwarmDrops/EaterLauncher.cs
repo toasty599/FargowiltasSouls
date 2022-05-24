@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 5f;
-            Item.UseSound = SoundHelper.LegacySoundStyle("Item", 62);
+            Item.UseSound = SoundID.Item62;
             Item.useAmmo = AmmoID.Rocket;
             Item.value = Item.sellPrice(0, 10);
             Item.rare = ItemRarityID.Purple;

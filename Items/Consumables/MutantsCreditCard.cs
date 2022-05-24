@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Items.Consumables
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
                 player.GetModPlayer<FargoSoulsPlayer>().MutantsCreditCard = true;
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 0), player.Center);
+                SoundEngine.PlaySound(SoundID.Roar, player.Center);
             }
             return true;
         }

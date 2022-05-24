@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             MakeDust();
 
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 6), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
             if (Projectile.owner == Main.myPlayer)

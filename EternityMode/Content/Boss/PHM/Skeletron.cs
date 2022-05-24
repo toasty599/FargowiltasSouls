@@ -205,7 +205,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                 Main.rand.Next(skeletons),
                                 velocity: distance);
 
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 13), npc.Center);
+                            SoundEngine.PlaySound(SoundID.NPCDeath13, npc.Center);
                         }
                     }
 

@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void Kill(int timeleft)
         {
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 6, 0.5f, 0), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f, Pitch = 0 }, Projectile.Center);
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.position.X -= (float)(Projectile.width / 2);

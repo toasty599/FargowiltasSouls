@@ -1690,3 +1690,8 @@ tried fixing special boss spawners like the sibling spawners not always working 
 trojan squirrel drops 100 acorns
 fixed penetrator dive blast offset not working properly when upscaled by tungsten
 a truly genuinely unspeakable number of sound refactors because tml exploded a fundamental system again
+
+more sound refactors
+fixed space suffocation having the wrong sound effect
+zapinators have tooltip for nerf
+fixed armored skeletons hurting themselves with beam swords

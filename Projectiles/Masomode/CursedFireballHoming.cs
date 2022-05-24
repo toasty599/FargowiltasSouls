@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (Projectile.localAI[0] == 0f)
             {
                 Projectile.localAI[0] = 1;
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 20, 2, 0), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item20 with { Volume = 2, Pitch = 0 }, Projectile.Center);
             }
 
             if (Main.rand.NextBool(3) && Projectile.velocity.Length() > 0)
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else if (Projectile.localAI[1] == 120 + Projectile.ai[1]) //shoot at player much faster
             {
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 20, 2, 0), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item20 with { Volume = 2, Pitch = 0 }, Projectile.Center);
                 float num = 24f;
                 for (int index1 = 0; index1 < num; ++index1)
                 {

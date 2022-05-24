@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             if (Projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Zombie", 104), Main.player[Main.myPlayer].Center);
+                SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Zombie_104"), Main.player[Main.myPlayer].Center);
             }
             float num801 = 10f;
             Projectile.localAI[0] += 1f;

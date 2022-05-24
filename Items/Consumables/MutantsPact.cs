@@ -40,9 +40,9 @@ namespace FargowiltasSouls.Items.Consumables
             {
                 player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot = true;
 
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 0), player.Center);
+                SoundEngine.PlaySound(SoundID.Roar, player.Center);
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(SoundHelper.FargoSound("Thunder"), player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder"), player.Center);
             }
             return true;
         }

@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             player.GetModPlayer<FargoSoulsPlayer>().Stunned = true;
 
             if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % 60 == 55)
-                SoundEngine.PlaySound(SoundHelper.FargoSound("DizzyBird"));
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/DizzyBird"));
         }
 
         public override void Update(NPC npc, ref int buffIndex)

@@ -186,7 +186,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         int damage = npc.defDamage / 3;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 105, 2f), npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item105 with { Volume = 2f }, npc.Center);
 
                             float modifier = (float)npc.life / npc.lifeMax;
                             if (FargoSoulsWorld.MasochistModeReal)
@@ -559,7 +559,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         npc.velocity = (target - npc.Center) / 30;
                         if (npc.ai[2] == 140)
                         {
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 15, 1.5f), npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item15 with { Volume = 1.5f }, npc.Center);
 
                             for (int i = 0; i < 20; i++)
                             {
@@ -579,7 +579,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else if (npc.ai[2] == 180)
                     {
-                        SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 18, 1.25f), npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item18 with { Volume = 1.25f }, npc.Center);
                         npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * 20f;
                         IdleOffsetX *= -1;
                         IdleOffsetY *= -1;
@@ -826,7 +826,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                             else if (AttackTimer == 90)
                             {
-                                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 18, 1.25f), npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item18 with { Volume = 1.25f }, npc.Center);
                                 npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * (npc.dontTakeDamage ? 20f : 25f);
                                 npc.rotation = npc.velocity.ToRotation() - (float)Math.PI / 2;
 
@@ -864,7 +864,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                             else if (AttackTimer == 90) //slash down
                             {
-                                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 1, 1.25f, 0.5f), npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item1 with { Volume = 1.25f, Pitch = 0.5f }, npc.Center);
                                 Vector2 vel = Main.player[npc.target].Center - npc.Center;
                                 vel.Y += Math.Abs(vel.X) * 0.25f;
                                 vel.X *= 0.75f;
@@ -928,7 +928,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 npc.active = true;
                 npc.dontTakeDamage = true;
 
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), npc.Center);
+                SoundEngine.PlaySound(SoundID.Item14, npc.Center);
                 for (int i = 0; i < 50; i++)
                 {
                     int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Smoke, 0f, 0f, 100, default(Color), 3f);

@@ -438,7 +438,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                                 NPC.ai[3] = 1f;
                             }
 
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), NPC.Center);
+                            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                             ExplodeAttack();
                         }
@@ -582,7 +582,7 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                             NPC.netUpdate = true;
 
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), NPC.Center);
+                            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
                         }
                         else
                         {
@@ -722,7 +722,7 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         private void ExplodeDust(Vector2 center)
         {
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), center);
+            SoundEngine.PlaySound(SoundID.Item14, center);
 
             const int width = 32;
             const int height = 32;

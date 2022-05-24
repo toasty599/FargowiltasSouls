@@ -375,7 +375,7 @@ namespace FargowiltasSouls.Projectiles
                                 if (projectile.localAI[0] > 60)
                                 {
                                     projectile.Kill();
-                                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 11, 0.5f), projectile.Center);
+                                    SoundEngine.PlaySound(SoundID.NPCDeath11 with { Volume = 0.5f }, projectile.Center);
                                     int proj2 = ModContent.ProjectileType<BlenderProj3>();
                                     Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
                                 }
@@ -513,7 +513,7 @@ namespace FargowiltasSouls.Projectiles
 
                                 Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
 
-                                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 62, 0.5f), projectile.Center);
+                                SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, projectile.Center);
 
                                 spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
 
@@ -1050,7 +1050,7 @@ namespace FargowiltasSouls.Projectiles
 
                         if (!Main.dedServ)
                         {
-                            SoundEngine.PlaySound(SoundHelper.FargoSound("Graze", 0.5f), Main.LocalPlayer.Center);
+                            SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Graze") { Volume = 0.5f }, Main.LocalPlayer.Center);
                         }
 
                         Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);
@@ -1234,7 +1234,7 @@ namespace FargowiltasSouls.Projectiles
             //{
             //    if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(4))
             //    {
-            //        SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 27), player.Center);
+            //        SoundEngine.PlaySound(SoundID.Item27, player.Center);
 
             //        int damage = (int)(25 * player.GetDamage(DamageClass.Ranged).Additive);
 

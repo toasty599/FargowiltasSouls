@@ -470,7 +470,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 if (!Main.dedServ)
-                                    SoundEngine.PlaySound(SoundHelper.FargoSound("Thunder", 0.8f, 0.5f), NPC.Center);
+                                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder") { Volume = 0.8f, Pitch = 0.5f }, NPC.Center);
                                 const int max = 16;
                                 for (int i = 0; i < max; i++)
                                 {
@@ -529,7 +529,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     Vector2 vel = -Vector2.UnitY.RotatedBy(MathHelper.Pi * 0.4f * j);
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<CosmosGlowything>(), 0, 0f, Main.myPlayer);
                                 }
-                                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 7), NPC.Center);
+                                SoundEngine.PlaySound(SoundID.NPCDeath7, NPC.Center);
                             }
                         }
 
@@ -1456,7 +1456,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         NPC.localAI[0] = Main.rand.NextFloat(2 * (float)Math.PI);
 
                         if (!Main.dedServ)
-                            SoundEngine.PlaySound(SoundHelper.ZaWarudo, player.Center);
+                            SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudo"), player.Center);
 
                         //if (Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -18);
 

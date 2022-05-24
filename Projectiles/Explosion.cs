@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             Projectile.position.X = Projectile.position.X + Projectile.width / 2f;
             Projectile.position.Y = Projectile.position.Y + Projectile.height / 2f;
             Projectile.position.X = Projectile.position.X - Projectile.width / 2f;

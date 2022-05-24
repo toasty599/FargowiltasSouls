@@ -612,7 +612,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (!Main.player[npc.target].ZoneBeach || npc.ai[3] >= 5)
                     {
                         if (npc.ai[2] == 0 && !Main.dedServ)
-                            SoundEngine.PlaySound(SoundHelper.FargoSound("Monster70"), npc.Center);
+                            SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster70"), npc.Center);
 
                         if (Main.player[npc.target].ZoneBeach)
                         {

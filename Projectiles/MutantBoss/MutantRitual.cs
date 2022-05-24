@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (FargoSoulsWorld.MasochistModeReal && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5)
                 {
                     if (!target.HasBuff(ModContent.BuffType<TimeFrozen>()))
-                        SoundEngine.PlaySound(SoundHelper.FargoSound("ZaWarudo"), target.Center);
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudo"), target.Center);
                     target.AddBuff(ModContent.BuffType<TimeFrozen>(), 300);
                 }
             }

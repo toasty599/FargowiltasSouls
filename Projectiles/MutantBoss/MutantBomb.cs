@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Projectile.localAI[0] = 1;
                 Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
                 for (int i = 0; i < 2; i++)
                 {
                     int dust = Dust.NewDust(Projectile.position, Projectile.width,

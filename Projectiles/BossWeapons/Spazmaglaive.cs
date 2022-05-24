@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 const int max = 24;
                 for (int i = 0; i < max; i++)
                 {
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 105, 1f, -0.3f), Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item105 with { Volume = 1f, Pitch = -0.3f }, Projectile.Center);
                     Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / max);
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel / 2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     if (p < Main.maxProjectiles)
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     {
                         for (int i = 0; i < 12; i++)
                         {
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 105, 1f, -0.3f), Projectile.Center);
+                            SoundEngine.PlaySound(SoundID.Item105 with { Volume = 1f, Pitch = -0.3f }, Projectile.Center);
                             Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 12);
                             int p = Projectile.NewProjectile(target.Center, newvel/2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, target.whoAmI);
                             if(p < 1000)

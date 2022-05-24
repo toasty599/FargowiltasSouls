@@ -218,7 +218,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     NPC.ai[1] = 0;
                     NPC.ai[2] = 1;
 
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                     for (int k = -2; k <= 2; k++) //explosions
                     {

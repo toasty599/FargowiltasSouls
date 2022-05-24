@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void OnSpawn(IEntitySource source)
         {
             if (!Main.dedServ)
-                SoundEngine.PlaySound(SoundHelper.FargoSound("Thunder", 0.5f), Projectile.Center);
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder") { Volume = 0.5f }, Projectile.Center);
 
             if (source is EntitySource_Parent parent && parent.Entity is NPC sourceNPC)
                 npc = sourceNPC;

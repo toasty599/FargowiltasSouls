@@ -65,8 +65,8 @@ namespace FargowiltasSouls.Patreon.Duck
                 Projectile.frame = Main.rand.Next(15);
                 if (!Main.dedServ)
                 {
-                    SoundEngine.PlaySound(SoundHelper.FargoSound("Railgun"), Projectile.Center);
-                    SoundEngine.PlaySound(SoundHelper.FargoSound("Thunder"), player.Center + Projectile.velocity * Math.Min(Main.screenWidth / 2, 900f));
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Railgun"), Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder"), player.Center + Projectile.velocity * Math.Min(Main.screenWidth / 2, 900f));
                 }
 
                 Vector2 dustPos = player.Center + Projectile.velocity * 50f;

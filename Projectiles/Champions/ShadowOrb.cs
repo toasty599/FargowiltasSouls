@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 }
             }
 
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             const int num226 = 36;
             for (int num227 = 0; num227 < num226; num227++)

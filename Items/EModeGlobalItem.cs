@@ -147,6 +147,11 @@ namespace FargowiltasSouls.Items
                     tooltips.Add(new TooltipLine(Mod, "masoNerf3", "[c/ff0000:Eternity Mode:] Reduced lifesteal rate when above 33% life"));
                     break;
 
+                case ItemID.ZapinatorGray:
+                case ItemID.ZapinatorOrange:
+                    tooltips.Add(new TooltipLine(Mod, "masoNerf3", "[c/ff0000:Eternity Mode:] Cannot stack damage multipliers"));
+                    break;
+
                 //case ItemID.EmpressBlade:
                 //    tooltips.Add(new TooltipLine(Mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
                 //    goto case ItemID.StardustCellStaff;

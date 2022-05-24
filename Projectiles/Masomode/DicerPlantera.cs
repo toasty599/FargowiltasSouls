@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Projectile.localAI[0] = 0;
                     Projectile.netUpdate = true;
 
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center); //spray
+                    SoundEngine.PlaySound(SoundID.Item14, Projectile.Center); //spray
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

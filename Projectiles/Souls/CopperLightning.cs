@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             if (!playedsound)
             {
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 122, 0.5f, -0.5f), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item122 with { Volume = 0.5f, Pitch = -0.5f }, Projectile.Center);
                 playedsound = true;
             }
 

@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(Projectile.InheritSource(Projectile), spawnPos, vel, ModContent.ProjectileType<WOFChain>(), Projectile.damage, 0f, Main.myPlayer);
                     
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 13, 0.5f), Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.NPCDeath13 with { Volume = 0.5f }, Projectile.Center);
 
                     Projectile.localAI[0] *= -1;
                 }

@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     DustRing(p, 24);
                     p.Kill();
 
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 27, 1f, -0.4f), Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item27 with { Volume = 1f, Pitch = -0.4f }, Projectile.Center);
 
                     if (Projectile.owner == Main.myPlayer)
                     {

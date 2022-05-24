@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(SoundHelper.FargoSound("Thunder", 0.8f, 0.5f), Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder") { Volume = 0.8f, Pitch = 0.5f }, Projectile.Center);
 
                 for (int a = 0; a < 4; a++)
                 {

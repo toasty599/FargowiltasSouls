@@ -101,9 +101,9 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 6), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             for (int i = 0; i < 30; i++)
             {

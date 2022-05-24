@@ -291,7 +291,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         if (NPC.localAI[1] == 0)
                         {
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 0), player.Center);
+                            SoundEngine.PlaySound(SoundID.Roar, player.Center);
                             NPC.localAI[1] = 1;
                             NPC.velocity = NPC.DirectionTo(player.Center) * 24;
                         }
@@ -360,7 +360,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (NPC.localAI[0] == 0)
                         {
                             NPC.localAI[1] = NPC.DirectionTo(player.Center).ToRotation();
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 0), player.Center);
+                            SoundEngine.PlaySound(SoundID.Roar, player.Center);
                         }
 
                         const int end = 360;
@@ -425,7 +425,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 case 8: //dash but u-turn
                     if (NPC.localAI[1] == 0)
                     {
-                        SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 0), player.Center);
+                        SoundEngine.PlaySound(SoundID.Roar, player.Center);
                         NPC.localAI[1] = 1;
                         NPC.velocity = NPC.DirectionTo(player.Center) * 36;
                     }
@@ -486,7 +486,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = NPC.Distance(player.Center);
                         NPC.velocity = 32f * NPC.DirectionTo(player.Center).RotatedBy(Math.PI / 2);
-                        SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 0), player.Center);
+                        SoundEngine.PlaySound(SoundID.Roar, player.Center);
                     }
                     NPC.rotation = NPC.velocity.ToRotation();
                     break;

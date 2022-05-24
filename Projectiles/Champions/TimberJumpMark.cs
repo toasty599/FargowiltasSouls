@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 {
                     Vector2 spawnPos = Projectile.Center + Projectile.ai[1] * Projectile.localAI[1] * i * Vector2.UnitX;
 
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), spawnPos);
+                    SoundEngine.PlaySound(SoundID.Item14, spawnPos);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, Projectile.damage, 0f, Main.myPlayer);

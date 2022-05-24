@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 Projectile.localAI[0] = 1;
                 Projectile.frame = Main.rand.Next(Main.projFrames[Projectile.type]);
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             }
 
             Projectile.hide = false;
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             for (int i = 0; i < 5; i++)
             {

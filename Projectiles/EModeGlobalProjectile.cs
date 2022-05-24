@@ -42,6 +42,7 @@ namespace FargowiltasSouls.Projectiles
             a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.WaterStream] = true;
             a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.DeathSickle] = true;
             a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.IceSickle] = true;
+            a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.SwordBeam] = true;
             a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.CultistBossFireBall] = true;
             a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.CultistBossFireBallClone] = true;
             a_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.SharknadoBolt] = true;
@@ -358,6 +359,7 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.WaterStream:
                     case ProjectileID.DeathSickle:
                     case ProjectileID.IceSickle:
+                    case ProjectileID.SwordBeam:
                         if (sourceNPC is NPC && !sourceNPC.friendly && !sourceNPC.townNPC)
                         {
                             projectile.friendly = false;

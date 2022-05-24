@@ -181,7 +181,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (!Main.dedServ)
                 {
-                    SoundEngine.PlaySound(SoundHelper.FargoSound("Monster94"),
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
@@ -239,7 +239,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (!Main.dedServ)
                 {
-                    SoundEngine.PlaySound(SoundHelper.FargoSound("Monster94"),
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
@@ -269,7 +269,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                     if (!Main.dedServ)
                     {
-                        SoundEngine.PlaySound(SoundHelper.FargoSound("Monster5", 1.5f),
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster5") { Volume = 1.5f },
                             npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                         if (Main.LocalPlayer.active)

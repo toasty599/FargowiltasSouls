@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
 {
@@ -33,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 Projectile.localAI[0] = 1;
                 Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             }
 
             if (++Projectile.frameCounter >= 3)

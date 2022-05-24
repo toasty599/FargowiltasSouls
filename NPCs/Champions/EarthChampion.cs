@@ -307,7 +307,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (--NPC.ai[2] < 0)
                         {
                             NPC.ai[2] = 75;
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 13), NPC.Center);
+                            SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
                             if (NPC.ai[1] > 10 && Main.netMode != NetmodeID.MultiplayerClient) //shoot spread of fireballs, but not the first time
                             {
                                 for (int i = -1; i <= 1; i++)

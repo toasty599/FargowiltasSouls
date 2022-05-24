@@ -91,7 +91,7 @@ Cannot be used while a boss is alive
                         FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}SpawnDevi", new Color(175, 75, 255));
                     }
 
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 0), player.Center);
+                    SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData); //sync world

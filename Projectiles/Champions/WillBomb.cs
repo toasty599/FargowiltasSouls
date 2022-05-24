@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             Projectile.height = 250;
             Projectile.Center = Projectile.position;
 
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             for (int index1 = 0; index1 < 20; ++index1)
             {

@@ -154,7 +154,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     NPC.velocity = -20f * Vector2.UnitY.RotatedByRandom(MathHelper.PiOver2);
 
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 2), NPC.Center); //arte scream
+                    SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center); //arte scream
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -244,7 +244,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (++NPC.ai[1] == 180) //heal up
                     {
-                        SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 2), NPC.Center); //arte scream
+                        SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center); //arte scream
 
                         int heal = NPC.lifeMax / 3 - NPC.life;
                         NPC.life += heal;
@@ -271,7 +271,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (++NPC.ai[1] == 180) //heal up
                     {
-                        SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Roar", 2), NPC.Center); //arte scream
+                        SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center); //arte scream
 
                         int heal = NPC.lifeMax - NPC.life;
                         NPC.life += heal;

@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 case 2: //shoot
                     if (Projectile.localAI[0] == 7f)
                     {
-                        SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 6), Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
                         ShootBolts(target);
                     }
                     else if (Projectile.localAI[0] == 14f)
@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         Main.dust[d].noLight = true;
                         Main.dust[d].velocity *= 8f;
                     }
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Zombie", 102), Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Zombie_102"), Projectile.Center);
                     Projectile.Kill();
                     break;
             }

@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         case 2: //shoot
                             if (Projectile.localAI[0] == 7f)
                             {
-                                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 6, 0.75f, 0), Projectile.Center);
+                                SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.75f, Pitch = 0 }, Projectile.Center);
                                 ShootBolts(npc);
                             }
                             else if (Projectile.localAI[0] == 14f)

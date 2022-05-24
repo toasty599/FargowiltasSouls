@@ -167,7 +167,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, dam, 0, Main.myPlayer);
                             }
 
-                            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), NPC.Center);
+                            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
                             //visual explosions
                             for (int k = -2; k <= 2; k++)
@@ -684,7 +684,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         private void ExplodeDust(Vector2 center)
         {
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), center);
+            SoundEngine.PlaySound(SoundID.Item14, center);
 
             const int width = 32;
             const int height = 32;

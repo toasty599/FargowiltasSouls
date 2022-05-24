@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (!spawned)
             {
                 spawned = true;
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {

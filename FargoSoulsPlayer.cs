@@ -592,7 +592,7 @@ namespace FargowiltasSouls
                     FreezeTime = true;
                     freezeLength = TIMESTOP_DURATION;
 
-                    SoundEngine.PlaySound(SoundHelper.ZaWarudo, Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudo"), Player.Center);
                 }
                 else if (SnowEnchantActive && !Player.HasBuff(ModContent.BuffType<SnowstormCD>()))
                 {
@@ -2947,11 +2947,7 @@ namespace FargowiltasSouls
         public void Squeak(Vector2 center)
         {
             if (!Main.dedServ)
-            {
-                int rng = Main.rand.Next(6);
-
-                SoundEngine.PlaySound(SoundHelper.FargoSound($"SqueakyToy/squeak{rng + 1}", 1f, 0.5f), center);
-            }
+                SoundEngine.PlaySound(new SoundStyle($"FargowiltasSouls/Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), center);
         }
 
         private int InfestedExtraDot()

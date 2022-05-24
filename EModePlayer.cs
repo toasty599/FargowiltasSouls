@@ -223,7 +223,7 @@ namespace FargowiltasSouls
 
                 if (!fargoSoulsPlayer.PureHeart && !Player.buffImmune[BuffID.Suffocation] && Player.ZoneSkyHeight && Player.whoAmI == Main.myPlayer)
                 {
-                    bool inLiquid = Collision.DrownCollision(Player.position, Player.width, Player.height, Player.gravDir);
+                    bool inLiquid = Collision.DrownCollision(Player.position, Player.width, Player.height, Player.gravDir) || (!Player.armor[0].IsAir && (Player.armor[0].type == ItemID.FishBowl || Player.armor[0].type == ItemID.GoldGoldfishBowl));
                     if (!inLiquid)
                     {
                         Player.breath -= 3;
@@ -233,7 +233,7 @@ namespace FargowiltasSouls
                             Player.breath--;
                         }
                         if (Player.breath == 0)
-                            SoundEngine.PlaySound(SoundID.Item3);
+                            SoundEngine.PlaySound(SoundID.Drown);
                         if (Player.breath <= 0)
                             Player.AddBuff(BuffID.Suffocation, 2);
                     }

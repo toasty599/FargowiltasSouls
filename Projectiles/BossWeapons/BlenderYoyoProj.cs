@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (soundtimer == 0)
             {
                 soundtimer = 15;
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 22, 1.5f, 1f), Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item22 with { Volume = 1.5f, Pitch = 1f }, Projectile.Center);
             }
         }
 

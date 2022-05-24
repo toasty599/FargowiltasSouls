@@ -166,7 +166,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             int g = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity / 2, ModContent.Find<ModGore>("FargowiltasSouls/DestroyerHead").Type, Projectile.scale);
             Main.gore[g].timeLeft = 20;
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 14), Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.Center);
         }
     }
 }

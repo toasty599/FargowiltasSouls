@@ -686,7 +686,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 Main.player[NPC.target].ClearBuff(ModContent.BuffType<AbomRebirth>());
             }
 
-            SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 27, 1.5f), NPC.Center);
+            SoundEngine.PlaySound(SoundID.Item27 with { Volume = 1.5f }, NPC.Center);
 
             if (normalAnimation)
             {
@@ -830,7 +830,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                 if (FargoSoulsWorld.MasochistModeReal && NPC.ai[2] == 0) //first time only
                 {
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 13), NPC.Center);
+                    SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient) //spawn worm
                     {
                         for (int j = 0; j < 8; j++)
@@ -1935,7 +1935,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 }
                 else
                 {
-                    SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("NPC_Killed", 13), NPC.Center);
+                    SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient) //spawn worm
                     {
                         Vector2 vel = NPC.DirectionFrom(player.Center).RotatedByRandom(MathHelper.ToRadians(120)) * 10f;

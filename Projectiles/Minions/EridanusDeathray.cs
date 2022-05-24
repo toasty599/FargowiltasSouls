@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (Projectile.localAI[0] == 0f)
             {
                 SoundEngine.PlaySound(SoundID.Item12, Projectile.Center + Projectile.velocity * 3000);
-                SoundEngine.PlaySound(SoundHelper.LegacySoundStyle("Item", 14), Projectile.Center + Projectile.velocity * 3000);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center + Projectile.velocity * 3000);
             }
             float num801 = 1f;
             Projectile.localAI[0] += 1f;
