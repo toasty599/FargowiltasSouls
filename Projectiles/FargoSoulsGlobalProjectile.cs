@@ -988,8 +988,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 DeletionImmuneRank = 2;
 
-                if (!FargoSoulsUtil.IsSummonDamage(projectile))
-                    Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = 30;
+                Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = 30;
 
                 modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
             }

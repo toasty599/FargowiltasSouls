@@ -89,7 +89,6 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             float num223 = Projectile.localAI[1];
             Color color44 = new Color(255, 255, 255, 0) * 0.95f;
             color44 = Color.Lerp(color44, Color.Transparent, transparency);
-            //SpriteBatch arg_ABD8_0 = Main.spriteBatch;
             Texture2D arg_ABD8_1 = texture2D19;
             Vector2 arg_ABD8_2 = Projectile.Center - Main.screenPosition;
             Rectangle? sourceRectangle2 = null;
@@ -117,7 +116,6 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                     }
                 }
             }
-            //SpriteBatch arg_AE2D_0 = Main.spriteBatch;
             Texture2D arg_AE2D_1 = texture2D21;
             Vector2 arg_AE2D_2 = value20 - Main.screenPosition;
             sourceRectangle2 = null;
