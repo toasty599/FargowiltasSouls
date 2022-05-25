@@ -1713,4 +1713,5 @@ golem ray is now a pillar that inflicts stunned not burning and does more raw da
 fixed turtles dying to water debuffs
 fixed enemies not having any debuff immunities added by this mod because tml good
 
-saucer control console buffed, the ray inflicts clipped wings and lethargic
+more sound refactors
+saucer control console buffed, the ray inflicts clipped wings and lethargic(!)

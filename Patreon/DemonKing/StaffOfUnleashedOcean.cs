@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
             Item.noMelee = true;
             Item.knockBack = 4f;
             Item.rare = ItemRarityID.Purple;
-            Item.UseSound = new SoundStyle("Terraria/Sounds/Zombie_20");
+            Item.UseSound = SoundID.Zombie20;
             Item.shoot = ModContent.ProjectileType<DukeFishronMinion>();
             Item.shootSpeed = 10f;
             Item.buffType = ModContent.BuffType<DukeFishronBuff>();
