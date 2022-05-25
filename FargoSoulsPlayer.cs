@@ -1660,7 +1660,7 @@ namespace FargowiltasSouls
                 return base.UseSpeedMultiplier(item);
             }
 
-            if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse)
+            if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse && !Player.FeralGloveReuse(item))
             {
                 int targetUseTime = useTime + 6;
                 while (useTime / AttackSpeed < targetUseTime)

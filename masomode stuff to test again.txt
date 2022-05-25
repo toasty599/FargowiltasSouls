@@ -1731,4 +1731,6 @@ refactored sands of time and upgrades on how they're used and better implementat
 box of gizmos
 	recalculates speed penalty, effectively always +6 ticks
 	works from inv
+	wont nerf melee/whip if it gets autofire from feral glove instead
 carrot toggle renamed
+fixed berserker soul not having all effects of fire gauntlet
