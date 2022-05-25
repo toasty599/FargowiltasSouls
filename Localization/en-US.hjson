@@ -413,7 +413,7 @@ Mods: {
 
 			BionomicHeader: "{$Mods.FargowiltasSouls.ItemName.BionomicCluster}"
 			MasoConcoctionConfig: Tim's Concoction
-			MasoCarrotConfig: Carrot View
+			MasoCarrotConfig: Carrot Zoom
 			MasoRainbowConfig: Rainbow Slime Minion
 			MasoFrigidConfig: Frostfireballs
 			MasoNymphConfig: Attacks Spawn Hearts

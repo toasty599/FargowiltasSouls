@@ -1300,9 +1300,6 @@ namespace FargowiltasSouls
             if (PalladEnchantActive)
                 PalladiumUpdate();
 
-            if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>() || i.type == ModContent.ItemType<EternitySoul>())))
-                BionomicPassiveEffect();
-
             if (noDodge)
             {
                 Player.onHitDodge = false;
@@ -1658,14 +1655,18 @@ namespace FargowiltasSouls
             int useTime = item.useTime;
             int useAnimate = item.useAnimation;
 
-            if (useTime == 0 || useAnimate == 0 || item.damage <= 0)
+            if (useTime <= 0 || useAnimate <= 0 || item.damage <= 0)
             {
-                return 1f;
+                return base.UseSpeedMultiplier(item);
             }
 
             if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse)
             {
-                AttackSpeed -= .2f;
+                int targetUseTime = useTime + 6;
+                while (useTime / AttackSpeed < targetUseTime)
+                {
+                    AttackSpeed -= .05f;
+                }
             }
 
             if (Berserked)

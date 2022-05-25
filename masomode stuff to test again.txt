@@ -1724,3 +1724,11 @@ fixed toggle not working on huntress ench
 fixed earth force not having new mythril ench
 added mythril and huntress to min effects preset
 glowing chibi devi
+
+refactored sands of time and upgrades on how they're used and better implementation
+	check no bugs
+	deliberate: you can use them without dying. this just does nothing
+box of gizmos
+	recalculates speed penalty, effectively always +6 ticks
+	works from inv
+carrot toggle renamed
