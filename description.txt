@@ -76,6 +76,9 @@ fargotten land wip:
 -Titanium Enchant: now can grants up to 25 shards, updated recipe
 -Meteor Enchant: updated recipe
 
+-Removed Silver Enchant effects from Ancient Hallowed
+-Nerfed Ancient Hallowed Sword's attack range slightly. Fixed the sword not coming back to you when you were to the right of it
+
 
 
 
