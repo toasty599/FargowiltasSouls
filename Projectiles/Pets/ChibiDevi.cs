@@ -301,7 +301,7 @@ namespace FargowiltasSouls.Projectiles.Pets
 
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.2f)
             {
-                Color color27 = color26 * 0.5f * speedRatio;
+                Color color27 = color26 * 0.3f * speedRatio;
                 float fade = (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 color27 *= fade * fade;
                 int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
