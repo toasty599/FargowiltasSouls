@@ -233,13 +233,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     tilePosX += 4 * i;
 
                                     //first move up through solid tiles
-                                    while (Main.tile[tilePosX, tilePosY].HasUnactuatedTile && Main.tileSolid[Main.tile[tilePosX, tilePosY].TileType])
+                                    for (int j = 0; j < 100; j++)
                                     {
-                                        tilePosY--;
+                                        if (Framing.GetTileSafely(tilePosX, tilePosY).HasUnactuatedTile && Main.tileSolid[Framing.GetTileSafely(tilePosX, tilePosY).TileType])
+                                            tilePosY--;
+                                        else
+                                            break;
                                     }
                                     //then move up through air until next ceiling reached
-                                    while (!(Main.tile[tilePosX, tilePosY].HasUnactuatedTile && Main.tileSolid[Main.tile[tilePosX, tilePosY].TileType]))
+                                    for (int j = 0; j < 100; j++)
                                     {
+                                        if (Framing.GetTileSafely(tilePosX, tilePosY).HasUnactuatedTile && Main.tileSolid[Framing.GetTileSafely(tilePosX, tilePosY).TileType])
+                                            break;
+
                                         tilePosY--;
                                     }
 
@@ -263,8 +269,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             int tilePosX = (int)spawnPos.X / 16 + npc.width * i * 3 / 16;
                             int tilePosY = (int)spawnPos.Y / 16;// + 1;
 
-                            while (!(Main.tile[tilePosX, tilePosY].HasUnactuatedTile && Main.tileSolid[(int)Main.tile[tilePosX, tilePosY].TileType]))
+                            for (int j = 0; j < 100; j++)
                             {
+                                if (Framing.GetTileSafely(tilePosX, tilePosY).HasUnactuatedTile && Main.tileSolid[Framing.GetTileSafely(tilePosX, tilePosY).TileType])
+                                    break;
+
                                 tilePosY++;
                             }
 
@@ -294,7 +303,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                                 for (int j = 0; j < 30; j++)
                                 {
-                                    if (Main.tile[tilePosX, tilePosY].HasUnactuatedTile && Main.tileSolid[Main.tile[tilePosX, tilePosY].TileType])
+                                    if (Framing.GetTileSafely(tilePosX, tilePosY).HasUnactuatedTile && Main.tileSolid[Framing.GetTileSafely(tilePosX, tilePosY).TileType])
                                         break;
                                     tilePosY--;
                                 }
@@ -649,11 +658,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             if (DoDeathray)
                             {
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.UnitY, ModContent.ProjectileType<PhantasmalDeathrayGolem>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.UnitY, ModContent.ProjectileType<GolemBeam>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 1.5f), 0f, Main.myPlayer, 0f, npc.whoAmI);
                             }
 
                             if (doSpikeBalls)
                             {
+                                SoundEngine.PlaySound(SoundID.Item92, npc.Center);
+
                                 const int max = 3;
                                 for (int i = -max; i <= max; i++)
                                 {
