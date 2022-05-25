@@ -1735,3 +1735,4 @@ box of gizmos
 carrot toggle renamed
 fixed berserker soul not having all effects of fire gauntlet
 updated localization for recipe groups
+trojan squrrl drops a squrrl item
