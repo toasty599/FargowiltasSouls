@@ -939,7 +939,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.SetDefaults(npc);
 
             npc.lifeMax *= 5;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.lavaImmune = true;
+        }
+
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            base.OnSpawn(npc, source);
+
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
             {
                 npc.lifeMax *= 5000;//20;//2;
@@ -948,7 +954,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.lavaImmune = true;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -979,10 +984,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.SetDefaults(npc);
 
             npc.lavaImmune = true;
-            npc.buffImmune[BuffID.OnFire] = true;
-            npc.buffImmune[BuffID.Suffocation] = true;
             if (!NPC.downedBoss3)
                 npc.noTileCollide = false;
+        }
+
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            base.OnSpawn(npc, source);
+
+            npc.buffImmune[BuffID.OnFire] = true;
+            npc.buffImmune[BuffID.Suffocation] = true;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

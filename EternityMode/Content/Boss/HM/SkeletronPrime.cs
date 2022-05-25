@@ -429,6 +429,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
         }
 
         public override bool PreAI(NPC npc)

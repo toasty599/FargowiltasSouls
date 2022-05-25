@@ -32,6 +32,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnSpawn(npc, source);
 
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
