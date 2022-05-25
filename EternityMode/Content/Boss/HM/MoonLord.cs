@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Effects;
@@ -26,9 +27,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
     {
         public abstract int GetVulnerabilityState(NPC npc);
 
-        public override void SetDefaults(NPC npc)
+        public override void OnSpawn(NPC npc, IEntitySource source)
         {
-            base.SetDefaults(npc);
+            base.OnSpawn(npc, source);
 
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
             npc.buffImmune[BuffID.Suffocation] = true;

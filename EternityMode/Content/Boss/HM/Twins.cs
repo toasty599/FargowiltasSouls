@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -51,6 +52,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.SetDefaults(npc);
 
             npc.lifeMax = (int)(npc.lifeMax * 1.2);
+        }
+
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            base.OnSpawn(npc, source);
+
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
@@ -449,9 +456,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(DarkStarTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
+        public override void OnSpawn(NPC npc, IEntitySource source)
         {
-            base.SetDefaults(npc);
+            base.OnSpawn(npc, source);
 
             npc.buffImmune[BuffID.Suffocation] = true;
         }

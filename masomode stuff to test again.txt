@@ -1710,3 +1710,5 @@ maso eow vile spit corrupts
 maso boc ichor crimsons
 maso qs bouncy ball hallows
 golem ray is now a pillar that inflicts stunned not burning and does more raw damage
+fixed turtles dying to water debuffs
+fixed enemies not having any debuff immunities added by this mod because tml good

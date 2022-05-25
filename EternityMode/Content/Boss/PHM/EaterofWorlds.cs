@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,9 +23,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail);
 
-        public override void SetDefaults(NPC npc)
+        public override void OnSpawn(NPC npc, IEntitySource source)
         {
-            base.SetDefaults(npc);
+            base.OnSpawn(npc, source);
 
             npc.buffImmune[BuffID.CursedInferno] = true;
         }

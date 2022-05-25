@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,12 +34,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.SetDefaults(npc);
 
             npc.trapImmune = true;
+
+            npc.damage = (int)Math.Round(npc.damage * 1.1);
+        }
+
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            base.OnSpawn(npc, source);
+
             npc.buffImmune[BuffID.Ichor] = true;
             npc.buffImmune[BuffID.Poisoned] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-
-            npc.damage = (int)Math.Round(npc.damage * 1.1);
         }
 
         public override bool PreAI(NPC npc)
