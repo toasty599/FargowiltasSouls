@@ -890,6 +890,15 @@ Mods: {
 					Effects of Aspera Crystallite
 					'''
 			}
+
+			RecipeGroups: {
+				Or: or
+				BonesBanner: Angry or Armored Bones Banner
+				Phasesaber: Phasesaber
+				Butterfly: Butterfly
+				CommonFish: Common Fish
+				FishingTrash: Fishing Trash
+			}
         }
 	}
 }

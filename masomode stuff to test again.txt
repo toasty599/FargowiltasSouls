@@ -1734,3 +1734,4 @@ box of gizmos
 	wont nerf melee/whip if it gets autofire from feral glove instead
 carrot toggle renamed
 fixed berserker soul not having all effects of fire gauntlet
+updated localization for recipe groups
