@@ -316,7 +316,12 @@ namespace FargowiltasSouls.Projectiles
                     SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
             }
 
-            if (modPlayer.HuntressEnchantActive && source is EntitySource_ItemUse)
+            if (modPlayer.HuntressEnchantActive && player.GetToggleValue("Huntress") 
+                && source is EntitySource_ItemUse
+                && projectile.damage > 0 && projectile.friendly && !projectile.hostile && !projectile.trap 
+                && projectile.DamageType != DamageClass.Default 
+                && !ProjectileID.Sets.CultistIsResistantTo[projectile.type] 
+                && !FargoSoulsUtil.IsSummonDamage(projectile, true, false))
             {
                 HuntressProj = 1;
             }

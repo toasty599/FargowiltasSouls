@@ -16,7 +16,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Huntress Enchantment");
             Tooltip.SetDefault(
 @"Attacks ignore 10 enemy defense and deal 5 flat extra damage
-Each successive attack ignores an additonal 10 defense and deals 5 more damage
+Each successive attack ignores an additional 10 defense and deals 5 more damage
+Homing and minion attacks do not increase these bonuses
 Missing any attack will reset these bonuses
 'Accuracy brings power'");
         }

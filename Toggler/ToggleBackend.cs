@@ -101,6 +101,8 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("Valhalla", true);
             player.SetToggleValue("Nebula", true);
             player.SetToggleValue("Solar", true);
+            player.SetToggleValue("Mythril", true);
+            player.SetToggleValue("Huntress", true);
 
             player.SetToggleValue("DeerSinewDash", true);
             player.SetToggleValue("MasoGraze", true);
