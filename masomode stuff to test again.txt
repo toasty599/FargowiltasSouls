@@ -1742,7 +1742,7 @@ the rings in mutant's maso p2 animation still track him while fading away
 reduced increased undead miner spawn rate from mining helmet
 -50% damage for all whips except leather
 all summons have diminishing returns
-	when over 3 minions of same type, damage decreases, max -50% nerf at 9 minions
+	when over 3 minions of same type, damage decreases, max -33% nerf at 9 minions
 	applies to minion shots too
 	doesnt apply to stardust dragon and eater staff
 	doesnt apply to summon damage that isnt from true "minions" (e.g. destroyer guns)

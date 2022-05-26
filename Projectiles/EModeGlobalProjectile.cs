@@ -1149,7 +1149,7 @@ namespace FargowiltasSouls.Projectiles
 
                 float modifier = Utils.Clamp((float)(Main.player[projectile.owner].ownedProjectileCounts[projTypeToCheck] - allowedBeforeNerfBegins) / maxRampup, 0f, 1f);
 
-                const double maxNerfStrength = 0.5;
+                const double maxNerfStrength = 1.0 / 3.0;
                 damage = (int)(damage * (1.0 - modifier * maxNerfStrength));
             }
 
