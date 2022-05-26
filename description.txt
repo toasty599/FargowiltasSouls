@@ -82,6 +82,9 @@ fargotten land wip:
 
 -Crystal Assassain: added flavor text, implemented: inherits ninja effects, dash and volatile gel, added to Shadow Force
 -Rain Enchant: updated recipe, added Inner Tube effect, moved to pre hard mode, cloud now follows your cursor, no longer absorbs projectiles, occasionally shoots lightning downward
+-Red Riding Enchant rework: inherits Huntress, when you reach max stacks, spawns a rain of arrows over the last hit enemy, default arrow changed to venom
+
+-Fixed Adamantite, Huntress effects working on all accessory projectiles as well as weapon projectiles
 
 
 

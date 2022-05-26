@@ -919,14 +919,6 @@ namespace FargowiltasSouls
             }
         }
 
-        
-
-        public void RedRidingEffect(bool hideVisual)
-        {
-            RedEnchantActive = true;
-            HuntressEnchantActive = true;
-        }
-
         public void ShadowEffect(bool hideVisual)
         {
             ShadowEnchantActive = true;

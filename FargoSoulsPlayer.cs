@@ -165,7 +165,8 @@ namespace FargowiltasSouls
         public int PearlwoodCD;
         public int PumpkinSpawnCD;
         public bool RainEnchantActive;
-        public bool RedEnchantActive;
+        public Item RedRidingEnchantItem;
+        public int RedRidingArrowCD;
         public bool ShadewoodEnchantActive;
         public int ShadewoodCD;
         public bool ShadowEnchantActive;
@@ -744,7 +745,7 @@ namespace FargowiltasSouls
             ShinobiEnchantActive = false;
             ValhallaEnchantActive = false;
             DarkArtistEnchantActive = false;
-            RedEnchantActive = false;
+            RedRidingEnchantItem = null;
             TungstenEnchantActive = false;
 
             MahoganyEnchantActive = false;

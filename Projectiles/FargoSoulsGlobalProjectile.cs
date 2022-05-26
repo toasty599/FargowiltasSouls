@@ -265,7 +265,7 @@ namespace FargowiltasSouls.Projectiles
                 && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
             {
                 if (projectile.owner == Main.myPlayer
-                    && (source is EntitySource_ItemUse
+                    && (isProjSourceItemUseReal(projectile, source, player)
                     || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.minion || sourceProj.sentry || (ProjectileID.Sets.IsAWhip[sourceProj.type] && !ProjectileID.Sets.IsAWhip[projectile.type])))))
                 {
                     AdamantiteEnchant.AdamantiteSplit(projectile);
@@ -317,7 +317,7 @@ namespace FargowiltasSouls.Projectiles
             }
 
             if (modPlayer.HuntressEnchantActive && player.GetToggleValue("Huntress") 
-                && source is EntitySource_ItemUse
+                && isProjSourceItemUseReal(projectile, source, player)
                 && projectile.damage > 0 && projectile.friendly && !projectile.hostile && !projectile.trap 
                 && projectile.DamageType != DamageClass.Default 
                 && !ProjectileID.Sets.CultistIsResistantTo[projectile.type] 
@@ -325,6 +325,11 @@ namespace FargowiltasSouls.Projectiles
             {
                 HuntressProj = 1;
             }
+        }
+
+        private bool isProjSourceItemUseReal(Projectile proj, IEntitySource source, Player player)
+        {
+            return source is EntitySource_ItemUse parent && parent.Item.type == player.HeldItem.type;
         }
 
         public static int[] noSplit => new int[] {
