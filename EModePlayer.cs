@@ -578,5 +578,28 @@ namespace FargowiltasSouls
 
             return 1f;
         }
+
+        public override bool ModifyNurseHeal(NPC nurse, ref int health, ref bool removeDebuffs, ref string chatText)
+        {
+            if (!FargoSoulsWorld.EternityMode)
+                return base.ModifyNurseHeal(nurse, ref health, ref removeDebuffs, ref chatText);
+
+            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<RushJob>()))
+            {
+                chatText = "I've done all I can in the time I have!";
+                return false;
+            }
+
+            return base.ModifyNurseHeal(nurse, ref health, ref removeDebuffs, ref chatText);
+        }
+
+        public override void PostNurseHeal(NPC nurse, int health, bool removeDebuffs, int price)
+        {
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
+            if (FargoSoulsUtil.AnyBossAlive())
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<RushJob>(), 10);
+        }
     }
 }

@@ -1763,3 +1763,6 @@ added rain ench inner tube toggle
 added crystal ench effect toggles
 added red riding toggle
 removed huntress debug text
+
+fixed rush job not having its name
+reimplemented rush job

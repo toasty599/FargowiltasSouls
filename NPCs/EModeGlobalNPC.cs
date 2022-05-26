@@ -1201,18 +1201,6 @@ namespace FargowiltasSouls.NPCs
             }
         }*/
 
-        public override bool PreChatButtonClicked(NPC npc, bool firstButton)
-        {
-            if (FargoSoulsWorld.EternityMode && npc.type == NPCID.Nurse && firstButton)
-            {
-                if (Main.LocalPlayer.HasBuff(ModContent.BuffType<RushJob>()))
-                    return false;
-                else if (FargoSoulsUtil.AnyBossAlive())
-                    Main.LocalPlayer.AddBuff(ModContent.BuffType<RushJob>(), 10);
-            }
-            return true;
-        }
-
         public static bool StealFromInventory(Player target, ref Item item)
         {
             if (target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown <= 0 && !item.IsAir)
