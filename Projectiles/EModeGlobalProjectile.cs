@@ -696,7 +696,6 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.Fireball:
-                    if (!FargoSoulsWorld.MasochistModeReal)
                     {
                         NPC golem = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);
                         if (golem != null && !golem.dontTakeDamage)

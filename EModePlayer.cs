@@ -355,7 +355,7 @@ namespace FargowiltasSouls
             else if (ShorterDebuffsTimer > 0)
                 ShorterDebuffsTimer -= 1;
 
-            if (WeaponUseTimer > 0 && Player.HeldItem.DamageType != DamageClass.Summon)
+            if (WeaponUseTimer > 0 && Player.HeldItem.DamageType != DamageClass.Summon && Player.HeldItem.DamageType != DamageClass.Default)
                 MasomodeMinionNerfTimer += 1;
             else if (MasomodeMinionNerfTimer > 0)
                 MasomodeMinionNerfTimer -= 1;

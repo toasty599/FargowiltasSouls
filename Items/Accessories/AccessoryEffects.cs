@@ -2569,22 +2569,6 @@ namespace FargowiltasSouls
             }
         }
 
-        public void BionomicPassiveEffect()
-        {
-            Player.buffImmune[BuffID.WindPushed] = true;
-            Player.buffImmune[BuffID.Suffocation] = true;
-            Player.buffImmune[ModContent.BuffType<Guilty>()] = true;
-            if (Player.GetToggleValue("ManaFlower", false))
-                Player.manaFlower = true;
-            Player.nightVision = true;
-            SandsofTime = true;
-            SecurityWallet = true;
-            TribalCharm = true;
-            NymphsPerfumeRespawn = true;
-            if (Player.GetToggleValue("MasoCarrot", false))
-                Player.scope = true;
-        }
-
         int lihzahrdFallCD;
         public void LihzahrdTreasureBoxUpdate()
         {
