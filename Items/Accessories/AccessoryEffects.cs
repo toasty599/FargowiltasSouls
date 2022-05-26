@@ -919,13 +919,7 @@ namespace FargowiltasSouls
             }
         }
 
-        public void RainEffect(Item item)
-        {
-            Player.buffImmune[BuffID.Wet] = true;
-            RainEnchantActive = true;
-
-            AddMinion(item, Player.GetToggleValue("Rain"), ModContent.ProjectileType<RainCloud>(), 36, 0);
-        }
+        
 
         public void RedRidingEffect(bool hideVisual)
         {
@@ -1697,8 +1691,6 @@ namespace FargowiltasSouls
         {
             //darkness
             AncientShadowEnchantActive = true;
-
-
         }
 
         //        #endregion

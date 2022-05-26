@@ -81,7 +81,7 @@ fargotten land wip:
 -Obsidian Enchant: fixed tooltip, keeping its old effect, updated recipe
 
 -Crystal Assassain: added flavor text, implemented: inherits ninja effects, dash and volatile gel, added to Shadow Force
-
+-Rain Enchant: updated recipe, added Inner Tube effect, moved to pre hard mode, cloud now follows your cursor, no longer absorbs projectiles, occasionally shoots lightning downward
 
 
 

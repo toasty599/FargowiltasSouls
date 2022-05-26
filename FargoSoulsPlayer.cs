@@ -1370,9 +1370,6 @@ namespace FargowiltasSouls
             if (DarkArtistEnchantActive)
                 Player.setApprenticeT3 = true;
 
-            if (RedEnchantActive)
-                Player.setHuntressT3 = true;
-
             if (MonkEnchantActive)
                 Player.setMonkT2 = true;
 
