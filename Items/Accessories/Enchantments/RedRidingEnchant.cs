@@ -1,4 +1,5 @@
 using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -42,6 +43,9 @@ Missing any attack will reset these bonuses
         public static void RedRidingEffect(Player player, Item item)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            if (modPlayer.RedRidingEnchantItem != null || !player.GetToggleValue("RedRidingRain"))
+                return;
+
             modPlayer.RedRidingEnchantItem = item;
 
             if (modPlayer.RedRidingArrowCD > 0)
@@ -62,7 +66,7 @@ Missing any attack will reset these bonuses
             //proj spawns arrows all around it until it dies
             Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.RedRidingEnchantItem), target.Center.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(player, (int)(firstAmmo.damage * 5f)), 0f, player.whoAmI, arrowType, target.whoAmI);
 
-            modPlayer.RedRidingArrowCD = 600;
+            modPlayer.RedRidingArrowCD = 360;
         }
 
         private static Item PickAmmo(Player player)

@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             Projectile.height = 1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 500;
+            Projectile.timeLeft = 330;
         }
 
         public override bool? CanDamage()
@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
 
             //delay
-            if (Projectile.timeLeft > 470)
+            if (Projectile.timeLeft > 300)
             {
                 return;
             }

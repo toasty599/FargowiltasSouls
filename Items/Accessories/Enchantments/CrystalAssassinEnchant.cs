@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,7 +21,7 @@ Effects of Volatile Gel
 'Deceptively fragile'");
         }
 
-        protected override Color nameColor => new Color(231, 178, 28); //change e
+        protected override Color nameColor => new Color(36, 157, 207);
 
         public override void SetDefaults()
         {
@@ -38,8 +39,10 @@ Effects of Volatile Gel
 
         public static void CrystalAssassinEffect(Player player, Item item)
         {
-            player.dashType = 5;
-            VolatileGelatin(player, item);
+            if (player.GetToggleValue("CrystalDash", false))
+                player.dashType = 5;
+            if (player.GetToggleValue("CrystalGelatin"))
+                VolatileGelatin(player, item);
         }
 
         public static void VolatileGelatin(Player player, Item sourceItem)

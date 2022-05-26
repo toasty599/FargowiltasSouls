@@ -333,6 +333,7 @@ Mods: {
 			GoldConfig: Gold Lucky Coin
 			GoldToPiggyConfig: Gold To Piggy Bank
 			HuntressConfig: Huntress Ability
+			RedRidingRainConfig: Red Riding Arrow Rain
 			ValhallaConfig: Squire/Valhalla Healing
 			SquirePanicConfig: Ballista Panic On Hit
 
@@ -348,6 +349,7 @@ Mods: {
 			ChlorophyteConfig: Chlorophyte Leaf Crystal
 			CrimsonConfig: Crimson Regen
 			RainConfig: Rain Clouds
+			RainInnerTubeConfig: Inner Tube
 			FrostConfig: Frost Icicles
 			JungleConfig: Jungle Spores
 			JungleDashConfig: Jungle Dash
@@ -367,6 +369,8 @@ Mods: {
 			ShinobiDashConfig: Shinobi Teleport Dash
 			ShinobiConfig: Shinobi Through Walls
 			SpookyConfig: Spooky Scythes
+			CrystalDashConfig: Crystal Assassin Dash
+			CrystalGelatinConfig: Volatile Gelatin
 
 			SpiritHeader: "{$Mods.FargowiltasSouls.ItemName.SpiritForce}"
 			FossilConfig: Fossil Bones On Hit

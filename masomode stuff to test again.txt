@@ -1736,3 +1736,30 @@ carrot toggle renamed
 fixed berserker soul not having all effects of fire gauntlet
 updated localization for recipe groups
 trojan squrrl drops a squrrl item
+recovering is now rush job, cannot be removed until boss fight ends
+adjusted implementation of mutant's spiraling spheres
+the rings in mutant's maso p2 animation still track him while fading away
+reduced increased undead miner spawn rate from mining helmet
+-50% damage for all whips except leather
+all summons have diminishing returns
+	when over 3 minions of same type, damage decreases, max -50% nerf at 9 minions
+	applies to minion shots too
+	doesnt apply to stardust dragon and eater staff
+	doesnt apply to summon damage that isnt from true "minions" (e.g. destroyer guns)
+nerfs restored
+	stardust dragon
+	sdmg
+	last prism
+raised ml core life boost from x2 to x2.5 to compensate 1.4 power creep
+buffed staff of unleashed ocean, fishrons now use local iframes
+	nerfed base damage to compensate
+	reduced dust a bit
+buffed drakovi minion, water shot uses local iframes
+removed omniscience staff
+buffed big brain buster, now caps at 10 slots
+fixed bbb being able to eat slots with no benefit after capping out
+fixed stardust ench spawning guardian and it dying every tick when guardian toggle off
+added rain ench inner tube toggle
+added crystal ench effect toggles
+added red riding toggle
+removed huntress debug text

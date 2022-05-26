@@ -96,6 +96,7 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.StardustGuardian:
                 case ProjectileID.StardustGuardianExplosion:
+                case ProjectileID.StardustPunch:
                     TimeFreezeImmune = true;
                     break;
 
@@ -1057,7 +1058,7 @@ namespace FargowiltasSouls.Projectiles
             if (HuntressProj == 1 && projectile.Center.Distance(Main.player[projectile.owner].Center) > 1500) //goes off screen without hitting anything
             {
                 modPlayer.HuntressStage = 0;
-                Main.NewText("MISS");
+                //Main.NewText("MISS");
                 HuntressProj = -1;
                 //sound effect
             }
@@ -1210,7 +1211,7 @@ namespace FargowiltasSouls.Projectiles
             if (HuntressProj == 1) //dying without hitting anything
             {
                 modPlayer.HuntressStage = 0;
-                Main.NewText("MISS");
+                //Main.NewText("MISS");
                 //sound effect
             }
         }

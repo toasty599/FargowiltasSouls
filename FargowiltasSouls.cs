@@ -525,7 +525,7 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<Oiled>());
                 DebuffIDs.Add(ModContent.BuffType<Purged>());
                 DebuffIDs.Add(ModContent.BuffType<Purified>());
-                DebuffIDs.Add(ModContent.BuffType<Recovering>());
+                DebuffIDs.Add(ModContent.BuffType<RushJob>());
                 DebuffIDs.Add(ModContent.BuffType<ReverseManaFlow>());
                 DebuffIDs.Add(ModContent.BuffType<Rotting>());
                 DebuffIDs.Add(ModContent.BuffType<Shadowflame>());
