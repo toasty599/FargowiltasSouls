@@ -349,33 +349,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 //}
             }
 
-            /*if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism) && targetAlive)
-            {
-                Timer--;
-
-                if (Timer <= 0)
-                {
-                    Timer = 600;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        int spawn = NPC.NewNPC((int)npc.position.X + Main.rand.Next(-1000, 1000), (int)npc.position.Y + Main.rand.Next(-400, -100), NPCID.Spazmatism);
-                        if (spawn != 200)
-                        {
-                            Main.npc[spawn].life = Main.npc[spawn].lifeMax / 4;
-                            if (Main.netMode == NetmodeID.Server)
-                            {
-                                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism has been revived!"), new Color(175, 75, 255));
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spawn);
-                            }
-                            else
-                            {
-                                Main.NewText("Spazmatism has been revived!", 175, 75, 255);
-                            }
-                        }
-                    }
-                }
-            }*/
-
             EModeUtils.DropSummon(npc, "MechEye", NPC.downedMechBoss2, ref DroppedSummon, Main.hardMode);
 
             return true;

@@ -1771,3 +1771,8 @@ maso mutant final FINAL spark is harder
 sibling pets are available as emode nohit again in addition to master drop
 fixed eridanus lightning not working
 mutant sword smash is louder with explosions
+fixed huntress ench not working on adam ench split projs
+fixed rain ench inner tube not actually working
+corrected colour of red riding ench toggle name
+corrected earth force tooltip to match new tungsten ench
+fixed scientific railgun draw issue

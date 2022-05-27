@@ -261,6 +261,16 @@ namespace FargowiltasSouls.Projectiles
                 TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source);
             }
 
+            if (modPlayer.HuntressEnchantActive && player.GetToggleValue("Huntress")
+                && isProjSourceItemUseReal(projectile, source, player)
+                && projectile.damage > 0 && projectile.friendly && !projectile.hostile && !projectile.trap
+                && projectile.DamageType != DamageClass.Default
+                && !ProjectileID.Sets.CultistIsResistantTo[projectile.type]
+                && !FargoSoulsUtil.IsSummonDamage(projectile, true, false))
+            {
+                HuntressProj = 1;
+            }
+
             if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue("Adamantite")
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source)
                 && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
@@ -315,16 +325,6 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
                     SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
-            }
-
-            if (modPlayer.HuntressEnchantActive && player.GetToggleValue("Huntress") 
-                && isProjSourceItemUseReal(projectile, source, player)
-                && projectile.damage > 0 && projectile.friendly && !projectile.hostile && !projectile.trap 
-                && projectile.DamageType != DamageClass.Default 
-                && !ProjectileID.Sets.CultistIsResistantTo[projectile.type] 
-                && !FargoSoulsUtil.IsSummonDamage(projectile, true, false))
-            {
-                HuntressProj = 1;
             }
         }
 
