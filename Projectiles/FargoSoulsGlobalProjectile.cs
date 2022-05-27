@@ -334,17 +334,13 @@ namespace FargowiltasSouls.Projectiles
         }
 
         public static int[] noSplit => new int[] {
-            ProjectileID.CrystalShard,
             ProjectileID.SandnadoFriendly,
             ProjectileID.LastPrism,
             ProjectileID.LastPrismLaser,
-            ProjectileID.FlowerPetal,
             ProjectileID.BabySpider,
-            ProjectileID.CrystalLeafShot,
             ProjectileID.Phantasm,
             ProjectileID.VortexBeater,
             ProjectileID.ChargedBlasterCannon,
-            ProjectileID.MedusaHead,
             ProjectileID.WireKite,
             ProjectileID.DD2PhoenixBow,
             ProjectileID.LaserMachinegun,
