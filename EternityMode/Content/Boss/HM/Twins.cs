@@ -246,7 +246,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center); //eoc roar
                             }
-                            npc.netUpdate = true;
+
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
                             NetSync(npc);
                         }
                         break;
@@ -566,7 +568,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
 
-                        npc.netUpdate = true;
+                        if (Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
                         NetSync(npc);
                         return false;
                     }
@@ -661,7 +664,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     FlameWheelCount = 0;
 
                     if (FlameWheelSpreadTimer > 75) //cooldown before attacking again
+                    {
                         FlameWheelSpreadTimer = 75;
+                        if (Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                        NetSync(npc);
+                    }
                     if (FlameWheelSpreadTimer > 0)
                     {
                         FlameWheelSpreadTimer--;

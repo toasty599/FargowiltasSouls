@@ -1777,3 +1777,4 @@ corrected colour of red riding ench toggle name
 corrected earth force tooltip to match new tungsten ench
 fixed scientific railgun draw issue
 boc disables emode faster debuff removal
+attempted improving twins mp sync
