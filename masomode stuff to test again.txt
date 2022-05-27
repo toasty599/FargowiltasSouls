@@ -1780,3 +1780,4 @@ boc disables emode faster debuff removal
 attempted improving twins mp sync
 
 fixed spider ench crit not working properly
+removed stardust guardian throwing knives in timestop

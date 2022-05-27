@@ -783,73 +783,73 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.StardustGuardian:
                     KillPet(projectile, player, BuffID.StardustGuardianMinion, player.GetToggleValue("Stardust"), true);
-                    if (modPlayer.FreezeTime && modPlayer.freezeLength > 60) //throw knives in stopped time
-                    {
-                        if (projectile.owner == Main.myPlayer && counter % 20 == 0)
-                        {
-                            int target = -1;
+                    //if (modPlayer.FreezeTime && modPlayer.freezeLength > 60) //throw knives in stopped time
+                    //{
+                    //    if (projectile.owner == Main.myPlayer && counter % 20 == 0)
+                    //    {
+                    //        int target = -1;
 
-                            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-                            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy())
-                            {
-                                target = minionAttackTargetNpc.whoAmI;
-                            }
-                            else
-                            {
-                                const float homingMaximumRangeInPixels = 1000;
-                                for (int i = 0; i < Main.maxNPCs; i++)
-                                {
-                                    NPC n = Main.npc[i];
-                                    if (n.CanBeChasedBy(projectile))
-                                    {
-                                        float distance = projectile.Distance(n.Center);
-                                        if (distance <= homingMaximumRangeInPixels &&
-                                            (target == -1 || //there is no selected target
-                                            projectile.Distance(Main.npc[target].Center) > distance)) //or we are closer to this target than the already selected target
-                                        {
-                                            target = i;
-                                        }
-                                    }
-                                }
-                            }
+                    //        NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
+                    //        if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy())
+                    //        {
+                    //            target = minionAttackTargetNpc.whoAmI;
+                    //        }
+                    //        else
+                    //        {
+                    //            const float homingMaximumRangeInPixels = 1000;
+                    //            for (int i = 0; i < Main.maxNPCs; i++)
+                    //            {
+                    //                NPC n = Main.npc[i];
+                    //                if (n.CanBeChasedBy(projectile))
+                    //                {
+                    //                    float distance = projectile.Distance(n.Center);
+                    //                    if (distance <= homingMaximumRangeInPixels &&
+                    //                        (target == -1 || //there is no selected target
+                    //                        projectile.Distance(Main.npc[target].Center) > distance)) //or we are closer to this target than the already selected target
+                    //                    {
+                    //                        target = i;
+                    //                    }
+                    //                }
+                    //            }
+                    //        }
 
-                            if (target != -1)
-                            {
-                                const int totalUpdates = 2 + 1;
-                                const int travelTime = TimeFreezeMoveDuration * totalUpdates;
+                    //        if (target != -1)
+                    //        {
+                    //            const int totalUpdates = 2 + 1;
+                    //            const int travelTime = TimeFreezeMoveDuration * totalUpdates;
 
-                                Vector2 spawnPos = projectile.Center + 16f * projectile.DirectionTo(Main.npc[target].Center);
+                    //            Vector2 spawnPos = projectile.Center + 16f * projectile.DirectionTo(Main.npc[target].Center);
 
-                                //adjust speed so it always lands just short of touching the enemy
-                                Vector2 vel = Main.npc[target].Center - spawnPos;
-                                float length = (vel.Length() - 0.6f * Math.Max(Main.npc[target].width, Main.npc[target].height)) / travelTime;
-                                if (length < 0.1f)
-                                    length = 0.1f;
+                    //            //adjust speed so it always lands just short of touching the enemy
+                    //            Vector2 vel = Main.npc[target].Center - spawnPos;
+                    //            float length = (vel.Length() - 0.6f * Math.Max(Main.npc[target].width, Main.npc[target].height)) / travelTime;
+                    //            if (length < 0.1f)
+                    //                length = 0.1f;
 
-                                float offset = 1f - (modPlayer.freezeLength - 60f) / 540f; //change how far they stop as time decreases
-                                if (offset < 0.1f)
-                                    offset = 0.1f;
-                                if (offset > 1f)
-                                    offset = 1f;
-                                length *= offset;
+                    //            float offset = 1f - (modPlayer.freezeLength - 60f) / 540f; //change how far they stop as time decreases
+                    //            if (offset < 0.1f)
+                    //                offset = 0.1f;
+                    //            if (offset > 1f)
+                    //                offset = 1f;
+                    //            length *= offset;
 
-                                const int max = 3;
-                                int damage = 100; //at time of writing, raw hellzone does 190 damage, 7.5 times per second, 1425 dps
-                                if (modPlayer.CosmoForce)
-                                    damage = 150;
-                                if (modPlayer.TerrariaSoul)
-                                    damage = 300;
-                                damage = (int)(damage * player.ActualClassDamage(DamageClass.Summon));
-                                float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
-                                float rotationOffset = MathHelper.ToRadians(5) * Main.rand.NextFloat(-1f, 1f);
-                                for (int i = -max; i <= max; i++)
-                                {
-                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnPos, length * Vector2.Normalize(vel).RotatedBy(rotation / max * i + rotationOffset),
-                                        ModContent.ProjectileType<StardustKnife>(), damage, 4f, Main.myPlayer);
-                                }
-                            }
-                        }
-                    }
+                    //            const int max = 3;
+                    //            int damage = 100; //at time of writing, raw hellzone does 190 damage, 7.5 times per second, 1425 dps
+                    //            if (modPlayer.CosmoForce)
+                    //                damage = 150;
+                    //            if (modPlayer.TerrariaSoul)
+                    //                damage = 300;
+                    //            damage = (int)(damage * player.ActualClassDamage(DamageClass.Summon));
+                    //            float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
+                    //            float rotationOffset = MathHelper.ToRadians(5) * Main.rand.NextFloat(-1f, 1f);
+                    //            for (int i = -max; i <= max; i++)
+                    //            {
+                    //                Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnPos, length * Vector2.Normalize(vel).RotatedBy(rotation / max * i + rotationOffset),
+                    //                    ModContent.ProjectileType<StardustKnife>(), damage, 4f, Main.myPlayer);
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     break;
 
                 case ProjectileID.TikiSpirit:
