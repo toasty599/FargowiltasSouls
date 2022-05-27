@@ -1443,7 +1443,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (NPC.localAI[3] && Main.expertMode)
+            if (NPC.localAI[3] == 2 && Main.expertMode)
                 damage /= 2;
 
             return true;
