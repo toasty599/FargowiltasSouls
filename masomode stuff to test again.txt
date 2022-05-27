@@ -1766,3 +1766,8 @@ removed huntress debug text
 
 fixed rush job not having its name
 reimplemented rush job
+maso mutant p2 direct spear throw doubles spears thrown
+maso mutant final FINAL spark is harder
+sibling pets are available as emode nohit again in addition to master drop
+fixed eridanus lightning not working
+mutant sword smash is louder with explosions
