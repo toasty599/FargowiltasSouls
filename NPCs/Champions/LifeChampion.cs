@@ -36,8 +36,6 @@ namespace FargowiltasSouls.NPCs.Champions
                 {
                     BuffID.Chilled,
                     BuffID.Suffocation,
-                    BuffID.Daybreak,
-                    BuffID.StardustMinionBleed,
                     ModContent.BuffType<Lethargic>(),
                     ModContent.BuffType<ClippedWings>(),
                 }
