@@ -191,6 +191,14 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
             return Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) <= Projectile.width / 2;
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (!Collision.CanHitLine(Projectile.Center, 0, 0, target.Center, 0, 0))
+                return false;
+
+            return base.CanHitNPC(target);
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
