@@ -763,7 +763,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }
 
-            EModeUtils.DropSummon(npc, "TruffleWorm2", NPC.downedFishron, ref DroppedSummon, Main.hardMode);
+            EModeUtils.DropSummon(npc, "TruffleWorm2", NPC.downedFishron, ref DroppedSummon);
 
             return result;
         }
