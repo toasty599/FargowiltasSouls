@@ -209,7 +209,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 float auraDistance = 2000 - 1200 * AuraRadiusCounter / 180f;
                 if (FargoSoulsWorld.MasochistModeReal)
                     auraDistance *= 0.75f;
-                if (auraDistance < 2000)
+                if (auraDistance < 2000 - 1)
                     EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Torch, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
 
                 //2*pi * (# of full circles) / (seconds to finish rotation) / (ticks per sec)
