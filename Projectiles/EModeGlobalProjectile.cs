@@ -223,11 +223,6 @@ namespace FargowiltasSouls.Projectiles
                     projectile.originalDamage = projectile.damage;
                     break;
 
-                case ProjectileID.Meowmere:
-                    if (source is EntitySource_ItemUse && projectile.owner == Main.myPlayer)
-                        FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(30), 1f);
-                    break;
-
                 case ProjectileID.FallingStar:
                     if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                         projectile.active = false;

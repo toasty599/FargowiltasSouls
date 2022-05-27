@@ -285,10 +285,6 @@ namespace FargowiltasSouls.Items
                     tooltips.Add(new TooltipLine(Mod, "masoBuff", "[c/00ff00:Eternity Mode:] Set bonus increases minimum summon damage when you attack using other classes"));
                     break;
 
-                case ItemID.Meowmere:
-                    tooltips.Add(new TooltipLine(Mod, "masoBuff", "[c/00ff00:Eternity Mode:] Shoots more projectiles per swing"));
-                    break;
-
                 case ItemID.MiningHelmet:
                     tooltips.Add(new TooltipLine(Mod, "masoNerf", "[c/ffff00:Eternity Mode:] Increases Undead Miner spawn rates"));
                     break;
