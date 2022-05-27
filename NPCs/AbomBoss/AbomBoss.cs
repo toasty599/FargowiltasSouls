@@ -77,8 +77,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             NPC.damage = 260;
             NPC.defense = 80;
             NPC.lifeMax = FargoSoulsWorld.MasochistModeReal ? 650000 : 600000;
-            if (Main.expertMode)
-                NPC.lifeMax = (int)(NPC.lifeMax * 2); //in keeping with new eri acc
             NPC.value = Item.buyPrice(1);
             NPC.HitSound = SoundID.NPCHit57;
             NPC.noGravity = true;
@@ -1443,11 +1441,13 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             }
         }
 
-        /*public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            damage *= 0.8;
+            if (NPC.localAI[3] && Main.expertMode)
+                damage /= 2;
+
             return true;
-        }*/
+        }
 
         public override bool CheckDead()
         {

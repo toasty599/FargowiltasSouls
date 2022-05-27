@@ -1781,3 +1781,5 @@ attempted improving twins mp sync
 
 fixed spider ench crit not working properly
 removed stardust guardian throwing knives in timestop
+buffed bbb raw damage
+abom has 50% p2 only DR instead of more health in expert+
