@@ -1778,5 +1778,3 @@ corrected earth force tooltip to match new tungsten ench
 fixed scientific railgun draw issue
 boc disables emode faster debuff removal
 attempted improving twins mp sync
-
-mutant void rays sound spam reduction
