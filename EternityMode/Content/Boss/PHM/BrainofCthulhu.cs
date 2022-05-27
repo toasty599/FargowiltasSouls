@@ -66,6 +66,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (FargoSoulsWorld.SwarmActive)
                 return base.PreAI(npc);
 
+            if (Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<EModePlayer>().ShorterDebuffsTimer < 2)
+                Main.LocalPlayer.GetModPlayer<EModePlayer>().ShorterDebuffsTimer = 2;
+
             if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 3000)
             {
                 npc.velocity.Y += 0.75f;
