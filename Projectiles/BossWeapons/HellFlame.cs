@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -56,7 +57,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             if (Projectile.localAI[0] == 0)
             {
+                Projectile.frame = (int)Projectile.ai[0];
+                Projectile.ai[0] = -1;
+
                 Projectile.localAI[0] = Main.rand.NextFloat(0.25f, 2f); //used for random variation in homing
+                searchTimer = Main.rand.Next(18);
                 Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
 

@@ -79,7 +79,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             NPC.lifeMax = FargoSoulsWorld.MasochistModeReal ? 650000 : 600000;
             if (Main.expertMode) //compensate universe core
                 NPC.lifeMax *= 2;
-            NPC.value = Item.buyPrice(1);
+            NPC.value = Item.buyPrice(5);
             NPC.HitSound = SoundID.NPCHit57;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
