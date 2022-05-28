@@ -1610,7 +1610,6 @@ refactor to death message from DOTs
 	god eater/mutant fang/curse of moon
 	shadowflame
 	nano injection
-updated localization files
 deerclawps no longer makes forever spikes if you grapple mid-dash
 	known: makes a few spikes when you release hook
 	i dont care enough to fix this (the fix would prob break even more things)
@@ -1785,3 +1784,4 @@ buffed bbb raw damage
 abom has 50% p2 only DR instead of more health in expert+
 tried fixing eternity advisor text spam and sound bug
 improved(?) byte compression for emode npc behaviour for mp
+updated localization files
