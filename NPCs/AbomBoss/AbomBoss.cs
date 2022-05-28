@@ -1352,7 +1352,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             if (NPC.localAI[3] > 1)
                 return false;
 
-            if (NPC.life < NPC.lifeMax * (Main.expertMode ? 0.66 : 0.50) && Main.expertMode)
+            if (NPC.life < NPC.lifeMax * (FargoSoulsWorld.EternityMode ? 0.66 : 0.50) && Main.expertMode)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

@@ -1784,4 +1784,4 @@ buffed bbb raw damage
 tried fixing eternity advisor text spam and sound bug
 improved(?) byte compression for emode npc behaviour for mp
 updated localization files
-abom p2 is at 66% life now
+abom p2 is at 66% life in emode now
