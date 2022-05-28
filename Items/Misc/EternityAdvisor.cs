@@ -527,11 +527,15 @@ namespace FargowiltasSouls.Items.Misc
 
         public override bool? UseItem(Player player)
         {
-            string dialogue = "";
-            GetBossHelp(ref dialogue, player);
-            Main.NewText(dialogue);
+            if (player.ItemTimeIsZero)
+            {
+                string dialogue = "";
+                GetBossHelp(ref dialogue, player);
+                if (player.whoAmI == Main.myPlayer)
+                    Main.NewText(dialogue);
 
-            SoundEngine.PlaySound(new SoundStyle($"Terraria/Sounds/Meowmere_{Main.rand.Next(5, 10)}"), player.Center); //meow
+                SoundEngine.PlaySound(SoundID.Meowmere, player.Center);
+            }
             return true;
         }
     }
