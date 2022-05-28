@@ -77,6 +77,8 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             NPC.damage = 260;
             NPC.defense = 80;
             NPC.lifeMax = FargoSoulsWorld.MasochistModeReal ? 650000 : 600000;
+            if (Main.expertMode) //compensate universe core
+                NPC.lifeMax *= 2;
             NPC.value = Item.buyPrice(1);
             NPC.HitSound = SoundID.NPCHit57;
             NPC.noGravity = true;
@@ -1350,7 +1352,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             if (NPC.localAI[3] > 1)
                 return false;
 
-            if (NPC.life < NPC.lifeMax / 2 && Main.expertMode)
+            if (NPC.life < NPC.lifeMax * (Main.expertMode ? 0.66 : 0.50) && Main.expertMode)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -1441,13 +1443,13 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             }
         }
 
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-        {
-            if (NPC.localAI[3] > 1 && Main.expertMode)
-                damage /= 2;
+        //public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        //{
+        //    if (NPC.localAI[3] > 1 && Main.expertMode)
+        //        damage /= 2;
 
-            return true;
-        }
+        //    return true;
+        //}
 
         public override bool CheckDead()
         {

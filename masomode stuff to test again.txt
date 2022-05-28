@@ -1781,7 +1781,7 @@ attempted improving twins mp sync
 fixed spider ench crit not working properly
 removed stardust guardian throwing knives in timestop
 buffed bbb raw damage
-abom has 50% p2 only DR instead of more health in expert+
 tried fixing eternity advisor text spam and sound bug
 improved(?) byte compression for emode npc behaviour for mp
 updated localization files
+abom p2 is at 66% life now
