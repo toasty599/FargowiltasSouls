@@ -3353,7 +3353,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
                 Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<PhantasmalEnergy>());
-                Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<SpawnSack>());
             }
 
             if (FargoSoulsWorld.EternityMode)

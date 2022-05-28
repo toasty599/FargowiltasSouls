@@ -1487,7 +1487,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
                 Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<BrokenHilt>());
-                Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<BabyScythe>());
             }
 
             NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedAbom, -1);

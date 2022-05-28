@@ -1787,3 +1787,4 @@ updated localization files
 abom p2 is at 66% life in emode now
 increased money dropped by post ml bosses
 adjusted dragons demise visuals
+RESTORED EMODE ALLOWING MASTER DROPS????
