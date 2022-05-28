@@ -903,6 +903,13 @@ Mods: {
 				CommonFish: Common Fish
 				FishingTrash: Fishing Trash
 			}
+
+			EModeItemNerfs: {
+				EMode: '[c/ff0000:Eternity Mode:]'
+				Damage: Reduced damage by {0}%
+				Speed: Reduced speed by {0}%
+
+			}
         }
 	}
 }

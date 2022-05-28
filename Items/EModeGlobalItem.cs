@@ -296,7 +296,7 @@ namespace FargowiltasSouls.Items
             if (item.shoot > ProjectileID.None && ProjectileID.Sets.IsAWhip[item.shoot])
             {
                 if (item.type != ItemID.BlandWhip)
-                    tooltips.Add(new TooltipLine(Mod, "masoWhipNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 50%"));
+                    tooltips.Add(new TooltipLine(Mod, "masoWhipNerf", "Reduced damage by 50%"));
                 tooltips.Add(new TooltipLine(Mod, "masoWhipNerf2", "[c/ff0000:Eternity Mode:] Does not benefit from melee speed bonuses"));
                 tooltips.Add(new TooltipLine(Mod, "masoWhipNerf3", "[c/ff0000:Eternity Mode:] Whip buffs/debuffs can't stack"));
             }
