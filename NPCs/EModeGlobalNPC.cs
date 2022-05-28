@@ -1096,62 +1096,74 @@ namespace FargowiltasSouls.NPCs
             #endregion
 
 
-            if (npc.ModNPC == null || npc.ModNPC.Mod is FargowiltasSouls) //not for other mods
+            //if (npc.ModNPC == null || npc.ModNPC.Mod is FargowiltasSouls) //not for other mods
+            //{
+            int allowedRecursionDepth = 10;
+
+            void CheckMasterDropRule(IItemDropRule dropRule)
             {
-                int allowedRecursionDepth = 10;
-
-                void CheckMasterDropRule(IItemDropRule dropRule)
+                if (--allowedRecursionDepth > 0)
                 {
-                    if (--allowedRecursionDepth > 0)
+                    foreach (IItemDropRuleChainAttempt chain in dropRule.ChainedRules)
                     {
-                        foreach (IItemDropRuleChainAttempt chain in dropRule.ChainedRules)
-                        {
-                            CheckMasterDropRule(chain.RuleToChain);
-                        }
-
-                        if (dropRule is DropBasedOnMasterMode dropBasedOnMasterMode)
-                        {
-                            CheckMasterDropRule(dropBasedOnMasterMode.ruleForMasterMode);
-                        }
+                        CheckMasterDropRule(chain.RuleToChain);
                     }
-                    allowedRecursionDepth++;
 
-                    if (dropRule is CommonDrop drop)
+                    if (dropRule is DropBasedOnMasterMode dropBasedOnMasterMode)
                     {
-                        if (dropRule is ItemDropWithConditionRule itemDropWithCondition && itemDropWithCondition.condition is Conditions.IsMasterMode)
-                        {
-                            IItemDropRule emodeDropRule = ItemDropRule.ByCondition(
-                                new EModeNotMasterDropCondition(),
-                                itemDropWithCondition.itemId,
-                                itemDropWithCondition.chanceDenominator,
-                                itemDropWithCondition.amountDroppedMinimum,
-                                itemDropWithCondition.amountDroppedMaximum,
-                                itemDropWithCondition.chanceNumerator
-                            );
-                            //itemDropWithCondition.OnFailedConditions(emodeDropRule, true);
-                            npcLoot.Add(emodeDropRule);
-                        }
-                        else if (dropRule is DropPerPlayerOnThePlayer dropPerPlayer && dropPerPlayer.condition is Conditions.IsMasterMode)
-                        {
-                            IItemDropRule emodeDropRule = ItemDropRule.ByCondition(
-                                new EModeNotMasterDropCondition(),
-                                dropPerPlayer.itemId,
-                                dropPerPlayer.chanceDenominator,
-                                dropPerPlayer.amountDroppedMinimum,
-                                dropPerPlayer.amountDroppedMaximum,
-                                dropPerPlayer.chanceNumerator
-                            );
-                            //dropPerPlayer.OnFailedConditions(emodeDropRule, true);
-                            npcLoot.Add(emodeDropRule);
-                        }
+                        CheckMasterDropRule(dropBasedOnMasterMode.ruleForMasterMode);
+                        //if (dropBasedOnMasterMode.ruleForMasterMode is CommonDrop masterDrop)
+                        //{
+                        //    IItemDropRule emodeDropRule = ItemDropRule.ByCondition(
+                        //        new EModeNotMasterDropCondition(),
+                        //        masterDrop.itemId,
+                        //        masterDrop.chanceDenominator,
+                        //        masterDrop.amountDroppedMinimum,
+                        //        masterDrop.amountDroppedMaximum,
+                        //        masterDrop.chanceNumerator
+                        //    );
+                        //    npcLoot.Add(emodeDropRule);
+                        //}
                     }
                 }
+                allowedRecursionDepth++;
 
-                foreach (IItemDropRule rule in npcLoot.Get())
+                //if (dropRule is CommonDrop drop)
+                //{
+                if (dropRule is ItemDropWithConditionRule itemDropWithCondition && itemDropWithCondition.condition is Conditions.IsMasterMode)
                 {
-                    CheckMasterDropRule(rule);
+                    IItemDropRule emodeDropRule = ItemDropRule.ByCondition(
+                        new EModeNotMasterDropCondition(),
+                        itemDropWithCondition.itemId,
+                        itemDropWithCondition.chanceDenominator,
+                        itemDropWithCondition.amountDroppedMinimum,
+                        itemDropWithCondition.amountDroppedMaximum,
+                        itemDropWithCondition.chanceNumerator
+                    );
+                    //itemDropWithCondition.OnFailedConditions(emodeDropRule, true);
+                    npcLoot.Add(emodeDropRule);
                 }
+                else if (dropRule is DropPerPlayerOnThePlayer dropPerPlayer && dropPerPlayer.condition is Conditions.IsMasterMode)
+                {
+                    IItemDropRule emodeDropRule = ItemDropRule.ByCondition(
+                        new EModeNotMasterDropCondition(),
+                        dropPerPlayer.itemId,
+                        dropPerPlayer.chanceDenominator,
+                        dropPerPlayer.amountDroppedMinimum,
+                        dropPerPlayer.amountDroppedMaximum,
+                        dropPerPlayer.chanceNumerator
+                    );
+                    //dropPerPlayer.OnFailedConditions(emodeDropRule, true);
+                    npcLoot.Add(emodeDropRule);
+                }
+                //}
             }
+
+            foreach (IItemDropRule rule in npcLoot.Get())
+            {
+                CheckMasterDropRule(rule);
+            }
+            //}
         }
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
