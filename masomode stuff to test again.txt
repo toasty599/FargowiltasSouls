@@ -1790,3 +1790,4 @@ adjusted dragons demise visuals
 RESTORED EMODE ALLOWING MASTER DROPS????
 
 fixed ml arena snapping to center itself on you in phase 1 when beginning all-classes subphase (should only do that in phase 2)
+flamelash and others dies 15sec later with autofire, was 5
