@@ -1799,3 +1799,4 @@ updated eri armour recipe
 attempted fixing sibling and squirrel boss spawners sometimes not working in mp
 fixed squirrel not selling angler enchantment
 adjusted angry bones bone spray
+iron/dread parry now dont begin cooldowns if you only held shield for 1 tick, meaning you can open chests

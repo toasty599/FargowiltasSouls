@@ -2839,6 +2839,28 @@ namespace FargowiltasSouls
         private const int DREAD_PARRY_WINDOW = 10;
         private const int DREAD_SHIELD_COOLDOWN = 360;
 
+        void RaisedShieldEffects()
+        {
+            if (DreadShellItem != null)
+            {
+                if (!MasochistSoul)
+                    DreadShellVulnerabilityTimer = 60;
+
+                Player.velocity.X *= 0.85f;
+                if (Player.velocity.Y < 0)
+                    Player.velocity.Y *= 0.85f;
+            }
+
+            int cooldown = IRON_SHIELD_COOLDOWN;
+            if (DreadShellItem != null)
+                cooldown = DREAD_SHIELD_COOLDOWN;
+            else if (IronEnchantShield)
+                cooldown = IRON_SHIELD_COOLDOWN;
+
+            if (shieldCD < cooldown)
+                shieldCD = cooldown;
+        }
+
         public void Shield()
         {
             GuardRaised = false;
@@ -2885,6 +2907,10 @@ namespace FargowiltasSouls
                     Player.itemTime = 0;
                     Player.reuseDelay = 0;
                 }
+                else //doing this so that on the first tick, these things DO NOT run
+                {
+                    RaisedShieldEffects();
+                }
 
                 if (shieldTimer == 1) //parry window over
                 {
@@ -2909,24 +2935,6 @@ namespace FargowiltasSouls
                         }
                     }
                 }
-
-                if (DreadShellItem != null)
-                {
-                    if (!MasochistSoul)
-                        DreadShellVulnerabilityTimer = 60;
-
-                    Player.velocity.X *= 0.85f;
-                    if (Player.velocity.Y < 0)
-                        Player.velocity.Y *= 0.85f;
-                }
-
-                int cooldown = IRON_SHIELD_COOLDOWN;
-                if (DreadShellItem != null)
-                    cooldown = DREAD_SHIELD_COOLDOWN;
-                else if (IronEnchantShield)
-                    cooldown = IRON_SHIELD_COOLDOWN;
-                if (shieldCD < cooldown)
-                    shieldCD = cooldown;
             }
             else
             {
@@ -2935,6 +2943,7 @@ namespace FargowiltasSouls
                 if (wasHoldingShield)
                 {
                     wasHoldingShield = false;
+
                     Player.shield_parry_cooldown = 0; //prevent that annoying tick noise
                     //Player.shieldParryTimeLeft = 0;
                     //ironShieldTimer = 0;
