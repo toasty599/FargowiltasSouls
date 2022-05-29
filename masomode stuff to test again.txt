@@ -1796,3 +1796,4 @@ eternity advsior suggests universe core for abom
 updated thief cooldown
 deer sinew buff, has a cooldown on freezing you
 updated eri armour recipe
+attempted fixing sibling and squirrel boss spawners sometimes not working in mp

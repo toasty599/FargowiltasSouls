@@ -514,11 +514,11 @@ namespace FargowiltasSouls
         {
             if (Main.netMode == NetmodeID.MultiplayerClient && playerTarget == Main.myPlayer)
             {
-                var packet = FargowiltasSouls.Instance.GetPacket();
-                packet.Write((byte)FargowiltasSouls.PacketID.SpawnBossTryFromNPC);
-                packet.Write(playerTarget);
-                packet.Write(originalType);
-                packet.Write(bossType);
+                //var packet = FargowiltasSouls.Instance.GetPacket();
+                //packet.Write((byte)FargowiltasSouls.PacketID.SpawnBossTryFromNPC);
+                //packet.Write(playerTarget);
+                //packet.Write(originalType);
+                //packet.Write(bossType);
                 return;
             }
 
@@ -526,12 +526,21 @@ namespace FargowiltasSouls
             if (npc != null)
             {
                 Vector2 pos = npc.Bottom;
-                npc.Transform(bossType);
-                npc.Bottom = pos;
+
+                npc.life = 0;
+                npc.active = false;
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
 
-                PrintText($"{npc.GivenOrTypeName} {Language.GetTextValue("Mods.FargowiltasSouls.Message.HasAwoken")}", new Color(175, 75, 255));
+                int n = NewNPCEasy(NPC.GetBossSpawnSource(playerTarget), pos, bossType);
+                if (n != Main.maxNPCs)
+                {
+                    Main.npc[n].Bottom = pos;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, number: n);
+
+                    PrintText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[n].TypeName));
+                }
             }
             else
             {
