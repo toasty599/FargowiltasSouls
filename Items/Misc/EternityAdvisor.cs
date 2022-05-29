@@ -1,4 +1,5 @@
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Accessories.Expert;
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Accessories.Souls;
@@ -448,12 +449,14 @@ namespace FargowiltasSouls.Items.Misc
             {
                 summonType = ModContent.ItemType<AbomsCurse>();
                 build = GetBuildText(
-                    Main.rand.NextBool() ? ModContent.ItemType<CosmoForce>() : ModContent.ItemType<SupersonicSoul>(),
+                    ModContent.ItemType<CosmoForce>(),
+                    ModContent.ItemType<SupersonicSoul>(),
                     ModContent.ItemType<FlightMasterySoul>(),
                     ModContent.ItemType<ColossusSoul>(),
+                    ModContent.ItemType<UniverseCore>(),
                     Main.rand.Next(new int[] { ModContent.ItemType<BerserkerSoul>(), ModContent.ItemType<SnipersSoul>(), ModContent.ItemType<ArchWizardsSoul>(), ModContent.ItemType<ConjuristsSoul>() })
                 ) + GetBuildTextRandom(
-                    3,
+                    1,
                     ModContent.ItemType<HeartoftheMasochist>(),
                     ModContent.ItemType<PrecisionSeal>(),
                     ModContent.ItemType<SparklingAdoration>(),

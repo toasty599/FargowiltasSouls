@@ -2731,6 +2731,9 @@ namespace FargowiltasSouls
 
         public void DeerSinewEffect()
         {
+            if (DeerSinewFreezeCD > 0)
+                DeerSinewFreezeCD--;
+
             if (!Player.GetToggleValue("DeerSinewDash", false) || HasDash || Player.mount.Active || Player.whoAmI != Main.myPlayer)
                 return;
 

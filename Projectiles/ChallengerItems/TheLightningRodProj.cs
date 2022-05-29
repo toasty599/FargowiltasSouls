@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
 
         public override bool? CanDamage()
         {
-            return Projectile.ai[1] != 0f && Collision.CanHitLine(Main.player[Projectile.owner].Center, 0, 0, Projectile.Center, 0, 0);
+            return Projectile.ai[1] != 0f;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -193,7 +193,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
 
         public override bool? CanHitNPC(NPC target)
         {
-            if (!Collision.CanHitLine(Projectile.Center, 0, 0, target.Center, 0, 0))
+            if (!target.noTileCollide && !Collision.CanHitLine(Projectile.Center, 0, 0, target.Center, 0, 0))
                 return false;
 
             return base.CanHitNPC(target);

@@ -262,6 +262,7 @@ namespace FargowiltasSouls
         public Item DeerclawpsItem;
         public int IsDashingTimer;
         public bool DeerSinewNerf;
+        public int DeerSinewFreezeCD;
         public bool PureHeart;
         public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
@@ -2688,8 +2689,11 @@ namespace FargowiltasSouls
         {
             WasHurtBySomething = true;
 
-            if (DeerSinewNerf)
+            if (DeerSinewNerf && DeerSinewFreezeCD <= 0)
+            {
+                DeerSinewFreezeCD = 180;
                 FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 20, false);
+            }
 
             if (BeetleEnchantActive)
                 BeetleHurt();
