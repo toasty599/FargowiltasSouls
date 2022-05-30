@@ -387,16 +387,16 @@ namespace FargowiltasSouls.Items
             #endregion mediocre
         };
 
-        //int infiniteLoopFixHackCounter = 100;
+        int infiniteLoopFixHackCounter = 100;
         public override bool AllowPrefix(Item item, int pre)
         {
             if (!Main.gameMenu && Main.LocalPlayer.active && Main.LocalPlayer.TryGetModPlayer(out FargoSoulsPlayer fargoPlayer) && fargoPlayer.SecurityWallet && Array.IndexOf(UnwantedPrefixes, pre) > -1)
             {
-                //if (--infiniteLoopFixHackCounter > 0)
+                if (--infiniteLoopFixHackCounter > 0)
                     return false;
             }
 
-            //infiniteLoopFixHackCounter = 100;
+            infiniteLoopFixHackCounter = 100;
 
             return base.AllowPrefix(item, pre);
         }
