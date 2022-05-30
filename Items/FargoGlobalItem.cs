@@ -377,9 +377,9 @@ namespace FargowiltasSouls.Items
 
         public override bool AllowPrefix(Item item, int pre)
         {
-            if (Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
+            if (!Main.gameMenu && Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
             {
-                switch (item.prefix)
+                switch (pre)
                 {
                     #region actually bad
 
@@ -446,8 +446,8 @@ namespace FargowiltasSouls.Items
                     case PrefixID.Unpleasant:
 
                         #endregion mediocre
-
-                        if (++infiniteLoopHackFix < 100)
+                        
+                        if (++infiniteLoopHackFix < 30)
                             return false;
                         else
                             break;
@@ -456,7 +456,7 @@ namespace FargowiltasSouls.Items
                         break;
                 }
             }
-
+            
             infiniteLoopHackFix = 0;
 
             return base.AllowPrefix(item, pre);
