@@ -46,11 +46,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(IsEX), BoolStrategies.CompoundStrategy },
             };
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void SetDefaults(NPC npc)
         {
-            base.OnSpawn(npc, source);
-
-            npc.buffImmune[BuffID.Suffocation] = true;
+            base.SetDefaults(npc);
 
             if (EModeGlobalNPC.spawnFishronEX)
             {
@@ -58,7 +56,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 npc.GivenName = "Duke Fishron EX";
                 npc.damage = (int)(npc.damage * 3);// 1.5);
                 npc.defense *= 30;
+            }
+        }
 
+        public override void OnFirstTick(NPC npc)
+        {
+            base.OnFirstTick(npc);
+
+            npc.buffImmune[BuffID.Suffocation] = true;
+
+            if (IsEX)
+            {
                 npc.buffImmune[ModContent.BuffType<GodEater>()] = true;
                 npc.buffImmune[ModContent.BuffType<Sadism>()] = true;
                 npc.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
@@ -940,18 +948,23 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             npc.lifeMax *= 5;
             npc.lavaImmune = true;
-        }
-
-        public override void OnSpawn(NPC npc, IEntitySource source)
-        {
-            base.OnSpawn(npc, source);
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
             {
                 npc.lifeMax *= 5000;//20;//2;
+            }
+        }
+
+        public override void OnFirstTick(NPC npc)
+        {
+            base.OnFirstTick(npc);
+
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
+            {
                 npc.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
                 npc.buffImmune[ModContent.BuffType<LightningRod>()] = true;
             }
+
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
         }
@@ -988,9 +1001,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 npc.noTileCollide = false;
         }
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;

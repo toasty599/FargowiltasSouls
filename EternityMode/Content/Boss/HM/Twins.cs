@@ -54,9 +54,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.lifeMax = (int)(npc.lifeMax * 1.2);
         }
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Suffocation] = true;
         }
@@ -431,9 +431,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(DarkStarTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Suffocation] = true;
         }

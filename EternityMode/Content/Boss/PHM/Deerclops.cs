@@ -51,9 +51,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.25, MidpointRounding.ToEven);
         }
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Frostburn] = true;
             npc.buffImmune[BuffID.Frostburn2] = true;

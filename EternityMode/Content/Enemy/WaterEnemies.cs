@@ -36,9 +36,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             NPCID.SeaTurtle
         );
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.GetGlobalNPC<EModeGlobalNPC>().isWaterEnemy = true;
         }

@@ -47,9 +47,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.scale += 0.25f;
         }
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Ichor] = true;
         }
@@ -342,9 +342,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             IchorAttackTimer = Main.rand.Next(60 * NPC.CountNPCS(NPCID.Creeper)) + Main.rand.Next(61) + 60;
         }
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Ichor] = true;
         }

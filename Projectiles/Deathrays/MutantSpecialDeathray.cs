@@ -17,21 +17,21 @@ namespace FargowiltasSouls.Projectiles.Deathrays
         public MutantSpecialDeathray(int maxTime, float hitboxModifier) : base(maxTime, "PhantasmalDeathrayML", hitboxModifier: hitboxModifier) { }
 
         const int sheetMax = 16;
-
-        public override void OnSpawn(IEntitySource source)
-        {
-            base.OnSpawn(source);
-
-            Projectile.frame = Main.rand.Next(sheetMax);
-        }
+        bool spawned;
 
         public override void AI()
         {
+            if (!spawned)
+            {
+                spawned = true;
+                Projectile.frame = Main.rand.Next(sheetMax);
+            }
+
             Projectile.frameCounter += Main.rand.Next(3);
             if (++Projectile.frameCounter > 3)
             {
                 Projectile.frameCounter = 0;
-                if (++Projectile.frame > 15)
+                if (++Projectile.frame >= sheetMax)
                     Projectile.frame = 0;
             }
 

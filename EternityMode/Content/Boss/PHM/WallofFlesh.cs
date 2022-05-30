@@ -59,9 +59,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.HitSound = SoundID.NPCHit41;
         }
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.OnFire3] = true;
@@ -401,9 +401,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.lifeMax = (int)(npc.lifeMax * 1.5);
         }
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.OnFire3] = true;
@@ -591,9 +591,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.TheHungry, NPCID.TheHungryII);
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.OnFire] = true;
         }
@@ -638,9 +638,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.LeechBody, NPCID.LeechHead, NPCID.LeechTail);
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.OnFire] = true;
         }

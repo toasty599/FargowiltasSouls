@@ -27,9 +27,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
     {
         public abstract int GetVulnerabilityState(NPC npc);
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnFirstTick(NPC npc)
         {
-            base.OnSpawn(npc, source);
+            base.OnFirstTick(npc);
 
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
             npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
