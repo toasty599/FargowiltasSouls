@@ -230,6 +230,54 @@ namespace FargowiltasSouls.Items
             return base.UseItem(item, player);
         }
 
+        //        public override bool AltFunctionUse(Item item, Player player)
+        //        {
+        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+        //            if (modPlayer.WoodEnchant)
+        //            {
+        //                switch (item.type)
+        //                {
+        //                    case ItemID.Bunny:
+        //                    case ItemID.Bird:
+        //                    case ItemID.BlueJay:
+        //                    case ItemID.Cardinal:
+        //                        return true;
+
+        //                }
+        //            }
+
+
+
+        //            return base.AltFunctionUse(item, player);
+        //        }
+
+        //        public override bool NewPreReforge(Item item)
+        //        {
+        //            /*if (Main.player[item.owner].GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
+        //            {
+        //                switch(item.prefix)
+        //                {
+        //                    case PrefixID.Warding:  if (SoulConfig.Instance.walletToggles.Warding)  return false; break;
+        //                    case PrefixID.Violent:  if (SoulConfig.Instance.walletToggles.Violent)  return false; break;
+        //                    case PrefixID.Quick:    if (SoulConfig.Instance.walletToggles.Quick)    return false; break;
+        //                    case PrefixID.Lucky:    if (SoulConfig.Instance.walletToggles.Lucky)    return false; break;
+        //                    case PrefixID.Menacing: if (SoulConfig.Instance.walletToggles.Menacing) return false; break;
+        //                    case PrefixID.Legendary:if (SoulConfig.Instance.walletToggles.Legendary)return false; break;
+        //                    case PrefixID.Unreal:   if (SoulConfig.Instance.walletToggles.Unreal)   return false; break;
+        //                    case PrefixID.Mythical: if (SoulConfig.Instance.walletToggles.Mythical) return false; break;
+        //                    case PrefixID.Godly:    if (SoulConfig.Instance.walletToggles.Godly)    return false; break;
+        //                    case PrefixID.Demonic:  if (SoulConfig.Instance.walletToggles.Demonic)  return false; break;
+        //                    case PrefixID.Ruthless: if (SoulConfig.Instance.walletToggles.Ruthless) return false; break;
+        //                    case PrefixID.Light:    if (SoulConfig.Instance.walletToggles.Light)    return false; break;
+        //                    case PrefixID.Deadly:   if (SoulConfig.Instance.walletToggles.Deadly)   return false; break;
+        //                    case PrefixID.Rapid:    if (SoulConfig.Instance.walletToggles.Rapid)    return false; break;
+        //                    default: break;
+        //                }
+        //            }*/
+        //            return true;
+        //        }
+
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
@@ -239,6 +287,13 @@ namespace FargowiltasSouls.Items
             else if (modPlayer.UniverseSoul)
                 velocity *= 1.5f;
         }
+
+        //        public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount)
+        //        {
+        //            if (Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
+        //                reforgePrice /= 2;
+        //            return true;
+        //        }
 
         //        //summon variants
         //        private static readonly int[] Summon = { ItemID.NimbusRod, ItemID.CrimsonRod, ItemID.BeeGun, ItemID.WaspGun, ItemID.PiranhaGun, ItemID.BatScepter };
@@ -318,85 +373,91 @@ namespace FargowiltasSouls.Items
             }*/
         }
 
-        private static readonly int[] UnwantedPrefixes = new int[]
-        {
-            #region actually bad
+        static int infiniteLoopHackFix;
 
-            PrefixID.Hard,
-            PrefixID.Guarding,
-            PrefixID.Jagged,
-            PrefixID.Spiked,
-            PrefixID.Brisk,
-            PrefixID.Fleeting,
-            PrefixID.Wild,
-            PrefixID.Rash,
-
-            PrefixID.Broken,
-            PrefixID.Damaged,
-            PrefixID.Shoddy,
-            PrefixID.Weak,
-
-            PrefixID.Slow,
-            PrefixID.Sluggish,
-            PrefixID.Lazy,
-            PrefixID.Annoying,
-
-            PrefixID.Tiny,
-            PrefixID.Small,
-            PrefixID.Dull,
-            PrefixID.Shameful,
-            PrefixID.Terrible,
-            PrefixID.Unhappy,
-
-            PrefixID.Awful,
-            PrefixID.Lethargic,
-            PrefixID.Awkward,
-
-            PrefixID.Inept,
-            PrefixID.Ignorant,
-            PrefixID.Deranged,
-
-            #endregion actually bad
-
-            #region mediocre
-
-            PrefixID.Hasty,
-            PrefixID.Intrepid,
-
-            PrefixID.Intense,
-            PrefixID.Frenzying,
-            PrefixID.Dangerous,
-            PrefixID.Bulky,
-            PrefixID.Heavy,
-            PrefixID.Sighted,
-            PrefixID.Adept,
-            PrefixID.Taboo,
-            PrefixID.Furious,
-            PrefixID.Keen,
-            PrefixID.Forceful,
-            PrefixID.Quick,
-            PrefixID.Nimble,
-            PrefixID.Nasty,
-            PrefixID.Manic,
-            PrefixID.Strong,
-            PrefixID.Zealous,
-            PrefixID.Large,
-            PrefixID.Intimidating,
-            PrefixID.Unpleasant,
-
-            #endregion mediocre
-        };
-
-        int infiniteLoopFixHackCounter = 100;
         public override bool AllowPrefix(Item item, int pre)
         {
-            if (!Main.gameMenu && Main.LocalPlayer.active && Main.LocalPlayer.TryGetModPlayer(out FargoSoulsPlayer fargoPlayer) && fargoPlayer.SecurityWallet && Array.IndexOf(UnwantedPrefixes, pre) > -1)
+            if (Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
             {
-                if (--infiniteLoopFixHackCounter > 0)
-                    return false;
+                switch (item.prefix)
+                {
+                    #region actually bad
+
+                    case PrefixID.Hard:
+                    case PrefixID.Guarding:
+                    case PrefixID.Jagged:
+                    case PrefixID.Spiked:
+                    case PrefixID.Brisk:
+                    case PrefixID.Fleeting:
+                    case PrefixID.Wild:
+                    case PrefixID.Rash:
+
+                    case PrefixID.Broken:
+                    case PrefixID.Damaged:
+                    case PrefixID.Shoddy:
+                    case PrefixID.Weak:
+
+                    case PrefixID.Slow:
+                    case PrefixID.Sluggish:
+                    case PrefixID.Lazy:
+                    case PrefixID.Annoying:
+
+                    case PrefixID.Tiny:
+                    case PrefixID.Small:
+                    case PrefixID.Dull:
+                    case PrefixID.Shameful:
+                    case PrefixID.Terrible:
+                    case PrefixID.Unhappy:
+
+                    case PrefixID.Awful:
+                    case PrefixID.Lethargic:
+                    case PrefixID.Awkward:
+
+                    case PrefixID.Inept:
+                    case PrefixID.Ignorant:
+                    case PrefixID.Deranged:
+
+                    #endregion actually bad
+
+                    #region mediocre
+
+                    case PrefixID.Hasty:
+                    case PrefixID.Intrepid:
+
+                    case PrefixID.Intense:
+                    case PrefixID.Frenzying:
+                    case PrefixID.Dangerous:
+                    case PrefixID.Bulky:
+                    case PrefixID.Heavy:
+                    case PrefixID.Sighted:
+                    case PrefixID.Adept:
+                    case PrefixID.Taboo:
+                    case PrefixID.Furious:
+                    case PrefixID.Keen:
+                    case PrefixID.Forceful:
+                    case PrefixID.Quick:
+                    case PrefixID.Nimble:
+                    case PrefixID.Nasty:
+                    case PrefixID.Manic:
+                    case PrefixID.Strong:
+                    case PrefixID.Zealous:
+                    case PrefixID.Large:
+                    case PrefixID.Intimidating:
+                    case PrefixID.Unpleasant:
+
+                        #endregion mediocre
+
+                        if (++infiniteLoopHackFix < 100)
+                            return false;
+                        else
+                            break;
+
+                    default:
+                        break;
+                }
             }
 
-            infiniteLoopFixHackCounter = 100;
+            infiniteLoopHackFix = 0;
 
             return base.AllowPrefix(item, pre);
         }
