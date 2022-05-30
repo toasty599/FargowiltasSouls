@@ -2682,18 +2682,18 @@ namespace FargowiltasSouls
                 damage = (int)(damage * (1.0 - maxDR / maxSacrifice * scythesSacrificed));
             }
 
+            if (DeerSinewNerf && DeerSinewFreezeCD <= 0 && (damageSource.SourceNPCIndex != -1 || (damageSource.SourceProjectileIndex != -1 && Main.projectile[damageSource.SourceProjectileIndex].aiStyle != ProjAIStyleID.FallingTile)))
+            {
+                DeerSinewFreezeCD = 120;
+                FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 20);
+            }
+
             return true;
         }
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
             WasHurtBySomething = true;
-
-            if (DeerSinewNerf && DeerSinewFreezeCD <= 0)
-            {
-                DeerSinewFreezeCD = 120;
-                FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 20, false);
-            }
 
             if (BeetleEnchantActive)
                 BeetleHurt();
