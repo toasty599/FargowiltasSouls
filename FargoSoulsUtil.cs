@@ -539,7 +539,7 @@ namespace FargowiltasSouls
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.SyncNPC, number: n);
 
-                    PrintText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[n].TypeName));
+                    PrintText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[n].TypeName), new Color(175, 75, 255));
                 }
             }
             else
