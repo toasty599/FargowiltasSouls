@@ -652,11 +652,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Suffocation] = true;
-        }
-
-        public override void OnFirstTick(NPC npc)
-        {
-            base.OnFirstTick(npc);
 
             if (npc.type == NPCID.CultistDragonHead)
             {

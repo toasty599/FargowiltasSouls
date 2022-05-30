@@ -17,11 +17,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
             base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Confused] = true;
-        }
-
-        public override void OnFirstTick(NPC npc)
-        {
-            base.OnFirstTick(npc);
 
             if (Main.rand.NextBool(3))
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(3, 10));

@@ -28,11 +28,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.OnFire] = true;
-        }
-
-        public override void OnFirstTick(NPC npc)
-        {
-            base.OnFirstTick(npc);
 
             for (int i = 0; i < 6; i++)
             {
