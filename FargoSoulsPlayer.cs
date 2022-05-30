@@ -2691,7 +2691,7 @@ namespace FargowiltasSouls
 
             if (DeerSinewNerf && DeerSinewFreezeCD <= 0)
             {
-                DeerSinewFreezeCD = 180;
+                DeerSinewFreezeCD = 120;
                 FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 20, false);
             }
 

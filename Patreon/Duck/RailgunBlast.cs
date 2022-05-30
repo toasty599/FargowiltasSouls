@@ -31,6 +31,8 @@ namespace FargowiltasSouls.Patreon.Duck
 
             Projectile.hide = true;
             Projectile.penetrate = -1;
+
+            Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override void AI()
