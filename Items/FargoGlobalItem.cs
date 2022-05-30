@@ -374,7 +374,7 @@ namespace FargowiltasSouls.Items
 
         public override bool AllowPrefix(Item item, int pre)
         {
-            if (!Main.gameMenu && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
+            if (!Main.gameMenu && !Main.dedServ && Main.LocalPlayer.active && Main.LocalPlayer.TryGetModPlayer(out FargoSoulsPlayer fargoPlayer) && fargoPlayer.SecurityWallet)
             {
                 switch (pre)
                 {
