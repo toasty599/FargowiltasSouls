@@ -11,6 +11,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace FargowiltasSouls.Items
 {
@@ -374,9 +375,9 @@ namespace FargowiltasSouls.Items
 
         public override bool AllowPrefix(Item item, int pre)
         {
-            if (!Main.gameMenu && !Main.dedServ && Main.LocalPlayer.active && Main.LocalPlayer.TryGetModPlayer(out FargoSoulsPlayer fargoPlayer) && fargoPlayer.SecurityWallet)
+            if (pre == -2 && !Main.gameMenu && !Main.dedServ && Main.LocalPlayer.active && Main.LocalPlayer.TryGetModPlayer(out FargoSoulsPlayer fargoPlayer) && fargoPlayer.SecurityWallet)
             {
-                switch (pre)
+                switch (item.prefix)
                 {
                     #region actually bad
 
