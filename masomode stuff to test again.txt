@@ -1802,3 +1802,4 @@ adjusted angry bones bone spray
 iron/dread parry now dont begin cooldowns if you only held shield for 1 tick, meaning you can open chests
 scientific railgun is immune to timestop
 fixed devi bribery localization
+mystic skull contains celestial emblem effect
