@@ -33,7 +33,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             NPCID.Buggy,
             NPCID.Turtle,
             NPCID.TurtleJungle,
-            NPCID.SeaTurtle
+            NPCID.SeaTurtle,
+            NPCID.Duck,
+            NPCID.Duck2,
+            NPCID.DuckWhite,
+            NPCID.DuckWhite2,
+            NPCID.Grebe,
+            NPCID.Grebe2,
+            NPCID.Dolphin
         );
 
         public override void OnFirstTick(NPC npc)
