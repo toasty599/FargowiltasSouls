@@ -107,10 +107,10 @@ namespace FargowiltasSouls
         public bool CopperEnchantActive;
         public int CopperProcCD;
         public bool CrimsonEnchantActive;
-        public bool CrimsonRegen;
-        public int CrimsonTotalToRegen;
-        public int CrimsonRegenSoFar;
-        public int CrimsonRegenTimer;
+        public int CrimsonRegenAmount;
+        //public int CrimsonTotalToRegen;
+        //public int CrimsonRegenSoFar;
+        //public int CrimsonRegenTimer;
         public bool DarkArtistEnchantActive;
         public bool DarkArtistSpawn;
         public int DarkArtistSpawnCD;
@@ -697,7 +697,7 @@ namespace FargowiltasSouls
             PetsActive = true;
             ShadowEnchantActive = false;
             CrimsonEnchantActive = false;
-            CrimsonRegen = false;
+            //CrimsonRegen = false;
             SpectreEnchantActive = false;
             BeeEnchantActive = false;
             SpiderEnchantActive = false;
@@ -2648,18 +2648,7 @@ namespace FargowiltasSouls
 
             if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
             {
-                //if was already healing, kill it
-                if (Player.HasBuff(ModContent.BuffType<CrimsonRegen>()))
-                    damage += CrimsonRegenSoFar;
-                else
-                    Player.AddBuff(ModContent.BuffType<CrimsonRegen>(), 2);
-
-                CrimsonTotalToRegen = (damage - CrimsonRegenSoFar) / 2;
-
-                if (NatureForce)
-                    CrimsonTotalToRegen *= 2;
-
-                CrimsonRegenSoFar = 0;
+                CrimsonEnchant.CrimsonHurt(Player, this, ref damage);
             }
 
             if (StyxSet && !BetsyDashing && !GoldShell && damage > 1 && Player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
