@@ -248,33 +248,6 @@ namespace FargowiltasSouls
             }
         }
 
-
-        public void CrimsonEffect(bool hideVisual)
-        {
-            if (CrimsonRegen && ++CrimsonRegenTimer > 30)
-            {
-                CrimsonRegenTimer = 0;
-
-                int heal = 5;
-
-                HealPlayer(heal);
-
-                CrimsonRegenSoFar += heal;
-
-                //done regenning
-                if (CrimsonRegenSoFar >= CrimsonTotalToRegen)
-                {
-                    CrimsonTotalToRegen = 0;
-                    CrimsonRegenSoFar = 0;
-                    Player.ClearBuff(ModContent.BuffType<CrimsonRegen>());
-                }
-            }
-
-            //Player.crimsonRegen = true;
-
-            CrimsonEnchantActive = true;
-        }
-
         public void DarkArtistEffect(bool hideVisual)
         {
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] == 0)
