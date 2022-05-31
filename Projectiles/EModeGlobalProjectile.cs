@@ -919,17 +919,19 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.PhantasmalEye:
-                    if (!FargoSoulsWorld.MasochistModeReal && NonSwarmFight(projectile, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye))
+                    if (NonSwarmFight(projectile, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye))
                     {
                         if (projectile.ai[0] == 2 && counter > 60) //diving down and homing
                             projectile.velocity.Y = 9;
                         else
                             projectile.position.Y -= projectile.velocity.Y / 4;
 
-                        if (projectile.velocity.X > 1)
-                            projectile.velocity.X = 1;
-                        else if (projectile.velocity.X < -1)
-                            projectile.velocity.X = -1;
+                        float cap = FargoSoulsWorld.MasochistModeReal ? 2 : 1;
+
+                        if (projectile.velocity.X > cap)
+                            projectile.velocity.X = cap;
+                        else if (projectile.velocity.X < -cap)
+                            projectile.velocity.X = -cap;
                     }
                     break;
 

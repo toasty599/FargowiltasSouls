@@ -1818,3 +1818,6 @@ emode fishron p2 no longer spawns an extra sharknado with each cthulunado
 fixed crimetroid lifesteal not working
 
 attack speed cannot go negative
+halved drakovi fish damage
+buffed bbb hit rate
+nerfed ml homing eyes in maso

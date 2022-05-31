@@ -129,7 +129,7 @@ Drastically increases minion speed
                 .AddRecipeGroup("FargowiltasSouls:AnyAncientHallowHead")
                 .AddIngredient(ItemID.AncientHallowedPlateMail)
                 .AddIngredient(ItemID.AncientHallowedGreaves)
-                AddIngredient(ModContent.ItemType<SilverEnchant>())
+                .AddIngredient(ModContent.ItemType<SilverEnchant>())
                 .AddIngredient(ItemID.SwordWhip) //durendal
                 .AddIngredient(ItemID.BouncingShield) //sergent united
                 .AddTile(TileID.CrystalBall)
