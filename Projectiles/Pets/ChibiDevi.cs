@@ -201,7 +201,12 @@ namespace FargowiltasSouls.Projectiles.Pets
 
             Projectile.spriteDirection = Projectile.direction;
 
+
             bool bossAlive = FargoSoulsUtil.AnyBossAlive();
+            //only do idle talk when awake, not a boss fight, and not in danger
+            if (TalkCDs[(int)TalkType.Idle] < 60 && (bossAlive || asleep || player.statLife < player.statLifeMax2 / 2))
+                TalkCDs[(int)TalkType.Idle] = Math.Max(TalkCDs[(int)TalkType.Idle], 12 * 60);
+
             if (bossAlive)
             {
                 TryTalkWithCD(TalkType.BossSpawn, ShortCD);
@@ -211,11 +216,7 @@ namespace FargowiltasSouls.Projectiles.Pets
             }
             else
             {
-                //only do idle talk when awake, not a boss fight, and not in danger
-                if (asleep)
-                    TalkCDs[(int)TalkType.Idle] = Math.Max(TalkCDs[(int)TalkType.Idle], 12 * 60);
-                else if (player.statLife > player.statLifeMax2 / 2)
-                    TryTalkWithCD(TalkType.Idle, MediumCD);
+                TryTalkWithCD(TalkType.Idle, LongCD);
 
                 //wont cheer in boss fight unless over 30 seconds
                 const int timeRequirement = 30 * 60;
@@ -377,6 +378,7 @@ namespace FargowiltasSouls.Projectiles.Pets
 
         public int ShortCD => 600;
         public int MediumCD => Main.rand.Next(3600, 7200);
+        public int LongCD => MediumCD * 2;
 
         public void TryTalkWithCD(TalkType talkType, int CD)
         {

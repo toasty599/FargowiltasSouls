@@ -40,7 +40,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             NPCID.DuckWhite2,
             NPCID.Grebe,
             NPCID.Grebe2,
-            NPCID.Dolphin
+            NPCID.Dolphin,
+            NPCID.Seagull,
+            NPCID.Seagull2
         );
 
         public override void OnFirstTick(NPC npc)

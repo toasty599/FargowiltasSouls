@@ -1807,3 +1807,12 @@ mystic skull contains celestial emblem effect
 rewrote onspawn calls for mp sync uggghhhhhhhhh
 moved random boss spawns to masomode
 added more checks to fix silent security wallet mp crash
+fixed phantom phoenix never losing mythril speedup
+attempted fixing mp client kick issue with low ground
+tims coc crab just drops crate potion now
+tims coc angler fish now drops fishing potion
+fixed anticoagulation not spawning boosters in mp
+changed wraith aura colour to be more obvious
+lowered pixie lacewing drop rate to 1%
+emode fishron p2 no longer spawns an extra sharknado with each cthulunado
+fixed crimetroid lifesteal not working

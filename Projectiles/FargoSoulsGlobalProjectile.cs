@@ -983,7 +983,8 @@ namespace FargowiltasSouls.Projectiles
 
         public override void PostAI(Projectile projectile)
         {
-            FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
+            Player player = Main.player[projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (!TimeFreezeCheck)
             {
@@ -992,13 +993,20 @@ namespace FargowiltasSouls.Projectiles
                     TimeFreezeImmune = true;
             }
 
-            if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
+            if (projectile.whoAmI == player.heldProj || projectile.aiStyle == ProjAIStyleID.HeldProjectile)
             {
                 DeletionImmuneRank = 2;
 
-                Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = 30;
+                if (player.HeldItem.damage > 0 && player.HeldItem.pick == 0)
+                {
+                    modPlayer.WeaponUseTimer = 30;
 
-                modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
+                    modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
+
+                    //because the bow refuses to acknowledge changes in attack speed after initial spawning
+                    if (projectile.type == ProjectileID.DD2PhoenixBow && modPlayer.MythrilEnchantActive && modPlayer.MythrilTimer > -60 && counter > 60)
+                        projectile.Kill();
+                }
             }
 
             if (projectile.hostile && projectile.damage > 0 && canHurt && projectile.GetGlobalProjectile<EModeGlobalProjectile>().EModeCanHurt && Main.LocalPlayer.active && !Main.LocalPlayer.dead) //graze

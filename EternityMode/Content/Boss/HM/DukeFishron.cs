@@ -478,15 +478,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         if (npc.ai[2] == delayForTornadoSpawn && Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Vector2 spawnPos = Vector2.UnitX * npc.direction;
-                            spawnPos = spawnPos.RotatedBy(npc.rotation);
-                            spawnPos *= npc.width + 20f;
-                            spawnPos /= 2f;
-                            spawnPos += npc.Center;
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos.X, spawnPos.Y, 0f, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
-
                             if (FargoSoulsWorld.MasochistModeReal)
                             {
+                                Vector2 spawnPos = Vector2.UnitX * npc.direction;
+                                spawnPos = spawnPos.RotatedBy(npc.rotation);
+                                spawnPos *= npc.width + 20f;
+                                spawnPos /= 2f;
+                                spawnPos += npc.Center;
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos.X, spawnPos.Y, 0f, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
+
                                 SpawnRazorbladeRing(12, 12.5f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0.75f);
                                 SpawnRazorbladeRing(12, 10f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 2f * npc.direction);
                             }

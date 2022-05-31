@@ -1971,8 +1971,7 @@ namespace FargowiltasSouls
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Builder"))
             {
                 BuilderMode = true;
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    NetMessage.SendData(MessageID.SyncPlayer, number: Player.whoAmI);
+                //if (Main.netMode == NetmodeID.MultiplayerClient) NetMessage.SendData(MessageID.SyncPlayer, number: Player.whoAmI);
 
                 for (int i = 0; i < TileLoader.TileCount; i++)
                 {
@@ -1982,11 +1981,17 @@ namespace FargowiltasSouls
                 //placing speed up
                 Player.tileSpeed += 0.5f;
                 Player.wallSpeed += 0.5f;
+
                 //toolbox
-                if (Player.HeldItem.createWall == 0)
+                if (Player.HeldItem.createWall == 0) //tiles
                 {
-                    Player.tileRangeX += 50;
-                    Player.tileRangeY += 50;
+                    Player.tileRangeX += 60;
+                    Player.tileRangeY += 60;
+                }
+                else //walls
+                {
+                    Player.tileRangeX += 20;
+                    Player.tileRangeY += 20;
                 }
             }
 

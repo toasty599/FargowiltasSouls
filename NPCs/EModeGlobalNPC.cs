@@ -928,11 +928,11 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.Crab:
-                    {
-                        IItemDropRule rule = ItemDropRule.Common(ItemID.CratePotion, 2, 1, 3);
-                        rule.OnFailedRoll(ItemDropRule.Common(ItemID.FishingPotion, 1, 1, 3));
-                        TimsConcoctionDrop(rule);
-                    }
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.CratePotion, 1, 1, 3));
+                    break;
+
+                case NPCID.AnglerFish:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.FishingPotion, 1, 1, 3));
                     break;
 
                 case NPCID.IceSlime:
@@ -993,7 +993,6 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.PinkJellyfish:
                 case NPCID.BlueJellyfish:
                 case NPCID.GreenJellyfish:
-                case NPCID.AnglerFish:
                     TimsConcoctionDrop(ItemDropRule.Common(ItemID.ShinePotion, 1, 1, 3));
                     break;
 
