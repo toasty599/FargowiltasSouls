@@ -1806,3 +1806,4 @@ mystic skull contains celestial emblem effect
 
 rewrote onspawn calls for mp sync uggghhhhhhhhh
 moved random boss spawns to masomode
+added more checks to fix silent security wallet mp crash
