@@ -1816,3 +1816,5 @@ changed wraith aura colour to be more obvious
 lowered pixie lacewing drop rate to 1%
 emode fishron p2 no longer spawns an extra sharknado with each cthulunado
 fixed crimetroid lifesteal not working
+
+attack speed cannot go negative

@@ -1700,6 +1700,9 @@ namespace FargowiltasSouls
                 AttackSpeed -= .1f;
             }
 
+            if (AttackSpeed < .1f)
+                AttackSpeed = .1f;
+
             return AttackSpeed;
         }
 
