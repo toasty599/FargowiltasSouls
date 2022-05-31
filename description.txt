@@ -2,12 +2,9 @@ Fargo's Souls Mod is a content mod that adds the powerful Enchantments and Souls
 Features the highly challenging Eternity Mode!
 
 NEW UPDATE - V 1.4
-
-
--Pumpkin Enchant, pumpkin damage type is now considered neutral, pumpkins only flash when fully grown
-
--Amalgamated Arrows now have the updated Chlorophyte arrows effect
-
--Removed Silver Enchant effects from Ancient Hallowed
+-Ported to 1.4
+-Tons of new Eternity Mode drops, boss changes, and adjustments
+-Tons of Enchantment reworks and adjustements
+-Much more
 
 -See the wiki for full details!
