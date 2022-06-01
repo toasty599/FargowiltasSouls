@@ -2547,7 +2547,7 @@ namespace FargowiltasSouls
 
             if (Player.gravDir > 0 && Player.GetToggleValue("MasoGolem"))
             {
-                if (lihzahrdFallCD <= 0 && !Player.mount.Active && Player.controlDown && !Player.controlJump && Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
+                if (lihzahrdFallCD <= 0 && !Player.mount.Active && Player.controlDown && Player.releaseDown && !Player.controlJump && Player.doubleTapCardinalTimer[0] > 0 && Player.doubleTapCardinalTimer[0] != 15)
                 {
                     if (Player.velocity.Y != 0f)
                     {
@@ -2555,13 +2555,16 @@ namespace FargowiltasSouls
                         {
                             Player.velocity.Y = 15f;
                         }
+
+                        lihzahrdFallCD = 60;
+
                         if (GroundPound <= 0)
                         {
                             GroundPound = 1;
-                            lihzahrdFallCD = 60;
                         }
                     }
                 }
+
                 if (GroundPound > 0)
                 {
                     if (Player.velocity.Y < 0f || Player.mount.Active)
@@ -2574,7 +2577,7 @@ namespace FargowiltasSouls
                         {
                             int x = (int)(Player.Center.X) / 16;
                             int y = (int)(Player.position.Y + Player.height + 8) / 16;
-                            if (GroundPound > 15 && x >= 0 && x < Main.maxTilesX && y >= 0 && y < Main.maxTilesY
+                            if (/*GroundPound > 15 && */x >= 0 && x < Main.maxTilesX && y >= 0 && y < Main.maxTilesY
                                 && Main.tile[x, y] != null && Main.tile[x, y].HasUnactuatedTile && Main.tileSolid[Main.tile[x, y].TileType])
                             {
                                 GroundPound = 0;
@@ -2608,6 +2611,13 @@ namespace FargowiltasSouls
                     {
                         Player.maxFallSpeed = 15f;
                         GroundPound++;
+
+                        for (int i = 0; i < 5; i++)
+                        {
+                            int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch, Scale: 1.5f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 0.2f;
+                        }
                     }
                 }
             }

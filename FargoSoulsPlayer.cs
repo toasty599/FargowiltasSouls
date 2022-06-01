@@ -1147,10 +1147,6 @@ namespace FargowiltasSouls
             //if ((CobaltEnchantActive || AncientCobaltEnchantActive) && CobaltCD > 0)
             //    CobaltCD--;
 
-
-            if (LihzahrdTreasureBoxItem != null)
-                LihzahrdTreasureBoxUpdate();
-
             //horizontal dash
             if (MonkDashing > 0)
             {
@@ -1328,6 +1324,9 @@ namespace FargowiltasSouls
             if (DeerSinew)
                 DeerSinewEffect();
 
+            if (LihzahrdTreasureBoxItem != null)
+                LihzahrdTreasureBoxUpdate();
+
             #endregion dashes
 
             if (PrecisionSealNoDashNoJump)
@@ -1344,6 +1343,8 @@ namespace FargowiltasSouls
                 dashCD = 2;
                 IsDashingTimer = 0;
                 HasDash = false;
+                if (lihzahrdFallCD < 2)
+                    lihzahrdFallCD = 2;
             }
 
             if (DeerclawpsItem != null)
