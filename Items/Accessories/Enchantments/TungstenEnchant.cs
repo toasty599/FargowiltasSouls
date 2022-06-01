@@ -53,8 +53,10 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
 
             modPlayer.TungstenEnchantActive = true;
 
-            if (!modPlayer.TerrariaSoul)
+            if (!modPlayer.TerrariaSoul && player.HeldItem.damage > 0 && player.HeldItem.DamageType == DamageClass.Melee && !player.HeldItem.noMelee)
+            {
                 modPlayer.Player.GetAttackSpeed(DamageClass.Melee) -= 0.5f;
+            }
         }
 
         public static float TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
