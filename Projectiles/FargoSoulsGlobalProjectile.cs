@@ -346,7 +346,8 @@ namespace FargowiltasSouls.Projectiles
             ProjectileID.DD2PhoenixBow,
             ProjectileID.LaserMachinegun,
             ProjectileID.PiercingStarlight,
-            ProjectileID.Celeb2Weapon
+            ProjectileID.Celeb2Weapon,
+            ProjectileID.Xenopopper
         };
 
         public override bool PreAI(Projectile projectile)
