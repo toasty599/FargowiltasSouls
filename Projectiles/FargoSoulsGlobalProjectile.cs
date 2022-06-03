@@ -918,7 +918,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.Flamelash:
                 case ProjectileID.MagicMissile:
                 case ProjectileID.RainbowRodBullet:
-                    if (counter > 900 && Main.player[projectile.owner].ownedProjectileCounts[projectile.type] > 1)
+                    if (projectile.ai[0] != -1 && projectile.ai[1] != -1 && counter > 900 && Main.player[projectile.owner].ownedProjectileCounts[projectile.type] > 1)
                     {
                         projectile.Kill();
                         Main.player[projectile.owner].ownedProjectileCounts[projectile.type] -= 1;
