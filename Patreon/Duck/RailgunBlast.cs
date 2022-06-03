@@ -43,6 +43,8 @@ namespace FargowiltasSouls.Patreon.Duck
             return base.Colliding(projHitbox, targetHitbox);
         }
 
+        Vector2 TipOffset => 18f * Projectile.scale * Projectile.velocity;
+
         public override void AI()
         {
             base.AI();
@@ -62,7 +64,7 @@ namespace FargowiltasSouls.Patreon.Duck
 
             if (player.active && !player.dead && !player.ghost)
             {
-                Projectile.Center = player.Center + (18f * Projectile.scale + 50f) * Projectile.velocity + Main.rand.NextVector2Circular(5, 5);
+                Projectile.Center = player.Center + 50f * Projectile.velocity + TipOffset + Main.rand.NextVector2Circular(5, 5);
             }
             else
             {
