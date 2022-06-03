@@ -35,6 +35,14 @@ namespace FargowiltasSouls.Patreon.Duck
             Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) < TipOffset.Length() * 2)
+                return true;
+
+            return base.Colliding(projHitbox, targetHitbox);
+        }
+
         public override void AI()
         {
             base.AI();
