@@ -72,10 +72,10 @@ namespace FargowiltasSouls
         }
 
         public static NPC GetSourceNPC(this Projectile projectile)
-            => projectile.GetGlobalProjectile<a_SourceNPCGlobalProjectile>().sourceNPC;
+            => projectile.GetGlobalProjectile<A_SourceNPCGlobalProjectile>().sourceNPC;
 
         public static void SetSourceNPC(this Projectile projectile, NPC npc)
-            => projectile.GetGlobalProjectile<a_SourceNPCGlobalProjectile>().sourceNPC = npc;
+            => projectile.GetGlobalProjectile<A_SourceNPCGlobalProjectile>().sourceNPC = npc;
 
         public static float ActualClassDamage(this Player player, DamageClass damageClass)
             => player.GetTotalDamage(damageClass).Additive * player.GetTotalDamage(damageClass).Multiplicative;
