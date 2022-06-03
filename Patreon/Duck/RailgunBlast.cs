@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Patreon.Duck
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) < TipOffset.Length() * 2)
+            if (Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) < TipOffset.Length())
                 return true;
 
             return base.Colliding(projHitbox, targetHitbox);
