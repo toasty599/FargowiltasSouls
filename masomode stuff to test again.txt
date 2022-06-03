@@ -1834,3 +1834,4 @@ buffed gaia armor, gives additional 3 slots, 5 total
 fixed tiny eaters despawning npcs on hit
 blizzard staff -33% damage -33% speed
 razorpine -15% damage
+maso ml nerfed, magic phase has 1 distortion field
