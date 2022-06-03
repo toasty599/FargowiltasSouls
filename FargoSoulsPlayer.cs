@@ -1244,8 +1244,14 @@ namespace FargowiltasSouls
             if (GaiaOffense && !GaiaSet)
                 GaiaOffense = false;
 
-            if (QueenStingerItem != null && QueenStingerCD > 0)
-                QueenStingerCD--;
+            if (QueenStingerItem != null)
+            {
+                if (Player.honey)
+                    Player.GetArmorPenetration(DamageClass.Generic) += 10;
+
+                if (QueenStingerCD > 0)
+                    QueenStingerCD--;
+            }
 
             if (BeetleEnchantDefenseTimer > 0)
                 BeetleEnchantDefenseTimer--;
