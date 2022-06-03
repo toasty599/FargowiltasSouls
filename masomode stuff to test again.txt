@@ -1824,3 +1824,6 @@ nerfed ml homing eyes in maso
 tungsten ench only reduces melee speed with actual swords with a true melee hitbox
 
 fixed tungsten enlarging projs it shoudlnt e.g. agitatling lens
+fixed soul of the master buff still saying soul of siblings
+updated soul of master buff icon
+dragons demise flames draw behind other projectiles
