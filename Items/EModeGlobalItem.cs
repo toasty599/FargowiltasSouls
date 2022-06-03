@@ -110,7 +110,7 @@ namespace FargowiltasSouls.Items
                     break;
 
                 case ItemID.ChlorophyteBullet:
-                    ItemBalance(tooltips, EModeChange.Nerf, "ChlorophyteBullet");
+                    //ItemBalance(tooltips, EModeChange.Nerf, "ChlorophyteBullet");
                     //tooltips.Add(new TooltipLine(Mod, "masoNerf3", "[c/ff0000:Eternity Mode:] Further reduced damage"));
                     break;
 

@@ -1828,3 +1828,4 @@ fixed soul of the master buff still saying soul of siblings
 updated soul of master buff icon
 dragons demise flames draw behind other projectiles
 fixed scientific railgun not having a hitbox where the laser isnt at full size (close to player)
+removed erroneous claim of chloro bullets being nerfed (theyre not)
