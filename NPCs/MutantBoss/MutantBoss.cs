@@ -2570,7 +2570,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     Attack();
                 }
             }
-            else if (NPC.ai[1] == 165)
+            else if (FargoSoulsWorld.MasochistModeReal && NPC.ai[1] == 165)
             {
                 Attack();
             }

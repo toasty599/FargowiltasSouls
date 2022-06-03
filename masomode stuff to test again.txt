@@ -1835,3 +1835,5 @@ fixed tiny eaters despawning npcs on hit
 blizzard staff -33% damage -33% speed
 razorpine -15% damage
 maso ml nerfed, magic phase has 1 distortion field
+maso mutant lifesteals on penetrator hits
+fixed mutant p2 direct throw operating at double speed in all modes
