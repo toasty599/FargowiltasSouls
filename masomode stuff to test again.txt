@@ -1822,3 +1822,5 @@ halved drakovi fish damage
 buffed bbb hit rate
 nerfed ml homing eyes in maso
 tungsten ench only reduces melee speed with actual swords with a true melee hitbox
+
+fixed tungsten enlarging projs it shoudlnt e.g. agitatling lens

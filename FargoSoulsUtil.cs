@@ -554,6 +554,11 @@ namespace FargowiltasSouls
             SpawnBossTryFromNPC(playerTarget, type, bossType);
         }
 
+        public static bool IsProjSourceItemUseReal(Projectile proj, IEntitySource source)
+        {
+            return source is EntitySource_ItemUse parent && parent.Item.type == Main.player[proj.owner].HeldItem.type;
+        }
+
         #region npcloot
 
         public static bool LockEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)

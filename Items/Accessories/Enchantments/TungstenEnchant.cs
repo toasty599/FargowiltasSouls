@@ -101,7 +101,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             }
             else if (FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source))
             {
-                if (source is EntitySource_ItemUse)
+                if (FargoSoulsUtil.IsProjSourceItemUseReal(projectile, source))
                 {
                     if (modPlayer.TungstenCD == 0)
                         canAffect = true;
