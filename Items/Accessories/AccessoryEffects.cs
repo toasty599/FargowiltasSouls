@@ -2264,7 +2264,7 @@ namespace FargowiltasSouls
 
                 if (Player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
                 {
-                    SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/NPC_Hit_0"), Player.Center);
+                    SoundEngine.PlaySound(SoundID.NPCHit1, Player.Center);
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
                         int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);

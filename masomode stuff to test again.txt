@@ -1831,3 +1831,4 @@ fixed scientific railgun not having a hitbox where the laser isnt at full size (
 removed erroneous claim of chloro bullets being nerfed (theyre not)
 refactor to a_sourcenpcglobproj to A_sourcenpcglobproj
 buffed gaia armor, gives additional 3 slots, 5 total
+fixed tiny eaters despawning npcs on hit
