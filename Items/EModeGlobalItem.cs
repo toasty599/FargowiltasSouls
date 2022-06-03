@@ -209,11 +209,10 @@ namespace FargowiltasSouls.Items
                 //    break;
 
                 //case ItemID.Beenade:
-                //case ItemID.Razorpine:
-                //case ItemID.BlizzardStaff:
-                //    tooltips.Add(new TooltipLine(Mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
-                //    tooltips.Add(new TooltipLine(Mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
-                //    break;
+                case ItemID.BlizzardStaff:
+                    ItemBalance(tooltips, EModeChange.Nerf, "Damage", 33);
+                    ItemBalance(tooltips, EModeChange.Nerf, "Speed", 33);
+                    break;
 
                 //case ItemID.Tsunami:
                 //case ItemID.Flairon:
@@ -227,7 +226,8 @@ namespace FargowiltasSouls.Items
                 //case ItemID.RavenStaff:
                 //case ItemID.XenoStaff:
                 //case ItemID.Phantasm:
-                //case ItemID.NebulaArcanum::
+                //case ItemID.NebulaArcanum:
+                case ItemID.Razorpine:
                 case ItemID.StardustDragonStaff:
                 case ItemID.SDMG:
                 case ItemID.LastPrism:
