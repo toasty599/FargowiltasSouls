@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     float ai0 = npc.whoAmI;
                     float ai1 = vel.Length() / Main.rand.Next(30, 90); //window in which they begin homing in
 
-                    int healPerOrb = totalHealPerHit / max;
+                    int healPerOrb = (int)(totalHealPerHit / max * Main.rand.NextFloat(0.95f, 1.05f));
 
                     if (target.whoAmI == Main.myPlayer && target.ownedProjectileCounts[ModContent.ProjectileType<MutantHeal>()] < 10)
                     {
