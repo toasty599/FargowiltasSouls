@@ -21,6 +21,19 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PumpkinMoon
             FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BloodyMachete, 10));
         }
 
-        public override bool PreKill(NPC npc) => Main.pumpkinMoon && NPC.waveNumber >= 15;
+        public override bool PreKill(NPC npc)
+        {
+            if (Main.pumpkinMoon && NPC.waveNumber < 12)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ItemID.Heart);
+                }
+                return false;
+            }
+
+            return base.PreKill(npc);
+        }
     }
 }

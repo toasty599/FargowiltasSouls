@@ -442,7 +442,7 @@ namespace FargowiltasSouls
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            if ((Main.snowMoon || Main.pumpkinMoon) && NPC.waveNumber > 1)
+            if ((Main.snowMoon && NPC.waveNumber < 20) || (Main.pumpkinMoon && NPC.waveNumber < 15))
             {
                 NPC.waveNumber--;
                 NPC.waveKills = 0;

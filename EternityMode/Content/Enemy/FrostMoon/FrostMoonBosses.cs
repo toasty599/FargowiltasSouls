@@ -21,6 +21,19 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
             FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Present, 1, 1, 5));
         }
 
-        public override bool PreKill(NPC npc) => Main.snowMoon && NPC.waveNumber >= 20;
+        public override bool PreKill(NPC npc)
+        {
+            if (Main.snowMoon && NPC.waveNumber < 15)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ItemID.Heart);
+                }
+                return false;
+            }
+
+            return base.PreKill(npc);
+        }
     }
 }

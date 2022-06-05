@@ -932,7 +932,7 @@ Mods: {
 
 			OOASet: Set bonus increases minimum summon damage when you attack using other classes
 			MiningHelmet: Increases Undead Miner spawn rates
-			MoonsDrops: Bosses and minibosses drop no loot until final wave
+			MoonsDrops: Bosses and minibosses drop no items until late waves
 			MoonsWaves: Dying decreases wave progress
 
 			WhipSpeed: Does not benefit from melee speed bonuses
