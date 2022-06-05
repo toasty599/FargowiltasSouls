@@ -440,6 +440,17 @@ namespace FargowiltasSouls
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
         }
 
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            if ((Main.snowMoon || Main.pumpkinMoon) && NPC.waveNumber > 1)
+            {
+                NPC.waveNumber--;
+                NPC.waveKills = 0;
+
+                FargoSoulsUtil.PrintLocalization($"Mods.FargowiltasSouls.Message.MoonsDeathPenalty", new Color(175, 75, 255));
+            }
+        }
+
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
             if (!FargoSoulsWorld.EternityMode)
@@ -572,7 +583,7 @@ namespace FargowiltasSouls
             }
 
             if (ProjectileID.Sets.IsAWhip[item.shoot] && item.type != ItemID.BlandWhip)
-                return 0.5f;
+                return 2f / 3f;
 
             return 1f;
         }

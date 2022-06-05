@@ -1841,3 +1841,10 @@ fetid -33% speed
 tungsten no longer gives boosted damage on true melee hits
 goblin nerfs and event locks are now deactivated post-any boss properly
 fixed ml p2 nebula blaze and moon not doing damage
+pumkin/frost moon
+	mini/bosses drop no loot until final wave
+	dying has an actual penalty
+reduced how many frsot shards flockos makes on death
+fishron no longer goes invul/unchaseable by homing for 1 tick which completely fucked summoner
+whips -50% -> -33%
+minion depreciation max rampup point 9 -> 12

@@ -314,6 +314,12 @@ namespace FargowiltasSouls.Items
                     ItemBalance(tooltips, EModeChange.Neutral, "MiningHelmet");
                     break;
 
+                case ItemID.PumpkinMoonMedallion:
+                case ItemID.NaughtyPresent:
+                    ItemBalance(tooltips, EModeChange.Nerf, "MoonsDrops");
+                    ItemBalance(tooltips, EModeChange.Nerf, "MoonsWaves");
+                    break;
+
                 default:
                     break;
             }
@@ -321,7 +327,7 @@ namespace FargowiltasSouls.Items
             if (item.shoot > ProjectileID.None && ProjectileID.Sets.IsAWhip[item.shoot])
             {
                 if (item.type != ItemID.BlandWhip)
-                    ItemBalance(tooltips, EModeChange.Nerf, "Damage", 50);
+                    ItemBalance(tooltips, EModeChange.Nerf, "Damage", 33);
                 ItemBalance(tooltips, EModeChange.Nerf, "WhipSpeed");
                 ItemBalance(tooltips, EModeChange.Nerf, "WhipStack");
             }
