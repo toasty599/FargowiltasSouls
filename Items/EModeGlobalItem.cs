@@ -264,6 +264,7 @@ namespace FargowiltasSouls.Items
                 //    tooltips.Add(new TooltipLine(Mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                 //    break;
 
+                case ItemID.FetidBaghnakhs:
                 case ItemID.DD2BallistraTowerT1Popper:
                 case ItemID.DD2BallistraTowerT2Popper:
                 case ItemID.DD2BallistraTowerT3Popper:

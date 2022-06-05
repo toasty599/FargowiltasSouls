@@ -2151,10 +2151,10 @@ namespace FargowiltasSouls
                 crit = false;
             }
 
-            if (TungstenEnchantActive && Toggler != null && Player.GetToggleValue("Tungsten"))
-            {
-                TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit, item.DamageType);
-            }
+            //if (TungstenEnchantActive && Toggler != null && Player.GetToggleValue("Tungsten"))
+            //{
+            //    TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit, item.DamageType);
+            //}
 
             ModifyHitNPCBoth(target, ref damage, ref crit, item.DamageType);
         }

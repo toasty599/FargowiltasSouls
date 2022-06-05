@@ -551,9 +551,7 @@ namespace FargowiltasSouls
                 //case ItemID.Grenade:
                 //case ItemID.StickyGrenade:
                 //case ItemID.BouncyGrenade:
-                //    AttackSpeed *= 2f / 3f;
-                //    return 1f;
-
+                case ItemID.FetidBaghnakhs:
                 case ItemID.DD2BallistraTowerT1Popper:
                 case ItemID.DD2BallistraTowerT2Popper:
                 case ItemID.DD2BallistraTowerT3Popper:
