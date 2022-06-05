@@ -1849,3 +1849,5 @@ reduced how many frsot shards flockos makes on death
 fishron no longer goes invul/unchaseable by homing for 1 tick which completely fucked summoner
 whips -50% -> -33%
 minion depreciation max rampup point 9 -> 12
+
+updated mutant ray sprite
