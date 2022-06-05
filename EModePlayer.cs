@@ -507,9 +507,9 @@ namespace FargowiltasSouls
                 //    return 2f / 3f;
 
                 //case ItemID.Beenade:
-                case ItemID.BlizzardStaff:
-                    AttackSpeed *= 2f / 3f;
-                    return 2f / 3f;
+                //case ItemID.BlizzardStaff:
+                //    AttackSpeed *= 2f / 3f;
+                //    return 2f / 3f;
 
                 //case ItemID.DD2BetsyBow:
                 //case ItemID.Uzi:
@@ -541,7 +541,7 @@ namespace FargowiltasSouls
                 //case ItemID.XenoStaff:
                 //case ItemID.NebulaArcanum:
                 //case ItemID.Phantasm:
-                case ItemID.Razorpine:
+                //case ItemID.Razorpine:
                 case ItemID.StardustDragonStaff:
                 case ItemID.SDMG:
                 case ItemID.LastPrism:

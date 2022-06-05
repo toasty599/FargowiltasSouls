@@ -209,10 +209,10 @@ namespace FargowiltasSouls.Items
                 //    break;
 
                 //case ItemID.Beenade:
-                case ItemID.BlizzardStaff:
-                    ItemBalance(tooltips, EModeChange.Nerf, "Damage", 33);
-                    ItemBalance(tooltips, EModeChange.Nerf, "Speed", 33);
-                    break;
+                //case ItemID.BlizzardStaff:
+                //    ItemBalance(tooltips, EModeChange.Nerf, "Damage", 33);
+                //    ItemBalance(tooltips, EModeChange.Nerf, "Speed", 33);
+                //    break;
 
                 //case ItemID.Tsunami:
                 //case ItemID.Flairon:
@@ -227,7 +227,7 @@ namespace FargowiltasSouls.Items
                 //case ItemID.XenoStaff:
                 //case ItemID.Phantasm:
                 //case ItemID.NebulaArcanum:
-                case ItemID.Razorpine:
+                //case ItemID.Razorpine:
                 case ItemID.StardustDragonStaff:
                 case ItemID.SDMG:
                 case ItemID.LastPrism:
