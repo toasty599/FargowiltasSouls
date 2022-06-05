@@ -1839,3 +1839,4 @@ fixed autofire magic missile stack fix despawning projs that are no longer follo
 queen stinger and sdf nerfed, you only get armor pen while you have honey buff
 fetid -33% speed
 tungsten no longer gives boosted damage on true melee hits
+goblin nerfs and event locks are now deactivated post-any boss properly
