@@ -1851,3 +1851,4 @@ whips -50% -> -33%
 minion depreciation max rampup point 9 -> 12
 
 updated mutant ray sprite
+plantera crystal leaves cant be hit (targeted) by whips
