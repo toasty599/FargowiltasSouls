@@ -1852,3 +1852,4 @@ minion depreciation max rampup point 9 -> 12
 
 updated mutant ray sprite
 plantera crystal leaves cant be hit (targeted) by whips
+empress doesnt have homing resist against minions
