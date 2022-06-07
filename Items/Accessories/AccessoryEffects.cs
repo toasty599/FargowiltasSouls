@@ -2366,7 +2366,7 @@ namespace FargowiltasSouls
             Vector2 position = Player.Center;
             Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position);
 
-            if (damageType == DamageClass.Melee) //fireball
+            if (damageType == DamageClass.Melee || damageType == DamageClass.MeleeNoSpeed) //fireball
             {
                 SoundEngine.PlaySound(SoundID.Item34, position);
                 for (int i = 0; i < 3; i++)
@@ -2389,7 +2389,7 @@ namespace FargowiltasSouls
             {
                 Projectile.NewProjectile(Player.GetSource_Accessory(CelestialRuneItem), position, velocity * 4.25f, ModContent.ProjectileType<CelestialRuneIceMist>(), (int)(50f * Player.ActualClassDamage(DamageClass.Magic)), 4f, Player.whoAmI);
             }
-            if (damageType == DamageClass.Summon) //ancient vision
+            if (damageType == DamageClass.Summon || damageType == DamageClass.MagicSummonHybrid || damageType == DamageClass.SummonMeleeSpeed) //ancient vision
             {
                 FargoSoulsUtil.NewSummonProjectile(Player.GetSource_Accessory(CelestialRuneItem), position, velocity * 16f, ModContent.ProjectileType<CelestialRuneAncientVision>(), 50, 3f, Player.whoAmI);
             }
@@ -2400,7 +2400,7 @@ namespace FargowiltasSouls
             Vector2 position = Player.Center;
             Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position);
 
-            if (damageType == DamageClass.Melee) //flaming jack
+            if (damageType == DamageClass.Melee || damageType == DamageClass.MeleeNoSpeed) //flaming jack
             {
                 float distance = 2000f;
                 int target = -1;
@@ -2433,7 +2433,7 @@ namespace FargowiltasSouls
                     Projectile.NewProjectile(Player.GetSource_Accessory(PumpkingsCapeItem), position, newVel, ProjectileID.Bat, (int)(45f * Player.ActualClassDamage(DamageClass.Magic)), 3f, Player.whoAmI);
                 }
             }
-            if (damageType == DamageClass.Summon)
+            if (damageType == DamageClass.Summon || damageType == DamageClass.MagicSummonHybrid || damageType == DamageClass.SummonMeleeSpeed)
             {
                 const int max = 6;
                 for (int i = 0; i < max; i++)
