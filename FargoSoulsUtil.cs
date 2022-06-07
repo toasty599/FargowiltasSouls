@@ -559,6 +559,11 @@ namespace FargowiltasSouls
             return source is EntitySource_ItemUse parent && parent.Item.type == Main.player[proj.owner].HeldItem.type;
         }
 
+        public static bool CountsAsClass(this DamageClass damageClass, DamageClass intendedClass)
+        {
+            return damageClass == intendedClass || damageClass.GetEffectInheritance(intendedClass);
+        }
+
         #region npcloot
 
         public static bool LockEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)
