@@ -331,7 +331,7 @@ namespace FargowiltasSouls.Items
                 ItemBalance(tooltips, EModeChange.Nerf, "WhipSpeed");
                 ItemBalance(tooltips, EModeChange.Nerf, "WhipStack");
             }
-            else if (item.DamageType == DamageClass.Summon)
+            else if (item.CountsAsClass(DamageClass.Summon))
             {
                 if (!(EModeGlobalProjectile.IgnoreMinionNerf.TryGetValue(item.shoot, out bool ignoreNerf) && ignoreNerf))
                     ItemBalance(tooltips, EModeChange.Nerf, "MinionStack");
