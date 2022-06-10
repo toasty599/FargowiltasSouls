@@ -1856,3 +1856,4 @@ empress doesnt have homing resist against minions
 fixed spirit champ having wrong color gores
 added trojan squirrel relic
 added eri trophy
+fixed destroyer divide by zero error
