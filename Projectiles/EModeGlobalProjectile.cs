@@ -26,9 +26,9 @@ namespace FargowiltasSouls.Projectiles
         public bool HasKillCooldown;
         public bool EModeCanHurt = true;
         public int NerfDamageBasedOnProjTypeCount;
+        public bool altBehaviour;
 
         private int counter;
-        private bool altBehaviour;
         private bool preAICheckDone;
         private bool firstTickAICheckDone;
 
@@ -240,6 +240,14 @@ namespace FargowiltasSouls.Projectiles
                     //each lifesteal hits timer again when above 33% life (stacks with above, total 1/3rd lifesteal rate)
                     if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 * 2 / 3)
                         Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
+                    break;
+
+                case ProjectileID.Cthulunado:
+                    if (NonSwarmFight(projectile, NPCID.DukeFishron) && FargoSoulsWorld.MasochistModeReal)
+                    {
+                        if (projectile.ai[1] == 25 || (sourceProj is Projectile && sourceProj.GetGlobalProjectile<EModeGlobalProjectile>().altBehaviour))
+                            altBehaviour = true;
+                    }
                     break;
 
                 case ProjectileID.DeerclopsIceSpike: //note to future self: these are all mp compatible apparently?
