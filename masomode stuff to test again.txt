@@ -1858,3 +1858,4 @@ added trojan squirrel relic
 added eri trophy
 fixed destroyer divide by zero error
 fixed cultist immune to whips duirint ritual
+lump no longer penalizes dr
