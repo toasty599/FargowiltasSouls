@@ -1005,12 +1005,14 @@ namespace FargowiltasSouls.Projectiles
                 }
             }
 
-            if (projectile.hostile && projectile.damage > 0 && canHurt && projectile.GetGlobalProjectile<EModeGlobalProjectile>().EModeCanHurt && Main.LocalPlayer.active && !Main.LocalPlayer.dead) //graze
+            //graze
+            if (projectile.hostile && projectile.damage > 0 
+                && Main.LocalPlayer.active && !Main.LocalPlayer.dead)
             {
                 FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
                 if (fargoPlayer.Graze && --GrazeCD < 0 && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                 {
-                    if (GrazeCheck(projectile))
+                    if (ProjectileLoader.CanDamage(projectile) != false && GrazeCheck(projectile))
                     {
                         double grazeCap = 0.25;
                         if (fargoPlayer.MutantEyeItem != null)
@@ -1087,8 +1089,6 @@ namespace FargowiltasSouls.Projectiles
             if (!canHurt)
                 return false;
             if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
-                return false;
-            if (target.GetModPlayer<FargoSoulsPlayer>().PrecisionSealHurtbox && !projectile.Colliding(projectile.Hitbox, target.GetModPlayer<FargoSoulsPlayer>().GetPrecisionHurtbox()))
                 return false;
             return true;
         }

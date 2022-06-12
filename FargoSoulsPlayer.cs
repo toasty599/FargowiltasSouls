@@ -2645,6 +2645,18 @@ namespace FargowiltasSouls
             if (TryParryAttack())
                 return false;
 
+            if (PrecisionSealHurtbox)
+            {
+                if (damageSource.SourceProjectileIndex != -1)
+                {
+                    Projectile projectile = Main.projectile[damageSource.SourceProjectileIndex];
+                    if (!projectile.Colliding(projectile.Hitbox, GetPrecisionHurtbox()))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (Player.whoAmI == Main.myPlayer && !noDodge && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
             {
                 Squeak(Player.Center);
