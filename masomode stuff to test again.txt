@@ -1879,3 +1879,4 @@ fixed nature force having outdated snow descirption
 snow ench has a warning when about to end
 emode ml nerfed, null curse no longer disables dodges
 qs spikes ignore tiles
+spider ench buff, crits for x1.5, was x1.25
