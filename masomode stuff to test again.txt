@@ -1888,3 +1888,4 @@ fixed silver ench speeding up timber squirrel's explosion jumps
 fixed mutant's gift revealing maso exists before it's actually unlocked
 fixed low ground being removeable by nurse
 fixed deerclops inflicting low ground at 100 units range, not 1000 as intended
+maso eoc no longer spawns servants in p3
