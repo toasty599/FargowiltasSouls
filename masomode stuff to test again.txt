@@ -1870,3 +1870,4 @@ refactors to graze, ancient hallowed shield, turtle shell
 precision seal hurtbox reimplementation
 spooky ench scythes pierce reduced to 3, now is destroyed on hitting a tile (but not when spawned inside one)
 betsy dash and penetrator remove your hook now
+qs nerfed, spawns 4 subjects per wave (was 6)
