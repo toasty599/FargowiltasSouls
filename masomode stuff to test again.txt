@@ -1873,3 +1873,4 @@ betsy dash and penetrator remove your hook now
 qs nerfed, spawns 4 subjects per wave (was 6)
 infested can stack duration again
 fixed certain debuffs having a "flickering" effect when applied as aura
+nerfed nailhead duration and frequency of attack
