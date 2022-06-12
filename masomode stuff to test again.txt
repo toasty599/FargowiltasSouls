@@ -1891,3 +1891,5 @@ fixed deerclops inflicting low ground at 100 units range, not 1000 as intended
 maso eoc no longer spawns servants in p3
 dune splicer drops oasis crate
 wyvern drops sky crate if killed phm
+some adjustments to copper lightning to nerf it
+terra lightning targets 5 at once, was 10
