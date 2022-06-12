@@ -1881,3 +1881,4 @@ emode ml nerfed, null curse no longer disables dodges
 qs spikes ignore tiles
 fixed jungle mimic coins having wrong damage type
 tims coc fishing potion is now from flying fish, was angler fish
+fixed mind break ignoring summon enemy focus
