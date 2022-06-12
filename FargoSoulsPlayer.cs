@@ -186,11 +186,11 @@ namespace FargowiltasSouls
         public bool squireReduceIframes;
         public bool StardustEnchantActive;
         public bool FreezeTime;
-        public int freezeLength = TIMESTOP_DURATION;
+        public int freezeLength;
         public const int TIMESTOP_DURATION = 540; //300
         public bool ChillSnowstorm;
-        public int chillLength = CHILL_DURATION;
-        public const int CHILL_DURATION = 600;
+        public int chillLength;
+        public int CHILL_DURATION => FrostEnchantActive ? 900 : 600;
         public bool TikiEnchantActive;
         public bool TikiMinion;
         public int actualMinions;
@@ -1004,10 +1004,10 @@ namespace FargowiltasSouls
             NoUsingItems = false;
 
             FreezeTime = false;
-            freezeLength = TIMESTOP_DURATION;
+            freezeLength = 0;
 
             ChillSnowstorm = false;
-            chillLength = CHILL_DURATION;
+            chillLength = 0;
 
             SlimyShieldFalling = false;
             DarkenedHeartCD = 60;
