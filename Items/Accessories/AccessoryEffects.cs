@@ -559,9 +559,9 @@ namespace FargowiltasSouls
         public void GoldUpdate()
         {
             Player.immune = true;
-            Player.immuneTime = 2;
-            Player.hurtCooldowns[0] = 2;
-            Player.hurtCooldowns[1] = 2;
+            Player.immuneTime = 90;
+            Player.hurtCooldowns[0] = 90;
+            Player.hurtCooldowns[1] = 90;
             Player.stealth = 1;
 
             //immune to DoT
