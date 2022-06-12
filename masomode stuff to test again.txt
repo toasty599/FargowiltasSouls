@@ -1886,3 +1886,5 @@ fixed silver ench giving armor pierce to things it shouldnt
 adam ench buffed, affected projs gain armor pierce = half damage
 fixed silver ench speeding up timber squirrel's explosion jumps
 fixed mutant's gift revealing maso exists before it's actually unlocked
+fixed low ground being removeable by nurse
+fixed deerclops inflicting low ground at 100 units range, not 1000 as intended
