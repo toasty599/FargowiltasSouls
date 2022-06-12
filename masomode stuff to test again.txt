@@ -1883,3 +1883,4 @@ fixed jungle mimic coins having wrong damage type
 tims coc fishing potion is now from flying fish, was angler fish
 fixed mind break ignoring summon enemy focus
 fixed silver ench giving armor pierce to things it shouldnt
+adam ench buffed, affected projs gain armor pierce = half damage

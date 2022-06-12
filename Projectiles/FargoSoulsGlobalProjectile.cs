@@ -287,6 +287,8 @@ namespace FargowiltasSouls.Projectiles
                 }
 
                 AdamProj = true;
+
+                projectile.ArmorPenetration += projectile.damage / 2;
             }
 
             if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
