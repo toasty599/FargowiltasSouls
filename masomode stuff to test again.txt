@@ -1878,3 +1878,4 @@ frost ench now upgrades chill duration to 15 seconds
 fixed nature force having outdated snow descirption
 snow ench has a warning when about to end
 emode ml nerfed, null curse no longer disables dodges
+qs spikes ignore tiles
