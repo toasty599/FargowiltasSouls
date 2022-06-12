@@ -1862,3 +1862,5 @@ lump no longer penalizes dr
 lihzahrd treasure box stomp can fastfall through platforms again
 lowered surface spawn rate of gun skeletons
 gold ench gives more iframes when exiting
+heart of master includes precision seal
+nerfed drakovi minion contact damage hit rate, water shoot rate

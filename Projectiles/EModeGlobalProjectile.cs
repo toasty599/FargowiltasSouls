@@ -410,7 +410,7 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.PhantasmalBolt:
-                        if (!FargoSoulsWorld.MasochistModeReal && NonSwarmFight(projectile, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye))
+                        if (NonSwarmFight(projectile, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye))
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -948,7 +948,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.PhantasmalSphere:
-                    if (!FargoSoulsWorld.SwarmActive && !FargoSoulsWorld.MasochistModeReal)
+                    if (!FargoSoulsWorld.SwarmActive)
                     {
                         EModeCanHurt = projectile.alpha == 0;
 
@@ -965,7 +965,7 @@ namespace FargowiltasSouls.Projectiles
                                     projectile.localAI[0] = 1;
                                     projectile.velocity.Normalize();
 
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (Main.netMode != NetmodeID.MultiplayerClient && !FargoSoulsWorld.MasochistModeReal)
                                     {
                                         Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ModContent.ProjectileType<PhantasmalSphereDeathray>(),
                                             0, 0f, Main.myPlayer, 0f, projectile.identity);
