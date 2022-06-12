@@ -294,13 +294,16 @@ namespace FargowiltasSouls.Projectiles
                 SilverMinion = true;
                 projectile.extraUpdates++;
 
-                int armorPen = 20;
-                if (modPlayer.SpiritForce)
-                    armorPen *= 2;
-                if (modPlayer.TerrariaSoul)
-                    armorPen *= 3;
+                if (NeedsSilverNerf(projectile))
+                {
+                    int armorPen = 20;
+                    if (modPlayer.SpiritForce)
+                        armorPen *= 2;
+                    if (modPlayer.TerrariaSoul)
+                        armorPen *= 3;
 
-                projectile.ArmorPenetration += armorPen;
+                    projectile.ArmorPenetration += armorPen;
+                }
             }
 
             if (modPlayer.TikiEnchantActive)
@@ -1125,11 +1128,8 @@ namespace FargowiltasSouls.Projectiles
                     damage = newDamage;
             }
 
-            if (SilverMinion)
-            {
-                if (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity || projectile.type == ProjectileID.StardustCellMinionShot)
-                    damage /= 2;
-            }
+            if (SilverMinion && NeedsSilverNerf(projectile))
+                damage /= 2;
 
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
             {
@@ -1275,5 +1275,7 @@ namespace FargowiltasSouls.Projectiles
                 Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255, 0), projectile.rotation, origin2, projectile.scale, effects, 0);
             }
         }
+
+        private bool NeedsSilverNerf(Projectile projectile) => projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity || projectile.type == ProjectileID.StardustCellMinionShot;
     }
 }
