@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
             if (modPlayer.TurtleCounter > 80)
             {
-                Main.projectile.Where(x => x.active && x.hostile && x.damage > 0 && Vector2.Distance(x.Center, player.Center) <= distance && ProjectileLoader.CanDamage(x) != false && FargoSoulsUtil.CanDeleteProjectile(x)).ToList().ForEach(x =>
+                Main.projectile.Where(x => x.active && x.hostile && x.damage > 0 && Vector2.Distance(x.Center, player.Center) <= distance && ProjectileLoader.CanDamage(x) != false && ProjectileLoader.CanHitPlayer(x, player) && FargoSoulsUtil.CanDeleteProjectile(x)).ToList().ForEach(x =>
                 {
                     int dustId = Dust.NewDust(new Vector2(x.position.X, x.position.Y + 2f), x.width, x.height + 5, DustID.GoldFlame, x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100,
                         default(Color), 2f);

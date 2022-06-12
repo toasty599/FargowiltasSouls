@@ -2448,8 +2448,11 @@ namespace FargowiltasSouls
             if (BetsyDashCD <= 0)
             {
                 BetsyDashCD = 180;
+
                 if (Player.whoAmI == Main.myPlayer)
                 {
+                    Player.RemoveAllGrapplingHooks();
+
                     /*Player.controlLeft = false;
                     Player.controlRight = false;
                     Player.controlJump = false;

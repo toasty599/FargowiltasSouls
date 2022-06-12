@@ -337,26 +337,15 @@ namespace FargowiltasSouls.Projectiles
             }
         }
 
-        public override bool CanHitPlayer(Projectile projectile, Player target)
+        public override bool? CanDamage(Projectile projectile)
         {
             if (!FargoSoulsWorld.EternityMode)
-                return base.CanHitPlayer(projectile, target);
+                return base.CanDamage(projectile);
 
             if (!EModeCanHurt)
                 return false;
 
-            return base.CanHitPlayer(projectile, target);
-        }
-
-        public override bool? CanHitNPC(Projectile projectile, NPC target)
-        {
-            if (!FargoSoulsWorld.EternityMode)
-                return base.CanHitNPC(projectile, target);
-
-            if (!EModeCanHurt)
-                return false;
-
-            return base.CanHitNPC(projectile, target);
+            return base.CanDamage(projectile);
         }
 
         public override bool PreAI(Projectile projectile)

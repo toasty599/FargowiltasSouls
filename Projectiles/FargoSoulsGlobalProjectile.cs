@@ -1012,7 +1012,7 @@ namespace FargowiltasSouls.Projectiles
                 FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
                 if (fargoPlayer.Graze && --GrazeCD < 0 && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                 {
-                    if (ProjectileLoader.CanDamage(projectile) != false && GrazeCheck(projectile))
+                    if (ProjectileLoader.CanDamage(projectile) != false && ProjectileLoader.CanHitPlayer(projectile, Main.LocalPlayer) && GrazeCheck(projectile))
                     {
                         double grazeCap = 0.25;
                         if (fargoPlayer.MutantEyeItem != null)
@@ -1084,22 +1084,22 @@ namespace FargowiltasSouls.Projectiles
             return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
-        public override bool CanHitPlayer(Projectile projectile, Player target)
+        public override bool? CanDamage(Projectile projectile)
         {
             if (!canHurt)
                 return false;
             if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
                 return false;
-            return true;
+
+            return base.CanDamage(projectile);
         }
 
-        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        public override bool CanHitPlayer(Projectile projectile, Player target)
         {
-            if (!canHurt)
+            if (target.GetModPlayer<FargoSoulsPlayer>().PrecisionSealHurtbox && !projectile.Colliding(projectile.Hitbox, target.GetModPlayer<FargoSoulsPlayer>().GetPrecisionHurtbox()))
                 return false;
-            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
-                return false;
-            return null;
+
+            return true;
         }
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

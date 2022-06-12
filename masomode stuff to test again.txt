@@ -1865,7 +1865,8 @@ gold ench gives more iframes when exiting
 heart of master includes precision seal
 nerfed drakovi minion contact damage hit rate, water shoot rate
 refactors to graze, ancient hallowed shield, turtle shell
+	check they still work at all
 	check that hallowed shield doesnt reflect fishron's spectral fishron before they attack
 precision seal hurtbox reimplementation
-	you MIGHT take debuffs from certain grazed attacks ("moon lord timer" projs), idk, check
 spooky ench scythes pierce reduced to 3, now is destroyed on hitting a tile (but not when spawned inside one)
+betsy dash and penetrator remove your hook now
