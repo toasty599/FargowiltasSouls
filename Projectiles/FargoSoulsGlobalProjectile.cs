@@ -291,7 +291,7 @@ namespace FargowiltasSouls.Projectiles
                 projectile.ArmorPenetration += projectile.damage / 2;
             }
 
-            if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
+            if (modPlayer.SilverEnchantActive && projectile.friendly && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
             {
                 SilverMinion = true;
                 projectile.extraUpdates++;
@@ -308,7 +308,7 @@ namespace FargowiltasSouls.Projectiles
                 }
             }
 
-            if (modPlayer.TikiEnchantActive)
+            if (modPlayer.TikiEnchantActive && projectile.friendly)
             {
                 if (FargoSoulsUtil.IsSummonDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
                 {
