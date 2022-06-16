@@ -1895,3 +1895,4 @@ some adjustments to copper lightning to nerf it
 terra lightning targets 5 at once, was 10
 fixed box of gizmos not actually giving all items autofire
 qb does stinger rings in phase 2 as well, but nerfed rate and speed (and not during bee swarm)
+fixed every single fucking projectile in the mod having no crit/armor pen when spawned by armor/accs
