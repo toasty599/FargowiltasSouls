@@ -1902,5 +1902,5 @@ pungent eyeball reworked
 	mousing over enemies increases their damage taken, scales the longer you mouse over
 fixed? atrophied killing whips
 maso abom wields two styx gazer swords at once
-abom rockets adjusted and more in maso
+abom rockets adjusted
 abom scythe spin becomes just accel sickles immediately

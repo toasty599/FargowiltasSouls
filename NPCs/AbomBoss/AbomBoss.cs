@@ -770,7 +770,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         {
                             NPC.localAI[2] = 0;
 
-                            int max = FargoSoulsWorld.MasochistModeReal ? 5 : 4;
+                            const int max = 5;
                             for (int i = 1; i < max; i++)
                             {
                                 Vector2 vel = NPC.DirectionTo(player.Center).RotatedBy(MathHelper.TwoPi / max);
