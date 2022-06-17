@@ -1903,3 +1903,4 @@ pungent eyeball reworked
 fixed? atrophied killing whips
 maso abom wields two styx gazer swords at once
 abom rockets adjusted and more in maso
+abom scythe spin becomes just accel sickles immediately
