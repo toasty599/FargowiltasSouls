@@ -769,16 +769,17 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         if (++NPC.localAI[2] > 60) //shoot rockets
                         {
                             NPC.localAI[2] = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Vector2 vel = NPC.DirectionTo(player.Center).RotatedBy(MathHelper.PiOver2);
-                                vel *= NPC.localAI[3] > 1 ? 5 : 8;
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel.RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 2.0), ModContent.ProjectileType<AbomRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, 30f);
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -vel.RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 2.0), ModContent.ProjectileType<AbomRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, 30f);
 
-                                Vector2 speed = NPC.DirectionTo(player.Center).RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 2.0);
-                                speed *= NPC.localAI[3] > 1 ? 5 : 8;
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<AbomRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, 60f);
+                            int max = FargoSoulsWorld.MasochistModeReal ? 5 : 4;
+                            for (int i = 1; i < max; i++)
+                            {
+                                Vector2 vel = NPC.DirectionTo(player.Center).RotatedBy(MathHelper.TwoPi / max);
+                                vel *= NPC.localAI[3] > 1 ? 5 : 8;
+                                vel *= Main.rand.NextFloat(0.9f, 1.1f);
+                                vel = vel.RotatedByRandom(MathHelper.TwoPi / max / 4);
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<AbomRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, Main.rand.Next(25, 36));
                             }
                         }
                     }
