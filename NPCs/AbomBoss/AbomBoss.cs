@@ -1123,6 +1123,8 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         ai0 *= MathHelper.ToRadians(270) / 120;
                         Vector2 vel = NPC.DirectionTo(player.Center).RotatedBy(-ai0 * 60);
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<AbomSword>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f * 3 / 8), 0f, Main.myPlayer, ai0, NPC.whoAmI);
+                        if (FargoSoulsWorld.MasochistModeReal)
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -vel, ModContent.ProjectileType<AbomSword>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f * 3 / 8), 0f, Main.myPlayer, ai0, NPC.whoAmI);
                     }
                     break;
 
@@ -1240,6 +1242,8 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                             float ai0 = horizontalModifier * MathHelper.Pi / 60 * verticalModifier;
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX * -horizontalModifier, ModContent.ProjectileType<AbomSword>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f * 3 / 8), 0f, Main.myPlayer, ai0, NPC.whoAmI);
+                            if (FargoSoulsWorld.MasochistModeReal)
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -Vector2.UnitX * -horizontalModifier, ModContent.ProjectileType<AbomSword>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f * 3 / 8), 0f, Main.myPlayer, ai0, NPC.whoAmI);
                         }
                     }
 

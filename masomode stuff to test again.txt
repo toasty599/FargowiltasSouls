@@ -1901,3 +1901,4 @@ pungent eyeball reworked
 	removed slots from it and upgrades
 	mousing over enemies increases their damage taken, scales the longer you mouse over
 fixed? atrophied killing whips
+maso abom wields two styx gazer swords at once
