@@ -84,6 +84,7 @@ namespace FargowiltasSouls.Projectiles
             A_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.DD2ExplosiveTrapT3Explosion] = true;
             A_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.SharpTears] = true;
             A_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.DeerclopsIceSpike] = true;
+            A_SourceNPCGlobalProjectile.DamagingSync[ProjectileID.ShadowFlame] = true;
         }
 
         public override void SetDefaults(Projectile projectile)
@@ -184,6 +185,18 @@ namespace FargowiltasSouls.Projectiles
                             projectile.hostile = true;
                             projectile.alpha = 0;
                             DeletionImmuneRank = 1;
+                        }
+                    }
+                    break;
+
+                case ProjectileID.ShadowFlame:
+                    {
+                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active
+                            && npc.type == ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+                        {
+                            projectile.DamageType = DamageClass.Default;
+                            projectile.friendly = false;
+                            projectile.hostile = true;
                         }
                     }
                     break;
@@ -610,13 +623,22 @@ namespace FargowiltasSouls.Projectiles
 
             if (firstTick)
             {
-                if (projectile.type == ProjectileID.DD2ExplosiveTrapT3Explosion
-                    && projectile.hostile && projectile.GetSourceNPC() is NPC sourceNPC
-                    && (sourceNPC.type == ModContent.NPCType<NPCs.Challengers.TrojanSquirrel>() || sourceNPC.type == ModContent.NPCType<NPCs.Champions.TimberChampion>()))
+                if (projectile.type == ProjectileID.ShadowBeamHostile)
                 {
-                    projectile.position = projectile.Bottom;
-                    projectile.height = 16 * 6;
-                    projectile.Bottom = projectile.position;
+                    if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+                    {
+                        projectile.timeLeft = FargoSoulsWorld.MasochistModeReal ? 1200 : 600;
+                    }
+                }
+
+                if (projectile.type == ProjectileID.DD2ExplosiveTrapT3Explosion && projectile.hostile)
+                {
+                    if (projectile.GetSourceNPC() is NPC sourceNPC && (sourceNPC.type == ModContent.NPCType<NPCs.Challengers.TrojanSquirrel>() || sourceNPC.type == ModContent.NPCType<NPCs.Champions.TimberChampion>()))
+                    {
+                        projectile.position = projectile.Bottom;
+                        projectile.height = 16 * 6;
+                        projectile.Bottom = projectile.position;
+                    }
                 }
 
                 firstTick = false;
@@ -1026,7 +1048,6 @@ namespace FargowiltasSouls.Projectiles
                 FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
                 if (fargoPlayer.Graze && --GrazeCD < 0 && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                 {
-                    Main.NewText($"{ProjectileLoader.CanDamage(projectile) != false} {ProjectileLoader.CanHitPlayer(projectile, Main.LocalPlayer)} {GrazeCheck(projectile)}");
                     if (ProjectileLoader.CanDamage(projectile) != false && ProjectileLoader.CanHitPlayer(projectile, Main.LocalPlayer) && GrazeCheck(projectile))
                     {
                         double grazeCap = 0.25;
