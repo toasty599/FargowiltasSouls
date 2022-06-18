@@ -610,6 +610,15 @@ namespace FargowiltasSouls.Projectiles
 
             if (firstTick)
             {
+                if (projectile.type == ProjectileID.DD2ExplosiveTrapT3Explosion
+                    && projectile.hostile && projectile.GetSourceNPC() is NPC sourceNPC
+                    && (sourceNPC.type == ModContent.NPCType<NPCs.Challengers.TrojanSquirrel>() || sourceNPC.type == ModContent.NPCType<NPCs.Champions.TimberChampion>()))
+                {
+                    projectile.position = projectile.Bottom;
+                    projectile.height = 16 * 6;
+                    projectile.Bottom = projectile.position;
+                }
+
                 firstTick = false;
             }
 
@@ -1017,6 +1026,7 @@ namespace FargowiltasSouls.Projectiles
                 FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
                 if (fargoPlayer.Graze && --GrazeCD < 0 && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                 {
+                    Main.NewText($"{ProjectileLoader.CanDamage(projectile) != false} {ProjectileLoader.CanHitPlayer(projectile, Main.LocalPlayer)} {GrazeCheck(projectile)}");
                     if (ProjectileLoader.CanDamage(projectile) != false && ProjectileLoader.CanHitPlayer(projectile, Main.LocalPlayer) && GrazeCheck(projectile))
                     {
                         double grazeCap = 0.25;
@@ -1101,9 +1111,6 @@ namespace FargowiltasSouls.Projectiles
 
         public override bool CanHitPlayer(Projectile projectile, Player target)
         {
-            if (target.GetModPlayer<FargoSoulsPlayer>().PrecisionSealHurtbox && !projectile.Colliding(projectile.Hitbox, target.GetModPlayer<FargoSoulsPlayer>().GetPrecisionHurtbox()))
-                return false;
-
             return true;
         }
 

@@ -1905,3 +1905,8 @@ maso abom wields two styx gazer swords at once
 abom rockets adjusted
 abom scythe spin becomes just accel sickles immediately
 fixed hallowed mask not being valid for crafting hallowed ench
+fixed nymph/devi lovestruck healing not working in mp
+fixed squirrel coat of arms sometimes summoning the boss twice when stacked
+nerfed trojan squirrel explosion hitbox height
+nerfed trojan squirrel explosion jump, doesnt explode on landing outside maso
+fixed precision seal making graze not work
