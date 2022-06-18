@@ -1904,3 +1904,4 @@ fixed? atrophied killing whips
 maso abom wields two styx gazer swords at once
 abom rockets adjusted
 abom scythe spin becomes just accel sickles immediately
+fixed hallowed mask not being valid for crafting hallowed ench
