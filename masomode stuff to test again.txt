@@ -1934,3 +1934,4 @@ attempted a silver ench reimplmentation to affect some projs that werent affecte
 	test medallion of fallen king
 	test minions in general are affected still
 fixed aeolus boot granting flipper for some reason
+fixed gaia set bonus tooltip not saying up if you use double tap up
