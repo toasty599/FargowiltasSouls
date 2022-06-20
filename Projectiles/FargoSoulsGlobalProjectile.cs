@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Projectiles
         //        public bool SuperBee;
         public bool ChilledProj;
         public int ChilledTimer;
-        public bool SilverMinion;
+        public int SilverMinion;
 
         public int HuntressProj = -1; // -1 = non weapon proj, doesnt matter if it hits
         //1 = marked as weapon proj
@@ -306,8 +306,7 @@ namespace FargowiltasSouls.Projectiles
 
             if (modPlayer.SilverEnchantActive && projectile.friendly && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
             {
-                SilverMinion = true;
-                projectile.extraUpdates++;
+                SilverMinion = projectile.extraUpdates + 1;
 
                 if (NeedsSilverNerf(projectile))
                 {
@@ -999,9 +998,11 @@ namespace FargowiltasSouls.Projectiles
                 projectile.position -= projectile.velocity * 0.5f;
             }
 
-            if (SilverMinion && projectile.owner == Main.myPlayer)
+            if (SilverMinion > 0)
             {
-                if (!(modPlayer.SilverEnchantActive && player.GetToggleValue("SilverSpeed")))
+                projectile.extraUpdates = Math.Max(projectile.extraUpdates, SilverMinion);
+
+                if (projectile.owner == Main.myPlayer && !(modPlayer.SilverEnchantActive && player.GetToggleValue("SilverSpeed")))
                     projectile.Kill();
             }
 
@@ -1158,7 +1159,7 @@ namespace FargowiltasSouls.Projectiles
                     damage = newDamage;
             }
 
-            if (SilverMinion && NeedsSilverNerf(projectile))
+            if (SilverMinion > 0 && NeedsSilverNerf(projectile))
                 damage /= 2;
 
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)

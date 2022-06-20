@@ -1930,3 +1930,6 @@ maso abom
 maso mutant
 	all spears have the up+down+m1 trail
 	eoc buffed, less delay between the sickles moving
+attempted a silver ench reimplmentation to affect some projs that werent affected before
+	test medallion of fallen king
+	test minions in general are affected still
