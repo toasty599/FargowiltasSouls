@@ -735,7 +735,6 @@ namespace FargowiltasSouls
             GoldShell = false;
             CactusEnchantActive = false;
             ForbiddenEnchantActive = false;
-            SilverEnchantActive = false;
             NecroEnchantActive = false;
             ObsidianEnchantActive = false;
             LavaWet = false;
@@ -1193,6 +1192,9 @@ namespace FargowiltasSouls
                 Player.controlUseItem = true;
                 Player.releaseUseItem = true;
             }
+
+            //moved here so that it can affect minions spawned by buffs
+            SilverEnchantActive = false;
         }
 
         public override void PostUpdateEquips()
@@ -1477,7 +1479,7 @@ namespace FargowiltasSouls
             if (StealingCooldown > 0 && !Player.dead)
                 StealingCooldown--;
 
-            if (LihzahrdCurse)
+            if (LihzahrdCurse && Framing.GetTileSafely(Player.Center).WallType == WallID.LihzahrdBrickUnsafe)
             {
                 Player.dangerSense = false;
                 Player.InfoAccMechShowWires = false;

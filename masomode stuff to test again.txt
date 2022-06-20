@@ -1933,5 +1933,24 @@ maso mutant
 attempted a silver ench reimplmentation to affect some projs that werent affected before
 	test medallion of fallen king
 	test minions in general are affected still
+	fixed silver ench not working on minions spawned by buffs (almost all emode acc minions)
 fixed aeolus boot granting flipper for some reason
+devi emode
+	buffed moth light balls p2
+	buffed fake hearts attack
+	ray light balls have faster rate
+	mimics spread further behind you too
+	nerfed big mimic fake heart duration
+	orbits you during frost balls
+	rune wizard tps are faster
+	does energy hearts during axe swing dashes
+	buffed baby guardian walls a lot
+	launches energy hearts during irisu rain
+	energy heart strong attack can randomly use a different angle offset
+	medusa ray is faster
+	sparkling love ray pattern is denser
+	increased hammer range
+	removed contact damage except when dashing
 fixed gaia set bonus tooltip not saying up if you use double tap up
+lihzahrd curse only takes away dangersense/wire vision while actually in temple
+diffractor buff, stars do -66% damage but dont pierce

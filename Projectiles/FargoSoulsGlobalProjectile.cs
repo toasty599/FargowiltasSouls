@@ -626,7 +626,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
                     {
-                        projectile.timeLeft = FargoSoulsWorld.MasochistModeReal ? 1200 : 600;
+                        projectile.timeLeft = FargoSoulsWorld.MasochistModeReal ? 1200 : 420;
                     }
                 }
 

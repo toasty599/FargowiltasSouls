@@ -107,9 +107,17 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    for (int i = 0; i < 8; i++)
+                    float baseRotation = FargoSoulsWorld.EternityMode ? Main.rand.NextFloat(MathHelper.TwoPi) : 0;
+
+                    int max = 8;
+                    if (FargoSoulsWorld.EternityMode)
+                        max = 12;
+                    if (FargoSoulsWorld.MasochistModeReal)
+                        max = 8; //lowered because maso doubles down on it
+
+                    for (int i = 0; i < max; i++)
                     {
-                        Vector2 target = 600 * Vector2.UnitX.RotatedBy(Math.PI / 4 * i);
+                        Vector2 target = 600 * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / max * i + baseRotation);
                         Vector2 speed = 2 * target / 90;
                         float acceleration = -speed.Length() / 90;
                         float rotation = speed.ToRotation();
@@ -123,9 +131,9 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
                     if (FargoSoulsWorld.MasochistModeReal)
                     {
-                        for (int i = 0; i < 8; i++)
+                        for (int i = 0; i < max; i++)
                         {
-                            Vector2 target = 300 * Vector2.UnitX.RotatedBy(Math.PI / 4 * (i + 0.5f));
+                            Vector2 target = 300 * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / max * (i + 0.5f) + baseRotation);
                             Vector2 speed = 2 * target / 90;
                             float acceleration = -speed.Length() / 90;
                             float rotation = speed.ToRotation();

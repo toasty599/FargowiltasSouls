@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             target.Y = Main.player[npc.target].Center.Y;
 
             target.X += 1100 * (float)Math.Sin(2 * Math.PI / 600 * Projectile.ai[1]++);
-            target.Y -= 400;
+            target.Y -= 420;
 
             Vector2 distance = target - Projectile.Center;
             float length = distance.Length();
@@ -72,14 +72,19 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                     Projectile.velocity *= 1.05f;
             }
 
-            if (++Projectile.localAI[0] > 90) //spray shards
+            if (++Projectile.localAI[0] > 90) //spray
             {
-                if (Projectile.localAI[0] > (npc.localAI[3] > 1 ? 120 : 105))
+                int attackThreshold = 12;
+
+                if (npc.localAI[3] <= 1) //p1 only
                 {
-                    Projectile.localAI[0] = npc.localAI[3] > 1 ? 30 : 45;
+                    attackThreshold = 3;
+
+                    if (Projectile.localAI[0] > 105) //pulse on/off
+                        Projectile.localAI[0] = 45;
                 }
 
-                if (++Projectile.localAI[1] > 3)
+                if (++Projectile.localAI[1] > attackThreshold)
                 {
                     Projectile.localAI[1] = 0;
 
