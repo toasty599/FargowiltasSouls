@@ -1933,3 +1933,4 @@ maso mutant
 attempted a silver ench reimplmentation to affect some projs that werent affected before
 	test medallion of fallen king
 	test minions in general are affected still
+fixed aeolus boot granting flipper for some reason
