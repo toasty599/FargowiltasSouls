@@ -253,7 +253,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             void StrongAttackTeleport(Vector2 teleportTarget = default)
             {
                 const float range = 450f;
-                if (NPC.Distance(player.Center) < range)
+                if (teleportTarget == default ? NPC.Distance(player.Center) < range : NPC.Distance(teleportTarget) < 80)
                     return;
 
                 TeleportDust();
@@ -459,6 +459,14 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     if (NPC.Distance(targetPos) > 50)
                         Movement(targetPos, 0.2f);
 
+                    if (NPC.localAI[0] == 0)
+                    {
+                        NPC.localAI[0] = 1;
+                        Vector2 teleportTarget = new Vector2(player.Center.X, NPC.Center.Y);
+                        teleportTarget.X += NPC.Center.X < teleportTarget.X ? -450 : 450;
+                        StrongAttackTeleport(teleportTarget);
+                    }
+
                     if (--NPC.ai[1] < 0)
                     {
                         NPC.netUpdate = true;
@@ -469,6 +477,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         }
                         else
                         {
+                            SoundEngine.PlaySound(SoundID.Item43, NPC.Center);
+
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 int damage = (int)(NPC.damage / 3.2); //comes out to 20 raw, fake hearts ignore the usual multipliers
@@ -477,9 +487,9 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                 
                                 int boost = 0;
                                 if (FargoSoulsWorld.EternityMode)
-                                    boost += 2;
+                                    boost += 1;
                                 if (FargoSoulsWorld.MasochistModeReal)
-                                    boost += 2;
+                                    boost += 3;
 
                                 int maxP1 = 3 + boost;
                                 for (int i = -maxP1; i <= maxP1; i++)
@@ -651,6 +661,11 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         targetPos = player.Center + 350 * player.DirectionTo(NPC.Center);
                         if (NPC.Distance(targetPos) > 50)
                             Movement(targetPos, 0.2f);
+                    }
+
+                    if (NPC.ai[1] == 0)
+                    {
+                        StrongAttackTeleport(player.Center + 420 * Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi));
                     }
 
                     if (++NPC.ai[1] > 360)
@@ -984,7 +999,13 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     {
                         NPC.velocity /= 2;
 
-                        if (NPC.ai[1] == 300)
+                        if (NPC.ai[1] == 241 && FargoSoulsWorld.EternityMode)
+                        {
+                            float tpDistance = FargoSoulsWorld.MasochistModeReal ? 180 : 420;
+                            StrongAttackTeleport(player.Center + tpDistance * NPC.DirectionTo(player.Center).RotatedByRandom(MathHelper.PiOver4));
+                        }
+
+                        if (NPC.ai[1] == 315)
                         {
                             SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center); //eoc roar
 
@@ -1164,14 +1185,14 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     if (NPC.Distance(targetPos) > 50)
                         Movement(targetPos, 0.15f);
 
-                    if (FargoSoulsWorld.EternityMode && NPC.ai[1] % 180 == 100)
+                    if (FargoSoulsWorld.EternityMode && NPC.ai[1] % 180 == 90)
                     {
                         for (int i = -1; i <= 1; i += 2)
                         {
                             for (int j = -1; j <= 1; j += 2)
                             {
                                 Vector2 target = player.Center;
-                                target.X += 16 * 10 * i;
+                                target.X += 16 * 24 * i;
                                 target.Y += Player.defaultHeight / 2 * j;
                                 target -= NPC.Center;
 

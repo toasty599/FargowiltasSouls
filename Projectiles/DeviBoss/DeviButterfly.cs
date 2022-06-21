@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -152,6 +153,16 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void Kill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
+
+            if (!Main.dedServ)
+            {
+                Gore.NewGore(Projectile.InheritSource(Projectile), Projectile.Center, Projectile.velocity, 270, Projectile.scale);
+                Gore.NewGore(Projectile.InheritSource(Projectile), Projectile.Center, Projectile.velocity, 271, Projectile.scale);
+                Gore.NewGore(Projectile.InheritSource(Projectile), Projectile.Center, Projectile.velocity, 271, Projectile.scale);
+                Gore.NewGore(Projectile.InheritSource(Projectile), Projectile.Center, Projectile.velocity, 272, Projectile.scale);
+            }
+            
             for (int i = 0; i < 10; i++)
             {
                 int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 86, 0f, 0f, 0, default(Color), 2.5f);

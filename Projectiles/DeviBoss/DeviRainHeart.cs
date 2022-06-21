@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
                 if (++Projectile.ai[0] < 61)
                 {
-                    Projectile.velocity *= 1.06f;
+                    Projectile.velocity *= FargoSoulsWorld.MasochistModeReal ? 1.06f : 1.05f;
                 }
 
                 if (npc != null && Projectile.Center.Y > Main.player[npc.target].Center.Y + 280) //break when far below player
