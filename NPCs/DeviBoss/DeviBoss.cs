@@ -1170,7 +1170,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     {
                         StrongAttackTeleport(new Vector2(NPC.Center.X, player.Center.Y - 420));
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
 
                         NPC.localAI[0] = NPC.Center.X;
@@ -1272,7 +1272,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     {
                         StrongAttackTeleport();
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
 
                         NPC.localAI[0] = 1;
@@ -1348,7 +1348,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             }
                         }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                     }
 
@@ -1393,7 +1393,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         NPC.localAI[0] = 1;
                         NPC.velocity = Vector2.Zero;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                     }
 
@@ -1562,7 +1562,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         NPC.localAI[0] = 1;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                         }
