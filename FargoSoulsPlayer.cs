@@ -2678,7 +2678,10 @@ namespace FargowiltasSouls
                 ((NPCs.MutantBoss.MutantBoss)Main.npc[EModeGlobalNPC.mutantBoss].ModNPC).playerInvulTriggered = true;
 
             if (TryParryAttack())
+            {
+                OnHurtEffects(damage);
                 return false;
+            }
 
             if (Player.whoAmI == Main.myPlayer && !noDodge && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
             {
@@ -2725,33 +2728,8 @@ namespace FargowiltasSouls
             return true;
         }
 
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        public void OnHurtEffects(double damage)
         {
-            WasHurtBySomething = true;
-
-            if (BeetleEnchantActive)
-                BeetleHurt();
-
-            if (TinEnchantActive)
-                TinEnchant.TinHurt(this);
-
-            if (ShellHide)
-            {
-                TurtleShellHP--;
-
-                //some funny dust
-                const int max = 30;
-                for (int i = 0; i < max; i++)
-                {
-                    Vector2 vector6 = Vector2.UnitY * 5f;
-                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
-                    Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
-                    int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.GoldFlame, 0f, 0f, 0, default(Color), 2f);
-                    Main.dust[d].noGravity = true;
-                    Main.dust[d].velocity = vector7;
-                }
-            }
-
             if (HurtTimer <= 0)
             {
                 HurtTimer = 20;
@@ -2785,6 +2763,36 @@ namespace FargowiltasSouls
 
             if (IceQueensCrown)
                 IceQueensCrownHurt();
+        }
+
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        {
+            WasHurtBySomething = true;
+
+            if (BeetleEnchantActive)
+                BeetleHurt();
+
+            if (TinEnchantActive)
+                TinEnchant.TinHurt(this);
+
+            if (ShellHide)
+            {
+                TurtleShellHP--;
+
+                //some funny dust
+                const int max = 30;
+                for (int i = 0; i < max; i++)
+                {
+                    Vector2 vector6 = Vector2.UnitY * 5f;
+                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
+                    Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
+                    int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.GoldFlame, 0f, 0f, 0, default(Color), 2f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity = vector7;
+                }
+            }
+
+            OnHurtEffects(damage);
 
             if (Midas && Main.myPlayer == Player.whoAmI)
                 Player.DropCoins();
