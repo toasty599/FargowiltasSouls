@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Buffs
                     break;
             }
 
-            if (FargoSoulsWorld.EternityMode && player.buffTime[buffIndex] > 2 && Main.debuff[type] && player.GetModPlayer<EModePlayer>().ShorterDebuffsTimer <= 0
+            if (FargoSoulsWorld.EternityMode && player.buffTime[buffIndex] > 5 && Main.debuff[type] && player.GetModPlayer<EModePlayer>().ShorterDebuffsTimer <= 0
                 && !Main.buffNoTimeDisplay[type] && type != BuffID.Tipsy && (!BuffID.Sets.NurseCannotRemoveDebuff[type] || type == BuffID.ManaSickness || type == BuffID.PotionSickness)
                 && !DebuffsToLetDecreaseNormally.Contains(type))
             {
