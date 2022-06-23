@@ -397,13 +397,13 @@ namespace FargowiltasSouls
                 return;
 
             //reduce minion damage in emode if using a weapon, scales as you use weapons
-            if (FargoSoulsUtil.IsSummonDamage(proj, true, false) && MasomodeMinionNerfTimer > 0)
-            {
-                double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
-                modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
+            //if (FargoSoulsUtil.IsSummonDamage(proj, true, false) && MasomodeMinionNerfTimer > 0)
+            //{
+            //    double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
+            //    modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
 
-                damage = (int)(damage * (1.0 - modifier));
-            }
+            //    damage = (int)(damage * (1.0 - modifier));
+            //}
         }
 
         private void ShadowDodgeNerf()
@@ -555,37 +555,37 @@ namespace FargowiltasSouls
                 //case ItemID.NebulaArcanum:
                 //case ItemID.Phantasm:
                 //case ItemID.Razorpine:
-                case ItemID.StardustDragonStaff:
-                case ItemID.SDMG:
-                case ItemID.LastPrism:
-                    return 0.85f;
+                //case ItemID.StardustDragonStaff:
+                //case ItemID.SDMG:
+                //case ItemID.LastPrism:
+                //    return 0.85f;
 
                 //case ItemID.BeeGun:
                 //case ItemID.Grenade:
                 //case ItemID.StickyGrenade:
                 //case ItemID.BouncyGrenade:
+                //case ItemID.DD2BallistraTowerT1Popper:
+                //case ItemID.DD2BallistraTowerT2Popper:
+                //case ItemID.DD2BallistraTowerT3Popper:
+                //case ItemID.DD2ExplosiveTrapT1Popper:
+                //case ItemID.DD2ExplosiveTrapT2Popper:
+                //case ItemID.DD2ExplosiveTrapT3Popper:
+                //case ItemID.DD2FlameburstTowerT1Popper:
+                //case ItemID.DD2FlameburstTowerT2Popper:
+                //case ItemID.DD2FlameburstTowerT3Popper:
+                //case ItemID.DD2LightningAuraT1Popper:
+                //case ItemID.DD2LightningAuraT2Popper:
+                //case ItemID.DD2LightningAuraT3Popper:
                 case ItemID.FetidBaghnakhs:
-                case ItemID.DD2BallistraTowerT1Popper:
-                case ItemID.DD2BallistraTowerT2Popper:
-                case ItemID.DD2BallistraTowerT3Popper:
-                case ItemID.DD2ExplosiveTrapT1Popper:
-                case ItemID.DD2ExplosiveTrapT2Popper:
-                case ItemID.DD2ExplosiveTrapT3Popper:
-                case ItemID.DD2FlameburstTowerT1Popper:
-                case ItemID.DD2FlameburstTowerT2Popper:
-                case ItemID.DD2FlameburstTowerT3Popper:
-                case ItemID.DD2LightningAuraT1Popper:
-                case ItemID.DD2LightningAuraT2Popper:
-                case ItemID.DD2LightningAuraT3Popper:
-                    AttackSpeed *= 2f / 3f;
+                    AttackSpeed *= 0.75f;
                     return 1f;
 
                 default:
                     break;
             }
 
-            //if (ProjectileID.Sets.IsAWhip[item.shoot] && item.type != ItemID.BlandWhip)
-            //    return 2f / 3f;
+            if (ProjectileID.Sets.IsAWhip[item.shoot] && item.type != ItemID.BlandWhip)
+                return 2f / 3f;
 
             return 1f;
         }

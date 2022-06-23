@@ -1155,7 +1155,7 @@ namespace FargowiltasSouls.Projectiles
             //    }
             //}
 
-            if (NerfDamageBasedOnProjTypeCount != 0 && Main.player[projectile.owner].ownedProjectileCounts[NerfDamageBasedOnProjTypeCount] > 0)
+            /*if (NerfDamageBasedOnProjTypeCount != 0 && Main.player[projectile.owner].ownedProjectileCounts[NerfDamageBasedOnProjTypeCount] > 0)
             {
                 int projTypeToCheck = NerfDamageBasedOnProjTypeCount;
 
@@ -1167,7 +1167,7 @@ namespace FargowiltasSouls.Projectiles
 
                 const double maxNerfStrength = 1.0 / 3.0;
                 damage = (int)(damage * (1.0 - modifier * maxNerfStrength));
-            }
+            }*/
 
             //if (projectile.type == ProjectileID.ChlorophyteBullet)
             //{
