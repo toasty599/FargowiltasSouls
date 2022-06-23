@@ -399,13 +399,12 @@ namespace FargowiltasSouls.Projectiles
                         {
                             if (player.HeldItem.type == ModContent.ItemType<Blender>())
                             {
-                                projectile.localAI[0]++;
-                                if (projectile.localAI[0] > 60)
+                                if (++projectile.localAI[0] > 60)
                                 {
-                                    projectile.Kill();
                                     SoundEngine.PlaySound(SoundID.NPCDeath11 with { Volume = 0.5f }, projectile.Center);
                                     int proj2 = ModContent.ProjectileType<BlenderProj3>();
                                     Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
+                                    projectile.Kill();
                                 }
                             }
                         }

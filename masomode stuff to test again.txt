@@ -1991,3 +1991,4 @@ fixed devi and abom spawning their arenas outside emode
 fixed abom spawning his maso arena in emode
 
 unleashed ocean slight nerf
+fixed blender homing counterweights not critting
