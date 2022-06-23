@@ -397,7 +397,7 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.PurpleCounterweight:
                     case ProjectileID.YellowCounterweight:
                         {
-                            if (player.HeldItem.type == ModContent.ItemType<Blender>())
+                            if (projectile.owner == Main.myPlayer && player.HeldItem.type == ModContent.ItemType<Blender>())
                             {
                                 if (++projectile.localAI[0] > 60)
                                 {
