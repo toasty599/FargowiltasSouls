@@ -1989,3 +1989,5 @@ qs
 forgor gift can be used to reset mutant p1
 fixed devi and abom spawning their arenas outside emode
 fixed abom spawning his maso arena in emode
+
+unleashed ocean slight nerf
