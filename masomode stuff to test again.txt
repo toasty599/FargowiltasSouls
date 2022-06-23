@@ -1956,3 +1956,4 @@ fixed gaia set bonus tooltip not saying up if you use double tap up
 lihzahrd curse only takes away dangersense/wire vision while actually in temple
 diffractor buff, stars do -66% damage but dont pierce
 devi has no p2 heal, instead emode just has more life
+low ground disables hooks
