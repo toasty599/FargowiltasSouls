@@ -1963,4 +1963,5 @@ iron ench can trigger some on hit effects
 	cobalt ench
 	fossil ench
 	ice queens crown
+ice queens crown buff, longer duration and it FREEZES things too
 tragic umbrella, umbrella hat, and eyebrella block wet debuff from rain
