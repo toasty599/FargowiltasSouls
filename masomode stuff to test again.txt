@@ -1981,3 +1981,8 @@ removed speed nerfs on ooa sentry staves
 fetid nerf -33% to -25% speed
 slightly nerfed bbb, drakovi fish, unleashed ocean to compensate being summoner
 yes, zenith was adjusted for these too
+
+qs
+	x1.5 life -> x1.25
+	p2 25% DR -> 20% DR
+	4 subjects -> 7
