@@ -2199,7 +2199,7 @@ namespace FargowiltasSouls
                 if (Eternity)
                     damage *= 5;
                 else if (UniverseCore)
-                    damage = (int)Math.Round(damage * 2.5);
+                    damage *= 2;
 
                 if (SpiderEnchantActive && damageClass.CountsAsClass(DamageClass.Summon) && !TerrariaSoul)
                     damage = (int)Math.Round(damage * 0.75);

@@ -1965,3 +1965,14 @@ iron ench can trigger some on hit effects
 	ice queens crown
 ice queens crown buff, longer duration and it FREEZES things too
 tragic umbrella, umbrella hat, and eyebrella block wet debuff from rain
+universe core reduced from x5 crits to x4 crits
+pre-abom weapon tier
+	all weapons buffed x1.2 base damage
+abom and eri health adjustments to compensate
+raised mutant life to 7.7M, was 7M
+buffed all mutant tier weapons by x1.375 (1.25*1.1) to compensate
+	except destroyer gun idk what to do with this just ignore it for now
+removed nerfs on crystal bullet and holy arrow
+removed whip damage nerf
+whip buffs in emode give whip speed, not melee speed
+nerfed bbb, drakovi fish, unleashed ocean to compensate whip nerf removal

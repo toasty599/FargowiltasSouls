@@ -66,10 +66,32 @@ namespace FargowiltasSouls.Buffs
                         SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/DizzyBird"));
                     break;
 
-                case BuffID.SwordWhipPlayerBuff:
-                case BuffID.CoolWhipPlayerBuff:
-                case BuffID.ScytheWhipPlayerBuff:
+
                 case BuffID.ThornWhipPlayerBuff:
+                    if (FargoSoulsWorld.EternityMode)
+                    {
+                        player.GetAttackSpeed(DamageClass.Melee) -= 0.20f;
+                        player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.20f;
+                    }
+                    goto case BuffID.CoolWhipPlayerBuff;
+
+                case BuffID.SwordWhipPlayerBuff:
+                    if (FargoSoulsWorld.EternityMode)
+                    {
+                        player.GetAttackSpeed(DamageClass.Melee) -= 0.35f;
+                        player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.35f;
+                    }
+                    goto case BuffID.CoolWhipPlayerBuff;
+
+                case BuffID.ScytheWhipPlayerBuff:
+                    if (FargoSoulsWorld.EternityMode)
+                    {
+                        player.GetAttackSpeed(DamageClass.Melee) -= 0.50f;
+                        player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.50f;
+                    }
+                    goto case BuffID.CoolWhipPlayerBuff;
+
+                case BuffID.CoolWhipPlayerBuff:
                     if (FargoSoulsWorld.EternityMode)
                     {
                         if (player.GetModPlayer<EModePlayer>().HasWhipBuff)

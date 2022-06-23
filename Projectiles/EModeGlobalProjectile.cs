@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.CrystalBullet:
                 case ProjectileID.HolyArrow:
                 case ProjectileID.HallowStar:
-                    HasKillCooldown = true;
+                    //HasKillCooldown = true;
                     break;
 
                 case ProjectileID.SaucerLaser:

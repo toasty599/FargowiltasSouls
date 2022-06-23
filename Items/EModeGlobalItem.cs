@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Items
 
                 case ItemID.CrystalBullet:
                 case ItemID.HolyArrow:
-                    ItemBalance(tooltips, EModeChange.Nerf, "Split");
+                    //ItemBalance(tooltips, EModeChange.Nerf, "Split");
                     break;
 
                 case ItemID.ChlorophyteBullet:
@@ -326,8 +326,7 @@ namespace FargowiltasSouls.Items
 
             if (item.shoot > ProjectileID.None && ProjectileID.Sets.IsAWhip[item.shoot])
             {
-                if (item.type != ItemID.BlandWhip)
-                    ItemBalance(tooltips, EModeChange.Nerf, "Damage", 33);
+                //if (item.type != ItemID.BlandWhip) ItemBalance(tooltips, EModeChange.Nerf, "Damage", 33);
                 ItemBalance(tooltips, EModeChange.Nerf, "WhipSpeed");
                 ItemBalance(tooltips, EModeChange.Nerf, "WhipStack");
             }
