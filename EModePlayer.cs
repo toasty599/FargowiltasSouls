@@ -186,7 +186,9 @@ namespace FargowiltasSouls
                         Player.AddBuff(ModContent.BuffType<Smite>(), 2);
                 }
 
-                if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight) && Player.HeldItem.type != ItemID.Umbrella)
+                if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight) 
+                    && Player.HeldItem.type != ItemID.Umbrella && Player.HeldItem.type != ItemID.TragicUmbrella
+                    && Player.armor[0].type != ItemID.UmbrellaHat && Player.HeldItem.type != ItemID.Eyebrella)
                 {
                     Tile currentTile = Framing.GetTileSafely(Player.Center);
                     if (currentTile.WallType == WallID.None)
