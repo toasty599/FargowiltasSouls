@@ -84,8 +84,10 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             NPC.damage = 64;
             NPC.defense = 10;
             NPC.lifeMax = 5000;
+            if (FargoSoulsWorld.EternityMode)
+                NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 1.5);
             if (FargoSoulsWorld.MasochistModeReal)
-                NPC.lifeMax = (int)(NPC.lifeMax * 1.2);
+                NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 1.2);
             NPC.HitSound = SoundID.NPCHit9;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
@@ -308,24 +310,24 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     NPC.dontTakeDamage = true;
                     if (NPC.buffType[0] != 0)
                         NPC.DelBuff(0);
-                    if (++NPC.ai[1] > 60)
+                    if (++NPC.ai[1] > 120)
                     {
                         for (int i = 0; i < 5; i++)
                         {
-                            int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 86, 0f, 0f, 0, default(Color), 1.5f);
+                            int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 86, 0f, 0f, 0, default(Color), 2f);
                             Main.dust[d].noGravity = true;
-                            Main.dust[d].velocity *= 4f;
+                            Main.dust[d].velocity *= 8f;
                         }
                         NPC.localAI[3] = 2; //npc marks p2
-                        if (FargoSoulsWorld.EternityMode)
-                        {
-                            int heal = (int)(NPC.lifeMax / 90 * Main.rand.NextFloat(1f, 1.5f));
-                            NPC.life += heal;
-                            if (NPC.life > NPC.lifeMax)
-                                NPC.life = NPC.lifeMax;
-                            CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
-                        }
-                        if (NPC.ai[1] > 150)
+                        //if (FargoSoulsWorld.EternityMode)
+                        //{
+                        //    int heal = (int)(NPC.lifeMax / 90 * Main.rand.NextFloat(1f, 1.5f));
+                        //    NPC.life += heal;
+                        //    if (NPC.life > NPC.lifeMax)
+                        //        NPC.life = NPC.lifeMax;
+                        //    CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
+                        //}
+                        if (NPC.ai[1] > 240)
                         {
                             RefreshAttackQueue();
                             attackQueue[3] = 15; //always do sparkling love
@@ -333,7 +335,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             GetNextAttack();
                         }
                     }
-                    else if (NPC.ai[1] == 60)
+                    else if (NPC.ai[1] == 120)
                     {
                         SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
                     }
