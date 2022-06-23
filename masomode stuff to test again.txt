@@ -1980,3 +1980,4 @@ removed nerfs on stardust dragon, last prism, sdmg
 removed speed nerfs on ooa sentry staves
 fetid nerf -33% to -25% speed
 slightly nerfed bbb, drakovi fish, unleashed ocean to compensate being summoner
+yes, zenith was adjusted for these too
