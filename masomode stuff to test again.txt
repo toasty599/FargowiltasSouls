@@ -1957,3 +1957,4 @@ lihzahrd curse only takes away dangersense/wire vision while actually in temple
 diffractor buff, stars do -66% damage but dont pierce
 devi has no p2 heal, instead emode just has more life
 low ground disables hooks
+mutant ray flashes faster
