@@ -583,6 +583,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.LoadSprites(npc, recolor);
 
             LoadExtra(recolor, 177);
+            LoadBossHeadSprite(recolor, 38);
         }
     }
 }

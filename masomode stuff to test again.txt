@@ -2012,5 +2012,5 @@ sprites
 	eow
 	queen slime crown
 	queen slime boss icon
-refactored how sprite loading works, check that nothing broke
+ks makes dust at teleport location
 prime visual adjusted, attacking arms now have a trail instead of spraying dust
