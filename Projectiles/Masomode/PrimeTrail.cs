@@ -3,6 +3,7 @@ using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,6 +28,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile.alpha = 255;
             Projectile.aiStyle = -1;
             Projectile.scale = 0.8f;
+            Projectile.hide = true;
+        }
+
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            behindNPCs.Add(index);
         }
 
         public override void AI()
@@ -99,11 +106,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 else if (Projectile.ai[1] == 2)
                     color27 = new Color(51, 255, 191, 210) * 0.75f; //teal
                 else
-                    color27 = new Color(255, 0, 0, 210); //red
+                    color27 = new Color(255, 255, 75, 210); //yellow
 
-                color27 *= 0.25f * Projectile.Opacity;
-                if (Projectile.ai[1] == 0f)
-                    color27 *= 0.5f;
+                color27 *= 0.3f * Projectile.Opacity;
                 color27 *= ((float)ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 float scale = Projectile.scale;
                 scale *= ((float)ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];

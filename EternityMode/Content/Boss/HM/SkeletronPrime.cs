@@ -573,16 +573,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             SoundEngine.PlaySound(SoundID.Item15 with { Volume = 1.5f }, npc.Center);
 
-                            for (int i = 0; i < 20; i++)
-                            {
-                                int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Clentaminator_Red, npc.velocity.X * .4f, npc.velocity.Y * .4f, 0, Color.White, 2);
-                                Main.dust[d].scale += 1f;
-                                Main.dust[d].velocity *= 3f;
-                                Main.dust[d].noGravity = true;
-                            }
-
                             if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 0);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                            }
                         }
 
                         //npc.damage = 0;
