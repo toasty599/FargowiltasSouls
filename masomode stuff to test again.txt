@@ -1992,3 +1992,5 @@ fixed abom spawning his maso arena in emode
 
 unleashed ocean slight nerf
 fixed blender homing counterweights not critting
+reduced penalty for dying on pumpkin/frost moon
+fixed resetting to negative waves by dying on wave 1 of pumpkin/frost moon
