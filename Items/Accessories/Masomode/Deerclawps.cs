@@ -5,8 +5,6 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 {
     public class Deerclawps : SoulsItem
     {
-        public override string Texture => "FargowiltasSouls/Items/Placeholder";
-
         public override bool Eternity => true;
 
         public override void SetStaticDefaults()
