@@ -2013,4 +2013,5 @@ sprites
 	queen slime crown
 	queen slime boss icon
 ks makes dust at teleport location
+added relics to every champ
 prime visual adjusted, attacking arms now have a trail instead of spraying dust
