@@ -1996,4 +1996,9 @@ reduced penalty for dying on pumpkin/frost moon
 fixed resetting to negative waves by dying on wave 1 of pumpkin/frost moon
 adjusted abom rockets, 3 in expert-, 5 in emode+
 precision seal sprite
+these now only buff the damage class of your held item*
+	gaia offense
+	styx set bonus
+	soul of universe
+	soul of siblings
 maso devi p2 heals
