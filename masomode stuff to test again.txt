@@ -2003,3 +2003,4 @@ these now only buff the damage class of your held item*
 	soul of siblings
 maso devi p2 heals
 slight nerfs to blender and unleashed ocean
+prime visual adjusted, attacking arms now have a trail instead of spraying dust
