@@ -67,6 +67,7 @@ namespace FargowiltasSouls
         //pet
         public bool SeekerOfAncientTreasures;
         public bool AccursedSarcophagus;
+        public bool BabySilhouette;
         public bool BiteSizeBaron;
         public bool ChibiDevi;
         public bool MutantSpawn;
@@ -695,6 +696,7 @@ namespace FargowiltasSouls
 
             SeekerOfAncientTreasures = false;
             AccursedSarcophagus = false;
+            BabySilhouette = false;
             BiteSizeBaron = false;
             ChibiDevi = false;
             MutantSpawn = false;

@@ -2018,3 +2018,4 @@ prime visual adjusted, attacking arms now have a trail instead of spraying dust
 added accursed rags
 added energear
 added mostly ordinary rock
+added portable fog machine
