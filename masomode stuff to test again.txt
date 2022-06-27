@@ -2029,3 +2029,10 @@ buffed slime slinging slasher
 adjusted? big sting
 nerfed vortex ritual
 buffed bbb
+fixed gold stasis working on mutant final spark
+attack speed modifiers dont work on items with no damage again
+fixed(?) pillar auras not working in mp
+nerfed eater staff hit rate
+halved armor pen gained from silver ench
+eridanus armor no longer removes minions on phase switch
+fixed twins dropping extra relics in emode
