@@ -2023,4 +2023,9 @@ added portable fog machine
 
 ftw squrrl is bigger and more defense
 added lesser healing potion and more torches to devi gift
-slightly nerfed unleashed ocean again
+nerfed unleashed ocean again
+nerfed mech leash
+buffed slime slinging slasher
+adjusted? big sting
+nerfed vortex ritual
+buffed bbb
