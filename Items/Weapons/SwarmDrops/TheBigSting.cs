@@ -26,8 +26,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.DamageType = DamageClass.Ranged;
             Item.width = 24;
             Item.height = 24;
-            Item.useTime = 8;
-            Item.useAnimation = 8;
+            Item.useTime = 6;
+            Item.useAnimation = 6;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 2.2f;
