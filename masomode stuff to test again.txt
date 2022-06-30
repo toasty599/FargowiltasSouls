@@ -2043,6 +2043,7 @@ nerfed bbb
 buffed drakovi fish
 
 resprited-ish qs and minions
+resprited deerclops
 drakovi gun sometimes shoots 5 bullets instead of 4
 buffed big sting
 buffed vortex ritual
