@@ -2041,4 +2041,9 @@ fixed abom saucer lasers doing no damage
 buffed big sting
 nerfed bbb
 buffed drakovi fish
+
 resprited qs and minions
+drakovi gun sometimes shoots 5 bullets instead of 4
+buffed big sting
+buffed vortex ritual
+nerfed sss
