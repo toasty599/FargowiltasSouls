@@ -2041,3 +2041,4 @@ fixed abom saucer lasers doing no damage
 buffed big sting
 nerfed bbb
 buffed drakovi fish
+resprited qs and minions

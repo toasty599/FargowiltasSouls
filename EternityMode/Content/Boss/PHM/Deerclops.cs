@@ -413,8 +413,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.LoadSprites(npc, recolor);
 
             //LoadNPCSprite(recolor, npc.type);
-            //LoadBossHeadSprite(recolor, 14);
-            //LoadGoreRange(recolor, 303, 308);
+            //LoadBossHeadSprite(recolor, -1);
+            //LoadGore(recolor, 1270);
+            //LoadGore(recolor, 1272);
+            //LoadGore(recolor, 1273);
+            //LoadGore(recolor, 1274);
         }
     }
 }
