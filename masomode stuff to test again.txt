@@ -24,3 +24,4 @@ dreadnaut
 	will vacuum in ANY weak enemy and consume them, doesnt need them weakened first
 mutant antibodies nerf, only buffs your current damage type instead of all (oppress multiclassing)
 all champs have full mp life scaling (its okay because squrrl)
+cultist life buff, x1.5 -> x2
