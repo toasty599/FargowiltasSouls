@@ -22,3 +22,4 @@ qs
 dreadnaut
 	fixed it being vulnerable to clipped wings lmao
 	will vacuum in ANY weak enemy and consume them, doesnt need them weakened first
+mutant antibodies nerf, only buffs your current damage type instead of all (oppress multiclassing)
