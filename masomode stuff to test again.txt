@@ -15,3 +15,10 @@ destroyer maso
 prime maso swipe limbs swipe much more often
 spaz now shoots star sprays during spin instead of another stream
 twins maso shoot dark stars when the other twin is dead
+qs
+	anti-air slime sprays are now faster and cover more area
+	super stomps aim almost directly at your elevation, not the ground below
+	gains 75% DR with subjects, was 50%
+dreadnaut
+	fixed it being vulnerable to clipped wings lmao
+	will vacuum in ANY weak enemy and consume them, doesnt need them weakened first
