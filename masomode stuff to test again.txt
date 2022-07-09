@@ -1,3 +1,4 @@
 enemies that drink blood from your anticoagulation get buffed proj damage
 adjusted anticoagulation, less likely to make blood when blood is already floating
 mimic drops golden crate
+biome mimics drop biome hm crates
