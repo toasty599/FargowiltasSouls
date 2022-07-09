@@ -328,7 +328,8 @@ namespace FargowiltasSouls.Projectiles
                         Projectile.Center = npc.Center;
 
                         float rotationModifier = (1f - Projectile.localAI[0]) * 10f;
-                        Projectile.localAI[1] += MathHelper.ToRadians(10) * rotationModifier / maxTime;
+                        float maxDegreeVariance = FargoSoulsWorld.MasochistModeReal ? 60 : 30;
+                        Projectile.localAI[1] += MathHelper.ToRadians(maxDegreeVariance) * rotationModifier / maxTime;
                         Projectile.rotation = Projectile.localAI[1];
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)

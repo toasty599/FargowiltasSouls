@@ -215,7 +215,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 //2*pi * (# of full circles) / (seconds to finish rotation) / (ticks per sec)
                 float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
                 if (FargoSoulsWorld.MasochistModeReal)
-                    rotationInterval *= 1.1f;
+                    rotationInterval *= 1.05f;
 
                 npc.ai[0]++; //base value is 4
                 switch (DeathrayState) //laser code idfk
@@ -260,7 +260,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         npc.ai[3] -= (npc.ai[0] - 4f) / 120f * rotationInterval * (StoredDirectionToPlayer ? 1f : -1f);
                         npc.rotation = -npc.ai[3];
 
-                        if (npc.ai[0] == 5f)
+                        if (npc.ai[0] == 35f)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -268,7 +268,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                         }
 
-                        if (npc.ai[0] >= 125f) //FIRE LASER
+                        if (npc.ai[0] >= 155f) //FIRE LASER
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -466,7 +466,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             float modifier = (float)npc.life / npc.lifeMax;
             if (FargoSoulsWorld.MasochistModeReal)
-                modifier /= 2;
+                modifier *= modifier;
 
             if (!ForcedPhase2OnSpawn) //spawn in phase 2
             {
@@ -581,36 +581,35 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f * 0.65f;
                         if (FargoSoulsWorld.MasochistModeReal)
-                            rotationInterval *= 1.1f;
-                        npc.rotation -= rotationInterval * (retinazer.GetEModeNPCMod<Retinazer>().StoredDirectionToPlayer ? 1f : -1f);
+                            rotationInterval *= -1f;
+                        npc.rotation += rotationInterval * (retinazer.GetEModeNPCMod<Retinazer>().StoredDirectionToPlayer ? 1f : -1f);
 
                         if (FlameWheelSpreadTimer < 0)
                             FlameWheelSpreadTimer = 0;
 
                         if (FlameWheelCount == 0) //i can't be bothered to figure out the formula for this rn
                         {
-                            FlameWheelCount = 3;
+                            FlameWheelCount = 2;
                             if (modifier < 0.5f / 4 * 3)
-                                FlameWheelCount = 4;
+                                FlameWheelCount = 3;
                             if (modifier < 0.5f / 4 * 2)
-                                FlameWheelCount = 5;
+                                FlameWheelCount = 4;
                             if (modifier < 0.5f / 4 * 1 || FargoSoulsWorld.MasochistModeReal)
-                                FlameWheelCount = 6;
+                                FlameWheelCount = 5;
                         }
 
                         if (++FlameWheelSpreadTimer < 30) //snap to reti, don't do contact damage
                         {
                             npc.rotation = npc.DirectionTo(retinazer.Center).ToRotation() - (float)Math.PI / 2;
                         }
-                        else if (++ProjectileTimer > 20) //rings of stars
+                        else if (++ProjectileTimer > 15) //rings of stars
                         {
                             ProjectileTimer = 0;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                const float baseSpeed = 6f;
-                                float speed = baseSpeed * Math.Min((FlameWheelSpreadTimer - 30) / 120f, 1f); //fan out gradually
-                                int timeLeft = (int)(speed / baseSpeed * 45f);
+                                float speed = 12f * Math.Min((FlameWheelSpreadTimer - 30) / 120f, 1f); //fan out gradually
+                                int timeLeft = (int)(speed / 12f * 90f);
                                 float baseRotation = npc.rotation + (float)Math.PI / 2;
                                 if (timeLeft > 5)
                                 {

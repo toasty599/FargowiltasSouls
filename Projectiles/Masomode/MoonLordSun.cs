@@ -121,6 +121,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
 
             Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+            Projectile.scale = Main.rand.NextFloat(0.95f, 1.05f);
         }
         public override void Kill(int timeLeft)
         {

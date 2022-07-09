@@ -175,7 +175,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 const int max = 12;
                                 for (int i = 0; i < max; i++)
                                 {
-                                    Vector2 vel = Main.rand.NextFloat(9f, 15f) * j * baseVel.RotatedBy(MathHelper.PiOver4 / max * i * -j);
+                                    Vector2 vel = Main.rand.NextFloat(5f, 15f) * j * baseVel.RotatedBy(MathHelper.PiOver4 * 0.8f / max * i * -j);
                                     vel *= FargoSoulsWorld.MasochistModeReal ? 2f : 1.5f;
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                 }

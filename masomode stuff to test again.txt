@@ -13,8 +13,9 @@ destroyer maso
 	faster movement during light show
 	probes have regular ai
 prime maso swipe limbs swipe much more often
-spaz now shoots star sprays during spin instead of another stream
+heavily adjusted spaz star streams during spin
 twins maso shoot dark stars when the other twin is dead
+spaz maso spins opposite to retinazer.
 qs
 	anti-air slime sprays are now faster and cover more area
 	super stomps aim almost directly at your elevation, not the ground below
@@ -26,3 +27,7 @@ mutant antibodies nerf, only buffs your current damage type instead of all (oppr
 all champs have full mp life scaling (its okay because squrrl)
 cultist life buff, x1.5 -> x2
 visual update to moon lord sun
+fixed lunar pillars auras not working in mp? i think?
+	confirm pillar auras work in mp when spawned via killing cultist
+	confirm no pillar aura when spawned via outsider portal and lunar invasion is NOT happening
+ml p1 vortex lightning is vanilla lightning to differentiate from cultist minion
