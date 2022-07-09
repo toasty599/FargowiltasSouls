@@ -31,4 +31,5 @@ fixed lunar pillars auras not working in mp? i think?
 	confirm pillar auras work in mp when spawned via killing cultist
 	confirm no pillar aura when spawned via outsider portal and lunar invasion is NOT happening
 ml p1 vortex lightning is vanilla lightning to differentiate from cultist minion
-update eow gores and icon
+updated eow gores and icon
+emode recolors off wont override texture packs? turn off emode recolors to get texture pack textures, test this
