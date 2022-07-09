@@ -4,6 +4,7 @@ using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -66,12 +67,11 @@ namespace FargowiltasSouls.Items.Armor
             }
             else if (--fargoPlayer.NekomiTimer < -420)
             {
-                fargoPlayer.NekomiTimer = -420;
+                if (fargoPlayer.NekomiTimer < -420 * 2)
+                    fargoPlayer.NekomiTimer = -420 * 2;
 
                 int depreciation = -420 - fargoPlayer.NekomiTimer; //starts at 0
-                if (depreciation > 420)
-                    depreciation = 420;
-                fargoPlayer.NekomiMeter -= (int)MathHelper.Lerp(1, MAX_METER / 420, depreciation / 420);
+                fargoPlayer.NekomiMeter -= (int)MathHelper.Lerp(1, MAX_METER / 420, depreciation / 420f);
                 if (fargoPlayer.NekomiMeter < 0)
                     fargoPlayer.NekomiMeter = 0;
             }
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Items.Armor
                     {
                         int baseDamage = 2222;
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<NekomiDevi>(), baseDamage, 3f, player.whoAmI);
-
+                        SoundEngine.PlaySound(SoundID.Item43, player.Center);
                         fargoPlayer.NekomiMeter = 0;
                     }
                     else

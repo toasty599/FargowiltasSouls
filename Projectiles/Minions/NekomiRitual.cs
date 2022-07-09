@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Minions
@@ -68,6 +70,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                     FargoSoulsUtil.HeartDust(pos, rotation + MathHelper.PiOver2, spreadModifier: 0.5f, scaleModifier: 0.75f);
                 }
                 oldHeartCount = (int)Projectile.localAI[0];
+
+                if (Projectile.localAI[0] >= NekomiHood.MAX_HEARTS)
+                    SoundEngine.PlaySound(SoundID.Item43, Projectile.Center);
             }
 
             if (Projectile.localAI[0] >= NekomiHood.MAX_HEARTS)
