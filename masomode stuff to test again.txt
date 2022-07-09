@@ -12,3 +12,4 @@ destroyer maso
 	faster movement during star wall
 	faster movement during light show
 	probes have regular ai
+prime maso swipe limbs swipe much more often
