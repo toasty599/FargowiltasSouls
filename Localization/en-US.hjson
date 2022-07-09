@@ -9,6 +9,15 @@
 Mods: {
 	FargowiltasSouls: {
 		SetBonus: {
+			Nekomi:
+				'''
+				7% increased damage and critical strike chance for your current weapon class
+				Graze with Sparkling Adoration to temporarily charge energy
+				Increases life regeneration when damaged at the cost of some energy
+				Double tap {0} to release energy as life-draining hearts
+				Wield an axe of love and hate when fully charged
+				'''
+
 			Gaia:
 				'''
 				10% increased melee speed

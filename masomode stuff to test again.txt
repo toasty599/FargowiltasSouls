@@ -34,3 +34,4 @@ ml p1 vortex lightning is vanilla lightning to differentiate from cultist minion
 updated eow gores and icon
 update prime and gores
 emode recolors off wont override texture packs? turn off emode recolors to get texture pack textures, test this
+added nekomi armor

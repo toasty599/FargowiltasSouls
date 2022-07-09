@@ -54,6 +54,9 @@ namespace FargowiltasSouls
         public bool StyxSet;
         public int StyxMeter;
         public int StyxTimer;
+        public bool NekomiSet;
+        public int NekomiMeter;
+        public int NekomiTimer;
 
         //        //minions
         public bool BrainMinion;
@@ -686,6 +689,7 @@ namespace FargowiltasSouls
             EridanusEmpower = false;
             GaiaSet = false;
             StyxSet = false;
+            NekomiSet = false;
 
             BrainMinion = false;
             EaterMinion = false;
@@ -996,6 +1000,9 @@ namespace FargowiltasSouls
             StyxSet = false;
             StyxMeter = 0;
             StyxTimer = 0;
+            NekomiSet = false;
+            NekomiMeter = 0;
+            NekomiTimer = 0;
 
             //debuffs
             Hexed = false;
@@ -2776,6 +2783,22 @@ namespace FargowiltasSouls
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
             WasHurtBySomething = true;
+
+            if (NekomiSet)
+            {
+                const int heartsLost = 1;
+                int meterPerHeart = NekomiHood.MAX_METER / NekomiHood.MAX_HEARTS;
+                int meterLost = meterPerHeart * heartsLost;
+
+                int heartsToConsume = NekomiMeter / meterPerHeart;
+                if (heartsToConsume > heartsLost)
+                    heartsToConsume = heartsLost;
+                Player.AddBuff(BuffID.RapidHealing, heartsToConsume * 60 * 5);
+
+                NekomiMeter -= meterLost;
+                if (NekomiMeter < 0)
+                    NekomiMeter = 0;
+            }
 
             if (BeetleEnchantActive)
                 BeetleHurt();
