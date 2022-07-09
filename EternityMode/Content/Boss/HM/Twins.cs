@@ -158,7 +158,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             else //in phase 3
             {
 
-                if (FargoSoulsWorld.MasochistModeReal && npc.life == 1 && --DarkStarTimer < 0) //when brought to 1hp, begin shooting dark stars
+                if (FargoSoulsWorld.MasochistModeReal && spazmatism == null && --DarkStarTimer < 0) //when twin dead, begin shooting dark stars
                 {
                     DarkStarTimer = 240;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
@@ -414,7 +414,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Spazmatism);
 
-        public int CursedFlameTimer;
+        public int ProjectileTimer;
         public int FlameWheelSpreadTimer;
         public int FlameWheelCount;
         public int DarkStarTimer;
@@ -425,7 +425,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
-                { new Ref<object>(CursedFlameTimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(ProjectileTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(FlameWheelSpreadTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(FlameWheelCount), IntStrategies.CompoundStrategy },
                 { new Ref<object>(DarkStarTimer), IntStrategies.CompoundStrategy },
@@ -582,34 +582,35 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f * 0.65f;
                         if (FargoSoulsWorld.MasochistModeReal)
                             rotationInterval *= 1.1f;
-                        npc.rotation += rotationInterval * (retinazer.GetEModeNPCMod<Retinazer>().StoredDirectionToPlayer ? 1f : -1f);
+                        npc.rotation -= rotationInterval * (retinazer.GetEModeNPCMod<Retinazer>().StoredDirectionToPlayer ? 1f : -1f);
 
                         if (FlameWheelSpreadTimer < 0)
                             FlameWheelSpreadTimer = 0;
 
                         if (FlameWheelCount == 0) //i can't be bothered to figure out the formula for this rn
                         {
-                            FlameWheelCount = 2;
+                            FlameWheelCount = 3;
                             if (modifier < 0.5f / 4 * 3)
-                                FlameWheelCount = 3;
-                            if (modifier < 0.5f / 4 * 2)
                                 FlameWheelCount = 4;
-                            if (modifier < 0.5f / 4 * 1 || FargoSoulsWorld.MasochistModeReal)
+                            if (modifier < 0.5f / 4 * 2)
                                 FlameWheelCount = 5;
+                            if (modifier < 0.5f / 4 * 1 || FargoSoulsWorld.MasochistModeReal)
+                                FlameWheelCount = 6;
                         }
 
                         if (++FlameWheelSpreadTimer < 30) //snap to reti, don't do contact damage
                         {
                             npc.rotation = npc.DirectionTo(retinazer.Center).ToRotation() - (float)Math.PI / 2;
                         }
-                        else if (++CursedFlameTimer > 3) //rings of stars
+                        else if (++ProjectileTimer > 20) //rings of stars
                         {
-                            CursedFlameTimer = 0;
+                            ProjectileTimer = 0;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                float speed = 24f * Math.Min((FlameWheelSpreadTimer - 30) / 120f, 1f); //fan out gradually
-                                int timeLeft = (int)(speed / 24f * 45f);
+                                const float baseSpeed = 6f;
+                                float speed = baseSpeed * Math.Min((FlameWheelSpreadTimer - 30) / 120f, 1f); //fan out gradually
+                                int timeLeft = (int)(speed / baseSpeed * 45f);
                                 float baseRotation = npc.rotation + (float)Math.PI / 2;
                                 if (timeLeft > 5)
                                 {
@@ -697,9 +698,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else
                     {
-                        if (npc.HasValidTarget && ++CursedFlameTimer > 3) //cursed flamethrower when dashing
+                        if (npc.HasValidTarget && ++ProjectileTimer > 3) //cursed flamethrower when dashing
                         {
-                            CursedFlameTimer = 0;
+                            ProjectileTimer = 0;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 float speed = (1f - modifier) * 0.8f;
@@ -710,7 +711,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                 }
 
-                if (FargoSoulsWorld.MasochistModeReal && npc.life == 1 && --DarkStarTimer < 0) //when brought to 1hp, begin shooting dark stars
+                if (FargoSoulsWorld.MasochistModeReal && retinazer == null && --DarkStarTimer < 0) //when twin dead, begin shooting dark stars
                 {
                     DarkStarTimer = 150;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
