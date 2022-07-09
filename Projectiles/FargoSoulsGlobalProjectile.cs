@@ -1227,6 +1227,12 @@ namespace FargowiltasSouls.Projectiles
 
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref int damage, ref bool crit)
         {
+            NPC sourceNPC = projectile.GetSourceNPC();
+            if (sourceNPC is NPC && sourceNPC.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)
+            {
+                damage = (int)Math.Round(damage * 1.3);
+            }
+
             if (squeakyToy)
             {
                 damage = 1;

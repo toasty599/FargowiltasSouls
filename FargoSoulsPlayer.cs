@@ -2662,10 +2662,14 @@ namespace FargowiltasSouls
                 else if (proj != null)
                     source = proj;
 
+                int type = ModContent.ProjectileType<Bloodshed>();
                 for (int i = 0; i < 6; i++)
                 {
-                    const float speed = 12f;
-                    Projectile.NewProjectile(Player.GetSource_OnHurt(source), Player.Center, Main.rand.NextVector2Circular(speed, speed), ModContent.ProjectileType<Bloodshed>(), 0, 0f, Main.myPlayer, 0f);
+                    if (Main.rand.NextBool(Player.ownedProjectileCounts[type] + 2))
+                    {
+                        const float speed = 12f;
+                        Projectile.NewProjectile(Player.GetSource_OnHurt(source), Player.Center, Main.rand.NextVector2Circular(speed, speed), type, 0, 0f, Main.myPlayer, 0f);
+                    }
                 }
             }
         }
