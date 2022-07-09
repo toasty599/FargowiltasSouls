@@ -25,3 +25,4 @@ dreadnaut
 mutant antibodies nerf, only buffs your current damage type instead of all (oppress multiclassing)
 all champs have full mp life scaling (its okay because squrrl)
 cultist life buff, x1.5 -> x2
+visual update to moon lord sun
