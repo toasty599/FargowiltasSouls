@@ -2,3 +2,13 @@ enemies that drink blood from your anticoagulation get buffed proj damage
 adjusted anticoagulation, less likely to make blood when blood is already floating
 mimic drops golden crate
 biome mimics drop biome hm crates
+destroyer
+	adjusted light show telegraphs
+	light show can rotate beams slightly
+	increased how many stars can appear in each star wall
+	star walls fire slightly faster
+	improved base speed of homing stars shot by p1
+destroyer maso
+	faster movement during star wall
+	faster movement during light show
+	probes have regular ai
