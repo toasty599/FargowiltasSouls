@@ -364,7 +364,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (HaveDR)
-                damage /= 2;
+                damage *= 0.75;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
@@ -749,7 +749,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (HaveDR)
-                damage /= 2;
+                damage *= 0.75;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
