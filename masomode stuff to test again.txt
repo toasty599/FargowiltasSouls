@@ -42,3 +42,5 @@ nekomi
 	nerfed meter gain in general
 	axe does its previous damage across 4 hits instead
 fixed qs minions being immune to knockback
+
+twins have 50% DR during ray spin
