@@ -13,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -37,7 +36,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public bool HasSaidEndure;
         public int RespawnTimer;
-        public bool HaveDR;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -65,8 +63,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool PreAI(NPC npc)
         {
             EModeGlobalNPC.retiBoss = npc.whoAmI;
-
-            HaveDR = false;
 
             if (FargoSoulsWorld.SwarmActive)
                 return true;
@@ -220,8 +216,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (FargoSoulsWorld.MasochistModeReal)
                     rotationInterval *= 1.05f;
 
-                HaveDR = DeathrayState > 0;
-
                 npc.ai[0]++; //base value is 4
                 switch (DeathrayState) //laser code idfk
                 {
@@ -361,14 +355,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return true;
         }
 
-        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-        {
-            if (HaveDR)
-                damage *= 0.75;
-
-            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
-        }
-
         public override Color? GetAlpha(NPC npc, Color drawColor)
         {
             return npc.ai[0] < 4 ? base.GetAlpha(npc, drawColor) : new Color(255, drawColor.G / 2, drawColor.B / 2);
@@ -435,7 +421,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public bool ForcedPhase2OnSpawn;
         public bool HasSaidEndure;
         public int RespawnTimer;
-        public bool HaveDR;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -455,8 +440,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool PreAI(NPC npc)
         {
             EModeGlobalNPC.spazBoss = npc.whoAmI;
-
-            HaveDR = false;
 
             if (FargoSoulsWorld.SwarmActive)
                 return true;
@@ -592,8 +575,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     if (npc.HasValidTarget && retinazer != null)
                     {
-                        HaveDR = true;
-
                         Vector2 target = retinazer.Center + retinazer.DirectionTo(npc.Center) * 100;
                         npc.velocity = (target - npc.Center) / 60;
 
@@ -744,14 +725,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             return true;
-        }
-
-        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-        {
-            if (HaveDR)
-                damage *= 0.75;
-
-            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
