@@ -42,3 +42,6 @@ nekomi
 	nerfed meter gain in general
 	axe does its previous damage across 4 hits instead
 fixed qs minions being immune to knockback
+
+ported to preview tmodloader
+updated dread shell tooltip
