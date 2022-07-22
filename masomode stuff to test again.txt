@@ -44,7 +44,7 @@ nekomi
 fixed qs minions being immune to knockback
 
 ported to preview tmodloader
-	test mp sync isnt broken, e.g. devi boss
+	test mp sync isnt completely broken, e.g. devi boss
 updated dread shell tooltip
 nerfed skeletron skeletons burped, 6->4 and not when hands alive
 nekomi axe cant use tungsten
