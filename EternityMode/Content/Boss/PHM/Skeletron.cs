@@ -182,7 +182,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (npc.life < npc.lifeMax * .75) //phase 2
                 {
-                    if (npc.ai[2] <= 60 && npc.ai[2] % 10 == 0) //vomit skeletons
+                    //vomit skeletons
+                    if (npc.ai[2] <= 60 && npc.ai[2] % 15 == 0 && !NPC.AnyNPCs(NPCID.SkeletronHand))
                     {
                         int[] skeletons = {
                             NPCID.BoneThrowingSkeleton,
