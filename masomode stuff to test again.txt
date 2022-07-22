@@ -60,3 +60,4 @@ plat ench no longer dupes any money you throw at the enemy
 skeletron hand respawn is at 50%, was 33%
 skeletron has reduced attack rate when hands alive UNLESS below 25%
 neither of above apply to maso
+copper lightning no longer rebounds infinitely if it keeps hitting enemies immune to electrified
