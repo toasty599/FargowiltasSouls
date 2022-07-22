@@ -55,3 +55,4 @@ twinrangs m2 buffed
 	shoots lasers at slower pace while moving
 	accelerates when returning to player (so you cant stack infinite number of them)
 removed leather from nekomi recipe
+plat ench no longer dupes any money you throw at the enemy
