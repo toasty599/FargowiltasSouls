@@ -62,3 +62,5 @@ skeletron has reduced attack rate when hands alive UNLESS below 25%
 neither of above apply to maso
 copper lightning no longer rebounds infinitely if it keeps hitting enemies immune to electrified
 copper lightning capped at 60
+
+fixed tortured soul being burnt in the underworld
