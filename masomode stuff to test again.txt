@@ -64,3 +64,7 @@ copper lightning no longer rebounds infinitely if it keeps hitting enemies immun
 copper lightning capped at 60
 
 fixed tortured soul being burnt in the underworld
+nekomi does half damage in pre hardmode
+nekomi can no longer hit worm segments individually (can't 1shot destroyer to p3)
+fixed nature champ bullets creating crystal spikes on impact
+nerfed gelatin subject life
