@@ -75,3 +75,4 @@ buffed nuke fishron damage from 577 to 634, x1.1 from before
 nerfed big sting use speed from 5 to 6
 mythril speed resets to full when killed
 pumpkin/frost moon items specify the wave when loot begins dropping
+fixed nekomi armor visual issues
