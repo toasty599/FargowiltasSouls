@@ -81,3 +81,4 @@ shortened mutant endlag after fan ray
 randomized duration of some maso mutant attacks
 maso mutant eoc has a second wave of golden sickles
 eri, abom, and mutant despawn if you go underground
+eoc p3 rests after 3 dashes
