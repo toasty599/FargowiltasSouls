@@ -71,3 +71,7 @@ nerfed gelatin subject life
 adjusted implementation of copper lightning chain
 
 golem fists can no longer be hit by whips (no longer draws minion focus away from body)
+buffed nuke fishron damage from 577 to 634, x1.1 from before
+nerfed big sting use speed from 5 to 6
+mythril speed resets to full when killed
+pumpkin/frost moon items specify the wave when loot begins dropping
