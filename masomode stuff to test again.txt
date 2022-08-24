@@ -87,3 +87,4 @@ renamed snowball staff to snowball effect
 abom doll will tp back to you if thrown in lava underground
 mutant/abom curse cant be used underground
 fixed? dying to mutant fang DOT having "couldnt find antidote" death message
+added some effects preset (more than minimal effects)
