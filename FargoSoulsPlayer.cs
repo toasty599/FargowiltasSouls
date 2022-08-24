@@ -2903,9 +2903,6 @@ namespace FargowiltasSouls
             //killed by damage over time
             if (damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
             {
-                if (GodEater || FlamesoftheUniverse || CurseoftheMoon || MutantFang)
-                    damageSource = DeathByLocalization("DivineWrath");
-
                 if (Infested)
                     damageSource = DeathByLocalization("Infested");
 
@@ -2920,6 +2917,9 @@ namespace FargowiltasSouls
 
                 if (NanoInjection)
                     damageSource = DeathByLocalization("NanoInjection");
+
+                if (GodEater || FlamesoftheUniverse || CurseoftheMoon || MutantFang)
+                    damageSource = DeathByLocalization("DivineWrath");
             }
 
             /*if (MutantPresence)
