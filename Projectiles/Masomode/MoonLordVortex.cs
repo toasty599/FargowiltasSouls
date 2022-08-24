@@ -94,16 +94,16 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     }
                 }
 
+                if (ritual != null)
+                {
+                    Vector2 targetPos = ritual.Center;
+                    targetPos.X += 800f * Projectile.ai[0];
+                    targetPos.Y -= 800f;
+                    Projectile.velocity = (targetPos - Projectile.Center) / 10f;
+                }
+
                 if (Projectile.localAI[1] < 120)
                 {
-                    if (ritual != null)
-                    {
-                        Vector2 targetPos = ritual.Center;
-                        targetPos.X += (Main.player[npc.target].Center.X - ritual.Center.X) * Projectile.ai[0];
-                        targetPos.Y -= 800f;
-                        Projectile.velocity = (targetPos - Projectile.Center) / 10f;
-                    }
-
                     float num1 = 0.5f;
                     for (int i = 0; i < 5; ++i)
                     {
