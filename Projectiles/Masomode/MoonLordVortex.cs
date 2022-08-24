@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        for (int i = -1; i <= 1; i++)
+                        for (int i = -1; i <= 1; i += 2)
                         {
                             Vector2 vel = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(maxAttackSpread) * i);
                             Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 14f, Projectile.identity);
