@@ -311,6 +311,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 Main.bloodMoon = false; //disable blood moon
             }
 
+            if (NPC.ai[0] < -1 && NPC.life > 1) //in desperation, to prevent stray healing from maso spear hits or smth
+            {
+                NPC.life -= NPC.lifeMax / 240;
+                if (NPC.life < 1)
+                    NPC.life = 1;
+            }
+
             if (player.immune || player.hurtCooldowns[0] != 0 || player.hurtCooldowns[1] != 0)
                 playerInvulTriggered = true;
 

@@ -90,3 +90,4 @@ fixed? dying to mutant fang DOT having "couldnt find antidote" death message
 added some effects preset (more than minimal effects)
 changed how deathrays are drawn so that they work with mutant mod transparent projs config
 adjusted mutant ray fan, both in and out maso
+mutant's health drains to 1 in desperation if he somehow regains any
