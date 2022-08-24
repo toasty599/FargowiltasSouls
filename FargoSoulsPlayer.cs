@@ -1089,7 +1089,7 @@ namespace FargowiltasSouls
             MaxLifeReduction = 0;
             CurrentLifeReduction = 0;
 
-            MythrilTimer = 0;
+            MythrilTimer = MythrilMaxTime;
         }
 
         public override void PreUpdate()
