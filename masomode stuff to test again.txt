@@ -94,3 +94,4 @@ mutant's health drains to 1 in desperation if he somehow regains any
 ancient hallow ench wont reflect falling sand or w/e
 ml p2 vortexes now consistently move to the same spots
 fixed bee ench crit i think
+devi gift contains 1 water candle
