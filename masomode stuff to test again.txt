@@ -104,3 +104,4 @@ adjusted devi curse recipe to be more relevant to her
 eridanus armor has a simple mode
 slightly buffed eri blessing mode
 berserked also causes -10% DR
+nerfed the twinrang retirang fire rate from 6 per second to 5 per second
