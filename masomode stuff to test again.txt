@@ -103,3 +103,4 @@ devi gift contains 1 water candle
 adjusted devi curse recipe to be more relevant to her
 eridanus armor has a simple mode
 slightly buffed eri blessing mode
+berserked also causes -10% DR
