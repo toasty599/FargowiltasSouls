@@ -371,7 +371,7 @@ namespace FargowiltasSouls
 
                     case "EridanusArmor":
                     case "EridanusArmour":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().EridanusEmpower;
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().EridanusSet;
 
                     case "GiftsReceived":
                         return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().ReceivedMasoGift;
