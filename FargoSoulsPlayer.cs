@@ -154,8 +154,8 @@ namespace FargowiltasSouls
         private int monkTimer;
 
         public int MythrilTimer;
-        private int MythrilMaxTime => /*EarthForce ? 360 :*/ 300;
-        private float MythrilMaxSpeedBonus => /*EarthForce ? 3.0f :*/ 2.0f;
+        private int MythrilMaxTime => EarthForce ? 300 : 180;
+        private float MythrilMaxSpeedBonus => EarthForce ? 2.0f : 1.5f;
 
         public bool NecroEnchantActive;
         public int NecroCD;
