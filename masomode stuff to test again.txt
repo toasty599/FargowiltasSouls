@@ -100,3 +100,4 @@ zenith
 	old post-eri stats are now the default for pre-abom
 	i.e. now, pre-eri has same stats as post-eri (net buff)
 devi gift contains 1 water candle
+adjusted devi curse recipe to be more relevant to her
