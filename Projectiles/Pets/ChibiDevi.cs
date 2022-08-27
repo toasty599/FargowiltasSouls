@@ -42,13 +42,15 @@ namespace FargowiltasSouls.Projectiles.Pets
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.WritePackedVector2(target);
+            writer.Write7BitEncodedInt((int)target.X);
+            writer.Write7BitEncodedInt((int)target.Y);
             writer.WritePackedVector2(targetSpeed);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            target = reader.ReadPackedVector2();
+            target.X = reader.Read7BitEncodedInt();
+            target.Y = reader.Read7BitEncodedInt();
             targetSpeed = reader.ReadPackedVector2();
         }
 
