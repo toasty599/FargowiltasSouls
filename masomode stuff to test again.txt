@@ -106,3 +106,4 @@ slightly buffed eri blessing mode
 berserked also causes -10% DR
 nerfed the twinrang retirang fire rate from 6 per second to 5 per second
 nerfed mythril ench, its pre-nerf strength is now in force
+deer sinew nerfs your damage in general, not just on crit
