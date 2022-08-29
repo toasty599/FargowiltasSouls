@@ -314,7 +314,6 @@ namespace FargowiltasSouls
         public bool SqueakyAcc;
         public bool RainbowSlime;
         public bool SkeletronArms;
-        public bool SuperFlocko;
         public bool IceQueensCrown;
         public bool MiniSaucer;
         public bool TribalCharm;
@@ -847,7 +846,6 @@ namespace FargowiltasSouls
             SqueakyAcc = false;
             RainbowSlime = false;
             SkeletronArms = false;
-            SuperFlocko = false;
             IceQueensCrown = false;
             MiniSaucer = false;
             TribalCharm = false;
@@ -2700,10 +2698,7 @@ namespace FargowiltasSouls
                 ((NPCs.MutantBoss.MutantBoss)Main.npc[EModeGlobalNPC.mutantBoss].ModNPC).playerInvulTriggered = true;
 
             if (TryParryAttack())
-            {
-                OnHurtEffects(damage);
                 return false;
-            }
 
             if (Player.whoAmI == Main.myPlayer && !noDodge && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
             {
@@ -2783,7 +2778,7 @@ namespace FargowiltasSouls
             if (FossilEnchantItem != null)
                 FossilEnchant.FossilHurt(this, (int)damage);
 
-            if (IceQueensCrown)
+            if (IceQueensCrown && damage > 1)
                 IceQueensCrownHurt();
         }
 

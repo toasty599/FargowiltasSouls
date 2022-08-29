@@ -125,3 +125,6 @@ obsidian ench buffs whip range
 fixed dreadnautilus displaying 0 damage when eating enemies
 changed the sound used by true eye ray minion
 gelic wings tooltip says they act as wings. in case you didnt notice theyre wings
+ice queens crown rework
+	freeze on hit effect buffed to fuck
+	removed super flocko minion
