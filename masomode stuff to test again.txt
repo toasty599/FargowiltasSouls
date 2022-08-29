@@ -129,3 +129,5 @@ ice queens crown rework
 	freeze on hit effect buffed to fuck
 	removed super flocko minion
 you can now use healing potions when you have mutant nibble
+thieving enemies now inflict loose pockets before they can steal items
+longer thief cooldown
