@@ -2339,7 +2339,8 @@ namespace FargowiltasSouls
         {
             if (Player.GetToggleValue("IceQueensCrown"))
             {
-                Player.AddBuff(ModContent.BuffType<Coldheart>(), Coldheart.STACK_DURATION);
+                if (!MasochistSoul)
+                    Player.AddBuff(ModContent.BuffType<Coldheart>(), Coldheart.STACK_DURATION);
 
                 int freezeRange = 16 * 150;
                 //if (MasochistHeart)
