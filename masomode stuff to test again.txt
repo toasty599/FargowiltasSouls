@@ -123,3 +123,4 @@ molten ench DRASTIC range buff, now works if any part of the enemy's hitbox is i
 tungsten ench buffs true melee damage/crit again
 obsidian ench buffs whip range
 fixed dreadnautilus displaying 0 damage when eating enemies
+changed the sound used by true eye ray minion
