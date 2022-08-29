@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Buffs
         float EndurancePenalty(int timeLeft)
         {
             const float maxPenaltyForOneStack = 0.1f;
-            return (float)System.Math.Round(maxPenaltyForOneStack * timeLeft / STACK_DURATION, 2);
+            return maxPenaltyForOneStack * timeLeft / STACK_DURATION;
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Buffs
             if (buffIndex == -1)
                 return;
             int timeLeft = Main.LocalPlayer.buffTime[buffIndex];
-            tip = $"{EndurancePenalty(timeLeft) * 100}% less damage reduction";
+            tip = $"{System.Math.Round(EndurancePenalty(timeLeft) * 100)}% less damage reduction";
         }
 
         public override bool ReApply(Player player, int time, int buffIndex)

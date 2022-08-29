@@ -366,7 +366,7 @@ namespace FargowiltasSouls
         public bool Anticoagulation;
         public bool GodEater;               //defense removed, endurance removed, colossal DOT
         public bool FlamesoftheUniverse;    //activates various vanilla debuffs
-        public bool MutantNibble;           //disables potions, moon bite effect, feral bite effect, disables lifesteal
+        public bool MutantNibble;           //moon bite effect, feral bite effect, disables lifesteal
         public int StatLifePrevious = -1;   //used for mutantNibble
         public bool Asocial;                //disables minions, disables pets
         public bool WasAsocial;
@@ -1553,8 +1553,6 @@ namespace FargowiltasSouls
             {
                 if (Player.statLife > 0 && StatLifePrevious > 0 && Player.statLife > StatLifePrevious)
                     Player.statLife = StatLifePrevious;
-                if (Player.potionDelay < 2)
-                    Player.potionDelay = 2;
             }
 
             if (Defenseless)
@@ -3217,7 +3215,7 @@ namespace FargowiltasSouls
             //            }
         }
 
-        private int getHealMultiplier(int heal)
+        public int getHealMultiplier(int heal)
         {
             float bonus = 0f;
 
