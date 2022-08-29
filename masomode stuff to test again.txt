@@ -117,3 +117,4 @@ sparkling adoration nerf, you gain 25% less graze per graze
 disabled mutant contact damage outside maso
 mutant's empress sword attack is harder
 mythril and force of earth specify how long the durations are
+removed basilisk hp buff
