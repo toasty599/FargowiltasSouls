@@ -122,3 +122,4 @@ fuck it, fuck everything, removed the whip damage nerf
 molten ench DRASTIC range buff, now works if any part of the enemy's hitbox is in the ring
 tungsten ench buffs true melee damage/crit again
 obsidian ench buffs whip range
+fixed dreadnautilus displaying 0 damage when eating enemies
