@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -38,11 +39,17 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
 
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 1;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 1;
         }
 
         public override bool? CanDamage() => Projectile.timeLeft < 5;
+
+        public override bool PreAI()
+        {
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().SilverMinion = 0;
+            return base.PreAI();
+        }
 
         public override void AI()
         {
@@ -133,8 +140,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (Projectile.timeLeft < 15)
-                crit = true;
+            crit = true;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -145,7 +151,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 foreach (NPC n in Main.npc.Where(n => n.active && (n.realLife == target.realLife || n.whoAmI == target.realLife) && n.whoAmI != target.whoAmI))
                 {
-                    Projectile.localNPCImmunity[n.whoAmI] = Projectile.localNPCHitCooldown;
+                    Projectile.perIDStaticNPCImmunity[Projectile.type][n.whoAmI] = Main.GameUpdateCount + (uint)Projectile.idStaticNPCHitCooldown;
                 }
             }
         }
