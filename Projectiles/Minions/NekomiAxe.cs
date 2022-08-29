@@ -38,9 +38,8 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
 
-            Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 1;
         }
 
         public override bool? CanDamage() => Projectile.timeLeft < 5;
@@ -146,7 +145,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 foreach (NPC n in Main.npc.Where(n => n.active && (n.realLife == target.realLife || n.whoAmI == target.realLife) && n.whoAmI != target.whoAmI))
                 {
-                    Projectile.perIDStaticNPCImmunity[Projectile.type][n.whoAmI] = Main.GameUpdateCount + (uint)Projectile.idStaticNPCHitCooldown;
+                    Projectile.localNPCImmunity[n.whoAmI] = Projectile.localNPCHitCooldown;
                 }
             }
         }
