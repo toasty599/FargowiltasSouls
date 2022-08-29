@@ -118,3 +118,4 @@ disabled mutant contact damage outside maso
 mutant's empress sword attack is harder
 mythril and force of earth specify how long the durations are
 removed basilisk hp buff
+fuck it, fuck everything, removed the whip damage nerf
