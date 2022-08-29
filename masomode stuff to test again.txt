@@ -112,3 +112,5 @@ fixed mutant's fury use message
 
 implemented chibi devi mp mouse detection rollback
 deer sinew effect is x0.85 at most, was x0.75
+sparkling adoration buff, it is now x1.25 damage instead of x1.25 crit damage
+sparkling adoration nerf, you gain 25% less graze per graze
