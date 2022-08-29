@@ -1281,7 +1281,7 @@ namespace FargowiltasSouls.Projectiles
 
         private bool NeedsSilverNerf(Projectile projectile)
             => projectile.maxPenetrate == 1
-            || (projectile.usesLocalNPCImmunity && Main.player[projectile.owner].ownedProjectileCounts[projectile.type] > 1)
+            || (projectile.usesLocalNPCImmunity && projectile.type != ModContent.ProjectileType<NekomiAxe>())
             || projectile.type == ProjectileID.StardustCellMinionShot;
     }
 }
