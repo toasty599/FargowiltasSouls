@@ -98,9 +98,10 @@ namespace FargowiltasSouls.Projectiles.Pets
 
             if (player.whoAmI == Main.myPlayer)
             {
+                Vector2 oldTarget = target;
                 target = Main.MouseWorld;
-                if (oldMouse != Vector2.Zero)
-                    targetSpeed = target - oldMouse;
+                if (oldTarget != Vector2.Zero)
+                    targetSpeed = target - oldTarget;
 
                 if (++syncTimer > 20)
                 {
