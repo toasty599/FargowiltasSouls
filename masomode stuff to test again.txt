@@ -64,3 +64,5 @@ adjusted nekomi super to not be weaker with silver ench speedup
 fixed chibi devi rollback
 nerfed turtle ench to 20 hits
 fish stick now uses m2 to throw sharknado sticks
+added unlucky debuff
+bats no longer guarantee feral bite
