@@ -60,3 +60,6 @@ you can now use healing potions when you have mutant nibble
 thieving enemies now inflict loose pockets before they can steal items
 longer thief cooldown
 adjusted nekomi super to not be weaker with silver ench speedup
+
+fixed chibi devi rollback
+nerfed turtle ench to 20 hits
