@@ -110,7 +110,7 @@ namespace FargowiltasSouls.Projectiles.Pets
                 }
             }
 
-            target += targetSpeed;
+            Vector2 effectiveTarget = target + targetSpeed;
 
             bool asleep = Projectile.ai[0] == 1;
             if (asleep)
@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Projectiles.Pets
                 Projectile.velocity.X *= 0.95f;
                 Projectile.velocity.Y += 0.3f;
 
-                if (Projectile.owner == Main.myPlayer && Projectile.Distance(target) > 180)
+                if (Projectile.owner == Main.myPlayer && Projectile.Distance(effectiveTarget) > 180)
                 {
                     Projectile.ai[0] = 0;
                     Projectile.netUpdate = true;
@@ -137,10 +137,10 @@ namespace FargowiltasSouls.Projectiles.Pets
                 Projectile.tileCollide = false;
                 Projectile.ignoreWater = true;
 
-                Projectile.direction = Projectile.Center.X < target.X ? 1 : -1;
+                Projectile.direction = Projectile.Center.X < effectiveTarget.X ? 1 : -1;
 
                 float distance = 2500;
-                float possibleDist = Main.player[Projectile.owner].Distance(target) / 2 + 100;
+                float possibleDist = Main.player[Projectile.owner].Distance(effectiveTarget) / 2 + 100;
                 if (distance < possibleDist)
                     distance = possibleDist;
                 if (Projectile.Distance(Main.player[Projectile.owner].Center) > distance && Projectile.Distance(target) > distance)
@@ -149,14 +149,14 @@ namespace FargowiltasSouls.Projectiles.Pets
                     Projectile.velocity = Vector2.Zero;
                 }
 
-                if (Projectile.Distance(target) > 30)
+                if (Projectile.Distance(effectiveTarget) > 30)
                 {
-                    float ratio = Math.Min(Projectile.Distance(target) / 1200f, 1f);
+                    float ratio = Math.Min(Projectile.Distance(effectiveTarget) / 1200f, 1f);
                     float accel = MathHelper.Lerp(0.1f, 0.8f, ratio);
-                    Movement(target, accel, 16f + Main.player[Projectile.owner].velocity.Length() / 2f);
+                    Movement(effectiveTarget, accel, 16f + Main.player[Projectile.owner].velocity.Length() / 2f);
                 }
 
-                if (oldMouse == target)
+                if (oldMouse == effectiveTarget)
                 {
                     Projectile.ai[1]++;
                     if (Projectile.ai[1] > 600)
