@@ -7,3 +7,4 @@ bats no longer guarantee feral bite
 p3 refills mutant hp, change the curve so it ticks down gradually over attacks
 timestop and golden shell are disabled in p3
 slightly reduced duration of mutant p3 attacks
+increased size of mutant sword hitboxes to reduce gaps between them
