@@ -195,6 +195,7 @@ namespace FargowiltasSouls
             AddToggle("MasoConcoctionConfig", ModContent.ItemType<TimsConcoction>());
             AddToggle("MasoCarrotConfig", ModContent.ItemType<OrdinaryCarrot>());
             AddToggle("MasoRainbowConfig", ModContent.ItemType<ConcentratedRainbowMatter>());
+            AddToggle("MasoHealingPotionConfig", ModContent.ItemType<ConcentratedRainbowMatter>());
             AddToggle("MasoFrigidConfig", ModContent.ItemType<FrigidGemstone>());
             AddToggle("MasoNymphConfig", ModContent.ItemType<NymphsPerfume>());
             AddToggle("MasoSqueakConfig", ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>());

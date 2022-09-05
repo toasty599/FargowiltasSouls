@@ -345,6 +345,7 @@ namespace FargowiltasSouls
         public bool PrecisionSealHurtbox;
         public bool PrecisionSealNoDashNoJump;
         public Item GelicWingsItem;
+        public bool ConcentratedRainbowMatter;
 
         //debuffs
         public bool Hexed;
@@ -867,6 +868,7 @@ namespace FargowiltasSouls
             PrecisionSeal = false;
             PrecisionSealHurtbox = false;
             GelicWingsItem = null;
+            ConcentratedRainbowMatter = false;
 
             //debuffs
             Hexed = false;
@@ -1082,6 +1084,7 @@ namespace FargowiltasSouls
             PrecisionSeal = false;
             PrecisionSealHurtbox = false;
             GelicWingsItem = null;
+            ConcentratedRainbowMatter = false;
 
             Mash = false;
             WizardEnchantActive = false;
@@ -1630,6 +1633,20 @@ namespace FargowiltasSouls
                 Player.GetDamage(DamageClass.Generic) += 0.10f;
                 AttackSpeed += 0.10f;
                 Player.moveSpeed += 0.10f;
+            }
+
+            if (ConcentratedRainbowMatter
+                && Player.statLife < Player.statLifeMax2
+                && Player.potionDelay <= 0
+                && Player.GetToggleValue("MasoHealingPotion", false))
+            {
+                Item potion = Player.QuickHeal_GetItemToUse();
+                if (potion != null)
+                {
+                    int heal = getHealMultiplier(potion.healLife);
+                    if (Player.statLife < Player.statLifeMax2 - heal)
+                        Player.QuickHeal();
+                }
             }
 
             if (Eternity)

@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n[c/00FFFF:Following effects work passively from inventory or vanity slots:]" +
                 "\n    Grants immunity to Mighty Wind, Suffocation, and Guilty" +
                 "\n    You have autofire and improved night vision" +
-                "\n    Automatically uses mana potions when needed and increases pickup range for mana stars" +
+                "\n    Automatically uses healing & mana potions when needed and increases pickup range for mana stars" +
                 "\n    You respawn with more life and when no boss is alive, respawn faster" +
                 "\n    Right click to zoom and drastically improves reforges" +
                 "\n'The amalgamate born of a thousand common enemies'");
@@ -84,6 +84,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             fargoPlayer.SecurityWallet = true;
             fargoPlayer.TribalCharm = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
+            fargoPlayer.ConcentratedRainbowMatter = true;
         }
 
         public override void UpdateInventory(Player player) => PassiveEffect(player);
