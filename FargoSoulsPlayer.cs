@@ -638,6 +638,11 @@ namespace FargowiltasSouls
                 BetsyDashKey();
             }
 
+            if (FargowiltasSouls.MagicalBulbKey.JustPressed && MagicalBulb)
+            {
+                MagicalBulbKey();
+            }
+
             if (PrecisionSeal)
             {
                 if (SoulConfig.Instance.PrecisionSealIsHold)

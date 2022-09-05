@@ -13,5 +13,7 @@ concentrated rainbow matter buff: now acts like mana flower for healing potions
 biocluster is post 1 mech
 you now get iron ench frame data when equipping it with dread shell
 tribal charm gives damage up when manually clicking to attack, not inventory effect
+magical bulb
+	TRIPLED regen but its based on lighting now
+	can debuff cleanse on a cd
 fixed tribal charm and mystic skull inv effects not working in vanity slot
-TRIPLED magical bulb regen but its based on lighting now

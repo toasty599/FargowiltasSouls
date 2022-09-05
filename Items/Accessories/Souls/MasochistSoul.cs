@@ -255,6 +255,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //magical bulb
             player.buffImmune[BuffID.Venom] = true;
+            fargoPlayer.MagicalBulb = true;
 
             //ice queen's crown
             fargoPlayer.IceQueensCrown = true;

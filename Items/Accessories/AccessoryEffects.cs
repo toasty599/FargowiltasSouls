@@ -2510,6 +2510,53 @@ namespace FargowiltasSouls
             }
         }
 
+        public void MagicalBulbKey()
+        {
+            if (Player.HasBuff(ModContent.BuffType<MagicalCleanseCD>()))
+                return;
+
+            bool cleansed = false;
+
+            int max = Player.buffType.Length;
+            for (int i = 0; i < max; i++)
+            {
+                int timeLeft = Player.buffTime[i];
+                if (timeLeft <= 0)
+                    continue;
+
+                int buffType = Player.buffType[i];
+                if (buffType <= 0)
+                    continue;
+
+                if (timeLeft > 5
+                    && Main.debuff[buffType]
+                    && !Main.buffNoTimeDisplay[buffType]
+                    && !BuffID.Sets.NurseCannotRemoveDebuff[buffType])
+                {
+                    Player.DelBuff(i);
+
+                    cleansed = true;
+
+                    i--;
+                    max--; //just in case, to prevent being stuck here forever
+                }
+            }
+
+            if (cleansed)
+            {
+                Player.AddBuff(ModContent.BuffType<MagicalCleanseCD>(), 60 * 120);
+
+                SoundEngine.PlaySound(SoundID.Item4, Player.Center);
+
+                for (int index1 = 0; index1 < 50; ++index1)
+                {
+                    int index2 = Dust.NewDust(Player.position, Player.width, Player.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 3f);
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].velocity *= 8f;
+                }
+            }
+        }
+
         public void MutantBombKey()
         {
             if (MutantEyeCD <= 0)
