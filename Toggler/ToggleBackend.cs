@@ -203,6 +203,9 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("MasoGrav2", true);
             player.SetToggleValue("PrecisionSealHurtbox", true);
 
+            player.SetToggleValue("MasoEyeInstall", true);
+            player.SetToggleValue("FusedLensInstall", true);
+
             player.SetToggleValue("YoyoBag", true);
             player.SetToggleValue("MiningHunt", true);
             player.SetToggleValue("MiningDanger", true);

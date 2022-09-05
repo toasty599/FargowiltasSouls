@@ -2558,17 +2558,12 @@ namespace FargowiltasSouls
 
         public void DebuffInstallKey()
         {
-            bool doNextInstall = true;
-
-            if (FusedLens)
+            if (FusedLens && Player.GetToggleValue("FusedLensInstall", false))
             {
                 bool firstInstall = !Player.HasBuff(ModContent.BuffType<TwinsInstall>());
 
                 if (firstInstall)
-                {
                     SoundEngine.PlaySound(SoundID.Item119, Player.Center);
-                    doNextInstall = false;
-                }
 
                 Player.AddBuff(ModContent.BuffType<TwinsInstall>(), 60 * 30);
 
@@ -2583,7 +2578,7 @@ namespace FargowiltasSouls
             }
 
             if (AgitatingLensItem != null
-                && doNextInstall
+                && Player.GetToggleValue("MasoEyeInstall", false)
                 && !Player.HasBuff(ModContent.BuffType<BerserkerInstall>())
                 && !Player.HasBuff(ModContent.BuffType<BerserkerInstallCD>()))
             {

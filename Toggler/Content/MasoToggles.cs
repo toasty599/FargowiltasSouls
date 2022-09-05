@@ -27,6 +27,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoSlime;
         public string SlimeFalling;
         public string MasoEye;
+        public string MasoEyeInstall;
         public string MasoHoney;
         public string MasoSkele;
 
@@ -43,6 +44,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string TribalCharmClickBonus;
 
         public int DubiousHeader = ModContent.ItemType<DubiousCircuitry>();
+        public string FusedLensInstall;
         public string MasoLightning;
         public string MasoProbe;
 
