@@ -1765,14 +1765,8 @@ namespace FargowiltasSouls
                 Player.accRunSpeed = Player.GetToggleValue("RunSpeed", false) ? 15.6f : 6.75f;
             }
 
-            if (!Player.mount.Active && Player.GetToggleValue("Momentum", false))
-            {
-                Player.runAcceleration *= 5f;
-                Player.runSlowdown *= 5f;
-
-                if (!IsStillHoldingInSameDirectionAsMovement)
-                    Player.runSlowdown += 7f;
-            }
+            if (Player.GetToggleValue("Momentum", false))
+                NoMomentum = true;
 
             Player.moveSpeed += 0.5f;
 

@@ -361,6 +361,7 @@ namespace FargowiltasSouls
         public bool Hypothermia;
         public bool noDodge;
         public bool noSupersonic;
+        public bool NoMomentum;
         public bool Bloodthirsty;
         public bool Unlucky;
         public bool DisruptedFocus;
@@ -903,6 +904,7 @@ namespace FargowiltasSouls
             Slimed = false;
             noDodge = false;
             noSupersonic = false;
+            NoMomentum = false;
             Bloodthirsty = false;
             DisruptedFocus = false;
             SinisterIcon = false;
@@ -1184,6 +1186,15 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
+            if (NoMomentum && !Player.mount.Active)
+            {
+                Player.runAcceleration *= 5f;
+                Player.runSlowdown *= 5f;
+
+                if (!IsStillHoldingInSameDirectionAsMovement)
+                    Player.runSlowdown += 7f;
+            }
+
             if (TribalCharmEquipped)
             {
                 if (Player.controlUseItem || Player.controlUseTile)
@@ -1799,6 +1810,11 @@ namespace FargowiltasSouls
 
             if (Anticoagulation)
                 DamageOverTime(4, true);
+
+            if (Player.lifeRegen < 0)
+            {
+                ConcentratedRainbowMatterTryAutoHeal();
+            }
         }
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)

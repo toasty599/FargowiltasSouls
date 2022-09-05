@@ -42,6 +42,8 @@ namespace FargowiltasSouls.Buffs
                     player.controlLeft = true;
             }
 
+            player.GetModPlayer<FargoSoulsPlayer>().NoMomentum = true;
+
             if (player.buffTime[buffIndex] == 2)
             {
                 //player.AddBuff(ModContent.BuffType<BerserkerInstallCD>(), 420);
