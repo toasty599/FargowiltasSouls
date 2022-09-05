@@ -25,3 +25,4 @@ agitating lens rework, instead of buffs below 50% life you get a berserker insta
 queen stinger rework, instead of poison imbue and honey on hit you get a betsy dash lite
 necro brew buff, you take less damage when dashing (and also spin when dashing)
 ground stick rework, you supercharge when hit by electric or ray attacks
+lihzahrd treasure box boulders are now fastfall only

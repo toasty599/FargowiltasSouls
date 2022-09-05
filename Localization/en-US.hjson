@@ -460,8 +460,8 @@ Mods: {
 			ChaliceHeader: "{$Mods.FargowiltasSouls.ItemName.ChaliceoftheMoon}"
 			MasoCultistConfig: Cultist Minion
 			MasoPlantConfig: Plantera Minion
-			MasoGolemConfig: Lihzahrd Ground Pound
-			MasoBoulderConfig: Boulder Spray
+			MasoGolemConfig: Lihzahrd Fastfall
+			MasoBoulderConfig: Ground Pound Spray
 			MasoCelestConfig: Celestial Rune Support
 			MasoVisionConfig: Ancient Visions On Hit
 

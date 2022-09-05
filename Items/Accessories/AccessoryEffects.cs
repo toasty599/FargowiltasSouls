@@ -2273,18 +2273,6 @@ namespace FargowiltasSouls
                             }
                         }
 
-                        if (LihzahrdTreasureBoxItem != null && Player.GetToggleValue("MasoBoulder"))
-                        {
-                            int dam = 50;
-                            if (MasochistSoul)
-                                dam *= 3;
-                            for (int i = -5; i <= 5; i += 2)
-                            {
-                                Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i),
-                                    ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.ActualClassDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
-                            }
-                        }
-
                         if (GelicWingsItem != null)
                         {
                             int dam = 60; //deliberately no scaling
@@ -2718,25 +2706,39 @@ namespace FargowiltasSouls
                             {
                                 GroundPound = 0;
 
-                                int baseDamage = (int)(50 * Player.ActualClassDamage(DamageClass.Melee));
-                                if (MasochistSoul)
-                                    baseDamage *= 3;
-                                Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), baseDamage * 2, 12f, Player.whoAmI);
-                                y -= 2;
-                                for (int i = -3; i <= 3; i++)
+                                if (Player.GetToggleValue("MasoBoulder"))
                                 {
-                                    if (i == 0)
-                                        continue;
-                                    int tilePosX = x + 16 * i;
-                                    int tilePosY = y;
-                                    if (Main.tile[tilePosX, tilePosY] != null && tilePosX >= 0 && tilePosX < Main.maxTilesX)
+                                    //boulders
+                                    int dam = 50;
+                                    if (MasochistSoul)
+                                        dam *= 3;
+                                    for (int i = -5; i <= 5; i += 2)
                                     {
-                                        while (Main.tile[tilePosX, tilePosY] != null && tilePosY >= 0 && tilePosY < Main.maxTilesY
-                                            && !(Main.tile[tilePosX, tilePosY].HasUnactuatedTile && Main.tileSolid[Main.tile[tilePosX, tilePosY].TileType]))
+                                        Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i),
+                                            ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.ActualClassDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
+                                    }
+
+                                    //geysers
+                                    int baseDamage = (int)(50 * Player.ActualClassDamage(DamageClass.Melee));
+                                    if (MasochistSoul)
+                                        baseDamage *= 3;
+                                    Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), baseDamage * 2, 12f, Player.whoAmI);
+                                    y -= 2;
+                                    for (int i = -3; i <= 3; i++)
+                                    {
+                                        if (i == 0)
+                                            continue;
+                                        int tilePosX = x + 16 * i;
+                                        int tilePosY = y;
+                                        if (Main.tile[tilePosX, tilePosY] != null && tilePosX >= 0 && tilePosX < Main.maxTilesX)
                                         {
-                                            tilePosY++;
+                                            while (Main.tile[tilePosX, tilePosY] != null && tilePosY >= 0 && tilePosY < Main.maxTilesY
+                                                && !(Main.tile[tilePosX, tilePosY].HasUnactuatedTile && Main.tileSolid[Main.tile[tilePosX, tilePosY].TileType]))
+                                            {
+                                                tilePosY++;
+                                            }
+                                            Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, -8f, ModContent.ProjectileType<GeyserFriendly>(), baseDamage, 8f, Player.whoAmI);
                                         }
-                                        Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, -8f, ModContent.ProjectileType<GeyserFriendly>(), baseDamage, 8f, Player.whoAmI);
                                     }
                                 }
                             }
