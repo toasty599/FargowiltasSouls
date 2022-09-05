@@ -11,3 +11,4 @@ increased size of mutant sword hitboxes to reduce gaps between them
 
 concentrated rainbow matter buff: now acts like mana flower for healing potions
 biocluster is post 1 mech
+you now get iron ench frame data when equipping it with dread shell

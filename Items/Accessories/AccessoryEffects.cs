@@ -2836,7 +2836,8 @@ namespace FargowiltasSouls
 
                     DreadParryCounter();
                 }
-                else if (IronEnchantShield)
+
+                if (IronEnchantShield)
                 {
                     extrashieldCD = IRON_SHIELD_COOLDOWN;
 
@@ -2884,7 +2885,7 @@ namespace FargowiltasSouls
             int cooldown = IRON_SHIELD_COOLDOWN;
             if (DreadShellItem != null)
                 cooldown = DREAD_SHIELD_COOLDOWN;
-            else if (IronEnchantShield)
+            if (IronEnchantShield)
                 cooldown = IRON_SHIELD_COOLDOWN;
 
             if (shieldCD < cooldown)
@@ -2929,7 +2930,7 @@ namespace FargowiltasSouls
                     {
                         if (DreadShellItem != null)
                             shieldTimer = DREAD_PARRY_WINDOW;
-                        else if (IronEnchantShield)
+                        if (IronEnchantShield)
                             shieldTimer = IRON_PARRY_WINDOW;
                     }
 
@@ -2955,7 +2956,7 @@ namespace FargowiltasSouls
                             Main.dust[d].velocity *= 3f;
                         }
                     }
-                    else if (IronEnchantShield)
+                    if (IronEnchantShield)
                     {
                         for (int i = 0; i < 20; i++)
                         {
