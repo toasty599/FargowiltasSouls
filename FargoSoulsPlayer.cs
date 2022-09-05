@@ -275,6 +275,7 @@ namespace FargowiltasSouls
         public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
         public bool FusedLens;
+        public bool FusedLensCanDebuff;
         public bool FusedLensInstall;
         public bool GroundStick;
         public bool Supercharged;
@@ -846,6 +847,7 @@ namespace FargowiltasSouls
             PungentEyeballMinion = false;
             CrystalSkullMinion = false;
             FusedLens = false;
+            FusedLensCanDebuff = false;
             FusedLensInstall = false;
             GroundStick = false;
             Supercharged = false;
@@ -1017,8 +1019,6 @@ namespace FargowiltasSouls
 
             WingTimeModifier = 1f;
             FreeEaterSummon = true;
-            if (Screenshake > 0)
-                Screenshake--;
 
             EridanusTimer = 0;
             StyxMeter = 0;
@@ -1748,6 +1748,13 @@ namespace FargowiltasSouls
                 AttackSpeed += MythrilMaxSpeedBonus * ratio;
             }
 
+            if (WretchedPouchItem != null && !MasochistSoul && AttackSpeed > 1f)
+            {
+                float diff = AttackSpeed - 1f;
+                diff /= 2;
+                AttackSpeed -= diff;
+            }
+
             //checks so weapons dont break
             while (useTime / AttackSpeed < 1)
             {
@@ -1829,6 +1836,8 @@ namespace FargowiltasSouls
 
             if (Player.lifeRegen < 0)
             {
+                FusedLensCanDebuff = true;
+
                 ConcentratedRainbowMatterTryAutoHeal();
             }
         }
@@ -2485,9 +2494,9 @@ namespace FargowiltasSouls
 
                 if (FusedLens)
                 {
-                    if (Player.onFire2)
+                    if (Player.onFire2 || FusedLensCanDebuff)
                         target.AddBuff(BuffID.CursedInferno, 360);
-                    if (Player.ichor)
+                    if (Player.ichor || FusedLensCanDebuff)
                         target.AddBuff(BuffID.Ichor, 360);
                 }
             }

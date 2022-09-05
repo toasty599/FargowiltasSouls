@@ -2055,6 +2055,46 @@ namespace FargowiltasSouls
                     p.ai[1] = 180;
                     p.netUpdate = true;
                 }
+
+                SoundEngine.PlaySound(SoundID.NPCDeath6, Player.Center);
+                SoundEngine.PlaySound(SoundID.Item92, Player.Center);
+                SoundEngine.PlaySound(SoundID.Item14, Player.Center);
+
+                for (int i = 0; i < 20; i++)
+                {
+                    int dust = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 100, default, 3f);
+                    Main.dust[dust].velocity *= 1.4f;
+                }
+
+                for (int i = 0; i < 10; i++)
+                {
+                    int dust = Dust.NewDust(Player.position, Player.width, Player.height, 6, 0f, 0f, 100, default, 3.5f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 7f;
+                    dust = Dust.NewDust(Player.position, Player.width, Player.height, 6, 0f, 0f, 100, default, 1.5f);
+                    Main.dust[dust].velocity *= 3f;
+                }
+
+                for (int index1 = 0; index1 < 30; ++index1)
+                {
+                    int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 100, new Color(), 2f);
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].velocity *= 21f;
+                    Main.dust[index2].noLight = true;
+                    int index3 = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 100, new Color(), 1f);
+                    Main.dust[index3].velocity *= 12f;
+                    Main.dust[index3].noGravity = true;
+                    Main.dust[index3].noLight = true;
+                }
+
+                for (int i = 0; i < 20; i++)
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 5f));
+                    if (Main.rand.NextBool(3))
+                        Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= Main.rand.NextFloat(12f, 18f);
+                    Main.dust[d].position = Player.Center;
+                }
             }
         }
 
@@ -2197,11 +2237,23 @@ namespace FargowiltasSouls
 
         public void WretchedPouchEffect()
         {
+            if (!Player.GetToggleValue("MasoPouch"))
+                return;
+
+            if (!(Player.controlUseItem || Player.controlUseTile || WeaponUseTimer > 0))
+                return;
+
+            Player.GetDamage(DamageClass.Generic) += 0.60f;
+
+            Player.velocity.X *= 0.85f;
+            if (Player.velocity.Y < 0)
+                Player.velocity.Y *= 0.85f;
+
             if (--WretchedPouchCD <= 0)
             {
                 WretchedPouchCD = 25;
 
-                if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPouch"))
+                if (Player.whoAmI == Main.myPlayer)
                 {
                     NPC target = Main.npc.FirstOrDefault(n => n.active && n.Distance(Player.Center) < 360 && n.CanBeChasedBy() && Collision.CanHit(Player.position, Player.width, Player.height, n.position, n.width, n.height));
                     if (target != null)

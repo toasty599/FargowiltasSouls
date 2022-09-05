@@ -12,8 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Fused Lens");
             Tooltip.SetDefault(@"Grants immunity to Cursed Inferno and Ichor
-When inflicted with Cursed Inferno, 15% increased attack speed and you inflict Cursed Inferno
-When inflicted with Ichor, 15% increased critical strike chance and you inflict Ichor
+When inflicted with Cursed Inferno, 15% increased attack speed
+When inflicted with Ichor, 15% increased critical strike chance
+When losing health to damage over time, you inflict Cursed Inferno and Ichor
 Press the Debuff Install key to inflict yourself with Cursed Inferno and Ichor for 30 seconds
 'Too melted to improve vision'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "融合晶状体");

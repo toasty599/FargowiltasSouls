@@ -1031,7 +1031,7 @@ namespace FargowiltasSouls.Projectiles
 
                 if (player.HeldItem.damage > 0 && player.HeldItem.pick == 0)
                 {
-                    modPlayer.WeaponUseTimer = 30;
+                    modPlayer.WeaponUseTimer = Math.Max(modPlayer.WeaponUseTimer, 2);
 
                     modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
 
