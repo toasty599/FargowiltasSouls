@@ -25,6 +25,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nAttacks have a chance to squeak and deal 1 damage to you" +
                 "\nShadowflame tentacles lash out at nearby enemies and summons a friendly rainbow slime" +
                 "\nCertain enemies will drop potions when defeated" +
+                "\nWhen attacking by manually clicking, increases non-summon damage by 30%" +
                 "\n[c/00FFFF:Following effects work passively from inventory or vanity slots:]" +
                 "\n    Grants immunity to Mighty Wind, Suffocation, and Guilty" +
                 "\n    You have autofire and improved night vision" +
@@ -134,6 +135,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             player.buffImmune[BuffID.Webbed] = true;
             player.buffImmune[ModContent.BuffType<Purified>()] = true;
             fargoPlayer.TribalCharm = true;
+            fargoPlayer.TribalCharmEquipped = true;
 
             // Mystic skull
             player.buffImmune[BuffID.Suffocation] = true;

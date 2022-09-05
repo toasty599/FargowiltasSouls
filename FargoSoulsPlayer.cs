@@ -317,6 +317,8 @@ namespace FargowiltasSouls
         public bool IceQueensCrown;
         public bool MiniSaucer;
         public bool TribalCharm;
+        public bool TribalCharmEquipped;
+        public bool TribalCharmClickBonus;
         public bool SupremeDeathbringerFairy;
         public bool GodEaterImbue;
         public Item MutantSetBonusItem;
@@ -851,6 +853,7 @@ namespace FargowiltasSouls
             IceQueensCrown = false;
             MiniSaucer = false;
             TribalCharm = false;
+            TribalCharmEquipped = false;
             SupremeDeathbringerFairy = false;
             GodEaterImbue = false;
             MutantSetBonusItem = null;
@@ -1228,6 +1231,23 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
+            if (TribalCharmEquipped)
+            {
+                if (Player.controlUseItem || Player.controlUseTile)
+                {
+                    if (TribalCharmClickBonus)
+                    {
+                        TribalCharmClickBonus = false;
+                        if (Player.GetToggleValue("TribalCharmClickBonus"))
+                            Player.GetDamage(DamageClass.Generic) += 0.30f;
+                    }
+                }
+                else if (Player.ItemTimeIsZero)
+                {
+                    TribalCharmClickBonus = true;
+                }
+            }
+
             if (PungentEyeball && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPungentCursor"))
             {
                 const float distance = 16 * 5;
@@ -3074,35 +3094,6 @@ namespace FargowiltasSouls
                 InfestedDust = 5f;
 
             return modifier * 2;
-        }
-
-        public override bool PreItemCheck()
-        {
-            //if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee && Player.HeldItem.useTime > 0 && Player.HeldItem.useAnimation > 0 && Player.HeldItem.pick == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.axe == 0)
-            //{
-            //    if (TungstenEnlargedItem != null)
-            //    {
-            //        if (Main.mouseItem != null && Main.mouseItem.type == TungstenEnlargedItem.type)
-            //        {
-            //            TungstenPrevSizeSave = Math.Min(TungstenPrevSizeSave, Main.mouseItem.scale);
-            //            Main.mouseItem.scale = TungstenPrevSizeSave;
-            //        }
-            //        TungstenEnlargedItem.scale = TungstenPrevSizeSave;
-            //        TungstenPrevSizeSave = -1;
-
-            //        TungstenEnlargedItem = null;
-            //    }
-
-            //    if (TungstenEnchantActive && Player.GetToggleValue("Tungsten"))
-            //        TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
-            //}
-
-            return base.PreItemCheck();
-        }
-
-        public override void PostItemCheck()
-        {
-
         }
 
         //        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)

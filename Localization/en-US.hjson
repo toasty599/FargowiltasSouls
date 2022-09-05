@@ -440,6 +440,7 @@ Mods: {
 			MasoPouchConfig: Shadowflame Tentacles
 			MasoClippedConfig: Inflict Clipped Wings
 			TribalCharmConfig: Tribal Charm Auto Swing
+			TribalCharmClickBonusConfig: Tribal Charm Click Bonus
 
 			DubiousHeader: "{$Mods.FargowiltasSouls.ItemName.DubiousCircuitry}"
 			MasoLightningConfig: Inflict Lightning Rod

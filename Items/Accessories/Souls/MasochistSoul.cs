@@ -229,6 +229,7 @@ Summons the aid of all Eternity Mode bosses to your side
             //tribal charm
             player.buffImmune[BuffID.Webbed] = true;
             fargoPlayer.TribalCharm = true;
+            fargoPlayer.TribalCharmEquipped = true;
 
             //nymph's perfume
             player.buffImmune[BuffID.Lovestruck] = true;

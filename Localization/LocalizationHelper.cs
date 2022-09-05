@@ -202,6 +202,7 @@ namespace FargowiltasSouls
             AddToggle("MasoPouchConfig", ModContent.ItemType<WretchedPouch>());
             AddToggle("MasoClippedConfig", ModContent.ItemType<WyvernFeather>());
             AddToggle("TribalCharmConfig", ModContent.ItemType<TribalCharm>());
+            AddToggle("TribalCharmClickBonusConfig", ModContent.ItemType<TribalCharm>());
             //AddToggle("WalletHeader", ModContent.ItemType<SecurityWallet>());
 
             //dubious
