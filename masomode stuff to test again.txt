@@ -18,3 +18,4 @@ magical bulb
 	can debuff cleanse on a cd
 fixed tribal charm and mystic skull inv effects not working in vanity slot
 frigid gemstone rework, now gives ice rod hotkey and works from inv
+pumpkings cape rework, you now gain a dread shell-esque parry

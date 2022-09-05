@@ -267,9 +267,11 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.WitheredArmor] = true;
             fargoPlayer.BetsysHeartItem = Item;
 
-            //celestial rune/pumpking's cape
-            fargoPlayer.CelestialRuneItem = Item;
+            //pumpking's cape
             fargoPlayer.PumpkingsCapeItem = Item;
+
+            //celestial rune
+            fargoPlayer.CelestialRuneItem = Item;
             fargoPlayer.AdditionalAttacks = true;
             if (fargoPlayer.AdditionalAttacksTimer > 0)
                 fargoPlayer.AdditionalAttacksTimer -= 2;

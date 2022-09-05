@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void SetDefaults()
         {
-            Projectile.width = 106;
+            Projectile.width = 84;
             Projectile.height = 84;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void AI()
         {
-            if (!Projectile.tileCollide && !Collision.SolidTiles(Projectile.Center, 0, 0))
+            if (!Projectile.tileCollide && !Collision.SolidTiles(Projectile.position, Projectile.width, Projectile.height))
                 Projectile.tileCollide = true;
 
             //dust!

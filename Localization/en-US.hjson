@@ -464,7 +464,7 @@ Mods: {
 			MasoVisionConfig: Ancient Visions On Hit
 
 			HeartHeader: "{$Mods.FargowiltasSouls.ItemName.HeartoftheMasochist}"
-			MasoPumpConfig: Pumpking's Cape Support
+			MasoPumpConfig: Pumpking's Cape Parry
 			IceQueensCrownConfig: Freeze On Hit
 			MasoUfoConfig: Saucer Minion
 			MasoGravConfig: Gravity Control

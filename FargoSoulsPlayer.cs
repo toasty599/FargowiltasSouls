@@ -1233,7 +1233,7 @@ namespace FargowiltasSouls
             if (TungstenEnchantActive && TungstenCD > 0)
                 TungstenCD--;
 
-            if (IronEnchantShield || DreadShellItem != null)
+            if (IronEnchantShield || DreadShellItem != null || PumpkingsCapeItem != null)
             {
                 Shield();
             }
@@ -2448,9 +2448,6 @@ namespace FargowiltasSouls
                 if (BetsysHeartItem != null && crit)
                     target.AddBuff(BuffID.BetsysCurse, 300);
 
-                if (PumpkingsCapeItem != null && crit)
-                    target.AddBuff(ModContent.BuffType<Rotting>(), 300);
-
                 if (QueenStingerItem != null)
                     target.AddBuff(BuffID.Poisoned, 120, true);
 
@@ -2687,7 +2684,7 @@ namespace FargowiltasSouls
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                 ((NPCs.MutantBoss.MutantBoss)Main.npc[EModeGlobalNPC.mutantBoss].ModNPC).playerInvulTriggered = true;
 
-            if (TryParryAttack())
+            if (TryParryAttack(damage))
                 return false;
 
             ConcentratedRainbowMatterTryAutoHeal();
@@ -2946,9 +2943,14 @@ namespace FargowiltasSouls
                 Player.bodyFrame.Y = Player.bodyFrame.Height * 10;
                 if (shieldTimer > 0)
                 {
-                    int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
+                    List<int> shaders = new List<int>();
+                    shaders.Add(GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye));
                     if (DreadShellItem != null)
-                        shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.BloodbathDye);
+                        shaders.Add(GameShaders.Armor.GetShaderIdFromItemId(ItemID.BloodbathDye));
+                    if (PumpkingsCapeItem != null)
+                        shaders.Add(GameShaders.Armor.GetShaderIdFromItemId(ItemID.PixieDye));
+
+                    int shader = shaders[(int)(Main.GameUpdateCount / 4 % shaders.Count)];
                     drawInfo.cBody = shader;
                     drawInfo.cHead = shader;
                     drawInfo.cLegs = shader;
@@ -2956,6 +2958,17 @@ namespace FargowiltasSouls
                     drawInfo.cHandOn = shader;
                     drawInfo.cHandOff = shader;
                     drawInfo.cShoe = shader;
+                    drawInfo.cBack = shader;
+                    drawInfo.cBackpack = shader;
+                    drawInfo.cShield = shader;
+                    drawInfo.cNeck = shader;
+                    drawInfo.cHandOn = shader;
+                    drawInfo.cHandOff = shader;
+                    drawInfo.cBalloon = shader;
+                    drawInfo.cBalloonFront = shader;
+                    drawInfo.cFace = shader;
+                    drawInfo.cFaceHead = shader;
+                    drawInfo.cFront = shader;
                 }
             }
         }
@@ -3304,11 +3317,6 @@ namespace FargowiltasSouls
                 if (CelestialRuneItem != null && Player.GetToggleValue("MasoCelest"))
                 {
                     CelestialRuneSupportAttack(damage, damageType);
-                }
-
-                if (PumpkingsCapeItem != null && Player.GetToggleValue("MasoPump"))
-                {
-                    PumpkingsCapeSupportAttack(damage, damageType);
                 }
             }
         }

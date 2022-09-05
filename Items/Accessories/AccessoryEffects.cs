@@ -2416,54 +2416,6 @@ namespace FargowiltasSouls
             }
         }
 
-        public void PumpkingsCapeSupportAttack(int damage, DamageClass damageType)
-        {
-            Vector2 position = Player.Center;
-            Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position);
-
-            if (damageType.CountsAsClass(DamageClass.Melee)) //flaming jack
-            {
-                float distance = 2000f;
-                int target = -1;
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    if (Main.npc[i].active && Main.npc[i].CanBeChasedBy())
-                    {
-                        float newDist = Main.npc[i].Distance(Player.Center);
-                        if (newDist < distance)
-                        {
-                            distance = newDist;
-                            target = i;
-                        }
-                    }
-                }
-                if (target != -1)
-                    Projectile.NewProjectile(Player.GetSource_Accessory(PumpkingsCapeItem), position, velocity * 8f, ProjectileID.FlamingJack, (int)(75f * Player.ActualClassDamage(DamageClass.Melee)), 7.5f, Player.whoAmI, target, 0);
-            }
-            if (damageType.CountsAsClass(DamageClass.Ranged)) //jack o lantern
-            {
-                Projectile.NewProjectile(Player.GetSource_Accessory(PumpkingsCapeItem), position, velocity * 11f, ProjectileID.JackOLantern, (int)(65f * Player.ActualClassDamage(DamageClass.Ranged)), 8f, Player.whoAmI);
-            }
-            if (damageType.CountsAsClass(DamageClass.Magic)) //bat scepter
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    Vector2 newVel = velocity * 10f;
-                    newVel.X += Main.rand.Next(-35, 36) * 0.02f;
-                    newVel.Y += Main.rand.Next(-35, 36) * 0.02f;
-                    Projectile.NewProjectile(Player.GetSource_Accessory(PumpkingsCapeItem), position, newVel, ProjectileID.Bat, (int)(45f * Player.ActualClassDamage(DamageClass.Magic)), 3f, Player.whoAmI);
-                }
-            }
-            if (damageType.CountsAsClass(DamageClass.Summon))
-            {
-                const int max = 6;
-                for (int i = 0; i < max; i++)
-                {
-                    FargoSoulsUtil.NewSummonProjectile(Player.GetSource_Accessory(PumpkingsCapeItem), position, velocity.RotatedBy(MathHelper.TwoPi / max * i) * 20f, ModContent.ProjectileType<SpookyScythe>(), 50, 2, Player.whoAmI);
-                }
-            }
-        }
-
         public void BetsyDashKey()
         {
             if (BetsyDashCD <= 0)
@@ -2803,6 +2755,27 @@ namespace FargowiltasSouls
             }
         }
 
+        public void PumpkingsCapeCounter(int damage)
+        {
+            SoundEngine.PlaySound(SoundID.Item62, Player.Center);
+
+            if (Player.whoAmI == Main.myPlayer)
+            {
+                int heal = getHealMultiplier(damage);
+                Player.statLife += heal;
+                if (Player.statLife > Player.statLifeMax2)
+                    Player.statLife = Player.statLifeMax2;
+                Player.HealEffect(heal);
+
+                for (int i = 0; i < 30; i++)
+                {
+                    Vector2 vel = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi);
+                    vel *= Main.rand.NextFloat(12f, 24f);
+                    FargoSoulsUtil.NewSummonProjectile(Player.GetSource_Accessory(PumpkingsCapeItem), Player.Center, vel, ModContent.ProjectileType<SpookyScythe>(), damage, 6f, Player.whoAmI);
+                }
+            }
+        }
+
         public void DeerSinewEffect()
         {
             if (DeerSinewFreezeCD > 0)
@@ -2865,7 +2838,7 @@ namespace FargowiltasSouls
 
         #endregion maso acc
 
-        public bool TryParryAttack()
+        public bool TryParryAttack(int damage)
         {
             if (GuardRaised && shieldTimer > 0 && !Player.immune)
             {
@@ -2873,12 +2846,20 @@ namespace FargowiltasSouls
                 int invul = Player.longInvince ? 90 : 60;
                 int extrashieldCD = 40;
 
-                if (DreadShellItem != null)
+                if (DreadShellItem != null || PumpkingsCapeItem != null)
                 {
                     invul += 60;
-                    extrashieldCD = DREAD_SHIELD_COOLDOWN;
+                    extrashieldCD = LONG_SHIELD_COOLDOWN;
+                }
 
+                if (DreadShellItem != null)
+                {
                     DreadParryCounter();
+                }
+
+                if (PumpkingsCapeItem != null)
+                {
+                    PumpkingsCapeCounter(damage);
                 }
 
                 if (IronEnchantShield)
@@ -2911,8 +2892,8 @@ namespace FargowiltasSouls
 
         private const int IRON_PARRY_WINDOW = 20;
         private const int IRON_SHIELD_COOLDOWN = 100;
-        private const int DREAD_PARRY_WINDOW = 10;
-        private const int DREAD_SHIELD_COOLDOWN = 360;
+        private const int HARD_PARRY_WINDOW = 10;
+        private const int LONG_SHIELD_COOLDOWN = 360;
 
         void RaisedShieldEffects()
         {
@@ -2926,9 +2907,30 @@ namespace FargowiltasSouls
                     Player.velocity.Y *= 0.85f;
             }
 
+            if (PumpkingsCapeItem != null) //strong aura effect
+            {
+                const float distance = 300f;
+                for (int i = 0; i < Main.maxNPCs; i++)
+                    if (Main.npc[i].active && !Main.npc[i].friendly && Main.npc[i].Distance(Player.Center) < distance)
+                        Main.npc[i].AddBuff(ModContent.BuffType<Rotting>(), 600);
+
+                for (int i = 0; i < 20; i++)
+                {
+                    Vector2 offset = new Vector2();
+                    double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                    offset.X += (float)(Math.Sin(angle) * distance);
+                    offset.Y += (float)(Math.Cos(angle) * distance);
+                    Dust dust = Main.dust[Dust.NewDust(Player.Center + offset - new Vector2(4, 4), 0, 0, 119, 0, 0, 100, Color.White, 1f)];
+                    dust.velocity = Player.velocity;
+                    if (Main.rand.NextBool(3))
+                        dust.velocity += Vector2.Normalize(offset) * -5f;
+                    dust.noGravity = true;
+                }
+            }
+
             int cooldown = IRON_SHIELD_COOLDOWN;
-            if (DreadShellItem != null)
-                cooldown = DREAD_SHIELD_COOLDOWN;
+            if (DreadShellItem != null || PumpkingsCapeItem != null)
+                cooldown = LONG_SHIELD_COOLDOWN;
             if (IronEnchantShield)
                 cooldown = IRON_SHIELD_COOLDOWN;
 
@@ -2972,8 +2974,8 @@ namespace FargowiltasSouls
 
                     if (shieldCD == 0) //if cooldown over, enable parry
                     {
-                        if (DreadShellItem != null)
-                            shieldTimer = DREAD_PARRY_WINDOW;
+                        if (DreadShellItem != null || PumpkingsCapeItem != null)
+                            shieldTimer = HARD_PARRY_WINDOW;
                         if (IronEnchantShield)
                             shieldTimer = IRON_PARRY_WINDOW;
                     }
@@ -2991,20 +2993,19 @@ namespace FargowiltasSouls
                 {
                     SoundEngine.PlaySound(SoundID.Item27, Player.Center);
 
+                    List<int> dusts = new List<int>();
                     if (DreadShellItem != null)
-                    {
-                        for (int i = 0; i < 20; i++)
-                        {
-                            int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.LifeDrain, 0, 0, 0, default, 1.5f);
-                            Main.dust[d].noGravity = true;
-                            Main.dust[d].velocity *= 3f;
-                        }
-                    }
+                        dusts.Add(DustID.LifeDrain);
+                    if (PumpkingsCapeItem != null)
+                        dusts.Add(87);
                     if (IronEnchantShield)
+                        dusts.Add(66);
+
+                    if (dusts.Count > 0)
                     {
                         for (int i = 0; i < 20; i++)
                         {
-                            int d = Dust.NewDust(Player.position, Player.width, Player.height, 1, 0, 0, 0, default, 1.5f);
+                            int d = Dust.NewDust(Player.position, Player.width, Player.height, Main.rand.Next(dusts), 0, 0, 0, default, 1.5f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity *= 3f;
                         }
@@ -3028,20 +3029,19 @@ namespace FargowiltasSouls
                 {
                     SoundEngine.PlaySound(SoundID.Item28, Player.Center); //make a sound for refresh
 
+                    List<int> dusts = new List<int>();
                     if (DreadShellItem != null)
+                        dusts.Add(DustID.LifeDrain);
+                    if (PumpkingsCapeItem != null)
+                        dusts.Add(87);
+                    if (IronEnchantShield)
+                        dusts.Add(66);
+                    
+                    if (dusts.Count > 0)
                     {
                         for (int i = 0; i < 30; i++)
                         {
-                            int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.LifeDrain, 0, 0, 0, default, 2.5f);
-                            Main.dust[d].noGravity = true;
-                            Main.dust[d].velocity *= 6f;
-                        }
-                    }
-                    else if (IronEnchantShield)
-                    {
-                        for (int i = 0; i < 30; i++)
-                        {
-                            int d = Dust.NewDust(Player.position, Player.width, Player.height, 66, 0, 0, 0, default, 2.5f);
+                            int d = Dust.NewDust(Player.position, Player.width, Player.height, Main.rand.Next(dusts), 0, 0, 0, default, 2.5f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity *= 6f;
                         }
