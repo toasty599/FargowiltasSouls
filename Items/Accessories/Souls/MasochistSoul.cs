@@ -28,6 +28,8 @@ Increases life regen drastically, your cursor causes nearby enemies to take incr
 Grants gravity control, fastfall, and immunity to knockback, almost all Eternity Mode debuffs, and more
 Grants autofire to all weapons and you automatically use mana potions when needed
 Your attacks create additional attacks, hearts, and inflict a cocktail of Eternity Mode debuffs
+Increased stats when inflicted with Cursed Inferno or Ichor
+Press the Debuff Install key to debuff and buff yourself
 Press the Fireball Dash key to perform a short invincible dash, zoom with right click
 Certain enemies will drop potions when defeated, drastically improves reforges, you respawn with more life
 You respawn twice as fast, attacks spawn honey, have improved night vision, and erupt into various attacks when injured
@@ -246,6 +248,10 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.FusedLens = true;
             fargoPlayer.GroundStick = true;
             player.noKnockback = true;
+            if (player.onFire2)
+                player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 0.15f;
+            if (player.ichor)
+                player.GetCritChance(DamageClass.Generic) += 15;
 
             //magical bulb
             player.buffImmune[BuffID.Venom] = true;

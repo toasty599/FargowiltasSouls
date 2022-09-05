@@ -275,6 +275,7 @@ namespace FargowiltasSouls
         public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
         public bool FusedLens;
+        public bool FusedLensInstall;
         public bool GroundStick;
         public bool Probes;
         public bool MagicalBulb;
@@ -680,6 +681,11 @@ namespace FargowiltasSouls
                 MutantBombKey();
             }
 
+            if (FargowiltasSouls.DebuffInstallKey.JustPressed)
+            {
+                DebuffInstallKey();
+            }
+
             //            if (triggersSet.Left && Player.confused && Player.gravControl)
             //            {
             //                Player.gravDir *= -1;
@@ -834,6 +840,7 @@ namespace FargowiltasSouls
             PungentEyeballMinion = false;
             CrystalSkullMinion = false;
             FusedLens = false;
+            FusedLensInstall = false;
             GroundStick = false;
             Probes = false;
             MagicalBulb = false;
@@ -2251,8 +2258,6 @@ namespace FargowiltasSouls
 
         private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, DamageClass damageClass, Projectile projectile = null, Item item = null)
         {
-
-
             if (StyxSet)
             {
                 StyxMeter += damage;
@@ -2452,7 +2457,12 @@ namespace FargowiltasSouls
                     target.AddBuff(BuffID.Poisoned, 120, true);
 
                 if (FusedLens)
-                    target.AddBuff(Main.rand.NextBool() ? BuffID.CursedInferno : BuffID.Ichor, 360);
+                {
+                    if (Player.onFire2)
+                        target.AddBuff(BuffID.CursedInferno, 360);
+                    if (Player.ichor)
+                        target.AddBuff(BuffID.Ichor, 360);
+                }
             }
 
             if (!TerrariaSoul)

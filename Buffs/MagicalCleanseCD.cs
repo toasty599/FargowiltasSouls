@@ -6,8 +6,6 @@ namespace FargowiltasSouls.Buffs
 {
     public class MagicalCleanseCD : ModBuff
     {
-        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Magical Cleanse Cooldown");

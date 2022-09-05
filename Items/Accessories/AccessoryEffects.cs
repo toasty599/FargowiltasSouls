@@ -2562,6 +2562,28 @@ namespace FargowiltasSouls
             }
         }
 
+        public void DebuffInstallKey()
+        {
+            if (FusedLens)
+            {
+                bool firstInstall = !Player.HasBuff(ModContent.BuffType<TwinsInstall>());
+
+                if (firstInstall)
+                    SoundEngine.PlaySound(SoundID.Item119, Player.Center);
+
+                Player.AddBuff(ModContent.BuffType<TwinsInstall>(), 60 * 30);
+
+                int max = firstInstall ? 60 : 30;
+                for (int i = 0; i < max; i++)
+                {
+                    float scale = firstInstall ? 3f : 1.5f;
+                    int index2 = Dust.NewDust(Player.position, Player.width, Player.height, Main.rand.NextBool() ? 90 : 89, 0f, 0f, 0, new Color(), scale);
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].velocity *= scale * 3;
+                }
+            }
+        }
+
         int lihzahrdFallCD;
         public void LihzahrdTreasureBoxUpdate()
         {
