@@ -2320,7 +2320,7 @@ namespace FargowiltasSouls
                                     Vector2 speed = mouse - spawn;
                                     speed.Normalize();
                                     speed *= 10f;
-                                    Projectile.NewProjectile(Player.GetSource_Accessory(SlimyShieldItem), spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
+                                    Projectile.NewProjectile(Player.GetSource_Accessory(SlimyShieldItem, "SlimyShield"), spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
                                 }
                             }
                         }
