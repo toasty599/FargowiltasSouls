@@ -189,6 +189,7 @@ namespace FargowiltasSouls
             AddToggle("MasoEyeConfig", ModContent.ItemType<AgitatingLens>());
             AddToggle("MasoEyeInstallConfig", ModContent.ItemType<AgitatingLens>());
             AddToggle("MasoSkeleConfig", ModContent.ItemType<NecromanticBrew>());
+            AddToggle("MasoSkeleSpinConfig", ModContent.ItemType<NecromanticBrew>());
 
             //bionomic
             AddToggle("BionomicHeader", ModContent.ItemType<BionomicCluster>());

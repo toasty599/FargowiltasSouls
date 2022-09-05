@@ -428,6 +428,7 @@ Mods: {
 			MasoEyeConfig: Scythes When Dashing
 			MasoEyeInstallConfig: Berserker Install
 			MasoSkeleConfig: Skeletron Arms Minion
+			MasoSkeleSpinConfig: Skeletron Spin Dash
 
 			BionomicHeader: "{$Mods.FargowiltasSouls.ItemName.BionomicCluster}"
 			MasoConcoctionConfig: Tim's Concoction

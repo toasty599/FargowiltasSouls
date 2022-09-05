@@ -266,6 +266,7 @@ namespace FargowiltasSouls
         public bool GuttedHeart;
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         public Item NecromanticBrewItem;
+        public float NecromanticBrewRotation;
         public Item DeerclawpsItem;
         public int IsDashingTimer;
         public bool DeerSinewNerf;
@@ -454,6 +455,10 @@ namespace FargowiltasSouls
             || (Player.velocity.X < 0 && Player.controlLeft)
             || Player.dashDelay < 0
             || IsDashingTimer > 0;
+
+        //grapple check needed because grapple state extends dash state forever
+        public bool IsInADashState
+            => (Player.dashDelay == -1 || IsDashingTimer > 0) && Player.grapCount <= 0;
 
         public override void SaveData(TagCompound tag)
         {
@@ -1396,11 +1401,24 @@ namespace FargowiltasSouls
                     lihzahrdFallCD = 2;
             }
 
-            if (DeerclawpsItem != null)
+            if (DeerclawpsItem != null && IsInADashState)
             {
-                //grapple check needed because grapple state extends dash state forever
-                if ((Player.dashDelay == -1 || IsDashingTimer > 0) && Player.grapCount <= 0)
-                    DeerclawpsAttack(Player.Bottom);
+                DeerclawpsAttack(Player.Bottom);
+            }
+
+            if (NecromanticBrewItem != null && IsInADashState && Player.GetToggleValue("MasoSkeleSpin"))
+            {
+                Player.noKnockback = true;
+                Player.thorns = 4f;
+
+                NecromanticBrewRotation += 0.5f * Math.Sign(Player.velocity.X == 0 ? Player.direction : Player.velocity.X);
+                Player.fullRotation = NecromanticBrewRotation;
+                Player.fullRotationOrigin = Player.Center - Player.position;
+            }
+            else if (NecromanticBrewRotation != 0)
+            {
+                Player.fullRotation = 0f;
+                NecromanticBrewRotation = 0f;
             }
         }
 
@@ -2585,6 +2603,13 @@ namespace FargowiltasSouls
 
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
+            if (NecromanticBrewItem != null && IsInADashState)
+            {
+                damage /= 4;
+            }
+
+
+
             if (Smite)
                 damage = (int)(damage * 1.1);
 
@@ -2690,15 +2715,15 @@ namespace FargowiltasSouls
 
             ConcentratedRainbowMatterTryAutoHeal();
 
+            if (DeathMarked)
+            {
+                damage = (int)(damage * 1.5);
+            }
+
             if (Player.whoAmI == Main.myPlayer && !noDodge && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
             {
                 Squeak(Player.Center);
                 damage = 1;
-            }
-
-            if (DeathMarked)
-            {
-                damage = (int)(damage * 1.5);
             }
 
             if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
