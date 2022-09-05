@@ -35,7 +35,6 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoCarrot;
         public string MasoRainbow;
         public string MasoHealingPotion;
-        public string MasoFrigid;
         public string MasoNymph;
         public string MasoSqueak;
         public string MasoPouch;

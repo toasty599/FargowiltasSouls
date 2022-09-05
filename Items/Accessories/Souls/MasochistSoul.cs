@@ -73,11 +73,11 @@ Summons the aid of all Eternity Mode bosses to your side
         public override void UseItemFrame(Player player) => SandsofTime.Use(player);
         public override bool? UseItem(Player player) => true;
 
-        public override void UpdateInventory(Player player) => BionomicCluster.PassiveEffect(player);
-        public override void UpdateVanity(Player player) => BionomicCluster.PassiveEffect(player);
+        public override void UpdateInventory(Player player) => BionomicCluster.PassiveEffect(player, Item);
+        public override void UpdateVanity(Player player) => BionomicCluster.PassiveEffect(player, Item);
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            BionomicCluster.PassiveEffect(player);
+            BionomicCluster.PassiveEffect(player, Item);
 
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.MasochistSoul = true;
@@ -194,12 +194,6 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //frigid gemstone
             player.buffImmune[BuffID.Frostburn] = true;
-            if (player.GetToggleValue("MasoFrigid"))
-            {
-                fargoPlayer.FrigidGemstoneItem = Item;
-                if (fargoPlayer.FrigidGemstoneCD > 0)
-                    fargoPlayer.FrigidGemstoneCD -= 5;
-            }
 
             //wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;

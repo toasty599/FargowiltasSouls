@@ -2314,25 +2314,22 @@ namespace FargowiltasSouls
             }
         }
 
-        public void FrigidGemstoneAttack(NPC target, Projectile projectile)
+        public void FrigidGemstoneKey()
         {
-            if (FrigidGemstoneCD <= 0 && !target.immortal && (projectile == null || projectile.type != ModContent.ProjectileType<FrostFireball>()))
-            {
-                FrigidGemstoneCD = 30;
-                float screenX = Main.screenPosition.X;
-                if (Player.direction < 0)
-                    screenX += Main.screenWidth;
-                float screenY = Main.screenPosition.Y;
-                screenY += Main.rand.Next(Main.screenHeight);
-                Vector2 spawn = new Vector2(screenX, screenY);
-                Vector2 vel = target.Center - spawn;
-                vel.Normalize();
-                vel *= 8f;
-                int dam = (int)(40 * Player.ActualClassDamage(DamageClass.Magic));
-                if (MasochistSoul)
-                    dam *= 2;
-                Projectile.NewProjectile(Player.GetSource_Accessory(FrigidGemstoneItem), spawn, vel, ModContent.ProjectileType<FrostFireball>(), dam, 6f, Player.whoAmI, target.whoAmI);
-            }
+            if (FrigidGemstoneCD > 0)
+                return;
+
+            if (!Player.CheckMana(6, true))
+                return;
+
+            FrigidGemstoneCD = 10;
+
+            SoundEngine.PlaySound(SoundID.Item28, Player.Center);
+
+            Projectile.NewProjectile(Player.GetSource_Accessory(FrigidGemstoneItem),
+                Player.Center, 12f * Player.DirectionTo(Main.MouseWorld), ProjectileID.IceBlock,
+                (int)(14 * Player.ActualClassDamage(DamageClass.Magic)), 2f,
+                Player.whoAmI, Player.tileTargetX, Player.tileTargetY);
         }
 
         public void IceQueensCrownHurt()

@@ -305,9 +305,9 @@ namespace FargowiltasSouls
         public bool DragonFang;
         public bool SecurityWallet;
         public Item FrigidGemstoneItem;
+        public int FrigidGemstoneCD;
         public Item WretchedPouchItem;
         public int WretchedPouchCD;
-        public int FrigidGemstoneCD;
         public bool NymphsPerfume;
         public bool NymphsPerfumeRespawn;
         public int NymphsPerfumeCD = 30;
@@ -643,6 +643,15 @@ namespace FargowiltasSouls
                 MagicalBulbKey();
             }
 
+            if (FrigidGemstoneItem != null)
+            {
+                if (FrigidGemstoneCD > 0)
+                    FrigidGemstoneCD--;
+
+                if (FargowiltasSouls.FrigidSpellKey.Current)
+                    FrigidGemstoneKey();
+            }
+
             if (PrecisionSeal)
             {
                 if (SoulConfig.Instance.PrecisionSealIsHold)
@@ -965,6 +974,11 @@ namespace FargowiltasSouls
 
         public override void UpdateDead()
         {
+            bool wasSandsOfTime = SandsofTime;
+
+            ResetEffects();
+
+            SandsofTime = wasSandsOfTime;
             if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && Player.respawnTimer > 10)
                 Player.respawnTimer -= Eternity ? 6 : 1;
 
@@ -986,45 +1000,19 @@ namespace FargowiltasSouls
             ReallyAwfulDebuffCooldown = 0;
             ParryDebuffImmuneTime = 0;
 
-            //            FreezeTime = false;
-            //            freezeLength = 0;
-
-            //            /*if (!Main.dedServ)
-            //            {
-            //                if (Fargowiltas.OldMusicFade > Main.musicVolume)
-            //                {
-            //                    Main.musicVolume = Fargowiltas.OldMusicFade;
-            //                    Fargowiltas.OldMusicFade = 0;
-            //                }
-            //            }*/
-
             WingTimeModifier = 1f;
             FreeEaterSummon = true;
             if (Screenshake > 0)
                 Screenshake--;
 
-            EridanusSet = false;
-            EridanusEmpower = false;
             EridanusTimer = 0;
-            GaiaSet = false;
-            GaiaOffense = false;
-            StyxSet = false;
             StyxMeter = 0;
             StyxTimer = 0;
-            NekomiSet = false;
             NekomiMeter = 0;
             NekomiTimer = 0;
 
             //debuffs
-            Hexed = false;
-            Unstable = false;
             unstableCD = 0;
-            Fused = false;
-            Shadowflame = false;
-            Oiled = false;
-            Slimed = false;
-            noDodge = false;
-            noSupersonic = false;
             lightningRodTimer = 0;
 
             BuilderMode = false;
@@ -1039,60 +1027,13 @@ namespace FargowiltasSouls
             SlimyShieldFalling = false;
             DarkenedHeartCD = 60;
             GuttedHeartCD = 60;
-            NecromanticBrewItem = null;
-            DeerclawpsItem = null;
-            DeerSinewNerf = false;
             IsDashingTimer = 0;
             GroundPound = 0;
-            NymphsPerfume = false;
             NymphsPerfumeCD = 30;
-            PungentEyeballMinion = false;
-            CrystalSkullMinion = false;
-            MagicalBulb = false;
-            LunarCultist = false;
-            TrueEyes = false;
-            BetsyDashing = false;
-
-            WretchedPouchItem = null;
             WretchedPouchCD = 0;
 
-            Smite = false;
-            Anticoagulation = false;
-            GodEater = false;
-            FlamesoftheUniverse = false;
-            MutantNibble = false;
-            Asocial = false;
-            Kneecapped = false;
-            Defenseless = false;
-            Purified = false;
-            Infested = false;
-            Rotting = false;
-            SqueakyToy = false;
-            Atrophied = false;
-            Jammed = false;
-            CurseoftheMoon = false;
-            OceanicMaul = false;
-            DeathMarked = false;
-            Hypothermia = false;
-            Midas = false;
-            Bloodthirsty = false;
-            DisruptedFocus = false;
-            SinisterIcon = false;
-            SinisterIconDrops = false;
-            Graze = false;
-            GrazeRadius = 100f;
             GrazeBonus = 0;
-            DevianttHeartItem = null;
-            MutantEyeItem = null;
-            MutantEyeVisual = false;
             MutantEyeCD = 60;
-            AbominableWandRevived = false;
-            AbomRebirth = false;
-            WasHurtBySomething = false;
-            PrecisionSeal = false;
-            PrecisionSealHurtbox = false;
-            GelicWingsItem = null;
-            ConcentratedRainbowMatter = false;
 
             Mash = false;
             WizardEnchantActive = false;
@@ -2609,9 +2550,6 @@ namespace FargowiltasSouls
 
             if (DarkenedHeartItem != null)
                 DarkenedHeartAttack(projectile);
-
-            if (FrigidGemstoneItem != null)
-                FrigidGemstoneAttack(target, projectile);
 
             if (NebulaEnchantActive)
                 NebulaOnHit(target, projectile, damageClass);

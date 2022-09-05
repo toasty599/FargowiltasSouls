@@ -42,6 +42,7 @@ namespace FargowiltasSouls
         internal static ModKeybind SoulToggleKey;
         internal static ModKeybind PrecisionSealKey;
         internal static ModKeybind MagicalBulbKey;
+        internal static ModKeybind FrigidSpellKey;
 
         internal static List<int> DebuffIDs;
 
@@ -134,6 +135,7 @@ namespace FargowiltasSouls
             SoulToggleKey = KeybindLoader.RegisterKeybind(this, "Open Soul Toggler", ".");
             PrecisionSealKey = KeybindLoader.RegisterKeybind(this, "Precision Movement", "LeftShift");
             MagicalBulbKey = KeybindLoader.RegisterKeybind(this, "Magical Cleanse", "N");
+            FrigidSpellKey = KeybindLoader.RegisterKeybind(this, "Frigid Spell", "U");
 
             ToggleLoader.Load();
 
@@ -275,6 +277,7 @@ namespace FargowiltasSouls
             SoulToggleKey = null;
             PrecisionSealKey = null;
             MagicalBulbKey = null;
+            FrigidSpellKey = null;
 
             if (DebuffIDs != null)
                 DebuffIDs.Clear();

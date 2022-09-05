@@ -17,3 +17,4 @@ magical bulb
 	TRIPLED regen but its based on lighting now
 	can debuff cleanse on a cd
 fixed tribal charm and mystic skull inv effects not working in vanity slot
+frigid gemstone rework, now gives ice rod hotkey and works from inv
