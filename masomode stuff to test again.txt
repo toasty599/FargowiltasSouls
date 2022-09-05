@@ -56,3 +56,4 @@ lihzahrd treasure box boulders are now fastfall only, less screen clutter
 improved chalice cultist fireball homing so they disappear faster, less screen clutter
 chalice cultist ice mist is more translucent
 made friendly ancient visions more translucent and less dust
+buffed eater staff damage from 10 to 12, but it has to dig in blocks now
