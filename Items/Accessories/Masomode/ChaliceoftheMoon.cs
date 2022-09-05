@@ -2,6 +2,7 @@
 using FargowiltasSouls.Buffs.Minions;
 using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -53,7 +54,14 @@ Summons a friendly Cultist and plant to fight at your side
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             //magical bulb
-            player.lifeRegen += 2;
+            Point pos = player.Center.ToTileCoordinates();
+            if (pos.X > 0 && pos.Y > 0 && pos.X < Main.maxTilesX && pos.Y < Main.maxTilesY)
+            {
+                float lightStrength = Lighting.GetColor(pos).ToVector3().Length();
+                float ratio = lightStrength / 1.732f; //this value is 1,1,1 lighting
+                ratio = (float)System.Math.Pow(ratio, 3);
+                player.lifeRegen += (int)(6 * ratio);
+            }
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[ModContent.BuffType<IvyVenom>()] = true;
             player.buffImmune[ModContent.BuffType<Swarming>()] = true;

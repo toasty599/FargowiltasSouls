@@ -199,6 +199,7 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("MasoIconDrops", true);
             player.SetToggleValue("MasoNymph", true);
             player.SetToggleValue("TribalCharm", true);
+            player.SetToggleValue("TribalCharmClickBonus", true);
             player.SetToggleValue("MasoGrav2", true);
             player.SetToggleValue("PrecisionSealHurtbox", true);
 

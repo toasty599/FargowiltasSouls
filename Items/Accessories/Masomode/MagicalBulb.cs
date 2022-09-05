@@ -1,6 +1,7 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Minions;
 using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,7 +17,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Magical Bulb");
             Tooltip.SetDefault(@"Grants immunity to Acid Venom, Ivy Venom, and Swarming
-Increases life regeneration
+Increases life regeneration based on how much light you receive
 Attracts a legendary plant's offspring which flourishes in combat
 'Matricide?'");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "魔法球茎");
@@ -42,7 +43,14 @@ Attracts a legendary plant's offspring which flourishes in combat
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[ModContent.BuffType<IvyVenom>()] = true;
             player.buffImmune[ModContent.BuffType<Swarming>()] = true;
-            player.lifeRegen += 2;
+            Point pos = player.Center.ToTileCoordinates();
+            if (pos.X > 0 && pos.Y > 0 && pos.X < Main.maxTilesX && pos.Y < Main.maxTilesY)
+            {
+                float lightStrength = Lighting.GetColor(pos).ToVector3().Length();
+                float ratio = lightStrength / 1.732f; //this value is 1,1,1 lighting
+                ratio = (float)System.Math.Pow(ratio, 3);
+                player.lifeRegen += (int)(6 * ratio);
+            }
             if (player.GetToggleValue("MasoPlant"))
                 player.AddBuff(ModContent.BuffType<PlanterasChild>(), 2);
         }

@@ -41,6 +41,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoPouch;
         public string MasoClipped;
         public string TribalCharm;
+        public string TribalCharmClickBonus;
 
         public int DubiousHeader = ModContent.ItemType<DubiousCircuitry>();
         public string MasoLightning;
