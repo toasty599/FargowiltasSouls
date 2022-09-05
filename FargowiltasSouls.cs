@@ -382,6 +382,14 @@ namespace FargowiltasSouls
                     case "EridanusArmour":
                         return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().EridanusSet;
 
+                    case "StyxArmor":
+                    case "StyxArmour":
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().StyxSet;
+
+                    case "MutantArmor":
+                    case "MutantArmour":
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantSetBonusItem != null;
+
                     case "GiftsReceived":
                         return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().ReceivedMasoGift;
 
