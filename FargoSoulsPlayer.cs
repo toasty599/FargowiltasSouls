@@ -1601,13 +1601,6 @@ namespace FargowiltasSouls
 
             ManageLifeReduction();
 
-            if (AgitatingLensItem != null && Player.statLife < Player.statLifeMax2 / 2)
-            {
-                Player.GetDamage(DamageClass.Generic) += 0.10f;
-                AttackSpeed += 0.10f;
-                Player.moveSpeed += 0.10f;
-            }
-
             if (Eternity)
                 Player.statManaMax2 = 999;
             else if (UniverseSoul)

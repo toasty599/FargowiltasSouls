@@ -2582,6 +2582,22 @@ namespace FargowiltasSouls
                     Main.dust[index2].velocity *= scale * 3;
                 }
             }
+
+            if (AgitatingLensItem != null
+                && !Player.HasBuff(ModContent.BuffType<BerserkerInstall>())
+                && !Player.HasBuff(ModContent.BuffType<BerserkerInstallCD>()))
+            {
+                SoundEngine.PlaySound(SoundID.Item119, Player.Center);
+
+                Player.AddBuff(ModContent.BuffType<BerserkerInstall>(), 360);
+
+                for (int i = 0; i < 60; i++)
+                {
+                    int index2 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.RedTorch, 0f, 0f, 0, default, 3f);
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].velocity *= 9;
+                }
+            }
         }
 
         int lihzahrdFallCD;

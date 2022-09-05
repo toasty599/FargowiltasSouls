@@ -20,3 +20,5 @@ fixed tribal charm and mystic skull inv effects not working in vanity slot
 frigid gemstone rework, now gives ice rod hotkey and works from inv
 pumpkings cape rework, you now gain a dread shell-esque parry
 fused lens rework, you now have a debuff install
+moved stunned immune from skull charm to sinister icon
+agitating lens rework, instead of buffs below 50% life you get a berserker install
