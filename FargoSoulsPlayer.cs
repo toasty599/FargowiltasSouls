@@ -1655,20 +1655,6 @@ namespace FargowiltasSouls
                 Player.moveSpeed += 0.10f;
             }
 
-            if (ConcentratedRainbowMatter
-                && Player.statLife < Player.statLifeMax2
-                && Player.potionDelay <= 0
-                && Player.GetToggleValue("MasoHealingPotion", false))
-            {
-                Item potion = Player.QuickHeal_GetItemToUse();
-                if (potion != null)
-                {
-                    int heal = getHealMultiplier(potion.healLife);
-                    if (Player.statLife < Player.statLifeMax2 - heal)
-                        Player.QuickHeal();
-                }
-            }
-
             if (Eternity)
                 Player.statManaMax2 = 999;
             else if (UniverseSoul)
@@ -2730,6 +2716,23 @@ namespace FargowiltasSouls
             }
         }
 
+        public void ConcentratedRainbowMatterTryAutoHeal()
+        {
+            if (ConcentratedRainbowMatter
+                && Player.statLife < Player.statLifeMax2
+                && Player.potionDelay <= 0
+                && Player.GetToggleValue("MasoHealingPotion", false))
+            {
+                Item potion = Player.QuickHeal_GetItemToUse();
+                if (potion != null)
+                {
+                    int heal = getHealMultiplier(potion.healLife);
+                    if (Player.statLife < Player.statLifeMax2 - heal)
+                        Player.QuickHeal();
+                }
+            }
+        }
+
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
@@ -2743,6 +2746,8 @@ namespace FargowiltasSouls
 
             if (TryParryAttack())
                 return false;
+
+            ConcentratedRainbowMatterTryAutoHeal();
 
             if (Player.whoAmI == Main.myPlayer && !noDodge && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
             {
@@ -2876,6 +2881,8 @@ namespace FargowiltasSouls
 
             GrazeBonus = 0;
             GrazeCounter = 0;
+
+            ConcentratedRainbowMatterTryAutoHeal();
         }
 
         private PlayerDeathReason DeathByLocalization(string key)
