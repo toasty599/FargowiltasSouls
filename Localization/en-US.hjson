@@ -427,7 +427,6 @@ Mods: {
 			SlimeFallingConfig: Increased Fall Speed
 			MasoEyeConfig: Scythes When Dashing
 			MasoEyeInstallConfig: Berserker Install
-			MasoHoneyConfig: Honey When Hitting Enemies
 			MasoSkeleConfig: Skeletron Arms Minion
 
 			BionomicHeader: "{$Mods.FargowiltasSouls.ItemName.BionomicCluster}"

@@ -24,7 +24,7 @@ Increases damage and critical strike chance by 10% and increases damage reductio
 Increases flight time by 100%
 Your critical strikes inflict Betsy's Curse
 Right Click to guard with your cape
-Press the Fireball Dash key to perform a short invincible dash
+Press the Special Dash key to perform a short invincible fireball dash
 Grants effects of Wet debuff while riding Cute Fishron and gravity control
 You freeze everything when damaged but taking consecutive hits stacks penalties to your damage reduction
 Reduces your hurtbox size for projectiles

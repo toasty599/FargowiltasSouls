@@ -122,7 +122,6 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("MasoDevianttHearts", false);
 
             player.SetToggleValue("MasoSlime", false);
-            player.SetToggleValue("MasoHoney", false);
             player.SetToggleValue("MasoSkele", false);
 
             player.SetToggleValue("MasoCarrot", false);

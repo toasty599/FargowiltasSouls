@@ -28,7 +28,6 @@ namespace FargowiltasSouls.Toggler.Content
         public string SlimeFalling;
         public string MasoEye;
         public string MasoEyeInstall;
-        public string MasoHoney;
         public string MasoSkele;
 
         public int BionomicHeader = ModContent.ItemType<BionomicCluster>();

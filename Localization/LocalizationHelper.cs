@@ -188,7 +188,6 @@ namespace FargowiltasSouls
             AddToggle("SlimeFallingConfig", ModContent.ItemType<SlimyShield>());
             AddToggle("MasoEyeConfig", ModContent.ItemType<AgitatingLens>());
             AddToggle("MasoEyeInstallConfig", ModContent.ItemType<AgitatingLens>());
-            AddToggle("MasoHoneyConfig", ModContent.ItemType<QueenStinger>());
             AddToggle("MasoSkeleConfig", ModContent.ItemType<NecromanticBrew>());
 
             //bionomic

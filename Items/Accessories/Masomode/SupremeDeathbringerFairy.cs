@@ -22,7 +22,7 @@ Increased fall speed
 When you land after a jump, slime will fall from the sky over your cursor
 While dashing or running quickly you will create a trail of blood scythes
 Press the Debuff Install key to go berserk
-Your attacks inflict Poisoned and spray honey that increases your life regeneration
+Press the Special Dash key to perform a short quick bee dash
 Bees and weak Hornets become friendlier
 Summons 2 Skeletron arms to whack enemies
 'Supremacy not necessarily guaranteed'");

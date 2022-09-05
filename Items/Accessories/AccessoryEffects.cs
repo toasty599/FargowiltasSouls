@@ -2410,11 +2410,11 @@ namespace FargowiltasSouls
             }
         }
 
-        public void BetsyDashKey()
+        public void SpecialDashKey()
         {
-            if (BetsyDashCD <= 0)
+            if (SpecialDashCD <= 0)
             {
-                BetsyDashCD = 180;
+                SpecialDashCD = 180;
 
                 if (Player.whoAmI == Main.myPlayer)
                 {
@@ -2429,26 +2429,36 @@ namespace FargowiltasSouls
                     Player.controlHook = false;
                     Player.controlMount = false;
 
-                    Player.immune = true;
-                    Player.immuneTime = Math.Max(Player.immuneTime, 2);
-                    Player.hurtCooldowns[0] = Math.Max(Player.hurtCooldowns[0], 2);
-                    Player.hurtCooldowns[1] = Math.Max(Player.hurtCooldowns[1], 2);
-
                     Player.itemAnimation = 0;
                     Player.itemTime = 0;
+                    Player.reuseDelay = 0;
 
-                    Vector2 vel = Player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
-                    Projectile.NewProjectile(Player.GetSource_Accessory(BetsysHeartItem), Player.Center, vel, ModContent.ProjectileType<Projectiles.BetsyDash>(), (int)(100 * Player.ActualClassDamage(DamageClass.Melee)), 0f, Player.whoAmI);
-                    Player.AddBuff(ModContent.BuffType<Buffs.BetsyDash>(), 20);
-
-                    //immune to all debuffs
-                    foreach (int debuff in FargowiltasSouls.DebuffIDs)
+                    if (BetsysHeartItem != null)
                     {
-                        if (!Player.HasBuff(debuff))
+                        Vector2 vel = Player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(BetsysHeartItem), Player.Center, vel, ModContent.ProjectileType<Projectiles.BetsyDash>(), (int)(100 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
+
+                        Player.immune = true;
+                        Player.immuneTime = Math.Max(Player.immuneTime, 2);
+                        Player.hurtCooldowns[0] = Math.Max(Player.hurtCooldowns[0], 2);
+                        Player.hurtCooldowns[1] = Math.Max(Player.hurtCooldowns[1], 2);
+
+                        //immune to all debuffs
+                        foreach (int debuff in FargowiltasSouls.DebuffIDs)
                         {
-                            Player.buffImmune[debuff] = true;
+                            if (!Player.HasBuff(debuff))
+                            {
+                                Player.buffImmune[debuff] = true;
+                            }
                         }
                     }
+                    else if (QueenStingerItem != null)
+                    {
+                        Vector2 vel = Player.DirectionTo(Main.MouseWorld) * 20;
+                        Projectile.NewProjectile(Player.GetSource_Accessory(QueenStingerItem), Player.Center, vel, ModContent.ProjectileType<Projectiles.BeeDash>(), (int)(44 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
+                    }
+
+                    Player.AddBuff(ModContent.BuffType<Buffs.BetsyDash>(), 20);
                 }
             }
         }

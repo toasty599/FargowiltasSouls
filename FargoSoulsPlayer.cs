@@ -46,7 +46,6 @@ namespace FargowiltasSouls
 
         //        public bool Wood;
         public Item QueenStingerItem;
-        public int QueenStingerCD;
         public bool EridanusSet;
         public bool EridanusEmpower;
         public int EridanusTimer;
@@ -287,7 +286,7 @@ namespace FargowiltasSouls
         public int GroundPound;
         public Item BetsysHeartItem;
         public bool BetsyDashing;
-        public int BetsyDashCD;
+        public int SpecialDashCD;
         public bool MutantAntibodies;
         public Item GravityGlobeEXItem;
         public Item CelestialRuneItem;
@@ -635,9 +634,9 @@ namespace FargowiltasSouls
                 NinjaEnchant.SmokeBombKey(this);
             }
 
-            if (FargowiltasSouls.BetsyDashKey.JustPressed && BetsysHeartItem != null)
+            if (FargowiltasSouls.SpecialDashKey.JustPressed && (BetsysHeartItem != null || QueenStingerItem != null))
             {
-                BetsyDashKey();
+                SpecialDashKey();
             }
 
             if (FargowiltasSouls.MagicalBulbKey.JustPressed && MagicalBulb)
@@ -1295,9 +1294,6 @@ namespace FargowiltasSouls
             {
                 if (Player.honey)
                     Player.GetArmorPenetration(DamageClass.Generic) += 10;
-
-                if (QueenStingerCD > 0)
-                    QueenStingerCD--;
             }
 
             if (BeetleEnchantDefenseTimer > 0)
@@ -1324,7 +1320,7 @@ namespace FargowiltasSouls
                     DevianttHeartsCD--;
             }
 
-            if (BetsysHeartItem != null && BetsyDashCD > 0 && --BetsyDashCD == 0)
+            if ((BetsysHeartItem != null || QueenStingerItem != null) && SpecialDashCD > 0 && --SpecialDashCD == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item9, Player.Center);
 
@@ -2308,17 +2304,6 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (QueenStingerItem != null && QueenStingerCD <= 0 && Player.GetToggleValue("MasoHoney"))
-            {
-                QueenStingerCD = SupremeDeathbringerFairy ? 300 : 600;
-
-                for (int j = 0; j < 15; j++) //spray honey
-                {
-                    Projectile.NewProjectile(Player.GetSource_Accessory(QueenStingerItem), target.Center, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
-                        ModContent.ProjectileType<HoneyDrop>(), 0, 0f, Main.myPlayer);
-                }
-            }
-
             if (PalladEnchantActive && !Player.onHitRegen)
             {
                 Player.AddBuff(BuffID.RapidHealing, Math.Min(300, damage / 3)); //heal time based on damage dealt, capped at 5sec
@@ -2461,9 +2446,6 @@ namespace FargowiltasSouls
             {
                 if (BetsysHeartItem != null && crit)
                     target.AddBuff(BuffID.BetsysCurse, 300);
-
-                if (QueenStingerItem != null)
-                    target.AddBuff(BuffID.Poisoned, 120, true);
 
                 if (FusedLens)
                 {
