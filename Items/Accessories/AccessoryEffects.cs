@@ -2749,17 +2749,26 @@ namespace FargowiltasSouls
                     }
                     else if (Player.velocity.Y == 0f && Player.oldVelocity.Y == 0f)
                     {
-                        if (Player.whoAmI == Main.myPlayer)
+                        int x = (int)(Player.Center.X) / 16;
+                        int y = (int)(Player.position.Y + Player.height + 8) / 16;
+                        if (/*GroundPound > 15 && */x >= 0 && x < Main.maxTilesX && y >= 0 && y < Main.maxTilesY
+                            && Main.tile[x, y] != null && Main.tile[x, y].HasUnactuatedTile && Main.tileSolid[Main.tile[x, y].TileType])
                         {
-                            int x = (int)(Player.Center.X) / 16;
-                            int y = (int)(Player.position.Y + Player.height + 8) / 16;
-                            if (/*GroundPound > 15 && */x >= 0 && x < Main.maxTilesX && y >= 0 && y < Main.maxTilesY
-                                && Main.tile[x, y] != null && Main.tile[x, y].HasUnactuatedTile && Main.tileSolid[Main.tile[x, y].TileType])
-                            {
-                                GroundPound = 0;
+                            GroundPound = 0;
 
-                                if (Player.GetToggleValue("MasoBoulder"))
+                            if (Player.GetToggleValue("MasoBoulder"))
+                            {
+                                if (!Main.dedServ)
+                                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+
+                                if (Player.whoAmI == Main.myPlayer)
                                 {
+                                    //explosion
+                                    Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, Player.whoAmI);
+                                    int p = Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(200 * Player.ActualClassDamage(DamageClass.Melee)), 9f, Player.whoAmI);
+                                    if (p != Main.maxProjectiles)
+                                        Main.projectile[p].DamageType = DamageClass.Melee;
+
                                     //boulders
                                     int dam = 50;
                                     if (MasochistSoul)
