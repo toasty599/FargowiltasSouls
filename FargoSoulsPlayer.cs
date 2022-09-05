@@ -277,6 +277,7 @@ namespace FargowiltasSouls
         public bool FusedLens;
         public bool FusedLensInstall;
         public bool GroundStick;
+        public bool Supercharged;
         public bool Probes;
         public bool MagicalBulb;
         public bool SkullCharm;
@@ -847,6 +848,7 @@ namespace FargowiltasSouls
             FusedLens = false;
             FusedLensInstall = false;
             GroundStick = false;
+            Supercharged = false;
             Probes = false;
             MagicalBulb = false;
             SkullCharm = false;
@@ -2047,6 +2049,22 @@ namespace FargowiltasSouls
                 }
             }
 
+            if (Supercharged)
+            {
+                if (Main.rand.NextBool() && drawInfo.shadow == 0f)
+                {
+                    int dust = Dust.NewDust(Player.position, Player.width, Player.height, 229, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f);
+                    Main.dust[dust].scale += 0.5f;
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.8f;
+                    if (Main.rand.NextBool(3))
+                    {
+                        Main.dust[dust].noGravity = false;
+                        Main.dust[dust].scale *= 0.5f;
+                    }
+                }
+            }
+
             if (ForbiddenEnchantActive && drawInfo.shadow == 0f)
             {
                 Color color12 = Player.GetImmuneAlphaPure(Lighting.GetColor((int)(drawInfo.Position.X + Player.width * 0.5) / 16, (int)(drawInfo.Position.Y + Player.height * 0.5) / 16, Color.White), drawInfo.shadow);
@@ -2480,8 +2498,11 @@ namespace FargowiltasSouls
                     target.AddBuff(BuffID.Darkness, 600, true);
             }
 
-            if (GroundStick && Main.rand.NextBool(10) && Player.GetToggleValue("MasoLightning"))
-                target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
+            if (Supercharged)
+            {
+                target.AddBuff(BuffID.Electrified, 240);
+                target.AddBuff(ModContent.BuffType<LightningRod>(), 60);
+            }
 
             if (GoldEnchantActive)
                 target.AddBuff(BuffID.Midas, 120, true);
@@ -2631,6 +2652,13 @@ namespace FargowiltasSouls
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
+            if (GroundStick)
+            {
+                GroundStickCheck(proj, ref damage);
+            }
+
+
+
             if (Smite)
                 damage = (int)(damage * 1.2);
 

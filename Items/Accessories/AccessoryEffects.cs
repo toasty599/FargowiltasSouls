@@ -1998,6 +1998,66 @@ namespace FargowiltasSouls
 
         #region maso acc
 
+        private readonly int[] ElectricAttacks = new int[]
+        {
+            ProjectileID.DeathLaser,
+            ProjectileID.EyeLaser,
+            ProjectileID.PinkLaser,
+            ProjectileID.EyeBeam,
+            ProjectileID.MartianTurretBolt,
+            ProjectileID.BrainScramblerBolt,
+            ProjectileID.GigaZapperSpear,
+            ProjectileID.RayGunnerLaser,
+            ProjectileID.SaucerLaser,
+            ProjectileID.NebulaLaser,
+            ProjectileID.VortexVortexLightning,
+            ProjectileID.DD2LightningBugZap
+        };
+
+        public void GroundStickCheck(Projectile proj, ref int damage)
+        {
+            if (!Player.GetToggleValue("MasoLightning"))
+                return;
+
+            bool electricAttack = false;
+
+            if (proj.ModProjectile == null)
+            {
+                if (proj.aiStyle == ProjAIStyleID.MartianDeathRay
+                    || proj.aiStyle == ProjAIStyleID.ThickLaser
+                    || proj.aiStyle == ProjAIStyleID.LightningOrb
+                    || ElectricAttacks.Contains(proj.type))
+                {
+                    electricAttack = true;
+                }
+            }
+            else if (proj.ModProjectile is Projectiles.Deathrays.BaseDeathray)
+            {
+                electricAttack = true;
+            }
+            else
+            {
+                string name = proj.ModProjectile.DisplayName.GetDefault().ToLower();
+                if (name.Contains("lightning") || name.Contains("electr") || name.Contains("thunder") || name.Contains("laser"))
+                    electricAttack = true;
+            }
+
+            if (electricAttack && Player.whoAmI == Main.myPlayer)
+            {
+                if (!Player.HasBuff(ModContent.BuffType<Supercharged>()))
+                    damage /= 2;
+
+                Player.AddBuff(ModContent.BuffType<Supercharged>(), 60 * 30);
+
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.minion && p.owner == Player.whoAmI
+                    && (p.type == ModContent.ProjectileType<Probe1>() || p.type == ModContent.ProjectileType<Probe2>())))
+                {
+                    p.ai[1] = 180;
+                    p.netUpdate = true;
+                }
+            }
+        }
+
         public void DeerclawpsAttack(Vector2 pos)
         {
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Deerclawps"))
@@ -2944,10 +3004,6 @@ namespace FargowiltasSouls
             {
                 if (!MasochistSoul)
                     DreadShellVulnerabilityTimer = 60;
-
-                Player.velocity.X *= 0.85f;
-                if (Player.velocity.Y < 0)
-                    Player.velocity.Y *= 0.85f;
             }
 
             if (PumpkingsCapeItem != null) //strong aura effect
@@ -2969,6 +3025,13 @@ namespace FargowiltasSouls
                         dust.velocity += Vector2.Normalize(offset) * -5f;
                     dust.noGravity = true;
                 }
+            }
+
+            if ((DreadShellItem != null || PumpkingsCapeItem != null) && !IronEnchantShield)
+            {
+                Player.velocity.X *= 0.85f;
+                if (Player.velocity.Y < 0)
+                    Player.velocity.Y *= 0.85f;
             }
 
             int cooldown = IRON_SHIELD_COOLDOWN;

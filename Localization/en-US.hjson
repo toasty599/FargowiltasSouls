@@ -444,7 +444,7 @@ Mods: {
 
 			DubiousHeader: "{$Mods.FargowiltasSouls.ItemName.DubiousCircuitry}"
 			FusedLensInstallConfig: Twins Install
-			MasoLightningConfig: Inflict Lightning Rod
+			MasoLightningConfig: Supercharge When Hit
 			MasoProbeConfig: Probes Minion
 
 			PureHeartHeader: "{$Mods.FargowiltasSouls.ItemName.PureHeart}"

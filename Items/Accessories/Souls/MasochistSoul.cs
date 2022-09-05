@@ -32,7 +32,7 @@ Increased stats when inflicted with Cursed Inferno or Ichor
 Press the Debuff Install key to debuff and buff yourself
 Press the Special Dash key to perform a short invincible fireball dash, zoom with right click
 Certain enemies will drop potions when defeated, drastically improves reforges, you respawn with more life
-You respawn twice as fast, attacks spawn honey, have improved night vision, and erupt into various attacks when injured
+You respawn twice as fast, have improved night vision, and supercharge and erupt into various attacks when injured
 Prevents boss spawns, increases spawn rate, increases loot, and attacks may squeak and deal 1 damage to you
 Reduces hurtbox size, hold the Precision Seal key to disable dashes and double jumps
 Right Click to parry attacks with extremely tight timing
