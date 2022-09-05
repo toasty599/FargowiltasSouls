@@ -26,3 +26,6 @@ queen stinger rework, instead of poison imbue and honey on hit you get a betsy d
 necro brew buff, you take less damage when dashing (and also spin when dashing)
 ground stick rework, you supercharge when hit by electric or ray attacks
 lihzahrd treasure box boulders are now fastfall only
+improved chalice cultist fireball homing so they disappear faster
+chalice cultist ice mist is more translucent
+made friendly ancient visions more translucent and less dust
