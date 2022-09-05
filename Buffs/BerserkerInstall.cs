@@ -18,17 +18,17 @@ namespace FargowiltasSouls.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 1.00f;
+            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 0.50f;
             player.GetModPlayer<FargoSoulsPlayer>().Berserked = true;
-            player.moveSpeed += 0.20f;
-            player.endurance -= 0.20f;
+            player.moveSpeed += 0.30f;
+            player.endurance -= 0.30f;
 
             player.hasMagiluminescence = true;
             player.noKnockback = true;
             
-            player.GetDamage(DamageClass.Generic) += 0.20f;
-            player.GetCritChance(DamageClass.Generic) += 20;
-            player.statDefense -= 20;
+            player.GetDamage(DamageClass.Generic) += 0.30f;
+            player.GetCritChance(DamageClass.Generic) += 30;
+            player.statDefense -= 30;
 
             if (!player.controlLeft && !player.controlRight)
             {
