@@ -10,4 +10,4 @@ slightly reduced duration of mutant p3 attacks
 increased size of mutant sword hitboxes to reduce gaps between them
 
 concentrated rainbow matter buff: now acts like mana flower for healing potions
-biocluster is post mechs
+biocluster is post 1 mech
