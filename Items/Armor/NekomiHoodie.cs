@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Items.Armor
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Nekomi Hoodie");
             Tooltip.SetDefault(@"Slightly increases your life regeneration
+Increases damage by 7%
 Reduces damage taken by 5%");
         }
 
@@ -27,8 +28,9 @@ Reduces damage taken by 5%");
 
         public override void UpdateEquip(Player player)
         {
+            player.lifeRegen += 2;
+            player.GetDamage(DamageClass.Generic) += 0.07f;
             player.endurance += 0.05f;
-            player.lifeRegen += 1;
         }
 
         public override void AddRecipes()

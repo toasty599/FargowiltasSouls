@@ -62,4 +62,9 @@ buffed eater staff damage from 10 to 12, but it has to dig in blocks now
 slimy shield buff, balls inflict oiled (this especially needs testing)
 lesser squrrls spawned in timber p1 cannot make bolts in p2
 
+nekomi armor
+	increased minion slots from 1 to 2
+	gives 7% more damage and crit chance, existing damage/crit bonuses are now omniclass instead of adaptive
+	increased damage of super by x1.33
+	increased regen from 0.5 to 1 life per sec
 agi lens stun is 3sec and you take more damage during stun
