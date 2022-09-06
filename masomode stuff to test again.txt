@@ -68,3 +68,4 @@ nekomi armor
 	increased damage of super by x1.33
 	increased regen from 0.5 to 1 life per sec
 agi lens stun is 3sec and you take more damage during stun
+added gravedigger shovel to miner ench recipe, replaces gold pickaxe
