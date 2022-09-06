@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Buffs
@@ -13,6 +12,13 @@ namespace FargowiltasSouls.Buffs
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            //avoid double dipping when they overlap
+            if (!player.HasBuff(ModContent.BuffType<BerserkerInstall>()))
+                BerserkerInstall.DebuffPlayerStats(player);
         }
     }
 }

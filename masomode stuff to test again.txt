@@ -61,3 +61,5 @@ made friendly ancient visions more translucent and less dust
 buffed eater staff damage from 10 to 12, but it has to dig in blocks now
 slimy shield buff, balls inflict oiled (this especially needs testing)
 lesser squrrls spawned in timber p1 cannot make bolts in p2
+
+agi lens stun is 3sec and you take more damage during stun

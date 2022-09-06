@@ -1,6 +1,5 @@
 using FargowiltasSouls.Buffs.Masomode;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Buffs
@@ -16,19 +15,25 @@ namespace FargowiltasSouls.Buffs
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
+        public static void DebuffPlayerStats(Player player)
+        {
+            player.endurance -= 0.30f;
+            player.statDefense -= 30;
+        }
+
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 0.50f;
+            DebuffPlayerStats(player);
+
             player.GetModPlayer<FargoSoulsPlayer>().Berserked = true;
+
+            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 0.50f;
+            player.GetDamage(DamageClass.Generic) += 0.30f;
+            player.GetCritChance(DamageClass.Generic) += 30;
             player.moveSpeed += 0.30f;
-            player.endurance -= 0.30f;
 
             player.hasMagiluminescence = true;
             player.noKnockback = true;
-            
-            player.GetDamage(DamageClass.Generic) += 0.30f;
-            player.GetCritChance(DamageClass.Generic) += 30;
-            player.statDefense -= 30;
 
             if (!player.controlLeft && !player.controlRight)
             {
@@ -47,8 +52,9 @@ namespace FargowiltasSouls.Buffs
 
             if (player.buffTime[buffIndex] == 2)
             {
-                //player.AddBuff(ModContent.BuffType<BerserkerInstallCD>(), 420);
-                player.AddBuff(ModContent.BuffType<Stunned>(), 120);
+                int stunDuration = 180;
+                player.AddBuff(ModContent.BuffType<BerserkerInstallCD>(), stunDuration);
+                player.AddBuff(ModContent.BuffType<Stunned>(), stunDuration);
             }
         }
     }
