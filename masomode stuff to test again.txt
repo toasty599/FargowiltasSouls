@@ -72,3 +72,4 @@ agi lens berserker install
 	reduced from 30% offenses up & defenses down to 20% each
 added gravedigger shovel to miner ench recipe, replaces gold pickaxe
 destroyer can now spin both CW and CCW, whichever is closer to his current angle when he starts coil
+man eater and nutcracker instakill male characters in maso
