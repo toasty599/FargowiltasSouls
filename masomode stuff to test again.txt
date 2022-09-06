@@ -71,3 +71,4 @@ agi lens berserker install
 	stun is 3sec and you take more damage during stun
 	reduced from 30% offenses up & defenses down to 20% each
 added gravedigger shovel to miner ench recipe, replaces gold pickaxe
+destroyer can now spin both CW and CCW, whichever is closer to his current angle when he starts coil
