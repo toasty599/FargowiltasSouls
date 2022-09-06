@@ -12,7 +12,7 @@ namespace FargowiltasSouls.EternityMode.Net.Strategies
         {
             public void Send(object value, BinaryWriter writer)
             {
-                writer.Write((int)value);
+                writer.Write7BitEncodedInt((int)value);
             }
         }
 
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.EternityMode.Net.Strategies
         {
             public void Recieve(ref object value, BinaryReader writer)
             {
-                value = writer.ReadInt32();
+                value = writer.Read7BitEncodedInt();
             }
         }
     }

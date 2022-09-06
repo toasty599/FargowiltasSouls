@@ -71,4 +71,3 @@ agi lens berserker install
 	stun is 3sec and you take more damage during stun
 	reduced from 30% offenses up & defenses down to 20% each
 added gravedigger shovel to miner ench recipe, replaces gold pickaxe
-reverted emode net sync to use regular ints instead of 7bit encoding, which doesnt actually support negatives and probably caused some mp desyncs
