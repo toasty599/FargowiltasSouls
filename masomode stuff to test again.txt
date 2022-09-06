@@ -67,6 +67,8 @@ nekomi armor
 	gives 7% more damage and crit chance, existing damage/crit bonuses are now omniclass instead of adaptive
 	increased damage of super by x1.33
 	increased regen from 0.5 to 1 life per sec
-agi lens stun is 3sec and you take more damage during stun
+agi lens berserker install
+	stun is 3sec and you take more damage during stun
+	reduced from 30% offenses up & defenses down to 20% each
 added gravedigger shovel to miner ench recipe, replaces gold pickaxe
 reverted emode net sync to use regular ints instead of 7bit encoding, which doesnt actually support negatives and probably caused some mp desyncs
