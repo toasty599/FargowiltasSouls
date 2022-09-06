@@ -55,22 +55,7 @@ Summons a friendly Cultist and plant to fight at your side
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             //magical bulb
-            Point pos = player.Center.ToTileCoordinates();
-            if (pos.X > 0 && pos.Y > 0 && pos.X < Main.maxTilesX && pos.Y < Main.maxTilesY)
-            {
-                float lightStrength = Lighting.GetColor(pos).ToVector3().Length();
-                float ratio = lightStrength / 1.732f; //this value is 1,1,1 lighting
-                ratio = (float)System.Math.Pow(ratio, 3);
-                player.lifeRegen += (int)(6 * ratio);
-            }
-
-            player.buffImmune[BuffID.Venom] = true;
-            player.buffImmune[ModContent.BuffType<IvyVenom>()] = true;
-            player.buffImmune[ModContent.BuffType<Swarming>()] = true;
-
-            fargoPlayer.MagicalBulb = true;
-            if (player.GetToggleValue("MasoPlant"))
-                player.AddBuff(ModContent.BuffType<PlanterasChild>(), 2);
+            MagicalBulb.Effects(player);
 
             //lihzahrd treasure
             player.buffImmune[BuffID.Burning] = true;

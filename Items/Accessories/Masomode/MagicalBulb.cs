@@ -39,7 +39,7 @@ Attracts a legendary plant's offspring which flourishes in combat
             Item.value = Item.sellPrice(0, 6);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public static void Effects(Player player)
         {
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[ModContent.BuffType<IvyVenom>()] = true;
@@ -58,6 +58,11 @@ Attracts a legendary plant's offspring which flourishes in combat
             player.GetModPlayer<FargoSoulsPlayer>().MagicalBulb = true;
             if (player.GetToggleValue("MasoPlant"))
                 player.AddBuff(ModContent.BuffType<PlanterasChild>(), 2);
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            Effects(player);
         }
     }
 }
