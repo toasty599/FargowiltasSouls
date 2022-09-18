@@ -1,3 +1,4 @@
+using FargowiltasSouls.Items.Misc;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -633,7 +634,9 @@ namespace FargowiltasSouls
                 ItemID.GemSquirrelEmerald,
                 ItemID.GemSquirrelRuby,
                 ItemID.GemSquirrelSapphire,
-                ItemID.GemSquirrelTopaz
+                ItemID.GemSquirrelTopaz,
+                ModContent.ItemType<TopHatSquirrelCaught>(),
+                ModContent.Find<ModItem>("Fargowiltas", "Squirrel").Type
             );
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnySquirrel", group);
 

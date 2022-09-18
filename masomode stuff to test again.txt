@@ -84,3 +84,5 @@ abom & mutant dont despawn when you go underground, but fly up to pull you upwar
 blood nautilus is considered a boss while alive, to block enemy spawns during fight
 nerfed pearlwood ench, has 20 (force 80) base damage instead of copying the damage of your attack
 fixed(?) destroyer body entering the coil range if he rotated some way, either clockwise or CCW
+top hat squirrel weapon crafts using top hat squirrel (critter) instead of top hat squirrel (town npc)
+top hat squirrel critter and town npc can be used in recipes, e.g. for squirrel coat of arms
