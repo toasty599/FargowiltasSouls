@@ -128,16 +128,16 @@ namespace FargowiltasSouls
 
             SkyManager.Instance["FargowiltasSouls:MoonLordSky"] = new MoonLordSky();
 
-            FreezeKey = KeybindLoader.RegisterKeybind(this, "Freeze", "P");
-            GoldKey = KeybindLoader.RegisterKeybind(this, "Turn Gold", "O");
-            SmokeBombKey = KeybindLoader.RegisterKeybind(this, "Throw Smoke Bomb", "I");
-            SpecialDashKey = KeybindLoader.RegisterKeybind(this, "Special Dash", "C");
-            MutantBombKey = KeybindLoader.RegisterKeybind(this, "Mutant Bomb", "Z");
-            SoulToggleKey = KeybindLoader.RegisterKeybind(this, "Open Soul Toggler", ".");
-            PrecisionSealKey = KeybindLoader.RegisterKeybind(this, "Precision Movement", "LeftShift");
-            MagicalBulbKey = KeybindLoader.RegisterKeybind(this, "Magical Cleanse", "N");
-            FrigidSpellKey = KeybindLoader.RegisterKeybind(this, "Frigid Spell", "U");
-            DebuffInstallKey = KeybindLoader.RegisterKeybind(this, "Debuff Install", "Y");
+            FreezeKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "冻结" : "Freeze", "P");
+            GoldKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "金身" : "Turn Gold", "O");
+            SmokeBombKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "投掷烟雾弹" : "Throw Smoke Bomb", "I");
+            SpecialDashKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "特殊冲刺" : "Special Dash", "C");
+            MutantBombKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "突变炸弹" : "Mutant Bomb", "Z");
+            SoulToggleKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "打开魂石效果设置" : "Open Soul Toggler", ".");
+            PrecisionSealKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "玲珑圣印精确模式" : "Precision Movement", "LeftShift");
+            MagicalBulbKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "魔法净化" : "Magical Cleanse", "N");
+            FrigidSpellKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "寒霜咒语" : "Frigid Spell", "U");
+            DebuffInstallKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "减益负载" : "Debuff Install", "Y");
 
             ToggleLoader.Load();
 
@@ -406,7 +406,7 @@ namespace FargowiltasSouls
                             netMessage.Write((byte)Main.LocalPlayer.whoAmI);
                             netMessage.Send();
                         }
-                        Main.npcChatText = "This world looks tougher than usual, so you can have these on the house just this once! Talk to me if you need any tips, yeah?";
+                        Main.npcChatText = FargoSoulsUtil.IsChinese() ? "这个世界看起来比平时更艰难，所以我免费给你提供这些，仅此一次！如果你需要任何提示，请告诉我，好吗？" : "This world looks tougher than usual, so you can have these on the house just this once! Talk to me if you need any tips, yeah?";
                         break;
 
                     case "SummonCrit":
@@ -831,7 +831,7 @@ namespace FargowiltasSouls
                             EModeGlobalNPC.spawnFishronEX = true;
                             NPC.NewNPC(NPC.GetBossSpawnSource(target), x, y, NPCID.DukeFishron, 0, 0f, 0f, 0f, 0f, target);
                             EModeGlobalNPC.spawnFishronEX = false;
-                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Duke Fishron EX has awoken!"), new Color(50, 100, 255));
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(FargoSoulsUtil.IsChinese() ? "猪龙鱼公爵EX已苏醒！" : "Duke Fishron EX has awoken!"), new Color(50, 100, 255));
                         }
                         break;
 

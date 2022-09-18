@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
@@ -16,8 +15,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
                 "\n66% chance to not consume ammo" +
                 "\n'The reward for slaughtering many..'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大螫刺");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励..'");
+            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大螫刺");
+            //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励..'");
         }
 
         public override void SetDefaults()

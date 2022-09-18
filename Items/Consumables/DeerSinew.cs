@@ -5,6 +5,7 @@ namespace FargowiltasSouls.Items.Consumables
 {
     public class DeerSinew : SoulsItem
     {
+
         public override bool Eternity => true;
 
         public override void SetStaticDefaults()

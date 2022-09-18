@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Buffs.Masomode
@@ -12,8 +11,8 @@ namespace FargowiltasSouls.Buffs.Masomode
             Description.SetDefault("Increased offense, decreased defense, and you cannot control yourself");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "狂暴");
-            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你控几不住你记几");
+            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "狂暴");
+            //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你控几不住你记几");
         }
 
         public override void Update(Player player, ref int buffIndex)

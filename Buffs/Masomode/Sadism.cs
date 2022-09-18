@@ -1,7 +1,6 @@
 using FargowiltasSouls.NPCs;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Buffs.Masomode
@@ -15,8 +14,8 @@ namespace FargowiltasSouls.Buffs.Masomode
             DisplayName.SetDefault("Eternity");
             Description.SetDefault("The power of Eternity Mode is with you");
             BuffID.Sets.IsAnNPCWhipDebuff[Type] = true; //ignore most debuff immunity
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "施虐狂");
-            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐模式的力量与你同在");
+            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "施虐狂");
+            //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐模式的力量与你同在");
         }
 
         public override void Update(Player player, ref int buffIndex)
