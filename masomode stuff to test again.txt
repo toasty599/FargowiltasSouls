@@ -83,3 +83,4 @@ abom & mutant dont despawn when you go underground, but fly up to pull you upwar
 	they can still despawn if they get far enough away while trying to do this or in p1
 blood nautilus is considered a boss while alive, to block enemy spawns during fight
 nerfed pearlwood ench, has 20 (force 80) base damage instead of copying the damage of your attack
+fixed(?) destroyer body entering the coil range if he rotated some way, either clockwise or CCW
