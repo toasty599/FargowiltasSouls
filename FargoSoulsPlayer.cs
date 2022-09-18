@@ -2322,7 +2322,8 @@ namespace FargowiltasSouls
 
             if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames))
             {
-                PearlwoodEnchant.PearlwoodStarDrop(this, target, damage);
+                int starDamage = FargoSoulsUtil.HighestDamageTypeScaling(Player, WoodForce ? 80 : 20);
+                PearlwoodEnchant.PearlwoodStarDrop(this, target, starDamage);
             }
 
             if (BeeEnchantActive && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
