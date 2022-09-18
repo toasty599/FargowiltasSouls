@@ -88,3 +88,4 @@ top hat squirrel weapon crafts using top hat squirrel (critter) instead of top h
 top hat squirrel critter and town npc can be used in recipes, e.g. for squirrel coat of arms
 wof drops a TON of extra loot when killed
 fixed godmode glitch caused by unequipping the parry shields mid-parry
+tungsten nerf, damage/crit boost only applies to true melee swords (unless force)

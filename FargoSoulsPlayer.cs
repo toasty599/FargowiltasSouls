@@ -2230,7 +2230,8 @@ namespace FargowiltasSouls
                 crit = false;
             }
 
-            if (TungstenEnchantActive && Toggler != null && Player.GetToggleValue("Tungsten"))
+            if (TungstenEnchantActive && Toggler != null && Player.GetToggleValue("Tungsten")
+                && (TerraForce || item.shoot == ProjectileID.None))
             {
                 TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit, item.DamageType);
             }
