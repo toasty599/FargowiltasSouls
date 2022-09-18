@@ -1369,6 +1369,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
             if (player.Center.Y / 16f > Main.worldSurface)
             {
+                NPC.velocity.X *= 0.95f;
                 NPC.velocity.Y -= 1f;
                 if (NPC.velocity.Y < -32f)
                     NPC.velocity.Y = -32f;
