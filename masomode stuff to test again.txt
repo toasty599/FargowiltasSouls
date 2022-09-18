@@ -86,3 +86,5 @@ nerfed pearlwood ench, has 20 (force 80) base damage instead of copying the dama
 fixed(?) destroyer body entering the coil range if he rotated some way, either clockwise or CCW
 top hat squirrel weapon crafts using top hat squirrel (critter) instead of top hat squirrel (town npc)
 top hat squirrel critter and town npc can be used in recipes, e.g. for squirrel coat of arms
+wof drops a TON of extra loot when killed
+fixed godmode glitch caused by unequipping the parry shields mid-parry

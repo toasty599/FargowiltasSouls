@@ -1257,10 +1257,7 @@ namespace FargowiltasSouls
             if (TungstenEnchantActive && TungstenCD > 0)
                 TungstenCD--;
 
-            if (IronEnchantShield || DreadShellItem != null || PumpkingsCapeItem != null)
-            {
-                Shield();
-            }
+            UpdateShield();
 
             if (ShadowEnchantActive)
                 ShadowEffectPostEquips();

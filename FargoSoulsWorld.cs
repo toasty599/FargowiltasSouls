@@ -57,6 +57,8 @@ namespace FargowiltasSouls
         public static bool[] downedBoss = new bool[Enum.GetValues(typeof(Downed)).Length];
         public static bool downedAnyBoss;
 
+        public static bool WOFDroppedDeviGift2;
+
         public override void Unload()
         {
             base.Unload();
@@ -89,6 +91,7 @@ namespace FargowiltasSouls
                 downedBoss[i] = false;
 
             downedAnyBoss = false;
+            WOFDroppedDeviGift2 = false;
         }
 
         public override void OnWorldLoad()
@@ -119,6 +122,7 @@ namespace FargowiltasSouls
             if (ReceivedTerraStorage) downed.Add("ReceivedTerraStorage");
             if (spawnedDevi) downed.Add("spawnedDevi");
             if (downedAnyBoss) downed.Add("downedAnyBoss");
+            if (WOFDroppedDeviGift2) downed.Add("WOFDroppedDeviGift2");
 
             for (int i = 0; i < downedBoss.Length; i++)
             {
@@ -147,6 +151,7 @@ namespace FargowiltasSouls
             ReceivedTerraStorage = downed.Contains("ReceivedTerraStorage");
             spawnedDevi = downed.Contains("spawnedDevi");
             downedAnyBoss = downed.Contains("downedAnyBoss");
+            WOFDroppedDeviGift2 = downed.Contains("WOFDroppedDeviGift2");
 
             for (int i = 0; i < downedBoss.Length; i++)
                 downedBoss[i] = downed.Contains($"downedBoss{i}") || downed.Contains($"downedChampion{i}");
@@ -176,6 +181,7 @@ namespace FargowiltasSouls
             CanPlayMaso = flags[3];
             ShouldBeEternityMode = flags[4];
             downedAnyBoss = flags[5];
+            WOFDroppedDeviGift2 = flags[6];
 
             for (int i = 0; i < downedBoss.Length; i++)
             {
@@ -210,7 +216,8 @@ namespace FargowiltasSouls
                 [2] = MasochistModeReal,
                 [3] = CanPlayMaso,
                 [4] = ShouldBeEternityMode,
-                [5] = downedAnyBoss
+                [5] = downedAnyBoss,
+                [6] = WOFDroppedDeviGift2
             });
 
             BitsByte bitsByte = new BitsByte();

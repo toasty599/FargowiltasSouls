@@ -3107,12 +3107,13 @@ namespace FargowiltasSouls
                 shieldCD = cooldown;
         }
 
-        public void Shield()
+        public void UpdateShield()
         {
             GuardRaised = false;
 
             //no need when player has brand of inferno
-            if (Player.inventory[Player.selectedItem].type == ItemID.DD2SquireDemonSword || Player.inventory[Player.selectedItem].type == ItemID.BouncingShield)
+            if ((!IronEnchantShield && DreadShellItem == null && PumpkingsCapeItem == null) ||
+                (Player.inventory[Player.selectedItem].type == ItemID.DD2SquireDemonSword || Player.inventory[Player.selectedItem].type == ItemID.BouncingShield))
             {
                 shieldTimer = 0;
                 wasHoldingShield = false;
