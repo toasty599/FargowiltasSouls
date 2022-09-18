@@ -79,3 +79,4 @@ fixed these rays not working with mutant mod transparent projs config
 	gemini glaives m2
 	styx gazer m2
 	sparkling love m1 and m2
+blood nautilus is considered a boss while alive, to block enemy spawns during fight
