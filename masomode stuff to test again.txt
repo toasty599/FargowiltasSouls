@@ -75,3 +75,7 @@ destroyer can now spin both CW and CCW, whichever is closer to his current angle
 man eater and nutcracker instakill male characters in maso
 
 wandering eye fish and tim spawn their extra enemies staggered now
+fixed these rays not working with mutant mod transparent projs config
+	gemini glaives m2
+	styx gazer m2
+	sparkling love m1 and m2
