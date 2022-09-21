@@ -1705,6 +1705,11 @@ namespace FargowiltasSouls
         public override void PostUpdate()
         {
             NoUsingItems = false; //set here so that when something else sets this, it actually blocks items
+
+            if (!FreeEaterSummon && !Main.npc.Any(n => n.active && (n.type == NPCID.EaterofWorldsHead || n.type == NPCID.EaterofWorldsBody || n.type == NPCID.EaterofWorldsTail)))
+            {
+                FreeEaterSummon = true;
+            }
         }
 
         public override float UseSpeedMultiplier(Item item)
