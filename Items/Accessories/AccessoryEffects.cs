@@ -529,6 +529,15 @@ namespace FargowiltasSouls
             Player.discount = true;
             //midas
             GoldEnchantActive = true;
+
+            if (Player.GetToggleValue("GoldToPiggy", false))
+            {
+                for (int i = 50; i <= 53; i++) //detect coins in coin slots
+                {
+                    if (!Player.inventory[i].IsAir && Player.inventory[i].IsACoin)
+                        GoldEnchMoveCoins = true;
+                }
+            }
         }
 
         public void GoldKey()
