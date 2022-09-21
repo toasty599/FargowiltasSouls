@@ -95,3 +95,5 @@ fixed diffractor blaster rays not working with transparent projs config
 raised pearlwood ench base damage from 20 to 40
 saucer control console saucer only fires deathray when you hold m2
 added nano core, overpowered mutant-tier patreon weapon
+
+nano core visual tweaks, added nanites to recipe

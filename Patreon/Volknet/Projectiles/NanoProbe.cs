@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -14,6 +15,8 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
         {
             DisplayName.SetDefault("Nano Probe");
             //DisplayName.AddTranslation(GameCulture.Chinese, "纳米探针");
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
         public override void SetDefaults()
         {
@@ -32,8 +35,29 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
         {
             Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Texture2D tex2 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Patreon/Volknet/Projectiles/NanoProbeGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, tex.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-            Main.EntitySpriteDraw(tex2, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, tex.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+            
+            Color color = Projectile.GetAlpha(lightColor);
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.25f)
+            {
+                Color color27 = Color.LimeGreen * Projectile.Opacity;
+                if (i > 1f)
+                    color27 *= 0.3f;
+                color27.A = 0;
+                float fade = (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                if (i > 1f)
+                    color27 *= fade * fade;
+                int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
+                if (max0 < 0)
+                    continue;
+                float num165 = Projectile.oldRot[max0];
+                Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
+                center += Projectile.Size / 2;
+                Main.EntitySpriteDraw(tex, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, color27, num165, tex.Size() / 2, Projectile.scale * Main.rand.NextFloat(1f, 1.6f), SpriteEffects.None, 0);
+            }
+
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, color, Projectile.rotation, tex.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(tex2, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, Color.White, Projectile.rotation, tex.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 

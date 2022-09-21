@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Patreon.Volknet
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Nano Core");
-            Tooltip.SetDefault("When holding this, 7 nano units will appear and construct weapons.\nLeft click to attack and right click to switch weapons.\n\'The science sits in our side.\'");
+            Tooltip.SetDefault("When holding this, 7 nano units will appear and construct weapons.\nLeft click to attack and right click to switch weapons.\nYou take halved damage when wielding the plasma blade.\n\'The science sits in our side.\'");
             //DisplayName.AddTranslation(GameCulture.Chinese, "纳米核心");
             //Tooltip.AddTranslation(GameCulture.Chinese, "手持时可以产生7个纳米单元组成武器。\n左键发动攻击，右键切换形态。\n\'科学站在我们这边\'");
         }
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Patreon.Volknet
             Item.value = Item.sellPrice(0, 15);
             Item.shoot = ModContent.ProjectileType<NanoBase>();
             Item.rare = ItemRarityID.Purple;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.noUseGraphic = true;
             Item.noMelee = true;
             Item.autoReuse = true;
@@ -148,6 +148,7 @@ namespace FargowiltasSouls.Patreon.Volknet
                 .AddIngredient(ModContent.ItemType<Eridanium>(), 33)
                 .AddIngredient(ModContent.ItemType<AbomEnergy>(), 33)
                 .AddIngredient(ItemID.LunarBar, 99)
+                .AddIngredient(ItemID.Nanites, 999)
                 .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
                 .Register();
         }
