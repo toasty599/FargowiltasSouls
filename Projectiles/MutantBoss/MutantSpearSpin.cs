@@ -212,8 +212,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 float modifier = Projectile.timeLeft / Projectile.ai[1];
                 Color glowColor = predictive ? new Color(0, 0, 255, 210) : new Color(51, 255, 191, 210);
                 glowColor *= 1f - modifier;
-                float glowScale = Projectile.scale * 6f * modifier;
-                Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, 0, origin2, glowScale, SpriteEffects.None, 0);
+                float glowScale = Projectile.scale * 8f * modifier;
+                Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glow.Bounds), glowColor, 0, glow.Bounds.Size() / 2, glowScale, SpriteEffects.None, 0);
             }
             return false;
         }
