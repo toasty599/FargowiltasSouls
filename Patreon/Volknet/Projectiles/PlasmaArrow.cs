@@ -31,6 +31,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
             Projectile.localNPCHitCooldown = 20;
             Projectile.arrow = true;
             Projectile.DamageType = DamageClass.Ranged;
+            Projectile.extraUpdates = 1;
         }
 
         public override void AI()

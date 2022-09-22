@@ -61,7 +61,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
 
             if (EaterofWorldsHead.HaveSpawnDR > 0)
-                damage /= projectile.numHits;
+                damage /= projectile.numHits + 1;
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

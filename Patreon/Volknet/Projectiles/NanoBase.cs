@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
                         {
                             if (!NPCUtils.AnyProj(ModContent.ProjectileType<NanoBlade>(), owner.whoAmI))
                             {
-                                Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center, Vector2.Zero, ModContent.ProjectileType<NanoBlade>(), (int)(Projectile.damage * MeleeDamageModifier), Projectile.knockBack, owner.whoAmI);
+                                Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center, Vector2.Zero, ModContent.ProjectileType<NanoBlade>(), (int)(1.5 * Projectile.damage * MeleeDamageModifier), Projectile.knockBack, owner.whoAmI);
                             }
                         }
                     }
@@ -133,7 +133,8 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
                                 float kb = 0, speed = 0;
                                 bool cs = true;
                                 owner.PickAmmo(owner.HeldItem, out type, out speed, out damage, out kb, out usedAmmoItemId, !Consume);
-                                speed = 20;
+                                speed *= 4;
+                                speed += 32;
                                 if (owner.archery)
                                 {
                                     damage = (int)(damage * 1.2f);
@@ -149,13 +150,13 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
                                     damage = (int)(damage * 2f);
                                     speed = 3;
                                 }
-                                damage = (int)(damage / 5f);
+                                damage = (int)(damage / 2.5f);
                                 damage = (int)(damage * RangedDamageModifier);
                                 if (cs)
                                 {
-                                    Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center + (Projectile.rotation + MathHelper.Pi / 2).ToRotationVector2() * 15 + Projectile.rotation.ToRotationVector2() * 35, Projectile.rotation.ToRotationVector2() * speed * 0.8f, type, damage, kb, owner.whoAmI);
-                                    Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center + (Projectile.rotation - MathHelper.Pi / 2).ToRotationVector2() * 15 + Projectile.rotation.ToRotationVector2() * 35, Projectile.rotation.ToRotationVector2() * speed * 0.8f, type, damage, kb, owner.whoAmI);
-                                    Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center + Projectile.rotation.ToRotationVector2() * 35, Projectile.rotation.ToRotationVector2() * speed, type, (int)(damage * 1.25f), kb, owner.whoAmI);
+                                    Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center + Main.rand.NextVector2Circular(8, 8) + (Projectile.rotation + MathHelper.Pi / 2).ToRotationVector2() * 15 + Projectile.rotation.ToRotationVector2() * 35, Projectile.rotation.ToRotationVector2() * speed * 0.8f, type, damage, kb, owner.whoAmI);
+                                    Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center + Main.rand.NextVector2Circular(8, 8) + (Projectile.rotation - MathHelper.Pi / 2).ToRotationVector2() * 15 + Projectile.rotation.ToRotationVector2() * 35, Projectile.rotation.ToRotationVector2() * speed * 0.8f, type, damage, kb, owner.whoAmI);
+                                    Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center + Main.rand.NextVector2Circular(8, 8) + Projectile.rotation.ToRotationVector2() * 35, Projectile.rotation.ToRotationVector2() * speed, type, (int)(damage * 1.25f), kb, owner.whoAmI);
                                 }
                             }
 
@@ -163,7 +164,73 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
                     }
 
 
-                    if (owner.GetModPlayer<NanoPlayer>().NanoCoreMode == 2)               //bombing
+                    if (owner.GetModPlayer<NanoPlayer>().NanoCoreMode == 2)            //laser cannon
+                    {
+                        if (owner.channel)
+                        {
+                            if (AllSet(owner))
+                            {
+
+                                if (!owner.CheckMana(2, true))
+                                {
+                                    owner.channel = false;
+                                    AtkTimer = 180;
+                                    return;
+                                }
+                                owner.manaRegenDelay = 10;
+                                if (!NPCUtils.AnyProj(ModContent.ProjectileType<PlasmaDeathRay>(), owner.whoAmI))
+                                {
+                                    Vector2 FirePos = owner.Center + Vector2.Normalize(Main.MouseWorld - owner.Center) * 130;
+                                    float num1 = 0.33f;
+                                    for (int i = 0; i < 9; i++)
+                                    {
+                                        if (Main.rand.NextFloat() >= num1)
+                                        {
+                                            float f = Main.rand.NextFloat() * MathHelper.TwoPi;
+                                            float num2 = Main.rand.NextFloat();
+                                            Dust dust = Dust.NewDustPerfect(FirePos + f.ToRotationVector2() * (110 + 200 * num2), 157, (f - MathHelper.Pi).ToRotationVector2() * (14 + 8 * num2), 0, default, 1f);  //GreenFx
+                                            dust.scale = 0.9f;
+                                            dust.fadeIn = 1.15f + num2 * 0.3f;
+                                            dust.noGravity = true;
+                                            dust.customData = owner;
+                                        }
+                                    }
+
+                                }
+
+                                if (AtkTimer > 0) AtkTimer--;
+                                if (AtkTimer == 0)
+                                {
+                                    AtkTimer = 180;
+
+                                    if (!Main.dedServ)
+                                    {
+                                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zombie_104"), Projectile.Center);
+                                    }
+
+                                    Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center, Vector2.Zero, ModContent.ProjectileType<PlasmaDeathRay>(), (int)(Projectile.damage * 2.5 * MagicDamageModifier), Projectile.knockBack, owner.whoAmI);
+                                }
+                            }
+
+                            foreach (Dust dust1 in Main.dust)
+                            {
+                                if (dust1.active && dust1.type == 157)
+                                {
+                                    if (dust1.customData != null && dust1.customData is Player player)
+                                    {
+                                        dust1.position += player.position - player.oldPosition;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            AtkTimer = 120;
+                        }
+                    }
+
+
+                    if (owner.GetModPlayer<NanoPlayer>().NanoCoreMode == 3)               //bombing
                     {
                         if (owner.channel)
                         {
@@ -200,71 +267,6 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
                         else
                         {
                             AtkTimer = 0;
-                        }
-                    }
-
-                    if (owner.GetModPlayer<NanoPlayer>().NanoCoreMode == 3)            //laser cannon
-                    {
-                        if (owner.channel)
-                        {
-                            if (AllSet(owner))
-                            {
-
-                                if (!owner.CheckMana(2, true))
-                                {
-                                    owner.channel = false;
-                                    AtkTimer = 120;
-                                    return;
-                                }
-                                owner.manaRegenDelay = 10;
-                                if (!NPCUtils.AnyProj(ModContent.ProjectileType<PlasmaDeathRay>(), owner.whoAmI))
-                                {
-                                    Vector2 FirePos = owner.Center + Vector2.Normalize(Main.MouseWorld - owner.Center) * 130;
-                                    float num1 = 0.33f;
-                                    for (int i = 0; i < 9; i++)
-                                    {
-                                        if (Main.rand.NextFloat() >= num1)
-                                        {
-                                            float f = Main.rand.NextFloat() * MathHelper.TwoPi;
-                                            float num2 = Main.rand.NextFloat();
-                                            Dust dust = Dust.NewDustPerfect(FirePos + f.ToRotationVector2() * (110 + 200 * num2), 157, (f - MathHelper.Pi).ToRotationVector2() * (14 + 8 * num2), 0, default, 1f);  //GreenFx
-                                            dust.scale = 0.9f;
-                                            dust.fadeIn = 1.15f + num2 * 0.3f;
-                                            dust.noGravity = true;
-                                            dust.customData = owner;
-                                        }
-                                    }
-
-                                }
-
-                                if (AtkTimer > 0) AtkTimer--;
-                                if (AtkTimer == 0)
-                                {
-                                    AtkTimer = 120;
-
-                                    if (!Main.dedServ)
-                                    {
-                                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zombie_104"), Projectile.Center);
-                                    }
-
-                                    Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center, Vector2.Zero, ModContent.ProjectileType<PlasmaDeathRay>(), (int)(Projectile.damage * 5 * MagicDamageModifier), Projectile.knockBack, owner.whoAmI);
-                                }
-                            }
-
-                            foreach (Dust dust1 in Main.dust)
-                            {
-                                if (dust1.active && dust1.type == 157)
-                                {
-                                    if (dust1.customData != null && dust1.customData is Player player)
-                                    {
-                                        dust1.position += player.position - player.oldPosition;
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            AtkTimer = 120;
                         }
                     }
 

@@ -22,6 +22,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
         }
         public override void SetDefaults()
         {
+            Projectile.aiStyle = -1;
             Projectile.alpha = 255;
             Projectile.width = 30;
             Projectile.height = 30;
@@ -36,6 +37,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
             Projectile.idStaticNPCHitCooldown = 2;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.light = 1.1f;
+            Projectile.scale = 1.75f;
 
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
@@ -52,16 +54,16 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
             {
                 Projectile.frame = (int)Projectile.localAI[0];
                 Rectangle Frame = new Rectangle(0, (int)Projectile.localAI[0] * 47, 340, 47);
-                Vector2 RandomPos = (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2() * 0.5f;
                 Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-                Main.EntitySpriteDraw(tex, RandomPos + owner.Center + Projectile.rotation.ToRotationVector2() * 160 - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), Frame, Color.White * Projectile.Opacity * 0.8f, Projectile.rotation, Frame.Size() / 2, 1, SpriteEffects.None, 0);
+                Vector2 RandomPos = (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2();
+                Main.EntitySpriteDraw(tex, RandomPos + owner.Center + Projectile.rotation.ToRotationVector2() * (160 * Projectile.scale - 24) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), Frame, new Color(255, 255, 255, 0) * Projectile.Opacity * Main.rand.NextFloat(0.6f, 1f), Projectile.rotation, Frame.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             }
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float point = 0;
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 320, 30, ref point);
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (320 - 24) * Projectile.scale, 30, ref point);
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {

@@ -510,7 +510,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int maxMemory = 12;
+                int maxMemory = FargoSoulsWorld.MasochistModeReal ? 10 : 16;
 
                 if (attackCount++ > maxMemory * 1.25) //after doing this many attacks, shorten queue so i can be more random again
                 {
