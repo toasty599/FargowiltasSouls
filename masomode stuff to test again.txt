@@ -118,3 +118,4 @@ resprites
 	betsy heart
 	ice queens crown
 	pumpkings cape
+refined penetrator hitbox to be much more sprite accurate
