@@ -34,7 +34,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.scale = 1.3f;
             Projectile.alpha = 0;
             CooldownSlot = 1;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;

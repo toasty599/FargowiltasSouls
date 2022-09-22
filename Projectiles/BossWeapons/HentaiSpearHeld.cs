@@ -20,14 +20,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            Projectile.width = 58;
-            Projectile.height = 58;
+            Projectile.width = 76;
+            Projectile.height = 76;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            Projectile.scale = 1.3f;
             Projectile.alpha = 0;
             Projectile.DamageType = DamageClass.Throwing;
             Projectile.hide = true;
@@ -108,6 +107,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             return false;
         }
+
+        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
 
         public override bool PreDraw(ref Color lightColor)
         {

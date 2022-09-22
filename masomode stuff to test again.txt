@@ -112,7 +112,7 @@ resprites
 	lead poison buff icon
 	orichalcum poison buff icon
 	abom cooldown buff icon
-	the penetrator item
+	the penetrator
 	abominable energy
 	deviating energy
 	betsy heart

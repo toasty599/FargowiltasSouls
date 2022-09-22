@@ -22,14 +22,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            Projectile.width = 30;
-            Projectile.height = 30;
+            Projectile.width = 40;
+            Projectile.height = 40;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.scale = 1.3f;
             Projectile.alpha = 0;
             Projectile.timeLeft = 60;
             CooldownSlot = 1;
@@ -111,6 +110,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
         }
+
+        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
 
         public override bool PreDraw(ref Color lightColor)
         {

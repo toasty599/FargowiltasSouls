@@ -19,14 +19,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            Projectile.width = 58;
-            Projectile.height = 58;
+            Projectile.width = 76;
+            Projectile.height = 76;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 30;
-            Projectile.scale = 1.3f;
             Projectile.alpha = 0;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.extraUpdates = 1;
@@ -102,6 +101,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)), Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, 0f, Projectile.owner);
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoon>(), 600);
         }
+
+        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
 
         public override bool PreDraw(ref Color lightColor)
         {

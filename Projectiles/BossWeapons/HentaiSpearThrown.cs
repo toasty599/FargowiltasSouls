@@ -24,8 +24,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            Projectile.width = 58;
-            Projectile.height = 58;
+            Projectile.width = 76;
+            Projectile.height = 76;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -33,7 +33,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 180;
             Projectile.extraUpdates = 1;
-            Projectile.scale = 1.3f;
             Projectile.alpha = 0;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;

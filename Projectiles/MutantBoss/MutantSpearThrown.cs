@@ -27,8 +27,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            Projectile.width = 30;
-            Projectile.height = 30;
+            Projectile.width = 40;
+            Projectile.height = 40;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = -1;
@@ -36,7 +36,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 180;
             Projectile.extraUpdates = 1;
-            Projectile.scale = 1.3f;
             Projectile.alpha = 0;
             CooldownSlot = 1;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
