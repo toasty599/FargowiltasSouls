@@ -115,3 +115,6 @@ resprites
 	the penetrator item
 	abominable energy
 	deviating energy
+	betsy heart
+	ice queens crown
+	pumpkings cape
