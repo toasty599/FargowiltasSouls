@@ -121,3 +121,4 @@ resprites
 refined penetrator hitbox to be much more sprite accurate
 
 no momentum disables vortex stealth when moving quickly
+saucer control console buff, has ammo cycle key
