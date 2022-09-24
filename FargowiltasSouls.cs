@@ -729,7 +729,8 @@ namespace FargowiltasSouls
             SyncFishronEXLife,
             SyncTogglesOnJoin,
             SyncOneToggle,
-            SyncCanPlayMaso
+            SyncCanPlayMaso,
+            SyncNanoCoreMode
             //SpawnBossTryFromNPC
         }
 
@@ -867,6 +868,13 @@ namespace FargowiltasSouls
                         if (Main.netMode == NetmodeID.Server)
                         {
                             FargoSoulsWorld.CanPlayMaso = reader.ReadBoolean();
+                        }
+                        break;
+
+                    case PacketID.SyncNanoCoreMode:
+                        {
+                            Player player = Main.player[reader.ReadByte()];
+                            player.GetModPlayer<Patreon.Volknet.NanoPlayer>().NanoCoreMode = reader.Read7BitEncodedInt();
                         }
                         break;
 

@@ -172,6 +172,23 @@ namespace FargowiltasSouls.Patreon.Volknet
     public class NanoPlayer : ModPlayer
     {
         public int NanoCoreMode = 0;
+        int oldNanoCoreMode;
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            if (NanoCoreMode != oldNanoCoreMode)
+            {
+                oldNanoCoreMode = NanoCoreMode;
+
+                ModPacket packet = Mod.GetPacket();
+
+                packet.Write((byte)FargowiltasSouls.PacketID.SyncNanoCoreMode);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write7BitEncodedInt(NanoCoreMode);
+
+                packet.Send(toWho, fromWho);
+            }
+        }
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
