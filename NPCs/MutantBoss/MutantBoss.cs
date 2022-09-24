@@ -315,7 +315,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             if (NPC.ai[0] < -1 && NPC.life > 1) //in desperation
             {
-                int time = FargoSoulsWorld.MasochistModeReal ? 3870 : 240 + 420 + 480 + 1020 - 180;
+                int time = FargoSoulsWorld.MasochistModeReal ? 3870 : 240 + 420 + 480 + 1020 - 60;
                 NPC.life -= NPC.lifeMax / time;
                 if (NPC.life < 1)
                     NPC.life = 1;

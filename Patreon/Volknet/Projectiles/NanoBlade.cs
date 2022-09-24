@@ -40,6 +40,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
             Projectile.scale = 1.75f;
 
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -72,18 +73,13 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            float num1 = 0.33f;
-            for (int i = 0; i < 9; i++)
+            for (int index1 = 0; index1 < 10; ++index1)
             {
-                if (Main.rand.NextFloat() >= num1)
-                {
-                    float f = Main.rand.NextFloat() * MathHelper.TwoPi;
-                    float num2 = Main.rand.NextFloat();
-                    Dust dust = Dust.NewDustPerfect(target.Center, 157, (f - MathHelper.Pi).ToRotationVector2() * (14 + 8 * num2), 0, default, 1f);  //GreenFx
-                    dust.scale = 0.9f;
-                    dust.fadeIn = 1.15f + num2 * 0.3f;
-                    dust.noGravity = true;
-                }
+                int index2 = Dust.NewDust(target.position, target.width, target.height, 157, 0f, 0f, 100, new Color(), 4f);
+                Main.dust[index2].noGravity = true;
+                Main.dust[index2].noLight = true;
+                Main.dust[index2].velocity = Projectile.DirectionTo(target.Center) * 9f + Main.rand.NextVector2Circular(12f, 12f);
+                Main.dust[index2].velocity *= 2;
             }
         }
         public override void AI()
