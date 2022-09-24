@@ -1197,6 +1197,9 @@ namespace FargowiltasSouls
         {
             if (NoMomentum && !Player.mount.Active)
             {
+                if (Player.vortexStealthActive && Math.Abs(Player.velocity.X) > 6)
+                    Player.vortexStealthActive = false;
+
                 Player.runAcceleration *= 5f;
                 Player.runSlowdown *= 5f;
 
