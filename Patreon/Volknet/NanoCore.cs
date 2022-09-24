@@ -127,15 +127,11 @@ namespace FargowiltasSouls.Patreon.Volknet
                 Item.useAmmo = AmmoID.None;
             }
 
-            foreach (Projectile proj in Main.projectile)
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<NanoBase>()] < 1)
             {
-                if (proj.active && proj.type == ModContent.ProjectileType<NanoBase>() && proj.owner == player.whoAmI)
-                {
-                    return;
-                }
+                int protmp = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<NanoBase>(), player.GetWeaponDamage(player.HeldItem), player.GetWeaponKnockback(player.HeldItem, 1), player.whoAmI);
+                player.heldProj = protmp;
             }
-            int protmp = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<NanoBase>(), player.GetWeaponDamage(player.HeldItem), player.GetWeaponKnockback(player.HeldItem, 1), player.whoAmI);
-            player.heldProj = protmp;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
