@@ -124,7 +124,6 @@ saucer control console buff, has ammo cycle key
 queen bee has a much more blatant enrage
 biocluster is post all mechs
 sou +4 minion/sentry -> 2
-styx +3 minion/sentry -> 2
 conjurist soul +3 minion/sentry -> 5
 rebalanced staff of ocean unleashed
 nano core rebalance again
