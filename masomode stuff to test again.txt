@@ -122,4 +122,4 @@ refined penetrator hitbox to be much more sprite accurate
 
 no momentum disables vortex stealth when moving quickly
 saucer control console buff, has ammo cycle key
-moon lord sun does no damage on its own but explodes larger on impact
+queen bee has a much more blatant enrage

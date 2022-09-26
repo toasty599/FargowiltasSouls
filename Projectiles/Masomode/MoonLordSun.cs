@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
-        public override bool? CanDamage() => false;
+        public override bool? CanDamage() => Projectile.alpha == 0;
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -148,14 +148,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         Vector2 offset = Projectile.width / 2 * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i);
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),
                             Projectile.damage, Projectile.knockBack, Projectile.owner, MathHelper.WrapAngle(offset.ToRotation()), 32);
-                    }
-
-                    const int max2 = 8;
-                    const float baseRotation = MathHelper.TwoPi / max2;
-                    for (int i = 0; i < max2; i++)
-                    {
-                        float rotation = baseRotation * (i + Main.rand.NextFloat(-0.5f, 0.5f));
-                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), Projectile.damage, Projectile.knockBack, Projectile.owner, rotation, 3);
                     }
                 }
             }
