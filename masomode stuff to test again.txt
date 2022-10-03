@@ -127,3 +127,5 @@ sou +4 minion/sentry -> 2
 conjurist soul +3 minion/sentry -> 5
 rebalanced staff of ocean unleashed
 nano core rebalance again
+fixed toggler ui not being draggable in multiplayer
+removed toggler ui position saving becaues it caused the aforementioned bug
