@@ -131,3 +131,4 @@ nano core rebalance again
 capped pumpking's cape counterattack at 1000 base damage
 made timber head less likely to despawn
 removed mana sickness causing attack speed down
+made hornets slightly more aggressive when you have swarming
