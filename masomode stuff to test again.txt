@@ -138,3 +138,4 @@ biocluster requires hallow instead of chloro bar
 glad ench buff, grants kb immunity when you are facing the attack
 added topaz staff to tin ench recipe
 eater staff can move a bit better
+galactic globe grants immunity to null curse (ml class swap gimmick)
