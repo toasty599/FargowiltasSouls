@@ -146,3 +146,4 @@ fixed confused being able to decay faster in boc fight
 emode no longer nerfs spectre hood set bonus
 spectre ench now has old emode spectre lifesteal nerf
 removed emode vampire knives nerf
+nano blade makes chainsaw noises on hit
