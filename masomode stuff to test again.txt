@@ -136,3 +136,4 @@ added iron anvil to iron ench recipe
 solar ench recipe, replaced helfire with solar eruption
 biocluster requires hallow instead of chloro bar
 glad ench buff, grants kb immunity when you are facing the attack
+added topaz staff to tin ench recipe
