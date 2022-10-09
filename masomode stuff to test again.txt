@@ -140,3 +140,5 @@ added topaz staff to tin ench recipe
 eater staff can move a bit better
 galactic globe grants immunity to null curse (ml class swap gimmick)
 sinister icon buff, has no max life restriction on its loot multiplier
+staff of unleashed ocean fishrons ignore 400 defense instead of infinite and adjusted implementation
+abom wand's spectral abom armor pen capped at 600 defense and adjusted implementation
