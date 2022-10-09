@@ -139,3 +139,4 @@ glad ench buff, grants kb immunity when you are facing the attack
 added topaz staff to tin ench recipe
 eater staff can move a bit better
 galactic globe grants immunity to null curse (ml class swap gimmick)
+sinister icon buff, has no max life restriction on its loot multiplier
