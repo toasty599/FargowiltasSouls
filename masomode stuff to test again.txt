@@ -127,3 +127,5 @@ sou +4 minion/sentry -> 2
 conjurist soul +3 minion/sentry -> 5
 rebalanced staff of ocean unleashed
 nano core rebalance again
+
+capped pumpking's cape counterattack at 1000 base damage
