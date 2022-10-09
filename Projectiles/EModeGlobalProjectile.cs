@@ -129,10 +129,6 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                case ProjectileID.SpiritHeal:
-                    projectile.timeLeft = 240 * 4; //account for extraupdates
-                    break;
-
                 case ProjectileID.DD2BetsyFlameBreath:
                     projectile.tileCollide = false;
                     projectile.penetrate = -1;
@@ -704,10 +700,6 @@ namespace FargowiltasSouls.Projectiles
                                 projectile.active = false;
                         }
                     }
-                    break;
-
-                case ProjectileID.SpiritHeal:
-                    projectile.position -= projectile.velocity / 4;
                     break;
 
                 case ProjectileID.Sharknado: //this only runs after changes in preAI() finish blocking it
