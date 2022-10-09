@@ -135,3 +135,4 @@ made hornets slightly more aggressive when you have swarming
 added iron anvil to iron ench recipe
 solar ench recipe, replaced helfire with solar eruption
 biocluster requires hallow instead of chloro bar
+glad ench buff, grants kb immunity when you are facing the attack
