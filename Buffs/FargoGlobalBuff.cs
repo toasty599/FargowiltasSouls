@@ -22,8 +22,6 @@ namespace FargowiltasSouls.Buffs
                     tip += "\n" + Language.GetTextValue("Mods.FargowiltasSouls.EModeBalance.ShadowDodge");
                 else if (type == BuffID.IceBarrier)
                     tip += "\n" + Language.GetTextValue("Mods.FargowiltasSouls.EModeBalance.IceBarrier");
-                else if (type == BuffID.ManaSickness)
-                    tip += "\n" + Language.GetTextValue("Mods.FargowiltasSouls.EModeBalance.ManaSickness");
             }
         }
 
