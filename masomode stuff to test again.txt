@@ -129,3 +129,4 @@ rebalanced staff of ocean unleashed
 nano core rebalance again
 
 capped pumpking's cape counterattack at 1000 base damage
+made timber head less likely to despawn
