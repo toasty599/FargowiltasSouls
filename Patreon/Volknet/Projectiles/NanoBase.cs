@@ -247,7 +247,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
                                 foreach (Projectile proj in Main.projectile)
                                 {
                                     if (proj.active && proj.type == ModContent.ProjectileType<NanoProbe>() && proj.owner == owner.whoAmI
-                                        && proj.ai[1] == 0)
+                                        && proj.ai[1] != 0)
                                     {
                                         if (proj.ai[0] == AtkTimer / 5 || proj.ai[0] == AtkTimer / 5 + 1 || proj.ai[0] == 6)
                                         {

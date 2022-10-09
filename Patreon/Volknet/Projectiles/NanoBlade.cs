@@ -85,9 +85,9 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
 
             if (chainsawSoundTimer <= 0)
             {
-                chainsawSoundTimer = 8;
+                chainsawSoundTimer = 10;
                 
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item22, Main.player[Projectile.owner].Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item22 with { Pitch = 0.5f }, Main.player[Projectile.owner].Center);
             }
 
             for (int index1 = 0; index1 < 12; ++index1)

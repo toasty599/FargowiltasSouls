@@ -148,3 +148,5 @@ spectre ench now has old emode spectre lifesteal nerf
 removed emode vampire knives nerf
 nano blade makes chainsaw noises on hit
 nano tech summon probes shoot as soon as they are individually in place (no wait for all set)
+sand elemental spawns phm, drops sands of time always
+ice golem spawns phm, drops frigid gemstone always
