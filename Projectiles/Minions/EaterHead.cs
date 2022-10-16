@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 bool IsInTile(Vector2 pos)
                 {
-                    Tile tile = Framing.GetTileSafely(Projectile.Center);
+                    Tile tile = Framing.GetTileSafely(pos);
                     return tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]);
                 }
 
