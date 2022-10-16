@@ -135,12 +135,17 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             const int blockTrackDownAllowanceRange = 4;
 
+            bool IsInTile(Vector2 pos)
+            {
+                Tile tile = Framing.GetTileSafely(pos);
+                return tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]);
+            }
+
             float playerGroundCompareHeight = player.Center.Y;
             for (int i = 0; i < 20; i++)
             {
                 Vector2 pos = new Vector2(player.Center.X, playerGroundCompareHeight);
-                Tile tile = Framing.GetTileSafely(pos);
-                if (tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]))
+                if (IsInTile(pos))
                     break;
                 playerGroundCompareHeight += 16;
             }
@@ -153,12 +158,6 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             else
             {
-                bool IsInTile(Vector2 pos)
-                {
-                    Tile tile = Framing.GetTileSafely(pos);
-                    return tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]);
-                }
-
                 for (int i = 0; i < blockTrackDownAllowanceRange; i++)
                 {
                     if (IsInTile(Projectile.Top + Vector2.UnitY * 16 * i))
