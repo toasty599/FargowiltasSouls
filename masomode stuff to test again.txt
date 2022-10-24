@@ -12,3 +12,4 @@ wyvern, ice golem, sand elemental
 snow ench buff, chill is 10->15sec
 frost ench buff, chill is 15->20sec and icicles inflict frostbite
 raised boreal ench damage cap from 20 to 30
+precision seal tooltip specifies you have smaller hurtbox even when not visible
