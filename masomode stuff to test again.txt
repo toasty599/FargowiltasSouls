@@ -11,3 +11,4 @@ wyvern, ice golem, sand elemental
 	drop their accessories guaranteed in pre hm
 snow ench buff, chill is 10->15sec
 frost ench buff, chill is 15->20sec and icicles inflict frostbite
+raised boreal ench damage cap from 20 to 30
