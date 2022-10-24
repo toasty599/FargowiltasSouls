@@ -2502,18 +2502,13 @@ namespace FargowiltasSouls
                 //    target.AddBuff(ModContent.BuffType<Sadism>(), 600);
                 //}
             }
-            else
-            {
-                if (BetsysHeartItem != null && crit)
-                    target.AddBuff(BuffID.BetsysCurse, 300);
 
-                if (FusedLens)
-                {
-                    if (Player.onFire2 || FusedLensCanDebuff)
-                        target.AddBuff(BuffID.CursedInferno, 360);
-                    if (Player.ichor || FusedLensCanDebuff)
-                        target.AddBuff(BuffID.Ichor, 360);
-                }
+            if (FusedLens)
+            {
+                if (Player.onFire2 || FusedLensCanDebuff)
+                    target.AddBuff(BuffID.CursedInferno, 360);
+                if (Player.ichor || FusedLensCanDebuff)
+                    target.AddBuff(BuffID.Ichor, 360);
             }
 
             if (!TerrariaSoul)
