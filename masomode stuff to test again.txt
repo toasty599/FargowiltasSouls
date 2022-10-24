@@ -16,3 +16,6 @@ precision seal tooltip specifies you have smaller hurtbox even when not visible
 betsy's heart nerf
 	no longer inflict betsy curse on crit
 	dash inflicts betsy curse for 15 seconds
+ice queens crown
+	freeze extended 1 -> 1.5sec
+	chill extended 2 -> 3sec

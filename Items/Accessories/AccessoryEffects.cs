@@ -2448,8 +2448,8 @@ namespace FargowiltasSouls
                 //if (MasochistSoul)
                 //    freezeRange = 16 * 60;
 
-                int freezeDuration = 60; //30;
-                int slowDuration = freezeDuration + 120; //(MasochistHeart || MasochistSoul ? 120 : 60);
+                int freezeDuration = 90; //30;
+                int slowDuration = freezeDuration + 180; //(MasochistHeart || MasochistSoul ? 120 : 60);
 
                 foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && Player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, Player.Center)) < freezeRange && !n.dontTakeDamage && !n.buffImmune[ModContent.BuffType<TimeFrozen>()]))
                 {
