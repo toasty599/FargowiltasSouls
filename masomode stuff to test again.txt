@@ -1,2 +1,6 @@
 emode devi medusa ray attack slightly slower
 maso destroyer probes stop shooting during coils
+emode ks
+	now tps to your elevation in p1 too, no longer teleports under you ever
+	p2 begins at 66%
+	special teleport that makes you turn around now happens at 33%
