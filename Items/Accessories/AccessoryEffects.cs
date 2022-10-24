@@ -651,7 +651,12 @@ namespace FargowiltasSouls
             if (Player.GetToggleValue("JungleDash", false))
                 JungleDash();
 
-            if (Player.controlJump && Player.GetToggleValue("Jungle"))
+            if (Player.grapCount > 0)
+            {
+                CanJungleJump = true;
+                JungleJumping = false;
+            }
+            else if (Player.controlJump && Player.GetToggleValue("Jungle"))
             {
                 if (Player.canJumpAgain_Blizzard || Player.canJumpAgain_Sandstorm || Player.canJumpAgain_Cloud || Player.canJumpAgain_Fart || Player.canJumpAgain_Sail || Player.canJumpAgain_Unicorn)
                 {
