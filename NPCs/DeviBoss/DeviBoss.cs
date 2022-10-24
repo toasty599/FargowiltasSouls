@@ -734,7 +734,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             NPC.ai[2] = 1;
 
                         int attackTime = FargoSoulsWorld.EternityMode ? 40 : 50;
-                        if (++NPC.ai[1] == 2)
+                        if (++NPC.ai[1] == 1)
                         {
                             TeleportDust();
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -798,10 +798,6 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                 NPC.netUpdate = true;
                                 NPC.ai[1] = 0;
                             }
-                        }
-                        else if (NPC.ai[2] == 0) //make empty tp faster
-                        {
-                            NPC.ai[1]++;
                         }
                     }
                     break;

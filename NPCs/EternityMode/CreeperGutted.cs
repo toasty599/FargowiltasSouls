@@ -1,6 +1,7 @@
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
@@ -112,14 +113,14 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
             NPC.position += player.position - player.oldPosition;
 
-            /*const float IdleAccel = 0.05f;
+            const float IdleAccel = 0.05f;
             foreach (NPC n in Main.npc.Where(n => n.active && n.ai[0] == NPC.ai[0] && n.type == NPC.type && n.whoAmI != NPC.whoAmI && NPC.Distance(n.Center) < NPC.width))
             {
                 NPC.velocity.X += IdleAccel * (NPC.Center.X < n.Center.X ? -1 : 1);
                 NPC.velocity.Y += IdleAccel * (NPC.Center.Y < n.Center.Y ? -1 : 1);
                 n.velocity.X += IdleAccel * (n.Center.X < NPC.Center.X ? -1 : 1);
                 n.velocity.Y += IdleAccel * (n.Center.Y < NPC.Center.Y ? -1 : 1);
-            }*/
+            }
         }
 
         public override void FindFrame(int frameHeight)
@@ -134,7 +135,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage *= 4;
+            damage *= 3;
         }
 
         public override bool? CanBeHitByProjectile(Projectile projectile)

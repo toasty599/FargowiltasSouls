@@ -183,7 +183,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     npc.netUpdate = true;
                     NetSync(npc);
                 }
-                else if (ConfusionTimer == confusionThreshold - 60)
+                else if (ConfusionTimer == confusionThreshold - (FargoSoulsWorld.MasochistModeReal ? 60 : 90))
                 {
                     //npc.netUpdate = true; //disabled because might be causing mp issues???
                     //NetSync(npc);
