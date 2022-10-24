@@ -1418,14 +1418,14 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     {
                         if (FargoSoulsWorld.EternityMode)
                         {
-                            NPC.ai[1] += 0.5f;
-                            NPC.ai[2] += 0.5f;
+                            NPC.ai[1] += 0.4f;
+                            NPC.ai[2] += 0.4f;
                         }
 
                         if (FargoSoulsWorld.MasochistModeReal)
                         {
-                            NPC.ai[1] += 0.5f;
-                            NPC.ai[2] += 0.5f;
+                            NPC.ai[1] += 0.6f;
+                            NPC.ai[2] += 0.6f;
                         }
                     }
 
