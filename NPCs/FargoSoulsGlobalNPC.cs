@@ -838,6 +838,13 @@ namespace FargowiltasSouls.NPCs
                         npc.NPCLoot();
                 }
             }
+
+            if (npc.boss && !FargoSoulsWorld.downedAnyBoss)
+            {
+                FargoSoulsWorld.downedAnyBoss = true;
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.WorldData);
+            }
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
