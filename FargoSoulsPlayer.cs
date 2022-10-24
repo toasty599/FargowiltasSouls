@@ -1420,10 +1420,23 @@ namespace FargowiltasSouls
 
             if (NecromanticBrewItem != null && IsInADashState && Player.GetToggleValue("MasoSkeleSpin"))
             {
+                //if (NecromanticBrewRotation == 0)
+                //{
+                //    NecromanticBrewRotation = 0.001f;
+                //    Player.velocity.X *= 1.1f;
+                //}
+
+                float dashSpeedBoost = 0.5f * Player.velocity.X;
+                Player.position.X += dashSpeedBoost;
+                if (Collision.SolidCollision(Player.position, Player.width, Player.height))
+                    Player.position.X -= dashSpeedBoost;
+
+                //Collision.StepUp(ref Player.position, ref Player.velocity, Player.width, Player.height, ref Player.stepSpeed, ref Player.gfxOffY, (int)Player.gravDir, Player.controlUp);
+
                 Player.noKnockback = true;
                 Player.thorns = 4f;
 
-                NecromanticBrewRotation += 0.5f * Math.Sign(Player.velocity.X == 0 ? Player.direction : Player.velocity.X);
+                NecromanticBrewRotation += 0.6f * Math.Sign(Player.velocity.X == 0 ? Player.direction : Player.velocity.X);
                 Player.fullRotation = NecromanticBrewRotation;
                 Player.fullRotationOrigin = Player.Center - Player.position;
             }
