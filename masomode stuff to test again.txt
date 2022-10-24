@@ -27,3 +27,4 @@ boc nerfs
 	adjusted timing of p2 confusion and attacks, hopefully more intuitive
 ml suns do no damage until thrown and look more obviously "thrown"
 devi does an "empty" tp before rune wizard bolts
+leash of cthulhu buff +2 damage
