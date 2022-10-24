@@ -994,7 +994,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (FargoSoulsWorld.SwarmActive || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
                 return result;
 
-            if (FargoSoulsWorld.MasochistModeReal && !ShootLaser)
+            bool isCoiling = Main.npc[EModeGlobalNPC.destroyBoss].GetEModeNPCMod<Destroyer>().IsCoiling;
+
+            if (FargoSoulsWorld.MasochistModeReal && !ShootLaser && !isCoiling)
                 return result;
 
             if (npc.localAI[0] > 30)

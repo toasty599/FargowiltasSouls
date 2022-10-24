@@ -1,1 +1,2 @@
 emode devi medusa ray attack slightly slower
+maso destroyer probes stop shooting during coils
