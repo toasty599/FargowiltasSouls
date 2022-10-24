@@ -332,7 +332,9 @@ namespace FargowiltasSouls.NPCs
                         if (normalSpawn)
                         {
                             pool[NPCID.AngryNimbus] = .02f;
-                            pool[NPCID.WyvernHead] = .005f;
+
+                            if (FargoSoulsWorld.downedAnyBoss)
+                                pool[NPCID.WyvernHead] = .005f;
                         }
                     }
 

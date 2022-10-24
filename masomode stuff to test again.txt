@@ -4,3 +4,8 @@ emode ks
 	now tps to your elevation in p1 too, no longer teleports under you ever
 	p2 begins at 66%
 	special teleport that makes you turn around now happens at 33%
+wyvern, ice golem, sand elemental
+	spawn POST 1 BOSS in pre hardmode
+	drop pre hm crates
+	no longer drop hm crates in pre hm
+	drop their accessories guaranteed in pre hm
