@@ -311,9 +311,6 @@ namespace FargowiltasSouls.NPCs
                                 pool[NPCID.DarkCaster] = .025f;
                         }
 
-                        if (spawnInfo.Player.armor[0].type == ItemID.MiningHelmet)
-                            pool[NPCID.UndeadMiner] = .05f;
-
                         if (NPC.downedGoblins && !NPC.savedGoblin && !NPC.AnyNPCs(NPCID.BoundGoblin))
                             pool[NPCID.BoundGoblin] = .5f;
 
@@ -601,9 +598,6 @@ namespace FargowiltasSouls.NPCs
                             if (noBiome && NPC.downedBoss3)
                                 pool[NPCID.DarkCaster] = .05f;
                         }
-
-                        if (spawnInfo.Player.armor[0].type == ItemID.MiningHelmet)
-                            pool[NPCID.UndeadMiner] = .05f;
 
                         if (!NPC.savedWizard && !NPC.AnyNPCs(NPCID.BoundWizard))
                             pool[NPCID.BoundWizard] = .5f;

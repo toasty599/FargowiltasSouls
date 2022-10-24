@@ -29,3 +29,4 @@ ml suns do no damage until thrown and look more obviously "thrown"
 devi does an "empty" tp before rune wizard bolts
 leash of cthulhu buff +2 damage
 jungle ench jump is refreshed by grappling like normal double jumps
+removed mining helmet boosting undead miner spawn rate
