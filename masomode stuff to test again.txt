@@ -9,3 +9,5 @@ wyvern, ice golem, sand elemental
 	drop pre hm crates
 	no longer drop hm crates in pre hm
 	drop their accessories guaranteed in pre hm
+snow ench buff, chill is 10->15sec
+frost ench buff, chill is 15->20sec

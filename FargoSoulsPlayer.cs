@@ -197,7 +197,7 @@ namespace FargowiltasSouls
         public const int TIMESTOP_DURATION = 540; //300
         public bool ChillSnowstorm;
         public int chillLength;
-        public int CHILL_DURATION => FrostEnchantActive ? 900 : 600;
+        public int CHILL_DURATION => FrostEnchantActive ? 60 * 20 : 60 * 15;
         public bool TikiEnchantActive;
         public bool TikiMinion;
         public int actualMinions;
