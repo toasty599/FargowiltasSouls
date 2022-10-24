@@ -19,3 +19,4 @@ betsy's heart nerf
 ice queens crown
 	freeze extended 1 -> 1.5sec
 	chill extended 2 -> 3sec
+gutted/pure heart buff, creepers have 95% DR against contact damage, was 50%

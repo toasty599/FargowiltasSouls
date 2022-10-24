@@ -134,7 +134,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage *= 4 * 2; //comepnsate below strikenpc below
+            damage *= 4;
         }
 
         public override bool? CanBeHitByProjectile(Projectile projectile)
@@ -162,12 +162,6 @@ namespace FargowiltasSouls.NPCs.EternityMode
             }
 
             return null;
-        }
-
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-        {
-            damage /= 2; //take less damage from hostile contact damage too
-            return true;
         }
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)

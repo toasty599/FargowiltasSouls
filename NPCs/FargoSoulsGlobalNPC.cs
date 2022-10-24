@@ -5,6 +5,7 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Weapons.BossDrops;
 using FargowiltasSouls.Items.Weapons.Misc;
+using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
@@ -1045,6 +1046,12 @@ namespace FargowiltasSouls.NPCs
 
             if (BloodDrinker)
                 damage = (int)(damage * 1.3);
+        }
+
+        public override void ModifyHitNPC(NPC npc, NPC target, ref int damage, ref float knockback, ref bool crit)
+        {
+            if (target.type == ModContent.NPCType<CreeperGutted>())
+                damage /= 20;
         }
 
         public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
