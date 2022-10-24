@@ -25,3 +25,5 @@ boc nerfs
 	brain clone takes 0 damage instead of pretending it takes damage
 	real brain only cleanses debuffs when tp'ing, previously fully debuff immune
 	adjusted timing of p2 confusion and attacks, hopefully more intuitive
+ml suns do no damage until thrown and look more obviously "thrown"
+devi does an "empty" tp before rune wizard bolts

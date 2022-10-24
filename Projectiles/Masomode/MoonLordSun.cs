@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
-        public override bool? CanDamage() => Projectile.alpha == 0;
+        public override bool? CanDamage() => Projectile.localAI[0] > 120;
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -91,6 +91,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 /*Vector2 targetPos = new Vector2(Main.npc[ai1].Center.X, Main.npc[ai0].Center.Y - 300);
                 Projectile.velocity = (targetPos - Projectile.Center) / 30;
                 Main.npc[ai1].Center = Projectile.Center + Projectile.velocity; //glue hand to me until thrown*/
+
+                Vector2 targetPos = core.Center;
+                targetPos.X += 16 * 15 * Math.Sign(socket.Center.X - core.Center.X);
+                targetPos.Y -= 16 * 15;
 
                 Projectile.Center = socket.Center;
                 Projectile.position.Y -= 250f * Math.Min(1f, Projectile.localAI[0] / 85);
