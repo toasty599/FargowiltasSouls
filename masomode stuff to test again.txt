@@ -37,3 +37,4 @@ lead ench buff, halves dot taken
 fixed eri and cultist minion other class projs not having correct crit chance
 eri armor set bonus tooltip changes based on mode
 eri armor buff, gives +10% weapon speed with blessing off
+emode devi enters p2 at 66%
