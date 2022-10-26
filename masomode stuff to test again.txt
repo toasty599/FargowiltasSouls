@@ -35,3 +35,5 @@ necro brew buff, your dashes are much faster
 stinger nerf, bee dash cd +1sec
 lead ench buff, halves dot taken
 fixed eri and cultist minion other class projs not having correct crit chance
+eri armor set bonus tooltip changes based on mode
+eri armor buff, gives +10% weapon speed with blessing off
