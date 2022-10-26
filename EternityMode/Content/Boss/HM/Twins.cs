@@ -35,6 +35,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public bool DroppedSummon;
 
         public bool HasSaidEndure;
+        public bool Resist;
         public int RespawnTimer;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
@@ -63,6 +64,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool PreAI(NPC npc)
         {
             EModeGlobalNPC.retiBoss = npc.whoAmI;
+
+            Resist = false;
 
             if (FargoSoulsWorld.SwarmActive)
                 return true;
@@ -357,9 +360,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 //}
             }
 
+            if (DeathrayState > 0)
+                Resist = true;
+
             EModeUtils.DropSummon(npc, "MechEye", NPC.downedMechBoss2, ref DroppedSummon, Main.hardMode);
 
             return true;
+        }
+
+        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            if (Resist)
+                damage *= 0.66;
+
+            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         public override Color? GetAlpha(NPC npc, Color drawColor)
@@ -435,6 +449,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public bool ForcedPhase2OnSpawn;
         public bool HasSaidEndure;
+        public bool Resist;
         public int RespawnTimer;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
@@ -456,6 +471,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool PreAI(NPC npc)
         {
             EModeGlobalNPC.spazBoss = npc.whoAmI;
+
+            Resist = false;
 
             if (FargoSoulsWorld.SwarmActive)
                 return true;
@@ -604,6 +621,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 if (npc.ai[1] == 0f) //not dashing
                 {
+                    Resist = true;
+
                     if (retinazer != null && (retinazer.ai[0] < 4f || retinazer.GetEModeNPCMod<Retinazer>().DeathrayState == 0
                         || retinazer.GetEModeNPCMod<Retinazer>().DeathrayState == 3)) //reti is in normal AI
                     {
@@ -761,6 +780,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         private bool TryWatchHarmlessly(NPC npc)
         {
+            Resist = true;
+
             if (npc.HasValidTarget)
             {
                 const float PI = (float)Math.PI;
@@ -779,6 +800,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 return false;
             }
             return true;
+        }
+
+        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            if (Resist)
+                damage *= 0.66;
+
+            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
