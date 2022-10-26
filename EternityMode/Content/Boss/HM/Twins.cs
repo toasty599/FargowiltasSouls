@@ -431,11 +431,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public int FlameWheelSpreadTimer;
         public int FlameWheelCount;
         public int DarkStarTimer;
+        public int P3DashPhaseDelay;
 
         public bool ForcedPhase2OnSpawn;
         public bool HasSaidEndure;
         public int RespawnTimer;
-        public int P3DashPhaseDelay;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -443,6 +443,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(FlameWheelSpreadTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(FlameWheelCount), IntStrategies.CompoundStrategy },
                 { new Ref<object>(DarkStarTimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(P3DashPhaseDelay), IntStrategies.CompoundStrategy },
             };
 
         public override void OnFirstTick(NPC npc)
