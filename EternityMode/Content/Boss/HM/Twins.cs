@@ -572,6 +572,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.buffImmune[BuffID.Frostburn] = true;
                     npc.buffImmune[BuffID.Frostburn2] = true;
                 }
+
+                //reti is doing the spin
+                if (retinazer != null && retinazer.ai[0] >= 4f && retinazer.GetEModeNPCMod<Retinazer>().DeathrayState != 0 && retinazer.GetEModeNPCMod<Retinazer>().DeathrayState != 3)
+                {
+                    if (!FargoSoulsWorld.MasochistModeReal)
+                    {
+                        npc.velocity *= 0.98f;
+                        if (!TryWatchHarmlessly(npc))
+                            return false;
+                    }
+                }
             }
             else //in phase 3
             {
@@ -707,22 +718,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (P3DashPhaseDelay > 0)
                     {
                         P3DashPhaseDelay--;
-                        if (npc.HasValidTarget)
-                        {
-                            const float PI = (float)Math.PI;
-                            if (npc.rotation > PI)
-                                npc.rotation -= 2 * PI;
-                            if (npc.rotation < -PI)
-                                npc.rotation += 2 * PI;
-
-                            float targetRotation = npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - PI / 2;
-                            if (targetRotation > PI)
-                                targetRotation -= 2 * PI;
-                            if (targetRotation < -PI)
-                                targetRotation += 2 * PI;
-                            npc.rotation = MathHelper.Lerp(npc.rotation, targetRotation, 0.07f);
-                        }
-                        return false;
+                        if (!TryWatchHarmlessly(npc))
+                            return false;
                     }
 
                     if (npc.ai[2] > 50)
@@ -759,6 +756,28 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }
 
+            return true;
+        }
+
+        private bool TryWatchHarmlessly(NPC npc)
+        {
+            if (npc.HasValidTarget)
+            {
+                const float PI = (float)Math.PI;
+                if (npc.rotation > PI)
+                    npc.rotation -= 2 * PI;
+                if (npc.rotation < -PI)
+                    npc.rotation += 2 * PI;
+
+                float targetRotation = npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - PI / 2;
+                if (targetRotation > PI)
+                    targetRotation -= 2 * PI;
+                if (targetRotation < -PI)
+                    targetRotation += 2 * PI;
+                npc.rotation = MathHelper.Lerp(npc.rotation, targetRotation, 0.07f);
+
+                return false;
+            }
             return true;
         }
 
