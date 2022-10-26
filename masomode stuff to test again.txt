@@ -33,3 +33,4 @@ removed mining helmet boosting undead miner spawn rate
 necro brew buff, your dashes are much faster
 
 stinger nerf, bee dash cd +1sec
+lead ench buff, halves dot taken
