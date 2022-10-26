@@ -435,6 +435,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public bool ForcedPhase2OnSpawn;
         public bool HasSaidEndure;
         public int RespawnTimer;
+        public int P3DashPhaseDelay;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -543,6 +544,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 return true;
             }
 
+            const int P3DashDelayLength = 75;
+
             if (npc.ai[0] < 4f)
             {
                 if (npc.life <= npc.lifeMax / 2) //going to phase 3
@@ -551,14 +554,22 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.netUpdate = true;
                     SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
+                    if (!FargoSoulsWorld.MasochistModeReal)
+                        P3DashPhaseDelay = P3DashDelayLength;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.MoonLordCore);
+
                     int index = npc.FindBuffIndex(BuffID.CursedInferno);
                     if (index != -1)
                         npc.DelBuff(index); //remove cursed inferno debuff if i have it
 
                     npc.buffImmune[BuffID.CursedInferno] = true;
                     npc.buffImmune[BuffID.OnFire] = true;
+                    npc.buffImmune[BuffID.OnFire3] = true;
                     npc.buffImmune[BuffID.ShadowFlame] = true;
                     npc.buffImmune[BuffID.Frostburn] = true;
+                    npc.buffImmune[BuffID.Frostburn2] = true;
                 }
             }
             else //in phase 3
@@ -683,16 +694,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     FlameWheelCount = 0;
 
-                    if (FlameWheelSpreadTimer > 75) //cooldown before attacking again
+                    if (FlameWheelSpreadTimer > 0) //cooldown before attacking again
                     {
-                        FlameWheelSpreadTimer = 75;
+                        P3DashPhaseDelay = Math.Min(FlameWheelSpreadTimer, 75);
+                        FlameWheelSpreadTimer = 0;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
                         NetSync(npc);
                     }
-                    if (FlameWheelSpreadTimer > 0)
+
+                    if (P3DashPhaseDelay > 0)
                     {
-                        FlameWheelSpreadTimer--;
+                        P3DashPhaseDelay--;
                         if (npc.HasValidTarget)
                         {
                             const float PI = (float)Math.PI;

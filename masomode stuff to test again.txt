@@ -40,3 +40,4 @@ eri armor buff, gives +10% weapon speed with blessing off
 emode devi enters p2 at 66%
 sand ele doesnt spawn sand sharks pre hm
 ice golem and sand ele pre hm have 40% life and 25% defense, was 50% 50%
+spaz nerf, pauses on p3 enter isntead of instantly dashing
