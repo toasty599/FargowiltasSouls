@@ -25,6 +25,7 @@ Drastically increases minion speed
         }
 
         protected override Color nameColor => new Color(150, 133, 100);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

@@ -28,6 +28,7 @@ Increases whip range by 50%
         }
 
         protected override Color nameColor => new Color(69, 62, 115);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

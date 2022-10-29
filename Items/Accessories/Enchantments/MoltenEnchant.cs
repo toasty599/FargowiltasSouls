@@ -20,6 +20,7 @@ Enemies take 25% increased damage while inside the inferno ring
         }
 
         protected override Color nameColor => new Color(193, 43, 43);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

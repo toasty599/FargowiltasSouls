@@ -27,6 +27,7 @@ Lead Poisoning deals damage over time and spreads to nearby enemies
         }
 
         protected override Color nameColor => new Color(67, 69, 88);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

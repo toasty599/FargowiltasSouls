@@ -23,6 +23,7 @@ You spawn an orb of damaging life energy every 80 life regenerated
         }
 
         protected override Color nameColor => new Color(245, 172, 40);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

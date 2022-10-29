@@ -25,6 +25,7 @@ Reduces minion damage to compensate for increased speed
         }
 
         protected override Color nameColor => new Color(180, 180, 204);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

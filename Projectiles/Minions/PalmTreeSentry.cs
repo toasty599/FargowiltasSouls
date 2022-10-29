@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             int attackRate = 45;
 
-            if (modPlayer.WoodForce || modPlayer.WizardEnchantActive)
+            if (modPlayer.WoodForce)
             {
                 attackRate = 30;
             }

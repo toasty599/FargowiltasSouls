@@ -64,8 +64,8 @@ namespace FargowiltasSouls
         public bool BigBrainMinion;
         public bool DukeFishron;
 
-        //        //mount
-        //        public bool SquirrelMount;
+        //mount
+        public bool SquirrelMount;
 
         //pet
         public bool SeekerOfAncientTreasures;
@@ -106,6 +106,7 @@ namespace FargowiltasSouls
         public bool BeeEnchantActive;
         public int BeeCD;
         public bool BorealEnchantActive;
+        public int BorealCD;
         public bool CactusEnchantActive;
         public int CactusProcCD;
         public bool ChloroEnchantActive;
@@ -733,7 +734,7 @@ namespace FargowiltasSouls
             BigBrainMinion = false;
             DukeFishron = false;
 
-            //            SquirrelMount = false;
+            SquirrelMount = false;
 
             SeekerOfAncientTreasures = false;
             AccursedSarcophagus = false;
@@ -966,7 +967,7 @@ namespace FargowiltasSouls
                 WizardEnchantActive = false;
                 for (int i = 3; i <= 9; i++)
                 {
-                    if (!Player.armor[i].IsAir && (Player.armor[i].type == ModContent.ItemType<WizardEnchant>() || Player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.WillForce>()))
+                    if (!Player.armor[i].IsAir && (Player.armor[i].type == ModContent.ItemType<WizardEnchant>() || Player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.CosmoForce>()))
                     {
                         WizardEnchantActive = true;
                         CosmoForce = true;
@@ -1659,11 +1660,6 @@ namespace FargowiltasSouls
             if (AdditionalAttacks && AdditionalAttacksTimer > 0)
                 AdditionalAttacksTimer--;
 
-            //            if (WoodEnchant && CritterAttackTimer > 0)
-            //            {
-            //                CritterAttackTimer--;
-            //            }
-
             if (MutantPresence || DevianttPresence)
             {
                 Player.statDefense /= 2;
@@ -2349,8 +2345,7 @@ namespace FargowiltasSouls
 
             if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames))
             {
-                int starDamage = FargoSoulsUtil.HighestDamageTypeScaling(Player, WoodForce ? 80 : 40);
-                PearlwoodEnchant.PearlwoodStarDrop(this, target, starDamage);
+                PearlwoodEnchant.PearlwoodStarDrop(this, target, damage);
             }
 
             if (BeeEnchantActive && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
@@ -3241,6 +3236,21 @@ namespace FargowiltasSouls
                     //}
                 }
             }
+
+            //if (SquirrelMount)
+            //{
+            //    foreach (PlayerDrawLayer layer in PlayerDrawLayerLoader.Layers)
+            //    {
+            //        layer.
+
+
+            //        if (layer != PlayerLayer.MountBack && PlayerLayer != PlayerLayer.MountFront && PlayerLayer != PlayerLayer.MiscEffectsFront && PlayerLayer != PlayerLayer.MiscEffectsBack)
+            //        {
+            //            PlayerLayer.visible = false;
+            //        }
+            //    }
+            //}
+
         }
 
 
@@ -3400,14 +3410,24 @@ namespace FargowiltasSouls
                 CactusEnchant.CactusSelfProc(this);
             }
 
-            if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
+            if (BorealEnchantActive && BorealCD <= 0)
             {
-                AdditionalAttacksTimer = 60;
+                BorealCD = 60;
+
+                if (WoodForce)
+                {
+                    BorealCD = 30;
+                }
 
                 if (BorealEnchantActive && Player.GetToggleValue("Boreal"))
                 {
                     BorealWoodEnchant.BorealSnowballs(this, damage);
                 }
+            }
+
+            if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
+            {
+                AdditionalAttacksTimer = 60;
 
                 if (CelestialRuneItem != null && Player.GetToggleValue("MasoCelest"))
                 {

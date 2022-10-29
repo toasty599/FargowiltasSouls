@@ -25,6 +25,7 @@ Getting hit resets your crit to 5%
         }
 
         protected override Color nameColor => new Color(162, 139, 78);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

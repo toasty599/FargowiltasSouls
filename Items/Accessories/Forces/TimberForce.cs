@@ -30,8 +30,8 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 $"[i:{ModContent.ItemType<WoodEnchant>()}] You gain a shop discount based on bestiary completion\n" +
 $"[i:{ModContent.ItemType<BorealWoodEnchant>()}] Attacks will periodically be accompanied by several snowballs\n" +
 $"[i:{ModContent.ItemType<RichMahoganyEnchant>()}] All grappling hooks shoot, pull, and retract 2.5x as fast\n" +
-$"[i:{ModContent.ItemType<EbonwoodEnchant>()}] You have an aura of Shadowflame, Cursed Flames, and Bleeding\n" +
-$"[i:{ModContent.ItemType<PalmWoodEnchant>()}] Double tap down to spawn a palm tree sentry that throws nuts at enemies\n" +
+$"[i:{ModContent.ItemType<EbonwoodEnchant>()}] You have an aura of Corruption and Bleeding\n" +
+$"[i:{ModContent.ItemType<PalmWoodEnchant>()}] Double tap down to spawn up to 3 palm tree sentries\n" +
 $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star when they hit something\n" +
 "'Extremely rigid'");
 

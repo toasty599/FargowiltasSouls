@@ -23,6 +23,7 @@ Bonus ends after attacking for 3 seconds and rebuilds over 3 seconds
         }
 
         protected override Color nameColor => new Color(157, 210, 144);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

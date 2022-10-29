@@ -23,6 +23,7 @@ Damaging debuffs deal 3x damage
         }
 
         protected override Color nameColor => new Color(235, 50, 145);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

@@ -33,6 +33,7 @@ You attract items from a larger range
         }
 
         protected override Color nameColor => new Color(152, 142, 131);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

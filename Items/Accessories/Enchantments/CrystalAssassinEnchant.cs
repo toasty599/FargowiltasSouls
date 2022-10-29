@@ -22,6 +22,7 @@ Effects of Volatile Gel
         }
 
         protected override Color nameColor => new Color(36, 157, 207);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

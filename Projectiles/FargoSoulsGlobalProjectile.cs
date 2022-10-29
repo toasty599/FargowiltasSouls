@@ -489,7 +489,7 @@ namespace FargowiltasSouls.Projectiles
                 //hook ai
                 if (modPlayer.MahoganyEnchantActive && player.GetToggleValue("Mahogany", false) && projectile.aiStyle == 7)
                 {
-                    RichMahoganyEnchant.MahoganyHookAI(projectile, player);
+                    RichMahoganyEnchant.MahoganyHookAI(projectile, modPlayer);
                 }
 
                 if (projectile.friendly && !projectile.hostile)
@@ -1265,10 +1265,10 @@ namespace FargowiltasSouls.Projectiles
             {
                 float multiplier = 3f;
 
-                if (modPlayer.WoodForce || modPlayer.WizardEnchantActive)
-                {
-                    multiplier = 2.5f;
-                }
+                //if (modPlayer.WoodForce || modPlayer.WizardEnchantActive)
+                //{
+                //    multiplier = 2.5f;
+                //}
 
                 speed *= multiplier;
             }

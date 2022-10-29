@@ -26,6 +26,7 @@ When you are hurt, you violently explode to damage nearby enemies
         }
 
         protected override Color nameColor => new Color(61, 164, 196);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

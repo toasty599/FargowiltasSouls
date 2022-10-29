@@ -27,6 +27,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
         }
 
         protected override Color nameColor => new Color(48, 49, 52);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

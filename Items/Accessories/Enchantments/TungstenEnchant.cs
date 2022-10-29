@@ -33,6 +33,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         }
 
         protected override Color nameColor => new Color(176, 210, 178);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

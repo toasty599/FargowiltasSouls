@@ -26,6 +26,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         }
 
         protected override Color nameColor => new Color(53, 76, 116);
+        public override string wizardEffect => "";
 
         public override void SetDefaults()
         {

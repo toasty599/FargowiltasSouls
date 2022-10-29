@@ -967,8 +967,7 @@ namespace FargowiltasSouls.NPCs
 
             if (modPlayer.WoodEnchantActive)
             {
-                //register extra kill per kill (2x as fast)
-                Main.BestiaryTracker.Kills.RegisterKill(npc);
+                WoodEnchant.WoodCheckDead(modPlayer, npc);
             }
 
             if (Needled && npc.lifeMax > 1 && npc.lifeMax != int.MaxValue) //super dummy
