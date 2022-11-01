@@ -35,17 +35,17 @@ Enemies struck while Bleeding spew damaging blood
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ShadewoodEffect(player);
+            ShadewoodEffect(player, Item);
         }
 
-        public static void ShadewoodEffect(Player player)
+        public static void ShadewoodEffect(Player player, Item item)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
                 return;
 
-            modPlayer.ShadewoodEnchantActive = true;
+            modPlayer.ShadewoodEnchantItem = item;
 
             int dist = modPlayer.WoodForce ? 400 : 200;
 

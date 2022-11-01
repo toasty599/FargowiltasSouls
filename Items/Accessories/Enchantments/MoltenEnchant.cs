@@ -103,8 +103,8 @@ Enemies take 25% increased damage while inside the inferno ring
             .AddIngredient(ItemID.MoltenHelmet)
             .AddIngredient(ItemID.MoltenBreastplate)
             .AddIngredient(ItemID.MoltenGreaves)
+            //ashwood ench
             .AddIngredient(ItemID.Sunfury)
-            .AddIngredient(ItemID.Flamarang)
             .AddIngredient(ItemID.DemonsEye)
 
             .AddTile(TileID.DemonAltar)

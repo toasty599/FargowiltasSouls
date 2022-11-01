@@ -30,13 +30,13 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            PearlwoodEffect(player);
+            PearlwoodEffect(player, Item);
         }
 
-        public static void PearlwoodEffect(Player player)
+        public static void PearlwoodEffect(Player player, Item item)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.PearlwoodEnchantActive = true;
+            modPlayer.PearlwoodEnchantItem = item;
 
             if (modPlayer.PearlwoodCD > 0)
                 modPlayer.PearlwoodCD--;

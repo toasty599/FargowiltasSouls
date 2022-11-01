@@ -34,13 +34,13 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            PalmEffect(player);
+            PalmEffect(player, Item);
         }
 
-        public static void PalmEffect(Player player)
+        public static void PalmEffect(Player player, Item item)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.PalmEnchantActive = true;
+            modPlayer.PalmEnchantItem = item;
 
             if (player.GetToggleValue("Palm") && player.whoAmI == Main.myPlayer && modPlayer.DoubleTap)
             {

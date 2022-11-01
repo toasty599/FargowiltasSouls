@@ -32,7 +32,7 @@ While grappling you gain 10% damage resistance and a 50% thorns effect
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().MahoganyEnchantActive = true;
+            player.GetModPlayer<FargoSoulsPlayer>().MahoganyEnchantItem = Item;
         }
 
         public static void MahoganyHookAI(Projectile projectile, FargoSoulsPlayer modPlayer)

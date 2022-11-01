@@ -33,13 +33,13 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            BorealEffect(player);
+            BorealEffect(player, Item);
         }
 
-        public static void BorealEffect(Player player)
+        public static void BorealEffect(Player player, Item item)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.BorealEnchantActive = true;
+            modPlayer.BorealEnchantItem = item;
 
             if (modPlayer.BorealCD > 0)
                 modPlayer.BorealCD--;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             int snowballDamage = damage / 2;
             if (!modPlayer.TerrariaSoul)
                 snowballDamage = Math.Min(snowballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.WoodForce ? 300 : 30));
-            int p = Projectile.NewProjectile(player.GetSource_Misc(""), player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
+            int p = Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.BorealEnchantItem), player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
 
             int numSnowballs = modPlayer.WoodForce ? 7 : 3;
             if (p != Main.maxProjectiles)

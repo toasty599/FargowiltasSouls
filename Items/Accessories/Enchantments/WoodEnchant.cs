@@ -45,12 +45,12 @@ You gain a shop discount based on bestiary completion");
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            WoodEffect(player);
+            WoodEffect(player, Item);
         }
 
-        public static void WoodEffect(Player player)
+        public static void WoodEffect(Player player, Item item)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantActive = true;
+            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantItem = item;
         }
 
         public static void WoodCheckDead(FargoSoulsPlayer modPlayer, NPC npc)
