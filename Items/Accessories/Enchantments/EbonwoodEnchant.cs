@@ -14,9 +14,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             DisplayName.SetDefault("Ebonwood Enchantment");
             Tooltip.SetDefault(
-@"You are surrounded by an aura of corruption
+@"You are surrounded by an aura of Shadowflame
 Any projectiles that would deal less than 10 damage to you are destroyed
-have an aura that protects you from projectiles that would deal 10 damage or less
 'Untapped potential'");
             //in force damage theshold increased to 25 AND any npc that has less than 200 HP is instantly killed in the aura
         }
@@ -73,15 +72,18 @@ have an aura that protects you from projectiles that would deal 10 damage or les
                 }
             }
 
-            if (modPlayer.WoodForce)
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    NPC npc = Main.npc[i];
+                NPC npc = Main.npc[i];
 
-                    if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist)
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && !npc.dontTakeDamage && npc.Distance(player.Center) < dist)
+                {
+                    if (modPlayer.WoodForce && npc.life < 200 && !npc.boss && !(npc.realLife > -1 && Main.npc[npc.realLife].active && Main.npc[npc.realLife].boss))
+                        npc.StrikeNPC(npc.life, 0f, 0);
+
+                    if (modPlayer.WoodForce || Collision.CanHitLine(player.Left, 0, 0, npc.Center, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, npc.Center, 0, 0))
                     {
-                        npc.StrikeNPC(9999, 5f, 0);
+                        npc.AddBuff(BuffID.ShadowFlame, 10);
                     }
                 }
             }
