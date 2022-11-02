@@ -49,3 +49,4 @@ tried fixing boc despawn glitch
 nekomi nerf, regen 1->0.5hp/s
 devi has more life
 ebonwood force doesnt instakill everything, but base ench does have shadowflame again
+betsy dash dash curse debuff length buffed 15->20s
