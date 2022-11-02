@@ -124,6 +124,7 @@ namespace FargowiltasSouls
         public Item PalladEnchantItem;
         public int PalladCounter;
         public Item TitaniumEnchantItem;
+        public bool TitaniumDRBuff;
         public bool TitaniumCD;
         //force of nature
 
@@ -831,6 +832,7 @@ namespace FargowiltasSouls
             SnowEnchantActive = false;
             SnowVisual = false;
             TitaniumEnchantItem = null;
+            TitaniumDRBuff = false;
             TitaniumCD = false;
 
             CosmoForce = false;
@@ -1375,6 +1377,13 @@ namespace FargowiltasSouls
 
             if (PalladEnchantItem != null)
                 PalladiumEnchant.PalladiumUpdate(this);
+
+            if (TitaniumDRBuff)
+            {
+                float diff = 1f - Player.endurance;
+                diff *= EarthForce ? 0.75f : 0.5f;
+                Player.endurance += diff;
+            }
 
             if (noDodge)
             {

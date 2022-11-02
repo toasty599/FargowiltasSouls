@@ -83,6 +83,7 @@ This has a cooldown of 10 seconds
                     }
 
                     player.AddBuff(ModContent.BuffType<TitaniumDRBuff>(), buffDuration);
+                    player.AddBuff(ModContent.BuffType<TitaniumCD>(), buffDuration + 600);
                 }
             }
         }

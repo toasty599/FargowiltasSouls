@@ -351,7 +351,7 @@ Mods: {
 			TerraHeader: "{$Mods.FargowiltasSouls.ItemName.TerraForce}"
 			CopperConfig: Copper Lightning
 			IronMConfig: Iron Magnet
-			IronSConfig: Iron Parry
+			SilverSConfig: Silver Parry
 			TinConfig: Tin Crits
 			TungstenConfig: Tungsten Item Effect
 			TungstenProjConfig: Tungsten Projectile Effect
@@ -399,7 +399,6 @@ Mods: {
 			ShinobiConfig: Shinobi Through Walls
 			SpookyConfig: Spooky Scythes
 			CrystalDashConfig: Crystal Assassin Dash
-			CrystalGelatinConfig: Volatile Gelatin
 
 			SpiritHeader: "{$Mods.FargowiltasSouls.ItemName.SpiritForce}"
 			FossilConfig: Fossil Bones On Hit
@@ -408,7 +407,7 @@ Mods: {
 			HallowedConfig: Ancient Hallowed Terraprisma familiar
 			HallowSConfig: Ancient Hallowed Shield
 			SilverConfig: Silver Sword Familiar
-			SilverSpeedConfig: Silver Minion Speed
+			NinjaSpeedConfig: Projectile Speed
 			SpectreConfig: Spectre Orbs
 			TikiConfig: Tiki Minions
 
@@ -544,6 +543,7 @@ Mods: {
 			TrawlerSporeConfig: Spore Sac
 			TrawlerConfig: Trawler Extra Lures
 			TrawlerJumpConfig: Trawler Jump
+			TrawlerGelConfig: Volatile Gelatin
 
 			EternityHeader: "{$Mods.FargowiltasSouls.ItemName.EternitySoul}"
 			EternityConfig: Eternity Stacking

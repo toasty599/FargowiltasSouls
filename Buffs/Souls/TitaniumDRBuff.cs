@@ -16,15 +16,7 @@ namespace FargowiltasSouls.Buffs.Souls
         public override void Update(Player player, ref int buffIndex)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
-            if (modPlayer.EarthForce)
-            {
-                player.endurance = 0.75f;
-            }
-            else
-            {
-                player.endurance = 0.95f;
-            }
+            modPlayer.TitaniumDRBuff = true;
 
             //kill all shards before running out
             if (player.buffTime[buffIndex] == 2)
@@ -38,8 +30,6 @@ namespace FargowiltasSouls.Buffs.Souls
                         proj.Kill();
                     }
                 }
-
-                player.AddBuff(ModContent.BuffType<TitaniumCD>(), 600);
             }
         }
     }
