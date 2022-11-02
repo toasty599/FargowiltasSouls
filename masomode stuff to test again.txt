@@ -55,3 +55,4 @@ devi rune wizard empty tp is faster again
 adam ench force nerfs damage to 1/3rd if proj is nonpierce or local iframes
 rich mahog DR applies for one hit per grapple, nerfed force from +50% to +30% DR
 adjusted titanium DR so its 50/75% isnt additive or overriding
+toggle localization fixes
