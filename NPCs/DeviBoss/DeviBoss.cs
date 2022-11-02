@@ -799,6 +799,10 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                 NPC.ai[1] = 0;
                             }
                         }
+                        else if (NPC.ai[2] == 0) //faster on first empty tp
+                        {
+                            NPC.ai[1]++;
+                        }
                     }
                     break;
 
