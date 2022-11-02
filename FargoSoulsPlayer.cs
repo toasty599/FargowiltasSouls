@@ -83,6 +83,7 @@ namespace FargowiltasSouls
         public Item BorealEnchantItem;
         public int BorealCD;
         public Item MahoganyEnchantItem;
+        public bool MahoganyCanUseDR;
         public Item PalmEnchantItem;
         public Item PearlwoodEnchantItem;
         public int PearlwoodCD;
@@ -1210,6 +1211,9 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
+            if (MahoganyEnchantItem != null)
+                RichMahoganyEnchant.PostUpdate(Player);
+
             if (NoMomentum && !Player.mount.Active)
             {
                 if (Player.vortexStealthActive && Math.Abs(Player.velocity.X) > 6)
@@ -2913,6 +2917,8 @@ namespace FargowiltasSouls
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
             WasHurtBySomething = true;
+
+            MahoganyCanUseDR = false;
 
             if (NekomiSet)
             {
