@@ -46,3 +46,5 @@ added patreon toggle for nano core
 twins buff, have 33% DR while doing ray
 
 tried fixing boc despawn glitch
+nekomi nerf, regen 1->0.5hp/s
+devi has more life
