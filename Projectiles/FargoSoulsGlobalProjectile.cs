@@ -1,6 +1,7 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Accessories.Souls;
 using FargowiltasSouls.Items.Weapons.SwarmDrops;
@@ -1102,7 +1103,9 @@ namespace FargowiltasSouls.Projectiles
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (AdamProj)
-                damage /= 2;
+            {
+                damage /= modPlayer.EarthForce && (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity) ? 3 : 2;
+            }
 
             if (stormTimer > 0)
                 damage = (int)(damage * (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6 : 1.3));

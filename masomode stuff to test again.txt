@@ -52,3 +52,4 @@ ebonwood force doesnt instakill everything, but base ench does have shadowflame 
 betsy dash dash curse debuff length buffed 15->20s
 boss arenas disable your items while sucking you in
 devi rune wizard empty tp is faster again
+adam ench force nerfs damage to 1/3rd if proj is nonpierce or local iframes
