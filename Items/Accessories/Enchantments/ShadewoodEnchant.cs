@@ -45,8 +45,6 @@ Enemies struck while Bleeding spew damaging blood
             if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
                 return;
 
-            modPlayer.ShadewoodEnchantItem = item;
-
             int dist = modPlayer.WoodForce ? 400 : 200;
 
             for (int i = 0; i < Main.maxNPCs; i++)
