@@ -65,3 +65,4 @@ rockeater launcher
 	adjusted knockback
 	reduced attack speed
 	made the sweetspot much more lenient
+fixed pumpking cape toggle not working
