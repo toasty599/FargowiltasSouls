@@ -58,3 +58,4 @@ adjusted titanium DR so its 50/75% isnt additive or overriding
 toggle localization fixes
 made boc ichor sprite visible
 fused lens install is now toggled with the debuff install key
+adjusted boc confusion timing again
