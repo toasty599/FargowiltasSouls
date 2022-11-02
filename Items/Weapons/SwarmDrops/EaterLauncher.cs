@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             if (player.itemTime > 0)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     Vector2 offset = new Vector2();
                     double angle = Main.rand.NextDouble() * 2d * Math.PI;

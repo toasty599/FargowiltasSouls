@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using rail;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -44,12 +45,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         }
 
         bool sweetspot;
-        bool didThingsOnKill;
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             Player owner = Main.player[Projectile.owner];
-            Vector2 middleOfSweetspot = owner.Center = owner.DirectionTo(target.Center) * 450;
+            Vector2 middleOfSweetspot = owner.Center + owner.DirectionTo(target.Center) * 450;
             Vector2 targetPoint = FargoSoulsUtil.ClosestPointInHitbox(target.Hitbox, middleOfSweetspot);
             float dist = Vector2.Distance(targetPoint, owner.Center);
 
@@ -74,16 +74,30 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Main.dust[num469].velocity *= 1.5f;
             }
 
+            if (sweetspot)
+            {
+                for (int i = 0; i < 40; i++)
+                {
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CorruptTorch, 0f, 0f, 100, new Color(), 2f);
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].noLight = true;
+                    Main.dust[index2].velocity = Vector2.Normalize(Projectile.velocity) * 9f + Main.rand.NextVector2Circular(12f, 12f);
+                    Main.dust[index2].velocity *= 2.5f;
+                    Main.dust[index2].scale *= Main.rand.NextFloat(1.5f, 3f);
+                }
+            }
+
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 10; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
                     Projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
                 Main.dust[dust].velocity *= 1.4f;
+                Main.dust[dust].noGravity = true;
             }
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 5; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
                     Projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);

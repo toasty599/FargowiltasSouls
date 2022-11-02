@@ -65,3 +65,11 @@ rockeater launcher
 	reduced attack speed
 	made the sweetspot much more lenient
 fixed pumpking cape toggle not working
+
+abom
+	can now strafe around you while shooting scythes
+	no contact damage and sharper movement when shooting scythes
+	wont spawn saucers in p1 anymore
+	only spawns 3 saucers in p2
+	p2 scythe splits into 8, was 10
+added nice dust to rockeater on sweetspot
