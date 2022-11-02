@@ -1104,7 +1104,7 @@ namespace FargowiltasSouls.Projectiles
 
             if (AdamProj)
             {
-                damage /= modPlayer.EarthForce && (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity) ? 3 : 2;
+                damage /= 2;//modPlayer.EarthForce && (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity) ? 3 : 2;
             }
 
             if (stormTimer > 0)
