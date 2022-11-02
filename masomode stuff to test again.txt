@@ -59,3 +59,9 @@ toggle localization fixes
 made boc ichor sprite visible
 fused lens install is now toggled with the debuff install key
 adjusted boc confusion timing again
+rockeater launcher
+	rocket no longer pierces at all
+	removed guaranteed crit on sweetspot
+	adjusted knockback
+	reduced attack speed
+	made the sweetspot much more lenient

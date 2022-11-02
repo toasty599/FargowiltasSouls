@@ -25,18 +25,18 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.DamageType = DamageClass.Ranged;
             Item.width = 24;
             Item.height = 24;
-            Item.useTime = 16;
-            Item.useAnimation = 16;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
-            Item.knockBack = 5f;
+            Item.knockBack = 6f;
             Item.UseSound = SoundID.Item62;
             Item.useAmmo = AmmoID.Rocket;
             Item.value = Item.sellPrice(0, 10);
             Item.rare = ItemRarityID.Purple;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<EaterRocket>();
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 24f;
             Item.scale = .7f;
         }
 
@@ -68,8 +68,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
                     Vector2 offset2 = new Vector2();
                     double angle2 = Main.rand.NextDouble() * 2d * Math.PI;
-                    offset2.X += (float)(Math.Sin(angle2) * 500);
-                    offset2.Y += (float)(Math.Cos(angle2) * 500);
+                    offset2.X += (float)(Math.Sin(angle2) * 600);
+                    offset2.Y += (float)(Math.Cos(angle2) * 600);
                     Dust dust2 = Main.dust[Dust.NewDust(
                         player.Center + offset2 - new Vector2(4, 4), 0, 0,
                         DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
