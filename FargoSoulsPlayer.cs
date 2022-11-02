@@ -79,17 +79,53 @@ namespace FargowiltasSouls
         public bool PetsActive;
 
         #region enchantments
+        //force of timber
+        public Item BorealEnchantItem;
+        public int BorealCD;
+        public Item MahoganyEnchantItem;
+        public Item PalmEnchantItem;
+        public Item PearlwoodEnchantItem;
+        public int PearlwoodCD;
+        public Item ShadewoodEnchantItem;
+        public int ShadewoodCD;
+        public Item WoodEnchantItem;
+        //force of terra
+        public Item CopperEnchantItem;
+        public int CopperProcCD;
+        public Item IronEnchantItem;
+        public bool GuardRaised;
+        public int ParryDebuffImmuneTime;
+        public Item LeadEnchantItem;
+        public Item ObsidianEnchantItem;
+        public int ObsidianCD;
+        public bool LavaWet;
+        public Item SilverEnchantItem;
+        //public bool IronEnchantShield;
+        public Item TinEnchantItem;
+        public float TinCritMax;
+        public float TinCrit = 5;
+        public int TinProcCD;
+        public bool TinCritBuffered;
+        public Item TungstenEnchantItem;
+        public int TungstenCD;
         //force of earth
         public Item AdamantiteEnchantItem;
         public bool AdamantiteCanSplit;
         public Item CobaltEnchantItem;
         public bool CanCobaltJump;
         public bool JustCobaltJumped;
-        public bool MythrilEnchantActive;
-        public bool OriEnchantActive;
-        public bool PalladEnchantActive;
+        public int CobaltImmuneTimer;
+        public Item MythrilEnchantItem;
+        public int MythrilTimer;
+        public int MythrilMaxTime => EarthForce ? 300 : 180;
+        public float MythrilMaxSpeedBonus => EarthForce ? 2.0f : 1.5f;
+        public Item OriEnchantItem;
+        public Item PalladEnchantItem;
         public int PalladCounter;
         public Item TitaniumEnchantItem;
+        public bool TitaniumCD;
+        //force of nature
+
 
 
 
@@ -105,20 +141,15 @@ namespace FargowiltasSouls
         public int ApprenticeCD;
         public bool BeeEnchantActive;
         public int BeeCD;
-        public bool BorealEnchantActive;
-        public int BorealCD;
+        
         public bool CactusEnchantActive;
         public int CactusProcCD;
         public bool ChloroEnchantActive;
         public Item ChloroEnchantItem;
 
-        public bool CopperEnchantActive;
-        public int CopperProcCD;
         public bool CrimsonEnchantActive;
         public int CrimsonRegenAmount;
-        //public int CrimsonTotalToRegen;
-        //public int CrimsonRegenSoFar;
-        //public int CrimsonRegenTimer;
+
         public bool DarkArtistEnchantActive;
         public bool DarkArtistSpawn;
         public int DarkArtistSpawnCD;
@@ -137,13 +168,11 @@ namespace FargowiltasSouls
         public bool HuntressEnchantActive;
         public int HuntressStage;
         public int HuntressCD = 0;
-        public bool IronEnchantActive;
-        public bool GuardRaised;
-        public int ParryDebuffImmuneTime;
+       
         public bool JungleEnchantActive;
         public int JungleCD;
-        public bool LeadEnchantActive;
-        public bool MahoganyEnchantActive;
+        
+        
         public bool MeteorEnchantActive;
         private int meteorTimer = 150;
         private int meteorCD;
@@ -153,35 +182,29 @@ namespace FargowiltasSouls
         public int MonkDashing;
         private int monkTimer;
 
-        public int MythrilTimer;
-        private int MythrilMaxTime => EarthForce ? 300 : 180;
-        private float MythrilMaxSpeedBonus => EarthForce ? 2.0f : 1.5f;
+        
 
         public bool NecroEnchantActive;
         public int NecroCD;
-        public bool NinjaEnchantActive;
-        public Projectile NinjaSmokeBombProj = null;
+        public Item NinjaEnchantItem;
+        public bool CrystalEnchantActive;
+        public Projectile CrystalSmokeBombProj = null;
         public bool FirstStrike;
         public int SmokeBombCD;
-        public bool ObsidianEnchantActive;
-        private int obsidianCD;
-        public bool LavaWet;
+        
 
 
-        public bool PalmEnchantActive;
-        public bool PearlwoodEnchantActive;
-        public int PearlwoodCD;
+       
         public int PumpkinSpawnCD;
         public bool RainEnchantActive;
         public Item RedRidingEnchantItem;
         public int RedRidingArrowCD;
-        public bool ShadewoodEnchantActive;
-        public int ShadewoodCD;
+        
         public bool ShadowEnchantActive;
         public bool ShinobiEnchantActive;
         public int dashCD;
         public bool ShroomEnchantActive;
-        public bool SilverEnchantActive;
+        
         public bool PlatinumEnchantActive;
         public bool SnowEnchantActive;
         public bool SnowVisual;
@@ -204,15 +227,7 @@ namespace FargowiltasSouls
         public int actualMinions;
         public bool TikiSentry;
         public int actualSentries;
-        public bool TinEnchantActive;
-        public float TinCritMax;
-        public float TinCrit = 5;
-        public int TinProcCD;
-        public bool TinCritBuffered;
-        public bool TungstenEnchantActive;
-        //public float TungstenPrevSizeSave = -1;
-        //public Item TungstenEnlargedItem;
-        public int TungstenCD;
+        
         public bool TurtleEnchantActive;
         public int TurtleCounter;
         public int TurtleShellHP = 25;
@@ -222,7 +237,7 @@ namespace FargowiltasSouls
         public bool VortexEnchantActive;
         public bool VortexStealth;
         public bool WizardEnchantActive;
-        public bool WoodEnchantActive;
+        
         public bool NebulaEnchantActive;
         public bool BeetleEnchantActive;
         public int BeetleEnchantDefenseTimer;
@@ -427,7 +442,7 @@ namespace FargowiltasSouls
 
 
 
-        public bool IronEnchantShield;
+        
         public Item DreadShellItem;
         public int DreadShellVulnerabilityTimer;
         public int shieldTimer;
@@ -638,9 +653,9 @@ namespace FargowiltasSouls
             }
 
 
-            if (FargowiltasSouls.SmokeBombKey.JustPressed && NinjaEnchantActive && SmokeBombCD == 0)
+            if (FargowiltasSouls.SmokeBombKey.JustPressed && CrystalEnchantActive && SmokeBombCD == 0)
             {
-                NinjaEnchant.SmokeBombKey(this);
+                CrystalAssassinEnchant.SmokeBombKey(this);
             }
 
             if (FargowiltasSouls.SpecialDashKey.JustPressed && (BetsysHeartItem != null || QueenStingerItem != null))
@@ -753,7 +768,7 @@ namespace FargowiltasSouls
             BeeEnchantActive = false;
             SpiderEnchantActive = false;
             StardustEnchantActive = false;
-            MythrilEnchantActive = false;
+            MythrilEnchantItem = null;
             FossilEnchantItem = null;
             JungleEnchantActive = false;
             ShroomEnchantActive = false;
@@ -768,27 +783,27 @@ namespace FargowiltasSouls
             VortexEnchantActive = false;
             AdamantiteEnchantItem = null;
             FrostEnchantActive = false;
-            PalladEnchantActive = false;
-            OriEnchantActive = false;
+            PalladEnchantItem = null;
+            OriEnchantItem = null;
             MeteorEnchantActive = false;
             MoltenEnchantActive = false;
-            CopperEnchantActive = false;
+            CopperEnchantItem = null;
             PlatinumEnchantActive = false;
-            NinjaEnchantActive = false;
+            CrystalEnchantActive = false;
             FirstStrike = false;
-            IronEnchantActive = false;
+            IronEnchantItem = null;
             TurtleEnchantActive = false;
             ShellHide = false;
-            LeadEnchantActive = false;
+            LeadEnchantItem = null;
             GladiatorEnchantActive = false;
             GoldEnchantActive = false;
             GoldShell = false;
             CactusEnchantActive = false;
             ForbiddenEnchantActive = false;
             NecroEnchantActive = false;
-            ObsidianEnchantActive = false;
+            ObsidianEnchantItem = null;
             LavaWet = false;
-            TinEnchantActive = false;
+            TinEnchantItem = null;
             TikiEnchantActive = false;
             TikiMinion = false;
             TikiSentry = false;
@@ -797,17 +812,16 @@ namespace FargowiltasSouls
             ValhallaEnchantActive = false;
             DarkArtistEnchantActive = false;
             RedRidingEnchantItem = null;
-            TungstenEnchantActive = false;
+            TungstenEnchantItem = null;
 
-            MahoganyEnchantActive = false;
-            BorealEnchantActive = false;
-            WoodEnchantActive = false;
-            PalmEnchantActive = false;
-            ShadewoodEnchantActive = false;
-            PearlwoodEnchantActive = false;
+            MahoganyEnchantItem = null;
+            BorealEnchantItem = null;
+            WoodEnchantItem = null;
+            PalmEnchantItem = null;
+            ShadewoodEnchantItem = null;
+            PearlwoodEnchantItem = null;
 
             RainEnchantActive = false;
-            //AncientCobaltEnchantActive = false;
             AncientShadowEnchantActive = false;
             SquireEnchantActive = false;
             ApprenticeEnchantActive = false;
@@ -816,6 +830,7 @@ namespace FargowiltasSouls
             SnowEnchantActive = false;
             SnowVisual = false;
             TitaniumEnchantItem = null;
+            TitaniumCD = false;
 
             CosmoForce = false;
             EarthForce = false;
@@ -829,7 +844,7 @@ namespace FargowiltasSouls
 
             //            #endregion
 
-            //            //souls
+            //souls
             MagicSoul = false;
             RangedSoul = false;
             RangedEssence = false;
@@ -959,7 +974,8 @@ namespace FargowiltasSouls
             NanoInjection = false;
             Stunned = false;
             BoxofGizmos = false;
-            IronEnchantShield = false;
+            //IronEnchantShield = false;
+            SilverEnchantItem = null;
             DreadShellItem = null;
 
             if (WizardEnchantActive)
@@ -1127,12 +1143,6 @@ namespace FargowiltasSouls
                 unstableCD--;
             }
 
-
-
-            if (ObsidianEnchantActive && obsidianCD > 0)
-                obsidianCD--;
-
-
             if (BeeEnchantActive && BeeCD > 0)
                 BeeCD--;
 
@@ -1140,9 +1150,6 @@ namespace FargowiltasSouls
             {
                 GoldUpdate();
             }
-
-            //if ((CobaltEnchantActive || AncientCobaltEnchantActive) && CobaltCD > 0)
-            //    CobaltCD--;
 
             //horizontal dash
             if (MonkDashing > 0)
@@ -1190,7 +1197,7 @@ namespace FargowiltasSouls
             }
 
             //moved here so that it can affect minions spawned by buffs
-            SilverEnchantActive = false;
+            NinjaEnchantItem = null;
         }
 
         public override void ModifyLuck(ref float luck)
@@ -1268,7 +1275,7 @@ namespace FargowiltasSouls
             if (!StardustEnchantActive)
                 FreezeTime = false;
 
-            if (TungstenEnchantActive && TungstenCD > 0)
+            if (TungstenEnchantItem != null && TungstenCD > 0)
                 TungstenCD--;
 
             UpdateShield();
@@ -1362,8 +1369,8 @@ namespace FargowiltasSouls
             if (WretchedPouchItem != null)
                 WretchedPouchEffect();
 
-            if (PalladEnchantActive)
-                PalladiumUpdate();
+            if (PalladEnchantItem != null)
+                PalladiumEnchant.PalladiumUpdate(this);
 
             if (noDodge)
             {
@@ -1507,7 +1514,7 @@ namespace FargowiltasSouls
             if (HealTimer > 0)
                 HealTimer--;
 
-            if (TinEnchantActive)
+            if (TinEnchantItem != null)
                 TinEnchant.TinPostUpdate(this);
 
             if (NebulaEnchantActive)
@@ -1668,7 +1675,47 @@ namespace FargowiltasSouls
             }
 
             StatLifePrevious = Player.statLife;
+
+
+            if (Player.HasBuff(ModContent.BuffType<TitaniumDRBuff>()) && prevDyes == null)
+            {
+                prevDyes = new List<int>();
+                byte reflectiveSilver = (byte)GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
+
+                for (int i = 0; i < Player.dye.Length; i++)
+                {
+                    prevDyes.Add(Player.dye[i].dye);
+                    Player.dye[i].dye = reflectiveSilver;
+                }
+
+                for (int j = 0; j < Player.miscDyes.Length; j++)
+                {
+                    prevDyes.Add(Player.miscDyes[j].dye);
+                    Player.miscDyes[j].dye = reflectiveSilver;
+                }
+
+                Player.UpdateDyes();
+            }
+            else if(!Player.HasBuff(ModContent.BuffType<TitaniumDRBuff>()) && prevDyes != null)
+            {
+                for (int i = 0; i < Player.dye.Length; i++)
+                {
+                    Player.dye[i].dye = prevDyes[i];
+                }
+
+                for (int j = 0; j < Player.miscDyes.Length; j++)
+                {
+                    Player.miscDyes[j].dye = prevDyes[j + Player.dye.Length];
+                }
+
+                Player.UpdateDyes();
+
+                prevDyes = null;
+            }
+            
         }
+
+        List<int> prevDyes = null;
 
         public void ManageLifeReduction()
         {
@@ -1768,10 +1815,9 @@ namespace FargowiltasSouls
                 AttackSpeed *= 0.75f;
             }
 
-            if (MythrilEnchantActive && item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+            if (MythrilEnchantItem != null )
             {
-                float ratio = Math.Max((float)MythrilTimer / MythrilMaxTime, 0);
-                AttackSpeed += MythrilMaxSpeedBonus * ratio;
+                MythrilEnchant.CalcMythrilAttackSpeed(this, item);
             }
 
             if (WretchedPouchItem != null && !MasochistSoul && AttackSpeed > 1f)
@@ -1862,8 +1908,14 @@ namespace FargowiltasSouls
 
             if (Player.lifeRegen < 0)
             {
-                if (LeadEnchantActive)
-                    Player.lifeRegen /= 2;
+                if (TerraForce)
+                {
+                    Player.lifeRegen = (int)(Player.lifeRegen * 0.4f);
+                }
+                else if (LeadEnchantItem != null)
+                {
+                    Player.lifeRegen = (int)(Player.lifeRegen * 0.6f);
+                }
 
                 FusedLensCanDebuff = true;
             }
@@ -2213,7 +2265,7 @@ namespace FargowiltasSouls
                 crit = false;
             }
 
-            if (TungstenEnchantActive && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale != 1)
+            if (TungstenEnchantItem != null && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale != 1)
             {
                 TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit, proj.DamageType);
             }
@@ -2260,7 +2312,7 @@ namespace FargowiltasSouls
                 crit = false;
             }
 
-            if (TungstenEnchantActive && Toggler != null && Player.GetToggleValue("Tungsten")
+            if (TungstenEnchantItem != null && Toggler != null && Player.GetToggleValue("Tungsten")
                 && (TerraForce || item.shoot == ProjectileID.None))
             {
                 TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit, item.DamageType);
@@ -2325,7 +2377,7 @@ namespace FargowiltasSouls
 
             OnHitNPCEither(target, damage, knockback, crit, proj.DamageType, projectile: proj);
 
-            if (OriEnchantActive && proj.type == ProjectileID.FlowerPetal)
+            if (OriEnchantItem != null && proj.type == ProjectileID.FlowerPetal)
             {
                 target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
                 target.immune[proj.owner] = 2;
@@ -2348,7 +2400,7 @@ namespace FargowiltasSouls
                 Player.beetleCounter += damage;
             }
 
-            if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames))
+            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames))
             {
                 PearlwoodEnchant.PearlwoodStarDrop(this, target, damage);
             }
@@ -2377,17 +2429,17 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (PalladEnchantActive && !Player.onHitRegen)
+            if (PalladEnchantItem != null && !Player.onHitRegen)
             {
                 Player.AddBuff(BuffID.RapidHealing, Math.Min(300, damage / 3)); //heal time based on damage dealt, capped at 5sec
             }
 
-            if (CopperEnchantActive)
+            if (CopperEnchantItem != null && crit)
             {
                 CopperEnchant.CopperProc(this, target);
             }
 
-            if (ShadewoodEnchantActive)
+            if (ShadewoodEnchantItem != null)
             {
                 ShadewoodEnchant.ShadewoodProc(this, target, projectile);
             }
@@ -2398,13 +2450,10 @@ namespace FargowiltasSouls
             }
 
 
-            if (Player.GetToggleValue("Obsidian") && ObsidianEnchantActive && obsidianCD == 0)
+            if (Player.GetToggleValue("Obsidian") && ObsidianEnchantItem != null && ObsidianCD == 0)
             {
-                Projectile.NewProjectile(Player.GetSource_Misc(""), target.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), damage, 0, Player.whoAmI);
-                obsidianCD = 30;
-            }
-
-            //            
+                ObsidianEnchant.ObsidianProc(this, target, damage);
+            }        
 
             if (DevianttHeartItem != null && DevianttHeartsCD <= 0 && Player.GetToggleValue("MasoDevianttHearts")
                 && (projectile == null || (projectile.type != ModContent.ProjectileType<FriendRay>() && projectile.type != ModContent.ProjectileType<FriendHeart>())))
@@ -2455,12 +2504,12 @@ namespace FargowiltasSouls
             if (SolarEnchantActive && Player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
                 target.AddBuff(ModContent.BuffType<SolarFlare>(), 300);
 
-            if (TinEnchantActive)
+            if (TinEnchantItem != null)
             {
                 TinEnchant.TinOnHitEnemy(this, damage, crit);
             }
 
-            if (LeadEnchantActive)
+            if (LeadEnchantItem != null)
             {
                 target.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
             }
@@ -2675,7 +2724,7 @@ namespace FargowiltasSouls
             if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
                 damage = (int)(damage * 0.8);
 
-            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
+            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0 || CobaltImmuneTimer > 0)
             {
                 foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
                 {
@@ -2884,7 +2933,7 @@ namespace FargowiltasSouls
             if (BeetleEnchantActive)
                 BeetleHurt();
 
-            if (TinEnchantActive)
+            if (TinEnchantItem != null)
                 TinEnchant.TinHurt(this);
 
             if (ShellHide)
@@ -3415,7 +3464,7 @@ namespace FargowiltasSouls
                 CactusEnchant.CactusSelfProc(this);
             }
 
-            if (BorealEnchantActive && BorealCD <= 0)
+            if (BorealEnchantItem != null && Player.GetToggleValue("Boreal") && BorealCD <= 0)
             {
                 BorealCD = 60;
 
@@ -3424,10 +3473,7 @@ namespace FargowiltasSouls
                     BorealCD = 30;
                 }
 
-                if (BorealEnchantActive && Player.GetToggleValue("Boreal"))
-                {
-                    BorealWoodEnchant.BorealSnowballs(this, damage);
-                }
+                BorealWoodEnchant.BorealSnowballs(this, damage);
             }
 
             if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
@@ -3452,5 +3498,7 @@ namespace FargowiltasSouls
             hurtbox.Y -= hurtbox.Height / 2;
             return hurtbox;
         }
+
+        
     }
 }
