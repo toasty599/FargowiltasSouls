@@ -87,7 +87,6 @@ namespace FargowiltasSouls.Toggler.Content
         public string HallowDodge;
         public string Hallowed;
         public string HallowS;
-        public string Silver;
         
         public string Spectre;
         public string Tiki;

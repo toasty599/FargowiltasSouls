@@ -56,3 +56,5 @@ adam ench force nerfs damage to 1/3rd if proj is nonpierce or local iframes
 rich mahog DR applies for one hit per grapple, nerfed force from +50% to +30% DR
 adjusted titanium DR so its 50/75% isnt additive or overriding
 toggle localization fixes
+made boc ichor sprite visible
+fused lens install is now toggled with the debuff install key

@@ -294,7 +294,6 @@ namespace FargowiltasSouls
         public bool CrystalSkullMinion;
         public bool FusedLens;
         public bool FusedLensCanDebuff;
-        public bool FusedLensInstall;
         public bool GroundStick;
         public bool Supercharged;
         public bool Probes;
@@ -873,7 +872,6 @@ namespace FargowiltasSouls
             CrystalSkullMinion = false;
             FusedLens = false;
             FusedLensCanDebuff = false;
-            FusedLensInstall = false;
             GroundStick = false;
             Supercharged = false;
             Probes = false;
