@@ -462,7 +462,7 @@ namespace FargowiltasSouls.Projectiles
                 case 16: //destroyer blue laser line up true telegraph
                     {
                         color = Color.SkyBlue;
-                        maxTime = 20;
+                        maxTime = 15;
                         alphaModifier = -1;
                         Projectile.Opacity = Math.Clamp(1f - (float)counter / maxTime, 0f, 1f);
                         Projectile.scale = 0.5f;
