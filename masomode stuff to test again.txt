@@ -85,3 +85,5 @@ ebon ench
 	can only destroy 15 projs per second (30 in force)
 	prioritizes projs closer to you
 fixed twins install disappearing
+adjusted cultist pillar telegraphs
+adjusted destroyer light show telegraphs
