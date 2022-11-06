@@ -51,13 +51,15 @@ namespace FargowiltasSouls
             }
         }
 
+        public static float ProjWorldDamage => Main.GameModeInfo.IsJourneyMode
+            ? CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs
+            : Main.GameModeInfo.EnemyDamageMultiplier;
+
         //npcDamageCalcsOffset because i wrote all the code around expert mode and my npcs do same contact damage in normal and expert
         public static int ScaledProjectileDamage(int npcDamage, float modifier = 1, int npcDamageCalculationsOffset = 2)
         {
             const float inherentHostileProjMultiplier = 2;
-            float worldDamage = Main.GameModeInfo.IsJourneyMode
-                ? CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs
-                : Main.GameModeInfo.EnemyDamageMultiplier;
+            float worldDamage = ProjWorldDamage;
             return (int)(modifier * npcDamage / inherentHostileProjMultiplier / Math.Max(npcDamageCalculationsOffset, worldDamage));
         }
 
