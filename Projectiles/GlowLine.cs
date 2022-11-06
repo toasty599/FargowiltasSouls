@@ -308,7 +308,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         maxTime = 90;
                         alphaModifier = -1;
-                        Projectile.Opacity = Math.Clamp(0f, (float)counter / maxTime, 1f);
+                        Projectile.Opacity = Math.Clamp((float)counter / maxTime, 0f, 1f);
 
                         Projectile.scale = 0.5f;
 
@@ -463,7 +463,8 @@ namespace FargowiltasSouls.Projectiles
                     {
                         color = Color.SkyBlue;
                         maxTime = 20;
-                        alphaModifier = 3;
+                        alphaModifier = -1;
+                        Projectile.Opacity = Math.Clamp(1f - (float)counter / maxTime, 0f, 1f);
                         Projectile.scale = 0.5f;
 
                         Projectile.rotation = Projectile.velocity.ToRotation();
