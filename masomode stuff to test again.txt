@@ -87,3 +87,4 @@ ebon ench
 fixed twins install disappearing
 adjusted cultist pillar telegraphs
 adjusted destroyer light show telegraphs
+fixed ninja ench making phantasm and similar "held proj" weapons overpowered

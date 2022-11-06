@@ -510,17 +510,17 @@ namespace FargowiltasSouls
             }
         }
 
-        public static bool OnSpawnEnchCanAffectProjectile(Projectile projectile, IEntitySource source)
+        public static bool OnSpawnEnchCanAffectProjectile(Projectile projectile, IEntitySource source, bool allowMinions = false)
         {
+            if (!allowMinions && (projectile.minion || projectile.sentry || projectile.minionSlots <= 0))
+                return false;
+
             return projectile.friendly
                 && projectile.damage > 0
                 && !projectile.hostile
                 && !projectile.npcProj
                 && !projectile.trap
-                && projectile.DamageType != DamageClass.Default
-                && !projectile.minion
-                && !projectile.sentry
-                && projectile.minionSlots <= 0;
+                && projectile.DamageType != DamageClass.Default;
         }
 
         public static void SpawnBossTryFromNPC(int playerTarget, int originalType, int bossType)
