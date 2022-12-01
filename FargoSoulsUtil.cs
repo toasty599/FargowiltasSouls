@@ -412,6 +412,10 @@ namespace FargowiltasSouls
         {
             return Language.ActiveCulture.LegacyId == (int)GameCulture.CultureName.Chinese;
         }
+        public static bool IsPortuguese()
+        {
+            return Language.ActiveCulture.LegacyId == (int)GameCulture.CultureName.Portuguese;
+        }
 
         public static void PrintText(string text, int r, int g, int b) => PrintText(text, new Color(r, g, b));
 
