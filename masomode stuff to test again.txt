@@ -88,3 +88,18 @@ fixed twins install disappearing
 adjusted cultist pillar telegraphs
 adjusted destroyer light show telegraphs
 fixed ninja ench making phantasm and similar "held proj" weapons overpowered
+
+resprites
+	fused lens
+	squeaky toy
+	boc minor adjustments
+	mutant pact
+	rabies shot
+	rockslide
+raised soe sell price
+gnomes can inflict stoned
+skeletron hands will tp back to head if they throw themselves too far (ie, will never despawn now)
+deerclops mash minigame max duration extended, aka you are forced to mash out (better for new players understanding that you do in fact need to do something)
+a sound plays when you mash in deerclops minigame to indicate it is actually do something
+deerclops runs faster to catch up if you're outrunning for too long
+deerclops has an enrage, uses ghost hands to freeze you if you are directly above him too much
