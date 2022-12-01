@@ -294,7 +294,7 @@ namespace FargowiltasSouls.Projectiles
             }
 
             if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue("Adamantite")
-                && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source, true)
+                && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true)
                 && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
             {
                 if (projectile.owner == Main.myPlayer
@@ -308,11 +308,6 @@ namespace FargowiltasSouls.Projectiles
                 AdamProj = true;
 
                 projectile.ArmorPenetration += projectile.damage / 2;
-            }
-
-            if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source, true) && Array.IndexOf(noSplit, projectile.type) <= -1)
-            {
-                NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
             }
 
             if (modPlayer.TikiEnchantActive && projectile.friendly)
@@ -616,6 +611,11 @@ namespace FargowiltasSouls.Projectiles
 
             if (firstTick)
             {
+                if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && Array.IndexOf(noSplit, projectile.type) <= -1)
+                {
+                    NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
+                }
+
                 if (projectile.type == ProjectileID.ShadowBeamHostile)
                 {
                     if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())

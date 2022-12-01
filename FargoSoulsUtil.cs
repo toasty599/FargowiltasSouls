@@ -514,7 +514,7 @@ namespace FargowiltasSouls
             }
         }
 
-        public static bool OnSpawnEnchCanAffectProjectile(Projectile projectile, IEntitySource source, bool allowMinions = false)
+        public static bool OnSpawnEnchCanAffectProjectile(Projectile projectile, bool allowMinions = false)
         {
             if (!allowMinions && (projectile.minion || projectile.sentry || projectile.minionSlots <= 0))
                 return false;

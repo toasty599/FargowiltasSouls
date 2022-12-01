@@ -740,6 +740,8 @@ namespace FargowiltasSouls
 
             WingTimeModifier = 1f;
 
+            NinjaEnchantItem = null;
+
             QueenStingerItem = null;
             EridanusSet = false;
             GaiaSet = false;
@@ -1198,9 +1200,6 @@ namespace FargowiltasSouls
                 Player.controlUseItem = true;
                 Player.releaseUseItem = true;
             }
-
-            //moved here so that it can affect minions spawned by buffs
-            NinjaEnchantItem = null;
         }
 
         public override void ModifyLuck(ref float luck)
