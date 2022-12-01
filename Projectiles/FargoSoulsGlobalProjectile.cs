@@ -302,7 +302,6 @@ namespace FargowiltasSouls.Projectiles
                     || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.minion || sourceProj.sentry || (ProjectileID.Sets.IsAWhip[sourceProj.type] && !ProjectileID.Sets.IsAWhip[projectile.type])))))
                 {
                     AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer);
-                    return;
                 }
 
                 AdamProj = true;

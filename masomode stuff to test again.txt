@@ -104,3 +104,4 @@ a sound plays when you mash in deerclops minigame to indicate it is actually do 
 deerclops runs faster to catch up if you're outrunning for too long
 deerclops has an enrage, uses ghost hands to freeze you if you are directly above him too much
 fixed ninja ench sometimes not working depending on accessory order?
+pungent eyeball new effect: x5 spawn rate of rare npcs
