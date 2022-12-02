@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class BigBrainProj : ModProjectile
     {
-        public const int MaxMinionSlots = 11;
+        public const int MaxMinionSlots = 16;
 
         public override void SetStaticDefaults()
         {

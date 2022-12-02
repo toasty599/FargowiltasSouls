@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         if (player.whoAmI == Main.myPlayer)
                         {
                             FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.UnitY, ModContent.ProjectileType<SaucerDeathray>(),
-                                Projectile.originalDamage / 2, Projectile.knockBack / 2f, Projectile.owner, 0f, Projectile.identity);
+                                Projectile.originalDamage / 2, Projectile.knockBack / 2f, Main.myPlayer, 0f, Projectile.identity);
                         }
                     }
                 }
@@ -154,7 +154,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             NPC npc = Main.npc[i];
                             if (npc.CanBeChasedBy(Projectile) && Collision.CanHitLine(Projectile.Center, 0, 0, npc.Center, 0, 0))
                             {
-                                float npcDistance = player.Distance(npc.Center);
+                                float npcDistance = Projectile.Distance(npc.Center);
                                 if (npcDistance < maxDistance)
                                 {
                                     maxDistance = npcDistance;

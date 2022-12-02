@@ -453,7 +453,10 @@ namespace FargowiltasSouls
         {
             int p = Projectile.NewProjectile(source, spawn, velocity, type, rawBaseDamage, knockback, owner, ai0, ai1);
             if (p != Main.maxProjectiles)
+            {
                 Main.projectile[p].originalDamage = rawBaseDamage;
+                Main.projectile[p].ContinuouslyUpdateDamage = true;
+            }
             return p;
         }
 

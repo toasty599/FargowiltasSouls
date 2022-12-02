@@ -105,3 +105,10 @@ deerclops runs faster to catch up if you're outrunning for too long
 deerclops has an enrage, uses ghost hands to freeze you if you are directly above him too much
 fixed ninja ench sometimes not working depending on accessory order?
 pungent eyeball new effect: x5 spawn rate of rare npcs (ones that appear on lifeform analyzer)
+fixed saucer minion shooting invisible rockets
+fixed all minions that shoot projectiles not having any damage scaling on their projectiles
+check balance of the following in particular
+	nano core minion mode
+	staff of unleashed ocean
+	drakovi fish minion
+	big brain buster (also raised its cap)

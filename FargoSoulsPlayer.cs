@@ -299,6 +299,7 @@ namespace FargowiltasSouls
         public bool Supercharged;
         public bool Probes;
         public bool MagicalBulb;
+        public bool PlanterasChild;
         public bool SkullCharm;
         public bool PungentEyeball;
         public bool LumpOfFlesh;
@@ -880,6 +881,7 @@ namespace FargowiltasSouls
             Supercharged = false;
             Probes = false;
             MagicalBulb = false;
+            PlanterasChild = false;
             SkullCharm = false;
             PungentEyeball = false;
             LumpOfFlesh = false;
