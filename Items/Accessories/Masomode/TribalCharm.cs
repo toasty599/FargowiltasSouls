@@ -63,11 +63,10 @@ Grants autofire to all weapons (this effect also works in your inventory)
                 if (modPlayer.TribalCharmClickBonus)
                 {
                     modPlayer.TribalCharmClickBonus = false;
-                    if (player.GetToggleValue("TribalCharmClickBonus"))
-                        player.GetDamage(DamageClass.Generic) += 0.30f;
+                    player.GetDamage(DamageClass.Generic) += 0.30f;
                 }
             }
-            else if (player.ItemTimeIsZero)
+            else if (player.ItemTimeIsZero && player.GetToggleValue("TribalCharmClickBonus"))
             {
                 modPlayer.TribalCharmClickBonus = true;
             }

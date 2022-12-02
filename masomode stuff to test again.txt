@@ -116,3 +116,5 @@ tribal charm click bonus has a buff to better indicate it exists
 wretched pouch is much more obvious when its active
 maso wof shoots bigger rays lol
 removed thieving enemies they cant do it anymore you're safe it's over
+prime p2 at 80%, was 75%
+prime doesnt spawn more limbs until 60%
