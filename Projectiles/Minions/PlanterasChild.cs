@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             Vector2 speed = Projectile.velocity;
                             speed.Normalize();
                             speed *= 17f;
-                            float damage = Projectile.originalDamage * 2f / 3f;
+                            float damage = Projectile.damage * 2f / 3f;
                             int type;
                             if (Main.rand.NextBool())
                             {
@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                             if (Projectile.owner == Main.myPlayer)
                             {
-                                FargoSoulsUtil.NewSummonProjectile(Projectile.GetSource_FromThis(),
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(),
                                     Projectile.Center, speed, type, (int)damage, Projectile.knockBack, Projectile.owner);
                             }
                         }
