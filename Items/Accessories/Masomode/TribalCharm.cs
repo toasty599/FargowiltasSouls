@@ -75,9 +75,9 @@ Grants autofire to all weapons (this effect also works in your inventory)
             if (modPlayer.TribalCharmClickBonus)
             {
                 player.AddBuff(ModContent.BuffType<TribalCharmClickBuff>(), 2);
-                int d = Dust.NewDust(player.position, player.width, player.height, DustID.ChlorophyteWeapon, 0f, 0f, 0, new Color(), 1.5f);
+                int d = Dust.NewDust(player.position, player.width, player.height, DustID.ChlorophyteWeapon, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, new Color(), 2f);
                 Main.dust[d].noGravity = true;
-                Main.dust[d].velocity *= 2f;
+                Main.dust[d].velocity *= 5f;
             }
         }
     }
