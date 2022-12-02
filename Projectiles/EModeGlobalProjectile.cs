@@ -972,13 +972,12 @@ namespace FargowiltasSouls.Projectiles
                         projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[0] * 0.5f);
                         projectile.rotation = projectile.velocity.ToRotation() - MathHelper.PiOver2;
 
-                        if (sourceNPC is NPC && sourceNPC.type == NPCID.MoonLordHead)
-                        {
-                            projectile.scale *= 4f;
+                        projectile.scale *= sourceNPC is NPC && sourceNPC.type == NPCID.MoonLordHead
+                            ? Main.rand.NextFloat(6f, 9f)
+                            : Main.rand.NextFloat(4f, 6f);
 
-                            if (!Main.dedServ && Main.LocalPlayer.active)
-                                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
-                        }
+                        if (!Main.dedServ && Main.LocalPlayer.active)
+                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
                     }
                     break;
 

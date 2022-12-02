@@ -477,7 +477,7 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Purple;
                         maxTime = 270;
                         alphaModifier = 2;
-                        drawLayers = 3;
+                        drawLayers = 2;
                         Projectile.scale = 24f;
 
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.MoonLordCore);

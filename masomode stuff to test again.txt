@@ -120,3 +120,6 @@ prime p2 at 80%, was 75%
 prime doesnt spawn more limbs until 60%
 qs has ACTUAL STARTUP on her stupid phase 2 sudden dive on your face attack
 restored vanilla qs stomp hitbox sorry
+made ml's phase timer smoother (previously had conspicuous "jumps" in cycle speed, now a continuous gradual transition)
+reduced ml's max rampup, phase time at 1hp is now 10sec (was 7.5sec)
+maso ml has way huger deathrays and more sphere rings in p2 all classes lmao you thought
