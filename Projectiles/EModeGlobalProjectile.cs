@@ -188,7 +188,6 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.FairyQueenLance: //these are here due to mp sync concerns and edge case on spawn
                 case ProjectileID.HallowBossLastingRainbow:
                 case ProjectileID.HallowBossRainbowStreak:
-                case ProjectileID.QueenSlimeSmash:
                 case ProjectileID.PhantasmalSphere:
                     EModeCanHurt = false;
                     break;
@@ -402,18 +401,6 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.SharknadoBolt:
                         if (sourceNPC is NPC && sourceNPC.type == NPCID.DukeFishron && sourceNPC.GetEModeNPCMod<DukeFishron>().IsEX)
                             projectile.extraUpdates++;
-                        break;
-
-                    case ProjectileID.QueenSlimeSmash:
-                        if (!FargoSoulsWorld.MasochistModeReal && NonSwarmFight(projectile, NPCID.QueenSlimeBoss))
-                        {
-                            projectile.timeLeft = 0;
-                            EModeCanHurt = false;
-                        }
-                        else
-                        {
-                            EModeCanHurt = true;
-                        }
                         break;
 
                     case ProjectileID.HallowBossRainbowStreak:
