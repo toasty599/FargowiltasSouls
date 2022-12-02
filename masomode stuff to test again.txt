@@ -129,3 +129,9 @@ fixed tungsten & adam affecting minions (can still affect most projs spawned by 
 also check that ninja works properly with minions, and that adam/ninja behave when used at the same time
 adjusted destro glow lines a bit, the blue lines dont appear in maso
 fixed oversight that made adam ench give you near-universal tungsten proj buff
+meteor ench rework
+	moved to pre hm
+	meteors have a chance to specifically aim for enemies (improved hit rate)
+	meteor shower lasts much longer if it doesnt hit enemies
+	damage nerfed
+removed destroyer resistance to meteor ench
