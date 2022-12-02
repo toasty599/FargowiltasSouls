@@ -1231,19 +1231,7 @@ namespace FargowiltasSouls
 
             if (TribalCharmEquipped)
             {
-                if (Player.controlUseItem || Player.controlUseTile)
-                {
-                    if (TribalCharmClickBonus)
-                    {
-                        TribalCharmClickBonus = false;
-                        if (Player.GetToggleValue("TribalCharmClickBonus"))
-                            Player.GetDamage(DamageClass.Generic) += 0.30f;
-                    }
-                }
-                else if (Player.ItemTimeIsZero)
-                {
-                    TribalCharmClickBonus = true;
-                }
+                Items.Accessories.Masomode.TribalCharm.Effects(this);
             }
 
             if (PungentEyeball && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPungentCursor"))

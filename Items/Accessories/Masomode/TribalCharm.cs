@@ -1,4 +1,6 @@
+using FargowiltasSouls.Buffs;
 using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -51,6 +53,32 @@ Grants autofire to all weapons (this effect also works in your inventory)
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Purified>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().TribalCharm = true;
             player.GetModPlayer<FargoSoulsPlayer>().TribalCharmEquipped = true;
+        }
+
+        public static void Effects(FargoSoulsPlayer modPlayer)
+        {
+            Player player = modPlayer.Player;
+            if (player.controlUseItem || player.controlUseTile)
+            {
+                if (modPlayer.TribalCharmClickBonus)
+                {
+                    modPlayer.TribalCharmClickBonus = false;
+                    if (player.GetToggleValue("TribalCharmClickBonus"))
+                        player.GetDamage(DamageClass.Generic) += 0.30f;
+                }
+            }
+            else if (player.ItemTimeIsZero)
+            {
+                modPlayer.TribalCharmClickBonus = true;
+            }
+
+            if (modPlayer.TribalCharmClickBonus)
+            {
+                player.AddBuff(ModContent.BuffType<TribalCharmClickBuff>(), 2);
+                int d = Dust.NewDust(player.position, player.width, player.height, DustID.ChlorophyteWeapon, 0f, 0f, 0, new Color(), 1.5f);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= 2f;
+            }
         }
     }
 }

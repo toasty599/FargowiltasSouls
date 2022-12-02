@@ -112,3 +112,4 @@ check balance of the following in particular
 	staff of unleashed ocean
 	drakovi fish minion
 	big brain buster (also raised its cap)
+tribal charm click bonus has a buff to better indicate it exists
