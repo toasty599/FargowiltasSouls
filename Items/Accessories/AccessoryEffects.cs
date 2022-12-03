@@ -1706,6 +1706,12 @@ namespace FargowiltasSouls
 
         public void SupersonicSoul(Item item, bool hideVisual)
         {
+            Player.hasMagiluminescence = true;
+
+            //amph boot
+            Player.autoJump = true;
+            Player.frogLegJumpBoost = true;
+
             if (Player.GetToggleValue("Supersonic") && !Player.GetModPlayer<FargoSoulsPlayer>().noSupersonic && !FargoSoulsUtil.AnyBossAlive())
             {
                 // 5 is the default value, I removed the config for it because the new toggler doesn't have sliders

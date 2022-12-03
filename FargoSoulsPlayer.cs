@@ -39,7 +39,7 @@ namespace FargowiltasSouls
 
         public bool IsStandingStill;
         public float AttackSpeed;
-        public float WingTimeModifier;
+        public float WingTimeModifier = 1f;
 
         public bool FreeEaterSummon = true;
         public int Screenshake;
@@ -1286,6 +1286,12 @@ namespace FargowiltasSouls
                 ShadowEffectPostEquips();
 
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
+
+            if (MutantAntibodies && Player.wet)
+            {
+                Player.wingTime = Player.wingTimeMax;
+                Player.AddBuff(ModContent.BuffType<Refreshed>(), 30 * 60);
+            }
 
             if (StyxSet)
             {
