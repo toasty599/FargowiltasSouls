@@ -22,12 +22,11 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 
         protected enum TextureSheeting
         {
-            None,
             Horizontal,
             Vertical
         }
 
-        protected BaseDeathray(float maxTime, float transparency = 0f, float hitboxModifier = 1f, int drawDistance = 2400, int grazeCD = 15, TextureSheeting sheeting = TextureSheeting.None)
+        protected BaseDeathray(float maxTime, float transparency = 0f, float hitboxModifier = 1f, int drawDistance = 2400, int grazeCD = 15, TextureSheeting sheeting = TextureSheeting.Horizontal)
         {
             this.maxTime = maxTime;
             this.transparency = transparency;
