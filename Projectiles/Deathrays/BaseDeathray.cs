@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
         protected BaseDeathray(float maxTime, string texture, float transparency = 0f, float hitboxModifier = 1f, int drawDistance = 2400, int grazeCD = 15)
         {
             this.maxTime = maxTime;
-            this.texture = texture;
+            this.texture = texture.Contains('/') ? texture : $"Projectiles/Deathrays/{texture}";
             this.transparency = transparency;
             this.hitboxModifier = hitboxModifier;
             this.drawDistance = drawDistance;
@@ -86,8 +86,8 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 return false;
             }
             Texture2D texture2D19 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D texture2D20 = Mod.Assets.Request<Texture2D>($"Projectiles/Deathrays/{texture}2", AssetRequestMode.ImmediateLoad).Value;
-            Texture2D texture2D21 = Mod.Assets.Request<Texture2D>($"Projectiles/Deathrays/{texture}3", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D20 = Mod.Assets.Request<Texture2D>($"{texture}2", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D21 = Mod.Assets.Request<Texture2D>($"{texture}3", AssetRequestMode.ImmediateLoad).Value;
             float num223 = Projectile.localAI[1];
             Color color44 = Projectile.GetAlpha(lightColor);
             color44 = Color.Lerp(color44, Color.Transparent, transparency);
