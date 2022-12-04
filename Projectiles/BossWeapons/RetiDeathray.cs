@@ -110,6 +110,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             target.AddBuff(BuffID.OnFire, 600);
         }
 
-        public override Color? GetAlpha(Color lightColor) => new Color(255, 50, 50, 50) * 0.75f;
+        public override Color? GetAlpha(Color lightColor) => new Color(255, 0, 0, 0) * 0.95f;
     }
 }

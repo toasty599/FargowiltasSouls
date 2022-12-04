@@ -14,18 +14,27 @@ namespace FargowiltasSouls.Projectiles.Deathrays
         protected readonly float transparency; //THIS IS A 0 TO 1 PERCENTAGE, NOT AN ALPHA
         protected readonly float hitboxModifier;
         protected readonly int grazeCD;
+        protected readonly TextureSheeting sheeting;
 
         //by default, real hitbox is slightly more than the "white" of a vanilla ray
         //remember that the value passed into function is total width, i.e. on each side the distance is only half the width
         protected readonly int drawDistance;
 
-        protected BaseDeathray(float maxTime, float transparency = 0f, float hitboxModifier = 1f, int drawDistance = 2400, int grazeCD = 15)
+        protected enum TextureSheeting
+        {
+            None,
+            Horizontal,
+            Vertical
+        }
+
+        protected BaseDeathray(float maxTime, float transparency = 0f, float hitboxModifier = 1f, int drawDistance = 2400, int grazeCD = 15, TextureSheeting sheeting = TextureSheeting.None)
         {
             this.maxTime = maxTime;
             this.transparency = transparency;
             this.hitboxModifier = hitboxModifier;
             this.drawDistance = drawDistance;
             this.grazeCD = grazeCD;
+            this.sheeting = sheeting;
         }
 
         public override void SetStaticDefaults()
@@ -83,27 +92,40 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             {
                 return false;
             }
+
+            Rectangle GetFrame(Texture2D texture)
+                => texture.Frame(sheeting == TextureSheeting.Horizontal ? Main.projFrames[Projectile.type] : 1, sheeting == TextureSheeting.Vertical ? Main.projFrames[Projectile.type] : 1, sheeting == TextureSheeting.Horizontal ? Projectile.frame : 0, sheeting == TextureSheeting.Vertical ? Projectile.frame : 0);
+
+            SpriteEffects spriteEffects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            
             Texture2D rayBeg = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Texture2D rayMid = ModContent.Request<Texture2D>($"{Texture}2", AssetRequestMode.ImmediateLoad).Value;
             Texture2D rayEnd = ModContent.Request<Texture2D>($"{Texture}3", AssetRequestMode.ImmediateLoad).Value;
+
+            Rectangle frameBeg = GetFrame(rayBeg);
+            Rectangle frameMid = GetFrame(rayMid);
+            Rectangle frameEnd = GetFrame(rayEnd);
+
             float num223 = Projectile.localAI[1];
             Color color44 = Projectile.GetAlpha(lightColor);
             color44 = Color.Lerp(color44, Color.Transparent, transparency);
-            Main.EntitySpriteDraw(rayBeg, Projectile.Center - Main.screenPosition, null, color44, Projectile.rotation, rayBeg.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(rayBeg, Projectile.Center - Main.screenPosition, frameBeg, color44, Projectile.rotation, frameBeg.Size() / 2, Projectile.scale, spriteEffects, 0);
             num223 -= (float)(rayBeg.Height / 2 + rayEnd.Height) * Projectile.scale;
             Vector2 drawPos = Projectile.Center;
             drawPos += Projectile.velocity * Projectile.scale * (float)rayBeg.Height / 2f;
             if (num223 > 0f)
             {
                 float num224 = 0f;
-                Rectangle rectangle7 = new Rectangle(0, 0, rayMid.Width, rayMid.Height);
+                Rectangle rectangle7 = frameMid;
+                int skippedVerticalFrames = sheeting == TextureSheeting.Vertical ? rayMid.Height / Main.projFrames[Projectile.type] * Projectile.frame : 0;
+                int frameHeight = rectangle7.Height - skippedVerticalFrames;
                 while (num224 + 1f < num223)
                 {
-                    if (num223 - num224 < (float)rectangle7.Height)
+                    if (num223 - num224 < frameHeight)
                     {
-                        rectangle7.Height = (int)(num223 - num224);
+                        rectangle7.Height = skippedVerticalFrames + (int)(num223 - num224);
                     }
-                    Main.EntitySpriteDraw(rayMid, drawPos - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, Projectile.rotation, new Vector2((float)(rectangle7.Width / 2), 0f), Projectile.scale, SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(rayMid, drawPos - Main.screenPosition, rectangle7, color44, Projectile.rotation, new Vector2(rectangle7.Width / 2, 0), Projectile.scale, spriteEffects, 0);
                     num224 += (float)rectangle7.Height * Projectile.scale;
                     drawPos += Projectile.velocity * (float)rectangle7.Height * Projectile.scale;
                     rectangle7.Y += 16;
@@ -113,7 +135,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                     }
                 }
             }
-            Main.EntitySpriteDraw(rayEnd, drawPos - Main.screenPosition, null, color44, Projectile.rotation, rayEnd.Frame(1, 1, 0, 0).Top(), Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(rayEnd, drawPos - Main.screenPosition, frameEnd, color44, Projectile.rotation, frameEnd.Top(), Projectile.scale, spriteEffects, 0);
             return false;
         }
 
