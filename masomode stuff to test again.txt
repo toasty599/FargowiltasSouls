@@ -141,3 +141,4 @@ fixed supersonic soul not actually having effects of magilumi or frog leg
 
 HUUUUUGE deathray internal refactor, check they all work and dont throw errors
 resprited will deathray
+fixed destroyer no contact damage bug
