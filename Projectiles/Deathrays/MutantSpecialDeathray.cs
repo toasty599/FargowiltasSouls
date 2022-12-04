@@ -13,8 +13,9 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 {
     public abstract class MutantSpecialDeathray : BaseDeathray
     {
-        public MutantSpecialDeathray(int maxTime) : base(maxTime, "PhantasmalDeathrayML") { }
-        public MutantSpecialDeathray(int maxTime, float hitboxModifier) : base(maxTime, "PhantasmalDeathrayML", hitboxModifier: hitboxModifier) { }
+        public override string Texture => "FargowiltasSouls/Projectiles/Deathrays/PhantasmalDeathrayML";
+        public MutantSpecialDeathray(int maxTime) : base(maxTime) { }
+        public MutantSpecialDeathray(int maxTime, float hitboxModifier) : base(maxTime, hitboxModifier: hitboxModifier) { }
 
         const int sheetMax = 16;
         bool spawned;
@@ -50,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 
             Texture2D texture2D19 = Mod.Assets.Request<Texture2D>($"Projectiles/Deathrays/Mutant/MutantDeathray_{Projectile.frame}", AssetRequestMode.ImmediateLoad).Value;
             Texture2D texture2D20 = Mod.Assets.Request<Texture2D>($"Projectiles/Deathrays/Mutant/MutantDeathray2_{Projectile.frame}", AssetRequestMode.ImmediateLoad).Value;
-            Texture2D texture2D21 = Mod.Assets.Request<Texture2D>($"{texture}3", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D21 = ModContent.Request<Texture2D>($"{Texture}3", AssetRequestMode.ImmediateLoad).Value;
 
             float num223 = Projectile.localAI[1];
             Color color44 = Projectile.GetAlpha(lightColor);

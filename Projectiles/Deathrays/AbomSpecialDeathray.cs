@@ -12,7 +12,8 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 {
     public abstract class AbomSpecialDeathray : BaseDeathray
     {
-        public AbomSpecialDeathray(int maxTime) : base(maxTime, "AbomDeathray") { }
+        public override string Texture => "FargowiltasSouls/Projectiles/Deathrays/AbomDeathray";
+        public AbomSpecialDeathray(int maxTime) : base(maxTime) { }
 
         const int sheetMax = 11;
 
@@ -37,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             }
             Texture2D texture2D19 = Mod.Assets.Request<Texture2D>($"Projectiles/Deathrays/Abom/AbomDeathray_{Projectile.frame}", AssetRequestMode.ImmediateLoad).Value;
             Texture2D texture2D20 = Mod.Assets.Request<Texture2D>($"Projectiles/Deathrays/Abom/AbomDeathray2_{Projectile.frame}", AssetRequestMode.ImmediateLoad).Value;
-            Texture2D texture2D21 = Mod.Assets.Request<Texture2D>($"{texture}3", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D21 = ModContent.Request<Texture2D>($"{Texture}3", AssetRequestMode.ImmediateLoad).Value;
             float num223 = Projectile.localAI[1];
             Color color44 = Projectile.GetAlpha(lightColor);
             Texture2D arg_ABD8_1 = texture2D19;

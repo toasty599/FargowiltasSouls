@@ -11,7 +11,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     public class RetiDeathray : Deathrays.BaseDeathray
     {
-        public RetiDeathray() : base(30, "PhantasmalDeathray") { }
+        public override string Texture => "FargowiltasSouls/Projectiles/Deathrays/PhantasmalDeathray";
+        public RetiDeathray() : base(30) { }
 
         public override void SetStaticDefaults()
         {
