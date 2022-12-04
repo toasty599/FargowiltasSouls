@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = grazeCD;
         }
 
-        public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 0) * 0.95f;
+        public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 50) * 0.95f;
 
         public override bool PreDraw(ref Color lightColor)
         {
@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                     }
                 }
             }
-            Main.EntitySpriteDraw(rayEnd, drawPos - Main.screenPosition, frameEnd, color44, Projectile.rotation, frameEnd.Top(), Projectile.scale, spriteEffects, 0);
+            Main.EntitySpriteDraw(rayEnd, drawPos - Main.screenPosition, frameEnd, color44, Projectile.rotation, new Vector2(frameEnd.Width / 2, 0), Projectile.scale, spriteEffects, 0);
             return false;
         }
 

@@ -140,3 +140,4 @@ mutant antibodies buff, enter water to gain 30sec buff, more flight time and mag
 fixed supersonic soul not actually having effects of magilumi or frog leg
 
 HUUUUUGE deathray internal refactor, check they all work and dont throw errors
+resprited will deathray
