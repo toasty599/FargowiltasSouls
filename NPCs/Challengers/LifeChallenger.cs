@@ -113,6 +113,8 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         bool useDR;
 
+        int flyTimer = 9000;
+
         private List<int> intervalist = new List<int>(0);
         #endregion
         #region Standard
@@ -272,11 +274,11 @@ namespace FargowiltasSouls.NPCs.Challengers
             AuraCenter = NPC.Center;
 
             //Targeting
-            if (!Player.active || Player.dead)
+            if (!Player.active || Player.dead || Player.ghost || NPC.Distance(Player.Center) > 3000)
             {
                 NPC.TargetClosest(false);
                 Player = Main.player[NPC.target];
-                if (!Player.active || Player.dead)
+                if (!Player.active || Player.dead || NPC.Distance(Player.Center) > 3000)
                 {
                     NPC.velocity.Y -= 0.4f;
                     return;
@@ -339,7 +341,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 }
                 if (!Charging && !Flying) //standard upright orientation
                 {
-                    NPC.rotation = 0f;
+                    NPC.rotation = MathHelper.Lerp(NPC.rotation, 0, 0.09f);
                 }
                 if (Attacking == 1) //Phases and random attack choosing
                 {
@@ -352,17 +354,30 @@ namespace FargowiltasSouls.NPCs.Challengers
                     if (state == oldstate) //ensure you never get the same attack twice (might happen when the possible state list is refilled)
                     {
                         RandomizeState();
+                        
+                        bool resetFly = true;
+                        
                         if (!PhaseThree && NPC.life < NPC.lifeMax * 0.33)
                         {
                             state = 100;
+                            resetFly = false;
                         }
                         if (PhaseThree && NPC.life < NPC.lifeMax / 10 && FargoSoulsWorld.MasochistModeReal)
                         {
                             state = 101;
                             oldstate = 0;
+                            resetFly = false;
                         }
+
+                        if (resetFly)
+                            flyTimer = 0;
                     }
-                    if (state != oldstate)
+
+                    if (FlightCheck())
+                    {
+                        NPC.ai[1] -= 1; //negate increment below
+                    }
+                    else if (state != oldstate)
                     {
                         switch (state) //Attack Choices
                         {
@@ -409,6 +424,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                                     AttackFinal();
                                     break;
                                 }
+                            default:
+                                StateReset();
+                                break;
                         }
                     }
                 }
@@ -435,9 +453,16 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 if (P1state == oldP1state && P1state != -2) //ensure you never get the same attack twice
                 {
+                    flyTimer = 0;
                     RandomizeP1state();
                 }
-                if (P1state != oldP1state)
+
+                if (FlightCheck())
+                {
+                    NPC.ai[1] -= 1f;
+                    NPC.ai[2] -= 1f;
+                }
+                else if (P1state != oldP1state)
                 {
                     switch (P1state)
                     {
@@ -462,10 +487,18 @@ namespace FargowiltasSouls.NPCs.Challengers
                         case 4:
                             P1Wave();
                             break;
+                        default:
+                            RandomizeP1state();
+                            flyTimer = 9000;
+                            break;
                     }
+
+                    if (!Flying)
+                        NPC.rotation = MathHelper.Lerp(NPC.rotation, 0, 0.09f);
                 }
             }
             P1PeriodicNuke();
+
             NPC.ai[1] += 1f;
             NPC.ai[2] += 1f;
         }
@@ -504,6 +537,11 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void P1ShotSpam()
         {
+            if (FargoSoulsWorld.MasochistModeReal)
+                NPC.velocity *= 0.95f;
+            else
+                FlyingState(0.1f);
+
             Player Player = Main.player[NPC.target];
             if (AttackF1)
             {
@@ -546,20 +584,27 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void P1Nuke()
         {
+            if (FargoSoulsWorld.MasochistModeReal)
+                NPC.velocity *= 0.95f;
+            else
+                FlyingState(0.5f);
+
             Player Player = Main.player[NPC.target];
             if (AttackF1)
             {
                 AttackF1 = false;
+                NPC.netUpdate = true;
             }
-            NPC.netUpdate = true;
+            Main.NewText($"inside: {NPC.ai[1]} {NPC.ai[1] == 70f}");
             if (NPC.ai[1] == 70f)
             {
+                Main.NewText("go");
                 SoundEngine.PlaySound(SoundID.Item91, NPC.Center);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float ProjectileSpeed3 = 12f;
                     Vector2 shootatPlayer3 = NPC.DirectionTo(Player.Center) * ProjectileSpeed3;
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootatPlayer3, ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage * 2), 300f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootatPlayer3, ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 300f, Main.myPlayer);
                 }
             }
             if (NPC.ai[1] >= 145f)
@@ -570,6 +615,11 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void P1Pixies()
         {
+            if (FargoSoulsWorld.MasochistModeReal)
+                NPC.velocity *= 0.95f;
+            else
+                FlyingState(0.5f);
+
             if (AttackF1)
             {
                 AttackF1 = false;
@@ -610,13 +660,15 @@ namespace FargowiltasSouls.NPCs.Challengers
                 return;
             }
 
+            NPC.velocity *= 0.9f;
+
             if (AttackF1 && LifeWaveCount < 3)
             {
                 NPC.netUpdate = true;
                 AttackF1 = false;
             }
 
-            if (NPC.ai[2] >= 45f && NPC.ai[1] <= 140f)
+            if (NPC.ai[2] >= 45f)
             {
                 SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -632,7 +684,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 }
                 NPC.netUpdate = true;
             }
-            if (NPC.ai[1] >= 180f)
+            if (NPC.ai[1] >= 170f)
             {
                 NPC.netUpdate = true;
                 LifeWaveCount++;
@@ -642,6 +694,11 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void P1Mines()
         {
+            if (FargoSoulsWorld.MasochistModeReal)
+                NPC.velocity *= 0.95f;
+            else
+                FlyingState(0.5f);
+
             Player Player = Main.player[NPC.target];
             if (AttackF1)
             {
@@ -693,6 +750,8 @@ namespace FargowiltasSouls.NPCs.Challengers
             Flying = false;
             NPC.defense = 9999;
 
+            NPC.velocity *= 0.95f;
+
             if (FargoSoulsWorld.MasochistModeReal)
             {
                 int heal = (int)(NPC.lifeMax / 100f * Main.rand.NextFloat(1f, 1.5f));
@@ -728,13 +787,31 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         #endregion
         #region P2-3
-        public void FlyingState()
+        public void FlyingState(float speedModifier = 1f)
         {
+            Flying = true;
+
+            //basically, create a smooth transition when using different speedMod values
+            const float accel = 0.5f / 30f;
+            if (NPC.localAI[0] < speedModifier)
+            {
+                NPC.localAI[0] += accel;
+                if (NPC.localAI[0] > speedModifier)
+                    NPC.localAI[0] = speedModifier;
+            }
+            if (NPC.localAI[0] > speedModifier)
+            {
+                NPC.localAI[0] -= accel;
+                if (NPC.localAI[0] < speedModifier)
+                    NPC.localAI[0] = speedModifier;
+            }
+            speedModifier = NPC.localAI[0];
+
             Player Player = Main.player[NPC.target];
             //flight AI
             float flySpeed = 0f;
             float inertia = 10f;
-            Vector2 AbovePlayer = new Vector2(Player.Center.X, Player.Center.Y - 400f);
+            Vector2 AbovePlayer = new Vector2(Player.Center.X, Player.Center.Y - 300f);
             if (state == 8)
             {
                 AbovePlayer.Y = Player.Center.Y - 700f;
@@ -770,12 +847,14 @@ namespace FargowiltasSouls.NPCs.Challengers
             //orientation
             if (NPC.velocity.ToRotation() > MathHelper.Pi)
             {
-                NPC.rotation = 0f - MathHelper.Pi * NPC.velocity.X / 100;
+                NPC.rotation = 0f - MathHelper.Pi * NPC.velocity.X * speedModifier / 100;
             }
             else
             {
-                NPC.rotation = 0f + MathHelper.Pi * NPC.velocity.X / 100;
+                NPC.rotation = 0f + MathHelper.Pi * NPC.velocity.X * speedModifier / 100;
             }
+
+            NPC.position -= NPC.velocity * (1f - speedModifier);
         }
         public void AttackP2Start()
         {
@@ -914,8 +993,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                 }
                 rot += ((MathHelper.Pi / 180) * rotspeed);
                 Vector2 rotV = new Vector2(0f, -1f).RotatedBy(rot);
+                int rayDamage = FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, FargoSoulsWorld.MasochistModeReal ? 4f : 1.5f);
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, rotV,
-                                ModContent.ProjectileType<LifeChalDeathray>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI); //no damage because InvisibleScytheHitbox handles that (to override iframes)
+                    ModContent.ProjectileType<LifeChalDeathray>(), rayDamage, 0f, Main.myPlayer, 0, NPC.whoAmI);
                 //randomly make Scar obstacles at specific points, obstacles have Projectile.ai[1] = NPC.ai[1]
                 if (NPC.ai[1] % 8 == 0 && Main.netMode != NetmodeID.MultiplayerClient && rotspeed > 0.82f)
                 {
@@ -938,17 +1018,6 @@ namespace FargowiltasSouls.NPCs.Challengers
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), distV, Vector2.Zero, ModContent.ProjectileType<LifeScar>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, NPC.ai[1], endTime);
                     NPC.netUpdate = true;
                 }
-                //invisible execution projectiles under scythe
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    for (int i = 0; i < 50; i++)
-                    {
-                        int dist = (24 * i);
-                        Vector2 distV = NPC.Center - new Vector2(0f, dist).RotatedBy(rot);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), distV, Vector2.Zero, ModContent.ProjectileType<InvisibleScytheHitbox>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 3f, Main.myPlayer);
-                    }
-                }
-
             }
 
             if (NPC.ai[1] > endTime)
@@ -2152,20 +2221,19 @@ namespace FargowiltasSouls.NPCs.Challengers
                     double fpf = (int)(60 / Main.npcFrameCount[NPC.type] * SPR); //multiply by sec/rotation)
                     int oldFrame = (int)((NPC.frameCounter - i) / fpf);
                     Rectangle oldWingRectangle = new Rectangle(0, oldFrame * wingHeight, wingtexture.Width, wingHeight);
-                    DrawData wingTrailGlow = new DrawData(wingtexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldWingRectangle), drawColor * (0.5f / i), PhaseOne ? 0 : NPC.rotation, wingOrigin, NPC.scale, SpriteEffects.None, 0);
+                    DrawData wingTrailGlow = new DrawData(wingtexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldWingRectangle), drawColor * (0.5f / i), NPC.rotation, wingOrigin, NPC.scale, SpriteEffects.None, 0);
                     GameShaders.Misc["LCWingShader"].UseColor(Color.HotPink).UseSecondaryColor(Color.HotPink);
                     GameShaders.Misc["LCWingShader"].Apply(wingTrailGlow);
                     wingTrailGlow.Draw(spriteBatch);
                 }
 
                 spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: bodytexture, position: drawPos, sourceRectangle: NPC.frame, color: drawColor, rotation: BodyRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
-                spriteBatch.Draw(origin: wingOrigin, texture: wingtexture, position: drawPos, sourceRectangle: wingRectangle, color: drawColor, rotation: PhaseOne ? 0 : NPC.rotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
+                spriteBatch.Draw(origin: wingOrigin, texture: wingtexture, position: drawPos, sourceRectangle: wingRectangle, color: drawColor, rotation: NPC.rotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
             }
             return false;
 		}
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-
             if (!NPC.IsABestiaryIconDummy)
             {
                 spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
@@ -2221,6 +2289,24 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         #endregion
         #region Help Methods
+        public bool FlightCheck()
+        {
+            if (FargoSoulsWorld.MasochistModeReal)
+                return false;
+
+            if (++flyTimer < (FargoSoulsWorld.EternityMode ? 90 : 150))
+            {
+                float speed = 0.8f;
+                if (FargoSoulsWorld.EternityMode)
+                    speed = 1.2f;
+                if (!PhaseOne)
+                    speed *= 1.5f;
+                FlyingState(speed);
+                return true;
+            }
+            return false;
+        }
+        
         public void P1stateReset()
         {
             NPC.ai[1] = 0f;
@@ -2235,10 +2321,13 @@ namespace FargowiltasSouls.NPCs.Challengers
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 P1state = Main.rand.Next(P1statecount);
+                if (P1state == oldP1state)
+                    P1state = P1state + 1 % (P1statecount - 1);
             }
             if (NPC.life < NPC.lifeMax * 0.66) //phase 2 switch?
             {
                 P1state = -1;
+                flyTimer = 9000;
             }
             NPC.netUpdate = true;
         }
@@ -2271,15 +2360,20 @@ namespace FargowiltasSouls.NPCs.Challengers
 				availablestates.RemoveAt(index);
 
 			}
-			if (!PhaseThree && NPC.life < NPC.lifeMax * 0.33)
+
+            bool resetFly = true;
+            if (!PhaseThree && NPC.life < NPC.lifeMax * 0.33)
 			{
 				state = 100;
+                resetFly = false;
 			}
 			if (PhaseThree && NPC.life < NPC.lifeMax / 10 && FargoSoulsWorld.MasochistModeReal)
 			{
 				state = 101;
 				oldstate = -666;
+                resetFly = false;
 			}
+
             if (first)
             {
                 state = 0;

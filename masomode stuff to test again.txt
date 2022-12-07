@@ -162,3 +162,4 @@ lieflight
 	sans disables all items instead of using cursed
 	reduced duration of ray spin
 	ray doesnt instakill outside maso
+	has a delay between attacks to fly around after you
