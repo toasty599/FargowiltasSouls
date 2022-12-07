@@ -21,15 +21,15 @@ namespace FargowiltasSouls.Projectiles.Challengers
         }
 		public override void SetDefaults()
 		{
-			Projectile.width = 20;
-			Projectile.height = 20;
+			Projectile.width = 16;
+			Projectile.height = 16;
 			Projectile.aiStyle = 0;
 			Projectile.hostile = true;
 			AIType = 14;
 			Projectile.penetrate = 1;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
-			Projectile.light = 0.5f;
+			Projectile.scale = 1.5f;
 		}
 
         public override void AI()
@@ -91,6 +91,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
         }
+        public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity;
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;

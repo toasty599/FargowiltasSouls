@@ -162,7 +162,7 @@ lieflight
 	sans disables all items instead of using cursed
 	reduced duration of ray spin
 	ray doesnt instakill outside maso
-	has a delay between attacks to fly around after you
+	added a delay between attacks to fly around after you, not in maso
 	reworked p1 spam attack
 	adjusted hitboxes
 	reduced damage on some attacks
@@ -171,4 +171,10 @@ lieflight
 	walls of projs when p2 dive down are maso only
 	p3 is emode only
 	slurp&burp p3 extra projs are maso only
+	adjusted general movement to be lower elevation, not offscreen so much
+	made p3 rings while running minigun maso only
+	now gradually moves faster during p3 running minigun
+	p3 volleys into safespot in reaction shotgun is maso only
+	spread shots during p2 dive are more spread out below maso
+	most homing pixies have a slightly longer delay before homing begins, not in maso
 fixed remote control reapplying with obnoxious dust whenever you get hit by electric attack

@@ -54,15 +54,13 @@ namespace FargowiltasSouls.Projectiles.Challengers
             if (Projectile.localAI[0] == 0)
             {
                 Projectile.localAI[0] = Math.Abs(Projectile.ai[0]);
+                SoundEngine.PlaySound(SoundID.Item29 with { Volume = 1.5f }, Projectile.Center);
             }
 
             if (++Projectile.ai[0] > 0f)
             {
                 Projectile.Kill();
             }
-
-            if (Projectile.ai[0] == -30)
-                SoundEngine.PlaySound(SoundID.Item29 with { Volume = 1.5f }, Projectile.Center);
 
             float ratio = 1f - Math.Abs(Projectile.ai[0]) / Projectile.localAI[0];
             float rampupVfx = (float)Math.Sin(MathHelper.PiOver2 * ratio);
@@ -79,7 +77,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
 
         public override Color? GetAlpha(Color lightColor)
         {
-            Color color = Color.DeepPink;
+            Color color = Color.HotPink;
             color.A = 100;
             return color;
         }
