@@ -26,26 +26,10 @@ namespace FargowiltasSouls.Projectiles.Challengers
 			Projectile.ignoreWater = true;
 			Projectile.light = 0.5f;
 		}
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-			return false; //no hitbox
-			/*
-            int clampedX = projHitbox.Center.X - targetHitbox.Center.X;
-            int clampedY = projHitbox.Center.Y - targetHitbox.Center.Y;
 
-            if (Math.Abs(clampedX) > targetHitbox.Width / 2)
-                clampedX = targetHitbox.Width / 2 * Math.Sign(clampedX);
-            if (Math.Abs(clampedY) > targetHitbox.Height / 2)
-                clampedY = targetHitbox.Height / 2 * Math.Sign(clampedY);
+		public override bool? CanDamage() => false;
 
-            int dX = projHitbox.Center.X - targetHitbox.Center.X - clampedX;
-            int dY = projHitbox.Center.Y - targetHitbox.Center.Y - clampedY;
-
-            return Math.Sqrt(dX * dX + dY * dY) <= Projectile.width / 2;
-			*/
-        }
-
-        public override void AI()
+		public override void AI()
 		{
 			Projectile.ai[0] += 2f;
 			Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color), 0.25f);

@@ -163,3 +163,5 @@ lieflight
 	reduced duration of ray spin
 	ray doesnt instakill outside maso
 	has a delay between attacks to fly around after you
+	reworked p1 spam attack
+	adjusted hitboxes

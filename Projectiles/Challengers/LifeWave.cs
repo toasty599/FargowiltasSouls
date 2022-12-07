@@ -20,8 +20,8 @@ namespace FargowiltasSouls.Projectiles.Challengers
         }
         public override void SetDefaults()
 		{
-			Projectile.width = 36;
-			Projectile.height = 36;
+			Projectile.width = 16;
+			Projectile.height = 16;
 			Projectile.aiStyle = 0;
 			Projectile.hostile = true;
 			AIType = 14;
@@ -32,22 +32,6 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Projectile.scale = 1f;
 
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 40; //for p1
-        }
-
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) //circular hitbox
-        {
-            int clampedX = projHitbox.Center.X - targetHitbox.Center.X;
-            int clampedY = projHitbox.Center.Y - targetHitbox.Center.Y;
-
-            if (Math.Abs(clampedX) > targetHitbox.Width / 2)
-                clampedX = targetHitbox.Width / 2 * Math.Sign(clampedX);
-            if (Math.Abs(clampedY) > targetHitbox.Height / 2)
-                clampedY = targetHitbox.Height / 2 * Math.Sign(clampedY);
-
-            int dX = projHitbox.Center.X - targetHitbox.Center.X - clampedX;
-            int dY = projHitbox.Center.Y - targetHitbox.Center.Y - clampedY;
-
-            return Math.Sqrt(dX * dX + dY * dY) <= Projectile.width / 2;
         }
 
         public override void AI()
