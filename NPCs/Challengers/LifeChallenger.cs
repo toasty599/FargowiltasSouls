@@ -19,10 +19,10 @@ using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.Items.Weapons.Challengers;
 using Terraria.GameContent.ItemDropRules;
-using static System.Net.Mime.MediaTypeNames;
-using SteelSeries.GameSense;
 using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Buffs.Masomode;
+using Terraria.GameContent.Bestiary;
 
 namespace FargowiltasSouls.NPCs.Challengers
 {
@@ -77,8 +77,6 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         private int index;
 
-        private int npcIndex = -1;
-
         private double rotspeed = 0;
 
         private double rot = 0;
@@ -113,21 +111,44 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         private bool Draw = false;
 
+        bool useDR;
+
         private List<int> intervalist = new List<int>(0);
         #endregion
         #region Standard
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lifelight");
+            DisplayName.SetDefault("Lieflight");
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.TrailCacheLength[NPC.type] = 18;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
+
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Confused,
+                    BuffID.Chilled,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>()
+                }
+            });
+        }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+                new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
+            });
         }
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 3000;
+            NPC.lifeMax = 45000;
             NPC.defense = 0;
             NPC.damage = 55;
             NPC.knockBackResist = 0f;
@@ -140,16 +161,15 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions") : MusicID.OtherworldlyBoss1; //Throne
-            if (PhaseThree)
-            {
-                Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod2)
-                ? MusicLoader.GetMusicSlot(musicMod2, "Assets/Music/Champions") : MusicID.OtherworldlyBoss1; //Father
-            }
-            SceneEffectPriority = SceneEffectPriority.BossHigh;
-            NPC.value = Item.buyPrice(0, 10);
+                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions") : MusicID.OtherworldlyBoss1;
+            SceneEffectPriority = SceneEffectPriority.BossLow;
+            NPC.value = Item.buyPrice(0, 15);
 
             NPC.dontTakeDamage = true; //until it Appears in Opening
+
+            //disable this outside maso
+            if (!FargoSoulsWorld.MasochistModeReal)
+                resigned = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -159,26 +179,26 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(state);
-            writer.Write(oldstate);
+            writer.Write7BitEncodedInt(state);
+            writer.Write7BitEncodedInt(oldstate);
             writer.Write(choice);
-            writer.Write(index);
-            writer.Write(index2);
-            writer.Write(P1state);
-            writer.Write(oldP1state);
-            writer.Write(LifeWaveCount);
+            writer.Write7BitEncodedInt(index);
+            writer.Write7BitEncodedInt(index2);
+            writer.Write7BitEncodedInt(P1state);
+            writer.Write7BitEncodedInt(oldP1state);
+            writer.Write7BitEncodedInt(LifeWaveCount);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            state = reader.ReadInt32();
-            oldstate = reader.ReadInt32();
-            choice = reader.ReadInt32();
-            index = reader.ReadInt32();
-            index2 = reader.ReadInt32();
-            P1state = reader.ReadInt32();
-            oldP1state = reader.ReadInt32();
-            LifeWaveCount = reader.ReadInt32();
+            state = reader.Read7BitEncodedInt();
+            oldstate = reader.Read7BitEncodedInt();
+            choice = reader.ReadSingle();
+            index = reader.Read7BitEncodedInt();
+            index2 = reader.Read7BitEncodedInt();
+            P1state = reader.Read7BitEncodedInt();
+            oldP1state = reader.Read7BitEncodedInt();
+            LifeWaveCount = reader.Read7BitEncodedInt();
         }
         #endregion
         #region AI
@@ -188,64 +208,64 @@ namespace FargowiltasSouls.NPCs.Challengers
             Player Player = Main.player[NPC.target];
             Main.time = 27000; //noon
             Main.dayTime = true;
-
-            /*if (initialtp = false)
-            {
-
-            }*/
+            NPC.defense = NPC.defDefense;
+            useDR = false;
 
             //Aura
-            if (dustcounter > 5 && dodebuff)
+            if (FargoSoulsWorld.MasochistModeReal)
             {
-                for (int l = 0; l < 180; l++)
+                if (dustcounter > 5 && dodebuff)
                 {
-                    double rad2 = 2.0 * (double)l * (Math.PI / 180.0);
-                    double dustdist2 = 1200.0;
-                    int DustX2 = (int)AuraCenter.X - (int)(Math.Cos(rad2) * dustdist2);
-                    int DustY2 = (int)AuraCenter.Y - (int)(Math.Sin(rad2) * dustdist2);
-                    Dust.NewDust(new Vector2(DustX2, DustY2), 1, 1, DustID.GemTopaz);
-                }
-                dustcounter = 0;
-            }
-            dustcounter++;
-
-            float distance = AuraCenter.Distance(Main.LocalPlayer.Center);
-            float threshold = 1200f;
-            Player player = Main.LocalPlayer;
-            if (player.active && !player.dead && !player.ghost) //pull into arena
-            {
-                if (distance > threshold && distance < threshold * 4f)
-                {
-                    if (distance > threshold * 2f)
+                    for (int l = 0; l < 180; l++)
                     {
-                        player.controlLeft = false;
-                        player.controlRight = false;
-                        player.controlUp = false;
-                        player.controlDown = false;
-                        player.controlUseItem = false;
-                        player.controlUseTile = false;
-                        player.controlJump = false;
-                        player.controlHook = false;
-                        if (player.grapCount > 0)
-                            player.RemoveAllGrapplingHooks();
-                        if (player.mount.Active)
-                            player.mount.Dismount(player);
-                        player.velocity.X = 0f;
-                        player.velocity.Y = -0.4f;
-                        player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                        double rad2 = 2.0 * (double)l * (MathHelper.Pi / 180.0);
+                        double dustdist2 = 1200.0;
+                        int DustX2 = (int)AuraCenter.X - (int)(Math.Cos(rad2) * dustdist2);
+                        int DustY2 = (int)AuraCenter.Y - (int)(Math.Sin(rad2) * dustdist2);
+                        Dust.NewDust(new Vector2(DustX2, DustY2), 1, 1, DustID.GemTopaz);
                     }
+                    dustcounter = 0;
+                }
+                dustcounter++;
 
-                    Vector2 movement = AuraCenter - player.Center;
-                    float difference = movement.Length() - threshold;
-                    movement.Normalize();
-                    movement *= difference < 17f ? difference : 17f;
-                    player.position += movement;
-
-                    for (int i = 0; i < 10; i++)
+                float distance = AuraCenter.Distance(Main.LocalPlayer.Center);
+                float threshold = 1200f;
+                Player player = Main.LocalPlayer;
+                if (player.active && !player.dead && !player.ghost) //pull into arena
+                {
+                    if (distance > threshold && distance < threshold * 4f)
                     {
-                        int d = Dust.NewDust(player.position, player.width, player.height, DustID.GemTopaz, 0f, 0f, 0, default(Color), 1.25f);
-                        Main.dust[d].noGravity = true;
-                        Main.dust[d].velocity *= 5f;
+                        if (distance > threshold * 2f)
+                        {
+                            player.controlLeft = false;
+                            player.controlRight = false;
+                            player.controlUp = false;
+                            player.controlDown = false;
+                            player.controlUseItem = false;
+                            player.controlUseTile = false;
+                            player.controlJump = false;
+                            player.controlHook = false;
+                            if (player.grapCount > 0)
+                                player.RemoveAllGrapplingHooks();
+                            if (player.mount.Active)
+                                player.mount.Dismount(player);
+                            player.velocity.X = 0f;
+                            player.velocity.Y = -0.4f;
+                            player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                        }
+
+                        Vector2 movement = AuraCenter - player.Center;
+                        float difference = movement.Length() - threshold;
+                        movement.Normalize();
+                        movement *= difference < 17f ? difference : 17f;
+                        player.position += movement;
+
+                        for (int i = 0; i < 10; i++)
+                        {
+                            int d = Dust.NewDust(player.position, player.width, player.height, DustID.GemTopaz, 0f, 0f, 0, default(Color), 1.25f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 5f;
+                        }
                     }
                 }
             }
@@ -254,42 +274,30 @@ namespace FargowiltasSouls.NPCs.Challengers
             //Targeting
             if (!Player.active || Player.dead)
             {
-                Retarget(false);
+                NPC.TargetClosest(false);
                 Player = Main.player[NPC.target];
                 if (!Player.active || Player.dead)
                 {
-                    NPC.velocity = new Vector2(0f, 10f);
-                    if (NPC.timeLeft > 10)
-                    {
-                        NPC.timeLeft = 10;
-                    }
+                    NPC.velocity.Y -= 0.4f;
                     return;
                 }
             }
+            NPC.timeLeft = 60;
+
             if (PhaseOne) //p1 just skip the rest of the ai and do its own ai lolll
             {
                 P1AI();
                 return;
             }
             
-            BodyRotation += (float)((Math.PI / 30f) / SPR); //divide by sec/rotation
-
-            //Find index of this NPC
-            npcIndex = -1;
-            for (int i = 0; i < 200; i++)
-            {
-                if (Main.npc[i] == NPC)
-                {
-                    npcIndex = i;
-                }
-            }
+            BodyRotation += MathHelper.TwoPi / 60f / SPR; //divide by sec/rotation
 
             //Checks
-            if (PhaseThree)
-            {
-                Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod3)
-                ? MusicLoader.GetMusicSlot(musicMod3, "Assets/Music/Champions") : MusicID.OtherworldlyBoss1; //Father
-            }
+            //if (PhaseThree)
+            //{
+            //    Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod3)
+            //        ? MusicLoader.GetMusicSlot(musicMod3, "Assets/Music/Champions") : MusicID.OtherworldlyBoss1; //Father
+            //}
             if (Phase < 4.0)
             {
                 NPC.dontTakeDamage = true;
@@ -303,7 +311,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             
             if (Phase == 0.0)
             {
-                Retarget(true);
+                NPC.TargetClosest(true);
                 Phase = 0.5;
             }
             if (Phase < 4) //Initial Attack
@@ -319,12 +327,11 @@ namespace FargowiltasSouls.NPCs.Challengers
                 if (Flying) //Flying AI
                 {
                     FlyingState();
-
                 }
 
                 if (Charging) //Charging AI (orientation)
                 {
-                    NPC.rotation = NPC.velocity.ToRotation() + (float)Math.PI / 2;
+                    NPC.rotation = NPC.velocity.ToRotation() + MathHelper.Pi / 2;
                     if (NPC.velocity == Vector2.Zero)
                     {
                         NPC.rotation = 0f;
@@ -345,11 +352,11 @@ namespace FargowiltasSouls.NPCs.Challengers
                     if (state == oldstate) //ensure you never get the same attack twice (might happen when the possible state list is refilled)
                     {
                         RandomizeState();
-                        if (!PhaseThree && NPC.life < NPC.lifeMax / 18)
+                        if (!PhaseThree && NPC.life < NPC.lifeMax * 0.33)
                         {
                             state = 100;
                         }
-                        if (PhaseThree && NPC.life < NPC.lifeMax / 10)
+                        if (PhaseThree && NPC.life < NPC.lifeMax / 10 && FargoSoulsWorld.MasochistModeReal)
                         {
                             state = 101;
                             oldstate = 0;
@@ -410,13 +417,13 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void P1AI()
         {
-            //BodyRotation += (float)((Math.PI / 30f) / SPR); //divide by sec/rotation);
+            //BodyRotation += (float)((MathHelper.Pi / 30f) / SPR); //divide by sec/rotation);
             
             if (NPC.ai[0] == 0f)
             {
                 if (NPC.ai[1] == 30f || P1state == -2)
                 {
-                    Retarget(true);
+                    NPC.TargetClosest(true);
                 }
                 if (NPC.ai[1] >= 60f || P1state == -2)
                 {
@@ -471,20 +478,21 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.position.X = Player.Center.X - (NPC.width / 2);
             NPC.position.Y = Player.Center.Y - 490 - (NPC.height / 2);
             NPC.alpha = (int)(255 - (NPC.ai[2] * 17));
-            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake += 1;
 
             if (NPC.ai[1] == 120)
             {
+                if (!Main.dedServ)
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+
                 SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center);
                 SoundEngine.PlaySound(SoundID.Item62, NPC.Center);
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 200; i++)
                 {
-                    Vector2 vel = new Vector2(1, 0).RotatedByRandom(Math.PI * 2) * Main.rand.Next(20);
+                    Vector2 vel = new Vector2(1, 0).RotatedByRandom(MathHelper.Pi * 2) * Main.rand.Next(20);
                     Dust.NewDust(NPC.Center, 0, 0, DustID.PurpleCrystalShard, vel.X, vel.Y, 100, new Color(), 1f);
                 }
                 Draw = true;
                 NPC.dontTakeDamage = false;
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 0;
             }
 
             if (NPC.ai[1] == 180)
@@ -518,7 +526,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                             type = ModContent.ProjectileType<LifeSplittingProjSmall>();
                         else
                             type = ModContent.ProjectileType<LifeProjSmall>();
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootatPlayer2.RotatedBy(i * Math.PI / 5), type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootatPlayer2.RotatedBy(i * MathHelper.Pi / 5), type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                     }
 
                 }
@@ -578,7 +586,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                             float SoulY = NPC.Center.Y + (i * 50);
                             Vector2 SoulPos = new Vector2(SoulX, SoulY);
                             Vector2 soulVel = new Vector2(0f, i * 5f);
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), SoulPos, soulVel, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, npcIndex);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), SoulPos, soulVel, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, NPC.whoAmI);
                         
                     }
                 }
@@ -599,13 +607,15 @@ namespace FargowiltasSouls.NPCs.Challengers
             if (LifeWaveCount >= 3) //only 3 of these per fight
             {
                 RandomizeP1state();
+                return;
             }
+
             if (AttackF1 && LifeWaveCount < 3)
             {
-                NPC.defense = 200;
                 NPC.netUpdate = true;
                 AttackF1 = false;
             }
+
             if (NPC.ai[2] >= 45f && NPC.ai[1] <= 140f)
             {
                 SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
@@ -624,7 +634,6 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             if (NPC.ai[1] >= 180f)
             {
-                NPC.defense = 0;
                 NPC.netUpdate = true;
                 LifeWaveCount++;
                 oldP1state = P1state;
@@ -680,24 +689,23 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void P1Transition()
         {
-            if (NPC.ai[1] == 1)
-            {
-                NPC.lifeMax *= 2; //REWORK: DOUBLE HEALTH ON PHASE TRANSITION
-            }
             Charging = false;
             Flying = false;
-            NPC.defense = 999999;
-            int heal = (int)((float)(NPC.lifeMax / 100) * Main.rand.NextFloat(1f, 1.5f));
-            NPC.life += heal;
-            if (NPC.life > NPC.lifeMax)
+            NPC.defense = 9999;
+
+            if (FargoSoulsWorld.MasochistModeReal)
             {
-                NPC.life = NPC.lifeMax;
+                int heal = (int)(NPC.lifeMax / 100f * Main.rand.NextFloat(1f, 1.5f));
+                NPC.life += heal;
+                if (NPC.life > NPC.lifeMax)
+                    NPC.life = NPC.lifeMax;
+                CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
             }
-            CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
+
             if (NPC.ai[1] == 120f)
             {
                 SoundEngine.PlaySound(SoundID.Item82, Main.LocalPlayer.Center);
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake += 240;
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
                 foreach (Projectile p in Main.projectile)
                 {
                     if (p.type == ModContent.ProjectileType<LifeBombExplosion>())
@@ -707,8 +715,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 }
                 PhaseOne = false;
                 NPC.netUpdate = true;
-                Retarget(true);
-                NPC.defense = 0;
+                NPC.TargetClosest(true);
                 NPC.netUpdate = true;
                 AttackF1 = true;
                 NPC.ai[1] = 0f;
@@ -761,13 +768,13 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
 
             //orientation
-            if (NPC.velocity.ToRotation() > Math.PI)
+            if (NPC.velocity.ToRotation() > MathHelper.Pi)
             {
-                NPC.rotation = 0f - (float)Math.PI * NPC.velocity.X / 100;
+                NPC.rotation = 0f - MathHelper.Pi * NPC.velocity.X / 100;
             }
             else
             {
-                NPC.rotation = 0f + (float)Math.PI * NPC.velocity.X / 100;
+                NPC.rotation = 0f + MathHelper.Pi * NPC.velocity.X / 100;
             }
         }
         public void AttackP2Start()
@@ -801,7 +808,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 float rotMinSpeed = 0.15f; //very important
                 float rotMaxSpeed = 0.8f * anglediff + rotMinSpeed * Math.Sign(anglediff);
                 //change rotation towards player
-                LockVector1 = LockVector1.RotatedBy(rotspeed * Math.PI / 180);
+                LockVector1 = LockVector1.RotatedBy(rotspeed * MathHelper.Pi / 180);
                 if (rotspeed > Math.Abs(rotMaxSpeed) || rotspeed < -Math.Abs(rotMaxSpeed))
                 {
                     rotspeed = rotMaxSpeed;
@@ -825,7 +832,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 for (int m = 0; m <= amount; m++)
                 {
                     float knockBack9 = 3f;
-                    double rad5 = (double)m * (360 / amount) * (Math.PI / 180.0);
+                    double rad5 = (double)m * (360 / amount) * (MathHelper.Pi / 180.0);
                     Vector2 shootoffset5 = new Vector2(0f, 3f).RotatedBy(rad5);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -848,37 +855,17 @@ namespace FargowiltasSouls.NPCs.Challengers
         public void P3Transition()
         {
             Flying = true;
-            NPC.defense = 999999;
-            if (AttackF1 && !PhaseThree)
-            {
-                AttackF1 = false;
-                NPC.netUpdate = true;
-            }
-            int heal = 0; //(int)((float)(NPC.lifeMax / 100) * Main.rand.NextFloat(1f, 1.5f)); REWORK: REMOVED HEAL
-            NPC.life += heal;
-            if (NPC.life > NPC.lifeMax)
-            {
-                NPC.life = NPC.lifeMax;
-            }
-            //CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal); REWORK: REMOVED HEAL
+            NPC.defense = 9999;
+            PhaseThree = true;
             statecount = 10;
             availablestates.Clear();
-            if (NPC.ai[1] > 120f)
+            if (NPC.ai[1] == 120f)
             {
-                AttackF1 = true;
-                if (AttackF1 && !PhaseThree)
-                {
-                    SoundEngine.PlaySound(SoundID.Item82, Main.LocalPlayer.Center);
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake += 240;
-                    AttackF1 = false;
-                    PhaseThree = true;
-                    NPC.netUpdate = true;
-                }
+                SoundEngine.PlaySound(SoundID.Item82, Main.LocalPlayer.Center);
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
             }
             if (NPC.ai[1] >= 180f) //REWORK: AXED HEAL ON P3 TRANSITION AND PUT ON HALF HEALTH
             {
-                PhaseThree = true;
-                NPC.defense = 0;
                 NPC.netUpdate = true;
                 state = 99;
                 NPC.ai[1] = 0f;
@@ -887,13 +874,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.ai[0] = 0f;
                 AttackF1 = true;
                 NPC.dontTakeDamage = true;
-                Retarget(true);
+                NPC.TargetClosest(true);
             }
-
         }
         public void AttackP3Start()
         {
-            Player Player = Main.player[NPC.target];
+            useDR = true;
+
             if (AttackF1)
             {
                 SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Zombie_104") with { Volume = 0.5f }, NPC.Center);
@@ -901,11 +888,12 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.velocity.X = 0;
                 NPC.velocity.Y = 0;
                 Flying = false;
-                NPC.dontTakeDamage = true;
-                NPC.defense = 999999;
+                if (FargoSoulsWorld.MasochistModeReal)
+                    NPC.dontTakeDamage = true;
                 NPC.netUpdate = true;
                 rotspeed = 0;
             }
+
             //for a starting time, make it fade in, then make it spin faster and faster up to a max speed
             int fadeintime = 10;
             if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[1] < fadeintime)
@@ -913,13 +901,18 @@ namespace FargowiltasSouls.NPCs.Challengers
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(0f, -1f),
                                 ModContent.ProjectileType<LifeChalDeathray>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI);
             }
+
+            int endTime = 1650;
+            if (!FargoSoulsWorld.MasochistModeReal)
+                endTime /= 2;
+
             if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[1] >= fadeintime)
             {
                 if (rotspeed < 0.88f)
                 {
                     rotspeed += (double)((2f / 60) / 4);
                 }
-                rot += ((Math.PI / 180) * rotspeed);
+                rot += ((MathHelper.Pi / 180) * rotspeed);
                 Vector2 rotV = new Vector2(0f, -1f).RotatedBy(rot);
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, rotV,
                                 ModContent.ProjectileType<LifeChalDeathray>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI); //no damage because InvisibleScytheHitbox handles that (to override iframes)
@@ -942,7 +935,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                     NPC.ai[0] = Main.rand.Next(200);
                     int dist = (200 * interval) + (int)NPC.ai[0];
                     Vector2 distV = NPC.Center - new Vector2(0f, dist).RotatedBy(rot);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), distV, Vector2.Zero, ModContent.ProjectileType<LifeScar>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, NPC.ai[1]);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), distV, Vector2.Zero, ModContent.ProjectileType<LifeScar>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, NPC.ai[1], endTime);
                     NPC.netUpdate = true;
                 }
                 //invisible execution projectiles under scythe
@@ -952,15 +945,15 @@ namespace FargowiltasSouls.NPCs.Challengers
                     {
                         int dist = (24 * i);
                         Vector2 distV = NPC.Center - new Vector2(0f, dist).RotatedBy(rot);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), distV, Vector2.Zero, ModContent.ProjectileType<InvisibleScytheHitbox>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage * 50), 3f, Main.myPlayer);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), distV, Vector2.Zero, ModContent.ProjectileType<InvisibleScytheHitbox>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 3f, Main.myPlayer);
                     }
                 }
 
             }
-            if (NPC.ai[1] > 1650f)
+
+            if (NPC.ai[1] > endTime)
             {
                 NPC.dontTakeDamage = false;
-                NPC.defense = 0;
                 Flying = true;
                 oldstate = state;
                 StateReset();
@@ -971,14 +964,24 @@ namespace FargowiltasSouls.NPCs.Challengers
         public void AttackFinal()
         {
             Player Player = Main.player[NPC.target];
-            if (AttackF1) //first he silences you and gets 99999 defense
+
+            if (!resigned) //disable items
+            {
+                if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && NPC.Distance(Main.LocalPlayer.Center) < 3000)
+                {
+                    Main.LocalPlayer.controlUseItem = false;
+                    Main.LocalPlayer.controlUseTile = false;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                }
+            }
+
+            if (AttackF1) 
             {
                 AttackF1 = false;
-                Main.LocalPlayer.AddBuff(BuffID.Cursed, 120 * 60);
                 NPC.dontTakeDamage = true;
                 NPC.netUpdate = true;
-
             }
+
             for (int i = 0; i < Main.musicFade.Length; i++) //shut up music
                 if (Main.musicFade[i] > 0f)
                     Main.musicFade[i] -= 1f / 60;
@@ -1104,9 +1107,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                 Vector2 ScopeToPos = pos - LockVector1;
                 for (int i = 0; i < 4; i++)
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + ScopeToPos.RotatedBy((i * Math.PI / 2) + MathHelper.ToRadians(NPC.ai[0])), /*Vector2.Normalize(ScopeToPos.RotatedBy((Math.PI/2) + MathHelper.ToRadians(NPC.ai[0]) + (i * Math.PI / 2))) * 10f*/ Vector2.Zero, ModContent.ProjectileType<JevilScar>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, npcIndex, i * 90 + NPC.ai[0]);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + ScopeToPos.RotatedBy((i * MathHelper.Pi / 2) + MathHelper.ToRadians(NPC.ai[0])), /*Vector2.Normalize(ScopeToPos.RotatedBy((MathHelper.Pi/2) + MathHelper.ToRadians(NPC.ai[0]) + (i * MathHelper.Pi / 2))) * 10f*/ Vector2.Zero, ModContent.ProjectileType<JevilScar>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, NPC.whoAmI, i * 90 + NPC.ai[0]);
             }
-            float spin = choice * (float)Math.PI / 180f;
+            float spin = choice * MathHelper.Pi / 180f;
             if (time3 >= 10 && NPC.ai[1] <= Attack3End - 20 && (time3 - 10) % 100 >= 1) //telegraphs (spinning with knife)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -1115,7 +1118,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                     {
                         for (int j = 1; j < 3; j++)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + ((250 / j) * (choice * (float)Math.PI / 180f).ToRotationVector2()).RotatedBy(i * Math.PI), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + ((250 / j) * (choice * MathHelper.Pi / 180f).ToRotationVector2()).RotatedBy(i * MathHelper.Pi), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0, Main.myPlayer);
                         }
                     }
                 }
@@ -1129,7 +1132,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                     {
                         for (int j = 1; j < 3; j++)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + ((250 / j) * (choice * (float)Math.PI / 180f).ToRotationVector2() / j).RotatedBy(i * Math.PI), Vector2.Zero, ModContent.ProjectileType<LifeCageExplosion>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + ((250 / j) * (choice * MathHelper.Pi / 180f).ToRotationVector2() / j).RotatedBy(i * MathHelper.Pi), Vector2.Zero, ModContent.ProjectileType<LifeCageExplosion>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                         }
                     }
                 }
@@ -1202,7 +1205,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient && (firstblaster < 1 || firstblaster > 1))
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + aim.RotatedBy((i * Math.PI / 6) + MathHelper.ToRadians(NPC.ai[0])), -Vector2.Normalize(aim).RotatedBy((i * Math.PI / 6) + MathHelper.ToRadians(NPC.ai[0])) * 0.001f, ModContent.ProjectileType<LifeBlaster>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, firstblaster);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + aim.RotatedBy((i * MathHelper.Pi / 6) + MathHelper.ToRadians(NPC.ai[0])), -Vector2.Normalize(aim).RotatedBy((i * MathHelper.Pi / 6) + MathHelper.ToRadians(NPC.ai[0])) * 0.001f, ModContent.ProjectileType<LifeBlaster>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, firstblaster);
                     }
                 }
                 if (firstblaster > 0)
@@ -1230,7 +1233,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 Vector2 aim = (Vector2.Normalize(LockVector2 - LockVector1) * 550).RotatedBy(MathHelper.PiOver2);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + aim.RotatedBy(NPC.ai[0] * Math.PI / 18), -Vector2.Normalize(aim).RotatedBy(NPC.ai[0] * Math.PI / 18) * 0.001f, ModContent.ProjectileType<LifeBlaster>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + aim.RotatedBy(NPC.ai[0] * MathHelper.Pi / 18), -Vector2.Normalize(aim).RotatedBy(NPC.ai[0] * MathHelper.Pi / 18) * 0.001f, ModContent.ProjectileType<LifeBlaster>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                 }
                 NPC.netUpdate = true;
                 NPC.ai[0] += 1;
@@ -1256,17 +1259,20 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void AttackSlurpBurp()
         {
+            useDR = true;
+
             Player Player = Main.player[NPC.target];
             if (AttackF1)
             {
                 AttackF1 = false;
                 NPC.netUpdate = true;
             }
-            NPC.velocity.X = 0f;
-            NPC.velocity.Y = 0f;
+
+            NPC.velocity = Vector2.Zero;
             Flying = false;
+
             float knockBack = 3f;
-            double rad = (double)NPC.ai[1] * 5.721237 * (Math.PI / 180.0);
+            double rad = (double)NPC.ai[1] * 5.721237 * (MathHelper.Pi / 180.0);
             double dustdist = 1200.0;
             int DustX = (int)NPC.Center.X - (int)(Math.Cos(rad) * dustdist);
             int DustY = (int)NPC.Center.Y - (int)(Math.Sin(rad) * dustdist);
@@ -1275,7 +1281,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), DustV, Vector2.Zero, ModContent.ProjectileType<LifeSlurp>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack, Main.myPlayer, 0, npcIndex);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), DustV, Vector2.Zero, ModContent.ProjectileType<LifeSlurp>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack, Main.myPlayer, 0, NPC.whoAmI);
                 }
                 
                 NPC.ai[2] = 0f;
@@ -1345,13 +1351,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
 
                 //rotation
-                if (NPC.velocity.ToRotation() > Math.PI)
+                if (NPC.velocity.ToRotation() > MathHelper.Pi)
                 {
-                    NPC.rotation = 0f - (float)Math.PI * NPC.velocity.X / 100;
+                    NPC.rotation = 0f - MathHelper.Pi * NPC.velocity.X / 100;
                 }
                 else
                 {
-                    NPC.rotation = 0f + (float)Math.PI * NPC.velocity.X / 100;
+                    NPC.rotation = 0f + MathHelper.Pi * NPC.velocity.X / 100;
                 }
                 if (NPC.ai[3] < 3f)
                 {
@@ -1390,7 +1396,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 if (NPC.ai[2] == 41f)
                 {
                     LockVector1 = NPC.Center;
-                    LockVector2 = (NPC.DirectionTo(Player.Center) * ProjectileSpeed).RotatedBy(Math.PI / 80 * (Main.rand.NextFloat() - 0.5f));
+                    LockVector2 = (NPC.DirectionTo(Player.Center) * ProjectileSpeed).RotatedBy(MathHelper.Pi / 80 * (Main.rand.NextFloat() - 0.5f));
                     for (int i = 0; (float)i <= NPC.ai[3]; i++)
                     {
                         double rotationrad = MathHelper.ToRadians(0f - NPC.ai[3] * spread / 2 + (float)(i * spread));
@@ -1447,7 +1453,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                         NPC.ai[2] = 90f;
                     }
                 }
-                double rad3 = (double)NPC.ai[2] * (Math.PI / 180.0);
+                double rad3 = (double)NPC.ai[2] * (MathHelper.Pi / 180.0);
                 double tpdist = 350.0;
                 int TpX = (int)Player.Center.X - (int)(Math.Cos(rad3) * tpdist) - NPC.width / 2;
                 int TpY = (int)Player.Center.Y - (int)(Math.Sin(rad3) * tpdist) - NPC.height / 2;
@@ -1477,7 +1483,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 int amount = 14;
                 for (int i = 0; i < amount; i++)
                 {
-                    Vector2 shootoffset = shootatPlayer.RotatedBy(i * (Math.PI / (amount / 2)));
+                    Vector2 shootoffset = shootatPlayer.RotatedBy(i * (MathHelper.Pi / (amount / 2)));
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset, ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                 }
                 //charge
@@ -1538,7 +1544,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.position.Y = TpPos2.Y;
                 NPC.velocity.X = 0f;
                 NPC.velocity.Y = 0f;
-                NPC.rotation = (float)Math.PI;
+                NPC.rotation = MathHelper.Pi;
                 SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
                 NPC.netUpdate = true;
             }
@@ -1637,8 +1643,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                     {
                         float knockBack10 = 3f;
                         Vector2 shootoffset4 = new Vector2(0f, -5f).RotatedBy(NPC.ai[3]);
-                        NPC.ai[3] = (float)(Main.rand.Next(-30, 30) * (Math.PI / 180.0)); //change random offset after so game has time to sync
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset4, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer, 0f, npcIndex);
+                        NPC.ai[3] = (float)(Main.rand.Next(-30, 30) * (MathHelper.Pi / 180.0)); //change random offset after so game has time to sync
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset4, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer, 0f, NPC.whoAmI);
                     }
                 }
                 NPC.ai[2] += 1f;
@@ -1674,8 +1680,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                     {
                         float knockBack10 = 3f;
                         Vector2 shootoffset4 = Vector2.Normalize(NPC.velocity).RotatedBy(NPC.ai[3]) * 5f;
-                        NPC.ai[3] = (float)(Main.rand.Next(-30, 30) * (Math.PI / 180.0)); //change random offset after so game has time to sync
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset4, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer, 0f, npcIndex);
+                        NPC.ai[3] = (float)(Main.rand.Next(-30, 30) * (MathHelper.Pi / 180.0)); //change random offset after so game has time to sync
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset4, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer, 0f, NPC.whoAmI);
                     }
                 }
                 if (NPC.ai[2] >= ChargeCD + 60)
@@ -1723,13 +1729,13 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             if (NPC.ai[1] < 420 && NPC.ai[1] % 4 == 0 && NPC.ai[1] > 60 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Vector2 offset1 = LockVector1.RotatedBy(Math.PI / 3f) * 20f;
-                Vector2 offset2 = LockVector1.RotatedBy(-Math.PI / 3f) * 20f;
+                Vector2 offset1 = LockVector1.RotatedBy(MathHelper.Pi / 3f) * 20f;
+                Vector2 offset2 = LockVector1.RotatedBy(-MathHelper.Pi / 3f) * 20f;
                 //in p3, rotate offsets by +-5 degrees determined by sine curve, one loop is 4 seconds
                 if (PhaseThree)
                 {
-                    offset1 = offset1.RotatedBy((Math.PI / 6.5) * Math.Sin(MathHelper.ToRadians(1.5f * NPC.ai[1])));
-                    offset2 = offset2.RotatedBy((Math.PI / 6.5) * -Math.Sin(MathHelper.ToRadians(1.5f * NPC.ai[1])));
+                    offset1 = offset1.RotatedBy((MathHelper.Pi / 6.5) * Math.Sin(MathHelper.ToRadians(1.5f * NPC.ai[1])));
+                    offset2 = offset2.RotatedBy((MathHelper.Pi / 6.5) * -Math.Sin(MathHelper.ToRadians(1.5f * NPC.ai[1])));
                 }
 
 
@@ -1789,7 +1795,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                             {
                                 NPC.ai[0] = Main.rand.Next(8, 13);
                                 NPC.ai[2] = Main.rand.Next(-40, 40);
-                                Vector2 offsetRAND = (NPC.DirectionTo(Player.Center) * NPC.ai[0]).RotatedBy((Math.PI / 180) * NPC.ai[2]);
+                                Vector2 offsetRAND = (NPC.DirectionTo(Player.Center) * NPC.ai[0]).RotatedBy((MathHelper.Pi / 180) * NPC.ai[2]);
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, offsetRAND, ModContent.ProjectileType<LifeProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                             }
                         }
@@ -1798,7 +1804,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                         SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact, NPC.Center);
                         for (int i = 0; i < 8; i++)
                         {
-                            Vector2 offset1 = (NPC.DirectionTo(Player.Center) * 9f).RotatedBy((i - 3) * Math.PI / 8f);
+                            Vector2 offset1 = (NPC.DirectionTo(Player.Center) * 9f).RotatedBy((i - 3) * MathHelper.Pi / 8f);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, offset1, ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                         }
@@ -1807,9 +1813,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                         SoundEngine.PlaySound(SoundID.Item25, NPC.Center);
                         for (int i = 0; i < 5; i++)
                         {
-                            Vector2 offset1 = (NPC.DirectionTo(Player.Center) * 4f).RotatedBy((i - 2) * Math.PI / 12f);
+                            Vector2 offset1 = (NPC.DirectionTo(Player.Center) * 4f).RotatedBy((i - 2) * MathHelper.Pi / 12f);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -offset1, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0f, npcIndex);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -offset1, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0f, NPC.whoAmI);
                         }
                         break;
                 }
@@ -1850,12 +1856,12 @@ namespace FargowiltasSouls.NPCs.Challengers
                 // NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
                 if (NPC.ai[1] < (NPC.ai[2] - 30) && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-Math.PI / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(Math.PI / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
                     if (PhaseThree)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(Math.PI / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-Math.PI / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
                     }
                 }
             }
@@ -1866,11 +1872,11 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.netUpdate = true;
             if (NPC.ai[1] >= (NPC.ai[2] - 20) && NPC.ai[1] < NPC.ai[2] && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy((-Math.PI / 12) + (NPC.ai[3] * Math.PI / 6))), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy((-MathHelper.Pi / 12) + (NPC.ai[3] * MathHelper.Pi / 6))), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
                 if (PhaseThree)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(Math.PI / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-Math.PI / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
                 }
             }
             else if (NPC.ai[1] == NPC.ai[2])
@@ -1884,10 +1890,10 @@ namespace FargowiltasSouls.NPCs.Challengers
                 float knockBack10 = 3f;
                 for (int i = -3; i < 17; i++)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (LockVector2).RotatedBy((i * -Math.PI / 48) + (i * NPC.ai[3] * Math.PI / 24)), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (LockVector2).RotatedBy((i * -MathHelper.Pi / 48) + (i * NPC.ai[3] * MathHelper.Pi / 24)), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
                     if (PhaseThree)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (LockVector2).RotatedBy(((Math.PI / 4) + ((i + 4) * Math.PI / 48) - ((NPC.ai[3] * Math.PI / 2) + ((i + 4) * NPC.ai[3] * Math.PI / 24)))), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (LockVector2).RotatedBy(((MathHelper.Pi / 4) + ((i + 4) * MathHelper.Pi / 48) - ((NPC.ai[3] * MathHelper.Pi / 2) + ((i + 4) * NPC.ai[3] * MathHelper.Pi / 24)))), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
                     }
                 }
                 NPC.netUpdate = true;
@@ -1951,13 +1957,13 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.velocity = (NPC.velocity * (inertia3 - 1f) + flyonPlayer2) / inertia3;
 
             //rotation
-            if (NPC.velocity.ToRotation() > Math.PI)
+            if (NPC.velocity.ToRotation() > MathHelper.Pi)
             {
-                NPC.rotation = 0f - (float)Math.PI * NPC.velocity.X / 100;
+                NPC.rotation = 0f - MathHelper.Pi * NPC.velocity.X / 100;
             }
             else
             {
-                NPC.rotation = 0f + (float)Math.PI * NPC.velocity.X / 100;
+                NPC.rotation = 0f + MathHelper.Pi * NPC.velocity.X / 100;
             }
 
             //firing machinegun
@@ -1966,7 +1972,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact, NPC.Center);
                 for (int i = -1; i < 2; i++)
                 {
-                    Vector2 ShootPlayer = (NPC.DirectionTo(Player.Center) * 5f*Rampup).RotatedBy(i * Math.PI / 7f);
+                    Vector2 ShootPlayer = (NPC.DirectionTo(Player.Center) * 5f*Rampup).RotatedBy(i * MathHelper.Pi / 7f);
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, ShootPlayer, ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                 }
                 if (Rampup < 6)
@@ -1982,7 +1988,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 int amount2 = 14;
                 for (int i = 0; i < amount2; i++)
                 {
-                    Vector2 shootoffset = shootatPlayer3.RotatedBy(i * (Math.PI / (amount2 / 2)));
+                    Vector2 shootoffset = shootatPlayer3.RotatedBy(i * (MathHelper.Pi / (amount2 / 2)));
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset, ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                 }
             }
@@ -2049,7 +2055,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 for (int i = 0; i < 16; i++)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                    { Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(8f, 0f).RotatedBy((Math.PI / 8) * i), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer); }
+                    { Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(8f, 0f).RotatedBy((MathHelper.Pi / 8) * i), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer); }
                 }
                 Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake += 180;
             }
@@ -2057,7 +2063,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 SoundEngine.PlaySound(SoundID.Item91, NPC.Center);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(12f, 0f).RotatedBy((Math.PI / 3) * NPC.ai[2]), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage * 2), 300f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(12f, 0f).RotatedBy((MathHelper.Pi / 3) * NPC.ai[2]), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage * 2), 300f, Main.myPlayer);
                 NPC.ai[2]++;
             }
             if (NPC.ai[1] > 420f)
@@ -2072,17 +2078,14 @@ namespace FargowiltasSouls.NPCs.Challengers
         #region Overrides
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            damage /= 5;
-            if (!resigned && NPC.life < NPC.lifeMax / 10 - 1) //works for transition 1 and 3
+            damage /= 2;
+
+            if (useDR)
+                damage /= 3;
+
+            if (!resigned && NPC.life < NPC.lifeMax / 10 - 1) //for transition 3
             {
                 NPC.life = NPC.lifeMax / 10 - 2;
-                damage = 1;
-                crit = false;
-                return false;
-            }
-            if (!PhaseOne && !PhaseThree && NPC.life < NPC.lifeMax / 2 - 1)
-            {
-                NPC.life = NPC.lifeMax / 2 - 2;
                 damage = 1;
                 crit = false;
                 return false;
@@ -2233,7 +2236,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 P1state = Main.rand.Next(P1statecount);
             }
-            if (NPC.life < NPC.lifeMax / 10)
+            if (NPC.life < NPC.lifeMax * 0.66) //phase 2 switch?
             {
                 P1state = -1;
             }
@@ -2241,7 +2244,7 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void StateReset()
 		{
-			Retarget(true);
+            NPC.TargetClosest(true);
 			NPC.netUpdate = true;
 			RandomizeState();
 			NPC.ai[1] = 0f;
@@ -2249,17 +2252,6 @@ namespace FargowiltasSouls.NPCs.Challengers
 			NPC.ai[3] = 0f;
 			NPC.ai[0] = 0f;
 			AttackF1 = true;
-		}
-
-		public void Retarget(bool faTa)
-		{
-			Player oldtarget = Main.player[NPC.target];
-			NPC.TargetClosest(faceTarget: faTa);
-			if (oldtarget != Main.player[NPC.target])
-			{
-				Projectile.NewProjectile(NPC.GetSource_FromThis(), Main.player[NPC.target].Center, Vector2.Zero, ModContent.ProjectileType<TargetCrosshair>(), 0, 0, Main.myPlayer, 0f, npcIndex);
-			}
-			NPC.netUpdate = true;
 		}
 
 		public void RandomizeState() //it's done this way so it cycles between attacks in a random order: for increased variety
@@ -2279,11 +2271,11 @@ namespace FargowiltasSouls.NPCs.Challengers
 				availablestates.RemoveAt(index);
 
 			}
-			if (!PhaseThree && NPC.life < NPC.lifeMax / 2)
+			if (!PhaseThree && NPC.life < NPC.lifeMax * 0.33)
 			{
 				state = 100;
 			}
-			if (PhaseThree && NPC.life < NPC.lifeMax / 10)
+			if (PhaseThree && NPC.life < NPC.lifeMax / 10 && FargoSoulsWorld.MasochistModeReal)
 			{
 				state = 101;
 				oldstate = -666;

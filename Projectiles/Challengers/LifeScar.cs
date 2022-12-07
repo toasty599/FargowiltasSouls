@@ -58,25 +58,26 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 if (++Projectile.frame >= 3)
                     Projectile.frame = 0;
             }
+
             Projectile.rotation += 0.5f;
-            if (Projectile.ai[0] <= 60f)
+
+            if (++Projectile.localAI[0] <= 60f)
             {
                 Projectile.Opacity += 3 / 60f;
             }
-            if (Projectile.ai[1] >= 1620)
+
+            if (++Projectile.ai[0] >= Projectile.ai[1] - 30)
 			{
 				Projectile.Opacity -= 1 / 60f;
 			}
-			if (Projectile.ai[1] >= 1650f)
+			if (Projectile.ai[0] >= Projectile.ai[1])
 			{
 				Projectile.damage = 0;
 			}
-            if (Projectile.ai[1] > 1680f)
+            if (Projectile.ai[0] > Projectile.ai[1] + 30)
 			{
 				Projectile.Kill();
 			}
-			Projectile.ai[1]++;
-			Projectile.ai[0]++;
 		}
 	}
 }

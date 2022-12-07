@@ -150,3 +150,16 @@ tried again to make sibling and squrrl boss spawners always work in mp
 tweaked cultist arena vfx
 minor tweak to prime ai so that if spawned directly above you, arms dont stall for so long before they begin moving
 fixed getting graze from enemies flagged as no contact damage e.g. cultist, devi
+
+lieflight
+	added bestiary
+	aura is maso only
+	improved mp sync
+	no longer heals below maso, but increased max hp for equivalent effect
+	removed DR, increased max hp for equivalent effect
+	added 10 defense lol
+	has just 50% DR, 0def when it used to have 200 defense
+	sans is maso only
+	sans disables all items instead of using cursed
+	reduced duration of ray spin
+	ray doesnt instakill outside maso
