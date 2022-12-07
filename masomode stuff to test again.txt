@@ -171,4 +171,4 @@ lieflight
 	walls of projs when p2 dive down are maso only
 	p3 is emode only
 	slurp&burp p3 extra projs are maso only
-fixed remote control reapplying with obnoxious dust whenever you get hit
+fixed remote control reapplying with obnoxious dust whenever you get hit by electric attack
