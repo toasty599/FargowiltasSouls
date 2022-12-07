@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 86);
                 Main.dust[d].noGravity = true;
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
 
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f)
             {
-                Color color27 = new Color(255, 51, 153, 100) * Projectile.Opacity * 0.3f;
+                Color color27 = new Color(255, 51, 153, 560 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.3f;
                 float fade = (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 color27 *= fade * fade;
                 int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
