@@ -156,9 +156,8 @@ lieflight
 	aura is maso only
 	improved mp sync
 	no longer heals below maso, but increased max hp for equivalent effect
-	removed DR, increased max hp for equivalent effect
-	added 10 defense lol
-	has just 50% DR, 0def when it used to have 200 defense
+	reduced DR to 50%, increased max hp
+	takes x0.33 damage when it used to have 200 defense
 	sans is maso only
 	sans disables all items instead of using cursed
 	reduced duration of ray spin
