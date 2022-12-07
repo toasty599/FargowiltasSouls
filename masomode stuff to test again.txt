@@ -142,3 +142,11 @@ fixed supersonic soul not actually having effects of magilumi or frog leg
 HUUUUUGE deathray internal refactor, check they all work and dont throw errors
 resprited will deathray
 fixed destroyer no contact damage bug
+magical bulb debuff cleanse cd ends faster when not attacking
+wood ench discount works in vanity slots
+stabilized gravity moved from galactic globe to wyvern feather
+biocluster can give passive stable gravity
+tried again to make sibling and squrrl boss spawners always work in mp
+tweaked cultist arena vfx
+minor tweak to prime ai so that if spawned directly above you, arms dont stall for so long before they begin moving
+fixed getting graze from enemies flagged as no contact damage e.g. cultist, devi

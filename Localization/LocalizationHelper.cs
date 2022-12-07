@@ -237,6 +237,7 @@ namespace FargowiltasSouls
             AddToggle("MasoSqueakConfig", ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>());
             AddToggle("MasoPouchConfig", ModContent.ItemType<WretchedPouch>());
             AddToggle("MasoClippedConfig", ModContent.ItemType<WyvernFeather>());
+			AddToggle("MasoGrav2Config", ModContent.ItemType<WyvernFeather>());
             AddToggle("TribalCharmConfig", ModContent.ItemType<TribalCharm>());
             AddToggle("TribalCharmClickBonusConfig", ModContent.ItemType<TribalCharm>());
             //AddToggle("WalletHeader", ModContent.ItemType<SecurityWallet>());
@@ -274,7 +275,6 @@ namespace FargowiltasSouls
             AddToggle("IceQueensCrownConfig", ModContent.ItemType<IceQueensCrown>());
             AddToggle("MasoUfoConfig", ModContent.ItemType<SaucerControlConsole>());
             AddToggle("MasoGravConfig", ModContent.ItemType<GalacticGlobe>());
-            AddToggle("MasoGrav2Config", ModContent.ItemType<GalacticGlobe>());
             AddToggle("MasoTrueEyeConfig", ModContent.ItemType<GalacticGlobe>());
 
             //cyclonic fin

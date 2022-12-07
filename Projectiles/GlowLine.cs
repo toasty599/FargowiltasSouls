@@ -542,15 +542,16 @@ namespace FargowiltasSouls.Projectiles
                 case 18: //cultist arena new visual
                     {
                         color = Color.Cyan * 0.75f;
-                        maxTime = 60;
-                        alphaModifier = 2;
-                        Projectile.scale = 3f;
+                        maxTime = 60 * 2;
+                        alphaModifier = 1;
 
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.CultistBoss);
                         if (npc != null)
                         {
                             if (counter > maxTime / 2)
                                 counter = maxTime / 2;
+							float ratio = (float)counter / (maxTime / 2);
+							Projectile.scale = 0.5f + 2.5f * ratio;
 
                             if (npc.ai[0] == 5)
                             {
@@ -570,8 +571,8 @@ namespace FargowiltasSouls.Projectiles
                                         Projectile.localAI[0] = offset.X;
                                         Projectile.localAI[1] = offset.Y;
                                     }
-
-                                    Projectile.Center = Main.projectile[ritual].Center + new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
+									
+                                    Projectile.Center = Main.projectile[ritual].Center + new Vector2(Projectile.localAI[0], Projectile.localAI[1]) * ratio;
                                 }
                             }
                         }
