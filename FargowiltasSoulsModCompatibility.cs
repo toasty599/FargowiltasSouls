@@ -3,6 +3,7 @@ using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Items.Summons;
+using FargowiltasSouls.Items.Weapons.Challengers;
 using FargowiltasSouls.NPCs.AbomBoss;
 using FargowiltasSouls.NPCs.Challengers;
 using FargowiltasSouls.NPCs.Champions;
@@ -247,16 +248,13 @@ namespace FargowiltasSouls
                     0.5f,
                     () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TrojanSquirrel],
                     () => true,
-                    //TryAddMusicBoxToCollectibles(
-                    //    "DeviMusicBox",
-                    //    ModContent.ItemType<DeviatingEnergy>(),
-                    //    ModContent.ItemType<DeviTrophy>(),
-                    //    ModContent.ItemType<ChibiHat>(),
-                    //    ModContent.ItemType<BrokenBlade>()
-                    //)
                     new List<int>(new int[]
                     {
-                        ModContent.ItemType<TrojanSquirrelTrophy>()
+                        ModContent.ItemType<TrojanSquirrelTrophy>(),
+                        ModContent.ItemType<TreeSword>(),
+                        ModContent.ItemType<MountedAcornGun>(),
+                        ModContent.ItemType<SnowballStaff>(),
+                        ModContent.ItemType<KamikazeSquirrelStaff>()
                     }),
                     new List<int> { ModContent.ItemType<SquirrelCoatofArms>() },
                     false,
@@ -268,16 +266,13 @@ namespace FargowiltasSouls
                     11.49f,
                     () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.LifeChallenger],
                     () => true,
-                    //TryAddMusicBoxToCollectibles(
-                    //    "DeviMusicBox",
-                    //    ModContent.ItemType<DeviatingEnergy>(),
-                    //    ModContent.ItemType<DeviTrophy>(),
-                    //    ModContent.ItemType<ChibiHat>(),
-                    //    ModContent.ItemType<BrokenBlade>()
-                    //)
                     new List<int>(new int[]
                     {
-                        //ModContent.ItemType<LifeChallengerTrophy>() ADD TROPHY
+                        ModContent.ItemType<LifeChallengerTrophy>(),
+                        ModContent.ItemType<EnchantedLifeblade>(),
+                        ModContent.ItemType<Lightslinger>(),
+                        ModContent.ItemType<CrystallineCongregation>(),
+                        ModContent.ItemType<KamikazePixieStaff>()
                     }),
                     new List<int> { ModContent.ItemType<FragilePixieLamp>() },
                     false,
