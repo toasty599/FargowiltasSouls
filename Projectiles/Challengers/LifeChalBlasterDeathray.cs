@@ -11,7 +11,8 @@ namespace FargowiltasSouls.Projectiles.Challengers
 {
     public class LifeChalBlasterDeathray : Deathrays.BaseDeathray
     {
-        public LifeChalBlasterDeathray() : base(60, "DeviDeathray") { }
+        public override string Texture => "FargowiltasSouls/Projectiles/Deathrays/DeviDeathray";
+        public LifeChalBlasterDeathray() : base(60) { }
 
         public override void SetStaticDefaults()
         {
