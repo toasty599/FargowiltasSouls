@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Items.Placeables.Trophies
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Lifelight Trophy");
+            DisplayName.SetDefault("Lieflight Trophy");
         }
     }
 }
