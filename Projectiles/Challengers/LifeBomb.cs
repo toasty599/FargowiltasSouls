@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.Projectiles.Challengers
 {
@@ -24,7 +25,6 @@ namespace FargowiltasSouls.Projectiles.Challengers
 			Projectile.penetrate = 1;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
-			Projectile.light = 0.5f;
 		}
 
 		public override bool? CanDamage() => false;
@@ -43,13 +43,20 @@ namespace FargowiltasSouls.Projectiles.Challengers
 				Projectile.Kill();
 			}
 		}
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode)
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+        }
 
-		public override void Kill(int timeLeft)
+        public override void Kill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 			int damage = Projectile.damage;
-			int knockBack = 3;
-			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + (float)(Projectile.width / 2), Projectile.position.Y + (float)(Projectile.height / 2), 0f, 0f, ModContent.ProjectileType<LifeBombExplosion>(), damage, knockBack, Main.myPlayer);
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + (float)(Projectile.width / 2), Projectile.position.Y + (float)(Projectile.height / 2), 0f, 0f, ModContent.ProjectileType<LifeBombExplosion>(), damage, 0f, Main.myPlayer);
 		}
-	}
+
+		public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
+    }
 }

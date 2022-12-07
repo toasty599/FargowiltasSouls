@@ -71,7 +71,7 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         private Vector2 AuraCenter = new Vector2(0, 0);
 
-        private float choice;
+        public float choice;
 
         private int oldchoice = 999;
 
@@ -273,18 +273,23 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             AuraCenter = NPC.Center;
 
-            //Targeting
-            if (!Player.active || Player.dead || Player.ghost || NPC.Distance(Player.Center) > 3000)
+            if (P1state != -2) //do not check during spawn anim
             {
-                NPC.TargetClosest(false);
-                Player = Main.player[NPC.target];
-                if (!Player.active || Player.dead || NPC.Distance(Player.Center) > 3000)
+                //Targeting
+                if (!Player.active || Player.dead || Player.ghost || NPC.Distance(Player.Center) > 2000)
                 {
-                    NPC.velocity.Y -= 0.4f;
-                    return;
+                    NPC.TargetClosest(false);
+                    Player = Main.player[NPC.target];
+                    if (!Player.active || Player.dead || Player.ghost || NPC.Distance(Player.Center) > 2000)
+                    {
+                        if (NPC.timeLeft > 60)
+                            NPC.timeLeft = 60;
+                        NPC.velocity.Y -= 0.4f;
+                        return;
+                    }
                 }
+                NPC.timeLeft = 60;
             }
-            NPC.timeLeft = 60;
 
             if (PhaseOne) //p1 just skip the rest of the ai and do its own ai lolll
             {
@@ -357,7 +362,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                         
                         bool resetFly = true;
                         
-                        if (!PhaseThree && NPC.life < NPC.lifeMax * 0.33)
+                        if (!PhaseThree && NPC.life < NPC.lifeMax * 0.33 && FargoSoulsWorld.EternityMode)
                         {
                             state = 100;
                             resetFly = false;
@@ -547,6 +552,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 AttackF1 = false;
                 NPC.netUpdate = true;
+                NPC.localAI[1] = 0;
                 //Rampup = 1;
             }
 
@@ -573,21 +579,21 @@ namespace FargowiltasSouls.NPCs.Challengers
 
             if (NPC.ai[2] > 60)
             {
-                if (++NPC.ai[3] % 5 == 0)
+                if (++NPC.localAI[1] % 5 == 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
 
                     const float finalSpreadOffset = MathHelper.Pi / 5;
                     const float startOffset = (MathHelper.Pi - finalSpreadOffset) * 0.9f;
-                    const int timeToFocus = 90;
+                    const int timeToFocus = 60;
 
-                    float rampRatio = (float)Math.Min(timeToFocus, NPC.ai[3] / timeToFocus) / timeToFocus;
+                    float rampRatio = (float)Math.Min(1f, NPC.localAI[1] / timeToFocus);
                     float rotationToUse = finalSpreadOffset + startOffset * (float)Math.Cos(MathHelper.PiOver2 * rampRatio);
 
                     Vector2 vel = NPC.DirectionTo(Player.Center);
                     vel *= 3f + 12f * rampRatio;
 
-                    int projType = NPC.ai[3] > timeToFocus ? ModContent.ProjectileType<LifeSplittingProjSmall>() : ModContent.ProjectileType<LifeProjSmall>();
+                    int projType = NPC.localAI[1] > timeToFocus ? ModContent.ProjectileType<LifeSplittingProjSmall>() : ModContent.ProjectileType<LifeProjSmall>();
 
                     for (int i = -1; i <= 1; i++)
                     {
@@ -678,13 +684,26 @@ namespace FargowiltasSouls.NPCs.Challengers
                 return;
             }
 
-            NPC.velocity *= 0.9f;
-
-            if (AttackF1 && LifeWaveCount < 3)
+            if (AttackF1)
             {
-                NPC.netUpdate = true;
-                AttackF1 = false;
+                //only do attack when in range
+                Vector2 targetPos = Player.Center;
+                targetPos.Y -= 16 * 15;
+                if (NPC.Distance(targetPos) < 16 * 10 || FargoSoulsWorld.MasochistModeReal)
+                {
+                    AttackF1 = false;
+                    NPC.netUpdate = true;
+                }
+                else
+                {
+                    FlyingState();
+                    NPC.ai[1] -= 1; //negate the usual increment
+                    NPC.ai[2] -= 1;
+                    return;
+                }
             }
+
+            NPC.velocity *= 0.9f;
 
             if (NPC.ai[2] >= 45f)
             {
@@ -723,22 +742,24 @@ namespace FargowiltasSouls.NPCs.Challengers
                 AttackF1 = false;
                 NPC.netUpdate = true;
             }
-            if (NPC.ai[1] == 70f)
+            if (NPC.ai[1] > 0 && NPC.ai[1] % 70f == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item92, NPC.Center);
-                for (int i = 0; i < 10; i++)
+                int max = 14;// Main.expertMode ? 14 : 10;
+                for (int i = 0; i < max; i++)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         float bigSpeed = Main.rand.NextFloat(25, 172); //172 goes to edge of arena
-                        double rotationrad = MathHelper.ToRadians(Main.rand.Next(-40, 40));
+                        int maxDegreeRand = 40;// Main.expertMode ? 60 : 40;
+                        double rotationrad = MathHelper.ToRadians(Main.rand.NextFloat(-maxDegreeRand, maxDegreeRand));
                         Vector2 shootrandom = (NPC.DirectionTo(Player.Center) * (bigSpeed / 6f)).RotatedBy(rotationrad);
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootrandom, ModContent.ProjectileType<LifeBomb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                     }
                 }
                 NPC.netUpdate = true;
             }
-            if (NPC.ai[1] >= 85f)
+            if (NPC.ai[1] >= 70f * 3.5f)
             {
                 oldP1state = P1state;
                 P1stateReset();
@@ -811,19 +832,19 @@ namespace FargowiltasSouls.NPCs.Challengers
 
             //basically, create a smooth transition when using different speedMod values
             const float accel = 0.5f / 30f;
-            if (NPC.localAI[0] < speedModifier)
+            if (NPC.localAI[3] < speedModifier)
             {
-                NPC.localAI[0] += accel;
-                if (NPC.localAI[0] > speedModifier)
-                    NPC.localAI[0] = speedModifier;
+                NPC.localAI[3] += accel;
+                if (NPC.localAI[3] > speedModifier)
+                    NPC.localAI[3] = speedModifier;
             }
-            if (NPC.localAI[0] > speedModifier)
+            if (NPC.localAI[3] > speedModifier)
             {
-                NPC.localAI[0] -= accel;
-                if (NPC.localAI[0] < speedModifier)
-                    NPC.localAI[0] = speedModifier;
+                NPC.localAI[3] -= accel;
+                if (NPC.localAI[3] < speedModifier)
+                    NPC.localAI[3] = speedModifier;
             }
-            speedModifier = NPC.localAI[0];
+            speedModifier = NPC.localAI[3];
 
             Player Player = Main.player[NPC.target];
             //flight AI
@@ -834,7 +855,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 AbovePlayer.Y = Player.Center.Y - 700f;
             }
-            bool Close = ((Math.Abs(AbovePlayer.Y - NPC.Center.Y) < 25f && Math.Abs(AbovePlayer.X - NPC.Center.X) < 300f) ? true : false);
+            bool Close = ((Math.Abs(AbovePlayer.Y - NPC.Center.Y) < 32f && Math.Abs(AbovePlayer.X - NPC.Center.X) < 160f) ? true : false);
             if (!Close && NPC.Distance(AbovePlayer) < 500f)
             {
                 flySpeed = 9f;
@@ -848,7 +869,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 NPC.velocity = NPC.DirectionTo(AbovePlayer) * 1f;
             }
-            if (NPC.Distance(AbovePlayer) > 500f)
+            if (NPC.Distance(AbovePlayer) > 360f)
             {
                 flySpeed = NPC.Distance(AbovePlayer) / 35f;
                 flyfast = true;
@@ -1120,16 +1141,14 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.ai[0] = Main.rand.Next(3);
                 NPC.ai[2] = Main.rand.Next(3);
                 NPC.netUpdate = true;
-            }
-            if (NPC.ai[1] > Attack1Start && time1 % Attack1Time > 0 && NPC.ai[1] < Attack1End) // chosen telegraphs (all but the Chosen One)
-            {
-                for (int i = 0; i < 3; i++)
+
+                for (int i = 0; i < 3; i++) // chosen telegraphs (all but the Chosen One)
                 {
                     for (int j = 0; j < 3; j++)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient && (i != NPC.ai[0] || j != NPC.ai[2]))
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(LockVector1.X + (telegdist * (i - 1)), LockVector1.Y + (telegdist * (j - 1))), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(LockVector1.X + (telegdist * (i - 1)), LockVector1.Y + (telegdist * (j - 1))), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0, Main.myPlayer, -Attack1Time);
                         }
                     }
                 }
@@ -1197,7 +1216,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + ScopeToPos.RotatedBy((i * MathHelper.Pi / 2) + MathHelper.ToRadians(NPC.ai[0])), /*Vector2.Normalize(ScopeToPos.RotatedBy((MathHelper.Pi/2) + MathHelper.ToRadians(NPC.ai[0]) + (i * MathHelper.Pi / 2))) * 10f*/ Vector2.Zero, ModContent.ProjectileType<JevilScar>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, NPC.whoAmI, i * 90 + NPC.ai[0]);
             }
             float spin = choice * MathHelper.Pi / 180f;
-            if (time3 >= 10 && NPC.ai[1] <= Attack3End - 20 && (time3 - 10) % 100 >= 1) //telegraphs (spinning with knife)
+            if (time3 >= 10 && NPC.ai[1] <= Attack3End - 20 && (time3 - 10) % 100 == 1) //telegraphs (spinning with knife)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -1205,7 +1224,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                     {
                         for (int j = 1; j < 3; j++)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + ((250 / j) * (choice * MathHelper.Pi / 180f).ToRotationVector2()).RotatedBy(i * MathHelper.Pi), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0, Main.myPlayer);
+                            Vector2 offset = (250 / j * spin.ToRotationVector2()).RotatedBy(i * MathHelper.Pi);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1 + offset, offset, ModContent.ProjectileType<LifeCrosshair>(), 0, 0, Main.myPlayer, -90, 1);
                         }
                     }
                 }
@@ -1226,7 +1246,9 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             if (time3 >= 60)
             {
-                choice += 1.75f; // degrees/bounce rotation
+                // degrees/bounce rotation
+                // check this matches in LifeCrosshair
+                choice += 1.75f;
             }
             if (NPC.ai[1] >= Attack3Start && time3 % 100 == 0 && NPC.ai[1] < Attack3End) // periodic sound
             {
@@ -1380,7 +1402,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 {
                     SoundEngine.PlaySound(SoundID.Item101, DustV);
 
-                    if (PhaseThree && shoot != false) //extra projectiles during p3
+                    if (FargoSoulsWorld.MasochistModeReal && PhaseThree && shoot != false) //extra projectiles during p3
                     {
                         SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
                         float ProjectileSpeed = 10f;
@@ -1545,9 +1567,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                 int TpX = (int)Player.Center.X - (int)(Math.Cos(rad3) * tpdist) - NPC.width / 2;
                 int TpY = (int)Player.Center.Y - (int)(Math.Sin(rad3) * tpdist) - NPC.height / 2;
                 Vector2 TpPos = new Vector2(TpX, TpY);
-                if (NPC.ai[1] <= 70f && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
+
+                NPC.localAI[0] = TpPos.X; //exposing these so proj can access them
+                NPC.localAI[1] = TpPos.Y;
+
+                if (NPC.ai[1] == 1f && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(TpPos.X + (float)(NPC.width / 2), TpPos.Y + (float)(NPC.height / 2)), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(TpPos.X + (float)(NPC.width / 2), TpPos.Y + (float)(NPC.height / 2)), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -70);
                 }
                 if (NPC.ai[1] == 75f) //tp
                 {
@@ -1562,7 +1588,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             if (((NPC.ai[1] == 60f && Main.netMode != NetmodeID.MultiplayerClient && !PhaseThree) || (NPC.ai[1] == 80f && Main.netMode != NetmodeID.MultiplayerClient && PhaseThree)) && NPC.ai[3] < 6f)
             {
-                SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
+                SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
                 SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact, NPC.Center);
                 //circle of cum before charge
                 float ProjectileSpeed = 10f;
@@ -1617,11 +1643,15 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             AuraCenter = LockVector3;
             Vector2 TpPos2 = new Vector2(Player.Center.X - (float)(NPC.width / 2), Player.Center.Y - 400f - (float)(NPC.width / 2));
-            if (NPC.ai[1] <= 40 && Main.netMode != NetmodeID.MultiplayerClient)
+            
+            NPC.localAI[0] = TpPos2.X; //exposing so proj can access
+            NPC.localAI[1] = TpPos2.Y;
+
+            if (NPC.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(TpPos2.X + (float)(NPC.width / 2), TpPos2.Y + (float)(NPC.height / 2)), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(TpPos2.X + (float)(NPC.width / 2), TpPos2.Y + (float)(NPC.height / 2)), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -40);
                 //below wall telegraph
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(Player.Center.X, Player.Center.Y + 300f), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                //Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(Player.Center.X, Player.Center.Y + 300f), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
             }
             if (NPC.ai[1] == 45f)
             {
@@ -1637,21 +1667,24 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             if (NPC.ai[1] == 60)
             {
-                SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
+                SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
                 HitPlayer = true;
                 float chargeSpeed2 = 55f;
                 NPC.velocity.Y = chargeSpeed2;
                 NPC.netUpdate = true;
                 //below wall
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsWorld.MasochistModeReal)
                 {
-                    for (int i = 0; i < 120; i++)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(Player.Center.X - 1200, Player.Center.Y + 150f + (30 * i)), new Vector2(60, 0), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
-                    }
-                    for (int i = 0; i < 120; i++)
-                    {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(Player.Center.X + 1200, Player.Center.Y + 150f + (30 * i)), new Vector2(-60, 0), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
+                        for (int i = 0; i < 120; i++)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(Player.Center.X - 1200, Player.Center.Y + 150f + (30 * i)), new Vector2(60, 0), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
+                        }
+                        for (int i = 0; i < 120; i++)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(Player.Center.X + 1200, Player.Center.Y + 150f + (30 * i)), new Vector2(-60, 0), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
+                        }
                     }
                 }
             }
@@ -1754,7 +1787,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 const int ChargeCD = 60;
                 if (NPC.ai[2] == ChargeCD) //charge
                 {
-                    SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
                     float chargeSpeed = 22f;
                     Vector2 chargeatPlayer = NPC.DirectionTo(Player.Center) * chargeSpeed;
                     NPC.velocity = chargeatPlayer;
@@ -1800,10 +1833,14 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.netUpdate = true;
 
             }
+            
             Vector2 RouletteTpPos = new Vector2((Player.position.X - 500) + NPC.ai[3], Player.position.Y - 500);
-            if (NPC.ai[1] < 40 && Main.netMode != NetmodeID.MultiplayerClient)
+            NPC.localAI[0] = RouletteTpPos.X; //exposing so proj can access
+            NPC.localAI[1] = RouletteTpPos.Y;
+
+            if (NPC.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), RouletteTpPos, Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), RouletteTpPos, Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -40);
             }
 
             if (NPC.ai[1] == 40)
@@ -1941,29 +1978,30 @@ namespace FargowiltasSouls.NPCs.Challengers
                 Vector2 OnPlayer = new Vector2(Player.Center.X, Player.Center.Y);
                 Vector2 flyonPlayer = NPC.DirectionTo(OnPlayer) * flySpeed2;
                 // NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
-                if (NPC.ai[1] < (NPC.ai[2] - 30) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                    float ai0 = -(NPC.ai[2] - 30);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
                     if (PhaseThree)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
                     }
                 }
             }
             if (NPC.ai[1] == (NPC.ai[2] - 30))
             {
                 SoundEngine.PlaySound(SoundID.Unlock, Player.Center);
+                NPC.netUpdate = true;
             }
-            NPC.netUpdate = true;
-            if (NPC.ai[1] >= (NPC.ai[2] - 20) && NPC.ai[1] < NPC.ai[2] && Main.netMode != NetmodeID.MultiplayerClient)
+            if (NPC.ai[1] == NPC.ai[2] - 20 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy((-MathHelper.Pi / 12) + (NPC.ai[3] * MathHelper.Pi / 6))), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy((-MathHelper.Pi / 12) + (NPC.ai[3] * MathHelper.Pi / 6))), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
                 if (PhaseThree)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
                 }
             }
             else if (NPC.ai[1] == NPC.ai[2])
@@ -2129,10 +2167,15 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.velocity = Vector2.Zero;
                 NPC.netUpdate = true;
             }
-            if (NPC.ai[1] < 60 && Main.netMode != NetmodeID.MultiplayerClient)
+
+            NPC.localAI[0] = LockVector1.X; //exposing so proj can access
+            NPC.localAI[1] = LockVector1.Y;
+
+            if (NPC.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(LockVector1.X + (float)(NPC.width / 2), LockVector1.Y + (float)(NPC.height / 2)), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(LockVector1.X + (float)(NPC.width / 2), LockVector1.Y + (float)(NPC.height / 2)), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -60);
             }
+
             if (NPC.ai[1] == 60)
             {
                 NPC.position.X = LockVector1.X;
@@ -2379,17 +2422,14 @@ namespace FargowiltasSouls.NPCs.Challengers
 
 			}
 
-            bool resetFly = true;
-            if (!PhaseThree && NPC.life < NPC.lifeMax * 0.33)
+            if (!PhaseThree && NPC.life < NPC.lifeMax * 0.33 && FargoSoulsWorld.EternityMode)
 			{
 				state = 100;
-                resetFly = false;
 			}
 			if (PhaseThree && NPC.life < NPC.lifeMax / 10 && FargoSoulsWorld.MasochistModeReal)
 			{
 				state = 101;
 				oldstate = -666;
-                resetFly = false;
 			}
 
             if (first)

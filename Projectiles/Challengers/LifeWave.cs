@@ -3,6 +3,7 @@ using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,12 +27,17 @@ namespace FargowiltasSouls.Projectiles.Challengers
 			Projectile.hostile = true;
 			AIType = 14;
 			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
+			Projectile.tileCollide = true;
 			Projectile.ignoreWater = true;
 
             Projectile.scale = 1f;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 40; //for p1
+            Projectile.extraUpdates = 1; //for better hit detection
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.velocity /= Projectile.MaxUpdates;
         }
 
         public override void AI()
@@ -42,13 +48,27 @@ namespace FargowiltasSouls.Projectiles.Challengers
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI/2;
 
-            Projectile.velocity = Projectile.velocity * 1.008f;
-			if (Projectile.ai[0] > 360f)
+            if (Projectile.ai[0] > 60 && Projectile.ai[0] < 360)
+                Projectile.velocity = Projectile.velocity * 1.01f;
+
+			if (Projectile.ai[0] > 600f)
 			{
 				Projectile.Kill();
 			}
 			Projectile.ai[0] += 1f;
 		}
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 86);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= 4f;
+            }
+        }
+
+        public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity;
 
         public override bool PreDraw(ref Color lightColor)
         {
@@ -61,18 +81,23 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Color color26 = lightColor;
             color26 = Projectile.GetAlpha(color26);
 
-            SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = SpriteEffects.None;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f)
             {
-                Color color27 = Color.White * Projectile.Opacity * 0.5f;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
-                Vector2 value4 = Projectile.oldPos[i];
-                float num165 = Projectile.oldRot[i];
-                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
+                Color color27 = new Color(255, 51, 153, 100) * Projectile.Opacity * 0.3f;
+                float fade = (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                color27 *= fade * fade;
+                int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
+                if (max0 < 0)
+                    continue;
+                float num165 = Projectile.oldRot[max0];
+                Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
+                center += Projectile.Size / 2;
+                Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
 
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }

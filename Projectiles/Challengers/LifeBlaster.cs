@@ -85,5 +85,11 @@ namespace FargowiltasSouls.Projectiles.Challengers
             if ((Projectile.ai[0] == 95 && Projectile.ai[1] <= 1) || ((Projectile.ai[0] == 155 && Projectile.ai[1] == 2)))
                 Projectile.Kill();
         }
+        public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 255 - Projectile.alpha) * Projectile.Opacity;
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode)
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+        }
     }
 }

@@ -25,7 +25,6 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.alpha = 120;
-            Projectile.light = 1f;
         }
 
         public override void AI()
@@ -43,5 +42,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             }
             Projectile.ai[0] += 1f;
         }
+
+        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
     }
 }

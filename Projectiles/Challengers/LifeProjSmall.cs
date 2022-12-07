@@ -20,19 +20,19 @@ namespace FargowiltasSouls.Projectiles.Challengers
         {
             Projectile.width = 8;
             Projectile.height = 8;
-            Projectile.aiStyle = 0;
+            Projectile.aiStyle = -1;
             Projectile.hostile = true;
-            AIType = 14;
             Projectile.penetrate = 1;
-            Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
-            Projectile.light = 0.5f;
             Projectile.scale = 1.5f;
         }
         public override void AI()
         {
             //Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 91, Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color), 0.25f);
             Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
+
+            //if (Projectile.ai[0] > 120 && Projectile.ai[0] < 240)
+            //    Projectile.velocity *= 1.015f;
 
             if (Projectile.ai[0] > 600f)
             {
@@ -48,8 +48,20 @@ namespace FargowiltasSouls.Projectiles.Challengers
             }
             Projectile.ai[0] += 1f;
         }
-
-        public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 100) * Projectile.Opacity;
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode)
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+        }
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 91, Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color));
+                Main.dust[d].noGravity = true;
+            }
+        }
+        public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity;
 
         public override bool PreDraw(ref Color lightColor)
         {

@@ -124,6 +124,11 @@ namespace FargowiltasSouls.Projectiles.Challengers
 			}
 			Projectile.ai[0] += 1f;
 		}
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode)
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;

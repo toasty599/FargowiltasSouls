@@ -19,14 +19,13 @@ namespace FargowiltasSouls.Projectiles.Challengers
         }
 		public override void SetDefaults()
 		{
-			Projectile.width = 40;
-			Projectile.height = 40;
-			Projectile.aiStyle = 0;
+			Projectile.width = 50;
+			Projectile.height = 50;
+			Projectile.aiStyle = -1;
 			Projectile.hostile = true;
 			Projectile.penetrate = 1;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
-			Projectile.light = 0.5f;
 			Projectile.Opacity = 0f;
 		}
 
@@ -63,6 +62,20 @@ namespace FargowiltasSouls.Projectiles.Challengers
 			{
 				Projectile.Kill();
 			}
-		}
+
+            //pulsate
+            if (Projectile.localAI[1] == 0)
+                Projectile.localAI[1] += Main.rand.Next(60);
+            Projectile.scale = 1.1f + 0.1f * (float)Math.Sin(MathHelper.TwoPi / 15 * ++Projectile.localAI[1]);
+
+			
+        }
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode)
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+        }
+
+		public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity;
 	}
 }

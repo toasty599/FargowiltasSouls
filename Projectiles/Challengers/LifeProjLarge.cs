@@ -22,9 +22,8 @@ namespace FargowiltasSouls.Projectiles.Challengers
 		{
 			Projectile.width = 32;
 			Projectile.height = 32;
-			Projectile.aiStyle = 0;
+			Projectile.aiStyle = -1;
 			Projectile.hostile = true;
-			AIType = 14;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
@@ -58,7 +57,11 @@ namespace FargowiltasSouls.Projectiles.Challengers
 			}
 			Projectile.ai[0] += 1f;
 		}
-
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode)
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;

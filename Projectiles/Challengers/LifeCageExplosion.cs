@@ -38,5 +38,10 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 219, Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color), 0.25f);
             Projectile.ai[0] += 1f;
         }
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode)
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+        }
     }
 }

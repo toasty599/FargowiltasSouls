@@ -19,8 +19,8 @@ namespace FargowiltasSouls.Projectiles.Challengers
         }
         public override void SetDefaults()
 		{
-			Projectile.width = 46;
-			Projectile.height = 46;
+			Projectile.width = 32;
+			Projectile.height = 32;
 			Projectile.aiStyle = 0;
 			Projectile.hostile = true;
 			AIType = 14;
@@ -56,6 +56,11 @@ namespace FargowiltasSouls.Projectiles.Challengers
 			}
 			Projectile.ai[0] += 1f;
 		}
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode)
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+        }
 
         public override bool PreDraw(ref Color lightColor)
         {

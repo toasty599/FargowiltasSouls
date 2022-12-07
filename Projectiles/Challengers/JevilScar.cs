@@ -20,7 +20,9 @@ namespace FargowiltasSouls.Projectiles.Challengers
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Enchanted Lightblade");
-		}
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+        }
 		public override void SetDefaults()
 		{
 			Projectile.width = 90; //actually 56 but it's diagonal
@@ -30,7 +32,6 @@ namespace FargowiltasSouls.Projectiles.Challengers
 			Projectile.penetrate = 1;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
-			Projectile.light = 0.5f;
 			Projectile.scale = 1f;
 		}
 
@@ -104,6 +105,15 @@ namespace FargowiltasSouls.Projectiles.Challengers
 			}*/
 			Projectile.ai[0]++;
 		}
+
+		public override void OnHitPlayer(Player target, int damage, bool crit)
+		{
+			if (FargoSoulsWorld.EternityMode)
+				target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+		}
+
+        public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 100) * Projectile.Opacity;
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;

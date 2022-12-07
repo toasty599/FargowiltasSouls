@@ -166,3 +166,9 @@ lieflight
 	reworked p1 spam attack
 	adjusted hitboxes
 	reduced damage on some attacks
+	various vfx changes
+	fixed spawner not working when not stacked
+	walls of projs when p2 dive down are maso only
+	p3 is emode only
+	slurp&burp p3 extra projs are maso only
+fixed remote control reapplying with obnoxious dust whenever you get hit

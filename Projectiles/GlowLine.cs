@@ -598,10 +598,9 @@ namespace FargowiltasSouls.Projectiles
                     break;
                 case 20: //lifelight shotgun
                     {
-                        color = Color.Pink;
-                        Projectile.Opacity = 0.2f;
+                        color = Color.DeepPink; //Color.Lerp(Color.DeepPink, Color.Magenta, 0.5f);
                         alphaModifier = 1;
-                        Projectile.scale = 1f;
+                        Projectile.scale = 0.6f;
                         maxTime = 40;
                         Projectile.rotation = Projectile.ai[1];
                     }
