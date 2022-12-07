@@ -165,3 +165,4 @@ lieflight
 	has a delay between attacks to fly around after you
 	reworked p1 spam attack
 	adjusted hitboxes
+	reduced damage on some attacks
