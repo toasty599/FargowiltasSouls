@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
         {
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 91, Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color));
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemAmethyst, 0f, 0f, 0, default(Color), 1.5f);
                 Main.dust[d].noGravity = true;
             }
         }

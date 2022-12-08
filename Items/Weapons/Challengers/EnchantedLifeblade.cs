@@ -20,19 +20,19 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
             {
                 Item.width = 56;
                 Item.height = 58;
-                Item.damage = 100;
+                Item.damage = 60;
                 Item.knockBack = 3f;
-                Item.useStyle = ItemUseStyleID.Shoot;
+                Item.useStyle = ItemUseStyleID.Swing;
                 Item.useAnimation = 45; //adjust
                 Item.useTime = 45; //adjust
-                Item.DamageType = DamageClass.MeleeNoSpeed;
+                Item.DamageType = DamageClass.Melee;
                 Item.autoReuse = true;
                 Item.noUseGraphic = true;
                 Item.noMelee = true;
                 //Item.channel = true;
 
                 Item.rare = ItemRarityID.Pink;
-                Item.value = Item.sellPrice(0, 5, 0, 0);
+                Item.value = Item.sellPrice(0, 25, 0, 0);
                 Item.shoot = ModContent.ProjectileType<EnchantedLifebladeProjectile>(); 
                 Item.shootSpeed = 2.1f; 
             }
