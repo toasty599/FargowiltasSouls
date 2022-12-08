@@ -68,9 +68,10 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 Vector2 vector = Projectile.velocity.RotatedBy(rad) * speed;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int type = ModContent.ProjectileType<LifeSplittingProjSmall>();
-                    float ai0 = -180;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, type, damage, knockBack, Main.myPlayer, ai0, 2);
+                    int type = FargoSoulsWorld.EternityMode ? ModContent.ProjectileType<LifeSplittingProjSmall>() : ModContent.ProjectileType<LifeProjSmall>();
+                    float ai0 = FargoSoulsWorld.EternityMode ? -180 : 0;
+                    float ai1 = FargoSoulsWorld.EternityMode ? 2 : 0;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, type, damage, knockBack, Main.myPlayer, ai0, ai1);
                 }
             }
 

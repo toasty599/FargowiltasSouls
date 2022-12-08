@@ -1441,11 +1441,11 @@ namespace FargowiltasSouls.NPCs.Challengers
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootatPlayer, ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack2, Main.myPlayer);
                         }
 
-                        for (int i = -2; i <= 2; i++)
-                        {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 0.9f * NPC.DirectionTo(Player.Center).RotatedBy(MathHelper.ToRadians(3) * i), ModContent.ProjectileType<LifeSplittingProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, -60, 2f);
-                        }
+                        //for (int i = -2; i <= 2; i++)
+                        //{
+                        //    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        //        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 0.9f * NPC.DirectionTo(Player.Center).RotatedBy(MathHelper.ToRadians(3) * i), ModContent.ProjectileType<LifeSplittingProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, -60, 2f);
+                        //}
 
                         shoot = false;
                     }
@@ -1893,7 +1893,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.netUpdate = true;
             }
             
-            Vector2 RouletteTpPos = Player.Center + 360 * NPC.ai[3].ToRotationVector2();
+            Vector2 RouletteTpPos = Player.Center + 500 * NPC.ai[3].ToRotationVector2();
             NPC.localAI[0] = RouletteTpPos.X; //exposing so proj can access
             NPC.localAI[1] = RouletteTpPos.Y;
 
@@ -2018,6 +2018,8 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void AttackReactionShotgun()
         {
+            useDR = true;
+
             Player Player = Main.player[NPC.target];
             if (AttackF1)
             {
