@@ -1909,6 +1909,17 @@ namespace FargowiltasSouls.NPCs.Challengers
                 LockVector1 = NPC.DirectionTo(Player.Center);
                 NPC.netUpdate = true;
             }
+
+            if (NPC.ai[1] > 40)
+            {
+                float angleDiff = MathHelper.WrapAngle(NPC.DirectionTo(Player.Center).ToRotation() - LockVector1.ToRotation());
+                if (Math.Abs(angleDiff) > MathHelper.Pi / 3f)
+                {
+                    LockVector1 = NPC.DirectionTo(Player.Center);
+                    NPC.netUpdate = true;
+                }
+            }
+
             if (NPC.ai[1] < 420 && NPC.ai[1] % 4 == 0 && NPC.ai[1] > 60 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 const float speed = 20f;

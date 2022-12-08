@@ -17,10 +17,11 @@ namespace FargowiltasSouls.Projectiles.Challengers
 				int damage = Projectile.damage;
 				float knockBack = 3f;
 
-				if (Projectile.ai[1] != 2 && Projectile.velocity.Length() < 15 && FargoSoulsWorld.EternityMode)
+				if (FargoSoulsWorld.EternityMode)
 				{
 					Projectile.velocity *= 2;
-					Projectile.velocity = 15 * Vector2.Normalize(Projectile.velocity);
+					if (Projectile.ai[1] != 2 && Projectile.velocity.Length() < 15)
+						Projectile.velocity = 15 * Vector2.Normalize(Projectile.velocity);
 				}
 
 				Vector2 shootoffset1 = Projectile.velocity.RotatedBy(-Math.PI / 3.0);
