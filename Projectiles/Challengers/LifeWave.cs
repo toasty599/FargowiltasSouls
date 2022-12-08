@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             if (!Projectile.tileCollide && Projectile.ai[0] > 60 * Projectile.MaxUpdates)
             {
                 Tile tile = Framing.GetTileSafely(Projectile.Center);
-                if (tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType])
+                if (!(tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]))
                     Projectile.tileCollide = true;
             }
 

@@ -150,7 +150,10 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
             //player.itemAnimation = 20; for if only one sword
             //player.itemRotation = (float)Math.Atan2((double)(Projectile.velocity.Y * (float)Projectile.direction), (double)(Projectile.velocity.X * (float)Projectile.direction));
 
-            Lighting.AddLight(Projectile.Center, torchID: TorchID.Pink);
+            Tile tile = Framing.GetTileSafely(Projectile.Center);
+            if (!(tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]))
+                Lighting.AddLight(Projectile.Center, torchID: TorchID.Pink);
+
             Projectile.ai[0]++;
 
 

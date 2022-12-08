@@ -198,5 +198,5 @@ lieflight
 	fixed? p2 shotgun glow lines not syncing properly in mp
 	disabled stupid vanilla mp redcode netcode npc smoothing
 	attempted? fixing gaster blasters in maso
-	made sans phase have dr and regen instead of total immortality (should be functionally invincible on-tier)
+	made sans phase have regen instead of total immortality (should be functionally invincible on-tier, but eventually killable with endgame gear)
 	replaced instances of 9999 defense with the usual bonus dr

@@ -297,13 +297,13 @@ namespace FargowiltasSouls.NPCs.Challengers
 
             //permanent DR and regen for sans phase
             //deliberately done this way so that you can still eventually muscle past with endgame gear (this is ok)
-            if (!resigned && NPC.life < NPC.lifeMax / 10)
+            if (!resigned && NPC.life < NPC.lifeMax / 10 * 0.9) //x0.9 so that sans phase check goes through properly
             {
                 useDR = true;
 
                 int healPerSecond = NPC.lifeMax / 10;
                 NPC.life += healPerSecond / 60;
-                if (++healDisplay > 30)
+                if (++healDisplay > 20)
                 {
                     healDisplay = 0;
                     CombatText.NewText(NPC.Hitbox, CombatText.HealLife, healPerSecond);
@@ -1128,15 +1128,15 @@ namespace FargowiltasSouls.NPCs.Challengers
         {
             Player Player = Main.player[NPC.target];
 
-            if (!resigned) //disable items
-            {
-                if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && NPC.Distance(Main.LocalPlayer.Center) < 3000)
-                {
-                    Main.LocalPlayer.controlUseItem = false;
-                    Main.LocalPlayer.controlUseTile = false;
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
-                }
-            }
+            //if (!resigned) //disable items
+            //{
+            //    if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && NPC.Distance(Main.LocalPlayer.Center) < 3000)
+            //    {
+            //        Main.LocalPlayer.controlUseItem = false;
+            //        Main.LocalPlayer.controlUseTile = false;
+            //        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+            //    }
+            //}
 
             if (AttackF1) 
             {
@@ -2431,11 +2431,11 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public override bool CheckDead()
         {
-            if (!resigned) //no dying before final phase
-            {
-                NPC.life = 1;
-                return false;
-            }
+            //if (!resigned) //no dying before final phase
+            //{
+            //    NPC.life = 1;
+            //    return false;
+            //}
             return base.CheckDead();
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
