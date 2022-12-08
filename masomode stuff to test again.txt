@@ -183,3 +183,4 @@ fixed remote control reapplying with obnoxious dust whenever you get hit by elec
 
 various changes to lieflight
 lieflight p2 expert+ only
+maso probes dont shoot vanilla lasers
