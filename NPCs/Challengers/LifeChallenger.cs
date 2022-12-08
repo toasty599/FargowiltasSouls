@@ -1928,8 +1928,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                 //in p3, rotate offsets by +-5 degrees determined by sine curve, one loop is 4 seconds
                 if (PhaseThree)
                 {
-                    offset1 = offset1.RotatedBy((MathHelper.Pi / 6.5) * Math.Sin(MathHelper.ToRadians(1.5f * NPC.ai[1])));
-                    offset2 = offset2.RotatedBy((MathHelper.Pi / 6.5) * -Math.Sin(MathHelper.ToRadians(1.5f * NPC.ai[1])));
+                    float waveModifier = FargoSoulsWorld.MasochistModeReal ? 6.5f : 8f;
+                    offset1 = offset1.RotatedBy((MathHelper.Pi / waveModifier) * Math.Sin(MathHelper.ToRadians(1.5f * NPC.ai[1])));
+                    offset2 = offset2.RotatedBy((MathHelper.Pi / waveModifier) * -Math.Sin(MathHelper.ToRadians(1.5f * NPC.ai[1])));
                 }
 
                 //const int timeleft = 180;
