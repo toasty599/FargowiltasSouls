@@ -180,3 +180,5 @@ lieflight
 	pixies have worse homing unless in maso
 	adjusted slurp burp attack range and has a bit more startup outside maso
 fixed remote control reapplying with obnoxious dust whenever you get hit by electric attack
+
+various changes to lieflight

@@ -48,10 +48,10 @@ namespace FargowiltasSouls.Projectiles.Challengers
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI/2;
 
-            if (Projectile.ai[0] > 60 && Projectile.ai[0] < 360)
-                Projectile.velocity = Projectile.velocity * 1.01f;
+            if (Projectile.ai[0] > 60 && Projectile.ai[0] < 600)
+                Projectile.velocity = Projectile.velocity * 1.015f;
 
-			if (Projectile.ai[0] > 600f)
+			if (Projectile.ai[0] > 900f)
 			{
 				Projectile.Kill();
 			}

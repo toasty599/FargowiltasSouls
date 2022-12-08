@@ -162,9 +162,10 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
-            Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions") : MusicID.OtherworldlyBoss1;
+
+            Music = MusicID.OtherworldlyBoss1;
             SceneEffectPriority = SceneEffectPriority.BossLow;
+
             NPC.value = Item.buyPrice(0, 15);
 
             NPC.dontTakeDamage = true; //until it Appears in Opening
@@ -276,11 +277,11 @@ namespace FargowiltasSouls.NPCs.Challengers
             if (P1state != -2) //do not check during spawn anim
             {
                 //Targeting
-                if (!Player.active || Player.dead || Player.ghost || NPC.Distance(Player.Center) > 2000)
+                if (!Player.active || Player.dead || Player.ghost || NPC.Distance(Player.Center) > 2400)
                 {
                     NPC.TargetClosest(false);
                     Player = Main.player[NPC.target];
-                    if (!Player.active || Player.dead || Player.ghost || NPC.Distance(Player.Center) > 2000)
+                    if (!Player.active || Player.dead || Player.ghost || NPC.Distance(Player.Center) > 2400)
                     {
                         if (NPC.timeLeft > 60)
                             NPC.timeLeft = 60;
@@ -704,7 +705,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                 }
                 else
                 {
-                    FlyingState();
+                    FlyingState(1.5f);
+                    NPC.velocity = NPC.DirectionTo(targetPos) * NPC.velocity.Length();
                     NPC.ai[1] -= 1; //negate the usual increment
                     NPC.ai[2] -= 1;
                     return;
@@ -1379,10 +1381,26 @@ namespace FargowiltasSouls.NPCs.Challengers
             useDR = true;
 
             Player Player = Main.player[NPC.target];
+
             if (AttackF1)
             {
-                AttackF1 = false;
-                NPC.netUpdate = true;
+                //only do attack when in range
+                Vector2 targetPos = Player.Center;
+                targetPos.Y -= 16 * 15;
+                if (NPC.Distance(targetPos) < 16 * 10 || FargoSoulsWorld.MasochistModeReal)
+                {
+                    AttackF1 = false;
+                    NPC.netUpdate = true;
+                }
+                else
+                {
+                    FlyingState();
+                    NPC.velocity = NPC.DirectionTo(targetPos) * NPC.velocity.Length();
+                    NPC.ai[1] = 0; //negate the usual increment
+                    NPC.ai[2] = 0;
+                    NPC.ai[3] = 0;
+                    return;
+                }
             }
 
             NPC.velocity = Vector2.Zero;
@@ -1426,7 +1444,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                         for (int i = -2; i <= 2; i++)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 0.9f * NPC.DirectionTo(Player.Center).RotatedBy(MathHelper.ToRadians(3) * i), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 0.9f * NPC.DirectionTo(Player.Center).RotatedBy(MathHelper.ToRadians(3) * i), ModContent.ProjectileType<LifeSplittingProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, -60, 2f);
                         }
 
                         shoot = false;
@@ -1869,11 +1887,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                 AttackF1 = false;
                 Flying = false;
                 NPC.velocity = Vector2.Zero;
-                NPC.ai[3] = Main.rand.NextFloat(-500, 500);
+                NPC.ai[3] = Main.rand.NextFloat(MathHelper.ToRadians(45)) * (Main.rand.NextBool() ? 1 : -1);
+                if (Player.Center.X < NPC.Center.X)
+                    NPC.ai[3] += MathHelper.Pi;
                 NPC.netUpdate = true;
             }
             
-            Vector2 RouletteTpPos = new Vector2(Player.Center.X + NPC.ai[3], Player.Center.Y - 300);
+            Vector2 RouletteTpPos = Player.Center + 360 * NPC.ai[3].ToRotationVector2();
             NPC.localAI[0] = RouletteTpPos.X; //exposing so proj can access
             NPC.localAI[1] = RouletteTpPos.Y;
 
@@ -1901,15 +1921,16 @@ namespace FargowiltasSouls.NPCs.Challengers
                     offset2 = offset2.RotatedBy((MathHelper.Pi / 6.5) * -Math.Sin(MathHelper.ToRadians(1.5f * NPC.ai[1])));
                 }
 
-                const int timeleft = 180;
+                //const int timeleft = 180;
 
-                float knockBackRo = 3f;
-                int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, offset1, ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBackRo, Main.myPlayer);
-                if (p != Main.maxProjectiles)
-                    Main.projectile[p].timeLeft = timeleft;
-                p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, offset2, ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBackRo, Main.myPlayer);
-                if (p != Main.maxProjectiles)
-                    Main.projectile[p].timeLeft = timeleft;
+                //int p =
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, offset1, ModContent.ProjectileType<LifeSplittingProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer, 0, 2);
+                //if (p != Main.maxProjectiles)
+                //    Main.projectile[p].timeLeft = timeleft;
+                //p = 
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, offset2, ModContent.ProjectileType<LifeSplittingProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer, 0, 2);
+                //if (p != Main.maxProjectiles)
+                //    Main.projectile[p].timeLeft = timeleft;
             }
             if (NPC.ai[1] < 420 && NPC.ai[1] % 60 == 10 && NPC.ai[1] > 60) // get Choice half a second before because terraria netcode fucking sucks
             {
@@ -2054,7 +2075,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 LockVector2 = NPC.DirectionTo(Player.Center) * shootSpeed;
                 NPC.netUpdate = true;
             }
-            else if ((NPC.ai[1] - NPC.ai[2]) % 6 == 0 && NPC.ai[1] > NPC.ai[2] && Main.netMode != NetmodeID.MultiplayerClient && (((NPC.ai[1] < (NPC.ai[2] + 90) && !PhaseThree)) || ((NPC.ai[1] < (NPC.ai[2] + 270) && PhaseThree)))) //blast
+            else if ((NPC.ai[1] - NPC.ai[2]) % 10 == 0 && NPC.ai[1] > NPC.ai[2] && Main.netMode != NetmodeID.MultiplayerClient && (((NPC.ai[1] < (NPC.ai[2] + 90) && !PhaseThree)) || ((NPC.ai[1] < (NPC.ai[2] + 270) && PhaseThree)))) //blast
             {
                 SoundEngine.PlaySound(SoundID.Item12, Player.Center);
                 float knockBack10 = 3f;
@@ -2211,7 +2232,10 @@ namespace FargowiltasSouls.NPCs.Challengers
                     {
                         float knockBack6 = 3f;
                         NPC.ai[3] = Main.rand.Next(-750, 750);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(Player.Center.X - NPC.ai[3], Player.Center.Y - 750f), new Vector2(0f, 7f), ModContent.ProjectileType<LifeProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack6, Main.myPlayer, 0, 0);
+                        Vector2 spawnPos = new Vector2(Player.Center.X - NPC.ai[3], Player.Center.Y - 750f);
+                        if (!FargoSoulsWorld.MasochistModeReal)
+                            spawnPos.X += Player.velocity.X * 30; //malice
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, new Vector2(0f, 7f), ModContent.ProjectileType<LifeProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack6, Main.myPlayer, 0, 0);
                     }
                     NPC.ai[2] = 0f;
                 }
@@ -2449,7 +2473,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 P1state = Main.rand.Next(P1statecount);
                 if (P1state == oldP1state)
-                    P1state = P1state + 1 % (P1statecount - 1);
+                    P1state = (P1state + 1) % P1statecount;
             }
             if (NPC.life < NPC.lifeMax * 0.66) //phase 2 switch?
             {

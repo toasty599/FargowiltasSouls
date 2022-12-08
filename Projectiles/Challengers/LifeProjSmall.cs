@@ -34,19 +34,10 @@ namespace FargowiltasSouls.Projectiles.Challengers
             //if (Projectile.ai[0] > 120 && Projectile.ai[0] < 240)
             //    Projectile.velocity *= 1.015f;
 
-            if (Projectile.ai[0] > 600f)
+            if (++Projectile.ai[0] > 600f)
             {
                 Projectile.Kill();
             }
-            if (Projectile.ai[1] == 1)
-            {
-                Projectile.scale = 1f;
-            }
-            else
-            {
-                Projectile.scale = 1f;
-            }
-            Projectile.ai[0] += 1f;
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {

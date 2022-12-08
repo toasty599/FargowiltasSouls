@@ -21,17 +21,17 @@ namespace FargowiltasSouls.Projectiles.Challengers
 		{
 			Projectile.width = 24;
 			Projectile.height = 24;
-			Projectile.aiStyle = 0;
+			Projectile.aiStyle = -1;
 			Projectile.hostile = true;
-			Projectile.aiStyle = 0;
-			AIType = 467;
 			Projectile.penetrate = 1;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.scale = 1.5f;
 		}
 
-		public override void AI()
+        public override bool? CanDamage() => false;
+
+        public override void AI()
 		{
 			Projectile.ai[0] += 1f;
             Projectile.rotation += Projectile.velocity.Length() * 0.075f * Math.Sign(Projectile.velocity.X);
@@ -68,8 +68,9 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 Vector2 vector = Projectile.velocity.RotatedBy(rad) * speed;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int type = ModContent.ProjectileType<LifeProjSmall>();
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, type, damage, knockBack, Main.myPlayer);
+                    int type = ModContent.ProjectileType<LifeSplittingProjSmall>();
+                    float ai0 = -180;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, type, damage, knockBack, Main.myPlayer, ai0, 2);
                 }
             }
 
