@@ -2489,7 +2489,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 if (P1state == oldP1state)
                     P1state = (P1state + 1) % P1statecount;
             }
-            if (NPC.life < NPC.lifeMax * 0.66) //phase 2 switch?
+            if (NPC.life < NPC.lifeMax * 0.66 && Main.expertMode) //phase 2 switch?
             {
                 P1state = -1;
                 flyTimer = 9000;

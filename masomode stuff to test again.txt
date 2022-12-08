@@ -182,3 +182,4 @@ lieflight
 fixed remote control reapplying with obnoxious dust whenever you get hit by electric attack
 
 various changes to lieflight
+lieflight p2 expert+ only
