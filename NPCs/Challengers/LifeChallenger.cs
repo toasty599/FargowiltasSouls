@@ -115,8 +115,6 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         int flyTimer = 9000;
 
-        int healDisplay;
-
         private List<int> intervalist = new List<int>(0);
         #endregion
         #region Standard
@@ -303,11 +301,7 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                 int healPerSecond = NPC.lifeMax / 10;
                 NPC.life += healPerSecond / 60;
-                if (++healDisplay > 20)
-                {
-                    healDisplay = 0;
-                    CombatText.NewText(NPC.Hitbox, CombatText.HealLife, healPerSecond);
-                }
+                CombatText.NewText(NPC.Hitbox, CombatText.HealLife, healPerSecond);
             }
 
             if (PhaseOne) //p1 just skip the rest of the ai and do its own ai lolll
