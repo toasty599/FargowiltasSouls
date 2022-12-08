@@ -17,10 +17,10 @@ namespace FargowiltasSouls.Projectiles.Challengers
 				int damage = Projectile.damage;
 				float knockBack = 3f;
 
-				if (FargoSoulsWorld.EternityMode)
+				if (Projectile.ai[1] != 2)
 				{
 					Projectile.velocity *= 2;
-					if (Projectile.ai[1] != 2 && Projectile.velocity.Length() < 15)
+					if (Projectile.velocity.Length() < 15)
 						Projectile.velocity = 15 * Vector2.Normalize(Projectile.velocity);
 				}
 
