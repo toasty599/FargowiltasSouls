@@ -1549,10 +1549,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                 {
                     LockVector1 = NPC.Center;
                     LockVector2 = (NPC.DirectionTo(Player.Center) * ProjectileSpeed).RotatedBy(MathHelper.Pi / 80 * (Main.rand.NextFloat() - 0.5f));
-                    for (int i = 0; (float)i <= NPC.ai[3]; i++)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        double rotationrad = MathHelper.ToRadians(0f - NPC.ai[3] * spread / 2 + (float)(i * spread));
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 20, LockVector2.RotatedBy(rotationrad).ToRotation());
+                        for (int i = 0; (float)i <= NPC.ai[3]; i++)
+                        {
+                            double rotationrad = MathHelper.ToRadians(0f - NPC.ai[3] * spread / 2 + (float)(i * spread));
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 20, LockVector2.RotatedBy(rotationrad).ToRotation());
+                        }
                     }
                     NPC.netUpdate = true;
                 }
@@ -2363,6 +2366,25 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             return false;
         }
+        public override void HitEffect(int hitDirection, double HitDamage)
+        {
+            if (NPC.life <= 0)
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemTopaz, 0, 0, 100, new Color(), 1f);
+                }
+                for (int i = 1; i <= 4; i++)
+                {
+                    Vector2 rand = new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
+                    if (!Main.dedServ)
+                        Gore.NewGore(NPC.GetSource_FromThis(), NPC.position + rand, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"LifeChallenger_Gore{i}").Type, NPC.scale);
+                    if (!Main.dedServ && i == 4)
+                        Gore.NewGore(NPC.GetSource_FromThis(), NPC.position - rand, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"LifeChallenger_Gore{i}").Type, NPC.scale);
+                }
+                return;
+            }
+        }
         public override bool CheckDead()
         {
             if (!resigned) //no dying before final phase
@@ -2533,7 +2555,7 @@ namespace FargowiltasSouls.NPCs.Challengers
 			if (PhaseThree && NPC.life < NPC.lifeMax / 10 && FargoSoulsWorld.MasochistModeReal)
 			{
 				state = 101;
-				oldstate = -666;
+				oldstate = -665;
 			}
 
             if (first)
