@@ -68,9 +68,9 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
 
             for (int i = 0; i < 30; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 91, 0f, 0f, 100, default(Color), 3f);
+                int dust = Dust.NewDust(Projectile.Center, 0, 0, 91, 0f, 0f, 100, default(Color), 3f);
                 Main.dust[dust].velocity *= 1.4f;
+                Main.dust[dust].noGravity = true;
             }
 
             for (int i = 0; i < 20; i++)

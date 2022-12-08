@@ -23,6 +23,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = 1;
+            Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.scale = 1.5f;
         }
@@ -37,6 +38,25 @@ namespace FargowiltasSouls.Projectiles.Challengers
             if (++Projectile.ai[0] > 600f)
             {
                 Projectile.Kill();
+            }
+
+            //flag to be accelerating rain
+            if (Projectile.ai[1] == -1)
+            {
+                if (Projectile.ai[0] > 180)
+                    Projectile.velocity *= 1.03f;
+                if (Projectile.ai[0] > 360)
+                    Projectile.Kill();
+            }
+            else //i.e. rain does not do this
+            {
+                //a bit after spawning, become tangible when it finds an open space
+                if (!Projectile.tileCollide && Projectile.ai[0] > 60 * Projectile.MaxUpdates)
+                {
+                    Tile tile = Framing.GetTileSafely(Projectile.Center);
+                    if (tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType])
+                        Projectile.tileCollide = true;
+                }
             }
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
