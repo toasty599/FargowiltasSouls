@@ -207,3 +207,4 @@ lieflight
 	reduced hitbox size of laser projs
 	adjusted rain acceleration to be harder to fallgod
 	disabled hooks during sans
+demons can noclip at you lol
