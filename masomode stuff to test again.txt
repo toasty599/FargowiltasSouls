@@ -206,3 +206,4 @@ lieflight
 	reduced duration and lingering hitbox of sans rays
 	reduced hitbox size of laser projs
 	adjusted rain acceleration to be harder to fallgod
+	disabled hooks during sans

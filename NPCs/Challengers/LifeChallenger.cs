@@ -1131,15 +1131,18 @@ namespace FargowiltasSouls.NPCs.Challengers
         {
             Player Player = Main.player[NPC.target];
 
-            //if (!resigned) //disable items
-            //{
-            //    if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && NPC.Distance(Main.LocalPlayer.Center) < 3000)
-            //    {
-            //        Main.LocalPlayer.controlUseItem = false;
-            //        Main.LocalPlayer.controlUseTile = false;
-            //        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
-            //    }
-            //}
+            if (!resigned) //disable items
+            {
+                if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && NPC.Distance(Main.LocalPlayer.Center) < 3000)
+                {
+                    if (Main.LocalPlayer.grapCount > 0)
+                        Main.LocalPlayer.RemoveAllGrapplingHooks();
+
+                    //Main.LocalPlayer.controlUseItem = false;
+                    //Main.LocalPlayer.controlUseTile = false;
+                    //Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                }
+            }
 
             if (AttackF1) 
             {
