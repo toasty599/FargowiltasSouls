@@ -207,4 +207,6 @@ lieflight
 	reduced hitbox size of laser projs
 	adjusted rain acceleration to be harder to fallgod
 	disabled hooks during sans
+	in emode, gives its spawner every attempt before defeat like other bosses
 demons can noclip at you lol
+tweaked enchanted lifeblade
