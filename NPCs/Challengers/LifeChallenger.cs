@@ -525,6 +525,9 @@ namespace FargowiltasSouls.NPCs.Challengers
         #region P1
         public void Opening()
         {
+            if (!NPC.HasValidTarget)
+                NPC.TargetClosest(false);
+
             Player Player = Main.player[NPC.target];
             NPC.position.X = Player.Center.X - (NPC.width / 2);
             NPC.position.Y = Player.Center.Y - 490 - (NPC.height / 2);
@@ -1060,6 +1063,12 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.netUpdate = true;
                 rotspeed = 0;
             }
+
+            Player Player = Main.player[NPC.target];
+            if (NPC.Distance(Player.Center) > 2000)
+                FlyingState(1.5f);
+            else
+                NPC.velocity *= 0.9f;
 
             //for a starting time, make it fade in, then make it spin faster and faster up to a max speed
             int fadeintime = 10;
