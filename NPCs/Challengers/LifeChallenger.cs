@@ -216,68 +216,79 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.defense = NPC.defDefense;
             useDR = false;
 
-            //Aura
-            if (FargoSoulsWorld.MasochistModeReal)
+            //permanent DR and regen for sans phase
+            //deliberately done this way so that you can still eventually muscle past with endgame gear (this is ok)
+            if (UseTrueOriginAI && NPC.life < NPC.lifeMax / 10 * 0.75) //lowered so that sans phase check goes through properly
             {
-                if (dustcounter > 5 && dodebuff)
-                {
-                    for (int l = 0; l < 180; l++)
-                    {
-                        double rad2 = 2.0 * (double)l * (MathHelper.Pi / 180.0);
-                        double dustdist2 = 1200.0;
-                        int DustX2 = (int)AuraCenter.X - (int)(Math.Cos(rad2) * dustdist2);
-                        int DustY2 = (int)AuraCenter.Y - (int)(Math.Sin(rad2) * dustdist2);
-                        Dust.NewDust(new Vector2(DustX2, DustY2), 1, 1, DustID.GemTopaz);
-                    }
-                    dustcounter = 0;
-                }
-                dustcounter++;
+                useDR = true;
 
-                float distance = AuraCenter.Distance(Main.LocalPlayer.Center);
-                float threshold = 1200f;
-                Player player = Main.LocalPlayer;
-                if (player.active && !player.dead && !player.ghost) //pull into arena
-                {
-                    if (distance > threshold && distance < threshold * 4f)
-                    {
-                        if (distance > threshold * 2f)
-                        {
-                            player.controlLeft = false;
-                            player.controlRight = false;
-                            player.controlUp = false;
-                            player.controlDown = false;
-                            player.controlUseItem = false;
-                            player.controlUseTile = false;
-                            player.controlJump = false;
-                            player.controlHook = false;
-                            if (player.grapCount > 0)
-                                player.RemoveAllGrapplingHooks();
-                            if (player.mount.Active)
-                                player.mount.Dismount(player);
-                            player.velocity.X = 0f;
-                            player.velocity.Y = -0.4f;
-                            player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
-                        }
-
-                        Vector2 movement = AuraCenter - player.Center;
-                        float difference = movement.Length() - threshold;
-                        movement.Normalize();
-                        movement *= difference < 17f ? difference : 17f;
-                        player.position += movement;
-
-                        for (int i = 0; i < 10; i++)
-                        {
-                            int d = Dust.NewDust(player.position, player.width, player.height, DustID.GemTopaz, 0f, 0f, 0, default(Color), 1.25f);
-                            Main.dust[d].noGravity = true;
-                            Main.dust[d].velocity *= 5f;
-                        }
-                    }
-                }
+                int healPerSecond = NPC.lifeMax / 10;
+                NPC.life += healPerSecond / 60;
+                CombatText.NewText(NPC.Hitbox, CombatText.HealLife, healPerSecond);
             }
-            AuraCenter = NPC.Center;
 
             if (P1state != -2) //do not check during spawn anim
             {
+                //Aura
+                if (FargoSoulsWorld.MasochistModeReal)
+                {
+                    if (dustcounter > 5 && dodebuff)
+                    {
+                        for (int l = 0; l < 180; l++)
+                        {
+                            double rad2 = 2.0 * (double)l * (MathHelper.Pi / 180.0);
+                            double dustdist2 = 1200.0;
+                            int DustX2 = (int)AuraCenter.X - (int)(Math.Cos(rad2) * dustdist2);
+                            int DustY2 = (int)AuraCenter.Y - (int)(Math.Sin(rad2) * dustdist2);
+                            Dust.NewDust(new Vector2(DustX2, DustY2), 1, 1, DustID.GemTopaz);
+                        }
+                        dustcounter = 0;
+                    }
+                    dustcounter++;
+
+                    float distance = AuraCenter.Distance(Main.LocalPlayer.Center);
+                    float threshold = 1200f;
+                    Player player = Main.LocalPlayer;
+                    if (player.active && !player.dead && !player.ghost) //pull into arena
+                    {
+                        if (distance > threshold && distance < threshold * 4f)
+                        {
+                            if (distance > threshold * 2f)
+                            {
+                                player.controlLeft = false;
+                                player.controlRight = false;
+                                player.controlUp = false;
+                                player.controlDown = false;
+                                player.controlUseItem = false;
+                                player.controlUseTile = false;
+                                player.controlJump = false;
+                                player.controlHook = false;
+                                if (player.grapCount > 0)
+                                    player.RemoveAllGrapplingHooks();
+                                if (player.mount.Active)
+                                    player.mount.Dismount(player);
+                                player.velocity.X = 0f;
+                                player.velocity.Y = -0.4f;
+                                player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                            }
+
+                            Vector2 movement = AuraCenter - player.Center;
+                            float difference = movement.Length() - threshold;
+                            movement.Normalize();
+                            movement *= difference < 17f ? difference : 17f;
+                            player.position += movement;
+
+                            for (int i = 0; i < 10; i++)
+                            {
+                                int d = Dust.NewDust(player.position, player.width, player.height, DustID.GemTopaz, 0f, 0f, 0, default(Color), 1.25f);
+                                Main.dust[d].noGravity = true;
+                                Main.dust[d].velocity *= 5f;
+                            }
+                        }
+                    }
+                }
+                AuraCenter = NPC.Center;
+
                 //Targeting
                 if (!Player.active || Player.dead || Player.ghost || NPC.Distance(Player.Center) > 2400)
                 {
@@ -294,17 +305,6 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.timeLeft = 60;
             }
 
-            //permanent DR and regen for sans phase
-            //deliberately done this way so that you can still eventually muscle past with endgame gear (this is ok)
-            if (UseTrueOriginAI && NPC.life < NPC.lifeMax / 10 * 0.75) //lowered so that sans phase check goes through properly
-            {
-                useDR = true;
-
-                int healPerSecond = NPC.lifeMax / 10;
-                NPC.life += healPerSecond / 60;
-                CombatText.NewText(NPC.Hitbox, CombatText.HealLife, healPerSecond);
-            }
-
             if (PhaseOne) //p1 just skip the rest of the ai and do its own ai lolll
             {
                 P1AI();
@@ -313,12 +313,6 @@ namespace FargowiltasSouls.NPCs.Challengers
             
             BodyRotation += MathHelper.TwoPi / 60f / SPR; //divide by sec/rotation
 
-            //Checks
-            //if (PhaseThree)
-            //{
-            //    Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod3)
-            //        ? MusicLoader.GetMusicSlot(musicMod3, "Assets/Music/Champions") : MusicID.OtherworldlyBoss1; //Father
-            //}
             if (Phase < 4.0)
             {
                 NPC.dontTakeDamage = true;
@@ -533,6 +527,12 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.position.X = Player.Center.X - (NPC.width / 2);
             NPC.position.Y = Player.Center.Y - 490 - (NPC.height / 2);
             NPC.alpha = (int)(255 - (NPC.ai[2] * 17));
+
+            if (!Main.dedServ && UseTrueOriginAI && ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
+                && musicMod.Version >= Version.Parse("0.1.1.5"))
+            {
+                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Lieflight");
+            }
 
             if (NPC.ai[1] == 120)
             {
@@ -1165,9 +1165,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                 NPC.netUpdate = true;
             }
 
-            for (int i = 0; i < Main.musicFade.Length; i++) //shut up music
-                if (Main.musicFade[i] > 0f)
-                    Main.musicFade[i] -= 1f / 60;
+            //for (int i = 0; i < Main.musicFade.Length; i++) //shut up music
+            //    if (Main.musicFade[i] > 0f)
+            //        Main.musicFade[i] -= 1f / 60;
             
             if (NPC.ai[1] < 240 && Main.netMode != NetmodeID.MultiplayerClient) // cage size is 600x600, 300 from center, 25 projectiles per side, 24x24 each
             {
