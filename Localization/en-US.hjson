@@ -283,6 +283,7 @@ Mods: {
 			QueenBeeEnrage: "{$NPCName.QueenBee} has enraged outside the underground jungle!"
 
 			MoonsDeathPenalty: The wave progress has regressed!
+			FatherOfLies: It was a mistake to come here.
 		}
 
 		DeathMessage: {

@@ -212,3 +212,4 @@ tweaked enchanted lifeblade
 
 tried again to make sibling and squrrl boss spawners always work in mp
 fixed abom boss ray not being sheeted properly
+lieflight maso sans phase is now only available if your char name also contains "cum"

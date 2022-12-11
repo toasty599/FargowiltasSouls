@@ -18,6 +18,7 @@ using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.Items.Summons;
+using System.Linq;
 
 namespace FargowiltasSouls.NPCs.Challengers
 {
@@ -86,7 +87,7 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         int firstblaster = 2;
 
-        private bool resigned = false;
+        private bool UseTrueOriginAI;
 
         float BodyRotation = 0;
 
@@ -165,15 +166,18 @@ namespace FargowiltasSouls.NPCs.Challengers
             NPC.value = Item.buyPrice(0, 15);
 
             NPC.dontTakeDamage = true; //until it Appears in Opening
-
-            //disable this outside maso
-            if (!FargoSoulsWorld.MasochistModeReal)
-                resigned = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            //only enable this in maso in presence of cum
+            if (FargoSoulsWorld.MasochistModeReal && Main.player.Any(p => p.active && p.name.ToLower().Contains("cum")))
+                UseTrueOriginAI = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -186,6 +190,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             writer.Write7BitEncodedInt(P1state);
             writer.Write7BitEncodedInt(oldP1state);
             writer.Write7BitEncodedInt(LifeWaveCount);
+            writer.Write(UseTrueOriginAI);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -198,6 +203,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             P1state = reader.Read7BitEncodedInt();
             oldP1state = reader.Read7BitEncodedInt();
             LifeWaveCount = reader.Read7BitEncodedInt();
+            UseTrueOriginAI = reader.ReadBoolean();
         }
         #endregion
         #region AI
@@ -290,7 +296,7 @@ namespace FargowiltasSouls.NPCs.Challengers
 
             //permanent DR and regen for sans phase
             //deliberately done this way so that you can still eventually muscle past with endgame gear (this is ok)
-            if (!resigned && NPC.life < NPC.lifeMax / 10 * 0.75) //lowered so that sans phase check goes through properly
+            if (UseTrueOriginAI && NPC.life < NPC.lifeMax / 10 * 0.75) //lowered so that sans phase check goes through properly
             {
                 useDR = true;
 
@@ -375,7 +381,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                             state = 100;
                             resetFly = false;
                         }
-                        if (PhaseThree && NPC.life < NPC.lifeMax / 10 && FargoSoulsWorld.MasochistModeReal)
+                        if (PhaseThree && NPC.life < NPC.lifeMax / 10 && UseTrueOriginAI)
                         {
                             state = 101;
                             oldstate = 0;
@@ -530,6 +536,9 @@ namespace FargowiltasSouls.NPCs.Challengers
 
             if (NPC.ai[1] == 120)
             {
+                if (UseTrueOriginAI)
+                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.FatherOfLies", Color.LightGoldenrodYellow);
+
                 if (!Main.dedServ)
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
 
@@ -1048,8 +1057,8 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void AttackP3Start()
         {
-            useDR = !resigned;
-            NPC.chaseable = resigned;
+            useDR = UseTrueOriginAI;
+            NPC.chaseable = !UseTrueOriginAI;
 
             if (AttackF1)
             {
@@ -1136,7 +1145,7 @@ namespace FargowiltasSouls.NPCs.Challengers
         {
             Player Player = Main.player[NPC.target];
 
-            if (!resigned) //disable items
+            if (UseTrueOriginAI) //disable items
             {
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && NPC.Distance(Main.LocalPlayer.Center) < 3000)
                 {
@@ -1405,14 +1414,9 @@ namespace FargowiltasSouls.NPCs.Challengers
             #endregion
             #region End
             int end = Attack6End + 120;
-            if (NPC.ai[1] == end)
-            {
-                resigned = true;
-                Main.LocalPlayer.ClearBuff(BuffID.Cursed);
-            }
             if (NPC.ai[1] >= end)
             {
-                resigned = true;
+                UseTrueOriginAI = false;
                 NPC.dontTakeDamage = false;
             }
             if (NPC.ai[1] == end + 240f)
