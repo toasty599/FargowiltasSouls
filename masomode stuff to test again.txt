@@ -211,3 +211,4 @@ demons can noclip at you lol
 tweaked enchanted lifeblade
 
 tried again to make sibling and squrrl boss spawners always work in mp
+fixed abom boss ray not being sheeted properly
