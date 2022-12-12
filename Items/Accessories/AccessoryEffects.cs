@@ -727,65 +727,6 @@ namespace FargowiltasSouls
             }
         }
 
-        public void MeteorEffect()
-        {
-            MeteorEnchantActive = true;
-
-            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Meteor"))
-            {
-                int damage = 50;
-
-                if (meteorShower)
-                {
-                    if (meteorTimer % 2 == 0)
-                    {
-                        int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X + Main.rand.Next(-1000, 1000), Player.Center.Y - 1000, Main.rand.Next(-2, 2), 0f + Main.rand.Next(8, 12), Main.rand.Next(424, 427), FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0f, Player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
-                        if (p != Main.maxProjectiles)
-                        {
-                            Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-                            Main.projectile[p].netUpdate = true;
-                            if (ModLoader.GetMod("Fargowiltas") != null)
-                                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", Main.projectile[p]);
-                        }
-                    }
-
-                    meteorTimer--;
-
-                    if (meteorTimer <= 0)
-                    {
-                        meteorCD = 300;
-
-                        if (CosmoForce)
-                        {
-                            meteorCD = 200;
-                        }
-
-                        meteorTimer = 150;
-                        meteorShower = false;
-                    }
-                }
-                else
-                {
-                    if (Player.controlUseItem)
-                    {
-                        meteorCD--;
-
-                        if (meteorCD == 0)
-                        {
-                            meteorShower = true;
-                        }
-                    }
-                    else
-                    {
-                        meteorCD = 300;
-                    }
-                }
-            }
-        }
-
-        
-
-
 
         public void NebulaEffect()
         {

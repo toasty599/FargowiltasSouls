@@ -102,7 +102,6 @@ namespace FargowiltasSouls
         public int ObsidianCD;
         public bool LavaWet;
         public Item SilverEnchantItem;
-        //public bool IronEnchantShield;
         public Item TinEnchantItem;
         public float TinCritMax;
         public float TinCrit = 5;
@@ -128,6 +127,26 @@ namespace FargowiltasSouls
         public bool TitaniumDRBuff;
         public bool TitaniumCD;
         //force of nature
+
+        //force of life
+
+        //force of spirit
+
+        //force of shadow
+
+        //force of will
+
+        //force of cosmos
+        public bool MeteorEnchantActive;
+        public int MeteorTimer = 150;
+        public int MeteorCD;
+        public bool MeteorShower;
+
+
+
+
+
+
 
 
 
@@ -176,10 +195,7 @@ namespace FargowiltasSouls
         public int JungleCD;
         
         
-        public bool MeteorEnchantActive;
-        private int meteorTimer = 150;
-        private int meteorCD;
-        public bool meteorShower;
+        
         public bool MoltenEnchantActive;
         public bool MonkEnchantActive;
         public int MonkDashing;
