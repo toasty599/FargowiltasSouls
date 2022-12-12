@@ -2,7 +2,9 @@ using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
@@ -22,7 +24,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         }
 
         protected override Color nameColor => new Color(95, 71, 82);
-        public override string wizardEffect => "";
+        public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Meteor");
 
         public override void SetDefaults()
         {
@@ -32,68 +34,14 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Item.value = 100000;
         }
 
+        public const int METEOR_ADDED_DURATION = 450;
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            MeteorEffect(modPlayer);
-        }
 
-        public static void MeteorEffect(FargoSoulsPlayer modPlayer)
-        {
-            Player player = modPlayer.Player;
+            modPlayer.MeteorEffect(Item);
 
-            modPlayer.MeteorEnchantActive = true;
-
-            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Meteor"))
-            {
-                int damage = 50;
-
-                if (modPlayer.MeteorShower)
-                {
-                    if (modPlayer.MeteorTimer % 2 == 0)
-                    {
-                        int p = Projectile.NewProjectile(player.GetSource_Misc(""), player.Center.X + Main.rand.Next(-1000, 1000), player.Center.Y - 1000, Main.rand.Next(-2, 2), 0f + Main.rand.Next(8, 12), Main.rand.Next(424, 427), FargoSoulsUtil.HighestDamageTypeScaling(player, damage), 0f, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
-                        if (p != Main.maxProjectiles)
-                        {
-                            Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-                            Main.projectile[p].netUpdate = true;
-                            if (ModLoader.GetMod("Fargowiltas") != null)
-                                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", Main.projectile[p]);
-                        }
-                    }
-
-                    modPlayer.MeteorTimer--;
-
-                    if (modPlayer.MeteorTimer <= 0)
-                    {
-                        modPlayer.MeteorCD = 300;
-
-                        if (modPlayer.CosmoForce)
-                        {
-                            modPlayer.MeteorCD = 200;
-                        }
-
-                        modPlayer.MeteorTimer = 150;
-                        modPlayer.MeteorShower = false;
-                    }
-                }
-                else
-                {
-                    if (player.controlUseItem)
-                    {
-                        modPlayer.MeteorCD--;
-
-                        if (modPlayer.MeteorCD == 0)
-                        {
-                            modPlayer.MeteorShower = true;
-                        }
-                    }
-                    else
-                    {
-                        modPlayer.MeteorCD = 300;
-                    }
-                }
-            }
         }
 
         public override void AddRecipes()
@@ -109,6 +57,37 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+
+    public class MeteorGlobalProjectile : GlobalProjectile
+    {
+        public override bool InstancePerEntity => true;
+
+        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
+            => entity.type == ProjectileID.Meteor1 || entity.type == ProjectileID.Meteor2 || entity.type == ProjectileID.Meteor3;
+
+        bool fromEnch;
+
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            if (source is EntitySource_ItemUse itemSource && itemSource.Item.type == ModContent.ItemType<MeteorEnchant>())
+            {
+                fromEnch = true;
+                projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+
+                //if (ModLoader.GetMod("Fargowiltas") != null)
+                //    ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", Main.projectile[p]);
+            }
+        }
+
+        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        {
+            if (fromEnch)
+            {
+                const int maxHits = 75;
+                Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().MeteorTimer -= MeteorEnchant.METEOR_ADDED_DURATION / maxHits;
+            }
         }
     }
 }

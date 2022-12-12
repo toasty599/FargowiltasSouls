@@ -412,6 +412,10 @@ namespace FargowiltasSouls
         {
             return Language.ActiveCulture.LegacyId == (int)GameCulture.CultureName.Chinese;
         }
+        public static bool IsPortuguese()
+        {
+            return Language.ActiveCulture.LegacyId == (int)GameCulture.CultureName.Portuguese;
+        }
 
         public static void PrintText(string text, int r, int g, int b) => PrintText(text, new Color(r, g, b));
 
@@ -449,7 +453,10 @@ namespace FargowiltasSouls
         {
             int p = Projectile.NewProjectile(source, spawn, velocity, type, rawBaseDamage, knockback, owner, ai0, ai1);
             if (p != Main.maxProjectiles)
+            {
                 Main.projectile[p].originalDamage = rawBaseDamage;
+                Main.projectile[p].ContinuouslyUpdateDamage = true;
+            }
             return p;
         }
 
@@ -510,9 +517,9 @@ namespace FargowiltasSouls
             }
         }
 
-        public static bool OnSpawnEnchCanAffectProjectile(Projectile projectile, IEntitySource source, bool allowMinions = false)
+        public static bool OnSpawnEnchCanAffectProjectile(Projectile projectile, bool allowMinions)
         {
-            if (!allowMinions && (projectile.minion || projectile.sentry || projectile.minionSlots <= 0))
+            if (!allowMinions && (projectile.minion || projectile.sentry || projectile.minionSlots > 0))
                 return false;
 
             return projectile.friendly
@@ -525,7 +532,7 @@ namespace FargowiltasSouls
 
         public static void SpawnBossTryFromNPC(int playerTarget, int originalType, int bossType)
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient && playerTarget == Main.myPlayer)
+            if (Main.netMode == NetmodeID.MultiplayerClient)// && playerTarget == Main.myPlayer)
             {
                 //var packet = FargowiltasSouls.Instance.GetPacket();
                 //packet.Write((byte)FargowiltasSouls.PacketID.SpawnBossTryFromNPC);
@@ -543,16 +550,22 @@ namespace FargowiltasSouls
                 npc.life = 0;
                 npc.active = false;
                 if (Main.netMode == NetmodeID.Server)
+                {
                     NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
 
-                int n = NewNPCEasy(NPC.GetBossSpawnSource(playerTarget), pos, bossType);
-                if (n != Main.maxNPCs)
+                    NPC.SpawnOnPlayer(playerTarget, bossType);
+                }
+                else //todo, figure out how to make this work 100% consistent in mp
                 {
-                    Main.npc[n].Bottom = pos;
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, number: n);
+                    int n = NewNPCEasy(NPC.GetBossSpawnSource(playerTarget), pos, bossType);
+                    if (n != Main.maxNPCs)
+                    {
+                        Main.npc[n].Bottom = pos;
+                        if (Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.SyncNPC, number: n);
 
-                    PrintText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[n].TypeName), new Color(175, 75, 255));
+                        PrintText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[n].TypeName), new Color(175, 75, 255));
+                    }
                 }
             }
             else

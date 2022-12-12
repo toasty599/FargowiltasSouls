@@ -10,6 +10,7 @@ using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -77,6 +78,14 @@ namespace FargowiltasSouls.NPCs
 
         //        public static bool Revengeance => CalamityMod.World.CalamityWorld.revenge;
 
+        static HashSet<int> RareNPCs = new HashSet<int>();
+
+        public override void Unload()
+        {
+            base.Unload();
+            RareNPCs = null;
+        }
+
         public override void ResetEffects(NPC npc)
         {
             BrokenArmor = false;
@@ -106,9 +115,11 @@ namespace FargowiltasSouls.NPCs
             PungentGazeTime = 0;
         }
 
-        //        public override void SetDefaults(NPC npc)
-        //        {
-        //        }
+        public override void SetDefaults(NPC npc)
+        {
+            if (npc.rarity > 0 && !RareNPCs.Contains(npc.type))
+                RareNPCs.Add(npc.type);
+        }
 
         public override bool PreAI(NPC npc)
         {
@@ -272,11 +283,18 @@ namespace FargowiltasSouls.NPCs
                     if (fargoPlayer.Graze && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                     {
                         Vector2 point = FargoSoulsUtil.ClosestPointInHitbox(npc.Hitbox, Main.LocalPlayer.Center);
-                        if (Main.LocalPlayer.Distance(point) < fargoPlayer.GrazeRadius && (npc.noTileCollide || Collision.CanHitLine(point, 0, 0, Main.LocalPlayer.Center, 0, 0)))
+                        int dummy = -1;
+                        if (Main.LocalPlayer.Distance(point) < fargoPlayer.GrazeRadius
+                            && NPCLoader.CanHitPlayer(npc, Main.LocalPlayer, ref dummy)
+                            && (npc.ModNPC == null ? true : npc.ModNPC.CanHitPlayer(Main.LocalPlayer, ref dummy))
+                            && (npc.noTileCollide || Collision.CanHitLine(point, 0, 0, Main.LocalPlayer.Center, 0, 0)))
                         {
                             npcForGrazeCD.GrazeCD = 30;
 
-                            SparklingAdoration.OnGraze(fargoPlayer, npc.damage);
+                            if (fargoPlayer.DeviGraze)
+                                SparklingAdoration.OnGraze(fargoPlayer, npc.damage);
+                            if (fargoPlayer.CirnoGraze)
+                                IceQueensCrown.OnGraze(fargoPlayer, npc.damage);
                         }
                     }
                 }
@@ -781,6 +799,20 @@ namespace FargowiltasSouls.NPCs
             //if (modPlayer.BuilderMode) maxSpawns = 0;
         }
 
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        {
+            if (spawnInfo.Player.GetModPlayer<FargoSoulsPlayer>().PungentEyeball)
+            {
+                foreach (var entry in pool)
+                {
+                    if (RareNPCs.Contains(entry.Key))
+                    {
+                        pool[entry.Key] = entry.Value * 5;
+                    }
+                }
+            }
+        }
+
         public override bool PreKill(NPC npc)
         {
             Player player = Main.player[npc.lastInteraction];
@@ -1100,9 +1132,9 @@ namespace FargowiltasSouls.NPCs
             //                damage *= 1.5;
             //            }
 
-            if (modPlayer.Graze)
+            if (modPlayer.DeviGraze)
             {
-                damage *= 1.0 + modPlayer.GrazeBonus;
+                damage *= 1.0 + modPlayer.DeviGrazeBonus;
             }
 
             //            //normal damage calc
@@ -1114,7 +1146,7 @@ namespace FargowiltasSouls.NPCs
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (modPlayer.WoodEnchantItem != null)
+            if (modPlayer.WoodEnchantDiscount)
             {
                 WoodEnchant.WoodDiscount(shop);
             }

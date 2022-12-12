@@ -8,6 +8,65 @@
 
 Mods: {
 	FargowiltasSouls: {
+		WizardEffect:{
+			Adamantite: Projectiles now split into 3
+			AncientHallow: ""
+			AncientShadow: ""
+			Angler: ""
+			Bee: ""
+			Beetle: ""
+			Boreal: Fires more snowballs more often
+			Cactus: ""
+			Chlorophyte: ""
+			Cobalt: Explosion damage increased
+			Copper: Lightning damage increased, cooldown reduced
+			Crimson: ""
+			CrystalAssassin:
+			DarkArtist: ""
+			Ebonwood: Damage threshold increased to 25, additonally kills any npcs with less than 200 HP
+			Forbidden: ""
+			Fossil: ""
+			Frost: ""
+			Gladiator: ""
+			Gold: ""
+			Hallow: ""
+			Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
+			Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
+			Meteor: ""
+			Miner: ""
+			Molten: ""
+			Mythril: Max attack speed bonus increased and lasts longer
+			Nebula: ""
+			Necro: ""
+			Ninja: Increases projectile speed by 3x instead of 2x, armor pen increased to 20
+			Obsidian: You no longer need lava to spawn explosions, cooldown reduced
+			Orichalcum: Increases multiplier to 4x
+			Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
+			PalmWood: Attack speed and damage increased, 2 more trees can be spawned
+			Pearlwood: Damage increased and cooldown reduced
+			Platinum: ""
+			Pumpkin: ""
+			Rain: ""
+			RedRiding: ""
+			RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
+			Shadewood: Aura size and blood damage increased, additionally applies Ichor
+			Shinobi: ""
+			Shroomite: ""
+			Silver: Parrying also grants the Striking Moment buff
+			Solar: ""
+			Spectre: ""
+			Spider: ""
+			Spooky: ""
+			Stardust: ""
+			Tiki: ""
+			Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
+			Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
+			Tungsten: Increased weapon size to 300%, bonus damage to 20%, cooldown reduced
+			Turtle: ""
+			ValhallaKnight: ""
+			Vortex: ""
+			Wood: Bestiary and banner multiplier increased to 5
+		}
 		SetBonus: {
 			Nekomi:
 				'''
@@ -83,7 +142,7 @@ Mods: {
 			TrojanSquirrel: Built by squirrels, for squirrels! Made of woods collected from numerous lands. It fits a lot more squirrels than it appears.
 			GuardianOfAncientTreasures: Lurks deep underground, jealously guarding its horde of jewels and precious metals. Its scales are as hard as stone.
 			CursedCoffin: A mindless fusion of over a hundred wicked souls. It feeds on the bodies of lost travellers and adds their spirits to itself.
-			Lifelights: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms, which happily follow its bidding.
+			LifeChallenger: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms. Its true form cannot be perceived.
 			Silhouette: An elusive being that always travels under cover of a black fog in the night. It feels sensitive when its true form is exposed.
 			FrigidHydrangaea: This draconic beast hibernates in the frozen caverns, only waking when provoked. Should it really be living in the cold?
 			BanishedBaron: Cast out from the hierarchy, it hid itself while it tried to repair itself. Imperfect work left its strength and speed hindered.
@@ -129,6 +188,7 @@ Mods: {
 			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
 
 			TrojanSquirrelDespawn: Trojan Squirrel returns to its squirrel clan...
+			LifeChallengerDespawn: Lieflight fades away...
 		}
 
 		Message: {
@@ -223,6 +283,7 @@ Mods: {
 			QueenBeeEnrage: "{$NPCName.QueenBee} has enraged outside the underground jungle!"
 
 			MoonsDeathPenalty: The wave progress has regressed!
+			FatherOfLies: It was a mistake to come here.
 		}
 
 		DeathMessage: {
@@ -232,6 +293,11 @@ Mods: {
 			DivineWrath: was annihilated by divine wrath.
 			Shadowflame: burned up in shadowy flames.
 			NanoInjection: was consumed from within by nanites.
+
+			Fused:"{0} was blown to bits."
+			Nutcracker: "{0} had his nuts cracked."
+			Derpling: "{0} was sucked dry."
+			Snatchers: "{0} became a man eaten by Man Eater."
 		}
 
 		DeviChatter: {
@@ -480,7 +546,7 @@ Mods: {
 
 			HeartHeader: "{$Mods.FargowiltasSouls.ItemName.HeartoftheMasochist}"
 			MasoPumpConfig: Pumpking's Cape Parry
-			IceQueensCrownConfig: Freeze On Hit
+			IceQueensCrownConfig: Graze
 			MasoUfoConfig: Saucer Minion
 			MasoGravConfig: Gravity Control
 			MasoGrav2Config: Stabilized Gravity
@@ -1004,5 +1070,20 @@ Mods: {
 			Betsy28: " was muted>"
 
 		}
+
+		//Keybind: {
+			//Freeze: Freeze
+			//Gold: Turn Gold
+			//SmokeBomb: Throw Smoke Bomb
+			//SpecialDash: Special Dash
+			//MutantBomb: Mutant Bomb
+			//SoulToggle: Open Soul Toggler
+			//PrecisionSeal: Precision Movement
+			//MagicalBulb: Magical Cleanse
+			//FrigidSpell: Frigid Spell
+			//DebuffInstall: Debuff Install
+			//AmmoCycle: Ammo Cycle
+		//}
+		//enable this when tml updated
 	}
 }

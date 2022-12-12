@@ -41,6 +41,7 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
 [i:{0}] 捡起钱币时，自动将它们存进猪猪存钱罐中
 [i:{1}] 敌人死亡时有20%的几率获得五倍的战利品
 [i:{2}] 长矛将倾泄在被攻击的敌人身上
+[i:{2}] 当你面向攻击时免疫击退
 [i:{3}] 连续攻击命中会获得额外伤害加成
 [i:{4}] 回复生命值时，治疗量增加50%
 “坚不可摧的决心”";
@@ -51,7 +52,8 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
 [i:{0}] Envia moedas ao seu porquinho automaticamente quando coletadas
 [i:{1}] 20% de chance de que os inimigos deixem cair 5x os espólios
 [i:{2}] Lanças choverão em inimigos atingidos
-[i:{3}] Toque duas vezes para baixo para criar uma chuva de flechas localizada
+[i:{2}] Oferece imunidade a recuos quando você está encarando o ataque
+[i:{3}] Ataques sucessivos ganham dano bônus
 [i:{4}] Aumenta a eficiência de fontes de cura em 50%
 'Uma mente de determinação inquebrável'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Portuguese, string.Format(tooltip_pt, Enchants[0], Enchants[1], Enchants[2], Enchants[4], Enchants[5]));

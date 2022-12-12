@@ -8,7 +8,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     public class StyxGazerHandle : Deathrays.BaseDeathray
     {
-        public StyxGazerHandle() : base(120, "AbomDeathray") { }
+        public override string Texture => "FargowiltasSouls/Projectiles/Deathrays/AbomDeathray";
+        public StyxGazerHandle() : base(120) { }
         public int counter;
 
         public override void SetStaticDefaults()
@@ -26,6 +27,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.extraUpdates = 1;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()

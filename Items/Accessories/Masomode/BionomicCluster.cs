@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             DisplayName.SetDefault("Bionomic Cluster");
             Tooltip.SetDefault("Grants immunity to Frostburn, Shadowflame, and Squeaky Toy" +
                 "\nGrants immunity to Flames of the Universe, Clipped Wings, Crippled, Webbed, and Purified" +
-                "\nGrants immunity to Lovestruck, Stinky, Midas, Hexed, and Loose Pockets" +
+                "\nGrants immunity to Lovestruck, Stinky, Midas, and Hexed" +
                 "\nUse to teleport to your last death point" +
                 "\nYour attacks can inflict Clipped Wings and produce hearts" +
                 "\nAttacks have a chance to squeak and deal 1 damage to you" +
@@ -34,6 +34,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n    You respawn with more life and when no boss is alive, respawn faster" +
                 "\n    Press the Frigid Spell key to cast Ice Rod" +
                 "\n    Right click to zoom and drastically improves reforges" +
+				"\n    Stabilizes gravity in space and in liquids" +
                 "\n'The amalgamate born of a thousand common enemies'");
 
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生态集群");
@@ -90,6 +91,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             fargoPlayer.NymphsPerfumeRespawn = true;
             fargoPlayer.ConcentratedRainbowMatter = true;
             fargoPlayer.FrigidGemstoneItem = item;
+			fargoPlayer.StabilizedGravity = true;
         }
 
         public override void UpdateInventory(Player player) => PassiveEffect(player, Item);

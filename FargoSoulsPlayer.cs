@@ -8,6 +8,7 @@ using FargowiltasSouls.Items.Armor;
 using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Projectiles.ChallengerItems;
 using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Projectiles.Souls;
@@ -39,7 +40,7 @@ namespace FargowiltasSouls
 
         public bool IsStandingStill;
         public float AttackSpeed;
-        public float WingTimeModifier;
+        public float WingTimeModifier = 1f;
 
         public bool FreeEaterSummon = true;
         public int Screenshake;
@@ -91,6 +92,7 @@ namespace FargowiltasSouls
         public Item ShadewoodEnchantItem;
         public int ShadewoodCD;
         public Item WoodEnchantItem;
+		public bool WoodEnchantDiscount;
         //force of terra
         public Item CopperEnchantItem;
         public int CopperProcCD;
@@ -137,9 +139,9 @@ namespace FargowiltasSouls
         //force of will
 
         //force of cosmos
-        public bool MeteorEnchantActive;
-        public int MeteorTimer = 150;
-        public int MeteorCD;
+        public Item MeteorEnchantItem;
+        public int MeteorTimer;
+        public int MeteorCD = 60;
         public bool MeteorShower;
 
 
@@ -189,12 +191,13 @@ namespace FargowiltasSouls
         public bool HallowEnchantActive;
         public bool HuntressEnchantActive;
         public int HuntressStage;
-        public int HuntressCD = 0;
+        public int HuntressCD;
        
         public bool JungleEnchantActive;
         public int JungleCD;
         
         
+
         
         public bool MoltenEnchantActive;
         public bool MonkEnchantActive;
@@ -315,6 +318,7 @@ namespace FargowiltasSouls
         public bool Supercharged;
         public bool Probes;
         public bool MagicalBulb;
+        public bool PlanterasChild;
         public bool SkullCharm;
         public bool PungentEyeball;
         public bool LumpOfFlesh;
@@ -340,6 +344,7 @@ namespace FargowiltasSouls
         public bool HasClickedWrench;
         public bool SandsofTime;
         public bool DragonFang;
+		public bool StabilizedGravity;
         public bool SecurityWallet;
         public Item FrigidGemstoneItem;
         public int FrigidGemstoneCD;
@@ -352,6 +357,7 @@ namespace FargowiltasSouls
         public bool RainbowSlime;
         public bool SkeletronArms;
         public bool IceQueensCrown;
+        public bool CirnoGraze;
         public bool MiniSaucer;
         public bool CanAmmoCycle;
         public bool TribalCharm;
@@ -369,10 +375,12 @@ namespace FargowiltasSouls
         public bool TwinsEX;
         public bool TimsConcoction;
         public bool ReceivedMasoGift;
+        public bool DeviGraze;
         public bool Graze;
         public float GrazeRadius;
-        public int GrazeCounter;
-        public double GrazeBonus;
+        public int DeviGrazeCounter;
+        public int CirnoGrazeCounter;
+        public double DeviGrazeBonus;
         public Item DevianttHeartItem;
         public int DevianttHeartsCD;
         public Item MutantEyeItem;
@@ -466,6 +474,7 @@ namespace FargowiltasSouls
         public int shieldTimer;
         public int shieldCD;
         public bool wasHoldingShield;
+        public int LightslingerHitShots = 0;
 
         public bool NoUsingItems;
 
@@ -718,9 +727,9 @@ namespace FargowiltasSouls
                 Player.doubleTapCardinalTimer[3] = 0;
             }
 
-            if (FargowiltasSouls.MutantBombKey.JustPressed && MutantEyeItem != null)
+            if (FargowiltasSouls.BombKey.JustPressed)
             {
-                MutantBombKey();
+                BombKey();
             }
 
             if (FargowiltasSouls.DebuffInstallKey.JustPressed)
@@ -755,6 +764,8 @@ namespace FargowiltasSouls
             //            Wood = false;
 
             WingTimeModifier = 1f;
+
+            NinjaEnchantItem = null;
 
             QueenStingerItem = null;
             EridanusSet = false;
@@ -803,7 +814,7 @@ namespace FargowiltasSouls
             FrostEnchantActive = false;
             PalladEnchantItem = null;
             OriEnchantItem = null;
-            MeteorEnchantActive = false;
+            MeteorEnchantItem = null;
             MoltenEnchantActive = false;
             CopperEnchantItem = null;
             PlatinumEnchantActive = false;
@@ -835,6 +846,7 @@ namespace FargowiltasSouls
             MahoganyEnchantItem = null;
             BorealEnchantItem = null;
             WoodEnchantItem = null;
+			WoodEnchantDiscount = false;
             PalmEnchantItem = null;
             EbonwoodEnchantItem = null;
             ShadewoodEnchantItem = null;
@@ -894,6 +906,7 @@ namespace FargowiltasSouls
             Supercharged = false;
             Probes = false;
             MagicalBulb = false;
+            PlanterasChild = false;
             SkullCharm = false;
             PungentEyeball = false;
             LumpOfFlesh = false;
@@ -913,6 +926,7 @@ namespace FargowiltasSouls
             MasochistHeart = false;
             SandsofTime = false;
             DragonFang = false;
+			StabilizedGravity = false;
             SecurityWallet = false;
             FrigidGemstoneItem = null;
             WretchedPouchItem = null;
@@ -922,6 +936,7 @@ namespace FargowiltasSouls
             RainbowSlime = false;
             SkeletronArms = false;
             IceQueensCrown = false;
+            CirnoGraze = false;
             MiniSaucer = false;
             CanAmmoCycle = false;
             TribalCharm = false;
@@ -933,6 +948,7 @@ namespace FargowiltasSouls
             PhantasmalRing = false;
             TwinsEX = false;
             TimsConcoction = false;
+            DeviGraze = false;
             Graze = false;
             GrazeRadius = 100f;
             DevianttHeartItem = null;
@@ -1072,6 +1088,8 @@ namespace FargowiltasSouls
             NekomiMeter = 0;
             NekomiTimer = 0;
 
+            CirnoGrazeCounter = 0;
+
             //debuffs
             unstableCD = 0;
             lightningRodTimer = 0;
@@ -1093,7 +1111,7 @@ namespace FargowiltasSouls
             NymphsPerfumeCD = 30;
             WretchedPouchCD = 0;
 
-            GrazeBonus = 0;
+            DeviGrazeBonus = 0;
             MutantEyeCD = 60;
 
             Mash = false;
@@ -1214,9 +1232,6 @@ namespace FargowiltasSouls
                 Player.controlUseItem = true;
                 Player.releaseUseItem = true;
             }
-
-            //moved here so that it can affect minions spawned by buffs
-            NinjaEnchantItem = null;
         }
 
         public override void ModifyLuck(ref float luck)
@@ -1246,19 +1261,7 @@ namespace FargowiltasSouls
 
             if (TribalCharmEquipped)
             {
-                if (Player.controlUseItem || Player.controlUseTile)
-                {
-                    if (TribalCharmClickBonus)
-                    {
-                        TribalCharmClickBonus = false;
-                        if (Player.GetToggleValue("TribalCharmClickBonus"))
-                            Player.GetDamage(DamageClass.Generic) += 0.30f;
-                    }
-                }
-                else if (Player.ItemTimeIsZero)
-                {
-                    TribalCharmClickBonus = true;
-                }
+                Items.Accessories.Masomode.TribalCharm.Effects(this);
             }
 
             if (PungentEyeball && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPungentCursor"))
@@ -1306,6 +1309,12 @@ namespace FargowiltasSouls
                 ShadowEffectPostEquips();
 
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
+
+            if (MutantAntibodies && Player.wet)
+            {
+                Player.wingTime = Player.wingTimeMax;
+                Player.AddBuff(ModContent.BuffType<Refreshed>(), 30 * 60);
+            }
 
             if (StyxSet)
             {
@@ -1506,6 +1515,8 @@ namespace FargowiltasSouls
                 Player.setMonkT3 = true;
 
 
+            if (Player.channel && WeaponUseTimer < 2)
+                WeaponUseTimer = 2;
             if (--WeaponUseTimer < 0)
                 WeaponUseTimer = 0;
 
@@ -1577,14 +1588,20 @@ namespace FargowiltasSouls
                 Player.InfoAccMechShowWires = false;
             }
 
-            if (Graze && ++GrazeCounter > 60) //decrease graze bonus over time
+            if (Graze) //decrease graze bonus over time
             {
-                GrazeCounter = 0;
-                if (GrazeBonus > 0f)
-                    GrazeBonus -= 0.01;
+                if (++DeviGrazeCounter > 60)
+                {
+                    DeviGrazeCounter = 0;
+                    if (DeviGrazeBonus > 0f)
+                        DeviGrazeBonus -= 0.01;
+                }
+
+                if (CirnoGrazeCounter > 0)
+                    CirnoGrazeCounter--;
             }
 
-            if (GravityGlobeEXItem != null && Player.GetToggleValue("MasoGrav2", false))
+            if (StabilizedGravity && Player.GetToggleValue("MasoGrav2", false))
                 Player.gravity = Math.Max(Player.gravity, Player.defaultGravity);
 
             if (TikiEnchantActive && Player.GetToggleValue("Tiki"))
@@ -2138,7 +2155,7 @@ namespace FargowiltasSouls
                 {
                     int dust = Dust.NewDust(Player.position - new Vector2(2f, 2f), Player.width, Player.height, 109, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 0, default(Color), 1.5f);
                     Main.dust[dust].velocity.Y--;
-                    if (Main.rand.Next(3) != 0)
+                    if (!Main.rand.NextBool(3))
                     {
                         Main.dust[dust].noGravity = true;
                         Main.dust[dust].scale += 0.5f;
@@ -2413,6 +2430,15 @@ namespace FargowiltasSouls
             {
                 target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
                 target.immune[proj.owner] = 2;
+            }
+
+            if (proj.type == ModContent.ProjectileType<LightslingerShot>())
+            {
+                LightslingerHitShots++;
+                if (LightslingerHitShots == 20)
+                {
+                    SoundEngine.PlaySound(SoundID.MaxMana, Player.Center);
+                }
             }
 
 
@@ -2937,9 +2963,6 @@ namespace FargowiltasSouls
 
             if (FossilEnchantItem != null)
                 FossilEnchant.FossilHurt(this, (int)damage);
-
-            if (IceQueensCrown && damage > 1)
-                IceQueensCrownHurt();
         }
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
@@ -2992,8 +3015,8 @@ namespace FargowiltasSouls
             if (Midas && Main.myPlayer == Player.whoAmI)
                 Player.DropCoins();
 
-            GrazeBonus = 0;
-            GrazeCounter = 0;
+            DeviGrazeBonus = 0;
+            DeviGrazeCounter = 0;
         }
 
         private PlayerDeathReason DeathByLocalization(string key)

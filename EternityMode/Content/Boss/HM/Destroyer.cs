@@ -686,9 +686,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 damage /= 2;
             if (projectile.type == ProjectileID.SoulDrain)
                 damage = (int)(damage * 0.75);
-            if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().meteorShower
-                && (projectile.type == ProjectileID.Meteor1 || projectile.type == ProjectileID.Meteor2 || projectile.type == ProjectileID.Meteor3))
-                damage = (int)(damage * 0.5);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -805,7 +802,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (++ProbeReleaseTimer > 60)
                 {
                     ProbeReleaseTimer = -Main.rand.Next(360);
-                    float lifeThreshold = FargoSoulsWorld.MasochistModeReal ? 0.66f : 0.33f;
+                    float lifeThreshold = FargoSoulsWorld.MasochistModeReal ? 0.8f : 0.4f;
                     if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax * lifeThreshold && NPC.CountNPCS(NPCID.Probe) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         if (Main.rand.NextBool(FargoSoulsWorld.MasochistModeReal ? 5 : 10)) //higher chance in maso
@@ -878,7 +875,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 return base.CanHitPlayer(npc, target, ref CooldownSlot);
 
             Destroyer destroyerEmode = destroyer.GetEModeNPCMod<Destroyer>(); //basically, don't hit player right around when a coil begins, segments inside radius may move eratically
-            return !(destroyerEmode.IsCoiling ? destroyerEmode.AttackModeTimer < 15 : destroyerEmode.AttackModeTimer >= 1080 - 15);
+            if (destroyerEmode.IsCoiling)
+            {
+                if (destroyerEmode.AttackModeTimer < 15)
+                    return false;
+            }
+            else if (destroyerEmode.PrepareToCoil)
+            {
+                return false;
+            }
+            
+            return true;
         }
 
         public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
@@ -920,9 +927,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 damage /= 2;
             if (projectile.type == ProjectileID.SoulDrain)
                 damage = (int)(damage * 0.75);
-            if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().meteorShower
-                && (projectile.type == ProjectileID.Meteor1 || projectile.type == ProjectileID.Meteor2 || projectile.type == ProjectileID.Meteor3))
-                damage = (int)(damage * 0.5);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -994,12 +998,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (FargoSoulsWorld.SwarmActive || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
                 return result;
 
-            bool isCoiling = Main.npc[EModeGlobalNPC.destroyBoss].GetEModeNPCMod<Destroyer>().IsCoiling;
+            //bool isCoiling = Main.npc[EModeGlobalNPC.destroyBoss].GetEModeNPCMod<Destroyer>().IsCoiling;
 
             if (FargoSoulsWorld.MasochistModeReal)
             {
-                if (isCoiling && npc.localAI[0] > 30) //disable vanilla lasers during coil
-                    npc.localAI[0] -= 60;
+                //if (isCoiling && npc.localAI[0] > 30) //disable vanilla lasers during coil
+                if (npc.localAI[0] > 30)
+                    npc.localAI[0] -= 30;
 
                 if (!ShootLaser)
                     return result;

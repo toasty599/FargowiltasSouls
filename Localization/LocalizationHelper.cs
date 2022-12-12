@@ -62,9 +62,27 @@ namespace FargowiltasSouls
                 AddBossSpawnInfo("CosmosChampion", $"在太空使用[i:{ModContent.ItemType<SigilOfChampions>()}]召唤。");
 
                 AddBossSpawnInfo("TrojanSquirrel", $"使用[i:{ModContent.ItemType<SquirrelCoatofArms>()}]召唤");
+                AddBossSpawnInfo("LifeChallenger", $"Spawn by using [i:{ModContent.ItemType<FragilePixieLamp>()}] in the Hallow at day.");
             }
-            else
+            else if (FargoSoulsUtil.IsPortuguese())
             {
+                AddBossSpawnInfo("DeviBoss", $"Invoque usando [i:{ModContent.ItemType<DevisCurse>()}]");
+                AddBossSpawnInfo("AbomBoss", $"Invoque usando [i:{ModContent.ItemType<AbomsCurse>()}]");
+                AddBossSpawnInfo("MutantBoss", $"Arremesse [i:{ModContent.ItemType<AbominationnVoodooDoll>()}] em uma poça de lava enquanto Abominationn está vivo na presença de Mutant.");
+
+                AddBossSpawnInfo("TimberChampion", $"Invoque usando [i:{ModContent.ItemType<SigilOfChampions>()}] na superfície durante o dia.");
+                AddBossSpawnInfo("TerraChampion", $"Invoque usando [i:{ModContent.ItemType<SigilOfChampions>()}] no subterrâneo.");
+                AddBossSpawnInfo("EarthChampion", $"Invoque usando [i:{ModContent.ItemType<SigilOfChampions>()}] no submundo.");
+                AddBossSpawnInfo("NatureChampion", $"Invoque usando [i:{ModContent.ItemType<SigilOfChampions>()}] na neve subterrânea.");
+                AddBossSpawnInfo("LifeChampion", $"Invoque usando [i:{ModContent.ItemType<SigilOfChampions>()}] no Sagrado de dia.");
+                AddBossSpawnInfo("ShadowChampion", $"Invoque usando [i:{ModContent.ItemType<SigilOfChampions>()}] na Corrupção ou Carmim de noite.");
+                AddBossSpawnInfo("SpiritChampion", $"Invoque usando [i:{ModContent.ItemType<SigilOfChampions>()}] no deserto subterrâneo.");
+                AddBossSpawnInfo("WillChampion", $"Invoque usando [i:{ModContent.ItemType<SigilOfChampions>()}] no oceano.");
+                AddBossSpawnInfo("CosmosChampion", $"Invoque usando [i:{ModContent.ItemType<SigilOfChampions>()}] no espaço.");
+
+                AddBossSpawnInfo("TrojanSquirrel", $"Invoque usando [i:{ModContent.ItemType<SquirrelCoatofArms>()}]");
+            }
+            else {
                 AddBossSpawnInfo("DeviBoss", $"Spawn by using [i:{ModContent.ItemType<DevisCurse>()}]");
                 AddBossSpawnInfo("AbomBoss", $"Spawn by using [i:{ModContent.ItemType<AbomsCurse>()}]");
                 AddBossSpawnInfo("MutantBoss", $"Throw [i:{ModContent.ItemType<AbominationnVoodooDoll>()}] into a pool of lava while Abominationn is alive in Mutant's presence.");
@@ -80,6 +98,7 @@ namespace FargowiltasSouls
                 AddBossSpawnInfo("CosmosChampion", $"Spawn by using [i:{ModContent.ItemType<SigilOfChampions>()}] in space.");
 
                 AddBossSpawnInfo("TrojanSquirrel", $"Spawn by using [i:{ModContent.ItemType<SquirrelCoatofArms>()}]");
+                AddBossSpawnInfo("LifeChallenger", $"Spawn by using [i:{ModContent.ItemType<FragilePixieLamp>()}] in the Hallow at day.");
             }
 
             #endregion boss spawn info
@@ -220,6 +239,7 @@ namespace FargowiltasSouls
             AddToggle("MasoSqueakConfig", ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>());
             AddToggle("MasoPouchConfig", ModContent.ItemType<WretchedPouch>());
             AddToggle("MasoClippedConfig", ModContent.ItemType<WyvernFeather>());
+			AddToggle("MasoGrav2Config", ModContent.ItemType<WyvernFeather>());
             AddToggle("TribalCharmConfig", ModContent.ItemType<TribalCharm>());
             AddToggle("TribalCharmClickBonusConfig", ModContent.ItemType<TribalCharm>());
             //AddToggle("WalletHeader", ModContent.ItemType<SecurityWallet>());
@@ -257,7 +277,6 @@ namespace FargowiltasSouls
             AddToggle("IceQueensCrownConfig", ModContent.ItemType<IceQueensCrown>());
             AddToggle("MasoUfoConfig", ModContent.ItemType<SaucerControlConsole>());
             AddToggle("MasoGravConfig", ModContent.ItemType<GalacticGlobe>());
-            AddToggle("MasoGrav2Config", ModContent.ItemType<GalacticGlobe>());
             AddToggle("MasoTrueEyeConfig", ModContent.ItemType<GalacticGlobe>());
 
             //cyclonic fin

@@ -294,7 +294,7 @@ namespace FargowiltasSouls.Projectiles
             }
 
             if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue("Adamantite")
-                && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source)
+                && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, false)
                 && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
             {
                 if (projectile.owner == Main.myPlayer
@@ -302,17 +302,11 @@ namespace FargowiltasSouls.Projectiles
                     || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.minion || sourceProj.sentry || (ProjectileID.Sets.IsAWhip[sourceProj.type] && !ProjectileID.Sets.IsAWhip[projectile.type])))))
                 {
                     AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer);
-                    return;
                 }
 
                 AdamProj = true;
 
                 projectile.ArmorPenetration += projectile.damage / 2;
-            }
-
-            if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source, true) && Array.IndexOf(noSplit, projectile.type) <= -1)
-            {
-                NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
             }
 
             if (modPlayer.TikiEnchantActive && projectile.friendly)
@@ -533,7 +527,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 20;
 
-                                FargoSoulsUtil.NewSummonProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.originalDamage, 2, projectile.owner);
+                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
 
                                 SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, projectile.Center);
 
@@ -616,6 +610,11 @@ namespace FargowiltasSouls.Projectiles
 
             if (firstTick)
             {
+                if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && Array.IndexOf(noSplit, projectile.type) <= -1)
+                {
+                    NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
+                }
+
                 if (projectile.type == ProjectileID.ShadowBeamHostile)
                 {
                     if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
@@ -1052,7 +1051,10 @@ namespace FargowiltasSouls.Projectiles
                         {
                             GrazeCD = 30 * projectile.MaxUpdates;
 
-                            SparklingAdoration.OnGraze(fargoPlayer, projectile.damage * 4);
+                            if (fargoPlayer.DeviGraze)
+                                SparklingAdoration.OnGraze(fargoPlayer, projectile.damage * 4);
+                            if (fargoPlayer.CirnoGraze)
+                                IceQueensCrown.OnGraze(fargoPlayer, projectile.damage * 4);
                         }
                     }
                 }

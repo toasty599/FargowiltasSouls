@@ -38,7 +38,7 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
             string tooltip_ch =
 @"[i:{0}] 商店价格会依据你的图鉴解锁度降低
 [i:{1}] 攻击时定期释放几个雪球
-[i:{2}] 所有钩爪的抛出速度、牵引速度和回收速度×2.5
+[i:{2}] 所有钩爪的抛出速度×2，牵引速度×2.5，回收速度×3
 [i:{3}] 暗影焰、诅咒焰和鲜血光环环绕着你
 [i:{4}] 双击“下”键召唤一个会向敌人扔橡实的棕榈树哨兵
 [i:{5}] 弹幕击中敌人或物块时有几率生成一颗星星
@@ -48,12 +48,12 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
             string tooltip_pt =
 @"[i:{0}] Você recebe um disconto nas lojas com base na conclusão do bestiário
 [i:{1}] Ataques serão periodicamente acompanhados por várias bolas de neve
-[i:{2}] Todos os ganchos disparam, puxam e retraem 2.5x mais rápido
-[i:{3}] Você tem uma aura de Chama das Sombras, Chamas Amaldiçoadas e Sangrando
-[i:{4}] Toque duas vezes para baixo para invocar uma sentinela de palmeira que lança nozes nos inimigos
-[i:{5}] Ataques podem invocar uma estrela quando eles atingem algo
+[i:{2}] Todos os ganchos disparam, puxam e retraem 2,5x mais rápido
+[i:{3}] [i:{4}] Você tem uma aura de Corrupção e Sangrando
+[i:{5}] Toque duas vezes para baixo para invocar até 3 sentinelas de palmeira
+[i:{6}] Ataques podem invocar uma estrela quando eles atingem algo
 'Extremamente rígido'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Portuguese, string.Format(tooltip_pt, Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[5], Enchants[6]));
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Portuguese, string.Format(tooltip_pt, Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4], Enchants[5], Enchants[6]));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -68,6 +68,11 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
             PalmWoodEnchant.PalmEffect(player, Item);
             PearlwoodEnchant.PearlwoodEffect(player, Item);
         }
+		
+		public override void UpdateVanity(Player player)
+		{
+			player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantDiscount = true;
+		}
 
         public override void AddRecipes()
         {

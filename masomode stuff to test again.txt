@@ -88,3 +88,132 @@ fixed twins install disappearing
 adjusted cultist pillar telegraphs
 adjusted destroyer light show telegraphs
 fixed ninja ench making phantasm and similar "held proj" weapons overpowered
+
+resprites
+	fused lens
+	squeaky toy
+	boc minor adjustments
+	mutant pact
+	rabies shot
+	rockslide
+raised soe sell price
+gnomes can inflict stoned
+skeletron hands will tp back to head if they throw themselves too far (ie, will never despawn now)
+deerclops mash minigame max duration extended, aka you are forced to mash out (better for new players understanding that you do in fact need to do something)
+a sound plays when you mash in deerclops minigame to indicate it is actually do something
+deerclops runs faster to catch up if you're outrunning for too long
+deerclops has an enrage, uses ghost hands to freeze you if you are directly above him too much
+fixed ninja ench sometimes not working depending on accessory order?
+pungent eyeball new effect: x5 spawn rate of rare npcs (ones that appear on lifeform analyzer)
+fixed saucer minion shooting invisible rockets
+fixed all minions that shoot projectiles not having any damage scaling on their projectiles
+check balance of the following in particular
+	nano core minion mode
+	staff of unleashed ocean
+	drakovi fish minion
+	big brain buster (also raised its cap)
+tribal charm click bonus has a buff to better indicate it exists
+wretched pouch is much more obvious when its active
+maso wof shoots bigger rays lol
+removed thieving enemies they cant do it anymore you're safe it's over
+prime p2 at 80%, was 75%
+prime doesnt spawn more limbs until 60%
+qs has ACTUAL STARTUP on her stupid phase 2 sudden dive on your face attack
+restored vanilla qs stomp hitbox sorry
+made ml's phase timer smoother (previously had conspicuous "jumps" in cycle speed, now a continuous gradual transition)
+reduced ml's max rampup, phase time at 1hp is now 10sec (was 7.5sec)
+maso ml has way huger deathrays and more sphere rings in p2 all classes lmao you thought
+
+disabled deerclops and qs debug printout
+fixed tungsten & adam affecting minions (can still affect most projs spawned by minions)
+also check that ninja works properly with minions, and that adam/ninja behave when used at the same time
+adjusted destro glow lines a bit, the blue lines dont appear in maso
+fixed oversight that made adam ench give you near-universal tungsten proj buff
+meteor ench rework
+	moved to pre hm
+	meteors have a chance to specifically aim for enemies (improved hit rate)
+	meteor shower lasts much longer if it doesnt hit enemies
+	damage nerfed
+removed destroyer resistance to meteor ench
+ice queens crown reworked yet again, graze attacks to gain a freeze bomb
+mutant antibodies buff, enter water to gain 30sec buff, more flight time and magilumi+frog leg
+fixed supersonic soul not actually having effects of magilumi or frog leg
+
+HUUUUUGE deathray internal refactor, check they all work and dont throw errors
+resprited will deathray
+fixed destroyer no contact damage bug
+magical bulb debuff cleanse cd ends faster when not attacking
+wood ench discount works in vanity slots
+stabilized gravity moved from galactic globe to wyvern feather
+biocluster can give passive stable gravity
+tweaked cultist arena vfx
+minor tweak to prime ai so that if spawned directly above you, arms dont stall for so long before they begin moving
+fixed getting graze from enemies flagged as no contact damage e.g. cultist, devi
+
+lieflight
+	added bestiary
+	aura is maso only
+	improved mp sync
+	no longer heals below maso, but increased max hp for equivalent effect
+	reduced DR to 50%, increased max hp
+	takes x0.33 damage when it used to have 200 defense
+	sans is maso only
+	sans disables all items instead of using cursed
+	reduced duration of ray spin
+	ray doesnt instakill outside maso
+	added a delay between attacks to fly around after you, not in maso
+	reworked p1 spam attack
+	adjusted hitboxes
+	reduced damage on some attacks
+	various vfx changes
+	fixed spawner not working when not stacked
+	walls of projs when p2 dive down are maso only
+	p3 is emode only
+	slurp&burp p3 extra projs are maso only
+	adjusted general movement to be lower elevation, not offscreen so much
+	made p3 rings while running minigun maso only
+	now gradually moves faster during p3 running minigun
+	p3 volleys into safespot in reaction shotgun is maso only
+	spread shots during p2 dive are more spread out below maso
+	most homing pixies have a slightly longer delay before homing begins, not in maso
+	pixies have worse homing unless in maso
+	adjusted slurp burp attack range and has a bit more startup outside maso
+fixed remote control reapplying with obnoxious dust whenever you get hit by electric attack
+
+maso probes dont shoot vanilla lasers
+lieflight
+	various misc changes
+	p2 is expert+ only
+	p2 6-nuke attack makes less projs
+	maso nukes dont make projs that split
+	p1 mine attack clears old mines first
+	p2 reaction shotgun has slower projs, they have old faster speed in p3 & maso
+	reduced how long p3 reaction shotgun lasts outside maso
+	tile-colliding projs now start with no tile collide, then gain it after 1sec when they reach open space
+	p2 rain attack ignores tiles and accelerates after a while (stop fallgodding)
+	added dusts to make sans crosshair explosions visible
+	slurp burp attack makes projs spawn further out if you move further out
+	made tp telegraph more visible
+	fixed? p2 shotgun glow lines not syncing properly in mp
+	disabled stupid vanilla mp redcode netcode npc smoothing
+	attempted? fixing gaster blasters in maso
+	made sans phase have regen instead of total immortality (should be functionally invincible on-tier, but eventually killable with endgame gear)
+	replaced instances of 9999 defense with the usual bonus dr
+
+lieflight
+	will chase you if you try to run away from p3 ray
+	reduced duration and lingering hitbox of sans rays
+	reduced hitbox size of laser projs
+	adjusted rain acceleration to be harder to fallgod
+	disabled hooks during sans
+	in emode, gives its spawner every attempt before defeat like other bosses
+demons can noclip at you lol
+tweaked enchanted lifeblade
+
+tried again to make sibling and squrrl boss spawners always work in mp
+fixed abom boss ray not being sheeted properly
+lieflight maso sans phase is now only available if your char name also contains "cum"
+
+buffed expixieve staff damage a bit
+lieflight with sans ai will have a different theme with new music mod
+fixed lieflight sometimes making you fall through platform when spawned?

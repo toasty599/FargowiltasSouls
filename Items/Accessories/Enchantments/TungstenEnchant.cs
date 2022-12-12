@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -24,7 +25,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         }
 
         protected override Color nameColor => new Color(176, 210, 178);
-        public override string wizardEffect => "Increased weapon size to 300%, bonus damage to 20%, cooldown reduced";
+        public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Tungsten");
 
         public override void SetDefaults()
         {
@@ -81,7 +82,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                 canAffect = true;
                 hasCD = false;
             }
-            else if (FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, source))
+            else if (FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, false))
             {
                 if (FargoSoulsUtil.IsProjSourceItemUseReal(projectile, source))
                 {
@@ -114,19 +115,18 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                 projectile.Center = projectile.position;
                 FargoSoulsGlobalProjectile globalProjectile = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
                 globalProjectile.TungstenScale = scale;
-                if (hasCD)
-                    modPlayer.TungstenCD = 30;
 
                 if (projectile.aiStyle == ProjAIStyleID.Spear || projectile.aiStyle == ProjAIStyleID.ShortSword)
                     projectile.velocity *= scale;
 
-                if (modPlayer.Eternity)
+                if (hasCD)
                 {
-                    modPlayer.TungstenCD = 0;
-                }
-                else if (modPlayer.TerraForce)
-                {
-                    modPlayer.TungstenCD /= 2;
+                    modPlayer.TungstenCD = 30;
+
+                    if (modPlayer.Eternity)
+                        modPlayer.TungstenCD = 0;
+                    else if (modPlayer.TerraForce)
+                        modPlayer.TungstenCD /= 2;
                 }
             }
         }

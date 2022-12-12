@@ -106,8 +106,9 @@ namespace FargowiltasSouls.Projectiles
                     {
                         color = Color.HotPink;
                         maxTime = 90;
+                        Projectile.scale = 0.5f;
                         Projectile.rotation = Projectile.ai[1];
-                        alphaModifier = 1;
+                        alphaModifier = 0.5f;
                         if (Projectile.velocity != Vector2.Zero)
                         {
                             if (counter == 0)
@@ -288,7 +289,8 @@ namespace FargowiltasSouls.Projectiles
                     {
                         color = Color.Purple;
                         maxTime = 90;
-                        alphaModifier = 2;
+                        alphaModifier = 1;
+                        Projectile.scale = 0.5f;
 
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
                         if (npc != null)
@@ -310,7 +312,7 @@ namespace FargowiltasSouls.Projectiles
                         alphaModifier = -1;
                         Projectile.Opacity = Math.Clamp((float)counter / maxTime, 0f, 1f);
 
-                        Projectile.scale = 0.5f;
+                        Projectile.scale = 0.6f;
 
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.TheDestroyerBody, NPCID.TheDestroyerTail);
                         if (npc == null)
@@ -343,10 +345,14 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 if (counter == maxTime)
                                 {
-                                    Projectile.NewProjectile(Projectile.InheritSource(Projectile),
-                                        Projectile.Center, Projectile.rotation.ToRotationVector2(),
-                                        Projectile.type,
-                                        Projectile.damage, Projectile.knockBack, Projectile.owner, 16f);
+									//only make blue telegraph in emode
+									if (!FargoSoulsWorld.MasochistModeReal)
+                                    {
+										Projectile.NewProjectile(Projectile.InheritSource(Projectile),
+											Projectile.Center, Projectile.rotation.ToRotationVector2(),
+											Projectile.type,
+											Projectile.damage, Projectile.knockBack, Projectile.owner, 16f);
+									}
 
                                     Projectile.NewProjectile(Projectile.InheritSource(Projectile),
                                         Projectile.Center, Projectile.localAI[0] * Projectile.rotation.ToRotationVector2(),
@@ -358,10 +364,14 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 if (counter > maxTime - 20 && counter % 10 == 0)
                                 {
-                                    Projectile.NewProjectile(Projectile.InheritSource(Projectile),
-                                        Projectile.Center, Projectile.rotation.ToRotationVector2(),
-                                        Projectile.type,
-                                        Projectile.damage, Projectile.knockBack, Projectile.owner, 16f);
+									//only make blue telegraph in emode
+									if (!FargoSoulsWorld.MasochistModeReal)
+                                    {
+										Projectile.NewProjectile(Projectile.InheritSource(Projectile),
+											Projectile.Center, Projectile.rotation.ToRotationVector2(),
+											Projectile.type,
+											Projectile.damage, Projectile.knockBack, Projectile.owner, 16f);
+									}
 
                                     Projectile.NewProjectile(Projectile.InheritSource(Projectile),
                                         Projectile.Center, Projectile.localAI[0] * Projectile.rotation.ToRotationVector2(),
@@ -462,10 +472,10 @@ namespace FargowiltasSouls.Projectiles
                 case 16: //destroyer blue laser line up true telegraph
                     {
                         color = Color.SkyBlue;
-                        maxTime = 15;
+                        maxTime = 30;
                         alphaModifier = -1;
                         Projectile.Opacity = Math.Clamp(1f - (float)counter / maxTime, 0f, 1f);
-                        Projectile.scale = 0.5f;
+                        Projectile.scale = 0.6f;
 
                         Projectile.rotation = Projectile.velocity.ToRotation();
                         Projectile.position -= Projectile.velocity;
@@ -477,7 +487,7 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Purple;
                         maxTime = 270;
                         alphaModifier = 2;
-                        drawLayers = 3;
+                        drawLayers = 2;
                         Projectile.scale = 24f;
 
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.MoonLordCore);
@@ -532,15 +542,16 @@ namespace FargowiltasSouls.Projectiles
                 case 18: //cultist arena new visual
                     {
                         color = Color.Cyan * 0.75f;
-                        maxTime = 60;
-                        alphaModifier = 2;
-                        Projectile.scale = 3f;
+                        maxTime = 60 * 2;
+                        alphaModifier = 1;
 
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.CultistBoss);
                         if (npc != null)
                         {
                             if (counter > maxTime / 2)
                                 counter = maxTime / 2;
+							float ratio = (float)counter / (maxTime / 2);
+							Projectile.scale = 0.5f + 2.5f * ratio;
 
                             if (npc.ai[0] == 5)
                             {
@@ -560,8 +571,8 @@ namespace FargowiltasSouls.Projectiles
                                         Projectile.localAI[0] = offset.X;
                                         Projectile.localAI[1] = offset.Y;
                                     }
-
-                                    Projectile.Center = Main.projectile[ritual].Center + new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
+									
+                                    Projectile.Center = Main.projectile[ritual].Center + new Vector2(Projectile.localAI[0], Projectile.localAI[1]) * ratio;
                                 }
                             }
                         }
@@ -583,6 +594,15 @@ namespace FargowiltasSouls.Projectiles
 
                         Projectile.position -= Projectile.velocity;
                         Projectile.rotation = Projectile.velocity.ToRotation();
+                    }
+                    break;
+                case 20: //lifelight shotgun
+                    {
+                        color = Color.DeepPink; //Color.Lerp(Color.DeepPink, Color.Magenta, 0.5f);
+                        alphaModifier = 1;
+                        Projectile.scale = 0.6f;
+                        maxTime = 40;
+                        Projectile.rotation = Projectile.ai[1];
                     }
                     break;
 
