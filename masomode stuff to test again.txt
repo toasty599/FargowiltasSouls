@@ -218,3 +218,4 @@ buffed expixieve staff damage a bit
 lieflight with sans ai will have a different theme with new music mod
 fixed lieflight sometimes making you fall through platform when spawned?
 fixed maso probes not having contact damage
+fixed fragile pixie lamp not being sold by mutant post-lieflight
