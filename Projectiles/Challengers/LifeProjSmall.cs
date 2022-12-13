@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Life Shot");
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
         public override void SetDefaults()
