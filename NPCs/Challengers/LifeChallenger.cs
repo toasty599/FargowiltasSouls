@@ -180,8 +180,8 @@ namespace FargowiltasSouls.NPCs.Challengers
 
         public override void OnSpawn(IEntitySource source)
         {
-            //only enable this in maso in presence of cum
-            if (FargoSoulsWorld.MasochistModeReal && Main.player.Any(p => p.active && p.name.ToLower().Contains("cum")))
+            //only enable this in maso
+            if (FargoSoulsWorld.MasochistModeReal)// && Main.player.Any(p => p.active && p.name.ToLower().Contains("cum")))
                 UseTrueOriginAI = true;
         }
 
