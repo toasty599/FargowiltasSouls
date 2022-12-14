@@ -108,10 +108,15 @@ namespace FargowiltasSouls.NPCs.Challengers
         private bool Draw = false;
 
         bool useDR;
+        bool phaseProtectionDR;
 
         int flyTimer = 9000;
 
         private List<int> intervalist = new List<int>(0);
+
+        int P2Threshold => Main.expertMode ? (int)(NPC.lifeMax * 0.66) : 0;
+        int P3Threshold => FargoSoulsWorld.EternityMode ? NPC.lifeMax / (FargoSoulsWorld.MasochistModeReal ? 2 : 3) : 0;
+        int SansThreshold => FargoSoulsWorld.MasochistModeReal && UseTrueOriginAI ? NPC.lifeMax / 10 : 0;
         #endregion
         #region Standard
         public override void SetStaticDefaults()
@@ -215,10 +220,18 @@ namespace FargowiltasSouls.NPCs.Challengers
             Main.dayTime = true;
             NPC.defense = NPC.defDefense;
             useDR = false;
+            phaseProtectionDR = false;
+
+            if (PhaseOne && NPC.life < P2Threshold)
+                phaseProtectionDR = true;
+            if (!PhaseThree && NPC.life < P3Threshold)
+                phaseProtectionDR = true;
+            if (UseTrueOriginAI && NPC.life < SansThreshold)
+                phaseProtectionDR = true;
 
             //permanent DR and regen for sans phase
             //deliberately done this way so that you can still eventually muscle past with endgame gear (this is ok)
-            if (UseTrueOriginAI && NPC.life < NPC.lifeMax / 10 * 0.75) //lowered so that sans phase check goes through properly
+            if (UseTrueOriginAI && NPC.life < SansThreshold * 0.5) //lowered so that sans phase check goes through properly
             {
                 useDR = true;
 
@@ -370,12 +383,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                         
                         bool resetFly = true;
                         
-                        if (!PhaseThree && FargoSoulsWorld.EternityMode && NPC.life < NPC.lifeMax * (FargoSoulsWorld.MasochistModeReal ? 0.5 : 0.33))
+                        if (!PhaseThree && NPC.life < P3Threshold)
                         {
                             state = 100;
                             resetFly = false;
                         }
-                        if (PhaseThree && NPC.life < NPC.lifeMax / 10 && UseTrueOriginAI)
+
+                        if (PhaseThree && NPC.life < SansThreshold)
                         {
                             state = 101;
                             oldstate = 0;
@@ -2392,8 +2406,18 @@ namespace FargowiltasSouls.NPCs.Challengers
             if (useDR)
                 damage /= 2;
 
+            if (phaseProtectionDR)
+                damage /= 2;
+
             return true;
         }
+
+        public override void UpdateLifeRegen(ref int damage)
+        {
+            if ((useDR || phaseProtectionDR) && NPC.lifeRegen < 0)
+                NPC.lifeRegen /= 2;
+        }
+
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
             if (HitPlayer)
@@ -2572,11 +2596,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                 if (P1state == oldP1state)
                     P1state = (P1state + 1) % P1statecount;
             }
-            if (NPC.life < NPC.lifeMax * 0.66 && Main.expertMode) //phase 2 switch?
+
+            if (NPC.life < P2Threshold) //phase 2 switch
             {
                 P1state = -1;
                 flyTimer = 9000;
             }
+
             NPC.netUpdate = true;
         }
         public void StateReset()
@@ -2609,11 +2635,12 @@ namespace FargowiltasSouls.NPCs.Challengers
 
 			}
 
-            if (!PhaseThree && FargoSoulsWorld.EternityMode && NPC.life < NPC.lifeMax * (FargoSoulsWorld.MasochistModeReal ? 0.5 : 0.33))
+            if (!PhaseThree && NPC.life < P3Threshold)
 			{
 				state = 100;
 			}
-			if (PhaseThree && NPC.life < NPC.lifeMax / 10 && FargoSoulsWorld.MasochistModeReal)
+
+			if (PhaseThree && NPC.life < SansThreshold)
 			{
 				state = 101;
 				oldstate = -665;
