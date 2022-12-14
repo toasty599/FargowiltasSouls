@@ -854,14 +854,14 @@ namespace FargowiltasSouls.NPCs.Challengers
 
             NPC.velocity *= 0.95f;
 
-            if (FargoSoulsWorld.MasochistModeReal)
-            {
-                int heal = (int)(NPC.lifeMax / 100f * Main.rand.NextFloat(1f, 1.5f));
-                NPC.life += heal;
-                if (NPC.life > NPC.lifeMax)
-                    NPC.life = NPC.lifeMax;
-                CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
-            }
+            //if (FargoSoulsWorld.MasochistModeReal)
+            //{
+            //    int heal = (int)(NPC.lifeMax / 100f * Main.rand.NextFloat(1f, 1.5f));
+            //    NPC.life += heal;
+            //    if (NPC.life > NPC.lifeMax)
+            //        NPC.life = NPC.lifeMax;
+            //    CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
+            //}
 
             if (NPC.ai[1] == 120f)
             {
