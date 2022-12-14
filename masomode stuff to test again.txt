@@ -227,3 +227,4 @@ fixed none of lieflight's weapons actually having classed projs (melee weap can 
 adjusted dr to shield lieflight from being melted past phase transitions
 removed mutant eye immunity to mutant presence
 enraged mutant has much higher stats
+prime can do cardinal swipes
