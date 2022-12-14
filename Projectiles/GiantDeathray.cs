@@ -38,8 +38,6 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
-            base.AI();
-
             if (!Main.dedServ && Main.LocalPlayer.active)
                 Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
 
