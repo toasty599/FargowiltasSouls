@@ -224,4 +224,4 @@ adjusted hitbox of life proj small (the laser beam) to be longer
 fixed maso cum sans phase initial crosshair explosions not actually doing damage
 added slight accel to prime dark stars (generally shouldnt be a factor unless outrunning spin for too long)
 fixed none of lieflight's weapons actually having classed projs (melee weap can ichor now)
-added another layer of dr to shield lieflight from being melted past phase transitions
+adjusted dr to shield lieflight from being melted past phase transitions

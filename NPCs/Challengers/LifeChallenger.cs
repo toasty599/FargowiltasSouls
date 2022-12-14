@@ -229,12 +229,10 @@ namespace FargowiltasSouls.NPCs.Challengers
             if (UseTrueOriginAI && NPC.life < SansThreshold)
                 phaseProtectionDR = true;
 
-            //permanent DR and regen for sans phase
+            //permanent regen for sans phase
             //deliberately done this way so that you can still eventually muscle past with endgame gear (this is ok)
             if (UseTrueOriginAI && NPC.life < SansThreshold * 0.5) //lowered so that sans phase check goes through properly
             {
-                useDR = true;
-
                 int healPerSecond = NPC.lifeMax / 10;
                 NPC.life += healPerSecond / 60;
                 CombatText.NewText(NPC.Hitbox, CombatText.HealLife, healPerSecond);
@@ -1071,7 +1069,7 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         public void AttackP3Start()
         {
-            useDR = UseTrueOriginAI;
+            useDR = true;
             NPC.chaseable = !UseTrueOriginAI;
 
             if (AttackF1)
