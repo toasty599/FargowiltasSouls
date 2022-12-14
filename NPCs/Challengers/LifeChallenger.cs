@@ -1253,13 +1253,13 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     for (int i = 0; i < 2; i++)
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(-4 + (8 * i), -2f), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 3f, Main.myPlayer, 32f);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(-4 + (8 * i), -2f), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 3f, Main.myPlayer, 24f);
             }
             if (NPC.ai[1] > Attack2Start && time2 % Attack2Time + 1 == Attack2Time && NPC.ai[1] < Attack2End) //fire shots down
             {
                 SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact, NPC.Center);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(0, 4f), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(0, 3f), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
             }
             #endregion
             #region Jevilsknife

@@ -228,3 +228,5 @@ adjusted dr to shield lieflight from being melted past phase transitions
 removed mutant eye immunity to mutant presence
 enraged mutant has much higher stats
 prime can do cardinal swipes
+
+lieflight maso cum sans "thorn ball + nukes": reduced density of nuke rings and fall speed of balls
