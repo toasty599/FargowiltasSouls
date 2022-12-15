@@ -181,7 +181,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 if (SpawnedArms && FargoSoulsWorld.MasochistModeReal && ++MasoArmsTimer == 120)
                 {
-                    //GrowHands(npc);
+                    GrowHands(npc);
                 }
 
                 if (npc.ai[2] == 0)

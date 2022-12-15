@@ -237,4 +237,5 @@ fixed hunter potion not revealing royal subject
 
 adjusted life revitalizer to set your spawn point like a bed instead of global spawn point
 gave skeletron 50% DR while hands alive because apparently respawning hands doesnt give him defense
-disabled maso skel growing more hands
+
+enabled maso skel growing more hands
