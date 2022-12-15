@@ -11,23 +11,22 @@ using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.Patreon.ManliestDove;
 using System.Reflection;
 using System.Linq;
-using System.Drawing;
 using Terraria.Audio;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.Items.Weapons.Challengers;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Linq;
 using Terraria.GameContent.ItemDropRules;
-using Color = Microsoft.Xna.Framework.Color; //idk why i had to do this but i did
 using Terraria.Graphics.Shaders;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace FargowiltasSouls.NPCs.Challengers
 {
-
     [AutoloadBossHead]
     public class CursedCoffin : ModNPC
     {
+        //TODO: re-enable boss checklist compat, localizationhelper addSpawnInfo
+        public override bool IsLoadingEnabled(Mod mod) => false; //prevent appearing
+
         #region Variables
         private enum StateEnum
         {
