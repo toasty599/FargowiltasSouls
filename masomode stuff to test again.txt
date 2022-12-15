@@ -233,5 +233,8 @@ lieflight maso cum sans "thorn ball + nukes": reduced density of nuke rings, and
 maso cum sans phase is no longer cum name only (it is just part of maso fight now)
 disabled lieflight maso p2 heal
 moved music boxes from music mod to this one
-maso skeletron grows more hands lol
 fixed hunter potion not revealing royal subject
+
+adjusted life revitalizer to set your spawn point like a bed instead of global spawn point
+gave skeletron 50% DR while hands alive because apparently respawning hands doesnt give him defense
+disabled maso skel growing more hands

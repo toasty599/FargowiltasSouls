@@ -22,9 +22,8 @@ namespace FargowiltasSouls.Tiles
             TileID.Sets.DisableSmartCursor[Type] = true;
             TileID.Sets.InteractibleByNPCs[Type] = true;
 
-
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
-            TileObjectData.newTile.LavaDeath = true;
+            TileObjectData.newTile.LavaDeath = false;
             //TileObjectData.newTile.Origin = new Point16(0, 1);
             //TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
             TileObjectData.addTile(Type);
@@ -35,18 +34,36 @@ namespace FargowiltasSouls.Tiles
 
             AnimationFrameHeight = 54;
         }
+
         public override bool RightClick(int i, int j)
         {
-            Main.spawnTileX = i;
-            Main.spawnTileY = j;
-            if (Main.netMode == NetmodeID.SinglePlayer)
-                Main.NewText(Language.GetTextValue("Spawn point set to Life Revitalizer!"), Color.Pink);
-            else 
-                ChatHelper.BroadcastChatMessage(NetworkText.FromKey($"Spawn point set to Life Revitalizer by {Main.LocalPlayer.name}!"), Color.Pink);
+            Player player = Main.LocalPlayer;
 
+            Tile tile = Framing.GetTileSafely(i, j);
+            //account for possibly clicking on any part of the multi-tile, negate it to have coords of top left corner
+            i -= tile.TileFrameX / 18;
+            j -= tile.TileFrameY / 18;
+            //add offset to get the coord right below the middle-bottom of this multi-tile
+            i += 1;
+            j += 3;
+
+            //Main.NewText($"{i} {j}");
+
+            player.FindSpawn();
+            if (player.SpawnX == i && player.SpawnY == j)
+            {
+                player.RemoveSpawn();
+                Main.NewText(Language.GetTextValue("Game.SpawnPointRemoved"), byte.MaxValue, 240, 20);
+            }
+            else if (WorldGen.InWorld(i, j))
+            {
+                player.ChangeSpawn(i, j);
+                Main.NewText(Language.GetTextValue("Game.SpawnPointSet"), byte.MaxValue, 240, 20);
+            }
 
             return true;
         }
+
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
@@ -57,13 +74,14 @@ namespace FargowiltasSouls.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 32, ModContent.ItemType<Items.Placeables.LifeRevitalizer>());
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 32, ModContent.ItemType<LifeRevitalizer>());
         }
+
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             r = 1f;
-            g = 20/255f;
-            b = 147/255f;
+            g = 20 / 255f;
+            b = 147 / 255f;
         }
 
         public override void AnimateTile(ref int frame, ref int frameCounter)

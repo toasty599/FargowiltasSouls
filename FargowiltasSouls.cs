@@ -10,6 +10,7 @@ using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Shaders;
 using FargowiltasSouls.Sky;
+using FargowiltasSouls.Tiles;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.UI;
 using Microsoft.Xna.Framework;
@@ -195,6 +196,37 @@ namespace FargowiltasSouls
             //On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI += IsMasterModeOrEMode_CanShowItemDropInUI;
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop += DropBasedOnMasterOrEMode_CanDrop;
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction += DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
+
+            On.Terraria.Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
+        }
+
+        private static bool LifeRevitalizer_CheckSpawn_Internal(
+            On.Terraria.Player.orig_CheckSpawn_Internal orig,
+            int x, int y)
+        {
+            if (orig(x, y))
+                return true;
+
+            //Main.NewText($"{x} {y}");
+
+            int revitalizerType = ModContent.TileType<LifeRevitalizerPlaced>();
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -3; j <= -1; j++)
+                {
+                    int newX = x + i;
+                    int newY = y + j;
+                    
+                    if (!WorldGen.InWorld(newX, newY))
+                        return false;
+
+                    Tile tile = Framing.GetTileSafely(newX, newY);
+                    if (tile.TileType != revitalizerType)
+                        return false;
+                }
+            }
+
+            return true;
         }
 
         private static bool IsMasterModeOrEMode_CanDrop(

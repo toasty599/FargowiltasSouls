@@ -181,7 +181,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 if (SpawnedArms && FargoSoulsWorld.MasochistModeReal && ++MasoArmsTimer == 120)
                 {
-                    GrowHands(npc);
+                    //GrowHands(npc);
                 }
 
                 if (npc.ai[2] == 0)
@@ -283,6 +283,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             EModeUtils.DropSummon(npc, "SuspiciousSkull", NPC.downedBoss3, ref DroppedSummon);
 
             return result;
+        }
+
+        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            if (Main.npc.Any(n => n.active && n.type == NPCID.SkeletronHand && n.ai[0] == npc.whoAmI))
+                damage /= 2;
+
+            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         public override bool CheckDead(NPC npc)

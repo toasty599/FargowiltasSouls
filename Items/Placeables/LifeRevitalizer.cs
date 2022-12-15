@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Items.Placeables
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Life Revitalizer");
-            Tooltip.SetDefault("Right click tile to set world spawn point \nOverridden by beds \nNo housing required");
+            Tooltip.SetDefault("Right click tile to set your spawn point\nNo housing required");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 3));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
@@ -30,6 +30,8 @@ namespace FargowiltasSouls.Items.Placeables
             Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = true;
             Item.createTile = ModContent.TileType<Tiles.LifeRevitalizerPlaced>();
+
+            Item.expert = true;
         }
     }
 }
