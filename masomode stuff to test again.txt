@@ -233,3 +233,4 @@ lieflight maso cum sans "thorn ball + nukes": reduced density of nuke rings, and
 maso cum sans phase is no longer cum name only (it is just part of maso fight now)
 disabled lieflight maso p2 heal
 moved music boxes from music mod to this one
+maso skeletron grows more hands lol

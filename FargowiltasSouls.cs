@@ -509,8 +509,6 @@ namespace FargowiltasSouls
                 //if (BossChecklistCompatibility != null)
                 //    BossChecklistCompatibility.Initialize();
 
-                BossChecklistCompatibility();
-
                 DebuffIDs = new List<int> { BuffID.Bleeding, BuffID.OnFire, BuffID.Rabies, BuffID.Confused, BuffID.Weak, BuffID.BrokenArmor, BuffID.Darkness, BuffID.Slow, BuffID.Cursed, BuffID.Poisoned, BuffID.Silenced, 39, 44, 46, 47, 67, 68, 69, 70, 80,
                             88, 94, 103, 137, 144, 145, 149, 156, 160, 163, 164, 195, 196, 197, 199 };
                 DebuffIDs.Add(ModContent.BuffType<Anticoagulation>());
@@ -569,6 +567,8 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<AbomRebirth>());
 
                 DebuffIDs.Add(ModContent.BuffType<TimeFrozen>());
+
+                BossChecklistCompatibility();
 
                 //Mod bossHealthBar = ModLoader.GetMod("FKBossHealthBar");
                 //if (bossHealthBar != null)
