@@ -78,25 +78,6 @@ namespace FargowiltasSouls
         public static UIManager UserInterfaceManager => Instance._userInterfaceManager;
         private UIManager _userInterfaceManager;
 
-        //        #region Compatibilities
-
-        //        public CalamityCompatibility CalamityCompatibility { get; private set; }
-        //        public bool CalamityLoaded => CalamityCompatibility != null;
-
-        //        public ThoriumCompatibility ThoriumCompatibility { get; private set; }
-        //        public bool ThoriumLoaded => ThoriumCompatibility != null;
-
-        //        public SoACompatibility SoACompatibility { get; private set; }
-        //        public bool SoALoaded => SoACompatibility != null;
-
-        //        public MasomodeEXCompatibility MasomodeEXCompatibility { get; private set; }
-        //        public bool MasomodeEXLoaded => MasomodeEXCompatibility != null;
-
-        //        public BossChecklistCompatibility BossChecklistCompatibility { get; private set; }
-        //        public bool BossChecklistLoaded => BossChecklistCompatibility != null;
-
-        //        #endregion Compatibilities
-
         //public Fargowiltas()
         //{
         //    Properties = new ModProperties
