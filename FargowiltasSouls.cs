@@ -490,8 +490,6 @@ namespace FargowiltasSouls
                 //if (BossChecklistCompatibility != null)
                 //    BossChecklistCompatibility.Initialize();
 
-                BossChecklistCompatibility();
-
                 DebuffIDs = new List<int> { BuffID.Bleeding, BuffID.OnFire, BuffID.Rabies, BuffID.Confused, BuffID.Weak, BuffID.BrokenArmor, BuffID.Darkness, BuffID.Slow, BuffID.Cursed, BuffID.Poisoned, BuffID.Silenced, 39, 44, 46, 47, 67, 68, 69, 70, 80,
                             88, 94, 103, 137, 144, 145, 149, 156, 160, 163, 164, 195, 196, 197, 199 };
                 DebuffIDs.Add(ModContent.BuffType<Anticoagulation>());
@@ -551,6 +549,8 @@ namespace FargowiltasSouls
 
                 DebuffIDs.Add(ModContent.BuffType<TimeFrozen>());
 
+                BossChecklistCompatibility();
+
                 //Mod bossHealthBar = ModLoader.GetMod("FKBossHealthBar");
                 //if (bossHealthBar != null)
                 //{
@@ -591,10 +591,11 @@ namespace FargowiltasSouls
                 Mod fargos = ModLoader.GetMod("Fargowiltas");
                 fargos.Call("AddSummon", 0.5f, "FargowiltasSouls", "SquirrelCoatofArms", new Func<bool>(() => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TrojanSquirrel]), Item.buyPrice(0, 4));
                 fargos.Call("AddSummon", 6.9f, "FargowiltasSouls", "DevisCurse", new Func<bool>(() => FargoSoulsWorld.downedDevi), Item.buyPrice(0, 17, 50));
-                fargos.Call("AddSummon", 17.009f, "FargowiltasSouls", "ChampionySigil", new Func<bool>(() => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion]), Item.buyPrice(5));
-                fargos.Call("AddSummon", 17.01f, "FargowiltasSouls", "AbomsCurse", new Func<bool>(() => FargoSoulsWorld.downedAbom), Item.buyPrice(10));
-                //fargos.Call("AddSummon", 17.01f, "FargowiltasSouls", "TruffleWormEX", () => FargoSoulsWorld.downedFishronEX, Item.buyPrice(10));
-                fargos.Call("AddSummon", 17.02f, "FargowiltasSouls", "MutantsCurse", new Func<bool>(() => FargoSoulsWorld.downedMutant), Item.buyPrice(20));
+                fargos.Call("AddSummon", 11.49f, "FargowiltasSouls", "FragilePixieLamp", new Func<bool>(() => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.LifeChallenger]), Item.buyPrice(0, 45));
+                fargos.Call("AddSummon", 18.009f, "FargowiltasSouls", "ChampionySigil", new Func<bool>(() => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion]), Item.buyPrice(5));
+                fargos.Call("AddSummon", 18.01f, "FargowiltasSouls", "AbomsCurse", new Func<bool>(() => FargoSoulsWorld.downedAbom), Item.buyPrice(10));
+                //fargos.Call("AddSummon", 18.01f, "FargowiltasSouls", "TruffleWormEX", () => FargoSoulsWorld.downedFishronEX, Item.buyPrice(10));
+                fargos.Call("AddSummon", 18.02f, "FargowiltasSouls", "MutantsCurse", new Func<bool>(() => FargoSoulsWorld.downedMutant), Item.buyPrice(20));
             }
             catch (Exception e)
             {

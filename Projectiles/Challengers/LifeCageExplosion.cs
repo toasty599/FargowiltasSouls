@@ -27,6 +27,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Projectile.timeLeft = 2;
 
             Projectile.hide = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -43,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 {
                     int d = Dust.NewDust(Projectile.Center, 0, 0, DustID.HallowedTorch, 0, 0, 0, default, 4f);
                     Main.dust[d].noGravity = true;
-                    Main.dust[d].velocity *= 6;
+                    Main.dust[d].velocity *= 9;
                 }
 
                 for (int i = 0; i < 4; i++)

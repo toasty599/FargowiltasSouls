@@ -27,6 +27,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public int ReticleTarget;
         public int BabyGuardianTimer;
         public int DGSpeedRampup;
+        public int MasoArmsTimer;
 
         public bool InPhase2;
 
@@ -44,6 +45,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             };
 
         int BabyGuardianTimerRefresh(NPC npc) => !FargoSoulsWorld.MasochistModeReal && NPC.AnyNPCs(NPCID.SkeletronHand) && npc.life > npc.lifeMax * 0.25 ? 240 : 180;
+        
+        void GrowHands(NPC npc)
+        {
+            FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
+            FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
+
+            FargoSoulsUtil.PrintLocalization($"Mods.{mod.Name}.Message.SkeletronRegrow", new Color(175, 75, 255));
+        }
 
         public override bool PreAI(NPC npc)
         {
@@ -57,11 +66,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (!SpawnedArms && npc.life < npc.lifeMax * .5)
             {
                 SpawnedArms = true;
-
-                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
-                FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
-
-                FargoSoulsUtil.PrintLocalization($"Mods.{mod.Name}.Message.SkeletronRegrow", new Color(175, 75, 255));
+                GrowHands(npc);
             }
 
             if (npc.ai[1] == 0f)
@@ -174,6 +179,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
             else
             {
+                if (SpawnedArms && FargoSoulsWorld.MasochistModeReal && ++MasoArmsTimer == 120)
+                {
+                    GrowHands(npc);
+                }
+
                 if (npc.ai[2] == 0)
                 {
                     //compensate for not changing targets when beginning spin

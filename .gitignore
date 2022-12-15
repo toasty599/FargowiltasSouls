@@ -289,3 +289,4 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 /Effects/fx compiler - Shortcut.lnk
+/compile_temp/Fargowiltas.dll

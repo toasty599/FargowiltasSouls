@@ -3057,7 +3057,7 @@ namespace FargowiltasSouls
                     Player.hurtCooldowns[1] = 180;
                     string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.Revived");
                     Main.NewText(text, Color.LimeGreen);
-                    Player.AddBuff(ModContent.BuffType<MutantRebirth>(), 10800);
+                    Player.AddBuff(ModContent.BuffType<MutantRebirth>(), 120 * 60);
                     retVal = false;
 
                     Projectile.NewProjectile(Player.GetSource_Accessory(MutantSetBonusItem), Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.ActualClassDamage(DamageClass.Magic)), 10f, Player.whoAmI);
@@ -3417,8 +3417,9 @@ namespace FargowiltasSouls
 
             if ((SquireEnchantActive || ValhallaEnchantActive) && Player.GetToggleValue("Valhalla", false))
             {
-                //if (TerrariaSoul) bonus = 1f; else 
-                if (WillForce && ValhallaEnchantActive)
+                if (Eternity)
+                    bonus = 4f;
+                else if (WillForce && ValhallaEnchantActive)
                     bonus = 1f / 2f;
                 else if (ValhallaEnchantActive || (WillForce && SquireEnchantActive))
                     bonus = 1f / 3f;
@@ -3426,7 +3427,7 @@ namespace FargowiltasSouls
                     bonus = 1f / 4f;
             }
 
-            heal = (int)(heal * (1 + bonus));
+            heal = (int)(heal * (1f + bonus));
 
             return heal;
         }
