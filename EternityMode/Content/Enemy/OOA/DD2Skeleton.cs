@@ -15,9 +15,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
 
         public int AttackTimer;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             AttackTimer = Main.rand.Next(180);
         }

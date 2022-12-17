@@ -16,9 +16,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
 
         public int FuseTimer;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lifeMax *= 2;
         }

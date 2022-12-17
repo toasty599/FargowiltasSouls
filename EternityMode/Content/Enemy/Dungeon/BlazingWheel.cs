@@ -8,9 +8,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.BlazingWheel);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.scale *= 2f;
         }

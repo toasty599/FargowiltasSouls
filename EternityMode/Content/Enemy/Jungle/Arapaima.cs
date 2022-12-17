@@ -11,9 +11,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 
         public int JumpTimer;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             JumpTimer = Main.rand.Next(120);
         }

@@ -46,9 +46,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(IsEX), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             if (EModeGlobalNPC.spawnFishronEX)
             {
@@ -74,9 +74,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
         }
 
-        public override bool PreAI(NPC npc)
+        public override bool SafePreAI(NPC npc)
         {
-            bool result = base.PreAI(npc);
+            bool result = base.SafePreAI(npc);
 
             EModeGlobalNPC.fishBoss = npc.whoAmI;
 
@@ -951,9 +951,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.Sharkron, NPCID.Sharkron2);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lifeMax *= 5;
             npc.lavaImmune = true;
@@ -1014,9 +1014,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DetonatingBubble);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lavaImmune = true;
             if (!NPC.downedBoss3)

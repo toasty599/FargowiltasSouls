@@ -10,9 +10,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Mushroom
 
         public int Counter;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             Counter = Main.rand.Next(30);
         }

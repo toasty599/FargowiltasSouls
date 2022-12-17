@@ -31,14 +31,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             }
         }
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
         }
 
-        public override bool PreAI(NPC npc)
+        public override bool SafePreAI(NPC npc)
         {
-            bool result = base.PreAI(npc);
+            bool result = base.SafePreAI(npc);
 
             const float gravity = 0.4f;
 

@@ -22,9 +22,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
             NPCID.GoblinWarrior
         );
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             if (npc.type == NPCID.GoblinWarrior)
                 npc.knockBackResist /= 10;

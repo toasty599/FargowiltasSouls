@@ -64,9 +64,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
 
         public int Timer;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.trapImmune = true;
         }
@@ -102,9 +102,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         public bool IsCultistProjectile;
         public int Timer;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.noTileCollide = true;
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && npc.Distance(Main.npc[EModeGlobalNPC.cultBoss].Center) < 3000)
@@ -130,9 +130,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
 
         public int Timer;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.noTileCollide = true;
             npc.lavaImmune = true;
@@ -178,9 +178,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.SolarSolenian);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
             npc.knockBackResist = 0f;
         }
     }
@@ -214,9 +214,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.SolarSroller);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
             npc.scale += 0.5f;
         }
     }

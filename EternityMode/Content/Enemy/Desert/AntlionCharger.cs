@@ -10,9 +10,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.WalkingAntlion);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.knockBackResist /= 2f;
         }

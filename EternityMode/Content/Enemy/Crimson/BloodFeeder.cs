@@ -23,9 +23,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Crimson
                 { new Ref<object>(DamageMultiplier), FloatStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lifeMax *= 2;
 

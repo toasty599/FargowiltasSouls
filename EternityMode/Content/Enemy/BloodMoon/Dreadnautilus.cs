@@ -17,9 +17,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.BloodNautilus);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.boss = true;
         }
@@ -39,7 +39,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             return base.CanHitPlayer(npc, target, ref CooldownSlot);
         }
 
-        public override bool PreAI(NPC npc)
+        public override bool SafePreAI(NPC npc)
         {
             if (!npc.HasValidTarget)
             {
@@ -171,7 +171,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                 }
             }
 
-            return base.PreAI(npc);
+            return base.SafePreAI(npc);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -200,9 +200,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.BloodSquid);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             //npc.knockBackResist += 0.1f;
         }

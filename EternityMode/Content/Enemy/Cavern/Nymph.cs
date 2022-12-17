@@ -19,9 +19,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
         public int Counter;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lavaImmune = true;
 

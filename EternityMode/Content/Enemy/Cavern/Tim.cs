@@ -14,9 +14,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Tim);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lavaImmune = true;
             npc.lifeMax *= 2;

@@ -92,9 +92,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.WanderingEye);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lifeMax *= 2;
         }
@@ -129,9 +129,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
 
         public override void OnFirstTick(NPC npc) { }
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lifeMax *= 2;
         }

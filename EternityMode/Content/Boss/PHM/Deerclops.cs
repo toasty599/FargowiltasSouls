@@ -46,9 +46,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 { new Ref<object>(DoLaserAttack), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.25, MidpointRounding.ToEven);
         }
@@ -71,9 +71,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             return base.CanHitPlayer(npc, target, ref CooldownSlot);
         }
 
-        public override bool PreAI(NPC npc)
+        public override bool SafePreAI(NPC npc)
         {
-            bool result = base.PreAI(npc);
+            bool result = base.SafePreAI(npc);
 
             EModeGlobalNPC.deerBoss = npc.whoAmI;
 

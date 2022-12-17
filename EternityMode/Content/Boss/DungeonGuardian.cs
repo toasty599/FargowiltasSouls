@@ -30,9 +30,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                 { new Ref<object>(AttackTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.boss = true;
             npc.lifeMax /= 4;

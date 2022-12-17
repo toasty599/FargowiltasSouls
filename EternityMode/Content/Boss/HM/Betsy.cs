@@ -43,15 +43,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(InPhase2), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.boss = true;
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 4.0 / 3.0);
         }
 
-        public override bool PreAI(NPC npc)
+        public override bool SafePreAI(NPC npc)
         {
             EModeGlobalNPC.betsyBoss = npc.whoAmI;
 

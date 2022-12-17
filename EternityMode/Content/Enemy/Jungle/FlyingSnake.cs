@@ -22,9 +22,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
                 { new Ref<object>(Phase2), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.trapImmune = true;
             npc.lifeMax *= 2;

@@ -31,9 +31,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
                 { new Ref<object>(BittenPlayer), IntStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.damage = (int)(2.0 / 3.0 * npc.damage);
         }

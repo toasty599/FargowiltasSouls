@@ -16,9 +16,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
 
         public int Counter;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.noTileCollide = true;
         }

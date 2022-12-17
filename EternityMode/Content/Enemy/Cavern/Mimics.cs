@@ -42,17 +42,17 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 { new Ref<object>(LockVector), IntStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
             if (!Main.hardMode)
                 npc.damage = 60; //base is 80
         }
 
-        public override bool PreAI(NPC npc)
+        public override bool SafePreAI(NPC npc)
         {
             Player player = Main.player[npc.target];
-            bool returnbool = base.PreAI(npc); //used so entire PreAI always runs
+            bool returnbool = base.SafePreAI(npc); //used so entire PreAI always runs
             const int AttackCD = 180; //time between attacks where mimic does the vanilla ai
 
             if (npc.type == NPCID.Mimic || npc.type == NPCID.PresentMimic || npc.type == NPCID.IceMimic) //delete ice mimic and give it its own attacks later

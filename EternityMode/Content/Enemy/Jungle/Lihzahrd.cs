@@ -19,9 +19,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 
         public int FireballCounter;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.trapImmune = true;
         }

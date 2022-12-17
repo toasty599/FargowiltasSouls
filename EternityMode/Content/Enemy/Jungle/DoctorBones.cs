@@ -12,9 +12,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DoctorBones);
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.trapImmune = true;
         }

@@ -18,9 +18,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
         public int AttackTimer;
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.lavaImmune = true;
             npc.lifeMax *= 4;

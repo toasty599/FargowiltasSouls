@@ -15,9 +15,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             NPCID.CursedHammer
         );
 
-        public override void SetDefaults(NPC npc)
+        public override void SafeSetDefaults(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.SafeSetDefaults(npc);
 
             npc.scale = 2f;
             npc.lifeMax *= 4;
