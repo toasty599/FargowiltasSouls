@@ -50,9 +50,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(StompVelocityY), FloatStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.25, MidpointRounding.ToEven);
 
@@ -508,9 +508,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(TimeToFly), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             if (FargoSoulsWorld.MasochistModeReal)
                 npc.knockBackResist = 0;

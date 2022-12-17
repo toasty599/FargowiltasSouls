@@ -50,9 +50,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 { new Ref<object>(MadeEyeInvul), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax = (int)(npc.lifeMax * 1.5);
             npc.defense = 0;
@@ -412,9 +412,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 { new Ref<object>(HasTelegraphedNormalLasers), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax = (int)(npc.lifeMax * 1.5);
         }

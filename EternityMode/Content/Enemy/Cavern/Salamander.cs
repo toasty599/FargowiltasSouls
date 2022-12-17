@@ -20,9 +20,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             NPCID.Salamander9
         );
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.Opacity /= 5;
         }

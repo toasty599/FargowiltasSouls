@@ -29,9 +29,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             HealPerSecond = heal;
         }
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.trapImmune = true;
 
@@ -110,9 +110,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(IsInTemple), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax *= 5;
             npc.damage = (int)(npc.damage * 1.2);
@@ -433,9 +433,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(DoAttackOnFistImpact), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax *= 2;
             npc.damage = (int)(npc.damage * 1.3);
@@ -539,9 +539,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(IsInTemple), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             AttackTimer = 540;
             DoDeathray = true;

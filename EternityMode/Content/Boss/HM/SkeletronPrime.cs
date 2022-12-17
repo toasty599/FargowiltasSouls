@@ -46,9 +46,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(HaveShotGuardians), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax = (int)(npc.lifeMax * 1.2);
         }
@@ -421,9 +421,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(CardinalSwipe), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             if (FargoSoulsWorld.MasochistModeReal)
                 npc.lifeMax = (int)(npc.lifeMax * 1.5);

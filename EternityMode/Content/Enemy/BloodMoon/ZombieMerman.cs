@@ -31,9 +31,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             }
         }
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
         }
 
         public override bool SafePreAI(NPC npc)

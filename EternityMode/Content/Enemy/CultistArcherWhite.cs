@@ -13,9 +13,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.CultistArcherWhite);
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.chaseable = true;
             npc.lavaImmune = false;

@@ -12,9 +12,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.StupidSnowmanEvent
 
         public bool WasHit;
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.Opacity /= 5;
         }

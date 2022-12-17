@@ -129,9 +129,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 { new Ref<object>(DoTheWave), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.defense += 10;
             npc.damage = (int)(npc.damage * 4.0 / 3.0);
@@ -484,9 +484,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail);
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.damage *= 2;
         }
@@ -524,9 +524,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public int SuicideCounter;
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.scale *= 2;
 

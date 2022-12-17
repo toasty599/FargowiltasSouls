@@ -75,9 +75,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(EnteredPhase2), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.75);
         }
@@ -445,9 +445,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(CanHitTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             MaxDistanceFromPlantera = 200;
         }

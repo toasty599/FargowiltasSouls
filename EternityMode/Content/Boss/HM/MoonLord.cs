@@ -105,9 +105,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(SpawnedRituals), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 2.5);
         }
@@ -711,9 +711,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return core == null ? -1 : core.GetGlobalNPC<MoonLordCore>().VulnerabilityState;
         }
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             //if (npc.type == NPCID.MoonLordHead) npc.lifeMax /= 2;
         }

@@ -46,9 +46,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(EnteredPhase2), BoolStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax *= 2;
         }
@@ -483,9 +483,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.AncientDoom);
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lifeMax *= 4;
         }
@@ -543,9 +543,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public int Timer;
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lavaImmune = true;
             //MoonLordAlive = FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
@@ -702,9 +702,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.AncientCultistSquidhead);
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             if (!FargoSoulsWorld.MasochistModeReal)
                 npc.lifeMax /= 2;

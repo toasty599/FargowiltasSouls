@@ -36,9 +36,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 { new Ref<object>(AttackTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             AttackTimer = -Main.rand.Next(60);
         }

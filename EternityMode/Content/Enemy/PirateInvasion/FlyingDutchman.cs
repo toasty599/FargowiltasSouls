@@ -13,9 +13,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.PirateShip);
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.noTileCollide = true;
         }
@@ -40,9 +40,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
         public int Gun;
         public bool AttackFlag;
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             Gun = Main.rand.Next(10);
         }

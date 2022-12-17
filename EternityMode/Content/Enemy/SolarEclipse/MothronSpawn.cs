@@ -11,9 +11,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.MothronSpawn);
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.knockBackResist *= 0.1f;
         }

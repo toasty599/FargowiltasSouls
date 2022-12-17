@@ -24,9 +24,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
                 { new Ref<object>(AttackTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             AttackTimer = Main.rand.Next(180);
         }
@@ -83,9 +83,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
             NPCID.WyvernTail
         );
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             if (Main.hardMode)
                 npc.lifeMax = (int)System.Math.Round(npc.lifeMax * 1.5, System.MidpointRounding.ToEven);

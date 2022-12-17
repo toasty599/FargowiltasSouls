@@ -24,9 +24,26 @@ namespace FargowiltasSouls.EternityMode
 
         public override bool InstancePerEntity => true;
 
-        //TODO: make behaviour actually emode only but npcloot populate properly
+        //gameMenu check so that npcloot actually populates
+        //TODO: find better way to make behaviour actually emode only but npcloot populate properly
         public sealed override bool AppliesToEntity(NPC entity, bool lateInstantiation)
-            => Matcher.Satisfies(entity.type);
+        {
+            if (Matcher.Satisfies(entity.type))
+            {
+                if (!Main.dedServ)
+                {
+                    bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
+                    if (recolor || FargowiltasSouls.Instance.LoadedNewSprites)
+                    {
+                        FargowiltasSouls.Instance.LoadedNewSprites = true;
+                        LoadSprites(entity, recolor);
+                    }
+                }
+
+                return FargoSoulsWorld.EternityMode || Main.gameMenu;
+            }
+            return false;
+        }
 
         public sealed override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -67,25 +84,6 @@ namespace FargowiltasSouls.EternityMode
         /// Override this and return a new instance of your EModeNPCBehaviour subclass if you have any reference-type variables
         /// </summary>
         public virtual EModeNPCBehaviour NewInstance() => (EModeNPCBehaviour)MemberwiseClone();
-
-
-        public virtual void SafeSetDefaults(NPC npc) { }
-        public sealed override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-
-            if (!Main.dedServ)
-            {
-                bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
-                if (recolor || FargowiltasSouls.Instance.LoadedNewSprites)
-                {
-                    FargowiltasSouls.Instance.LoadedNewSprites = true;
-                    LoadSprites(npc, recolor);
-                }
-            }
-
-            SafeSetDefaults(npc);
-        }
 
 
         public bool FirstTick = true;

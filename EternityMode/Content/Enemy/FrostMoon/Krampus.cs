@@ -23,9 +23,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
                 { new Ref<object>(JumpTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             JumpTimer = Main.rand.Next(60);
         }

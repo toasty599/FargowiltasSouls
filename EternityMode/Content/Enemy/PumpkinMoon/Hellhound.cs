@@ -10,9 +10,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PumpkinMoon
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Hellhound);
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.lavaImmune = true;
         }

@@ -240,7 +240,4 @@ gave skeletron 50% DR while hands alive because apparently respawning hands does
 
 enabled maso skel growing more hands
 massive refactor to all emode npc ai, check that they work, especially vanilla bosses in emode mp
-	blood feeder
-	snatcher
-	hordes
-known bug: all vanilla npc ai emode changes are active outside emode
+also test blood feeder & snatcher in mp

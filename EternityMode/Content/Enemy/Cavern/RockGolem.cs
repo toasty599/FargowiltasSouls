@@ -22,9 +22,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 { new Ref<object>(JumpTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             JumpTimer = 300 + Main.rand.Next(60);
         }

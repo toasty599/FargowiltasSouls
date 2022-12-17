@@ -42,9 +42,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 { new Ref<object>(LockVector), IntStrategies.CompoundStrategy },
             };
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
             if (!Main.hardMode)
                 npc.damage = 60; //base is 80
         }

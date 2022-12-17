@@ -36,9 +36,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             NPCID.SandElemental
         );
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             if (!Main.hardMode)
             {

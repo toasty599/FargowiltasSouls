@@ -17,9 +17,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.BloodNautilus);
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             npc.boss = true;
         }
@@ -200,9 +200,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.BloodSquid);
 
-        public override void SafeSetDefaults(NPC npc)
+        public override void SetDefaults(NPC npc)
         {
-            base.SafeSetDefaults(npc);
+            base.SetDefaults(npc);
 
             //npc.knockBackResist += 0.1f;
         }
