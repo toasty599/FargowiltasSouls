@@ -241,3 +241,4 @@ gave skeletron 50% DR while hands alive because apparently respawning hands does
 enabled maso skel growing more hands
 massive refactor to all emode npc ai, check that they work, especially vanilla bosses in emode mp
 also test blood feeder & snatcher in mp
+plantera makes same sound as mutant when throwing crystal leaf ring
