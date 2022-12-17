@@ -141,6 +141,7 @@ namespace FargowiltasSouls
                 Ref<Effect> textRef = new Ref<Effect>(Assets.Request<Effect>("Effects/TextShader", AssetRequestMode.ImmediateLoad).Value);
                 Ref<Effect> invertRef = new Ref<Effect>(Assets.Request<Effect>("Effects/Invert", AssetRequestMode.ImmediateLoad).Value);
                 Ref<Effect> finalSparkRef = new Ref<Effect>(Assets.Request<Effect>("Effects/FinalSpark", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> mutantDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/MutantFinalDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
                 //Ref<Effect> shockwaveRef = new Ref<Effect>(Assets.Request<Effect>("Effects/ShockwaveEffect", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
 
                 //loading shaders from refs
@@ -156,6 +157,7 @@ namespace FargowiltasSouls
                 GameShaders.Misc["PulseUpwards"] = new MiscShaderData(textRef, "PulseUpwards");
                 GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
                 GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
+                GameShaders.Misc["FargoswiltasSouls:MutantDeathray"] = new MiscShaderData(mutantDeathrayRef, "TrailPass");
 
                 Filters.Scene["FargowiltasSouls:FinalSpark"] = new Filter(new FinalSparkShader(finalSparkRef, "FinalSpark"), EffectPriority.High);
                 Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);

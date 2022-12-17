@@ -3364,7 +3364,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.ai[3] = (float)-Math.PI / 2;
                 NPC.netUpdate = true;
                 if (Main.netMode != NetmodeID.MultiplayerClient) //shoot harmless mega ray
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -1, ModContent.ProjectileType<MutantGiantDeathray2>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -1, ModContent.ProjectileType<MutantGiantDeathray2>(), 0, 0f, Main.myPlayer, 1, NPC.whoAmI);
                 //EdgyBossText("I have not a single regret in my existence!");
             }
             if (--NPC.localAI[0] < 0)
