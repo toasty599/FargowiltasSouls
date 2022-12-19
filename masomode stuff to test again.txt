@@ -256,3 +256,6 @@ adjusted damage inheritance, the following effects scale off the damage of proj/
 	pearlwood ench
 frost ench tooltip specifies its icicles inflict frostbite
 fixed tungsten ench allowing enlarged summon projs to crit when they shouldnt
+marginal nerf to staff of unleashed ocean
+marginal diffractor blaster damage buff, 577 -> 633
+tried fixing npcs not having resprites if you join a server after they are spawned (NEEDS TESTING)
