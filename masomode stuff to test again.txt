@@ -255,3 +255,4 @@ adjusted damage inheritance, the following effects scale off the damage of proj/
 	glad ench
 	pearlwood ench
 frost ench tooltip specifies its icicles inflict frostbite
+fixed tungsten ench allowing enlarged summon projs to crit when they shouldnt

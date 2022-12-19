@@ -2246,7 +2246,7 @@ namespace FargowiltasSouls
             if (proj.hostile)
                 return;
 
-            if (SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(proj) && Player.GetToggleValue("Spider", false))
+            if (SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(proj))
             {
                 if (Main.rand.Next(100) < Player.ActualClassCrit(DamageClass.Summon))
                     crit = true;
