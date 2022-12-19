@@ -259,7 +259,7 @@ fixed tungsten ench allowing enlarged summon projs to crit when they shouldnt
 marginal nerf to staff of unleashed ocean, 8-proj rings -> 7
 tried fixing npcs not having resprites if you join a server after they are spawned (NEEDS TESTING)
 the following update their crit chance in real time, for tin ench
-	last prism and all other held projs
+	all held projs
 	all yoyos
 	vortex ritual
 	nano tech, especially melee
@@ -268,3 +268,5 @@ the following update their crit chance in real time, for tin ench
 	regurgitator chungy hungy
 	diffractor blaster
 adjusted boc to hopefully fix mp desync on confused?
+
+fixed last prism laser still not updating crit with tin ench

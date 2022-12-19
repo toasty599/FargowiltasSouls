@@ -892,7 +892,9 @@ namespace FargowiltasSouls.Projectiles
                     TimeFreezeImmune = true;
             }
 
-            if (projectile.whoAmI == player.heldProj || projectile.aiStyle == ProjAIStyleID.HeldProjectile)
+            if (projectile.whoAmI == player.heldProj
+                || projectile.aiStyle == ProjAIStyleID.HeldProjectile
+                || projectile.type == ProjectileID.LastPrismLaser)
             {
                 DeletionImmuneRank = 2;
                 NinjaSpeedup = 0;
