@@ -895,8 +895,9 @@ namespace FargowiltasSouls.Projectiles
             if (projectile.whoAmI == player.heldProj || projectile.aiStyle == ProjAIStyleID.HeldProjectile)
             {
                 DeletionImmuneRank = 2;
-
                 NinjaSpeedup = 0;
+
+                projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
 
                 if (player.HeldItem.damage > 0 && player.HeldItem.pick == 0)
                 {
