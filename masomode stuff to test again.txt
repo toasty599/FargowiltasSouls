@@ -267,3 +267,4 @@ the following update their crit chance in real time, for tin ench
 	penetrator up+m2 (spin throw)
 	regurgitator chungy hungy
 	diffractor blaster
+adjusted boc to hopefully fix mp desync on confused?
