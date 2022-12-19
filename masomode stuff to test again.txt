@@ -243,3 +243,7 @@ massive refactor to all emode npc ai, check that they work, especially vanilla b
 also test blood feeder & snatcher in mp
 plantera makes same sound as mutant when throwing crystal leaf ring
 added config: soul toggle menu search bar resets when closed
+
+mutant p3 disables timestop only in maso
+maso mutant rangs attack is angled
+fixed abom wand revive not refreshing when you die

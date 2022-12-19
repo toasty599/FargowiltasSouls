@@ -1082,6 +1082,8 @@ namespace FargowiltasSouls
             WingTimeModifier = 1f;
             FreeEaterSummon = true;
 
+            AbominableWandRevived = false;
+
             EridanusTimer = 0;
             StyxMeter = 0;
             StyxTimer = 0;
