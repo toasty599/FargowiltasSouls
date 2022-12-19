@@ -247,3 +247,11 @@ added config: soul toggle menu search bar resets when closed
 mutant p3 disables timestop only in maso
 maso mutant rangs attack is angled
 fixed abom wand revive not refreshing when you die
+
+fixed? maso enraged mutant 6hp bug
+adjusted damage inheritance, the following effects scale off the damage of proj/item instead of damage dealt (since damage dealt also includes crit multiplier, easiest to see with universe core)
+	obsidian ench
+	bee ench
+	glad ench
+	pearlwood ench
+frost ench tooltip specifies its icicles inflict frostbite

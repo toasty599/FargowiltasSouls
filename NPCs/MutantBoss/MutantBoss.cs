@@ -98,7 +98,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             NPC.timeLeft = NPC.activeTime * 30;
             if (FargoSoulsWorld.AngryMutant)
             {
-                NPC.lifeMax = 777000000;
                 NPC.damage *= 17;
                 NPC.defense *= 10;
             }
@@ -118,7 +117,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.5f * bossLifeScale);
+            NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 0.5 * bossLifeScale);
+
+            //doing it here to avoid overflow i think
+            if (FargoSoulsWorld.AngryMutant)
+                NPC.lifeMax *= 100;
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
