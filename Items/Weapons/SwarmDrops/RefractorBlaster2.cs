@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.CloneDefaults(ItemID.LaserRifle);
             Item.width = 98;
             Item.height = 38;
-            Item.damage = 577;
+            Item.damage = 633;
             Item.channel = true;
             Item.useTime = 24;
             Item.useAnimation = 24;
