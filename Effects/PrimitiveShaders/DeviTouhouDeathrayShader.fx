@@ -56,31 +56,46 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     float4 color = input.Color;
     float2 coords = input.TextureCoordinates;
 
-    // This basically makes the prim wiggle based on a sine wave.
-    float y = coords.y + sin(coords.x * 68 + uTime * 6.283) * 0.05;
+    float y = sin(12 * uTime - 4 * coords.x) * 0.25;
+
+    float widthScale = float((y + (1 - coords.x * 0.25)) / 2);
+    
+    if (coords.x < 0.2)
+        widthScale *= pow(coords.x / 0.2, -0.1);
+    
+    coords.y = ((coords.y - 0.5) * widthScale) + 0.5;
     
     // Get the pixel of the fade map. What coords.x is being multiplied by determines
-    // how many times the uImage1 is copied to cover the entirety of the prim. 4, 4.6
-    float4 fadeMapColor = tex2D(uImage1, float2(frac(coords.x * 4 - uTime * 4.6), coords.y));
+    // how many times the uImage1 is copied to cover the entirety of the prim. 2, 2
+    float4 outerColor = tex2D(uImage1, float2(frac(coords.x * 0.7 - uTime * 1.5), coords.y));
+    // Do the same, but for the second image
+    float4 innerColor = tex2D(uImage2, float2(frac(coords.x * 0.7 - uTime * 2.5), coords.y));
+    // Use the secondary color for the inner.
+    float4 innerColorFinal = lerp(color, float4(uColor, 1), 0.85);
     
-    // Use the red value for the opacity, as the provided image *should* be grayscale.
-    float opacity = fadeMapColor.r;
-    // Lerp between the base color, and the provided color based on the opacity of the fademap.
-    float4 colorCorrected = lerp(color, float4(uColor, 1), fadeMapColor.r);
+    float finalOpacity = max(outerColor.r, innerColor.r);
+    float4 finalColor;
     
-    // Fade out at the top and bottom of the streak.
-    if (coords.y < 0.2)
-        opacity *= pow(coords.y / 0.2, 6);
-    if (coords.y > 0.8)
-        opacity *= pow(1 - (coords.y - 0.8) / 0.8, 6);
+    // If the inner color is sufficiently faded in, lerp between the inner and outer to make them connect.
+    if (innerColorFinal.a < 0.1)
+    {
+        float interpolant = innerColorFinal.a * 10;
+        finalColor = lerp(color, innerColorFinal, interpolant);
+    }
+    // Else, just lerp between the two colors but make it brighter.
+    else
+    {
+        finalColor = lerp(color, innerColorFinal, innerColor.r) * 1.2;
+    }
     
-    // Fade out at the end of the streak.
-    if (coords.x < 0.07)
-        opacity *= pow(coords.x / 0.07, 6);
-    if (coords.x > 0.95)
-        opacity *= pow(1 - (coords.x - 0.95) / 0.05, 6);
+    //// Fade out at the top and bottom of the streak.
+    //if (coords.y < 0.2)
+    //    finalOpacity *= pow(coords.y / 0.2, 6);
+    //if (coords.y > 0.8)
+    //    finalOpacity *= pow(1 - (coords.y - 0.8) / 0.8, 6);
     
-    return colorCorrected * opacity;
+    
+    return finalColor * finalOpacity;
 }
 
 technique Technique1

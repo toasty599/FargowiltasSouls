@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 return;
             }
 
-            Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 5f * num801;
+            Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 7f * num801;
             if (FargoSoulsWorld.MasochistModeReal)
                 Projectile.scale *= 5f;
 
@@ -292,7 +292,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 return false;
 
             // If it isnt set, set the prim instance.
-            LaserDrawer ??= new(WidthFunction, ColorFunction, GameShaders.Misc["FargoswiltasSouls:MutantDeathray"]);
+            LaserDrawer ??= new(WidthFunction, ColorFunction, GameShaders.Misc["FargowiltasSouls:MutantDeathray"]);
 
             // Get the laser end position.
             Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance;
@@ -312,10 +312,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Color brightColor = new(194, 255, 242);
             if (BeBrighter)
                 brightColor *= 2;
-            GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseColor(brightColor);
+            GameShaders.Misc["FargoswiltaSouls:MutantDeathray"].UseColor(brightColor);
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
             Asset<Texture2D> fademap = ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/Streak4");
-            GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].SetShaderTexture(fademap);
+            GameShaders.Misc["FargowiltasSouls:MutantDeathray"].SetShaderTexture(fademap);
             // Draw a big glow above the start of the laser, to help mask the intial fade in due to the immense width.
 
             Texture2D glowTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/GlowRing").Value;
@@ -324,8 +324,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Main.EntitySpriteDraw(glowTexture, glowDrawPosition - Main.screenPosition, null, brightColor, Projectile.rotation, glowTexture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
             LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 60);
-
-            
             return false;
         }
     }

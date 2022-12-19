@@ -1,8 +1,13 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,7 +16,20 @@ namespace FargowiltasSouls.Projectiles.Deathrays
     public class DeviBigDeathray : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Projectiles/Deathrays/DeviDeathray";
-        public DeviBigDeathray() : base(180) { }
+
+        public PrimDrawer LaserDrawer { get; private set; } = null;
+
+        public PrimDrawer RingDrawer { get; private set; } = null;
+
+        public static List<string> RingTexturePaths => new()
+        {
+            "Ring1",
+            "Ring2",
+            "Ring3",
+            "Ring4"
+        };
+
+        public DeviBigDeathray() : base(4000) { }
 
         public override void SetStaticDefaults()
         {
@@ -136,13 +154,155 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             target.AddBuff(BuffID.BrokenArmor, 2);
             //target.AddBuff(ModContent.BuffType<Rotting>(), 2);
             //target.AddBuff(ModContent.BuffType<MutantNibble>(), 2);
-            target.AddBuff(ModContent.BuffType<Stunned>(), 2);
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 2);
+            //target.AddBuff(ModContent.BuffType<Stunned>(), 2);
+            //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 2);
             target.AddBuff(ModContent.BuffType<Lovestruck>(), 360);
             target.AddBuff(ModContent.BuffType<Defenseless>(), 1800);
 
             target.velocity.X = 0;
             target.velocity.Y = -0.4f;
+        }
+
+        public float WidthFunction(float trailInterpolant)
+        {
+            float baseWidth = Projectile.scale * Projectile.width;
+
+            return baseWidth * 0.7f;
+            float sine = (float)(0.5 * (1 + Math.Sin(Main.GlobalTimeWrappedHourly - trailInterpolant) / 2));
+            float cosine = (float)(0.5 * (1 + Math.Cos(Main.GlobalTimeWrappedHourly - trailInterpolant)));
+
+            //float y = (float)Math.Abs(sine + cosine);
+
+            //float y = (float)Math.Abs(Math.Pow(Math.E, -2 * trailInterpolant) * Math.Cos( trailInterpolant));
+
+            //float y = (float)Math.Abs(Math.Sin(trailInterpolant + 4) - Math.Sin(trailInterpolant / 2 + 2));
+
+            //float y = (float)(4 / (3 + Math.Pow((4 * trailInterpolant - 5 * Main.GlobalTimeWrappedHourly), 2)));
+
+            float y = (float)Math.Sin(10 * Main.GlobalTimeWrappedHourly - 6 * trailInterpolant);
+
+            float localInterpolant = (y + (1 - trailInterpolant)) / 2;
+            return MathHelper.Lerp(baseWidth * 0.7f, baseWidth * 1.3f, localInterpolant);
+        }
+        public static Color[] DeviColors => new Color[] { new(216, 108, 224), new(232, 140, 240), new(224, 16, 216), new(240, 220, 240)};
+        public Color ColorFunction(float trailInterpolant)
+        {
+            float time = (float)(0.5 * (1 + Math.Sin(1.5f * Main.GlobalTimeWrappedHourly % 1)));
+            float localInterpolant = (time + (1 - trailInterpolant)) / 2;
+            List<Color> colors = new();
+            List<Color> colorsToAdd = new() { Color.Red, Color.Green, Color.Blue };
+            for (int i = 0; i < 3; i++)
+                colors.AddRange(colorsToAdd);
+
+            Color[] colorArray = colors.ToArray();
+            int currentColorIndex = (int)(localInterpolant * (colorArray.Length));
+            Color val = colorArray[currentColorIndex];
+            Color nextColor = colorArray[(currentColorIndex + 1) % colorArray.Length];
+            return Color.Lerp(val, nextColor, localInterpolant * colorArray.Length % 1f) * 2;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            // Get the laser end position.
+            Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance;
+
+            // Create 8 points that span across the draw distance from the projectile center.
+
+            // This allows the drawing to be pushed back, which is needed due to the shader fading in at the start to avoid
+            // sharp lines.
+            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 300f;
+            Vector2[] baseDrawPoints = new Vector2[8];
+            for (int i = 0; i < baseDrawPoints.Length; i++)
+                baseDrawPoints[i] = Vector2.Lerp(initialDrawPoint, laserEnd, i / (float)(baseDrawPoints.Length - 1f));
+
+          
+
+            #region MainLaser
+
+            LaserDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, GameShaders.Misc["FargowiltasSouls:DeviBigDeathray"]);
+
+            // Set shader parameters. This one takes two lots of fademaps and colors for two different overlayed textures.
+
+            // Initial fademap
+            GameShaders.Misc["FargowiltasSouls:DeviBigDeathray"].UseColor(Color.White);
+            // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
+            Asset<Texture2D> fademap = ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/DevBackStreak");
+            GameShaders.Misc["FargowiltasSouls:DeviBigDeathray"].SetShaderTexture(fademap);
+
+            // Secondary fademap
+            // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
+            Asset<Texture2D> fademap2 = ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/DevInnerStreak");
+            GameShaders.Misc["FargowiltasSouls:DeviBigDeathray"].SetShaderTexture2(fademap2);
+            LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 40);
+            #endregion
+
+            #region Rings
+
+            RingDrawer ??= new PrimDrawer(RingWidthFunction, RingColorFunction, GameShaders.Misc["FargowiltasSouls:DeviRing"]);
+
+            Vector2 velocity = Projectile.velocity.SafeNormalize(Vector2.UnitY);
+            velocity = velocity.RotatedBy(MathHelper.PiOver2) * 1250;
+
+            Vector2 currentLaserPosition;
+            Asset<Texture2D> ringText;
+            int iterator = 0;
+            // We want to create a ring on every point on the trail.
+            for (int i = 1; i <= baseDrawPoints.Length; i += 2)
+            {
+                // Get the current position, and rotate it to face out.
+                currentLaserPosition = baseDrawPoints[i];
+                // Get the velocity from the projectile velocity, rotated.
+
+                // Move the current position back by half the velocity, so we start drawing at the edge.
+                // For some FUCKING reason, 0.5 doesnt center them properly here..
+                float velocityScaler = MathHelper.Lerp(1f, 0.8f, (float)i / baseDrawPoints.Length);
+                velocity *= velocityScaler;
+                currentLaserPosition -= velocity * 0.48f;
+
+                Vector2[] ringDrawPoints = new Vector2[4];
+                for (int j = 0; j < ringDrawPoints.Length; j++)
+                    ringDrawPoints[j] = Vector2.Lerp(currentLaserPosition, currentLaserPosition + velocity, j / (float)(ringDrawPoints.Length - 1f));
+
+                GameShaders.Misc["FargowiltasSouls:DeviRing"].UseColor(new Color(216, 108, 224));
+
+                ringText = ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/" + RingTexturePaths[iterator]);
+                GameShaders.Misc["FargowiltasSouls:DeviRing"].SetShaderTexture(ringText);
+                GameShaders.Misc["FargowiltasSouls:DeviRing"].Shader.Parameters["stretchAmount"].SetValue(1f);
+
+                float scrollSpeed = MathHelper.Lerp(0.3f,0.5f, 1 - i / ((baseDrawPoints.Length / 2) - 1));
+                GameShaders.Misc["FargowiltasSouls:DeviRing"].Shader.Parameters["scrollSpeed"].SetValue(scrollSpeed);
+
+                RingDrawer.DrawPrims(ringDrawPoints.ToList(), -Main.screenPosition, 10);
+                iterator++;
+            }
+            #endregion
+
+            // Draw a big glow above the start of the laser, to help mask the intial fade in due to the immense width.
+            Texture2D glowTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/GlowRing").Value;
+            Vector2 glowDrawPosition = Projectile.Center - Projectile.velocity * 320f;
+            //Main.EntitySpriteDraw(glowTexture, glowDrawPosition - Main.screenPosition, null, Color.LavenderBlush, Projectile.rotation, glowTexture.Size() * 0.5f, Projectile.scale * 0.3f, SpriteEffects.None, 0);
+
+            return false;
+        }
+
+        public float RingWidthFunction(float trailInterpolant)
+        {
+            return Projectile.scale * 5;
+        }
+        public Color RingColorFunction(float trailInterpolant)
+        {
+            float time = (float)(0.5 * (1 + Math.Sin(Main.GlobalTimeWrappedHourly - trailInterpolant) / 2));
+            float localInterpolant = (time + (1 - trailInterpolant)) / 2;
+            List<Color> colors = new();
+            List<Color> colorsToAdd = new() { Color.Yellow, Color.Blue};
+            for (int i = 0; i < 2; i++)
+                colors.AddRange(colorsToAdd);
+
+            Color[] colorArray = colors.ToArray();
+            int currentColorIndex = (int)(localInterpolant * (colorArray.Length));
+            Color val = colorArray[currentColorIndex];
+            Color nextColor = colorArray[(currentColorIndex + 1) % colorArray.Length];
+            return Color.Lerp(val, nextColor, localInterpolant * colorArray.Length % 1f) * 4;
         }
     }
 }

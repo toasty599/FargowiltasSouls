@@ -60,13 +60,14 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     float y = coords.y + sin(coords.x * 68 + uTime * 6.283) * 0.05;
     
     // Get the pixel of the fade map. What coords.x is being multiplied by determines
-    // how many times the uImage1 is copied to cover the entirety of the prim. 4, 4.6
-    float4 fadeMapColor = tex2D(uImage1, float2(frac(coords.x * 4 - uTime * 4.6), coords.y));
+    // how many times the uImage1 is copied to cover the entirety of the prim. 2, 2
+    float4 fadeMapColor = tex2D(uImage1, float2(frac(coords.x * 2 - uTime * 2), coords.y));
     
     // Use the red value for the opacity, as the provided image *should* be grayscale.
     float opacity = fadeMapColor.r;
     // Lerp between the base color, and the provided color based on the opacity of the fademap.
-    float4 colorCorrected = lerp(color, float4(uColor, 1), fadeMapColor.r);
+    float4 changedColor = lerp(float4(uColor, 1), color, 0.1);
+    float4 colorCorrected = lerp(color, changedColor, fadeMapColor.r);
     
     // Fade out at the top and bottom of the streak.
     if (coords.y < 0.2)
@@ -80,7 +81,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     if (coords.x > 0.95)
         opacity *= pow(1 - (coords.x - 0.95) / 0.05, 6);
     
-    return colorCorrected * opacity;
+    return colorCorrected * opacity * 1.2;
 }
 
 technique Technique1

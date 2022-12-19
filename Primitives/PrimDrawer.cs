@@ -1,11 +1,8 @@
 ﻿using FargowiltasSouls.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Graphics.Shaders;
 
@@ -124,7 +121,8 @@ namespace FargowiltasSouls
             // Draw the prims! Also apply the main pixel shader. Specify the type of primitives this should be expecting, and pass through the array of the struct using the correct interface.
             Main.instance.GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, pointVertices, 0, pointVertices.Length, triangleIndices, 0, triangleIndices.Length / 3);
             Main.pixelShader.CurrentTechnique.Passes[0].Apply();
-        }
+        }   
+
 
         private static List<Vector2> CorrectlyOffsetPoints(List<Vector2> basePoints, Vector2 baseOffset, int totalPoints)
         {
@@ -217,5 +215,11 @@ namespace FargowiltasSouls
             return indices;
         }
         #endregion
+    }
+    public enum Vector3Axis
+    {
+        X,
+        Y,
+        Z
     }
 }
