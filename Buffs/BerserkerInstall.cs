@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Buffs
 
         public static void DebuffPlayerStats(Player player)
         {
-            player.endurance -= 0.20f;
-            player.statDefense -= 20;
+            player.endurance -= 0.30f;
+            player.statDefense -= 30;
         }
 
         public override void Update(Player player, ref int buffIndex)
