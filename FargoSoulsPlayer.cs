@@ -352,7 +352,7 @@ namespace FargowiltasSouls
         public int WretchedPouchCD;
         public bool NymphsPerfume;
         public bool NymphsPerfumeRespawn;
-        public bool NymphsPerfumeRestoreLife;
+        public int NymphsPerfumeRestoreLife;
         public int NymphsPerfumeCD = 30;
         public bool SqueakyAcc;
         public bool RainbowSlime;
@@ -1045,7 +1045,7 @@ namespace FargowiltasSouls
         {
             if (NymphsPerfumeRespawn)
             {
-                NymphsPerfumeRestoreLife = true;
+                NymphsPerfumeRestoreLife = 6;
             }
         }
 
@@ -1832,12 +1832,11 @@ namespace FargowiltasSouls
                 FreeEaterSummon = true;
             }
 
-            if (NymphsPerfumeRestoreLife)
+            if (NymphsPerfumeRestoreLife > 0 && --NymphsPerfumeRestoreLife == 0)
             {
-                NymphsPerfumeRestoreLife = false;
                 if (Player.statLife < Player.statLifeMax2)
                     Player.statLife = Player.statLifeMax2;
-                //doing it down here so it accounts for your lifeMax after respawn
+                //doing it like this so it accounts for your lifeMax after respawn
                 //regular OnRespawn() doesnt account for lifeforce, and is lowered by dying with oceanic maul
             }
 
