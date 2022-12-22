@@ -274,3 +274,4 @@ wood ench discount secretly works in inventory too
 added 3 custom preset toggle slots
 
 resprited retinazer deathray
+frigid gem buff, ice rod blocks inflict frostburn
