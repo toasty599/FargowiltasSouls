@@ -275,3 +275,4 @@ added 3 custom preset toggle slots
 
 resprited retinazer deathray
 frigid gem buff, ice rod blocks inflict frostburn
+agi lens buff, durations are 7.5/2.5, was 6/3
