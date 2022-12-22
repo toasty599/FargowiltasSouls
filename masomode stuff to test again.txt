@@ -280,3 +280,4 @@ nymphs perfume implementation adjusted
 	will now respawn you with FULL full life
 	no longer respawns with less life when killed with oceanic maul life reduction
 	will respawn with full life with unlim lifeforce buff, unlike previous perfume
+fixed stunned not disabling right click
