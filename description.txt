@@ -6,7 +6,6 @@ NEW UPDATE - V 1.4.1
 -Added custom toggle presets 
 -Reworked and rebalanced several accessories, weapons, and various difficulty adjustments
 
-
 NEW UPDATE - V 1.4.0.7
 -Bug fixes and balance changes
 
