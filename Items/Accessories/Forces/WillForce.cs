@@ -12,7 +12,6 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             ModContent.ItemType<GoldEnchant>(),
             ModContent.ItemType<PlatinumEnchant>(),
             ModContent.ItemType<GladiatorEnchant>(),
-            ModContent.ItemType<WizardEnchant>(),
             ModContent.ItemType<RedRidingEnchant>(),
             ModContent.ItemType<ValhallaKnightEnchant>()
         };
@@ -68,7 +67,6 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
             modPlayer.PlatinumEnchantActive = true;
 
             GladiatorEnchant.GladiatorEffect(player);
-            modPlayer.WizardEnchantActive = true;
             RedRidingEnchant.RedRidingEffect(player, Item);
             HuntressEnchant.HuntressEffect(player);
             modPlayer.ValhallaEffect(hideVisual);
