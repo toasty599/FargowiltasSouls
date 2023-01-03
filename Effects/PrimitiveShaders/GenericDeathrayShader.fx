@@ -1,4 +1,4 @@
-sampler uImage0 : register(s0);
+﻿sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 sampler uImage2 : register(s2);
 float3 uColor;
@@ -17,9 +17,11 @@ float2 uImageSize2;
 matrix uWorldViewProjection;
 float4 uShaderSpecificData;
 
+// These must be set or this will not work properly.
 float stretchAmount;
 float scrollSpeed;
-bool reverseDirection;
+float uColorFadeScaler;
+bool useFadeIn;
 
 struct VertexShaderInput
 {
@@ -47,32 +49,27 @@ VertexShaderOutput VertexShaderFunction(in VertexShaderInput input)
     return output;
 }
 
+// This is a generic laser shader, that fades into a specified color into the middle and reads a fademap as uImage1. This can be used for any laser,
+// with the parameters above set to the desired values to change how it looks without needing to create a new shader.
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
     float4 color = input.Color;
     float2 coords = input.TextureCoordinates;
     
-    float adjustedXposition = (sin(((coords.x * 2) - 1) * 1.57079) + 1) * 2;
-    
 	// Get the fade map pixel.
-    float4 fadeMapColor;
-    if (reverseDirection)
-        fadeMapColor = tex2D(uImage1, float2(frac(adjustedXposition * stretchAmount - uTime * scrollSpeed), coords.y));
-    else
-        fadeMapColor = tex2D(uImage1, float2(frac(adjustedXposition * stretchAmount + uTime * scrollSpeed), coords.y));
+    float4 fadeMapColor = tex2D(uImage1, float2(frac(coords.x * stretchAmount - uTime * scrollSpeed), coords.y));
     
     // Calcuate the grayscale version of the pixel and use it as the opacity.
     float opacity = fadeMapColor.r;
-    
+    float4 colorCorrected = lerp(color, float4(uColor, 1), opacity * uColorFadeScaler);
+
     // Fade out at the end of the streak.
-    if (coords.x < 0.1)
-        opacity *= pow(coords.x / 0.1, 3);
-    if (coords.x > 0.7)
-        opacity *= pow(1 - (coords.x - 0.7) / 0.2, 5);
+    if (coords.x < 0.015 && useFadeIn)
+        opacity *= pow(coords.x / 0.015, 6);
+    if (coords.x > 0.9 && useFadeIn)
+        opacity *= pow(1 - (coords.x - 0.9) / 0.1, 6);
     
-    //opacity = sin(coords.x * 3.1415 + uTime) * 0.5 + 0.5;
-    
-    return color * opacity * uOpacity;
+    return colorCorrected * opacity * (uColorFadeScaler * 1.3);
 }
 
 technique Technique1

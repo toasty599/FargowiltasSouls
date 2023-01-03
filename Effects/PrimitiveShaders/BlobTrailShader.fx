@@ -1,6 +1,5 @@
-sampler uImage0 : register(s0);
+﻿sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
-sampler uImage2 : register(s2);
 float3 uColor;
 float3 uSecondaryColor;
 float uOpacity;
@@ -13,13 +12,8 @@ float uDirection;
 float3 uLightSource;
 float2 uImageSize0;
 float2 uImageSize1;
-float2 uImageSize2;
 matrix uWorldViewProjection;
 float4 uShaderSpecificData;
-
-float stretchAmount;
-float scrollSpeed;
-bool reverseDirection;
 
 struct VertexShaderInput
 {
@@ -51,28 +45,15 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
     float4 color = input.Color;
     float2 coords = input.TextureCoordinates;
+
+    // Get the pixel of the fade map. What coords.x is being multiplied by determines
+    // how many times the uImage1 is copied to cover the entirety of the prim. 2, 2
+    float fadeMapBrightness = tex2D(uImage1, float2(frac(coords.x * 0.7 - uTime * 1.5), coords.y)).r;
     
-    float adjustedXposition = (sin(((coords.x * 2) - 1) * 1.57079) + 1) * 2;
-    
-	// Get the fade map pixel.
-    float4 fadeMapColor;
-    if (reverseDirection)
-        fadeMapColor = tex2D(uImage1, float2(frac(adjustedXposition * stretchAmount - uTime * scrollSpeed), coords.y));
-    else
-        fadeMapColor = tex2D(uImage1, float2(frac(adjustedXposition * stretchAmount + uTime * scrollSpeed), coords.y));
-    
-    // Calcuate the grayscale version of the pixel and use it as the opacity.
-    float opacity = fadeMapColor.r;
-    
-    // Fade out at the end of the streak.
-    if (coords.x < 0.1)
-        opacity *= pow(coords.x / 0.1, 3);
-    if (coords.x > 0.7)
-        opacity *= pow(1 - (coords.x - 0.7) / 0.2, 5);
-    
-    //opacity = sin(coords.x * 3.1415 + uTime) * 0.5 + 0.5;
-    
-    return color * opacity * uOpacity;
+    // You determine what this is by simply fucking around with changing stuff and seeing how it changes,
+    // until you get something that looks cool.
+    float bloomOpacity = lerp(pow(sin(coords.y * 3.141), lerp(2, 6, coords.x)), 0.7, coords.x);
+    return color * pow(bloomOpacity, 5) * lerp(2, 6, fadeMapBrightness);
 }
 
 technique Technique1

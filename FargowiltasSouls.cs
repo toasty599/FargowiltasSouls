@@ -8,6 +8,7 @@ using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.Items.Misc;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.EternityMode;
+using FargowiltasSouls.Particles;
 using FargowiltasSouls.Shaders;
 using FargowiltasSouls.Sky;
 using FargowiltasSouls.Tiles;
@@ -92,6 +93,9 @@ namespace FargowiltasSouls
         {
             Instance = this;
 
+            // Load particles
+            ParticleManager.LoadParticles();
+
             // Load EModeNPCMods
             foreach (Type type in Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
             {
@@ -146,6 +150,8 @@ namespace FargowiltasSouls
                 Ref<Effect> willBigDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/WillBigDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
                 Ref<Effect> deviBigDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/DeviTouhouDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
                 Ref<Effect> deviRingRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/DeviRingShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> genericDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/GenericDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> blobTrailRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/BlobTrailShader", AssetRequestMode.ImmediateLoad).Value);
                 //Ref<Effect> shockwaveRef = new Ref<Effect>(Assets.Request<Effect>("Effects/ShockwaveEffect", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
 
                 //loading shaders from refs
@@ -166,6 +172,8 @@ namespace FargowiltasSouls
                 GameShaders.Misc["FargowiltasSouls:WillBigDeathray"] = new MiscShaderData(willBigDeathrayRef, "TrailPass");
                 GameShaders.Misc["FargowiltasSouls:DeviBigDeathray"] = new MiscShaderData(deviBigDeathrayRef, "TrailPass");
                 GameShaders.Misc["FargowiltasSouls:DeviRing"] = new MiscShaderData(deviRingRef, "TrailPass");
+                GameShaders.Misc["FargowiltasSouls:GenericDeathray"] = new MiscShaderData(genericDeathrayRef, "TrailPass");
+                GameShaders.Misc["FargowiltasSouls:BlobTrail"] = new MiscShaderData(blobTrailRef, "TrailPass");
 
                 Filters.Scene["FargowiltasSouls:FinalSpark"] = new Filter(new FinalSparkShader(finalSparkRef, "FinalSpark"), EffectPriority.High);
                 Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);

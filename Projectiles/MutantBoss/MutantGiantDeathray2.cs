@@ -314,7 +314,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 brightColor *= 2;
             GameShaders.Misc["FargoswiltaSouls:MutantDeathray"].UseColor(brightColor);
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
-            Asset<Texture2D> fademap = ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/Streak4");
+            Asset<Texture2D> fademap = ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/MutantStreak");
             GameShaders.Misc["FargowiltasSouls:MutantDeathray"].SetShaderTexture(fademap);
             // Draw a big glow above the start of the laser, to help mask the intial fade in due to the immense width.
 

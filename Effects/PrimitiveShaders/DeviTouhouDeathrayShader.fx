@@ -17,8 +17,8 @@ float2 uImageSize2;
 matrix uWorldViewProjection;
 float4 uShaderSpecificData;
 
-// These 3 are required if using primitives. They are the same for any shader being applied to them
-// so you can copy paste them to any other prim shaders and use the VertexShaderOutput input in the
+// These 3 are required if using primitives. They are the same for any shader being applied to them so you
+// can copy paste them to any other primitive shaders and use the VertexShaderOutput for the input in the
 // PixelShaderFunction.
 // -->
 struct VertexShaderInput
@@ -56,14 +56,19 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     float4 color = input.Color;
     float2 coords = input.TextureCoordinates;
 
-    float y = sin(12 * uTime - 4 * coords.x) * 0.25;
+    // Note: This doesn't actually work properly, as it causes the texture to wrap around on the Y axis.
+    // The clamping basically stops it before it shrinks below the point where it wraps around. Change the max
+    // clamp value if you copy this and it does weird artifacts at the top and bottom of the trail.
+    // ->
+    float y = sin(15 * uTime - 5.2 * coords.x) * 0.2;
 
     float widthScale = float((y + (1 - coords.x * 0.25)) / 2);
     
-    if (coords.x < 0.2)
-        widthScale *= pow(coords.x / 0.2, -0.1);
+    if (coords.x < 0.05)
+        widthScale /= pow(coords.x / 0.05, 0.4);
     
-    coords.y = ((coords.y - 0.5) * widthScale) + 0.5;
+    coords.y = ((coords.y - 0.5) * clamp(widthScale, 0, 1.7)) + 0.5;
+    // <-
     
     // Get the pixel of the fade map. What coords.x is being multiplied by determines
     // how many times the uImage1 is copied to cover the entirety of the prim. 2, 2
@@ -84,16 +89,13 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     }
     // Else, just lerp between the two colors but make it brighter.
     else
-    {
         finalColor = lerp(color, innerColorFinal, innerColor.r) * 1.2;
-    }
     
     //// Fade out at the top and bottom of the streak.
-    //if (coords.y < 0.2)
-    //    finalOpacity *= pow(coords.y / 0.2, 6);
-    //if (coords.y > 0.8)
-    //    finalOpacity *= pow(1 - (coords.y - 0.8) / 0.8, 6);
-    
+    if (coords.x < 0.02)
+        finalOpacity *= pow(coords.x / 0.02, 1.4);
+    if (coords.x > 0.8)
+        finalOpacity *= pow(1 - (coords.x - 0.8) / 0.2, 3);
     
     return finalColor * finalOpacity;
 }
