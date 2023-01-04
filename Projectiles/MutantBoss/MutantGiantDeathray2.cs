@@ -276,8 +276,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             // Grow rapidly from the start to full length. Any more than this notably distorts the texture.
             float baseWidth = Projectile.scale * Projectile.width;
-            if (trailInterpolant < 0.05f)
-                return MathHelper.Lerp(0f, baseWidth, trailInterpolant * 20f);
+            //if (trailInterpolant < 0.05f)
+                return baseWidth;
 
             // Grow to 2x width by the end. Any more than this distorts the texture too much.
             return MathHelper.Lerp(baseWidth, baseWidth * 2, trailInterpolant);
@@ -301,7 +301,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             // This allows the drawing to be pushed back, which is needed due to the shader fading in at the start to avoid
             // sharp lines.
-            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 335f;
+            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 650;
             Vector2[] baseDrawPoints = new Vector2[8];
             for (int i = 0; i < baseDrawPoints.Length; i++)
                 baseDrawPoints[i] = Vector2.Lerp(initialDrawPoint, laserEnd, i / (float)(baseDrawPoints.Length - 1f));
@@ -312,10 +312,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Color brightColor = new(194, 255, 242);
             if (BeBrighter)
                 brightColor *= 2;
-            GameShaders.Misc["FargoswiltaSouls:MutantDeathray"].UseColor(brightColor);
+            GameShaders.Misc["FargowiltasSouls:MutantDeathray"].UseColor(brightColor);
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
-            Asset<Texture2D> fademap = ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/MutantStreak");
-            GameShaders.Misc["FargowiltasSouls:MutantDeathray"].SetShaderTexture(fademap);
+            GameShaders.Misc["FargowiltasSouls:MutantDeathray"].SetShaderTexture(FargosTextureRegistry.MutantStreak);
             // Draw a big glow above the start of the laser, to help mask the intial fade in due to the immense width.
 
             Texture2D glowTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/GlowRing").Value;
@@ -323,7 +322,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Vector2 glowDrawPosition = Projectile.Center - Projectile.velocity * (BeBrighter ? 90f : 180f);
 
             Main.EntitySpriteDraw(glowTexture, glowDrawPosition - Main.screenPosition, null, brightColor, Projectile.rotation, glowTexture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
-            LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 60);
+            LaserDrawer.DrawPrims(baseDrawPoints, -Main.screenPosition, 60);
             return false;
         }
     }

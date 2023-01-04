@@ -756,8 +756,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         if (!AliveCheck(player) || Phase2Check())
                             break;
 
-                        //EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 400 : 450, true, 74, Color.GreenYellow, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
-                        //EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 200 : 150, false, 73, default, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
+                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 400 : 450, true, -1, Color.GreenYellow, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
+                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 200 : 150, false, -1, default, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
                         
                         // Indicate that the borders should be drawn.
                         DrawRuneBorders = true;

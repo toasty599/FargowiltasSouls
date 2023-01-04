@@ -56,12 +56,18 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     float4 color = input.Color;
     float2 coords = input.TextureCoordinates;
 
-    // This basically makes the prim wiggle based on a sine wave.
-    float y = coords.y + sin(coords.x * 68 + uTime * 6.283) * 0.05;
+// Note: This doesn't actually work properly, as it causes the texture to wrap around on the Y axis.
+    // The clamping basically stops it before it shrinks below the point where it wraps around. Change the max
+    // clamp value if you copy this and it does weird artifacts at the top and bottom of the trail.
+    // ->
+    
+    if (coords.x < 0.05)
+        coords.y /= pow(coords.x / 0.05, 0.4);
+    
     
     // Get the pixel of the fade map. What coords.x is being multiplied by determines
     // how many times the uImage1 is copied to cover the entirety of the prim. 4, 4.6
-    float4 fadeMapColor = tex2D(uImage1, float2(frac(coords.x * 4 - uTime * 4.6), coords.y));
+    float4 fadeMapColor = tex2D(uImage1, float2(frac(coords.x * 2 - uTime * 4.6), coords.y));
     
     // Use the red value for the opacity, as the provided image *should* be grayscale.
     float opacity = fadeMapColor.r;
@@ -69,14 +75,14 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     float4 colorCorrected = lerp(color, float4(uColor, 1), fadeMapColor.r);
     
     // Fade out at the top and bottom of the streak.
-    if (coords.y < 0.2)
-        opacity *= pow(coords.y / 0.2, 6);
-    if (coords.y > 0.8)
-        opacity *= pow(1 - (coords.y - 0.8) / 0.8, 6);
+    if (coords.y < 0.35)
+        opacity *= pow(coords.y / 0.35, 6);
+    if (coords.y > 0.65)
+        opacity *= pow(1 - (coords.y - 0.65) / 0.8, 6);
     
-    // Fade out at the end of the streak.
-    if (coords.x < 0.07)
-        opacity *= pow(coords.x / 0.07, 6);
+    //// Fade out at the top and bottom of the streak.
+    if (coords.x < 0.06)
+        opacity *= pow(coords.x / 0.06, 6);
     if (coords.x > 0.95)
         opacity *= pow(1 - (coords.x - 0.95) / 0.05, 6);
     

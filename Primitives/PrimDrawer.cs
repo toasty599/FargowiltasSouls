@@ -41,7 +41,7 @@ namespace FargowiltasSouls
         /// <param name="basePoints"></param>
         /// <param name="baseOffset"></param>
         /// <param name="totalTrailPoints"></param>
-        public void DrawPrims(List<Vector2> basePoints, Vector2 baseOffset, int totalTrailPoints)
+        public void DrawPrims(IEnumerable<Vector2> basePoints, Vector2 baseOffset, int totalTrailPoints)
         {
             // Set the correct rasterizer state.
             Main.instance.GraphicsDevice.RasterizerState = RasterizerState.CullNone;

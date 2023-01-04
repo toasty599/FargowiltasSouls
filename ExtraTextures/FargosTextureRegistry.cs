@@ -8,6 +8,7 @@ namespace FargowiltasSouls
     public static class FargosTextureRegistry
     {
         #region Additive Textures
+        public static Asset<Texture2D> BlobBloomTexture => ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/AdditiveTextures/BlobGlow");
         public static Asset<Texture2D> BloomTexture => ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/AdditiveTextures/Bloom");
         public static Asset<Texture2D> DeviBorderTexture => ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/AdditiveTextures/DeviBorder");
         public static Asset<Texture2D> HardEdgeRing => ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/AdditiveTextures/HardEdgeRing");
