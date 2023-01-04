@@ -25,15 +25,6 @@ namespace FargowiltasSouls.Primitives
             ResizeRenderTarget(true);
         }
 
-        private void DrawPixelRenderTarget(On.Terraria.Main.orig_DoDraw_DrawNPCsOverTiles orig, Main self)
-        {
-            orig(self);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-            // Draw our RT. The scale is important, it is 2 here as this RT is 0.5x the main screen size.
-            Main.spriteBatch.Draw(PixelRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-            Main.spriteBatch.End();
-        }
-
         public override void Unload() 
         {
             On.Terraria.Main.CheckMonoliths -= DrawToCustomRenderTargets;
@@ -44,6 +35,15 @@ namespace FargowiltasSouls.Primitives
         #endregion
 
         #region Methods
+        private void DrawPixelRenderTarget(On.Terraria.Main.orig_DoDraw_DrawNPCsOverTiles orig, Main self)
+        {
+            orig(self);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+            // Draw our RT. The scale is important, it is 2 here as this RT is 0.5x the main screen size.
+            Main.spriteBatch.Draw(PixelRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+            Main.spriteBatch.End();
+        }
+
         private void DrawToCustomRenderTargets(On.Terraria.Main.orig_CheckMonoliths orig)
         {
             // Clear our render target from the previous frame.
