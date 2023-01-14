@@ -32,3 +32,4 @@ pumpkin ench pumpkins and necro ench graves can be triggered by other players in
 builder mode now allows infinite tile/wall placement
 fixed starlight rod infinite first strike
 fixed trawler soul/sod not giving lava fishing
+fixed wood ench skipping banners
