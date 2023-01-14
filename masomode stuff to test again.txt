@@ -25,3 +25,4 @@ lieflight reaction shotgun
 lieflight 6 nukes attack adjusted to reduce projectile cap issues
 fixed homing projs not targeting lieflight in p3
 (ancient) cobalt nerf/exploit fix, jump only gives iframes if you dont currently have iframes from previous jump
+mutant's gift clarifies that emode enables master drops
