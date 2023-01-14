@@ -82,6 +82,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (FargoSoulsWorld.SwarmActive)
                 return true;
 
+            //have some dr during phase transition animation
+            if (npc.ai[0] == 1 || npc.ai[0] == 2)
+                Resist = true;
+
             NPC spazmatism = FargoSoulsUtil.NPCExists(EModeGlobalNPC.spazBoss, NPCID.Spazmatism);
 
             if (FargoSoulsWorld.MasochistModeReal && spazmatism == null && npc.HasValidTarget && ++RespawnTimer > 600)
@@ -383,7 +387,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (Resist)
-                damage *= 0.66;
+                damage *= 0.5;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
@@ -501,6 +505,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (FargoSoulsWorld.SwarmActive)
                 return true;
+
+            //have some dr during phase transition animation
+            if (npc.ai[0] == 1 || npc.ai[0] == 2)
+                Resist = true;
 
             NPC retinazer = FargoSoulsUtil.NPCExists(EModeGlobalNPC.retiBoss, NPCID.Retinazer);
 
@@ -830,7 +838,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (Resist)
-                damage *= 0.66;
+                damage *= 0.5;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }

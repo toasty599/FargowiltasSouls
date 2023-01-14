@@ -11,3 +11,5 @@ adjusted concentrated rainbow matter heal conditions, will not autoheal unless h
 changed berserker install input to up+down+install key
 fixed mimic not working in mp
 refactored emode custom ai field mp sync
+added some dr to twins during phase transition anim so they dont get spawnkilled so hard
+raised twins dr during ray spin to 50%
