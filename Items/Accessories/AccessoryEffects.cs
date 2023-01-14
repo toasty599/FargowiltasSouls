@@ -1845,6 +1845,7 @@ namespace FargowiltasSouls
             Player.accFishingLine = true;
             Player.accTackleBox = true;
             Player.accFishFinder = true;
+            Player.accLavaFishing = true;
 
             //volatile gel
             if (Player.GetToggleValue("TrawlerGel"))

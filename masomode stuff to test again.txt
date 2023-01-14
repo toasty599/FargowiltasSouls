@@ -31,3 +31,4 @@ fixed(?) lunar pillars still having their emode ais in normal worlds when leave/
 pumpkin ench pumpkins and necro ench graves can be triggered by other players in mp
 builder mode now allows infinite tile/wall placement
 fixed starlight rod infinite first strike
+fixed trawler soul/sod not giving lava fishing
