@@ -9,3 +9,5 @@ fixed stunned not disabling right click
 
 adjusted concentrated rainbow matter heal conditions, will not autoheal unless hostile npcs nearby or below 40% health
 changed berserker install input to up+down+install key
+fixed mimic not working in mp
+refactored emode custom ai field mp sync
