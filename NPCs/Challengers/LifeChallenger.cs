@@ -2399,8 +2399,11 @@ namespace FargowiltasSouls.NPCs.Challengers
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float ai0 = FargoSoulsWorld.MasochistModeReal ? 32 : 24;
-                    float ai1 = FargoSoulsWorld.EternityMode ? 1 : 0;
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(12f, 0f).RotatedBy((MathHelper.Pi / 3) * NPC.ai[2]), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 300f, Main.myPlayer, ai0, ai1);
+                    float ai1 = 0;
+                    float speed = 16;
+                    int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(speed, 0f).RotatedBy((MathHelper.Pi / 3) * NPC.ai[2]), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 300f, Main.myPlayer, ai0, ai1);
+                    if (p != Main.maxProjectiles)
+                        Main.projectile[p].timeLeft = 60;
                 }
                 NPC.ai[2]++;
             }

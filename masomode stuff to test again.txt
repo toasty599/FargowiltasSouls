@@ -22,3 +22,4 @@ increased lieflight DR when protected e.g. phase transition, certain attacks fro
 lieflight reaction shotgun
 	waves despawn earlier to avoid projectile cap issues
 	will fly at you if you run too far during this attack
+lieflight 6 nukes attack adjusted to reduce projectile cap issues
