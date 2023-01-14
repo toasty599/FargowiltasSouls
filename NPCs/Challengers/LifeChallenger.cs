@@ -221,6 +221,7 @@ namespace FargowiltasSouls.NPCs.Challengers
             Main.time = 27000; //noon
             Main.dayTime = true;
             NPC.defense = NPC.defDefense;
+            NPC.chaseable = true;
             useDR = false;
             phaseProtectionDR = false;
 
@@ -1077,7 +1078,6 @@ namespace FargowiltasSouls.NPCs.Challengers
         public void AttackP3Start()
         {
             useDR = true;
-            NPC.chaseable = !UseTrueOriginAI;
 
             if (AttackF1)
             {
@@ -1166,6 +1166,8 @@ namespace FargowiltasSouls.NPCs.Challengers
 
             if (UseTrueOriginAI) //disable items
             {
+                NPC.chaseable = false;
+
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && NPC.Distance(Main.LocalPlayer.Center) < 3000)
                 {
                     if (Main.LocalPlayer.grapCount > 0)
