@@ -2442,17 +2442,6 @@ namespace FargowiltasSouls
                 target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
                 target.immune[proj.owner] = 2;
             }
-
-            if (proj.type == ModContent.ProjectileType<LightslingerShot>())
-            {
-                LightslingerHitShots++;
-                if (LightslingerHitShots == 20)
-                {
-                    SoundEngine.PlaySound(SoundID.MaxMana, Player.Center);
-                }
-            }
-
-
         }
 
         private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, DamageClass damageClass, Projectile projectile = null, Item item = null)
