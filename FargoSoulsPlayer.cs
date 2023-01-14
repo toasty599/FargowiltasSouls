@@ -3097,7 +3097,7 @@ namespace FargowiltasSouls
                     string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.Revived");
                     CombatText.NewText(Player.Hitbox, Color.Yellow, text, true);
                     Main.NewText(text, Color.Yellow);
-                    Player.AddBuff(ModContent.BuffType<AbomRebirth>(), 300);
+                    Player.AddBuff(ModContent.BuffType<AbomRebirth>(), 900);
                     retVal = false;
                     for (int i = 0; i < 24; i++)
                     {

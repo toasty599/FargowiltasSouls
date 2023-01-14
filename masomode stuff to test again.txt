@@ -17,3 +17,4 @@ lightslinger now charges right click when you fire 25 shots instead of when land
 force adam nerf, 33% damage 
 force adam adjustment, reduces iframes to 1/3rd
 ninja ench buff, has 15 armor pen as base
+abom wand buff, protection from DOT on revive lasts 15sec, was 5
