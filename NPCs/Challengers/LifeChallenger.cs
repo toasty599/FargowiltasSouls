@@ -2122,7 +2122,17 @@ namespace FargowiltasSouls.NPCs.Challengers
                 HitPlayer = true;
                 NPC.netUpdate = true;
             }
-            NPC.velocity = Vector2.Zero;
+
+            if (NPC.Distance(Player.Center) > 1200)
+            {
+                FlyingState(1.5f);
+            }
+            else
+            {
+                Flying = false;
+                NPC.velocity *= 0.9f;
+            }
+
             if (NPC.ai[1] == 1)
             {
                 NPC.ai[2] = Main.rand.Next(140, 220);
@@ -2180,13 +2190,13 @@ namespace FargowiltasSouls.NPCs.Challengers
                 {
                     int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (LockVector2).RotatedBy((i * -MathHelper.Pi / 48) + (i * NPC.ai[3] * MathHelper.Pi / 24)), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
                     if (p != Main.maxProjectiles)
-                        Main.projectile[p].timeLeft = 240;
+                        Main.projectile[p].timeLeft = 120;
                     
                     if (PhaseThree)
                     {
                         p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (LockVector2).RotatedBy(((MathHelper.Pi / 4) + ((i + 4) * MathHelper.Pi / 48) - ((NPC.ai[3] * MathHelper.Pi / 2) + ((i + 4) * NPC.ai[3] * MathHelper.Pi / 24)))), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
                         if (p != Main.maxProjectiles)
-                            Main.projectile[p].timeLeft = 240;
+                            Main.projectile[p].timeLeft = 120;
                     }
                 }
             }
