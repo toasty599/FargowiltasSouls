@@ -172,6 +172,10 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            //not doing this causes player array index error during worldgen in some cases maybe??
+            if (projectile.owner < 0 || projectile.owner >= Main.maxPlayers)
+                return;
+
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
