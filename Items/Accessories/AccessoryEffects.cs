@@ -2672,6 +2672,7 @@ namespace FargowiltasSouls
 
             if (AgitatingLensItem != null
                 && Player.GetToggleValue("MasoEyeInstall", false)
+                && Player.controlUp && Player.controlDown
                 && !Player.HasBuff(ModContent.BuffType<BerserkerInstall>())
                 && !Player.HasBuff(ModContent.BuffType<BerserkerInstallCD>()))
             {
