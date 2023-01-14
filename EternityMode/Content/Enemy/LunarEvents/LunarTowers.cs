@@ -65,6 +65,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         {
             base.AI(npc);
 
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
             if (!spawned)
             {
                 spawned = true;
@@ -125,12 +128,19 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
+
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
         }
 
         public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
         {
             base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+
+            if (!FargoSoulsWorld.EternityMode)
+                return;
 
             damage = npc.Distance(player.Center) > 2500 ? 0 : damage / 2;
         }
