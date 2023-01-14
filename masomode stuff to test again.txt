@@ -24,3 +24,4 @@ lieflight reaction shotgun
 	will fly at you if you run too far during this attack
 lieflight 6 nukes attack adjusted to reduce projectile cap issues
 fixed homing projs not targeting lieflight in p3
+(ancient) cobalt nerf/exploit fix, jump only gives iframes if you dont currently have iframes from previous jump
