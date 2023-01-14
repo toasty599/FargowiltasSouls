@@ -18,3 +18,4 @@ force adam nerf, 33% damage
 force adam adjustment, reduces iframes to 1/3rd
 ninja ench buff, has 15 armor pen as base
 abom wand buff, protection from DOT on revive lasts 15sec, was 5
+increased lieflight DR when protected e.g. phase transition, certain attacks from 50% to 66%

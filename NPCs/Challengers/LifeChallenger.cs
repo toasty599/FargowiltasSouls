@@ -2409,10 +2409,10 @@ namespace FargowiltasSouls.NPCs.Challengers
             damage /= 2;
 
             if (useDR)
-                damage /= 2;
+                damage /= 3;
 
             if (phaseProtectionDR)
-                damage /= 2;
+                damage /= 3;
 
             return true;
         }
