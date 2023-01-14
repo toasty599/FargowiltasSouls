@@ -14,3 +14,6 @@ refactored emode custom ai field mp sync
 added some dr to twins during phase transition anim so they dont get spawnkilled so hard
 raised twins dr during ray spin to 50%
 lightslinger now charges right click when you fire 25 shots instead of when landing 20
+force adam nerf, 33% damage 
+force adam adjustment, reduces iframes to 1/3rd
+ninja ench buff, has 15 armor pen as base
