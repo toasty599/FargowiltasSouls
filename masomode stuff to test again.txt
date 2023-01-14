@@ -30,3 +30,4 @@ wretched pouch gives +120% damage, was 60%, attacking now slows fall speed and g
 fixed(?) lunar pillars still having their emode ais in normal worlds when leave/rejoin during lunar event
 pumpkin ench pumpkins and necro ench graves can be triggered by other players in mp
 builder mode now allows infinite tile/wall placement
+fixed starlight rod infinite first strike

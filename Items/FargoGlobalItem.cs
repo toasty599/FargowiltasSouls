@@ -233,7 +233,12 @@ namespace FargowiltasSouls.Items
         public override bool? UseItem(Item item, Player player)
         {
             if (item.type == ItemID.RodofDiscord)
+            {
                 player.ClearBuff(ModContent.BuffType<GoldenStasis>());
+
+                if (player.GetModPlayer<FargoSoulsPlayer>().CrystalEnchantActive)
+                    player.AddBuff(ModContent.BuffType<FirstStrike>(), 60);
+            }
 
             return base.UseItem(item, player);
         }
