@@ -37,4 +37,5 @@ fixed wood ench skipping banners
 abom rebirth is a buff, not a debuff
 fixed wood ench giving more kill count bonus than intended
 fixed wood ench kill count bonus not working in mp
+wood ench accounts for nonstandard banner thresholds
 nerfed pumpkin ench, duration 30->20sec, grown damage 50->30

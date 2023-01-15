@@ -67,18 +67,27 @@ Discount effect works in vanity slots");
 
         public static void WoodCheckDead(FargoSoulsPlayer modPlayer, NPC npc)
         {
+            if (npc.ExcludedFromDeathTally())
+                return;
+            int banner = Item.NPCtoBanner(npc.BannerID());
+            if (banner <= 0)
+                return;
+
             //register extra kill per kill
             int addedKillBonus = 1;
             if (modPlayer.WoodForce)
                 addedKillBonus = 4;
 
+            //for nonstandard banner thresholds, e.g. some ooa npcs at 100 or 200
+            int bannerThreshold = ItemID.Sets.KillsToBanner[Item.BannerToItem(banner)];
+
             for (int i = 0; i < addedKillBonus; i++)
             {
                 //stop at 49, 99, 149, etc. so that game will increment on its own
-                //not doing this causes it to skip over 50, skipping the banner
-                if (NPC.killCount[Item.NPCtoBanner(npc.BannerID())] % 50 != 49)
+                //not doing this causes it to skip the banner
+                if (NPC.killCount[banner] % bannerThreshold != bannerThreshold - 1)
                 {
-                    NPC.killCount[Item.NPCtoBanner(npc.BannerID())]++;
+                    NPC.killCount[banner]++;
                     Main.BestiaryTracker.Kills.RegisterKill(npc);
                 }
             }            
