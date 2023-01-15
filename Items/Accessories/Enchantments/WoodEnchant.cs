@@ -67,15 +67,12 @@ Discount effect works in vanity slots");
 
         public static void WoodCheckDead(FargoSoulsPlayer modPlayer, NPC npc)
         {
-            //register extra kill per kill (X times as fast)
-            int multiplier = 2;
-
+            //register extra kill per kill
+            int addedKillBonus = 1;
             if (modPlayer.WoodForce)
-            {
-                multiplier = 5;
-            }
+                addedKillBonus = 4;
 
-            for (int i = 0; i < multiplier; i++)
+            for (int i = 0; i < addedKillBonus; i++)
             {
                 //stop at 49, 99, 149, etc. so that game will increment on its own
                 //not doing this causes it to skip over 50, skipping the banner
