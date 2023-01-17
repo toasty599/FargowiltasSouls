@@ -142,20 +142,7 @@ namespace FargowiltasSouls
                 TextureEnabled = false
             };
             UpdateBaseEffect(out _, out _);
-        }
-
-        public PrimDrawer(WidthTrailFunction widthFunc, ColorTrailFunction colorFunc, bool pixelPrims = false ,MiscShaderData shader = null)
-        {
-            WidthFunc = widthFunc;
-            ColorFunc = colorFunc;
-            Shader = shader;
-            BaseEffect = new BasicEffect(Main.instance.GraphicsDevice)
-            {
-                VertexColorEnabled = true,
-                TextureEnabled = false
-            };
-            UpdateBaseEffectPixel(out _, out _);
-        }   
+        } 
 
         private void UpdateBaseEffect(out Matrix effectProjection, out Matrix effectView)
         {
@@ -214,29 +201,58 @@ namespace FargowiltasSouls
             if (newList.Count <= 1)
                 return newList;
 
+            List<Vector2> controlPoints = new();
+            for (int i = 0; i < basePoints.Count(); i++)
+            {
+                // Don't incorporate points that are zeroed out.
+                // They are almost certainly a result of incomplete oldPos arrays.
+                if (basePoints.ElementAt(i) == Vector2.Zero)
+                    continue;
+
+                Vector2 offset = baseOffset;
+                controlPoints.Add(basePoints.ElementAt(i) + offset);
+            }
             List<Vector2> points = new();
 
-            // Round up the trail point count to the nearest multiple of the position count, to ensure that interpolants work.
-            int splineIterations = (int)Math.Ceiling(totalPoints / (double)newList.Count);
-            totalPoints = splineIterations * totalPoints;
+            // Avoid stupid index errors.
+            if (controlPoints.Count <= 4)
+                return controlPoints;
 
-            // The GetPoints method uses imprecise floating-point looping, which can result in inaccuracies with point generation.
-            // Instead, an integer-based loop is used to mitigate such problems.
-            for (int i = 1; i < newList.Count - 2; i++)
+            for (int j = 0; j < totalPoints; j++)
             {
-                for (int j = 0; j < splineIterations; j++)
-                {
-                    float splineInterpolant = j / (float)splineIterations;
-                    if (splineIterations <= 1f)
-                        splineInterpolant = 0.5f;
+                float splineInterpolant = j / (float)totalPoints;
+                float localSplineInterpolant = splineInterpolant * (controlPoints.Count - 1f) % 1f;
+                int localSplineIndex = (int)(splineInterpolant * (controlPoints.Count - 1f));
 
-                    points.Add(Vector2.CatmullRom(newList[i - 1], newList[i], newList[i + 1], newList[i + 2], splineInterpolant));
+                Vector2 farLeft;
+                Vector2 left = controlPoints[localSplineIndex];
+                Vector2 right = controlPoints[localSplineIndex + 1];
+                Vector2 farRight;
+
+                // Special case: If the spline attempts to access the previous/next index but the index is already at the very beginning/end, simply
+                // cheat a little bit by creating a phantom point that's mirrored from the previous one.
+                if (localSplineIndex <= 0)
+                {
+                    Vector2 mirrored = left * 2f - right;
+                    farLeft = mirrored;
                 }
+                else
+                    farLeft = controlPoints[localSplineIndex - 1];
+
+                if (localSplineIndex >= controlPoints.Count - 2)
+                {
+                    Vector2 mirrored = right * 2f - left;
+                    farRight = mirrored;
+                }
+                else
+                    farRight = controlPoints[localSplineIndex + 2];
+
+                points.Add(Vector2.CatmullRom(farLeft, left, right, farRight, localSplineInterpolant));
             }
 
             // Manually insert the front and end points.
-            points.Insert(0, newList.First());
-            points.Add(newList.Last());
+            points.Insert(0, controlPoints.First());
+            points.Add(controlPoints.Last());
 
             return points;
         }

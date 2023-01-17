@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Primitives
     public interface IPixelPrimitiveDrawer
     {
         /// <summary>
-        /// Place primitives you wish to become pixelated here.
+        /// Draw primitives you wish to become pixelated here.
         /// </summary>
         public void DrawPixelPrimitives(SpriteBatch spriteBatch);
     }

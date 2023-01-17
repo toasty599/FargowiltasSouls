@@ -89,7 +89,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     }
     // Else, just lerp between the two colors but make it brighter.
     else
-        finalColor = lerp(color, innerColorFinal, innerColor.r) * 1.2;
+        finalColor = lerp(color, innerColorFinal, innerColor.r) * 1.2;  
     
     //// Fade out at the top and bottom of the streak.
     if (coords.x < 0.02)
