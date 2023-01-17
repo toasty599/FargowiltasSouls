@@ -39,3 +39,5 @@ fixed wood ench giving more kill count bonus than intended
 fixed wood ench kill count bonus not working in mp
 wood ench accounts for nonstandard banner thresholds
 nerfed pumpkin ench, duration 30->20sec, grown damage 50->30
+
+fixed pumpkin ench embers still doing too much damage
