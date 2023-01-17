@@ -100,7 +100,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             NPC.timeLeft = NPC.activeTime * 30;
             if (FargoSoulsWorld.AngryMutant)
             {
-                NPC.lifeMax = 777000000;
                 NPC.damage *= 17;
                 NPC.defense *= 10;
             }
@@ -120,7 +119,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.5f * bossLifeScale);
+            NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 0.5 * bossLifeScale);
+
+            //doing it here to avoid overflow i think
+            if (FargoSoulsWorld.AngryMutant)
+                NPC.lifeMax *= 100;
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -359,7 +362,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (FargoSoulsWorld.EternityMode && NPC.ai[0] < 0 && NPC.ai[0] > -6)
                     {
                         Main.LocalPlayer.AddBuff(ModContent.BuffType<GoldenStasisCD>(), 2);
-                        Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeStopCD>(), 2);
+                        if (FargoSoulsWorld.MasochistModeReal)
+                            Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeStopCD>(), 2);
                     }
                     //if (FargowiltasSouls.Instance.CalamityLoaded)
                     //{
@@ -2718,7 +2722,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             int ringMax = FargoSoulsWorld.MasochistModeReal ? 5 : 4;
             if (NPC.ai[3] % ringDelay == 0 && NPC.ai[3] < ringDelay * ringMax)
             {
-                SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float rotationOffset = MathHelper.TwoPi / ringMax * NPC.ai[3] / ringDelay + NPC.localAI[0];
@@ -2756,10 +2759,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     float spazSpeed = 2 * (float)Math.PI * spazRad / 180;
                     float retiAcc = retiSpeed * retiSpeed / retiRad * NPC.ai[2];
                     float spazAcc = spazSpeed * spazSpeed / spazRad * -NPC.ai[2];
+                    float rotationOffset = FargoSoulsWorld.MasochistModeReal ? MathHelper.PiOver4 : 0;
                     for (int i = 0; i < 4; i++)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * retiSpeed, ModContent.ProjectileType<MutantRetirang>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, retiAcc, 300);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4) * spazSpeed, ModContent.ProjectileType<MutantSpazmarang>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, spazAcc, 180);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i + rotationOffset) * retiSpeed, ModContent.ProjectileType<MutantRetirang>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, retiAcc, 300);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4 + rotationOffset) * spazSpeed, ModContent.ProjectileType<MutantSpazmarang>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, spazAcc, 180);
                     }
                 }
             }

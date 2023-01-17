@@ -353,6 +353,7 @@ namespace FargowiltasSouls
         public int WretchedPouchCD;
         public bool NymphsPerfume;
         public bool NymphsPerfumeRespawn;
+        public int NymphsPerfumeRestoreLife;
         public int NymphsPerfumeCD = 30;
         public bool SqueakyAcc;
         public bool RainbowSlime;
@@ -1043,9 +1044,9 @@ namespace FargowiltasSouls
 
         public override void OnRespawn(Player Player)
         {
-            if (NymphsPerfumeRespawn && !FargoSoulsUtil.AnyBossAlive())
+            if (NymphsPerfumeRespawn)
             {
-                Player.statLife = Player.statLifeMax2;
+                NymphsPerfumeRestoreLife = 6;
             }
         }
 
@@ -1082,6 +1083,8 @@ namespace FargowiltasSouls
 
             WingTimeModifier = 1f;
             FreeEaterSummon = true;
+
+            AbominableWandRevived = false;
 
             EridanusTimer = 0;
             StyxMeter = 0;
@@ -1833,6 +1836,14 @@ namespace FargowiltasSouls
                 FreeEaterSummon = true;
             }
 
+            if (NymphsPerfumeRestoreLife > 0 && --NymphsPerfumeRestoreLife == 0)
+            {
+                if (Player.statLife < Player.statLifeMax2)
+                    Player.statLife = Player.statLifeMax2;
+                //doing it like this so it accounts for your lifeMax after respawn
+                //regular OnRespawn() doesnt account for lifeforce, and is lowered by dying with oceanic maul
+            }
+
             ConcentratedRainbowMatterTryAutoHeal();
         }
 
@@ -2248,7 +2259,7 @@ namespace FargowiltasSouls
             if (proj.hostile)
                 return;
 
-            if (SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(proj) && Player.GetToggleValue("Spider", false))
+            if (SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(proj))
             {
                 if (Main.rand.Next(100) < Player.ActualClassCrit(DamageClass.Summon))
                     crit = true;
@@ -2435,21 +2446,21 @@ namespace FargowiltasSouls
                 target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
                 target.immune[proj.owner] = 2;
             }
-
-            if (proj.type == ModContent.ProjectileType<LightslingerShot>())
-            {
-                LightslingerHitShots++;
-                if (LightslingerHitShots == 20)
-                {
-                    SoundEngine.PlaySound(SoundID.MaxMana, Player.Center);
-                }
-            }
-
-
         }
 
         private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, DamageClass damageClass, Projectile projectile = null, Item item = null)
         {
+            //doing this so that damage-inheriting effects dont double dip or explode due to taking on crit boost
+            int GetBaseDamage()
+            {
+                int baseDamage = damage;
+                if (projectile != null)
+                    baseDamage = (int)(projectile.damage * Player.ActualClassDamage(projectile.DamageType));
+                else if (item != null)
+                    baseDamage = (int)(item.damage * Player.ActualClassDamage(item.DamageType));
+                return baseDamage;
+            }
+
             if (StyxSet)
             {
                 StyxMeter += damage;
@@ -2464,7 +2475,7 @@ namespace FargowiltasSouls
 
             if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames))
             {
-                PearlwoodEnchant.PearlwoodStarDrop(this, target, damage);
+                PearlwoodEnchant.PearlwoodStarDrop(this, target, GetBaseDamage());
             }
 
             if (BeeEnchantActive && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
@@ -2473,7 +2484,7 @@ namespace FargowiltasSouls
                 bool force = LifeForce;
                 if (force || Main.rand.NextBool())
                 {
-                    int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+                    int beeDamage = GetBaseDamage();
                     if (beeDamage > 0)
                     {
                         if (!TerrariaSoul)
@@ -2483,7 +2494,6 @@ namespace FargowiltasSouls
 
                         int p = Projectile.NewProjectile(item != null ? Player.GetSource_ItemUse(item) : projectile.GetSource_FromThis(), target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
                             force ? ProjectileID.GiantBee : Player.beeType(), beeDamage, Player.beeKB(beeKB), Player.whoAmI);
-
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].DamageType = damageClass;
                     }
@@ -2514,7 +2524,7 @@ namespace FargowiltasSouls
 
             if (Player.GetToggleValue("Obsidian") && ObsidianEnchantItem != null && ObsidianCD == 0)
             {
-                ObsidianEnchant.ObsidianProc(this, target, damage);
+                ObsidianEnchant.ObsidianProc(this, target, GetBaseDamage());
             }        
 
             if (DevianttHeartItem != null && DevianttHeartsCD <= 0 && Player.GetToggleValue("MasoDevianttHearts")
@@ -2560,7 +2570,7 @@ namespace FargowiltasSouls
 
             if (GladiatorEnchantActive && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Gladiator") && GladiatorCD <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
             {
-                GladiatorEnchant.GladiatorSpearDrop(this, item, projectile, target, damage);
+                GladiatorEnchant.GladiatorSpearDrop(this, target, GetBaseDamage());
             }
 
             if (SolarEnchantActive && Player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
@@ -2870,8 +2880,13 @@ namespace FargowiltasSouls
                 if (potion != null)
                 {
                     int heal = getHealMultiplier(potion.healLife);
-                    if (Player.statLife < Player.statLifeMax2 - heal)
+                    if (Player.statLife < Player.statLifeMax2 - heal && //only heal when full benefit (no wasted overheal)
+                        (Player.statLife < Player.statLifeMax2 * 0.4 || //heal when very low or when danger nearby (not after respawn in safety)
+                        Main.npc.Any(n => n.active && n.damage > 0 && !n.friendly
+                                     && Player.Distance(n.Center) < 1200 && (n.noTileCollide || Collision.CanHitLine(Player.Center, 0, 0, n.Center, 0, 0)))))
+                    {
                         Player.QuickHeal();
+                    }
                 }
             }
         }
@@ -3086,7 +3101,7 @@ namespace FargowiltasSouls
                     string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.Revived");
                     CombatText.NewText(Player.Hitbox, Color.Yellow, text, true);
                     Main.NewText(text, Color.Yellow);
-                    Player.AddBuff(ModContent.BuffType<AbomRebirth>(), 300);
+                    Player.AddBuff(ModContent.BuffType<AbomRebirth>(), 900);
                     retVal = false;
                     for (int i = 0; i < 24; i++)
                     {

@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
 
             //bonus damage if fully grown
-            Projectile.damage = FargoSoulsUtil.HighestDamageTypeScaling(player, Projectile.frame == 4 ? 50 : 15);
+            Projectile.damage = FargoSoulsUtil.HighestDamageTypeScaling(player, Projectile.frame == 4 ? 30 : 15);
 
             if (Projectile.frame != 4)
             {
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
             else
             {
-                if (player.Hitbox.Intersects(Projectile.Hitbox))
+                if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && Main.LocalPlayer.Hitbox.Intersects(Projectile.Hitbox))
                 {
                     int heal = 25;
 
@@ -85,8 +85,8 @@ namespace FargowiltasSouls.Projectiles.Souls
                         heal *= 2;
                     }
 
-                    player.GetModPlayer<FargoSoulsPlayer>().HealPlayer(heal);
-                    SoundEngine.PlaySound(SoundID.Item2, player.Center);
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HealPlayer(heal);
+                    SoundEngine.PlaySound(SoundID.Item2, Main.LocalPlayer.Center);
                     Projectile.Kill();
                 }
             }
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             Projectile.width = (int)(32 * Projectile.scale);
             Projectile.height = (int)(32 * Projectile.scale); //make it not float when shrinking
 
-            if (Projectile.ai[0] > 1800) //make Projectile shrink and disappear after 30 seconds instead of lasting forever
+            if (Projectile.ai[0] > 60 * 20) //make Projectile shrink and disappear after this many seconds instead of lasting forever
                 Projectile.scale -= 0.01f;
 
             if (Projectile.scale <= 0)

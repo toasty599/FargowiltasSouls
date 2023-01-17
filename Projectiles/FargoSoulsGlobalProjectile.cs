@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles
         // private int numSplits = 1;
         public int stormTimer;
         public float TungstenScale = 1;
-        public bool AdamProj;
+        public int AdamModifier;
         public bool tikiMinion;
         private int tikiTimer = 300;
         public int shroomiteMushroomCD;
@@ -172,6 +172,10 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            //not doing this causes player array index error during worldgen in some cases maybe??
+            if (projectile.owner < 0 || projectile.owner >= Main.maxPlayers)
+                return;
+
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
@@ -305,7 +309,7 @@ namespace FargowiltasSouls.Projectiles
                     AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer);
                 }
 
-                AdamProj = true;
+                AdamModifier = modPlayer.EarthForce ? 3 : 2;
 
                 projectile.ArmorPenetration += projectile.damage / 2;
             }
@@ -892,11 +896,14 @@ namespace FargowiltasSouls.Projectiles
                     TimeFreezeImmune = true;
             }
 
-            if (projectile.whoAmI == player.heldProj || projectile.aiStyle == ProjAIStyleID.HeldProjectile)
+            if (projectile.whoAmI == player.heldProj
+                || projectile.aiStyle == ProjAIStyleID.HeldProjectile
+                || projectile.type == ProjectileID.LastPrismLaser)
             {
                 DeletionImmuneRank = 2;
-
                 NinjaSpeedup = 0;
+
+                projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
 
                 if (player.HeldItem.damage > 0 && player.HeldItem.pick == 0)
                 {
@@ -979,9 +986,9 @@ namespace FargowiltasSouls.Projectiles
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (AdamProj)
+            if (AdamModifier != 0)
             {
-                damage /= 2;//modPlayer.EarthForce && (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity) ? 3 : 2;
+                damage /= AdamModifier;
             }
 
             if (stormTimer > 0)
@@ -1052,20 +1059,23 @@ namespace FargowiltasSouls.Projectiles
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (AdamProj && !projectile.usesLocalNPCImmunity)
+            if (projectile.maxPenetrate != 1 && AdamModifier != 0 && !projectile.usesLocalNPCImmunity)
             {
                 if (projectile.usesIDStaticNPCImmunity)
                 {
                     if (projectile.idStaticNPCHitCooldown > 1)
-                        Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] = Main.GameUpdateCount + (uint)projectile.idStaticNPCHitCooldown / 2;
+                        Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] = Main.GameUpdateCount + (uint)(projectile.idStaticNPCHitCooldown / AdamModifier);
                 }
                 else if (!noInteractionWithNPCImmunityFrames && target.immune[projectile.owner] > 1)
                 {
-                    target.immune[projectile.owner] /= 2;
+                    target.immune[projectile.owner] /= AdamModifier;
                 }
             }
 
-            
+            if (projectile.type == ProjectileID.IceBlock && modPlayer.FrigidGemstoneItem != null)
+            {
+                target.AddBuff(BuffID.Frostburn, 360);
+            }
         }
 
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref int damage, ref bool crit)
