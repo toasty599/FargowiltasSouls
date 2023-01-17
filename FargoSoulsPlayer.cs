@@ -2525,6 +2525,11 @@ namespace FargowiltasSouls
                 }
             }
 
+            if (SnowEnchantActive)
+            {
+                target.AddBuff(BuffID.Frostburn, 120);
+            }
+
             if (GodEaterImbue)
             {
                 /*if (target.FindBuffIndex(ModContent.BuffType<GodEater>()) < 0 && target.aiStyle != 37)
