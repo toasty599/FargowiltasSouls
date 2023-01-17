@@ -825,10 +825,13 @@ namespace FargowiltasSouls.Projectiles
 
             if (tikiMinion)
             {
-                //move faster
-                projectile.position.X += projectile.velocity.X;
-                if (!projectile.tileCollide || projectile.velocity.Y < 0 || projectile.shouldFallThrough)
-                    projectile.position.Y += projectile.velocity.Y;
+                if (projectile.type != ProjectileID.UFOLaser) //avoid movement glitches
+                {
+                    //move faster
+                    projectile.position.X += projectile.velocity.X;
+                    if (!projectile.tileCollide || projectile.velocity.Y < 0 || projectile.shouldFallThrough)
+                        projectile.position.Y += projectile.velocity.Y;
+                }
 
                 if (tikiTimer > 0)
                     tikiTimer--;
