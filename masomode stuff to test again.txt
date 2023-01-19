@@ -45,3 +45,5 @@ tiki rework, you whip your minions to give them 1sec speedup and crits
 fixed(?) stardust ench mp infinite guardian army bug?
 fixed necro ench being absent from shadow force recipe
 snow ench buff, your attacks inflict 2sec frostburn
+
+reduced abom damage slightly
