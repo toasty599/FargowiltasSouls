@@ -799,7 +799,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 projectile.extraUpdates = Math.Max(projectile.extraUpdates, NinjaSpeedup);
 
-                if (projectile.owner == Main.myPlayer && !modPlayer.NinjaSpeedup)
+                if (projectile.owner == Main.myPlayer && !(modPlayer.NinjaEnchantItem != null && player.GetToggleValue("NinjaSpeed")))
                     projectile.Kill();
             }
 
