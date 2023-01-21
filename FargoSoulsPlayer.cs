@@ -1838,6 +1838,11 @@ namespace FargowiltasSouls
                     AttackSpeed -= .05f;
                 }
             }
+			
+			if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
+			{
+				AttackSpeed += 1.0f;
+			}
 
             if (Berserked)
             {
@@ -2314,6 +2319,11 @@ namespace FargowiltasSouls
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
+			if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
+			{
+				damage /= 2;
+			}
+			
             if (Hexed || (ReverseManaFlow && item.CountsAsClass(DamageClass.Magic)))
             {
                 target.life += damage;
