@@ -1838,11 +1838,6 @@ namespace FargowiltasSouls
                     AttackSpeed -= .05f;
                 }
             }
-			
-			if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
-			{
-				AttackSpeed += 1.0f;
-			}
 
             if (Berserked)
             {
@@ -1864,6 +1859,11 @@ namespace FargowiltasSouls
                 float diff = AttackSpeed - 1f;
                 diff /= 2;
                 AttackSpeed -= diff;
+            }
+
+            if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
+            {
+                AttackSpeed *= 2;
             }
 
             //checks so weapons dont break
