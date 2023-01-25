@@ -124,6 +124,10 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.SandnadoFriendly:
                     DeletionImmuneRank = 1;
                     break;
+					
+				case ProjectileID.LunarFlare:
+                    DeletionImmuneRank = 1;
+                    break;
 
                 case ProjectileID.PhantasmalDeathray:
                 case ProjectileID.DeerclopsIceSpike:
@@ -879,6 +883,13 @@ namespace FargowiltasSouls.Projectiles
                     if (projectile.type == ProjectileID.DD2PhoenixBow && modPlayer.MythrilEnchantItem != null && modPlayer.MythrilTimer > -60 && counter > 60)
                         projectile.Kill();
                 }
+				
+				//bandaid for how capping proj array lets phantasm spawn and fire arrows every tick
+				//reusedelay scales down to 0 after first shot
+				if (projectile.type == ProjectileID.Phantasm)
+				{
+					player.reuseDelay = Math.Max(0, 20 - counter);
+				}
             }
 
             //graze

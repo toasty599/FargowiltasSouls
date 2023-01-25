@@ -255,6 +255,7 @@ namespace FargowiltasSouls
         public bool VortexEnchantActive;
         public bool VortexStealth;
         public bool WizardEnchantActive;
+        public List<BaseEnchant> EquippedEnchants = new List<BaseEnchant>();
         
         public bool NebulaEnchantActive;
         public bool BeetleEnchantActive;
@@ -1011,6 +1012,7 @@ namespace FargowiltasSouls
             if (WizardEnchantActive)
             {
                 WizardEnchantActive = false;
+                EquippedEnchants.Clear();
                 for (int i = 3; i <= 9; i++)
                 {
                     if (!Player.armor[i].IsAir && (Player.armor[i].type == ModContent.ItemType<WizardEnchant>() || Player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.CosmoForce>()))
@@ -2871,6 +2873,7 @@ namespace FargowiltasSouls
                                      && Player.Distance(n.Center) < 1200 && (n.noTileCollide || Collision.CanHitLine(Player.Center, 0, 0, n.Center, 0, 0)))))
                     {
                         Player.QuickHeal();
+						StatLifePrevious += heal;
                     }
                 }
             }
@@ -2974,6 +2977,12 @@ namespace FargowiltasSouls
             WasHurtBySomething = true;
 
             MahoganyCanUseDR = false;
+			
+			if (Player.HasBuff(ModContent.BuffType<TitaniumDRBuff>())
+				&& !Player.HasBuff(ModContent.BuffType<TitaniumCD>()))
+			{
+				Player.AddBuff(ModContent.BuffType<TitaniumCD>(), 60 * 10);
+			}
 
             if (NekomiSet)
             {
