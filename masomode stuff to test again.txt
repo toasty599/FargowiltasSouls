@@ -73,8 +73,8 @@ boc/destroyer laser hitbox adjusted to stretch with its velocity, shouldnt phase
 adjusted wof golden shower to look less weird when it hits a surface (previously vanished instantly the moment its tip touched a block)
 titanium ench nerfed
 	now 50 base damage with no scaling. force effect simply gives scaling (used to be 120 damage with scaling)
-	dr buff length is always 3 seconds but refreshes whenever hit
+	dr buff length is always 4 seconds but refreshes when you hit an enemy, basically it persists until you take a hit and then begins counting down
 	you cannot gain shards while dr is on cooldown
 	dr cd doesn't begin until hit
-	to compensate, dr cd reduced from 10 to 8 seconds
+	to compensate, dr cd is true 10 seconds (was 10 + buff duration)
 pearlwood ench recipe uses pearlwood sword instead of star cannon
