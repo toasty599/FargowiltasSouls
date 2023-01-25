@@ -1009,10 +1009,11 @@ namespace FargowiltasSouls
             SilverEnchantItem = null;
             DreadShellItem = null;
 
+            EquippedEnchants.Clear();
+
             if (WizardEnchantActive)
             {
                 WizardEnchantActive = false;
-                EquippedEnchants.Clear();
                 for (int i = 3; i <= 9; i++)
                 {
                     if (!Player.armor[i].IsAir && (Player.armor[i].type == ModContent.ItemType<WizardEnchant>() || Player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.CosmoForce>()))

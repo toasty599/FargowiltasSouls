@@ -80,3 +80,4 @@ titanium ench nerfed
 pearlwood ench recipe uses pearlwood sword instead of star cannon
 
 fixed ninja ench not speeding up "held projectile" weapons e.g. phantasm, last prism, vortex beater
+fixed wizard ench tooltip in inventory phenomenon
