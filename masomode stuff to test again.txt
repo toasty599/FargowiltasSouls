@@ -78,3 +78,5 @@ titanium ench nerfed
 	dr cd doesn't begin until hit
 	to compensate, dr cd is true 10 seconds (was 10 + buff duration)
 pearlwood ench recipe uses pearlwood sword instead of star cannon
+
+fixed ninja ench not speeding up "held projectile" weapons e.g. phantasm, last prism, vortex beater

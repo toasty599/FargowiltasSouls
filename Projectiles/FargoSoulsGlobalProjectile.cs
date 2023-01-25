@@ -545,7 +545,7 @@ namespace FargowiltasSouls.Projectiles
 
             if (firstTick)
             {
-                if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && Array.IndexOf(noSplit, projectile.type) <= -1)
+                if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && projectile.type != ProjectileID.WireKite)
                 {
                     NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
                 }
