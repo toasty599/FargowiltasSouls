@@ -2874,7 +2874,6 @@ namespace FargowiltasSouls
                                      && Player.Distance(n.Center) < 1200 && (n.noTileCollide || Collision.CanHitLine(Player.Center, 0, 0, n.Center, 0, 0)))))
                     {
                         Player.QuickHeal();
-						StatLifePrevious += heal;
                     }
                 }
             }

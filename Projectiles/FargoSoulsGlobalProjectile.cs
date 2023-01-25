@@ -408,7 +408,7 @@ namespace FargowiltasSouls.Projectiles
                     RichMahoganyEnchant.MahoganyHookAI(projectile, modPlayer);
                 }
 
-                if (projectile.friendly && !projectile.hostile)
+                if (!projectile.hostile && !projectile.trap && !projectile.npcProj)
                 {
                     if (modPlayer.Jammed && projectile.CountsAsClass(DamageClass.Ranged) && projectile.type != ProjectileID.ConfettiGun)
                     {

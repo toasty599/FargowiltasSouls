@@ -82,3 +82,5 @@ pearlwood ench recipe uses pearlwood sword instead of star cannon
 fixed ninja ench not speeding up "held projectile" weapons e.g. phantasm, last prism, vortex beater
 fixed wizard ench tooltip in inventory phenomenon
 fixed mutant having 6 hp in journey master maso FTW fury enrage
+fixed pygmy staff not working with spooky ench
+fixed potions in general not working properly with mutant nibble/fang
