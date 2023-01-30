@@ -95,3 +95,4 @@ nerfed pre hm mimic damage more, x0.75 -> x0.5
 box of gizmos nerf, spelunker glowstick effect requires you to also not be using items
 masomode has cactus damage again
 added big toss mode (in configs)
+maso buffs qb's vertical speed when positioning for dashes
