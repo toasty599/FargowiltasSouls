@@ -91,3 +91,4 @@ mythril nerfs
 tried fixing devi/abom/mutant curse, squirrel coat of arms not working in mp for the 22nd time
 ninja ench secretly halves mana cost to compensate its double speed
 adjusted spawn condition of fire imp/lava slime to be deep underground instead of near lava, and not in ice or jungle
+nerfed pre hm mimic damage more, x0.75 -> x0.5
