@@ -2855,6 +2855,19 @@ namespace FargowiltasSouls
                     }
                 }
             }
+
+            if (ModContent.GetInstance<SoulConfig>().BigTossMode)
+            {
+                AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+
+                Vector2 attacker = default;
+                if (npc != null)
+                    attacker = npc.Center;
+                else if (proj != null)
+                    attacker = proj.Center;
+                if (attacker != default)
+                    Player.velocity = Vector2.Normalize(Player.Center - attacker) * 30;
+            }
         }
 
         public void ConcentratedRainbowMatterTryAutoHeal()
