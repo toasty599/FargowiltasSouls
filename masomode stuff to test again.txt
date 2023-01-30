@@ -93,3 +93,4 @@ ninja ench secretly halves mana cost to compensate its double speed
 adjusted spawn condition of fire imp/lava slime to be deep underground instead of near lava, and not in ice or jungle
 nerfed pre hm mimic damage more, x0.75 -> x0.5
 box of gizmos nerf, spelunker glowstick effect requires you to also not be using items
+masomode has cactus damage again
