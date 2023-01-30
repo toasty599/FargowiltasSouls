@@ -89,3 +89,4 @@ mythril nerfs
 	force speed up is +75%, was +100%
 
 tried fixing devi/abom/mutant curse, squirrel coat of arms not working in mp for the 22nd time
+ninja ench secretly halves mana cost to compensate its double speed
