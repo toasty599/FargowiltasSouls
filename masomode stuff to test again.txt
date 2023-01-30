@@ -87,3 +87,5 @@ fixed potions in general not working properly with mutant nibble/fang
 mythril nerfs
 	ench cd is 5 seconds, was 3
 	force speed up is +75%, was +100%
+
+tried fixing devi/abom/mutant curse, squirrel coat of arms not working in mp for the 22nd time

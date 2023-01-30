@@ -544,15 +544,11 @@ namespace FargowiltasSouls
 
         public static void SpawnBossTryFromNPC(int playerTarget, int originalType, int bossType)
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient)// && playerTarget == Main.myPlayer)
-            {
-                //var packet = FargowiltasSouls.Instance.GetPacket();
-                //packet.Write((byte)FargowiltasSouls.PacketID.SpawnBossTryFromNPC);
-                //packet.Write(playerTarget);
-                //packet.Write(originalType);
-                //packet.Write(bossType);
+            if (Main.netMode != NetmodeID.SinglePlayer)
+                NPC.SpawnOnPlayer(playerTarget, bossType);
+
+            if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
-            }
 
             NPC npc = NPCExists(NPC.FindFirstNPC(originalType));
             if (npc != null)
@@ -564,8 +560,6 @@ namespace FargowiltasSouls
                 if (Main.netMode == NetmodeID.Server)
                 {
                     NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
-
-                    NPC.SpawnOnPlayer(playerTarget, bossType);
                 }
                 else //todo, figure out how to make this work 100% consistent in mp
                 {
@@ -579,10 +573,6 @@ namespace FargowiltasSouls
                         PrintText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[n].TypeName), new Color(175, 75, 255));
                     }
                 }
-            }
-            else
-            {
-                NPC.SpawnOnPlayer(playerTarget, bossType);
             }
         }
 
