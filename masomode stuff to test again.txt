@@ -96,3 +96,7 @@ box of gizmos nerf, spelunker glowstick effect requires you to also not be using
 masomode has cactus damage again
 added big toss mode (in configs)
 maso buffs qb's vertical speed when positioning for dashes
+maso devi p2 shoots a third walls of baby guardians
+emode p1 devi heart rain is straight vertical downwards, should make it easier for first timers
+maso devi heart rain shoots more heart clusters
+adjusted devi light beams to cover more area better, shouldnt really impact the fight though
