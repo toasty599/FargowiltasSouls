@@ -8,7 +8,6 @@ using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.Items.Misc;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.EternityMode;
-using FargowiltasSouls.Particles;
 using FargowiltasSouls.Shaders;
 using FargowiltasSouls.Sky;
 using FargowiltasSouls.Tiles;

@@ -7,7 +7,6 @@ using FargowiltasSouls.Items.Accessories.Souls;
 using FargowiltasSouls.Items.Armor;
 using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Particles;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.ChallengerItems;
 using FargowiltasSouls.Projectiles.Masomode;
@@ -1227,9 +1226,6 @@ namespace FargowiltasSouls
                     Player.dashDelay = 0;
                 }*/
             }
-
-            // Update our particles
-            ParticleManager.UpdateParticles();
         }
 
         public override void PostUpdateBuffs()
