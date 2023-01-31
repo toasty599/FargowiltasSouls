@@ -103,3 +103,5 @@ adjusted devi light beams to cover more area better, shouldnt really impact the 
 destroyer will speed up if you are in front of it during light show
 adjusted visual for wof chain reticle disappearing
 fixed leash of cthulhu breaking its neck when tungsten ench
+visual rework for mutant final spark
+visual rework for devi medusa mega ray
