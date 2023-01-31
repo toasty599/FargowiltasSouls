@@ -105,3 +105,4 @@ adjusted visual for wof chain reticle disappearing
 fixed leash of cthulhu breaking its neck when tungsten ench
 visual rework for mutant final spark
 visual rework for devi medusa mega ray
+fixed terragrim and arkhalis being visually broken with tungsten ench
