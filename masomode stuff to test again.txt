@@ -101,3 +101,4 @@ emode p1 devi heart rain is straight vertical downwards, should make it easier f
 maso devi heart rain shoots more heart clusters
 adjusted devi light beams to cover more area better, shouldnt really impact the fight though
 destroyer will speed up if you are in front of it during light show
+adjusted visual for wof chain reticle disappearing
