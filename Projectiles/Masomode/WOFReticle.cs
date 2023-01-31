@@ -57,11 +57,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else //if (Projectile.ai[0] < 145)
             {
-                additive -= 4;
+                additive -= 7;
                 if (additive < 0)
                     additive = 0;
 
-                Projectile.alpha += 8;
+                Projectile.alpha += 15;
                 if (Projectile.alpha > 255) //fade out
                 {
                     Projectile.alpha = 255;
