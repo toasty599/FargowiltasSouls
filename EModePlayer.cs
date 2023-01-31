@@ -4,6 +4,7 @@ using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
@@ -29,6 +30,22 @@ namespace FargowiltasSouls
 
         public int ShorterDebuffsTimer;
         public const int MaxShorterDebuffsTimer = 60;
+
+        public List<int> ReworkedSpears = new List<int>
+            {
+                ItemID.Spear,
+                ItemID.AdamantiteGlaive,
+                ItemID.CobaltNaginata,
+                ItemID.MythrilHalberd,
+                ItemID.OrichalcumHalberd,
+                ItemID.PalladiumPike,
+                ItemID.TitaniumTrident,
+                ItemID.Trident,
+                ItemID.ObsidianSwordfish,
+                ItemID.Swordfish,
+                ItemID.ChlorophytePartisan
+            };
+
 
         private int WeaponUseTimer => Player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer;
 
@@ -581,6 +598,8 @@ namespace FargowiltasSouls
                     AttackSpeed *= 0.75f;
                     return 1f;
 
+                case var _ when ReworkedSpears.Contains(item.type):
+                    return 2f;
                 default:
                     break;
             }
