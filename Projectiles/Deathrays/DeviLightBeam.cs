@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             if (Projectile.scale > num801)
                 Projectile.scale = num801;
             float num804 = Projectile.velocity.ToRotation();
-            num804 += Projectile.ai[0] / Projectile.MaxUpdates;
+            num804 += Projectile.ai[0] / Projectile.MaxUpdates / maxTime;
             Projectile.rotation = num804 - 1.57079637f;
             Projectile.velocity = num804.ToRotationVector2();
             float num805 = 3f;
