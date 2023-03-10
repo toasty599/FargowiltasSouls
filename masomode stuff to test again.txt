@@ -128,3 +128,8 @@ boc
 	p2 clone is initially translucent and becomes more opaque as fight continues
 	p2 lasers dont begin until 50% life
 	has 25% more life
+eow
+	each head and the segment right behind head now use mass defense
+	mass defense is +20 defense, 50% DR, and when below half life, 8 life/sec regen
+	mass defense disabled whenever a certain number of worms are alive at once
+	mass defense removed permanently when just a few worms left
