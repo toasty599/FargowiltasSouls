@@ -133,3 +133,5 @@ eow
 	mass defense is +20 defense, 50% DR, and when below half life, 8 life/sec regen
 	mass defense disabled whenever a certain number of worms are alive at once
 	mass defense removed permanently when just a few worms left
+
+fixed(?) drakovi fishing pole right click to switch modes skipping modes issues
