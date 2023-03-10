@@ -352,9 +352,9 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     targetPos += 500 * NPC.localAI[2].ToRotationVector2();
                     if (NPC.Distance(targetPos) > 16)
                     {
-                        NPC.position += (player.position - player.oldPosition) / 4;
+                        NPC.position += (player.position - player.oldPosition) / 3;
 
-                        speedModifier = NPC.localAI[3] > 0 ? 0.5f : 2f;
+                        speedModifier = NPC.localAI[3] > 0 ? 1f : 2f;
                         if (NPC.Center.X < targetPos.X)
                         {
                             NPC.velocity.X += speedModifier;

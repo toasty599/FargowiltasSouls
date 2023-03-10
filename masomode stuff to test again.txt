@@ -121,3 +121,5 @@ fixed daybreak, betsys wrath, dragons demise benefiting WAY too much from ninja/
 fixed frigid gemstone having no mana regen delay
 fixed molten amplify aura not always working
 force buffs molten range
+improved abom's movement while throwing scythes to make his movement hopefully easier to follow
+fixed will rays being broken
