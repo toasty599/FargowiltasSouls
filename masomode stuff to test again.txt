@@ -123,3 +123,8 @@ fixed molten amplify aura not always working
 force buffs molten range
 improved abom's movement while throwing scythes to make his movement hopefully easier to follow
 fixed will rays being broken
+boc
+	5 million debuffs every hit is maso only
+	p2 clone is initially translucent and becomes more opaque as fight continues
+	p2 lasers dont begin until 50% life
+	has 25% more life
