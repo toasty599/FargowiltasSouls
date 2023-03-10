@@ -7,6 +7,8 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class MoltenAmplify : ModBuff
     {
+        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Molten Amplify");
