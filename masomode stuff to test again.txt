@@ -114,3 +114,10 @@ fixed world shaper soul builder mode recipe flickering
 fixed mythril ench without force not working
 tried something to fix destroyer star wall bug mostly (prioritizes using segments within 1600 units of you)
 attack speed nerfed. it rounds up.
+
+dev aesth nerf, 266->236 dmg
+nerfed ninja and adam, iframes can round either up or down (no longer always rounds down)
+fixed daybreak, betsys wrath, dragons demise benefiting WAY too much from ninja/adam
+fixed frigid gemstone having no mana regen delay
+fixed molten amplify aura not always working
+force buffs molten range
