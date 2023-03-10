@@ -135,3 +135,4 @@ eow
 	mass defense removed permanently when just a few worms left
 
 fixed(?) drakovi fishing pole right click to switch modes skipping modes issues
+fixed oiled still showing the wrong debuff icon when you are oiled
