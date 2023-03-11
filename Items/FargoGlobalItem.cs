@@ -30,6 +30,12 @@ namespace FargowiltasSouls.Items
             if (player.manaCost <= 0f) player.manaCost = 0f;
         }
 
+        public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
+        {
+            if (player.GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null && player.GetToggleValue("NinjaSpeed"))
+                mult *= 0.5f;
+        }
+
         public override void GrabRange(Item item, Player player, ref int grabRange)
         {
             FargoSoulsPlayer p = player.GetModPlayer<FargoSoulsPlayer>();
@@ -42,10 +48,6 @@ namespace FargowiltasSouls.Items
                     rangeBonus = 320;
                 if (p.TerrariaSoul)
                     rangeBonus = 640;
-
-                //half as effective on nebula bois
-                if (item.type == ItemID.NebulaPickup1 || item.type == ItemID.NebulaPickup2 || item.type == ItemID.NebulaPickup3)
-                    rangeBonus /= 2;
 
                 grabRange += rangeBonus;
             }
@@ -67,6 +69,16 @@ namespace FargowiltasSouls.Items
                 type = ProjectileID.ConfettiGun;
         }
 
+        public override void OnConsumeItem(Item item, Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (item.healLife > 0)
+            {
+                modPlayer.StatLifePrevious += modPlayer.getHealMultiplier(item.healLife);
+            }
+        }
+
         public override bool ConsumeItem(Item item, Player player)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
@@ -78,11 +90,6 @@ namespace FargowiltasSouls.Items
 
             if (modPlayer.BuilderMode && (item.createTile > 0 || item.createWall > 0))
                 return false;
-
-            if (item.healLife > 0)
-            {
-                modPlayer.StatLifePrevious += modPlayer.getHealMultiplier(item.healLife);
-            }
 
             return base.ConsumeItem(item, player);
         }
@@ -225,7 +232,7 @@ namespace FargowiltasSouls.Items
             }
 
             if (item.damage > 0 && item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0)
-                player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 10);
+                player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = Math.Max(item.useTime, item.useAnimation) + item.reuseDelay + 6;
 
             return true;
         }
