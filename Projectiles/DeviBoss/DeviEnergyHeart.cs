@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Particles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
