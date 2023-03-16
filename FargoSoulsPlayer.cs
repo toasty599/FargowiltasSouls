@@ -2451,9 +2451,9 @@ namespace FargowiltasSouls
             {
                 int baseDamage = damage;
                 if (projectile != null)
-                    baseDamage = (int)(projectile.damage * Player.ActualClassDamage(projectile.DamageType));
+                    baseDamage = projectile.damage;
                 else if (item != null)
-                    baseDamage = (int)(item.damage * Player.ActualClassDamage(item.DamageType));
+                    baseDamage = Player.GetWeaponDamage(item);
                 return baseDamage;
             }
 

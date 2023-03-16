@@ -138,3 +138,4 @@ fixed(?) drakovi fishing pole right click to switch modes skipping modes issues
 fixed oiled still showing the wrong debuff icon when you are oiled
 ninja and adam no longer allow iframes to drop below 1
 dev aes damage up to 366 but iframes 2 to 3
+fixed glad, bee, pearlwood ench double-dipping on class damage bonuses
