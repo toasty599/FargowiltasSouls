@@ -978,19 +978,37 @@ namespace FargowiltasSouls.Projectiles
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (AdamModifier != 0)
-            {
-                damage /= AdamModifier;
-            }
-
             if (stormTimer > 0)
                 damage = (int)(damage * (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6 : 1.3));
 
-            if (noInteractionWithNPCImmunityFrames)
-                tempIframe = target.immune[projectile.owner];
+            int AccountForDefenseShred(int modifier)
+            {
+                int defenseIgnored = projectile.ArmorPenetration;
+                if (target.ichor)
+                    defenseIgnored += 15;
+                if (target.betsysCurse)
+                    defenseIgnored += 40;
+
+                int actualDefenseIgnored = Math.Min(defenseIgnored, target.defense);
+                int effectOnDamage = actualDefenseIgnored / 2;
+
+                return effectOnDamage / modifier;
+            }
+
+            if (AdamModifier != 0)
+            {
+                damage /= AdamModifier;
+                damage -= AccountForDefenseShred(AdamModifier);
+            }
 
             if (NinjaSpeedup > 0)
+            {
                 damage /= 2;
+                damage -= AccountForDefenseShred(2);
+            }
+
+            if (noInteractionWithNPCImmunityFrames)
+                tempIframe = target.immune[projectile.owner];
 
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
             {

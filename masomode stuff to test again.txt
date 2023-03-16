@@ -143,3 +143,5 @@ capped obsid ench explosion damage at 300 unless using sot
 tiki ench nerf, crit buff only lasts half a second
 reduced pre hm modified enemy spawn weights
 force and wizard tooltips explain molten hidden range buff
+fixed armor penetration ignoring adam and ninja, which made apen give insane dps up
+refactored oceanic maul, curse of the moon, rotting damage taken up when applied to enemies, now obeys the above
