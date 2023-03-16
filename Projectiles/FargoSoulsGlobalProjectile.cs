@@ -1059,7 +1059,13 @@ namespace FargowiltasSouls.Projectiles
 			if (projectile.maxPenetrate != 1 && !projectile.usesLocalNPCImmunity)
             {
                 //biased towards rounding down, making it a slight dps increase for compatible weapons
-                double RoundReduce(float iframes) => Math.Round(iframes / iframeModifier, 0, Main.rand.NextBool(3) ? MidpointRounding.AwayFromZero : MidpointRounding.ToZero);
+                double RoundReduce(float iframes)
+                {
+                    double newIframes = Math.Round(iframes / iframeModifier, 0, Main.rand.NextBool(3) ? MidpointRounding.AwayFromZero : MidpointRounding.ToZero);
+                    if (newIframes < 1)
+                        newIframes = 1;
+                    return newIframes;
+                }
 
                 if (projectile.usesIDStaticNPCImmunity)
                 {
