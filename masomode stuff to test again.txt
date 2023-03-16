@@ -145,3 +145,4 @@ reduced pre hm modified enemy spawn weights
 force and wizard tooltips explain molten hidden range buff
 fixed armor penetration ignoring adam and ninja, which made apen give insane dps up
 refactored oceanic maul, curse of the moon, rotting damage taken up when applied to enemies, now obeys the above
+	check for issues when loading and then reloading the mod btw, look for a crash while reloading mods
