@@ -684,6 +684,8 @@ namespace FargowiltasSouls.Projectiles
             }
         }
 
+        const int MAX_TIKI_TIMER = 60;
+
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
@@ -838,7 +840,7 @@ namespace FargowiltasSouls.Projectiles
                     && projectile.Colliding(projectile.Hitbox, p.Hitbox)))
                 {
                     p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiMinion = true;
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiTimer = 60 * p.MaxUpdates;
+                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiTimer = MAX_TIKI_TIMER * p.MaxUpdates;
                 }
             }
 
@@ -995,7 +997,7 @@ namespace FargowiltasSouls.Projectiles
                 crit = true;
             }
 
-            if (tikiMinion)
+            if (tikiMinion && tikiTimer > MAX_TIKI_TIMER * projectile.MaxUpdates / 2)
             {
                 crit = true;
             }
