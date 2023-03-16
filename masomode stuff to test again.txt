@@ -141,3 +141,4 @@ dev aes damage up to 366 but iframes 2 to 3
 fixed glad, bee, pearlwood ench double-dipping on class damage bonuses
 capped obsid ench explosion damage at 300 unless using sot
 tiki ench nerf, crit buff only lasts half a second
+reduced pre hm modified enemy spawn weights
