@@ -546,9 +546,9 @@ namespace FargowiltasSouls
                 //&& (projectile.DamageType != DamageClass.Default || ProjectileID.Sets.MinionShot[projectile.type]);
         }
 
-        public static void SpawnBossNetcoded(Player player, int bossType)
+        public static void SpawnBossNetcoded(Player player, int bossType, bool obeyLocalPlayerCheck = true)
         {
-            if (player.whoAmI == Main.myPlayer)
+            if (player.whoAmI == Main.myPlayer || !obeyLocalPlayerCheck)
             {
                 // If the player using the item is the client
                 // (explicitely excluded serverside here)
