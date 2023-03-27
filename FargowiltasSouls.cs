@@ -233,12 +233,15 @@ namespace FargowiltasSouls
             Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
             FargoSoulsPlayer modPlayer = self.GetModPlayer<FargoSoulsPlayer>();
-            if (Main.debuff[type] && (modPlayer.ParryDebuffImmuneTime > 0
-                || modPlayer.BetsyDashing 
-                || modPlayer.GoldShell 
-                || modPlayer.ShellHide 
-                || modPlayer.MonkDashing > 0 
-                || modPlayer.CobaltImmuneTimer > 0)
+            if (Main.debuff[type]
+                && timeToAdd > 2 //dont affect auras
+                && !Main.buffNoTimeDisplay[type] //dont affect hidden time debuffs
+                && (modPlayer.ParryDebuffImmuneTime > 0
+                    || modPlayer.BetsyDashing 
+                    || modPlayer.GoldShell 
+                    || modPlayer.ShellHide 
+                    || modPlayer.MonkDashing > 0 
+                    || modPlayer.CobaltImmuneTimer > 0)
                 && DebuffIDs.Contains(type))
             {
                 return; //doing it this way so that debuffs previously had are retained, but existing debuffs also cannot be extended by reapplying
