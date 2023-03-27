@@ -2797,15 +2797,6 @@ namespace FargowiltasSouls
 
             if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
                 damage = (int)(damage * 0.8);
-
-            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0 || CobaltImmuneTimer > 0)
-            {
-                foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
-                {
-                    if (!Player.HasBuff(debuff))
-                        Player.buffImmune[debuff] = true;
-                }
-            }
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
@@ -2828,15 +2819,6 @@ namespace FargowiltasSouls
 
             //if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
             //damage = (int)(damage * 0.8);
-
-            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
-            {
-                foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
-                {
-                    if (!Player.HasBuff(debuff))
-                        Player.buffImmune[debuff] = true;
-                }
-            }
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)

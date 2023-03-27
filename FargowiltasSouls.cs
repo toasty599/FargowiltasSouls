@@ -181,6 +181,7 @@ namespace FargowiltasSouls
 
             On.Terraria.Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
             On.Terraria.NPC.checkArmorPenetration += CheckArmorPenetration;
+            On.Terraria.Player.AddBuff += AddBuff;
         }
 
         private static bool LifeRevitalizer_CheckSpawn_Internal(
@@ -225,6 +226,25 @@ namespace FargowiltasSouls
             if (globalNPC.Rotting)
                 armorPenetration += 10;
             return orig(self, armorPenetration);
+        }
+
+        private void AddBuff(
+            On.Terraria.Player.orig_AddBuff orig,
+            Player self, int type, int timeToAdd, bool quiet, bool foodHack)
+        {
+            FargoSoulsPlayer modPlayer = self.GetModPlayer<FargoSoulsPlayer>();
+            if (Main.debuff[type] && (modPlayer.ParryDebuffImmuneTime > 0
+                || modPlayer.BetsyDashing 
+                || modPlayer.GoldShell 
+                || modPlayer.ShellHide 
+                || modPlayer.MonkDashing > 0 
+                || modPlayer.CobaltImmuneTimer > 0)
+                && DebuffIDs.Contains(type))
+            {
+                return; //doing it this way so that debuffs previously had are retained, but existing debuffs also cannot be extended by reapplying
+            }
+
+            orig(self, type, timeToAdd, quiet, foodHack);
         }
 
         //private static bool IsMasterModeOrEMode_CanDrop(
