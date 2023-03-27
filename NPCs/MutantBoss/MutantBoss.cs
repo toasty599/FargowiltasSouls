@@ -1424,7 +1424,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 {
                     Main.LocalPlayer.controlUseItem = false;
                     Main.LocalPlayer.controlUseTile = false;
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
                 }
             }
 
@@ -3043,7 +3043,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 {
                     Main.LocalPlayer.controlUseItem = false;
                     Main.LocalPlayer.controlUseTile = false;
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
                 }
 
                 if (--NPC.localAI[0] < 0)
