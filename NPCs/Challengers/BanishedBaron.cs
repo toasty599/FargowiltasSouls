@@ -423,12 +423,19 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         void Phase2Transition()
         {
-            if (Timer < 30)
+            
+            if (Timer == 1)
+            {
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/BaronHit"), NPC.Center);
+                if (!Main.dedServ)
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 100;
+            }
+            if (Timer < 90)
             {
                 Vector2 up = NPC.Center + new Vector2(3 * Math.Sign(NPC.DirectionTo(player.Center).X), -10);
                 RotateTowards(up, 5f);
             }
-            if (Timer == 30)
+            if (Timer == 90)
             {
                 NPC.velocity = NPC.rotation.ToRotationVector2() * 20;
                 SoundEngine.PlaySound(BaronYell, NPC.Center);
@@ -448,7 +455,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 WaterwallCenter = Main.screenPosition + new Vector2(Main.screenWidth/2, Main.screenHeight / 2); //not player center to work with map borders
                 Phase = 2;
             }
-            if (!Collision.WetCollision(NPC.position, NPC.width, NPC.height) && Timer > 30)
+            if (!Collision.WetCollision(NPC.position, NPC.width, NPC.height) && Timer > 90)
             {
                 NPC.velocity *= 0.95f;
                 if (NPC.velocity.Length() < 0.1f)
@@ -456,6 +463,11 @@ namespace FargowiltasSouls.NPCs.Challengers
                     availablestates.Clear();
                     StateReset();
 
+                }
+
+                if (Main.LocalPlayer.wet)
+                {
+                    Main.LocalPlayer.velocity.Y -= 0.5f;
                 }
             }
             
