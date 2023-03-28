@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Items.Summons
 
         public override bool? UseItem(Player Player)
         {
-            NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<BanishedBaron>());
+            FargoSoulsUtil.SpawnBossNetcoded(Player, ModContent.NPCType<BanishedBaron>());
             SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/BaronSummon"), Player.Center);
             return true;
         }

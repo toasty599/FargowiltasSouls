@@ -432,7 +432,20 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 NPC.velocity = NPC.rotation.ToRotationVector2() * 20;
                 SoundEngine.PlaySound(BaronYell, NPC.Center);
-                WaterwallCenter = player.Center;
+                
+                if (player.Center.X < 1000)
+                {
+                    WaterwallCenter = new Vector2(1000, player.Center.Y); 
+                }
+                else if (player.Center.X > Main.maxTilesX - 1000)
+                {
+                    WaterwallCenter = new Vector2(Main.maxTilesX - 1000, player.Center.Y);
+                }
+                else
+                {
+                    WaterwallCenter = player.Center;
+                }
+                WaterwallCenter = Main.screenPosition + new Vector2(Main.screenWidth/2, Main.screenHeight / 2); //not player center to work with map borders
                 Phase = 2;
             }
             if (!Collision.WetCollision(NPC.position, NPC.width, NPC.height) && Timer > 30)
@@ -534,7 +547,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                                 player.mount.Dismount(player);
                             player.velocity.X = 0f;
                             player.velocity.Y = -0.4f;
-                            player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                            player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
                         }
 
                         Vector2 movement = new Vector2(location.X - player.Center.X, 0);
