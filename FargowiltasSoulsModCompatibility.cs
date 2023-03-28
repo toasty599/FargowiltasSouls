@@ -256,7 +256,7 @@ namespace FargowiltasSouls
                     "BanishedBaron",
                     //TODO: ADD LOOT
                     new List<int> { ModContent.NPCType<BanishedBaron>() },
-                    10.7f,
+                    8.7f,
                     () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.BanishedBaron],
                     () => true,
                     new List<int>(new int[]
