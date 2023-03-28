@@ -72,7 +72,11 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 if (Collision.WetCollision(Projectile.position, Projectile.width, Projectile.height))
                     Projectile.velocity.Y -= 0.45f;
                 else
-                    Projectile.velocity.Y = 0.1f;
+                {
+                    if (Projectile.velocity.Y < 0)
+                        Projectile.velocity.Y /= 3;
+                    Projectile.velocity.Y += 1f;
+                }
                 Projectile.velocity.X *= 0.97f;
             }
             if (Projectile.ai[0] == 2) //slowing down, flying

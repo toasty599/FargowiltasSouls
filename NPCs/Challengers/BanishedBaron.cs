@@ -475,8 +475,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                 */
             }
 
-            if (!Collision.SolidCollision(NPC.position, NPC.width, NPC.height) && (Math.Abs(NPC.Center.X - LockVector1.X) < 150 || AI3 == 1 && Timer > 150))
+            if (Vector2.Distance(NPC.Center, LockVector1) < 25 || Timer > 150 || AI3 == 1)
             {
+
                 AI3 = 1;
                 NPC.velocity *= 0.935f;
                 RotateTowards(player.Center, 3);
@@ -488,13 +489,18 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             else
             {
-                RotateTowards(LockVector1, 4.5f);
-                if (NPC.velocity.Length() < 20)
+                Vector2 vectorToIdlePosition = LockVector1 - NPC.Center;
+                float speed = 20f;
+                float inertia = 20f;
+                vectorToIdlePosition.Normalize();
+                vectorToIdlePosition *= speed;
+                NPC.velocity = (NPC.velocity * (inertia - 1f) + vectorToIdlePosition) / inertia;
+                if (NPC.velocity == Vector2.Zero)
                 {
-                    NPC.velocity += NPC.rotation.ToRotationVector2() * 0.03f;
-                    NPC.velocity *= 1.1f;
+                    NPC.velocity.X = -0.15f;
+                    NPC.velocity.Y = -0.05f;
                 }
-                NPC.velocity = NPC.rotation.ToRotationVector2() * NPC.velocity.Length();
+                NPC.rotation = NPC.velocity.ToRotation();
             }
         }
 
