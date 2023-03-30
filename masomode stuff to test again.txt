@@ -151,3 +151,4 @@ reduced tiki ench crit buff duration even more
 fixed mp boss spawners again
 
 fixed parry allowing debuffs to refresh their duration if you already have the debuff prior to parrying
+removed silver ench from ancient hallow ench recipe
