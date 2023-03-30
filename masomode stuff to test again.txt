@@ -152,3 +152,10 @@ fixed mp boss spawners again
 
 fixed parry allowing debuffs to refresh their duration if you already have the debuff prior to parrying
 removed silver ench from ancient hallow ench recipe
+necro ench
+	prioritizes bosses whenever possible
+	fixed force graves floating away
+	default cap is 15 graves at once, bosses can create up to 45
+	visual adjustments
+removed cascade from obsidian ench recipe, making it pre-skeletron
+increased obsidian ench cooldown from 30 to 40 ticks (force cd unchanged)
