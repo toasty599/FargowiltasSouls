@@ -1,9 +1,13 @@
 using System;
+using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace FargowiltasSouls.Projectiles.Challengers
 {
@@ -47,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             //Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 91, Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color), 0.25f);
             Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
 
-            //if (Projectile.ai[0] > 120 && Projectile.ai[0] < 240)
+            //if (Timer > 120 && Timer < 240)
             //    Projectile.velocity *= 1.015f;
 
             if (++Projectile.ai[0] > 600f)
@@ -55,16 +59,19 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 Projectile.Kill();
             }
 
-            //flag to be accelerating rain
+            //flag to be accelerating rain 
+            //commented out because rain is unused
+            /*
             if (Projectile.ai[1] == -1)
             {
-                if (Projectile.ai[0] > 120)
+                if (Timer > 120)
                     Projectile.velocity *= 1.04f;
-                if (Projectile.ai[0] > 240)
+                if (Timer > 240)
                     Projectile.Kill();
             }
             else //i.e. rain does not do this
             {
+            */
                 //a bit after spawning, become tangible when it finds an open space
                 if (!Projectile.tileCollide && Projectile.ai[0] > 60 * Projectile.MaxUpdates)
                 {
@@ -72,7 +79,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
                     if (!(tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]))
                         Projectile.tileCollide = true;
                 }
-            }
+            //}
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
@@ -87,8 +94,11 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 Main.dust[d].noGravity = true;
             }
         }
+        /*public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.Pink * Projectile.Opacity * (Main.mouseTextColor / 255f) * 0.9f;
+        }*/
         public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.9f;
-
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;

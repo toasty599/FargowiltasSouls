@@ -16,6 +16,7 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
@@ -34,7 +35,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abominationn");
+            DisplayName.SetDefault("God Gamer Yrimir");
 
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
@@ -134,6 +135,23 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
             NPC.localAI[3] = reader.ReadSingle();
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC))
+            {
+                int n = NPC.FindFirstNPC(modNPC.Type);
+                if (n != -1 && n != Main.maxNPCs)
+                {
+                    NPC.Bottom = Main.npc[n].Bottom;
+
+                    Main.npc[n].life = 0;
+                    Main.npc[n].active = false;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                }
+            }
         }
 
         public override void AI()
@@ -352,9 +370,9 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     targetPos += 500 * NPC.localAI[2].ToRotationVector2();
                     if (NPC.Distance(targetPos) > 16)
                     {
-                        NPC.position += (player.position - player.oldPosition) / 4;
+                        NPC.position += (player.position - player.oldPosition) / 3;
 
-                        speedModifier = NPC.localAI[3] > 0 ? 0.5f : 2f;
+                        speedModifier = NPC.localAI[3] > 0 ? 1f : 2f;
                         if (NPC.Center.X < targetPos.X)
                         {
                             NPC.velocity.X += speedModifier;

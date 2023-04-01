@@ -1,13 +1,17 @@
 ﻿using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.NPCs.Challengers;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
@@ -355,21 +359,33 @@ namespace FargowiltasSouls
             Main.gore[index7].velocity *= 0.4f;
         }
 
-        public static int FindClosestHostileNPC(Vector2 location, float detectionRange, bool lineCheck = false)
+        public static int FindClosestHostileNPC(Vector2 location, float detectionRange, bool lineCheck = false, bool prioritizeBoss = false)
         {
             NPC closestNpc = null;
-            foreach (NPC n in Main.npc)
+
+            void FindClosest(IEnumerable<NPC> npcs)
             {
-                if (n.CanBeChasedBy() && n.Distance(location) < detectionRange && (!lineCheck || Collision.CanHitLine(location, 0, 0, n.Center, 0, 0)))
+                float range = detectionRange;
+                foreach (NPC n in npcs)
                 {
-                    detectionRange = n.Distance(location);
-                    closestNpc = n;
+                    if (n.CanBeChasedBy() && n.Distance(location) < range
+                        && (!lineCheck || Collision.CanHitLine(location, 0, 0, n.Center, 0, 0)))
+                    {
+                        range = n.Distance(location);
+                        closestNpc = n;
+                    }
                 }
             }
+
+            if (prioritizeBoss)
+                FindClosest(Main.npc.Where(n => n.boss));
+            if (closestNpc == null)
+                FindClosest(Main.npc);
+            
             return closestNpc == null ? -1 : closestNpc.whoAmI;
         }
 
-        public static int FindClosestHostileNPCPrioritizingMinionFocus(Projectile projectile, float detectionRange, bool lineCheck = false, Vector2 center = default)
+        public static int FindClosestHostileNPCPrioritizingMinionFocus(Projectile projectile, float detectionRange, bool lineCheck = false, Vector2 center = default, bool prioritizeBoss = false)
         {
             if (center == default)
                 center = projectile.Center;
@@ -380,7 +396,7 @@ namespace FargowiltasSouls
             {
                 return minionAttackTargetNpc.whoAmI;
             }
-            return FindClosestHostileNPC(center, detectionRange, lineCheck);
+            return FindClosestHostileNPC(center, detectionRange, lineCheck, prioritizeBoss);
         }
 
         public static void DustRing(Vector2 location, int max, int dust, float speed, Color color = default, float scale = 1f, bool noLight = false)
@@ -538,58 +554,30 @@ namespace FargowiltasSouls
                 && projectile.damage > 0
                 && !projectile.hostile
                 && !projectile.npcProj
-                && !projectile.trap
-                && (projectile.DamageType != DamageClass.Default || ProjectileID.Sets.MinionShot[projectile.type]);
+                && !projectile.trap;
+                //&& (projectile.DamageType != DamageClass.Default || ProjectileID.Sets.MinionShot[projectile.type]);
         }
 
-        public static void SpawnBossTryFromNPC(int playerTarget, int originalType, int bossType)
+        public static void SpawnBossNetcoded(Player player, int bossType, bool obeyLocalPlayerCheck = true)
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient)// && playerTarget == Main.myPlayer)
+            if (player.whoAmI == Main.myPlayer || !obeyLocalPlayerCheck)
             {
-                //var packet = FargowiltasSouls.Instance.GetPacket();
-                //packet.Write((byte)FargowiltasSouls.PacketID.SpawnBossTryFromNPC);
-                //packet.Write(playerTarget);
-                //packet.Write(originalType);
-                //packet.Write(bossType);
-                return;
-            }
+                // If the player using the item is the client
+                // (explicitely excluded serverside here)
+                SoundEngine.PlaySound(SoundID.Roar, player.position);
 
-            NPC npc = NPCExists(NPC.FindFirstNPC(originalType));
-            if (npc != null)
-            {
-                Vector2 pos = npc.Bottom;
-
-                npc.life = 0;
-                npc.active = false;
-                if (Main.netMode == NetmodeID.Server)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
-
-                    NPC.SpawnOnPlayer(playerTarget, bossType);
+                    // If the player is not in multiplayer, spawn directly
+                    NPC.SpawnOnPlayer(player.whoAmI, bossType);
                 }
-                else //todo, figure out how to make this work 100% consistent in mp
+                else
                 {
-                    int n = NewNPCEasy(NPC.GetBossSpawnSource(playerTarget), pos, bossType);
-                    if (n != Main.maxNPCs)
-                    {
-                        Main.npc[n].Bottom = pos;
-                        if (Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, number: n);
-
-                        PrintText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[n].TypeName), new Color(175, 75, 255));
-                    }
+                    // If the player is in multiplayer, request a spawn
+                    // This will only work if NPCID.Sets.MPAllowedEnemies[type] is true, set in NPC code
+                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: bossType);
                 }
             }
-            else
-            {
-                NPC.SpawnOnPlayer(playerTarget, bossType);
-            }
-        }
-
-        public static void SpawnBossTryFromNPC(int playerTarget, string originalType, int bossType)
-        {
-            int type = ModContent.TryFind(originalType, out ModNPC modNPC) ? modNPC.Type : 0;
-            SpawnBossTryFromNPC(playerTarget, type, bossType);
         }
 
         public static bool IsProjSourceItemUseReal(Projectile proj, IEntitySource source)
@@ -1024,6 +1012,48 @@ namespace FargowiltasSouls
             return lightColor;
         }
 
+        #endregion
+
+        #region Shader Utils
+
+        private static readonly FieldInfo shaderTextureField = typeof(MiscShaderData).GetField("_uImage1", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly FieldInfo shaderTextureField2 = typeof(MiscShaderData).GetField("_uImage2", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        /// <summary>
+        /// Uses reflection to set uImage1. Its underlying data is private and the only way to change it publicly
+        /// is via a method that only accepts paths to vanilla textures.
+        /// </summary>
+        /// <param name="shader">The shader</param>
+        /// <param name="texture">The texture to set</param>
+        public static void SetShaderTexture(this MiscShaderData shader, Asset<Texture2D> texture) => shaderTextureField.SetValue(shader, texture);
+
+        /// <summary>
+        /// Uses reflection to set uImage2. Its underlying data is private and the only way to change it publicly
+        /// is via a method that only accepts paths to vanilla textures.
+        /// </summary>
+        /// <param name="shader">The shader</param>
+        /// <param name="texture">The texture to set</param>
+        public static void SetShaderTexture2(this MiscShaderData shader, Asset<Texture2D> texture) => shaderTextureField2.SetValue(shader, texture);
+
+        /// <summary>
+        /// Prepares a <see cref="SpriteBatch"/> for shader-based drawing.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
+        public static void EnterShaderRegion(this SpriteBatch spriteBatch)
+        {
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+
+        /// <summary>
+        /// Ends changes to a <see cref="SpriteBatch"/> based on shader-based drawing in favor of typical draw begin states.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
+        public static void ExitShaderRegion(this SpriteBatch spriteBatch)
+        {
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+        }
         #endregion
     }
 }

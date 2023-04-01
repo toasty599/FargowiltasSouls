@@ -7,9 +7,9 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Challengers
 {
-
-	public class LifeSplittingProjSmall : LifeProjSmall
+    public class LifeSplittingProjSmall : LifeProjSmall
 	{
+        public override string Texture => "FargowiltasSouls/Projectiles/Challengers/LifeProjSmall";
         public override void AI()
 		{
             if (Projectile.ai[0] == 45f)
@@ -31,9 +31,9 @@ namespace FargowiltasSouls.Projectiles.Challengers
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootoffset1, type, damage, knockBack, Main.myPlayer);
-					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootoffset2, type, damage, knockBack, Main.myPlayer);
-				}
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootoffset1, type, damage, knockBack, Main.myPlayer);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootoffset2, type, damage, knockBack, Main.myPlayer);
+                }
 
 				if (Projectile.ai[1] == 2 && FargoSoulsWorld.EternityMode)
 					Projectile.Kill();

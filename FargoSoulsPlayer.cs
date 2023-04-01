@@ -11,6 +11,7 @@ using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.ChallengerItems;
 using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Projectiles.Minions;
+using FargowiltasSouls.Projectiles.Pets;
 using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
@@ -72,6 +73,7 @@ namespace FargowiltasSouls
         public bool SeekerOfAncientTreasures;
         public bool AccursedSarcophagus;
         public bool BabySilhouette;
+        public bool BabyLifelight;
         public bool BiteSizeBaron;
         public bool ChibiDevi;
         public bool MutantSpawn;
@@ -121,7 +123,7 @@ namespace FargowiltasSouls
         public Item MythrilEnchantItem;
         public int MythrilTimer;
         public int MythrilMaxTime => EarthForce ? 300 : 180;
-        public float MythrilMaxSpeedBonus => EarthForce ? 2.0f : 1.5f;
+        public float MythrilMaxSpeedBonus => EarthForce ? 1.75f : 1.5f;
         public Item OriEnchantItem;
         public Item PalladEnchantItem;
         public int PalladCounter;
@@ -255,6 +257,7 @@ namespace FargowiltasSouls
         public bool VortexEnchantActive;
         public bool VortexStealth;
         public bool WizardEnchantActive;
+        public List<BaseEnchant> EquippedEnchants = new List<BaseEnchant>();
         
         public bool NebulaEnchantActive;
         public bool BeetleEnchantActive;
@@ -456,6 +459,7 @@ namespace FargowiltasSouls
         public bool CerebralMindbreak;
         public bool NanoInjection;
         public bool Stunned;
+        public bool HaveCheckedAttackSpeed;
 
 
 
@@ -471,9 +475,9 @@ namespace FargowiltasSouls
         public int shieldTimer;
         public int shieldCD;
         public bool wasHoldingShield;
-        public int LightslingerHitShots = 0;
+        public int LightslingerHitShots;
 
-        public bool NoUsingItems;
+        public int NoUsingItems;
 
         public bool HasDash;
 
@@ -758,6 +762,9 @@ namespace FargowiltasSouls
             if (Screenshake > 0)
                 Screenshake--;
 
+            if (NoUsingItems > 0)
+                NoUsingItems--;
+
             //            Wood = false;
 
             WingTimeModifier = 1f;
@@ -779,6 +786,7 @@ namespace FargowiltasSouls
 
             SeekerOfAncientTreasures = false;
             AccursedSarcophagus = false;
+            BabyLifelight = false;
             BabySilhouette = false;
             BiteSizeBaron = false;
             ChibiDevi = false;
@@ -1003,10 +1011,13 @@ namespace FargowiltasSouls
             CerebralMindbreak = false;
             NanoInjection = false;
             Stunned = false;
+            HaveCheckedAttackSpeed = false;
             BoxofGizmos = false;
             //IronEnchantShield = false;
             SilverEnchantItem = null;
             DreadShellItem = null;
+
+            EquippedEnchants.Clear();
 
             if (WizardEnchantActive)
             {
@@ -1092,7 +1103,7 @@ namespace FargowiltasSouls
             lightningRodTimer = 0;
 
             BuilderMode = false;
-            NoUsingItems = false;
+            NoUsingItems = 0;
 
             FreezeTime = false;
             freezeLength = 0;
@@ -1804,8 +1815,6 @@ namespace FargowiltasSouls
 
         public override void PostUpdate()
         {
-            NoUsingItems = false; //set here so that when something else sets this, it actually blocks items
-
             if (!FreeEaterSummon && !Main.npc.Any(n => n.active && (n.type == NPCID.EaterofWorldsHead || n.type == NPCID.EaterofWorldsBody || n.type == NPCID.EaterofWorldsTail)))
             {
                 FreeEaterSummon = true;
@@ -1827,8 +1836,10 @@ namespace FargowiltasSouls
             int useTime = item.useTime;
             int useAnimate = item.useAnimation;
 
-            if (useTime <= 0 || useAnimate <= 0 || item.damage <= 0)
+            if (useTime <= 0 || useAnimate <= 0 || item.damage <= 0 || HaveCheckedAttackSpeed)
                 return base.UseSpeedMultiplier(item);
+
+            HaveCheckedAttackSpeed = true;
 
             if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse && !Player.FeralGloveReuse(item))
             {
@@ -1869,12 +1880,22 @@ namespace FargowiltasSouls
             //checks so weapons dont break
             while (useTime / AttackSpeed < 1)
             {
-                AttackSpeed -= .1f;
+                AttackSpeed -= .01f;
+            }
+
+            //modify attack speed so it rounds up
+            int useTimeRoundUp = (int)Math.Round(useTime / AttackSpeed, MidpointRounding.ToPositiveInfinity);
+            if (useTimeRoundUp < useTime) //sanity check
+            {
+                while (useTime / AttackSpeed < useTimeRoundUp)
+                {
+                    AttackSpeed -= .01f; //small increments to avoid skipping past any integers
+                }
             }
 
             while (useAnimate / AttackSpeed < 3)
             {
-                AttackSpeed -= .1f;
+                AttackSpeed -= .01f;
             }
 
             if (AttackSpeed < .1f)
@@ -2435,9 +2456,9 @@ namespace FargowiltasSouls
             {
                 int baseDamage = damage;
                 if (projectile != null)
-                    baseDamage = (int)(projectile.damage * Player.ActualClassDamage(projectile.DamageType));
+                    baseDamage = projectile.damage;
                 else if (item != null)
-                    baseDamage = (int)(item.damage * Player.ActualClassDamage(item.DamageType));
+                    baseDamage = Player.GetWeaponDamage(item);
                 return baseDamage;
             }
 
@@ -2780,15 +2801,6 @@ namespace FargowiltasSouls
 
             if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
                 damage = (int)(damage * 0.8);
-
-            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0 || CobaltImmuneTimer > 0)
-            {
-                foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
-                {
-                    if (!Player.HasBuff(debuff))
-                        Player.buffImmune[debuff] = true;
-                }
-            }
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
@@ -2811,15 +2823,6 @@ namespace FargowiltasSouls
 
             //if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
             //damage = (int)(damage * 0.8);
-
-            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
-            {
-                foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
-                {
-                    if (!Player.HasBuff(debuff))
-                        Player.buffImmune[debuff] = true;
-                }
-            }
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
@@ -2851,6 +2854,19 @@ namespace FargowiltasSouls
                         Projectile.NewProjectile(Player.GetSource_OnHurt(source), Player.Center, Main.rand.NextVector2Circular(speed, speed), type, 0, 0f, Main.myPlayer, 0f);
                     }
                 }
+            }
+
+            if (ModContent.GetInstance<SoulConfig>().BigTossMode)
+            {
+                AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+
+                Vector2 attacker = default;
+                if (npc != null)
+                    attacker = npc.Center;
+                else if (proj != null)
+                    attacker = proj.Center;
+                if (attacker != default)
+                    Player.velocity = Vector2.Normalize(Player.Center - attacker) * 30;
             }
         }
 
@@ -2974,6 +2990,12 @@ namespace FargowiltasSouls
             WasHurtBySomething = true;
 
             MahoganyCanUseDR = false;
+			
+			if (Player.HasBuff(ModContent.BuffType<TitaniumDRBuff>())
+				&& !Player.HasBuff(ModContent.BuffType<TitaniumCD>()))
+			{
+				Player.AddBuff(ModContent.BuffType<TitaniumCD>(), 60 * 10);
+			}
 
             if (NekomiSet)
             {

@@ -18,6 +18,7 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -39,7 +40,34 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
         public int ringProj, spriteProj;
 
+        public bool DrawRuneBorders;
+
         //private bool ContentModLoaded => Fargowiltas.Instance.CalamityLoaded || Fargowiltas.Instance.ThoriumLoaded || Fargowiltas.Instance.SoALoaded || Fargowiltas.Instance.MasomodeEXLoaded;
+
+        // Not even going to try to touch the attack switching code, but ideally make them in terms of this for readability.
+        public enum DevianttAttackTypes
+        {
+            Die = -2,
+            Phase2Transition = -1,
+            SpawnEffects,
+            PaladinHammers,
+            HeartBarrages,
+            WyvernOrbSpiral,
+            Mimics,
+            FrostballsNados,
+            RuneWizard,
+            MothDustCharges,
+            WhileDashing,
+            MageSkeletonAttacks,
+            BabyGuardians,
+            GeyserRain,
+            CrossRayHearts,
+            Butterflies,
+            MedusaRay,
+            SparklingLove,
+            Pause,
+            Bribery
+        }
 
         public override void SetStaticDefaults()
         {
@@ -165,6 +193,23 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             return id > -1 && id < Main.maxProjectiles && Main.projectile[id].active && Main.projectile[id].type == type;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC))
+            {
+                int n = NPC.FindFirstNPC(modNPC.Type);
+                if (n != -1 && n != Main.maxNPCs)
+                {
+                    NPC.Bottom = Main.npc[n].Bottom;
+
+                    Main.npc[n].life = 0;
+                    Main.npc[n].active = false;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                }
+            }
+        }
+
         public override void AI()
         {
             EModeGlobalNPC.deviBoss = NPC.whoAmI;
@@ -273,9 +318,12 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
             };
 
-            switch ((int)NPC.ai[0])
+            // Set this to false, it will be set to true below if needed.
+            DrawRuneBorders = false;
+
+            switch ((DevianttAttackTypes)NPC.ai[0])
             {
-                case -2: //ACTUALLY dead
+                case DevianttAttackTypes.Die: //ACTUALLY dead
                     if (!AliveCheck(player))
                         break;
                     NPC.velocity *= 0.9f;
@@ -304,7 +352,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case -1: //phase 2 transition
+                case DevianttAttackTypes.Phase2Transition: //phase 2 transition
                     NPC.velocity *= 0.9f;
                     NPC.dontTakeDamage = true;
                     if (NPC.buffType[0] != 0)
@@ -340,7 +388,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 0: //track player, decide which attacks to use
+                case DevianttAttackTypes.SpawnEffects: //track player, decide which attacks to use
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -358,7 +406,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 1: //teleport marx hammers
+                case DevianttAttackTypes.PaladinHammers: //teleport marx hammers
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -451,7 +499,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 2: //heart barrages
+                case DevianttAttackTypes.HeartBarrages: //heart barrages
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -516,7 +564,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 3: //slow while shooting wyvern orb spirals
+                case DevianttAttackTypes.WyvernOrbSpiral: //slow while shooting wyvern orb spirals
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -553,7 +601,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 4: //mimics
+                case DevianttAttackTypes.Mimics: //mimics
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -643,7 +691,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 5: //frostballs and nados
+                case DevianttAttackTypes.FrostballsNados: //frostballs and nados
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -721,13 +769,16 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 6: //rune wizard
+                case DevianttAttackTypes.RuneWizard: //rune wizard
                     {
                         if (!AliveCheck(player) || Phase2Check())
                             break;
 
-                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 400 : 450, true, 74, Color.GreenYellow, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
-                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 200 : 150, false, 73, default, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
+                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 400 : 450, true, -1, Color.GreenYellow, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
+                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 200 : 150, false, -1, default, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
+                        
+                        // Indicate that the borders should be drawn.
+                        DrawRuneBorders = true;
 
                         NPC.velocity = Vector2.Zero;
 
@@ -807,7 +858,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 7: //moth dust charges
+                case DevianttAttackTypes.MothDustCharges: //moth dust charges
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -894,7 +945,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 8: //while dashing
+                case DevianttAttackTypes.WhileDashing: //while dashing
                     if (Phase2Check())
                         break;
 
@@ -916,7 +967,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 9: //mage skeleton attacks
+                case DevianttAttackTypes.MageSkeletonAttacks: //mage skeleton attacks
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -1052,7 +1103,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 10: //baby guardians
+                case DevianttAttackTypes.BabyGuardians: //baby guardians
                     {
                         if (!AliveCheck(player) || Phase2Check())
                             break;
@@ -1155,6 +1206,12 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                             if (NPC.ai[1] > 360)
                             {
+                                if (NPC.localAI[3] > 1 && FargoSoulsWorld.MasochistModeReal) //another wave in maso
+                                {
+                                    SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center); //eoc roar
+                                    BabyGuardianWall();
+                                }
+
                                 GetNextAttack();
                             }
 
@@ -1168,7 +1225,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 11: //noah/irisu geyser rain
+                case DevianttAttackTypes.GeyserRain: //noah/irisu geyser rain
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -1199,21 +1256,27 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         {
                             for (int j = -1; j <= 1; j += 2)
                             {
-                                Vector2 target = player.Center;
-                                target.X += 16 * 24 * i;
-                                target.Y += Player.defaultHeight / 2 * j;
-                                target -= NPC.Center;
-
-                                Vector2 speed = 2 * target / 90;
-                                float acceleration = -speed.Length() / 90;
-
-                                int damage = NPC.localAI[3] > 1 ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3) : FargoSoulsUtil.ScaledProjectileDamage(NPC.damage);
-                                float rotation = FargoSoulsWorld.MasochistModeReal ? MathHelper.ToRadians(Main.rand.NextFloat(-20, 20)) : 0;
-
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                int max = FargoSoulsWorld.MasochistModeReal ? 3 : 1;
+                                for (int k = 0; k < max; k++)
                                 {
-                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<DeviEnergyHeart>(),
-                                      damage, 0f, Main.myPlayer, rotation, acceleration);
+                                    Vector2 target = player.Center;
+                                    target.X += 16 * 24 * i;
+                                    target.Y += Player.defaultHeight / 2 * j;
+                                    if (FargoSoulsWorld.MasochistModeReal)
+                                        target += Main.rand.NextVector2Circular(16, 16);
+                                    target -= NPC.Center;
+
+                                    Vector2 speed = 2 * target / 90;
+                                    float acceleration = -speed.Length() / 90;
+
+                                    int damage = NPC.localAI[3] > 1 ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3) : FargoSoulsUtil.ScaledProjectileDamage(NPC.damage);
+                                    float rotation = FargoSoulsWorld.MasochistModeReal ? MathHelper.ToRadians(Main.rand.NextFloat(-20, 20)) : 0;
+
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<DeviEnergyHeart>(),
+                                          damage, 0f, Main.myPlayer, rotation, acceleration);
+                                    }
                                 }
                             }
                         }
@@ -1244,12 +1307,17 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Vector2 speed = 24 * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(10) * NPC.ai[2]);
+                                float angle = 10;
+                                if (!FargoSoulsWorld.MasochistModeReal) //nerf to have no x speed in p1, unless in maso
+                                    angle = NPC.localAI[3] > 1 ? 5 : 0;
+                                Vector2 speed = 24 * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(angle) * NPC.ai[2]);
+
                                 int type = NPC.localAI[3] > 1 ? ModContent.ProjectileType<DeviRainHeart2>() : ModContent.ProjectileType<DeviRainHeart>();
                                 int damage = NPC.localAI[3] > 1 ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3) : FargoSoulsUtil.ScaledProjectileDamage(NPC.damage);
                                 int range = NPC.localAI[3] > 1 ? 8 : 10;
                                 float spacing = 1200f / range;
                                 float offset = Main.rand.NextFloat(-spacing, spacing);
+
                                 for (int i = -range; i <= range; i++)
                                 {
                                     Vector2 spawnPos = new Vector2(NPC.localAI[0], NPC.localAI[1]);
@@ -1266,7 +1334,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 12: //lilith cross ray hearts
+                case DevianttAttackTypes.CrossRayHearts: //lilith cross ray hearts
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -1328,7 +1396,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 13: //that one boss that was a bunch of gems burst rain but with butterflies
+                case DevianttAttackTypes.Butterflies: //that one boss that was a bunch of gems burst rain but with butterflies
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
@@ -1388,7 +1456,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 14: //medusa ray
+                case DevianttAttackTypes.MedusaRay: //medusa ray
                     if ((NPC.ai[1] < 420 && !AliveCheck(player)) || Phase2Check())
                         break;
 
@@ -1561,7 +1629,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 15: //sparkling love
+                case DevianttAttackTypes.SparklingLove: //sparkling love
                     if (NPC.localAI[0] == 0)
                     {
                         StrongAttackTeleport(player.Center + new Vector2(300 * Math.Sign(NPC.Center.X - player.Center.X), -100));
@@ -1659,7 +1727,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 16: //pause between attacks
+                case DevianttAttackTypes.Pause: //pause between attacks
                     {
                         if (!AliveCheck(player) || Phase2Check())
                             break;
@@ -1712,7 +1780,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     break;
 
-                case 17: //i got money
+                case DevianttAttackTypes.Bribery: //i got money
                     {
                         NPC.dontTakeDamage = true;
                         NPC.velocity *= 0.95f;
@@ -1722,7 +1790,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         if (NPC.buffType[0] != 0)
                             NPC.DelBuff(0);
 
-                        Rectangle displayPoint = new Rectangle(NPC.Hitbox.Center.X, NPC.Hitbox.Center.Y - NPC.height / 4, 2, 2);
+                        Rectangle displayPoint = new(NPC.Hitbox.Center.X, NPC.Hitbox.Center.Y - NPC.height / 4, 2, 2);
 
                         if (NPC.ai[1] == 0)
                         {
@@ -2126,13 +2194,32 @@ namespace FargowiltasSouls.NPCs.DeviBoss
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+            Vector2 position = NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY);
             Rectangle rectangle = NPC.frame;
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, position, new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
+
+            // Draw borders if needed.
+            if (DrawRuneBorders)
+                DrawBorders(spriteBatch, position);
+
             return false;
+        }
+
+        private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
+        {
+            // Inner ring.
+            Color innerColor = Color.Red;
+            innerColor.A = 0;
+            spriteBatch.Draw(FargosTextureRegistry.HardEdgeRing.Value, position, null, innerColor * 0.7f, 0f, FargosTextureRegistry.HardEdgeRing.Value.Size() * 0.5f, 0.65f, SpriteEffects.None, 0f);
+
+            // Outer ring.
+            Color outerColor = Color.Green;
+            outerColor.A = 0;
+            spriteBatch.Draw(FargosTextureRegistry.SoftEdgeRing.Value, position, null, outerColor * 0.7f, 0f, FargosTextureRegistry.SoftEdgeRing.Value.Size() * 0.5f, 2.05f, SpriteEffects.None, 0f);
         }
     }
 }

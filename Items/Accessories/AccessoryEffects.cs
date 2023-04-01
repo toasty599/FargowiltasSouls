@@ -1926,8 +1926,7 @@ namespace FargowiltasSouls
             //toolbox
             if (Player.whoAmI == Main.myPlayer)
             {
-                Player.tileRangeX += 10;
-                Player.tileRangeY += 10;
+                Player.blockRange += 10;
             }
             //gizmo pack
             Player.autoPaint = true;
@@ -1973,13 +1972,11 @@ namespace FargowiltasSouls
                 //toolbox
                 if (Player.HeldItem.createWall == 0) //tiles
                 {
-                    Player.tileRangeX += 60;
-                    Player.tileRangeY += 60;
+                    Player.blockRange += 60;
                 }
                 else //walls
                 {
-                    Player.tileRangeX += 20;
-                    Player.tileRangeY += 20;
+                    Player.blockRange += 20;
                 }
             }
 
@@ -2436,6 +2433,7 @@ namespace FargowiltasSouls
                 return;
 
             FrigidGemstoneCD = 10;
+            Player.manaRegenDelay = Math.Max(Player.manaRegenDelay, 30);
 
             SoundEngine.PlaySound(SoundID.Item28, Player.Center);
 
@@ -2650,7 +2648,26 @@ namespace FargowiltasSouls
 
         public void DebuffInstallKey()
         {
-            if (FusedLens && Player.GetToggleValue("FusedLensInstall", false))
+            if (AgitatingLensItem != null
+                && Player.GetToggleValue("MasoEyeInstall", false)
+                && Player.controlUp && Player.controlDown)
+            {
+				if (!Player.HasBuff(ModContent.BuffType<BerserkerInstall>())
+					&& !Player.HasBuff(ModContent.BuffType<BerserkerInstallCD>()))
+				{
+					SoundEngine.PlaySound(SoundID.Item119, Player.Center);
+
+					Player.AddBuff(ModContent.BuffType<BerserkerInstall>(), 7 * 60 + 30); //7.5sec
+
+					for (int i = 0; i < 60; i++)
+					{
+						int index2 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.RedTorch, 0f, 0f, 0, default, 3f);
+						Main.dust[index2].noGravity = true;
+						Main.dust[index2].velocity *= 9;
+					}
+				}
+            }
+			else if (FusedLens && Player.GetToggleValue("FusedLensInstall", false))
             {
                 int buffType = ModContent.BuffType<TwinsInstall>();
                 if (Player.HasBuff(buffType))
@@ -2671,24 +2688,6 @@ namespace FargowiltasSouls
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].velocity *= scale * 3;
                     }
-                }
-            }
-
-            if (AgitatingLensItem != null
-                && Player.GetToggleValue("MasoEyeInstall", false)
-                && Player.controlUp && Player.controlDown
-                && !Player.HasBuff(ModContent.BuffType<BerserkerInstall>())
-                && !Player.HasBuff(ModContent.BuffType<BerserkerInstallCD>()))
-            {
-                SoundEngine.PlaySound(SoundID.Item119, Player.Center);
-
-                Player.AddBuff(ModContent.BuffType<BerserkerInstall>(), 7 * 60 + 30); //7.5sec
-
-                for (int i = 0; i < 60; i++)
-                {
-                    int index2 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.RedTorch, 0f, 0f, 0, default, 3f);
-                    Main.dust[index2].noGravity = true;
-                    Main.dust[index2].velocity *= 9;
                 }
             }
         }

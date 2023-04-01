@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
@@ -40,9 +41,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         public float endTimeVariance;
 
+        public bool ShouldDrawAura;
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant");
+            DisplayName.SetDefault("Godkiller Yharim");
 
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
@@ -116,12 +119,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            NPC.damage = (int)(NPC.damage * 0.5f);
+            NPC.damage = (int)Math.Round(NPC.damage * 0.5);
             NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 0.5 * bossLifeScale);
-
-            //doing it here to avoid overflow i think
-            if (FargoSoulsWorld.AngryMutant)
-                NPC.lifeMax *= 100;
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -158,11 +157,31 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             endTimeVariance = reader.ReadSingle();
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (ModContent.TryFind("Fargowiltas", "Mutant", out ModNPC modNPC))
+            {
+                int n = NPC.FindFirstNPC(modNPC.Type);
+                if (n != -1 && n != Main.maxNPCs)
+                {
+                    NPC.Bottom = Main.npc[n].Bottom;
+
+                    Main.npc[n].life = 0;
+                    Main.npc[n].active = false;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                }
+            }
+        }
+
         public override void AI()
         {
             EModeGlobalNPC.mutantBoss = NPC.whoAmI;
 
             NPC.dontTakeDamage = NPC.ai[0] < 0; //invul in p3
+
+            // Set this to false by default.
+            ShouldDrawAura = false;
 
             ManageAurasAndPreSpawn();
             ManageNeededProjectiles();
@@ -317,8 +336,23 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         #region helper functions
 
+        bool spawned;
         void ManageAurasAndPreSpawn()
         {
+            if (!spawned)
+            {
+                spawned = true;
+
+                int prevLifeMax = NPC.lifeMax;
+                if (FargoSoulsWorld.AngryMutant) //doing it here to avoid overflow i think
+                {
+                    NPC.lifeMax *= 100;
+                    if (NPC.lifeMax < prevLifeMax)
+                        NPC.lifeMax = int.MaxValue;
+                }
+                NPC.life = NPC.lifeMax;
+            }
+
             if (FargoSoulsWorld.MasochistModeReal && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresence>(), 2);
 
@@ -343,12 +377,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             }
             else if (NPC.localAI[3] == 1)
             {
-                EModeGlobalNPC.Aura(NPC, 2000f, true, 86, default, ModContent.BuffType<GodEater>(), ModContent.BuffType<MutantFang>());
+                ShouldDrawAura = true;
+                // -1 means no dust is drawn, as it looks ugly.
+                EModeGlobalNPC.Aura(NPC, 2000f, true, -1, default, ModContent.BuffType<GodEater>(), ModContent.BuffType<MutantFang>());
             }
             else
             {
                 if (Main.LocalPlayer.active && NPC.Distance(Main.LocalPlayer.Center) < 3000f)
-                {
+                {                 
                     if (Main.expertMode)
                     {
                         Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresence>(), 2);
@@ -1388,7 +1424,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 {
                     Main.LocalPlayer.controlUseItem = false;
                     Main.LocalPlayer.controlUseTile = false;
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
                 }
             }
 
@@ -3007,7 +3043,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 {
                     Main.LocalPlayer.controlUseItem = false;
                     Main.LocalPlayer.controlUseTile = false;
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
                 }
 
                 if (--NPC.localAI[0] < 0)
@@ -3370,7 +3406,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.ai[3] = (float)-Math.PI / 2;
                 NPC.netUpdate = true;
                 if (Main.netMode != NetmodeID.MultiplayerClient) //shoot harmless mega ray
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -1, ModContent.ProjectileType<MutantGiantDeathray2>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -1, ModContent.ProjectileType<MutantGiantDeathray2>(), 0, 0f, Main.myPlayer, 1, NPC.whoAmI);
                 //EdgyBossText("I have not a single regret in my existence!");
             }
             if (--NPC.localAI[0] < 0)
@@ -3557,13 +3593,26 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+            Vector2 position = NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY);
             Rectangle rectangle = NPC.frame;
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, position, new Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
+
+            if (ShouldDrawAura)
+                DrawAura(spriteBatch, position);
+
             return false;
+        }
+
+        public void DrawAura(SpriteBatch spriteBatch, Vector2 position)
+        {
+            // Outer ring.
+            Color outerColor = Color.CadetBlue;
+            outerColor.A = 0;
+            spriteBatch.Draw(FargosTextureRegistry.SoftEdgeRing.Value, position, null, outerColor * 0.7f, 0f, FargosTextureRegistry.SoftEdgeRing.Value.Size() * 0.5f, 9.2f, SpriteEffects.None, 0f);
         }
     }
 }

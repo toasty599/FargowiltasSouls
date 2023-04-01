@@ -128,6 +128,13 @@ namespace FargowiltasSouls
                 Ref<Effect> textRef = new Ref<Effect>(Assets.Request<Effect>("Effects/TextShader", AssetRequestMode.ImmediateLoad).Value);
                 Ref<Effect> invertRef = new Ref<Effect>(Assets.Request<Effect>("Effects/Invert", AssetRequestMode.ImmediateLoad).Value);
                 Ref<Effect> finalSparkRef = new Ref<Effect>(Assets.Request<Effect>("Effects/FinalSpark", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> mutantDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/MutantFinalDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> willDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/WillDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> willBigDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/WillBigDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> deviBigDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/DeviTouhouDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> deviRingRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/DeviRingShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> genericDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/GenericDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> blobTrailRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/BlobTrailShader", AssetRequestMode.ImmediateLoad).Value);
                 //Ref<Effect> shockwaveRef = new Ref<Effect>(Assets.Request<Effect>("Effects/ShockwaveEffect", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
 
                 //loading shaders from refs
@@ -143,6 +150,13 @@ namespace FargowiltasSouls
                 GameShaders.Misc["PulseUpwards"] = new MiscShaderData(textRef, "PulseUpwards");
                 GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
                 GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
+                GameShaders.Misc["FargowiltasSouls:MutantDeathray"] = new MiscShaderData(mutantDeathrayRef, "TrailPass");
+                GameShaders.Misc["FargowiltasSouls:WillDeathray"] = new MiscShaderData(willDeathrayRef, "TrailPass");
+                GameShaders.Misc["FargowiltasSouls:WillBigDeathray"] = new MiscShaderData(willBigDeathrayRef, "TrailPass");
+                GameShaders.Misc["FargowiltasSouls:DeviBigDeathray"] = new MiscShaderData(deviBigDeathrayRef, "TrailPass");
+                GameShaders.Misc["FargowiltasSouls:DeviRing"] = new MiscShaderData(deviRingRef, "TrailPass");
+                GameShaders.Misc["FargowiltasSouls:GenericDeathray"] = new MiscShaderData(genericDeathrayRef, "TrailPass");
+                GameShaders.Misc["FargowiltasSouls:BlobTrail"] = new MiscShaderData(blobTrailRef, "TrailPass");
 
                 Filters.Scene["FargowiltasSouls:FinalSpark"] = new Filter(new FinalSparkShader(finalSparkRef, "FinalSpark"), EffectPriority.High);
                 Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
@@ -166,6 +180,8 @@ namespace FargowiltasSouls
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction += DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
 
             On.Terraria.Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
+            On.Terraria.NPC.checkArmorPenetration += CheckArmorPenetration;
+            On.Terraria.Player.AddBuff += AddBuff;
         }
 
         private static bool LifeRevitalizer_CheckSpawn_Internal(
@@ -197,37 +213,74 @@ namespace FargowiltasSouls
             return true;
         }
 
-        private static bool IsMasterModeOrEMode_CanDrop(
-            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.orig_CanDrop orig,
-            Conditions.IsMasterMode self, DropAttemptInfo info)
+        private int CheckArmorPenetration(
+            On.Terraria.NPC.orig_checkArmorPenetration orig,
+            NPC self,
+            int armorPenetration)
         {
-            // Use | instead of || so orig runs no matter what.
-            return FargoSoulsWorld.EternityMode | orig(self, info);
+            FargoSoulsGlobalNPC globalNPC = self.GetGlobalNPC<FargoSoulsGlobalNPC>();
+            if (globalNPC.OceanicMaul)
+                armorPenetration += 20;
+            if (globalNPC.CurseoftheMoon)
+                armorPenetration += 10;
+            if (globalNPC.Rotting)
+                armorPenetration += 10;
+            return orig(self, armorPenetration);
         }
 
-        private static bool IsMasterModeOrEMode_CanShowItemDropInUI(
-            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.orig_CanShowItemDropInUI orig,
-            Conditions.IsMasterMode self)
+        private void AddBuff(
+            On.Terraria.Player.orig_AddBuff orig,
+            Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
-            // Use | instead of || so orig runs no matter what.
-            return FargoSoulsWorld.EternityMode | orig(self);
+            FargoSoulsPlayer modPlayer = self.GetModPlayer<FargoSoulsPlayer>();
+            if (Main.debuff[type]
+                && timeToAdd > 2 //dont affect auras
+                && !Main.buffNoTimeDisplay[type] //dont affect hidden time debuffs
+                && (modPlayer.ParryDebuffImmuneTime > 0
+                    || modPlayer.BetsyDashing 
+                    || modPlayer.GoldShell 
+                    || modPlayer.ShellHide 
+                    || modPlayer.MonkDashing > 0 
+                    || modPlayer.CobaltImmuneTimer > 0)
+                && DebuffIDs.Contains(type))
+            {
+                return; //doing it this way so that debuffs previously had are retained, but existing debuffs also cannot be extended by reapplying
+            }
+
+            orig(self, type, timeToAdd, quiet, foodHack);
         }
 
-        private static bool DropBasedOnMasterOrEMode_CanDrop(
-            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.orig_CanDrop orig,
-            DropBasedOnMasterMode self, DropAttemptInfo info)
-        {
-            // Use | instead of || so orig runs no matter what.
-            return (FargoSoulsWorld.EternityMode && self.ruleForMasterMode.CanDrop(info)) | orig(self, info);
-        }
+        //private static bool IsMasterModeOrEMode_CanDrop(
+        //    On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.orig_CanDrop orig,
+        //    Conditions.IsMasterMode self, DropAttemptInfo info)
+        //{
+        //    // Use | instead of || so orig runs no matter what.
+        //    return FargoSoulsWorld.EternityMode | orig(self, info);
+        //}
 
-        private static ItemDropAttemptResult DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction(
-            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.orig_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction orig,
-            DropBasedOnMasterMode self, DropAttemptInfo info, ItemDropRuleResolveAction resolveAction)
-        {
-            ItemDropAttemptResult itemDropAttemptResult = orig(self, info, resolveAction);
-            return FargoSoulsWorld.EternityMode ? resolveAction(self.ruleForMasterMode, info) : itemDropAttemptResult;
-        }
+        //private static bool IsMasterModeOrEMode_CanShowItemDropInUI(
+        //    On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.orig_CanShowItemDropInUI orig,
+        //    Conditions.IsMasterMode self)
+        //{
+        //    // Use | instead of || so orig runs no matter what.
+        //    return FargoSoulsWorld.EternityMode | orig(self);
+        //}
+
+        //private static bool DropBasedOnMasterOrEMode_CanDrop(
+        //    On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.orig_CanDrop orig,
+        //    DropBasedOnMasterMode self, DropAttemptInfo info)
+        //{
+        //    // Use | instead of || so orig runs no matter what.
+        //    return (FargoSoulsWorld.EternityMode && self.ruleForMasterMode.CanDrop(info)) | orig(self, info);
+        //}
+
+        //private static ItemDropAttemptResult DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction(
+        //    On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.orig_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction orig,
+        //    DropBasedOnMasterMode self, DropAttemptInfo info, ItemDropRuleResolveAction resolveAction)
+        //{
+        //    ItemDropAttemptResult itemDropAttemptResult = orig(self, info, resolveAction);
+        //    return FargoSoulsWorld.EternityMode ? resolveAction(self.ruleForMasterMode, info) : itemDropAttemptResult;
+        //}
 
         public override void Unload()
         {

@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fragile Pixie Lamp");
+            DisplayName.SetDefault("Crystalline Effigy");
             Tooltip.SetDefault("While in the Hallow during day, hold out to break, angering the pixies' master");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
@@ -23,8 +23,8 @@ namespace FargowiltasSouls.Items.Summons
 
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 32;
+            Item.width = 54;
+            Item.height = 44;
             Item.useAnimation = 120;
             Item.useTime = 120;
             Item.useStyle = ItemUseStyleID.HoldUp;
@@ -38,9 +38,9 @@ namespace FargowiltasSouls.Items.Summons
         {
             CreateRecipe()
                 .AddRecipeGroup("FargowiltasSouls:AnyGoldBar", 4)
-                .AddIngredient(ItemID.PixieDust, 4)
-                .AddIngredient(ItemID.SoulofLight, 3)
-                .AddIngredient(ItemID.Glass, 5)
+                .AddIngredient(ItemID.PixieDust, 2)
+                .AddIngredient(ItemID.SoulofLight, 2)
+                .AddIngredient(ItemID.CrystalShard, 3)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
@@ -79,26 +79,6 @@ namespace FargowiltasSouls.Items.Summons
                         Dust.NewDust(ItemCenter - (Item.Size/2), Item.width, Item.height, DustID.Glass, player.velocity.X, player.velocity.Y, 100, new Color(), 1f);
                     for (int i = 1; i < 4; i++)
                         Gore.NewGore(Item.GetSource_FromThis(), ItemCenter, player.velocity, ModContent.Find<ModGore>(Mod.Name, $"PixieLampGore{i}").Type, Item.scale);
-                    //if (player.whoAmI == Main.myPlayer)
-                    //{
-                    //    // If the player using the item is the client
-                    //    // (explicitely excluded serverside here)
-                    //   //SoundEngine.PlaySound(SoundID.Roar, player.position);
-
-                    //    int type = ModContent.NPCType<LifeChallenger>();
-
-                    //    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    //    {
-                    //        // If the player is not in multiplayer, spawn directly
-                    //        NPC.SpawnOnPlayer(player.whoAmI, type);
-                    //    }
-                    //    else
-                    //    {
-                    //        // If the player is in multiplayer, request a spawn
-                    //        // This will only work if NPCID.Sets.MPAllowedEnemies[type] is true, set in NPC code
-                    //        NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: type);
-                    //    }
-                    //}
                 }
                 else
                 {
@@ -110,7 +90,7 @@ namespace FargowiltasSouls.Items.Summons
 
         public override bool? UseItem(Player Player)
         {
-            NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<LifeChallenger>());
+            FargoSoulsUtil.SpawnBossNetcoded(Player, ModContent.NPCType<LifeChallenger>());
             return true;
         }
     }
