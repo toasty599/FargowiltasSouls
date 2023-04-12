@@ -26,9 +26,9 @@ VertexShaderOutput MainVS(in VertexShaderInput input)
 float4 MainPS(VertexShaderOutput input) : COLOR0
 {
     float outlineMultiplier = 1;
-    if(input.TextureCoordinates.x > 0.9f)
+    if(input.TextureCoordinates.y > 0.95f)
         outlineMultiplier = 2;
-    return input.Color * input.TextureCoordinates.y * input.TextureCoordinates.y * 0.5f;
+    return input.Color * lerp(0.2, 0.8, input.TextureCoordinates.y) * 0.75f * outlineMultiplier;
 }
 
 

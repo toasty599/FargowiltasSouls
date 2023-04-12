@@ -1555,7 +1555,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 //only do attack when in range
                 Vector2 targetPos = Player.Center;
                 targetPos.Y -= 16 * 15;
-                if (NPC.Distance(targetPos) < 16 * 10 || FargoSoulsWorld.MasochistModeReal)
+                if (NPC.Distance(targetPos) < 18 * 10 || FargoSoulsWorld.MasochistModeReal)
                 {
                     AttackF1 = false;
                     NPC.netUpdate = true;
@@ -2287,7 +2287,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                     int timeLeft = ((int)NPC.ai[2] - 30);
                     for (int i = -1; i < 2; i++)
                     {
-                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 12), Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1);
+                        float rot = (NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 12).ToRotation();
+                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = timeLeft;
                     }
@@ -2296,7 +2297,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                     {
                         for (int i = -1; i < 2; i++)
                         {
-                            int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1);
+                            float rot = ((NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4)).ToRotation();
+                            int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot);
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].timeLeft = timeLeft;
                         }
@@ -2310,14 +2312,16 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             if (NPC.ai[1] == NPC.ai[2] - 20 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy((-MathHelper.Pi / 12) + (NPC.ai[3] * MathHelper.Pi / 6))), Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1);
+                float rot1 = (NPC.Center - Player.Center).RotatedBy((-MathHelper.Pi / 12) + (NPC.ai[3] * MathHelper.Pi / 6)).ToRotation();
+                int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot1);
                 if (p1 != Main.maxProjectiles)
                     Main.projectile[p1].timeLeft = 20;
                 if (PhaseThree)
                 {
                     for (int i = -1; i < 2; i++)
                     {
-                        int p2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1);
+                        float rot2 = (NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4).ToRotation();
+                        int p2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot2);
                         if (p2 != Main.maxProjectiles)
                             Main.projectile[p2].timeLeft = 20;
                     }
