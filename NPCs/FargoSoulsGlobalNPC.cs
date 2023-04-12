@@ -938,6 +938,10 @@ namespace FargowiltasSouls.NPCs
                     npcLoot.Add(BossDrop(ModContent.ItemType<FishStick>()));
                     break;
 
+                case NPCID.EmpressButterfly:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<PrismaRegalia>()));
+                    break;
+
                 case NPCID.DD2Betsy:
                     npcLoot.Add(BossDrop(ModContent.ItemType<DragonBreath>()));
                     break;
