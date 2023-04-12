@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.Audio;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -52,7 +53,13 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
             if (fargoPlayer.WeaponUseTimer > 0)
                 fargoPlayer.MythrilTimer--;
             else
+            {
                 fargoPlayer.MythrilTimer++;
+                if (fargoPlayer.MythrilTimer == fargoPlayer.MythrilMaxTime - 1)
+                {
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ChargeSound"), player.Center);
+                }
+            }
 
             if (fargoPlayer.MythrilTimer > fargoPlayer.MythrilMaxTime)
                 fargoPlayer.MythrilTimer = fargoPlayer.MythrilMaxTime;

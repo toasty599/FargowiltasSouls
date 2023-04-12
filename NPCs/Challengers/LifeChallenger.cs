@@ -2285,7 +2285,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 if (NPC.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int timeLeft = ((int)NPC.ai[2] - 30);
-                    for (int i = -1; i < 2; i++)
+                    for (int i = -1; i < 2; i+= 2)
                     {
                         float rot = (NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 12).ToRotation();
                         int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot);
@@ -2295,7 +2295,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                     
                     if (PhaseThree)
                     {
-                        for (int i = -1; i < 2; i++)
+                        for (int i = -1; i < 2; i+= 2)
                         {
                             float rot = ((NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4)).ToRotation();
                             int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot);
@@ -2318,7 +2318,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                     Main.projectile[p1].timeLeft = 20;
                 if (PhaseThree)
                 {
-                    for (int i = -1; i < 2; i++)
+                    for (int i = -1; i < 2; i+= 2)
                     {
                         float rot2 = (NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4).ToRotation();
                         int p2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot2);
