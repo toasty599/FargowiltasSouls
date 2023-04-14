@@ -55,6 +55,13 @@ namespace FargowiltasSouls.Projectiles.Challengers
             }
             Projectile.rotation += MathHelper.ToRadians(Projectile.velocity.Length());
 
+            if (Projectile.frameCounter > 9)
+            {
+                Projectile.frame %= 3;
+                Projectile.frameCounter = 0;
+            }
+            Projectile.frameCounter++;
+
             if (++Projectile.localAI[0] > 120f)
             {
                 Projectile.Kill();
