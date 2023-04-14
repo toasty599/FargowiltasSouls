@@ -10,6 +10,7 @@ namespace FargowiltasSouls.Projectiles
 {
     /// <summary>
     /// ai0 determines the rotation, width and length are defined by constants
+    /// Note: Heavily unfinished
     /// </summary>
     public class ArcTelegraph : ModProjectile
     {

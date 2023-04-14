@@ -2284,6 +2284,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 // NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
                 if (NPC.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
+                    /*
                     int timeLeft = ((int)NPC.ai[2] - 30);
                     for (int i = -1; i < 2; i+= 2)
                     {
@@ -2292,9 +2293,14 @@ namespace FargowiltasSouls.NPCs.Challengers
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = timeLeft;
                     }
-                    
+                    */
+                    float ai0 = -(NPC.ai[2] - 30);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 12)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
+
                     if (PhaseThree)
                     {
+                        /*
                         for (int i = -1; i < 2; i+= 2)
                         {
                             float rot = ((NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4)).ToRotation();
@@ -2302,6 +2308,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].timeLeft = timeLeft;
                         }
+                        */
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
                     }
                 }
             }
@@ -2312,12 +2321,16 @@ namespace FargowiltasSouls.NPCs.Challengers
             }
             if (NPC.ai[1] == NPC.ai[2] - 20 && Main.netMode != NetmodeID.MultiplayerClient)
             {
+                /*
                 float rot1 = (NPC.Center - Player.Center).RotatedBy((-MathHelper.Pi / 12) + (NPC.ai[3] * MathHelper.Pi / 6)).ToRotation();
                 int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot1);
                 if (p1 != Main.maxProjectiles)
                     Main.projectile[p1].timeLeft = 20;
+                */
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy((-MathHelper.Pi / 12) + (NPC.ai[3] * MathHelper.Pi / 6))), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
                 if (PhaseThree)
                 {
+                    /*
                     for (int i = -1; i < 2; i+= 2)
                     {
                         float rot2 = (NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4).ToRotation();
@@ -2325,6 +2338,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                         if (p2 != Main.maxProjectiles)
                             Main.projectile[p2].timeLeft = 20;
                     }
+                    */
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - ((NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4)), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
                 }
             }
             else if (NPC.ai[1] == NPC.ai[2])
