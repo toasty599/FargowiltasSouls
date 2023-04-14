@@ -17,17 +17,15 @@ namespace FargowiltasSouls.Projectiles.Challengers
     {
         public bool home = true;
         public bool BeenOutside = false;
-        public override string Texture => "Terraria/Images/Projectile_135";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Banished Baron's Rocket");
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            DisplayName.SetDefault("Banished Baron's Mine");
+            Main.projFrames[Projectile.type] = 3;
         }
         public override void SetDefaults()
         {
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.width = 58;
+            Projectile.height = 58;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = 1;
@@ -61,16 +59,16 @@ namespace FargowiltasSouls.Projectiles.Challengers
             {
                 Projectile.Kill();
             }
-            if (!Projectile.tileCollide)
+            Tile tile = Framing.GetTileSafely(Projectile.Center);
+            bool InBlocks = (tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]);
+            if (!Projectile.tileCollide && !InBlocks)
             {
-                Tile tile = Framing.GetTileSafely(Projectile.Center);
-                if (!(tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]))
-                    Projectile.tileCollide = true;
+                Projectile.tileCollide = true;
             }
             if (Projectile.ai[0] == 1) //floating
             {
-                if (Collision.WetCollision(Projectile.position, Projectile.width, Projectile.height))
-                    Projectile.velocity.Y -= 0.45f;
+                if (Collision.WetCollision(Projectile.position, Projectile.width, Projectile.height) || InBlocks)
+                    Projectile.velocity.Y -= 0.30f;
                 else
                 {
                     if (Projectile.velocity.Y < 0)
@@ -94,13 +92,15 @@ namespace FargowiltasSouls.Projectiles.Challengers
             }
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             float speedmod = Projectile.ai[0] == 1 ? 1 : 1.5f;
+            float offset = 24;
             for (int i = 0; i < 8; i++)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 pos = new Vector2(0, 6*speedmod).RotatedBy(Projectile.rotation + (i * MathHelper.TwoPi / 8));
-                    Vector2 vel = pos;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronScrap>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
+                    Vector2 pos = new Vector2(0, 1).RotatedBy(Projectile.rotation + (i * MathHelper.TwoPi / 8));
+                    Vector2 vel = pos * 6 * speedmod;
+                    pos *= offset;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
                 }
             }
         }

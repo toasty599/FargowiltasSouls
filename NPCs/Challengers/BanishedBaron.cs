@@ -730,7 +730,7 @@ namespace FargowiltasSouls.NPCs.Challengers
         }
         void P1SineSwim()
         {
-            int Duration = FargoSoulsWorld.MasochistModeReal ? 160 : 200;
+            int Duration = FargoSoulsWorld.MasochistModeReal ? 100 : FargoSoulsWorld.EternityMode ? 150 : 180;
             const int Waves = 2;
             const int Ymax = 600;
             const int Xstart = 800;
@@ -742,12 +742,13 @@ namespace FargowiltasSouls.NPCs.Challengers
             {
                 AI2 = Math.Sign(NPC.Center.X - player.Center.X);
                 LockVector1 = player.Center + new Vector2(Xstart * AI2, 0);
+                SoundEngine.PlaySound(BaronYell, NPC.Center);
             }
             if (AI3 == 0)
             {
                 Vector2 target = LockVector1 + new Vector2(-AI2 * prog * (1.75f * Xstart), Ymax * (float)Math.Sin(MathHelper.TwoPi * prog * Waves));
                 NPC.rotation = NPC.DirectionTo(target).ToRotation();
-                NPC.velocity = NPC.DirectionTo(target) * NPC.Distance(target) / 2;
+                NPC.velocity = NPC.DirectionTo(target) * NPC.Distance(target) / 1.2f;
                 if (NPC.velocity.Length() > 20)
                 {
                     NPC.velocity *= 20 / NPC.velocity.Length();
@@ -987,8 +988,8 @@ namespace FargowiltasSouls.NPCs.Challengers
                         float speed = 10f;
                         int side = (Timer % 40 == 0) ? 1 : -1;
                         Vector2 v = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * side) * 1f;
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v * 20), v * speed, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 3, player.whoAmI);
-                        if (side == 1)
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v * 20), v * speed, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, player.whoAmI);
+                        if (side == 1 && FargoSoulsWorld.EternityMode)
                         {
                             Vector2 v2 = NPC.rotation.ToRotationVector2() * 1f;
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v2 * 20), v2 * 0.6f, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, player.whoAmI);

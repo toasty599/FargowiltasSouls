@@ -2875,93 +2875,18 @@ namespace FargowiltasSouls.NPCs.Challengers
         public const int RuneCount = 12;
         const int ChunkSpriteCount = 12;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //DRAW BODY AND WINGS
-		{
+        {
 
             if (Draw || NPC.IsABestiaryIconDummy)
-			    Texture2D bodytexture = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
-                Texture2D wingtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallenger_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Vector2 drawPos = NPC.Center - screenPos;
-                int currentFrame = NPC.frame.Y / (bodytexture.Height / Main.npcFrameCount[NPC.type]);
-                int wingHeight = wingtexture.Height / Main.npcFrameCount[NPC.type];
-                Rectangle wingRectangle = new Rectangle(0, currentFrame * wingHeight, wingtexture.Width, wingHeight);
-                Vector2 wingOrigin = new Vector2(wingtexture.Width / 2, wingtexture.Height / 2 / Main.npcFrameCount[NPC.type]);
-
-                for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
-                {
-                    Vector2 value4 = NPC.oldPos[i];
-                    double fpf = (int)(60 / Main.npcFrameCount[NPC.type] * RPS); //multiply by sec/rotation)
-                    int oldFrame = (int)((NPC.frameCounter - i) / fpf);
-                    Rectangle oldWingRectangle = new Rectangle(0, oldFrame * wingHeight, wingtexture.Width, wingHeight);
-                    DrawData wingTrailGlow = new DrawData(wingtexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldWingRectangle), drawColor * (0.5f / i), NPC.rotation, wingOrigin, NPC.scale, SpriteEffects.None, 0);
-                    GameShaders.Misc["LCWingShader"].UseColor(Color.HotPink).UseSecondaryColor(Color.HotPink);
-                    GameShaders.Misc["LCWingShader"].Apply(wingTrailGlow);
-                    wingTrailGlow.Draw(spriteBatch);
-                }
-
-                spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: bodytexture, position: drawPos, sourceRectangle: NPC.frame, color: drawColor, rotation: BodyRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
-                spriteBatch.Draw(origin: wingOrigin, texture: wingtexture, position: drawPos, sourceRectangle: wingRectangle, color: drawColor, rotation: NPC.rotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
-            }*/
-
-            if (Draw)
-			    Texture2D bodytexture = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
-                Texture2D wingtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallenger_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Vector2 drawPos = NPC.Center - screenPos;
-                int currentFrame = NPC.frame.Y / (bodytexture.Height / Main.npcFrameCount[NPC.type]);
-                int wingHeight = wingtexture.Height / Main.npcFrameCount[NPC.type];
-                Rectangle wingRectangle = new Rectangle(0, currentFrame * wingHeight, wingtexture.Width, wingHeight);
-                Vector2 wingOrigin = new Vector2(wingtexture.Width / 2, wingtexture.Height / 2 / Main.npcFrameCount[NPC.type]);
-
-                for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
-                {
-                    Vector2 value4 = NPC.oldPos[i];
-                    double fpf = (int)(60 / Main.npcFrameCount[NPC.type] * RPS); //multiply by sec/rotation)
-                    int oldFrame = (int)((NPC.frameCounter - i) / fpf);
-                    Rectangle oldWingRectangle = new Rectangle(0, oldFrame * wingHeight, wingtexture.Width, wingHeight);
-                    DrawData wingTrailGlow = new DrawData(wingtexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldWingRectangle), drawColor * (0.5f / i), NPC.rotation, wingOrigin, NPC.scale, SpriteEffects.None, 0);
-                    GameShaders.Misc["LCWingShader"].UseColor(Color.HotPink).UseSecondaryColor(Color.HotPink);
-                    GameShaders.Misc["LCWingShader"].Apply(wingTrailGlow);
-                    wingTrailGlow.Draw(spriteBatch);
-                }
-
-                spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: bodytexture, position: drawPos, sourceRectangle: NPC.frame, color: drawColor, rotation: BodyRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
-                spriteBatch.Draw(origin: wingOrigin, texture: wingtexture, position: drawPos, sourceRectangle: wingRectangle, color: drawColor, rotation: NPC.rotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
-            }*/
-
-            if (Draw)
-			    Texture2D bodytexture = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
-                Texture2D wingtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallenger_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Vector2 drawPos = NPC.Center - screenPos;
-                int currentFrame = NPC.frame.Y / (bodytexture.Height / Main.npcFrameCount[NPC.type]);
-                int wingHeight = wingtexture.Height / Main.npcFrameCount[NPC.type];
-                Rectangle wingRectangle = new Rectangle(0, currentFrame * wingHeight, wingtexture.Width, wingHeight);
-                Vector2 wingOrigin = new Vector2(wingtexture.Width / 2, wingtexture.Height / 2 / Main.npcFrameCount[NPC.type]);
-
-                for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
-                {
-                    Vector2 value4 = NPC.oldPos[i];
-                    double fpf = (int)(60 / Main.npcFrameCount[NPC.type] * RPS); //multiply by sec/rotation)
-                    int oldFrame = (int)((NPC.frameCounter - i) / fpf);
-                    Rectangle oldWingRectangle = new Rectangle(0, oldFrame * wingHeight, wingtexture.Width, wingHeight);
-                    DrawData wingTrailGlow = new DrawData(wingtexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldWingRectangle), drawColor * (0.5f / i), NPC.rotation, wingOrigin, NPC.scale, SpriteEffects.None, 0);
-                    GameShaders.Misc["LCWingShader"].UseColor(Color.HotPink).UseSecondaryColor(Color.HotPink);
-                    GameShaders.Misc["LCWingShader"].Apply(wingTrailGlow);
-                    wingTrailGlow.Draw(spriteBatch);
-                }
-
-                spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: bodytexture, position: drawPos, sourceRectangle: NPC.frame, color: drawColor, rotation: BodyRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
-                spriteBatch.Draw(origin: wingOrigin, texture: wingtexture, position: drawPos, sourceRectangle: wingRectangle, color: drawColor, rotation: NPC.rotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
-            }*/
-
-            if (Draw)
             {
                 //if chunk list is empty, fill list
                 //for list, for loop, rotate by rotation + 360 * current item / max item
                 //for chunk list, place using triangle formula
                 //also rotate each chunk individually, random start rotation
 
-                
+
                 //const int RuneSpriteCount = 12;
-                
+
                 const float ChunkRotationSpeed = MathHelper.TwoPi / (8 * 60);
 
                 if (chunklist.Count < ChunkCount)
@@ -2977,7 +2902,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                     }
                 }
 
-                
+
                 if (SpritePhase > 1)
                 {
                     for (int i = 0; i < ChunkCount; i++)
@@ -2985,7 +2910,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                         float drawRot = (float)(-BodyRotation - (Math.PI * 2 / ChunkCount * i));
                         Vector2 drawPos = NPC.Center + (drawRot.ToRotationVector2() * ChunkDistance) - screenPos;
                         //Vector2 drawPos = Trianglinator(i, screenPos);
-                    
+
                         Texture2D ChunkTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"NPCs/Challengers/LifeChallengerParts/ShardGold{chunklist[i]}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         float ChunkRotation = chunkrotlist[i];
                         chunkrotlist[i] += ChunkRotationSpeed;
@@ -2996,7 +2921,7 @@ namespace FargowiltasSouls.NPCs.Challengers
                 for (int i = 0; i < RuneCount; i++)
                 {
                     float drawRot = (float)(BodyRotation + (Math.PI * 2 / RuneCount * i));
-                    Texture2D RuneTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"NPCs/Challengers/LifeChallengerParts/Rune{i+1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Texture2D RuneTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"NPCs/Challengers/LifeChallengerParts/Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Vector2 drawPos = NPC.Center + (drawRot.ToRotationVector2() * RuneDistance) - screenPos;
                     float RuneRotation = drawRot + MathHelper.PiOver2;
 
@@ -3015,9 +2940,9 @@ namespace FargowiltasSouls.NPCs.Challengers
                         }
                         else //pink
                         {
-                            glowColor = new Color(1, 192/255f, 203/255f, 0f) * 0.7f;
+                            glowColor = new Color(1, 192 / 255f, 203 / 255f, 0f) * 0.7f;
                         }
-                        
+
                         Main.spriteBatch.Draw(RuneTexture, drawPos + afterimageOffset, null, NPC.GetAlpha(glowColor), RuneRotation, RuneTexture.Size() * 0.5f, NPC.scale, SpriteEffects.None, 0f);
                     }
                     spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: drawColor, rotation: RuneRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
@@ -3040,17 +2965,17 @@ namespace FargowiltasSouls.NPCs.Challengers
 
                 for (int i = -1; i < 2; i += 2)
                 {
-                    float wingLRotation = NPC.rotation - MathHelper.PiOver2 + MathHelper.ToRadians(110*i);
-                    float wingURotation = NPC.rotation - MathHelper.PiOver2 + MathHelper.ToRadians(70*i);
+                    float wingLRotation = NPC.rotation - MathHelper.PiOver2 + MathHelper.ToRadians(110 * i);
+                    float wingURotation = NPC.rotation - MathHelper.PiOver2 + MathHelper.ToRadians(70 * i);
                     SpriteEffects flip = (i == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
                     spriteBatch.Draw(origin: wingUOrigin, texture: wingUtexture, position: wingdrawPos + (wingURotation.ToRotationVector2() * ((DefaultWidth / 2) + 30)), sourceRectangle: wingURectangle, color: drawColor, rotation: wingURotation, scale: NPC.scale, effects: flip, layerDepth: 0f);
                     spriteBatch.Draw(origin: wingLOrigin, texture: wingLtexture, position: wingdrawPos + (wingLRotation.ToRotationVector2() * ((DefaultWidth / 2) + 30)), sourceRectangle: wingLRectangle, color: drawColor, rotation: wingLRotation, scale: NPC.scale, effects: flip, layerDepth: 0f);
                 }
 
-                
+
             }
             return false;
-            //Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
+        }
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //DRAW STAR
         {
             if ((SpritePhase > 1 || !Draw) && !NPC.IsABestiaryIconDummy) //star

@@ -16,26 +16,23 @@ namespace FargowiltasSouls.Projectiles.Challengers
     public class BaronNuke : ModProjectile
     {
 
-        private int ExplosionDiameter = FargoSoulsWorld.MasochistModeReal ? 750 : 580;
-        public override string Texture => "Terraria/Images/Projectile_134";
+        private int ExplosionDiameter = FargoSoulsWorld.MasochistModeReal ? 400 : 350;
 
         private SoundStyle Beep = new SoundStyle("FargowiltasSouls/Sounds/NukeBeep");
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Banished Baron's Rocket");
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            DisplayName.SetDefault("Banished Baron's Spicy Beeping Nuclear Torpedo of Death and Destruction");
         }
         public override void SetDefaults()
         {
-            Projectile.width = 14;
-            Projectile.height = 14;
+            Projectile.width = 32;
+            Projectile.height = 32;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.scale = 4f;
+            Projectile.scale = 2f;
             Projectile.light = 1;
         }
 
@@ -65,20 +62,22 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 beep++;
             }
             Dust.NewDust(Projectile.Center - new Vector2(1, 1), 2, 2, DustID.Water, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default(Color), 1f);
-            Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
+            Projectile.rotation = Projectile.velocity.RotatedBy(MathHelper.Pi).ToRotation();
 
             if (!Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
             {
                 Projectile.tileCollide = true;
             }
-            if (++Projectile.localAI[0] > Projectile.ai[0] - 3)
+            if (++Projectile.localAI[0] >= Projectile.ai[0] - 2)
             {
                 Projectile.tileCollide = false;
+                Projectile.alpha = 0;
                 Projectile.position = Projectile.Center;
-                Projectile.width = ExplosionDiameter/2;
-                Projectile.height = ExplosionDiameter/2;
+                Projectile.width = ExplosionDiameter;
+                Projectile.height = ExplosionDiameter;
                 Projectile.Center = Projectile.position;
             }
+            
             if (Projectile.localAI[0] > Projectile.ai[0])
             {
                 Projectile.Kill();
@@ -138,7 +137,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 {
                     Vector2 pos = new Vector2(0, 6).RotatedBy(i * MathHelper.TwoPi / 24);
                     Vector2 vel = pos.RotatedBy(Main.rand.NextFloat(-MathHelper.TwoPi / 64, MathHelper.TwoPi / 64));
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronScrap>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
                 }
             }
         }
@@ -154,7 +153,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             Color RingColor = Color.Lerp(Color.Orange, Color.Red, modifier);
             Texture2D ringTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/GlowRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int ringy = ringTexture.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            float RingScale = ExplosionDiameter / ringTexture.Height;
+            float RingScale = Projectile.scale * ExplosionDiameter / ringTexture.Height;
             int ringy3 = ringy * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle ringrect = new Rectangle(0, ringy3, ringTexture.Width, ringy);
             Vector2 ringorigin = ringrect.Size() / 2f;
@@ -166,6 +165,7 @@ namespace FargowiltasSouls.Projectiles.Challengers
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
+            Vector2 drawOffset = Projectile.rotation.ToRotationVector2() * (texture2D13.Width - Projectile.width) / 2;
 
             Color color26 = lightColor;
             color26 = Projectile.GetAlpha(color26);
@@ -178,10 +178,11 @@ namespace FargowiltasSouls.Projectiles.Challengers
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];
-                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
+                Main.EntitySpriteDraw(texture2D13, value4 + drawOffset + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
 
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+           
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
 
             
             return false;
