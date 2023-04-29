@@ -179,3 +179,4 @@ adjusted most new deathrays (particularly, mutant reti fan rays less obviously "
 changed death message of fake hearts
 fixed mutant despawning when self healing in ftw enrage maso
 silver+dread/pumpkin parry window nerfed to 15 (was 20, same as silver)
+made blender orbital immune to timestop and fixed being able to use it with other "held proj" weapons
