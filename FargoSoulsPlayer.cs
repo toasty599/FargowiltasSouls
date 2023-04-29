@@ -1411,13 +1411,6 @@ namespace FargowiltasSouls
             if (PalladEnchantItem != null)
                 PalladiumEnchant.PalladiumUpdate(this);
 
-            if (TitaniumDRBuff)
-            {
-                float diff = 1f - Player.endurance;
-                diff *= EarthForce ? 0.75f : 0.5f;
-                Player.endurance += diff;
-            }
-
             if (noDodge)
             {
                 Player.onHitDodge = false;
@@ -2788,7 +2781,7 @@ namespace FargowiltasSouls
                 damage /= 4;
             }
 
-
+            TitaniumEnchant.TryTitaniumDR(this, npc);
 
             if (GladiatorEnchantActive && Player.direction == Math.Sign(npc.Center.X - Player.Center.X))
                 Player.noKnockback = true;
@@ -2810,7 +2803,7 @@ namespace FargowiltasSouls
                 GroundStickCheck(proj, ref damage);
             }
 
-
+            TitaniumEnchant.TryTitaniumDR(this, proj);
 
             if (GladiatorEnchantActive && Player.direction == Math.Sign(proj.Center.X - Player.Center.X))
                 Player.noKnockback = true;
