@@ -193,3 +193,4 @@ ebonwood ench no longer triggers on falling tiles e.g. sand
 you can no longer graze falling tiles
 fixed empty space in turtle ench tooltip
 fixed buggy attack speed
+fixed visual glitch of leaving behind turtle ench shell by recalling
