@@ -1829,70 +1829,73 @@ namespace FargowiltasSouls
             int useTime = item.useTime;
             int useAnimate = item.useAnimation;
 
-            if (useTime <= 0 || useAnimate <= 0 || item.damage <= 0 || HaveCheckedAttackSpeed)
+            if (useTime <= 0 || useAnimate <= 0 || item.damage <= 0)
                 return base.UseSpeedMultiplier(item);
 
-            HaveCheckedAttackSpeed = true;
-
-            if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse && !Player.FeralGloveReuse(item))
+            if (!HaveCheckedAttackSpeed)
             {
-                int targetUseTime = useTime + 6;
-                while (useTime / AttackSpeed < targetUseTime)
+                HaveCheckedAttackSpeed = true;
+
+                if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse && !Player.FeralGloveReuse(item))
                 {
-                    AttackSpeed -= .05f;
+                    int targetUseTime = useTime + 6;
+                    while (useTime / AttackSpeed < targetUseTime)
+                    {
+                        AttackSpeed -= .05f;
+                    }
                 }
-            }
 
-            if (Berserked)
-            {
-                AttackSpeed += .1f;
-            }
-
-            if (MagicSoul && item.CountsAsClass(DamageClass.Magic))
-            {
-                AttackSpeed += .2f;
-            }
-
-            if (MythrilEnchantItem != null )
-            {
-                MythrilEnchant.CalcMythrilAttackSpeed(this, item);
-            }
-
-            if (WretchedPouchItem != null && !MasochistSoul && AttackSpeed > 1f)
-            {
-                float diff = AttackSpeed - 1f;
-                diff /= 2;
-                AttackSpeed -= diff;
-            }
-
-            if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
-            {
-                AttackSpeed *= 2;
-            }
-
-            //checks so weapons dont break
-            while (useTime / AttackSpeed < 1)
-            {
-                AttackSpeed -= .01f;
-            }
-
-            //modify attack speed so it rounds up
-            int useTimeRoundUp = (int)Math.Round(useTime / AttackSpeed, MidpointRounding.ToPositiveInfinity);
-            if (useTimeRoundUp < useTime) //sanity check
-            {
-                while (useTime / AttackSpeed < useTimeRoundUp)
+                if (Berserked)
                 {
-                    AttackSpeed -= .01f; //small increments to avoid skipping past any integers
+                    AttackSpeed += .1f;
                 }
-            }
 
-            while (useAnimate / AttackSpeed < 3)
-            {
-                AttackSpeed -= .01f;
-            }
+                if (MagicSoul && item.CountsAsClass(DamageClass.Magic))
+                {
+                    AttackSpeed += .2f;
+                }
 
-            if (AttackSpeed < .1f)
-                AttackSpeed = .1f;
+                if (MythrilEnchantItem != null)
+                {
+                    MythrilEnchant.CalcMythrilAttackSpeed(this, item);
+                }
+
+                if (WretchedPouchItem != null && !MasochistSoul && AttackSpeed > 1f)
+                {
+                    float diff = AttackSpeed - 1f;
+                    diff /= 2;
+                    AttackSpeed -= diff;
+                }
+
+                if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
+                {
+                    AttackSpeed *= 2;
+                }
+
+                //modify attack speed so it rounds up
+                //int useTimeRoundUp = (int)Math.Round(useTime / AttackSpeed, MidpointRounding.ToPositiveInfinity);
+                //if (useTimeRoundUp < useTime) //sanity check
+                //{
+                //    while (useTime / AttackSpeed < useTimeRoundUp)
+                //    {
+                //        AttackSpeed -= .01f; //small increments to avoid skipping past any integers
+                //    }
+                //}
+
+                //checks so weapons dont break
+                while (useTime / AttackSpeed < 1)
+                {
+                    AttackSpeed -= .01f;
+                }
+
+                while (useAnimate / AttackSpeed < 3)
+                {
+                    AttackSpeed -= .01f;
+                }
+
+                if (AttackSpeed < .1f)
+                    AttackSpeed = .1f;
+            }
 
             return AttackSpeed;
         }

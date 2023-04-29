@@ -192,3 +192,4 @@ fixed being able to ammo cycle without being able to ammo cycle
 ebonwood ench no longer triggers on falling tiles e.g. sand
 you can no longer graze falling tiles
 fixed empty space in turtle ench tooltip
+fixed buggy attack speed
