@@ -2937,6 +2937,8 @@ namespace FargowiltasSouls
                     Player.statLife = Player.statLifeMax2;
                 Player.HealEffect(heal);
 
+                int counterDamage = damage;
+
                 for (int i = 0; i < 30; i++)
                 {
                     Vector2 vel = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi);
