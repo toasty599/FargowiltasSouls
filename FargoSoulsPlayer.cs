@@ -546,11 +546,12 @@ namespace FargowiltasSouls
 
         public override void Initialize()
         {
-            Toggler.LoadInMenu();
+            //Toggler.LoadInMenu();
         }
 
         public override void OnEnterWorld(Player Player)
         {
+            Toggler.TryLoad();
             Toggler.LoadPlayerToggles(this);
             disabledToggles.Clear();
 
@@ -1134,6 +1135,8 @@ namespace FargowiltasSouls
 
         public override void PreUpdate()
         {
+            Toggler.TryLoad();
+
             if (Player.CCed)
             {
                 Player.doubleTapCardinalTimer[2] = 2;

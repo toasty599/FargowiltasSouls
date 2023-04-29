@@ -194,3 +194,4 @@ you can no longer graze falling tiles
 fixed empty space in turtle ench tooltip
 fixed buggy attack speed
 fixed visual glitch of leaving behind turtle ench shell by recalling
+did SOMETHING to toggles, CHECK THAT THEY WORK IN MP AND IT MOSTLY SYNCS FOR OTHER PLAYERS LIKE BEFORE
