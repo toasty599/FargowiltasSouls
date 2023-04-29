@@ -58,7 +58,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
             bool canUseDR = attacker is NPC ||
                 (attacker is Projectile projectile && projectile.GetSourceNPC() is NPC sourceNPC 
-                && projectile.Distance(sourceNPC.Center) < Math.Max(sourceNPC.width, sourceNPC.height) + 16 * 8);
+                && player.Distance(sourceNPC.Center) < Math.Max(sourceNPC.width, sourceNPC.height) + 16 * 8);
 
             if (canUseDR)
             {
