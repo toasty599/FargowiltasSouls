@@ -2903,9 +2903,6 @@ namespace FargowiltasSouls
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                 ((NPCs.MutantBoss.MutantBoss)Main.npc[EModeGlobalNPC.mutantBoss].ModNPC).playerInvulTriggered = true;
 
-            if (TryParryAttack(damage))
-                return false;
-
             if (DeathMarked)
             {
                 damage = (int)(damage * 1.5);
@@ -2916,6 +2913,9 @@ namespace FargowiltasSouls
                 Squeak(Player.Center);
                 damage = 1;
             }
+
+            if (TryParryAttack(ref damage))
+                return false;
 
             if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
             {

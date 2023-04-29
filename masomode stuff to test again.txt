@@ -178,6 +178,10 @@ fixed fire imps and lava slimes spawning above intended region (should only spaw
 adjusted most new deathrays (particularly, mutant reti fan rays less obviously "on top of" one another)
 changed death message of fake hearts
 fixed mutant despawning when self healing in ftw enrage maso
-silver+dread/pumpkin parry window nerfed to 15 (was 20, same as silver)
+parries nerfed
+	silver+dread/pumpkin parry window and cooldown nerfed to halfway between them
+	capped how much damage is blocked at once, you still take any leftover damage on parry
+	silver caps at 100
+	force, dread, pumpking cap at 200
 made blender orbital immune to timestop and fixed being able to use it with other "held proj" weapons
 fixed smite inconsistency where everything took x1.1 damage except players when hit by projs, who took x1.2. everything takes x1.2 now
