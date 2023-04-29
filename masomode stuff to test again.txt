@@ -189,3 +189,6 @@ titanium ench rebalance
 	only works on contact damage and projectiles near their source npc (within ~8 blocks of the edge of their hitbox)
 	gives immunity to most debuffs similar to parrying or gold shell
 fixed being able to ammo cycle without being able to ammo cycle
+ebonwood ench no longer triggers on falling tiles e.g. sand
+you can no longer graze falling tiles
+fixed empty space in turtle ench tooltip
