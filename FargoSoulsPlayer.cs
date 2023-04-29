@@ -738,7 +738,7 @@ namespace FargowiltasSouls
                 DebuffInstallKey();
             }
 
-            if (FargowiltasSouls.AmmoCycleKey.JustPressed)
+            if (FargowiltasSouls.AmmoCycleKey.JustPressed && CanAmmoCycle)
             {
                 AmmoCycleKey();
             }

@@ -188,3 +188,4 @@ fixed smite inconsistency where everything took x1.1 damage except players when 
 titanium ench rebalance
 	only works on contact damage and projectiles near their source npc (within ~8 blocks of the edge of their hitbox)
 	gives immunity to most debuffs similar to parrying or gold shell
+fixed being able to ammo cycle without being able to ammo cycle
