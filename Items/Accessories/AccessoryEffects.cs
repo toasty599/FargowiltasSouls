@@ -3150,9 +3150,15 @@ namespace FargowiltasSouls
                     if (shieldCD == 0) //if cooldown over, enable parry
                     {
                         if (DreadShellItem != null || PumpkingsCapeItem != null)
+                        {
                             shieldTimer = HARD_PARRY_WINDOW;
-                        if (SilverEnchantItem != null)
+                            if (SilverEnchantItem != null)
+                                shieldTimer += (BASE_PARRY_WINDOW - HARD_PARRY_WINDOW) / 2;
+                        }
+                        else if (SilverEnchantItem != null)
+                        {
                             shieldTimer = BASE_PARRY_WINDOW;
+                        }
                     }
 
                     Player.itemAnimation = 0;

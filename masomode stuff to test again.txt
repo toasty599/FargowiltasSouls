@@ -178,3 +178,4 @@ fixed fire imps and lava slimes spawning above intended region (should only spaw
 adjusted most new deathrays (particularly, mutant reti fan rays less obviously "on top of" one another)
 changed death message of fake hearts
 fixed mutant despawning when self healing in ftw enrage maso
+silver+dread/pumpkin parry window nerfed to 15 (was 20, same as silver)
