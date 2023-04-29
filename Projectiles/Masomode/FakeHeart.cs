@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     }
                     else
                     {
-                        target.Hurt(PlayerDeathReason.ByCustomReason(target.name + " felt heartbroken."), Projectile.damage, 0, false, false, false, 0);
+                        target.Hurt(PlayerDeathReason.ByCustomReason(target.name + " was deceived by Fake Heart."), Projectile.damage, 0, false, false, false, 0);
                     }
                     target.statDefense = defense;
                     target.endurance = endurance;
