@@ -180,3 +180,4 @@ changed death message of fake hearts
 fixed mutant despawning when self healing in ftw enrage maso
 silver+dread/pumpkin parry window nerfed to 15 (was 20, same as silver)
 made blender orbital immune to timestop and fixed being able to use it with other "held proj" weapons
+fixed smite inconsistency where everything took x1.1 damage except players when hit by projs, who took x1.2. everything takes x1.2 now

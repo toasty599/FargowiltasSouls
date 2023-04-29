@@ -2794,7 +2794,7 @@ namespace FargowiltasSouls
                 Player.noKnockback = true;
 
             if (Smite)
-                damage = (int)(damage * 1.1);
+                damage = (int)(damage * 1.2);
 
             if (npc.coldDamage && Hypothermia)
                 damage = (int)(damage * 1.2);
