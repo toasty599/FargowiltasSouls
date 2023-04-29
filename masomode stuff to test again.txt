@@ -177,3 +177,4 @@ adjusted world shaper soul magic mirror implementation
 fixed fire imps and lava slimes spawning above intended region (should only spawn roughly within 2x the height of hell above the top of hell)
 adjusted most new deathrays (particularly, mutant reti fan rays less obviously "on top of" one another)
 changed death message of fake hearts
+fixed mutant despawning when self healing in ftw enrage maso
