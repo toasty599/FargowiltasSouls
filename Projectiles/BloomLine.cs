@@ -93,6 +93,8 @@ namespace FargowiltasSouls.Projectiles
                         Projectile.rotation = Projectile.ai[1];
                     }
                     break;
+                //JAVYZ TODO: Banished Baron
+                /*
                 case 2: //banished baron dash telegraph
                     {
                         NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Challengers.BanishedBaron>());
@@ -135,6 +137,7 @@ namespace FargowiltasSouls.Projectiles
                         maxTime = 29;
                     }
                     break;
+                */
                 default:
                     Main.NewText("gloom line: you shouldnt be seeing this text, show terry or javyz");
                     break;

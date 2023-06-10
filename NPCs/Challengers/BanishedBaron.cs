@@ -1,4 +1,6 @@
-﻿using System;
+﻿//JAVYZ TODO: Banished Baron
+/*
+using System;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -478,13 +480,6 @@ namespace FargowiltasSouls.NPCs.Challengers
             if (Timer == 1)
             {
                 LockVector1 = player.Center;
-                /*
-                LockVector1 = new Vector2(player.Center.X + (Math.Sign(player.Center.X - NPC.Center.X) * 500), player.Center.Y + Main.rand.Next(-500, 500)); //opposite side of player
-                while (Collision.SolidCollision(LockVector1 - (NPC.Size / 2), NPC.width, NPC.height) && !Collision.WetCollision(LockVector1 - (NPC.Size / 2), NPC.width, NPC.height)))
-                {
-                    LockVector1 = new Vector2(player.Center.X + (Math.Sign(player.Center.X - NPC.Center.X) * 500), player.Center.Y + Main.rand.Next(-500, 500)); //opposite side of player
-                }
-                */
             }
 
             if (Vector2.Distance(NPC.Center, LockVector1) < 25 || Timer > 150 || AI3 == 1)
@@ -519,7 +514,7 @@ namespace FargowiltasSouls.NPCs.Challengers
         void WaterWalls(Vector2 location, int threshold)
         {
             //Aura
-            if (/*FargoSoulsWorld.MasochistModeReal*/ true)
+            if (true)
             {
                 const int DistBetweenDusts = 10;
                 if (dustcounter > 5)
@@ -1275,3 +1270,4 @@ namespace FargowiltasSouls.NPCs.Challengers
         #endregion
     }
 }
+*/

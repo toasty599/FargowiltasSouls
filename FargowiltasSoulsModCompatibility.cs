@@ -253,6 +253,8 @@ namespace FargowiltasSouls
                     false,
                     "NPCs/Challengers/LifeChallenger"
                 );
+                //JAVYZ TODO: Banished Baron
+                /*
                 Add("Boss",
                     "BanishedBaron",
                     //TODO: ADD LOOT
@@ -267,6 +269,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.ItemType<BaronSummon>() },
                     true
                 );
+                */
                 //Add("Boss",
                 //    "CursedCoffin",
                 //    //TODO: ADD LOOT

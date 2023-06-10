@@ -63,8 +63,9 @@ namespace FargowiltasSouls
 
                 AddBossSpawnInfo("TrojanSquirrel", $"使用[i:{ModContent.ItemType<SquirrelCoatofArms>()}]召唤");
                 AddBossSpawnInfo("LifeChallenger", $"Spawn by using [i:{ModContent.ItemType<FragilePixieLamp>()}] in the Hallow at day.");
+                //JAVYZ TODO: Cursed Coffin and Banished Baron
                 //AddBossSpawnInfo("CursedCoffin", $"Spawn by using [i:{ModContent.ItemType<CoffinSummon>()}] in the Underground Desert.");
-                AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{ModContent.ItemType<BaronSummon>()}] underwater at the ocean.");
+                //AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{ModContent.ItemType<BaronSummon>()}] underwater at the ocean.");
             }
             else if (FargoSoulsUtil.IsPortuguese())
             {
@@ -101,8 +102,9 @@ namespace FargowiltasSouls
 
                 AddBossSpawnInfo("TrojanSquirrel", $"Spawn by using [i:{ModContent.ItemType<SquirrelCoatofArms>()}]");
                 AddBossSpawnInfo("LifeChallenger", $"Spawn by using [i:{ModContent.ItemType<FragilePixieLamp>()}] in the Hallow at day.");
+                //JAVYZ TODO: Cursed Coffin and Banished Baron
                 //AddBossSpawnInfo("CursedCoffin", $"Spawn by using [i:{ModContent.ItemType<CoffinSummon>()}] in the Underground Desert.");
-                AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{ModContent.ItemType<BaronSummon>()}] underwater at the ocean.");
+                //AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{ModContent.ItemType<BaronSummon>()}] underwater at the ocean.");
             }
 
             #endregion boss spawn info
