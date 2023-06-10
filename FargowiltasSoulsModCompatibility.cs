@@ -246,7 +246,8 @@ namespace FargowiltasSouls
                         ModContent.ItemType<EnchantedLifeblade>(),
                         ModContent.ItemType<Lightslinger>(),
                         ModContent.ItemType<CrystallineCongregation>(),
-                        ModContent.ItemType<KamikazePixieStaff>()
+                        ModContent.ItemType<KamikazePixieStaff>(),
+                        ModContent.ItemType<LifelightMasterPet>()
                     }),
                     new List<int> { ModContent.ItemType<FragilePixieLamp>() },
                     false,
