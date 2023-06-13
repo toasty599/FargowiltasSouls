@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.PlayerDrawLayers
+namespace FargowiltasSouls.Content.PlayerDrawLayers
 {
     public class PrecisionHurtboxDrawLayer : PlayerDrawLayer
     {
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.PlayerDrawLayers
         {
             Player drawPlayer = drawInfo.drawPlayer;
 
-            Texture2D hurtbox = ModContent.Request<Texture2D>("FargowiltasSouls/PlayerDrawLayers/PrecisionHurtboxDrawLayer", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D hurtbox = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/PrecisionHurtboxDrawLayer", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rectangle = hurtbox.Bounds;
 
             float opacity = Main.mouseTextColor / 255f;

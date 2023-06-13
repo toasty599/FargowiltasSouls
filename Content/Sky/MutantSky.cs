@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Sky
+namespace FargowiltasSouls.Content.Sky
 {
     public class MutantSky : CustomSky
     {
@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Sky
                 float opacity = 0f;
                 Color color = ColorToUse(ref opacity);
 
-                spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Sky/MutantSky", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
+                spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Sky/MutantSky", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), color * opacity);
 
                 if (--delay < 0)
@@ -150,7 +150,7 @@ namespace FargowiltasSouls.Sky
                 for (int i = 0; i < 50; i++) //static on screen
                 {
                     int width = Main.rand.Next(3, 251);
-                    spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Sky/MutantStatic", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
+                    spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Sky/MutantStatic", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
                     new Rectangle(xPos[i] - width / 2, yPos[i], width, 3),
                     color * lifeIntensity * 0.75f);
                 }

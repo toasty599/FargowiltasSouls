@@ -24,6 +24,7 @@ using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Assets.ExtraTextures;
 
 namespace FargowiltasSouls.Content.NPCs.MutantBoss
 {

@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Common.Graphics.Primitives;
+﻿using FargowiltasSouls.Assets.ExtraTextures;
+using FargowiltasSouls.Common.Graphics.Primitives;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;

@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.PlayerDrawLayers
+namespace FargowiltasSouls.Content.PlayerDrawLayers
 {
     public class MutantArmorDrawLayer : PlayerDrawLayer
     {

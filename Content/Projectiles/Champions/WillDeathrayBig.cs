@@ -187,7 +187,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Color brightColor = new(252, 252, 192, 100);
             GameShaders.Misc["FargowiltasSouls:WillBigDeathray"].UseColor(brightColor);
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
-            Asset<Texture2D> fademap = ModContent.Request<Texture2D>("FargowiltasSouls/ExtraTextures/Trails/WillStreak");
+            Asset<Texture2D> fademap = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Trails/WillStreak");
             GameShaders.Misc["FargowiltasSouls:WillBigDeathray"].SetShaderTexture(fademap);
 
             LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 30);

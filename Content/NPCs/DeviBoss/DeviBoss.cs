@@ -26,6 +26,7 @@ using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Assets.ExtraTextures;
 
 namespace FargowiltasSouls.Content.NPCs.DeviBoss
 {

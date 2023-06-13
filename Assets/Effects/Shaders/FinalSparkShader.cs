@@ -7,7 +7,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Shaders
+namespace FargowiltasSouls.Assets.Effects.Shaders
 {
     public class FinalSparkShader : ScreenShaderData
     {

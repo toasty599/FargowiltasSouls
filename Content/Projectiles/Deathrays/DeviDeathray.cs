@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Common.Graphics.Primitives;
+﻿using FargowiltasSouls.Assets.ExtraTextures;
+using FargowiltasSouls.Common.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

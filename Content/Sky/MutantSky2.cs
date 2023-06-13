@@ -1,22 +1,25 @@
 using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Content.NPCs.AbomBoss;
+using FargowiltasSouls.Content.NPCs.MutantBoss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Sky
+namespace FargowiltasSouls.Content.Sky
 {
-    public class AbomSky : CustomSky
+    public class MutantSky2 : CustomSky
     {
         private bool isActive = false;
+        private bool increase = true;
         private float intensity = 0f;
 
         public override void Update(GameTime gameTime)
         {
             const float increment = 0.01f;
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>())
+                && (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] < 0 || Main.npc[EModeGlobalNPC.mutantBoss].ai[0] > 10
+                || Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == 10 && Main.npc[EModeGlobalNPC.mutantBoss].ai[1] > 120))
             {
                 intensity += increment;
                 if (intensity > 1f)
@@ -39,8 +42,8 @@ namespace FargowiltasSouls.Sky
         {
             if (maxDepth >= 0 && minDepth < 0)
             {
-                spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Sky/AbomSky", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
-                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * intensity * 0.75f);
+                spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Sky/MutantSky2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
+                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * intensity * 0.9f);
             }
         }
 
@@ -52,16 +55,19 @@ namespace FargowiltasSouls.Sky
         public override void Activate(Vector2 position, params object[] args)
         {
             isActive = true;
+            increase = true;
         }
 
         public override void Deactivate(params object[] args)
         {
             isActive = false;
+            increase = true;
         }
 
         public override void Reset()
         {
             isActive = false;
+            increase = true;
         }
 
         public override bool IsActive()
@@ -71,7 +77,7 @@ namespace FargowiltasSouls.Sky
 
         public override Color OnTileColor(Color inColor)
         {
-            return new Color(Vector4.Lerp(new Vector4(1f, 0.9f, 0.6f, 1f), inColor.ToVector4(), 1f - intensity));
+            return new Color(Vector4.Lerp(new Vector4(0.6f, 0.9f, 1f, 1f), inColor.ToVector4(), 1f - intensity));
         }
     }
 }

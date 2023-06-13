@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Sky
+namespace FargowiltasSouls.Content.Sky
 {
     public class MoonLordSky : CustomSky
     {
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Sky
             bool bossAlive = false;
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
             {
-                vulState = (int)Main.npc[EModeGlobalNPC.moonBoss].GetGlobalNPC<MoonLordCore>().VulnerabilityState;
+                vulState = Main.npc[EModeGlobalNPC.moonBoss].GetGlobalNPC<MoonLordCore>().VulnerabilityState;
                 vulTimer = (int)Main.npc[EModeGlobalNPC.moonBoss].GetGlobalNPC<MoonLordCore>().VulnerabilityTimer;
                 bossAlive = true;
             }
