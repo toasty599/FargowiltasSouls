@@ -27,6 +27,7 @@
     <Folder Include="Content\Dusts\" />
     <Folder Include="Content\UI\" />
     <Folder Include="Content\NPCs\VanillaNPCs\" />
+    <Folder Include="Content\NPCs\" />
     <Folder Include="Core\ModPlayers\" />
     <Folder Include="Core\Globals\" />
     <Folder Include="Core\Systems\" />

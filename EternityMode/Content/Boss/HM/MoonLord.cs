@@ -19,6 +19,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM

@@ -1,5 +1,6 @@
 using FargowiltasSouls.Buffs.Boss;
 using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;

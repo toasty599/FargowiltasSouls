@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core.ItemDropRules.Conditions;
+﻿using FargowiltasSouls.Core;
+using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using System;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;

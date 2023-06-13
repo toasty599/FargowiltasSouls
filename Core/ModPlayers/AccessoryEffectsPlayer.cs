@@ -22,7 +22,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 
-namespace FargowiltasSouls
+namespace FargowiltasSouls.Core.ModPlayers
 {
     public partial class FargoSoulsPlayer
     {

@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.EternityMode.NPCMatching;
+﻿using FargowiltasSouls.Core;
+using FargowiltasSouls.EternityMode.NPCMatching;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;

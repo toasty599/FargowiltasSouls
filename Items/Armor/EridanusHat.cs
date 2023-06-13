@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Items.Materials;
+﻿using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

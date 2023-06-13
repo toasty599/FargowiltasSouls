@@ -1,5 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;

@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Items.Materials;
+﻿using FargowiltasSouls.Core;
+using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Patreon.DemonKing;
 using Terraria;
 using Terraria.ModLoader;

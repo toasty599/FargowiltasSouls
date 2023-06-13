@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 
-namespace FargowiltasSouls
+namespace FargowiltasSouls.Core
 {
     class SoulConfig : ModConfig
     {
