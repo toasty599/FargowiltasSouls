@@ -1,5 +1,3 @@
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Masomode;
@@ -17,6 +15,8 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Weapons.Misc;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.Content.NPCs
 {

@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Buffs.Minions;
+﻿using FargowiltasSouls.Content.Buffs.Minions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

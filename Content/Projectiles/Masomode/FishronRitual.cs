@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.EternityMode;
+﻿using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
@@ -7,6 +6,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {

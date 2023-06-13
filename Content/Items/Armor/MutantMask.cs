@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Buffs.Minions;
+﻿using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;

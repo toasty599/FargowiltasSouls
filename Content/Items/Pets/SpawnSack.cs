@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Buffs.Pets;
+﻿using FargowiltasSouls.Content.Buffs.Pets;
 using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Projectiles.Pets;
 using Microsoft.Xna.Framework;

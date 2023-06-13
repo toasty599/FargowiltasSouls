@@ -1,6 +1,5 @@
 using System.IO;
 using Terraria.ModLoader.IO;
-using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using System.Collections.Generic;
@@ -11,6 +10,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using System;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 {

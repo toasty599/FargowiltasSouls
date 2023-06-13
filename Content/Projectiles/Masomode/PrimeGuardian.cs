@@ -1,4 +1,4 @@
-using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

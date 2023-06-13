@@ -1,4 +1,4 @@
-using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

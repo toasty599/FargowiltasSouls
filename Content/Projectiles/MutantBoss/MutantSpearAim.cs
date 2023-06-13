@@ -1,5 +1,5 @@
-﻿using FargowiltasSouls.Buffs.Boss;
-using FargowiltasSouls.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;

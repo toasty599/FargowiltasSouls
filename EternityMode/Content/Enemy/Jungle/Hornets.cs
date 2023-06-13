@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.EternityMode.NPCMatching;
+﻿using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.NPCs;
 using System;
 using Terraria;
@@ -8,6 +7,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 {

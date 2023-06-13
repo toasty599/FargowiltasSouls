@@ -11,7 +11,6 @@ using Terraria.DataStructures;
 using FargowiltasSouls.Content.Projectiles.Challengers;
 using Terraria.Graphics.Shaders;
 using Terraria.GameContent.ItemDropRules;
-using FargowiltasSouls.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
@@ -26,6 +25,7 @@ using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.Content.NPCs.Challengers
 {

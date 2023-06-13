@@ -1,5 +1,5 @@
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Buffs.Minions;
+using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;

@@ -1,5 +1,3 @@
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
@@ -21,6 +19,8 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.Content.Projectiles
 {

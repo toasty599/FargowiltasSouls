@@ -1,4 +1,3 @@
-using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
@@ -11,6 +10,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.Content.Items
 {

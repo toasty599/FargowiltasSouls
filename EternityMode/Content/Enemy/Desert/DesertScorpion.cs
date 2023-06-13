@@ -1,10 +1,10 @@
-﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.EternityMode.NPCMatching;
+﻿using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
 {

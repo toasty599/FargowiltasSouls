@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Buffs.Boss;
+﻿using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;

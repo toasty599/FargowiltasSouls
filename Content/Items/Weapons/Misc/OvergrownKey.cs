@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Buffs.Minions;
+﻿using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Projectiles.JungleMimic;
 using Microsoft.Xna.Framework;

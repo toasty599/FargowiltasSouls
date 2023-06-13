@@ -1,5 +1,3 @@
-using FargowiltasSouls.Buffs.Boss;
-using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.AbomBoss;
@@ -23,6 +21,8 @@ using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Boss;
 
 namespace FargowiltasSouls.Content.NPCs.AbomBoss
 {
