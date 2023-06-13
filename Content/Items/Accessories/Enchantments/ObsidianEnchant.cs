@@ -1,4 +1,3 @@
-using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -7,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments

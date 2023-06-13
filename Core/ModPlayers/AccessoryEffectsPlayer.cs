@@ -1,7 +1,4 @@
-﻿using FargowiltasSouls.Buffs;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Content.NPCs;
+﻿using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles.Masomode;
@@ -21,6 +18,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Buffs;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 
 namespace FargowiltasSouls.Core.ModPlayers
@@ -2529,7 +2529,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Projectile.NewProjectile(Player.GetSource_Accessory(QueenStingerItem), Player.Center, vel, ModContent.ProjectileType<BeeDash>(), (int)(44 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
                     }
 
-                    Player.AddBuff(ModContent.BuffType<Buffs.BetsyDash>(), 20);
+                    Player.AddBuff(ModContent.BuffType<FargowiltasSouls.Content.Buffs.BetsyDash>(), 20);
                 }
             }
         }

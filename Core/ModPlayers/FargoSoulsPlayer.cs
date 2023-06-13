@@ -1,6 +1,3 @@
-using FargowiltasSouls.Buffs;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Core;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
@@ -31,6 +28,9 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Dyes;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Buffs;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.NPCs.AbomBoss;
 using FargowiltasSouls.Content.NPCs.DeviBoss;
@@ -397,7 +397,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             DeathMarked = false;
             Hypothermia = false;
             Midas = false;
-            MutantPresence = MutantPresence ? Player.HasBuff(ModContent.BuffType<Buffs.Boss.MutantPresence>()) : false;
+            MutantPresence = MutantPresence ? Player.HasBuff(ModContent.BuffType<FargowiltasSouls.Content.Buffs.Boss.MutantPresence>()) : false;
             MutantFang = false;
             DevianttPresence = false;
             Swarming = false;

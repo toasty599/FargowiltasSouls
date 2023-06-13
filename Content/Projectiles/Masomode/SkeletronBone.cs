@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.NPCs;
 using Terraria;
 using Terraria.ID;

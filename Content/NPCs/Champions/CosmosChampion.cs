@@ -1,5 +1,3 @@
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Champions;
@@ -19,6 +17,8 @@ using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {

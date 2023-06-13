@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Buffs.Mounts;
+﻿using FargowiltasSouls.Content.Buffs.Mounts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

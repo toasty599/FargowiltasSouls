@@ -1,5 +1,5 @@
-﻿using FargowiltasSouls.Core;
-using FargowiltasSouls.UI;
+﻿using FargowiltasSouls.Content.UI;
+using FargowiltasSouls.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -37,17 +37,17 @@ namespace FargowiltasSouls
             if (!Main.dedServ)
             {
                 // Load textures
-                CheckMark = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/CheckMark", AssetRequestMode.ImmediateLoad);
-                CheckBox = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/CheckBox", AssetRequestMode.ImmediateLoad);
-                SoulTogglerButtonTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/SoulTogglerToggle", AssetRequestMode.ImmediateLoad);
-                SoulTogglerButton_MouseOverTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/SoulTogglerToggle_MouseOver", AssetRequestMode.ImmediateLoad);
-                PresetButtonOutline = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOutline", AssetRequestMode.ImmediateLoad);
-                PresetOffButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOff", AssetRequestMode.ImmediateLoad);
-                PresetOnButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOn", AssetRequestMode.ImmediateLoad);
-                PresetMinimalButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetMinimal", AssetRequestMode.ImmediateLoad);
-                PresetCustomButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetCustom", AssetRequestMode.ImmediateLoad);
-                OncomingMutantTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/OncomingMutant", AssetRequestMode.ImmediateLoad);
-                OncomingMutantAuraTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/OncomingMutantAura", AssetRequestMode.ImmediateLoad);
+                CheckMark = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/CheckMark", AssetRequestMode.ImmediateLoad);
+                CheckBox = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/CheckBox", AssetRequestMode.ImmediateLoad);
+                SoulTogglerButtonTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/SoulTogglerToggle", AssetRequestMode.ImmediateLoad);
+                SoulTogglerButton_MouseOverTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/SoulTogglerToggle_MouseOver", AssetRequestMode.ImmediateLoad);
+                PresetButtonOutline = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/PresetOutline", AssetRequestMode.ImmediateLoad);
+                PresetOffButton = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/PresetOff", AssetRequestMode.ImmediateLoad);
+                PresetOnButton = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/PresetOn", AssetRequestMode.ImmediateLoad);
+                PresetMinimalButton = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/PresetMinimal", AssetRequestMode.ImmediateLoad);
+                PresetCustomButton = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/PresetCustom", AssetRequestMode.ImmediateLoad);
+                OncomingMutantTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/OncomingMutant", AssetRequestMode.ImmediateLoad);
+                OncomingMutantAuraTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/OncomingMutantAura", AssetRequestMode.ImmediateLoad);
 
                 // Initialize UserInterfaces
                 TogglerUserInterface = new UserInterface();

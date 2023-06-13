@@ -1,7 +1,7 @@
-﻿using FargowiltasSouls.Buffs.Boss;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Common.Graphics.Primitives;
+﻿using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

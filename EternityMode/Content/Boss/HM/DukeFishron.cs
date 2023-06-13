@@ -1,6 +1,5 @@
 using System.IO;
 using Terraria.ModLoader.IO;
-using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.NPCs;
@@ -17,6 +16,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (npc.Distance(Main.LocalPlayer.Center) < 3000f)
                 {
                     Main.LocalPlayer.AddBuff(ModContent.BuffType<OceanicSeal>(), 2);
-                    Main.LocalPlayer.AddBuff(ModContent.BuffType<Buffs.Boss.MutantPresence>(), 2); //LUL
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<FargowiltasSouls.Content.Buffs.Boss.MutantPresence>(), 2); //LUL
                 }
                 EModeGlobalNPC.fishBossEX = npc.whoAmI;
                 npc.position += npc.velocity * 0.5f;

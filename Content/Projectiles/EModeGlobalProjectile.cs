@@ -1,5 +1,3 @@
-using FargowiltasSouls.Buffs.Boss;
-using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
@@ -23,6 +21,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Boss;
 
 namespace FargowiltasSouls.Content.Projectiles
 {

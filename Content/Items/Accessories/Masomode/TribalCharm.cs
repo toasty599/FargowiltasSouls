@@ -1,4 +1,4 @@
-using FargowiltasSouls.Buffs;
+using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Toggler;

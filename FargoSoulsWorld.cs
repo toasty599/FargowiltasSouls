@@ -499,7 +499,7 @@ namespace FargowiltasSouls
                     Tile tile = Main.tile[baseCheckX, baseCheckY + 4]; tile.Slope = 0;
                     tile = Main.tile[baseCheckX + 1, baseCheckY + 4]; tile.Slope = 0;
                     tile = Main.tile[baseCheckX + 2, baseCheckY + 4]; tile.Slope = 0;
-                    WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 3, ModContent.TileType<Tiles.MutantStatueGift>(), false, true);
+                    WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 3, ModContent.TileType<FargowiltasSouls.Content.Tiles.MutantStatueGift>(), false, true);
 
                     return true;
                 }

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Content.Buffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

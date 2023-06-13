@@ -1,15 +1,10 @@
-﻿using FargowiltasSouls.Buffs.Boss;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.EternityMode;
+﻿using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Shaders;
 using FargowiltasSouls.Sky;
-using FargowiltasSouls.Tiles;
 using FargowiltasSouls.Toggler;
-using FargowiltasSouls.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -30,6 +25,11 @@ using Terraria.UI;
 using FargowiltasSouls.Content.Items.Dyes;
 using FargowiltasSouls.Content.Items.Misc;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Content.Tiles;
+using FargowiltasSouls.Content.UI;
 
 namespace FargowiltasSouls
 {
@@ -607,7 +607,7 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<Rotting>());
                 DebuffIDs.Add(ModContent.BuffType<Shadowflame>());
                 DebuffIDs.Add(ModContent.BuffType<Smite>());
-                DebuffIDs.Add(ModContent.BuffType<Buffs.Masomode.SqueakyToy>());
+                DebuffIDs.Add(ModContent.BuffType<FargowiltasSouls.Content.Buffs.Masomode.SqueakyToy>());
                 DebuffIDs.Add(ModContent.BuffType<Stunned>());
                 DebuffIDs.Add(ModContent.BuffType<Swarming>());
                 DebuffIDs.Add(ModContent.BuffType<Unstable>());
