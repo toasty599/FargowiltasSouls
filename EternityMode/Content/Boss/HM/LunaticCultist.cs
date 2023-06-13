@@ -413,8 +413,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnFirstTick(npc);
 
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
+            npc.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
@@ -556,8 +556,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
-            target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+            target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 300);
+            target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
         }
     }
 
@@ -654,7 +654,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Purified>(), 300);
+            target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
         }
     }
 
@@ -717,8 +717,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
-            target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
+            target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 300);
         }
     }
 
@@ -745,8 +745,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
-            target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
+            target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 300);
         }
     }
 }

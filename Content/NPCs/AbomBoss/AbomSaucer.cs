@@ -28,11 +28,11 @@ namespace FargowiltasSouls.Content.NPCs.AbomBoss
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>(),
-                    ModContent.BuffType<MutantNibble>(),
-                    ModContent.BuffType<OceanicMaul>(),
-                    ModContent.BuffType<LightningRod>(),
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>(),
+                    ModContent.BuffType<MutantNibbleBuff>(),
+                    ModContent.BuffType<OceanicMaulBuff>(),
+                    ModContent.BuffType<LightningRodBuff>(),
         }
             });
 

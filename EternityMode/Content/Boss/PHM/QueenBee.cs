@@ -405,8 +405,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Infested>(), 300);
-            target.AddBuff(ModContent.BuffType<Swarming>(), 600);
+            target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
+            target.AddBuff(ModContent.BuffType<SwarmingBuff>(), 600);
         }
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)

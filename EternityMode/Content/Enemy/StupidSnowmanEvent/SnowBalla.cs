@@ -46,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.StupidSnowmanEvent
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Hypothermia>(), 300);
+            target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 300);
             target.AddBuff(BuffID.Frostburn, 300);
         }
     }

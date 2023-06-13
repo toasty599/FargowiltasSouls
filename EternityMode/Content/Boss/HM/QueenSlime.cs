@@ -614,7 +614,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Slimed, 180);
-            target.AddBuff(ModContent.BuffType<Smite>(), 360);
+            target.AddBuff(ModContent.BuffType<SmiteBuff>(), 360);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

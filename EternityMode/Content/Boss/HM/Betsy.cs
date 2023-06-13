@@ -268,7 +268,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             target.AddBuff(BuffID.WitheredArmor, 600);
             target.AddBuff(BuffID.WitheredWeapon, 600);
-            target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
+            target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 600);
         }
 
         public override bool SpecialOnKill(NPC npc)

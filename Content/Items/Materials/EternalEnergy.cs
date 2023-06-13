@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Items.Materials
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.consumable = true;
-            Item.buffType = ModContent.BuffType<Buffs.Masomode.Sadism>();
+            Item.buffType = ModContent.BuffType<Buffs.Masomode.SadismBuff>();
             Item.buffTime = 25200;
             Item.UseSound = SoundID.Item3;
             Item.value = Item.sellPrice(0, 5);

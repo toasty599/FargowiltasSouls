@@ -114,8 +114,8 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Purified>(), 300);
-                target.AddBuff(ModContent.BuffType<Smite>(), 600);
+                target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
+                target.AddBuff(ModContent.BuffType<SmiteBuff>(), 600);
             }
         }
     }

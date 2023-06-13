@@ -112,24 +112,24 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Rotting>(), 300);
+            target.AddBuff(ModContent.BuffType<RottingBuff>(), 300);
 
             switch (npc.type)
             {
                 case NPCID.ZombieMushroom:
                 case NPCID.ZombieMushroomHat:
-                    target.AddBuff(ModContent.BuffType<Infested>(), 300);
+                    target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
                     break;
 
                 case NPCID.ZombieEskimo:
                 case NPCID.ArmedZombieEskimo:
-                    target.AddBuff(ModContent.BuffType<Hypothermia>(), 300);
+                    target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 300);
                     break;
 
                 case NPCID.ZombieElf:
                 case NPCID.ZombieElfBeard:
                 case NPCID.ZombieElfGirl:
-                    target.AddBuff(ModContent.BuffType<Rotting>(), 900);
+                    target.AddBuff(ModContent.BuffType<RottingBuff>(), 900);
                     break;
 
                 default: break;

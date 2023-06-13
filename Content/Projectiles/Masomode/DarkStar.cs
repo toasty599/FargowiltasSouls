@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.primeBoss, NPCID.SkeletronPrime))
-                target.AddBuff(ModContent.BuffType<NanoInjection>(), 360);
+                target.AddBuff(ModContent.BuffType<NanoInjectionBuff>(), 360);
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
                 target.AddBuff(BuffID.Electrified, 60);
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer))

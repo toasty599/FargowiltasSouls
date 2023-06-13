@@ -25,8 +25,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
-            target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
+            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
+            target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
             target.AddBuff(BuffID.BrokenArmor, 300);
         }
     }

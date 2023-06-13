@@ -237,10 +237,10 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             {
                 target.AddBuff(BuffID.Obstructed, 15);
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 120);
+                target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
+                target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 120);
                 target.AddBuff(ModContent.BuffType<Berserked>(), 300);
-                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }
         }
 

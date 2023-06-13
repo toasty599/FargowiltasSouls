@@ -99,8 +99,8 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
-            target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
+            target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 300);
         }
     }
 }

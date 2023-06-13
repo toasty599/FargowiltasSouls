@@ -56,7 +56,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Infested>(), 300);
+            target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
             //target.AddBuff(ModContent.BuffType<Bloodthirsty>(), 120);
         }
 

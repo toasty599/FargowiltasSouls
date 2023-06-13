@@ -102,7 +102,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Slimed, 120);
-            target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240);
+            target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
         }
 
         public override bool CheckDead(NPC npc)

@@ -30,14 +30,14 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>(),
-                    ModContent.BuffType<MutantNibble>(),
-                    ModContent.BuffType<OceanicMaul>(),
-                    ModContent.BuffType<LightningRod>(),
-                    ModContent.BuffType<Sadism>(),
-                    ModContent.BuffType<GodEater>(),
-                    ModContent.BuffType<TimeFrozen>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>(),
+                    ModContent.BuffType<MutantNibbleBuff>(),
+                    ModContent.BuffType<OceanicMaulBuff>(),
+                    ModContent.BuffType<LightningRodBuff>(),
+                    ModContent.BuffType<SadismBuff>(),
+                    ModContent.BuffType<GodEaterBuff>(),
+                    ModContent.BuffType<TimeFrozenBuff>()
                 }
             });
 

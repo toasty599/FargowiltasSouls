@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     if (Vector2.Distance(Main.MouseWorld, FargoSoulsUtil.ClosestPointInHitbox(n.Hitbox, Main.MouseWorld)) < distance)
                     {
-                        n.AddBuff(ModContent.BuffType<PungentGaze>(), 2, true);
+                        n.AddBuff(ModContent.BuffType<PungentGazeBuff>(), 2, true);
                     }
                 }
 
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (MutantAntibodies && Player.wet)
             {
                 Player.wingTime = Player.wingTimeMax;
-                Player.AddBuff(ModContent.BuffType<Refreshed>(), 30 * 60);
+                Player.AddBuff(ModContent.BuffType<RefreshedBuff>(), 30 * 60);
             }
 
             if (StyxSet)

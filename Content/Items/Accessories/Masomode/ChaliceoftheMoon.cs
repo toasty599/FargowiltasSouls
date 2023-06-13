@@ -60,25 +60,25 @@ Summons a friendly Cultist and plant to fight at your side
 
             //lihzahrd treasure
             player.buffImmune[BuffID.Burning] = true;
-            player.buffImmune[ModContent.BuffType<Fused>()] = true;
-            player.buffImmune[ModContent.BuffType<LihzahrdCurse>()] = true;
-            player.buffImmune[ModContent.BuffType<LowGround>()] = true;
+            player.buffImmune[ModContent.BuffType<FusedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LihzahrdCurseBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LowGroundBuff>()] = true;
             fargoPlayer.LihzahrdTreasureBoxItem = Item;
 
             //celestial rune
-            player.buffImmune[ModContent.BuffType<MarkedforDeath>()] = true;
+            player.buffImmune[ModContent.BuffType<MarkedforDeathBuff>()] = true;
             fargoPlayer.CelestialRuneItem = Item;
             fargoPlayer.AdditionalAttacks = true;
 
             //chalice
             player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
-            player.buffImmune[ModContent.BuffType<Jammed>()] = true;
-            player.buffImmune[ModContent.BuffType<ReverseManaFlow>()] = true;
-            player.buffImmune[ModContent.BuffType<Antisocial>()] = true;
+            player.buffImmune[ModContent.BuffType<JammedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<ReverseManaFlowBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<AntisocialBuff>()] = true;
             fargoPlayer.MoonChalice = true;
 
             if (player.GetToggleValue("MasoCultist"))
-                player.AddBuff(ModContent.BuffType<LunarCultist>(), 2);
+                player.AddBuff(ModContent.BuffType<LunarCultistBuff>(), 2);
         }
 
         public override void AddRecipes()

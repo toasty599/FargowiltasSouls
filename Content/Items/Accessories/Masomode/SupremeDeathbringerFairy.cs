@@ -78,7 +78,7 @@ Summons 2 Skeletron arms to whack enemies
             fargoPlayer.AgitatingLensItem = Item;
 
             //queen stinger
-            player.buffImmune[ModContent.BuffType<Infested>()] = true;
+            player.buffImmune[ModContent.BuffType<InfestedBuff>()] = true;
             player.npcTypeNoAggro[210] = true;
             player.npcTypeNoAggro[211] = true;
             player.npcTypeNoAggro[42] = true;
@@ -90,10 +90,10 @@ Summons 2 Skeletron arms to whack enemies
             fargoPlayer.QueenStingerItem = Item;
 
             //necromantic brew
-            player.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            player.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;
             fargoPlayer.NecromanticBrewItem = Item;
             if (player.GetToggleValue("MasoSkele"))
-                player.AddBuff(ModContent.BuffType<SkeletronArms>(), 2);
+                player.AddBuff(ModContent.BuffType<SkeletronArmsBuff>(), 2);
         }
 
         public override void AddRecipes()

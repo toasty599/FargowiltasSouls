@@ -14,7 +14,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Snow
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
+            target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 600);
         }
     }
 }

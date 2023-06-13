@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     {
                         if (Projectile.Colliding(Projectile.Hitbox, n.Hitbox))
                         {
-                            n.AddBuff(ModContent.BuffType<BloodDrinker>(), 360);
+                            n.AddBuff(ModContent.BuffType<BloodDrinkerBuff>(), 360);
                             Projectile.ai[1] = 1;
                             Projectile.netUpdate = true;
                             Projectile.Kill();
@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                         if (Projectile.Colliding(Projectile.Hitbox, Main.player[p].Hitbox))
                         {
-                            Main.player[p].AddBuff(ModContent.BuffType<BloodDrinker>(), 360);
+                            Main.player[p].AddBuff(ModContent.BuffType<BloodDrinkerBuff>(), 360);
                             Projectile.ai[1] = 1;
                             Projectile.netUpdate = true;
                             Projectile.Kill();

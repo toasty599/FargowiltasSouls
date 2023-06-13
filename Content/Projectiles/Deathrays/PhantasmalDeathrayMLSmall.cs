@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
         }
     }
 }

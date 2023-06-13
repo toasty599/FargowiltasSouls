@@ -118,7 +118,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
                     modPlayer.Player.Teleport(teleportPos, 1);
                     NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, modPlayer.Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
-                    modPlayer.Player.AddBuff(ModContent.BuffType<FirstStrike>(), 60);
+                    modPlayer.Player.AddBuff(ModContent.BuffType<FirstStrikeBuff>(), 60);
 
                     modPlayer.CrystalSmokeBombProj.timeLeft = 120;
                     modPlayer.SmokeBombCD = 300;

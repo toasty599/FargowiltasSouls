@@ -77,7 +77,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Lethargic>(), 600);
+            target.AddBuff(ModContent.BuffType<LethargicBuff>(), 600);
         }
     }
 }

@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.Lovestruck>(), 240);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.LovestruckBuff>(), 240);
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;

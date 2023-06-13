@@ -39,8 +39,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
             //    }
             //}
             //target.AddBuff(ModContent.BuffType<LoosePockets>(), 240);
-            target.AddBuff(ModContent.BuffType<Unlucky>(), 60 * 30);
-            target.AddBuff(ModContent.BuffType<Midas>(), 600);
+            target.AddBuff(ModContent.BuffType<UnluckyBuff>(), 60 * 30);
+            target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
             //target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
         }
     }

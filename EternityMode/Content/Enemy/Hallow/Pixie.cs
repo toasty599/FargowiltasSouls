@@ -40,14 +40,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Navi") { Pitch = 0.5f }, npc.Center);
                 Counter = 0;
             }
-            EModeGlobalNPC.Aura(npc, 100, ModContent.BuffType<SqueakyToy>());
+            EModeGlobalNPC.Aura(npc, 100, ModContent.BuffType<SqueakyToyBuff>());
         }
 
         public override void OnHitNPC(NPC npc, NPC target, int damage, float knockback, bool crit)
         {
             base.OnHitNPC(npc, target, damage, knockback, crit);
 
-            target.AddBuff(ModContent.BuffType<Unlucky>(), 60 * 30);
+            target.AddBuff(ModContent.BuffType<UnluckyBuff>(), 60 * 30);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

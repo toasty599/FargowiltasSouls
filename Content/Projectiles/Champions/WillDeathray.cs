@@ -132,8 +132,8 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
-                target.AddBuff(ModContent.BuffType<Midas>(), 300);
+                target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
+                target.AddBuff(ModContent.BuffType<MidasBuff>(), 300);
             }
             target.AddBuff(BuffID.Bleeding, 300);
         }

@@ -52,7 +52,7 @@ Grants autofire to all weapons (this effect also works in your inventory)
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Webbed] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Purified>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.PurifiedBuff>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().TribalCharm = true;
             player.GetModPlayer<FargoSoulsPlayer>().TribalCharmEquipped = true;
         }

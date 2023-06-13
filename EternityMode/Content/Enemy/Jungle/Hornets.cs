@@ -104,8 +104,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Infested>(), 300);
-            target.AddBuff(ModContent.BuffType<Swarming>(), 600);
+            target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
+            target.AddBuff(ModContent.BuffType<SwarmingBuff>(), 600);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

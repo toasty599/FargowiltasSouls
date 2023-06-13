@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(ModContent.BuffType<Buffs.Minions.BrainMinion>(), 2);
+            player.AddBuff(ModContent.BuffType<Buffs.Minions.BrainMinionBuff>(), 2);
             Vector2 spawnPos = Main.MouseWorld;
             float usedminionslots = 0;
             var minions = Main.projectile.Where(x => x.minionSlots > 0 && x.owner == player.whoAmI && x.active);

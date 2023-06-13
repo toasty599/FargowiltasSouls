@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 180);
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.Hypothermia>(), 600);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.HypothermiaBuff>(), 600);
         }
 
         public override Color? GetAlpha(Color lightColor)

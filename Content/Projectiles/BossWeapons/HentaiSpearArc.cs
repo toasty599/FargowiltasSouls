@@ -178,7 +178,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoon>(), 600);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 600);
             target.immune[Projectile.owner] = 1;
         }
 

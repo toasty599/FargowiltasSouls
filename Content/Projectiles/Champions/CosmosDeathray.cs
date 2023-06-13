@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoon>(), 360);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 360);
             hasHit = true;
         }
     }

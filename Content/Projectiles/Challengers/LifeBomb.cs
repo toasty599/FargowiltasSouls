@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Smite>(), 600);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);
         }
 
         public override void Kill(int timeLeft)

@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.Infested>()] = true;
+            player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.InfestedBuff>()] = true;
 
             // Bees
             player.npcTypeNoAggro[NPCID.Bee] = true;

@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             if (npc != null)
             {
                 target.AddBuff(BuffID.BrokenArmor, 600);
-                target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
                 target.AddBuff(BuffID.WitheredArmor, 600);
                 if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16] == null || //outside temple
                     Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].WallType != WallID.LihzahrdBrickUnsafe)

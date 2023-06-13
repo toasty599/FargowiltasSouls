@@ -409,9 +409,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<GodEater>(), 420);
-            target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 420);
-            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 420);
+            target.AddBuff(ModContent.BuffType<GodEaterBuff>(), 420);
+            target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 420);
+            target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 420);
 
             //target.immune = false; //handled by special checks in ai
             //target.immuneTime = 0;

@@ -49,7 +49,7 @@ Counter an attack to gain life based on the blocked damage
             player.GetCritChance(DamageClass.Generic) += 5;
             if (player.GetToggleValue("MasoPump"))
                 fargoPlayer.PumpkingsCapeItem = Item;
-            player.buffImmune[ModContent.BuffType<LivingWasteland>()] = true;
+            player.buffImmune[ModContent.BuffType<LivingWastelandBuff>()] = true;
         }
     }
 }

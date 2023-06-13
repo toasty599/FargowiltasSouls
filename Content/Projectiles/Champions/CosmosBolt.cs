@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
+                target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
         }
 
         public override Color? GetAlpha(Color lightColor)

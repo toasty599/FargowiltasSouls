@@ -38,7 +38,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.OnFirstTick(npc);
 
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
 
         public override void AI(NPC npc)
@@ -112,7 +112,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
+            target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 600);
             target.AddBuff(BuffID.Frostburn, 180);
             target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
         }

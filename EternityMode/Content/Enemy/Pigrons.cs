@@ -19,10 +19,10 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<SqueakyToy>(), 120);
-            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+            target.AddBuff(ModContent.BuffType<SqueakyToyBuff>(), 120);
+            target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
             target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
-            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
+            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 1800);
         }
 
         public override void OnKill(NPC npc)

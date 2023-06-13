@@ -45,7 +45,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<ClippedWings>(), 300);
+            target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 300);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

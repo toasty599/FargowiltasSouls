@@ -347,8 +347,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
-            target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
+            target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
+            target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)
@@ -464,7 +464,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
+            target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
             target.AddBuff(BuffID.Dazed, 60);
         }
 

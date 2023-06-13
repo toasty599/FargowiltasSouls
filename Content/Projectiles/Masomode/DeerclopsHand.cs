@@ -50,8 +50,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     if (player.active && !player.dead && !player.ghost && Projectile.Colliding(Projectile.Hitbox, player.Hitbox))
                     {
                         player.frozen = true;
-                        player.AddBuff(ModContent.BuffType<MarkedforDeath>(), 2);
-                        player.AddBuff(ModContent.BuffType<Grabbed>(), 2);
+                        player.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 2);
+                        player.AddBuff(ModContent.BuffType<GrabbedBuff>(), 2);
 
                         if (oldMash < player.GetModPlayer<FargoSoulsPlayer>().MashCounter)
                         {
@@ -121,8 +121,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 90);
-            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 900);
-            target.AddBuff(ModContent.BuffType<Hypothermia>(), 1200);
+            target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
+            target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
         }
 
         //public override Color? GetAlpha(Color lightColor)

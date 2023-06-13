@@ -50,11 +50,11 @@ namespace FargowiltasSouls.Content.NPCs.AbomBoss
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>(),
-                    ModContent.BuffType<MutantNibble>(),
-                    ModContent.BuffType<OceanicMaul>(),
-                    ModContent.BuffType<LightningRod>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>(),
+                    ModContent.BuffType<MutantNibbleBuff>(),
+                    ModContent.BuffType<OceanicMaulBuff>(),
+                    ModContent.BuffType<LightningRodBuff>()
                 }
             });
         }
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Content.NPCs.AbomBoss
             }
             else if (NPC.localAI[3] == 1)
             {
-                EModeGlobalNPC.Aura(NPC, 2000f, true, 86, default, ModContent.BuffType<GodEater>());
+                EModeGlobalNPC.Aura(NPC, 2000f, true, 86, default, ModContent.BuffType<GodEaterBuff>());
             }
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -231,7 +231,7 @@ namespace FargowiltasSouls.Content.NPCs.AbomBoss
             if (Main.player[Main.myPlayer].active && NPC.Distance(Main.player[Main.myPlayer].Center) < 3000f)
             {
                 if (FargoSoulsWorld.EternityMode)
-                    Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<Buffs.Boss.AbomPresence>(), 2);
+                    Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<Buffs.Boss.AbomPresenceBuff>(), 2);
             }
 
             Player player = Main.player[NPC.target];
@@ -1493,7 +1493,7 @@ namespace FargowiltasSouls.Content.NPCs.AbomBoss
             if (FargoSoulsWorld.EternityMode)
             {
                 //target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
-                target.AddBuff(ModContent.BuffType<AbomFang>(), 300);
+                target.AddBuff(ModContent.BuffType<AbomFangBuff>(), 300);
                 //target.AddBuff(ModContent.BuffType<Unstable>(), 240);
                 target.AddBuff(ModContent.BuffType<Berserked>(), 120);
             }

@@ -197,7 +197,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             target.AddBuff(BuffID.Electrified, 360);
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.LightningRod>(), 360);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.LightningRodBuff>(), 360);
         }
 
         public override Color? GetAlpha(Color lightColor)

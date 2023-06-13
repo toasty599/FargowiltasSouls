@@ -27,7 +27,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Unstable>(), 240);
+            target.AddBuff(ModContent.BuffType<UnstableBuff>(), 240);
         }
     }
 }

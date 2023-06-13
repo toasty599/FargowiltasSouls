@@ -36,8 +36,8 @@ Reduces damage taken by 5%
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Defenseless>()] = true;
-            player.buffImmune[ModContent.BuffType<NanoInjection>()] = true;
+            player.buffImmune[ModContent.BuffType<DefenselessBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<NanoInjectionBuff>()] = true;
             player.endurance += 0.05f;
             player.noKnockback = true;
         }

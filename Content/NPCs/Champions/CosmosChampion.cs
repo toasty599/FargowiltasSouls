@@ -49,10 +49,10 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     BuffID.OnFire,
                     BuffID.Suffocation,
                     BuffID.Lovestruck,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>(),
-                    ModContent.BuffType<TimeFrozen>(),
-                    ModContent.BuffType<LightningRod>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>(),
+                    ModContent.BuffType<TimeFrozenBuff>(),
+                    ModContent.BuffType<LightningRodBuff>()
                 }
             });
 
@@ -1497,14 +1497,14 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         if (Main.LocalPlayer.active && !Main.LocalPlayer.dead)
                         {
-                            Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeFrozen>(), duration);
+                            Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), duration);
                             //Main.LocalPlayer.AddBuff(BuffID.ChaosState, 300); //no cheesing this attack
                         }
 
                         for (int i = 0; i < Main.maxNPCs; i++)
                         {
                             if (Main.npc[i].active)
-                                Main.npc[i].AddBuff(ModContent.BuffType<TimeFrozen>(), duration, true);
+                                Main.npc[i].AddBuff(ModContent.BuffType<TimeFrozenBuff>(), duration, true);
                         }
 
                         for (int i = 0; i < Main.maxProjectiles; i++)

@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 return;
             }
 
-            if (player.HasBuff(ModContent.BuffType<Buffs.Souls.TimeFrozen>()))
+            if (player.HasBuff(ModContent.BuffType<Buffs.Souls.TimeFrozenBuff>()))
             {
                 Projectile.Kill();
                 return;

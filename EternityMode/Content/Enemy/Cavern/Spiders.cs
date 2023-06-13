@@ -60,7 +60,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                         int b = player.FindBuffIndex(BuffID.Webbed);
                         TargetIsWebbed = b != -1; //remember if target is webbed until counter activates again
                         if (TargetIsWebbed)
-                            player.AddBuff(ModContent.BuffType<Defenseless>(), player.buffTime[b]);
+                            player.AddBuff(ModContent.BuffType<DefenselessBuff>(), player.buffTime[b]);
                     }
                 }
 
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Infested>(), 300);
+            target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

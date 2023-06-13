@@ -222,7 +222,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(ModContent.BuffType<Berserked>(), 300);
-            target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
+            target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
         }
 
         public override Color? GetAlpha(Color lightColor)

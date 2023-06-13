@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Guilty>(), 300);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.GuiltyBuff>(), 300);
         }
 
         public override Color? GetAlpha(Color lightColor)

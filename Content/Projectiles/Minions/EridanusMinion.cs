@@ -298,7 +298,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Projectile.velocity.Y = cap * Math.Sign(Projectile.velocity.Y);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) => target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoon>(), 360);
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) => target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 360);
 
         public override bool? CanCutTiles() => false;
 

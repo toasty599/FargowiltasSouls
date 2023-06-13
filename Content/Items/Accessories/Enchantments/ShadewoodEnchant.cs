@@ -58,7 +58,7 @@ Enemies struck while Bleeding spew damaging blood
                 {
                     Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
                     if (player.Distance(npcComparePoint) < dist && (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
-                        npc.AddBuff(ModContent.BuffType<SuperBleed>(), 120);
+                        npc.AddBuff(ModContent.BuffType<SuperBleedBuff>(), 120);
                 }
             }
 
@@ -99,7 +99,7 @@ Enemies struck while Bleeding spew damaging blood
                 dmg *= 3;
             }
 
-            if (target.HasBuff(ModContent.BuffType<SuperBleed>()) && (trueMelee || modPlayer.ShadewoodCD == 0) && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
+            if (target.HasBuff(ModContent.BuffType<SuperBleedBuff>()) && (trueMelee || modPlayer.ShadewoodCD == 0) && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
             {
                 for (int i = 0; i < Main.rand.Next(3, 6); i++)
                 {

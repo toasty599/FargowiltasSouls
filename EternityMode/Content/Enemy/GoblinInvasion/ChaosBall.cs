@@ -22,7 +22,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+            target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
         }
     }
 }

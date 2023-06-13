@@ -15,8 +15,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Rotting>(), 600);
-            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+            target.AddBuff(ModContent.BuffType<RottingBuff>(), 600);
+            target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
         }
 
         public override void OnKill(NPC npc)

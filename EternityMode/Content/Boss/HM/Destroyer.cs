@@ -75,14 +75,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[BuffID.Chilled] = false;
-            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
+            npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = false;
         }
 
         private int ProjectileDamage(NPC npc) => FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 9);
 
         private void CoilAI(NPC npc)
         {
-            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
+            npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = true;
 
             npc.netUpdate = true;
             npc.velocity = Vector2.Normalize(npc.velocity) * 20f;
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             {
                 if (--npc.localAI[2] < 0) //shoot star spreads into the circle
                 {
-                    npc.localAI[2] = Main.player[npc.target].HasBuff(ModContent.BuffType<LightningRod>()) ? 110 : 65;
+                    npc.localAI[2] = Main.player[npc.target].HasBuff(ModContent.BuffType<LightningRodBuff>()) ? 110 : 65;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
@@ -219,7 +219,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         private void NonCoilAI(NPC npc)
         {
-            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
+            npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = false;
 
             npc.localAI[2] = 0;
 
@@ -742,7 +742,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Electrified, 60);
-            target.AddBuff(ModContent.BuffType<LightningRod>(), 600);
+            target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -804,7 +804,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[BuffID.Chilled] = false;
-            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
+            npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = false;
         }
 
         public override bool SafePreAI(NPC npc)
@@ -832,7 +832,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             npc.defense = npc.defDefense;
             npc.localAI[0] = 0f; //disable vanilla lasers
-            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = destroyer.buffImmune[ModContent.BuffType<TimeFrozen>()];
+            npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = destroyer.buffImmune[ModContent.BuffType<TimeFrozenBuff>()];
 
             if (destroyerEmode.IsCoiling) //spinning
             {
@@ -921,7 +921,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }
 
-            if (npc.buffType[0] != 0 && npc.buffType[0] != BuffID.Chilled && npc.buffType[0] != ModContent.BuffType<TimeFrozen>())
+            if (npc.buffType[0] != 0 && npc.buffType[0] != BuffID.Chilled && npc.buffType[0] != ModContent.BuffType<TimeFrozenBuff>())
                 npc.DelBuff(0);
 
             return result;
@@ -994,7 +994,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Electrified, 60);
-            target.AddBuff(ModContent.BuffType<LightningRod>(), 600);
+            target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

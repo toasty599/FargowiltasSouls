@@ -553,12 +553,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             if (FargoSoulsWorld.MasochistModeReal)
             {
-                target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                 target.AddBuff(BuffID.Bleeding, 600);
                 target.AddBuff(BuffID.Obstructed, 15);
             }
 
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 120);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 120);
             target.AddBuff(ModContent.BuffType<Berserked>(), 300);
         }
 

@@ -162,7 +162,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFang>(), 300);
+                target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 target.AddBuff(BuffID.Burning, 180);
             }
             target.AddBuff(BuffID.WitheredArmor, 600);

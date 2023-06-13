@@ -45,7 +45,7 @@ Press the Bomb key to use your freeze bomb
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.endurance += 0.05f;
-            player.buffImmune[ModContent.BuffType<Hypothermia>()] = true;
+            player.buffImmune[ModContent.BuffType<HypothermiaBuff>()] = true;
             Effects(player, Item);
         }
 

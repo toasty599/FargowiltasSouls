@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
             Item.UseSound = SoundID.Item82;
             Item.value = Item.sellPrice(0, 25);
             Item.rare = ItemRarityID.Purple;
-            Item.buffType = ModContent.BuffType<TwinsEX>();
+            Item.buffType = ModContent.BuffType<TwinsEXBuff>();
             Item.shoot = ModContent.ProjectileType<OpticRetinazer>();
             Item.shootSpeed = 10f;
         }

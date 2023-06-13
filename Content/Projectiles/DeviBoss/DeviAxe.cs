@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
         {
             target.velocity.X = target.Center.X < Main.npc[(int)Projectile.ai[0]].Center.X ? -15f : 15f;
             target.velocity.Y = -10f;
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.Lovestruck>(), 240);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.LovestruckBuff>(), 240);
         }
     }
 }

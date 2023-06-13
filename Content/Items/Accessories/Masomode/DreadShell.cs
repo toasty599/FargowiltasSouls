@@ -47,7 +47,7 @@ Absorb Anticoagulation blood clots to gain 30% increased damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
+            player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;
 
             player.noKnockback = true;
 

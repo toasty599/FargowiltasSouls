@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<Guilty>(), 120);
+                target.AddBuff(ModContent.BuffType<GuiltyBuff>(), 120);
         }
 
         public override void Kill(int timeLeft)

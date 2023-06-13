@@ -35,9 +35,9 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>(),
-                    ModContent.BuffType<LightningRod>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>(),
+                    ModContent.BuffType<LightningRodBuff>()
                 }
             });
         }

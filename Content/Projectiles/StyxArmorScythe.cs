@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.ShadowFlame, 300);
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibble>(), 300);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibbleBuff>(), 300);
         }
 
         public override bool PreDraw(ref Color lightColor)

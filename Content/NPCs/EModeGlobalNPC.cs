@@ -128,13 +128,13 @@ namespace FargowiltasSouls.Content.NPCs
 
                 if (npc.wet && !npc.noTileCollide && !isWaterEnemy && npc.HasPlayerTarget)
                 {
-                    npc.AddBuff(ModContent.BuffType<Lethargic>(), 2, true);
+                    npc.AddBuff(ModContent.BuffType<LethargicBuff>(), 2, true);
                     if (Main.player[npc.target].ZoneCorrupt)
                         npc.AddBuff(BuffID.CursedInferno, 2, true);
                     if (Main.player[npc.target].ZoneCrimson)
                         npc.AddBuff(BuffID.Ichor, 2, true);
                     if (Main.player[npc.target].ZoneHallow)
-                        npc.AddBuff(ModContent.BuffType<Smite>(), 2, true);
+                        npc.AddBuff(ModContent.BuffType<SmiteBuff>(), 2, true);
                     if (Main.player[npc.target].ZoneJungle)
                         npc.AddBuff(BuffID.Poisoned, 2, true);
                 }
@@ -1206,7 +1206,7 @@ namespace FargowiltasSouls.Content.NPCs
             if (FargoSoulsWorld.EternityMode)
             {
                 if (NPCID.Sets.CountsAsCritter[npc.type]) //npc.catchItem != 0 && npc.lifeMax == 5)
-                    player.AddBuff(ModContent.BuffType<Guilty>(), 300);
+                    player.AddBuff(ModContent.BuffType<GuiltyBuff>(), 300);
             }
         }
 
@@ -1219,7 +1219,7 @@ namespace FargowiltasSouls.Content.NPCs
             if (FargoSoulsWorld.EternityMode)
             {
                 if (NPCID.Sets.CountsAsCritter[npc.type] /*npc.catchItem != 0 && npc.lifeMax == 5*/ && projectile.friendly && !projectile.hostile && projectile.type != ProjectileID.FallingStar)
-                    player.AddBuff(ModContent.BuffType<Guilty>(), 300);
+                    player.AddBuff(ModContent.BuffType<GuiltyBuff>(), 300);
             }
         }
 
@@ -1261,7 +1261,7 @@ namespace FargowiltasSouls.Content.NPCs
             if (target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown <= 0 && !item.IsAir)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown = 900; //trust me, keep these separate
-                target.AddBuff(ModContent.BuffType<ThiefCD>(), 900);
+                target.AddBuff(ModContent.BuffType<ThiefCDBuff>(), 900);
 
 
                 //int i = Item.NewItem(target.GetSource_DropAsItem("Stolen"), (int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, item.stack, false, -1, false, false);

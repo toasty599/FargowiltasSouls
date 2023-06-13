@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoon>(), 360);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 360);
             target.velocity.X = target.Center.X < Projectile.Center.X ? -15f : 15f;
             target.velocity.Y = -10f;
         }

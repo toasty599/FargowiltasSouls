@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             {
                 target.AddBuff(BuffID.Frostburn, 300);
                 target.AddBuff(BuffID.OnFire, 300);
-                target.AddBuff(ModContent.BuffType<Infested>(), 300);
+                target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
             }
         }
     }

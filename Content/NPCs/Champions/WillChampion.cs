@@ -41,8 +41,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>()
                 }
             });
 
@@ -705,8 +705,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
-                target.AddBuff(ModContent.BuffType<Midas>(), 300);
+                target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
+                target.AddBuff(ModContent.BuffType<MidasBuff>(), 300);
             }
             target.AddBuff(BuffID.Bleeding, 300);
         }

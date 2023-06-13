@@ -35,8 +35,8 @@ Drastically improves reforges
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.Midas>()] = true;
-            player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.LoosePockets>()] = true;
+            player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.MidasBuff>()] = true;
+            player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.LoosePocketsBuff>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().SecurityWallet = true;
         }
     }

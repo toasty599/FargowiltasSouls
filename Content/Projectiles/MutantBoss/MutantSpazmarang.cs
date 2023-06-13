@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         {
             target.AddBuff(BuffID.CursedInferno, 120);
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
         }
     }
 }

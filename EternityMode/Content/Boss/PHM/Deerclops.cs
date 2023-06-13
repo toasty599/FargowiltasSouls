@@ -118,7 +118,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 TeleportTimer++;
 
             if (Main.LocalPlayer.active && !Main.LocalPlayer.ghost && !Main.LocalPlayer.dead && npc.Distance(Main.LocalPlayer.Center) < 1000)
-                Main.LocalPlayer.AddBuff(ModContent.BuffType<LowGround>(), 2);
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<LowGroundBuff>(), 2);
 
             switch ((int)npc.ai[0])
             {
@@ -454,8 +454,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Frostburn, 90);
-            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
-            target.AddBuff(ModContent.BuffType<Hypothermia>(), 1200);
+            target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
+            target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

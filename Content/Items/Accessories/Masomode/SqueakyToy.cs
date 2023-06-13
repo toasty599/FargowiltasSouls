@@ -34,8 +34,8 @@ Attacks have a chance to squeak and deal 1 damage to you
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToy>()] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Guilty>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.GuiltyBuff>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().SqueakyAcc = true;
         }
     }

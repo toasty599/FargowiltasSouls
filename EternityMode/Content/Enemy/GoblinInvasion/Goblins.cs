@@ -67,11 +67,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
             base.OnHitPlayer(npc, target, damage, crit);
 
             if (Main.hardMode)
-                target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
 
             if (npc.type == NPCID.GoblinThief)
             {
-                target.AddBuff(ModContent.BuffType<Midas>(), 600);
+                target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
 
                 //if (target.whoAmI == Main.myPlayer && target.HasBuff(ModContent.BuffType<LoosePockets>()))
                 //{

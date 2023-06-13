@@ -20,7 +20,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
         {
             base.AI(npc);
 
-            EModeGlobalNPC.Aura(npc, 400, ModContent.BuffType<LightningRod>(), false, DustID.Vortex);
+            EModeGlobalNPC.Aura(npc, 400, ModContent.BuffType<LightningRodBuff>(), false, DustID.Vortex);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

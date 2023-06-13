@@ -142,10 +142,10 @@ namespace FargowiltasSouls.Content.Items
             //}
 
             //dont use hotkeys in stasis
-            if (player.HasBuff(ModContent.BuffType<GoldenStasis>()))
+            if (player.HasBuff(ModContent.BuffType<GoldenStasisBuff>()))
             {
                 if (item.type == ItemID.RodofDiscord)
-                    player.ClearBuff(ModContent.BuffType<GoldenStasis>());
+                    player.ClearBuff(ModContent.BuffType<GoldenStasisBuff>());
                 else
                     return false;
             }
@@ -241,10 +241,10 @@ namespace FargowiltasSouls.Content.Items
         {
             if (item.type == ItemID.RodofDiscord)
             {
-                player.ClearBuff(ModContent.BuffType<GoldenStasis>());
+                player.ClearBuff(ModContent.BuffType<GoldenStasisBuff>());
 
                 if (player.GetModPlayer<FargoSoulsPlayer>().CrystalEnchantActive)
-                    player.AddBuff(ModContent.BuffType<FirstStrike>(), 60);
+                    player.AddBuff(ModContent.BuffType<FirstStrikeBuff>(), 60);
             }
 
             return base.UseItem(item, player);

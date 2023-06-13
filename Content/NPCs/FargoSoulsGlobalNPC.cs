@@ -531,7 +531,7 @@ namespace FargowiltasSouls.Content.NPCs
             {
                 if (Main.rand.NextBool())
                 {
-                    float ratio = (float)PungentGazeTime / PungentGaze.MAX_TIME;
+                    float ratio = (float)PungentGazeTime / PungentGazeBuff.MAX_TIME;
                     int d = Dust.NewDust(npc.Center, 0, 0, DustID.GemRuby, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 0, Color.White);
                     Main.dust[d].scale = MathHelper.Lerp(0.5f, 3f, ratio);
                     Main.dust[d].velocity *= Main.dust[d].scale;
@@ -761,7 +761,7 @@ namespace FargowiltasSouls.Content.NPCs
 
         private int InfestedExtraDot(NPC npc)
         {
-            int buffIndex = npc.FindBuffIndex(ModContent.BuffType<Infested>());
+            int buffIndex = npc.FindBuffIndex(ModContent.BuffType<InfestedBuff>());
             if (buffIndex == -1)
                 return 0;
 
@@ -1067,7 +1067,7 @@ namespace FargowiltasSouls.Content.NPCs
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
         {
-            if (target.HasBuff(ModContent.BuffType<ShellHide>()))
+            if (target.HasBuff(ModContent.BuffType<ShellHideBuff>()))
                 damage *= 2;
 
             if (BloodDrinker)
@@ -1111,7 +1111,7 @@ namespace FargowiltasSouls.Content.NPCs
 
             if (PungentGazeTime > 0)
             {
-                damage *= 1.0 + 0.15 * PungentGazeTime / PungentGaze.MAX_TIME;
+                damage *= 1.0 + 0.15 * PungentGazeTime / PungentGazeBuff.MAX_TIME;
             }
 
             //            //if (modPlayer.KnightEnchant && Villain && !npc.boss)

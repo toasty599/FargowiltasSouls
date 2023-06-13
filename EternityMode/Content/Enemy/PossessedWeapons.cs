@@ -41,11 +41,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnHitPlayer(npc, target, damage, crit);
 
             if (npc.type == NPCID.EnchantedSword)
-                target.AddBuff(ModContent.BuffType<Purified>(), 300);
+                target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
             else if (npc.type == NPCID.CursedHammer)
-                target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
+                target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
             else if (npc.type == NPCID.CrimsonAxe)
-                target.AddBuff(ModContent.BuffType<Infested>(), 300);
+                target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
 
         public override void AI(NPC npc)
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                 npc.damage += 150;
                 npc.defDamage += 150;
                 npc.netUpdate = true;
-                npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+                npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
             }
 
             if (SpawnedDuringLunarEvent && ShieldStrength > NPC.LunarShieldPowerExpert)
@@ -90,9 +90,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             if (SpawnedDuringLunarEvent)
             {
                 Aura(ModContent.BuffType<Atrophied>());
-                Aura(ModContent.BuffType<Jammed>());
-                Aura(ModContent.BuffType<ReverseManaFlow>());
-                Aura(ModContent.BuffType<Antisocial>());
+                Aura(ModContent.BuffType<JammedBuff>());
+                Aura(ModContent.BuffType<ReverseManaFlowBuff>());
+                Aura(ModContent.BuffType<AntisocialBuff>());
 
                 if (++AuraSync > 60)
                 {
@@ -132,7 +132,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
         }
 
         public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
@@ -192,7 +192,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         public override NPCMatcher CreateMatcher() =>
             new NPCMatcher().MatchType(NPCID.LunarTowerVortex);
 
-        public LunarTowerVortex() : base(ModContent.BuffType<Jammed>(), DustID.Vortex) { }
+        public LunarTowerVortex() : base(ModContent.BuffType<JammedBuff>(), DustID.Vortex) { }
 
         public override void ShieldsDownAI(NPC npc)
         {
@@ -247,7 +247,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         public override NPCMatcher CreateMatcher() =>
             new NPCMatcher().MatchType(NPCID.LunarTowerNebula);
 
-        public LunarTowerNebula() : base(ModContent.BuffType<ReverseManaFlow>(), 58) { }
+        public LunarTowerNebula() : base(ModContent.BuffType<ReverseManaFlowBuff>(), 58) { }
 
         public override void ShieldsDownAI(NPC npc)
         {
@@ -325,7 +325,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         public override NPCMatcher CreateMatcher() =>
             new NPCMatcher().MatchType(NPCID.LunarTowerStardust);
 
-        public LunarTowerStardust() : base(ModContent.BuffType<Antisocial>(), 20) { }
+        public LunarTowerStardust() : base(ModContent.BuffType<AntisocialBuff>(), 20) { }
 
         public override void ShieldsDownAI(NPC npc)
         {

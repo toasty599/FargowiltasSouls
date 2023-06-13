@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Midas>(), 600);
+            target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
         }
     }
 }

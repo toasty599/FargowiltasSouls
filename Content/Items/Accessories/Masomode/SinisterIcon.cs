@@ -38,8 +38,8 @@ Non-boss enemies will drop doubled loot
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Unlucky>()] = true;
-            player.buffImmune[ModContent.BuffType<Stunned>()] = true;
+            player.buffImmune[ModContent.BuffType<UnluckyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<StunnedBuff>()] = true;
 
             if (player.GetToggleValue("MasoIcon"))
                 player.GetModPlayer<FargoSoulsPlayer>().SinisterIcon = true;

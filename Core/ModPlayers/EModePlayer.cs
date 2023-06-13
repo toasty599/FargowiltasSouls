@@ -207,14 +207,14 @@ namespace FargowiltasSouls.Core.ModPlayers
                                     && !Main.wallHouse[Framing.GetTileSafely(Player.BottomLeft).WallType]
                                     && !Main.wallHouse[Framing.GetTileSafely(Player.BottomRight).WallType])
                                 {
-                                    Player.AddBuff(ModContent.BuffType<FlippedHallow>(), 90);
+                                    Player.AddBuff(ModContent.BuffType<FlippedHallowBuff>(), 90);
                                 }
                             }
                         }
                     }
 
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !fargoSoulsPlayer.MutantAntibodies)
-                        Player.AddBuff(ModContent.BuffType<Smite>(), 2);
+                        Player.AddBuff(ModContent.BuffType<SmiteBuff>(), 2);
                 }
 
                 if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight)
@@ -225,7 +225,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     if (currentTile.WallType == WallID.None)
                     {
                         if (Player.ZoneSnow)
-                            Player.AddBuff(ModContent.BuffType<Hypothermia>(), 2);
+                            Player.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 2);
                         else
                             Player.AddBuff(BuffID.Wet, 2);
                         /*if (Main.hardMode)
@@ -252,7 +252,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
 
                 if (Player.wet && !Player.lavaWet && !Player.honeyWet && !(Player.accFlipper || Player.gills || fargoSoulsPlayer.MutantAntibodies))
-                    Player.AddBuff(ModContent.BuffType<Lethargic>(), 2);
+                    Player.AddBuff(ModContent.BuffType<LethargicBuff>(), 2);
 
                 if (!fargoSoulsPlayer.PureHeart && !Player.buffImmune[BuffID.Suffocation] && Player.ZoneSkyHeight && Player.whoAmI == Main.myPlayer)
                 {
@@ -439,7 +439,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         private void ShadowDodgeNerf()
         {
             if (Player.shadowDodge) //prehurt hook not called on titanium dodge
-                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
+                Player.AddBuff(ModContent.BuffType<HolyPriceBuff>(), 600);
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
@@ -467,7 +467,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //because NO MODIFY/ONHITPLAYER HOOK WORKS
             if (damageSource.SourceProjectileType is int && damageSource.SourceProjectileType == ProjectileID.Explosives)
-                Player.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+                Player.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
 
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
@@ -612,7 +612,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!FargoSoulsWorld.EternityMode)
                 return base.ModifyNurseHeal(nurse, ref health, ref removeDebuffs, ref chatText);
 
-            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<RushJob>()))
+            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<RushJobBuff>()))
             {
                 chatText = "I've done all I can in the time I have!";
                 return false;
@@ -627,7 +627,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             if (FargoSoulsUtil.AnyBossAlive())
-                Main.LocalPlayer.AddBuff(ModContent.BuffType<RushJob>(), 10);
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<RushJobBuff>(), 10);
         }
     }
 }

@@ -74,13 +74,13 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             target.AddBuff(BuffID.Darkness, 300);
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                 target.AddBuff(BuffID.Blackout, 300);
-                target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
-                target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
+                target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
+                target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
             }
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
-                target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
+                target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 300);
         }
 
         public override bool PreDraw(ref Color lightColor)

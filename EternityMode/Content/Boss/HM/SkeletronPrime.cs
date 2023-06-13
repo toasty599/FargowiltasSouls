@@ -332,8 +332,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Defenseless>(), 480);
-            target.AddBuff(ModContent.BuffType<NanoInjection>(), 360);
+            target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 480);
+            target.AddBuff(ModContent.BuffType<NanoInjectionBuff>(), 360);
         }
 
         public override bool CheckDead(NPC npc)
@@ -464,8 +464,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
+            npc.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;
         }
 
         public override bool SafePreAI(NPC npc)
@@ -966,7 +966,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<NanoInjection>(), 360);
+            target.AddBuff(ModContent.BuffType<NanoInjectionBuff>(), 360);
         }
 
         public override bool CheckDead(NPC npc)

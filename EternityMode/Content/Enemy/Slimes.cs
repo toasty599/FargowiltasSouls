@@ -136,7 +136,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
                     if (npc.netID == NPCID.Pinky)
                     {
-                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
                         target.velocity = Vector2.Normalize(target.Center - npc.Center) * 30;
                     }
                     break;
@@ -147,7 +147,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
                 case NPCID.IceSlime:
                 case NPCID.SpikedIceSlime:
-                    target.AddBuff(ModContent.BuffType<Hypothermia>(), 300);
+                    target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 300);
                     break;
 
                 case NPCID.JungleSlime:
@@ -156,27 +156,27 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                     break;
 
                 case NPCID.MotherSlime:
-                    target.AddBuff(ModContent.BuffType<Antisocial>(), 1200);
+                    target.AddBuff(ModContent.BuffType<AntisocialBuff>(), 1200);
                     break;
 
                 case NPCID.ToxicSludge:
-                    target.AddBuff(ModContent.BuffType<Infested>(), 360);
+                    target.AddBuff(ModContent.BuffType<InfestedBuff>(), 360);
                     break;
 
                 case NPCID.CorruptSlime:
-                    target.AddBuff(ModContent.BuffType<Rotting>(), 1200);
+                    target.AddBuff(ModContent.BuffType<RottingBuff>(), 1200);
                     break;
 
                 case NPCID.Crimslime:
-                    target.AddBuff(ModContent.BuffType<Bloodthirsty>(), 300);
+                    target.AddBuff(ModContent.BuffType<BloodthirstyBuff>(), 300);
                     break;
 
                 case NPCID.IlluminantSlime:
-                    target.AddBuff(ModContent.BuffType<Purified>(), 300);
+                    target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
                     break;
 
                 case NPCID.GoldenSlime:
-                    target.AddBuff(ModContent.BuffType<Midas>(), 600);
+                    target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
                     break;
 
                 default:

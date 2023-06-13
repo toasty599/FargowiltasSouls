@@ -48,7 +48,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             {
                 npc.knockBackResist = 0f;
 
-                EModeGlobalNPC.Aura(npc, 250, ModContent.BuffType<Lovestruck>(), true, DustID.PinkTorch);
+                EModeGlobalNPC.Aura(npc, 250, ModContent.BuffType<LovestruckBuff>(), true, DustID.PinkTorch);
 
                 if (--Counter < 0)
                 {
@@ -73,7 +73,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
+            target.AddBuff(ModContent.BuffType<LovestruckBuff>(), 240);
 
             npc.life += damage * 2;
             if (npc.life > npc.lifeMax)

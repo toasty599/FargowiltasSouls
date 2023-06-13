@@ -227,7 +227,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(BuffID.BrokenArmor, 300);
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoon>(), 300);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 300);
             }
         }
 

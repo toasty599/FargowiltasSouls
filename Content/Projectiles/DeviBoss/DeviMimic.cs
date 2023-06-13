@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.Purified>(), 300);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.PurifiedBuff>(), 300);
         }
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             target.AddBuff(BuffID.Bleeding, 600);
         }
     }

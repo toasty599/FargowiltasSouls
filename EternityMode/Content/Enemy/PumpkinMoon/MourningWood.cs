@@ -15,7 +15,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PumpkinMoon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Shadowflame>(), 360);
+            target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 360);
         }
     }
 }

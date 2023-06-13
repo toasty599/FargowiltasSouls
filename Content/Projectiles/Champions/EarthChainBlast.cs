@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(BuffID.Burning, 300);
-                target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
+                target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
             }
         }
 

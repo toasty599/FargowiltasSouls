@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<MarkedforDeath>()] = true;
+            player.buffImmune[ModContent.BuffType<MarkedforDeathBuff>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().CelestialRuneItem = Item;
             player.GetModPlayer<FargoSoulsPlayer>().AdditionalAttacks = true;
         }

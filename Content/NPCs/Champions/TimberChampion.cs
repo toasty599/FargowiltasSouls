@@ -40,8 +40,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>()
                 }
             });
 
@@ -659,7 +659,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<Guilty>(), 600);
+                target.AddBuff(ModContent.BuffType<GuiltyBuff>(), 600);
         }
 
         bool spawnPhase2 => Main.expertMode;

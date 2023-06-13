@@ -49,7 +49,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                     break;
 
                 case NPCID.IceBat:
-                    target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
+                    target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 600);
                     break;
 
                 case NPCID.Lavabat:
@@ -61,7 +61,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                     break;
 
                 case NPCID.GiantFlyingFox:
-                    target.AddBuff(ModContent.BuffType<Bloodthirsty>(), 300);
+                    target.AddBuff(ModContent.BuffType<BloodthirstyBuff>(), 300);
                     break;
 
                 default:

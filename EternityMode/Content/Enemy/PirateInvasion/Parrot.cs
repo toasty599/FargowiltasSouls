@@ -21,8 +21,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<SqueakyToy>(), 120);
-            target.AddBuff(ModContent.BuffType<Midas>(), 600);
+            target.AddBuff(ModContent.BuffType<SqueakyToyBuff>(), 120);
+            target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
             //target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
         }
     }

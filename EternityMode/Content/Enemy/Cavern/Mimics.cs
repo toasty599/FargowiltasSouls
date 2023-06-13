@@ -290,7 +290,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Midas>(), 600);
+            target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

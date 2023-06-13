@@ -28,7 +28,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             base.OnFirstTick(npc);
 
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
@@ -148,7 +148,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             {
                 if (npc.Distance(n.Center) < npc.width / 4)
                 {
-                    npc.AddBuff(ModContent.BuffType<BloodDrinker>(), 360);
+                    npc.AddBuff(ModContent.BuffType<BloodDrinkerBuff>(), 360);
 
                     //int heal = n.life;
                     //npc.life += heal;
@@ -178,7 +178,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+            target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
         }
 
         public override bool PreKill(NPC npc)
@@ -218,7 +218,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 1200);
+            target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 1200);
         }
     }
 }

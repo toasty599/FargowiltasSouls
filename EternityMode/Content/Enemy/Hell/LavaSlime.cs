@@ -54,7 +54,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Oiled>(), 900);
+            target.AddBuff(ModContent.BuffType<OiledBuff>(), 900);
             target.AddBuff(BuffID.OnFire, 300);
         }
 

@@ -22,8 +22,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Bloodthirsty>(), 240);
-            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+            target.AddBuff(ModContent.BuffType<BloodthirstyBuff>(), 240);
+            target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
         }
     }
 }

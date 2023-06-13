@@ -14,7 +14,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<LightningRod>(), 600);
+            target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
         }
     }
 }

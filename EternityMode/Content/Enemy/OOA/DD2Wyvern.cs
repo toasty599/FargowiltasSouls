@@ -20,7 +20,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
+            target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 300);
             target.AddBuff(BuffID.Rabies, 3600);
         }
     }

@@ -38,8 +38,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
-            target.AddBuff(ModContent.BuffType<Rotting>(), 1200);
+            target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
+            target.AddBuff(ModContent.BuffType<RottingBuff>(), 1200);
         }
     }
 }

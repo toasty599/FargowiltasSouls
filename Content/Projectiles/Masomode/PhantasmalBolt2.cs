@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoon>(), 360);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 360);
         }
 
         public override Color? GetAlpha(Color lightColor)

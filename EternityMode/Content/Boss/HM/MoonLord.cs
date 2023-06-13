@@ -32,8 +32,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnFirstTick(npc);
 
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
+            npc.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
         {
             int masoStateML = GetVulnerabilityState(npc);
-            if (item.CountsAsClass(DamageClass.Melee) && masoStateML > 0 && masoStateML < 4 && !player.buffImmune[ModContent.BuffType<NullificationCurse>()] && !FargoSoulsWorld.SwarmActive)
+            if (item.CountsAsClass(DamageClass.Melee) && masoStateML > 0 && masoStateML < 4 && !player.buffImmune[ModContent.BuffType<NullificationCurseBuff>()] && !FargoSoulsWorld.SwarmActive)
                 return false;
 
             return base.CanBeHitByItem(npc, player, item);
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
-            if (!Main.player[projectile.owner].buffImmune[ModContent.BuffType<NullificationCurse>()] && !FargoSoulsWorld.SwarmActive)
+            if (!Main.player[projectile.owner].buffImmune[ModContent.BuffType<NullificationCurseBuff>()] && !FargoSoulsWorld.SwarmActive)
             {
                 switch (GetVulnerabilityState(npc))
                 {
@@ -148,7 +148,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && VulnerabilityState >= 0 && VulnerabilityState <= 3)
-                Main.LocalPlayer.AddBuff(ModContent.BuffType<NullificationCurse>(), 2);
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<NullificationCurseBuff>(), 2);
 
             npc.position -= npc.velocity * 2f / 3f; //SLOW DOWN
 

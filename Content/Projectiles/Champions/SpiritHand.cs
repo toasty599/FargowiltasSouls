@@ -75,8 +75,8 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Infested>(), 360);
-                target.AddBuff(ModContent.BuffType<ClippedWings>(), 180);
+                target.AddBuff(ModContent.BuffType<InfestedBuff>(), 360);
+                target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 180);
             }
         }
 

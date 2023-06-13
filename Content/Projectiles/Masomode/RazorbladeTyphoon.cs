@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             //player.AddBuff(ModContent.BuffType<Defenseless>(), 600);
             //player.AddBuff(BuffID.WitheredWeapon, 600);
             player.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
-            player.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
+            player.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 1800);
         }
 
         public override void Kill(int timeLeft)

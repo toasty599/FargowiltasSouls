@@ -67,7 +67,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Lethargic>(), 600);
+            target.AddBuff(ModContent.BuffType<LethargicBuff>(), 600);
             target.AddBuff(BuffID.Blackout, 300);
             target.AddBuff(BuffID.NoBuilding, 300);
             

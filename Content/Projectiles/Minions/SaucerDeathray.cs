@@ -133,8 +133,8 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Electrified, 360);
-            target.AddBuff(ModContent.BuffType<ClippedWings>(), 30);
-            target.AddBuff(ModContent.BuffType<Lethargic>(), 30);
+            target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 30);
+            target.AddBuff(ModContent.BuffType<LethargicBuff>(), 30);
         }
     }
 }

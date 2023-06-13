@@ -29,14 +29,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             base.OnFirstTick(npc);
 
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
+            target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 300);
         }
     }
 

@@ -46,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<ClippedWings>(), 300);
+            target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 300);
             //if (target.whoAmI == Main.myPlayer && target.HasBuff(ModContent.BuffType<LoosePockets>()))
             //{
             //    bool stolen = false;

@@ -54,8 +54,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 }
             }
 
-            EModeGlobalNPC.Aura(npc, 450f, true, 74, Color.GreenYellow, ModContent.BuffType<Hexed>());
-            EModeGlobalNPC.Aura(npc, 150f, false, 73, default, ModContent.BuffType<Hexed>(), BuffID.Suffocation);
+            EModeGlobalNPC.Aura(npc, 450f, true, 74, Color.GreenYellow, ModContent.BuffType<HexedBuff>());
+            EModeGlobalNPC.Aura(npc, 150f, false, 73, default, ModContent.BuffType<HexedBuff>(), BuffID.Suffocation);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

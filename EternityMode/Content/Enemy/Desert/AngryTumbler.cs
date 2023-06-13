@@ -21,7 +21,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Crippled>(), 300);
+            target.AddBuff(ModContent.BuffType<CrippledBuff>(), 300);
         }
     }
 }

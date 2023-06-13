@@ -37,8 +37,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>()
                 }
             });
 
@@ -652,7 +652,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Guilty>(), 600);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.GuiltyBuff>(), 600);
         }
 
         public override void HitEffect(int hitDirection, double damage)

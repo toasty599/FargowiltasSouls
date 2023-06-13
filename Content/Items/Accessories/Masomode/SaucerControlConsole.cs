@@ -51,7 +51,7 @@ The saucer's tractor beam slows enemies hit by it
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.VortexDebuff] = true;
             if (player.GetToggleValue("MasoUfo"))
-                player.AddBuff(Terraria.ModLoader.ModContent.BuffType<Buffs.Minions.SaucerMinion>(), 2);
+                player.AddBuff(Terraria.ModLoader.ModContent.BuffType<Buffs.Minions.SaucerMinionBuff>(), 2);
         }
     }
 }

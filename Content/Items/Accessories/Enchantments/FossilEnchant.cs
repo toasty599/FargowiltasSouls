@@ -94,7 +94,7 @@ Collect the bones to heal for 20 HP each
                 CombatText.NewText(player.Hitbox, Color.SandyBrown, text, true);
                 Main.NewText(text, Color.SandyBrown);
 
-                player.AddBuff(ModContent.BuffType<FossilReviveCD>(), reviveCooldown);
+                player.AddBuff(ModContent.BuffType<FossilReviveCDBuff>(), reviveCooldown);
             };
 
             if (modPlayer.Eternity)

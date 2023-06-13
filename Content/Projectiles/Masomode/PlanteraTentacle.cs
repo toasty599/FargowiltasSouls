@@ -154,7 +154,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
+            target.AddBuff(ModContent.BuffType<IvyVenomBuff>(), 240);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
                     Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
             }
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
         }
 
         public override Color? GetAlpha(Color lightColor)

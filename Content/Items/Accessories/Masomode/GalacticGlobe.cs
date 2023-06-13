@@ -41,18 +41,18 @@ Increases flight time by 100%
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Flipped>()] = true;
-            player.buffImmune[ModContent.BuffType<FlippedHallow>()] = true;
-            player.buffImmune[ModContent.BuffType<NullificationCurse>()] = true;
-            player.buffImmune[ModContent.BuffType<Unstable>()] = true;
-            player.buffImmune[ModContent.BuffType<CurseoftheMoon>()] = true;
+            player.buffImmune[ModContent.BuffType<FlippedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<FlippedHallowBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<NullificationCurseBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<UnstableBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<CurseoftheMoonBuff>()] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
 
             if (player.GetToggleValue("MasoGrav"))
                 player.gravControl = true;
 
             if (player.GetToggleValue("MasoTrueEye"))
-                player.AddBuff(ModContent.BuffType<TrueEyes>(), 2);
+                player.AddBuff(ModContent.BuffType<TrueEyesBuff>(), 2);
 
             player.GetModPlayer<FargoSoulsPlayer>().GravityGlobeEXItem = Item;
             player.GetModPlayer<FargoSoulsPlayer>().WingTimeModifier += 1f;

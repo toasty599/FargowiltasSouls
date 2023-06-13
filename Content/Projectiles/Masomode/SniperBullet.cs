@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Defenseless>(), 1800);
+            target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 1800);
 
             /*int buffTime = 300;
             target.AddBuff(ModContent.BuffType<Crippled>(), buffTime);

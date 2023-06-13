@@ -165,7 +165,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[Projectile.owner] = 6;
-            target.AddBuff(ModContent.BuffType<LightningRod>(), Main.rand.Next(300, 1200));
+            target.AddBuff(ModContent.BuffType<LightningRodBuff>(), Main.rand.Next(300, 1200));
         }
 
         public override void Kill(int timeLeft)

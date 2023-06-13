@@ -22,7 +22,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
         {
             base.AI(npc);
 
-            EModeGlobalNPC.Aura(npc, 300, ModContent.BuffType<SqueakyToy>());
+            EModeGlobalNPC.Aura(npc, 300, ModContent.BuffType<SqueakyToyBuff>());
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Rabies, 1800);
-            target.AddBuff(ModContent.BuffType<Guilty>(), 300);
+            target.AddBuff(ModContent.BuffType<GuiltyBuff>(), 300);
         }
     }
 }

@@ -47,8 +47,8 @@ Endurance recovers when you reach full life again
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomFang>()] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomPresence>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomFangBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomPresenceBuff>()] = true;
 
             player.GetModPlayer<FargoSoulsPlayer>().AbomWandItem = Item;
             if (player.GetModPlayer<FargoSoulsPlayer>().AbomWandCD > 0)

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Bloodthirsty>(), 180);
+            target.AddBuff(ModContent.BuffType<BloodthirstyBuff>(), 180);
         }
     }
 }

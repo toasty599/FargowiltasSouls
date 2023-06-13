@@ -144,7 +144,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.LightningRod>(), 600);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.LightningRodBuff>(), 600);
 
             if (Projectile.timeLeft > 0)
                 Projectile.Kill();

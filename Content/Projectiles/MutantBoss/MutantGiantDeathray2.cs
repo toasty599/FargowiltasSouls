@@ -223,7 +223,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 Main.LocalPlayer.immuneTime = 0;
                 Main.LocalPlayer.hurtCooldowns[0] = 0;
                 Main.LocalPlayer.hurtCooldowns[1] = 0;
-                Main.LocalPlayer.ClearBuff(ModContent.BuffType<GoldenStasis>());
+                Main.LocalPlayer.ClearBuff(ModContent.BuffType<GoldenStasisBuff>());
             }
         }
 
@@ -260,10 +260,10 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
 
             //if (FargowiltasSouls.Instance.MasomodeEXLoaded) target.AddBuff(ModLoader.GetMod("MasomodeEX").BuffType("MutantJudgement"), 3600);
 

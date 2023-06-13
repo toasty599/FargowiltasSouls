@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 SpecificallyImmuneTo = new int[]
                 {
                     BuffID.Confused,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>()
                 }
             });
         }

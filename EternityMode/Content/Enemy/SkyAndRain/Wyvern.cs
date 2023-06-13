@@ -104,8 +104,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Crippled>(), 240);
-            target.AddBuff(ModContent.BuffType<ClippedWings>(), 240);
+            target.AddBuff(ModContent.BuffType<CrippledBuff>(), 240);
+            target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 240);
         }
     }
 }

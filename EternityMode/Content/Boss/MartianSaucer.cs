@@ -40,7 +40,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.OnFirstTick(npc);
 
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
 
         public override bool SafePreAI(NPC npc)

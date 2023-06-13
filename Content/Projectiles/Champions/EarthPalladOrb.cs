@@ -117,8 +117,8 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Purified>(), 300);
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Lethargic>(), 300);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.PurifiedBuff>(), 300);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.LethargicBuff>(), 300);
             }
 
             if (Projectile.timeLeft > 0)

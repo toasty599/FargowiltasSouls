@@ -22,7 +22,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PumpkinMoon
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Rabies, 3600);
-            target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
+            target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 600);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             {
                 target.AddBuff(BuffID.OnFire, 300);
                 target.AddBuff(BuffID.Electrified, 300);
-                target.AddBuff(ModContent.BuffType<Hexed>(), 300);
+                target.AddBuff(ModContent.BuffType<HexedBuff>(), 300);
                 target.AddBuff(BuffID.Frostburn, 300);
             }
         }

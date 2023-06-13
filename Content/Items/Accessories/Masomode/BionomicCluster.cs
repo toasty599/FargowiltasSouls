@@ -74,8 +74,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.buffImmune[BuffID.WindPushed] = true;
             player.buffImmune[BuffID.Suffocation] = true;
             player.buffImmune[BuffID.Chilled] = true;
-            player.buffImmune[ModContent.BuffType<Guilty>()] = true;
-            player.buffImmune[ModContent.BuffType<LoosePockets>()] = true;
+            player.buffImmune[ModContent.BuffType<GuiltyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LoosePocketsBuff>()] = true;
 
             player.nightVision = true;
 
@@ -105,13 +105,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             // Concentrated rainbow matter
-            player.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
+            player.buffImmune[ModContent.BuffType<FlamesoftheUniverseBuff>()] = true;
             if (player.GetToggleValue("MasoRainbow"))
-                player.AddBuff(ModContent.BuffType<RainbowSlime>(), 2);
+                player.AddBuff(ModContent.BuffType<RainbowSlimeBuff>(), 2);
 
             // Dragon fang
-            player.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            player.buffImmune[ModContent.BuffType<Crippled>()] = true;
+            player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;
             if (player.GetToggleValue("MasoClipped"))
                 fargoPlayer.DragonFang = true;
 
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             // Wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
-            player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
+            player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().WretchedPouchItem = Item;
 
             // Sands of time
@@ -128,13 +128,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             fargoPlayer.SandsofTime = true;
 
             // Squeaky toy
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToy>()] = true;
-            player.buffImmune[ModContent.BuffType<Guilty>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<GuiltyBuff>()] = true;
             fargoPlayer.SqueakyAcc = true;
 
             // Tribal charm
             player.buffImmune[BuffID.Webbed] = true;
-            player.buffImmune[ModContent.BuffType<Purified>()] = true;
+            player.buffImmune[ModContent.BuffType<PurifiedBuff>()] = true;
             fargoPlayer.TribalCharm = true;
             fargoPlayer.TribalCharmEquipped = true;
 
@@ -145,7 +145,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
                 player.manaFlower = true;
 
             // Security wallet
-            player.buffImmune[ModContent.BuffType<Midas>()] = true;
+            player.buffImmune[ModContent.BuffType<MidasBuff>()] = true;
             fargoPlayer.SecurityWallet = true;
 
             // Carrot
@@ -155,8 +155,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             // Nymph's perfume
             player.buffImmune[BuffID.Lovestruck] = true;
-            player.buffImmune[ModContent.BuffType<Lovestruck>()] = true;
-            player.buffImmune[ModContent.BuffType<Hexed>()] = true;
+            player.buffImmune[ModContent.BuffType<LovestruckBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<HexedBuff>()] = true;
             player.buffImmune[BuffID.Stinky] = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
             if (player.GetToggleValue("MasoNymph"))

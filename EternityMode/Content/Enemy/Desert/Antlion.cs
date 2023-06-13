@@ -26,7 +26,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
             {
                 foreach (Player p in Main.player.Where(x => x.active && !x.dead))
                 {
-                    if (p.HasBuff(ModContent.BuffType<Stunned>()) && npc.Distance(p.Center) < 250)
+                    if (p.HasBuff(ModContent.BuffType<StunnedBuff>()) && npc.Distance(p.Center) < 250)
                     {
                         Vector2 velocity = Vector2.Normalize(npc.Center - p.Center) * 5f;
                         p.velocity += velocity;

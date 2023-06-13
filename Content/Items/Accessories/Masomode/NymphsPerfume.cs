@@ -43,8 +43,8 @@ Your attacks occasionally produce hearts
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Lovestruck] = true;
-            player.buffImmune[ModContent.BuffType<Lovestruck>()] = true;
-            player.buffImmune[ModContent.BuffType<Hexed>()] = true;
+            player.buffImmune[ModContent.BuffType<LovestruckBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<HexedBuff>()] = true;
             player.buffImmune[BuffID.Stinky] = true;
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.NymphsPerfumeRespawn = true;

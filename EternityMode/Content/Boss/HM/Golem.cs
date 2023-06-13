@@ -45,7 +45,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Ichor] = true;
             npc.buffImmune[BuffID.Poisoned] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
 
         public override bool SafePreAI(NPC npc)
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.BrokenArmor, 600);
-            target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+            target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
             target.AddBuff(BuffID.WitheredArmor, 600);
         }
 
@@ -159,7 +159,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             foreach (Player p in Main.player)
             {
                 if (p.active && p.Distance(npc.Center) < 2000)
-                    p.AddBuff(ModContent.BuffType<LowGround>(), 2);
+                    p.AddBuff(ModContent.BuffType<LowGroundBuff>(), 2);
             }
 
             HealPerSecond = FargoSoulsWorld.MasochistModeReal ? 240 : 180;

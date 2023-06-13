@@ -34,9 +34,9 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>(),
-                    ModContent.BuffType<LightningRod>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>(),
+                    ModContent.BuffType<LightningRodBuff>()
                 }
             });
         }
@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         if (NPC.Distance(targetPos) > 50)
                             Movement(targetPos, 0.15f, 7f);
 
-                        if (NPC.Hitbox.Intersects(player.Hitbox) && !player.HasBuff(ModContent.BuffType<Buffs.Boss.Grabbed>())
+                        if (NPC.Hitbox.Intersects(player.Hitbox) && !player.HasBuff(ModContent.BuffType<Buffs.Boss.GrabbedBuff>())
                             && player.GetModPlayer<FargoSoulsPlayer>().MashCounter <= 0) //GOTCHA
                         {
                             SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
@@ -193,7 +193,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                             Movement(head.Center, 0.8f, 24f);
 
-                            player.AddBuff(ModContent.BuffType<Buffs.Boss.Grabbed>(), 2);
+                            player.AddBuff(ModContent.BuffType<Buffs.Boss.GrabbedBuff>(), 2);
 
                             if (!player.immune || player.immuneTime < 2)
                             {
@@ -334,8 +334,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Infested>(), 360);
-                target.AddBuff(ModContent.BuffType<ClippedWings>(), 180);
+                target.AddBuff(ModContent.BuffType<InfestedBuff>(), 360);
+                target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 180);
             }
         }
 

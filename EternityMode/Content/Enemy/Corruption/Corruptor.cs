@@ -17,7 +17,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Corruption
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Weak, 600);
-            target.AddBuff(ModContent.BuffType<Rotting>(), 900);
+            target.AddBuff(ModContent.BuffType<RottingBuff>(), 900);
         }
     }
 }

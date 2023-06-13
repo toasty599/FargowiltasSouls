@@ -1035,7 +1035,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
             {
-                target.AddBuff(ModContent.BuffType<Anticoagulation>(), 360);
+                target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 360);
 
                 if (FargoSoulsUtil.NPCExists(target.realLife) != null)
                 {
@@ -1052,7 +1052,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 FargoSoulsGlobalNPC globalNPC = target.GetGlobalNPC<FargoSoulsGlobalNPC>();
 
-                int debuff = ModContent.BuffType<Frozen>();
+                int debuff = ModContent.BuffType<FrozenBuff>();
                 int duration = target.HasBuff(debuff) ? 5 : 15;
 
                 NPC head = FargoSoulsUtil.NPCExists(target.realLife);

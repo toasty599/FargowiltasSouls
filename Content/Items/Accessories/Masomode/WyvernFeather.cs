@@ -38,8 +38,8 @@ Stabilizes gravity in space and in liquids
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            player.buffImmune[ModContent.BuffType<Crippled>()] = true;
+            player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;
             if (player.GetToggleValue("MasoClipped"))
                 player.GetModPlayer<FargoSoulsPlayer>().DragonFang = true;
             player.GetModPlayer<FargoSoulsPlayer>().StabilizedGravity = true;

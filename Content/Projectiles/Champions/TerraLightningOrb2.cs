@@ -221,8 +221,8 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
-                target.AddBuff(ModContent.BuffType<LightningRod>(), 600);
+                target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 600);
+                target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
             }
         }
 

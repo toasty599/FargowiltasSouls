@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Tiles
             if (type == TileID.LihzahrdBrick && Framing.GetTileSafely(i, j).WallType == WallID.LihzahrdBrickUnsafe)
             {
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8)) < 3000)
-                    Main.LocalPlayer.AddBuff(ModContent.BuffType<LihzahrdCurse>(), 10);
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<LihzahrdCurseBuff>(), 10);
             }
 
             if (type == TileID.LihzahrdAltar && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Tiles
                 && Collision.CanHit(new Vector2(i * 16 + 8, j * 16 + 8), 0, 0, Main.LocalPlayer.Center, 0, 0)
                 && Framing.GetTileSafely(Main.LocalPlayer.Center).WallType == WallID.LihzahrdBrickUnsafe)
             {
-                if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<LihzahrdBlessing>()))
+                if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<LihzahrdBlessingBuff>()))
                 {
                     Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.LihzahrdBlessing"), Color.Orange);
                     SoundEngine.PlaySound(SoundID.Item4, Main.LocalPlayer.Center);
@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Tiles
                         Main.dust[d].velocity *= 9f;
                     }
                 }
-                Main.LocalPlayer.AddBuff(ModContent.BuffType<LihzahrdBlessing>(), 60 * 60 * 10 - 1); //10mins
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<LihzahrdBlessingBuff>(), 60 * 60 * 10 - 1); //10mins
             }
         }
 

@@ -46,7 +46,7 @@ $"This caps at {FargowiltasSouls.Content.Projectiles.Minions.BigBrainProj.MaxMin
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(ModContent.BuffType<BigBrainMinion>(), 2);
+            player.AddBuff(ModContent.BuffType<BigBrainMinionBuff>(), 2);
             Vector2 spawnPos = player.Center - Main.MouseWorld;
             if (player.ownedProjectileCounts[type] == 0)
             {

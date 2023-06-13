@@ -17,7 +17,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Slimed, 120);
-            target.AddBuff(ModContent.BuffType<Fused>(), 1800);
+            target.AddBuff(ModContent.BuffType<FusedBuff>(), 1800);
         }
 
         public override void OnKill(NPC npc)

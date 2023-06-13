@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             {
                 target.AddBuff(BuffID.OnFire, 600);
                 target.AddBuff(BuffID.BrokenArmor, 600);
-                target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
                 target.AddBuff(BuffID.WitheredArmor, 600);
 
                 if (Framing.GetTileSafely(Main.npc[NPC.golemBoss].Center).WallType != WallID.LihzahrdBrickUnsafe) //outside temple

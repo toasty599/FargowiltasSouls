@@ -95,16 +95,16 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Hexed>(), 120);
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
+            target.AddBuff(ModContent.BuffType<HexedBuff>(), 120);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             switch ((int)Projectile.ai[0])
             {
-                case 0: target.AddBuff(ModContent.BuffType<ReverseManaFlow>(), 180); break; //nebula
+                case 0: target.AddBuff(ModContent.BuffType<ReverseManaFlowBuff>(), 180); break; //nebula
                 case 1: target.AddBuff(ModContent.BuffType<Atrophied>(), 180); break; //solar
-                case 2: target.AddBuff(ModContent.BuffType<Jammed>(), 180); break; //vortex
-                default: target.AddBuff(ModContent.BuffType<Antisocial>(), 180); break; //stardust
+                case 2: target.AddBuff(ModContent.BuffType<JammedBuff>(), 180); break; //vortex
+                default: target.AddBuff(ModContent.BuffType<AntisocialBuff>(), 180); break; //stardust
             }
         }
 

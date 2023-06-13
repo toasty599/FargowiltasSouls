@@ -75,7 +75,7 @@ Enemies take 25% increased damage while inside the inferno ring
                                     npc.AddBuff(buff, 120);
                                 }
 
-                                int moltenDebuff = ModContent.BuffType<Buffs.Souls.MoltenAmplify>();
+                                int moltenDebuff = ModContent.BuffType<Buffs.Souls.MoltenAmplifyBuff>();
                                 if (npc.FindBuffIndex(moltenDebuff) == -1)
                                     npc.AddBuff(moltenDebuff, 10);
 

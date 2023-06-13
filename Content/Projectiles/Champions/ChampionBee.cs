@@ -58,8 +58,8 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             target.AddBuff(BuffID.BrokenArmor, 300);
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Infested>(), 300);
-                target.AddBuff(ModContent.BuffType<Swarming>(), 300);
+                target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
+                target.AddBuff(ModContent.BuffType<SwarmingBuff>(), 300);
             }
         }
 

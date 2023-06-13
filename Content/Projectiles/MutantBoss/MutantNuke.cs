@@ -103,11 +103,11 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }
-            target.AddBuff(ModContent.BuffType<MutantNibble>(), 900);
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
+            target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 900);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 900);
         }
 
         public override bool PreDraw(ref Color lightColor)

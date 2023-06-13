@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (FargowiltasSouls.FreezeKey.JustPressed)
             {
-                if (StardustEnchantActive && !Player.HasBuff(ModContent.BuffType<TimeStopCD>()))
+                if (StardustEnchantActive && !Player.HasBuff(ModContent.BuffType<TimeStopCDBuff>()))
                 {
                     int cooldownInSeconds = 60;
                     if (CosmoForce)
@@ -79,17 +79,17 @@ namespace FargowiltasSouls.Core.ModPlayers
                         cooldownInSeconds = 40;
                     if (Eternity)
                         cooldownInSeconds = 30;
-                    Player.ClearBuff(ModContent.BuffType<TimeFrozen>());
-                    Player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
+                    Player.ClearBuff(ModContent.BuffType<TimeFrozenBuff>());
+                    Player.AddBuff(ModContent.BuffType<TimeStopCDBuff>(), cooldownInSeconds * 60);
 
                     FreezeTime = true;
                     freezeLength = TIMESTOP_DURATION;
 
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Player.Center);
                 }
-                else if (SnowEnchantActive && !Player.HasBuff(ModContent.BuffType<SnowstormCD>()))
+                else if (SnowEnchantActive && !Player.HasBuff(ModContent.BuffType<SnowstormCDBuff>()))
                 {
-                    Player.AddBuff(ModContent.BuffType<SnowstormCD>(), 60 * 60);
+                    Player.AddBuff(ModContent.BuffType<SnowstormCDBuff>(), 60 * 60);
 
                     ChillSnowstorm = true;
                     chillLength = CHILL_DURATION;

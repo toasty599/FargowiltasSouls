@@ -73,11 +73,11 @@ Enemies are less likely to target you
             player.GetModPlayer<FargoSoulsPlayer>().PungentEyeball = true;
             if (player.GetToggleValue("MasoPugent"))
             {
-                player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkull>()] = true;
-                player.AddBuff(ModContent.BuffType<Buffs.Minions.PungentEyeball>(), 5);
+                player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkullBuff>()] = true;
+                player.AddBuff(ModContent.BuffType<Buffs.Minions.PungentEyeballBuff>(), 5);
             }
 
-            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
+            player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;
             player.noKnockback = true;
             if (player.GetToggleValue("DreadShellParry"))
                 player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;

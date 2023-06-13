@@ -209,7 +209,7 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             target.immune[Projectile.owner] = 0;
             //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
-            target.AddBuff(ModContent.BuffType<MutantNibble>(), 900);
+            target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 900);
             //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
         }
 

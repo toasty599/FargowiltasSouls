@@ -45,7 +45,7 @@ Your hurtbox size is reduced even when not shown
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            player.buffImmune[ModContent.BuffType<Smite>()] = true;
+            player.buffImmune[ModContent.BuffType<SmiteBuff>()] = true;
             modPlayer.PrecisionSeal = true;
             if (player.GetToggleValue("PrecisionSealHurtbox", false))
                 modPlayer.PrecisionSealHurtbox = true;

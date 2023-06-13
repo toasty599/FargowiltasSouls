@@ -1192,7 +1192,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 crit = true;
                 damage = (int)(damage * 1.5f);
-                Player.ClearBuff(ModContent.BuffType<FirstStrike>());
+                Player.ClearBuff(ModContent.BuffType<FirstStrikeBuff>());
                 //target.defense -= 5;
                 target.AddBuff(BuffID.BrokenArmor, 600);
             }
@@ -1224,7 +1224,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (OriEnchantItem != null && proj.type == ProjectileID.FlowerPetal)
             {
-                target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
+                target.AddBuff(ModContent.BuffType<OriPoisonBuff>(), 300);
                 target.immune[proj.owner] = 2;
             }
         }
@@ -1351,7 +1351,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         target.buffImmune[ModContent.BuffType<GodEater>()] = false;
                     }
                 }*/
-                target.AddBuff(ModContent.BuffType<GodEater>(), 420);
+                target.AddBuff(ModContent.BuffType<GodEaterBuff>(), 420);
             }
 
             if (GladiatorEnchantActive && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Gladiator") && GladiatorCD <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
@@ -1360,7 +1360,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
             if (SolarEnchantActive && Player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
-                target.AddBuff(ModContent.BuffType<SolarFlare>(), 300);
+                target.AddBuff(ModContent.BuffType<SolarFlareBuff>(), 300);
 
             if (TinEnchantItem != null)
             {
@@ -1369,7 +1369,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (LeadEnchantItem != null)
             {
-                target.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
+                target.AddBuff(ModContent.BuffType<LeadPoisonBuff>(), 30);
             }
 
 
@@ -1407,11 +1407,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
             if (UniverseCore)
-                target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240);
+                target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
 
             if (MasochistSoul)
             {
-                target.AddBuff(ModContent.BuffType<Sadism>(), 600);
+                target.AddBuff(ModContent.BuffType<SadismBuff>(), 600);
                 //if (target.FindBuffIndex(ModContent.BuffType<Sadism>()) < 0 && target.aiStyle != 37)
                 //{
                 //    if (target.type != ModContent.NPCType<MutantBoss>())
@@ -1440,17 +1440,17 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Supercharged)
             {
                 target.AddBuff(BuffID.Electrified, 240);
-                target.AddBuff(ModContent.BuffType<LightningRod>(), 60);
+                target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 60);
             }
 
             if (GoldEnchantActive)
                 target.AddBuff(BuffID.Midas, 120, true);
 
-            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWings>()] && Main.rand.NextBool(10))
+            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] && Main.rand.NextBool(10))
             {
                 target.velocity.X = 0f;
                 target.velocity.Y = 10f;
-                target.AddBuff(ModContent.BuffType<ClippedWings>(), 240);
+                target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 240);
                 target.netUpdate = true;
             }
 
@@ -1638,7 +1638,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (ModContent.GetInstance<SoulConfig>().BigTossMode)
             {
-                AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+                AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
 
                 Vector2 attacker = default;
                 if (npc != null)
@@ -1770,9 +1770,9 @@ namespace FargowiltasSouls.Core.ModPlayers
             MahoganyCanUseDR = false;
 			
 			if (Player.HasBuff(ModContent.BuffType<TitaniumDRBuff>())
-				&& !Player.HasBuff(ModContent.BuffType<TitaniumCD>()))
+				&& !Player.HasBuff(ModContent.BuffType<TitaniumCDBuff>()))
 			{
-				Player.AddBuff(ModContent.BuffType<TitaniumCD>(), 60 * 10);
+				Player.AddBuff(ModContent.BuffType<TitaniumCDBuff>(), 60 * 10);
 			}
 
             if (NekomiSet)
@@ -1851,7 +1851,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
 
-                if (Player.whoAmI == Main.myPlayer && retVal && MutantSetBonusItem != null && Player.FindBuffIndex(ModContent.BuffType<MutantRebirth>()) == -1)
+                if (Player.whoAmI == Main.myPlayer && retVal && MutantSetBonusItem != null && Player.FindBuffIndex(ModContent.BuffType<MutantRebirthBuff>()) == -1)
                 {
                     Player.statLife = Player.statLifeMax2;
                     Player.HealEffect(Player.statLifeMax2);
@@ -1861,13 +1861,13 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.hurtCooldowns[1] = 180;
                     string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.Revived");
                     Main.NewText(text, Color.LimeGreen);
-                    Player.AddBuff(ModContent.BuffType<MutantRebirth>(), 120 * 60);
+                    Player.AddBuff(ModContent.BuffType<MutantRebirthBuff>(), 120 * 60);
                     retVal = false;
 
                     Projectile.NewProjectile(Player.GetSource_Accessory(MutantSetBonusItem), Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.ActualClassDamage(DamageClass.Magic)), 10f, Player.whoAmI);
                 }
 
-                if (Player.whoAmI == Main.myPlayer && retVal && FossilEnchantItem != null && Player.FindBuffIndex(ModContent.BuffType<FossilReviveCD>()) == -1)
+                if (Player.whoAmI == Main.myPlayer && retVal && FossilEnchantItem != null && Player.FindBuffIndex(ModContent.BuffType<FossilReviveCDBuff>()) == -1)
                 {
                     FossilEnchant.FossilRevive(this);
                     retVal = false;
@@ -1886,7 +1886,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.Revived");
                     CombatText.NewText(Player.Hitbox, Color.Yellow, text, true);
                     Main.NewText(text, Color.Yellow);
-                    Player.AddBuff(ModContent.BuffType<AbomRebirth>(), 900);
+                    Player.AddBuff(ModContent.BuffType<AbomRebirthBuff>(), 900);
                     retVal = false;
                     for (int i = 0; i < 24; i++)
                     {
@@ -2045,10 +2045,10 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         private int InfestedExtraDot()
         {
-            int buffIndex = Player.FindBuffIndex(ModContent.BuffType<Infested>());
+            int buffIndex = Player.FindBuffIndex(ModContent.BuffType<InfestedBuff>());
             if (buffIndex == -1)
             {
-                buffIndex = Player.FindBuffIndex(ModContent.BuffType<Neurotoxin>());
+                buffIndex = Player.FindBuffIndex(ModContent.BuffType<NeurotoxinBuff>());
                 if (buffIndex == -1)
                     return 0;
             }

@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             if (target.hurtCooldowns[1] == 0)
             {
-                target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
+                target.AddBuff(ModContent.BuffType<IvyVenomBuff>(), 240);
             }
         }
 

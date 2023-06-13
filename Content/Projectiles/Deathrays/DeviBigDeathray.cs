@@ -160,8 +160,8 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             //target.AddBuff(ModContent.BuffType<MutantNibble>(), 2);
             //target.AddBuff(ModContent.BuffType<Stunned>(), 2);
             //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 2);
-            target.AddBuff(ModContent.BuffType<Lovestruck>(), 360);
-            target.AddBuff(ModContent.BuffType<Defenseless>(), 1800);
+            target.AddBuff(ModContent.BuffType<LovestruckBuff>(), 360);
+            target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 1800);
 
             target.velocity.X = 0;
             target.velocity.Y = -0.4f;

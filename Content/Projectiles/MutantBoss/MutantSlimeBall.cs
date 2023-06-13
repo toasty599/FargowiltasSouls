@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         {
             target.AddBuff(BuffID.Slimed, 240);
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
         }
 
         public override Color? GetAlpha(Color lightColor)

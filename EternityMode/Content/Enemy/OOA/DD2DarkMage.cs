@@ -22,7 +22,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
 
             int radius = npc.type == NPCID.DD2DarkMageT1 ? 600 : 900;
 
-            EModeGlobalNPC.Aura(npc, radius, ModContent.BuffType<Lethargic>(), false, 254);
+            EModeGlobalNPC.Aura(npc, radius, ModContent.BuffType<LethargicBuff>(), false, 254);
             foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != npc.type && n.Distance(npc.Center) < radius))
             {
                 n.GetGlobalNPC<EModeGlobalNPC>().PaladinsShield = true;

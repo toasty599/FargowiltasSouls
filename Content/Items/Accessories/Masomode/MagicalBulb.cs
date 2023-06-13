@@ -44,8 +44,8 @@ Attracts a legendary plant's offspring which flourishes in combat
         public static void Effects(Player player)
         {
             player.buffImmune[BuffID.Venom] = true;
-            player.buffImmune[ModContent.BuffType<IvyVenom>()] = true;
-            player.buffImmune[ModContent.BuffType<Swarming>()] = true;
+            player.buffImmune[ModContent.BuffType<IvyVenomBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<SwarmingBuff>()] = true;
 
             Point pos = player.Center.ToTileCoordinates();
             if (pos.X > 0 && pos.Y > 0 && pos.X < Main.maxTilesX && pos.Y < Main.maxTilesY
@@ -60,7 +60,7 @@ Attracts a legendary plant's offspring which flourishes in combat
 
             player.GetModPlayer<FargoSoulsPlayer>().MagicalBulb = true;
             if (player.GetToggleValue("MasoPlant"))
-                player.AddBuff(ModContent.BuffType<PlanterasChild>(), 2);
+                player.AddBuff(ModContent.BuffType<PlanterasChildBuff>(), 2);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

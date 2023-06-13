@@ -82,19 +82,19 @@ Summons a friendly Mini Saucer and true eyes of Cthulhu
             player.endurance += 0.05f;
 
             //pumpking's cape
-            player.buffImmune[ModContent.BuffType<LivingWasteland>()] = true;
+            player.buffImmune[ModContent.BuffType<LivingWastelandBuff>()] = true;
             if (player.GetToggleValue("MasoPump"))
                 fargoPlayer.PumpkingsCapeItem = Item;
 
             //ice queen's crown
-            player.buffImmune[ModContent.BuffType<Hypothermia>()] = true;
+            player.buffImmune[ModContent.BuffType<HypothermiaBuff>()] = true;
             IceQueensCrown.Effects(player, Item);
 
             //saucer control console
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.VortexDebuff] = true;
             if (player.GetToggleValue("MasoUfo"))
-                player.AddBuff(ModContent.BuffType<SaucerMinion>(), 2);
+                player.AddBuff(ModContent.BuffType<SaucerMinionBuff>(), 2);
 
             //betsy's heart
             player.buffImmune[BuffID.OgreSpit] = true;
@@ -105,34 +105,34 @@ Summons a friendly Mini Saucer and true eyes of Cthulhu
             //mutant antibodies
             player.buffImmune[BuffID.Wet] = true;
             player.buffImmune[BuffID.Rabies] = true;
-            player.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
-            player.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
+            player.buffImmune[ModContent.BuffType<MutantNibbleBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<OceanicMaulBuff>()] = true;
             fargoPlayer.MutantAntibodies = true;
             if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
                 player.dripping = true;
 
             //galactic globe
-            player.buffImmune[ModContent.BuffType<Flipped>()] = true;
-            player.buffImmune[ModContent.BuffType<FlippedHallow>()] = true;
-            player.buffImmune[ModContent.BuffType<Unstable>()] = true;
-            player.buffImmune[ModContent.BuffType<CurseoftheMoon>()] = true;
+            player.buffImmune[ModContent.BuffType<FlippedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<FlippedHallowBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<UnstableBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<CurseoftheMoonBuff>()] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
             if (player.GetToggleValue("MasoGrav"))
                 player.gravControl = true;
             if (player.GetToggleValue("MasoTrueEye"))
-                player.AddBuff(ModContent.BuffType<TrueEyes>(), 2);
+                player.AddBuff(ModContent.BuffType<TrueEyesBuff>(), 2);
             fargoPlayer.GravityGlobeEXItem = Item;
             fargoPlayer.WingTimeModifier += 1f;
 
             //precision seal
-            player.buffImmune[ModContent.BuffType<Smite>()] = true;
+            player.buffImmune[ModContent.BuffType<SmiteBuff>()] = true;
             fargoPlayer.PrecisionSeal = true;
             if (player.GetToggleValue("PrecisionSealHurtbox", false))
                 fargoPlayer.PrecisionSealHurtbox = true;
 
             //heart of maso
             player.buffImmune[BuffID.MoonLeech] = true;
-            player.buffImmune[ModContent.BuffType<NullificationCurse>()] = true;
+            player.buffImmune[ModContent.BuffType<NullificationCurseBuff>()] = true;
         }
 
         public override void AddRecipes()

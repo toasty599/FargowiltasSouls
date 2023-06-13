@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
             Item.rare = ItemRarityID.Green;
             Item.noMelee = true;
             Item.knockBack = 2f;
-            Item.buffType = ModContent.BuffType<EaterMinion>();
+            Item.buffType = ModContent.BuffType<EaterMinionBuff>();
             Item.buffTime = 3600;
             Item.DamageType = DamageClass.Summon;
             Item.value = 40000;

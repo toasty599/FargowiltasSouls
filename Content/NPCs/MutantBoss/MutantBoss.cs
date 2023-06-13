@@ -61,15 +61,15 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>(),
-                    ModContent.BuffType<MutantNibble>(),
-                    ModContent.BuffType<OceanicMaul>(),
-                    ModContent.BuffType<LightningRod>(),
-                    ModContent.BuffType<Sadism>(),
-                    ModContent.BuffType<GodEater>(),
-                    ModContent.BuffType<TimeFrozen>(),
-                    ModContent.BuffType<LeadPoison>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>(),
+                    ModContent.BuffType<MutantNibbleBuff>(),
+                    ModContent.BuffType<OceanicMaulBuff>(),
+                    ModContent.BuffType<LightningRodBuff>(),
+                    ModContent.BuffType<SadismBuff>(),
+                    ModContent.BuffType<GodEaterBuff>(),
+                    ModContent.BuffType<TimeFrozenBuff>(),
+                    ModContent.BuffType<LeadPoisonBuff>()
                 }
             });
         }
@@ -355,7 +355,7 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
             }
 
             if (FargoSoulsWorld.MasochistModeReal && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
-                Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresence>(), 2);
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresenceBuff>(), 2);
 
             if (NPC.localAI[3] == 0)
             {
@@ -380,7 +380,7 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
             {
                 ShouldDrawAura = true;
                 // -1 means no dust is drawn, as it looks ugly.
-                EModeGlobalNPC.Aura(NPC, 2000f, true, -1, default, ModContent.BuffType<GodEater>(), ModContent.BuffType<MutantFang>());
+                EModeGlobalNPC.Aura(NPC, 2000f, true, -1, default, ModContent.BuffType<GodEaterBuff>(), ModContent.BuffType<MutantFangBuff>());
             }
             else
             {
@@ -388,14 +388,14 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
                 {                 
                     if (Main.expertMode)
                     {
-                        Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresence>(), 2);
+                        Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresenceBuff>(), 2);
                     }
 
                     if (FargoSoulsWorld.EternityMode && NPC.ai[0] < 0 && NPC.ai[0] > -6)
                     {
-                        Main.LocalPlayer.AddBuff(ModContent.BuffType<GoldenStasisCD>(), 2);
+                        Main.LocalPlayer.AddBuff(ModContent.BuffType<GoldenStasisCDBuff>(), 2);
                         if (FargoSoulsWorld.MasochistModeReal)
-                            Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeStopCD>(), 2);
+                            Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeStopCDBuff>(), 2);
                     }
                     //if (FargowiltasSouls.Instance.CalamityLoaded)
                     //{
@@ -734,8 +734,8 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
 
             if (fightIsOver)
             {
-                Main.player[NPC.target].ClearBuff(ModContent.BuffType<MutantFang>());
-                Main.player[NPC.target].ClearBuff(ModContent.BuffType<AbomRebirth>());
+                Main.player[NPC.target].ClearBuff(ModContent.BuffType<MutantFangBuff>());
+                Main.player[NPC.target].ClearBuff(ModContent.BuffType<AbomRebirthBuff>());
             }
 
             SoundEngine.PlaySound(SoundID.Item27 with { Volume = 1.5f }, NPC.Center);
@@ -1257,7 +1257,7 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
         void PrepareMutantSword()
         {
             if (NPC.ai[0] == 9 && Main.LocalPlayer.active && NPC.Distance(Main.LocalPlayer.Center) < 3000f && Main.expertMode)
-                Main.LocalPlayer.AddBuff(ModContent.BuffType<Purged>(), 2);
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<PurgedBuff>(), 2);
 
             //can alternate directions
             int sign = NPC.ai[0] != 9 && NPC.localAI[2] % 2 == 1 ? -1 : 1;
@@ -1334,7 +1334,7 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
         void MutantSword()
         {
             if (NPC.ai[0] == 9 && Main.LocalPlayer.active && NPC.Distance(Main.LocalPlayer.Center) < 3000f && Main.expertMode)
-                Main.LocalPlayer.AddBuff(ModContent.BuffType<Purged>(), 2);
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<PurgedBuff>(), 2);
 
             NPC.ai[3] += NPC.ai[2];
             NPC.direction = NPC.spriteDirection = Math.Sign(NPC.localAI[1]);
@@ -3482,10 +3482,10 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
             if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
         }
 
         public override void HitEffect(int hitDirection, double damage)

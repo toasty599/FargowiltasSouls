@@ -15,14 +15,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
         {
             base.AI(npc);
 
-            EModeGlobalNPC.Aura(npc, 100, ModContent.BuffType<Shadowflame>(), false, DustID.Shadowflame);
+            EModeGlobalNPC.Aura(npc, 100, ModContent.BuffType<ShadowflameBuff>(), false, DustID.Shadowflame);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+            target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
         }
     }
 }

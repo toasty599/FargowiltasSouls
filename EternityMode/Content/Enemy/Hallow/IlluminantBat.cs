@@ -74,7 +74,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
+            target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 600);
         }
 
         public override bool CheckDead(NPC npc)

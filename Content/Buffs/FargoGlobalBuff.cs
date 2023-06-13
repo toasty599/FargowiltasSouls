@@ -30,9 +30,9 @@ namespace FargowiltasSouls.Content.Buffs
             BuffID.Frozen,
             BuffID.Stoned,
             BuffID.Cursed,
-            ModContent.BuffType<Fused>(),
-            ModContent.BuffType<TimeFrozen>(),
-            ModContent.BuffType<Stunned>()
+            ModContent.BuffType<FusedBuff>(),
+            ModContent.BuffType<TimeFrozenBuff>(),
+            ModContent.BuffType<StunnedBuff>()
         };
 
         public override void Update(int type, Player player, ref int buffIndex)
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Buffs
 
                 case BuffID.BrainOfConfusionBuff:
                     if (FargoSoulsWorld.EternityMode)
-                        player.AddBuff(ModContent.BuffType<BrainOfConfusionDebuff>(), player.buffTime[buffIndex] * 2);
+                        player.AddBuff(ModContent.BuffType<BrainOfConfusionBuff>(), player.buffTime[buffIndex] * 2);
                     break;
 
                 case BuffID.OnFire:

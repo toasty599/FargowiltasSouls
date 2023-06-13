@@ -49,7 +49,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.OnFirstTick(npc);
 
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
 
         public override void AI(NPC npc)
@@ -319,7 +319,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Purified>(), 360);
+            target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 360);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

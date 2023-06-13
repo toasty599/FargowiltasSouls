@@ -90,7 +90,7 @@ Summons the aid of all Eternity Mode bosses to your side
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.MasochistSoul = true;
 
-            player.AddBuff(ModContent.BuffType<SouloftheMasochist>(), 2);
+            player.AddBuff(ModContent.BuffType<SouloftheMasochistBuff>(), 2);
 
             //stat modifiers
             DamageClass damageClass = player.ProcessDamageTypeFromHeldItem();
@@ -169,7 +169,7 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.SkullCharm = true;
             fargoPlayer.LumpOfFlesh = true;
             fargoPlayer.PungentEyeball = true;
-            player.buffImmune[ModContent.BuffType<CrystalSkull>()] = true;
+            player.buffImmune[ModContent.BuffType<CrystalSkullBuff>()] = true;
             /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;
@@ -205,7 +205,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
-            player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
+            player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().WretchedPouchItem = Item;
 
             //sands of time
@@ -318,50 +318,50 @@ Summons the aid of all Eternity Mode bosses to your side
             player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
 
             //sadism
-            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
-            player.buffImmune[ModContent.BuffType<Antisocial>()] = true;
+            player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<AntisocialBuff>()] = true;
             player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
             player.buffImmune[ModContent.BuffType<Berserked>()] = true;
-            player.buffImmune[ModContent.BuffType<Bloodthirsty>()] = true;
-            player.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            player.buffImmune[ModContent.BuffType<Crippled>()] = true;
-            player.buffImmune[ModContent.BuffType<CurseoftheMoon>()] = true;
-            player.buffImmune[ModContent.BuffType<Defenseless>()] = true;
-            player.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
-            player.buffImmune[ModContent.BuffType<Flipped>()] = true;
-            player.buffImmune[ModContent.BuffType<FlippedHallow>()] = true;
-            player.buffImmune[ModContent.BuffType<Fused>()] = true;
+            player.buffImmune[ModContent.BuffType<BloodthirstyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<CurseoftheMoonBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<DefenselessBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<FlamesoftheUniverseBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<FlippedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<FlippedHallowBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<FusedBuff>()] = true;
             //player.buffImmune[ModContent.BuffType<GodEater>()] = true;
-            player.buffImmune[ModContent.BuffType<Guilty>()] = true;
-            player.buffImmune[ModContent.BuffType<Hexed>()] = true;
-            player.buffImmune[ModContent.BuffType<Hypothermia>()] = true;
-            player.buffImmune[ModContent.BuffType<Infested>()] = true;
-            player.buffImmune[ModContent.BuffType<IvyVenom>()] = true;
-            player.buffImmune[ModContent.BuffType<Jammed>()] = true;
-            player.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            player.buffImmune[ModContent.BuffType<LihzahrdCurse>()] = true;
-            player.buffImmune[ModContent.BuffType<LightningRod>()] = true;
-            player.buffImmune[ModContent.BuffType<LivingWasteland>()] = true;
-            player.buffImmune[ModContent.BuffType<LoosePockets>()] = true;
-            player.buffImmune[ModContent.BuffType<Lovestruck>()] = true;
-            player.buffImmune[ModContent.BuffType<LowGround>()] = true;
-            player.buffImmune[ModContent.BuffType<MarkedforDeath>()] = true;
-            player.buffImmune[ModContent.BuffType<Midas>()] = true;
-            player.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
-            player.buffImmune[ModContent.BuffType<NanoInjection>()] = true;
-            player.buffImmune[ModContent.BuffType<NullificationCurse>()] = true;
-            player.buffImmune[ModContent.BuffType<Oiled>()] = true;
-            player.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
-            player.buffImmune[ModContent.BuffType<Purified>()] = true;
-            player.buffImmune[ModContent.BuffType<ReverseManaFlow>()] = true;
-            player.buffImmune[ModContent.BuffType<Rotting>()] = true;
-            player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
-            player.buffImmune[ModContent.BuffType<Smite>()] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToy>()] = true;
-            player.buffImmune[ModContent.BuffType<Swarming>()] = true;
-            player.buffImmune[ModContent.BuffType<Stunned>()] = true;
-            player.buffImmune[ModContent.BuffType<Unlucky>()] = true;
-            player.buffImmune[ModContent.BuffType<Unstable>()] = true;
+            player.buffImmune[ModContent.BuffType<GuiltyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<HexedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<HypothermiaBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<InfestedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<IvyVenomBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<JammedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LihzahrdCurseBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LightningRodBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LivingWastelandBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LoosePocketsBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LovestruckBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LowGroundBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<MarkedforDeathBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<MidasBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<MutantNibbleBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<NanoInjectionBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<NullificationCurseBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<OiledBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<OceanicMaulBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<PurifiedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<ReverseManaFlowBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<RottingBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<SmiteBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<SwarmingBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<StunnedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<UnluckyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<UnstableBuff>()] = true;
         }
 
         public override void AddRecipes()

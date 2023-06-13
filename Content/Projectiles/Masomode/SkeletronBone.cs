@@ -34,14 +34,14 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
             {
-                target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
+                target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 300);
                 /*target.AddBuff(ModContent.BuffType<GodEater>(), 420);
                 target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 420);
                 target.immune = false;
                 target.immuneTime = 0;
                 target.hurtCooldowns[1] = 0;*/
             }
-            target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
+            target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
         }
     }
 }

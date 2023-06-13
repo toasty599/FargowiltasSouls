@@ -88,15 +88,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.OnFirstTick(npc);
 
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Rotting>(), 900);
-            target.AddBuff(ModContent.BuffType<LivingWasteland>(), 900);
+            target.AddBuff(ModContent.BuffType<RottingBuff>(), 900);
+            target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 900);
         }
     }
 }

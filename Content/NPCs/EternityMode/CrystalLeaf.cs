@@ -194,7 +194,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
+            target.AddBuff(ModContent.BuffType<IvyVenomBuff>(), 240);
         }
 
         public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)

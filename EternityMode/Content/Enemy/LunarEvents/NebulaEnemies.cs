@@ -29,7 +29,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(ModContent.BuffType<Berserked>(), 300);
-            target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
+            target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
         }
     }
 

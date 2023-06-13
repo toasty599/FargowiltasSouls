@@ -40,10 +40,10 @@ Summons 2 Skeletron arms to whack enemies
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            player.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().NecromanticBrewItem = Item;
             if (player.GetToggleValue("MasoSkele"))
-                player.AddBuff(ModContent.BuffType<SkeletronArms>(), 2);
+                player.AddBuff(ModContent.BuffType<SkeletronArmsBuff>(), 2);
         }
     }
 }

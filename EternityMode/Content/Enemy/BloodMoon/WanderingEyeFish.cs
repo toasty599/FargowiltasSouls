@@ -38,8 +38,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 120);
-            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 120);
+            target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

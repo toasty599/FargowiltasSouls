@@ -95,9 +95,9 @@ namespace FargowiltasSouls.Content.Projectiles
                 int freezeDuration = 180;
                 int slowDuration = freezeDuration + 180;
 
-                foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, player.Center)) < freezeRange && !n.dontTakeDamage && !n.buffImmune[ModContent.BuffType<TimeFrozen>()]))
+                foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, player.Center)) < freezeRange && !n.dontTakeDamage && !n.buffImmune[ModContent.BuffType<TimeFrozenBuff>()]))
                 {
-                    n.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeDuration);
+                    n.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), freezeDuration);
                     n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
                     n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = slowDuration;
                     //n.netUpdate = true;

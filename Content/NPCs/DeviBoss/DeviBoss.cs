@@ -89,8 +89,8 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     BuffID.OnFire,
                     BuffID.Suffocation,
                     BuffID.Lovestruck,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>()
                 }
             });
         }
@@ -776,8 +776,8 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                         if (!AliveCheck(player) || Phase2Check())
                             break;
 
-                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 400 : 450, true, -1, Color.GreenYellow, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
-                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 200 : 150, false, -1, default, ModContent.BuffType<Hexed>(), ModContent.BuffType<Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
+                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 400 : 450, true, -1, Color.GreenYellow, ModContent.BuffType<HexedBuff>(), ModContent.BuffType<CrippledBuff>(), BuffID.Dazed, BuffID.OgreSpit);
+                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 200 : 150, false, -1, default, ModContent.BuffType<HexedBuff>(), ModContent.BuffType<CrippledBuff>(), BuffID.Dazed, BuffID.OgreSpit);
                         
                         // Indicate that the borders should be drawn.
                         DrawRuneBorders = true;
@@ -2070,7 +2070,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
+            target.AddBuff(ModContent.BuffType<LovestruckBuff>(), 240);
         }
 
         public override void HitEffect(int hitDirection, double damage)

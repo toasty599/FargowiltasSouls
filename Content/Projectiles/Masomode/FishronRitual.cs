@@ -52,8 +52,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     fishron.GivenName = "Duke Fishron EX";
                     fishron.defDamage = (int)(fishron.defDamage * 1.5);
                     fishron.defDefense *= 2;
-                    fishron.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
-                    fishron.buffImmune[ModContent.BuffType<LightningRod>()] = true;
+                    fishron.buffImmune[ModContent.BuffType<FlamesoftheUniverseBuff>()] = true;
+                    fishron.buffImmune[ModContent.BuffType<LightningRodBuff>()] = true;
                 }
                 Projectile.netUpdate = true;
             }

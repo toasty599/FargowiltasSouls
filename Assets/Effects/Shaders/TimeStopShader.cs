@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Assets.Effects.Shaders
             if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
             {
                 FargoSoulsPlayer modPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
-                int d = Main.LocalPlayer.FindBuffIndex(ModContent.BuffType<TimeFrozen>());
+                int d = Main.LocalPlayer.FindBuffIndex(ModContent.BuffType<TimeFrozenBuff>());
                 if ((!modPlayer.FreezeTime || modPlayer.freezeLength < 60)
                     && (d == -1 || Main.LocalPlayer.buffTime[d] < 60))
                 {

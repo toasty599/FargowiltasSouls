@@ -176,7 +176,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 if (p != Main.maxProjectiles)
                     Main.projectile[p].DamageType = DamageClass.Ranged;
             }
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
         }
 
         public override Color? GetAlpha(Color lightColor)

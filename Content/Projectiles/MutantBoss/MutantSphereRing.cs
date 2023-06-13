@@ -114,9 +114,9 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 if (FargoSoulsWorld.MasochistModeReal && Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5
                     && Projectile.Colliding(Projectile.Hitbox, Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GetPrecisionHurtbox()))
                 {
-                    if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<TimeFrozen>()))
+                    if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<TimeFrozenBuff>()))
                         SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Main.LocalPlayer.Center);
-                    Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeFrozen>(), 300);
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), 300);
                 }
             }
         }
@@ -128,11 +128,11 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 if (FargoSoulsWorld.EternityMode)
                 {
                     target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                    target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                    target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                    target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
+                    target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
                 }
             }
-            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
         }
 
         public override void Kill(int timeleft)

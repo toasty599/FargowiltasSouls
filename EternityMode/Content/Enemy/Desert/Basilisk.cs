@@ -23,14 +23,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
         {
             base.AI(npc);
 
-            EModeGlobalNPC.Aura(npc, 250, ModContent.BuffType<Infested>(), false, 188);
+            EModeGlobalNPC.Aura(npc, 250, ModContent.BuffType<InfestedBuff>(), false, 188);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Infested>(), 300);
+            target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
             target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
         }
 

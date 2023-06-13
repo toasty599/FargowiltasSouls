@@ -165,8 +165,8 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                     BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>()
+                    ModContent.BuffType<LethargicBuff>(),
+                    ModContent.BuffType<ClippedWingsBuff>()
                 }
             });
         }

@@ -36,10 +36,10 @@ Summons a baby rainbow slime to fight for you
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.FlamesoftheUniverse>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.FlamesoftheUniverseBuff>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().ConcentratedRainbowMatter = true;
             if (player.GetToggleValue("MasoRainbow"))
-                player.AddBuff(ModContent.BuffType<Buffs.Minions.RainbowSlime>(), 2);
+                player.AddBuff(ModContent.BuffType<Buffs.Minions.RainbowSlimeBuff>(), 2);
         }
     }
 }

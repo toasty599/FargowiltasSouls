@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             target.AddBuff(BuffID.Darkness, 300);
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                 target.AddBuff(BuffID.Blackout, 300);
                 target.AddBuff(BuffID.OnFire, 300);
             }

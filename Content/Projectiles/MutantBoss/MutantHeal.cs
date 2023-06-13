@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                     {
                         if (Main.player[ai0].whoAmI == Main.myPlayer)
                         {
-                            Main.player[ai0].ClearBuff(ModContent.BuffType<MutantFang>());
+                            Main.player[ai0].ClearBuff(ModContent.BuffType<MutantFangBuff>());
                             Main.player[ai0].statLife += Projectile.damage;
                             Main.player[ai0].HealEffect(Projectile.damage);
                             if (Main.player[ai0].statLife > Main.player[ai0].statLifeMax2)

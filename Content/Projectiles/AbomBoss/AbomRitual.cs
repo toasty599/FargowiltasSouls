@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 
             if (FargoSoulsWorld.EternityMode)
             {
-                player.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFang>(), 300);
+                player.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 //player.AddBuff(ModContent.BuffType<Unstable>(), 240);
                 player.AddBuff(ModContent.BuffType<Buffs.Masomode.Berserked>(), 120);
             }

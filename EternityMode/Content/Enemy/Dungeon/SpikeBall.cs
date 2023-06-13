@@ -63,7 +63,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
 
             target.AddBuff(BuffID.BrokenArmor, 600);
             if (OutsideDungeon)
-                target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
         }
     }
 }

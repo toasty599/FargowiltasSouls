@@ -125,7 +125,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.CursedInferno, 180);
-            target.AddBuff(ModContent.BuffType<Rotting>(), 600);
+            target.AddBuff(ModContent.BuffType<RottingBuff>(), 600);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

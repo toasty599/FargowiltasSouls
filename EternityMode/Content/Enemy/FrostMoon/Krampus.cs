@@ -127,8 +127,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Midas>(), 600);
-            target.AddBuff(ModContent.BuffType<Unlucky>(), 60 * 30);
+            target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
+            target.AddBuff(ModContent.BuffType<UnluckyBuff>(), 60 * 30);
 
             //if (target.whoAmI == Main.myPlayer && target.HasBuff(ModContent.BuffType<LoosePockets>()))
             //{

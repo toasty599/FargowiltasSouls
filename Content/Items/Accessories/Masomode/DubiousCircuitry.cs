@@ -49,9 +49,9 @@ Reduces damage taken by 5%
         {
             player.buffImmune[BuffID.CursedInferno] = true;
             player.buffImmune[BuffID.Ichor] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Defenseless>()] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.NanoInjection>()] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.LightningRod>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.DefenselessBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.NanoInjectionBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.LightningRodBuff>()] = true;
 
             player.GetModPlayer<FargoSoulsPlayer>().FusedLens = true;
             if (player.onFire2)
@@ -61,7 +61,7 @@ Reduces damage taken by 5%
 
             player.GetModPlayer<FargoSoulsPlayer>().GroundStick = true;
             if (player.GetToggleValue("MasoProbe"))
-                player.AddBuff(ModContent.BuffType<Buffs.Minions.Probes>(), 2);
+                player.AddBuff(ModContent.BuffType<Buffs.Minions.ProbesBuff>(), 2);
 
             player.endurance += 0.05f;
             player.noKnockback = true;

@@ -186,7 +186,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.AbomBoss.AbomBlast>(), 0, 0f, Projectile.owner);
 
             target.AddBuff(BuffID.ShadowFlame, 300);
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibble>(), 300);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibbleBuff>(), 300);
         }
     }
 }

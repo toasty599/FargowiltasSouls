@@ -541,7 +541,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void GoldKey()
         {
-            if (!Player.HasBuff(ModContent.BuffType<GoldenStasis>()) && !Player.HasBuff(ModContent.BuffType<GoldenStasisCD>()))
+            if (!Player.HasBuff(ModContent.BuffType<GoldenStasisBuff>()) && !Player.HasBuff(ModContent.BuffType<GoldenStasisCDBuff>()))
             {
                 int duration = 300;
 
@@ -550,8 +550,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                     duration *= 2;
                 }
 
-                Player.AddBuff(ModContent.BuffType<GoldenStasis>(), duration);
-                Player.AddBuff(ModContent.BuffType<GoldenStasisCD>(), 3600);
+                Player.AddBuff(ModContent.BuffType<GoldenStasisBuff>(), duration);
+                Player.AddBuff(ModContent.BuffType<GoldenStasisCDBuff>(), 3600);
 
                 goldHP = Player.statLife;
 
@@ -561,7 +561,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             //cancel it early
             else
             {
-                Player.ClearBuff(ModContent.BuffType<GoldenStasis>());
+                Player.ClearBuff(ModContent.BuffType<GoldenStasisBuff>());
             }
         }
 
@@ -1303,7 +1303,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (FreezeTime && freezeLength > 0)
             {
-                Player.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
+                Player.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = true;
 
                 if (Main.netMode != NetmodeID.Server)
                 {
@@ -1317,8 +1317,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     NPC npc = Main.npc[i];
-                    if (npc.active && !npc.HasBuff(ModContent.BuffType<TimeFrozen>()))
-                        npc.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
+                    if (npc.active && !npc.HasBuff(ModContent.BuffType<TimeFrozenBuff>()))
+                        npc.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), freezeLength);
                 }
 
                 for (int i = 0; i < Main.maxProjectiles; i++)
@@ -1401,14 +1401,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             TurtleEnchantActive = true;
 
 
-            if (Player.GetToggleValue("Turtle") && !Player.HasBuff(ModContent.BuffType<BrokenShell>())
+            if (Player.GetToggleValue("Turtle") && !Player.HasBuff(ModContent.BuffType<BrokenShellBuff>())
                 && IsStandingStill && !Player.controlUseItem && Player.whoAmI == Main.myPlayer && !noDodge)
             {
                 TurtleCounter++;
 
                 if (TurtleCounter > 20)
                 {
-                    Player.AddBuff(ModContent.BuffType<ShellHide>(), 2);
+                    Player.AddBuff(ModContent.BuffType<ShellHideBuff>(), 2);
                 }
             }
             else
@@ -1416,7 +1416,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 TurtleCounter = 0;
             }
 
-            if (TurtleShellHP < 20 && !Player.HasBuff(ModContent.BuffType<BrokenShell>()) && !ShellHide && (LifeForce))
+            if (TurtleShellHP < 20 && !Player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && !ShellHide && (LifeForce))
             {
                 turtleRecoverCD--;
                 if (turtleRecoverCD <= 0)
@@ -1454,13 +1454,13 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                     NetMessage.SendData(MessageID.SyncPlayer, number: Player.whoAmI);
 
-                if (VortexStealth && Player.GetToggleValue("VortexV") && !Player.HasBuff(ModContent.BuffType<VortexCD>()))
+                if (VortexStealth && Player.GetToggleValue("VortexV") && !Player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
                 {
                     int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
                     Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                     Main.projectile[p].netUpdate = true;
 
-                    Player.AddBuff(ModContent.BuffType<VortexCD>(), 3600);
+                    Player.AddBuff(ModContent.BuffType<VortexCDBuff>(), 3600);
                 }
             }
 
@@ -1548,13 +1548,13 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             MonkEnchantActive = true;
 
-            if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuff>()))
+            if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuffBuff>()))
             {
                 monkTimer++;
 
                 if (monkTimer >= 120)
                 {
-                    Player.AddBuff(ModContent.BuffType<MonkBuff>(), 2);
+                    Player.AddBuff(ModContent.BuffType<MonkBuffBuff>(), 2);
                     monkTimer = 0;
 
                     //dust
@@ -1596,7 +1596,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     NPC npc = Main.npc[i];
 
-                    if (npc.active && !npc.friendly && npc.damage > 0 && !npc.dontTakeDamage && !npc.buffImmune[ModContent.BuffType<TimeFrozen>()])
+                    if (npc.active && !npc.friendly && npc.damage > 0 && !npc.dontTakeDamage && !npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()])
                     {
                         npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
                         npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = 6;
@@ -2046,11 +2046,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                     electricAttack = true;
             }
 
-            if (electricAttack && Player.whoAmI == Main.myPlayer && !Player.HasBuff(ModContent.BuffType<Supercharged>()))
+            if (electricAttack && Player.whoAmI == Main.myPlayer && !Player.HasBuff(ModContent.BuffType<SuperchargedBuff>()))
             {
                 damage /= 2;
 
-                Player.AddBuff(ModContent.BuffType<Supercharged>(), 60 * 30);
+                Player.AddBuff(ModContent.BuffType<SuperchargedBuff>(), 60 * 30);
 
                 foreach (Projectile p in Main.projectile.Where(p => p.active && p.minion && p.owner == Player.whoAmI
                     && (p.type == ModContent.ProjectileType<Probe1>() || p.type == ModContent.ProjectileType<Probe2>())))
@@ -2249,7 +2249,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.HeldItem.IsAir || Player.HeldItem.damage <= 0 || Player.HeldItem.pick > 0 || Player.HeldItem.axe > 0 || Player.HeldItem.hammer > 0)
                 return;
 
-            Player.AddBuff(ModContent.BuffType<WretchedHex>(), 2);
+            Player.AddBuff(ModContent.BuffType<WretchedHexBuff>(), 2);
 
             int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Shadowflame, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 0, new Color(), 3f);
             Main.dust[d].noGravity = true;
@@ -2536,7 +2536,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void MagicalBulbKey()
         {
-            if (Player.HasBuff(ModContent.BuffType<MagicalCleanseCD>()))
+            if (Player.HasBuff(ModContent.BuffType<MagicalCleanseCDBuff>()))
                 return;
 
             bool cleansed = false;
@@ -2568,7 +2568,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (cleansed)
             {
-                Player.AddBuff(ModContent.BuffType<MagicalCleanseCD>(), 60 * 120);
+                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 120);
 
                 SoundEngine.PlaySound(SoundID.Item4, Player.Center);
 
@@ -2654,12 +2654,12 @@ namespace FargowiltasSouls.Core.ModPlayers
                 && Player.GetToggleValue("MasoEyeInstall", false)
                 && Player.controlUp && Player.controlDown)
             {
-				if (!Player.HasBuff(ModContent.BuffType<BerserkerInstall>())
-					&& !Player.HasBuff(ModContent.BuffType<BerserkerInstallCD>()))
+				if (!Player.HasBuff(ModContent.BuffType<BerserkerInstallBuff>())
+					&& !Player.HasBuff(ModContent.BuffType<BerserkerInstallCDBuff>()))
 				{
 					SoundEngine.PlaySound(SoundID.Item119, Player.Center);
 
-					Player.AddBuff(ModContent.BuffType<BerserkerInstall>(), 7 * 60 + 30); //7.5sec
+					Player.AddBuff(ModContent.BuffType<BerserkerInstallBuff>(), 7 * 60 + 30); //7.5sec
 
 					for (int i = 0; i < 60; i++)
 					{
@@ -2671,7 +2671,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 			else if (FusedLens && Player.GetToggleValue("FusedLensInstall", false))
             {
-                int buffType = ModContent.BuffType<TwinsInstall>();
+                int buffType = ModContent.BuffType<TwinsInstallBuff>();
                 if (Player.HasBuff(buffType))
                 {
                     Player.ClearBuff(buffType);
@@ -2680,7 +2680,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     SoundEngine.PlaySound(SoundID.Item119, Player.Center);
 
-                    Player.AddBuff(ModContent.BuffType<TwinsInstall>(), 60);
+                    Player.AddBuff(ModContent.BuffType<TwinsInstallBuff>(), 60);
 
                     int max = 60;
                     for (int i = 0; i < max; i++)
@@ -2851,7 +2851,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
                 else //cannot currently revive
                 {
-                    Player.AddBuff(ModContent.BuffType<AbomCooldown>(), 2);
+                    Player.AddBuff(ModContent.BuffType<AbomCooldownBuff>(), 2);
                 }
             }
         }
@@ -3092,7 +3092,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 const float distance = 300f;
                 for (int i = 0; i < Main.maxNPCs; i++)
                     if (Main.npc[i].active && !Main.npc[i].friendly && Main.npc[i].Distance(Player.Center) < distance)
-                        Main.npc[i].AddBuff(ModContent.BuffType<Rotting>(), 600);
+                        Main.npc[i].AddBuff(ModContent.BuffType<RottingBuff>(), 600);
 
                 for (int i = 0; i < 20; i++)
                 {

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
+            target.AddBuff(ModContent.BuffType<IvyVenomBuff>(), 240);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

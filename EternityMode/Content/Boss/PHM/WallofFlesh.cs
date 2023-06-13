@@ -451,8 +451,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.OnFire3] = true;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
+            npc.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;
         }
 
         public override bool SafePreAI(NPC npc)

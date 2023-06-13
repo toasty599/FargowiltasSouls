@@ -30,8 +30,8 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.Hexed>(), 240);
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.ReverseManaFlow>(), 600);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.HexedBuff>(), 240);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.ReverseManaFlowBuff>(), 600);
         }
 
         public override Color? GetAlpha(Color lightColor)

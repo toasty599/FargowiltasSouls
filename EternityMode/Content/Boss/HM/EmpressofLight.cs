@@ -78,7 +78,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 return base.SafePreAI(npc);
 
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
-                Main.LocalPlayer.AddBuff(ModContent.BuffType<Purged>(), 2);
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<PurgedBuff>(), 2);
 
             bool useP2Attacks = npc.ai[3] != 0 || FargoSoulsWorld.MasochistModeReal;
 
@@ -631,8 +631,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Purified>(), 300);
-            target.AddBuff(ModContent.BuffType<Smite>(), 1800);
+            target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
+            target.AddBuff(ModContent.BuffType<SmiteBuff>(), 1800);
         }
 
         public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

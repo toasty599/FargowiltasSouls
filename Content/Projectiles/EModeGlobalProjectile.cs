@@ -1348,7 +1348,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 && sourceNPC is NPC
                 && sourceNPC.TryGetGlobalNPC(out MoonLordBodyPart _))
             {
-                target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
+                target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 180);
             }
 
             //if (sourceNPC is NPC && sourceNPC.ModNPC is NPCs.MutantBoss.MutantBoss)
@@ -1358,30 +1358,30 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 case ProjectileID.DD2ExplosiveTrapT3Explosion:
                     if (sourceNPC is NPC && sourceNPC.type == ModContent.NPCType<TimberChampion>())
-                        target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
+                        target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
                     break;
 
                 case ProjectileID.InsanityShadowHostile:
                 case ProjectileID.DeerclopsIceSpike:
                 case ProjectileID.DeerclopsRangedProjectile:
                     target.AddBuff(BuffID.Frostburn, 90);
-                    target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 900);
-                    target.AddBuff(ModContent.BuffType<Hypothermia>(), 1200);
+                    target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
+                    target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
                     break;
 
                 case ProjectileID.BloodShot:
                 case ProjectileID.BloodNautilusTears:
                 case ProjectileID.BloodNautilusShot:
                 case ProjectileID.SharpTears:
-                    target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+                    target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
                     break;
 
                 case ProjectileID.FairyQueenLance:
                     if (FargoSoulsWorld.EternityMode && sourceNPC is NPC && sourceNPC.type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                     {
                         target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                        target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                        target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
+                        target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
                     }
                     goto case ProjectileID.FairyQueenSunDance;
 
@@ -1390,8 +1390,8 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.HallowBossRainbowStreak:
                 case ProjectileID.HallowBossLastingRainbow:
                 case ProjectileID.HallowBossSplitShotCore:
-                    target.AddBuff(ModContent.BuffType<Purified>(), 300);
-                    target.AddBuff(ModContent.BuffType<Smite>(), 1800);
+                    target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
+                    target.AddBuff(ModContent.BuffType<SmiteBuff>(), 1800);
                     break;
 
                 case ProjectileID.RollingCactus:
@@ -1404,44 +1404,44 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.Boulder:
-                    target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                    target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
                     break;
 
                 case ProjectileID.PoisonDartTrap:
                 case ProjectileID.SpearTrap:
                 case ProjectileID.SpikyBallTrap:
-                    target.AddBuff(ModContent.BuffType<IvyVenom>(), 360);
+                    target.AddBuff(ModContent.BuffType<IvyVenomBuff>(), 360);
                     break;
 
                 case ProjectileID.JavelinHostile:
-                    target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
+                    target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
+                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
                     break;
 
                 case ProjectileID.DemonSickle:
-                    target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                    target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                     break;
 
                 case ProjectileID.HarpyFeather:
-                    target.AddBuff(ModContent.BuffType<ClippedWings>(), 300);
+                    target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 300);
                     break;
 
                 case ProjectileID.SandBallFalling:
                     if (projectile.velocity.X != 0) //so only antlion sand and not falling sand 
                     {
-                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
                     }
                     break;
 
                 case ProjectileID.Stinger:
                 case ProjectileID.QueenBeeStinger:
-                    target.AddBuff(ModContent.BuffType<Swarming>(), 300);
+                    target.AddBuff(ModContent.BuffType<SwarmingBuff>(), 300);
                     break;
 
                 case ProjectileID.Skull:
                     target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
                     if (sourceNPC is NPC && sourceNPC.type == NPCID.DungeonGuardian)
-                        target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
+                        target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
                     break;
 
                 case ProjectileID.EyeLaser:
@@ -1467,13 +1467,13 @@ namespace FargowiltasSouls.Content.Projectiles
                             target.AddBuff(BuffID.OgreSpit, 300);
                             break;
                         case 4:
-                            target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
+                            target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 600);
                             break;
                         case 5:
-                            target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                            target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
                             break;
                         case 6:
-                            target.AddBuff(ModContent.BuffType<Purified>(), 600);
+                            target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 600);
                             break;
 
                         default:
@@ -1500,7 +1500,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case ProjectileID.CultistBossIceMist:
                     target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 45);
-                    target.AddBuff(ModContent.BuffType<Hypothermia>(), 1200);
+                    target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
                     break;
 
                 case ProjectileID.CultistBossFireBall:
@@ -1518,19 +1518,19 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.CultistBossFireBallClone:
-                    target.AddBuff(ModContent.BuffType<Shadowflame>(), 600);
+                    target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 600);
                     break;
 
                 case ProjectileID.PaladinsHammerHostile:
-                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
+                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
                     break;
 
                 case ProjectileID.RuneBlast:
-                    target.AddBuff(ModContent.BuffType<Hexed>(), 240);
+                    target.AddBuff(ModContent.BuffType<HexedBuff>(), 240);
 
                     if (sourceNPC is NPC && sourceNPC.type == NPCID.RuneWizard)
                     {
-                        target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 60);
+                        target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 60);
                         target.AddBuff(BuffID.Suffocation, 240);
                     }
                     break;
@@ -1540,7 +1540,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     goto case ProjectileID.SeedPlantera;
                 case ProjectileID.SeedPlantera:
                 case ProjectileID.ThornBall:
-                    target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
+                    target.AddBuff(ModContent.BuffType<IvyVenomBuff>(), 240);
                     break;
 
                 case ProjectileID.DesertDjinnCurse:
@@ -1551,13 +1551,13 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.BrainScramblerBolt:
-                    target.AddBuff(ModContent.BuffType<Flipped>(), 60);
-                    target.AddBuff(ModContent.BuffType<Unstable>(), 60);
+                    target.AddBuff(ModContent.BuffType<FlippedBuff>(), 60);
+                    target.AddBuff(ModContent.BuffType<UnstableBuff>(), 60);
                     break;
 
                 case ProjectileID.MartianTurretBolt:
                 case ProjectileID.GigaZapperSpear:
-                    target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
+                    target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 300);
                     break;
 
                 case ProjectileID.RayGunnerLaser:
@@ -1565,8 +1565,8 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.SaucerMissile:
-                    target.AddBuff(ModContent.BuffType<ClippedWings>(), 300);
-                    target.AddBuff(ModContent.BuffType<Crippled>(), 300);
+                    target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 300);
+                    target.AddBuff(ModContent.BuffType<CrippledBuff>(), 300);
                     break;
 
                 case ProjectileID.SaucerLaser:
@@ -1575,20 +1575,20 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case ProjectileID.UFOLaser:
                 case ProjectileID.SaucerDeathray:
-                    target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 360);
+                    target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 360);
                     break;
 
                 case ProjectileID.FlamingWood:
                 case ProjectileID.GreekFire1:
                 case ProjectileID.GreekFire2:
                 case ProjectileID.GreekFire3:
-                    target.AddBuff(ModContent.BuffType<Shadowflame>(), 180);
+                    target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 180);
                     break;
 
                 case ProjectileID.VortexAcid:
                 case ProjectileID.VortexLaser:
-                    target.AddBuff(ModContent.BuffType<LightningRod>(), 600);
-                    target.AddBuff(ModContent.BuffType<ClippedWings>(), 300);
+                    target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
+                    target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 300);
                     break;
 
                 case ProjectileID.VortexLightning:
@@ -1596,7 +1596,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.LostSoulHostile:
-                    target.AddBuff(ModContent.BuffType<Hexed>(), 240);
+                    target.AddBuff(ModContent.BuffType<HexedBuff>(), 240);
                     break;
 
                 case ProjectileID.InfernoHostileBlast:
@@ -1604,37 +1604,37 @@ namespace FargowiltasSouls.Content.Projectiles
                     if (!(sourceNPC is NPC && sourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
                     {
                         if (Main.rand.NextBool(5))
-                            target.AddBuff(ModContent.BuffType<Fused>(), 1800);
+                            target.AddBuff(ModContent.BuffType<FusedBuff>(), 1800);
                     }
                     break;
 
                 case ProjectileID.ShadowBeamHostile:
                     if (!(sourceNPC is NPC && sourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
                     {
-                        target.AddBuff(ModContent.BuffType<Rotting>(), 1800);
-                        target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                        target.AddBuff(ModContent.BuffType<RottingBuff>(), 1800);
+                        target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                     }
                     break;
 
                 case ProjectileID.PhantasmalDeathray:
-                    target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
+                    target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
                     break;
 
                 case ProjectileID.PhantasmalBolt:
                 case ProjectileID.PhantasmalEye:
                 case ProjectileID.PhantasmalSphere:
-                    target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
+                    target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
                     if (FargoSoulsWorld.EternityMode && sourceNPC is NPC && sourceNPC.type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                     {
                         target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                        target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                        target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
+                        target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
                     }
                     break;
 
                 case ProjectileID.RocketSkeleton:
                     target.AddBuff(BuffID.Dazed, 120);
-                    target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
+                    target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
                     break;
 
                 case ProjectileID.FlamesTrap:
@@ -1649,7 +1649,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         if (sourceNPC.type == NPCID.Golem)
                         {
                             target.AddBuff(BuffID.BrokenArmor, 600);
-                            target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                            target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
                             target.AddBuff(BuffID.WitheredArmor, 600);
 
                             if (Framing.GetTileSafely(sourceNPC.Center).WallType != WallID.LihzahrdBrickUnsafe)
@@ -1662,7 +1662,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         if (sourceNPC.type == ModContent.NPCType<TerraChampion>())
                         {
                             target.AddBuff(BuffID.OnFire, 600);
-                            target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
+                            target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 600);
                         }
                     }
                     break;
@@ -1677,14 +1677,14 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.DD2DrakinShot:
-                    target.AddBuff(ModContent.BuffType<Shadowflame>(), 600);
+                    target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 600);
                     break;
 
                 case ProjectileID.NebulaSphere:
                 case ProjectileID.NebulaLaser:
                 case ProjectileID.NebulaBolt:
                     target.AddBuff(ModContent.BuffType<Berserked>(), 300);
-                    target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
+                    target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
                     break;
 
                 case ProjectileID.StardustJellyfishSmall:
@@ -1696,19 +1696,19 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case ProjectileID.Sharknado:
                 case ProjectileID.Cthulunado:
-                    target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                    target.AddBuff(ModContent.BuffType<OceanicMaul>(), 20 * 60);
+                    target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
+                    target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);
                     target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
                     break;
 
                 case ProjectileID.FlamingScythe:
                     target.AddBuff(BuffID.OnFire, 900);
-                    target.AddBuff(ModContent.BuffType<LivingWasteland>(), 900);
+                    target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 900);
                     break;
 
                 case ProjectileID.FrostWave:
                 case ProjectileID.FrostShard:
-                    target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
+                    target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 600);
                     break;
 
                 case ProjectileID.SnowBallHostile:
@@ -1716,18 +1716,18 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.BulletSnowman:
-                    target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
+                    target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 600);
                     break;
 
                 case ProjectileID.UnholyTridentHostile:
                     target.AddBuff(BuffID.Darkness, 300);
                     target.AddBuff(BuffID.Blackout, 300);
-                    target.AddBuff(ModContent.BuffType<Shadowflame>(), 600);
+                    target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 600);
                     //target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 180);
                     break;
 
                 case ProjectileID.BombSkeletronPrime:
-                    target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                    target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
                     break;
 
                 case ProjectileID.DeathLaser:
@@ -1740,8 +1740,8 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.MoonlordBullet:
                     if (sourceNPC is NPC && sourceNPC.type == NPCID.VortexRifleman)
                     {
-                        target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
-                        target.AddBuff(ModContent.BuffType<ClippedWings>(), 120);
+                        target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 300);
+                        target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 120);
                     }
                     break;
 
@@ -1756,8 +1756,8 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.DeathSickle:
-                    target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
-                    target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
+                    target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 600);
+                    target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 300);
                     break;
 
                 case ProjectileID.MeteorShot:
@@ -1769,25 +1769,25 @@ namespace FargowiltasSouls.Content.Projectiles
                     goto case ProjectileID.BulletDeadeye;
                 case ProjectileID.JestersArrow:
                     if (sourceNPC is NPC && sourceNPC.type == NPCID.BigMimicHallow)
-                        target.AddBuff(ModContent.BuffType<Smite>(), 600);
+                        target.AddBuff(ModContent.BuffType<SmiteBuff>(), 600);
                     goto case ProjectileID.BulletDeadeye;
                 case ProjectileID.BulletDeadeye:
                     if (sourceNPC is NPC && (sourceNPC.type == NPCID.PirateShipCannon || sourceNPC.type == NPCID.PirateDeadeye || sourceNPC.type == NPCID.PirateCrossbower))
-                        target.AddBuff(ModContent.BuffType<Midas>(), 600);
+                        target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
                     break;
 
                 case ProjectileID.CannonballHostile:
-                    target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                    target.AddBuff(ModContent.BuffType<Midas>(), 900);
+                    target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
+                    target.AddBuff(ModContent.BuffType<MidasBuff>(), 900);
                     break;
 
                 case ProjectileID.AncientDoomProjectile:
-                    target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
-                    target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                    target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 300);
+                    target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                     break;
 
                 case ProjectileID.ShadowFlame:
-                    target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+                    target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                     break;
 
                 case ProjectileID.SandnadoHostile:
@@ -1804,17 +1804,17 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.DD2DarkMageBolt:
-                    target.AddBuff(ModContent.BuffType<Hexed>(), 240);
+                    target.AddBuff(ModContent.BuffType<HexedBuff>(), 240);
                     break;
 
                 case ProjectileID.IceSpike:
                     //target.AddBuff(BuffID.Slimed, 120);
-                    target.AddBuff(ModContent.BuffType<Hypothermia>(), 300);
+                    target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 300);
                     break;
 
                 case ProjectileID.JungleSpike:
                     //target.AddBuff(BuffID.Slimed, 120);
-                    target.AddBuff(ModContent.BuffType<Infested>(), 300);
+                    target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
                     break;
 
                 default:

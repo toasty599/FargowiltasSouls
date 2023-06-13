@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Slimed, 120);
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.FlamesoftheUniverse>(), 120);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.FlamesoftheUniverseBuff>(), 120);
         }
 
         public override Color? GetAlpha(Color lightColor)

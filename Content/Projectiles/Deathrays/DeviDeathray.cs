@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.Lovestruck>(), 240);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.LovestruckBuff>(), 240);
         }
 
         public float WidthFunction(float _) => Projectile.width * Projectile.scale * 1.2f;

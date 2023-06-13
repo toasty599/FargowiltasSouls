@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Infested>(), 360);
+            target.AddBuff(ModContent.BuffType<InfestedBuff>(), 360);
             target.AddBuff(BuffID.Venom, 360);
             target.AddBuff(BuffID.Poisoned, 360);
         }

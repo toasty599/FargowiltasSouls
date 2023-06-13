@@ -19,7 +19,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
         {
             base.AI(npc);
 
-            EModeGlobalNPC.Aura(npc, 40, false, 199, default, ModContent.BuffType<MarkedforDeath>(), BuffID.Obstructed);
+            EModeGlobalNPC.Aura(npc, 40, false, 199, default, ModContent.BuffType<MarkedforDeathBuff>(), BuffID.Obstructed);
 
             if (++DashTimer >= 420)
             {
@@ -40,9 +40,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<LivingWasteland>(), 900);
-            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
-            target.AddBuff(ModContent.BuffType<Unlucky>(), 60 * 30);
+            target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 900);
+            target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
+            target.AddBuff(ModContent.BuffType<UnluckyBuff>(), 60 * 30);
         }
     }
 }

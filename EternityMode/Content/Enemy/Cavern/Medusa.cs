@@ -14,7 +14,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Unstable>(), 60);
+            target.AddBuff(ModContent.BuffType<UnstableBuff>(), 60);
             target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
         }
     }
