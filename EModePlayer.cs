@@ -1,6 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;

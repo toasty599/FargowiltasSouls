@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

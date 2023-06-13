@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             if (realNPC != null && realNPC.boss)
                 return;
 
-            npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Lethargic = true;
+            npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().Lethargic = true;
         }
     }
 }

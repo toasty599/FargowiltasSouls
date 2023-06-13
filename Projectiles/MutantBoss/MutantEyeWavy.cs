@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            NPC mutant = FargoSoulsUtil.NPCExists(NPCs.EModeGlobalNPC.mutantBoss);
+            NPC mutant = FargoSoulsUtil.NPCExists(FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss);
             if (mutant != null && (mutant.ai[0] == -5f || mutant.ai[0] == -7f))
             {
                 float targetRotation = mutant.ai[3];

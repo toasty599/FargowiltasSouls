@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using FargowiltasSouls.NPCs.Challengers;
+using FargowiltasSouls.Content.NPCs.Challengers;
 
 namespace FargowiltasSouls.Projectiles.Challengers
 {

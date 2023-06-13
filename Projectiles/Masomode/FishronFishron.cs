@@ -1,5 +1,5 @@
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
     public class FishronFishron : MutantBoss.MutantFishron
     {
         bool firstTick = false;
-        public override string Texture => "FargowiltasSouls/NPCs/Vanilla/NPC_370";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Vanilla/NPC_370";
 
         public override void SetDefaults()
         {

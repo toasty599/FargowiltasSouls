@@ -3,10 +3,10 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Audio;
-using FargowiltasSouls.NPCs.Challengers;
+using FargowiltasSouls.Content.NPCs.Challengers;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader.IO;
-using FargowiltasSouls.NPCs.Champions;
+using FargowiltasSouls.Content.NPCs.Champions;
 
 namespace FargowiltasSouls.Items.Summons
 {

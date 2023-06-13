@@ -1,5 +1,5 @@
 using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.NPCs.MutantBoss;
+using FargowiltasSouls.Content.NPCs.MutantBoss;
 using FargowiltasSouls.Utilities;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;

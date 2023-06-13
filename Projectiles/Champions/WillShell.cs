@@ -1,4 +1,4 @@
-using FargowiltasSouls.NPCs.Champions;
+using FargowiltasSouls.Content.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

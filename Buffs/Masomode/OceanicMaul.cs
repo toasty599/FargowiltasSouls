@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().OceanicMaul = true;
+            npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().OceanicMaul = true;
         }
     }
 }

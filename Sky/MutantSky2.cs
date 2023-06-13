@@ -1,5 +1,5 @@
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.NPCs.MutantBoss;
+using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Content.NPCs.MutantBoss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

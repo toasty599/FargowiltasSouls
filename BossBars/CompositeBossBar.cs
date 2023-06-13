@@ -1,5 +1,5 @@
-﻿using FargowiltasSouls.NPCs.Challengers;
-using FargowiltasSouls.NPCs.Champions;
+﻿using FargowiltasSouls.Content.NPCs.Challengers;
+using FargowiltasSouls.Content.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
