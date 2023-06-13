@@ -1,9 +1,6 @@
 using FargowiltasSouls.BossBars;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Forces;
-using FargowiltasSouls.Items.Pets;
-using FargowiltasSouls.Items.Placeables.Relics;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
@@ -18,6 +15,9 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Pets;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -727,7 +727,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
-            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/ShadowChampion_Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/ShadowChampion_Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rectangle = NPC.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 

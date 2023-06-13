@@ -157,7 +157,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
                 if (!Main.dedServ && Main.rand.NextBool(1000))
                 {
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/a"), npc.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/a"), npc.Center);
 
                     CombatText.NewText(npc.Hitbox, Color.Blue, "a", true);
 

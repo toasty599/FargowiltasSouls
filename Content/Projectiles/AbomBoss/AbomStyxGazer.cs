@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 {
     public class AbomStyxGazer : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Items/Weapons/FinalUpgrades/StyxGazer";
+        public override string Texture => "FargowiltasSouls/Content/Items/Weapons/FinalUpgrades/StyxGazer";
 
         public override void SetStaticDefaults()
         {
@@ -154,7 +154,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
             }
 
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, effects, 0);
-            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Items/Weapons/FinalUpgrades/StyxGazer_glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Items/Weapons/FinalUpgrades/StyxGazer_glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Main.EntitySpriteDraw(texture2D14, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * Projectile.Opacity, Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }

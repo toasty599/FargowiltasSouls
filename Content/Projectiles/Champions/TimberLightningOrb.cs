@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
                 spawned = true;
 
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder") { Volume = 0.5f }, Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Thunder") { Volume = 0.5f }, Projectile.Center);
             }
 
             Projectile.rotation += Main.rand.NextFloat(-0.2f, 0.2f);

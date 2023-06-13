@@ -1,7 +1,7 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.EternityMode;
-using FargowiltasSouls.Items.Placeables;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

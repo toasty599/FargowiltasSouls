@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                     Projectile.ai[0]++;
                 if (Projectile.ai[0] == 60 * 3 - 1)
                 {
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ChargeSound"), Projectile.Center + Projectile.velocity * Projectile.Size.Length() / 2);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), Projectile.Center + Projectile.velocity * Projectile.Size.Length() / 2);
                 }
                 int d = Dust.NewDust(player.MountedCenter + Projectile.velocity * Projectile.Size.Length(), 0, 0, DustID.CrystalPulse);
                 Main.dust[d].noGravity = true;

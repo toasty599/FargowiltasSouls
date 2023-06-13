@@ -4,6 +4,6 @@ namespace FargowiltasSouls.Tiles.Relics
 {
     public class EarthChampionRelic : BaseRelic
     {
-        protected override int ItemType => ModContent.ItemType<Items.Placeables.Relics.EarthChampionRelic>();
+        protected override int ItemType => ModContent.ItemType<FargowiltasSouls.Content.Items.Placables.Relics.EarthChampionRelic>();
     }
 }

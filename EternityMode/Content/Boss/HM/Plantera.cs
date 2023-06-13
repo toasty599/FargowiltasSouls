@@ -3,7 +3,6 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Content.Projectiles.MutantBoss;
@@ -18,6 +17,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {

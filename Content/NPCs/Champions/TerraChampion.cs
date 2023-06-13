@@ -1,9 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Forces;
-using FargowiltasSouls.Items.Pets;
-using FargowiltasSouls.Items.Placeables.Relics;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,6 +14,9 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Pets;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -796,7 +796,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
-            Texture2D glowmask = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/TerraChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowmask = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/TerraChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Main.EntitySpriteDraw(glowmask, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, NPC.rotation, origin2, NPC.scale, effects, 0);
             return false;
         }

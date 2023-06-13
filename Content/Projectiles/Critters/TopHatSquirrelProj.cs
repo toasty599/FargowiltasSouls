@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Critters
     {
         public int Counter = 1;
 
-        public override string Texture => "FargowiltasSouls/Items/Weapons/Misc/TophatSquirrelWeapon";
+        public override string Texture => "FargowiltasSouls/Content/Items/Weapons/Misc/TophatSquirrelWeapon";
 
         public override void SetStaticDefaults()
         {

@@ -3,8 +3,6 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Consumables;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Masomode;
@@ -17,6 +15,8 @@ using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Consumables;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -636,7 +636,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (!Main.player[npc.target].ZoneBeach || npc.ai[3] >= 5)
                     {
                         if (npc.ai[2] == 0 && !Main.dedServ)
-                            SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster70"), npc.Center);
+                            SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Monster70"), npc.Center);
 
                         if (Main.player[npc.target].ZoneBeach)
                         {

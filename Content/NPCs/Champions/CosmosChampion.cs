@@ -2,11 +2,6 @@ using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Forces;
-using FargowiltasSouls.Items.BossBags;
-using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Items.Placeables.Relics;
-using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,6 +14,11 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Placables.Trophies;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -472,7 +472,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 if (!Main.dedServ)
-                                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder") { Volume = 0.8f, Pitch = 0.5f }, NPC.Center);
+                                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Thunder") { Volume = 0.8f, Pitch = 0.5f }, NPC.Center);
                                 const int max = 16;
                                 for (int i = 0; i < max; i++)
                                 {
@@ -1458,7 +1458,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         NPC.localAI[0] = Main.rand.NextFloat(2 * (float)Math.PI);
 
                         if (!Main.dedServ)
-                            SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudo"), player.Center);
+                            SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), player.Center);
 
                         //if (Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -18);
 
@@ -1822,8 +1822,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
             Texture2D npcTex = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
 
-            Texture2D npcGlow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/CosmosChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D npcGlow2 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/CosmosChampion_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D npcGlow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/CosmosChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D npcGlow2 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/CosmosChampion_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rectangle = NPC.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = NPC.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;

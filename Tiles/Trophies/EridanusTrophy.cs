@@ -4,6 +4,6 @@ namespace FargowiltasSouls.Tiles.Trophies
 {
     public class EridanusTrophy : BaseTrophy
     {
-        protected override int ItemType => ModContent.ItemType<Items.Placeables.Trophies.EridanusTrophy>();
+        protected override int ItemType => ModContent.ItemType<FargowiltasSouls.Content.Items.Placables.Trophies.EridanusTrophy>();
     }
 }

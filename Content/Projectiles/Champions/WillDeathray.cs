@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             }
             if (Projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zombie_104"), Projectile.Center);
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Zombie_104"), Projectile.Center);
             }
             float num801 = 1f;
             Projectile.localAI[0] += 1f;

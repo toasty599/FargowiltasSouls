@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             if (Projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Zombie_104") { Volume = 0.5f }, Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Zombie_104") { Volume = 0.5f }, Projectile.Center);
                 Projectile.frame = Main.rand.Next(10);
             }
             float num801 = .7f;

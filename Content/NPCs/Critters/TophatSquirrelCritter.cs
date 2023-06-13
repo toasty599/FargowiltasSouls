@@ -1,5 +1,5 @@
-using FargowiltasSouls.Items.Misc;
-using FargowiltasSouls.Items.Placeables;
+using FargowiltasSouls.Content.Items.Misc;
+using FargowiltasSouls.Content.Items.Placables;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;

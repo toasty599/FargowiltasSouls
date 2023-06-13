@@ -3,8 +3,6 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Champions;
@@ -20,6 +18,8 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Items.Placables;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {

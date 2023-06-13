@@ -3,9 +3,6 @@ using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Dyes;
-using FargowiltasSouls.Items.Misc;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Shaders;
@@ -30,6 +27,9 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
+using FargowiltasSouls.Content.Items.Dyes;
+using FargowiltasSouls.Content.Items.Misc;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls
 {
@@ -122,20 +122,20 @@ namespace FargowiltasSouls
                 #region shaders
 
                 //loading refs for shaders
-                Ref<Effect> lcRef = new Ref<Effect>(Assets.Request<Effect>("Effects/LifeChampionShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> wcRef = new Ref<Effect>(Assets.Request<Effect>("Effects/WillChampionShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> gaiaRef = new Ref<Effect>(Assets.Request<Effect>("Effects/GaiaShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> textRef = new Ref<Effect>(Assets.Request<Effect>("Effects/TextShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> invertRef = new Ref<Effect>(Assets.Request<Effect>("Effects/Invert", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> finalSparkRef = new Ref<Effect>(Assets.Request<Effect>("Effects/FinalSpark", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> mutantDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/MutantFinalDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> willDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/WillDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> willBigDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/WillBigDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> deviBigDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/DeviTouhouDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> deviRingRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/DeviRingShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> genericDeathrayRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/GenericDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> blobTrailRef = new(Assets.Request<Effect>("Effects/PrimitiveShaders/BlobTrailShader", AssetRequestMode.ImmediateLoad).Value);
-                //Ref<Effect> shockwaveRef = new Ref<Effect>(Assets.Request<Effect>("Effects/ShockwaveEffect", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
+                Ref<Effect> lcRef = new Ref<Effect>(Assets.Request<Effect>("Assets/Effects/LifeChampionShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> wcRef = new Ref<Effect>(Assets.Request<Effect>("Assets/Effects/WillChampionShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> gaiaRef = new Ref<Effect>(Assets.Request<Effect>("Assets/Effects/GaiaShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> textRef = new Ref<Effect>(Assets.Request<Effect>("Assets/Effects/TextShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> invertRef = new Ref<Effect>(Assets.Request<Effect>("Assets/Effects/Invert", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> finalSparkRef = new Ref<Effect>(Assets.Request<Effect>("Assets/Effects/FinalSpark", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> mutantDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/MutantFinalDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> willDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/WillDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> willBigDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/WillBigDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> deviBigDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/DeviTouhouDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> deviRingRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/DeviRingShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> genericDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/GenericDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> blobTrailRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/BlobTrailShader", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> shockwaveRef = new Ref<Effect>(Assets.Request<Effect>("Assets/Effects/ShockwaveEffect", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
 
                 //loading shaders from refs
                 GameShaders.Misc["LCWingShader"] = new MiscShaderData(lcRef, "LCWings");
@@ -649,7 +649,7 @@ namespace FargowiltasSouls
 
                 //    bossHealthBar.Call("hbStart");
                 //    bossHealthBar.Call("hbSetColours", new Color(55, 255, 191), new Color(0f, 1f, 0f), new Color(0f, 0.5f, 1f));
-                //    //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("NPCs/MutantBoss/MutantBoss_Head_Boss"));
+                //    //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("Content/NPCs/MutantBoss/MutantBoss_Head_Boss"));
                 //    bossHealthBar.Call("hbSetTexture",
                 //        bossHealthBar.GetTexture("UI/MoonLordBarStart"), null,
                 //        bossHealthBar.GetTexture("UI/MoonLordBarEnd"), null);
@@ -957,13 +957,13 @@ namespace FargowiltasSouls
         //            {
         //                if (MMWorld.MMArmy && priority <= MusicPriority.Environment)
         //                {
-        //                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/MonsterMadhouse");
+        //                    music = GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/MonsterMadhouse");
         //                    priority = MusicPriority.Event;
         //                }
         //                /*if (FargoSoulsGlobalNPC.FargoSoulsUtil.BossIsAlive(ref FargoSoulsGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
         //                    && Main.player[Main.myPlayer].Distance(Main.npc[FargoSoulsGlobalNPC.mutantBoss].Center) < 3000)
         //                {
-        //                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/SteelRed");
+        //                    music = GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/SteelRed");
         //                    priority = (MusicPriority)12;
         //                }*/
         //            }

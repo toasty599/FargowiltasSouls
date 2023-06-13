@@ -1,4 +1,4 @@
-using FargowiltasSouls.Items;
+using FargowiltasSouls.Content.Items;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.Localization;

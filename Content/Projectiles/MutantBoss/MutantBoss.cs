@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
     {
         public override string Texture => "FargowiltasSouls/Content/NPCs/MutantBoss/MutantBoss";
 
-        public string trailTexture => "NPCs/Eternals/MutantSoul";
+        public string trailTexture => "Content/NPCs/Eternals/MutantSoul";
         public int npcType => ModContent.NPCType<NPCs.MutantBoss.MutantBoss>();
         public bool auraTrail;
 
@@ -149,12 +149,12 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Texture2D aura = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/MutantBoss/MutantAura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D aura = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/MutantBoss/MutantAura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int auraFrameHeight = aura.Height / auraFrames;
             int auraY = auraFrameHeight * (int)Projectile.localAI[0];
             Rectangle auraRectangle = new Rectangle(0, auraY, aura.Width, auraFrameHeight);
 
-            /*Texture2D lightning = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/MutantBoss/MutantLightning", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            /*Texture2D lightning = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/MutantBoss/MutantLightning", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int lightningFrameHeight = lightning.Height / lightningFrames;
             int lightningY = lightningFrameHeight * (int)Projectile.localAI[0];
             Rectangle lightningRectangle = new Rectangle(0, lightningY, lightning.Width, lightningFrameHeight);*/
@@ -237,7 +237,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                     ? Projectile.scale * Main.cursorScale * 0.8f * Main.rand.NextFloat(0.75f, 1.25f)
                     : Projectile.scale * modifier * Main.cursorScale * 1.25f;
 
-                Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
                 Vector2 origin = new Vector2(star.Width / 2 + sansScale, star.Height / 2 + sansScale);
 

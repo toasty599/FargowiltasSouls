@@ -101,7 +101,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.NymphsPerfume>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<FargowiltasSouls.Content.Items.Accessories.Masomode.NymphsPerfume>(), 5));
         }
     }
 }

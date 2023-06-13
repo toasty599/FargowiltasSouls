@@ -1,5 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Items.Armor;
+﻿using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

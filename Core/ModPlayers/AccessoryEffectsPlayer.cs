@@ -1,7 +1,6 @@
 ﻿using FargowiltasSouls.Buffs;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
@@ -21,6 +20,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -557,7 +557,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 goldHP = Player.statLife;
 
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zhonyas"), Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Zhonyas"), Player.Center);
             }
             //cancel it early
             else
@@ -1348,7 +1348,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (freezeLength == 90)
                 {
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudoResume"), Player.Center);
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudoResume"), Player.Center);
                 }
 
                 if (freezeLength <= 0)

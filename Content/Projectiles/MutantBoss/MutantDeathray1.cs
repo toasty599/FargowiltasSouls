@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             return target.hurtCooldowns[1] == 0;
         }
 
-        //static readonly SoundStyle RaySound = new SoundStyle("Terraria/Sounds/Zombie_104") { MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew };
+        //static readonly SoundStyle RaySound = new SoundStyle("Terraria/Assets/Sounds/Zombie_104") { MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew };
 
         public override void AI()
         {

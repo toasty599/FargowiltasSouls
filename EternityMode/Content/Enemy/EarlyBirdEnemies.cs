@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.EternityMode.NPCMatching;
-using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using System;
 using System.Linq;
 using Terraria;

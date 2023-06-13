@@ -1,5 +1,5 @@
-﻿using FargowiltasSouls.EternityMode.NPCMatching;
-using FargowiltasSouls.Items.Consumables;
+﻿using FargowiltasSouls.Content.Items.Consumables;
+using FargowiltasSouls.EternityMode.NPCMatching;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;

@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantEye_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/MutantBoss/MutantEye_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle glowrectangle = glow.Bounds;
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
             Color glowcolor = Color.Lerp(new Color(29, 171, 239, 0), Color.Transparent, 0.3f);

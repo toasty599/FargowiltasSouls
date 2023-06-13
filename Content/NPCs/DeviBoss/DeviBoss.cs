@@ -1,13 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.BossBags;
-using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Items.Pets;
-using FargowiltasSouls.Items.Placeables.Relics;
-using FargowiltasSouls.Items.Placeables.Trophies;
-using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Patreon.Phupperbat;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
@@ -26,6 +19,13 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.Items.Pets;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Placables.Trophies;
+using FargowiltasSouls.Content.Items.Summons;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.Content.NPCs.DeviBoss
 {

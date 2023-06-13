@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Items.Accessories.Forces;
+﻿using FargowiltasSouls.Content.Items.Accessories.Forces;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Toggler.Content

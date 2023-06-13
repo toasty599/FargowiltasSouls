@@ -10,22 +10,22 @@ using System.Collections.Generic;
 using Terraria.DataStructures;
 using FargowiltasSouls.Content.Projectiles.Challengers;
 using Terraria.Graphics.Shaders;
-using FargowiltasSouls.Items.BossBags;
-using FargowiltasSouls.Items.Weapons.Challengers;
 using Terraria.GameContent.ItemDropRules;
-using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
-using FargowiltasSouls.Items.Summons;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using Terraria.Localization;
 using FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon;
 using static System.Formats.Asn1.AsnWriter;
 using FargowiltasSouls.Patreon.Sasha;
-using FargowiltasSouls.Items.Placeables.Relics;
-using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Items.Pets;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Placables.Trophies;
+using FargowiltasSouls.Content.Items.Summons;
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 
 namespace FargowiltasSouls.Content.NPCs.Challengers
 {
@@ -1077,7 +1077,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             {
                 LockVector1 = (NPC.DirectionTo(Player.Center) * ProjectileSpeed).RotatedBy(MathHelper.ToRadians(NPC.ai[0]));
                 NPC.netUpdate = true;
-                SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Zombie_104") with { Volume = 0.5f }, NPC.Center);
+                SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Zombie_104") with { Volume = 0.5f }, NPC.Center);
             }
             if (NPC.ai[1] > 60f)
             {
@@ -1170,7 +1170,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             NPC.dontTakeDamage = true;
             if (AttackF1)
             {
-                SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Zombie_104") with { Volume = 0.5f }, NPC.Center);
+                SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Zombie_104") with { Volume = 0.5f }, NPC.Center);
                 AttackF1 = false;
                 NPC.velocity.X = 0;
                 NPC.velocity.Y = 0;
@@ -3017,7 +3017,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
 
-                Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
                 float scale = 0.45f * Main.rand.NextFloat(1f, 2.5f);
                 Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);

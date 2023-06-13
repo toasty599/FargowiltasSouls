@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Patreon.Phupperbat
                             squeak = false;
 
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(new SoundStyle($"FargowiltasSouls/Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), Projectile.Center);
+                                SoundEngine.PlaySound(new SoundStyle($"FargowiltasSouls/Assets/Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), Projectile.Center);
                         }
                     }
                     else

@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Main.refreshMap = true;
 
             if (!Main.dedServ)
-                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder") { Volume = 1.5f });
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Thunder") { Volume = 1.5f });
         }
     }
 }

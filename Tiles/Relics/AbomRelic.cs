@@ -4,6 +4,6 @@ namespace FargowiltasSouls.Tiles.Relics
 {
     public class AbomRelic : BaseRelic
     {
-        protected override int ItemType => ModContent.ItemType<Items.Placeables.Relics.AbomRelic>();
+        protected override int ItemType => ModContent.ItemType<FargowiltasSouls.Content.Items.Placables.Relics.AbomRelic>();
     }
 }

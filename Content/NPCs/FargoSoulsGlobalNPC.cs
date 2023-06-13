@@ -1,10 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Weapons.BossDrops;
-using FargowiltasSouls.Items.Weapons.Misc;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Toggler;
@@ -17,6 +13,10 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Weapons.Misc;
+using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 
 namespace FargowiltasSouls.Content.NPCs
 {

@@ -107,7 +107,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 if (FargoSoulsWorld.MasochistModeReal && Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5)
                 {
                     if (!target.HasBuff(ModContent.BuffType<TimeFrozen>()))
-                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudo"), target.Center);
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), target.Center);
                     target.AddBuff(ModContent.BuffType<TimeFrozen>(), 300);
                 }
             }
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = Projectile.GetAlpha(lightColor);
-            Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantSphereGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/MutantBoss/MutantSphereGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int rect1 = glow.Height;
             int rect2 = 0;
             Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);

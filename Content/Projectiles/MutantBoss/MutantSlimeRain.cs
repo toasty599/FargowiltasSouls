@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 {
     public class MutantSlimeRain : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Items/Weapons/FinalUpgrades/SlimeRain";
+        public override string Texture => "FargowiltasSouls/Content/Items/Weapons/FinalUpgrades/SlimeRain";
 
         public override void SetStaticDefaults()
         {

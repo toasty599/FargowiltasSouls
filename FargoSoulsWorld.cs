@@ -1,4 +1,4 @@
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Content.Items.Misc;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

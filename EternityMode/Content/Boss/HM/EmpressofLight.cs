@@ -3,7 +3,6 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using System;
@@ -14,6 +13,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {

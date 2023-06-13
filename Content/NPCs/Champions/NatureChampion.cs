@@ -1,7 +1,7 @@
 using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
+using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Forces;
-using FargowiltasSouls.Items.Placeables.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -796,7 +796,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 {
                     if (NPC.Distance(Main.LocalPlayer.Center) <= 1200)
                     {
-                        string neckTex = "NPCs/Champions/NatureChampion_Neck";
+                        string neckTex = "Content/NPCs/Champions/NatureChampion_Neck";
                         Texture2D neckTex2D = FargowiltasSouls.Instance.Assets.Request<Texture2D>(neckTex, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         Vector2 connector = Main.npc[i].Center;
                         Vector2 neckOrigin = NPC.Center + new Vector2(54 * NPC.spriteDirection, -10);
@@ -823,7 +823,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         }
                     }
 
-                    /*Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/NatureChampion_Neck", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    /*Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/NatureChampion_Neck", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Vector2 position = Main.npc[i].Center;
                     Vector2 mountedCenter = NPC.Center + new Vector2(54 * NPC.spriteDirection, -10);
                     Rectangle? sourceRectangle = new Rectangle?();
@@ -888,7 +888,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             if (glow > 0)
                 glow--;
             glow += 3;
-            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/NatureChampionHead_Glow" + glow.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/NatureChampionHead_Glow" + glow.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
             Main.EntitySpriteDraw(texture2D13, head.Center - screenPos + new Vector2(0f, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), head.GetAlpha(drawColor), head.rotation, origin2, head.scale, effects, 0);
             Main.EntitySpriteDraw(texture2D14, head.Center - screenPos + new Vector2(0f, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, head.rotation, origin2, head.scale, effects, 0);

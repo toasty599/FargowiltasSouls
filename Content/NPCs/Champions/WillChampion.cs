@@ -1,9 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Forces;
-using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Content.Projectiles.Champions;
-using FargowiltasSouls.Items.Placeables.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,6 +13,9 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Pets;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -747,8 +747,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
-            Texture2D glowmask = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"NPCs/Champions/{Name}_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D glowmask2 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"NPCs/Champions/{Name}_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowmask = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Content/NPCs/Champions/{Name}_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowmask2 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Content/NPCs/Champions/{Name}_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             //int num156 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value.Height / Main.npcFrameCount[NPC.type]; //ypos of lower right corner of sprite to draw
             //int y3 = num156 * NPC.frame.Y; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = NPC.frame;//new Rectangle(0, y3, texture2D13.Width, num156);

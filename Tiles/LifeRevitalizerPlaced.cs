@@ -1,4 +1,4 @@
-using FargowiltasSouls.Items.Placeables;
+using FargowiltasSouls.Content.Items.Placables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Tiles
             /*if (Main.tile[i - 1, j - 1].TileType == ModContent.TileType<LifeRevitalizerPlaced>() && Main.tile[i + 1, j - 1].TileType == ModContent.TileType<LifeRevitalizerPlaced>())
             {
                 spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-                Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
                 float scale = 0.175f * Main.rand.NextFloat(1f, 1.5f);
                 Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);

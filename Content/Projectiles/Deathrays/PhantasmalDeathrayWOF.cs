@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             }
             if (Projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zombie_104"), Projectile.Center);
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Zombie_104"), Projectile.Center);
             }
             float maxScale = 1f;
             if (FargoSoulsWorld.MasochistModeReal)

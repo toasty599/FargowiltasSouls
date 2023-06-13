@@ -1,8 +1,8 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Items.Armor;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (TribalCharmEquipped)
             {
-                Items.Accessories.Masomode.TribalCharm.Effects(this);
+                FargowiltasSouls.Content.Items.Accessories.Masomode.TribalCharm.Effects(this);
             }
 
             if (PungentEyeball && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPungentCursor"))

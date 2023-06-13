@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Buffs
 
                 case BuffID.Dazed:
                     if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % 60 == 55)
-                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/DizzyBird"));
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/DizzyBird"));
                     break;
 
 

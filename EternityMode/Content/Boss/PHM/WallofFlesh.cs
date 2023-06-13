@@ -3,8 +3,6 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Consumables;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.Masomode;
@@ -19,6 +17,8 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Items.Consumables;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -198,7 +198,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (!Main.dedServ)
                 {
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster94"),
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
@@ -256,7 +256,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (!Main.dedServ)
                 {
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster94"),
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
@@ -286,7 +286,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                     if (!Main.dedServ)
                     {
-                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Monster5") { Volume = 1.5f },
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Monster5") { Volume = 1.5f },
                             npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                         if (Main.LocalPlayer.active)

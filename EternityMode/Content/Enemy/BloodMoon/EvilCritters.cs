@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -29,7 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>(), 10));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<FargowiltasSouls.Content.Items.Accessories.Masomode.SqueakyToy>(), 10));
         }
     }
 }

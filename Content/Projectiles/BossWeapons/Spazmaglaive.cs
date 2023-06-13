@@ -154,7 +154,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 }
                 if (empowered)
                 {
-                    Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/BossWeapons/HentaiSpearSpinGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/BossWeapons/HentaiSpearSpinGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Color glowcolor = new Color(142, 250, 176);
                     glowcolor = Color.Lerp(glowcolor, Color.Transparent, 0.6f);
                     float glowscale = Projectile.scale * (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];

@@ -2,13 +2,6 @@ using FargowiltasSouls.Buffs.Boss;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.BossBags;
-using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Items.Pets;
-using FargowiltasSouls.Items.Placeables.Relics;
-using FargowiltasSouls.Items.Placeables.Trophies;
-using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Content.Projectiles.AbomBoss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,6 +16,13 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.Items.Pets;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Placables.Trophies;
+using FargowiltasSouls.Content.Items.Summons;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.Content.NPCs.AbomBoss
 {
@@ -166,7 +166,7 @@ namespace FargowiltasSouls.Content.NPCs.AbomBoss
                 if (NPC.Distance(Main.player[NPC.target].Center) < 1500)
                 {
                     NPC.localAI[3] = 1;
-                    SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Roar_0"), NPC.Center);
+                    SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Roar_0"), NPC.Center);
                     NPC.localAI[0] = Main.rand.Next(3); //start on a random strong attack
                     NPC.localAI[1] = Main.rand.Next(2); //start on a random super
                 }
@@ -350,7 +350,7 @@ namespace FargowiltasSouls.Content.NPCs.AbomBoss
                         {
                             ritualProj = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                         }
-                        SoundEngine.PlaySound(new SoundStyle("Terraria/Sounds/Roar_0"), NPC.Center);
+                        SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Roar_0"), NPC.Center);
                     }
                     break;
 

@@ -1,5 +1,4 @@
 using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
@@ -9,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.Content.Projectiles
 {

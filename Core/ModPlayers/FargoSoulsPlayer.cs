@@ -2,11 +2,8 @@ using FargowiltasSouls.Buffs;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Core;
-using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Accessories.Souls;
-using FargowiltasSouls.Items.Armor;
-using FargowiltasSouls.Items.Dyes;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Projectiles.Masomode;
@@ -31,6 +28,9 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.Items.Dyes;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -852,7 +852,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 WizardEnchantActive = false;
                 for (int i = 3; i <= 9; i++)
                 {
-                    if (!Player.armor[i].IsAir && (Player.armor[i].type == ModContent.ItemType<WizardEnchant>() || Player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.CosmoForce>()))
+                    if (!Player.armor[i].IsAir && (Player.armor[i].type == ModContent.ItemType<WizardEnchant>() || Player.armor[i].type == ModContent.ItemType<FargowiltasSouls.Content.Items.Accessories.Forces.CosmoForce>()))
                     {
                         WizardEnchantActive = true;
                         CosmoForce = true;
@@ -2472,7 +2472,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public void Squeak(Vector2 center)
         {
             if (!Main.dedServ)
-                SoundEngine.PlaySound(new SoundStyle($"FargowiltasSouls/Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), center);
+                SoundEngine.PlaySound(new SoundStyle($"FargowiltasSouls/Assets/Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), center);
         }
 
         private int InfestedExtraDot()

@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                     && Projectile.Colliding(Projectile.Hitbox, Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GetPrecisionHurtbox()))
                 {
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<TimeFrozen>()))
-                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudo"), Main.LocalPlayer.Center);
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Main.LocalPlayer.Center);
                     Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeFrozen>(), 300);
                 }
             }
@@ -169,7 +169,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantSphereGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/MutantBoss/MutantSphereGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int rect1 = glow.Height;
             int rect2 = 0;
             Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Items.Weapons.SwarmDrops;
+using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -303,7 +303,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             if (Projectile.ai[1] < 0) //flying, lights on
             {
-                Texture2D eyes = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Vanilla/GolemLights1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D eyes = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Vanilla/GolemLights1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Rectangle eyeRectangle = new Rectangle(0, eyes.Height / 2, eyes.Width, eyes.Height / 2);
                 Vector2 eyeOrigin = eyeRectangle.Size() / 2f;
                 eyeOrigin.Y -= 4;

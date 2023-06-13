@@ -35,7 +35,7 @@ namespace FargowiltasSouls.PlayerDrawLayers
                         modPlayer.frameMutantAura = 0;
                 }
 
-                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/MutantBoss/MutantAura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/MutantBoss/MutantAura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 int frameSize = texture.Height / 19;
                 int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
                 int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y - 16 * drawPlayer.gravDir);

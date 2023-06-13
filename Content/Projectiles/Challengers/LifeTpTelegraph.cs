@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
 
     public class LifeTpTelegraph : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Effects/LifeStar";
+        public override string Texture => "FargowiltasSouls/Assets/Effects/LifeStar";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Teleport Telegraph");

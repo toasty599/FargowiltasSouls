@@ -4,6 +4,6 @@ namespace FargowiltasSouls.Tiles.Relics
 {
     public class LifeChallengerRelic : BaseRelic
     {
-        protected override int ItemType => ModContent.ItemType<Items.Placeables.Relics.LifeChallengerRelic>();
+        protected override int ItemType => ModContent.ItemType<FargowiltasSouls.Content.Items.Placables.Relics.LifeChallengerRelic>();
     }
 }

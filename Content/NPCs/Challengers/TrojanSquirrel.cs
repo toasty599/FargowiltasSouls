@@ -1,10 +1,10 @@
 using FargowiltasSouls.BossBars;
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Items.BossBags;
-using FargowiltasSouls.Items.Placeables.Relics;
-using FargowiltasSouls.Items.Placeables.Trophies;
-using FargowiltasSouls.Items.Summons;
-using FargowiltasSouls.Items.Weapons.Challengers;
+using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Placables.Trophies;
+using FargowiltasSouls.Content.Items.Summons;
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

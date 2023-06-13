@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Buffs.Souls
                 }
 
                 if (player.buffTime[buffIndex] == 90)
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudoResume"), player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudoResume"), player.Center);
             }
         }
 

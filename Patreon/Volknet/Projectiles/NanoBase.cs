@@ -206,7 +206,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
 
                                     if (!Main.dedServ)
                                     {
-                                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Zombie_104"), Projectile.Center);
+                                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Zombie_104"), Projectile.Center);
                                     }
 
                                     Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), owner.Center, Vector2.Zero, ModContent.ProjectileType<PlasmaDeathRay>(), (int)(Projectile.damage * 2.5), Projectile.knockBack, owner.whoAmI);

@@ -2,12 +2,6 @@ using FargowiltasSouls.Buffs.Boss;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.BossBags;
-using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Items.Pets;
-using FargowiltasSouls.Items.Placeables.Relics;
-using FargowiltasSouls.Items.Placeables.Trophies;
-using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Content.Projectiles.MutantBoss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,6 +18,12 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.Items.Pets;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Placables.Trophies;
+using FargowiltasSouls.Content.Items.Summons;
 
 namespace FargowiltasSouls.Content.NPCs.MutantBoss
 {
@@ -1347,7 +1347,7 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
                 if ((FargoSoulsWorld.EternityMode && NPC.ai[0] != 9) || FargoSoulsWorld.MasochistModeReal)
                 {
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder") { Pitch = -0.5f }, NPC.Center);
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Thunder") { Pitch = -0.5f }, NPC.Center);
 
                     float lookSign = Math.Sign(NPC.localAI[1]);
                     float arcSign = Math.Sign(NPC.ai[2]);

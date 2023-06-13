@@ -1,7 +1,5 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Forces;
-using FargowiltasSouls.Items.Placeables.Relics;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +14,8 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -774,8 +774,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             int currentFrame = NPC.frame.Y / (texture2D13.Height / Main.npcFrameCount[NPC.type]);
-            Texture2D wing = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/LifeChampion_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D wingGlow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/LifeChampion_WingsGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D wing = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/LifeChampion_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D wingGlow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/LifeChampion_WingsGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int wingHeight = wing.Height / Main.npcFrameCount[NPC.type];
             Rectangle wingRectangle = new Rectangle(0, currentFrame * wingHeight, wing.Width, wingHeight);
             Vector2 wingOrigin = wingRectangle.Size() / 2f;
@@ -829,7 +829,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             }
 
-            Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
             float scale = NPC.localAI[3] == 0 ? NPC.ai[2] * Main.rand.NextFloat(1f, 2.5f) : (Main.cursorScale + 0.3f) * Main.rand.NextFloat(0.8f, 1.2f);
             Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);

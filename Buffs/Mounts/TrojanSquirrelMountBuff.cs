@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Items.Mounts;
+﻿using FargowiltasSouls.Content.Items.Mounts;
 using Terraria;
 using Terraria.ModLoader;
 

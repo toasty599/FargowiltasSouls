@@ -10,6 +10,6 @@ namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 
         public bool CanShowItemDropInUI() => true;
 
-        public string GetConditionDescription() => $"[i:{ModContent.ItemType<Items.Masochist>()}]Pre-Hardmode Eternity Mode drop rate";
+        public string GetConditionDescription() => $"[i:{ModContent.ItemType<FargowiltasSouls.Content.Items.Masochist>()}]Pre-Hardmode Eternity Mode drop rate";
     }
 }

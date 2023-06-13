@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
 
         private int ExplosionDiameter = FargoSoulsWorld.MasochistModeReal ? 400 : 350;
 
-        private SoundStyle Beep = new SoundStyle("FargowiltasSouls/Sounds/NukeBeep");
+        private SoundStyle Beep = new SoundStyle("FargowiltasSouls/Assets/Sounds/NukeBeep");
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Banished Baron's Spicy Beeping Nuclear Torpedo of Death and Destruction");
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             //draw glow ring
             float modifier = Projectile.localAI[0] / Projectile.ai[0];
             Color RingColor = Color.Lerp(Color.Orange, Color.Red, modifier);
-            Texture2D ringTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/GlowRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D ringTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/GlowRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int ringy = ringTexture.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             float RingScale = Projectile.scale * ExplosionDiameter / ringTexture.Height;
             int ringy3 = ringy * Projectile.frame; //ypos of upper left corner of sprite to draw

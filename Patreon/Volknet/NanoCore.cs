@@ -7,11 +7,11 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Patreon.Duck;
 using FargowiltasSouls.Patreon.DevAesthetic;
 using FargowiltasSouls.Patreon.Sasha;
 using FargowiltasSouls.Core;
+using FargowiltasSouls.Content.Items.Materials;
 
 namespace FargowiltasSouls.Patreon.Volknet
 {

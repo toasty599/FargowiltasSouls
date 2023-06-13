@@ -1,13 +1,13 @@
-﻿using FargowiltasSouls.Items;
-using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Items.Accessories.Forces;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Accessories.Souls;
-using FargowiltasSouls.Items.Armor;
-using FargowiltasSouls.Items.Consumables;
-using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Items.Placeables;
-using FargowiltasSouls.Items.Summons;
+﻿using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.Items.Consumables;
+using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.Items.Placables;
+using FargowiltasSouls.Content.Items.Summons;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -242,7 +242,7 @@ namespace FargowiltasSouls
             AddToggle("MasoRainbowConfig", ModContent.ItemType<ConcentratedRainbowMatter>());
             AddToggle("MasoHealingPotionConfig", ModContent.ItemType<ConcentratedRainbowMatter>());
             AddToggle("MasoNymphConfig", ModContent.ItemType<NymphsPerfume>());
-            AddToggle("MasoSqueakConfig", ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>());
+            AddToggle("MasoSqueakConfig", ModContent.ItemType<FargowiltasSouls.Content.Items.Accessories.Masomode.SqueakyToy>());
             AddToggle("MasoPouchConfig", ModContent.ItemType<WretchedPouch>());
             AddToggle("MasoClippedConfig", ModContent.ItemType<WyvernFeather>());
 			AddToggle("MasoGrav2Config", ModContent.ItemType<WyvernFeather>());

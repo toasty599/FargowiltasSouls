@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     FreezeTime = true;
                     freezeLength = TIMESTOP_DURATION;
 
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ZaWarudo"), Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Player.Center);
                 }
                 else if (SnowEnchantActive && !Player.HasBuff(ModContent.BuffType<SnowstormCD>()))
                 {

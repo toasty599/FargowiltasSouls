@@ -4,6 +4,6 @@ namespace FargowiltasSouls.Tiles.Trophies
 {
     public class MutantTrophy : BaseTrophy
     {
-        protected override int ItemType => ModContent.ItemType<Items.Placeables.Trophies.MutantTrophy>();
+        protected override int ItemType => ModContent.ItemType<FargowiltasSouls.Content.Items.Placables.Trophies.MutantTrophy>();
     }
 }

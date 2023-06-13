@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Dusts;
+﻿using FargowiltasSouls.Content.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

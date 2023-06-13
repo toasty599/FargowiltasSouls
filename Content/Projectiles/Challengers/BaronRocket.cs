@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
         //(public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.9f;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Projectile.ai[0] != 3 ? Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value : FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Challengers/BaronRocketTorp", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D13 = Projectile.ai[0] != 3 ? Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value : FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/Challengers/BaronRocketTorp", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);

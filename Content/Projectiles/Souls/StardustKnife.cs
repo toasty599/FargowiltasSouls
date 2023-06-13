@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         {
             if (Projectile.localAI[1] == 1)
             {
-                Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantEye_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/MutantBoss/MutantEye_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 int rect1 = glow.Height / Main.projFrames[Projectile.type];
                 int rect2 = rect1 * Projectile.frame;
 

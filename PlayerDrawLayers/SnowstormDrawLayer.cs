@@ -37,7 +37,7 @@ namespace FargowiltasSouls.PlayerDrawLayers
                         modPlayer.frameSnow = 1;
                 }
 
-                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Souls/SnowBlizzard", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/Souls/SnowBlizzard", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 int frameSize = texture.Height / 20;
                 int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
                 int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y);

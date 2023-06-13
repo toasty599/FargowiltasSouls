@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
             {
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-                Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
                 float scale = 0.25f * Main.rand.NextFloat(0.5f, 1.25f);
                 Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);

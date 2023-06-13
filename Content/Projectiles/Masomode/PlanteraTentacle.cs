@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 }
             }
 
-            //Gore.NewGore(Projectile.Center, Vector2.Zero, mod.GetGoreSlot("Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "388" : "389")), Projectile.scale);
+            //Gore.NewGore(Projectile.Center, Vector2.Zero, mod.GetGoreSlot("Assets/Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "388" : "389")), Projectile.scale);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -167,7 +167,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             if (Projectile.localAI[0] != 0 && Projectile.localAI[1] != 0)
             {
-                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Vanilla/Chain26", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Vanilla/Chain26", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Vector2 position = Projectile.Center;
                 Vector2 mountedCenter = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
                 Rectangle? sourceRectangle = new Rectangle?();

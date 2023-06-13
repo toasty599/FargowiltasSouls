@@ -14,8 +14,8 @@ using FargowiltasSouls.Patreon.ManliestDove;
 using System.Reflection;
 using System.Linq;
 using Terraria.Audio;
-using FargowiltasSouls.Items.BossBags;
-using FargowiltasSouls.Items.Weapons.Challengers;
+using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Linq;
 using Terraria.GameContent.ItemDropRules;
@@ -36,8 +36,8 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
         Player player => Main.player[NPC.target];
         //TODO: re-enable boss checklist compat, localizationhelper addSpawnInfo
 
-        SoundStyle BaronRoar = new SoundStyle("FargowiltasSouls/Sounds/BaronRoar");
-        SoundStyle BaronYell = new SoundStyle("FargowiltasSouls/Sounds/BaronYell");
+        SoundStyle BaronRoar = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronRoar");
+        SoundStyle BaronYell = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronYell");
 
         #region Variables
         private enum StateEnum //ALL states
@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit4;
-            NPC.DeathSound = new SoundStyle("FargowiltasSouls/Sounds/BaronDeath");
+            NPC.DeathSound = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronDeath");
 
             Music = MusicID.OtherworldlyBoss1;
             SceneEffectPriority = SceneEffectPriority.BossLow;
@@ -428,7 +428,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             
             if (Timer == 1)
             {
-                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/BaronHit"), NPC.Center);
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronHit"), NPC.Center);
                 if (!Main.dedServ)
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 100;
             }

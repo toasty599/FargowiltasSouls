@@ -1,10 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Items.Accessories.Forces;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Accessories.Souls;
-using FargowiltasSouls.Items.Weapons.SwarmDrops;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles.Minions;
@@ -21,6 +17,10 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -595,7 +595,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         Player player = Main.player[projectile.owner];
                         if (player.HeldItem.type == ModContent.ItemType<Blender>())
                         {
-                            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/PlanteraTentacle", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/PlanteraTentacle", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                             Rectangle rectangle = new Rectangle(0, 0, texture2D13.Width, texture2D13.Height);
                             Vector2 origin2 = rectangle.Size() / 2f;
 
@@ -1176,7 +1176,7 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             if (projectile.type == ProjectileID.RuneBlast)
             {
-                Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/RuneBlast", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/RuneBlast", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 int num156 = texture2D13.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
                 int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
                 Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);

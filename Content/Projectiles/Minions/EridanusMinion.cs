@@ -305,8 +305,8 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D projTex = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D glowTex = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/CosmosChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D glowerTex = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/CosmosChampion_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowTex = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/CosmosChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowerTex = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/CosmosChampion_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int size = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = size * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, projTex.Width, size);
