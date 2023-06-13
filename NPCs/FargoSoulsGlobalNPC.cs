@@ -938,6 +938,13 @@ namespace FargowiltasSouls.NPCs
                     npcLoot.Add(BossDrop(ModContent.ItemType<FishStick>()));
                     break;
 
+                    //JAVYZ TODO: Prisma Regalia
+                    /*
+                case NPCID.HallowBoss:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<PrismaRegalia>()));
+                    break;
+                    */
+
                 case NPCID.DD2Betsy:
                     npcLoot.Add(BossDrop(ModContent.ItemType<DragonBreath>()));
                     break;
@@ -1094,7 +1101,7 @@ namespace FargowiltasSouls.NPCs
 
             if (Smite)
             {
-                damage *= 1.1;
+                damage *= 1.2;
             }
 
             if (MoltenAmplify)
@@ -1106,24 +1113,6 @@ namespace FargowiltasSouls.NPCs
             {
                 damage *= 1.0 + 0.15 * PungentGazeTime / PungentGaze.MAX_TIME;
             }
-
-            if (OceanicMaul)
-            {
-                damage += 10;
-                //damage *= 1.3;
-            }
-
-            if (CurseoftheMoon)
-            {
-                damage += 5;
-                //damage *= 1.1;
-            }
-
-            if (Rotting)
-            {
-                damage += 5;
-            }
-
 
             //            //if (modPlayer.KnightEnchant && Villain && !npc.boss)
             //            //{

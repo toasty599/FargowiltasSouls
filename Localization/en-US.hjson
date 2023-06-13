@@ -34,7 +34,7 @@ Mods: {
 			Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
 			Meteor: ""
 			Miner: ""
-			Molten: ""
+			Molten: "Inferno ring does more damage and can affect enemies in slightly larger range"
 			Mythril: Max attack speed bonus increased and lasts longer
 			Nebula: ""
 			Necro: ""
@@ -52,7 +52,7 @@ Mods: {
 			Shadewood: Aura size and blood damage increased, additionally applies Ichor
 			Shinobi: ""
 			Shroomite: ""
-			Silver: Parrying also grants the Striking Moment buff
+			Silver: Parrying blocks up to 200 damage and grants the Striking Moment buff
 			Solar: ""
 			Spectre: ""
 			Spider: ""
@@ -190,6 +190,7 @@ Mods: {
 			TrojanSquirrelDespawn: Trojan Squirrel returns to its squirrel clan...
 			LifeChallengerDespawn: Lieflight fades away...
 			CursedCoffinDespawn: The Cursed Coffin returns to its slumber...
+			BanishedBaronDespawn: The Banished Baron dives deeper into the ocean...
 		}
 
 		Message: {
@@ -1087,8 +1088,8 @@ Mods: {
 			SpearRework: Reworked spear swing animation
 			PalladiumPikeRework: Greatly increases life regeneration after striking an enemy
 			CobaltNaginataRework: Causes a small explosion on striking enemies
-			MythrilHalberdRework: Deals more damage after not attacking
-			TitaniumTridentRework: Charge up to throw instead of swinging
+			MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
+			OrichalcumHalberdRework: Releases flower petals at apex of swing
 		}
 
 		EternityMode: {

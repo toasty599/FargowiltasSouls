@@ -459,6 +459,7 @@ namespace FargowiltasSouls
         public bool CerebralMindbreak;
         public bool NanoInjection;
         public bool Stunned;
+        public bool HaveCheckedAttackSpeed;
 
 
 
@@ -474,9 +475,9 @@ namespace FargowiltasSouls
         public int shieldTimer;
         public int shieldCD;
         public bool wasHoldingShield;
-        public int LightslingerHitShots = 0;
+        public int LightslingerHitShots;
 
-        public bool NoUsingItems;
+        public int NoUsingItems;
 
         public bool HasDash;
 
@@ -519,10 +520,13 @@ namespace FargowiltasSouls
             tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
             var togglesOff = new List<string>();
-            foreach (KeyValuePair<string, Toggle> entry in Toggler.Toggles)
+            if (Toggler != null && Toggler.Toggles != null)
             {
-                if (!Toggler.Toggles[entry.Key].ToggleBool)
-                    togglesOff.Add(entry.Key);
+                foreach (KeyValuePair<string, Toggle> entry in Toggler.Toggles)
+                {
+                    if (!Toggler.Toggles[entry.Key].ToggleBool)
+                        togglesOff.Add(entry.Key);
+                }
             }
             tag.Add($"{Mod.Name}.{Player.name}.TogglesOff", togglesOff);
 
@@ -545,11 +549,12 @@ namespace FargowiltasSouls
 
         public override void Initialize()
         {
-            Toggler.LoadInMenu();
+            //Toggler.LoadInMenu();
         }
 
         public override void OnEnterWorld(Player Player)
         {
+            Toggler.TryLoad();
             Toggler.LoadPlayerToggles(this);
             disabledToggles.Clear();
 
@@ -737,7 +742,7 @@ namespace FargowiltasSouls
                 DebuffInstallKey();
             }
 
-            if (FargowiltasSouls.AmmoCycleKey.JustPressed)
+            if (FargowiltasSouls.AmmoCycleKey.JustPressed && CanAmmoCycle)
             {
                 AmmoCycleKey();
             }
@@ -760,6 +765,9 @@ namespace FargowiltasSouls
             AttackSpeed = 1f;
             if (Screenshake > 0)
                 Screenshake--;
+
+            if (NoUsingItems > 0)
+                NoUsingItems--;
 
             //            Wood = false;
 
@@ -1007,6 +1015,7 @@ namespace FargowiltasSouls
             CerebralMindbreak = false;
             NanoInjection = false;
             Stunned = false;
+            HaveCheckedAttackSpeed = false;
             BoxofGizmos = false;
             //IronEnchantShield = false;
             SilverEnchantItem = null;
@@ -1098,7 +1107,7 @@ namespace FargowiltasSouls
             lightningRodTimer = 0;
 
             BuilderMode = false;
-            NoUsingItems = false;
+            NoUsingItems = 0;
 
             FreezeTime = false;
             freezeLength = 0;
@@ -1129,6 +1138,8 @@ namespace FargowiltasSouls
 
         public override void PreUpdate()
         {
+            Toggler.TryLoad();
+
             if (Player.CCed)
             {
                 Player.doubleTapCardinalTimer[2] = 2;
@@ -1405,13 +1416,6 @@ namespace FargowiltasSouls
 
             if (PalladEnchantItem != null)
                 PalladiumEnchant.PalladiumUpdate(this);
-
-            if (TitaniumDRBuff)
-            {
-                float diff = 1f - Player.endurance;
-                diff *= EarthForce ? 0.75f : 0.5f;
-                Player.endurance += diff;
-            }
 
             if (noDodge)
             {
@@ -1810,8 +1814,6 @@ namespace FargowiltasSouls
 
         public override void PostUpdate()
         {
-            NoUsingItems = false; //set here so that when something else sets this, it actually blocks items
-
             if (!FreeEaterSummon && !Main.npc.Any(n => n.active && (n.type == NPCID.EaterofWorldsHead || n.type == NPCID.EaterofWorldsBody || n.type == NPCID.EaterofWorldsTail)))
             {
                 FreeEaterSummon = true;
@@ -1836,65 +1838,70 @@ namespace FargowiltasSouls
             if (useTime <= 0 || useAnimate <= 0 || item.damage <= 0)
                 return base.UseSpeedMultiplier(item);
 
-            if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse && !Player.FeralGloveReuse(item))
+            if (!HaveCheckedAttackSpeed)
             {
-                int targetUseTime = useTime + 6;
-                while (useTime / AttackSpeed < targetUseTime)
+                HaveCheckedAttackSpeed = true;
+
+                if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse && !Player.FeralGloveReuse(item))
                 {
-                    AttackSpeed -= .05f;
+                    int targetUseTime = useTime + 6;
+                    while (useTime / AttackSpeed < targetUseTime)
+                    {
+                        AttackSpeed -= .05f;
+                    }
                 }
-            }
 
-            if (Berserked)
-            {
-                AttackSpeed += .1f;
-            }
-
-            if (MagicSoul && item.CountsAsClass(DamageClass.Magic))
-            {
-                AttackSpeed += .2f;
-            }
-
-            if (MythrilEnchantItem != null )
-            {
-                MythrilEnchant.CalcMythrilAttackSpeed(this, item);
-            }
-
-            if (WretchedPouchItem != null && !MasochistSoul && AttackSpeed > 1f)
-            {
-                float diff = AttackSpeed - 1f;
-                diff /= 2;
-                AttackSpeed -= diff;
-            }
-
-            if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
-            {
-                AttackSpeed *= 2;
-            }
-
-            //checks so weapons dont break
-            while (useTime / AttackSpeed < 1)
-            {
-                AttackSpeed -= .02f;
-            }
-
-            //modify attack speed so it rounds up
-            int useTimeRoundUp = (int)Math.Round(useTime / AttackSpeed, MidpointRounding.ToPositiveInfinity);
-            if (useTimeRoundUp < useTime) //sanity check
-            {
-                while (useTime / AttackSpeed < useTimeRoundUp)
+                if (Berserked)
                 {
-                    AttackSpeed -= .02f; //small increments to avoid skipping past any integers
+                    AttackSpeed += .1f;
                 }
-            }
 
-            while (useAnimate / AttackSpeed < 3)
-            {
-                AttackSpeed -= .02f;
-            }
+                if (MagicSoul && item.CountsAsClass(DamageClass.Magic))
+                {
+                    AttackSpeed += .2f;
+                }
 
-            if (AttackSpeed < .1f)
-                AttackSpeed = .1f;
+                if (MythrilEnchantItem != null)
+                {
+                    MythrilEnchant.CalcMythrilAttackSpeed(this, item);
+                }
+
+                if (WretchedPouchItem != null && !MasochistSoul && AttackSpeed > 1f)
+                {
+                    float diff = AttackSpeed - 1f;
+                    diff /= 2;
+                    AttackSpeed -= diff;
+                }
+
+                if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
+                {
+                    AttackSpeed *= 2;
+                }
+
+                //modify attack speed so it rounds up
+                //int useTimeRoundUp = (int)Math.Round(useTime / AttackSpeed, MidpointRounding.ToPositiveInfinity);
+                //if (useTimeRoundUp < useTime) //sanity check
+                //{
+                //    while (useTime / AttackSpeed < useTimeRoundUp)
+                //    {
+                //        AttackSpeed -= .01f; //small increments to avoid skipping past any integers
+                //    }
+                //}
+
+                //checks so weapons dont break
+                while (useTime / AttackSpeed < 1)
+                {
+                    AttackSpeed -= .01f;
+                }
+
+                while (useAnimate / AttackSpeed < 3)
+                {
+                    AttackSpeed -= .01f;
+                }
+
+                if (AttackSpeed < .1f)
+                    AttackSpeed = .1f;
+            }
 
             return AttackSpeed;
         }
@@ -2451,9 +2458,9 @@ namespace FargowiltasSouls
             {
                 int baseDamage = damage;
                 if (projectile != null)
-                    baseDamage = (int)(projectile.damage * Player.ActualClassDamage(projectile.DamageType));
+                    baseDamage = projectile.damage;
                 else if (item != null)
-                    baseDamage = (int)(item.damage * Player.ActualClassDamage(item.DamageType));
+                    baseDamage = Player.GetWeaponDamage(item);
                 return baseDamage;
             }
 
@@ -2783,28 +2790,19 @@ namespace FargowiltasSouls
                 damage /= 4;
             }
 
-
+            TitaniumEnchant.TryTitaniumDR(this, npc);
 
             if (GladiatorEnchantActive && Player.direction == Math.Sign(npc.Center.X - Player.Center.X))
                 Player.noKnockback = true;
 
             if (Smite)
-                damage = (int)(damage * 1.1);
+                damage = (int)(damage * 1.2);
 
             if (npc.coldDamage && Hypothermia)
                 damage = (int)(damage * 1.2);
 
             if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
                 damage = (int)(damage * 0.8);
-
-            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0 || CobaltImmuneTimer > 0)
-            {
-                foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
-                {
-                    if (!Player.HasBuff(debuff))
-                        Player.buffImmune[debuff] = true;
-                }
-            }
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
@@ -2814,7 +2812,7 @@ namespace FargowiltasSouls
                 GroundStickCheck(proj, ref damage);
             }
 
-
+            TitaniumEnchant.TryTitaniumDR(this, proj);
 
             if (GladiatorEnchantActive && Player.direction == Math.Sign(proj.Center.X - Player.Center.X))
                 Player.noKnockback = true;
@@ -2827,15 +2825,6 @@ namespace FargowiltasSouls
 
             //if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
             //damage = (int)(damage * 0.8);
-
-            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
-            {
-                foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
-                {
-                    if (!Player.HasBuff(debuff))
-                        Player.buffImmune[debuff] = true;
-                }
-            }
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
@@ -2916,9 +2905,6 @@ namespace FargowiltasSouls
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                 ((NPCs.MutantBoss.MutantBoss)Main.npc[EModeGlobalNPC.mutantBoss].ModNPC).playerInvulTriggered = true;
 
-            if (TryParryAttack(damage))
-                return false;
-
             if (DeathMarked)
             {
                 damage = (int)(damage * 1.5);
@@ -2929,6 +2915,9 @@ namespace FargowiltasSouls
                 Squeak(Player.Center);
                 damage = 1;
             }
+
+            if (TryParryAttack(ref damage))
+                return false;
 
             if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
             {

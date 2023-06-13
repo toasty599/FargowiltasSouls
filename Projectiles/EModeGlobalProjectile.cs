@@ -5,6 +5,7 @@ using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.Champions;
+using FargowiltasSouls.Projectiles.ChallengerItems;
 using FargowiltasSouls.Projectiles.Champions;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
@@ -12,12 +13,14 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -549,7 +552,7 @@ namespace FargowiltasSouls.Projectiles
                         projectile.ai[0] = 1;
                         projectile.velocity = projectile.velocity.RotatedBy(SwingDirection * projectile.spriteDirection * (1.5 * duration / WaitTime) * Math.PI / (Swing * player.itemAnimationMax)); //i know how wacky this looks
                     }
-                    else
+                    else //backswing
                     {
                         //projectile.friendly = false; //no hit on backswing
                         projectile.ai[0] = (duration + WaitTime - projectile.ai[1]) / (duration / 2);
@@ -570,6 +573,15 @@ namespace FargowiltasSouls.Projectiles
                     else
                     {
                         projectile.rotation += MathHelper.ToRadians(135f);
+                    }
+
+                    if (projectile.type == ProjectileID.ChlorophytePartisan && projectile.ai[1] == duration / 2 + (WaitTime * 2/3))
+                    {
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.SporeCloud, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
+                    }
+                    if (projectile.type == ProjectileID.OrichalcumHalberd && (projectile.ai[1] == duration / 2 || projectile.ai[1] == duration / 2 + WaitTime))
+                    {
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.FlowerPetal, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
                     }
                     #endregion
                     return false;

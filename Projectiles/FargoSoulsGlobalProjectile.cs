@@ -316,18 +316,20 @@ namespace FargowiltasSouls.Projectiles
 
             if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue("Adamantite")
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, false)
-                && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1)
+                && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1
+                && projectile.aiStyle != ProjAIStyleID.Spear)
             {
                 if (projectile.owner == Main.myPlayer
                     && (FargoSoulsUtil.IsProjSourceItemUseReal(projectile, source)
-                    || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.minion || sourceProj.sentry || (ProjectileID.Sets.IsAWhip[sourceProj.type] && !ProjectileID.Sets.IsAWhip[projectile.type])))))
+                    || (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.aiStyle == ProjAIStyleID.Spear || sourceProj.minion || sourceProj.sentry || (ProjectileID.Sets.IsAWhip[sourceProj.type] && !ProjectileID.Sets.IsAWhip[projectile.type])))))
                 {
+                    //apen is inherited from proj to proj
+                    projectile.ArmorPenetration += projectile.damage / 2;
+
                     AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer);
                 }
 
                 AdamModifier = modPlayer.EarthForce ? 3 : 2;
-
-                projectile.ArmorPenetration += projectile.damage / 2;
             }
 
             if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)
@@ -545,6 +547,11 @@ namespace FargowiltasSouls.Projectiles
 
             if (firstTick)
             {
+                if (projectile.aiStyle == ProjAIStyleID.Spear)
+                {
+
+                }
+
                 if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && projectile.type != ProjectileID.WireKite)
                 {
                     NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
@@ -683,6 +690,8 @@ namespace FargowiltasSouls.Projectiles
                 }
             }
         }
+
+        const int MAX_TIKI_TIMER = 60;
 
         public override void AI(Projectile projectile)
         {
@@ -838,7 +847,7 @@ namespace FargowiltasSouls.Projectiles
                     && projectile.Colliding(projectile.Hitbox, p.Hitbox)))
                 {
                     p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiMinion = true;
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiTimer = 60 * p.MaxUpdates;
+                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiTimer = MAX_TIKI_TIMER * p.MaxUpdates;
                 }
             }
 
@@ -908,7 +917,7 @@ namespace FargowiltasSouls.Projectiles
             }
 
             //graze
-            if (projectile.hostile && projectile.damage > 0 && --GrazeCD < 0)
+            if (projectile.hostile && projectile.damage > 0 && projectile.aiStyle != ProjAIStyleID.FallingTile && --GrazeCD < 0)
             {
                 GrazeCD = 6; //don't check per tick ech
 
@@ -976,26 +985,44 @@ namespace FargowiltasSouls.Projectiles
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (AdamModifier != 0)
-            {
-                damage /= AdamModifier;
-            }
-
             if (stormTimer > 0)
                 damage = (int)(damage * (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6 : 1.3));
 
-            if (noInteractionWithNPCImmunityFrames)
-                tempIframe = target.immune[projectile.owner];
+            int AccountForDefenseShred(int modifier)
+            {
+                int defenseIgnored = projectile.ArmorPenetration;
+                if (target.ichor)
+                    defenseIgnored += 15;
+                if (target.betsysCurse)
+                    defenseIgnored += 40;
+
+                int actualDefenseIgnored = Math.Min(defenseIgnored, target.defense);
+                int effectOnDamage = actualDefenseIgnored / 2;
+                
+                return effectOnDamage / modifier;
+            }
+
+            if (AdamModifier != 0)
+            {
+                damage /= AdamModifier;
+                damage -= AccountForDefenseShred(AdamModifier);
+            }
 
             if (NinjaSpeedup > 0)
+            {
                 damage /= 2;
+                damage -= AccountForDefenseShred(2);
+            }
+
+            if (noInteractionWithNPCImmunityFrames)
+                tempIframe = target.immune[projectile.owner];
 
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
             {
                 crit = true;
             }
 
-            if (tikiMinion)
+            if (tikiMinion && tikiTimer > MAX_TIKI_TIMER * projectile.MaxUpdates / 4)
             {
                 crit = true;
             }
@@ -1059,7 +1086,13 @@ namespace FargowiltasSouls.Projectiles
 			if (projectile.maxPenetrate != 1 && !projectile.usesLocalNPCImmunity)
             {
                 //biased towards rounding down, making it a slight dps increase for compatible weapons
-                double RoundReduce(float iframes) => Math.Round(iframes / iframeModifier, 0, Main.rand.NextBool(3) ? MidpointRounding.AwayFromZero : MidpointRounding.ToZero);
+                double RoundReduce(float iframes)
+                {
+                    double newIframes = Math.Round(iframes / iframeModifier, 0, Main.rand.NextBool(3) ? MidpointRounding.AwayFromZero : MidpointRounding.ToZero);
+                    if (newIframes < 1)
+                        newIframes = 1;
+                    return newIframes;
+                }
 
                 if (projectile.usesIDStaticNPCImmunity)
                 {

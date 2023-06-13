@@ -132,16 +132,24 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 
         public float WidthFunction(float _) => Projectile.width * Projectile.scale * 1.2f;
 
-        public Color ColorFunction(float _) => Color.HotPink;//new(232, 140, 240);
+        public Color ColorFunction(float _)
+        {
+            Color color = Color.HotPink; //new(232, 140, 240);
+            color.A = 0;
+            return color;
+        }
 
         public override bool PreDraw(ref Color lightColor) => false;
 
         public void DrawPixelPrimitives(SpriteBatch spriteBatch)
         {
+            if (Projectile.hide)
+                return;
+
             LaserDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, GameShaders.Misc["FargowiltasSouls:GenericDeathray"]);
 
             // Get the laser end position.
-            Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance;
+            Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance * 1.1f;
 
             // Create 8 points that span across the draw distance from the projectile center.
             Vector2 initialDrawPoint = Projectile.Center;
@@ -150,7 +158,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 baseDrawPoints[i] = Vector2.Lerp(initialDrawPoint, laserEnd, i / (float)(baseDrawPoints.Length - 1f));
 
             // Set shader parameters.
-            GameShaders.Misc["FargowiltasSouls:GenericDeathray"].UseColor(new Color(240, 220, 240));
+            GameShaders.Misc["FargowiltasSouls:GenericDeathray"].UseColor(new Color(240, 220, 240, 0));
             GameShaders.Misc["FargowiltasSouls:GenericDeathray"].SetShaderTexture(FargosTextureRegistry.GenericStreak);
             GameShaders.Misc["FargowiltasSouls:GenericDeathray"].Shader.Parameters["stretchAmount"].SetValue(3);
             GameShaders.Misc["FargowiltasSouls:GenericDeathray"].Shader.Parameters["scrollSpeed"].SetValue(1f);

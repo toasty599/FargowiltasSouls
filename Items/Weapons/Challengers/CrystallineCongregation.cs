@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 70;
+            Item.damage = 56;
             Item.DamageType = DamageClass.Magic;
             Item.width = 44;
             Item.height = 56;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
                 delay--;
             if (delay == 1)
             {
-                SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ChargeSound"), player.Center);
                 //dust
                 double spread = 2 * Math.PI / 36;
                 for (int i = 0; i < 36; i++)

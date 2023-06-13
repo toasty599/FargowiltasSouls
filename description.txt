@@ -1,98 +1,47 @@
 Fargo's Souls Mod is a content mod that adds the powerful Enchantments and Souls accessories, as well as a variety of bosses and minibosses.
 Features the highly challenging Eternity Mode!
 
-NEW UPDATE - V 1.4.1.1
--Fix various bugs and make some balance changes.
+NEW UPDATE - V 1.4.2.4
+-After countless generations of setbacks and failures Yharim and Yrimir are finally defeatedy
+-Added Eternity-specific spear swing style, used by:
+Spear, Adamantite Glaive, Cobalt Naginata, Mythril Halberd, Orichalcum Halberd, Palladium Pike, Titanium Trident, Trident, Obsidian Swordfish, Swordfish, Chlorophyte Partisan.
+Damage adjusted to compensate for the new swing style (hits once instead of twice, spears are now more consistent and feel better)
+-Some of these weapons have also gotten Eternity-specific extra effects:
+-Palladium Pike: Greatly increases life regeneration after striking an enemy
+-Cobalt Naginata: Causes a small explosion on striking enemies
+-Mythril Halberd: After not attacking for 2 seconds, your next attack deals triple damage
+-Orichalcum Halberd: Releases flower petals at apex of swing
+-Lieflight now has contact damage while firing lasers during rune circle expansion attack, projectiles now form a full circle
+-Lieflight hexagon arena projectiles reduced in amount and removed excessive splits to reduce lag
+-Lieflight health and damage reduction functionality changed to reduce the massive difference between Eternity Mode and Masochist Mode difficulty
+-Lieflight is now immune during the Phase 3 opening attack in Eternity Mode only
+-New "charge" sound effect used by equipment to communicate fully charged effects, Max Mana sound was previously used
+-Charge sound effect added to Mythril Enchant
+-Fixed Lieflight boss checklist display
+-Changed Lieflight drawcode so bestiary works better
+
+NEW UPDATE - V 1.4.2.2
+-Lieflight multiplayer despawn issue fixed
+-Enchanted Lifeblade: Damage 50 -> 22
+-Lightslinger: Damage 40 -> 22, Shots for lightbomb 25 -> 40
+-Crystalline Congregation: Damage 70 -> 47
+-Expixive Staff: Damage 110 -> 95
+
+NEW UPDATE - V 1.4.2.1
+-Attempted and failed to remove Yharim
+-Fixed lag issues
+-Enhanced Flight Mastery Soul
+-Fixed World Shaper Soul tool range and 
+
+NEW UPDATE - V 1.4.2
+-Vastly improves the mod in every respect possible
+-Revolutionize gameplay with a slew of highly engaging new mechanics
+-Adds another 200 hours of polished content
+-Fully fleshes out the deeply moving and philosophically stimulating lore
+-Fixes every bug forever
+-Achieved perfect balance to a point that no further balance changes will be needed again ever
 
 -See the wiki for full details!
 
-NEW UPDATE - V 1.4.1
--Added Lieflight and weapon drops
--Added custom toggle presets 
--Reworked and rebalanced several accessories, weapons, and various difficulty adjustments
 
-Fargo的魂石模组是一个内容模组，添加了强大的魔石以及魂类饰品，也改动了各种各样的Boss和小Boss。
-以高度挑战性的永恒模式作为招牌！
-
-新更新 - V 1.4.1
--重新加入了橡实构造体
-
--在几乎所有魔石配方内打乱了物品顺序、更改了所需物品
--巫师魔石现在会把所有你已佩戴的其他魔石的具体加强效果列在它的工具提示下
--更新了所有力的工具提示，让它们更加准确、精炼
-
--木魔石现在也会翻倍旗帜获取速度了。力级效果中变成5倍
--针叶木魔石的力级效果会释放7个雪球，并且频率翻倍
--红木魔石在你被钩爪拉动时给予10%伤害减免而非10防御。力级效果中提升到30%伤害减免，荆棘效果提升到500%
--乌木魔石重做：光环大小减小来匹配阴影木魔石。光环内现在会摧毁所有任何对你造成10伤害（会计算你的防御）以下的来袭弹幕。力级效果中这个伤害判定门槛提升到25，并且光环内任何小于200血量的生物会被秒杀。光环大小也被翻倍了。
--阴影木魔石：力级效果中光环大小更大了一点，并且血液伤害翻了3倍
--棕榈木魔石：力级效果中哨兵伤害从45提升到100，并且你可以最多召唤三个哨兵了
--珍珠木魔石：星星伤害现在基于攻击伤害的一半并且有软上限。魔石软上限为100，力软上限为250
-
--铜魔石：现在只会对暴击生效，造成更多一点的伤害，力级效果中冷却减少
--锡魔石：力级效果中你的暴击率必定可以到50%，无论你的基础暴击率如何
--铁魔石：移除格挡，添加了在任何铁砧处合成物品33%几率不消耗制作材料（力级效果中对任何秘银砧也生效），明显降低了物品拾取效果以匹配50%宝藏磁铁效果，力级效果中增加到2倍宝藏磁铁效果
--铅魔石：现在对持续伤害提供40%伤害减免，力级效果中为60%
--银魔石：现在有了铁魔石的格挡，不再有一把剑和提高召唤物速度效果，加入泰拉之力合成配方
--钨魔石：现在会对长枪一直生效，力级效果中弹幕会以两倍的频率放大（工具提示说是这么说的但是假的）
--黑曜石魔石：移除鞭子范围加成，但爆炸会施加鞭炮效果
-
--远古钴魔石：跳跃现在造成浸油
--钴魔石：跳跃的爆炸范围更小了（和远古钴相同大小），但跳得更高了并且给予短暂的无敌帧，受击爆炸伤害全面增加
--钯金魔石：珠子伤害轻微增加
--山铜魔石：持续伤害倍数削弱到2.5倍，力级效果中为4倍
--精金魔石：力级效果中弹幕会裂成三个
--钛金魔石：最大碎片数降低至20，达到最大个数时给予3秒的50%减伤（力级效果为5秒的75%减伤），但减少自有的减伤，10秒冷却。碎片伤害提高，力级效果中有更高的基础伤害
-
--雪魔石：
--霜冻魔石：
--丛林魔石：
--叶绿魔石：
--暗影魔石：
--猩红魔石：
--灰烬木魔石：
--熔融魔石：
-
--南瓜魔石：
--仙人掌魔石：
--雨云魔石：
--蜜蜂魔石：
--蜘蛛魔石：
--海龟魔石：
--甲虫魔石：
--蘑菇魔石：
-
--化石魔石：
--禁戒魔石：
--死灵魔石：
--幽魂魔石：
--神圣魔石：
--远古神圣魔石：
--提基魔石：
-
--忍者魔石：现在把银魔石先前的加速给了弹幕，但不止召唤物还对于所有的弹幕生效。力级效果中穿甲提高到30，速度增加到3倍。不再可以被合成成水晶刺客魔石
-水晶刺客魔石：现在它拥有忍者魔石的所有旧效果。移除了挥发明胶效果。
--僧侣魔石：
--渗透忍者魔石：
--远古暗影魔石：
--学徒魔石：
--暗黑艺术家魔石：
--阴森魔石：
-
--黄金魔石：
--铂金魔石：
--女猎人魔石：
--红色骑术魔石：
--侍卫魔石：
--英灵殿魔石：
--角斗士魔石：
-
--流星魔石：
--巫师魔石：移动到宇宙之力中
--日耀魔石：
--星旋魔石：
--星云魔石：
--星尘魔石：
-
--捕鱼之魂：添加了挥发明胶效果
 

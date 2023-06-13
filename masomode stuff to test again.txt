@@ -136,3 +136,66 @@ eow
 
 fixed(?) drakovi fishing pole right click to switch modes skipping modes issues
 fixed oiled still showing the wrong debuff icon when you are oiled
+ninja and adam no longer allow iframes to drop below 1
+dev aes damage up to 366 but iframes 2 to 3
+fixed glad, bee, pearlwood ench double-dipping on class damage bonuses
+capped obsid ench explosion damage at 300 unless using sot
+tiki ench nerf, crit buff only lasts half a second
+reduced pre hm modified enemy spawn weights
+force and wizard tooltips explain molten hidden range buff
+fixed armor penetration ignoring adam and ninja, which made apen give insane dps up
+refactored oceanic maul, curse of the moon, rotting damage taken up when applied to enemies, now obeys the above
+	check for issues when loading and then reloading the mod btw, look for a crash while reloading mods
+
+reduced tiki ench crit buff duration even more
+fixed mp boss spawners again
+
+fixed parry allowing debuffs to refresh their duration if you already have the debuff prior to parrying
+removed silver ench from ancient hallow ench recipe
+necro ench
+	prioritizes bosses whenever possible
+	fixed force graves floating away
+	default cap is 15 graves at once, bosses can create up to 45
+	visual adjustments
+removed cascade from obsidian ench recipe, making it pre-skeletron
+increased obsidian ench cooldown from 30 to 40 ticks (force cd unchanged)
+adjusted how spears interact with adam ench (yes i know it breaks north pole idk how to fix it)
+
+fixed spear crash with adam?
+fixed necro ench spawning graves with 0 damage
+fixed magical bulb regen breaking in multiplayer
+
+fixed tips of mutant's predictive spear dash rays being visually misleading
+fixed lag issues with mutant's homing phantasmal eyes
+
+flight mastery soul and upgrades
+	have celestial starboard's fast ascent ability
+	reduced max ascension speed to ~100mph (was >170mph, unreasonably high)
+fixed world shaper soul not giving proper tool range up
+adjusted world shaper soul magic mirror implementation
+
+adjusted most new deathrays (particularly, mutant reti fan rays less obviously "on top of" one another)
+changed death message of fake hearts
+fixed mutant despawning when self healing in ftw enrage maso
+parries nerfed
+	silver+dread/pumpkin parry window and cooldown nerfed to halfway between them
+	capped how much damage is blocked at once, you still take any leftover damage on parry
+	silver caps at 100
+	force, dread, pumpking cap at 200
+made blender orbital immune to timestop and fixed being able to use it with other "held proj" weapons
+fixed smite inconsistency where everything took x1.1 damage except players when hit by projs, who took x1.2. everything takes x1.2 now
+titanium ench rebalance
+	only works on contact damage and projectiles near their source npc (within ~8 blocks of the edge of their hitbox)
+	gives immunity to most debuffs similar to parrying or gold shell
+fixed being able to ammo cycle without being able to ammo cycle
+ebonwood ench no longer triggers on falling tiles e.g. sand
+you can no longer graze falling tiles
+fixed empty space in turtle ench tooltip
+fixed buggy attack speed
+fixed visual glitch of leaving behind turtle ench shell by recalling
+did SOMETHING to toggles, CHECK THAT THEY WORK IN MP AND IT MOSTLY SYNCS FOR OTHER PLAYERS LIKE BEFORE
+
+parry synergy cooldown is midway as intended
+removed fire imp and lava slime modified spawns i give up
+fixed leash sprite being 4x bigger than it should
+fixed being unable to make new characters

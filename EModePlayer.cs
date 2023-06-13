@@ -46,7 +46,7 @@ namespace FargowiltasSouls
                 ItemID.ChlorophytePartisan
             };
 
-
+        public int MythrilHalberdTimer;
         private int WeaponUseTimer => Player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer;
 
         public override void ResetEffects()
@@ -599,7 +599,7 @@ namespace FargowiltasSouls
                     return 1f;
 
                 case var _ when ReworkedSpears.Contains(item.type):
-                    return 2f;
+                    return 1.50f; 
                 default:
                     break;
             }

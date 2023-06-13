@@ -3280,6 +3280,8 @@ Mods: {
 			
 			TrojanSquirrelDespawn: O Campeão de Madeira retorna a seu clã esquilo.
 			LifeChallengerDespawn: Lieflight desvanece...
+			CursedCoffinDespawn: The Cursed Coffin returns to its slumber...
+			BanishedBaronDespawn: The Banished Baron dives deeper into the ocean...
 		}
 
 		Message: {
@@ -4127,8 +4129,8 @@ Mods: {
 			SpearRework: Reworked spear swing animation
 			PalladiumPikeRework: Greatly increases life regeneration after striking an enemy
 			CobaltNaginataRework: Causes a small explosion on striking enemies
-			MythrilHalberdRework: Deals more damage after not attacking
-			TitaniumTridentRework: Charge up to throw instead of swinging
+			MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
+			OrichalcumHalberdRework: Releases flower petals at apex of swing
 		}
 
 		
