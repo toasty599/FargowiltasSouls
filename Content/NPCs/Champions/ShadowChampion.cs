@@ -1,6 +1,6 @@
 using FargowiltasSouls.BossBars;
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Items.Placeables.Relics;

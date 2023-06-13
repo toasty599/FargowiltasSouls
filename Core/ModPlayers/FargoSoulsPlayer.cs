@@ -581,7 +581,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
         }
-        *
+        
         public override void ResetEffects()
         {
             HasDash = false;

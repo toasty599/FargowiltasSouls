@@ -1,6 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Weapons.BossDrops;

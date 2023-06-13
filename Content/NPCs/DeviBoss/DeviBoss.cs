@@ -1,6 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.Items.Materials;

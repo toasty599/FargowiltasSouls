@@ -2,7 +2,7 @@ using System.IO;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
-using FargowiltasSouls.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Consumables;
 using FargowiltasSouls.Content.NPCs;
