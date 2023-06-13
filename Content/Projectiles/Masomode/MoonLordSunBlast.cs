@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,7 +9,7 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class MoonLordSunBlast : FargowiltasSouls.Content.Projectiles.Champions.EarthChainBlast
+    public class MoonLordSunBlast : EarthChainBlast
     {
         public override string Texture => "Terraria/Images/Projectile_687";
 
@@ -80,7 +81,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 {
                     //spawn stationary blasts
                     float stationaryPersistence = Math.Min(5, Projectile.ai[1]); //stationaries always count down from this
-                    int p = Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(20, 20), Vector2.Zero, Projectile.type,
+                    int p = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Main.rand.NextVector2Circular(20, 20), Vector2.Zero, Projectile.type,
                         Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], stationaryPersistence);
                     if (p != Main.maxProjectiles)
                         Main.projectile[p].localAI[0] = 1f; //only make more stationaries, don't propagate forward
@@ -92,7 +93,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     //10f / 7f is to compensate for shrunken hitbox
                     float length = Projectile.width / Projectile.scale * 10f / 7f;
                     Vector2 offset = length * baseDirection.RotatedBy(Main.rand.NextFloat(-random, random));
-                    int p = Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center + offset, Vector2.Zero, Projectile.type,
+                    int p = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + offset, Vector2.Zero, Projectile.type,
                           Projectile.damage, 0f, Projectile.owner, Projectile.ai[0], Projectile.ai[1]);
                     if (p != Main.maxProjectiles)
                         Main.projectile[p].localAI[0] = Projectile.localAI[0];

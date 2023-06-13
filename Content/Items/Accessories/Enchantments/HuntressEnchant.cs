@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
