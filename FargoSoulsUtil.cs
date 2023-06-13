@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.ItemDropRules.Conditions;
+﻿using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.Challengers;
 using FargowiltasSouls.Projectiles;

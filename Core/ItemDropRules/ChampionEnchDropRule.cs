@@ -1,28 +1,17 @@
 ﻿using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
 
-namespace FargowiltasSouls.ItemDropRules.Conditions
+namespace FargowiltasSouls.Core.ItemDropRules
 {
     public class ChampionEnchDropRule : IItemDropRule
     {
-        public int[] dropIds;
+        public readonly int[] DropIds;
 
         public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; }
 
         public ChampionEnchDropRule(int[] drops)
         {
-            //Recipe recipe = Main.recipe.First(r => r.HasResult(forceType));
-
-            //List<int> enches = new List<int>();
-            //foreach (Item material in recipe.requiredItem)
-            //{
-            //    if (material.Name.EndsWith("Enchantment"))
-            //        enches.Add(material.type);
-            //}
-            //dropIds = enches.ToArray();
-
-            dropIds = drops;
-
+            DropIds = drops;
             ChainedRules = new List<IItemDropRuleChainAttempt>();
         }
 
@@ -36,7 +25,7 @@ namespace FargowiltasSouls.ItemDropRules.Conditions
             if (FargoSoulsWorld.EternityMode)
                 max++;
 
-            List<int> enchesToDrop = new List<int>(dropIds);
+            List<int> enchesToDrop = new(DropIds);
             while (enchesToDrop.Count > max)
                 enchesToDrop.RemoveAt(info.rng.Next(enchesToDrop.Count));
 
@@ -52,9 +41,11 @@ namespace FargowiltasSouls.ItemDropRules.Conditions
         public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
         {
             float personalDropRate = 1f;
-            float dropRate = 1f / dropIds.Length * (personalDropRate * ratesInfo.parentDroprateChance);
-            for (int index = 0; index < dropIds.Length; ++index)
-                drops.Add(new DropRateInfo(dropIds[index], 1, 1, dropRate, ratesInfo.conditions));
+            float dropRate = 1f / DropIds.Length * (personalDropRate * ratesInfo.parentDroprateChance);
+
+            for (int index = 0; index < DropIds.Length; ++index)
+                drops.Add(new DropRateInfo(DropIds[index], 1, 1, dropRate, ratesInfo.conditions));
+
             Chains.ReportDroprates(ChainedRules, personalDropRate, drops, ratesInfo);
         }
     }
