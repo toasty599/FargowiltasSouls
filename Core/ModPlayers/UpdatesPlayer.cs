@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (TribalCharmEquipped)
             {
-                FargowiltasSouls.Content.Items.Accessories.Masomode.TribalCharm.Effects(this);
+                Content.Items.Accessories.Masomode.TribalCharm.Effects(this);
             }
 
             if (PungentEyeball && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPungentCursor"))

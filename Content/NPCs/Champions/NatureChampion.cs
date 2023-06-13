@@ -1,6 +1,7 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Placables.Relics;
+using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

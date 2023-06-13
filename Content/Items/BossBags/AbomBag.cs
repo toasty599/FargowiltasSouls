@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.NPCs.AbomBoss;
 using FargowiltasSouls.Core;
 using FargowiltasSouls.Patreon.DemonKing;
 using Terraria;
@@ -10,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
     {
         protected override bool IsPreHMBag => false;
 
-        public override int BossBagNPC => ModContent.NPCType<NPCs.AbomBoss.AbomBoss>();
+        public override int BossBagNPC => ModContent.NPCType<AbomBoss>();
 
         public override void OpenBossBag(Player player)
         {

@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.Projectiles.Minions;
+
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -20,8 +22,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
         {
             player.GetModPlayer<FargoSoulsPlayer>().LunarCultist = true;
             const int damage = 80;
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.LunarCultist>()] < 1)
-                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.LunarCultist>(), damage, 2f, player.whoAmI, -1f);
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<LunarCultist>()] < 1)
+                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<LunarCultist>(), damage, 2f, player.whoAmI, -1f);
         }
     }
 }

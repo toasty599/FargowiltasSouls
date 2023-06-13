@@ -1,12 +1,13 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Projectiles.AbomBoss;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
-    public class AbomMinionSickle : FargowiltasSouls.Content.Projectiles.AbomBoss.AbomSickle3
+    public class AbomMinionSickle : AbomSickle3
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/AbomBoss/AbomSickle";
 

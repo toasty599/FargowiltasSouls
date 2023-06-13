@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles.Minions;
-using FargowiltasSouls.Core.ModPlayers;
+
 
 namespace FargowiltasSouls.Content.Buffs.Minions
 {

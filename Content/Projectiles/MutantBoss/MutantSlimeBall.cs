@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -56,10 +57,10 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 }
             }
 
-            if (++Projectile.localAI[1] > 10 && FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+            if (++Projectile.localAI[1] > 10 && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
             {
-                float yOffset = Projectile.Center.Y - Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].Center.Y;
-                if (Math.Sign(yOffset) == Math.Sign(Projectile.velocity.Y) && Projectile.Distance(Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].Center) > 1200 + Projectile.ai[0])
+                float yOffset = Projectile.Center.Y - Main.npc[EModeGlobalNPC.mutantBoss].Center.Y;
+                if (Math.Sign(yOffset) == Math.Sign(Projectile.velocity.Y) && Projectile.Distance(Main.npc[EModeGlobalNPC.mutantBoss].Center) > 1200 + Projectile.ai[0])
                     Projectile.timeLeft = 0;
             }
         }

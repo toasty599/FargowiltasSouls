@@ -1,5 +1,5 @@
-﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Primitives;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Common.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

@@ -7,6 +7,7 @@ using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles;
 
+
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
     public class TungstenEnchant : BaseEnchant

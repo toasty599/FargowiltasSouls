@@ -1318,10 +1318,10 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             //attack 1: arena is divided in 9 squares, only 1 is safe
             #region GridShots (removed)
             //comments within consts is to remove attack time
-            const int Attack1Time = 80;
+            //const int Attack1Time = 80;
             const int Attack1Start = InitTime + 40;
             const int Attack1End = Attack1Start /*+ (Attack1Time * 5)*/;
-            const int telegdist = 175;
+            //const int telegdist = 175;
 
             /*
             int time1 = (int)NPC.ai[1] - Attack1Start;
@@ -1439,7 +1439,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             #region Excel (removed)
 
             //comments within consts is to remove duration
-            const int Attack4Time = 75;
+            //const int Attack4Time = 75;
             const int Attack4Start = Attack3End /*- 120*/; //start earlier so they overlap
             const int Attack4End = Attack4Start /*+ (Attack4Time * 8) + 240*/;
             /*
@@ -1578,6 +1578,10 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 Vector2 targetPos = Player.Center;
                 targetPos.Y -= 16 * 15;
                 //if (NPC.Distance(targetPos) < 18 * 10 || FargoSoulsWorld.MasochistModeReal)
+
+                AttackF1 = false;
+                NPC.netUpdate = true;
+                /*
                 if (true)
                 {
                     AttackF1 = false;
@@ -1592,6 +1596,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                     NPC.ai[3] = 0;
                     return;
                 }
+                */
             }
 
             if (NPC.Distance(Player.Center) > 2000)
@@ -2469,6 +2474,12 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
             const int startup = 40;
             int endtime = 360 + startup;
+
+            //replacing below outdated code
+            float rampRatio = NPC.ai[1] / endtime;
+            rampRatio *= 0.2f;
+            NPC.position += NPC.velocity * rampRatio;
+            /*
             if (false)
             {
                 endtime = (endtime - startup) / 2 + startup;
@@ -2479,6 +2490,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 rampRatio *= 0.2f;
                 NPC.position += NPC.velocity * rampRatio;
             }
+            */
 
             //rotation
             if (NPC.velocity.ToRotation() > MathHelper.Pi)

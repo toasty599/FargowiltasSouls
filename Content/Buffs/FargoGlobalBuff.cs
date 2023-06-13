@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Core.ModPlayers;
+﻿
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using System;

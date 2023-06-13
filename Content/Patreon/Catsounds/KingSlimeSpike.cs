@@ -1,8 +1,10 @@
+using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Patreon.Catsounds
 {
-    public class KingSlimeSpike : FargowiltasSouls.Content.Projectiles.BossWeapons.SlimeSpikeFriendly
+    public class KingSlimeSpike : SlimeSpikeFriendly
     {
         public override string Texture => "Terraria/Images/Projectile_605";
 
@@ -20,7 +22,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
     }
 }

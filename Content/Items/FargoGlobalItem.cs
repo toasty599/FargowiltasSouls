@@ -1,6 +1,6 @@
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
-//using FargowiltasSouls.Buffs.Souls;
+//using FargowiltasSouls.Content.Buffs.Souls;
 //using FargowiltasSouls.Content.Projectiles.Critters;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;

@@ -1,9 +1,10 @@
-﻿using FargowiltasSouls.EternityMode;
+﻿global using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
-using FargowiltasSouls.Shaders;
-using FargowiltasSouls.Sky;
+using FargowiltasSouls.Assets.Effects.Shaders;
+using FargowiltasSouls.Content.Sky;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,6 +31,9 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Tiles;
 using FargowiltasSouls.Content.UI;
+using FargowiltasSouls.Content.NPCs.AbomBoss;
+using FargowiltasSouls.Content.NPCs.MutantBoss;
+using FargowiltasSouls.Content.NPCs.DeviBoss;
 
 namespace FargowiltasSouls
 {
@@ -409,16 +413,16 @@ namespace FargowiltasSouls
                         return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SinisterIcon;
 
                     case "AbomAlive":
-                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
 
                     case "MutantAlive":
-                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
 
                     case "DeviAlive":
                     case "DeviBossAlive":
                     case "DevianttAlive":
                     case "DevianttBossAlive":
-                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>());
 
                     case "MutantPact":
                     case "MutantsPact":
@@ -607,7 +611,7 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<RottingBuff>());
                 DebuffIDs.Add(ModContent.BuffType<ShadowflameBuff>());
                 DebuffIDs.Add(ModContent.BuffType<SmiteBuff>());
-                DebuffIDs.Add(ModContent.BuffType<FargowiltasSouls.Content.Buffs.Masomode.SqueakyToy>());
+                DebuffIDs.Add(ModContent.BuffType<SqueakyToyBuff>());
                 DebuffIDs.Add(ModContent.BuffType<StunnedBuff>());
                 DebuffIDs.Add(ModContent.BuffType<SwarmingBuff>());
                 DebuffIDs.Add(ModContent.BuffType<UnstableBuff>());

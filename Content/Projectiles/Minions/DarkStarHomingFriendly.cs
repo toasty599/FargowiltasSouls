@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -5,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
-    public class DarkStarHomingFriendly : FargowiltasSouls.Content.Projectiles.Masomode.DarkStar
+    public class DarkStarHomingFriendly : DarkStar
     {
         public override string Texture => "Terraria/Images/Projectile_12";
 

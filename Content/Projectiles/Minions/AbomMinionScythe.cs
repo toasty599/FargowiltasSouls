@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles.AbomBoss;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
-    public class AbomMinionScythe : FargowiltasSouls.Content.Projectiles.AbomBoss.AbomScytheSplit
+    public class AbomMinionScythe : AbomScytheSplit
     {
         public override string Texture => "Terraria/Images/Projectile_274";
 

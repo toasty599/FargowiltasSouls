@@ -35,6 +35,7 @@ using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.NPCs.AbomBoss;
 using FargowiltasSouls.Content.NPCs.DeviBoss;
 using FargowiltasSouls.Content.NPCs.MutantBoss;
+using FargowiltasSouls.Content.Buffs.Boss;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -397,7 +398,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             DeathMarked = false;
             Hypothermia = false;
             Midas = false;
-            MutantPresence = MutantPresence ? Player.HasBuff(ModContent.BuffType<FargowiltasSouls.Content.Buffs.Boss.MutantPresence>()) : false;
+            MutantPresence = MutantPresence ? Player.HasBuff(ModContent.BuffType<MutantPresenceBuff>()) : false;
             MutantFang = false;
             DevianttPresence = false;
             Swarming = false;

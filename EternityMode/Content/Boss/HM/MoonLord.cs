@@ -17,10 +17,11 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Core.ModPlayers;
+
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles.MutantBoss;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -258,7 +259,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 int damage = 40;
                                 float rotation = 2f * (float)Math.PI / max;
                                 Vector2 vel = Vector2.UnitY * speed;
-                                int type = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.MutantBoss.MutantSphereRing>();
+                                int type = ModContent.ProjectileType<MutantSphereRing>();
                                 for (int i = 0; i < max; i++)
                                 {
                                     vel = vel.RotatedBy(rotation);
@@ -420,7 +421,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     int damage = 40;
                                     float rotation = 2f * (float)Math.PI / max;
                                     Vector2 vel = Vector2.UnitY * speed;
-                                    int type = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.MutantBoss.MutantSphereRing>();
+                                    int type = ModContent.ProjectileType<MutantSphereRing>();
                                     for (int i = 0; i < max; i++)
                                     {
                                         vel = vel.RotatedBy(rotation);

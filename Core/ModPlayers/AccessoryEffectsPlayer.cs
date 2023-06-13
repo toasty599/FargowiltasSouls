@@ -2529,7 +2529,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Projectile.NewProjectile(Player.GetSource_Accessory(QueenStingerItem), Player.Center, vel, ModContent.ProjectileType<BeeDash>(), (int)(44 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
                     }
 
-                    Player.AddBuff(ModContent.BuffType<FargowiltasSouls.Content.Buffs.BetsyDash>(), 20);
+                    Player.AddBuff(ModContent.BuffType<BetsyDashBuff>(), 20);
                 }
             }
         }

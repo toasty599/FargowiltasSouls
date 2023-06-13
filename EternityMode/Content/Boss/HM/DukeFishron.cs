@@ -7,7 +7,6 @@ using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -17,6 +16,8 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -151,7 +152,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (npc.Distance(Main.LocalPlayer.Center) < 3000f)
                 {
                     Main.LocalPlayer.AddBuff(ModContent.BuffType<OceanicSealBuff>(), 2);
-                    Main.LocalPlayer.AddBuff(ModContent.BuffType<FargowiltasSouls.Content.Buffs.Boss.MutantPresence>(), 2); //LUL
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresenceBuff>(), 2); //LUL
                 }
                 EModeGlobalNPC.fishBossEX = npc.whoAmI;
                 npc.position += npc.velocity * 0.5f;
@@ -668,7 +669,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     for (int j = 1; j <= 2; j++)
                                     {
                                         FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromThis(), npc.Center,
-                                            ModContent.NPCType<NPCs.EternityMode.DetonatingBubble>(),
+                                            ModContent.NPCType<DetonatingBubble>(),
                                             velocity: Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i) * j * 0.5f);
                                     }
                                 }
@@ -698,7 +699,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 for (int i = -1; i <= 1; i += 2)
                                 {
                                     FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromThis(), npc.Center,
-                                        ModContent.NPCType<NPCs.EternityMode.DetonatingBubble>(),
+                                        ModContent.NPCType<DetonatingBubble>(),
                                         velocity: 1.5f * Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i));
                                 }
                             }
@@ -984,7 +985,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             //alt behaviour cthulunado no spawn sharky
             if (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj
-                && sourceProj.type == ProjectileID.Cthulunado && sourceProj.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.EModeGlobalProjectile>().altBehaviour)
+                && sourceProj.type == ProjectileID.Cthulunado && sourceProj.GetGlobalProjectile<EModeGlobalProjectile>().altBehaviour)
             {
                 npc.type = NPCID.None;
                 npc.active = false;

@@ -1,5 +1,5 @@
 using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Core.ModPlayers;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

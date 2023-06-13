@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles.Minions;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -19,8 +20,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<FargoSoulsPlayer>().PungentEyeballMinion = true;
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.PungentEyeball>()] < 1)
-                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.PungentEyeball>(), 50, 0f, player.whoAmI);
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<PungentEyeball>()] < 1)
+                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<PungentEyeball>(), 50, 0f, player.whoAmI);
         }
     }
 }

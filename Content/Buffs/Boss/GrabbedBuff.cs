@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.ModPlayers;
+
 using Terraria;
 using Terraria.ModLoader;
 

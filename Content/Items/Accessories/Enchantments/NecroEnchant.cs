@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 
+
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
     public class NecroEnchant : BaseEnchant

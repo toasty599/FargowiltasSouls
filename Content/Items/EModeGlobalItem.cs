@@ -1,5 +1,5 @@
-using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Content.Buffs.Souls;
+
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;

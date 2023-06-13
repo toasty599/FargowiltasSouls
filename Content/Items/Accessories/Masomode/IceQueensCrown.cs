@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
@@ -58,8 +59,8 @@ Press the Bomb key to use your freeze bomb
                 fargoPlayer.Graze = true;
                 fargoPlayer.CirnoGraze = true;
             }
-            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoGrazeRing", false) && player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.GrazeRing>()] < 1)
-                Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.GrazeRing>(), 0, 0f, Main.myPlayer);
+            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoGrazeRing", false) && player.ownedProjectileCounts[ModContent.ProjectileType<GrazeRing>()] < 1)
+                Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<GrazeRing>(), 0, 0f, Main.myPlayer);
         }
 
         public const int CIRNO_GRAZE_THRESHOLD = 2900;
@@ -70,9 +71,9 @@ Press the Bomb key to use your freeze bomb
             fargoPlayer.CirnoGrazeCounter += damage;
             if (fargoPlayer.CirnoGrazeCounter > CIRNO_GRAZE_MAX)
                 fargoPlayer.CirnoGrazeCounter = CIRNO_GRAZE_MAX;
-            if (fargoPlayer.CirnoGrazeCounter == CIRNO_GRAZE_MAX && fargoPlayer.Player.whoAmI == Main.myPlayer && fargoPlayer.Player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.CirnoBomb>()] < 1)
+            if (fargoPlayer.CirnoGrazeCounter == CIRNO_GRAZE_MAX && fargoPlayer.Player.whoAmI == Main.myPlayer && fargoPlayer.Player.ownedProjectileCounts[ModContent.ProjectileType<CirnoBomb>()] < 1)
             {
-                Projectile.NewProjectile(fargoPlayer.Player.GetSource_Misc(""), fargoPlayer.Player.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.CirnoBomb>(), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(fargoPlayer.Player.GetSource_Misc(""), fargoPlayer.Player.Center, Vector2.Zero, ModContent.ProjectileType<CirnoBomb>(), 0, 0f, Main.myPlayer);
             }
 
             if (!Main.dedServ)

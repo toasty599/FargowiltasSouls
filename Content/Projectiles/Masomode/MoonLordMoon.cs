@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Content.Projectiles.Champions;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
@@ -9,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class MoonLordMoon : FargowiltasSouls.Content.Projectiles.Champions.CosmosMoon
+    public class MoonLordMoon : CosmosMoon
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Champions/CosmosMoon";
 
@@ -134,7 +136,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 }
             }
 
-            NPC moonLord = FargoSoulsUtil.NPCExists(FargowiltasSouls.Content.NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
+            NPC moonLord = FargoSoulsUtil.NPCExists(EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
             Projectile arena = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, Projectile.ai[0], ModContent.ProjectileType<LunarRitual>()));
             if (moonLord != null && arena != null && moonLord.ai[0] != 2f)
             {

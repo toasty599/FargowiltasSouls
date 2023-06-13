@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.Projectiles.Minions;
+
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -20,8 +22,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
         {
             player.GetModPlayer<FargoSoulsPlayer>().PlanterasChild = true;
             const int damage = 60;
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.PlanterasChild>()] < 1)
-                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, -Vector2.UnitY, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.PlanterasChild>(), damage, 3f, player.whoAmI);
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<PlanterasChild>()] < 1)
+                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, -Vector2.UnitY, ModContent.ProjectileType<PlanterasChild>(), damage, 3f, player.whoAmI);
         }
     }
 }

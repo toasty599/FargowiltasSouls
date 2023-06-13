@@ -1,5 +1,6 @@
-//using FargowiltasSouls.Buffs.Minions;
+//using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
@@ -35,7 +36,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
             Item.knockBack = 3;
             Item.rare = ItemRarityID.Green;
             Item.UseSound = SoundID.Item44;
-            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.BrainMinion>();
+            Item.shoot = ModContent.ProjectileType<BrainMinion>();
             Item.shootSpeed = 10f;
             //Item.buffType = ModContent.BuffType<BrainMinion>();
             Item.autoReuse = true;

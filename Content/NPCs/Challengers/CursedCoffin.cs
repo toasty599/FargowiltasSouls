@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.DataStructures;
-using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.Patreon.ManliestDove;
 using System.Reflection;

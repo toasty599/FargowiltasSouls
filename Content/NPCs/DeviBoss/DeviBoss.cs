@@ -1,7 +1,6 @@
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Patreon.Phupperbat;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.DeviBoss;
 using FargowiltasSouls.Content.Projectiles.Masomode;

@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -16,7 +17,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
             DisplayName.SetDefault("Big Brain Buster");
             Tooltip.SetDefault(
 "Repeated summons increase the size and damage of the minion\n" +
-$"This caps at {FargowiltasSouls.Content.Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
+$"This caps at {BigBrainProj.MaxMinionSlots} slots\n" +
 "'The reward for slaughtering many...'");
             ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 1;
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -36,7 +37,7 @@ $"This caps at {FargowiltasSouls.Content.Projectiles.Minions.BigBrainProj.MaxMin
             Item.knockBack = 3;
             Item.rare = ItemRarityID.Purple;
             Item.UseSound = SoundID.Item44;
-            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.BigBrainProj>();
+            Item.shoot = ModContent.ProjectileType<BigBrainProj>();
             Item.shootSpeed = 10f;
             //Item.buffType = ModContent.BuffType<BigBrainMinion>();
             //Item.buffTime = 3600;
@@ -65,7 +66,7 @@ $"This caps at {FargowiltasSouls.Content.Projectiles.Minions.BigBrainProj.MaxMin
                         if (proj.type == type)
                         {
                             brain = i;
-                            if (usedslots < player.maxMinions && proj.minionSlots < FargowiltasSouls.Content.Projectiles.Minions.BigBrainProj.MaxMinionSlots)
+                            if (usedslots < player.maxMinions && proj.minionSlots < BigBrainProj.MaxMinionSlots)
                                 proj.minionSlots++;
                         }
                     }

@@ -1,6 +1,6 @@
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.ModPlayers;
+
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

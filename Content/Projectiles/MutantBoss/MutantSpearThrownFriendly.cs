@@ -1,6 +1,8 @@
-﻿namespace FargowiltasSouls.Content.Projectiles.MutantBoss
+﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
+
+namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 {
-    public class MutantSpearThrownFriendly : FargowiltasSouls.Content.Projectiles.BossWeapons.HentaiSpearThrown
+    public class MutantSpearThrownFriendly : HentaiSpearThrown
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/HentaiSpear";
 

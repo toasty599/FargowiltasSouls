@@ -2,6 +2,7 @@
 using FargowiltasSouls.Common.Graphics.Primitives;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles.Deathrays;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 {
-    public class MutantDeathray2 : FargowiltasSouls.Content.Projectiles.Deathrays.MutantSpecialDeathray, IPixelPrimitiveDrawer
+    public class MutantDeathray2 : MutantSpecialDeathray, IPixelPrimitiveDrawer
     {
         public PrimDrawer LaserDrawer { get; private set; } = null;
 

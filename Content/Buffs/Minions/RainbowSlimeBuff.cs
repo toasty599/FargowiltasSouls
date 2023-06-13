@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles.Minions;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -21,8 +22,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
             player.GetModPlayer<FargoSoulsPlayer>().RainbowSlime = true;
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.RainbowSlime>()] < 1)
-                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.RainbowSlime>(), 35, 3f, player.whoAmI);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<RainbowSlime>()] < 1)
+                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<RainbowSlime>(), 35, 3f, player.whoAmI);
             }
         }
     }

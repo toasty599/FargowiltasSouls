@@ -1,3 +1,4 @@
+
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;

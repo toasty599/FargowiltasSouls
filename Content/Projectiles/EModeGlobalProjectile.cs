@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.ModPlayers;
+
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
@@ -23,6 +23,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Content.Projectiles.Souls;
 
 namespace FargowiltasSouls.Content.Projectiles
 {

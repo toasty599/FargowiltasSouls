@@ -1,5 +1,5 @@
 using FargowiltasSouls.Content.Projectiles.Masomode;
-using FargowiltasSouls.Core.ModPlayers;
+
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;

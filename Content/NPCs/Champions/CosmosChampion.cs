@@ -19,6 +19,7 @@ using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.ItemDropRules;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -442,12 +443,11 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         if (!Main.dedServ && Main.LocalPlayer.active)
                             Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
-                        int type; //for dust
+                        //int type; //for dust
 
                         if (NPC.ai[3] == 0) //solar
                         {
                             NPC.ai[3]++;
-                            type = 127;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 float modifier = (float)NPC.life / (NPC.lifeMax * 0.2f);
@@ -468,7 +468,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         else if (NPC.ai[3] == 1) //vortex
                         {
                             NPC.ai[3]++;
-                            type = 229;
+                            //type = 229;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 if (!Main.dedServ)
@@ -485,7 +485,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         else if (NPC.ai[3] == 2) //nebula
                         {
                             NPC.ai[3]++;
-                            type = 242;
+                            //type = 242;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 /*const int max = 11;
@@ -515,7 +515,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         else //stardust
                         {
                             NPC.ai[3] = 0;
-                            type = 135;
+                            //type = 135;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 const int max = 18;
@@ -913,7 +913,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                 NPC.netUpdate = true;
                             }
                         }
-                        else
+                        else 
                         {
                             NPC.direction = NPC.spriteDirection = Math.Sign(NPC.velocity.X);
 

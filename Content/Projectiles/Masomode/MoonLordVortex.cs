@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Projectiles.Champions;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class MoonLordVortex : FargowiltasSouls.Content.Projectiles.Champions.CosmosVortex
+    public class MoonLordVortex : CosmosVortex
     {
         public override string Texture => "Terraria/Images/Projectile_578";
 
@@ -77,7 +78,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                         for (int i = -1; i <= 1; i += 2)
                         {
                             Vector2 vel = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(maxAttackSpread) * i);
-                            Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 14f, Projectile.identity);
+                            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 14f, Projectile.identity);
                         }
                     }
                 }
@@ -127,7 +128,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     {
                         Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(maxAttackSpread));
                         float ai1New = Main.rand.NextBool() ? 1 : -1; //randomize starting direction
-                        Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(), Projectile.damage, Projectile.knockBack, Projectile.owner, vel.ToRotation(), ai1New * 0.75f);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(), Projectile.damage, Projectile.knockBack, Projectile.owner, vel.ToRotation(), ai1New * 0.75f);
                     }
                 }
 

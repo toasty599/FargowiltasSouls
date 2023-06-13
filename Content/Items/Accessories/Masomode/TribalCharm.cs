@@ -1,6 +1,6 @@
 using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Core.ModPlayers;
+
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;

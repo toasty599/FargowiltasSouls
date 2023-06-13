@@ -20,7 +20,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.ModPlayers;
+
 //using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls

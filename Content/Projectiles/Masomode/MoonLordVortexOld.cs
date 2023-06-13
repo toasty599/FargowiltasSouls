@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.EternityMode;
+﻿using FargowiltasSouls.Content.Projectiles.Champions;
+using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class MoonLordVortexOld : FargowiltasSouls.Content.Projectiles.Champions.CosmosVortex
+    public class MoonLordVortexOld : CosmosVortex
     {
         public override string Texture => "Terraria/Images/Projectile_578";
 
@@ -47,7 +48,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                             Vector2 dir = Projectile.DirectionTo(player.Center).RotatedByRandom(MathHelper.ToRadians(10));
                             float ai1New = Main.rand.NextBool() ? 1 : -1; //randomize starting direction
                             Vector2 vel = Vector2.Normalize(dir) * 6f;
-                            Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel * 6, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Champions.CosmosLightning>(),
+                            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel * 6, ModContent.ProjectileType<CosmosLightning>(),
                                 Projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                         }
                         p.Kill();

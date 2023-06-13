@@ -17,6 +17,7 @@ using FargowiltasSouls.Content.Items.Pets;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.ItemDropRules;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {

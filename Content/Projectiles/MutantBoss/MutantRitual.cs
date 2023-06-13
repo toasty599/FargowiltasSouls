@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -104,7 +105,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
 
-                if (FargoSoulsWorld.MasochistModeReal && Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5)
+                if (FargoSoulsWorld.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5)
                 {
                     if (!target.HasBuff(ModContent.BuffType<TimeFrozenBuff>()))
                         SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), target.Center);
