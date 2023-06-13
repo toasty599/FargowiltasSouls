@@ -357,7 +357,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
 
-            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Patreon/GreatestKraken/VortexRitualRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Patreon/GreatestKraken/VortexRitualRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle ringRect = texture2D14.Bounds;
             Vector2 origin = ringRect.Size() / 2f;
             float scale = Projectile.scale / 360f * 96f;
