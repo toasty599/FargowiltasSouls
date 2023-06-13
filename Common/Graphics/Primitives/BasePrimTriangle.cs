@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FargowiltasSouls.Primitives
+namespace FargowiltasSouls.Common.Graphics.Primitives
 {
     public struct BasePrimTriangle : IVertexType
     {

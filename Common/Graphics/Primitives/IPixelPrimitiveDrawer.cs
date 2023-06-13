@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace FargowiltasSouls.Primitives
+namespace FargowiltasSouls.Common.Graphics.Primitives
 {
     public interface IPixelPrimitiveDrawer
     {

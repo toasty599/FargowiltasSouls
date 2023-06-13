@@ -5,7 +5,7 @@ using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Primitives
+namespace FargowiltasSouls.Common.Graphics.Primitives
 {
     public class RenderTargetManager : ModSystem
     {
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Primitives
             ResizeRenderTarget(true);
         }
 
-        public override void Unload() 
+        public override void Unload()
         {
             On.Terraria.Main.CheckMonoliths -= DrawToCustomRenderTargets;
             On.Terraria.Main.DoDraw_DrawNPCsOverTiles -= DrawPixelRenderTarget;

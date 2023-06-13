@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 
 // Lowest namespace for convenience. 
-namespace FargowiltasSouls
+namespace FargowiltasSouls.Common.Graphics.Primitives
 {
     public class PrimDrawer
     {
@@ -142,7 +142,7 @@ namespace FargowiltasSouls
                 TextureEnabled = false
             };
             UpdateBaseEffect(out _, out _);
-        } 
+        }
 
         private void UpdateBaseEffect(out Matrix effectProjection, out Matrix effectView)
         {
