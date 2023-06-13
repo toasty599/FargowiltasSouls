@@ -1,12 +1,12 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Champions;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
@@ -260,12 +260,12 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 if (Main.rand.NextBool())
                     continue;
 
-                int d = Dust.NewDust(dustHead + Vector2.Normalize(headOffset) * i, 0, 0, 54,
-                    head.velocity.X * 0.4f, head.velocity.Y * 0.4f, 0, default(Color), 1.5f);
+                int d = Dust.NewDust(dustHead + Vector2.Normalize(headOffset) * i, 0, 0, DustID.Wraith,
+                    head.velocity.X * 0.4f, head.velocity.Y * 0.4f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 3f;
             }
-            Main.dust[Dust.NewDust(NPC.position, NPC.width, NPC.height, 54, 0f, 0f, 0, default(Color), 2f)].noGravity = true;
+            Main.dust[Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Wraith, 0f, 0f, 0, default, 2f)].noGravity = true;
 
             NPC.dontTakeDamage = head.ai[0] < 0;
 
@@ -332,7 +332,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<InfestedBuff>(), 360);
                 target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 180);

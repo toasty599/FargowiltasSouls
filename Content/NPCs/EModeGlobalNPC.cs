@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.EternityMode;
 using Microsoft.Xna.Framework;
 using System;
@@ -77,7 +78,7 @@ namespace FargowiltasSouls.Content.NPCs
 
         public override void SetDefaults(NPC npc)
         {
-            if (!FargoSoulsWorld.EternityMode) return;
+            if (!WorldSavingSystem.EternityMode) return;
 
             npc.value = (int)(npc.value * 1.3);
 
@@ -90,7 +91,7 @@ namespace FargowiltasSouls.Content.NPCs
 
         public override bool PreAI(NPC npc)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return base.PreAI(npc);
 
             //in pre-hm, enemies glow slightly at night
@@ -145,7 +146,7 @@ namespace FargowiltasSouls.Content.NPCs
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 //switch (npc.type)
                 //{
@@ -169,7 +170,7 @@ namespace FargowiltasSouls.Content.NPCs
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 spawnRate = (int)(spawnRate * 0.9);
                 maxSpawns = (int)(maxSpawns * 1.2f);
@@ -234,10 +235,10 @@ namespace FargowiltasSouls.Content.NPCs
             bool noInvasion = FargowiltasSouls.NoInvasion(spawnInfo);
             bool normalSpawn = !spawnInfo.PlayerInTown && noInvasion && !oldOnesArmy && noEvent;
 
-            bool bossCanSpawn = FargoSoulsWorld.MasochistModeReal && !spawnInfo.Player.GetModPlayer<FargoSoulsPlayer>().SinisterIcon && !FargoSoulsUtil.AnyBossAlive();
+            bool bossCanSpawn = WorldSavingSystem.MasochistModeReal && !spawnInfo.Player.GetModPlayer<FargoSoulsPlayer>().SinisterIcon && !FargoSoulsUtil.AnyBossAlive();
 
             //MASOCHIST MODE
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 //all the pre hardmode
                 if (!Main.hardMode)
@@ -275,7 +276,7 @@ namespace FargowiltasSouls.Content.NPCs
                             }
                         }
 
-                        if (normalSpawn && FargoSoulsWorld.downedAnyBoss)
+                        if (normalSpawn && WorldSavingSystem.DownedAnyBoss)
                         {
                             if (snow)
                                 pool[NPCID.IceGolem] = .001f;
@@ -331,7 +332,7 @@ namespace FargowiltasSouls.Content.NPCs
                         {
                             pool[NPCID.AngryNimbus] = .02f;
 
-                            if (FargoSoulsWorld.downedAnyBoss)
+                            if (WorldSavingSystem.DownedAnyBoss)
                                 pool[NPCID.WyvernHead] = .001f;
                         }
                     }
@@ -666,7 +667,7 @@ namespace FargowiltasSouls.Content.NPCs
                             pool[NPCID.RaggedCasterOpenCoat] = .001f;
                         }
 
-                        if (FargoSoulsWorld.downedBetsy && bossCanSpawn)
+                        if (WorldSavingSystem.DownedBetsy && bossCanSpawn)
                             pool[NPCID.DD2Betsy] = .0002f;
                     }
                     else if (sky)
@@ -802,7 +803,7 @@ namespace FargowiltasSouls.Content.NPCs
         {
             base.OnKill(npc);
 
-            if (npc.type == NPCID.Painter && FargoSoulsWorld.downedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss.MutantBoss>()))
+            if (npc.type == NPCID.Painter && WorldSavingSystem.DownedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss.MutantBoss>()))
                 Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.ItemType<ScremPainting>());
         }
 
@@ -812,7 +813,7 @@ namespace FargowiltasSouls.Content.NPCs
 
             void TimsConcoctionDrop(IItemDropRule rule)
             {
-                TimsConcoctionDropCondition dropCondition = new TimsConcoctionDropCondition();
+                TimsConcoctionDropCondition dropCondition = new();
                 IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
                 conditionalRule.OnSuccess(rule);
                 npcLoot.Add(conditionalRule);
@@ -1109,13 +1110,13 @@ namespace FargowiltasSouls.Content.NPCs
             {
                 if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
                 {
-                    LeadingConditionRule noTwin = new LeadingConditionRule(new Conditions.MissingTwin());
+                    LeadingConditionRule noTwin = new(new Conditions.MissingTwin());
                     noTwin.OnSuccess(dropRule);
                     npcLoot.Add(noTwin);
                 }
                 else if (npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsTail)
                 {
-                    LeadingConditionRule lastEater = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
+                    LeadingConditionRule lastEater = new(new Conditions.LegacyHack_IsABoss());
                     lastEater.OnSuccess(dropRule);
                     npcLoot.Add(lastEater);
                 }
@@ -1193,7 +1194,7 @@ namespace FargowiltasSouls.Content.NPCs
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
         {
-            if (FargoSoulsWorld.EternityMode && BeetleOffenseAura)
+            if (WorldSavingSystem.EternityMode && BeetleOffenseAura)
             {
                 damage = (int)(damage * 1.25f);
             }
@@ -1203,7 +1204,7 @@ namespace FargowiltasSouls.Content.NPCs
         {
             //ModifyHitByEither(npc, player, ref damage, ref knockback, ref crit);
 
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 if (NPCID.Sets.CountsAsCritter[npc.type]) //npc.catchItem != 0 && npc.lifeMax == 5)
                     player.AddBuff(ModContent.BuffType<GuiltyBuff>(), 300);
@@ -1216,7 +1217,7 @@ namespace FargowiltasSouls.Content.NPCs
 
             //ModifyHitByEither(npc, player, ref damage, ref knockback, ref crit);
 
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 if (NPCID.Sets.CountsAsCritter[npc.type] /*npc.catchItem != 0 && npc.lifeMax == 5*/ && projectile.friendly && !projectile.hostile && projectile.type != ProjectileID.FallingStar)
                     player.AddBuff(ModContent.BuffType<GuiltyBuff>(), 300);
@@ -1225,7 +1226,7 @@ namespace FargowiltasSouls.Content.NPCs
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 if (BeetleDefenseAura)
                     damage *= 0.75;
@@ -1233,7 +1234,7 @@ namespace FargowiltasSouls.Content.NPCs
                 if (PaladinsShield)
                     damage *= 0.5;
 
-                if (FargoSoulsWorld.MasochistModeReal && (npc.boss || FargoSoulsUtil.AnyBossAlive() && npc.Distance(Main.npc[FargoSoulsGlobalNPC.boss].Center) < 3000))
+                if (WorldSavingSystem.MasochistModeReal && (npc.boss || FargoSoulsUtil.AnyBossAlive() && npc.Distance(Main.npc[FargoSoulsGlobalNPC.boss].Center) < 3000))
                     damage *= 0.9;
             }
 
@@ -1298,7 +1299,7 @@ namespace FargowiltasSouls.Content.NPCs
 
             for (int i = 0; i < size; i++)
             {
-                Vector2 pos = new Vector2(npc.Center.X + Main.rand.NextFloat(-2f, 2f) * npc.width, npc.Center.Y);
+                Vector2 pos = new(npc.Center.X + Main.rand.NextFloat(-2f, 2f) * npc.width, npc.Center.Y);
 
                 if (Collision.SolidCollision(pos, npc.width, npc.height))
                 {

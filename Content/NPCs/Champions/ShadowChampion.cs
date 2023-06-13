@@ -1,5 +1,4 @@
 using FargowiltasSouls.BossBars;
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
@@ -12,13 +11,13 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Pets;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -156,7 +155,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
             NPC.direction = NPC.spriteDirection = NPC.Center.X < player.Center.X ? 1 : -1;
 
-            if (NPC.localAI[3] == 1 && NPC.life < NPC.lifeMax * (FargoSoulsWorld.EternityMode ? 0.66 : .5))
+            if (NPC.localAI[3] == 1 && NPC.life < NPC.lifeMax * (WorldSavingSystem.EternityMode ? 0.66 : .5))
             {
                 NPC.localAI[3] = 2;
                 NPC.dontTakeDamage = true;
@@ -187,7 +186,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         Main.projectile[i].Kill();
                 }
             }
-            else if (NPC.localAI[3] == 2 && NPC.life < NPC.lifeMax * .33 && FargoSoulsWorld.EternityMode)
+            else if (NPC.localAI[3] == 2 && NPC.life < NPC.lifeMax * .33 && WorldSavingSystem.EternityMode)
             {
                 NPC.localAI[3] = 3;
                 NPC.dontTakeDamage = true;
@@ -240,9 +239,9 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     for (int num227 = 0; num227 < num226; num227++)
                     {
                         Vector2 vector6 = Vector2.UnitX * 40f;
-                        vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + NPC.Center;
+                        vector6 = vector6.RotatedBy((num227 - (num226 / 2 - 1)) * 6.28318548f / num226, default) + NPC.Center;
                         Vector2 vector7 = vector6 - NPC.Center;
-                        int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 27, 0f, 0f, 0, default(Color), 3f);
+                        int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Shadowflame, 0f, 0f, 0, default, 3f);
                         Main.dust[num228].noGravity = true;
                         Main.dust[num228].velocity = vector7;
                     }
@@ -331,7 +330,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         Movement(targetPos, 0.2f, 24f);
 
                     //warning dust
-                    Main.dust[Dust.NewDust(NPC.Center, 0, 0, DustID.Torch, 0f, 0f, 0, default(Color), 2f)].velocity *= 7f;
+                    Main.dust[Dust.NewDust(NPC.Center, 0, 0, DustID.Torch, 0f, 0f, 0, default, 2f)].velocity *= 7f;
 
                     if (NPC.ai[1] == 90 && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
                     {
@@ -624,13 +623,13 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 27, 0f, 0f, 0, default(Color), 2f);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Shadowflame, 0f, 0f, 0, default, 2f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                 }
                 for (int i = 0; i < 3; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 54, 0f, 0f, 0, default(Color), 5f);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Wraith, 0f, 0f, 0, default, 5f);
                     Main.dust[d].noGravity = true;
                 }
             }
@@ -682,7 +681,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Darkness, 300);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                 target.AddBuff(BuffID.Blackout, 300);
@@ -696,7 +695,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.ShadowChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.ShadowChampion], -1);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.Items.Weapons.BossDrops;
+﻿using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

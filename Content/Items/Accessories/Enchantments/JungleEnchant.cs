@@ -26,7 +26,7 @@ Double tap a direction
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new Color(113, 151, 31);
+        protected override Color nameColor => new(113, 151, 31);
         public override string wizardEffect => "";
 
         public override void SetDefaults()

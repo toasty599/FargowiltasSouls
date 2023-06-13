@@ -19,7 +19,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
+                    Vector2 speed = new(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
                     speed.Normalize();
                     speed *= Main.rand.NextFloat(9f);
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + 4 * speed, speed, ProjectileID.FrostShard, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);

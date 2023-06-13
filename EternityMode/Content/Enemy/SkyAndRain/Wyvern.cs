@@ -3,13 +3,13 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.NPCs;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
 {
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
             base.OnFirstTick(npc);
 
             if (Main.hardMode && Main.rand.NextBool(10))
-                FargowiltasSouls.Content.NPCs.EModeGlobalNPC.Horde(npc, 2);
+                EModeGlobalNPC.Horde(npc, 2);
         }
 
         public override void AI(NPC npc)

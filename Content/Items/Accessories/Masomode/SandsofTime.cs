@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -42,7 +41,7 @@ Use to teleport to your last death point
             Item.UseSound = SoundID.Item6;
         }
 
-        void PassiveEffect(Player player)
+        static void PassiveEffect(Player player)
         {
             player.buffImmune[BuffID.WindPushed] = true;
             player.GetModPlayer<FargoSoulsPlayer>().SandsofTime = true;

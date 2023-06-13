@@ -34,7 +34,7 @@ Greatly enhances Flameburst effectiveness
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new Color(155, 92, 176);
+        protected override Color nameColor => new(155, 92, 176);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.DarkArtist");
 
         public override void SetDefaults()

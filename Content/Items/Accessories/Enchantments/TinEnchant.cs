@@ -25,7 +25,7 @@ Getting hit resets your crit to 5%
             Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new Color(162, 139, 78);
+        protected override Color nameColor => new(162, 139, 78);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Tin");
 
         public override void SetDefaults()

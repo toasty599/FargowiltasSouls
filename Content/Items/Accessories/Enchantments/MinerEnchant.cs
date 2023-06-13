@@ -26,7 +26,7 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
             // '大地随着你的每一次挥镐而颤动'");
         }
 
-        protected override Color nameColor => new Color(95, 117, 151);
+        protected override Color nameColor => new(95, 117, 151);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Miner");
 
         public override void SetDefaults()

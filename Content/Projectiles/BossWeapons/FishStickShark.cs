@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             for (int num321 = 0; num321 < 15; num321++)
             {
-                int num322 = Dust.NewDust(Projectile.Center - Vector2.One * 10f, 50, 50, 5, 0f, -2f, 0, default, 1f);
+                int num322 = Dust.NewDust(Projectile.Center - Vector2.One * 10f, 50, 50, DustID.Blood, 0f, -2f, 0, default, 1f);
                 Main.dust[num322].velocity /= 2f;
             }
             int num323 = 10;
@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Texture2D texture2D13 = TextureAssets.Projectile[Projectile.type].Value;
             int num156 = TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

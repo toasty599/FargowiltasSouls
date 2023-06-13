@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -69,11 +70,11 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         {
             for (int i = 0; i < 20; i++)
             {
-                int num469 = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 59, -Projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.BlueTorch, -Projectile.velocity.X * 0.2f,
                     -Projectile.velocity.Y * 0.2f, 100, default, 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 59, -Projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.BlueTorch, -Projectile.velocity.X * 0.2f,
                     -Projectile.velocity.Y * 0.2f, 100);
                 Main.dust[num469].velocity *= 2f;
             }
@@ -82,7 +83,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Slimed, 240);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
         }
 
@@ -101,7 +102,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Content/Projectiles/MutantBoss/MutantSlimeBall_{sheetClamped}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

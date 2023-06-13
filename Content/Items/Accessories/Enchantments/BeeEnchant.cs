@@ -28,7 +28,7 @@ Melee hits and most piercing attacks spawn bees
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new Color(254, 246, 37);
+        protected override Color nameColor => new(254, 246, 37);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Bee");
 
         public override void SetDefaults()

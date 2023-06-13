@@ -1,6 +1,6 @@
 ﻿using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Content.NPCs.Challengers;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,23 +19,15 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Projectiles;
 
-//using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls
 {
     public static class FargoSoulsUtil
     {
-        public static bool WorldIsExpertOrHarder()
-        {
-            return Main.expertMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 2);
-        }
+        public static bool WorldIsExpertOrHarder() => Main.expertMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 2);
 
-        public static bool WorldIsMaster()
-        {
-            return Main.masterMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 3);
-        }
+        public static bool WorldIsMaster() => Main.masterMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 3);
 
         public static void AddDebuffFixedDuration(Player player, int buffID, int intendedTime, bool quiet = true)
         {
@@ -107,7 +99,8 @@ namespace FargowiltasSouls
 
         public static int HighestDamageTypeScaling(Player player, int dmg)
         {
-            List<float> types = new List<float> {
+            List<float> types = new()
+            {
                 player.ActualClassDamage(DamageClass.Melee),
                 player.ActualClassDamage(DamageClass.Ranged),
                 player.ActualClassDamage(DamageClass.Magic),
@@ -119,7 +112,8 @@ namespace FargowiltasSouls
 
         public static float HighestCritChance(Player player)
         {
-            List<float> types = new List<float> {
+            List<float> types = new()
+            {
                 player.ActualClassCrit(DamageClass.Melee),
                 player.ActualClassCrit(DamageClass.Ranged),
                 player.ActualClassCrit(DamageClass.Magic),
@@ -316,7 +310,7 @@ namespace FargowiltasSouls
         {
             for (int index1 = 0; index1 < 100; ++index1)
             {
-                int index2 = Dust.NewDust(entity.position, entity.width, entity.height, 31, 0.0f, 0.0f, 100, new Color(), 2f);
+                int index2 = Dust.NewDust(entity.position, entity.width, entity.height, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 2f);
                 Main.dust[index2].position.X += Main.rand.Next(-20, 21);
                 Main.dust[index2].position.Y += Main.rand.Next(-20, 21);
                 Dust dust = Main.dust[index2];
@@ -382,7 +376,7 @@ namespace FargowiltasSouls
                 FindClosest(Main.npc.Where(n => n.boss));
             if (closestNpc == null)
                 FindClosest(Main.npc);
-            
+
             return closestNpc == null ? -1 : closestNpc.whoAmI;
         }
 
@@ -465,7 +459,7 @@ namespace FargowiltasSouls
         {
             for (float j = 0; j < MathHelper.TwoPi; j += MathHelper.ToRadians(360 / 60))
             {
-                Vector2 dustPos = new Vector2(
+                Vector2 dustPos = new(
                     16f * (float)Math.Pow(Math.Sin(j), 3),
                     13 * (float)Math.Cos(j) - 5 * (float)Math.Cos(2 * j) - 2 * (float)Math.Cos(3 * j) - (float)Math.Cos(4 * j));
                 dustPos.Y *= -1;
@@ -556,7 +550,7 @@ namespace FargowiltasSouls
                 && !projectile.hostile
                 && !projectile.npcProj
                 && !projectile.trap;
-                //&& (projectile.DamageType != DamageClass.Default || ProjectileID.Sets.MinionShot[projectile.type]);
+            //&& (projectile.DamageType != DamageClass.Default || ProjectileID.Sets.MinionShot[projectile.type]);
         }
 
         public static void SpawnBossNetcoded(Player player, int bossType, bool obeyLocalPlayerCheck = true)
@@ -613,7 +607,7 @@ namespace FargowiltasSouls
 
         public static bool LockEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)
         {
-            EModeEarlyBirdLockDropCondition lockCondition = new EModeEarlyBirdLockDropCondition();
+            EModeEarlyBirdLockDropCondition lockCondition = new();
             IItemDropRule conditionalRule = new LeadingConditionRule(lockCondition);
             conditionalRule.OnSuccess(rule);
             npcLoot.Add(conditionalRule);
@@ -622,7 +616,7 @@ namespace FargowiltasSouls
 
         public static void AddEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)
         {
-            EModeEarlyBirdRewardDropCondition dropCondition = new EModeEarlyBirdRewardDropCondition();
+            EModeEarlyBirdRewardDropCondition dropCondition = new();
             IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
             conditionalRule.OnSuccess(rule);
             npcLoot.Add(conditionalRule);
@@ -630,7 +624,7 @@ namespace FargowiltasSouls
 
         public static void EModeDrop(NPCLoot npcLoot, IItemDropRule rule)
         {
-            EModeDropCondition dropCondition = new EModeDropCondition();
+            EModeDropCondition dropCondition = new();
             IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
             conditionalRule.OnSuccess(rule);
             npcLoot.Add(conditionalRule);
@@ -663,13 +657,13 @@ namespace FargowiltasSouls
          */
         public static void DrawTexture(object sb, Texture2D texture, int shader, Entity codable, int framecountX, Color? overrideColor = null, bool drawCentered = false, Vector2 overrideOrigin = default)
         {
-            Color lightColor = (overrideColor != null ? (Color)overrideColor : codable is Item ? ((Item)codable).GetAlpha(GetLightColor(codable.Center)) : codable is NPC ? GetNPCColor(((NPC)codable), codable.Center, false) : codable is Projectile ? ((Projectile)codable).GetAlpha(GetLightColor(codable.Center)) : GetLightColor(codable.Center));
-            int frameCount = (codable is Item ? 1 : codable is NPC ? Main.npcFrameCount[((NPC)codable).type] : 1);
-            Rectangle frame = (codable is NPC ? ((NPC)codable).frame : new Rectangle(0, 0, texture.Width, texture.Height));
-            float scale = (codable is Item ? ((Item)codable).scale : codable is NPC ? ((NPC)codable).scale : ((Projectile)codable).scale);
-            float rotation = (codable is Item ? 0 : codable is NPC ? ((NPC)codable).rotation : ((Projectile)codable).rotation);
-            int spriteDirection = (codable is Item ? 1 : codable is NPC ? ((NPC)codable).spriteDirection : ((Projectile)codable).spriteDirection);
-            float offsetY = (codable is NPC ? ((NPC)codable).gfxOffY : 0f);
+            Color lightColor = overrideColor != null ? (Color)overrideColor : codable is Item item ? item.GetAlpha(GetLightColor(codable.Center)) : codable is NPC nPC6 ? GetNPCColor(nPC6, codable.Center, false) : codable is Projectile projectile ? projectile.GetAlpha(GetLightColor(codable.Center)) : GetLightColor(codable.Center);
+            int frameCount = codable is Item ? 1 : codable is NPC nPC ? Main.npcFrameCount[nPC.type] : 1;
+            Rectangle frame = codable is NPC nPC1 ? nPC1.frame : new Rectangle(0, 0, texture.Width, texture.Height);
+            float scale = codable is Item item1 ? item1.scale : codable is NPC nPC5 ? nPC5.scale : ((Projectile)codable).scale;
+            float rotation = codable is Item ? 0 : codable is NPC nPC4 ? nPC4.rotation : ((Projectile)codable).rotation;
+            int spriteDirection = codable is Item ? 1 : codable is NPC nPC2 ? nPC2.spriteDirection : ((Projectile)codable).spriteDirection;
+            float offsetY = codable is NPC nPC3 ? nPC3.gfxOffY : 0f;
             DrawTexture(sb, texture, shader, codable.position + new Vector2(0f, offsetY), codable.width, codable.height, scale, rotation, spriteDirection, frameCount, framecountX, frame, lightColor, drawCentered, overrideOrigin);
         }
 
@@ -685,33 +679,35 @@ namespace FargowiltasSouls
         {
             Vector2 origin = overrideOrigin != default ? overrideOrigin : new Vector2(frame.Width / framecountX / 2, texture.Height / framecount / 2);
             Color lightColor = overrideColor != null ? (Color)overrideColor : GetLightColor(position + new Vector2(width * 0.5f, height * 0.5f));
-            if (sb is List<DrawData>)
+            if (sb is List<DrawData> list)
             {
-                DrawData dd = new DrawData(texture, GetDrawPosition(position, origin, width, height, texture.Width, texture.Height, frame, framecount, framecountX, scale, drawCentered), frame, lightColor, rotation, origin, scale, direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-                dd.shader = shader;
-                ((List<DrawData>)sb).Add(dd);
+                DrawData dd = new(texture, GetDrawPosition(position, origin, width, height, texture.Width, texture.Height, framecount, framecountX, scale, drawCentered), frame, lightColor, rotation, origin, scale, direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0)
+                {
+                    shader = shader
+                };
+                list.Add(dd);
             }
-            else if (sb is SpriteBatch)
+            else if (sb is SpriteBatch batch)
             {
                 bool applyDye = shader > 0;
                 if (applyDye)
                 {
-                    ((SpriteBatch)sb).End();
-                    ((SpriteBatch)sb).Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                    batch.End();
+                    batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
                     GameShaders.Armor.ApplySecondary(shader, Main.player[Main.myPlayer], null);
                 }
-               ((SpriteBatch)sb).Draw(texture, GetDrawPosition(position, origin, width, height, texture.Width, texture.Height, frame, framecount, framecountX, scale, drawCentered), frame, lightColor, rotation, origin, scale, direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                batch.Draw(texture, GetDrawPosition(position, origin, width, height, texture.Width, texture.Height, framecount, framecountX, scale, drawCentered), frame, lightColor, rotation, origin, scale, direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                 if (applyDye)
                 {
-                    ((SpriteBatch)sb).End();
-                    ((SpriteBatch)sb).Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                    batch.End();
+                    batch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                 }
             }
         }
 
         public static Color GetNPCColor(NPC npc, Vector2? position = null, bool effects = true, float shadowOverride = 0f)
         {
-            return npc.GetAlpha(BuffEffects(npc, GetLightColor(position != null ? (Vector2)position : npc.Center), (shadowOverride != 0f ? shadowOverride : 0f), effects, npc.poisoned, npc.onFire, npc.onFire2, Main.player[Main.myPlayer].detectCreature, false, false, false, npc.venom, npc.midas, npc.ichor, npc.onFrostBurn, false, false, npc.dripping, npc.drippingSlime, npc.loveStruck, npc.stinky));
+            return npc.GetAlpha(BuffEffects(npc, GetLightColor(position != null ? (Vector2)position : npc.Center), shadowOverride != 0f ? shadowOverride : 0f, effects, npc.poisoned, npc.onFire, npc.onFire2, Main.player[Main.myPlayer].detectCreature, false, false, false, npc.venom, npc.midas, npc.ichor, npc.onFrostBurn, false, false, npc.dripping, npc.drippingSlime, npc.loveStruck, npc.stinky));
         }
 
         /*
@@ -725,20 +721,20 @@ namespace FargowiltasSouls
         /*
          * Returns the draw position of a texture for npcs and projectiles.
          */
-        public static Vector2 GetDrawPosition(Vector2 position, Vector2 origin, int width, int height, int texWidth, int texHeight, Rectangle frame, int framecount, float scale, bool drawCentered = false)
+        public static Vector2 GetDrawPosition(Vector2 position, Vector2 origin, int width, int height, int texWidth, int texHeight, int framecount, float scale, bool drawCentered = false)
         {
-            return GetDrawPosition(position, origin, width, height, texWidth, texHeight, frame, framecount, 1, scale, drawCentered);
+            return GetDrawPosition(position, origin, width, height, texWidth, texHeight, framecount, 1, scale, drawCentered);
         }
 
         /*
          * Returns the draw position of a texture for npcs and projectiles.
          */
-        public static Vector2 GetDrawPosition(Vector2 position, Vector2 origin, int width, int height, int texWidth, int texHeight, Rectangle frame, int framecount, int framecountX, float scale, bool drawCentered = false)
+        public static Vector2 GetDrawPosition(Vector2 position, Vector2 origin, int width, int height, int texWidth, int texHeight, int framecount, int framecountX, float scale, bool drawCentered = false)
         {
-            Vector2 screenPos = new Vector2((int)Main.screenPosition.X, (int)Main.screenPosition.Y);
+            Vector2 screenPos = new((int)Main.screenPosition.X, (int)Main.screenPosition.Y);
             if (drawCentered)
             {
-                Vector2 texHalf = new Vector2(texWidth / framecountX / 2, texHeight / framecount / 2);
+                Vector2 texHalf = new(texWidth / framecountX / 2, texHeight / framecount / 2);
                 return position + new Vector2(width / 2, height / 2) - (texHalf * scale) + (origin * scale) - screenPos;
             }
             return position - screenPos + new Vector2(width / 2, height) - (new Vector2(texWidth / framecountX / 2, texHeight / framecount) * scale) + (origin * scale) + new Vector2(0f, 5f);
@@ -752,7 +748,7 @@ namespace FargowiltasSouls
             float cr = 1f; float cg = 1f; float cb = 1f; float ca = 1f;
             if (effects && honey && Main.rand.NextBool(30))
             {
-                int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 152, 0f, 0f, 150, default, 1f);
+                int dustID = Dust.NewDust(codable.position, codable.width, codable.height, DustID.Honey, 0f, 0f, 150, default, 1f);
                 Main.dust[dustID].velocity.Y = 0.3f;
                 Main.dust[dustID].velocity.X *= 0.1f;
                 Main.dust[dustID].scale += Main.rand.Next(3, 4) * 0.1f;
@@ -765,7 +761,7 @@ namespace FargowiltasSouls
             {
                 if (effects && Main.rand.NextBool(30))
                 {
-                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 46, 0f, 0f, 120, default, 0.2f);
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, DustID.Poisoned, 0f, 0f, 120, default, 0.2f);
                     Main.dust[dustID].noGravity = true;
                     Main.dust[dustID].fadeIn = 1.9f;
                     //if (codable is Player) Main.playerDrawDust.Add(dustID);
@@ -777,7 +773,7 @@ namespace FargowiltasSouls
             {
                 if (effects && Main.rand.NextBool(10))
                 {
-                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 171, 0f, 0f, 100, default, 0.5f);
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, DustID.Venom, 0f, 0f, 100, default, 0.5f);
                     Main.dust[dustID].noGravity = true;
                     Main.dust[dustID].fadeIn = 1.5f;
                     //if (codable is Player) Main.playerDrawDust.Add(dustID);
@@ -798,7 +794,7 @@ namespace FargowiltasSouls
             {
                 if (effects)
                 {
-                    int dustID = Dust.NewDust(new Vector2(codable.position.X - 2f, codable.position.Y - 2f), codable.width + 4, codable.height + 4, 6, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 2f);
+                    int dustID = Dust.NewDust(new Vector2(codable.position.X - 2f, codable.position.Y - 2f), codable.width + 4, codable.height + 4, DustID.Torch, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 2f);
                     Main.dust[dustID].noGravity = true;
                     Main.dust[dustID].velocity *= 1.8f;
                     Main.dust[dustID].velocity.Y -= 0.75f;
@@ -817,7 +813,7 @@ namespace FargowiltasSouls
                 {
                     if (Main.rand.Next(4) < 3)
                     {
-                        int dustID = Dust.NewDust(new Vector2(codable.position.X - 2f, codable.position.Y - 2f), codable.width + 4, codable.height + 4, 135, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 3.5f);
+                        int dustID = Dust.NewDust(new Vector2(codable.position.X - 2f, codable.position.Y - 2f), codable.width + 4, codable.height + 4, DustID.IceTorch, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 3.5f);
                         Main.dust[dustID].noGravity = true;
                         Main.dust[dustID].velocity *= 1.8f;
                         Main.dust[dustID].velocity.Y -= 0.5f;
@@ -840,9 +836,9 @@ namespace FargowiltasSouls
             {
                 if (effects)
                 {
-                    if (Main.rand.Next(4) != 0)
+                    if (!Main.rand.NextBool(4))
                     {
-                        int dustID = Dust.NewDust(codable.position - new Vector2(2f, 2f), codable.width + 4, codable.height + 4, 6, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 3.5f);
+                        int dustID = Dust.NewDust(codable.position - new Vector2(2f, 2f), codable.width + 4, codable.height + 4, DustID.Torch, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 3.5f);
                         Main.dust[dustID].noGravity = true;
                         Main.dust[dustID].velocity *= 1.8f;
                         Main.dust[dustID].velocity.Y -= 0.5f;
@@ -861,13 +857,13 @@ namespace FargowiltasSouls
                     cg *= 0.7f;
                 }
             }
-            if (dripping && shadow == 0f && Main.rand.Next(4) != 0)
+            if (dripping && shadow == 0f && !Main.rand.NextBool(4))
             {
                 Vector2 position = codable.position;
                 position.X -= 2f; position.Y -= 2f;
                 if (Main.rand.NextBool())
                 {
-                    int dustID = Dust.NewDust(position, codable.width + 4, codable.height + 2, 211, 0f, 0f, 50, default, 0.8f);
+                    int dustID = Dust.NewDust(position, codable.width + 4, codable.height + 2, DustID.Wet, 0f, 0f, 50, default, 0.8f);
                     if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
                     if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
                     Main.dust[dustID].noLight = true;
@@ -878,7 +874,7 @@ namespace FargowiltasSouls
                 }
                 else
                 {
-                    int dustID = Dust.NewDust(position, codable.width + 8, codable.height + 8, 211, 0f, 0f, 50, default, 1.1f);
+                    int dustID = Dust.NewDust(position, codable.width + 8, codable.height + 8, DustID.Wet, 0f, 0f, 50, default, 1.1f);
                     if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
                     if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
                     Main.dust[dustID].noLight = true;
@@ -892,14 +888,14 @@ namespace FargowiltasSouls
             if (drippingSlime && shadow == 0f)
             {
                 int alpha = 175;
-                Color newColor = new Color(0, 80, 255, 100);
-                if (Main.rand.Next(4) != 0)
+                Color newColor = new(0, 80, 255, 100);
+                if (!Main.rand.NextBool(4))
                 {
                     if (Main.rand.NextBool())
                     {
                         Vector2 position2 = codable.position;
                         position2.X -= 2f; position2.Y -= 2f;
-                        int dustID = Dust.NewDust(position2, codable.width + 4, codable.height + 2, 4, 0f, 0f, alpha, newColor, 1.4f);
+                        int dustID = Dust.NewDust(position2, codable.width + 4, codable.height + 2, DustID.TintableDust, 0f, 0f, alpha, newColor, 1.4f);
                         if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
                         if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
                         Main.dust[dustID].noLight = true;
@@ -916,9 +912,9 @@ namespace FargowiltasSouls
             {
                 if (effects)
                 {
-                    if (Main.rand.Next(4) != 0)
+                    if (!Main.rand.NextBool(4))
                     {
-                        int dustID = Dust.NewDust(codable.position - new Vector2(2f, 2f), codable.width + 4, codable.height + 4, 75, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 3.5f);
+                        int dustID = Dust.NewDust(codable.position - new Vector2(2f, 2f), codable.width + 4, codable.height + 4, DustID.CursedTorch, codable.velocity.X * 0.4f, codable.velocity.Y * 0.4f, 100, default, 3.5f);
                         Main.dust[dustID].noGravity = true;
                         Main.dust[dustID].velocity *= 1.8f;
                         Main.dust[dustID].velocity.Y -= 0.5f;
@@ -949,10 +945,10 @@ namespace FargowiltasSouls
             }
             if (bleed)
             {
-                bool dead = (codable is Player ? ((Player)codable).dead : codable is NPC ? ((NPC)codable).life <= 0 : false);
+                bool dead = codable is Player player ? player.dead : codable is NPC nPC && nPC.life <= 0;
                 if (effects && !dead && Main.rand.NextBool(30))
                 {
-                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 5, 0f, 0f, 0, default, 1f);
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, DustID.Blood, 0f, 0f, 0, default, 1f);
                     Main.dust[dustID].velocity.Y += 0.5f;
                     Main.dust[dustID].velocity *= 0.25f;
                     //if (codable is Player) Main.playerDrawDust.Add(dustID);
@@ -962,7 +958,7 @@ namespace FargowiltasSouls
             }
             if (loveStruck && effects && shadow == 0f && Main.instance.IsActive && !Main.gamePaused && Main.rand.NextBool(5))
             {
-                Vector2 value = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                Vector2 value = new(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
                 value.Normalize();
                 value.X *= 0.66f;
                 int goreID = Gore.NewGore(codable.GetSource_FromThis(), codable.position + new Vector2(Main.rand.Next(codable.width + 1), Main.rand.Next(codable.height + 1)), value * Main.rand.Next(3, 6) * 0.33f, 331, Main.rand.Next(40, 121) * 0.01f);
@@ -977,10 +973,10 @@ namespace FargowiltasSouls
                 cb *= 0.55f;
                 if (effects && Main.rand.NextBool(5) && Main.instance.IsActive && !Main.gamePaused)
                 {
-                    Vector2 value2 = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                    Vector2 value2 = new(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
                     value2.Normalize(); value2.X *= 0.66f; value2.Y = Math.Abs(value2.Y);
                     Vector2 vector = value2 * Main.rand.Next(3, 5) * 0.25f;
-                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 188, vector.X, vector.Y * 0.5f, 100, default, 1.5f);
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, DustID.FartInAJar, vector.X, vector.Y * 0.5f, 100, default, 1.5f);
                     Main.dust[dustID].velocity *= 0.1f;
                     Main.dust[dustID].velocity.Y -= 0.5f;
                     //if (codable is Player) Main.playerDrawDust.Add(dustID);
@@ -990,22 +986,22 @@ namespace FargowiltasSouls
             lightColor.G = (byte)(lightColor.G * cg);
             lightColor.B = (byte)(lightColor.B * cb);
             lightColor.A = (byte)(lightColor.A * ca);
-            if (codable is NPC) NPCLoader.DrawEffects((NPC)codable, ref lightColor);
-            if (hunter && (codable is NPC ? ((NPC)codable).lifeMax > 1 : true))
+
+            if (hunter && (codable is not NPC || ((NPC)codable).lifeMax > 1))
             {
                 if (effects && !Main.gamePaused && Main.instance.IsActive && Main.rand.NextBool(50))
                 {
-                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 15, 0f, 0f, 150, default, 0.8f);
+                    int dustID = Dust.NewDust(codable.position, codable.width, codable.height, DustID.MagicMirror, 0f, 0f, 150, default, 0.8f);
                     Main.dust[dustID].velocity *= 0.1f;
                     Main.dust[dustID].noLight = true;
                     //if (codable is Player) Main.playerDrawDust.Add(dustID);
                 }
                 byte colorR = 50, colorG = 255, colorB = 50;
-                if (codable is NPC && !(((NPC)codable).friendly || ((NPC)codable).catchItem > 0 || (((NPC)codable).damage == 0 && ((NPC)codable).lifeMax == 5)))
+                if (codable is NPC nPC && !(nPC.friendly || nPC.catchItem > 0 || (nPC.damage == 0 && nPC.lifeMax == 5)))
                 {
                     colorR = 255; colorG = 50;
                 }
-                if (!(codable is NPC) && lightColor.R < 150) { lightColor.A = Main.mouseTextColor; }
+                if (codable is not NPC && lightColor.R < 150) { lightColor.A = Main.mouseTextColor; }
                 if (lightColor.R < colorR) { lightColor.R = colorR; }
                 if (lightColor.G < colorG) { lightColor.G = colorG; }
                 if (lightColor.B < colorB) { lightColor.B = colorB; }

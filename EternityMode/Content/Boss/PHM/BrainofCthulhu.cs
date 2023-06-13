@@ -7,11 +7,9 @@ using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,6 +17,7 @@ using FargowiltasSouls.Core;
 
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -77,7 +76,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             EModeGlobalNPC.brainBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return base.SafePreAI(npc);
 
             if (Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<EModePlayer>().ShorterDebuffsTimer < 2)
@@ -125,13 +124,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 void LaserSpread(Vector2 spawn)
                 {
-                    if (npc.life > npc.lifeMax / 2 && !FargoSoulsWorld.MasochistModeReal)
+                    if (npc.life > npc.lifeMax / 2 && !WorldSavingSystem.MasochistModeReal)
                         return;
 
                     if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient) //laser spreads from each illusion
                     {
-                        int max = FargoSoulsWorld.MasochistModeReal ? 7 : 3;
-                        int degree = FargoSoulsWorld.MasochistModeReal ? 2 : 3;
+                        int max = WorldSavingSystem.MasochistModeReal ? 7 : 3;
+                        int degree = WorldSavingSystem.MasochistModeReal ? 2 : 3;
                         int laserDamage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3);
 
                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
@@ -140,7 +139,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                 };
 
-                int confusionThreshold = FargoSoulsWorld.MasochistModeReal ? 240 : 300;
+                int confusionThreshold = WorldSavingSystem.MasochistModeReal ? 240 : 300;
                 int confusionThreshold2 = confusionThreshold - 60;
 
                 if (--ConfusionTimer < 0)
@@ -232,7 +231,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         IllusionTimer += 5;
                     if (npc.life < npc.lifeMax / 10)
                         IllusionTimer -= 2;
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                         IllusionTimer -= 2;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -266,7 +265,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (Main.netMode != NetmodeID.MultiplayerClient) //spawn illusions
                 {
-                    bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
+                    bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                     int type = recolor ? ModContent.NPCType<BrainIllusion2>() : ModContent.NPCType<BrainIllusion>();
 
                     FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, -1, 1);
@@ -314,7 +313,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<GuttedHeart>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.CrimsonFishingCrate, 5));
 
@@ -329,7 +328,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 target.AddBuff(BuffID.Poisoned, 120);
                 target.AddBuff(BuffID.Darkness, 120);
@@ -390,7 +389,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             bool result = base.SafePreAI(npc);
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             if (--IchorAttackTimer < 0)
@@ -421,7 +420,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 target.AddBuff(BuffID.Poisoned, 120);
                 target.AddBuff(BuffID.Darkness, 120);

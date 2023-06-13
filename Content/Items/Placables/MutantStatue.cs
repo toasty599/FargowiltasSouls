@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;

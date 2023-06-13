@@ -1,9 +1,7 @@
-using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles;
 
@@ -24,7 +22,7 @@ Increases armor pen by 15
 'Attack faster than the eye can see'");
         }
 
-        protected override Color nameColor => new Color(48, 49, 52);
+        protected override Color nameColor => new(48, 49, 52);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Ninja");
 
         public override void SetDefaults()

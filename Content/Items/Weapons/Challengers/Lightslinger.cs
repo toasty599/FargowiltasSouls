@@ -2,7 +2,6 @@ using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -55,7 +54,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             return new Vector2(-27f, -12f);
         }
 
-        public override bool AltFunctionUse(Player player) => player.GetModPlayer<FargoSoulsPlayer>().LightslingerHitShots >= ReqShots ? true : false;
+        public override bool AltFunctionUse(Player player) => player.GetModPlayer<FargoSoulsPlayer>().LightslingerHitShots >= ReqShots;
         public override bool CanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)

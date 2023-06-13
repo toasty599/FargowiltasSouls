@@ -21,7 +21,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.StupidSnowmanEvent
                 npc.velocity.X = 0f;
                 npc.velocity.Y = 0f;
                 float num3 = 10f;
-                Vector2 vector2 = new Vector2(npc.position.X + npc.width * 0.5f - npc.direction * 12, npc.position.Y + npc.height * 0.25f);
+                Vector2 vector2 = new(npc.position.X + npc.width * 0.5f - npc.direction * 12, npc.position.Y + npc.height * 0.25f);
                 float num4 = Main.player[npc.target].position.X + Main.player[npc.target].width / 2f - vector2.X;
                 float num5 = Main.player[npc.target].position.Y - vector2.Y;
                 float num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);

@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -12,7 +13,7 @@ namespace FargowiltasSouls.Content.Tiles
     {
         public override void NearbyEffects(int i, int j, int type, bool closer)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             if (type == TileID.LihzahrdBrick && Framing.GetTileSafely(i, j).WallType == WallID.LihzahrdBrickUnsafe)
@@ -41,7 +42,7 @@ namespace FargowiltasSouls.Content.Tiles
             }
         }
 
-        private bool CanBreakTileMaso(int i, int j, int type)
+        private static bool CanBreakTileMaso(int i, int j, int type)
         {
             if ((type == TileID.Traps || type == TileID.PressurePlates) && Framing.GetTileSafely(i, j).WallType == WallID.LihzahrdBrickUnsafe)
             {
@@ -61,7 +62,7 @@ namespace FargowiltasSouls.Content.Tiles
 
         public override bool CanExplode(int i, int j, int type)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return base.CanExplode(i, j, type);
 
 
@@ -74,7 +75,7 @@ namespace FargowiltasSouls.Content.Tiles
 
         public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return base.CanKillTile(i, j, type, ref blockDamaged);
 
 
@@ -87,7 +88,7 @@ namespace FargowiltasSouls.Content.Tiles
 
         public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             if (type == TileID.ShadowOrbs && Main.invasionType == 0 && !NPC.downedGoblins && WorldGen.shadowOrbSmashed)

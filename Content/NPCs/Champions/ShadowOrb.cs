@@ -140,9 +140,9 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             for (int num227 = 0; num227 < num226; num227++)
             {
                 Vector2 vector6 = Vector2.UnitX * 10f;
-                vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + NPC.Center;
+                vector6 = vector6.RotatedBy((num227 - (num226 / 2 - 1)) * 6.28318548f / num226, default) + NPC.Center;
                 Vector2 vector7 = vector6 - NPC.Center;
-                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 27, 0f, 0f, 0, default(Color), 3f);
+                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Shadowflame, 0f, 0f, 0, default, 3f);
                 Main.dust[num228].noGravity = true;
                 Main.dust[num228].velocity = vector7;
             }

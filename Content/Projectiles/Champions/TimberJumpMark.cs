@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.Systems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -53,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, Projectile.damage, 0f, Main.myPlayer);
                 }
 
-                int max = FargoSoulsWorld.MasochistModeReal ? 18 : 6;
+                int max = WorldSavingSystem.MasochistModeReal ? 18 : 6;
                 if (++Projectile.localAI[1] > max)
                     Projectile.Kill();
             }

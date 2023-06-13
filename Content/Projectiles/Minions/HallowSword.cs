@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 return;
             }
 
-            List<int> ai156_blacklistedTargets = new List<int>();
+            List<int> ai156_blacklistedTargets = new();
 
             DelegateMethods.v3_1 = Color.Transparent.ToVector3();
             Point point2 = Projectile.Center.ToTileCoordinates();
@@ -110,7 +110,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Projectile.velocity = Vector2.Zero;
                 Projectile.Center = Vector2.SmoothStep(Projectile.Center, value2, 0.45f);
                 Projectile.rotation = Projectile.rotation.AngleLerp(targetAngle2, 0.45f);
-                if (Main.rand.Next(20) == 0)
+                if (Main.rand.NextBool(20))
                 {
                     int num8 = AI_156_TryAttackingNPCs(ai156_blacklistedTargets, false);
                     if (num8 != -1)
@@ -199,7 +199,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                         //spinning attack
                         if (num14 == 0)
                         {
-                            Vector2 vector3 = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
+                            Vector2 vector3 = new(Projectile.localAI[0], Projectile.localAI[1]);
                             if (lerpValue2 >= 0.5f)
                             {
                                 vector3 = Vector2.Lerp(npc2.Center, Main.player[Projectile.owner].Center, 0.5f);
@@ -224,7 +224,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                         //stab attack
                         if (num14 == 1)
                         {
-                            Vector2 vector5 = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
+                            Vector2 vector5 = new(Projectile.localAI[0], Projectile.localAI[1]);
                             vector5 += new Vector2(0f, Utils.GetLerpValue(0f, 0.4f, lerpValue2, true) * -100f);
                             Vector2 v = npc2.Center - vector5;
                             Vector2 value3 = v.SafeNormalize(Vector2.Zero) * MathHelper.Clamp(v.Length(), 60f, 150f);
@@ -399,7 +399,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Main.EntitySpriteDraw(value, vector, null, fairyQueenWeaponsColor * num2 * 0.5f, num, origin, scale, SpriteEffects.None, 0);
         }
 
-        public void PrepareDrawnEntityDrawing(Entity entity, int intendedShader)
+        public static void PrepareDrawnEntityDrawing(Entity entity, int intendedShader)
         {
             Main.CurrentDrawnEntity = entity;
             if (intendedShader != 0)

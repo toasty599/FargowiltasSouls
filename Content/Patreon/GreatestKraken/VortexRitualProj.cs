@@ -5,7 +5,6 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Patreon.GreatestKraken
 {
@@ -174,13 +173,13 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             int dustMax = 5 + 5 * (int)Projectile.scale;
             for (int i = 0; i < dustMax; i++)
             {
-                Vector2 offset = new Vector2();
+                Vector2 offset = new();
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * maxDistance);
                 offset.Y += (float)(Math.Cos(angle) * maxDistance);
                 Dust dust = Main.dust[Dust.NewDust(
                     Projectile.Center + offset, 0, 0,
-                    226, 0, 0, 100, Color.White, Projectile.scale / 5f
+                    DustID.Electric, 0, 0, 100, Color.White, Projectile.scale / 5f
                     )];
                 dust.velocity = Projectile.velocity;
                 if (Main.rand.NextBool(3))
@@ -243,11 +242,11 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
         {
             for (int index1 = 0; index1 < 25; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 226, 0f, 0f, 100, new Color(), 1.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric, 0f, 0f, 100, new Color(), 1.5f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 7f * Projectile.scale;
                 Main.dust[index2].noLight = true;
-                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 226, 0f, 0f, 100, new Color(), 1f);
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric, 0f, 0f, 100, new Color(), 1f);
                 Main.dust[index3].velocity *= 4f * Projectile.scale;
                 Main.dust[index3].noGravity = true;
                 Main.dust[index3].noLight = true;
@@ -259,7 +258,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                 Vector2 vector6 = Vector2.UnitY * 10f * Projectile.scale;
                 vector6 = vector6.RotatedBy((i - (80 / 2 - 1)) * max) + Projectile.Center;
                 Vector2 vector7 = vector6 - Projectile.Center;
-                int d = Dust.NewDust(vector6 + vector7, 0, 0, 92, 0f, 0f, 0, default(Color), 2f);
+                int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Frost, 0f, 0f, 0, default, 2f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity = vector7;
             }
@@ -268,17 +267,17 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             {
                 for (int index1 = 0; index1 < 3; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f);
                     Main.dust[index2].position = new Vector2((float)(Projectile.width / 2), 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
                 }
                 for (int index1 = 0; index1 < 10; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0.0f, 0.0f, 0, new Color(), 2.5f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0.0f, 0.0f, 0, new Color(), 2.5f);
                     Main.dust[index2].position = new Vector2((float)(Projectile.width / 2), 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
                     Main.dust[index2].noGravity = true;
                     Dust dust1 = Main.dust[index2];
                     dust1.velocity = dust1.velocity * 1f;
-                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0.0f, 0.0f, 100, new Color(), 1.5f);
                     Main.dust[index3].position = new Vector2((float)(Projectile.width / 2), 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
                     Dust dust2 = Main.dust[index3];
                     dust2.velocity = dust2.velocity * 1f;
@@ -287,26 +286,26 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 
                 for (int i = 0; i < 10; i++)
                 {
-                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, default, 3f);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0f, 0f, 100, default, 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
 
                 for (int i = 0; i < 10; i++)
                 {
-                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 3.5f);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 7f;
-                    dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1.5f);
+                    dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                     Main.dust[dust].velocity *= 3f;
                 }
 
                 for (int index1 = 0; index1 < 10; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, new Color(), 2f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0f, 0f, 100, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 21f * Projectile.scale;
                     Main.dust[index2].noLight = true;
-                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, new Color(), 1f);
+                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0f, 0f, 100, new Color(), 1f);
                     Main.dust[index3].velocity *= 12f;
                     Main.dust[index3].noGravity = true;
                     Main.dust[index3].noLight = true;
@@ -314,7 +313,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 
                 for (int i = 0; i < 10; i++)
                 {
-                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 3.5f));
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 3.5f));
                     if (Main.rand.NextBool(3))
                         Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= Main.rand.NextFloat(9f, 12f);
@@ -353,7 +352,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
 

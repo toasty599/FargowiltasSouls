@@ -1,4 +1,3 @@
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Toggler;
@@ -17,6 +16,7 @@ using FargowiltasSouls.Content.Items.Weapons.Misc;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs
 {
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.NPCs
 
         //        public static bool Revengeance => CalamityMod.World.CalamityWorld.revenge;
 
-        static HashSet<int> RareNPCs = new HashSet<int>();
+        static HashSet<int> RareNPCs = new();
 
         public override void Unload()
         {
@@ -258,7 +258,7 @@ namespace FargowiltasSouls.Content.NPCs
 
             if (SnowChilled)
             {
-                int dustId = Dust.NewDust(npc.position, npc.width, npc.height, 76, npc.velocity.X, npc.velocity.Y, 100, default, 1f);
+                int dustId = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Snow, npc.velocity.X, npc.velocity.Y, 100, default, 1f);
                 Main.dust[dustId].noGravity = true;
 
                 npc.position -= npc.velocity * 0.5f;
@@ -286,7 +286,7 @@ namespace FargowiltasSouls.Content.NPCs
                         int dummy = -1;
                         if (Main.LocalPlayer.Distance(point) < fargoPlayer.GrazeRadius
                             && NPCLoader.CanHitPlayer(npc, Main.LocalPlayer, ref dummy)
-                            && (npc.ModNPC == null ? true : npc.ModNPC.CanHitPlayer(Main.LocalPlayer, ref dummy))
+                            && (npc.ModNPC == null || npc.ModNPC.CanHitPlayer(Main.LocalPlayer, ref dummy))
                             && (npc.noTileCollide || Collision.CanHitLine(point, 0, 0, Main.LocalPlayer.Center, 0, 0)))
                         {
                             npcForGrazeCD.GrazeCD = 30;
@@ -419,7 +419,7 @@ namespace FargowiltasSouls.Content.NPCs
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Vortex, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     if (Main.rand.NextBool(3))
@@ -434,14 +434,14 @@ namespace FargowiltasSouls.Content.NPCs
 
             if (CurseoftheMoon)
             {
-                int d = Dust.NewDust(npc.Center, 0, 0, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                int d = Dust.NewDust(npc.Center, 0, 0, DustID.Vortex, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 3f;
                 Main.dust[d].scale += 0.5f;
 
                 if (Main.rand.Next(4) < 3)
                 {
-                    d = Dust.NewDust(npc.position, npc.width, npc.height, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                    d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Vortex, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity.Y -= 1f;
                     Main.dust[d].velocity *= 2f;
@@ -452,7 +452,7 @@ namespace FargowiltasSouls.Content.NPCs
             {
                 if (Main.rand.NextBool(7))
                 {
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 156, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.UltraBrightTorch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 2f;
                 }
@@ -462,7 +462,7 @@ namespace FargowiltasSouls.Content.NPCs
             {
                 if (Main.rand.NextBool(7))
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.GemAmethyst, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.2f;
                     Main.dust[dust].velocity.Y -= 0.15f;
@@ -472,14 +472,14 @@ namespace FargowiltasSouls.Content.NPCs
 
             if (Chilled)
             {
-                int d = Dust.NewDust(npc.Center, 0, 0, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                int d = Dust.NewDust(npc.Center, 0, 0, DustID.MagicMirror, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 3f;
                 Main.dust[d].scale += 0.5f;
 
                 if (Main.rand.Next(4) < 3)
                 {
-                    d = Dust.NewDust(npc.position, npc.width, npc.height, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                    d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.MagicMirror, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity.Y -= 1f;
                     Main.dust[d].velocity *= 2f;
@@ -490,7 +490,7 @@ namespace FargowiltasSouls.Content.NPCs
             {
                 if (!Main.rand.NextBool(3))
                 {
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 203, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 0), 2.5f);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Scorpion, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 0), 2.5f);
                     Main.dust[d].velocity.Y -= 1;
                     Main.dust[d].velocity *= 1.5f;
                     Main.dust[d].noGravity = true;
@@ -502,7 +502,7 @@ namespace FargowiltasSouls.Content.NPCs
                 if (!Main.rand.NextBool(4))
                 {
                     Color color = Main.DiscoColor;
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 91, 0.0f, 0.0f, 100, color, 2.5f);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.GemDiamond, 0.0f, 0.0f, 100, color, 2.5f);
                     Main.dust[d].velocity *= 2f;
                     Main.dust[d].noGravity = true;
                 }
@@ -857,9 +857,9 @@ namespace FargowiltasSouls.Content.NPCs
                 }
             }
 
-            if (npc.boss && !FargoSoulsWorld.downedAnyBoss)
+            if (npc.boss && !WorldSavingSystem.DownedAnyBoss)
             {
-                FargoSoulsWorld.downedAnyBoss = true;
+                WorldSavingSystem.DownedAnyBoss = true;
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
             }
@@ -886,7 +886,7 @@ namespace FargowiltasSouls.Content.NPCs
                 case NPCID.EaterofWorldsBody:
                 case NPCID.EaterofWorldsTail:
                     {
-                        LeadingConditionRule lastEater = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
+                        LeadingConditionRule lastEater = new(new Conditions.LegacyHack_IsABoss());
                         lastEater.OnSuccess(BossDrop(ModContent.ItemType<EaterStaff>()));
                         npcLoot.Add(lastEater);
                     }
@@ -920,7 +920,7 @@ namespace FargowiltasSouls.Content.NPCs
                 case NPCID.Retinazer:
                 case NPCID.Spazmatism:
                     {
-                        LeadingConditionRule noTwin = new LeadingConditionRule(new Conditions.MissingTwin());
+                        LeadingConditionRule noTwin = new(new Conditions.MissingTwin());
                         noTwin.OnSuccess(BossDrop(ModContent.ItemType<TwinRangs>()));
                         npcLoot.Add(noTwin);
                     }
@@ -960,7 +960,7 @@ namespace FargowiltasSouls.Content.NPCs
                     break;
             }
 
-            //if (Fargowiltas.Instance.CalamityLoaded && Revengeance && FargoSoulsWorld.EternityMode && Main.bloodMoon && Main.moonPhase == 0 && Main.raining && Main.rand.NextBool(10))
+            //if (Fargowiltas.Instance.CalamityLoaded && Revengeance && WorldSavingSystem.EternityMode && Main.bloodMoon && Main.moonPhase == 0 && Main.raining && Main.rand.NextBool(10))
             //{
             //    Mod calamity = ModLoader.GetMod("CalamityMod");
 

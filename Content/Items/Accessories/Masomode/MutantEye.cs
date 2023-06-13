@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -73,14 +72,14 @@ Mutant Bomb has a 60 second cooldown
                         Vector2 vector6 = Vector2.UnitY * 8f;
                         vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
                         Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
-                        int d = Dust.NewDust(vector6 + vector7, 0, 0, 229, 0f, 0f, 0, default, 2f);
+                        int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Vortex, 0f, 0f, 0, default, 2f);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].velocity = vector7;
                     }
 
                     for (int i = 0; i < 30; i++)
                     {
-                        int d = Dust.NewDust(player.position, player.width, player.height, 229, 0f, 0f, 0, default, 2.5f);
+                        int d = Dust.NewDust(player.position, player.width, player.height, DustID.Vortex, 0f, 0f, 0, default, 2.5f);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].noLight = true;
                         Main.dust[d].velocity *= 8f;

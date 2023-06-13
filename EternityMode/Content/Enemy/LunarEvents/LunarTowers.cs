@@ -4,14 +4,13 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
 {
@@ -65,7 +64,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         {
             base.AI(npc);
 
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             if (!spawned)
@@ -129,7 +128,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
@@ -139,7 +138,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         {
             base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
 
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             damage = npc.Distance(player.Center) > 2500 ? 0 : damage / 2;
@@ -209,7 +208,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    Vector2 offset = new Vector2();
+                    Vector2 offset = new();
                     double angle = Main.rand.NextDouble() * 2d * Math.PI;
                     offset.X += (float)(Math.Sin(angle) * npc.height / 2);
                     offset.Y += (float)(Math.Cos(angle) * npc.height / 2);
@@ -258,7 +257,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                 NetSync(npc);
                 for (int i = 0; i < 40; ++i)
                 {
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 242, 0.0f, 0.0f, 0, new Color(), 1f);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.PinkTorch, 0.0f, 0.0f, 0, new Color(), 1f);
                     Dust dust = Main.dust[d];
                     dust.velocity *= 4f;
                     Main.dust[d].noGravity = true;
@@ -272,7 +271,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                     {
                         int newX = x + Main.rand.Next(10, 31) * (Main.rand.NextBool() ? 1 : -1);
                         int newY = y + Main.rand.Next(-15, 16);
-                        Vector2 newPos = new Vector2(newX * 16, newY * 16);
+                        Vector2 newPos = new(newX * 16, newY * 16);
                         if (!Collision.SolidCollision(newPos, npc.width, npc.height))
                         {
                             //npc.Center = newPos;
@@ -283,7 +282,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
                 }
                 for (int i = 0; i < 40; ++i)
                 {
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 242, 0.0f, 0.0f, 0, new Color(), 1f);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.PinkTorch, 0.0f, 0.0f, 0, new Color(), 1f);
                     Dust dust = Main.dust[d];
                     dust.velocity *= 4f;
                     Main.dust[d].noGravity = true;

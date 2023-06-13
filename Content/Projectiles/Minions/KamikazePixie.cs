@@ -1,13 +1,10 @@
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
-using FargowiltasSouls.Content.Projectiles.Challengers;
-using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
@@ -72,7 +69,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 // find target
                 Projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 2000, true);
-                foundTarget = Projectile.ai[0] == -1 ? false : true;
+                foundTarget = Projectile.ai[0] != -1;
                 Projectile.netUpdate = true;
             }
             Projectile.friendly = foundTarget;

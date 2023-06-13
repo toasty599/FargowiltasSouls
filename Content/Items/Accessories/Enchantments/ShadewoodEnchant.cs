@@ -24,7 +24,7 @@ Enemies struck while Bleeding spew damaging blood
 'Surprisingly clean'");
         }
 
-        protected override Color nameColor => new Color(88, 104, 118);
+        protected override Color nameColor => new(88, 104, 118);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Shadewood");
 
         public override void SetDefaults()
@@ -64,7 +64,7 @@ Enemies struck while Bleeding spew damaging blood
 
             for (int i = 0; i < 20; i++)
             {
-                Vector2 offset = new Vector2();
+                Vector2 offset = new();
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);

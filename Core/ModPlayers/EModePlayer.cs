@@ -12,6 +12,7 @@ using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -31,8 +32,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int ShorterDebuffsTimer;
         public const int MaxShorterDebuffsTimer = 60;
 
-        public List<int> ReworkedSpears = new List<int>
-            {
+        public List<int> ReworkedSpears = new()
+        {
                 ItemID.Spear,
                 ItemID.AdamantiteGlaive,
                 ItemID.CobaltNaginata,
@@ -74,7 +75,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PreUpdate()
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             FargoSoulsPlayer fargoSoulsPlayer = Player.GetModPlayer<FargoSoulsPlayer>();
@@ -299,7 +300,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (!fargoSoulsPlayer.PureHeart && Main.bloodMoon)
                     Player.AddBuff(BuffID.WaterCandle, 2);
 
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                 {
                     Vector2 tileCenter = Player.Center;
                     tileCenter.X /= 16;
@@ -336,7 +337,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateBuffs()
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             Player.pickSpeed -= 0.25f;
@@ -355,7 +356,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateEquips()
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             if (Player.iceBarrier)
@@ -405,7 +406,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             HandleTimersAlways();
 
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             //whips no longer benefit from melee speed bonus
@@ -423,7 +424,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             //reduce minion damage in emode if using a weapon, scales as you use weapons
@@ -444,7 +445,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             ShadowDodgeNerf();
@@ -452,7 +453,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             ShadowDodgeNerf();
@@ -462,7 +463,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             ShorterDebuffsTimer = MaxShorterDebuffsTimer;
 
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
 
             //because NO MODIFY/ONHITPLAYER HOOK WORKS
@@ -486,7 +487,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             damage *= MasoItemNerfs(item);
@@ -609,7 +610,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override bool ModifyNurseHeal(NPC nurse, ref int health, ref bool removeDebuffs, ref string chatText)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return base.ModifyNurseHeal(nurse, ref health, ref removeDebuffs, ref chatText);
 
             if (Main.LocalPlayer.HasBuff(ModContent.BuffType<RushJobBuff>()))
@@ -623,7 +624,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostNurseHeal(NPC nurse, int health, bool removeDebuffs, int price)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             if (FargoSoulsUtil.AnyBossAlive())

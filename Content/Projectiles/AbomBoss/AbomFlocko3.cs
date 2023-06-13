@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
                 Projectile.localAI[1] = 0f;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
+                    Vector2 speed = new(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
                     speed.Normalize();
                     speed *= 6f;
                     speed.X /= 2;

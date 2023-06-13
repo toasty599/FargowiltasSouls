@@ -17,7 +17,7 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
 'You feel your body slip into the deepest of shadows'");
         }
 
-        protected override Color nameColor => new Color(66, 53, 111);
+        protected override Color nameColor => new(66, 53, 111);
         public override string wizardEffect => "";
 
         public override void SetDefaults()

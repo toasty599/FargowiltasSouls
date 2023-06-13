@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             if (Projectile.alpha == 0 && Main.rand.NextBool(3))
             {
-                int num69 = Dust.NewDust(Projectile.position - Projectile.velocity * 3f, Projectile.width, Projectile.height, 4, 0f, 0f, 50, new Color(78, 136, 255, 150), 1.2f);
+                int num69 = Dust.NewDust(Projectile.position - Projectile.velocity * 3f, Projectile.width, Projectile.height, DustID.TintableDust, 0f, 0f, 50, new Color(78, 136, 255, 150), 1.2f);
                 Main.dust[num69].velocity *= 0.3f;
                 Main.dust[num69].velocity += Projectile.velocity * 0.3f;
                 Main.dust[num69].noGravity = true;

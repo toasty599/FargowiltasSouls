@@ -5,9 +5,9 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
 using Terraria.UI;
 
-namespace FargowiltasSouls.Content.UI
+namespace FargowiltasSouls.Content.UI.Elements
 {
-    public class UISearchBar : UIElement
+    public class FargoUISearchBar : UIElement
     {
         public const int CharacterLimit = 16;
         public string HintText = FargoSoulsUtil.IsChinese() ? "搜索..." : "Search...";
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.UI
         public delegate void TextChangeDelegate(string oldText, string currentText);
         public event TextChangeDelegate OnTextChange;
 
-        public UISearchBar(int width, int height)
+        public FargoUISearchBar(int width, int height)
         {
             Width.Set(width, 0);
             Height.Set(height, 0);

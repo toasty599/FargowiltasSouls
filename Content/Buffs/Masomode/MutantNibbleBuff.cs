@@ -1,5 +1,5 @@
 using FargowiltasSouls.Content.NPCs;
-
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
             //feral bite stuff
             player.rabid = true;
 
-            if (FargoSoulsWorld.MasochistModeReal && Main.rand.NextBool(1200))
+            if (WorldSavingSystem.MasochistModeReal && Main.rand.NextBool(1200))
             {
                 switch (Main.rand.Next(10))
                 {

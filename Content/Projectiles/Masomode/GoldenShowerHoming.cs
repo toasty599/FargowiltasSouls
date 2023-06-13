@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.Systems;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -78,7 +79,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.025f));
                 }
 
-                if (FargoSoulsWorld.MasochistModeReal && !hitATile && Collision.SolidTiles(Projectile.Center, 0, 0))
+                if (WorldSavingSystem.MasochistModeReal && !hitATile && Collision.SolidTiles(Projectile.Center, 0, 0))
                 {
                     hitATile = true;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -97,7 +98,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             {
                 for (int j = 0; j < 3; ++j)
                 {
-                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 170, 0.0f, 0.0f, 100, default, 1f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ichor, 0.0f, 0.0f, 100, default, 1f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 0.1f;
                     Main.dust[d].velocity += Projectile.velocity * 0.5f;
@@ -105,7 +106,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 }
                 if (Main.rand.NextBool(8))
                 {
-                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 170, 0.0f, 0.0f, 100, default, 0.5f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ichor, 0.0f, 0.0f, 100, default, 0.5f);
                     Main.dust[d].velocity *= 0.25f;
                     Main.dust[d].velocity += Projectile.velocity * 0.5f;
                 }

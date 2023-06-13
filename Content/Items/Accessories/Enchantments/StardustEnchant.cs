@@ -27,7 +27,7 @@ There is a 60 second cooldown for this effect
             // '替身之力归你所有'");
         }
 
-        protected override Color nameColor => new Color(0, 174, 238);
+        protected override Color nameColor => new(0, 174, 238);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Stardust");
 
         public override void SetDefaults()

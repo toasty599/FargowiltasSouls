@@ -26,7 +26,7 @@ Grants knockback immunity when you are facing the attack
             // '难道你不高兴吗？'");
         }
 
-        protected override Color nameColor => new Color(156, 146, 78);
+        protected override Color nameColor => new(156, 146, 78);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Gladiator");
 
         public override void SetDefaults()
@@ -65,7 +65,7 @@ Grants knockback immunity when you are facing the attack
 
                 for (int i = 0; i < 4; i++)
                 {
-                    Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-300, 300), target.Center.Y - Main.rand.Next(600, 801));
+                    Vector2 spawn = new(target.Center.X + Main.rand.NextFloat(-300, 300), target.Center.Y - Main.rand.Next(600, 801));
 
                     Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
                     speed.Normalize();

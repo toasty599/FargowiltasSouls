@@ -16,7 +16,6 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Pets;
@@ -26,6 +25,7 @@ using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Assets.ExtraTextures;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.DeviBoss
 {
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
             NPC.damage = 64;
             NPC.defense = 10;
             NPC.lifeMax = 6000;
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 1.5);
             NPC.HitSound = SoundID.NPCHit9;
             NPC.noGravity = true;
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
             ignoreMoney = reader.ReadBoolean();
         }
 
-        private bool ProjectileExists(int id, int type)
+        private static bool ProjectileExists(int id, int type)
         {
             return id > -1 && id < Main.maxProjectiles && Main.projectile[id].active && Main.projectile[id].type == type;
         }
@@ -241,7 +241,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
             }*/
             /*else if (Main.player[Main.myPlayer].active && NPC.Distance(Main.player[Main.myPlayer].Center) < 3000f)
             {
-                if (FargoSoulsWorld.MasochistMode)
+                if (WorldSavingSystem.MasochistMode)
                     Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<DeviPresence>(), 2);
             }*/
 
@@ -331,7 +331,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     NPC.dontTakeDamage = true;
                     for (int i = 0; i < 5; i++)
                     {
-                        int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 86, 0f, 0f, 0, default(Color), 2.5f);
+                        int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemAmethyst, 0f, 0f, 0, default, 2.5f);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].velocity *= 12f;
                     }
@@ -362,12 +362,12 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     {
                         for (int i = 0; i < 5; i++)
                         {
-                            int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 86, 0f, 0f, 0, default(Color), 2f);
+                            int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemAmethyst, 0f, 0f, 0, default, 2f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity *= 8f;
                         }
                         NPC.localAI[3] = 2; //npc marks p2
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                         {
                             int heal = (int)(NPC.lifeMax / 90 * Main.rand.NextFloat(1f, 1.5f));
                             NPC.life += heal;
@@ -479,9 +479,9 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
                             SpawnHammers(100, -NPC.direction, MathHelper.PiOver4);
                             SpawnHammers(150, NPC.direction, 0);
-                            if (FargoSoulsWorld.EternityMode)
+                            if (WorldSavingSystem.EternityMode)
                                 SpawnHammers(200, -NPC.direction, MathHelper.PiOver4);
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                                 SpawnHammers(300, NPC.direction, 0);
                         }
                     }
@@ -512,7 +512,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     if (NPC.localAI[0] == 0)
                     {
                         NPC.localAI[0] = 1;
-                        Vector2 teleportTarget = new Vector2(player.Center.X, NPC.Center.Y);
+                        Vector2 teleportTarget = new(player.Center.X, NPC.Center.Y);
                         teleportTarget.X += NPC.Center.X < teleportTarget.X ? -450 : 450;
                         StrongAttackTeleport(teleportTarget);
                     }
@@ -536,16 +536,16 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                 Vector2 spawnVel = NPC.DirectionFrom(Main.player[NPC.target].Center) * 10f;
                                 
                                 int boost = 0;
-                                if (FargoSoulsWorld.EternityMode)
+                                if (WorldSavingSystem.EternityMode)
                                     boost += 1;
-                                if (FargoSoulsWorld.MasochistModeReal)
+                                if (WorldSavingSystem.MasochistModeReal)
                                     boost += 3;
 
                                 int maxP1 = 3 + boost;
                                 for (int i = -maxP1; i <= maxP1; i++)
                                 {
                                     float ai1 = 30;
-                                    if (FargoSoulsWorld.MasochistModeReal)
+                                    if (WorldSavingSystem.MasochistModeReal)
                                         ai1 += 3 * Math.Abs(i);
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, spawnVel.RotatedBy(Math.PI / 7 * i),
                                         ModContent.ProjectileType<FakeHeart2>(), damage, 0f, Main.myPlayer, 20, ai1);
@@ -576,7 +576,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     if (--NPC.ai[1] < 0)
                     {
                         NPC.netUpdate = true;
-                        NPC.ai[1] = FargoSoulsWorld.EternityMode ? 120 : 150;
+                        NPC.ai[1] = WorldSavingSystem.EternityMode ? 120 : 150;
 
                         int repeats = 3;
                         if (++NPC.ai[2] > repeats)
@@ -589,7 +589,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             {
                                 int max = NPC.localAI[3] > 1 ? 8 : 12;
                                 Vector2 vel = Vector2.Normalize(NPC.velocity);
-                                if (FargoSoulsWorld.MasochistModeReal)
+                                if (WorldSavingSystem.MasochistModeReal)
                                     vel *= 0.75f;
                                 for (int i = 0; i < max; i++)
                                 {
@@ -626,7 +626,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             Vector2 speed = (target - NPC.Center) / delay;
 
                             for (int i = 0; i < 20; i++) //dust spray
-                                Dust.NewDust(NPC.Center, 0, 0, Main.rand.NextBool() ? DustID.GoldFlame : DustID.SilverCoin, speed.X, speed.Y, 0, default(Color), 2f);
+                                Dust.NewDust(NPC.Center, 0, 0, Main.rand.NextBool() ? DustID.GoldFlame : DustID.SilverCoin, speed.X, speed.Y, 0, default, 2f);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -654,9 +654,9 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             modifier *= Math.Sign(player.Center.X - NPC.Center.X);
 
                         int start = 0;
-                        if (FargoSoulsWorld.EternityMode)
+                        if (WorldSavingSystem.EternityMode)
                             start = -3;
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                             start = -6;
 
                         for (int j = start; j <= 6; j++)
@@ -669,7 +669,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             Vector2 speed = (target - NPC.Center) / delay;
 
                             for (int i = 0; i < 20; i++) //dust spray
-                                Dust.NewDust(NPC.Center, 0, 0, Main.rand.NextBool() ? DustID.GoldFlame : DustID.SilverCoin, speed.X, speed.Y, 0, default(Color), 2f);
+                                Dust.NewDust(NPC.Center, 0, 0, Main.rand.NextBool() ? DustID.GoldFlame : DustID.SilverCoin, speed.X, speed.Y, 0, default, 2f);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -696,12 +696,12 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
-                    if (FargoSoulsWorld.EternityMode)
+                    if (WorldSavingSystem.EternityMode)
                     {
                         targetPos = player.Center + 400 * player.DirectionTo(NPC.Center).RotatedBy(MathHelper.ToRadians(10));
                         NPC.position += (player.position - player.oldPosition) / 2f;
 
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                             Movement(targetPos, 0.8f, 24);
                         else
                             Movement(targetPos, 0.4f, 18);
@@ -763,7 +763,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                         Vector2 offset = NPC.DirectionTo(target) * 10f;
                         for (int i = 0; i < length; i++) //dust warning line for sandnado
                         {
-                            int d = Dust.NewDust(NPC.Center + offset * i, 0, 0, 269, 0f, 0f, 0, new Color());
+                            int d = Dust.NewDust(NPC.Center + offset * i, 0, 0, DustID.Sandnado, 0f, 0f, 0, new Color());
                             Main.dust[d].noLight = true;
                             Main.dust[d].scale = 1.25f;
                         }
@@ -775,18 +775,18 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                         if (!AliveCheck(player) || Phase2Check())
                             break;
 
-                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 400 : 450, true, -1, Color.GreenYellow, ModContent.BuffType<HexedBuff>(), ModContent.BuffType<CrippledBuff>(), BuffID.Dazed, BuffID.OgreSpit);
-                        EModeGlobalNPC.Aura(NPC, FargoSoulsWorld.MasochistModeReal ? 200 : 150, false, -1, default, ModContent.BuffType<HexedBuff>(), ModContent.BuffType<CrippledBuff>(), BuffID.Dazed, BuffID.OgreSpit);
+                        EModeGlobalNPC.Aura(NPC, WorldSavingSystem.MasochistModeReal ? 400 : 450, true, -1, Color.GreenYellow, ModContent.BuffType<HexedBuff>(), ModContent.BuffType<CrippledBuff>(), BuffID.Dazed, BuffID.OgreSpit);
+                        EModeGlobalNPC.Aura(NPC, WorldSavingSystem.MasochistModeReal ? 200 : 150, false, -1, default, ModContent.BuffType<HexedBuff>(), ModContent.BuffType<CrippledBuff>(), BuffID.Dazed, BuffID.OgreSpit);
                         
                         // Indicate that the borders should be drawn.
                         DrawRuneBorders = true;
 
                         NPC.velocity = Vector2.Zero;
 
-                        if (FargoSoulsWorld.MasochistModeReal && NPC.ai[2] < 1)
+                        if (WorldSavingSystem.MasochistModeReal && NPC.ai[2] < 1)
                             NPC.ai[2] = 1;
 
-                        int attackTime = FargoSoulsWorld.EternityMode ? 40 : 50;
+                        int attackTime = WorldSavingSystem.EternityMode ? 40 : 50;
                         if (++NPC.ai[1] == 1)
                         {
                             TeleportDust();
@@ -816,7 +816,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                 if (NPC.localAI[3] > 1) //rune blast ring
                                 {
                                     Vector2 vel = NPC.DirectionFrom(Main.player[NPC.target].Center) * 8;
-                                    int max = FargoSoulsWorld.MasochistModeReal ? 10 : 5;
+                                    int max = WorldSavingSystem.MasochistModeReal ? 10 : 5;
                                     for (int i = 0; i < max; i++)
                                     {
                                         int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel.RotatedBy(2 * Math.PI / max * i),
@@ -898,15 +898,15 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Main.rand.NextVector2Unit() * 2f, ModContent.ProjectileType<MothDust>(), projectileDamage, 0f, Main.myPlayer);
                     }
 
-                    if (NPC.ai[1] == 0 && FargoSoulsWorld.EternityMode && (NPC.ai[2] % 2 == 1 || FargoSoulsWorld.MasochistModeReal))
+                    if (NPC.ai[1] == 0 && WorldSavingSystem.EternityMode && (NPC.ai[2] % 2 == 1 || WorldSavingSystem.MasochistModeReal))
                     {
-                        int max = FargoSoulsWorld.MasochistModeReal ? 8 : 3;
-                        float spread = FargoSoulsWorld.MasochistModeReal ? 64 : 48;
+                        int max = WorldSavingSystem.MasochistModeReal ? 8 : 3;
+                        float spread = WorldSavingSystem.MasochistModeReal ? 64 : 48;
                         for (int i = 0; i < max; i++)
                         {
                             Vector2 target = player.Center + player.velocity * 30f - NPC.Center;
                             target += Main.rand.NextVector2Circular(spread, spread);
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                                 target *= 2f;
 
                             Vector2 speed = 2 * target / 90;
@@ -914,7 +914,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
                             int damage = FargoSoulsUtil.ScaledProjectileDamage(NPC.damage);
 
-                            float rotation = FargoSoulsWorld.MasochistModeReal ? MathHelper.ToRadians(Main.rand.NextFloat(-10, 10)) : 0;
+                            float rotation = WorldSavingSystem.MasochistModeReal ? MathHelper.ToRadians(Main.rand.NextFloat(-10, 10)) : 0;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -1000,7 +1000,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 6f * Vector2.UnitX.RotatedBy(NPC.localAI[0]), ProjectileID.ShadowBeamHostile, projectileDamage, 0f, Main.myPlayer);
                                 }
 
-                                if (FargoSoulsWorld.MasochistModeReal) //maso shotgun
+                                if (WorldSavingSystem.MasochistModeReal) //maso shotgun
                                 {
                                     for (int index = 0; index < 6; ++index)
                                     {
@@ -1037,7 +1037,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                     Main.projectile[p].timeLeft = 300;
                             }
 
-                            if (FargoSoulsWorld.MasochistModeReal) //maso rockets
+                            if (WorldSavingSystem.MasochistModeReal) //maso rockets
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -1059,9 +1059,9 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     {
                         NPC.velocity /= 2;
 
-                        if (NPC.ai[1] == 241 && FargoSoulsWorld.EternityMode)
+                        if (NPC.ai[1] == 241 && WorldSavingSystem.EternityMode)
                         {
-                            float tpDistance = FargoSoulsWorld.MasochistModeReal ? 180 : 420;
+                            float tpDistance = WorldSavingSystem.MasochistModeReal ? 180 : 420;
                             StrongAttackTeleport(player.Center + tpDistance * NPC.DirectionTo(player.Center).RotatedByRandom(MathHelper.PiOver4));
                         }
 
@@ -1080,7 +1080,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                 }
                             }
 
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -1122,9 +1122,9 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
                                 int min = 1;
                                 int max = 1;
-                                if (FargoSoulsWorld.EternityMode)
+                                if (WorldSavingSystem.EternityMode)
                                 {
-                                    int shortSide = FargoSoulsWorld.MasochistModeReal ? 2 : 1;
+                                    int shortSide = WorldSavingSystem.MasochistModeReal ? 2 : 1;
 
                                     min = flip ? shortSide : 12;
                                     max = flip ? 12 : shortSide;
@@ -1174,7 +1174,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             //warning dust
                             for (int i = 0; i < 3; i++)
                             {
-                                int d = Dust.NewDust(NPC.Center, 0, 0, DustID.Torch, 0f, 0f, 0, default(Color), 3f);
+                                int d = Dust.NewDust(NPC.Center, 0, 0, DustID.Torch, 0f, 0f, 0, default, 3f);
                                 Main.dust[d].noGravity = true;
                                 Main.dust[d].noLight = true;
                                 Main.dust[d].velocity *= 12f;
@@ -1207,7 +1207,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
                             if (NPC.ai[1] > 360)
                             {
-                                if (NPC.localAI[3] > 1 && FargoSoulsWorld.MasochistModeReal) //another wave in maso
+                                if (NPC.localAI[3] > 1 && WorldSavingSystem.MasochistModeReal) //another wave in maso
                                 {
                                     SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center); //eoc roar
                                     BabyGuardianWall();
@@ -1234,7 +1234,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     {
                         StrongAttackTeleport(new Vector2(NPC.Center.X, player.Center.Y - 420));
 
-                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (WorldSavingSystem.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
 
                         NPC.localAI[0] = NPC.Center.X;
@@ -1251,19 +1251,19 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     if (NPC.Distance(targetPos) > 50)
                         Movement(targetPos, 0.15f);
 
-                    if (FargoSoulsWorld.EternityMode && NPC.ai[1] % 180 == 90)
+                    if (WorldSavingSystem.EternityMode && NPC.ai[1] % 180 == 90)
                     {
                         for (int i = -1; i <= 1; i += 2)
                         {
                             for (int j = -1; j <= 1; j += 2)
                             {
-                                int max = FargoSoulsWorld.MasochistModeReal ? 3 : 1;
+                                int max = WorldSavingSystem.MasochistModeReal ? 3 : 1;
                                 for (int k = 0; k < max; k++)
                                 {
                                     Vector2 target = player.Center;
                                     target.X += 16 * 24 * i;
                                     target.Y += Player.defaultHeight / 2 * j;
-                                    if (FargoSoulsWorld.MasochistModeReal)
+                                    if (WorldSavingSystem.MasochistModeReal)
                                         target += Main.rand.NextVector2Circular(16, 16);
                                     target -= NPC.Center;
 
@@ -1271,7 +1271,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                     float acceleration = -speed.Length() / 90;
 
                                     int damage = NPC.localAI[3] > 1 ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3) : FargoSoulsUtil.ScaledProjectileDamage(NPC.damage);
-                                    float rotation = FargoSoulsWorld.MasochistModeReal ? MathHelper.ToRadians(Main.rand.NextFloat(-20, 20)) : 0;
+                                    float rotation = WorldSavingSystem.MasochistModeReal ? MathHelper.ToRadians(Main.rand.NextFloat(-20, 20)) : 0;
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
@@ -1302,14 +1302,14 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                         if (--NPC.ai[3] < 0)
                         {
                             NPC.netUpdate = true;
-                            NPC.ai[3] = FargoSoulsWorld.MasochistModeReal ? 70 : 85;
+                            NPC.ai[3] = WorldSavingSystem.MasochistModeReal ? 70 : 85;
 
                             NPC.ai[2] = NPC.ai[2] == 1 ? -1 : 1;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 float angle = 10;
-                                if (!FargoSoulsWorld.MasochistModeReal) //nerf to have no x speed in p1, unless in maso
+                                if (!WorldSavingSystem.MasochistModeReal) //nerf to have no x speed in p1, unless in maso
                                     angle = NPC.localAI[3] > 1 ? 5 : 0;
                                 Vector2 speed = 24 * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(angle) * NPC.ai[2]);
 
@@ -1321,7 +1321,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
                                 for (int i = -range; i <= range; i++)
                                 {
-                                    Vector2 spawnPos = new Vector2(NPC.localAI[0], NPC.localAI[1]);
+                                    Vector2 spawnPos = new(NPC.localAI[0], NPC.localAI[1]);
                                     spawnPos.X += spacing * i + offset;
                                     spawnPos.Y -= 1200;
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, speed, type, damage, 0f, Main.myPlayer, 0f, NPC.whoAmI);
@@ -1347,7 +1347,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                     {
                         StrongAttackTeleport();
 
-                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (WorldSavingSystem.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
 
                         NPC.localAI[0] = 1;
@@ -1361,7 +1361,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
                     if (++NPC.ai[2] > (NPC.localAI[3] > 1 ? 75 : 100))
                     {
-                        if (++NPC.ai[3] > (FargoSoulsWorld.MasochistModeReal ? 3 : 5))
+                        if (++NPC.ai[3] > (WorldSavingSystem.MasochistModeReal ? 3 : 5))
                         {
                             NPC.ai[3] = 0;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -1374,9 +1374,9 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                 float acceleration = -speed.Length() / 90;
 
                                 int damage = NPC.localAI[3] > 1 ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3) : FargoSoulsUtil.ScaledProjectileDamage(NPC.damage);
-                                float rotation = FargoSoulsWorld.MasochistModeReal ? MathHelper.ToRadians(Main.rand.NextFloat(-20, 20)) : 0;
+                                float rotation = WorldSavingSystem.MasochistModeReal ? MathHelper.ToRadians(Main.rand.NextFloat(-20, 20)) : 0;
 
-                                if (FargoSoulsWorld.EternityMode && NPC.localAI[1] > 0)
+                                if (WorldSavingSystem.EternityMode && NPC.localAI[1] > 0)
                                     rotation += MathHelper.PiOver4 * (Main.rand.NextBool() ? -1 : 1);
 
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<DeviEnergyHeart>(),
@@ -1417,18 +1417,18 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             int max = 8;
                             for (int i = 0; i < max; i++) //make butterflies
                             {
-                                Vector2 speed = new Vector2(Main.rand.NextFloat(40f), Main.rand.NextFloat(-20f, 20f));
+                                Vector2 speed = new(Main.rand.NextFloat(40f), Main.rand.NextFloat(-20f, 20f));
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<DeviButterfly>(),
                                    damage, 0f, Main.myPlayer, NPC.whoAmI, 300 / 4 * i + offset);
                             }
                         }
 
-                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (WorldSavingSystem.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                     }
 
                     //rainbow spike rain, pulses on and off
-                    if (FargoSoulsWorld.MasochistModeReal && NPC.ai[1] % 120 > 100 && NPC.ai[1] % 3 == 0)
+                    if (WorldSavingSystem.MasochistModeReal && NPC.ai[1] % 120 > 100 && NPC.ai[1] % 3 == 0)
                     {
                         const int max = 3;
                         for (int i = -max; i <= max; i++)
@@ -1468,7 +1468,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                         NPC.localAI[0] = 1;
                         NPC.velocity = Vector2.Zero;
 
-                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (WorldSavingSystem.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                     }
 
@@ -1493,13 +1493,13 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
                     if (NPC.ai[3] < 7)
                     {
-                        if (FargoSoulsWorld.EternityMode)
+                        if (WorldSavingSystem.EternityMode)
                         {
                             NPC.ai[1] += 0.4f;
                             NPC.ai[2] += 0.4f;
                         }
 
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                         {
                             NPC.ai[1] += 0.6f;
                             NPC.ai[2] += 0.6f;
@@ -1544,7 +1544,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             {
                                 for (int i = 0; i < 40; i++) //petrify dust
                                 {
-                                    int d = Dust.NewDust(Main.LocalPlayer.Center, 0, 0, DustID.Stone, 0f, 0f, 0, default(Color), 2f);
+                                    int d = Dust.NewDust(Main.LocalPlayer.Center, 0, 0, DustID.Stone, 0f, 0f, 0, default, 2f);
                                     Main.dust[d].velocity *= 3f;
                                 }
 
@@ -1585,7 +1585,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             for (int i = 0; i < ring; ++i)
                             {
                                 Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(NPC.velocity.ToRotation());
-                                int index2 = Dust.NewDust(NPC.Center, 0, 0, 86, 0.0f, 0.0f, 0, new Color(), 1f);
+                                int index2 = Dust.NewDust(NPC.Center, 0, 0, DustID.GemAmethyst, 0.0f, 0.0f, 0, new Color(), 1f);
                                 Main.dust[index2].scale = 5f;
                                 Main.dust[index2].noGravity = true;
                                 Main.dust[index2].position = NPC.Center;
@@ -1637,7 +1637,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
                         NPC.localAI[0] = 1;
 
-                        if (FargoSoulsWorld.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
+                        if (WorldSavingSystem.EternityMode && Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                         }
@@ -1678,7 +1678,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                 }
                             }
 
-                            if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+                            if (WorldSavingSystem.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 for (int i = 0; i < 4; i++)
                                 {
@@ -1707,7 +1707,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
 
                         NPC.direction = NPC.spriteDirection = Math.Sign(NPC.ai[2]);
 
-                        if (!FargoSoulsWorld.MasochistModeReal && Math.Sign(targetPos.X - NPC.Center.X) != Math.Sign(NPC.ai[2]))
+                        if (!WorldSavingSystem.MasochistModeReal && Math.Sign(targetPos.X - NPC.Center.X) != Math.Sign(NPC.ai[2]))
                             NPC.velocity.X *= 0.5f; //worse movement if you're behind her
                     }
                     else if (NPC.ai[1] < 180)
@@ -1741,12 +1741,12 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                             Movement(targetPos, 0.5f);
 
                         int delay = 180;
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                         {
                             delay -= 30;
                             ignoreMoney = true;
                         }
-                        if (FargoSoulsWorld.EternityMode)
+                        if (WorldSavingSystem.EternityMode)
                             delay -= 60;
                         if (NPC.localAI[3] > 1)
                             delay -= 30;
@@ -1769,7 +1769,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                 NPC.ai[0] = attackQueue[(int)NPC.localAI[2]];
 
                                 int threshold = attackQueue.Length; //only do super attacks in emode
-                                if (!FargoSoulsWorld.EternityMode)
+                                if (!WorldSavingSystem.EternityMode)
                                     threshold -= 1;
                                 if (++NPC.localAI[2] >= threshold)
                                 {
@@ -1820,7 +1820,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                         }
                         else if (NPC.ai[1] == 450)
                         {
-                            if (FargoSoulsWorld.downedDevi)
+                            if (WorldSavingSystem.DownedDevi)
                             {
                                 CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Accept1"));
                             }
@@ -1831,7 +1831,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                         }
                         else if (NPC.ai[1] == 600)
                         {
-                            if (FargoSoulsWorld.downedDevi)
+                            if (WorldSavingSystem.DownedDevi)
                             {
                                 CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Accept2"), true);
                             }
@@ -1843,7 +1843,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                                 Vector2 spawnPos = NPC.Center + Vector2.UnitX * NPC.width * 2 * (player.Center.X < NPC.Center.X ? -1 : 1);
                                 for (int i = 0; i < 30; i++)
                                 {
-                                    int d = Dust.NewDust(spawnPos, 0, 0, 66, 0, 0, 0, default, 1f);
+                                    int d = Dust.NewDust(spawnPos, 0, 0, DustID.RainbowTorch, 0, 0, 0, default, 1f);
                                     Main.dust[d].noGravity = true;
                                     Main.dust[d].velocity *= 6f;
                                 }
@@ -1859,7 +1859,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                         }
                         else if (NPC.ai[1] == 900)
                         {
-                            if (FargoSoulsWorld.downedDevi)
+                            if (WorldSavingSystem.DownedDevi)
                             {
                                 CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Accept3"), true);
                             }
@@ -1872,7 +1872,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                         if (++NPC.ai[1] > 1050)
                         {
                             ignoreMoney = true;
-                            if (FargoSoulsWorld.downedDevi)
+                            if (WorldSavingSystem.DownedDevi)
                             {
                                 NPC.life = 0;
                                 NPC.checkDead();
@@ -1899,7 +1899,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
                 playerInvulTriggered = true;
 
             //drop summon
-            if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.downedDevi && Main.netMode != NetmodeID.MultiplayerClient && NPC.HasPlayerTarget && !droppedSummon)
+            if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedDevi && Main.netMode != NetmodeID.MultiplayerClient && NPC.HasPlayerTarget && !droppedSummon)
             {
                 Item.NewItem(NPC.GetSource_Loot(), player.Hitbox, ModContent.ItemType<DevisCurse>());
                 droppedSummon = true;
@@ -1998,7 +1998,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
             if (NPC.localAI[3] > 1)
                 return false;
 
-            if (NPC.life < NPC.lifeMax * (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.MasochistModeReal ? 0.66 : 0.5) && Main.expertMode)
+            if (NPC.life < NPC.lifeMax * (WorldSavingSystem.EternityMode && !WorldSavingSystem.MasochistModeReal ? 0.66 : 0.5) && Main.expertMode)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -2056,11 +2056,11 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
         {
             for (int index1 = 0; index1 < 25; ++index1)
             {
-                int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 272, 0f, 0f, 100, new Color(), 2f);
+                int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.WitherLightning, 0f, 0f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 7f;
                 Main.dust[index2].noLight = true;
-                int index3 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 272, 0f, 0f, 100, new Color(), 1f);
+                int index3 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.WitherLightning, 0f, 0f, 100, new Color(), 1f);
                 Main.dust[index3].velocity *= 4f;
                 Main.dust[index3].noGravity = true;
                 Main.dust[index3].noLight = true;
@@ -2076,7 +2076,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
         {
             for (int i = 0; i < 3; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 86, 0f, 0f, 0, default(Color), 1f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemAmethyst, 0f, 0f, 0, default, 1f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 3f;
             }
@@ -2145,14 +2145,14 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
         {
             base.OnKill();
 
-            if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
+            if (!playerInvulTriggered && WorldSavingSystem.EternityMode)
             {
                 Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<BrokenBlade>());
                 if (Main.bloodMoon)
                     Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<VermillionTopHat>());
             }
 
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedDevi, -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedDevi, -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -2166,7 +2166,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<DeviRelic>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<ChibiHat>(), 4));
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<SparklingAdoration>()));
             npcLoot.Add(emodeRule);
         }
@@ -2210,7 +2210,7 @@ namespace FargowiltasSouls.Content.NPCs.DeviBoss
             return false;
         }
 
-        private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
+        private static void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
         {
             // Inner ring.
             Color innerColor = Color.Red;

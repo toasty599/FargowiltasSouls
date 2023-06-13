@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.Systems;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode
@@ -7,7 +8,7 @@ namespace FargowiltasSouls.EternityMode
     {
         public override bool IsEnabled()
         {
-            return FargoSoulsWorld.EternityMode && Player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot;
+            return WorldSavingSystem.EternityMode && Player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot;
         }
     }
 }

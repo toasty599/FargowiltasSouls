@@ -125,11 +125,11 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             for (int i = 0; i < 20; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 60, -Projectile.velocity.X * 0.2f,
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, -Projectile.velocity.X * 0.2f,
                     -Projectile.velocity.Y * 0.2f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 2f;
-                dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 60, -Projectile.velocity.X * 0.2f,
+                dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.RedTorch, -Projectile.velocity.X * 0.2f,
                     -Projectile.velocity.Y * 0.2f, 100);
                 Main.dust[dust].velocity *= 2f;
             }

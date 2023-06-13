@@ -1,6 +1,4 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Terraria;

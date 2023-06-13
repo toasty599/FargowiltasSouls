@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +9,6 @@ using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Items.Materials;
@@ -20,6 +18,7 @@ using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -186,11 +185,11 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
             NPC.direction = NPC.spriteDirection = NPC.Center.X < player.Center.X ? 1 : -1;
 
-            if (NPC.localAI[2] == 0 && NPC.ai[0] != -1 && NPC.life < NPC.lifeMax * (FargoSoulsWorld.EternityMode ? .8 : .5))
+            if (NPC.localAI[2] == 0 && NPC.ai[0] != -1 && NPC.life < NPC.lifeMax * (WorldSavingSystem.EternityMode ? .8 : .5))
             {
                 if (NPC.ai[0] == 15 && NPC.ai[1] < 210 + 60) //dont phase transition during timestop
                 {
-                    NPC.life = (int)(NPC.lifeMax * (FargoSoulsWorld.EternityMode ? .8 : .5));
+                    NPC.life = (int)(NPC.lifeMax * (WorldSavingSystem.EternityMode ? .8 : .5));
                 }
                 else
                 {
@@ -205,7 +204,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 }
             }
 
-            if (FargoSoulsWorld.EternityMode && NPC.localAI[2] < 2 && NPC.ai[0] != -2 && NPC.life < NPC.lifeMax * .2)
+            if (WorldSavingSystem.EternityMode && NPC.localAI[2] < 2 && NPC.ai[0] != -2 && NPC.life < NPC.lifeMax * .2)
             {
                 if (NPC.ai[0] == 15 && NPC.ai[1] < 210 + 60) //dont phase transition during timestop
                 {
@@ -328,12 +327,12 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            if (FargoSoulsWorld.EternityMode)
+                            if (WorldSavingSystem.EternityMode)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CosmosRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
 
                             int max = 2;
                             float startRotation = NPC.DirectionFrom(player.Center).ToRotation() + MathHelper.PiOver2; //ensure never spawn one directly at you
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                             {
                                 max = 3;
                                 startRotation = NPC.DirectionFrom(player.Center).ToRotation();
@@ -348,23 +347,23 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             epicMe = 1f;
                         }
 
-                        Vector2 size = new Vector2(500, 500);
+                        Vector2 size = new(500, 500);
                         Vector2 spawnPos = NPC.Center;
                         spawnPos.X -= size.X / 2;
                         spawnPos.Y -= size.Y / 2;
 
                         for (int num615 = 0; num615 < 30; num615++)
                         {
-                            int num616 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, 31, 0f, 0f, 100, default(Color), 1.5f);
+                            int num616 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
                             Main.dust[num616].velocity *= 1.4f;
                         }
 
                         for (int num617 = 0; num617 < 50; num617++)
                         {
-                            int num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
+                            int num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                             Main.dust[num618].noGravity = true;
                             Main.dust[num618].velocity *= 7f;
-                            num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
+                            num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                             Main.dust[num618].velocity *= 3f;
                         }
 
@@ -372,25 +371,25 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         {
                             float scaleFactor9 = 0.4f;
                             if (num619 == 1) scaleFactor9 = 0.8f;
-                            int num620 = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default(Vector2), Main.rand.Next(61, 64));
+                            int num620 = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default, Main.rand.Next(61, 64));
                             Main.gore[num620].velocity *= scaleFactor9;
                             Gore gore97 = Main.gore[num620];
                             gore97.velocity.X = gore97.velocity.X + 1f;
                             Gore gore98 = Main.gore[num620];
                             gore98.velocity.Y = gore98.velocity.Y + 1f;
-                            num620 = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default(Vector2), Main.rand.Next(61, 64));
+                            num620 = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default, Main.rand.Next(61, 64));
                             Main.gore[num620].velocity *= scaleFactor9;
                             Gore gore99 = Main.gore[num620];
                             gore99.velocity.X = gore99.velocity.X - 1f;
                             Gore gore100 = Main.gore[num620];
                             gore100.velocity.Y = gore100.velocity.Y + 1f;
-                            num620 = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default(Vector2), Main.rand.Next(61, 64));
+                            num620 = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default, Main.rand.Next(61, 64));
                             Main.gore[num620].velocity *= scaleFactor9;
                             Gore gore101 = Main.gore[num620];
                             gore101.velocity.X = gore101.velocity.X + 1f;
                             Gore gore102 = Main.gore[num620];
                             gore102.velocity.Y = gore102.velocity.Y - 1f;
-                            num620 = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default(Vector2), Main.rand.Next(61, 64));
+                            num620 = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default, Main.rand.Next(61, 64));
                             Main.gore[num620].velocity *= scaleFactor9;
                             Gore gore103 = Main.gore[num620];
                             gore103.velocity.X = gore103.velocity.X - 1f;
@@ -407,23 +406,23 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                             for (int i = 0; i < 20; i++)
                             {
-                                int dust = Dust.NewDust(dustPos, 32, 32, 31, 0f, 0f, 100, default(Color), 3f);
+                                int dust = Dust.NewDust(dustPos, 32, 32, DustID.Smoke, 0f, 0f, 100, default, 3f);
                                 Main.dust[dust].velocity *= 1.4f;
                             }
 
                             for (int i = 0; i < 10; i++)
                             {
-                                int dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
+                                int dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                                 Main.dust[dust].noGravity = true;
                                 Main.dust[dust].velocity *= 7f;
-                                dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
+                                dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                                 Main.dust[dust].velocity *= 3f;
                             }
 
                             float scaleFactor9 = 0.5f;
                             for (int j = 0; j < 2; j++)
                             {
-                                int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default(Vector2), Main.rand.Next(61, 64));
+                                int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default, Main.rand.Next(61, 64));
                                 Main.gore[gore].velocity *= scaleFactor9;
                                 Main.gore[gore].velocity.X += 1f;
                                 Main.gore[gore].velocity.Y += 1f;
@@ -890,7 +889,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                 {
                                     Vector2 spawnPos = NPC.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
                                     int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<CosmosFireball>(), damage, 0f, Main.myPlayer, NPC.whoAmI, rotation * i);
-                                    //if (p != Main.maxProjectiles && !(FargoSoulsWorld.MasochistMode && NPC.localAI[2] != 0f)) Main.projectile[p].timeLeft = 300;
+                                    //if (p != Main.maxProjectiles && !(WorldSavingSystem.MasochistMode && NPC.localAI[2] != 0f)) Main.projectile[p].timeLeft = 300;
                                 }
                             }
                         }
@@ -922,7 +921,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                 NPC.ai[2] = 0;
                                 NPC.netUpdate = true;
 
-                                if (FargoSoulsWorld.EternityMode && NPC.localAI[2] != 0f) //emode p2, do chain blasts
+                                if (WorldSavingSystem.EternityMode && NPC.localAI[2] != 0f) //emode p2, do chain blasts
                                 {
                                     if (!Main.dedServ && Main.LocalPlayer.active)
                                         Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
@@ -943,7 +942,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             }
                         }
 
-                        if (++NPC.ai[1] > 330) //(FargoSoulsWorld.MasochistMode && NPC.localAI[2] != 0f ? 360 : 330))
+                        if (++NPC.ai[1] > 330) //(WorldSavingSystem.MasochistMode && NPC.localAI[2] != 0f ? 360 : 330))
                         {
                             NPC.TargetClosest();
                             NPC.ai[0]++;
@@ -1057,7 +1056,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            float ai1 = FargoSoulsWorld.EternityMode && NPC.localAI[2] != 0 ? -1.2f : (NPC.localAI[2] == 0 ? 1f : -1.6f);
+                            float ai1 = WorldSavingSystem.EternityMode && NPC.localAI[2] != 0 ? -1.2f : (NPC.localAI[2] == 0 ? 1f : -1.6f);
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, ai1);
                             /*for (int i = 0; i < 3; i++) //indicate how lightning will spawn
                             {
@@ -1070,7 +1069,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         Vector2 offset = NPC.DirectionTo(player.Center);
                         for (int i = 0; i < length; i += 10) //dust warning line for sandnado
                         {
-                            int d = Dust.NewDust(NPC.Center + offset * i, 0, 0, 229, 0f, 0f, 0, new Color());
+                            int d = Dust.NewDust(NPC.Center + offset * i, 0, 0, DustID.Vortex, 0f, 0f, 0, new Color());
                             Main.dust[d].noGravity = true;
                             Main.dust[d].scale = 1.5f;
                         }
@@ -1176,7 +1175,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         Vector2 dustPos = NPC.Center + new Vector2(-26 * NPC.direction, 22) * NPC.scale;
                         for (int i = 0; i < 3; i++)
                         {
-                            int d = Dust.NewDust(dustPos, 0, 0, 255, NPC.velocity.X * 0.3f, NPC.velocity.Y * 0.3f, 160, new Color(), 1f);
+                            int d = Dust.NewDust(dustPos, 0, 0, DustID.CrystalPulse2, NPC.velocity.X * 0.3f, NPC.velocity.Y * 0.3f, 160, new Color(), 1f);
                             Main.dust[d].scale = 2.4f;
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity *= 3f;
@@ -1202,7 +1201,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 case 11: //reticle and nebula blazes
                     targetPos = player.Center;
 
-                    if (FargoSoulsWorld.EternityMode && NPC.localAI[2] != 0)
+                    if (WorldSavingSystem.EternityMode && NPC.localAI[2] != 0)
                     {
                         int sign = NPC.Center.X < targetPos.X ? -1 : 1;
                         Vector2 offset = 600 * sign * Vector2.UnitX;
@@ -1236,7 +1235,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Vector2 offset = new Vector2(80, 6);
+                                Vector2 offset = new(80, 6);
                                 if (player.Center.X < NPC.Center.X)
                                     offset.X *= -1f;
                                 offset = offset.RotatedBy(NPC.rotation);
@@ -1248,7 +1247,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                     Vector2 vel = Main.rand.NextFloat(8f, 12f) * NPC.DirectionTo(player.Center).RotatedBy(rotation);
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + offset, vel, ModContent.ProjectileType<CosmosNebulaBlaze>(),
                                         FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0.006f);
-                                    if (FargoSoulsWorld.EternityMode && NPC.localAI[2] != 0)
+                                    if (WorldSavingSystem.EternityMode && NPC.localAI[2] != 0)
                                     {
                                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + offset, vel.RotatedBy(rotation * Main.rand.NextFloat(1f, 4f)), ModContent.ProjectileType<CosmosNebulaBlaze>(),
                                           FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0.006f);
@@ -1383,7 +1382,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             {
                                 //for finer grain, since eri moves too much in one tick (too much angular rotation change per tick when close)
                                 Vector2 midPos = NPC.Center - NPC.velocity / 2;
-                                Vector2 target = new Vector2(NPC.localAI[0], NPC.localAI[1]);
+                                Vector2 target = new(NPC.localAI[0], NPC.localAI[1]);
                                 Vector2 vel = Vector2.Normalize(midPos - target);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -1398,7 +1397,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Vector2 target = new Vector2(NPC.localAI[0], NPC.localAI[1]);
+                                    Vector2 target = new(NPC.localAI[0], NPC.localAI[1]);
                                     int modifier = Math.Sign(player.Center.X - target.X) == NPC.direction ? 1 : -1;
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 0.5f * NPC.DirectionFrom(target), ModContent.ProjectileType<CosmosBolt>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                                 }
@@ -1410,7 +1409,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                                 NPC.TargetClosest();
                                 NPC.ai[0]++;
-                                NPC.ai[1] = FargoSoulsWorld.EternityMode && NPC.localAI[2] != 0 ? 0 : -120;
+                                NPC.ai[1] = WorldSavingSystem.EternityMode && NPC.localAI[2] != 0 ? 0 : -120;
                                 NPC.ai[2] = 0;
                                 NPC.ai[3] = 0;
                                 NPC.localAI[0] = 0;
@@ -1474,7 +1473,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         }*/
 
                         //cardinal walls
-                        /*if (FargoSoulsWorld.MasochistMode && NPC.localAI[2] != 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        /*if (WorldSavingSystem.MasochistMode && NPC.localAI[2] != 0 && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             const int iMax = 4;
                             for (int i = 0; i < iMax; i++)
@@ -1518,7 +1517,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         {
                             NPC.ai[2] = 0;
 
-                            bool altAttack = FargoSoulsWorld.EternityMode && NPC.localAI[2] != 0;
+                            bool altAttack = WorldSavingSystem.EternityMode && NPC.localAI[2] != 0;
 
                             int baseDistance = 300; //altAttack ? 500 : 400;
                             float offset = altAttack ? 250f : 150f;
@@ -1749,7 +1748,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(BuffID.Burning, 120);
                 target.AddBuff(BuffID.Electrified, 300);
@@ -1760,7 +1759,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 damage *= 0.9;
             return true;
         }
@@ -1785,7 +1784,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.CosmosChampion], -1);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
@@ -1828,7 +1827,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = NPC.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Color glowColor = new Color(Main.DiscoR / 3 + 150, Main.DiscoG / 3 + 150, Main.DiscoB / 3 + 150);
+            Color glowColor = new(Main.DiscoR / 3 + 150, Main.DiscoG / 3 + 150, Main.DiscoB / 3 + 150);
             void lerpGlow(Color color, float modifier)
             {
                 if (modifier < 0)

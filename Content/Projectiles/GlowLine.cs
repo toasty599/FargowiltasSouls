@@ -1,4 +1,3 @@
-using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 //using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
@@ -12,6 +11,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -335,7 +335,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         Projectile.Center = npc.Center;
 
                         float rotationModifier = (1f - Projectile.localAI[0]) * 10f;
-                        float maxDegreeVariance = FargoSoulsWorld.MasochistModeReal ? 60 : 30;
+                        float maxDegreeVariance = WorldSavingSystem.MasochistModeReal ? 60 : 30;
                         Projectile.localAI[1] += MathHelper.ToRadians(maxDegreeVariance) * rotationModifier / maxTime;
                         Projectile.rotation = Projectile.localAI[1];
 
@@ -346,7 +346,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 if (counter == maxTime)
                                 {
                                     //only make blue telegraph in emode
-                                    if (!FargoSoulsWorld.MasochistModeReal)
+                                    if (!WorldSavingSystem.MasochistModeReal)
                                     {
                                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile),
                                             Projectile.Center, Projectile.rotation.ToRotationVector2(),
@@ -365,7 +365,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 if (counter > maxTime - 20 && counter % 10 == 0)
                                 {
                                     //only make blue telegraph in emode
-                                    if (!FargoSoulsWorld.MasochistModeReal)
+                                    if (!WorldSavingSystem.MasochistModeReal)
                                     {
                                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile),
                                             Projectile.Center, Projectile.rotation.ToRotationVector2(),
@@ -649,14 +649,14 @@ namespace FargowiltasSouls.Content.Projectiles
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             const int length = 3000;
             Vector2 offset = Projectile.rotation.ToRotationVector2() * length / 2f;
             Vector2 position = Projectile.Center - Main.screenLastPosition + new Vector2(0f, Projectile.gfxOffY) + offset;
             const float resolutionCompensation = 128f / 24f; //i made the image higher res, this compensates to keep original display size
-            Rectangle destination = new Rectangle((int)position.X, (int)position.Y, length, (int)(rectangle.Height * Projectile.scale / resolutionCompensation));
+            Rectangle destination = new((int)position.X, (int)position.Y, length, (int)(rectangle.Height * Projectile.scale / resolutionCompensation));
 
             Color drawColor = Projectile.GetAlpha(lightColor);
 

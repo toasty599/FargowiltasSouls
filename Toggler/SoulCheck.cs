@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Toggler
         public static bool GetToggleValue(this Player player, string name, bool checkForMutantPresence = true)
         {
             Toggle toggle = player.GetToggle(name);
-            return checkForMutantPresence && Main.player[Main.myPlayer].GetModPlayer<FargoSoulsPlayer>().MutantPresence ? false : toggle.ToggleBool;
+            return (!checkForMutantPresence || !Main.player[Main.myPlayer].GetModPlayer<FargoSoulsPlayer>().MutantPresence) && toggle.ToggleBool;
         }
 
         public static bool GetPlayerBoolValue(this Player player, string name)

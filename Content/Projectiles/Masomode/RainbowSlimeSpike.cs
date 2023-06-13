@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.alpha = 0;
             if (Projectile.alpha == 0 && Main.rand.NextBool(3))
             {
-                int d = Dust.NewDust(Projectile.position - Projectile.velocity * 3f, Projectile.width, Projectile.height, 4, 0f, 0f, 50,
+                int d = Dust.NewDust(Projectile.position - Projectile.velocity * 3f, Projectile.width, Projectile.height, DustID.TintableDust, 0f, 0f, 50,
                     new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 150), 1.2f);
                 Main.dust[d].velocity *= 0.3f;
                 Main.dust[d].velocity += Projectile.velocity * 0.3f;
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;

@@ -1,4 +1,3 @@
-using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;

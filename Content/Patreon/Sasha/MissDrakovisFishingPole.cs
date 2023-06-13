@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             Item.width = 24;
             Item.height = 28;
             Item.value = Item.sellPrice(0, 15);
-            Item.rare = 10;
+            Item.rare = ItemRarityID.Red;
             Item.autoReuse = true;
 
             SetUpItem();
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                     Item.DamageType = DamageClass.Melee;
                     Item.shoot = ModContent.ProjectileType<PufferRang>();
 
-                    Item.useStyle = 1;
+                    Item.useStyle = ItemUseStyleID.Swing;
                     Item.useTime = 12;
                     Item.useAnimation = 12;
                     Item.UseSound = SoundID.Item1;
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                     Item.shoot = ProjectileID.Bullet;
 
                     Item.knockBack = 6.5f;
-                    Item.useStyle = 5;
+                    Item.useStyle = ItemUseStyleID.Shoot;
                     Item.useAnimation = 50;
                     Item.useTime = 50;
                     Item.useAmmo = AmmoID.Bullet;
@@ -167,7 +167,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                     Item.shoot = ModContent.ProjectileType<Bubble>();
 
                     Item.knockBack = 3f;
-                    Item.useStyle = 5;
+                    Item.useStyle = ItemUseStyleID.Shoot;
                     Item.useAnimation = 25;
                     Item.useTime = 25;
                     Item.UseSound = SoundID.Item85;
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Patreon.Sasha
 
                     Item.useTime = 36;
                     Item.useAnimation = 36;
-                    Item.useStyle = 1;
+                    Item.useStyle = ItemUseStyleID.Swing;
                     Item.noMelee = true;
                     Item.knockBack = 3;
                     Item.UseSound = SoundID.Item44;
@@ -198,7 +198,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                     Item.DamageType = DamageClass.Throwing;
                     Item.shoot = ModContent.ProjectileType<SpikyLure>();
 
-                    Item.useStyle = 1;
+                    Item.useStyle = ItemUseStyleID.Swing;
                     Item.shootSpeed = 5f;
                     Item.knockBack = 1f;
                     Item.UseSound = SoundID.Item1;

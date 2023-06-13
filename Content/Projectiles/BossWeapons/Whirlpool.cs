@@ -1,8 +1,8 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
@@ -117,7 +117,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             for (int i = 0; i < 20; i++)
             {
-                int num254 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172, Projectile.direction * 2, 0f, 100, default, 1.4f);
+                int num254 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DungeonWater, Projectile.direction * 2, 0f, 100, default, 1.4f);
                 Dust dust13 = Main.dust[num254];
                 dust13.color = Color.CornflowerBlue;
                 dust13.color = Color.Lerp(dust13.color, Color.White, 0.3f);

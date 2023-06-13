@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -45,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             {
                 float num = Main.rand.NextFloat(-0.5f, 0.5f);
                 Vector2 vector2 = new Vector2(-Projectile.width * 0.65f * Projectile.scale, 0.0f).RotatedBy(num * 6.28318548202515, new Vector2()).RotatedBy(Projectile.velocity.ToRotation(), new Vector2());
-                int index2 = Dust.NewDust(Projectile.Center - Vector2.One * 5f, 10, 10, 229, -Projectile.velocity.X / 3f, -Projectile.velocity.Y / 3f, 150, Color.Transparent, 0.7f);
+                int index2 = Dust.NewDust(Projectile.Center - Vector2.One * 5f, 10, 10, DustID.Vortex, -Projectile.velocity.X / 3f, -Projectile.velocity.Y / 3f, 150, Color.Transparent, 0.7f);
                 Main.dust[index2].velocity = Vector2.Zero;
                 Main.dust[index2].position = Projectile.Center + vector2;
                 Main.dust[index2].noGravity = true;
@@ -97,7 +98,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
         }
 
@@ -109,17 +110,17 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Projectile.Center = Projectile.position;
             for (int index1 = 0; index1 < 3; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 Main.dust[index2].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
             }
             for (int index1 = 0; index1 < 10; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0.0f, 0.0f, 0, new Color(), 2.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0.0f, 0.0f, 0, new Color(), 2.5f);
                 Main.dust[index2].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
                 Main.dust[index2].noGravity = true;
                 Dust dust1 = Main.dust[index2];
                 dust1.velocity = dust1.velocity * 1f;
-                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 Main.dust[index3].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
                 Dust dust2 = Main.dust[index3];
                 dust2.velocity = dust2.velocity * 1f;
@@ -137,7 +138,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

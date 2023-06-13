@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,7 +9,7 @@ namespace FargowiltasSouls.EternityMode
     {
         public static void DropSummon(NPC npc, int itemType, bool downed, ref bool droppedSummonFlag, bool prerequisite = true)
         {
-            if (FargoSoulsWorld.EternityMode && prerequisite && !downed && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummonFlag)
+            if (WorldSavingSystem.EternityMode && prerequisite && !downed && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummonFlag)
             {
                 Player player = Main.player[npc.target];
 
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.EternityMode
 
         public static void DropSummon(NPC npc, string itemName, bool downed, ref bool droppedSummonFlag, bool prerequisite = true)
         {
-            if (FargoSoulsWorld.EternityMode && prerequisite && !downed && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummonFlag)
+            if (WorldSavingSystem.EternityMode && prerequisite && !downed && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummonFlag)
             {
                 Player player = Main.player[npc.target];
 

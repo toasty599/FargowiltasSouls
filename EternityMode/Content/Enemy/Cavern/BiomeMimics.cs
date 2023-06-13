@@ -4,10 +4,8 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -209,7 +207,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 {
                     SoundEngine.PlaySound(SoundID.Item5, npc.Center);
 
-                    Vector2 spawn = new Vector2(npc.Center.X + Main.rand.NextFloat(-100, 100), Main.player[npc.target].Center.Y - Main.rand.Next(600, 801));
+                    Vector2 spawn = new(npc.Center.X + Main.rand.NextFloat(-100, 100), Main.player[npc.target].Center.Y - Main.rand.Next(600, 801));
                     Vector2 speed = 10f * Vector2.Normalize(Main.player[npc.target].Center + Main.rand.NextVector2Square(-100, 100) - spawn);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -219,7 +217,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                     for (int i = 0; i < 40; i++)
                     {
                         int type = Main.rand.Next(new int[] { 15, 57, 58 });
-                        int d = Dust.NewDust(npc.Center, 0, 0, type, speed.X / 2f, -speed.Y / 2f, 100, default(Color), 1.2f);
+                        int d = Dust.NewDust(npc.Center, 0, 0, type, speed.X / 2f, -speed.Y / 2f, 100, default, 1.2f);
                         Main.dust[d].velocity *= 2f;
                         Main.dust[d].noGravity = Main.rand.NextBool();
                     }
@@ -269,23 +267,23 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
                     for (int i = 0; i < 30; i++)
                     {
-                        int dust = Dust.NewDust(npc.position, npc.width, npc.height, 31, 0f, 0f, 100, default(Color), 3f);
+                        int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Smoke, 0f, 0f, 100, default, 3f);
                         Main.dust[dust].velocity *= 1.4f;
                     }
 
                     for (int i = 0; i < 20; i++)
                     {
-                        int dust = Dust.NewDust(npc.position, npc.width, npc.height, 6, 0f, 0f, 100, default(Color), 3.5f);
+                        int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                         Main.dust[dust].noGravity = true;
                         Main.dust[dust].velocity *= 7f;
-                        dust = Dust.NewDust(npc.position, npc.width, npc.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+                        dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                         Main.dust[dust].velocity *= 3f;
                     }
 
                     float scaleFactor9 = 0.5f;
                     for (int j = 0; j < 4; j++)
                     {
-                        int gore = Gore.NewGore(npc.GetSource_FromThis(), npc.Center, default(Vector2), Main.rand.Next(61, 64));
+                        int gore = Gore.NewGore(npc.GetSource_FromThis(), npc.Center, default, Main.rand.Next(61, 64));
                         Main.gore[gore].velocity *= scaleFactor9;
                         Main.gore[gore].velocity.X += 1f;
                         Main.gore[gore].velocity.Y += 1f;

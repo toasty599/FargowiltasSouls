@@ -1,7 +1,5 @@
-using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
-using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Toggler;
 using Microsoft.CodeAnalysis;
@@ -21,6 +19,7 @@ using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -61,7 +60,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
             projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius
-            && (projectile.ModProjectile == null ? true : projectile.ModProjectile.CanDamage() != false)
+            && (projectile.ModProjectile == null || projectile.ModProjectile.CanDamage() != false)
             && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
         private bool firstTick = true;
@@ -561,7 +560,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 {
                     if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
                     {
-                        projectile.timeLeft = FargoSoulsWorld.MasochistModeReal ? 1200 : 420;
+                        projectile.timeLeft = WorldSavingSystem.MasochistModeReal ? 1200 : 420;
                     }
                 }
 
@@ -596,7 +595,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         if (player.HeldItem.type == ModContent.ItemType<Blender>())
                         {
                             Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/PlanteraTentacle", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                            Rectangle rectangle = new Rectangle(0, 0, texture2D13.Width, texture2D13.Height);
+                            Rectangle rectangle = new(0, 0, texture2D13.Width, texture2D13.Height);
                             Vector2 origin2 = rectangle.Size() / 2f;
 
                             SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -618,7 +617,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         Texture2D Texture = Terraria.GameContent.TextureAssets.Projectile[projectile.type].Value;
                         int sizeY = Terraria.GameContent.TextureAssets.Projectile[projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
                         int frameY = projectile.frame * sizeY;
-                        Rectangle rectangle = new Rectangle(0, frameY, Texture.Width, sizeY);
+                        Rectangle rectangle = new(0, frameY, Texture.Width, sizeY);
                         Vector2 origin = rectangle.Size() / 2f;
                         SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                         Main.EntitySpriteDraw(Texture, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor),
@@ -645,7 +644,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 number--;
             }
 
-            List<Projectile> projList = new List<Projectile>();
+            List<Projectile> projList = new();
             Projectile split;
             double spread = maxSpread / number;
 
@@ -678,7 +677,7 @@ namespace FargowiltasSouls.Content.Projectiles
             return projList;
         }
 
-        private void KillPet(Projectile projectile, Player player, int buff, bool toggle, bool minion = false)
+        private static void KillPet(Projectile projectile, Player player, int buff, bool toggle, bool minion = false)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
@@ -817,7 +816,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (ChilledProj)
             {
-                int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, projectile.velocity.X, projectile.velocity.Y, 100, default, 1f);
+                int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Snow, projectile.velocity.X, projectile.velocity.Y, 100, default, 1f);
                 Main.dust[dustId].noGravity = true;
 
                 projectile.position -= projectile.velocity * 0.5f;
@@ -869,7 +868,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 //dust
                 if (Main.rand.NextBool(2))
                 {
-                    int dust = Dust.NewDust(new Vector2(projectile.position.X - 2f, projectile.position.Y - 2f), projectile.width + 4, projectile.height + 4, 44, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 100, Color.LimeGreen, .8f);
+                    int dust = Dust.NewDust(new Vector2(projectile.position.X - 2f, projectile.position.Y - 2f), projectile.width + 4, projectile.height + 4, DustID.JungleSpore, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 100, Color.LimeGreen, .8f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Dust expr_1CCF_cp_0 = Main.dust[dust];
@@ -1117,7 +1116,7 @@ namespace FargowiltasSouls.Content.Projectiles
             if (squeakyToy)
             {
                 damage = 1;
-                target.GetModPlayer<FargoSoulsPlayer>().Squeak(target.Center);
+                FargoSoulsPlayer.Squeak(target.Center);
             }
         }
 
@@ -1179,7 +1178,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/RuneBlast", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 int num156 = texture2D13.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
                 int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
-                Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+                Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
                 Vector2 origin2 = rectangle.Size() / 2f;
                 SpriteEffects effects = SpriteEffects.None;
                 Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255), projectile.rotation, origin2, projectile.scale, effects, 0);

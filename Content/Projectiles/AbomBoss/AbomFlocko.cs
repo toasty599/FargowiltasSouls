@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
                     {
                         for (int i = 0; i < 2; i++)
                         {
-                            Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
+                            Vector2 speed = new(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
                             speed.Normalize();
                             speed *= 8f;
                             Projectile.NewProjectile(npc.GetSource_FromThis(), Projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

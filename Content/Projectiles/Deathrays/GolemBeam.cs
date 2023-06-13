@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

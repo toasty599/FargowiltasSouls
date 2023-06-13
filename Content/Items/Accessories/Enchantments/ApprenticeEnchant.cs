@@ -24,7 +24,7 @@ Flameburst field of view and range are dramatically increased
             // '追求完美的漫漫长路'");
         }
 
-        protected override Color nameColor => new Color(93, 134, 166);
+        protected override Color nameColor => new(93, 134, 166);
         public override string wizardEffect => "";
 
         public override void SetDefaults()

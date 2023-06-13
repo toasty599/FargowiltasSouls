@@ -1,6 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);

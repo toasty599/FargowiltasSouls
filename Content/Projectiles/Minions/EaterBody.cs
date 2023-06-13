@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -133,7 +132,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             if (Projectile.alpha > 0)
                 for (int num1054 = 0; num1054 < 2; num1054++)
                 {
-                    int num1055 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0f, 0f, 100, default, 2f);
+                    int num1055 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.IceTorch, 0f, 0f, 100, default, 2f);
                     Main.dust[num1055].noGravity = true;
                     Main.dust[num1055].noLight = true;
                 }

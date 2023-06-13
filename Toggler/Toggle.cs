@@ -7,7 +7,7 @@
         public string InternalName;
         public bool ToggleBool;
 
-        public Toggle(string internalName, string mod, string catagory, bool blehIsHeader = false)
+        public Toggle(string internalName, string mod, string catagory)
         {
             InternalName = internalName;
             Mod = mod;

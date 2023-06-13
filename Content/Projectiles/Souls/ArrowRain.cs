@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             if (launchArrow)
             {
-                Vector2 position = new Vector2(Projectile.Center.X + Main.rand.Next(-100, 100), Projectile.Center.Y + Main.rand.Next(-75, 75));
+                Vector2 position = new(Projectile.Center.X + Main.rand.Next(-100, 100), Projectile.Center.Y + Main.rand.Next(-75, 75));
                 Vector2 velocity;
                 if (target.active)
                 {

@@ -1,8 +1,6 @@
 using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -113,7 +111,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 for (int i = 0; i < 40; i++)
                 {
-                    int d = Dust.NewDust(player.Center, 0, 0, 76, 0, 0, 100, Color.White, 2.5f);
+                    int d = Dust.NewDust(player.Center, 0, 0, DustID.Snow, 0, 0, 100, Color.White, 2.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 6f;
                 }

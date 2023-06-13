@@ -196,7 +196,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                     {
                         for (int i = 0; i < amount; i++)
                         {
-                            if (Main.rand.Next(3) != 0)
+                            if (!Main.rand.NextBool(3))
                                 continue;
 
                             int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, type,

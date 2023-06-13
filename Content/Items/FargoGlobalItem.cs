@@ -11,7 +11,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace FargowiltasSouls.Content.Items
 {
@@ -75,7 +74,7 @@ namespace FargowiltasSouls.Content.Items
 
             if (item.healLife > 0)
             {
-                modPlayer.StatLifePrevious += modPlayer.getHealMultiplier(item.healLife);
+                modPlayer.StatLifePrevious += modPlayer.GetHealMultiplier(item.healLife);
             }
         }
 
@@ -88,7 +87,7 @@ namespace FargowiltasSouls.Content.Items
             //    return false;
             //}
 
-            if (modPlayer.BuilderMode && (item.createTile > 0 || item.createWall > 0))
+            if (modPlayer.BuilderMode && (item.createTile > TileID.Dirt || item.createWall > 0))
                 return false;
 
             return base.ConsumeItem(item, player);

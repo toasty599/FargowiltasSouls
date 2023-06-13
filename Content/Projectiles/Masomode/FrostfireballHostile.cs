@@ -75,10 +75,10 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int index1 = 0; index1 < 10; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 2f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.IceTorch, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 2f;
-                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 1f);
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.IceTorch, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 1f);
                 Main.dust[index3].velocity *= 2f;
             }
         }
@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return MathHelper.SmoothStep(baseWidth, 3.5f, completionRatio);
         }
 
-        public Color ColorFunction(float completionRatio)
+        public static Color ColorFunction(float completionRatio)
         {
             return Color.Lerp(new(0, 204, 244), Color.Transparent, completionRatio) * 0.7f;
         }

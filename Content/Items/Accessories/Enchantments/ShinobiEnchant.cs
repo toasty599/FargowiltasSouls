@@ -22,7 +22,7 @@ Greatly enhances Lightning Aura effectiveness
             Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new Color(147, 91, 24);
+        protected override Color nameColor => new(147, 91, 24);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Shinobi");
 
         public override void SetDefaults()

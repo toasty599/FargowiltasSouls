@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 if (Main.rand.NextBool(4))
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, DustID.Vortex, 0.0f, 0.0f, 0, new Color(), 1f)];
                     dust.noGravity = true;
                     dust.position = Projectile.Center - spinningpoint * Main.rand.Next(10, 21);
                     dust.velocity = spinningpoint.RotatedBy(1.57079637050629, new Vector2()) * 4f;
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 if (Main.rand.NextBool(4))
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, DustID.Granite, 0.0f, 0.0f, 0, new Color(), 1f)];
                     dust.noGravity = true;
                     dust.position = Projectile.Center - spinningpoint * 30f;
                     dust.velocity = spinningpoint.RotatedBy(-1.57079637050629, new Vector2()) * 2f;
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, DustID.Vortex, 0.0f, 0.0f, 0, new Color(), 1f)];
                     dust.noGravity = true;
                     dust.position = Projectile.Center - spinningpoint * Main.rand.Next(10, 21);
                     dust.velocity = spinningpoint.RotatedBy(1.57079637050629, new Vector2()) * 6f;
@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, DustID.Granite, 0.0f, 0.0f, 0, new Color(), 1f)];
                     dust.noGravity = true;
                     dust.position = Projectile.Center - spinningpoint * 30f;
                     dust.velocity = spinningpoint.RotatedBy(-1.57079637050629, new Vector2()) * 3f;
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, DustID.Vortex, 0.0f, 0.0f, 0, new Color(), 1f)];
                     dust.noGravity = true;
                     dust.position = Projectile.Center - spinningpoint * Main.rand.Next(10, 21);
                     dust.velocity = spinningpoint.RotatedBy(1.57079637050629, new Vector2()) * 6f;
@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 else
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, DustID.Granite, 0.0f, 0.0f, 0, new Color(), 1f)];
                     dust.noGravity = true;
                     dust.position = Projectile.Center - spinningpoint * 30f;
                     dust.velocity = spinningpoint.RotatedBy(-1.57079637050629, new Vector2()) * 3f;
@@ -161,7 +161,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         case 0:
                             Vector2 spinningpoint1 = Vector2.UnitY.RotatedByRandom(6.28318548202515) * Projectile.scale;
-                            Dust dust1 = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint1 * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
+                            Dust dust1 = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint1 * 30f, 0, 0, DustID.Vortex, 0.0f, 0.0f, 0, new Color(), 1f)];
                             dust1.noGravity = true;
                             dust1.position = Projectile.Center - spinningpoint1 * Main.rand.Next(10, 21);
                             dust1.velocity = spinningpoint1.RotatedBy(1.57079637050629, new Vector2()) * 6f;
@@ -171,7 +171,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             break;
                         case 1:
                             Vector2 spinningpoint2 = Vector2.UnitY.RotatedByRandom(6.28318548202515) * Projectile.scale;
-                            Dust dust2 = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint2 * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
+                            Dust dust2 = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint2 * 30f, 0, 0, DustID.Granite, 0.0f, 0.0f, 0, new Color(), 1f)];
                             dust2.noGravity = true;
                             dust2.position = Projectile.Center - spinningpoint2 * 30f;
                             dust2.velocity = spinningpoint2.RotatedBy(-1.57079637050629, new Vector2()) * 3f;
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;

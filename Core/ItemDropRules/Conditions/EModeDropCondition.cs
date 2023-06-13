@@ -1,13 +1,14 @@
-﻿using Terraria.GameContent.ItemDropRules;
+﻿using FargowiltasSouls.Core.Systems;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 {
     public class EModeDropCondition : IItemDropRuleCondition
     {
-        public bool CanDrop(DropAttemptInfo info) => !info.IsInSimulation && FargoSoulsWorld.EternityMode;
+        public bool CanDrop(DropAttemptInfo info) => !info.IsInSimulation && WorldSavingSystem.EternityMode;
 
-        public bool CanShowItemDropInUI() => FargoSoulsWorld.EternityMode;
+        public bool CanShowItemDropInUI() => WorldSavingSystem.EternityMode;
 
         public string GetConditionDescription() => $"[i:{ModContent.ItemType<FargowiltasSouls.Content.Items.Masochist>()}]Eternity Mode drop rate";
     }

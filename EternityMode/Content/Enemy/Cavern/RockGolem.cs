@@ -3,7 +3,6 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

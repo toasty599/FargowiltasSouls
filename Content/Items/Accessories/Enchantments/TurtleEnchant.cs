@@ -31,7 +31,7 @@ Enemies will explode into needles on death if they are struck with your needles
             // '你突然有一种想躲进壳里的冲动'");
         }
 
-        protected override Color nameColor => new Color(248, 156, 92);
+        protected override Color nameColor => new(248, 156, 92);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Turtle");
 
         public override void SetDefaults()

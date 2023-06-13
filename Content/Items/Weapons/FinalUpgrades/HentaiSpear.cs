@@ -7,7 +7,6 @@ using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Materials;
 
 namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades

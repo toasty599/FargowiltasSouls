@@ -1,4 +1,3 @@
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,11 +8,11 @@ using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -95,7 +94,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             return true;
         }
 
-        int JumpTreshold => FargoSoulsWorld.MasochistModeReal ? 30 : 60;
+        int JumpTreshold => WorldSavingSystem.MasochistModeReal ? 30 : 60;
 
         bool drawTrail;
 
@@ -129,14 +128,14 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         NPC.noTileCollide = false;
                         NPC.noGravity = false;
 
-                        float time = FargoSoulsWorld.EternityMode ? 60 : 90;
-                        float gravity = FargoSoulsWorld.EternityMode ? 0.8f : 0.4f;
+                        float time = WorldSavingSystem.EternityMode ? 60 : 90;
+                        float gravity = WorldSavingSystem.EternityMode ? 0.8f : 0.4f;
 
                         if (++NPC.ai[1] == JumpTreshold)
                         {
                             NPC.TargetClosest();
 
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                             {
                                 if (NPC.localAI[1] == 0 && NPC.life < NPC.lifeMax * .66f) //spawn palm tree supports
                                 {
@@ -154,7 +153,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             }
 
                             Vector2 distance = player.Top - NPC.Bottom;
-                            distance.X += FargoSoulsWorld.MasochistModeReal ? player.velocity.X * time : 420 * Math.Sign(distance.X);
+                            distance.X += WorldSavingSystem.MasochistModeReal ? player.velocity.X * time : 420 * Math.Sign(distance.X);
 
                             distance.X = distance.X / time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
@@ -166,7 +165,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                             if (Main.netMode != NetmodeID.MultiplayerClient) //ogre smash jump
                             {
-                                int dam = FargoSoulsWorld.MasochistModeReal ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage) : 0;
+                                int dam = WorldSavingSystem.MasochistModeReal ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage) : 0;
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, dam, 0, Main.myPlayer);
                             }
 
@@ -182,23 +181,23 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                                 for (int i = 0; i < 30; i++)
                                 {
-                                    int dust = Dust.NewDust(dustPos, 32, 32, 31, 0f, 0f, 100, default(Color), 3f);
+                                    int dust = Dust.NewDust(dustPos, 32, 32, DustID.Smoke, 0f, 0f, 100, default, 3f);
                                     Main.dust[dust].velocity *= 1.4f;
                                 }
 
                                 for (int i = 0; i < 20; i++)
                                 {
-                                    int dust = Dust.NewDust(dustPos, 32, 32, 6, 0f, 0f, 100, default(Color), 3.5f);
+                                    int dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                                     Main.dust[dust].noGravity = true;
                                     Main.dust[dust].velocity *= 7f;
-                                    dust = Dust.NewDust(dustPos, 32, 32, 6, 0f, 0f, 100, default(Color), 1.5f);
+                                    dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                                     Main.dust[dust].velocity *= 3f;
                                 }
 
                                 float scaleFactor9 = 0.5f;
                                 for (int j = 0; j < 4; j++)
                                 {
-                                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default(Vector2), Main.rand.Next(61, 64));
+                                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default, Main.rand.Next(61, 64));
                                     Main.gore[gore].velocity *= scaleFactor9;
                                     Main.gore[gore].velocity.X += 1f;
                                     Main.gore[gore].velocity.Y += 1f;
@@ -206,7 +205,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             }
 
                             //chain blast jump
-                            if (FargoSoulsWorld.EternityMode)
+                            if (WorldSavingSystem.EternityMode)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom - 65 * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<TimberJumpMark>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, NPC.width);
@@ -284,7 +283,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                     NPC.localAI[0] = 0;
 
-                    if (FargoSoulsWorld.EternityMode && NPC.ai[3] == 2)
+                    if (WorldSavingSystem.EternityMode && NPC.ai[3] == 2)
                     {
                         if (NPC.ai[2] == 0) //shotgun
                             SoundEngine.PlaySound(SoundID.Item36, NPC.Center);
@@ -293,7 +292,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         NPC.localAI[0] = 1;
 
-                        if (!FargoSoulsWorld.MasochistModeReal)
+                        if (!WorldSavingSystem.MasochistModeReal)
                         {
                             NPC.ai[1] -= 0.4f;
                             NPC.ai[2] -= 0.4f;
@@ -359,7 +358,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         }
                     }
 
-                    if (FargoSoulsWorld.EternityMode)
+                    if (WorldSavingSystem.EternityMode)
                     {
                         if (++NPC.ai[2] > 60) //spread shot of snowballs
                         {
@@ -568,7 +567,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             else
             {
                 float maxwalkSpeed = BaseWalkSpeed;
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                     maxwalkSpeed *= 2;
 
                 int walkModifier = 30;
@@ -587,7 +586,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             const float midpoint = 47;
             const float xOffset = 19;
 
-            Vector2 offset = new Vector2(midpoint + xOffset * arm, 28);
+            Vector2 offset = new(midpoint + xOffset * arm, 28);
 
             offset.X *= NPC.direction;
 
@@ -658,11 +657,11 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<GuiltyBuff>(), 600);
         }
 
-        bool spawnPhase2 => Main.expertMode;
+        static bool spawnPhase2 => Main.expertMode;
 
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -693,24 +692,24 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
             for (int i = 0; i < 20; i++)
             {
-                int dust = Dust.NewDust(pos, width, height, DustID.Smoke, 0f, 0f, 100, default(Color), 3f);
+                int dust = Dust.NewDust(pos, width, height, DustID.Smoke, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].velocity *= 1.4f;
             }
 
             for (int i = 0; i < 15; i++)
             {
-                int dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
+                int dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
 
-                dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
+                dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dust].velocity *= 3f;
             }
 
             float scaleFactor9 = 0.5f;
             for (int j = 0; j < 3; j++)
             {
-                int gore = Gore.NewGore(NPC.GetSource_FromThis(), center, default(Vector2), Main.rand.Next(61, 64));
+                int gore = Gore.NewGore(NPC.GetSource_FromThis(), center, default, Main.rand.Next(61, 64));
                 Main.gore[gore].velocity *= scaleFactor9;
                 Main.gore[gore].velocity.X += 1f;
                 Main.gore[gore].velocity.Y += 1f;
@@ -736,7 +735,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TimberChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TimberChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

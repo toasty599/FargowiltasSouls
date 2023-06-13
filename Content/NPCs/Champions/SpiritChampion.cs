@@ -1,4 +1,3 @@
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,12 +9,12 @@ using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Pets;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -142,7 +141,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     NPC.noGravity = true;
                     NPC.alpha = 0;
 
-                    if (FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.SpiritChampion] && NPC.ai[1] < 120)
+                    if (WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.SpiritChampion] && NPC.ai[1] < 120)
                         NPC.ai[1] = 120;
 
                     if (NPC.ai[1] == 180)
@@ -233,7 +232,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         for (int i = 0; i < 20; i++)
                         {
-                            int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 31, 0f, 0f, 100, default(Color), 2f);
+                            int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, DustID.Smoke, 0f, 0f, 100, default, 2f);
                             //Main.dust[dust].velocity *= 1.4f;
                         }
 
@@ -249,7 +248,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         float scaleFactor9 = 0.5f;
                         for (int j = 0; j < 4; j++)
                         {
-                            int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default(Vector2), Main.rand.Next(61, 64));
+                            int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default, Main.rand.Next(61, 64));
                             Main.gore[gore].velocity *= scaleFactor9;
                             //Main.gore[gore].velocity.X += 1f;
                             //Main.gore[gore].velocity.Y += 1f;
@@ -421,7 +420,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             Vector2 offset = NPC.DirectionTo(target) * 10f;
                             for (int i = 0; i < length; i++) //dust warning line for sandnado
                             {
-                                int d = Dust.NewDust(NPC.Center + offset * i, 0, 0, 269, 0f, 0f, 0, new Color());
+                                int d = Dust.NewDust(NPC.Center + offset * i, 0, 0, DustID.Sandnado, 0f, 0f, 0, new Color());
                                 Main.dust[d].noLight = true;
                                 Main.dust[d].scale = 1.25f;
                             }
@@ -536,7 +535,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                 Vector2 offset = NPC.DirectionTo(target) * 10f;
                                 for (int i = 0; i < length; i++) //dust warning line for sandnado
                                 {
-                                    int d = Dust.NewDust(NPC.Center + offset * i, 0, 0, 269, 0f, 0f, 0, new Color());
+                                    int d = Dust.NewDust(NPC.Center + offset * i, 0, 0, DustID.Sandnado, 0f, 0f, 0, new Color());
                                     Main.dust[d].noLight = true;
                                     Main.dust[d].scale = 1.25f;
                                 }
@@ -670,13 +669,13 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         for (int i = 0; i < 20; i++)
                         {
-                            Vector2 offset = new Vector2();
+                            Vector2 offset = new();
                             double angle = Main.rand.NextDouble() * 2d * Math.PI;
                             offset.X += (float)(Math.Sin(angle) * distance);
                             offset.Y += (float)(Math.Cos(angle) * distance);
                             Dust dust = Main.dust[Dust.NewDust(
                                 NPC.Center + offset - new Vector2(4, 4), 0, 0,
-                                87, 0, 0, 100, Color.White, 1f
+                                DustID.GemTopaz, 0, 0, 100, Color.White, 1f
                                 )];
                             dust.velocity = NPC.velocity;
                             //if (Main.rand.NextBool(3)) dust.velocity += Vector2.Normalize(offset) * -5f;
@@ -691,8 +690,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                 {
                                     for (int i = 0; i < 5; i++)
                                     {
-                                        int dustId = Dust.NewDust(x.position, x.width, x.height, 87,
-                                            x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100, default(Color), 1.5f);
+                                        int dustId = Dust.NewDust(x.position, x.width, x.height, DustID.GemTopaz,
+                                            x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100, default, 1.5f);
                                         Main.dust[dustId].noGravity = true;
                                     }
 
@@ -756,7 +755,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                     ++num5;
                                     int index1 = Main.rand.Next(tileCoordinates2.X - num1, tileCoordinates2.X + num1 + 1);
                                     int index2 = Main.rand.Next(tileCoordinates2.Y - num1, tileCoordinates2.Y + num1 + 1);
-                                    if ((index2 < tileCoordinates2.Y - num3 || index2 > tileCoordinates2.Y + num3 || (index1 < tileCoordinates2.X - num3 || index1 > tileCoordinates2.X + num3)) && (index2 < tileCoordinates1.Y - num2 || index2 > tileCoordinates1.Y + num2 || (index1 < tileCoordinates1.X - num2 || index1 > tileCoordinates1.X + num2)) && !Main.tile[index1, index2].HasUnactuatedTile)
+                                    if ((index2 < tileCoordinates2.Y - num3 || index2 > tileCoordinates2.Y + num3 || index1 < tileCoordinates2.X - num3 || index1 > tileCoordinates2.X + num3) && (index2 < tileCoordinates1.Y - num2 || index2 > tileCoordinates1.Y + num2 || index1 < tileCoordinates1.X - num2 || index1 > tileCoordinates1.X + num2) && !Main.tile[index1, index2].HasUnactuatedTile)
                                     {
                                         bool flag2 = true;
                                         if (flag2 && Main.tile[index1, index2].LiquidType == LiquidID.Lava && Main.tile[index1, index2].LiquidAmount > 0)
@@ -826,7 +825,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     goto case 0;
             }
 
-            if (NPC.localAI[2] != 0 && FargoSoulsWorld.EternityMode) //aura
+            if (NPC.localAI[2] != 0 && WorldSavingSystem.EternityMode) //aura
             {
                 const float auraDistance = 1200;
                 float range = NPC.Distance(player.Center);
@@ -856,7 +855,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                 for (int i = 0; i < 20; i++) //dust
                 {
-                    int d = Dust.NewDust(NPC.Center + auraDistance * Vector2.UnitX.RotatedBy(Math.PI * 2 * Main.rand.NextDouble()), 0, 0, 87);
+                    int d = Dust.NewDust(NPC.Center + auraDistance * Vector2.UnitX.RotatedBy(Math.PI * 2 * Main.rand.NextDouble()), 0, 0, DustID.GemTopaz);
                     Main.dust[d].velocity = NPC.velocity;
                     Main.dust[d].noGravity = true;
                     Main.dust[d].scale++;
@@ -866,7 +865,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override bool CheckDead()
         {
-            if (NPC.localAI[3] != 2f && FargoSoulsWorld.EternityMode)
+            if (NPC.localAI[3] != 2f && WorldSavingSystem.EternityMode)
             {
                 NPC.active = true;
                 NPC.life = 1;
@@ -921,7 +920,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<InfestedBuff>(), 360);
                 target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 180);
@@ -975,7 +974,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.SpiritChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.SpiritChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

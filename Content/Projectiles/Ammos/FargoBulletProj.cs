@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             if (flag4)
             {
                 float num179 = num166;
-                Vector2 vector19 = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
+                Vector2 vector19 = new(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
                 float num180 = num167 - vector19.X;
                 float num181 = num168 - vector19.Y;
                 float num182 = (float)Math.Sqrt(num180 * num180 + num181 * num181);
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             for (int i = 0; i < 5; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 1.5f;
                 Main.dust[dust].scale *= 0.9f;
@@ -198,13 +198,13 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
 
             //explosion
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
-            for (int i = 0; i < 7; i++) Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1.5f);
+            for (int i = 0; i < 7; i++) Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
             for (int i = 0; i < 3; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 2.5f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 3f;
-                dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1.5f);
+                dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dust].velocity *= 2f;
             }
 
@@ -236,7 +236,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 10; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 171, 0f, 0f, 100);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Venom, 0f, 0f, 100);
                 Main.dust[dust].scale = Main.rand.Next(1, 10) * 0.1f;
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].fadeIn = 1.5f;

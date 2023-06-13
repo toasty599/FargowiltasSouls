@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -55,7 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
                 if (Main.rand.NextBool())
                 {
-                    int d = Dust.NewDust(Projectile.Center, 0, 0, 229, Scale: 2f);
+                    int d = Dust.NewDust(Projectile.Center, 0, 0, DustID.Vortex, Scale: 2f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 3f;
                 }
@@ -82,7 +83,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 180);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Chilled, 180);
         }
 
@@ -92,7 +93,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
             for (int index1 = 0; index1 < 20; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, 0f, 0f, 0, default, 1f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, 0f, 0f, 0, default, 1f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 1.5f;
                 Main.dust[index2].scale *= 0.9f;

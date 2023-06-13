@@ -26,7 +26,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
             Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new Color(176, 210, 178);
+        protected override Color nameColor => new(176, 210, 178);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Tungsten");
 
         public override void SetDefaults()

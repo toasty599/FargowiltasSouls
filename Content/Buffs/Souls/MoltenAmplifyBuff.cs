@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.NPCs;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 

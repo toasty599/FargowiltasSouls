@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.UI;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
@@ -153,7 +154,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 AmmoCycleKey();
 
             if (FargowiltasSouls.SoulToggleKey.JustPressed)
-                FargowiltasSouls.UserInterfaceManager.ToggleSoulToggler();
+                FargoUIManager.ToggleSoulToggler();
         }
     }
 }

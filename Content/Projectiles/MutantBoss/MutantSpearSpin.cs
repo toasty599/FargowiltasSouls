@@ -1,7 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
                     Projectile.alpha = 0;
 
-                    //if (FargoSoulsWorld.MasochistModeReal)
+                    //if (WorldSavingSystem.MasochistModeReal)
                     //{
                     //    Main.projectile.Where(x => x.active && x.friendly && !FargoSoulsUtil.IsMinionDamage(x, false)).ToList().ForEach(x => //reflect projectiles
                     //    {
@@ -140,7 +140,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), 0, 0f, Projectile.owner);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
@@ -156,13 +156,13 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
             color26 = Projectile.GetAlpha(color26);
 
-            if (FargoSoulsWorld.MasochistModeReal) //reflects projs indicator trail
+            if (WorldSavingSystem.MasochistModeReal) //reflects projs indicator trail
             {
                 for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.1f)
                 {

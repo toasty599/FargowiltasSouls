@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Core;
+using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -24,7 +25,7 @@ namespace FargowiltasSouls.EternityMode
             {
                 TryLoadSprites(entity);
 
-                return FargoSoulsWorld.EternityMode || Main.gameMenu;
+                return WorldSavingSystem.EternityMode || Main.gameMenu;
             }
             return false;
         }
@@ -66,7 +67,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
 
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             SafeModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
@@ -78,7 +79,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
 
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             SafeModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
@@ -93,7 +94,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.OnHitByItem(npc, player, item, damage, knockback, crit);
 
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             SafeOnHitByItem(npc, player, item, damage, knockback, crit);
@@ -105,7 +106,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.OnHitByProjectile(npc, projectile, damage, knockback, crit);
 
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             SafeOnHitByProjectile(npc, projectile, damage, knockback, crit);
@@ -130,7 +131,7 @@ namespace FargowiltasSouls.EternityMode
         {
             if (!Main.dedServ)
             {
-                bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
+                bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                 if (recolor || FargowiltasSouls.Instance.LoadedNewSprites)
                 {
                     FargowiltasSouls.Instance.LoadedNewSprites = true;

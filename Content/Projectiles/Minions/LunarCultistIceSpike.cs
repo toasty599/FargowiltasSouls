@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -48,7 +47,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.position.X += Projectile.ai[0];
             Projectile.position.Y += Projectile.ai[1];
 
-            int index3 = Dust.NewDust(Projectile.Center + Utils.RandomVector2(Main.rand, -8f, 8f) / 2f, 8, 8, 197, 0.0f, 0.0f, 100, Color.Transparent, 1f);
+            int index3 = Dust.NewDust(Projectile.Center + Utils.RandomVector2(Main.rand, -8f, 8f) / 2f, 8, 8, DustID.NorthPole, 0.0f, 0.0f, 100, Color.Transparent, 1f);
             Main.dust[index3].noGravity = true;
 
             Projectile.rotation = Projectile.velocity.ToRotation();

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -86,7 +87,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
                 SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
             }
 
-            Projectile.extraUpdates = FargoSoulsWorld.EternityMode ? 1 : 0;
+            Projectile.extraUpdates = WorldSavingSystem.EternityMode ? 1 : 0;
 
             if (Projectile.ai[0] == 0)
             {
@@ -98,7 +99,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
                 Projectile.tileCollide = false;
                 Projectile.velocity = Vector2.Zero;
 
-                //if (++Projectile.localAI[1] > 60 || !FargoSoulsWorld.EternityMode)
+                //if (++Projectile.localAI[1] > 60 || !WorldSavingSystem.EternityMode)
                 //{
                 Projectile.ai[0] = 2f;
                 Projectile.netUpdate = true;
@@ -139,13 +140,13 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (npc == null || !FargoSoulsWorld.EternityMode)
+            if (npc == null || !WorldSavingSystem.EternityMode)
                 return base.Colliding(projHitbox, targetHitbox);
 
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), ChainOrigin, Projectile.Center);
         }
 
-        protected virtual bool flashingZapEffect => FargoSoulsWorld.EternityMode && Projectile.timeLeft % 10 < 5;
+        protected virtual bool flashingZapEffect => WorldSavingSystem.EternityMode && Projectile.timeLeft % 10 < 5;
 
         public override bool PreDraw(ref Color lightColor)
         {
@@ -155,7 +156,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
                 Vector2 position = Projectile.Center;
                 Vector2 mountedCenter = ChainOrigin;
                 Rectangle? sourceRectangle = new Rectangle?();
-                Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
+                Vector2 origin = new(texture.Width * 0.5f, texture.Height * 0.5f);
                 float num1 = texture.Height;
                 Vector2 vector24 = mountedCenter - position;
                 float rotation = (float)Math.Atan2(vector24.Y, vector24.X) - 1.57f;
@@ -189,7 +190,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             Texture2D texture2D13 = TextureAssets.Projectile[Projectile.type].Value;
             int num156 = TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = SpriteEffects.None;
             Color color = flashingZapEffect ? Color.White * Projectile.Opacity : Projectile.GetAlpha(lightColor);

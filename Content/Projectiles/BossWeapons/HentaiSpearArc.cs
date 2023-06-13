@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                     return;
                 Projectile.frameCounter = 0;
                 float num1 = Projectile.velocity.Length();
-                UnifiedRandom unifiedRandom = new UnifiedRandom((int)Projectile.ai[1]);
+                UnifiedRandom unifiedRandom = new((int)Projectile.ai[1]);
                 int num2 = 0;
                 Vector2 spinningpoint = -Vector2.UnitY;
                 Vector2 rotationVector2;
@@ -165,12 +165,12 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void Kill(int timeLeft)
         {
-            float num2 = (float)(Projectile.rotation + 1.57079637050629 + (Main.rand.Next(2) == 1 ? -1.0 : 1.0) * 1.57079637050629);
+            float num2 = (float)(Projectile.rotation + 1.57079637050629 + (Main.rand.NextBool(2)? -1.0 : 1.0) * 1.57079637050629);
             float num3 = (float)(Main.rand.NextDouble() * 2.0 + 2.0);
-            Vector2 vector2 = new Vector2((float)Math.Cos(num2) * num3, (float)Math.Sin(num2) * num3);
+            Vector2 vector2 = new((float)Math.Cos(num2) * num3, (float)Math.Sin(num2) * num3);
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {
-                int index = Dust.NewDust(Projectile.oldPos[i], 0, 0, 229, vector2.X, vector2.Y, 0, new Color(), 1f);
+                int index = Dust.NewDust(Projectile.oldPos[i], 0, 0, DustID.Vortex, vector2.X, vector2.Y, 0, new Color(), 1f);
                 Main.dust[index].noGravity = true;
                 Main.dust[index].scale = 1.7f;
             }

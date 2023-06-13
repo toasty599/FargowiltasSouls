@@ -7,18 +7,18 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
 using Terraria.UI;
 
-namespace FargowiltasSouls.Content.UI
+namespace FargowiltasSouls.Content.UI.Elements
 {
     // From ExampleMod
-    public class UIDragablePanel : UIPanel
+    public class FargoUIDragablePanel : UIPanel
     {
         // Stores the offset from the top left of the UIPanel while dragging.
         private Vector2 offset;
         public bool dragging;
         public UIElement[] ExtraChildren;
 
-        public UIDragablePanel() { }
-        public UIDragablePanel(params UIElement[] countMeAsChildren)
+        public FargoUIDragablePanel() { }
+        public FargoUIDragablePanel(params UIElement[] countMeAsChildren)
         {
             ExtraChildren = countMeAsChildren;
         }

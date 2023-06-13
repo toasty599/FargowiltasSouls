@@ -15,12 +15,12 @@ namespace FargowiltasSouls.Toggler
         }
 
 
-        public List<Toggle> Load(int offset)
+        public List<Toggle> Load()
         {
             // All string (toggles) and int (header) fields
             FieldInfo[] fields = GetType().GetFields();
             // The amount of int fields, ie toggles
-            List<Toggle> ret = new List<Toggle>();
+            List<Toggle> ret = new();
 
             for (int i = 0; i < fields.Length; i++)
             {

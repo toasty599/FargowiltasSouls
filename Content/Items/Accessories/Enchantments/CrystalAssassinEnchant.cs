@@ -24,7 +24,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
 'Now you see me, now you don’t'");
         }
 
-        protected override Color nameColor => new Color(36, 157, 207);
+        protected override Color nameColor => new(36, 157, 207);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.CrystalAssassin");
 
         public override void SetDefaults()
@@ -74,8 +74,8 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
             //already threw smoke bomb, tele to it
             else
             {
-                Vector2 teleportPos = new Vector2(modPlayer.CrystalSmokeBombProj.position.X, modPlayer.CrystalSmokeBombProj.position.Y - 30);
-                Vector2 originalPos = new Vector2(teleportPos.X, teleportPos.Y);
+                Vector2 teleportPos = new(modPlayer.CrystalSmokeBombProj.position.X, modPlayer.CrystalSmokeBombProj.position.Y - 30);
+                Vector2 originalPos = new(teleportPos.X, teleportPos.Y);
 
                 //spiral out to find a save spot
                 int count = 0;

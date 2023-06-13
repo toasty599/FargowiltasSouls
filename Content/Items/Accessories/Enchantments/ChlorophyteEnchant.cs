@@ -32,7 +32,7 @@ Double tap a direction
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new Color(36, 137, 0);
+        protected override Color nameColor => new(36, 137, 0);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Chlorophyte");
 
         public override void SetDefaults()

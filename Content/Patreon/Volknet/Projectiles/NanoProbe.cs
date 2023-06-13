@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.Volknet.Projectiles
@@ -122,7 +121,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
                             {
                                 Projectile.velocity = Vector2.Zero;
                                 Projectile.Center = TargetPos;
-                                Projectile.rotation = (TM.ToRotation() + MathHelper.Pi / 2 * t);
+                                Projectile.rotation = TM.ToRotation() + MathHelper.Pi / 2 * t;
                             }
 
                         }

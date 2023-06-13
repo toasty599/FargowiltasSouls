@@ -1,6 +1,5 @@
 ﻿using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.NPCs;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
@@ -68,7 +67,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
 
                     for (int i = 0; i < 3; i++) //NOTICE ME
                     {
-                        int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 0, default(Color), (float)Counter / dollBurningTime * 5f);
+                        int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 0, default, (float)Counter / dollBurningTime * 5f);
                         Main.dust[d].noGravity = !Main.rand.NextBool(5);
                         Main.dust[d].noLight = true;
                         Main.dust[d].velocity *= Main.rand.NextFloat(12f);

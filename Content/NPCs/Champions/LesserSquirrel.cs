@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Projectiles.Champions;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
@@ -6,7 +7,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
             NPC.aiStyle = 7;
             AIType = NPCID.Squirrel;
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 NPC.aiStyle = NPCAIStyleID.Herpling;
                 AIType = NPCID.Herpling;
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 NPC.StrikeNPCNoInteraction(9999, 0f, 0);
             }
 
-            if (!NPC.dontTakeDamage && FargoSoulsWorld.EternityMode)
+            if (!NPC.dontTakeDamage && WorldSavingSystem.EternityMode)
             {
                 Vector2 nextPos = NPC.position;
                 nextPos.X += NPC.velocity.X * 1.5f;
@@ -139,22 +139,22 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                 for (int i = 0; i < 20; i++)
                 {
-                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default(Color), 1.5f);
+                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
 
                 for (int i = 0; i < 10; i++)
                 {
-                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default(Color), 2.5f);
+                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 5f;
-                    dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default(Color), 1f);
+                    dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default, 1f);
                     Main.dust[dust].velocity *= 3f;
                 }
 
                 for (int j = 0; j < 4; j++)
                 {
-                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default(Vector2), Main.rand.Next(61, 64));
+                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default, Main.rand.Next(61, 64));
                     Main.gore[gore].velocity *= 0.4f;
                     Main.gore[gore].velocity += new Vector2(1f, 1f).RotatedBy(MathHelper.TwoPi / 4 * j);
                 }

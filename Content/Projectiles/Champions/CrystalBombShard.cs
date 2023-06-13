@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.Systems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Chilled, 180);
             target.AddBuff(BuffID.Frostburn, 180);
         }

@@ -28,11 +28,11 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/DizzyStars", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = texture.Height / 6; //ypos of lower right corner of sprite to draw
             int y3 = num156 * (int)(Main.GlobalTimeWrappedHourly % 0.5 * 12); //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture.Width, num156);
+            Rectangle rectangle = new(0, y3, texture.Width, num156);
 
             Vector2 drawPos = (drawPlayer.gravDir > 0 ? drawPlayer.Top : drawPlayer.Bottom) - Main.screenPosition;
             drawPos.Y -= 16 * drawPlayer.gravDir;
-            DrawData data = new DrawData(texture, drawPos, rectangle, Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, rectangle.Size() / 2, 1f, SpriteEffects.None, 0);
+            DrawData data = new (texture, drawPos, rectangle, Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, rectangle.Size() / 2, 1f, SpriteEffects.None, 0);
             drawInfo.DrawDataCache.Add(data);
         }
     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Toggler.Content
@@ -11,9 +6,12 @@ namespace FargowiltasSouls.Toggler.Content
     public class PetToggles : ToggleCollection
     {
         public override string Mod => "Terraria";
+
         public override string SortCatagory => "Pets";
+
         public override int Priority => 3;
-        public override bool Active => ModLoader.TryGetMod("FargowiltasSoulsDLC", out Mod mod);
+
+        public override bool Active => ModLoader.TryGetMod("FargowiltasSoulsDLC", out _);
 
         public int PetHeader = ItemID.ZephyrFish;
 

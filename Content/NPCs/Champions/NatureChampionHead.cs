@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Champions;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,7 +8,6 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         for (int i = 0; i < 20; i++) //warning ring
                         {
-                            Vector2 offset = new Vector2();
+                            Vector2 offset = new();
                             double angle = Main.rand.NextDouble() * 2d * Math.PI;
                             offset.X += (float)(Math.Sin(angle) * 400);
                             offset.Y += (float)(Math.Cos(angle) * 400);
@@ -458,7 +458,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(BuffID.Frostburn, 300);
                 target.AddBuff(BuffID.OnFire, 300);
@@ -470,10 +470,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             if (NPC.life <= 0)
             {
                 NPC body = FargoSoulsUtil.NPCExists(NPC.ai[1], ModContent.NPCType<NatureChampion>());
-                if (body != null) //make body handle gibs
-                {
-                    body.HitEffect(hitDirection, damage);
-                }
+                body?.HitEffect(hitDirection, damage);
             }
         }
 
@@ -543,16 +540,16 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         private static float X(float t, float x0, float x1, float x2)
         {
             return (float)(
-                x0 * Math.Pow((1 - t), 2) +
-                x1 * 2 * t * Math.Pow((1 - t), 1) +
+                x0 * Math.Pow(1 - t, 2) +
+                x1 * 2 * t * Math.Pow(1 - t, 1) +
                 x2 * Math.Pow(t, 2)
             );
         }
         private static float Y(float t, float y0, float y1, float y2)
         {
             return (float)(
-                 y0 * Math.Pow((1 - t), 2) +
-                 y1 * 2 * t * Math.Pow((1 - t), 1) +
+                 y0 * Math.Pow(1 - t, 2) +
+                 y1 * 2 * t * Math.Pow(1 - t, 1) +
                  y2 * Math.Pow(t, 2)
              );
         }
@@ -578,10 +575,10 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 {
                     if (j == 0)
                         continue;
-                    Vector2 distBetween = new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) -
+                    Vector2 distBetween = new(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) -
                     X(j - chainsPerUse, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X),
-                    Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y) -
-                    Y(j - chainsPerUse, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y));
+                    Y(j, neckOrigin.Y, neckOrigin.Y + 50, connector.Y) -
+                    Y(j - chainsPerUse, neckOrigin.Y, neckOrigin.Y + 50, connector.Y));
                     if (distBetween.Length() > 36 && chainsPerUse > 0.01f)
                     {
                         chainsPerUse -= 0.01f;
@@ -589,8 +586,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         continue;
                     }
                     float projTrueRotation = distBetween.ToRotation() - (float)Math.PI / 2;
-                    Vector2 lightPos = new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X), Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y));
-                    spriteBatch.Draw(neckTex2D, new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) - Main.screenPosition.X, Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y) - Main.screenPosition.Y),
+                    Vector2 lightPos = new(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X), Y(j, neckOrigin.Y, neckOrigin.Y + 50, connector.Y));
+                    spriteBatch.Draw(neckTex2D, new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) - Main.screenPosition.X, Y(j, neckOrigin.Y, neckOrigin.Y + 50, connector.Y) - Main.screenPosition.Y),
                     new Rectangle(0, 0, neckTex2D.Width, neckTex2D.Height), body.GetAlpha(Lighting.GetColor((int)lightPos.X / 16, (int)lightPos.Y / 16)), projTrueRotation,
                     new Vector2(neckTex2D.Width * 0.5f, neckTex2D.Height * 0.5f), 1f, connector.X < neckOrigin.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                 }

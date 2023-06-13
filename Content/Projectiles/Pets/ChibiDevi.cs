@@ -12,7 +12,6 @@ using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Content.Projectiles.Pets
 {
@@ -168,7 +167,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
                         {
                             okToRest = false;
 
-                            Vector2 targetPos = new Vector2(Projectile.Center.X, Projectile.position.Y + Projectile.height);
+                            Vector2 targetPos = new(Projectile.Center.X, Projectile.position.Y + Projectile.height);
                             for (int i = 0; i < 10; i++) //collision check below self
                             {
                                 targetPos.Y += 16;
@@ -317,11 +316,11 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects spriteEffects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-            Color color26 = new Color(255, 51, 153, 50);
+            Color color26 = new(255, 51, 153, 50);
             float speedRatio = Math.Min(Projectile.velocity.Length() / 16f / 2f, 1f);
 
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.2f)
@@ -373,7 +372,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
 
             Count
         };
-        private int[] MaxThingsToSay => new int[] {
+        private static int[] MaxThingsToSay => new int[] {
             7, //Spawn
             7, //Respawn
             12, //Idle
@@ -387,8 +386,8 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
             1 //Count
         };
 
-        public int ShortCD => 600;
-        public int MediumCD => Main.rand.Next(3600, 7200);
+        public static int ShortCD => 600;
+        public static int MediumCD => Main.rand.Next(3600, 7200);
         public int LongCD => MediumCD * 2;
 
         public void TryTalkWithCD(TalkType talkType, int CD)
@@ -444,7 +443,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
             {
                 Projectile p = Main.projectile.FirstOrDefault(p => p.active && p.owner == Main.myPlayer && p.type == ModContent.ProjectileType<ChibiDevi>());
                 if (p != null && p.ModProjectile is ChibiDevi devi)
-                    devi.TryTalkWithCD(ChibiDevi.TalkType.KillBoss, devi.MediumCD);
+                    devi.TryTalkWithCD(ChibiDevi.TalkType.KillBoss, ChibiDevi.MediumCD);
             }
         }
     }

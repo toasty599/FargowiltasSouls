@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FargowiltasSouls.Core.Systems;
 using Terraria.GameContent.ItemDropRules;
 
 namespace FargowiltasSouls.Core.ItemDropRules
@@ -22,7 +23,7 @@ namespace FargowiltasSouls.Core.ItemDropRules
             int max = 1;
             if (info.IsExpertMode)
                 max++;
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 max++;
 
             List<int> enchesToDrop = new(DropIds);

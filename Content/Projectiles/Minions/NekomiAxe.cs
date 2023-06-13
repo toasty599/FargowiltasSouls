@@ -1,11 +1,9 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -123,17 +121,17 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
                 for (int index1 = 0; index1 < 15; ++index1)
                 {
-                    int index2 = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), scaleModifier * 2.5f);
+                    int index2 = Dust.NewDust(dustPoint, 46, 46, DustID.GemAmethyst, 0f, 0f, 0, new Color(), scaleModifier * 2.5f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 16f * scaleModifier;
-                    int index3 = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), scaleModifier);
+                    int index3 = Dust.NewDust(dustPoint, 46, 46, DustID.GemAmethyst, 0f, 0f, 0, new Color(), scaleModifier);
                     Main.dust[index3].velocity *= 8f * scaleModifier;
                     Main.dust[index3].noGravity = true;
                 }
 
                 for (int i = 0; i < 5; i++)
                 {
-                    int d = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), Main.rand.NextFloat(1f, 2f) * scaleModifier);
+                    int d = Dust.NewDust(dustPoint, 46, 46, DustID.GemAmethyst, 0f, 0f, 0, new Color(), Main.rand.NextFloat(1f, 2f) * scaleModifier);
                     Main.dust[d].velocity *= Main.rand.NextFloat(1f, 4f) * scaleModifier;
                 }
             }
@@ -214,7 +212,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;

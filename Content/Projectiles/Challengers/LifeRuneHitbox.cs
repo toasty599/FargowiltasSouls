@@ -1,10 +1,9 @@
 ﻿using System;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.NPCs.Challengers;
 
 namespace FargowiltasSouls.Content.Projectiles.Challengers
 {
@@ -81,7 +80,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);
         }
         public override bool PreDraw(ref Color lightColor)

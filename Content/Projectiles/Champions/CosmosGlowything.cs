@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D glow = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int rect1 = glow.Height;
             int rect2 = 0;
-            Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);
+            Rectangle glowrectangle = new(0, rect2, glow.Width, rect1);
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
             Color glowcolor = Color.Lerp(new Color(196, 247, 255, 0), Color.Transparent, 0.8f);
 

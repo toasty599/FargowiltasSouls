@@ -2,7 +2,6 @@ using System.IO;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;

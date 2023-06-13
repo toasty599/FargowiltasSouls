@@ -7,13 +7,13 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.UI;
 
-namespace FargowiltasSouls.Content.UI
+namespace FargowiltasSouls.Content.UI.Elements
 {
     public class UIToggle : UIElement
     {
         public const int CheckboxTextSpace = 4;
 
-        public DynamicSpriteFont Font => Terraria.GameContent.FontAssets.ItemStack.Value;
+        public static DynamicSpriteFont Font => Terraria.GameContent.FontAssets.ItemStack.Value;
 
         public string Key;
 
@@ -40,9 +40,9 @@ namespace FargowiltasSouls.Content.UI
                     modPlayer.SyncToggle(Key);
             }
 
-            spriteBatch.Draw(FargowiltasSouls.UserInterfaceManager.CheckBox.Value, position, Color.White);
+            spriteBatch.Draw(FargoUIManager.CheckBox.Value, position, Color.White);
             if (Main.LocalPlayer.GetToggleValue(Key, false))
-                spriteBatch.Draw(FargowiltasSouls.UserInterfaceManager.CheckMark.Value, position, Color.White);
+                spriteBatch.Draw(FargoUIManager.CheckMark.Value, position, Color.White);
 
             string text = Language.GetTextValue($"Mods.FargowiltasSouls.{Key}Config");
             position += new Vector2(Width.Pixels * Main.UIScale, 0);

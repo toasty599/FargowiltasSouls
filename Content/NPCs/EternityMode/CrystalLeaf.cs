@@ -1,5 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,7 +7,6 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityMode
@@ -83,7 +82,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                 NPC.DelBuff(0);
 
             NPC plantera = FargoSoulsUtil.NPCExists(NPC.ai[0], NPCID.Plantera);
-            if (plantera == null || FargoSoulsWorld.SwarmActive)
+            if (plantera == null || WorldSavingSystem.SwarmActive)
             {
                 NPC.life = 0;
                 NPC.HitEffect();

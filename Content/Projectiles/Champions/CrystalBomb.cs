@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -37,7 +38,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         {
             if (Projectile.localAI[0] == 0f)
             {
-                Projectile.localAI[0] = Main.rand.Next(2) == 1 ? 1f : -1f;
+                Projectile.localAI[0] = Main.rand.NextBool(2)? 1f : -1f;
                 Projectile.rotation = Main.rand.NextFloat((float)Math.PI * 2);
                 Projectile.hide = false;
             }
@@ -58,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
             Lighting.AddLight(Projectile.Center, 0.3f, 0.75f, 0.9f);
 
-            int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 197, 0.0f, 0.0f, 100, Color.Transparent, 1f);
+            int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.NorthPole, 0.0f, 0.0f, 100, Color.Transparent, 1f);
             Main.dust[index3].noGravity = true;
 
             Projectile.velocity *= 1.03f;
@@ -69,7 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Chilled, 180);
             target.AddBuff(BuffID.Frostburn, 180);
         }
@@ -80,7 +81,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
             for (int index1 = 0; index1 < 40; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, 0f, 0f, 0, default, 1f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, 0f, 0f, 0, default, 1f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 1.5f;
                 Main.dust[index2].scale *= 0.9f;
@@ -106,7 +107,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

@@ -6,19 +6,18 @@ using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -78,7 +77,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             EModeGlobalNPC.primeBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             if (npc.ai[1] == 3) //despawn faster
@@ -114,7 +113,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }
 
-            if (npc.ai[0] != 2f || FargoSoulsWorld.MasochistModeReal)
+            if (npc.ai[0] != 2f || WorldSavingSystem.MasochistModeReal)
             {
                 if (!HaveShotGuardians && npc.ai[1] == 1f && npc.ai[2] > 2f) //spinning, do wave of guardians
                 {
@@ -126,7 +125,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             for (int j = -2; j <= 2; j++)
                             {
-                                Vector2 spawnPos = new Vector2(1200, 80 * j);
+                                Vector2 spawnPos = new(1200, 80 * j);
                                 Vector2 vel = -10 * Vector2.UnitX;
                                 spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * i);
                                 vel = vel.RotatedBy(Math.PI / 2 * i);
@@ -190,7 +189,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             SoundEngine.PlaySound(SoundID.Item105 with { Volume = 2f }, npc.Center);
 
                             float modifier = (float)npc.life / npc.lifeMax;
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                                 modifier = 0;
                             int starMax = (int)(7f - 6f * modifier);
 
@@ -218,7 +217,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         npc.DelBuff(0);
                     }
 
-                    if (!Main.dayTime && !FargoSoulsWorld.MasochistModeReal)
+                    if (!Main.dayTime && !WorldSavingSystem.MasochistModeReal)
                     {
                         npc.position -= npc.velocity * 0.1f;
                         if (++DungeonGuardianStartup < 120)
@@ -233,7 +232,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
 
                 //spawn 4 more limbs
-                if (!FullySpawnedLimbs && (npc.life < npc.lifeMax * 0.6 || FargoSoulsWorld.MasochistModeReal) && npc.ai[3] >= 0f)
+                if (!FullySpawnedLimbs && (npc.life < npc.lifeMax * 0.6 || WorldSavingSystem.MasochistModeReal) && npc.ai[3] >= 0f)
                 {
                     if (npc.ai[3] == 0)
                     {
@@ -338,7 +337,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CheckDead(NPC npc)
         {
-            if (npc.ai[1] != 2f && !FargoSoulsWorld.SwarmActive)
+            if (npc.ai[1] != 2f && !WorldSavingSystem.SwarmActive)
             {
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
                 npc.life = npc.lifeMax / 630;
@@ -357,7 +356,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeGuardian", new Color(175, 75, 255));
                 }
 
-                if (!FargoSoulsWorld.MasochistModeReal)
+                if (!WorldSavingSystem.MasochistModeReal)
                 {
                     for (int i = 0; i < Main.maxNPCs; i++) //kill limbs while going dg
                     {
@@ -381,7 +380,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<ReinforcedPlating>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrateHard, 5));
             npcLoot.Add(emodeRule);
@@ -455,7 +454,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 npc.lifeMax = (int)(npc.lifeMax * 1.5);
         }
 
@@ -473,7 +472,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (NoContactDamageTimer > 0)
                 NoContactDamageTimer--;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return true;
 
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronPrime);
@@ -523,7 +522,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (head.ai[0] != 2) //not in phase 2
                     npc.position -= npc.velocity / 2;
 
-                int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? DustID.Smoke : DustID.Torch, 0f, 0f, 100, default(Color), 2f);
+                int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? DustID.Smoke : DustID.Torch, 0f, 0f, 100, default, 2f);
                 Main.dust[d].noGravity = Main.rand.NextBool();
                 Main.dust[d].velocity *= 2f;
             }
@@ -612,7 +611,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     if (++npc.ai[2] < 180)
                     {
-                        Vector2 offset = new Vector2(400 * IdleOffsetX, 400 * IdleOffsetY);
+                        Vector2 offset = new(400 * IdleOffsetX, 400 * IdleOffsetY);
                         if (CardinalSwipe)
                             offset = offset.RotatedBy(MathHelper.PiOver4);
                         
@@ -626,7 +625,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 0);
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
                             }
                         }
 
@@ -653,7 +652,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         npc.ai[2] = head.ai[1] == 1 || head.ai[1] == 2 ? 0 : -90;
 
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                             npc.ai[2] += 60;
 
                         npc.netUpdate = true;
@@ -981,15 +980,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 SoundEngine.PlaySound(SoundID.Item14, npc.Center);
                 for (int i = 0; i < 50; i++)
                 {
-                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Smoke, 0f, 0f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Smoke, 0f, 0f, 100, default, 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
                 for (int i = 0; i < 30; i++)
                 {
-                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
+                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 7f;
-                    dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 100, default(Color), 2f);
+                    dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 100, default, 2f);
                     Main.dust[dust].velocity.Y -= Main.rand.NextFloat(2f);
                     Main.dust[dust].velocity *= 2f;
                 }

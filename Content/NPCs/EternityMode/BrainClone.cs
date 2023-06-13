@@ -1,12 +1,11 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using UtfUnknown.Core.Models.SingleByte.Danish;
 
 namespace FargowiltasSouls.Content.NPCs.EternityMode
 {
@@ -83,7 +82,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
             NPC.knockBackResist = brain.knockBackResist;
 
             //if maso or this far away, be immune to knockback
-            if (FargoSoulsWorld.MasochistModeReal || Main.player[NPC.target].Distance(FargoSoulsUtil.ClosestPointInHitbox(NPC, Main.player[NPC.target].Center)) > 360)
+            if (WorldSavingSystem.MasochistModeReal || Main.player[NPC.target].Distance(FargoSoulsUtil.ClosestPointInHitbox(NPC, Main.player[NPC.target].Center)) > 360)
                 NPC.knockBackResist = 0;
 
             if (trueAlpha > 0 && (NPC.ai[0] == 2 || NPC.ai[0] == -3) && NPC.HasValidTarget) //stay at a minimum distance
@@ -106,12 +105,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
             NPC.velocity.X = (NPC.velocity.X * 50 + num4) / 51f;
             NPC.velocity.Y = (NPC.velocity.Y * 50 + num5) / 51f;
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 if (NPC.ai[0] == -2)
                 {
                     NPC.velocity *= 0.9f;
-                    if (Main.netMode != 0)
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                         NPC.ai[3] += 15f;
                     else
                         NPC.ai[3] += 25f;
@@ -129,7 +128,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                 }
                 else if (NPC.ai[0] == -3)
                 {
-                    if (Main.netMode != 0)
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                         NPC.ai[3] -= 15f;
                     else
                         NPC.ai[3] -= 25f;
@@ -150,7 +149,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                         if (NPC.justHit)
                             NPC.localAI[1] -= Main.rand.Next(5);
                         int num6 = 60 + Main.rand.Next(120);
-                        if (Main.netMode != 0)
+                        if (Main.netMode != NetmodeID.SinglePlayer)
                             num6 += Main.rand.Next(30, 90);
                         if (NPC.localAI[1] >= num6)
                         {
@@ -162,8 +161,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                                 ++num7;
                                 int num8 = (int)Main.player[NPC.target].Center.X / 16;
                                 int num9 = (int)Main.player[NPC.target].Center.Y / 16;
-                                int i = Main.rand.Next(2) != 0 ? num8 - Main.rand.Next(7, 13) : num8 + Main.rand.Next(7, 13);
-                                int j = Main.rand.Next(2) != 0 ? num9 - Main.rand.Next(7, 13) : num9 + Main.rand.Next(7, 13);
+                                int i = !Main.rand.NextBool(2)? num8 - Main.rand.Next(7, 13) : num8 + Main.rand.Next(7, 13);
+                                int j = !Main.rand.NextBool(2)? num9 - Main.rand.Next(7, 13) : num9 + Main.rand.Next(7, 13);
                                 if (!WorldGen.SolidTile(i, j))
                                 {
                                     NPC.ai[3] = 0.0f;
@@ -182,7 +181,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
             }
 
             NPC.alpha = trueAlpha;
-            if (!FargoSoulsWorld.MasochistModeReal)
+            if (!WorldSavingSystem.MasochistModeReal)
                 NPC.Opacity *= 0.5f + (1f - (float)NPC.life / NPC.lifeMax) / 2f;
         }
 
@@ -196,7 +195,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 target.AddBuff(BuffID.Poisoned, 120);
                 target.AddBuff(BuffID.Darkness, 120);
@@ -221,7 +220,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                 //SoundEngine.PlaySound(NPC.DeathSound, NPC.Center);
                 for (int i = 0; i < 40; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
                     Main.dust[d].velocity *= 2.5f;
                     Main.dust[d].scale += 0.5f;
                 }
@@ -267,7 +266,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
 
             Main.EntitySpriteDraw(texture2D13, NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, NPC.rotation, origin2, NPC.scale, effects, 0);
 
-            if (NPC.HasPlayerTarget && FargoSoulsWorld.MasochistModeReal)
+            if (NPC.HasPlayerTarget && WorldSavingSystem.MasochistModeReal)
             {
                 Vector2 offset = NPC.Center - Main.player[NPC.target].Center;
                 Vector2 spawnPos = Main.player[NPC.target].Center;

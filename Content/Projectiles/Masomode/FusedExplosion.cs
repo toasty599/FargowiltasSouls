@@ -45,16 +45,16 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                 for (int num615 = 0; num615 < 45; num615++)
                 {
-                    int num616 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1.5f);
+                    int num616 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
                     Main.dust[num616].velocity *= 1.4f;
                 }
 
                 for (int num617 = 0; num617 < 30; num617++)
                 {
-                    int num618 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 3.5f);
+                    int num618 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                     Main.dust[num618].noGravity = true;
                     Main.dust[num618].velocity *= 7f;
-                    num618 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1.5f);
+                    num618 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                     Main.dust[num618].velocity *= 3f;
                 }
 
@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Color color = Color.White;
             //color = Color.Lerp(new Color(255, 95, 46, 50), new Color(150, 35, 0, 100), (4 - Projectile.ai[1]) / 4);

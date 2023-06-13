@@ -21,10 +21,10 @@ namespace FargowiltasSouls.Patreon.LaBonez
             Item.width = 20;
             Item.height = 20;
             Item.maxStack = 1;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.useAnimation = 30;
             Item.useTime = 30;
-            Item.useStyle = 4;
+            Item.useStyle = ItemUseStyleID.HoldUp;
             Item.consumable = false;
         }
 

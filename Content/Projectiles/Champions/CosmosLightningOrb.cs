@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Electrified, 360);
-            //if (FargoSoulsWorld.MasochistMode) target.AddBuff(ModContent.BuffType<LightningRod>(), 360);
+            //if (WorldSavingSystem.MasochistMode) target.AddBuff(ModContent.BuffType<LightningRod>(), 360);
         }
     }
 }

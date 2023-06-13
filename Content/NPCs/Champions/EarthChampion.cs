@@ -1,4 +1,3 @@
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,12 +7,12 @@ using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -216,7 +215,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         for (int i = 0; i < 5; i++)
                         {
-                            int d = Dust.NewDust(NPC.Center, 0, 0, 174, 0f, 0f, 0, default(Color), 1.5f);
+                            int d = Dust.NewDust(NPC.Center, 0, 0, DustID.InfernoFork, 0f, 0f, 0, default, 1.5f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity *= 8f;
                         }
@@ -413,7 +412,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 300);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(BuffID.Burning, 300);
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.LethargicBuff>(), 300);
@@ -440,7 +439,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.EarthChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.EarthChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ID;
 
@@ -37,7 +38,7 @@ i forgor");
         {
             base.RightClick(player);
 
-            FargoSoulsWorld.skipMutantP1 = 0;
+            WorldSavingSystem.SkipMutantP1 = 0;
 
             FargoSoulsUtil.PrintText("forgor");
             if (Main.netMode == NetmodeID.Server)
@@ -93,13 +94,13 @@ i forgor");
                 NPC.downedTowerStardust = false;
                 NPC.downedTowerVortex = false;
 
-                FargoSoulsWorld.downedAbom = false;
-                FargoSoulsWorld.downedBetsy = false;
-                FargoSoulsWorld.downedDevi = false;
-                FargoSoulsWorld.downedFishronEX = false;
-                FargoSoulsWorld.downedMutant = false;
-                for (int i = 0; i < FargoSoulsWorld.downedBoss.Length; i++)
-                    FargoSoulsWorld.downedBoss[i] = false;
+                WorldSavingSystem.DownedAbom = false;
+                WorldSavingSystem.DownedBetsy = false;
+                WorldSavingSystem.DownedDevi = false;
+                WorldSavingSystem.DownedFishronEX = false;
+                WorldSavingSystem.DownedMutant = false;
+                for (int i = 0; i < WorldSavingSystem.DownedBoss.Length; i++)
+                    WorldSavingSystem.DownedBoss[i] = false;
             }
 
             FargoSoulsUtil.PrintText("forgor");

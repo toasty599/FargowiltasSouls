@@ -1,12 +1,11 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Champions;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
@@ -75,7 +74,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         {
             NPC segment = FargoSoulsUtil.NPCExists(NPC.ai[1], ModContent.NPCType<TerraChampion>(), ModContent.NPCType<TerraChampionBody>());
             NPC head = FargoSoulsUtil.NPCExists(NPC.ai[3], ModContent.NPCType<TerraChampion>());
-            if (segment == null || head == null || (FargoSoulsWorld.EternityMode && segment.life < segment.lifeMax / 10))
+            if (segment == null || head == null || (WorldSavingSystem.EternityMode && segment.life < segment.lifeMax / 10))
             {
                 SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
@@ -83,23 +82,23 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 {
                     for (int i = 0; i < 30; i++)
                     {
-                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 31, 0f, 0f, 100, default(Color), 3f);
+                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default, 3f);
                         Main.dust[dust].velocity *= 1.4f;
                     }
 
                     for (int i = 0; i < 20; i++)
                     {
-                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, 0f, 0f, 100, default(Color), 3.5f);
+                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                         Main.dust[dust].noGravity = true;
                         Main.dust[dust].velocity *= 7f;
-                        dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+                        dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                         Main.dust[dust].velocity *= 3f;
                     }
 
                     float scaleFactor9 = 0.5f;
                     for (int j = 0; j < 4; j++)
                     {
-                        int gore = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default(Vector2), Main.rand.Next(61, 64));
+                        int gore = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, default, Main.rand.Next(61, 64));
                         Main.gore[gore].velocity *= scaleFactor9;
                         Main.gore[gore].velocity.X += 1f;
                         Main.gore[gore].velocity.Y += 1f;
@@ -163,7 +162,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 600);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 600);
                 target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);

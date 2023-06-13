@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -152,9 +151,9 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             float num180 = Projectile.ai[0] / halfRangeReduced;
             Texture2D texture2D5 = TextureAssets.Projectile[Projectile.type].Value;
             Color color33 = Color.Transparent;
-            Color color34 = new Color(255, 255, 255, 0);
-            Color color35 = new Color(180, 30, 30, 200);
-            Color color36 = new Color(30, 0, 00, 30);
+            Color color34 = new(255, 255, 255, 0);
+            Color color35 = new(180, 30, 30, 200);
+            Color color36 = new(30, 0, 00, 30);
             ulong num181 = 1; //(ulong)(Projectile.ai[0] / halfRangeReduced * 2);
             for (float num182 = 0f; num182 < 30f; num182 += 0.66f)
             {
@@ -223,14 +222,14 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                     Main.dust[d].color = Color.Lerp(Color.Red, Color.Gold, Main.rand.NextFloat());
                 Main.dust[d].noLight = true;
 
-                d = Dust.NewDust(target.position, target.width, target.height, 55, vel.X, vel.Y);
+                d = Dust.NewDust(target.position, target.width, target.height, DustID.Pixie, vel.X, vel.Y);
                 Main.dust[d].alpha = 120;
                 Main.dust[d].velocity *= 2.4f;
                 Main.dust[d].scale += Main.rand.NextFloat(0.2f);
                 Main.dust[d].color = Color.Lerp(Color.Purple, Color.Black, Main.rand.NextFloat());
                 Main.dust[d].noLight = true;
 
-                d = Dust.NewDust(target.position, target.width, target.height, 55, vel.X, vel.Y);
+                d = Dust.NewDust(target.position, target.width, target.height, DustID.Pixie, vel.X, vel.Y);
                 Main.dust[d].alpha = 80;
                 Main.dust[d].velocity *= 0.45f;
                 Main.dust[d].scale += Main.rand.NextFloat(0.2f);
@@ -240,7 +239,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             for (int i = 0; i < 30; i++)
             {
-                int d = Dust.NewDust(target.position, target.width, target.height, 228, vel.X, vel.Y);
+                int d = Dust.NewDust(target.position, target.width, target.height, DustID.GoldFlame, vel.X, vel.Y);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].scale = 1.25f + Main.rand.NextFloat();
                 Main.dust[d].fadeIn = 1.5f;

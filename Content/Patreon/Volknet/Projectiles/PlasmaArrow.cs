@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.Volknet.Projectiles
@@ -67,7 +66,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
         {
             for (int i = 0; i < 10; i++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, 20, 20, 157, default, default, default, default, 3);
+                Dust dust = Dust.NewDustDirect(Projectile.position, 20, 20, DustID.ChlorophyteWeapon, default, default, default, default, 3);
                 dust.velocity = Vector2.Normalize(dust.position - Projectile.Center) * Main.rand.Next(20);
                 dust.noGravity = true;
             }
@@ -77,7 +76,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
         {
             for (int i = 0; i < 10; i++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, 20, 20, 157, default, default, default, default, 3);
+                Dust dust = Dust.NewDustDirect(Projectile.position, 20, 20, DustID.ChlorophyteWeapon, default, default, default, default, 3);
                 dust.velocity = Vector2.Normalize(dust.position - Projectile.Center) * Main.rand.Next(20);
                 dust.noGravity = true;
             }

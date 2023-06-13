@@ -1,9 +1,9 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityMode
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
             if (target.hurtCooldowns[1] == 0)
             {
                 target.AddBuff(BuffID.Wet, 420);
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                     target.AddBuff(ModContent.BuffType<SqueakyToyBuff>(), 120);
                 target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);

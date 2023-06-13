@@ -1,7 +1,6 @@
 using System.IO;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

@@ -1,12 +1,11 @@
 using FargowiltasSouls.Content.NPCs.MutantBoss;
-using FargowiltasSouls.Utilities;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Common.Utilities;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {
@@ -78,7 +77,7 @@ namespace FargowiltasSouls.Content.Items.Summons
                             FargoSoulsUtil.SpawnBossNetcoded(Main.player[p], ModContent.NPCType<MutantBoss>(), false);
 
                             Item.active = false;
-                            Item.type = 0;
+                            Item.type = ItemID.None;
                             Item.stack = 0;
                         }
                     }

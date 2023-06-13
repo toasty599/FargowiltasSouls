@@ -25,7 +25,7 @@ While in stealth, your own projectiles will not be sucked in
             // '撕裂现实'");
         }
 
-        protected override Color nameColor => new Color(0, 242, 170);
+        protected override Color nameColor => new(0, 242, 170);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Vortex");
 
         public override void SetDefaults()

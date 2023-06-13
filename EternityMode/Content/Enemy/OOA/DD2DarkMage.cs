@@ -28,7 +28,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
                 n.GetGlobalNPC<EModeGlobalNPC>().PaladinsShield = true;
                 if (Main.rand.NextBool())
                 {
-                    int d = Dust.NewDust(n.position, n.width, n.height, 254, 0f, -3f, 0, new Color(), 1.5f);
+                    int d = Dust.NewDust(n.position, n.width, n.height, DustID.CrystalPulse, 0f, -3f, 0, new Color(), 1.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].noLight = true;
                 }

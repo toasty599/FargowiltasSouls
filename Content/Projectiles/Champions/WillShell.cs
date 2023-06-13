@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.Champions
 {
@@ -67,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
                 Vector2 vector6 = Vector2.UnitX * 40f;
                 vector6 = vector6.RotatedBy((num227 - (num226 / 2 - 1)) * 6.28318548f / num226, default) + Projectile.Center;
                 Vector2 vector7 = vector6 - Projectile.Center;
-                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 174, 0f, 0f, 0, default, 3f);
+                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.InfernoFork, 0f, 0f, 0, default, 3f);
                 Main.dust[num228].noGravity = true;
                 Main.dust[num228].velocity = vector7;
             }
@@ -78,7 +79,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;

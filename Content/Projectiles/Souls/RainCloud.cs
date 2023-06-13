@@ -1,7 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Toggler;
+﻿using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -159,9 +157,9 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                         }
 
                         //lightning
-                        if (Main.rand.Next(10) == 0)
+                        if (Main.rand.NextBool(10))
                         {
-                            Vector2 rotationVector2 = new Vector2(Main.rand.NextFloat(-2, 2), 5);
+                            Vector2 rotationVector2 = new(Main.rand.NextFloat(-2, 2), 5);
                             rotationVector2.Normalize();
                             Vector2 vector2_3 = rotationVector2 * 10f;
                             float ai_1 = Main.rand.Next(80);

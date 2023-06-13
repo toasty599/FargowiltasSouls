@@ -6,7 +6,6 @@ using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
@@ -15,6 +14,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -68,14 +68,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             EModeGlobalNPC.eyeBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return true;
 
             void SpawnServants()
             {
                 if (npc.life <= npc.lifeMax * 0.65 && NPC.CountNPCS(NPCID.ServantofCthulhu) < 9 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 vel = new Vector2(3, 3);
+                    Vector2 vel = new(3, 3);
                     for (int i = 0; i < 4; i++)
                     {
                         int n = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu);
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 if (ScytheSpawnTimer % (IsInFinalPhase ? 2 : 6) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (IsInFinalPhase && !FargoSoulsWorld.MasochistModeReal)
+                    if (IsInFinalPhase && !WorldSavingSystem.MasochistModeReal)
                     {
                         int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
                         if (p != Main.maxProjectiles)
@@ -118,7 +118,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             if (npc.ai[1] == 3f && !IsInFinalPhase) //during dashes in phase 2
             {
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                 {
                     ScytheSpawnTimer = 30;
                     SpawnServants();
@@ -192,11 +192,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     else if (AITimer < 90) //fade in, moving into position
                     {
-                        npc.alpha -= FargoSoulsWorld.MasochistModeReal ? 5 : 4;
+                        npc.alpha -= WorldSavingSystem.MasochistModeReal ? 5 : 4;
                         if (npc.alpha < 0)
                         {
                             npc.alpha = 0;
-                            if (FargoSoulsWorld.MasochistModeReal && AITimer < 90)
+                            if (WorldSavingSystem.MasochistModeReal && AITimer < 90)
                                 AITimer = 90;
                         }
 
@@ -215,7 +215,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         for (int i = 0; i < 3; i++)
                         {
-                            int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);
+                            int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].noLight = true;
                             Main.dust[d].velocity *= 4f;
@@ -274,7 +274,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.velocity.Y = npc.Center.Y < Main.player[npc.target].Center.Y ? ySpeed : -ySpeed; //alternate this every dash
 
                             ScytheSpawnTimer = 30;
-                            //if (FargoSoulsWorld.MasochistModeReal)
+                            //if (WorldSavingSystem.MasochistModeReal)
                             //    SpawnServants();
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 FargoSoulsUtil.XWay(8, npc.GetSource_FromThis(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
@@ -291,7 +291,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             ScytheSpawnTimer = 0;
                             FinalPhaseDashStageDuration = 0;
                             FinalPhaseBerserkDashesComplete = true;
-                            if (!FargoSoulsWorld.MasochistModeReal)
+                            if (!WorldSavingSystem.MasochistModeReal)
                                 FinalPhaseAttackCounter++;
                             npc.velocity *= 0.75f;
                             npc.netUpdate = true;
@@ -352,11 +352,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                         else
                         {
-                            npc.alpha += FargoSoulsWorld.MasochistModeReal ? 16 : 4;
+                            npc.alpha += WorldSavingSystem.MasochistModeReal ? 16 : 4;
                             if (npc.alpha > 255)
                             {
                                 npc.alpha = 255;
-                                if (FargoSoulsWorld.MasochistModeReal && AITimer < threshold)
+                                if (WorldSavingSystem.MasochistModeReal && AITimer < threshold)
                                     AITimer = threshold;
                             }
 
@@ -382,7 +382,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         {
                             for (int i = 0; i < 3; i++)
                             {
-                                int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);
+                                int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                                 Main.dust[d].noGravity = true;
                                 Main.dust[d].noLight = true;
                                 Main.dust[d].velocity *= 4f;
@@ -419,7 +419,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     npc.alpha += 4;
                     for (int i = 0; i < 3; i++)
                     {
-                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);
+                        int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].noLight = true;
                         Main.dust[d].velocity *= 4f;
@@ -444,7 +444,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         npc.alpha += 4;
                         for (int i = 0; i < 3; i++)
                         {
-                            int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);
+                            int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].noLight = true;
                             Main.dust[d].velocity *= 4f;
@@ -487,7 +487,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.position -= npc.velocity / 2;
                             for (int i = 0; i < 3; i++)
                             {
-                                int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);
+                                int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                                 Main.dust[d].noGravity = true;
                                 Main.dust[d].noLight = true;
                                 Main.dust[d].velocity *= 4f;
@@ -540,7 +540,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<AgitatingLens>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrate, 5));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.FallenStar, 5));
@@ -551,7 +551,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                 target.AddBuff(BuffID.Bleeding, 600);

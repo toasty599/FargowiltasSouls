@@ -66,7 +66,7 @@ Summons a pet Magic Lantern
                 player.Spawn(PlayerSpawnContext.RecallFromItem);
 
                 for (int d = 0; d < 70; d++)
-                    Dust.NewDust(player.position, player.width, player.height, 15, 0f, 0f, 150, default, 1.5f);
+                    Dust.NewDust(player.position, player.width, player.height, DustID.MagicMirror, 0f, 0f, 150, default, 1.5f);
             }
         }
 

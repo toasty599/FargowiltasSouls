@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -38,7 +37,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
             for (int index1 = 0; index1 < 40; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, 0f, 0f, 0, default, 1f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, 0f, 0f, 0, default, 1f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 1.5f;
                 Main.dust[index2].scale *= 0.9f;

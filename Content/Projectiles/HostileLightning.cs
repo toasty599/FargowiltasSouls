@@ -58,21 +58,21 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (Main.rand.NextBool(6))
             {
-                if (Main.rand.Next(Projectile.extraUpdates) != 0)
+                if (!Main.rand.NextBool(Projectile.extraUpdates))
                     return;
                 for (int index1 = 0; index1 < 2; ++index1)
                 {
-                    float num1 = Projectile.rotation + (float)((Main.rand.Next(2) == 1 ? -1.0 : 1.0) * 1.57079637050629);
+                    float num1 = Projectile.rotation + (float)((Main.rand.NextBool(2)? -1.0 : 1.0) * 1.57079637050629);
                     float num2 = (float)(Main.rand.NextDouble() * 0.800000011920929 + 1.0);
-                    Vector2 vector2 = new Vector2((float)Math.Cos((double)num1) * num2, (float)Math.Sin((double)num1) * num2);
-                    int index2 = Dust.NewDust(Projectile.Center, 0, 0, 226, vector2.X, vector2.Y, 0, DrawColor, 1f);
+                    Vector2 vector2 = new((float)Math.Cos((double)num1) * num2, (float)Math.Sin((double)num1) * num2);
+                    int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.Electric, vector2.X, vector2.Y, 0, DrawColor, 1f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].scale = 1.2f;
                     Main.dust[index2].shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
                 }
-                if (Main.rand.Next(5) != 0)
+                if (!Main.rand.NextBool(5))
                     return;
-                int index3 = Dust.NewDust(Projectile.Center + Projectile.velocity.RotatedBy(1.57079637050629, new Vector2()) * ((float)Main.rand.NextDouble() - 0.5f) * Projectile.width - Vector2.One * 4f, 8, 8, 31, 0.0f, 0.0f, 100, DrawColor, 1.5f);
+                int index3 = Dust.NewDust(Projectile.Center + Projectile.velocity.RotatedBy(1.57079637050629, new Vector2()) * ((float)Main.rand.NextDouble() - 0.5f) * Projectile.width - Vector2.One * 4f, 8, 8, DustID.Smoke, 0.0f, 0.0f, 100, DrawColor, 1.5f);
                 Dust dust = Main.dust[index3];
                 dust.shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);
                 dust.velocity = dust.velocity * 0.5f;
@@ -116,12 +116,12 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void Kill(int timeLeft)
         {
             int shadertype = DrawColor == new Color(231, 174, 254) ? 100 : 0;
-            float num2 = (float)(Projectile.rotation + 1.57079637050629 + (Main.rand.Next(2) == 1 ? -1.0 : 1.0) * 1.57079637050629);
+            float num2 = (float)(Projectile.rotation + 1.57079637050629 + (Main.rand.NextBool(2)? -1.0 : 1.0) * 1.57079637050629);
             float num3 = (float)(Main.rand.NextDouble() * 2.0 + 2.0);
-            Vector2 vector2 = new Vector2((float)Math.Cos(num2) * num3, (float)Math.Sin(num2) * num3);
+            Vector2 vector2 = new((float)Math.Cos(num2) * num3, (float)Math.Sin(num2) * num3);
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {
-                int index = Dust.NewDust(Projectile.oldPos[i], 0, 0, 229, vector2.X, vector2.Y, 0, DrawColor, 1f);
+                int index = Dust.NewDust(Projectile.oldPos[i], 0, 0, DustID.Vortex, vector2.X, vector2.Y, 0, DrawColor, 1f);
                 Main.dust[index].noGravity = true;
                 Main.dust[index].scale = 1.7f;
                 Main.dust[index].shader = GameShaders.Armor.GetSecondaryShader(shadertype, Main.LocalPlayer);

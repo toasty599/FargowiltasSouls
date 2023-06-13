@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
         {
             base.OnHitPlayer(player, damage, crit);
 
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 player.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 //player.AddBuff(ModContent.BuffType<Unstable>(), 240);

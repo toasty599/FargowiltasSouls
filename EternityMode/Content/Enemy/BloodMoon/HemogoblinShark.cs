@@ -89,20 +89,20 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             }
             targetSpot = center + vectorTowardsTarget.SafeNormalize(Vector2.Zero) * num;
             Point tileCoordinates = targetSpot.ToTileCoordinates();
-            Microsoft.Xna.Framework.Rectangle rectangle1 = new Microsoft.Xna.Framework.Rectangle(tileCoordinates.X, tileCoordinates.Y, 1, 1);
+            Microsoft.Xna.Framework.Rectangle rectangle1 = new(tileCoordinates.X, tileCoordinates.Y, 1, 1);
             rectangle1.Inflate(6, 16);
-            Microsoft.Xna.Framework.Rectangle rectangle2 = new Microsoft.Xna.Framework.Rectangle(0, 0, Main.maxTilesX, Main.maxTilesY);
+            Microsoft.Xna.Framework.Rectangle rectangle2 = new(0, 0, Main.maxTilesX, Main.maxTilesY);
             rectangle2.Inflate(-40, -40);
             rectangle1 = Microsoft.Xna.Framework.Rectangle.Intersect(rectangle1, rectangle2);
-            List<Point> pointList1 = new List<Point>();
-            List<Point> pointList2 = new List<Point>();
+            List<Point> pointList1 = new();
+            List<Point> pointList2 = new();
             for (int left = rectangle1.Left; left <= rectangle1.Right; ++left)
             {
                 for (int top = rectangle1.Top; top <= rectangle1.Bottom; ++top)
                 {
                     if (WorldGen.SolidTile(left, top))
                     {
-                        Vector2 vector2 = new Vector2((float)(left * 16 + 8), (float)(top * 16 + 8));
+                        Vector2 vector2 = new((float)(left * 16 + 8), (float)(top * 16 + 8));
                         if ((double)Vector2.Distance(targetSpot, vector2) <= 200.0)
                         {
                             if (FindSharpTearsOpening(left, top, left > tileCoordinates.X, left < tileCoordinates.X, top > tileCoordinates.Y, top < tileCoordinates.Y))
@@ -122,7 +122,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             return pointList3[index1];
         }
 
-        private bool FindSharpTearsOpening(int x, int y, bool acceptLeft, bool acceptRight, bool acceptUp, bool acceptDown)
+        private static bool FindSharpTearsOpening(int x, int y, bool acceptLeft, bool acceptRight, bool acceptUp, bool acceptDown)
         {
             return acceptLeft && !WorldGen.SolidTile(x - 1, y) || acceptRight && !WorldGen.SolidTile(x + 1, y) || acceptUp && !WorldGen.SolidTile(x, y - 1) || acceptDown && !WorldGen.SolidTile(x, y + 1);
         }

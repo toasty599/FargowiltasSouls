@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -122,14 +122,14 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, Projectile.knockBack, Projectile.owner, -Vector2.UnitY.ToRotation(), 32);
             }
 
-            Vector2 size = new Vector2(500, 500);
+            Vector2 size = new(500, 500);
             Vector2 spawnPos = Projectile.Center;
             spawnPos.X -= size.X / 2;
             spawnPos.Y -= size.Y / 2;
 
             for (int num615 = 0; num615 < 30; num615++)
             {
-                int num616 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, 31, 0f, 0f, 100, default, 1.5f);
+                int num616 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
                 Main.dust[num616].velocity *= 1.4f;
             }
 
@@ -181,7 +181,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
                 for (int i = 0; i < 15; i++)
                 {
-                    int dust = Dust.NewDust(dustPos, 32, 32, 31, 0f, 0f, 100, default, 3f);
+                    int dust = Dust.NewDust(dustPos, 32, 32, DustID.Smoke, 0f, 0f, 100, default, 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
 
@@ -224,7 +224,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(BuffID.BrokenArmor, 300);
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 300);
@@ -241,7 +241,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Color glow = new Color(Main.DiscoR + 210, Main.DiscoG + 210, Main.DiscoB + 210) * Projectile.Opacity;
             Color glow2 = new Color(Main.DiscoR + 50, Main.DiscoG + 50, Main.DiscoB + 50) * Projectile.Opacity;

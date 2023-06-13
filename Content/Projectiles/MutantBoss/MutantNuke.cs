@@ -1,7 +1,8 @@
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -33,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Projectile.hostile = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = FargoSoulsWorld.MasochistModeReal ? 120 : 180;
+            Projectile.timeLeft = WorldSavingSystem.MasochistModeReal ? 120 : 180;
             CooldownSlot = 1;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
@@ -47,8 +48,8 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 SoundEngine.PlaySound(SoundID.Item20, Projectile.position);
             }
 
-            if (!FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
-                || Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].dontTakeDamage)
+            if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                || Main.npc[EModeGlobalNPC.mutantBoss].dontTakeDamage)
             {
                 Projectile.Kill();
                 return;
@@ -63,7 +64,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 for (int index1 = 0; index1 < 36; ++index1)
                 {
                     Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy(index1 * 3.14159274101257 / 36 * 2, new Vector2()) * new Vector2(2f, 4f)).RotatedBy(Projectile.rotation - 1.57079637050629, new Vector2());
-                    int index2 = Dust.NewDust(Projectile.Center, 0, 0, 135, 0.0f, 0.0f, 0, new Color(), 1f);
+                    int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.IceTorch, 0.0f, 0.0f, 0, new Color(), 1f);
                     Main.dust[index2].scale = 2f;
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].position = Projectile.Center + vector2 * 6f;
@@ -72,7 +73,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             }
 
             Vector2 vector21 = Vector2.UnitY.RotatedBy(Projectile.rotation, new Vector2()) * 8f * 2;
-            int index21 = Dust.NewDust(Projectile.Center, 0, 0, 6, 0.0f, 0.0f, 0, new Color(), 1f);
+            int index21 = Dust.NewDust(Projectile.Center, 0, 0, DustID.Torch, 0.0f, 0.0f, 0, new Color(), 1f);
             Main.dust[index21].position = Projectile.Center + vector21;
             Main.dust[index21].scale = 1.5f;
             Main.dust[index21].noGravity = true;
@@ -86,7 +87,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             {
                 Vector2 vector2_1 = (Vector2.Normalize(Projectile.velocity) * new Vector2(Projectile.width / 2f, Projectile.height) * 0.75f).RotatedBy((index1 - (num1 / 2 - 1)) * 6.28318548202515 / num1, new Vector2()) + Projectile.Center;
                 Vector2 vector2_2 = vector2_1 - Projectile.Center;
-                int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, 172, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
+                int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, DustID.DungeonWater, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].noLight = true;
                 Main.dust[index2].velocity = vector2_2;
@@ -100,7 +101,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
@@ -115,7 +116,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 5)

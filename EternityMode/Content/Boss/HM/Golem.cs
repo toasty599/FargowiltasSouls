@@ -6,16 +6,15 @@ using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -50,7 +49,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool SafePreAI(NPC npc)
         {
-            if (!FargoSoulsWorld.SwarmActive && !npc.dontTakeDamage && HealPerSecond != 0)
+            if (!WorldSavingSystem.SwarmActive && !npc.dontTakeDamage && HealPerSecond != 0)
             {
                 npc.life += HealPerSecond / 60; //healing stuff
                 if (npc.life > npc.lifeMax)
@@ -138,7 +137,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             NPC.golemBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             /*if (npc.ai[0] == 0f && npc.velocity.Y == 0f) //manipulating golem jump ai
@@ -162,7 +161,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     p.AddBuff(ModContent.BuffType<LowGroundBuff>(), 2);
             }
 
-            HealPerSecond = FargoSoulsWorld.MasochistModeReal ? 240 : 180;
+            HealPerSecond = WorldSavingSystem.MasochistModeReal ? 240 : 180;
             if (!IsInTemple) //temple enrage, more horiz move and fast jumps
             {
                 HealPerSecond *= 2;
@@ -206,10 +205,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         StompAttackCounter++;
                         if (StompAttackCounter == 1) //plant geysers
                         {
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                                 StompAttackCounter++;
 
-                            Vector2 spawnPos = new Vector2(npc.position.X, npc.Center.Y); //floor geysers
+                            Vector2 spawnPos = new(npc.position.X, npc.Center.Y); //floor geysers
                             spawnPos.X -= npc.width * 7;
                             for (int i = 0; i < 6; i++)
                             {
@@ -236,7 +235,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         }
                         else if (StompAttackCounter == 3) //rocks fall
                         {
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                                 StompAttackCounter = 0;
 
                             if (npc.HasPlayerTarget)
@@ -270,7 +269,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         tilePosY--;
                                     }
 
-                                    Vector2 spawn = new Vector2(tilePosX * 16 + 8, tilePosY * 16 + 8);
+                                    Vector2 spawn = new(tilePosX * 16 + 8, tilePosY * 16 + 8);
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<GolemBoulder>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                 }
@@ -283,7 +282,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else //outside temple
                     {
-                        Vector2 spawnPos = new Vector2(npc.position.X, npc.Center.Y);
+                        Vector2 spawnPos = new(npc.position.X, npc.Center.Y);
                         spawnPos.X -= npc.width * 7;
                         for (int i = 0; i < 6; i++)
                         {
@@ -329,7 +328,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     tilePosY--;
                                 }
 
-                                Vector2 spawn = new Vector2(tilePosX * 16 + 8, tilePosY * 16 + 8);
+                                Vector2 spawn = new(tilePosX * 16 + 8, tilePosY * 16 + 8);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<GolemBoulder>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                             }
@@ -343,13 +342,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             //spray spiky balls
-            if (FargoSoulsWorld.MasochistModeReal && ++SpikyBallTimer >= 900)
+            if (WorldSavingSystem.MasochistModeReal && ++SpikyBallTimer >= 900)
             {
                 if (Framing.GetTileSafely(npc.Center).WallType == WallID.LihzahrdBrickUnsafe)
                 {
                     if (npc.velocity.Y > 0) //only when falling, implicitly assume at peak of a jump
                     {
-                        SpikyBallTimer = FargoSoulsWorld.MasochistModeReal ? 600 : 0;
+                        SpikyBallTimer = WorldSavingSystem.MasochistModeReal ? 600 : 0;
                         for (int i = 0; i < 8; i++)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
@@ -369,7 +368,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             //golem's anti-air fireball spray (when player is above)
-            //if (FargoSoulsWorld.MasochistModeReal && ++AntiAirTimer > 240 && npc.velocity.Y == 0)
+            //if (WorldSavingSystem.MasochistModeReal && ++AntiAirTimer > 240 && npc.velocity.Y == 0)
             //{
             //    AntiAirTimer = 0;
             //    if (npc.HasPlayerTarget && Main.player[npc.target].Center.Y < npc.Bottom.Y
@@ -415,7 +414,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<LihzahrdTreasureBox>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.GoldenCrateHard, 5));
             npcLoot.Add(emodeRule);
@@ -479,7 +478,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             bool result = base.SafePreAI(npc);
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             if (npc.HasValidTarget && Framing.GetTileSafely(Main.player[npc.target].Center).WallType == WallID.LihzahrdBrickUnsafe)
@@ -503,7 +502,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (npc.ai[0] == 0f && DoAttackOnFistImpact)
             {
                 DoAttackOnFistImpact = false;
-                if (Framing.GetTileSafely(Main.player[npc.target].Center).WallType != WallID.LihzahrdBrickUnsafe || FargoSoulsWorld.MasochistModeReal)
+                if (Framing.GetTileSafely(Main.player[npc.target].Center).WallType != WallID.LihzahrdBrickUnsafe || WorldSavingSystem.MasochistModeReal)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
@@ -596,7 +595,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             bool result = base.SafePreAI(npc);
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             NPC golem = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);
@@ -619,7 +618,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         npc.position += npc.DirectionTo(Main.player[npc.target].Center) * 4;
 
                     //disable attacks when nearby
-                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 350 && !FargoSoulsWorld.MasochistModeReal)
+                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 350 && !WorldSavingSystem.MasochistModeReal)
                     {
                         if (SuppressedAi1 < npc.ai[1])
                             SuppressedAi1 = npc.ai[1];
@@ -675,7 +674,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.localAI[0] = AttackTimer > fireTime ? 1f : 0f; //mouth animations
 
                     bool doSpikeBalls = !DoDeathray;
-                    if (FargoSoulsWorld.MasochistModeReal || !IsInTemple)
+                    if (WorldSavingSystem.MasochistModeReal || !IsInTemple)
                     {
                         DoDeathray = true;
                         doSpikeBalls = true;
@@ -740,7 +739,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         npc.velocity.X += SweepToLeft ? -.15f : .15f;
 
                         Tile tile = Framing.GetTileSafely(npc.Center); //stop if reached a wall, but only 1sec after started firing
-                        if (AttackTimer > fireTime + 60 && (tile.HasUnactuatedTile && tile.TileType == TileID.LihzahrdBrick && tile.WallType == WallID.LihzahrdBrickUnsafe)
+                        if (AttackTimer > fireTime + 60 && tile.HasUnactuatedTile && tile.TileType == TileID.LihzahrdBrick && tile.WallType == WallID.LihzahrdBrickUnsafe
                             || (IsInTemple && tile.WallType != WallID.LihzahrdBrickUnsafe)) //i.e. started in temple but has left temple, then stop
                         {
                             npc.velocity = Vector2.Zero;
@@ -760,7 +759,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         DoAttack = false;
                     }
 
-                    if (!FargoSoulsWorld.MasochistModeReal)
+                    if (!WorldSavingSystem.MasochistModeReal)
                     {
                         const float geyserTiming = 100;
                         if (AttackTimer % geyserTiming == geyserTiming - 5)

@@ -1,4 +1,3 @@
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,13 +9,13 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Pets;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -188,7 +187,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    int max = NPC.life < NPC.lifeMax / 2 && FargoSoulsWorld.EternityMode ? 10 : 8;
+                                    int max = NPC.life < NPC.lifeMax / 2 && WorldSavingSystem.EternityMode ? 10 : 8;
                                     float offset = NPC.localAI[0] > 0 && player.velocity != Vector2.Zero //aim to intercept
                                         ? Main.rand.NextFloat((float)Math.PI * 2) : player.velocity.ToRotation();
                                     for (int i = 0; i < max; i++)
@@ -418,7 +417,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         Vector2 vector2_1 = (Vector2.Normalize(NPC.velocity) * new Vector2((NPC.width + 50) / 2f, NPC.height) * 0.75f).RotatedBy((index1 - (num22 / 2 - 1)) * Math.PI / num22, new Vector2()) + NPC.Center;
                         Vector2 vector2_2 = ((float)(Main.rand.NextDouble() * 3.14159274101257) - 1.570796f).ToRotationVector2() * Main.rand.Next(3, 8);
                         Vector2 vector2_3 = vector2_2;
-                        int index2 = Dust.NewDust(vector2_1 + vector2_3, 0, 0, 87, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
+                        int index2 = Dust.NewDust(vector2_1 + vector2_3, 0, 0, DustID.GemTopaz, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].velocity /= 4f;
                         Main.dust[index2].velocity -= NPC.velocity;
@@ -597,7 +596,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[1] < 90) //shoot fireball
                             {
                                 SoundEngine.PlaySound(SoundID.Item34, NPC.Center);
-                                Vector2 spawn = new Vector2(40, 50);
+                                Vector2 spawn = new(40, 50);
                                 if (NPC.direction < 0)
                                 {
                                     spawn.X *= -1;
@@ -704,7 +703,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
                 target.AddBuff(ModContent.BuffType<MidasBuff>(), 300);
@@ -732,7 +731,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.WillChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.WillChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

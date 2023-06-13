@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -67,7 +66,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
                 Vector2 basePos = Projectile.Center - Projectile.velocity * 141 / 2 * Projectile.scale;
                 for (int i = 0; i < 40; i++)
                 {
-                    int d = Dust.NewDust(basePos + Projectile.velocity * Main.rand.NextFloat(141) * Projectile.scale, 0, 0, 86, Scale: 3f);
+                    int d = Dust.NewDust(basePos + Projectile.velocity * Main.rand.NextFloat(141) * Projectile.scale, 0, 0, DustID.GemAmethyst, Scale: 3f);
                     Main.dust[d].velocity *= 4.5f;
                     Main.dust[d].noGravity = true;
                 }
@@ -84,7 +83,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
             Vector2 basePos = Projectile.Center - Projectile.velocity * 141 / 2 * Projectile.scale;
             for (int i = 0; i < 40; i++)
             {
-                int d = Dust.NewDust(basePos + Projectile.velocity * Main.rand.NextFloat(141) * Projectile.scale, 0, 0, 86, Scale: 3f);
+                int d = Dust.NewDust(basePos + Projectile.velocity * Main.rand.NextFloat(141) * Projectile.scale, 0, 0, DustID.GemAmethyst, Scale: 3f);
                 Main.dust[d].velocity *= 4.5f;
                 Main.dust[d].noGravity = true;
             }
@@ -111,7 +110,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

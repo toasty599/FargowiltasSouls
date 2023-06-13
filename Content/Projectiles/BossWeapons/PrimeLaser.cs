@@ -4,6 +4,7 @@ using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
@@ -73,7 +74,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             for (int index1 = 0; index1 < num; ++index1)
             {
                 Vector2 position = Projectile.Center - Projectile.velocity * index1 / 2;
-                int index2 = Dust.NewDust(position, 0, 0, 130, 0.0f, 0.0f, 100, new Color(255, 196, 196), 2.1f);
+                int index2 = Dust.NewDust(position, 0, 0, DustID.Firework_Red, 0.0f, 0.0f, 100, new Color(255, 196, 196), 2.1f);
                 Dust dust = Main.dust[index2];
                 dust.fadeIn = 0.2f;
                 dust.scale *= 0.66f;
@@ -86,10 +87,10 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             Color color25 = Color.White;
             float num150 = (TextureAssets.Projectile[Projectile.type].Value.Width - Projectile.width) * 0.5f + Projectile.width * 0.5f;
-            Rectangle value7 = new Rectangle((int)Main.screenPosition.X - 500, (int)Main.screenPosition.Y - 500, Main.screenWidth + 1000, Main.screenHeight + 1000);
+            Rectangle value7 = new((int)Main.screenPosition.X - 500, (int)Main.screenPosition.Y - 500, Main.screenWidth + 1000, Main.screenHeight + 1000);
             if (Projectile.getRect().Intersects(value7))
             {
-                Vector2 value8 = new Vector2(Projectile.position.X - Main.screenPosition.X + num150, Projectile.position.Y - Main.screenPosition.Y + Projectile.height / 2 + Projectile.gfxOffY);
+                Vector2 value8 = new(Projectile.position.X - Main.screenPosition.X + num150, Projectile.position.Y - Main.screenPosition.Y + Projectile.height / 2 + Projectile.gfxOffY);
                 float num176 = 100f * (Projectile.ai[0] == 1 ? 1.5f : 1f);
                 float scaleFactor = 3f;
                 if (Projectile.ai[1] == 1f)

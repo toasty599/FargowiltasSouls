@@ -1,5 +1,4 @@
 using System;
-using FargowiltasSouls.Content.Projectiles.Challengers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -69,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 
             for (int i = 0; i < 30; i++)
             {
-                int dust = Dust.NewDust(Projectile.Center, 0, 0, 91, 0f, 0f, 100, default, 3f);
+                int dust = Dust.NewDust(Projectile.Center, 0, 0, DustID.GemDiamond, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].velocity *= 1.4f;
                 Main.dust[dust].noGravity = true;
             }
@@ -77,11 +76,11 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             for (int i = 0; i < 20; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 91, 0f, 0f, 100, default, 3.5f);
+                    Projectile.height, DustID.GemDiamond, 0f, 0f, 100, default, 3.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
                 dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 91, 0f, 0f, 100, default, 1.5f);
+                    Projectile.height, DustID.GemDiamond, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dust].velocity *= 3f;
             }
 
@@ -102,7 +101,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;

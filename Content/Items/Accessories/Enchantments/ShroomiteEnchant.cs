@@ -31,7 +31,7 @@ While in stealth, more mushrooms will spawn
 
         }
 
-        protected override Color nameColor => new Color(0, 140, 244);
+        protected override Color nameColor => new(0, 140, 244);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Shroomite");
 
         public override void SetDefaults()

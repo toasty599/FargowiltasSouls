@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -40,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
                 SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
                 for (int index1 = 0; index1 < 5; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 51);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SnowBlock);
                     Dust dust = Main.dust[index2];
                     dust.velocity = dust.velocity * 0.6f;
                 }
@@ -58,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Chilled, 180);
             target.AddBuff(BuffID.Frostburn, 180);
         }
@@ -68,7 +69,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             for (int index1 = 0; index1 < 5; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 51);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SnowBlock);
                 Dust dust = Main.dust[index2];
                 dust.velocity = dust.velocity * 0.6f;
             }
@@ -79,7 +80,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

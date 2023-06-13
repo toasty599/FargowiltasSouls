@@ -86,12 +86,12 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 Item.useAnimation = 5;
                 Item.UseSound = SoundID.Item101;
             }
-            return delay > 0 ? false : base.CanUseItem(player);
+            return delay <= 0 && base.CanUseItem(player);
 
         }
         public override bool CanShoot(Player player) //different from CanUseItem because here you hold weapon out, and use mana
         {
-            return player.ownedProjectileCounts[Item.shoot] >= 20 ? false : base.CanShoot(player);
+            return player.ownedProjectileCounts[Item.shoot] < 20 && base.CanShoot(player);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

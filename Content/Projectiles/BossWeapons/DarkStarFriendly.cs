@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
@@ -55,7 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             int num2 = 3;
 
             for (int index = 0; index < num1; ++index)
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 58, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Enchanted_Pink, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
             for (int index = 0; index < num2; ++index)
             {
                 int Type = Main.rand.Next(16, 18);
@@ -66,7 +67,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
 
             for (int index = 0; index < 10; ++index)
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 57, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Enchanted_Gold, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
             for (int index = 0; index < 3; ++index)
                 if (!Main.dedServ)
                     Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);

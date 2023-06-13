@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Patreon.Duck
 
                 for (int i = 0; i < 40; i++)
                 {
-                    int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, DustID.Smoke, 0f, 0f, 100, default(Color), 4f);
+                    int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, DustID.Smoke, 0f, 0f, 100, default, 4f);
                     Main.dust[dust].velocity -= Projectile.velocity * 2;
                     Main.dust[dust].velocity *= 3f;
                     Main.dust[dust].velocity += player.velocity / 2;
@@ -93,14 +93,14 @@ namespace FargowiltasSouls.Patreon.Duck
 
                 for (int i = 0; i < 50; i++)
                 {
-                    int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 4f);
+                    int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, DustID.Torch, 0f, 0f, 100, default, 4f);
                     Main.dust[dust].scale *= Main.rand.NextFloat(1, 2.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity -= Projectile.velocity * 2;
                     Main.dust[dust].velocity = Main.dust[dust].velocity.RotatedByRandom(MathHelper.ToRadians(40)) * 6f;
                     Main.dust[dust].velocity *= Main.rand.NextFloat(1f, 3f);
                     Main.dust[dust].velocity += player.velocity / 2;
-                    dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 4f);
+                    dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, DustID.Torch, 0f, 0f, 100, default, 4f);
                     Main.dust[dust].velocity -= Projectile.velocity * 2;
                     Main.dust[dust].velocity *= 5f;
                     Main.dust[dust].velocity *= Main.rand.NextFloat(1f, 2f);

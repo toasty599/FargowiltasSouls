@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             Main.NewText(Projectile.timeLeft);
         }
-        public float WidthFunction(float progress)
+        public static float WidthFunction(float progress)
         {
             return coneLength;
         }
@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             return telegraphColor;
         }
-        public void SetEffectParameters(Effect effect)
+        public static void SetEffectParameters(Effect effect)
         {
             effect.Parameters["WorldViewProjection"].SetValue(GetWorldViewProjectionMatrixIdioticVertexShaderBoilerplate());
         }

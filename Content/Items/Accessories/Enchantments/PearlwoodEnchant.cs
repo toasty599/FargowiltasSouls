@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'Too little, too late…'");
         }
 
-        protected override Color nameColor => new Color(173, 154, 95);
+        protected override Color nameColor => new(173, 154, 95);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Pearlwood");
 
         public override void SetDefaults()
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //holy star spawn code funny
             float x = target.position.X + Main.rand.Next(-400, 400);
             float y = target.position.Y - Main.rand.Next(600, 900);
-            Vector2 vector12 = new Vector2(x, y);
+            Vector2 vector12 = new(x, y);
             float num483 = target.position.X + target.width / 2 - vector12.X;
             float num484 = target.position.Y + target.height / 2 - vector12.Y;
             int num485 = 22;

@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

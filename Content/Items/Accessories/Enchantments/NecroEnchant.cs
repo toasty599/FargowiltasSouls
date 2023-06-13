@@ -33,7 +33,7 @@ Effects of Bone Glove
             // '欢迎来到骸骨领域'");
         }
 
-        protected override Color nameColor => new Color(86, 86, 67);
+        protected override Color nameColor => new(86, 86, 67);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Necro");
 
         public override void SetDefaults()

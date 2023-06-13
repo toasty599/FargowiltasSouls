@@ -177,7 +177,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
         }
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CursedCoffin], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.CursedCoffin], -1);
         }
         public override void BossLoot(ref string name, ref int potionType)
         {

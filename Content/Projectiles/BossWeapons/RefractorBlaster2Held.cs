@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
@@ -216,7 +215,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             int width = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Width;
             int frame = height * Projectile.frame;
             SpriteEffects flipdirection = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Rectangle Origin = new Rectangle(0, frame, width, height);
+            Rectangle Origin = new(0, frame, width, height);
             Main.spriteBatch.Draw(texture2D, Projectile.Center - Main.screenPosition, Origin, lightColor, Projectile.rotation, new Vector2(width / 2, height / 2), Projectile.scale, flipdirection, 0);
             return false;
         }
@@ -228,7 +227,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             int width = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Width;
             int frame = height * Projectile.frame;
             SpriteEffects flipdirection = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Rectangle Origin = new Rectangle(0, frame, width, height);
+            Rectangle Origin = new(0, frame, width, height);
             Main.spriteBatch.Draw(texture2D, Projectile.Center - Main.screenPosition, Origin, Color.White, Projectile.rotation, new Vector2(width / 2, height / 2), Projectile.scale, flipdirection, 0);
         }
     }

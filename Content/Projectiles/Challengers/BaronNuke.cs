@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Drawing;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Color = Microsoft.Xna.Framework.Color;
@@ -16,9 +15,9 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
     public class BaronNuke : ModProjectile
     {
 
-        private int ExplosionDiameter = FargoSoulsWorld.MasochistModeReal ? 400 : 350;
+        private int ExplosionDiameter = WorldSavingSystem.MasochistModeReal ? 400 : 350;
 
-        private SoundStyle Beep = new SoundStyle("FargowiltasSouls/Assets/Sounds/NukeBeep");
+        private SoundStyle Beep = new("FargowiltasSouls/Assets/Sounds/NukeBeep");
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Banished Baron's Spicy Beeping Nuclear Torpedo of Death and Destruction");
@@ -86,7 +85,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             if (player != null) //homing
             {
                 Vector2 vectorToIdlePosition = player.Center - Projectile.Center;
-                float speed = FargoSoulsWorld.MasochistModeReal ? 24f : 20f;
+                float speed = WorldSavingSystem.MasochistModeReal ? 24f : 20f;
                 float inertia = 48f;
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;
@@ -155,7 +154,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             int ringy = ringTexture.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             float RingScale = Projectile.scale * ExplosionDiameter / ringTexture.Height;
             int ringy3 = ringy * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle ringrect = new Rectangle(0, ringy3, ringTexture.Width, ringy);
+            Rectangle ringrect = new(0, ringy3, ringTexture.Width, ringy);
             Vector2 ringorigin = ringrect.Size() / 2f;
             Main.EntitySpriteDraw(ringTexture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(ringrect), Projectile.GetAlpha(RingColor), Projectile.rotation, ringorigin, RingScale, SpriteEffects.None, 0);
 
@@ -163,7 +162,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Vector2 drawOffset = Projectile.rotation.ToRotationVector2() * (texture2D13.Width - Projectile.width) / 2;
 

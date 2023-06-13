@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Placables

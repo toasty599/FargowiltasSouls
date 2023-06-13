@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -25,7 +26,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             base.SetDefaults();
 
             Projectile.MaxUpdates = 5;
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 Projectile.MaxUpdates *= 2;
         }
 

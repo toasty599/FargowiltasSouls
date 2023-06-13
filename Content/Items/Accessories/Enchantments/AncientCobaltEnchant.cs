@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Toggler;
+﻿using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -19,7 +18,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'Ancient Kobold'");
         }
 
-        protected override Color nameColor => new Color(53, 76, 116);
+        protected override Color nameColor => new(53, 76, 116);
         public override string wizardEffect => "";
 
         public override void SetDefaults()

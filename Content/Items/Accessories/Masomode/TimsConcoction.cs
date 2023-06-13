@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Toggler;
+﻿using FargowiltasSouls.Toggler;
 using Terraria;
 using Terraria.ID;
 

@@ -7,11 +7,9 @@ using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Effects;
@@ -22,6 +20,7 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.MutantBoss;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -46,7 +45,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
         {
             int masoStateML = GetVulnerabilityState(npc);
-            if (item.CountsAsClass(DamageClass.Melee) && masoStateML > 0 && masoStateML < 4 && !player.buffImmune[ModContent.BuffType<NullificationCurseBuff>()] && !FargoSoulsWorld.SwarmActive)
+            if (item.CountsAsClass(DamageClass.Melee) && masoStateML > 0 && masoStateML < 4 && !player.buffImmune[ModContent.BuffType<NullificationCurseBuff>()] && !WorldSavingSystem.SwarmActive)
                 return false;
 
             return base.CanBeHitByItem(npc, player, item);
@@ -54,7 +53,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
-            if (!Main.player[projectile.owner].buffImmune[ModContent.BuffType<NullificationCurseBuff>()] && !FargoSoulsWorld.SwarmActive)
+            if (!Main.player[projectile.owner].buffImmune[ModContent.BuffType<NullificationCurseBuff>()] && !WorldSavingSystem.SwarmActive)
             {
                 switch (GetVulnerabilityState(npc))
                 {
@@ -134,7 +133,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             EModeGlobalNPC.moonBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             if (!SpawnedRituals)
@@ -409,7 +408,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 }
                             }
 
-                            if (FargoSoulsWorld.MasochistModeReal && AttackTimer > 300)
+                            if (WorldSavingSystem.MasochistModeReal && AttackTimer > 300)
                             {
                                 AttackTimer -= 540;
 
@@ -446,7 +445,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             {
                 const float maxRampup = 3;
                 float lerp = (float)npc.life / npc.lifeMax;
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                     lerp *= lerp;
                 float increment = (int)Math.Round(MathHelper.Lerp(maxRampup, 1, lerp));
 
@@ -464,7 +463,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.netUpdate = true;
                     NetSync(npc);
 
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                     {
                         switch (VulnerabilityState)
                         {
@@ -586,7 +585,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<GalacticGlobe>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.LunarOre, 150));
             npcLoot.Add(emodeRule);
@@ -647,7 +646,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool SafePreAI(NPC npc)
         {
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return true;
 
             NPC core = FargoSoulsUtil.NPCExists(npc.ai[3], NPCID.MoonLordCore);
@@ -687,7 +686,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 NetSync(npc);
             }
 
-            if (FargoSoulsWorld.MasochistModeReal && LastState != npc.ai[0])
+            if (WorldSavingSystem.MasochistModeReal && LastState != npc.ai[0])
             {
                 LastState = npc.ai[0];
 
@@ -703,7 +702,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }
 
-            if (core.dontTakeDamage && !FargoSoulsWorld.MasochistModeReal) //behave slower until p2 proper
+            if (core.dontTakeDamage && !WorldSavingSystem.MasochistModeReal) //behave slower until p2 proper
             {
                 SlowMode = !SlowMode;
                 if (SlowMode)

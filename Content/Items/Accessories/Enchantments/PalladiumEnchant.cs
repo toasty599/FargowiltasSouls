@@ -22,7 +22,7 @@ You spawn an orb of damaging life energy every 80 life regenerated
 'You feel your wounds slowly healing'");
         }
 
-        protected override Color nameColor => new Color(245, 172, 40);
+        protected override Color nameColor => new(245, 172, 40);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Palladium");
 
         public override void SetDefaults()

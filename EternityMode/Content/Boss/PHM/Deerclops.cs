@@ -7,10 +7,8 @@ using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,6 +16,7 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -91,7 +90,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             EModeGlobalNPC.deerBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             const int MaxBerserkTime = 600;
@@ -206,7 +205,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     int addedThreshold = 180;
                                     if (EnteredPhase3)
                                         addedThreshold -= 30;
-                                    if (FargoSoulsWorld.MasochistModeReal)
+                                    if (WorldSavingSystem.MasochistModeReal)
                                         addedThreshold -= 30;
 
                                     if (TeleportTimer > TeleportThreshold + addedThreshold)
@@ -246,7 +245,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 					
 					if (npc.ai[1] < 30)
                     {
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                         {
                             npc.ai[1] += 0.5f;
                             npc.frameCounter += 0.5;
@@ -260,7 +259,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 case 3: //roar at 30, ends at ai1=60
 					WalkingSpeedUpTimer = 0;
 				
-                    if (!FargoSoulsWorld.MasochistModeReal && npc.ai[1] < 30)
+                    if (!WorldSavingSystem.MasochistModeReal && npc.ai[1] < 30)
                     {
                         npc.ai[1] -= 0.5f;
                         npc.frameCounter -= 0.5;
@@ -300,7 +299,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         NetSync(npc);
                     }
 
-                    if (EnteredPhase3 || FargoSoulsWorld.MasochistModeReal)
+                    if (EnteredPhase3 || WorldSavingSystem.MasochistModeReal)
                         BerserkSpeedupTimer = MaxBerserkTime;
                     break;
 
@@ -326,7 +325,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         Vector2 eye = npc.Center + new Vector2(64 * npc.direction, -24f) * npc.scale;
 
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                         {
                             const int desiredStartup = 30; //effectively changes startup from 50 to this value
                             const int threshold = 50 - desiredStartup / 2;
@@ -340,13 +339,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             {
                                 const float baseIncrement = 0.33f;
                                 float increment = baseIncrement;
-                                //if (FargoSoulsWorld.MasochistModeReal) increment *= 2;
+                                //if (WorldSavingSystem.MasochistModeReal) increment *= 2;
 
                                 if (npc.ai[1] == 70) //shoot laser
                                 {
                                     float time = (90 - 70) / baseIncrement - 5;
                                     time *= 5; //account for the ray having extra updates
-                                    float rotation = MathHelper.Pi * (FargoSoulsWorld.MasochistModeReal ? 1f : 0.8f) / time * -npc.direction;
+                                    float rotation = MathHelper.Pi * (WorldSavingSystem.MasochistModeReal ? 1f : 0.8f) / time * -npc.direction;
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), eye, Vector2.UnitY, ModContent.ProjectileType<DeerclopsDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 2f), 0f, Main.myPlayer, rotation, time);
@@ -424,8 +423,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             return result;
         }
-		
-		void SpawnFreezeHands(NPC npc)
+
+        static void SpawnFreezeHands(NPC npc)
 		{
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
@@ -442,7 +441,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<Deerclawps>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<DeerSinew>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.FrozenCrate, 5));

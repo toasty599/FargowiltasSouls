@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Patreon.Sasha
         public override void AI()
         {
             //dust!
-            int dustId = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 2f), Projectile.width, Projectile.height + 5, DustID.Ice, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default(Color), .5f);
+            int dustId = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 2f), Projectile.width, Projectile.height + 5, DustID.Ice, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, .5f);
             Main.dust[dustId].noGravity = true;
         }
 
@@ -47,18 +47,18 @@ namespace FargowiltasSouls.Patreon.Sasha
             for (int i = 0; i < 20; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
+                    Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].velocity *= 1.4f;
             }
 
             for (int i = 0; i < 10; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
                 dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dust].velocity *= 3f;
             }
 
@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             for (int j = 0; j < 2; j++)
             {
                 int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center,
-                    default(Vector2),
+                    default,
                     Main.rand.Next(61, 64));
 
                 Main.gore[gore].velocity *= scaleFactor9;
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

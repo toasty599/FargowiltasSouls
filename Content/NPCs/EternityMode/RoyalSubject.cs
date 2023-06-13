@@ -1,13 +1,10 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityMode
@@ -127,7 +124,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                 //SoundEngine.PlaySound(NPC.DeathSound, NPC.Center);
                 for (int i = 0; i < 20; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
                     Main.dust[d].velocity *= 3f;
                     Main.dust[d].scale += 0.75f;
                 }

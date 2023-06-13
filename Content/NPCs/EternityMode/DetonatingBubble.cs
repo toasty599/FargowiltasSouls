@@ -1,9 +1,9 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityMode
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Wet, 420);
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 target.AddBuff(ModContent.BuffType<SqueakyToyBuff>(), 120);
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);
             target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;

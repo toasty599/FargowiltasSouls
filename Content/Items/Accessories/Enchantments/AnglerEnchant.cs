@@ -25,7 +25,7 @@ Effects of Lavaproof Tackle Bag
             // '只要不全是鞋子, 你就可以高高兴兴地回家'");
         }
 
-        protected override Color nameColor => new Color(113, 125, 109);
+        protected override Color nameColor => new(113, 125, 109);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Angler");
 
         public override void SetDefaults()

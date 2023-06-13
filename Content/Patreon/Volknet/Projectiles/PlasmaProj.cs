@@ -1,10 +1,8 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.Volknet.Projectiles
@@ -48,7 +46,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
             int num = Main.rand.Next(3, 7);
             for (int index1 = 0; index1 < num; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.Center - Projectile.velocity / 2f, 0, 0, 157, 0.0f, 0.0f, 100, new Color(), 2.1f);
+                int index2 = Dust.NewDust(Projectile.Center - Projectile.velocity / 2f, 0, 0, DustID.ChlorophyteWeapon, 0.0f, 0.0f, 100, new Color(), 2.1f);
                 Dust dust = Main.dust[index2];
                 dust.velocity *= 2f;
                 Main.dust[index2].noGravity = true;

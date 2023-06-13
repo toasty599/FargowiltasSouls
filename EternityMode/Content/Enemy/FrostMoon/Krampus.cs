@@ -1,12 +1,9 @@
 using System.IO;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
-using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 

@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ID;
 
@@ -38,7 +39,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
                 {
                     int p = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.position.X + Main.rand.Next(Projectile.width), Projectile.position.Y + Main.rand.Next(Projectile.height),
                         Main.rand.Next(-30, 31) * .1f, Main.rand.Next(-40, -15) * .1f, Terraria.ModLoader.ModContent.ProjectileType<FakeHeart>(), 20, 0f, Main.myPlayer);
-                    if (p != Main.maxProjectiles && !FargoSoulsWorld.MasochistModeReal)
+                    if (p != Main.maxProjectiles && !WorldSavingSystem.MasochistModeReal)
                         Main.projectile[p].timeLeft = 120 + Main.rand.Next(60);
                 }
             }

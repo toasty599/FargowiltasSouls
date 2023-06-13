@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
@@ -29,11 +30,11 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
             for (int i = 0; i < 20; i++)
             {
-                Vector2 offset = new Vector2();
+                Vector2 offset = new();
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * distance);
                 offset.Y += (float)(Math.Cos(angle) * distance);
-                Dust dust = Main.dust[Dust.NewDust(player.Center + offset - new Vector2(4, 4), 0, 0, 119, 0, 0, 100, Color.White, 1f)];
+                Dust dust = Main.dust[Dust.NewDust(player.Center + offset - new Vector2(4, 4), 0, 0, DustID.Ice_Pink, 0, 0, 100, Color.White, 1f)];
                 dust.velocity = player.velocity;
                 if (Main.rand.NextBool(3))
                     dust.velocity += Vector2.Normalize(offset) * -5f;

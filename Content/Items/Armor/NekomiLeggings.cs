@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

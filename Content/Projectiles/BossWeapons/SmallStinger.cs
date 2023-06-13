@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 //dust from stinger
                 if (Main.rand.NextBool())
                 {
-                    int num92 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 18, 0f, 0f, 0, default, 0.9f);
+                    int num92 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CorruptGibs, 0f, 0f, 0, default, 0.9f);
                     Main.dust[num92].noGravity = true;
                     Main.dust[num92].velocity *= 0.5f;
                 }
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             for (int i = 0; i < 10; i++)
             {
-                int num92 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 18, Projectile.velocity.X, Projectile.velocity.Y, 0, default, 0.9f);
+                int num92 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CorruptGibs, Projectile.velocity.X, Projectile.velocity.Y, 0, default, 0.9f);
                 Main.dust[num92].noGravity = true;
                 Main.dust[num92].velocity *= 0.25f;
                 Main.dust[num92].fadeIn = 1.3f;
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
         }
 
-        private void DustRing(Projectile proj, int max)
+        private static void DustRing(Projectile proj, int max)
         {
             //dust
             for (int i = 0; i < max; i++)
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Vector2 vector6 = Vector2.UnitY * 5f;
                 vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + proj.Center;
                 Vector2 vector7 = vector6 - proj.Center;
-                int d = Dust.NewDust(vector6 + vector7, 0, 0, 18, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.CorruptGibs, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity = vector7;
             }
@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Texture2D texture2D3 = TextureAssets.Projectile[Projectile.type].Value;
             int num156 = TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type];
             int y3 = num156 * Projectile.frame;
-            Rectangle rectangle = new Rectangle(0, y3, texture2D3.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D3.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             int num157 = 7;
             int num159 = 0;

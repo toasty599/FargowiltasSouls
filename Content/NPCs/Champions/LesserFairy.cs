@@ -1,9 +1,9 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         {
             if (Main.rand.NextBool(6))
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 87);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemTopaz);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 0.5f;
             }
@@ -96,7 +96,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.PurifiedBuff>(), 300);
         }
 
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 87, 0f, 0f, 0, default(Color), 1.5f);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemTopaz, 0f, 0f, 0, default, 1.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                 }

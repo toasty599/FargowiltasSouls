@@ -53,12 +53,12 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
             for (int index1 = 0; index1 < num1; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, default, 1.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 100, default, 1.5f);
                 Main.dust[index2].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble()) * (float)Main.rand.NextDouble() + Projectile.Center;
             }
             for (int index1 = 0; index1 < num2; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 226, 0.0f, 0.0f, 0, default, 1.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric, 0.0f, 0.0f, 0, default, 1.5f);
                 Main.dust[index2].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble()) * (float)Main.rand.NextDouble() + Projectile.Center;
                 Main.dust[index2].noGravity = true;
             }

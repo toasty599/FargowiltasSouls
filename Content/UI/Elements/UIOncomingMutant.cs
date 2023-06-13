@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Core;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,7 +8,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
 using Terraria.UI;
 
-namespace FargowiltasSouls.Content.UI
+namespace FargowiltasSouls.Content.UI.Elements
 {
     public class UIOncomingMutant : UIPanel
     {
@@ -56,7 +57,7 @@ namespace FargowiltasSouls.Content.UI
         {
             base.Update(gameTime); // don't remove.
 
-            bool conditions = FargoSoulsWorld.EternityMode && Main.playerInventory;
+            bool conditions = WorldSavingSystem.EternityMode && Main.playerInventory;
 
             // Checking ContainsPoint and then setting mouseInterface to true is very common. This causes clicks on this UIElement to not cause the player to use current items. 
             if (ContainsPoint(Main.MouseScreen) && conditions)
@@ -104,7 +105,7 @@ namespace FargowiltasSouls.Content.UI
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             //base.DrawSelf(spriteBatch);
@@ -116,15 +117,15 @@ namespace FargowiltasSouls.Content.UI
                 Vector2 textPosition = Main.MouseScreen + new Vector2(21, 21);
                 Utils.DrawBorderString(
                     spriteBatch,
-                    FargoSoulsWorld.MasochistModeReal ? TextMaso : TextEMode,
+                    WorldSavingSystem.MasochistModeReal ? TextMaso : TextEMode,
                     textPosition,
-                    FargoSoulsWorld.MasochistModeReal ? new Color(51, 255, 191) : Color.White);
+                    WorldSavingSystem.MasochistModeReal ? new Color(51, 255, 191) : Color.White);
             }
 
             // Drawing
             Vector2 position = style.Position();
             spriteBatch.Draw(Texture, position + new Vector2(2), Texture.Bounds, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 spriteBatch.Draw(AuraTexture, position, AuraTexture.Bounds, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
     }

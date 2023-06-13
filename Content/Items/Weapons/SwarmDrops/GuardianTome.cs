@@ -5,7 +5,6 @@ using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Materials;
 
 namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops

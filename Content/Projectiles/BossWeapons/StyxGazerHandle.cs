@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -101,7 +100,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             if (Main.rand.NextBool())
             {
-                int d = Dust.NewDust(Projectile.position + Projectile.velocity * Main.rand.NextFloat(100), Projectile.width, Projectile.height, 87, 0f, 0f, 0, default(Color), 1.5f);
+                int d = Dust.NewDust(Projectile.position + Projectile.velocity * Main.rand.NextFloat(100), Projectile.width, Projectile.height, DustID.GemTopaz, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 4f;
             }

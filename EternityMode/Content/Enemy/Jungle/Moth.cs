@@ -26,7 +26,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
             npc.position += npc.velocity;
             for (int i = 0; i < 2; i++)
             {
-                int d = Dust.NewDust(npc.position, npc.width, npc.height, 70);
+                int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.PurpleCrystalShard);
                 Main.dust[d].scale += 1f;
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 5f;

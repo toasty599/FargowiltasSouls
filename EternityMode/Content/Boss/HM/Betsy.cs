@@ -17,6 +17,7 @@ using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -68,14 +69,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             EModeGlobalNPC.betsyBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return true;
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    Rectangle rectangle = new Rectangle((int)Main.screenPosition.X + Main.screenWidth / 3, (int)Main.screenPosition.Y + Main.screenHeight / 3, Main.screenWidth / 3, Main.screenHeight / 3);
+                    Rectangle rectangle = new((int)Main.screenPosition.X + Main.screenWidth / 3, (int)Main.screenPosition.Y + Main.screenHeight / 3, Main.screenWidth / 3, Main.screenHeight / 3);
                     CombatText.NewText(rectangle, new Color(100 + Main.rand.Next(150), 100 + Main.rand.Next(150), 100 + Main.rand.Next(150)), Main.rand.Next(new List<string> {
                     Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy1"),
                     Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy2"),
@@ -202,7 +203,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, 4);
 
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                     {
                         if (NPC.CountNPCS(NPCID.DD2DarkMageT3) < 3)
                             FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.DD2DarkMageT3, target: npc.target);
@@ -215,7 +216,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         float rotation = FuryRingShotRotationCounter;
-                        if (FargoSoulsWorld.MasochistModeReal && FuryRingTimer >= 30 && FuryRingTimer <= 60)
+                        if (WorldSavingSystem.MasochistModeReal && FuryRingTimer >= 30 && FuryRingTimer <= 60)
                             rotation += 1; //staggers each wave instead of lining them up behind each other
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * rotation), ModContent.ProjectileType<BetsyFury>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, npc.target);
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * -rotation), ModContent.ProjectileType<BetsyFury>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, npc.target);
@@ -257,7 +258,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.active = false;
             }
 
-            EModeUtils.DropSummon(npc, "BetsyEgg", FargoSoulsWorld.downedBetsy, ref DroppedSummon, NPC.downedGolemBoss);
+            EModeUtils.DropSummon(npc, "BetsyEgg", WorldSavingSystem.DownedBetsy, ref DroppedSummon, NPC.downedGolemBoss);
 
             return true;
         }
@@ -282,14 +283,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnKill(npc);
 
-            FargoSoulsWorld.downedBetsy = true;
+            WorldSavingSystem.DownedBetsy = true;
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<BetsysHeart>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.GoldenCrateHard, 5));
             npcLoot.Add(emodeRule);

@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.Projectiles.Minions;
+﻿using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

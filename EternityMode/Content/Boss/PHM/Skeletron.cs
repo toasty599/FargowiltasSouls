@@ -6,17 +6,16 @@ using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -56,7 +55,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             InPhase2 = bitReader.ReadBit();
         }
 
-        int BabyGuardianTimerRefresh(NPC npc) => !FargoSoulsWorld.MasochistModeReal && NPC.AnyNPCs(NPCID.SkeletronHand) && npc.life > npc.lifeMax * 0.25 ? 240 : 180;
+        int BabyGuardianTimerRefresh(NPC npc) => !WorldSavingSystem.MasochistModeReal && NPC.AnyNPCs(NPCID.SkeletronHand) && npc.life > npc.lifeMax * 0.25 ? 240 : 180;
         
         void GrowHands(NPC npc)
         {
@@ -72,7 +71,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             EModeGlobalNPC.skeleBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             if (!SpawnedArms && npc.life < npc.lifeMax * .5)
@@ -116,7 +115,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                     if (npc.ai[1] == 1) //do cross guardian attack
                     {
-                        if (!FargoSoulsWorld.MasochistModeReal)
+                        if (!WorldSavingSystem.MasochistModeReal)
                         {
                             for (int i = 0; i < Main.maxProjectiles; i++) //also clear leftover babies
                             {
@@ -125,13 +124,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             }
                         }
 
-                        if ((npc.life >= npc.lifeMax * .75 || FargoSoulsWorld.MasochistModeReal) && Main.netMode != NetmodeID.MultiplayerClient)
+                        if ((npc.life >= npc.lifeMax * .75 || WorldSavingSystem.MasochistModeReal) && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             for (int i = 0; i < 4; i++)
                             {
                                 for (int j = -2; j <= 2; j++)
                                 {
-                                    Vector2 spawnPos = new Vector2(1200, 80 * j);
+                                    Vector2 spawnPos = new(1200, 80 * j);
                                     Vector2 vel = -8 * Vector2.UnitX;
                                     spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * (i + 0.5));
                                     vel = vel.RotatedBy(Math.PI / 2 * (i + 0.5));
@@ -147,7 +146,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 float ratio = (float)npc.life / npc.lifeMax;
                 float cooldown = 20f;
-                if (!FargoSoulsWorld.MasochistModeReal)
+                if (!WorldSavingSystem.MasochistModeReal)
                     cooldown += 100f * ratio;
                 if (++npc.localAI[2] >= cooldown) //spray bones
                 {
@@ -176,7 +175,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         const int max = 30;
                         float modifier = 1f - (float)npc.life / npc.lifeMax;
                         modifier *= 4f / 3f; //scaling maxes at 25% life
-                        if (modifier > 1f || FargoSoulsWorld.MasochistModeReal) //cap it, or force it to cap in emode
+                        if (modifier > 1f || WorldSavingSystem.MasochistModeReal) //cap it, or force it to cap in emode
                             modifier = 1f;
                         int actualNumberToSpawn = (int)(max * modifier);
                         for (int i = 0; i < actualNumberToSpawn; i++)
@@ -191,7 +190,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
             else
             {
-                if (SpawnedArms && FargoSoulsWorld.MasochistModeReal && ++MasoArmsTimer == 120)
+                if (SpawnedArms && WorldSavingSystem.MasochistModeReal && ++MasoArmsTimer == 120)
                 {
                     GrowHands(npc);
                 }
@@ -202,7 +201,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     npc.TargetClosest(false);
 
                     //prevent skeletron from firing his stupid tick 1 no telegraph skull right after finishing spin
-                    if (!FargoSoulsWorld.MasochistModeReal)
+                    if (!WorldSavingSystem.MasochistModeReal)
                         npc.ai[2] = 1;
                 }
 
@@ -239,7 +238,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (--BabyGuardianTimer < 0)
                     {
                         BabyGuardianTimer = BabyGuardianTimerRefresh(npc);
-                        if (!FargoSoulsWorld.MasochistModeReal)
+                        if (!WorldSavingSystem.MasochistModeReal)
                             BabyGuardianTimer += 60;
 
                         SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
@@ -253,7 +252,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             const int max = 14;
                             float modifier = 1f - (float)npc.life / npc.lifeMax;
                             modifier *= 4f / 3f; //scaling maxes at 25% life
-                            if (modifier > 1f || FargoSoulsWorld.MasochistModeReal) //cap it, or force it to cap in emode
+                            if (modifier > 1f || WorldSavingSystem.MasochistModeReal) //cap it, or force it to cap in emode
                                 modifier = 1f;
                             int actualNumberToSpawn = (int)(max * modifier);
                             Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);
@@ -283,7 +282,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 npc.defense = 9999;
                 npc.damage = npc.defDamage * 15;
 
-                if (!Main.dayTime && !FargoSoulsWorld.MasochistModeReal)
+                if (!Main.dayTime && !WorldSavingSystem.MasochistModeReal)
                 {
                     if (++DGSpeedRampup < 120)
                     {
@@ -299,7 +298,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (!FargoSoulsWorld.SwarmActive && Main.npc.Any(n => n.active && n.type == NPCID.SkeletronHand && n.ai[0] == npc.whoAmI))
+            if (!WorldSavingSystem.SwarmActive && Main.npc.Any(n => n.active && n.type == NPCID.SkeletronHand && n.ai[0] == npc.whoAmI))
                 damage /= 2;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
@@ -307,7 +306,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public override bool CheckDead(NPC npc)
         {
-            if (npc.ai[1] != 2f && !FargoSoulsWorld.SwarmActive)
+            if (npc.ai[1] != 2f && !WorldSavingSystem.SwarmActive)
             {
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
@@ -337,7 +336,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<NecromanticBrew>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.DungeonFishingCrate, 5));
             npcLoot.Add(emodeRule);
@@ -387,7 +386,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             bool result = base.SafePreAI(npc);
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);

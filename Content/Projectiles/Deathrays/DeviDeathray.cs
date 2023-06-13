@@ -2,7 +2,6 @@
 using FargowiltasSouls.Common.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.Linq;
 using Terraria;
@@ -92,10 +91,10 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             Vector2 vector79 = Projectile.Center + Projectile.velocity * (Projectile.localAI[1] - 14f);
             for (int num809 = 0; num809 < 1; num809 = num3 + 1)
             {
-                float num810 = Projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * 1.57079637f;
+                float num810 = Projectile.velocity.ToRotation() + (Main.rand.NextBool(2)? -1f : 1f) * 1.57079637f;
                 float num811 = (float)Main.rand.NextDouble() * 2f + 2f;
-                Vector2 vector80 = new Vector2((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
-                int num812 = Dust.NewDust(vector79, 0, 0, 86, vector80.X, vector80.Y, 0, default, 1f);
+                Vector2 vector80 = new((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
+                int num812 = Dust.NewDust(vector79, 0, 0, DustID.GemAmethyst, vector80.X, vector80.Y, 0, default, 1f);
                 Main.dust[num812].noGravity = true;
                 //Main.dust[num812].scale = 1.7f;
                 num3 = num809;
@@ -103,7 +102,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             if (Main.rand.NextBool(5))
             {
                 Vector2 value29 = Projectile.velocity.RotatedBy(1.5707963705062866, default) * ((float)Main.rand.NextDouble() - 0.5f) * Projectile.width;
-                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 86, 0f, 0f, 100, default, 1f);
+                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, DustID.GemAmethyst, 0f, 0f, 100, default, 1f);
                 Dust dust = Main.dust[num813];
                 dust.noGravity = true;
                 dust.velocity *= 0.5f;
@@ -118,8 +117,8 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             {
                 float num810 = Projectile.velocity.ToRotation() + (Main.rand.NextBool(2) ? -1f : 1f) * 1.57079637f;
                 float num811 = (float)Main.rand.NextDouble() * 2f + 2f;
-                Vector2 vector80 = new Vector2((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
-                int num812 = Dust.NewDust(Projectile.Center, 0, 0, 86, vector80.X, vector80.Y, 0, default, 1f);
+                Vector2 vector80 = new((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
+                int num812 = Dust.NewDust(Projectile.Center, 0, 0, DustID.GemAmethyst, vector80.X, vector80.Y, 0, default, 1f);
                 Main.dust[num812].noGravity = true;
                 Main.dust[num812].scale = 1f;
                 num3 = num809;
@@ -133,7 +132,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
         public float WidthFunction(float _) => Projectile.width * Projectile.scale * 1.2f;
 
-        public Color ColorFunction(float _)
+        public static Color ColorFunction(float _)
         {
             Color color = Color.HotPink; //new(232, 140, 240);
             color.A = 0;

@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Mounts

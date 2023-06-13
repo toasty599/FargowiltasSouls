@@ -1,10 +1,6 @@
 ﻿using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -33,7 +29,7 @@ namespace FargowiltasSouls.Patreon.Northstrider
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 100;
         }
 
@@ -47,9 +43,9 @@ namespace FargowiltasSouls.Patreon.Northstrider
             int radius = 50;
             Vector2 position = player.Center;
 
-            for (int x = -radius; x <= (radius); x++)
+            for (int x = -radius; x <= radius; x++)
             {
-                for (int y = -radius; y <= (radius); y++)
+                for (int y = -radius; y <= radius; y++)
                 {
                     if (Math.Sqrt(x * x + y * y) <= radius)   //circle
                     {

@@ -9,9 +9,11 @@ namespace FargowiltasSouls.EternityMode.NPCMatching
 
         public NPCMatcher()
         {
-            Conditions = new List<INPCMatchCondition>();
-            // So that empty matches match everything
-            Conditions.Add(new MatchEverythingCondition());
+            Conditions = new List<INPCMatchCondition>
+            {
+                // So that empty matches match everything
+                new MatchEverythingCondition()
+            };
         }
 
         public NPCMatcher MatchType(int type)

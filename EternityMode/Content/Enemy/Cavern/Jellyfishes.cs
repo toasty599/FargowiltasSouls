@@ -28,7 +28,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
                 for (int i = 0; i < 10; i++)
                 {
-                    Vector2 offset = new Vector2();
+                    Vector2 offset = new();
                     double angle = Main.rand.NextDouble() * 2d * Math.PI;
                     offset.X += (float)(Math.Sin(angle) * 200);
                     offset.Y += (float)(Math.Cos(angle) * 200);

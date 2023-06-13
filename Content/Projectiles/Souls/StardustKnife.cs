@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -62,12 +61,12 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             for (int index1 = 0; index1 < 2; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitY.RotatedByRandom(3.14159274101257) * (float)Main.rand.NextDouble() * Projectile.width / 2f;
             }
             for (int index1 = 0; index1 < 10; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 176, 0.0f, 0.0f, 200, new Color(), 3.7f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BubbleBurst_Blue, 0.0f, 0.0f, 200, new Color(), 3.7f);
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitY.RotatedByRandom(3.14159274101257) * (float)Main.rand.NextDouble() * Projectile.width / 2f;
                 Main.dust[index2].noGravity = true;
                 Dust dust = Main.dust[index2];
@@ -75,7 +74,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
             for (int index1 = 0; index1 < 10; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 180, 0.0f, 0.0f, 0, new Color(), 2.7f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DungeonSpirit, 0.0f, 0.0f, 0, new Color(), 2.7f);
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitX.RotatedByRandom(3.14159274101257).RotatedBy((double)Projectile.velocity.ToRotation(), new Vector2()) * Projectile.width / 2f;
                 Main.dust[index2].noGravity = true;
                 Dust dust = Main.dust[index2];
@@ -83,7 +82,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
             for (int index1 = 0; index1 < 5; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 0, new Color(), 1.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 0, new Color(), 1.5f);
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitX.RotatedByRandom(3.14159274101257).RotatedBy((double)Projectile.velocity.ToRotation(), new Vector2()) * Projectile.width / 2f;
                 Main.dust[index2].noGravity = true;
                 Dust dust = Main.dust[index2];
@@ -104,7 +103,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 int rect1 = glow.Height / Main.projFrames[Projectile.type];
                 int rect2 = rect1 * Projectile.frame;
 
-                Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);
+                Rectangle glowrectangle = new(0, rect2, glow.Width, rect1);
                 Vector2 gloworigin2 = glowrectangle.Size() / 2f;
                 Color glowcolor = Color.Lerp(new Color(29, 171, 239, 0), Color.Transparent, 0.7f);
 
@@ -131,7 +130,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
         }

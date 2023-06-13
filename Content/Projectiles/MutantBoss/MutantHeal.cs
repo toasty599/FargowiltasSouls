@@ -1,7 +1,7 @@
 ﻿using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Common.Graphics.Primitives;
 using FargowiltasSouls.Content.Buffs.Boss;
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 {
                     ai0 -= 1;
 
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                     {
                         Projectile.Kill();
                         return;
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
             }
         }
@@ -233,7 +233,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             return MathHelper.SmoothStep(baseWidth, 3.5f, completionRatio);
         }
 
-        public Color ColorFunction(float completionRatio)
+        public static Color ColorFunction(float completionRatio)
         {
             return Color.Lerp(Color.Cyan, Color.Transparent, completionRatio) * 0.7f;
         }

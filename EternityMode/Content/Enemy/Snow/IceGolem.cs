@@ -4,7 +4,6 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;

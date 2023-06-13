@@ -25,7 +25,7 @@ Attacks may inflict the Solar Flare debuff
             // '烫手魔石'");
         }
 
-        protected override Color nameColor => new Color(254, 158, 35);
+        protected override Color nameColor => new(254, 158, 35);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Solar");
 
         public override void SetDefaults()

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -30,14 +31,14 @@ namespace FargowiltasSouls.Content.Items
 
         public override bool CanRightClick() => true;
 
-        public override void RightClick(Player player) => Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.Message.ForgottenGift") + $"{FargoSoulsWorld.MasochistModeReal}");
+        public override void RightClick(Player player) => Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.Message.ForgottenGift") + $"{WorldSavingSystem.MasochistModeReal}");
 
         public override bool? UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
             {
-                FargoSoulsWorld.CanPlayMaso = !FargoSoulsWorld.CanPlayMaso;
-                Main.NewText($"world: {FargoSoulsWorld.CanPlayMaso}");
+                WorldSavingSystem.CanPlayMaso = !WorldSavingSystem.CanPlayMaso;
+                Main.NewText($"world: {WorldSavingSystem.CanPlayMaso}");
             }
             else
             {

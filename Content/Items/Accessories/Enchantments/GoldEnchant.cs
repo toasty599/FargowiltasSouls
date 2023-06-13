@@ -36,7 +36,7 @@ Effects of Greedy Ring
 
         }
 
-        protected override Color nameColor => new Color(231, 178, 28);
+        protected override Color nameColor => new(231, 178, 28);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Gold");
 
         public override void SetDefaults()

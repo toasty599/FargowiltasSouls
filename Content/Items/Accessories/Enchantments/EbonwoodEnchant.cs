@@ -23,7 +23,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
             //in force damage theshold increased to 25 AND any npc that has less than 200 HP is instantly killed in the aura
         }
 
-        protected override Color nameColor => new Color(100, 90, 141);
+        protected override Color nameColor => new(100, 90, 141);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Ebonwood");
 
         public override void SetDefaults()
@@ -128,7 +128,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
             //dust
             for (int i = 0; i < 20; i++)
             {
-                Vector2 offset = new Vector2();
+                Vector2 offset = new();
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);

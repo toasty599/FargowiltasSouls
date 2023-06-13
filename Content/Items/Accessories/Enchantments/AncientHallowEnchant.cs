@@ -24,7 +24,7 @@ Summons a Terraprisma familiar that scales with minion damage
 'Have you power enough to wield me?'");
         }
 
-        protected override Color nameColor => new Color(150, 133, 100);
+        protected override Color nameColor => new(150, 133, 100);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.AncientHallow");
 
         public override void SetDefaults()
@@ -57,7 +57,7 @@ Summons a Terraprisma familiar that scales with minion damage
 
                 for (int i = 0; i < 20; i++)
                 {
-                    Vector2 offset = new Vector2();
+                    Vector2 offset = new();
                     double angle = Main.rand.NextDouble() * 2d * Math.PI;
                     offset.X += (float)(Math.Sin(angle) * focusRadius);
                     offset.Y += (float)(Math.Cos(angle) * focusRadius);

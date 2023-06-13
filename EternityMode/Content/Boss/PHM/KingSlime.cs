@@ -10,6 +10,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -31,10 +32,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             EModeGlobalNPC.slimeBoss = npc.whoAmI;
             npc.color = Main.DiscoColor * 0.3f; // Rainbow colour
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return true;
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 npc.position.X += npc.velocity.X * 0.2f;
 
             // Attack that happens when landing
@@ -45,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     LandingAttackReady = false;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                         {
                             for (int i = 0; i < 30; i++) //spike spray
                             {
@@ -90,7 +91,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                     bool shootSpikes = false;
 
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                         shootSpikes = true;
 
                     // If player is well above me, jump higher and spray spikes
@@ -208,7 +209,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (npc.HasPlayerTarget && npc.ai[0] == 1) //update y pos once
                     npc.localAI[2] = Main.player[npc.target].Center.Y;
 
-                Vector2 tpPos = new Vector2(npc.localAI[1], npc.localAI[2]);
+                Vector2 tpPos = new(npc.localAI[1], npc.localAI[2]);
                 tpPos.X -= npc.width / 2;
 
                 for (int i = 0; i < 10; i++)
@@ -276,7 +277,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<SlimyShield>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.WoodenCrate, 5));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.LifeCrystal, 3));

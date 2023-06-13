@@ -25,7 +25,7 @@ While standing in lava or lava wet, your attacks spawn explosions and apply Fire
 'The earth calls'");
         }
 
-        protected override Color nameColor => new Color(69, 62, 115);
+        protected override Color nameColor => new(69, 62, 115);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Obsidian");
 
         public override void SetDefaults()

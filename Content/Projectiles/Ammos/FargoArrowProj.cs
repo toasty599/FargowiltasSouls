@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
                 int num271 = Main.rand.Next(5, 10);
                 for (int num272 = 0; num272 < num271; num272++)
                 {
-                    int num273 = Dust.NewDust(Projectile.Center, 0, 0, 220, 0f, 0f, 100, default, 0.5f);
+                    int num273 = Dust.NewDust(Projectile.Center, 0, 0, DustID.FireworkFountain_Green, 0f, 0f, 100, default, 0.5f);
                     Main.dust[num273].velocity *= 1.6f;
                     Dust expr_9845_cp_0 = Main.dust[num273];
                     expr_9845_cp_0.velocity.Y = expr_9845_cp_0.velocity.Y - 1f;
@@ -142,7 +142,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int num479 = 0; num479 < 10; num479++)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 58, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, default, 1.2f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Enchanted_Pink, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, default, 1.2f);
             }
             for (int num480 = 0; num480 < 3; num480++)
             {
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             }
             float x = Projectile.position.X + Main.rand.Next(-400, 400);
             float y = Projectile.position.Y - Main.rand.Next(600, 900);
-            Vector2 vector12 = new Vector2(x, y);
+            Vector2 vector12 = new(x, y);
             float num483 = Projectile.position.X + Projectile.width / 2 - vector12.X;
             float num484 = Projectile.position.Y + Projectile.height / 2 - vector12.Y;
             int num485 = 22;
@@ -171,14 +171,14 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
             for (int num613 = 0; num613 < 10; num613++)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1.5f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
             }
             for (int num614 = 0; num614 < 5; num614++)
             {
-                int num615 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 2.5f);
+                int num615 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
                 Main.dust[num615].noGravity = true;
                 Main.dust[num615].velocity *= 3f;
-                num615 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1.5f);
+                num615 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                 Main.dust[num615].velocity *= 2f;
             }
             int num616 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, default, Main.rand.Next(61, 64), 1f);

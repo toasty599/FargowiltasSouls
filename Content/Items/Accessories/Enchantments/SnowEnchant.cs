@@ -18,7 +18,7 @@ There is a 60 second cooldown for this effect
 'It's Burning Cold Outside'");
         }
 
-        protected override Color nameColor => new Color(37, 195, 242);
+        protected override Color nameColor => new(37, 195, 242);
         public override string wizardEffect => "";
 
         public override void SetDefaults()

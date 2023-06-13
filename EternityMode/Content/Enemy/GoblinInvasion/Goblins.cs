@@ -1,12 +1,11 @@
 ﻿using FargowiltasSouls.EternityMode.NPCMatching;
-using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
 {
@@ -34,7 +33,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
         {
             base.OnFirstTick(npc);
 
-            if (!FargoSoulsWorld.downedAnyBoss && (npc.type == NPCID.GoblinWarrior || npc.type == NPCID.GoblinThief || npc.type == NPCID.GoblinArcher) && NPC.CountNPCS(npc.type) > 3)
+            if (!WorldSavingSystem.DownedAnyBoss && (npc.type == NPCID.GoblinWarrior || npc.type == NPCID.GoblinThief || npc.type == NPCID.GoblinArcher) && NPC.CountNPCS(npc.type) > 3)
             {
                 npc.Transform(NPCID.GoblinPeon);
             }
@@ -110,9 +109,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
 
-            if (NPC.downedGoblins && !FargoSoulsWorld.haveForcedAbomFromGoblins)
+            if (NPC.downedGoblins && !WorldSavingSystem.HaveForcedAbomFromGoblins)
             {
-                FargoSoulsWorld.haveForcedAbomFromGoblins = true;
+                WorldSavingSystem.HaveForcedAbomFromGoblins = true;
 
                 if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
                 {

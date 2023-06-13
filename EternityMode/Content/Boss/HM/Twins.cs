@@ -7,7 +7,6 @@ using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -18,6 +17,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             Resist = false;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return true;
 
             //have some dr during phase transition animation
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             NPC spazmatism = FargoSoulsUtil.NPCExists(EModeGlobalNPC.spazBoss, NPCID.Spazmatism);
 
-            if (FargoSoulsWorld.MasochistModeReal && spazmatism == null && npc.HasValidTarget && ++RespawnTimer > 600)
+            if (WorldSavingSystem.MasochistModeReal && spazmatism == null && npc.HasValidTarget && ++RespawnTimer > 600)
             {
                 RespawnTimer = 0;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             else //in phase 3
             {
 
-                if (FargoSoulsWorld.MasochistModeReal && spazmatism == null && --DarkStarTimer < 0) //when twin dead, begin shooting dark stars
+                if (WorldSavingSystem.MasochistModeReal && spazmatism == null && --DarkStarTimer < 0) //when twin dead, begin shooting dark stars
                 {
                     DarkStarTimer = 240;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
@@ -200,7 +200,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 //dust code
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 90, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.GemRuby, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -232,14 +232,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
 
                 float auraDistance = 2000 - 1200 * AuraRadiusCounter / 180f;
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                     auraDistance *= 0.75f;
                 if (auraDistance < 2000 - 1)
                     EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Torch, default, ModContent.BuffType<OiledBuff>(), BuffID.OnFire, BuffID.Burning);
 
                 //2*pi * (# of full circles) / (seconds to finish rotation) / (ticks per sec)
                 float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                     rotationInterval *= 1.05f;
 
                 npc.ai[0]++; //base value is 4
@@ -264,7 +264,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 npc.ai[3] = -npc.rotation;
                                 if (--npc.ai[2] > 295f)
                                     npc.ai[2] = 295f;
-                                StoredDirectionToPlayer = (Main.player[npc.target].Center.X - npc.Center.X < 0);
+                                StoredDirectionToPlayer = Main.player[npc.target].Center.X - npc.Center.X < 0;
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
@@ -401,8 +401,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
-            LeadingConditionRule noTwin = new LeadingConditionRule(new Conditions.MissingTwin());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
+            LeadingConditionRule noTwin = new(new Conditions.MissingTwin());
             emodeRule.OnSuccess(noTwin);
             noTwin.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<FusedLens>()));
             noTwin.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrateHard, 5));
@@ -411,7 +411,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CheckDead(NPC npc)
         {
-            if (FargoSoulsWorld.SwarmActive || FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.SwarmActive || WorldSavingSystem.MasochistModeReal)
                 return base.CheckDead(npc);
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism) && Main.npc[EModeGlobalNPC.spazBoss].life > 1) //spaz still active
@@ -503,7 +503,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             Resist = false;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return true;
 
             //have some dr during phase transition animation
@@ -512,7 +512,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             NPC retinazer = FargoSoulsUtil.NPCExists(EModeGlobalNPC.retiBoss, NPCID.Retinazer);
 
-            if (FargoSoulsWorld.MasochistModeReal && retinazer == null && npc.HasValidTarget && ++RespawnTimer > 600)
+            if (WorldSavingSystem.MasochistModeReal && retinazer == null && npc.HasValidTarget && ++RespawnTimer > 600)
             {
                 RespawnTimer = 0;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -537,7 +537,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             float modifier = (float)npc.life / npc.lifeMax;
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 modifier *= modifier;
 
             if (!ForcedPhase2OnSpawn) //spawn in phase 2
@@ -605,7 +605,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.netUpdate = true;
                     SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
-                    if (!FargoSoulsWorld.MasochistModeReal)
+                    if (!WorldSavingSystem.MasochistModeReal)
                         P3DashPhaseDelay = P3DashDelayLength;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -626,7 +626,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 //reti is doing the spin
                 if (retinazer != null && retinazer.ai[0] >= 4f && retinazer.GetGlobalNPC<Retinazer>().DeathrayState != 0 && retinazer.GetGlobalNPC<Retinazer>().DeathrayState != 3)
                 {
-                    if (!FargoSoulsWorld.MasochistModeReal)
+                    if (!WorldSavingSystem.MasochistModeReal)
                     {
                         npc.velocity *= 0.98f;
                         if (!TryWatchHarmlessly(npc))
@@ -641,7 +641,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 //dust code
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 89, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.GemEmerald, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -675,7 +675,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         npc.velocity = (target - npc.Center) / 60;
 
                         float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f * 0.65f;
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                             rotationInterval *= -1f;
                         npc.rotation += rotationInterval * (retinazer.GetGlobalNPC<Retinazer>().StoredDirectionToPlayer ? 1f : -1f);
 
@@ -689,7 +689,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 FlameWheelCount = 3;
                             if (modifier < 0.5f / 4 * 2)
                                 FlameWheelCount = 4;
-                            if (modifier < 0.5f / 4 * 1 || FargoSoulsWorld.MasochistModeReal)
+                            if (modifier < 0.5f / 4 * 1 || WorldSavingSystem.MasochistModeReal)
                                 FlameWheelCount = 5;
                         }
 
@@ -793,7 +793,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                 }
 
-                if (FargoSoulsWorld.MasochistModeReal && retinazer == null && --DarkStarTimer < 0) //when twin dead, begin shooting dark stars
+                if (WorldSavingSystem.MasochistModeReal && retinazer == null && --DarkStarTimer < 0) //when twin dead, begin shooting dark stars
                 {
                     DarkStarTimer = 150;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
@@ -865,8 +865,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
-            LeadingConditionRule noTwin = new LeadingConditionRule(new Conditions.MissingTwin());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
+            LeadingConditionRule noTwin = new(new Conditions.MissingTwin());
             emodeRule.OnSuccess(noTwin);
             noTwin.OnSuccess(ItemDropRule.BossBag(ModContent.ItemType<FusedLens>()));
             noTwin.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrateHard, 5));
@@ -875,7 +875,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CheckDead(NPC npc)
         {
-            if (FargoSoulsWorld.SwarmActive || FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.SwarmActive || WorldSavingSystem.MasochistModeReal)
                 return base.CheckDead(npc);
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer) && Main.npc[EModeGlobalNPC.retiBoss].life > 1) //reti still active

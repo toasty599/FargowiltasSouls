@@ -2,16 +2,16 @@
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
-namespace FargowiltasSouls.Content.UI
+namespace FargowiltasSouls.Content.UI.Elements
 {
     // I have to reflect here because, to stop it from ordering all its children with its messed up sorting method, I need to override Add and Remove to just not call that method
     // However, _innerList which it accesses is private (bleh)
     public class UIToggleList : UIList
     {
-        public static FieldInfo field_innerList;
-        public static MethodInfo method_uiElementAppend;
-        public static MethodInfo method_uiElementRecalcuate;
-        public static MethodInfo method_uiElementRemoveChild;
+        public readonly static FieldInfo field_innerList;
+        public readonly static MethodInfo method_uiElementAppend;
+        public readonly static MethodInfo method_uiElementRecalcuate;
+        public readonly static MethodInfo method_uiElementRemoveChild;
 
         static UIToggleList()
         {

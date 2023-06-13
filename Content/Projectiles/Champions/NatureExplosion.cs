@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Burning, 300);
             target.AddBuff(BuffID.OnFire, 300);
             target.velocity.X = target.Center.X < Main.npc[(int)Projectile.ai[0]].Center.X ? -15f : 15f;
@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
             for (int num615 = 0; num615 < 45; num615++)
             {
-                int num616 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1.5f);
+                int num616 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
                 Main.dust[num616].velocity *= 1.4f;
             }
 
@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
                 for (int i = 0; i < 30; i++)
                 {
-                    int dust = Dust.NewDust(dustPos, 32, 32, 31, 0f, 0f, 100, default, 3f);
+                    int dust = Dust.NewDust(dustPos, 32, 32, DustID.Smoke, 0f, 0f, 100, default, 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
 

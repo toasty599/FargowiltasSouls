@@ -1,5 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -26,7 +24,7 @@ Parry blocks up to 100 damage
             Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new Color(180, 180, 204);
+        protected override Color nameColor => new(180, 180, 204);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Silver");
 
         public override void SetDefaults()

@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Essences
             // '这只是个开始...'");
         }
 
-        protected override Color nameColor => new Color(255, 111, 6);
+        protected override Color nameColor => new(255, 111, 6);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.Projectiles.BossWeapons;
+﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;

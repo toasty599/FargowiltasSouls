@@ -21,7 +21,7 @@ While grappling you gain 10% damage resistance for one hit and a 50% thorns effe
             //in force multiplier is 2.5x pull speed, DR increases to 50% and thorns to 500%
         }
 
-        protected override Color nameColor => new Color(181, 108, 100);
+        protected override Color nameColor => new(181, 108, 100);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.RichMahogany");
 
         public override void SetDefaults()

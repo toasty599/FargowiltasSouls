@@ -3,13 +3,13 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 
-namespace FargowiltasSouls.Content.UI
+namespace FargowiltasSouls.Content.UI.Elements
 {
-    public class UIHoverTextImageButton : UIImageButton
+    public class FargoUIHoverTextImageButton : UIImageButton
     {
         public string Text;
 
-        public UIHoverTextImageButton(Asset<Texture2D> texture, string text) : base(texture)
+        public FargoUIHoverTextImageButton(Asset<Texture2D> texture, string text) : base(texture)
         {
             Text = text;
         }

@@ -1,10 +1,10 @@
 ﻿using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls
 {
@@ -56,13 +56,13 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             for (int i = 0; i < 15; i++)
             {
-                Vector2 offset = new Vector2();
+                Vector2 offset = new();
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * Main.rand.Next(dist + 1));
                 offset.Y += (float)(Math.Cos(angle) * Main.rand.Next(dist + 1));
                 Dust dust = Main.dust[Dust.NewDust(
                     Projectile.Center + offset - new Vector2(4, 4), 0, 0,
-                    76, 0, 0, 100, Color.White, .75f)];
+                    DustID.Snow, 0, 0, 100, Color.White, .75f)];
 
                 dust.noGravity = true;
             }

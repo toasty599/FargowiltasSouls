@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             {
                 for (int i = 0; i < 2; ++i)
                 {
-                    if (Main.rand.Next(4) != 0)
+                    if (!Main.rand.NextBool(4))
                     {
                         Dust dust = Dust.NewDustDirect(Projectile.Center - Projectile.Size / 4f, Projectile.width / 2, Projectile.height / 2,
                             Utils.SelectRandom(Main.rand, new int[3] { 6, 31, 31 }), 0.0f, 0.0f, 0, default, 1f);
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Vector2 vector2_1 = 16f * new Vector2(0f, (float)Math.Cos(Projectile.frameCounter * 6.28318548202515 / 40.0 - 1.57079637050629)).RotatedBy(Projectile.rotation);
                 Vector2 vector2_2 = Vector2.Normalize(Projectile.velocity);
 
-                Dust dust1 = Dust.NewDustDirect(Projectile.Center - Projectile.Size / 4f, Projectile.width / 2, Projectile.height / 2, 6, 0.0f, 0.0f, 0, default, 1f);
+                Dust dust1 = Dust.NewDustDirect(Projectile.Center - Projectile.Size / 4f, Projectile.width / 2, Projectile.height / 2, DustID.Torch, 0.0f, 0.0f, 0, default, 1f);
                 dust1.noGravity = true;
                 dust1.position = Projectile.Center + vector2_1;
                 dust1.velocity = Vector2.Zero;
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 dust1.position += Projectile.velocity * 1.2f;
                 dust1.velocity += vector2_2 * 2f;
 
-                Dust dust2 = Dust.NewDustDirect(Projectile.Center - Projectile.Size / 4f, Projectile.width / 2, Projectile.height / 2, 6, 0.0f, 0.0f, 0, default, 1f);
+                Dust dust2 = Dust.NewDustDirect(Projectile.Center - Projectile.Size / 4f, Projectile.width / 2, Projectile.height / 2, DustID.Torch, 0.0f, 0.0f, 0, default, 1f);
                 dust2.noGravity = true;
                 dust2.position = Projectile.Center + vector2_1;
                 dust2.velocity = Vector2.Zero;
@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     {
                         Vector2 vector2 = -Vector2.UnitY.RotatedBy(index1 * (6.28318548202515 / num1)) * new Vector2(1f, 4f);
                         vector2 = vector2.RotatedBy(Projectile.velocity.ToRotation());
-                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, 6, 0.0f, 0.0f, 0, default, 1f);
+                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.Torch, 0.0f, 0.0f, 0, default, 1f);
                         Main.dust[index2].scale = 1.5f;
                         Main.dust[index2].noLight = true;
                         Main.dust[index2].noGravity = true;
@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             for (int i = 0; i < 15; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 31, 0f, 0f, 100, default, 3f);
+                    Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].velocity *= 1.4f;
             }
 
@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

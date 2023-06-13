@@ -1,10 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Color = Microsoft.Xna.Framework.Color;
@@ -74,9 +72,9 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
                 if (player != null && Projectile.localAI[0] > 10) //homing
                 {
                     Vector2 vectorToIdlePosition = player.Center - Projectile.Center;
-                    float speed = FargoSoulsWorld.MasochistModeReal ? 18f : 18f;
+                    float speed = WorldSavingSystem.MasochistModeReal ? 18f : 18f;
                     float inertia = 20f;
-                    float deadzone = FargoSoulsWorld.MasochistModeReal ? 150f : 180f;
+                    float deadzone = WorldSavingSystem.MasochistModeReal ? 150f : 180f;
                     float num = vectorToIdlePosition.Length();
                     if (num > deadzone && home)
                     {
@@ -103,7 +101,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.OnFire, 600);
         }
         public override void Kill(int timeLeft)
@@ -125,7 +123,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             Texture2D texture2D13 = Projectile.ai[0] != 3 ? Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value : FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/Challengers/BaronRocketTorp", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Vector2 drawOffset = Projectile.rotation.ToRotationVector2() * (texture2D13.Width - Projectile.width) / 2;
 

@@ -1,6 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;

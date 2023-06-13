@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                             Vector2 vector6 = Vector2.UnitY * 5f;
                             vector6 = vector6.RotatedBy((j - (20 / 2 - 1)) * 6.28318548f / 20) + proj.Center;
                             Vector2 vector7 = vector6 - proj.Center;
-                            int d = Dust.NewDust(vector6 + vector7, 0, 0, 20);
+                            int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.PurificationPowder);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity = vector7;
                             Main.dust[d].scale = 1.5f;

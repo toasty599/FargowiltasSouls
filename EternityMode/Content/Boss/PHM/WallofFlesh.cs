@@ -7,10 +7,8 @@ using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -19,6 +17,7 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -91,7 +90,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             EModeGlobalNPC.wallBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             if (!MadeEyeInvul && npc.ai[3] == 0f) //when spawned in, make one eye invul
@@ -148,7 +147,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (WorldEvilAttackCycleTimer % 4 == 0)
                         {
                             float xDistance = (2500f - 1800f * WorldEvilAttackCycleTimer / 240f) * Math.Sign(npc.velocity.X);
-                            Vector2 spawnPos = new Vector2(npc.Center.X + xDistance, npc.Center.Y);
+                            Vector2 spawnPos = new(npc.Center.X + xDistance, npc.Center.Y);
 
                             SoundEngine.PlaySound(SoundID.Item34, spawnPos);
 
@@ -190,7 +189,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                 }
             }
-            else if (npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? 0.9 : .75)) //enter phase 2
+            else if (npc.life < npc.lifeMax * (WorldSavingSystem.MasochistModeReal ? 0.9 : .75)) //enter phase 2
             {
                 InPhase2 = true;
                 npc.netUpdate = true;
@@ -248,7 +247,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     ChainBarrageTimer = 0;
                 }
             }
-            else if (InPhase2 && npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? .8 : .5)) //enter phase 3
+            else if (InPhase2 && npc.life < npc.lifeMax * (WorldSavingSystem.MasochistModeReal ? .8 : .5)) //enter phase 3
             {
                 InPhase3 = true;
                 npc.netUpdate = true;
@@ -264,7 +263,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            if (npc.life < npc.lifeMax / (FargoSoulsWorld.MasochistModeReal ? 4 : 10)) //final phase
+            if (npc.life < npc.lifeMax / (WorldSavingSystem.MasochistModeReal ? 4 : 10)) //final phase
             {
                 WorldEvilAttackCycleTimer++;
 
@@ -295,7 +294,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            float maxSpeed = FargoSoulsWorld.MasochistModeReal ? 4.5f : 3.5f; //don't let wof move faster than this normally
+            float maxSpeed = WorldSavingSystem.MasochistModeReal ? 4.5f : 3.5f; //don't let wof move faster than this normally
             if (npc.HasPlayerTarget && (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000))
             {
                 npc.TargetClosest(true);
@@ -353,9 +352,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.OnKill(npc);
 
-            if (!FargoSoulsWorld.WOFDroppedDeviGift2)
+            if (!WorldSavingSystem.WOFDroppedDeviGift2)
             {
-                FargoSoulsWorld.WOFDroppedDeviGift2 = true;
+                WorldSavingSystem.WOFDroppedDeviGift2 = true;
 
                 npc.DropItemInstanced(npc.position, npc.Size, ItemID.AdamantitePickaxe);
                 npc.DropItemInstanced(npc.position, npc.Size, ItemID.AngelWings);
@@ -376,7 +375,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<PungentEyeball>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MutantsDiscountCard>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HallowedFishingCrateHard, 5));
@@ -458,7 +457,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public override bool SafePreAI(NPC npc)
         {
             NPC mouth = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.WallofFlesh);
-            if (FargoSoulsWorld.SwarmActive || RepeatingAI || mouth == null)
+            if (WorldSavingSystem.SwarmActive || RepeatingAI || mouth == null)
                 return true;
 
             if (PreventAttacks > 0)
@@ -471,7 +470,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (npc.ai[1] < maxTime - 180) //dont lower this if it's already telegraphing laser
                     maxTime = 240f;
 
-                if (!FargoSoulsWorld.MasochistModeReal)
+                if (!WorldSavingSystem.MasochistModeReal)
                 {
                     npc.localAI[1] = -1f; //no more regular lasers
                     npc.localAI[2] = 0f;
@@ -542,7 +541,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     if (Main.rand.Next(4) < 3) //dust telegraphs switch
                     {
-                        int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 88, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 114, default(Color), 3.5f);
+                        int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.GemSapphire, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 114, default, 3.5f);
                         Main.dust[dust].noGravity = true;
                         Main.dust[dust].velocity *= 1.8f;
                         Main.dust[dust].velocity.Y -= 0.5f;
@@ -592,7 +591,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
 
             //dont fire during mouth's special attacks (this is at bottom to override others)
-            if (((mouth.GetGlobalNPC<WallofFlesh>().InPhase2 && mouth.GetGlobalNPC<WallofFlesh>().WorldEvilAttackCycleTimer < 240) || mouth.GetGlobalNPC<WallofFlesh>().InDesperationPhase) && !FargoSoulsWorld.MasochistModeReal)
+            if (((mouth.GetGlobalNPC<WallofFlesh>().InPhase2 && mouth.GetGlobalNPC<WallofFlesh>().WorldEvilAttackCycleTimer < 240) || mouth.GetGlobalNPC<WallofFlesh>().InDesperationPhase) && !WorldSavingSystem.MasochistModeReal)
             {
                 npc.localAI[1] = -90f;
                 npc.localAI[2] = 0f;
@@ -646,13 +645,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.AI(npc);
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return;
 
             NPC wall = FargoSoulsUtil.NPCExists(EModeGlobalNPC.wallBoss, NPCID.WallofFlesh);
             if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 200 && wall != null
                 && wall.GetGlobalNPC<WallofFlesh>().UseCorruptAttack && wall.GetGlobalNPC<WallofFlesh>().WorldEvilAttackCycleTimer < 240
-                && !FargoSoulsWorld.MasochistModeReal)
+                && !WorldSavingSystem.MasochistModeReal)
             {
                 //snap away from player if too close during wof cursed flame wall
                 npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;

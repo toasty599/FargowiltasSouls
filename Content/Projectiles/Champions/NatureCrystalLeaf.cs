@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
                 Projectile.localAI[0] = 1;
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 157, 0f, 0f, 0, new Color(), 2f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.ChlorophyteWeapon, 0f, 0f, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         {
             for (int index1 = 0; index1 < 30; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 157, 0f, 0f, 0, new Color(), 2f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.ChlorophyteWeapon, 0f, 0f, 0, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 5f;
             }
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 300);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
         }
     }

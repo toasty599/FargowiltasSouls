@@ -4,7 +4,6 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -82,10 +81,10 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
             if (Math.Abs(npc.velocity.Y) > 5 || Math.Abs(npc.velocity.X) > 5)
             {
                 int dustId = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y + 2f), npc.width, npc.height + 5, DustID.Stone, npc.velocity.X * 0.2f,
-                    npc.velocity.Y * 0.2f, 100, default(Color), 1f);
+                    npc.velocity.Y * 0.2f, 100, default, 1f);
                 Main.dust[dustId].noGravity = true;
                 int dustId3 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y + 2f), npc.width, npc.height + 5, DustID.Stone, npc.velocity.X * 0.2f,
-                    npc.velocity.Y * 0.2f, 100, default(Color), 1f);
+                    npc.velocity.Y * 0.2f, 100, default, 1f);
                 Main.dust[dustId3].noGravity = true;
             }
         }

@@ -328,7 +328,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void CommandForbiddenStorm()
         {
-            List<int> list = new List<int>();
+            List<int> list = new();
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile projectile = Main.projectile[i];
@@ -372,7 +372,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     for (float num3 = 0f; num3 < value2.Length(); num3 += 15f)
                     {
                         Vector2 position = center + value2 * (num3 / value2.Length());
-                        Dust dust = Main.dust[Dust.NewDust(position, 0, 0, 269, 0f, 0f, 0, default(Color), 1f)];
+                        Dust dust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Sandnado, 0f, 0f, 0, default, 1f)];
                         dust.position = position;
                         dust.fadeIn = 0.5f;
                         dust.scale = 0.7f;
@@ -382,7 +382,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
                 for (float num4 = 0f; num4 < 6.28318548f; num4 += 0.209439516f)
                 {
-                    Dust dust2 = Main.dust[Dust.NewDust(vector, 0, 0, 269, 0f, 0f, 0, default(Color), 1f)];
+                    Dust dust2 = Main.dust[Dust.NewDust(vector, 0, 0, DustID.Sandnado, 0f, 0f, 0, default, 1f)];
                     dust2.position = vector;
                     dust2.fadeIn = 1f;
                     dust2.scale = 0.3f;
@@ -392,7 +392,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //Main.NewText(" " + (list.Count <= 1) + " " + flag3 + " " + Player.CheckMana(20, true, false));
 
-            bool flag = (list.Count <= 1);
+            bool flag = list.Count <= 1;
             flag &= flag3;
 
 
@@ -450,7 +450,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     //respawn in formation
                     for (int i = 0; i < IcicleCount; i++)
                     {
-                        float radians = (360f / IcicleCount) * i * (float)(Math.PI / 180);
+                        float radians = 360f / IcicleCount * i * (float)(Math.PI / 180);
                         Projectile frost = FargoSoulsUtil.NewProjectileDirectSafe(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<FrostIcicle>(), 0, 0f, Player.whoAmI, 5, radians);
                         frost.netUpdate = true;
                     }
@@ -468,7 +468,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Vector2 vector6 = Vector2.UnitY * 5f;
                         vector6 = vector6.RotatedBy((j - (20 / 2 - 1)) * 6.28318548f / 20) + Player.Center;
                         Vector2 vector7 = vector6 - Player.Center;
-                        int d = Dust.NewDust(vector6 + vector7, 0, 0, 15);
+                        int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.MagicMirror);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].scale = dustScale;
                         Main.dust[d].velocity = vector7;
@@ -738,8 +738,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     if (MeteorTimer % (CosmoForce ? 2 : 4) == 0)
                     {
-                        Vector2 pos = new Vector2(Player.Center.X + Main.rand.NextFloat(-1000, 1000), Player.Center.Y - 1000);
-                        Vector2 vel = new Vector2(Main.rand.NextFloat(-2, 2), Main.rand.NextFloat(8, 12));
+                        Vector2 pos = new(Player.Center.X + Main.rand.NextFloat(-1000, 1000), Player.Center.Y - 1000);
+                        Vector2 vel = new(Main.rand.NextFloat(-2, 2), Main.rand.NextFloat(8, 12));
                         
                         //chance to focus on a nearby enemy with slight predictive aim
                         if (Main.rand.NextBool())
@@ -977,7 +977,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.GetToggleValue("ShinobiDash") && Player.whoAmI == Main.myPlayer & dashCD <= 0 && !Player.mount.Active)
             {
-                if ((Player.controlRight && Player.releaseRight))
+                if (Player.controlRight && Player.releaseRight)
                 {
                     if (Player.doubleTapCardinalTimer[2] > 0 && Player.doubleTapCardinalTimer[2] != 15)
                     {
@@ -985,7 +985,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
 
-                if ((Player.controlLeft && Player.releaseLeft))
+                if (Player.controlLeft && Player.releaseLeft)
                 {
                     if (Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
                     {
@@ -1131,7 +1131,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.AddBuff(BuffID.SolarShield1 + Player.solarShields, 5, false);
                     for (int i = 0; i < 16; i++)
                     {
-                        Dust dust = Main.dust[Dust.NewDust(Player.position, Player.width, Player.height, 6, 0f, 0f, 100)];
+                        Dust dust = Main.dust[Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch, 0f, 0f, 100)];
                         dust.noGravity = true;
                         dust.scale = 1.7f;
                         dust.fadeIn = 0.5f;
@@ -1204,7 +1204,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         float num5 = Math.Abs(Main.player[i].position.X + (Main.player[i].width / 2) - proj.position.X + (proj.width / 2)) + Math.Abs(Main.player[i].position.Y + (Main.player[i].height / 2) - proj.position.Y + (proj.height / 2));
                         if (num5 < 1200f && (Main.player[i].statLifeMax2 - Main.player[i].statLife) > num3)
                         {
-                            num3 = (Main.player[i].statLifeMax2 - Main.player[i].statLife);
+                            num3 = Main.player[i].statLifeMax2 - Main.player[i].statLife;
                             num4 = i;
                         }
                     }
@@ -1342,7 +1342,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 freezeLength--;
 
-                FargowiltasSouls.Instance.ManageMusicTimestop(freezeLength < 5);
+                FargowiltasSouls.ManageMusicTimestop(freezeLength < 5);
 
                 if (freezeLength == 90)
                 {
@@ -1416,7 +1416,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 TurtleCounter = 0;
             }
 
-            if (TurtleShellHP < 20 && !Player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && !ShellHide && (LifeForce))
+            if (TurtleShellHP < 20 && !Player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && !ShellHide && LifeForce)
             {
                 turtleRecoverCD--;
                 if (turtleRecoverCD <= 0)
@@ -1878,7 +1878,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.noFallDmg = true;
         }
 
-        public void VolatileGelatin(Player player, Item sourceItem)
+        public static void VolatileGelatin(Player player, Item sourceItem)
         {
             if (Main.myPlayer != player.whoAmI)
             {
@@ -1910,7 +1910,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Vector2 vector = npc.Center - player.Center;
                     vector = vector.SafeNormalize(Vector2.Zero) * 6f;
                     vector.Y -= 2f;
-                    Projectile.NewProjectile(player.GetSource_Accessory(sourceItem), player.Center.X, player.Center.Y, vector.X, vector.Y, 937, damage, knockBack, player.whoAmI, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_Accessory(sourceItem), player.Center.X, player.Center.Y, vector.X, vector.Y, ProjectileID.VolatileGelatinBall, damage, knockBack, player.whoAmI, 0f, 0f);
                 }
             }
         }
@@ -2065,26 +2065,26 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 for (int i = 0; i < 20; i++)
                 {
-                    int dust = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 100, default, 3f);
+                    int dust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Vortex, 0f, 0f, 100, default, 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
 
                 for (int i = 0; i < 10; i++)
                 {
-                    int dust = Dust.NewDust(Player.position, Player.width, Player.height, 6, 0f, 0f, 100, default, 3.5f);
+                    int dust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 7f;
-                    dust = Dust.NewDust(Player.position, Player.width, Player.height, 6, 0f, 0f, 100, default, 1.5f);
+                    dust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                     Main.dust[dust].velocity *= 3f;
                 }
 
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 100, new Color(), 2f);
+                    int index2 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Vortex, 0f, 0f, 100, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 21f;
                     Main.dust[index2].noLight = true;
-                    int index3 = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 100, new Color(), 1f);
+                    int index3 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Vortex, 0f, 0f, 100, new Color(), 1f);
                     Main.dust[index3].velocity *= 12f;
                     Main.dust[index3].noGravity = true;
                     Main.dust[index3].noLight = true;
@@ -2092,7 +2092,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 for (int i = 0; i < 20; i++)
                 {
-                    int d = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 5f));
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Vortex, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 5f));
                     if (Main.rand.NextBool(3))
                         Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= Main.rand.NextFloat(12f, 18f);
@@ -2332,7 +2332,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                             damage = (int)(damage * Player.ActualClassDamage(DamageClass.Melee));
                             for (int i = 0; i < 3; i++)
                             {
-                                Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
+                                Vector2 spawn = new(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
                                 if (Collision.CanHitLine(mouse, 0, 0, spawn, 0, 0))
                                 {
                                     Vector2 speed = mouse - spawn;
@@ -2395,14 +2395,14 @@ namespace FargowiltasSouls.Core.ModPlayers
                     SoundEngine.PlaySound(SoundID.NPCHit1, Player.Center);
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
-                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
+                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.ScourgeOfTheCorruptor, 0.0f, 0.0f, 0, new Color(), 1f);
                         Dust dust = Main.dust[index2];
                         dust.scale = dust.scale * 1.1f;
                         Main.dust[index2].noGravity = true;
                     }
                     for (int index1 = 0; index1 < 30; ++index1)
                     {
-                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
+                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.ScourgeOfTheCorruptor, 0.0f, 0.0f, 0, new Color(), 1f);
                         Dust dust1 = Main.dust[index2];
                         dust1.velocity = dust1.velocity * 2.5f;
                         Dust dust2 = Main.dust[index2];
@@ -2604,14 +2604,14 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Vector2 vector6 = Vector2.UnitY * 30f;
                     vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
                     Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
-                    int d = Dust.NewDust(vector6 + vector7, 0, 0, 229, 0f, 0f, 0, default(Color), 3f);
+                    int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Vortex, 0f, 0f, 0, default, 3f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity = vector7;
                 }
 
                 for (int i = 0; i < 50; i++) //make some indicator dusts
                 {
-                    int d = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 0, default(Color), 2.5f);
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Vortex, 0f, 0f, 0, default, 2.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 24f;
@@ -2752,7 +2752,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                     else if (Player.velocity.Y == 0f && Player.oldVelocity.Y == 0f)
                     {
-                        int x = (int)(Player.Center.X) / 16;
+                        int x = (int)Player.Center.X / 16;
                         int y = (int)(Player.position.Y + Player.height + 8) / 16;
                         if (/*GroundPound > 15 && */x >= 0 && x < Main.maxTilesX && y >= 0 && y < Main.maxTilesY
                             && Main.tile[x, y] != null && Main.tile[x, y].HasUnactuatedTile && Main.tileSolid[Main.tile[x, y].TileType])
@@ -2844,7 +2844,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                     for (int i = 0; i < 30; i++)
                     {
-                        int d = Dust.NewDust(Player.position, Player.width, Player.height, 87, 0f, 0f, 0, default(Color), 2.5f);
+                        int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.GemTopaz, 0f, 0f, 0, default, 2.5f);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].velocity *= 8f;
                     }
@@ -2930,7 +2930,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.whoAmI == Main.myPlayer)
             {
-                int heal = getHealMultiplier(damage);
+                int heal = GetHealMultiplier(damage);
                 Player.statLife += heal;
                 if (Player.statLife > Player.statLifeMax2)
                     Player.statLife = Player.statLifeMax2;
@@ -3096,11 +3096,11 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 for (int i = 0; i < 20; i++)
                 {
-                    Vector2 offset = new Vector2();
+                    Vector2 offset = new();
                     double angle = Main.rand.NextDouble() * 2d * Math.PI;
                     offset.X += (float)(Math.Sin(angle) * distance);
                     offset.Y += (float)(Math.Cos(angle) * distance);
-                    Dust dust = Main.dust[Dust.NewDust(Player.Center + offset - new Vector2(4, 4), 0, 0, 119, 0, 0, 100, Color.White, 1f)];
+                    Dust dust = Main.dust[Dust.NewDust(Player.Center + offset - new Vector2(4, 4), 0, 0, DustID.Ice_Pink, 0, 0, 100, Color.White, 1f)];
                     dust.velocity = Player.velocity;
                     if (Main.rand.NextBool(3))
                         dust.velocity += Vector2.Normalize(offset) * -5f;
@@ -3137,7 +3137,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //no need when player has brand of inferno
             if ((SilverEnchantItem == null && DreadShellItem == null && PumpkingsCapeItem == null) ||
-                (Player.inventory[Player.selectedItem].type == ItemID.DD2SquireDemonSword || Player.inventory[Player.selectedItem].type == ItemID.BouncingShield))
+                Player.inventory[Player.selectedItem].type == ItemID.DD2SquireDemonSword || Player.inventory[Player.selectedItem].type == ItemID.BouncingShield)
             {
                 shieldTimer = 0;
                 wasHoldingShield = false;
@@ -3193,7 +3193,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     SoundEngine.PlaySound(SoundID.Item27, Player.Center);
 
-                    List<int> dusts = new List<int>();
+                    List<int> dusts = new();
                     if (DreadShellItem != null)
                         dusts.Add(DustID.LifeDrain);
                     if (PumpkingsCapeItem != null)
@@ -3229,7 +3229,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     SoundEngine.PlaySound(SoundID.Item28, Player.Center); //make a sound for refresh
 
-                    List<int> dusts = new List<int>();
+                    List<int> dusts = new();
                     if (DreadShellItem != null)
                         dusts.Add(DustID.LifeDrain);
                     if (PumpkingsCapeItem != null)

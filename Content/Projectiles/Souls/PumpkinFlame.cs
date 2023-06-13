@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Projectile.Kill();
             }
 
-            int num199 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1f);
+            int num199 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1f);
             Dust expr_8956_cp_0 = Main.dust[num199];
             expr_8956_cp_0.position.X = expr_8956_cp_0.position.X - 2f;
             Dust expr_8974_cp_0 = Main.dust[num199];
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             expr_89C7_cp_0.velocity.Y = expr_89C7_cp_0.velocity.Y - 2f;
             if (Main.rand.NextBool())
             {
-                int num200 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1f);
+                int num200 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1f);
                 Dust expr_8A2E_cp_0 = Main.dust[num200];
                 expr_8A2E_cp_0.position.X = expr_8A2E_cp_0.position.X - 2f;
                 Dust expr_8A4C_cp_0 = Main.dust[num200];

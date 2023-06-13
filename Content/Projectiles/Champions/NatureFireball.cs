@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ID;
 
@@ -23,7 +24,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Burning, 300);
             target.AddBuff(BuffID.OnFire, 300);
         }

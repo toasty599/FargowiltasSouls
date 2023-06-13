@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
     {
         public override string Texture => "FargowiltasSouls/Content/NPCs/MutantBoss/MutantBoss";
 
-        public string trailTexture => "Content/NPCs/Eternals/MutantSoul";
-        public int npcType => ModContent.NPCType<NPCs.MutantBoss.MutantBoss>();
+        public static string trailTexture => "Content/NPCs/Eternals/MutantSoul";
+        public static int npcType => ModContent.NPCType<NPCs.MutantBoss.MutantBoss>();
         public bool auraTrail;
 
         const int auraFrames = 19;
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                     npc.ai[0] == 10 && npc.ai[1] > 150
                     || npc.ai[0] == -5 && npc.ai[2] > 420 - 90 && npc.ai[2] < 420;
 
-                if (npc.ai[0] == 10 && FargoSoulsWorld.EternityMode)
+                if (npc.ai[0] == 10 && WorldSavingSystem.EternityMode)
                 {
                     SHADOWMUTANTREAL += 0.03f;
                     if (SHADOWMUTANTREAL > 0.75f)
@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 Projectile.localAI[1] = sansEye ? MathHelper.Lerp(Projectile.localAI[1], 1f, 0.05f) : 0; //for rotation of sans eye
                 Projectile.ai[0] = sansEye ? Projectile.ai[0] + 1 : 0;
 
-                if (FargoSoulsWorld.MasochistModeReal && (npc.ai[0] >= 11 || npc.ai[0] < 0))
+                if (WorldSavingSystem.MasochistModeReal && (npc.ai[0] >= 11 || npc.ai[0] < 0))
                 {
                     sansEye = true;
                     Projectile.ai[0] = -1;
@@ -146,13 +146,13 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>(trailTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Texture2D aura = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/MutantBoss/MutantAura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int auraFrameHeight = aura.Height / auraFrames;
             int auraY = auraFrameHeight * (int)Projectile.localAI[0];
-            Rectangle auraRectangle = new Rectangle(0, auraY, aura.Width, auraFrameHeight);
+            Rectangle auraRectangle = new(0, auraY, aura.Width, auraFrameHeight);
 
             /*Texture2D lightning = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/MutantBoss/MutantLightning", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int lightningFrameHeight = lightning.Height / lightningFrames;
@@ -203,7 +203,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
             color26 = Color.Lerp(color26, Color.Black, SHADOWMUTANTREAL);
 
-            //if (FargoSoulsWorld.MasochistModeReal)
+            //if (WorldSavingSystem.MasochistModeReal)
             //{
             //    Main.spriteBatch.End();
             //    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
@@ -212,7 +212,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             //    GameShaders.Misc["WCWingShader"].Apply(new DrawData?());
             //}
             Main.spriteBatch.Draw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale, effects, 0);
-            //if (auraTrail && FargoSoulsWorld.MasochistModeReal)
+            //if (auraTrail && WorldSavingSystem.MasochistModeReal)
             //{
             //    Main.spriteBatch.End();
             //    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
@@ -220,9 +220,9 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
             if (sansEye)
             {
-                Color color = new Color(51, 255, 191);
+                Color color = new(51, 255, 191);
 
-                bool forcedMasoEye = FargoSoulsWorld.MasochistModeReal && Projectile.ai[0] == -1;
+                bool forcedMasoEye = WorldSavingSystem.MasochistModeReal && Projectile.ai[0] == -1;
 
                 const int maxTime = 120;
                 float effectiveTime = Projectile.ai[0];
@@ -238,8 +238,8 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                     : Projectile.scale * modifier * Main.cursorScale * 1.25f;
 
                 Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
-                Vector2 origin = new Vector2(star.Width / 2 + sansScale, star.Height / 2 + sansScale);
+                Rectangle rect = new(0, 0, star.Width, star.Height);
+                Vector2 origin = new(star.Width / 2 + sansScale, star.Height / 2 + sansScale);
 
                 Vector2 drawPos = Projectile.Center;
                 drawPos.X += 8 * Projectile.spriteDirection;

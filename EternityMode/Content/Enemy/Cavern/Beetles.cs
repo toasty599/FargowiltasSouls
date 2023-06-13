@@ -20,7 +20,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
             for (int i = 0; i < 10; i++)
             {
-                Vector2 offset = new Vector2();
+                Vector2 offset = new();
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * 400);
                 offset.Y += (float)(Math.Cos(angle) * 400);
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 n.GetGlobalNPC<EModeGlobalNPC>().BeetleTimer = 60;
                 if (Main.rand.NextBool())
                 {
-                    int d = Dust.NewDust(n.position, n.width, n.height, 60, 0f, -1.5f, 0, new Color());
+                    int d = Dust.NewDust(n.position, n.width, n.height, DustID.RedTorch, 0f, -1.5f, 0, new Color());
                     Main.dust[d].velocity *= 0.5f;
                     Main.dust[d].noLight = true;
                 }

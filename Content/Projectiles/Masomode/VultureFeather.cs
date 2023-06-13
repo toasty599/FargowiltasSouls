@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             for (int num610 = 0; num610 < 10; num610++)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 42, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 0, Color.SandyBrown, 1f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Harpy, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 0, Color.SandyBrown, 1f);
             }
         }
     }

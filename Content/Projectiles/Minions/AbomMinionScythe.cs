@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             const float speed = 6;
             for (int i = 0; i < dustMax; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 70, Scale: 3.5f);
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PurpleCrystalShard, Scale: 3.5f);
                 Main.dust[d].velocity *= speed;
                 Main.dust[d].noGravity = true;
             }

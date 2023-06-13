@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

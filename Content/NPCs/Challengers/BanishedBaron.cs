@@ -282,7 +282,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
         }
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.BanishedBaron], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.BanishedBaron], -1);
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
@@ -309,7 +309,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
         public override void AI()
         {
             //Defaults
-            NPC.noTileCollide = Phase == 2 || FargoSoulsWorld.MasochistModeReal || Collision.SolidCollision(NPC.Center, 1, 1) || !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height); //no tile collide in p2, tile collide in p1 except if in tiles, or if obstructed
+            NPC.noTileCollide = Phase == 2 || WorldSavingSystem.MasochistModeReal || Collision.SolidCollision(NPC.Center, 1, 1) || !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height); //no tile collide in p2, tile collide in p1 except if in tiles, or if obstructed
             NPC.defense = NPC.defDefense;
             NPC.direction = NPC.spriteDirection = NPC.rotation.ToRotationVector2().X > 0 ? 1 : -1;
 
@@ -725,7 +725,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
         }
         void P1SineSwim()
         {
-            int Duration = FargoSoulsWorld.MasochistModeReal ? 100 : FargoSoulsWorld.EternityMode ? 150 : 180;
+            int Duration = WorldSavingSystem.MasochistModeReal ? 100 : WorldSavingSystem.EternityMode ? 150 : 180;
             const int Waves = 2;
             const int Ymax = 600;
             const int Xstart = 800;
@@ -984,7 +984,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                         int side = (Timer % 40 == 0) ? 1 : -1;
                         Vector2 v = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * side) * 1f;
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v * 20), v * speed, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, player.whoAmI);
-                        if (side == 1 && FargoSoulsWorld.EternityMode)
+                        if (side == 1 && WorldSavingSystem.EternityMode)
                         {
                             Vector2 v2 = NPC.rotation.ToRotationVector2() * 1f;
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v2 * 20), v2 * 0.6f, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, player.whoAmI);

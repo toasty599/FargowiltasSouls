@@ -5,6 +5,7 @@ using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -342,10 +343,10 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 if (goFast)
                 {
                     maxwalkSpeed *= 3f;
-                    if (!FargoSoulsWorld.EternityMode)
+                    if (!WorldSavingSystem.EternityMode)
                         maxwalkSpeed *= 0.75f;
                 }
-                else if (!FargoSoulsWorld.MasochistModeReal)
+                else if (!WorldSavingSystem.MasochistModeReal)
                 {
                     maxwalkSpeed *= 0.75f;
 
@@ -356,8 +357,8 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 if (NPC.dontTakeDamage)
                     maxwalkSpeed *= 0.75f;
 
-                int walkModifier = FargoSoulsWorld.EternityMode ? 30 : 40;
-                if (FargoSoulsWorld.MasochistModeReal || arms == null || head == null)
+                int walkModifier = WorldSavingSystem.EternityMode ? 30 : 40;
+                if (WorldSavingSystem.MasochistModeReal || arms == null || head == null)
                     walkModifier = 20;
 
                 if (NPC.direction > 0)
@@ -384,7 +385,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 }
 
                 //drop summon
-                if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TrojanSquirrel] && Main.netMode != NetmodeID.MultiplayerClient)
+                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel] && Main.netMode != NetmodeID.MultiplayerClient)
                     Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<SquirrelCoatofArms>());
 
                 //start by jumping
@@ -393,7 +394,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
                 for (int i = 0; i < 80; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default(Color), 4f);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default, 4f);
                     Main.dust[d].velocity.Y -= 1.5f;
                     Main.dust[d].velocity *= 1.5f;
                     Main.dust[d].noGravity = true;
@@ -428,7 +429,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                             if (NPC.localAI[0] == 0f)
                                 NPC.TargetClosest(false);
 
-                            if (FargoSoulsWorld.EternityMode && head == null && NPC.localAI[0] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                            if (WorldSavingSystem.EternityMode && head == null && NPC.localAI[0] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Top.X, NPC.Top.Y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5),
                                     Main.rand.Next(326, 329), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -436,7 +437,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                                     Main.projectile[p].timeLeft = 90;
                             }
                         }
-                        else if (!NPC.HasValidTarget || NPC.Distance(player.Center) > (FargoSoulsWorld.EternityMode ? 1600 : 2400))
+                        else if (!NPC.HasValidTarget || NPC.Distance(player.Center) > (WorldSavingSystem.EternityMode ? 1600 : 2400))
                         {
                             target = NPC.Center + new Vector2(256f * Math.Sign(NPC.Center.X - player.Center.X), -128);
 
@@ -458,7 +459,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                                 NPC.ai[3] = 1f;
                             }
 
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                             {
                                 SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
@@ -472,7 +473,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                         if (arms != null && (NPC.localAI[3] == -1 || NPC.localAI[3] == 1)) //from arms
                             NPC.direction = NPC.spriteDirection = (int)NPC.localAI[3];
 
-                        bool canDoAttacks = FargoSoulsWorld.EternityMode && !goFast;
+                        bool canDoAttacks = WorldSavingSystem.EternityMode && !goFast;
                         if (canDoAttacks) //decide next action
                         {
                             float increment = 1f;
@@ -480,7 +481,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                                 increment += 0.5f;
                             if (arms == null)
                                 increment += 0.5f;
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                                 increment += 1f;
                             if (NPC.dontTakeDamage)
                                 increment /= 2;
@@ -541,7 +542,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                         TileCollision(player.Bottom.Y - 1 > NPC.Bottom.Y, Math.Abs(player.Center.X - NPC.Center.X) < NPC.width / 2 && NPC.Bottom.Y < player.Bottom.Y - 1);
 
                         int threshold = 120;
-                        if (FargoSoulsWorld.EternityMode)
+                        if (WorldSavingSystem.EternityMode)
                         {
                             if (head == null)
                                 threshold -= 20;
@@ -550,7 +551,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                             if (head == null && arms == null)
                                 threshold -= 30;
                         }
-                        if (FargoSoulsWorld.MasochistModeReal || NPC.localAI[3] >= 2)
+                        if (WorldSavingSystem.MasochistModeReal || NPC.localAI[3] >= 2)
                             threshold -= 20;
 
                         if (++NPC.localAI[0] > threshold)
@@ -577,13 +578,13 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 case 2: //jump
                     {
                         const float gravity = 0.4f;
-                        float time = FargoSoulsWorld.EternityMode && arms == null ? 60f : 90f;
+                        float time = WorldSavingSystem.EternityMode && arms == null ? 60f : 90f;
 
                         if (NPC.localAI[0]++ == 0)
                         {
                             Vector2 distance = player.Top - NPC.Bottom;
 
-                            if (FargoSoulsWorld.EternityMode && arms == null)
+                            if (WorldSavingSystem.EternityMode && arms == null)
                             {
                                 distance.X += NPC.width * Math.Sign(player.Center.X - NPC.Center.X);
 
@@ -654,7 +655,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
                 for (int i = 0; i < 3; i++)
                 {
-                    int d = Dust.NewDust(pos, width, height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default(Color), 2.5f);
+                    int d = Dust.NewDust(pos, width, height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default, 2.5f);
                     Main.dust[d].velocity.Y -= 1.5f;
                     Main.dust[d].velocity *= 1.5f;
                     Main.dust[d].noGravity = true;
@@ -662,7 +663,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
                 if (Main.rand.NextBool(3))
                 {
-                    int d = Dust.NewDust(pos, width, height, DustID.Torch, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default(Color), 2.5f);
+                    int d = Dust.NewDust(pos, width, height, DustID.Torch, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default, 2.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity.Y -= 3f;
                     Main.dust[d].velocity *= 1.5f;
@@ -688,13 +689,13 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
                 for (int i = 0; i < 2; i++)
                 {
-                    int d = Dust.NewDust(pos, width, height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default(Color), 1.5f);
+                    int d = Dust.NewDust(pos, width, height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default, 1.5f);
                     Main.dust[d].noGravity = true;
                 }
 
                 if (Main.rand.NextBool())
                 {
-                    int d2 = Dust.NewDust(pos, width, height, DustID.Torch, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int d2 = Dust.NewDust(pos, width, height, DustID.Torch, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default, 3f);
                     Main.dust[d2].noGravity = true;
                 }
             }
@@ -706,13 +707,13 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
             if (NPC.life < NPC.lifeMax / 2 && Main.rand.NextBool(3))
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default(Color), 4f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, NPC.velocity.X, NPC.velocity.Y, 50, default, 4f);
                 Main.dust[d].velocity.Y -= 1.5f;
                 Main.dust[d].velocity *= 1.5f;
                 Main.dust[d].noGravity = true;
             }
 
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 bool wasImmune = NPC.dontTakeDamage;
                 NPC.dontTakeDamage = NPC.life < NPC.lifeMax / 2 && (head != null || arms != null);
@@ -735,7 +736,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             {
                 float offsetX = NPC.width;
                 const float offsetY = 65;
-                int max = FargoSoulsWorld.MasochistModeReal ? 4 : 2;
+                int max = WorldSavingSystem.MasochistModeReal ? 4 : 2;
                 for (int i = -max; i <= max; i++)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(offsetX * i, -offsetY), Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
             }
@@ -752,24 +753,24 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
             for (int i = 0; i < 20; i++)
             {
-                int dust = Dust.NewDust(pos, width, height, DustID.Smoke, 0f, 0f, 100, default(Color), 3f);
+                int dust = Dust.NewDust(pos, width, height, DustID.Smoke, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].velocity *= 1.4f;
             }
 
             for (int i = 0; i < 15; i++)
             {
-                int dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
+                int dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
 
-                dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
+                dust = Dust.NewDust(pos, width, height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dust].velocity *= 3f;
             }
 
             float scaleFactor9 = 0.5f;
             for (int j = 0; j < 3; j++)
             {
-                int gore = Gore.NewGore(NPC.GetSource_FromThis(), center, default(Vector2), Main.rand.Next(61, 64));
+                int gore = Gore.NewGore(NPC.GetSource_FromThis(), center, default, Main.rand.Next(61, 64));
                 Main.gore[gore].velocity *= scaleFactor9;
                 Main.gore[gore].velocity.X += 1f;
                 Main.gore[gore].velocity.Y += 1f;
@@ -837,7 +838,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TrojanSquirrel], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel], -1);
 
             if (ModContent.TryFind("Fargowiltas", "Squirrel", out ModNPC squrrl) && !NPC.AnyNPCs(squrrl.Type))
                 FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromThis(), NPC.Center, squrrl.Type);
@@ -850,7 +851,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<TrojanSquirrelRelic>()));
 
-            LeadingConditionRule rule = new LeadingConditionRule(new Conditions.NotExpert());
+            LeadingConditionRule rule = new(new Conditions.NotExpert());
             rule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<TreeSword>(), ModContent.ItemType<MountedAcornGun>(), ModContent.ItemType<SnowballStaff>(), ModContent.ItemType<KamikazeSquirrelStaff>()));
             rule.OnSuccess(ItemDropRule.OneFromOptions(1,
                 ItemID.Squirrel,

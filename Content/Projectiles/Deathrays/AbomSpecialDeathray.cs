@@ -1,12 +1,4 @@
-﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria;
 
 namespace FargowiltasSouls.Content.Projectiles.Deathrays
 {

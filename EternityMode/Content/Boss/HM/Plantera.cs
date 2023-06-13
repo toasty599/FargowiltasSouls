@@ -7,17 +7,16 @@ using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Content.Projectiles.MutantBoss;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -103,7 +102,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             IsVenomEnraged = false;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             if (!npc.HasValidTarget)
@@ -128,7 +127,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
             else if (RingTossTimer == 120)
             {
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                     RingTossTimer = 0; //instantly spawn next set of crystals
 
                 npc.netUpdate = true;
@@ -163,7 +162,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (--DicerTimer < 0)
                 {
                     DicerTimer = 150 * 4 + 25;
-                    if (FargoSoulsWorld.MasochistModeReal && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (WorldSavingSystem.MasochistModeReal && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 0, 0);
                         for (int i = 0; i < 3; i++)
@@ -271,7 +270,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (--TentacleTimer <= 0)
                 {
                     float slowdown = Math.Min(0.9f, -TentacleTimer / 60f);
-                    if (FargoSoulsWorld.MasochistModeReal && slowdown > 0.75f)
+                    if (WorldSavingSystem.MasochistModeReal && slowdown > 0.75f)
                         slowdown = 0.75f;
                     npc.position -= npc.velocity * slowdown;
 
@@ -327,7 +326,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         TentacleTimer = 600 + Main.rand.Next(120);
 
-                        if (!FargoSoulsWorld.MasochistModeReal)
+                        if (!WorldSavingSystem.MasochistModeReal)
                             npc.velocity = Vector2.Zero;
 
                         npc.netUpdate = true;
@@ -341,7 +340,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.position -= npc.velocity * (IsVenomEnraged ? 0.1f : 0.2f);
                 }
 
-                //if (FargoSoulsWorld.MasochistModeReal && --TentacleTimerMaso < 0)
+                //if (WorldSavingSystem.MasochistModeReal && --TentacleTimerMaso < 0)
                 //{
                 //    TentacleTimerMaso = 420;
                 //    if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -381,7 +380,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MagicalBulb>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.JungleFishingCrateHard, 5));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.LifeFruit, 3));
@@ -409,7 +408,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             bool result = base.SafePreAI(npc);
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             npc.damage = 0;
@@ -488,7 +487,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             bool result = base.SafePreAI(npc);
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             NPC plantera = FargoSoulsUtil.NPCExists(NPC.plantBoss, NPCID.Plantera);

@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Buffs.Boss
             fargoPlayer.MutantPresence = true;
             fargoPlayer.MutantFang = true;
             player.moonLeech = true;
-            /*if (FargowiltasSouls.Instance.MasomodeEXLoaded && !FargoSoulsWorld.downedFishronEX && player.buffTime[buffIndex] > 1
+            /*if (FargowiltasSouls.Instance.MasomodeEXLoaded && !WorldSavingSystem.downedFishronEX && player.buffTime[buffIndex] > 1
                 && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
             {
                 player.AddBuff(ModLoader.GetMod("MasomodeEX").BuffType("MutantJudgement"), player.buffTime[buffIndex]);

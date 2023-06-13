@@ -1,6 +1,5 @@
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Champions;
-using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using System;
@@ -49,7 +48,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                 for (int num615 = 0; num615 < 20; num615++)
                 {
-                    int num616 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1.5f);
+                    int num616 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
                     Main.dust[num616].velocity *= 1.4f;
                 }
 
@@ -101,7 +100,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                     for (int i = 0; i < 15; i++)
                     {
-                        int dust = Dust.NewDust(dustPos, 32, 32, 31, 0f, 0f, 100, default, 3f);
+                        int dust = Dust.NewDust(dustPos, 32, 32, DustID.Smoke, 0f, 0f, 100, default, 3f);
                         Main.dust[dust].velocity *= 1.4f;
                     }
 

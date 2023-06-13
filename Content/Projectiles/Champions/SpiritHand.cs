@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -68,12 +69,12 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             if (Projectile.spriteDirection < 0)
                 Projectile.rotation += (float)Math.PI;
 
-            Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 54, 0f, 0f, 0, default, 2f)].noGravity = true;
+            Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Wraith, 0f, 0f, 0, default, 2f)].noGravity = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<InfestedBuff>(), 360);
                 target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 180);
@@ -90,7 +91,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

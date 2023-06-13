@@ -5,7 +5,6 @@ using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
@@ -14,6 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         private float startRotation;
         private Vector2 targetPos;
 
-        private int SwordWallCap => FargoSoulsWorld.MasochistModeReal ? 4 : 3;
+        private int SwordWallCap => WorldSavingSystem.MasochistModeReal ? 4 : 3;
         public bool DoParallelSwordWalls => P2SwordsAttackCounter % SwordWallCap > 0;
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
@@ -74,13 +74,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             EModeGlobalNPC.empressBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return base.SafePreAI(npc);
 
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<PurgedBuff>(), 2);
 
-            bool useP2Attacks = npc.ai[3] != 0 || FargoSoulsWorld.MasochistModeReal;
+            bool useP2Attacks = npc.ai[3] != 0 || WorldSavingSystem.MasochistModeReal;
 
             switch ((int)npc.ai[0])
             {
@@ -96,7 +96,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 2: //homing bolts, ends at ai1=130
-                    if (useP2Attacks && npc.ai[1] > 80 && !FargoSoulsWorld.MasochistModeReal)
+                    if (useP2Attacks && npc.ai[1] > 80 && !WorldSavingSystem.MasochistModeReal)
                         npc.ai[1] -= 0.5f; //p2, more delay before next attack
                     break;
 
@@ -137,7 +137,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (npc.ai[1] == 20)
                             startRotation = Main.rand.NextFloat(MathHelper.TwoPi);
 
-                        if (npc.ai[1] >= (FargoSoulsWorld.MasochistModeReal ? 20 : 35) && npc.ai[1] <= 60)
+                        if (npc.ai[1] >= (WorldSavingSystem.MasochistModeReal ? 20 : 35) && npc.ai[1] <= 60)
                         {
                             npc.position -= npc.velocity;
                             npc.velocity = Vector2.Zero;
@@ -156,7 +156,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 6: //sun rays
-                    if (!FargoSoulsWorld.MasochistModeReal)
+                    if (!WorldSavingSystem.MasochistModeReal)
                     {
                         if (npc.ai[1] == 0 && AttackTimer == 0 && Main.projectile.Count(p => p.active && p.type == ProjectileID.HallowBossRainbowStreak) > 20)
                         {
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 case 7: //sword walls, ends at ai1=260
                     {
-                        int start = FargoSoulsWorld.MasochistModeReal ? -15 : -45;
+                        int start = WorldSavingSystem.MasochistModeReal ? -15 : -45;
 
                         if (npc.ai[1] == 0)
                         {
@@ -221,7 +221,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 11: //p2 direct sword trail
-                    if ((FargoSoulsWorld.MasochistModeReal || npc.ai[1] > 40) && npc.ai[1] % 3 == 0 && npc.HasValidTarget) //add perpendicular swords
+                    if ((WorldSavingSystem.MasochistModeReal || npc.ai[1] > 40) && npc.ai[1] % 3 == 0 && npc.HasValidTarget) //add perpendicular swords
                     {
                         Vector2 offset = Main.player[npc.target].velocity;
                         if (offset == Vector2.Zero || offset.Length() < 1)
@@ -258,7 +258,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             {
                                 float ai1 = (npc.ai[1] - delay) / max;
 
-                                if (FargoSoulsWorld.MasochistModeReal)
+                                if (WorldSavingSystem.MasochistModeReal)
                                 {
                                     float math = MathHelper.TwoPi / max * (npc.ai[1] - delay);
                                     Vector2 boltVel = -Vector2.UnitY.RotatedBy(-math);
@@ -272,7 +272,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                         }
 
-                        if (npc.ai[1] > delay + max && !FargoSoulsWorld.MasochistModeReal)
+                        if (npc.ai[1] > delay + max && !WorldSavingSystem.MasochistModeReal)
                             npc.ai[1] -= 0.65f; //more delay before next attack
                     }
                     break;
@@ -290,7 +290,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         private void TryRandom(NPC npc)
         {
-            if (FargoSoulsWorld.MasochistModeReal && npc.life < npc.lifeMax / 2) //RANDOM ATTACKS
+            if (WorldSavingSystem.MasochistModeReal && npc.life < npc.lifeMax / 2) //RANDOM ATTACKS
             {
                 npc.ai[2] += Main.rand.Next(3);
                 npc.netUpdate = true;
@@ -298,7 +298,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         }
 
         //defdamage multiplier because expert empress actually has 184 defdamage for some reason and not 110?????
-        private int BaseProjDmg(NPC npc) => Main.dayTime ? 9999 : (int)(npc.defDamage * 0.6);
+        private static int BaseProjDmg(NPC npc) => Main.dayTime ? 9999 : (int)(npc.defDamage * 0.6);
 
         private void SwordCircle(NPC npc, float stop)
         {
@@ -323,23 +323,23 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (AttackTimer % 90 == 30) //rapid fire sound effect
                 SoundEngine.PlaySound(SoundID.Item164, Main.player[npc.target].Center);
 
-            int spinTime = FargoSoulsWorld.MasochistModeReal ? 210 : 160;
-            float spins = /*FargoSoulsWorld.MasochistModeReal ? 2 :*/ 1.5f;
+            int spinTime = WorldSavingSystem.MasochistModeReal ? 210 : 160;
+            float spins = /*WorldSavingSystem.MasochistModeReal ? 2 :*/ 1.5f;
             if (AttackTimer > startDelay && AttackTimer <= spinTime * spins + startDelay && AttackTimer % 2 == 0)
             {
-                int max = FargoSoulsWorld.MasochistModeReal ? 3 : 2;
+                int max = WorldSavingSystem.MasochistModeReal ? 3 : 2;
                 for (int i = 0; i < max; i++)
                 {
-                    int direction = FargoSoulsWorld.MasochistModeReal ? -1 : 1;
+                    int direction = WorldSavingSystem.MasochistModeReal ? -1 : 1;
                     float increment = MathHelper.TwoPi / spinTime * AttackTimer * direction;
                     Vector2 offsetDirection = Vector2.UnitX.RotatedBy(startRotation + increment + MathHelper.TwoPi / max * i);
                     Vector2 spawnPos = targetPos + radius * offsetDirection;
                     Vector2 vel = Vector2.Normalize(targetPos - spawnPos);
-                    float ai1 = ((float)(AttackTimer - startDelay) / spinTime) % 1;
+                    float ai1 = (float)(AttackTimer - startDelay) / spinTime % 1;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 appearVel = -vel;
-                        appearVel *= FargoSoulsWorld.MasochistModeReal ? 7.5f : 2.5f;
+                        appearVel *= WorldSavingSystem.MasochistModeReal ? 7.5f : 2.5f;
                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos - appearVel * 60, appearVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(BaseProjDmg(npc), 1.5f), 0f, Main.myPlayer, vel.ToRotation(), ai1);
 
                         float angleOffset = MathHelper.ToRadians(45);
@@ -394,7 +394,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             const int delay = 15;
-            int attackTime = FargoSoulsWorld.MasochistModeReal ? 30 : 45;
+            int attackTime = WorldSavingSystem.MasochistModeReal ? 30 : 45;
 
             int effectiveTimer = AttackTimer - delay;
             if (effectiveTimer == -1)
@@ -406,7 +406,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             {
                 const float coverage = 1200f;
 
-                int interval = FargoSoulsWorld.MasochistModeReal ? 1 : 2;
+                int interval = WorldSavingSystem.MasochistModeReal ? 1 : 2;
                 if (effectiveTimer % interval == 0)
                 {
                     for (int i = -1; i <= 1; i += 2)
@@ -455,7 +455,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 startRotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
 
-            int waveDelay = /*FargoSoulsWorld.MasochistModeReal ? 20 :*/ 30;
+            int waveDelay = /*WorldSavingSystem.MasochistModeReal ? 20 :*/ 30;
             const int spaceCovered = 800;
             if (++AttackTimer > 0)
             {
@@ -469,7 +469,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         Vector2 vel = (startRotation + MathHelper.Pi).ToRotationVector2();
                         Vector2 appearVel = vel.RotatedBy(-MathHelper.PiOver2);
-                        appearVel *= FargoSoulsWorld.MasochistModeReal ? 2f : 1f;
+                        appearVel *= WorldSavingSystem.MasochistModeReal ? 2f : 1f;
                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos - 60f * appearVel, appearVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(BaseProjDmg(npc), 1.5f), 0f, Main.myPlayer, vel.ToRotation(), ai1);
                     }
 
@@ -477,14 +477,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     startRotation += MathHelper.PiOver2 * (Main.rand.NextBool() ? -1 : 1);
                     if (Main.rand.NextBool())
                         startRotation += MathHelper.Pi;
-                    startRotation += MathHelper.ToRadians(FargoSoulsWorld.MasochistModeReal ? 30 : 15) * Main.rand.NextFloat(-1, 1);
+                    startRotation += MathHelper.ToRadians(WorldSavingSystem.MasochistModeReal ? 30 : 15) * Main.rand.NextFloat(-1, 1);
 
                     //whooshy sound effect
                     if (AttackTimer % waveDelay * 4 == 0)
                         SoundEngine.PlaySound(SoundID.Item163, Main.player[npc.target].Center);
                 }
 
-                if (AttackTimer % /*(FargoSoulsWorld.MasochistModeReal ? 2 : 3)*/ 3 == 0)
+                if (AttackTimer % /*(WorldSavingSystem.MasochistModeReal ? 2 : 3)*/ 3 == 0)
                 {
                     float ai1 = (float)(AttackTimer % waveDelay) / waveDelay;
                     Vector2 spawnPos = targetPos;
@@ -495,7 +495,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         Vector2 vel = (startRotation + MathHelper.Pi).ToRotationVector2();
                         Vector2 appearVel = vel.RotatedBy(-MathHelper.PiOver2);
-                        appearVel *= FargoSoulsWorld.MasochistModeReal ? 1.5f : 1f;
+                        appearVel *= WorldSavingSystem.MasochistModeReal ? 1.5f : 1f;
                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos - 60f * appearVel, appearVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(BaseProjDmg(npc), 1.5f), 0f, Main.myPlayer, vel.ToRotation(), ai1);
                     }
                 }
@@ -508,7 +508,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     AttackTimer += 9000;
             }
 
-            int waves = FargoSoulsWorld.MasochistModeReal ? 12 : 8;
+            int waves = WorldSavingSystem.MasochistModeReal ? 12 : 8;
             if (AttackTimer < waveDelay * waves + waveDelay * 2)
                 npc.ai[1] = stop; //stop vanilla ai from progressing
         }
@@ -531,7 +531,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     DashCounter = dashValue;
                     npc.ai[2] -= 1;
                 }
-                else if (FargoSoulsWorld.MasochistModeReal && npc.life < npc.lifeMax / 2) //RANDOM ATTACKS
+                else if (WorldSavingSystem.MasochistModeReal && npc.life < npc.lifeMax / 2) //RANDOM ATTACKS
                 {
                     npc.ai[2] += Main.rand.Next(3);
                 }
@@ -600,10 +600,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (npc.ai[1] >= 40)
             {
-                if (doSunWings || !FargoSoulsWorld.MasochistModeReal)
+                if (doSunWings || !WorldSavingSystem.MasochistModeReal)
                     npc.ai[1] -= 0.33f; //extend the dash
 
-                if (!FargoSoulsWorld.MasochistModeReal)
+                if (!WorldSavingSystem.MasochistModeReal)
                     npc.velocity.Y = 0;
 
                 if (doSunWings && useP2Attacks && ++AttackTimer % 15 == 0) //extra swords, p2 only
@@ -655,7 +655,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<PrecisionSeal>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HallowedFishingCrateHard, 5));
             npcLoot.Add(emodeRule);

@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Patreon.Purified
             Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
             Item.knockBack = 3f;
-            Item.rare = 5;
+            Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item44;
             Item.shoot = ModContent.ProjectileType<PrimeMinionProj>();
             Item.shootSpeed = 10f;

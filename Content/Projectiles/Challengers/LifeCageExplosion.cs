@@ -1,5 +1,4 @@
-using System;
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -62,7 +61,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);
         }
 

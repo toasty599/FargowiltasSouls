@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
             for (int i = 0; i < 10; i++)
             {
-                int num6 = Dust.NewDust(player.position, player.width, player.height, 5, 0f, 0f, 175, default, 1.75f);
+                int num6 = Dust.NewDust(player.position, player.width, player.height, DustID.Blood, 0f, 0f, 175, default, 1.75f);
                 Main.dust[num6].noGravity = true;
                 Main.dust[num6].velocity *= 0.75f;
                 int num7 = Main.rand.Next(-40, 41);

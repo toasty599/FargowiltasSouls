@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Toggler;
+﻿using FargowiltasSouls.Content.UI.Elements;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace FargowiltasSouls.Content.UI
 {
     public class SoulToggler : UIState
     {
-        public static Regex RemoveItemTags = new Regex(@"\[[^\[\]]*\]");
+        public static Regex RemoveItemTags = new(@"\[[^\[\]]*\]");
 
         public bool NeedsToggleListBuilding;
         public string DisplayMod;
@@ -24,18 +25,18 @@ namespace FargowiltasSouls.Content.UI
         public const int BackWidth = 400;
         public const int BackHeight = 658;
 
-        public UIDragablePanel BackPanel;
+        public FargoUIDragablePanel BackPanel;
         public UIPanel InnerPanel;
         public UIPanel PresetPanel;
         public UIScrollbar Scrollbar;
         public UIToggleList ToggleList;
-        public UISearchBar SearchBar;
+        public FargoUISearchBar SearchBar;
 
-        public UIPresetButton OffButton;
-        public UIPresetButton OnButton;
-        public UIPresetButton MinimalButton;
-        public UIPresetButton SomeEffectsButton;
-        public UIPresetButton[] CustomButton = new UIPresetButton[3];
+        public FargoUIPresetButton OffButton;
+        public FargoUIPresetButton OnButton;
+        public FargoUIPresetButton MinimalButton;
+        public FargoUIPresetButton SomeEffectsButton;
+        public FargoUIPresetButton[] CustomButton = new FargoUIPresetButton[3];
 
         public override void OnInitialize()
         {
@@ -54,13 +55,13 @@ namespace FargowiltasSouls.Content.UI
             Scrollbar.SetView(200f, 1000f);
             Scrollbar.Width.Set(20, 0);
             Scrollbar.OverflowHidden = true;
-            Scrollbar.OnScrollWheel += hotbarScrollFix;
+            Scrollbar.OnScrollWheel += HotbarScrollFix;
 
             ToggleList = new UIToggleList();
             ToggleList.SetScrollbar(Scrollbar);
-            ToggleList.OnScrollWheel += hotbarScrollFix;
+            ToggleList.OnScrollWheel += HotbarScrollFix;
 
-            BackPanel = new UIDragablePanel(Scrollbar, ToggleList);
+            BackPanel = new FargoUIDragablePanel(Scrollbar, ToggleList);
             BackPanel.Left.Set(offset.X, 0);
             BackPanel.Top.Set(offset.Y, 0);
             BackPanel.Width.Set(BackWidth, 0);
@@ -75,7 +76,7 @@ namespace FargowiltasSouls.Content.UI
             InnerPanel.Top.Set(32, 0);
             InnerPanel.BackgroundColor = new Color(73, 94, 171) * 0.9f;
 
-            SearchBar = new UISearchBar(BackWidth - 8, 26);
+            SearchBar = new FargoUISearchBar(BackWidth - 8, 26);
             SearchBar.Left.Set(4, 0);
             SearchBar.Top.Set(4, 0);
             SearchBar.OnTextChange += SearchBar_OnTextChange;
@@ -95,28 +96,28 @@ namespace FargowiltasSouls.Content.UI
             PresetPanel.PaddingLeft = PresetPanel.PaddingRight = 0;
             PresetPanel.BackgroundColor = new Color(74, 95, 172);
 
-            OffButton = new UIPresetButton(FargowiltasSouls.UserInterfaceManager.PresetOffButton.Value, (toggles) =>
+            OffButton = new FargoUIPresetButton(FargoUIManager.PresetOffButton.Value, (toggles) =>
             {
                 toggles.SetAll(false);
             }, FargoSoulsUtil.IsChinese() ? "关闭所有饰品效果" : "Turn all toggles off");
             OffButton.Top.Set(6, 0);
             OffButton.Left.Set(8, 0);
 
-            OnButton = new UIPresetButton(FargowiltasSouls.UserInterfaceManager.PresetOnButton.Value, (toggles) =>
+            OnButton = new FargoUIPresetButton(FargoUIManager.PresetOnButton.Value, (toggles) =>
             {
                 toggles.SetAll(true);
             }, FargoSoulsUtil.IsChinese() ? "开启所有饰品效果" : "Turn all toggles on");
             OnButton.Top.Set(6, 0);
             OnButton.Left.Set(30, 0);
 
-            SomeEffectsButton = new UIPresetButton(FargowiltasSouls.UserInterfaceManager.PresetMinimalButton.Value, (toggles) =>
+            SomeEffectsButton = new FargoUIPresetButton(FargoUIManager.PresetMinimalButton.Value, (toggles) =>
             {
                 toggles.SomeEffects();
             }, FargoSoulsUtil.IsChinese() ? "部分效果预设" : "Some effects preset");
             SomeEffectsButton.Top.Set(6, 0);
             SomeEffectsButton.Left.Set(52, 0);
 
-            MinimalButton = new UIPresetButton(FargowiltasSouls.UserInterfaceManager.PresetMinimalButton.Value, (toggles) =>
+            MinimalButton = new FargoUIPresetButton(FargoUIManager.PresetMinimalButton.Value, (toggles) =>
             {
                 toggles.MinimalEffects();
             }, FargoSoulsUtil.IsChinese() ? "最小化影响预设" : "Minimal effects preset");
@@ -138,7 +139,7 @@ namespace FargowiltasSouls.Content.UI
             for (int i = 0; i < ToggleBackend.CustomPresetCount; i++)
             {
                 int slot = i + 1;
-                CustomButton[i] = new UIPresetButton(FargowiltasSouls.UserInterfaceManager.PresetCustomButton.Value,
+                CustomButton[i] = new FargoUIPresetButton(FargoUIManager.PresetCustomButton.Value,
                 toggles => toggles.LoadCustomPreset(slot),
                 toggles => toggles.SaveCustomPreset(slot),
                 $"Custom preset {slot} (right click to save)");
@@ -150,15 +151,9 @@ namespace FargowiltasSouls.Content.UI
             base.OnInitialize();
         }
 
-        private void SearchBar_OnTextChange(string oldText, string currentText)
-        {
-            NeedsToggleListBuilding = true;
-        }
+        private void SearchBar_OnTextChange(string oldText, string currentText) => NeedsToggleListBuilding = true;
 
-        private void hotbarScrollFix(UIScrollWheelEvent evt, UIElement listeningElement)
-        {
-            Main.LocalPlayer.ScrollHotbar(PlayerInput.ScrollWheelDelta / 120);
-        }
+        private void HotbarScrollFix(UIScrollWheelEvent evt, UIElement listeningElement) => Main.LocalPlayer.ScrollHotbar(PlayerInput.ScrollWheelDelta / 120);
 
         public override void Update(GameTime gameTime)
         {
@@ -186,7 +181,7 @@ namespace FargowiltasSouls.Content.UI
                 (string.IsNullOrEmpty(SearchBar.Input) || words.Any(s => s.StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase)));
             });
 
-            HashSet<string> usedHeaders = new HashSet<string>();
+            HashSet<string> usedHeaders = new();
             List<Toggle> togglesAsLists = ToggleLoader.LoadedToggles.Values.ToList();
 
             foreach (Toggle toggle in displayToggles)
@@ -197,7 +192,7 @@ namespace FargowiltasSouls.Content.UI
                         ToggleList.Add(new UIText("", 0.2f)); // Blank line
 
                     (string name, int item) header = ToggleLoader.LoadedHeaders[toggle.InternalName];
-                    ToggleList.Add(new UIHeader(header.name, header.item, (BackWidth - 16, 20)));
+                    ToggleList.Add(new FargoUIHeader(header.name, header.item, (BackWidth - 16, 20)));
                 }
                 else if (!SearchBar.IsEmpty)
                 {
@@ -215,7 +210,7 @@ namespace FargowiltasSouls.Content.UI
                         if (ToggleList.Count > 0) // Don't add for the first header
                             ToggleList.Add(new UIText("", 0.2f)); // Blank line
 
-                        ToggleList.Add(new UIHeader(header.name, header.item, (BackWidth - 16, 20)));
+                        ToggleList.Add(new FargoUIHeader(header.name, header.item, (BackWidth - 16, 20)));
                         usedHeaders.Add(header.name);
                     }
                 }
@@ -224,7 +219,7 @@ namespace FargowiltasSouls.Content.UI
             }
         }
 
-        public string GetRawToggleName(string key)
+        public static string GetRawToggleName(string key)
         {
             string baseText = Language.GetTextValue($"Mods.FargowiltasSouls.{key}Config");
             List<TextSnippet> parsedText = ChatManager.ParseMessage(baseText, Color.White);

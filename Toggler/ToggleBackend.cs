@@ -1,10 +1,7 @@
-﻿
-using Microsoft.Xna.Framework;
-using SteelSeries.GameSense;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
 using Terraria;
 using Terraria.IO;
 
@@ -12,7 +9,7 @@ namespace FargowiltasSouls.Toggler
 {
     public class ToggleBackend
     {
-        public static string ConfigPath = Path.Combine(Main.SavePath, "ModConfigs", "FargowiltasSouls_Toggles.json");
+        public readonly static string ConfigPath = Path.Combine(Main.SavePath, "ModConfigs", "FargowiltasSouls_Toggles.json");
         public Preferences Config;
 
         public Dictionary<string, Toggle> Toggles;
@@ -48,7 +45,7 @@ namespace FargowiltasSouls.Toggler
             //TogglerPosition = new Point(togglerPositionUnpack["X"], togglerPositionUnpack["Y"]);
 
             //if (!Main.dedServ)
-            //    FargowiltasSouls.UserInterfaceManager.SoulToggler.SetPositionToPoint(TogglerPosition);
+            //    FargoUIManager.SoulToggler.SetPositionToPoint(TogglerPosition);
 
             CanPlayMaso = Config.Get("CanPlayMaso", false);
 
@@ -72,7 +69,7 @@ namespace FargowiltasSouls.Toggler
 
                 //Config.Put(TogglesByPlayer, ParsePackedToggles());
 
-                //TogglerPosition = FargowiltasSouls.UserInterfaceManager.SoulToggler.GetPositionAsPoint();
+                //TogglerPosition = FargoUIManager.SoulToggler.GetPositionAsPoint();
                 //Config.Put("TogglerPosition", UnpackPosition());
 
                 for (int i = 0; i < CustomPresets.Length; i++)
@@ -80,7 +77,7 @@ namespace FargowiltasSouls.Toggler
                     if (CustomPresets[i] == null)
                         continue;
 
-                    Dictionary<string, bool> togglesOff = new Dictionary<string, bool>(CustomPresets.Length);
+                    Dictionary<string, bool> togglesOff = new(CustomPresets.Length);
                     foreach (string toggle in CustomPresets[i])
                         togglesOff[toggle] = false;
                     Config.Put($"CustomPresetsOff{i + 1}", togglesOff);

@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
                 {
                     float num1 = Projectile.rotation + (float)((Main.rand.NextBool(2) ? -1.0 : 1.0) * 1.57079637050629);
                     float num2 = (float)(Main.rand.NextDouble() * 0.800000011920929 + 1.0);
-                    Vector2 vector2 = new Vector2((float)Math.Cos((double)num1) * num2, (float)Math.Sin((double)num1) * num2);
+                    Vector2 vector2 = new((float)Math.Cos((double)num1) * num2, (float)Math.Sin((double)num1) * num2);
                     int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.Electric, vector2.X, vector2.Y, 0, new Color(), 1f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].scale = 1.2f;
@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         {
             float num2 = (float)(Projectile.rotation + 1.57079637050629 + (Main.rand.NextBool(2) ? -1.0 : 1.0) * 1.57079637050629);
             float num3 = (float)(Main.rand.NextDouble() * 2.0 + 2.0);
-            Vector2 vector2 = new Vector2((float)Math.Cos(num2) * num3, (float)Math.Sin(num2) * num3);
+            Vector2 vector2 = new((float)Math.Cos(num2) * num3, (float)Math.Sin(num2) * num3);
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {
                 int index = Dust.NewDust(Projectile.oldPos[i], 0, 0, DustID.Vortex, vector2.X, vector2.Y, 0, new Color(), 1f);
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Rectangle rectangle = texture2D13.Bounds;
             Vector2 origin2 = rectangle.Size() / 2f;
-            Color color27 = new Color(33, 160, 141);
+            Color color27 = new(33, 160, 141);
             for (int i = 1; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 if (Projectile.oldPos[i] == Vector2.Zero || Projectile.oldPos[i - 1] == Projectile.oldPos[i])

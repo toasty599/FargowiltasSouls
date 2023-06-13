@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Core.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.Systems;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
 
@@ -18,7 +19,7 @@ namespace FargowiltasSouls.Core.ItemDropRules
             ChainedRules = new();
         }
 
-        public bool CanDrop(DropAttemptInfo info) => FargoSoulsWorld.EternityMode ? RuleForEMode.CanDrop(info) : RuleForDefault.CanDrop(info);
+        public bool CanDrop(DropAttemptInfo info) => WorldSavingSystem.EternityMode ? RuleForEMode.CanDrop(info) : RuleForDefault.CanDrop(info);
 
         public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
         {
@@ -36,7 +37,7 @@ namespace FargowiltasSouls.Core.ItemDropRules
             State = ItemDropAttemptResultState.DidNotRunCode
         };
 
-        public ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info, ItemDropRuleResolveAction resolveAction) => FargoSoulsWorld.EternityMode ? resolveAction(RuleForEMode, info) :
+        public ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info, ItemDropRuleResolveAction resolveAction) => WorldSavingSystem.EternityMode ? resolveAction(RuleForEMode, info) :
             resolveAction(RuleForDefault, info);
     }
 }

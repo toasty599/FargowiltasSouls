@@ -1,10 +1,4 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {

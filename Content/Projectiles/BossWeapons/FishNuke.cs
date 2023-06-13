@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 for (int index1 = 0; index1 < max; ++index1)
                 {
                     Vector2 vector2 = (Vector2.UnitX * -Projectile.width / 2f + -Vector2.UnitY.RotatedBy((double)index1 * 2 * 3.14159274101257 / max, new Vector2()) * new Vector2(8f, 16f)).RotatedBy(Projectile.rotation - 1.57079637050629, new Vector2());
-                    int index2 = Dust.NewDust(Projectile.Center, 0, 0, 135, 0.0f, 0.0f, 160, new Color(), 1f);
+                    int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.IceTorch, 0.0f, 0.0f, 160, new Color(), 1f);
                     Main.dust[index2].scale = 2f;
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].position = Projectile.Center + vector2 * 2f;
@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 }
             }
             Vector2 vector21 = Vector2.UnitY.RotatedBy(Projectile.rotation, new Vector2()) * 8f * 2;
-            int index21 = Dust.NewDust(Projectile.Center, 0, 0, 6, 0.0f, 0.0f, 0, new Color(), 1f);
+            int index21 = Dust.NewDust(Projectile.Center, 0, 0, DustID.Torch, 0.0f, 0.0f, 0, new Color(), 1f);
             Main.dust[index21].position = Projectile.Center + vector21;
             Main.dust[index21].scale = 1.25f;
             Main.dust[index21].noGravity = true;
@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             {
                 Vector2 vector2_1 = (Vector2.Normalize(Projectile.velocity) * new Vector2(Projectile.width / 2f, Projectile.height) * 0.75f).RotatedBy((index1 - (num1 / 2 - 1)) * 6.28318548202515 / num1, new Vector2()) + Projectile.Center;
                 Vector2 vector2_2 = vector2_1 - Projectile.Center;
-                int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, 172, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
+                int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, DustID.DungeonWater, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].noLight = true;
                 Main.dust[index2].velocity = vector2_2;
@@ -169,7 +169,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = SpriteEffects.None;

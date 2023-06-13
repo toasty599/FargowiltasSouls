@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.Volknet.Projectiles
@@ -72,7 +71,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
                         Projectile.rotation = (Main.MouseWorld - owner.Center).ToRotation();
                         for (int i = 0; i < 9; i++)
                         {
-                            Dust dust = Dust.NewDustDirect(owner.Center, 0, 0, 157, default, default, default, default, 1.5f);
+                            Dust dust = Dust.NewDustDirect(owner.Center, 0, 0, DustID.ChlorophyteWeapon, default, default, default, default, 1.5f);
                             dust.position = owner.Center + Projectile.rotation.ToRotationVector2() * (50 + Main.rand.Next(80));
                             dust.velocity = (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2() * Main.rand.NextFloat() * 3;
                             dust.fadeIn = 0.9f;
@@ -100,7 +99,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Rectangle Frame = new Rectangle((int)(LaserWidth / 2 - Projectile.ai[1]), 0, (int)(Projectile.ai[1] * 2), (int)LaserHeight);
+            Rectangle Frame = new((int)(LaserWidth / 2 - Projectile.ai[1]), 0, (int)(Projectile.ai[1] * 2), (int)LaserHeight);
             float maxDistance = LaserLen;
 
             float step = LaserHeight;
@@ -126,7 +125,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
 
             for (int index1 = 0; index1 < 6; ++index1)
             {
-                int index2 = Dust.NewDust(target.position, target.width, target.height, 157, 0f, 0f, 100, new Color(), 4f);
+                int index2 = Dust.NewDust(target.position, target.width, target.height, DustID.ChlorophyteWeapon, 0f, 0f, 100, new Color(), 4f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].noLight = true;
                 Main.dust[index2].velocity = Projectile.DirectionTo(target.Center) * 9f + Main.rand.NextVector2Circular(12f, 12f);

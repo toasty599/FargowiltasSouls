@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Patreon.Catsounds
 {
@@ -19,7 +20,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 50000;
         }
 

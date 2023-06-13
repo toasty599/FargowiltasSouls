@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
                 int frameSize = texture.Height / 20;
                 int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
                 int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y);
-                DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameSnow, texture.Width, frameSize), Lighting.GetColor((int)((drawInfo.Position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.Position.Y + drawPlayer.height / 2f) / 16f)), drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, SpriteEffects.None, 0);
+                DrawData data = new(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameSnow, texture.Width, frameSize), Lighting.GetColor((int)((drawInfo.Position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.Position.Y + drawPlayer.height / 2f) / 16f)), drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, SpriteEffects.None, 0);
                 drawInfo.DrawDataCache.Add(data);
             }
 

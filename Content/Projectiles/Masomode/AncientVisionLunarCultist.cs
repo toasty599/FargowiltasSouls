@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     -Projectile.velocity.Y * 0.2f, 100, default, 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 60, -Projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.RedTorch, -Projectile.velocity.X * 0.2f,
                     -Projectile.velocity.Y * 0.2f, 100);
                 Main.dust[num469].velocity *= 2f;
             }

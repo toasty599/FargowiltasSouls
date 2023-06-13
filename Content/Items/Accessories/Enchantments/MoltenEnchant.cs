@@ -1,11 +1,9 @@
-using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -22,7 +20,7 @@ Enemies take 25% increased damage while inside the inferno ring
 'They shall know the fury of hell' ");
         }
 
-        protected override Color nameColor => new Color(193, 43, 43);
+        protected override Color nameColor => new(193, 43, 43);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Molten");
 
         public override void SetDefaults()

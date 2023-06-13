@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -68,7 +66,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
                 player.Spawn(PlayerSpawnContext.RecallFromItem);
 
                 for (int d = 0; d < 70; d++)
-                    Dust.NewDust(player.position, player.width, player.height, 15, 0f, 0f, 150, default, 1.5f);
+                    Dust.NewDust(player.position, player.width, player.height, DustID.MagicMirror, 0f, 0f, 150, default, 1.5f);
             }
         }
 

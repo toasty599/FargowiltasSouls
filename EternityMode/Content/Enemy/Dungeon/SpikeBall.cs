@@ -46,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
                 }
                 else if (Counter > 1800 - 300)
                 {
-                    int dust = Dust.NewDust(npc.Center, 0, 0, DustID.Torch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
+                    int dust = Dust.NewDust(npc.Center, 0, 0, DustID.Torch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default, 2f);
                     Main.dust[dust].velocity *= 2f;
                     if (Main.rand.NextBool(4))
                     {

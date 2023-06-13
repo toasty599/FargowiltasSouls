@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using System.Linq;

@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Deathrays;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -20,7 +21,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                     {
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, -Vector2.UnitY, ModContent.ProjectileType<DeviDeathray>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         if (Main.player[npc.target].Center.Y > Projectile.Center.Y)

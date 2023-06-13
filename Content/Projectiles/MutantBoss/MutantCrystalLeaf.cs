@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -39,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             {
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 157, 0f, 0f, 0, new Color(), 2f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.ChlorophyteWeapon, 0f, 0f, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
@@ -68,7 +69,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 300));
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<InfestedBuff>(), Main.rand.Next(60, 300));
                 target.AddBuff(ModContent.BuffType<IvyVenomBuff>(), Main.rand.Next(60, 300));
@@ -90,7 +91,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

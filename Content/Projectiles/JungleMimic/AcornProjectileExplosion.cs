@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.JungleMimic
 {
@@ -28,7 +29,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.35f / 255f, (255 - Projectile.alpha) * 0.35f / 255f, (255 - Projectile.alpha) * 0f / 255f);
             for (int d = 0; d < 30; d++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 150, default, 1.5f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 150, default, 1.5f);
                 Main.dust[dust].noGravity = true;
             }
             for (int num625 = 0; num625 < 3; num625++)

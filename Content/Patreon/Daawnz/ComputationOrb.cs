@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Patreon.Daawnz
 {
@@ -22,7 +23,7 @@ Non-magic/summon weapons require 10 mana to use
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = 8;
+            Item.rare = ItemRarityID.Yellow;
             Item.value = 100000;
         }
 

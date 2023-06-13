@@ -30,7 +30,7 @@ Collect the bones to heal for 20 HP each
             // '被遗忘已久的记忆'");
         }
 
-        protected override Color nameColor => new Color(140, 92, 59);
+        protected override Color nameColor => new(140, 92, 59);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Fossil");
 
         public override void SetDefaults()

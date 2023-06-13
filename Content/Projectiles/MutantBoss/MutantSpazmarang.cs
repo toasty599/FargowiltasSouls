@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,7 +20,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.CursedInferno, 120);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
         }
     }

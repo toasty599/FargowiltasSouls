@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -21,14 +22,14 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         {
             const int endHomingTime = -600;
 
-            float maxSpeed = FargoSoulsWorld.MasochistModeReal ? 15f : 10f;
+            float maxSpeed = WorldSavingSystem.MasochistModeReal ? 15f : 10f;
 
             bool stopAttacking = false;
 
             NPC npc = FargoSoulsUtil.NPCExists(EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             int[] spearSpinAIs = new int[] { 4, 5, 6, 13, 14, 15, 21, 22, 23 };
             if ((npc == null || !spearSpinAIs.Contains((int)npc.ai[0]))
-                && !(FargoSoulsWorld.MasochistModeReal && npc.ai[0] > 10))
+                && !(WorldSavingSystem.MasochistModeReal && npc.ai[0] > 10))
             {
                 Projectile.ai[1] = endHomingTime; //for deceleration
                 stopAttacking = true;
@@ -64,7 +65,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                         Projectile.velocity *= 1.02f;
 
                     Vector2 target = p.Center;
-                    float deactivateHomingRange = FargoSoulsWorld.MasochistModeReal ? 360 : 480;
+                    float deactivateHomingRange = WorldSavingSystem.MasochistModeReal ? 360 : 480;
                     if (Projectile.Distance(target) > deactivateHomingRange)
                     {
                         Vector2 distance = target - Projectile.Center;

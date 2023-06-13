@@ -38,9 +38,9 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             float num1 = 5f;
             float num2 = 250f;
             float num3 = 6f;
-            Vector2 vector2_1 = new Vector2(8f, 10f);
+            Vector2 vector2_1 = new(8f, 10f);
             float num4 = 1.2f;
-            Vector3 rgb = new Vector3(0.7f, 0.1f, 0.5f);
+            Vector3 rgb = new(0.7f, 0.1f, 0.5f);
             int num5 = 4 * Projectile.MaxUpdates;
             int Type1 = Utils.SelectRandom(Main.rand, new int[5] { 242, 73, 72, 71, byte.MaxValue });
             int Type2 = byte.MaxValue;
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 for (int index1 = 0; index1 < 1; ++index1)
                 {
                     Vector2 vector2_2 = -Vector2.UnitX.RotatedByRandom(0.196349546313286).RotatedBy((double)Projectile.velocity.ToRotation(), new Vector2());
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1f);
                     Main.dust[index2].velocity *= 0.1f;
                     Main.dust[index2].position = Projectile.Center + vector2_2 * Projectile.width / 2f + Projectile.velocity * 2f;
                     Main.dust[index2].fadeIn = 0.9f;
@@ -110,7 +110,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 for (int index1 = 0; index1 < 1; ++index1)
                 {
                     Vector2 vector2_2 = -Vector2.UnitX.RotatedByRandom(0.392699092626572).RotatedBy((double)Projectile.velocity.ToRotation(), new Vector2());
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 155, new Color(), 0.8f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 155, new Color(), 0.8f);
                     Main.dust[index2].velocity *= 0.3f;
                     Main.dust[index2].position = Projectile.Center + vector2_2 * Projectile.width / 2f;
                     if (Main.rand.NextBool())
@@ -235,7 +235,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;

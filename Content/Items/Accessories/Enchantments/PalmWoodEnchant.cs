@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //attack rate and damage increased, you can spawn 2 additional trees
         }
 
-        protected override Color nameColor => new Color(183, 141, 86);
+        protected override Color nameColor => new(183, 141, 86);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.PalmWood");
 
         public override void SetDefaults()

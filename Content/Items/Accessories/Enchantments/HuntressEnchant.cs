@@ -1,10 +1,8 @@
-﻿using FargowiltasSouls.Content.Buffs.Souls;
-using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Projectiles;
 
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -24,7 +22,7 @@ Missing any attack will reset these bonuses
 'Accuracy brings power'");
         }
 
-        protected override Color nameColor => new Color(122, 192, 76);
+        protected override Color nameColor => new(122, 192, 76);
         public override string wizardEffect => "";
 
         public override void SetDefaults()

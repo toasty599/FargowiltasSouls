@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 
                 for (int i = 0; i < 2; i++)
                 {
-                    int d = Dust.NewDust(Projectile.position + Projectile.velocity * Main.rand.NextFloat(3000), Projectile.width, Projectile.height, 87, 0f, 0f, 0, Color.White, 6f);
+                    int d = Dust.NewDust(Projectile.position + Projectile.velocity * Main.rand.NextFloat(3000), Projectile.width, Projectile.height, DustID.GemTopaz, 0f, 0f, 0, Color.White, 6f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                 }
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 
             Projectile.NewProjectile(Entity.InheritSource(Projectile), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<AbomBlast>(), 0, 0f, Projectile.owner);
 
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 target.AddBuff(BuffID.Burning, 180);

@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -45,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             for (int i = 0; i < 10; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, 190, Projectile.velocity.X * 0.75f, Projectile.velocity.Y * 0.75f, 0, default, 2f);
+                int d = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Hay, Projectile.velocity.X * 0.75f, Projectile.velocity.Y * 0.75f, 0, default, 2f);
                 Main.dust[d].noGravity = true;
             }
         }

@@ -8,18 +8,16 @@ using FargowiltasSouls.Content.Projectiles.Champions;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -84,7 +82,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             EModeGlobalNPC.beeBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
 
@@ -113,7 +111,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 SpawnedRoyalSubjectWave1 = true;
 
-                Vector2 vector72 = new Vector2(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
+                Vector2 vector72 = new(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
 
                 int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), vector72, ModContent.NPCType<RoyalSubject>(),
                     velocity: new Vector2(Main.rand.Next(-200, 201) * 0.1f, Main.rand.Next(-200, 201) * 0.1f));
@@ -130,10 +128,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 SpawnedRoyalSubjectWave2 = true;
 
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                     SpawnedRoyalSubjectWave1 = false; //do this again
 
-                Vector2 vector72 = new Vector2(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
+                Vector2 vector72 = new(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
 
                 int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), vector72, ModContent.NPCType<RoyalSubject>(),
                     velocity: new Vector2(Main.rand.Next(-200, 201) * 0.1f, Main.rand.Next(-200, 201) * 0.1f));
@@ -154,7 +152,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 InPhase2 = true;
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                     SpawnedRoyalSubjectWave1 = false; //do this again
 
                 npc.netUpdate = true;
@@ -166,9 +164,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 npc.HitSound = SoundID.NPCHit4;
                 npc.color = new Color(127, 127, 127);
 
-                int dustId = Dust.NewDust(npc.position, npc.width, npc.height, 1, 0f, 0f, 100, default(Color), 2f);
+                int dustId = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Stone, 0f, 0f, 100, default, 2f);
                 Main.dust[dustId].noGravity = true;
-                int dustId3 = Dust.NewDust(npc.position, npc.width, npc.height, 1, 0f, 0f, 100, default(Color), 2f);
+                int dustId3 = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Stone, 0f, 0f, 100, default, 2f);
                 Main.dust[dustId3].noGravity = true;
 
                 //if in dash mode, but not actually dashing right this second
@@ -182,7 +180,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 //shoot stingers mode
                 if (npc.ai[0] == 3)
                 {
-                    if (npc.ai[1] > 1 && !FargoSoulsWorld.MasochistModeReal)
+                    if (npc.ai[1] > 1 && !WorldSavingSystem.MasochistModeReal)
                         npc.ai[1] -= 0.5f; //slower stingers
                 }
             }
@@ -195,7 +193,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     HiveThrowTimer++; //throw hives faster when no royal subjects alive
             }
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 HiveThrowTimer++;
 
@@ -256,7 +254,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             if (npc.HasValidTarget)
                                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, Main.player[npc.target].Center); //eoc roar
 
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                                 BeeSwarmTimer += 30;
                         }
 
@@ -280,7 +278,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             for (int i = -1; i <= 1; i += 2)
                             {
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + new Vector2(3 * npc.direction, 15), i * Main.rand.NextFloat(9f, 18f) * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-45, 45))),
-                                    ModContent.ProjectileType<Bee>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, FargoSoulsWorld.MasochistModeReal ? 4f / 3 : 1), 0f, Main.myPlayer, npc.target, Main.rand.NextBool() ? -rotation : rotation);
+                                    ModContent.ProjectileType<Bee>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, WorldSavingSystem.MasochistModeReal ? 4f / 3 : 1), 0f, Main.myPlayer, npc.target, Main.rand.NextBool() ? -rotation : rotation);
                             }
                         }
                     }
@@ -308,14 +306,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     return false;
                 }
 
-                int threshold = FargoSoulsWorld.MasochistModeReal ? 90 : 120;
+                int threshold = WorldSavingSystem.MasochistModeReal ? 90 : 120;
 
                 if (++StingerRingTimer > threshold * 3)
                     StingerRingTimer = 0;
 
                 if (StingerRingTimer % threshold == 0)
                 {
-                    float speed = FargoSoulsWorld.MasochistModeReal ? 6 : 5;
+                    float speed = WorldSavingSystem.MasochistModeReal ? 6 : 5;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         FargoSoulsUtil.XWay(StingerRingTimer == threshold * 3 ? 16 : 8, npc.GetSource_FromThis(), npc.Center, ProjectileID.QueenBeeStinger, speed, 11, 1);
@@ -343,7 +341,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             }
                         }
 
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                             npc.ai[2] = 0;
 
                         ForgorDeathrayTimer = 95;
@@ -356,7 +354,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 //if in dash mode, but not actually dashing right this second
                 if (npc.ai[0] == 0 && npc.ai[1] % 2 == 0)
@@ -394,7 +392,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<QueenStinger>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.JungleFishingCrate, 5));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HerbBag, 5));
@@ -411,7 +409,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (!FargoSoulsWorld.SwarmActive && NPC.AnyNPCs(ModContent.NPCType<RoyalSubject>()))
+            if (!WorldSavingSystem.SwarmActive && NPC.AnyNPCs(ModContent.NPCType<RoyalSubject>()))
                 damage /= 2;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);

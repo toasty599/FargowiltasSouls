@@ -1,4 +1,4 @@
-using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
             NPC.timeLeft = NPC.activeTime * 30;
             NPC.scale *= 1.5f;
             NPC.width = NPC.height = (int)(NPC.height * 0.9);
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 NPC.knockBackResist *= 0.1f;
         }
 
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                 //SoundEngine.PlaySound(NPC.DeathSound, NPC.Center);
                 for (int i = 0; i < 20; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
                     Main.dust[d].velocity *= 3f;
                     Main.dust[d].scale += 0.75f;
                 }

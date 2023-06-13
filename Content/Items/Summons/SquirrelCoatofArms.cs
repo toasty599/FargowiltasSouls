@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.NPCs.Challengers;
 using Terraria;
 using Terraria.ID;

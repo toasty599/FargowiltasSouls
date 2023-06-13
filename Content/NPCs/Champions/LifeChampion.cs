@@ -1,4 +1,3 @@
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,12 +10,12 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -153,7 +152,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, -1, -4);
 
-                        if (FargoSoulsWorld.EternityMode)
+                        if (WorldSavingSystem.EternityMode)
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<LifeRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                     }
                 }
@@ -324,7 +323,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         NPC.netUpdate = true;
                     }
 
-                    if (NPC.localAI[2] == 1 && NPC.life < NPC.lifeMax / 3 && FargoSoulsWorld.EternityMode)
+                    if (NPC.localAI[2] == 1 && NPC.life < NPC.lifeMax / 3 && WorldSavingSystem.EternityMode)
                     {
                         NPC.ai[0] = -2;
                         NPC.ai[1] = 0;
@@ -629,7 +628,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             for (int i = 0; i < 3; i++)
             {
                 Vector2 origin = NPC.Center - new Vector2(300, 200) * NPC.scale;
-                int d = Dust.NewDust(origin, (int)(600 * NPC.scale), (int)(400 * NPC.scale), 87, 0f, 0f, 0, default(Color), 1.5f);
+                int d = Dust.NewDust(origin, (int)(600 * NPC.scale), (int)(400 * NPC.scale), DustID.GemTopaz, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 4f;
             }
@@ -698,7 +697,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         {
             damage /= 10;
             if ((NPC.localAI[2] == 0 && NPC.life < NPC.lifeMax / 3)
-                || (NPC.localAI[2] == 1 && NPC.life < NPC.lifeMax / 3 && FargoSoulsWorld.EternityMode))
+                || (NPC.localAI[2] == 1 && NPC.life < NPC.lifeMax / 3 && WorldSavingSystem.EternityMode))
             {
                 damage = 1;
                 crit = false;
@@ -709,7 +708,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
         }
 
@@ -733,7 +732,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.LifeChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.LifeChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -778,7 +777,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             Texture2D wing = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/LifeChampion_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Texture2D wingGlow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/LifeChampion_WingsGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int wingHeight = wing.Height / Main.npcFrameCount[NPC.type];
-            Rectangle wingRectangle = new Rectangle(0, currentFrame * wingHeight, wing.Width, wingHeight);
+            Rectangle wingRectangle = new(0, currentFrame * wingHeight, wing.Width, wingHeight);
             Vector2 wingOrigin = wingRectangle.Size() / 2f;
 
             Color glowColor = Color.White;
@@ -795,7 +794,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             {
                 Vector2 value4 = NPC.oldPos[i];
                 float num165 = 0; //NPC.oldRot[i];
-                DrawData wingTrailGlow = new DrawData(wing, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor * (0.5f / i), num165, wingOrigin, wingBackScale, effects, 0);
+                DrawData wingTrailGlow = new(wing, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor * (0.5f / i), num165, wingOrigin, wingBackScale, effects, 0);
                 GameShaders.Misc["LCWingShader"].UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.CornflowerBlue);
                 GameShaders.Misc["LCWingShader"].Apply(wingTrailGlow);
                 wingTrailGlow.Draw(spriteBatch);
@@ -813,7 +812,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             }
 
-            DrawData wingGlowData = new DrawData(wingGlow, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor * 0.5f, 0, wingOrigin, NPC.scale * 2, effects, 0);
+            DrawData wingGlowData = new(wingGlow, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor * 0.5f, 0, wingOrigin, NPC.scale * 2, effects, 0);
             GameShaders.Misc["LCWingShader"].UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.Goldenrod);
             GameShaders.Misc["LCWingShader"].Apply(wingGlowData);
             wingGlowData.Draw(spriteBatch);
@@ -831,12 +830,12 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             }
 
             Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
+            Rectangle rect = new(0, 0, star.Width, star.Height);
             float scale = NPC.localAI[3] == 0 ? NPC.ai[2] * Main.rand.NextFloat(1f, 2.5f) : (Main.cursorScale + 0.3f) * Main.rand.NextFloat(0.8f, 1.2f);
-            Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);
+            Vector2 origin = new((star.Width / 2) + scale, (star.Height / 2) + scale);
 
             spriteBatch.Draw(star, NPC.Center - screenPos, new Rectangle?(rect), Color.HotPink, 0, origin, scale, SpriteEffects.None, 0);
-            DrawData starDraw = new DrawData(star, NPC.Center - screenPos, new Rectangle?(rect), Color.White, 0, origin, scale, SpriteEffects.None, 0);
+            DrawData starDraw = new(star, NPC.Center - screenPos, new Rectangle?(rect), Color.White, 0, origin, scale, SpriteEffects.None, 0);
             GameShaders.Misc["LCWingShader"].UseColor(Color.Goldenrod).UseSecondaryColor(Color.HotPink);
             GameShaders.Misc["LCWingShader"].Apply(new DrawData?());
             starDraw.Draw(spriteBatch);

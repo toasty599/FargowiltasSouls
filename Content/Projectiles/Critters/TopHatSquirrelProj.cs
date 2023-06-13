@@ -72,14 +72,14 @@ namespace FargowiltasSouls.Content.Projectiles.Critters
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 3)
             {
-                Color color27 = new Color(93, 255, 241, 0);
+                Color color27 = new(93, 255, 241, 0);
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];

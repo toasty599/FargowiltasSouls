@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -44,7 +45,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
                     for (int index1 = 0; index1 < 36; ++index1)
                     {
                         Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy(index1 * 3.14159274101257 / 36 * 2, new Vector2()) * new Vector2(2f, 8f)).RotatedBy(Projectile.rotation - 1.57079637050629, new Vector2());
-                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, 228, 0.0f, 0.0f, 0, new Color(), 1f);
+                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.GoldFlame, 0.0f, 0.0f, 0, new Color(), 1f);
                         Main.dust[index2].scale = 1f;
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].position = Projectile.Center + vector2 * 6f;
@@ -78,7 +79,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
                     for (int index1 = 0; index1 < 36; ++index1)
                     {
                         Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy(index1 * 3.14159274101257 / 36 * 2, new Vector2()) * new Vector2(2f, 4f)).RotatedBy(Projectile.rotation - 1.57079637050629, new Vector2());
-                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, 228, 0.0f, 0.0f, 0, new Color(), 1f);
+                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.GoldFlame, 0.0f, 0.0f, 0, new Color(), 1f);
                         Main.dust[index2].scale = 1f;
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].position = Projectile.Center + vector2 * 6f;
@@ -90,7 +91,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
             Projectile.rotation = Projectile.velocity.ToRotation() + 1.570796f;
 
             Vector2 vector21 = Vector2.UnitY.RotatedBy(Projectile.rotation, new Vector2()) * 8f * 2;
-            int index21 = Dust.NewDust(Projectile.Center, 0, 0, 228, 0.0f, 0.0f, 0, new Color(), 1f);
+            int index21 = Dust.NewDust(Projectile.Center, 0, 0, DustID.GoldFlame, 0.0f, 0.0f, 0, new Color(), 1f);
             Main.dust[index21].position = Projectile.Center + vector21;
             Main.dust[index21].scale = 1f;
             Main.dust[index21].noGravity = true;
@@ -105,7 +106,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 //target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
@@ -123,14 +124,14 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
             Projectile.position.X -= Projectile.width / 2;
             Projectile.position.Y -= Projectile.height / 2;
             for (int index = 0; index < 4; ++index)
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f);
             for (int index1 = 0; index1 < 40; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 228, 0.0f, 0.0f, 0, new Color(), 2.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldFlame, 0.0f, 0.0f, 0, new Color(), 2.5f);
                 Main.dust[index2].noGravity = true;
                 Dust dust1 = Main.dust[index2];
                 dust1.velocity = dust1.velocity * 3f;
-                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 228, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldFlame, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 Dust dust2 = Main.dust[index3];
                 dust2.velocity = dust2.velocity * 2f;
                 Main.dust[index3].noGravity = true;
@@ -155,7 +156,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;

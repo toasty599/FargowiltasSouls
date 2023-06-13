@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -41,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 SoundEngine.PlaySound(SoundID.Item8, Projectile.position);
                 for (int index1 = 0; index1 < 10; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 181, 0.0f, 0.0f, 100, default, 1f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GiantCursedSkullBolt, 0.0f, 0.0f, 100, default, 1f);
                     Dust dust1 = Main.dust[index2];
                     dust1.velocity *= 3;
                     Dust dust2 = Main.dust[index2];
@@ -52,7 +51,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             for (int index1 = 0; index1 < 2; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 181, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GiantCursedSkullBolt, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1f);
                 Dust dust = Main.dust[index2];
                 dust.velocity *= 0.6f;
                 Main.dust[index2].noGravity = true;
@@ -64,7 +63,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             SoundEngine.PlaySound(SoundID.Item8, Projectile.position);
             for (int index1 = 0; index1 < 30; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 181, 0.0f, 0.0f, 100, default, 1f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GiantCursedSkullBolt, 0.0f, 0.0f, 100, default, 1f);
                 Dust dust1 = Main.dust[index2];
                 dust1.velocity *= 3;
                 Dust dust2 = Main.dust[index2];

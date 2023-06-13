@@ -4,8 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.Content.Items.Accessories.Forces;
-using FargowiltasSouls.Content.Projectiles;
 using System;
 using FargowiltasSouls.Content.Buffs.Souls;
 
@@ -26,7 +24,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 'The power of titanium in the palm of your hand'");
         }
 
-        protected override Color nameColor => new Color(130, 140, 136);
+        protected override Color nameColor => new(130, 140, 136);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Titanium");
 
         public override void SetDefaults()

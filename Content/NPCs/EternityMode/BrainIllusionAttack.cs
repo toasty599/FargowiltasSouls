@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -137,7 +138,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 target.AddBuff(BuffID.Poisoned, 120);
                 target.AddBuff(BuffID.Darkness, 120);
@@ -155,7 +156,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                 //SoundEngine.PlaySound(NPC.DeathSound, NPC.Center);
                 for (int i = 0; i < 30; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
                     Main.dust[d].velocity *= 3f;
                     Main.dust[d].scale += 2f;
                 }

@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 

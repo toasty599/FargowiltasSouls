@@ -21,7 +21,7 @@ When you are hurt, you violently explode to damage nearby enemies
 'I can't believe it's not Palladium'");
         }
 
-        protected override Color nameColor => new Color(61, 164, 196);
+        protected override Color nameColor => new(61, 164, 196);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Cobalt");
 
         public override void SetDefaults()

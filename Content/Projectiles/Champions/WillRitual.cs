@@ -1,6 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.NPCs.Champions;
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
         {
             base.OnHitPlayer(target, damage, crit);
 
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
                 target.AddBuff(ModContent.BuffType<MidasBuff>(), 300);

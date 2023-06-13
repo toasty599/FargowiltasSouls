@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
 
                 if (++Projectile.ai[0] < 61)
                 {
-                    Projectile.velocity *= FargoSoulsWorld.MasochistModeReal ? 1.06f : 1.05f;
+                    Projectile.velocity *= WorldSavingSystem.MasochistModeReal ? 1.06f : 1.05f;
                 }
 
                 if (npc != null && Projectile.Center.Y > Main.player[npc.target].Center.Y + 280) //break when far below player
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
 
             for (int i = 0; i < 10; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 86, 0f, 0f, 0, default, 2.5f);
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemAmethyst, 0f, 0f, 0, default, 2.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 8f;
             }
@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

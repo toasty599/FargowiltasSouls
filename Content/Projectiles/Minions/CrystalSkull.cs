@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             if (Projectile.originalDamage == 0)
                 Projectile.originalDamage = 30;
 
-            Vector2 vector2_1 = new Vector2(0f, -60f); //movement code
+            Vector2 vector2_1 = new(0f, -60f); //movement code
             Vector2 vector2_2 = player.MountedCenter + vector2_1;
             float num1 = Vector2.Distance(Projectile.Center, vector2_2);
             if (num1 > 1000) //teleport when out of range
@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                         Vector2 vector6 = Vector2.UnitX.RotatedBy(Projectile.rotation) * 6f;
                         vector6 = vector6.RotatedBy((num227 - (num226 / 2 - 1)) * 6.28318548f / num226, default) + Projectile.Center;
                         Vector2 vector7 = vector6 - Projectile.Center;
-                        int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 27, 0f, 0f, 0, default, 3f);
+                        int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Shadowflame, 0f, 0f, 0, default, 3f);
                         Main.dust[num228].noGravity = true;
                         Main.dust[num228].velocity = vector7;
                     }
@@ -140,11 +140,11 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
                 if (Projectile.localAI[0] > chargeTime * 2f)
                 {
-                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Shadowflame, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                     Main.dust[d].scale += 0.5f;
-                    d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
+                    d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Shadowflame, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 1.5f;
                 }
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Color color = Projectile.GetAlpha(lightColor);
             SpriteEffects spriteEffects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;

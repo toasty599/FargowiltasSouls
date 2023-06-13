@@ -1,4 +1,5 @@
 ﻿using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Patreon.Sam
 {
@@ -19,7 +20,7 @@ namespace FargowiltasSouls.Patreon.Sam
             Item.autoReuse = true;
             Item.useAnimation = 15;
             Item.useTime = 10;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = true;
             Item.value = 150;
             Item.createTile = ModContent.TileType<SquidwardDoorClosed>();

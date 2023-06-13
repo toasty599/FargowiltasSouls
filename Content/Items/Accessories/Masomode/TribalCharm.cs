@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Buffs;
-using FargowiltasSouls.Content.Items;
 
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;

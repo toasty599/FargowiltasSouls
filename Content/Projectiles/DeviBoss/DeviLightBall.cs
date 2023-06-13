@@ -3,8 +3,6 @@ using FargowiltasSouls.Common.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -44,10 +42,10 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int index1 = 0; index1 < 10; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 246, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 2f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldCoin, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 2f;
-                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 246, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 1f);
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldCoin, -Projectile.velocity.X * 0.2f, -Projectile.velocity.Y * 0.2f, 100, new Color(), 1f);
                 Main.dust[index3].velocity *= 2f;
             }
 
@@ -68,7 +66,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
             return MathHelper.SmoothStep(baseWidth, 3.5f, completionRatio);
         }
 
-        public Color ColorFunction(float completionRatio)
+        public static Color ColorFunction(float completionRatio)
         {
             return Color.Lerp(new(250, 249, 128), Color.Transparent, completionRatio) * 0.7f;
         }

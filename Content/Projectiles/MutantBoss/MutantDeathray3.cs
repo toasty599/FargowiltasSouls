@@ -2,6 +2,7 @@
 using FargowiltasSouls.Common.Graphics.Primitives;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -45,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
             Projectile.position -= Projectile.velocity;
 
-            float DECELERATION = FargoSoulsWorld.MasochistModeReal ? 0.9716f : 0.9712f;
+            float DECELERATION = WorldSavingSystem.MasochistModeReal ? 0.9716f : 0.9712f;
 
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             if (npc != null)
@@ -114,10 +115,10 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Vector2 vector79 = Projectile.Center + Projectile.velocity * (Projectile.localAI[1] - 14f);
             for (int num809 = 0; num809 < 2; num809 = num3 + 1)
             {
-                float num810 = Projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * 1.57079637f;
+                float num810 = Projectile.velocity.ToRotation() + (Main.rand.NextBool(2)? -1f : 1f) * 1.57079637f;
                 float num811 = (float)Main.rand.NextDouble() * 2f + 2f;
-                Vector2 vector80 = new Vector2((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
-                int num812 = Dust.NewDust(vector79, 0, 0, 244, vector80.X, vector80.Y, 0, default, 1f);
+                Vector2 vector80 = new((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
+                int num812 = Dust.NewDust(vector79, 0, 0, DustID.CopperCoin, vector80.X, vector80.Y, 0, default, 1f);
                 Main.dust[num812].noGravity = true;
                 Main.dust[num812].scale = 1.7f;
                 num3 = num809;
@@ -125,7 +126,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             if (Main.rand.NextBool(5))
             {
                 Vector2 value29 = Projectile.velocity.RotatedBy(1.5707963705062866, default) * ((float)Main.rand.NextDouble() - 0.5f) * Projectile.width;
-                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 244, 0f, 0f, 100, default, 1.5f);
+                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, DustID.CopperCoin, 0f, 0f, 100, default, 1.5f);
                 Dust dust = Main.dust[num813];
                 dust.velocity *= 0.5f;
                 Main.dust[num813].velocity.Y = -Math.Abs(Main.dust[num813].velocity.Y);
@@ -138,7 +139,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
@@ -152,7 +153,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
         public float WidthFunction(float trailInterpolant) => Projectile.width * Projectile.scale * 1.3f;
 
-        public Color ColorFunction(float trailInterpolant) => new(192, 36, 31, 0);//Color.Lerp(new(31, 187, 192), new(51, 255, 191), trailInterpolant) * Projectile.Opacity;
+        public static Color ColorFunction(float trailInterpolant) => new(192, 36, 31, 0);//Color.Lerp(new(31, 187, 192), new(51, 255, 191), trailInterpolant) * Projectile.Opacity;
 
         public void DrawPixelPrimitives(SpriteBatch spriteBatch)
         {

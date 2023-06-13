@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ Cannot be used while a boss is alive
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        bool canPlaymaso => FargoSoulsWorld.CanPlayMaso || Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso;
+        bool canPlaymaso => WorldSavingSystem.CanPlayMaso || Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso;
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -41,7 +42,7 @@ Cannot be used while a boss is alive
 
             if (canPlaymaso)
             {
-                TooltipLine line = new TooltipLine(Mod, "tooltip", Language.GetTextValue($"Mods.{Mod.Name}.Message.{Name}ExtraTooltip"));
+                TooltipLine line = new(Mod, "tooltip", Language.GetTextValue($"Mods.{Mod.Name}.Message.{Name}ExtraTooltip"));
                 tooltips.Add(line);
             }
         }
@@ -83,12 +84,12 @@ Cannot be used while a boss is alive
             {
                 if (!FargoSoulsUtil.AnyBossAlive())
                 {
-                    FargoSoulsWorld.ShouldBeEternityMode = !FargoSoulsWorld.ShouldBeEternityMode;
+                    WorldSavingSystem.ShouldBeEternityMode = !WorldSavingSystem.ShouldBeEternityMode;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.ShouldBeEternityMode && !FargoSoulsWorld.spawnedDevi
+                    if (Main.netMode != NetmodeID.MultiplayerClient && WorldSavingSystem.ShouldBeEternityMode && !WorldSavingSystem.SpawnedDevi
                         && ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC deviantt) && !NPC.AnyNPCs(deviantt.Type))
                     {
-                        FargoSoulsWorld.spawnedDevi = true;
+                        WorldSavingSystem.SpawnedDevi = true;
 
                         if (ModContent.TryFind("Fargowiltas", "SpawnProj", out ModProjectile spawnProj))
                             Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center - 1000 * Vector2.UnitY, Vector2.Zero, spawnProj.Type, 0, 0, Main.myPlayer, deviantt.Type);

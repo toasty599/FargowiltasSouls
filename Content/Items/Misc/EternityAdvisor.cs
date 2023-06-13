@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
@@ -6,6 +5,7 @@ using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Summons;
+using FargowiltasSouls.Core.Systems;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -38,9 +38,9 @@ namespace FargowiltasSouls.Content.Items.Misc
             Item.value = Item.buyPrice(0, 1);
         }
 
-        public override bool CanUseItem(Player player) => FargoSoulsWorld.EternityMode;
+        public override bool CanUseItem(Player player) => WorldSavingSystem.EternityMode;
 
-        private string GetBuildText(params int[] args)
+        private static string GetBuildText(params int[] args)
         {
             string text = "";
             foreach (int itemType in args)
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Items.Misc
 
         private string GetBuildTextRandom(params int[] args) //takes number of accs to use as first param and list of accs as the rest
         {
-            List<int> choices = new List<int>();
+            List<int> choices = new();
             int maxSize = args.Length - 1;
             for (int i = 0; i < args[0]; i++)
             {
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Items.Misc
         {
             int summonType = -1;
 
-            if (!FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TrojanSquirrel])
+            if (!WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel])
             {
                 summonType = ModContent.ItemType<SquirrelCoatofArms>();
                 build = GetBuildText(
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<DarkenedHeart>()
                 );
             }
-            else if (!FargoSoulsWorld.downedDevi)
+            else if (!WorldSavingSystem.DownedDevi)
             {
                 summonType = ModContent.ItemType<DevisCurse>();
                 build = GetBuildText(
@@ -330,7 +330,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                 );
                 build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "LihzahrdInstactuationBomb").Type}]";
             }
-            else if (!FargoSoulsWorld.downedBetsy)
+            else if (!WorldSavingSystem.DownedBetsy)
             {
                 summonType = ModContent.TryFind("Fargowiltas", "BetsyEgg", out ModItem modItem) ? modItem.Type : ItemID.BossMaskBetsy;
                 build = GetBuildText(
@@ -421,7 +421,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<SparklingAdoration>()
                 );
             }
-            else if (!FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion])
+            else if (!WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.CosmosChampion])
             {
                 summonType = ModContent.ItemType<SigilOfChampions>();
                 build = GetBuildText(
@@ -444,7 +444,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<EarthForce>()
                 );
             }
-            else if (!FargoSoulsWorld.downedAbom)
+            else if (!WorldSavingSystem.DownedAbom)
             {
                 summonType = ModContent.ItemType<AbomsCurse>();
                 build = GetBuildText(
@@ -465,7 +465,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<NatureForce>()
                 );
             }
-            else if (!FargoSoulsWorld.downedMutant)
+            else if (!WorldSavingSystem.DownedMutant)
             {
                 summonType = ModContent.ItemType<AbominationnVoodooDoll>();
                 build = GetBuildText(

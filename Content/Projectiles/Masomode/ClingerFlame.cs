@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,7 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             if (++Projectile.localAI[0] < 60)
             {
-                int dust = Dust.NewDust(Projectile.Bottom, 0, 0, 75, 0f, 0f, 100, default, 2f);
+                int dust = Dust.NewDust(Projectile.Bottom, 0, 0, DustID.CursedTorch, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].velocity.Y -= 2f;
                 Main.dust[dust].velocity *= 2f;
                 if (Main.rand.NextBool(4))
@@ -58,7 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 int max = (int)(Projectile.width * Projectile.height * 0.0045f);
                 for (int i = 0; i < max; i++)
                 {
-                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 75, 0.0f, 0.0f, 100, default, 1f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CursedTorch, 0.0f, 0.0f, 100, default, 1f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 0.5f;
                     Main.dust[d].velocity.Y -= 0.5f;

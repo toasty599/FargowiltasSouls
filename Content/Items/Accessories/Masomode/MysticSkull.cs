@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Toggler;
 using Terraria;
 using Terraria.DataStructures;
@@ -42,7 +41,7 @@ Increases pickup range for mana stars
             Item.value = Item.sellPrice(0, 4);
         }
 
-        void Effects(Player player)
+        static void Effects(Player player)
         {
             player.buffImmune[BuffID.Suffocation] = true;
             player.manaMagnet = true;

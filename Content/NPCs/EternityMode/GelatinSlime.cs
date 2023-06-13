@@ -1,4 +1,4 @@
-using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                 if (Main.npc[EModeGlobalNPC.queenSlimeBoss].GetGlobalNPC<QueenSlime>().RainTimer > -90)
                     Main.npc[EModeGlobalNPC.queenSlimeBoss].GetGlobalNPC<QueenSlime>().RainTimer = -90;
 
-                if (!FargoSoulsWorld.MasochistModeReal)
+                if (!WorldSavingSystem.MasochistModeReal)
                 {
                     if (Main.npc[EModeGlobalNPC.queenSlimeBoss].GetGlobalNPC<QueenSlime>().StompTimer > -30)
                         Main.npc[EModeGlobalNPC.queenSlimeBoss].GetGlobalNPC<QueenSlime>().StompTimer = -30;

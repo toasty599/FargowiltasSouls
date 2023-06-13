@@ -19,8 +19,10 @@ namespace FargowiltasSouls.Patreon
         {
             base.SafeModifyTooltips(tooltips);
 
-            TooltipLine line = new TooltipLine(Mod, "tooltip", Language.GetTextValue($"Mods.{Mod.Name}.Message.PatreonItem"));
-            line.OverrideColor = Color.Orange;
+            TooltipLine line = new(Mod, "tooltip", Language.GetTextValue($"Mods.{Mod.Name}.Message.PatreonItem"))
+            {
+                OverrideColor = Color.Orange
+            };
             tooltips.Add(line);
         }
     }

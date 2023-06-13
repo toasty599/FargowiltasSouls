@@ -49,7 +49,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
             if (AttackTimer <= 0)
             {
                 float num265 = 12f;
-                Vector2 pos = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
+                Vector2 pos = new(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
                 float velocityX = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - pos.X;
                 float velocityY = Main.player[npc.target].position.Y - pos.Y;
                 float num268 = (float)Math.Sqrt((double)(velocityX * velocityX + velocityY * velocityY));

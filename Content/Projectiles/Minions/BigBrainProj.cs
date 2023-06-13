@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -113,7 +112,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Vector2 newCenter = player.Center + new Vector2(0, (200 + Projectile.alpha) * Projectile.scale).RotatedBy(i * MathHelper.PiOver2 + Projectile.ai[1] + Projectile.ai[0] / MathHelper.TwoPi);
                 int width = (int)(Projectile.scale * Projectile.width);
                 int height = (int)(Projectile.scale * Projectile.height);
-                Rectangle newprojhitbox = new Rectangle((int)newCenter.X - width / 2, (int)newCenter.Y - height / 2, width, height);
+                Rectangle newprojhitbox = new((int)newCenter.X - width / 2, (int)newCenter.Y - height / 2, width, height);
                 if (newprojhitbox.Intersects(targetHitbox))
                     return true;
             }
@@ -124,7 +123,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             Texture2D texture = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int frameheight = texture.Height / Main.projFrames[Projectile.type];
-            Rectangle rectangle = new Rectangle(0, Projectile.frame * frameheight, texture.Width, frameheight);
+            Rectangle rectangle = new(0, Projectile.frame * frameheight, texture.Width, frameheight);
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, rectangle.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             for (int i = 1; i <= 3; i++)
             {

@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Projectiles.Challengers;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -37,7 +38,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 case 0:
                     if (body.ai[0] == 0 && body.localAI[0] <= 0)
                     {
-                        NPC.ai[1] += FargoSoulsWorld.EternityMode ? 1.5f : 1f;
+                        NPC.ai[1] += WorldSavingSystem.EternityMode ? 1.5f : 1f;
 
                         if (body.dontTakeDamage)
                             NPC.ai[1] += 1f;
@@ -79,13 +80,13 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 case 1: //chains
                     {
                         int start = 90;
-                        if (FargoSoulsWorld.EternityMode)
+                        if (WorldSavingSystem.EternityMode)
                             start -= 30;
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                             start -= 30;
                         int end = 310;
 
-                        int teabagInterval = start / (FargoSoulsWorld.MasochistModeReal ? 3 : 2);
+                        int teabagInterval = start / (WorldSavingSystem.MasochistModeReal ? 3 : 2);
 
                         if (NPC.ai[1] < start) //better for animation
                         {
@@ -99,7 +100,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                         //to help animate body
                         NPC.ai[3] = NPC.ai[1] < start && NPC.ai[1] % teabagInterval < teabagInterval / 2 ? 1 : 0;
 
-                        if (NPC.ai[1] > start && NPC.ai[1] < end && NPC.ai[1] % (body.dontTakeDamage || FargoSoulsWorld.MasochistModeReal ? 40 : 70) == 0)
+                        if (NPC.ai[1] > start && NPC.ai[1] < end && NPC.ai[1] % (body.dontTakeDamage || WorldSavingSystem.MasochistModeReal ? 40 : 70) == 0)
                         {
                             Vector2 pos = GetShootPos();
 
@@ -130,12 +131,12 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
                         int start = 90;
                         int end = 300;
-                        if (FargoSoulsWorld.EternityMode)
+                        if (WorldSavingSystem.EternityMode)
                         {
                             start -= 30;
                             end -= 30;
                         }
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                             end -= 60;
 
                         body.velocity.X *= 0.98f;
@@ -165,7 +166,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                             float ratio = (NPC.ai[1] - start) / (end - start);
 
                             Vector2 target = NPC.Center;
-                            target.X += Math.Sign(NPC.direction) * (FargoSoulsWorld.EternityMode ? 1800f : 1200f) * ratio; //gradually targets further and further
+                            target.X += Math.Sign(NPC.direction) * (WorldSavingSystem.EternityMode ? 1800f : 1200f) * ratio; //gradually targets further and further
                             //target.Y -= 8 * 16;
                             target += Main.rand.NextVector2Circular(16, 16);
                             const float gravity = 0.5f;

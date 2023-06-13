@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Toggler;
+﻿using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -99,7 +98,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 //shoot
                 if (flag11)
                 {
-                    Vector2 vector29 = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
+                    Vector2 vector29 = new(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
                     float num404 = num396 - vector29.X;
                     float num405 = num397 - vector29.Y;
                     float num406 = (float)Math.Sqrt(num404 * num404 + num405 * num405);

@@ -3,7 +3,6 @@ using FargowiltasSouls.Content.NPCs;
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -72,7 +71,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 
                 if (npc.noTileCollide || (npc.HasValidTarget && Main.player[npc.target].GetModPlayer<FargoSoulsPlayer>().Swarming))
                 {
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 44, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.JungleSpore, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
 
                     if (Timer == 0) //if player behind blocks, periodically dash closer

@@ -4,7 +4,6 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
@@ -124,7 +123,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                 {
                     for (int i = 0; i < 50; i++)
                     {
-                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 112, 0f, 0f, 0, Color.White, 2.5f);
+                        int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Clentaminator_Purple, 0f, 0f, 0, Color.White, 2.5f);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].velocity *= 12f;
                     }
@@ -134,7 +133,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
 
                     for (int i = 0; i < 50; i++)
                     {
-                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 112, 0f, 0f, 0, Color.White, 2.5f);
+                        int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Clentaminator_Purple, 0f, 0f, 0, Color.White, 2.5f);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].velocity *= 12f;
                     }
@@ -253,7 +252,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                         {
                             for (int j = -2; j <= 2; j++)
                             {
-                                Vector2 spawnPos = new Vector2(1200, 80 * j);
+                                Vector2 spawnPos = new(1200, 80 * j);
                                 Vector2 vel = -18 * Vector2.UnitX;
                                 spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * i);
                                 vel = vel.RotatedBy(Math.PI / 2 * i);
@@ -328,7 +327,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                     SoundEngine.PlaySound(SoundID.Item1, npc.Center);
 
                     AttackTimer = 0;
-                    Vector2 speed = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
+                    Vector2 speed = new(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
                     speed.Normalize();
                     speed *= 6f;
                     speed += npc.velocity * 1.25f;
@@ -386,7 +385,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
-                                        ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Champions.ShadowGuardian>(),
+                                        ModContent.ProjectileType<ShadowGuardian>(),
                                         FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                                 }
                             }

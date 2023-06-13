@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.UI;
+﻿using FargowiltasSouls.Content.UI.Elements;
 using FargowiltasSouls.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,29 +10,43 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace FargowiltasSouls
+namespace FargowiltasSouls.Content.UI
 {
-    public class UIManager
+    public static class FargoUIManager
     {
-        public UserInterface TogglerUserInterface;
-        public UserInterface TogglerToggleUserInterface;
-        public SoulToggler SoulToggler;
-        public SoulTogglerButton SoulTogglerButton;
-        private GameTime _lastUpdateUIGameTime;
+        public static UserInterface TogglerUserInterface { get; private set; }
 
-        public Asset<Texture2D> CheckMark;
-        public Asset<Texture2D> CheckBox;
-        public Asset<Texture2D> SoulTogglerButtonTexture;
-        public Asset<Texture2D> SoulTogglerButton_MouseOverTexture;
-        public Asset<Texture2D> PresetButtonOutline;
-        public Asset<Texture2D> PresetOffButton;
-        public Asset<Texture2D> PresetOnButton;
-        public Asset<Texture2D> PresetMinimalButton;
-        public Asset<Texture2D> PresetCustomButton;
-        public Asset<Texture2D> OncomingMutantTexture;
-        public Asset<Texture2D> OncomingMutantAuraTexture;
+        public static UserInterface TogglerToggleUserInterface { get; private set; }
 
-        public void LoadUI()
+        public static SoulToggler SoulToggler { get; private set; }
+
+        public static SoulTogglerButton SoulTogglerButton { get; private set; }
+
+        private static GameTime LastUpdateUIGameTime { get; set; }
+
+        public static Asset<Texture2D> CheckMark { get; private set; }
+
+        public static Asset<Texture2D> CheckBox { get; private set; }
+
+        public static Asset<Texture2D> SoulTogglerButtonTexture { get; private set; }
+
+        public static Asset<Texture2D> SoulTogglerButton_MouseOverTexture { get; private set; }
+
+        public static Asset<Texture2D> PresetButtonOutline { get; private set; }
+
+        public static Asset<Texture2D> PresetOffButton { get; private set; }
+
+        public static Asset<Texture2D> PresetOnButton { get; private set; }
+
+        public static Asset<Texture2D> PresetMinimalButton { get; private set; }
+
+        public static Asset<Texture2D> PresetCustomButton { get; private set; }
+
+        public static Asset<Texture2D> OncomingMutantTexture { get; private set; }
+
+        public static Asset<Texture2D> OncomingMutantAuraTexture { get; private set; }
+
+        public static void LoadUI()
         {
             if (!Main.dedServ)
             {
@@ -54,18 +68,18 @@ namespace FargowiltasSouls
                 TogglerToggleUserInterface = new UserInterface();
 
                 // Activate UIs
-                SoulToggler = new SoulToggler();
+                SoulToggler = new();
                 SoulToggler.Activate();
-                SoulTogglerButton = new SoulTogglerButton();
+                SoulTogglerButton = new();
                 SoulTogglerButton.Activate();
 
                 TogglerToggleUserInterface.SetState(SoulTogglerButton);
             }
         }
 
-        public void UpdateUI(GameTime gameTime)
+        public static void UpdateUI(GameTime gameTime)
         {
-            _lastUpdateUIGameTime = gameTime;
+            LastUpdateUIGameTime = gameTime;
 
             if (!Main.playerInventory && SoulConfig.Instance.HideTogglerWhenInventoryIsClosed)
                 CloseSoulToggler();
@@ -76,53 +90,53 @@ namespace FargowiltasSouls
                 TogglerToggleUserInterface.Update(gameTime);
         }
 
-        public bool IsSoulTogglerOpen() => TogglerUserInterface?.CurrentState == null;
-        public void CloseSoulToggler()
+        public static bool IsSoulTogglerOpen() => TogglerUserInterface?.CurrentState == null;
+
+        public static void CloseSoulToggler()
         {
             TogglerUserInterface?.SetState(null);
-            
+
             if (SoulConfig.Instance.ToggleSearchReset)
             {
                 SoulToggler.SearchBar.Input = "";
                 SoulToggler.NeedsToggleListBuilding = true;
             }
         }
-        public bool IsTogglerOpen() => TogglerUserInterface.CurrentState == SoulToggler;
-        public void OpenToggler() => TogglerUserInterface.SetState(SoulToggler);
 
-        public void ToggleSoulToggler()
+        public static bool IsTogglerOpen() => TogglerUserInterface.CurrentState == SoulToggler;
+
+        public static void OpenToggler() => TogglerUserInterface.SetState(SoulToggler);
+
+        public static void ToggleSoulToggler()
         {
             if (IsSoulTogglerOpen())
             {
-                //Main.NewText("we opening");
-
                 SoundEngine.PlaySound(SoundID.MenuOpen);
                 OpenToggler();
             }
             else if (IsTogglerOpen())
             {
-                //Main.NewText("we closing");
                 SoundEngine.PlaySound(SoundID.MenuClose);
                 CloseSoulToggler();
             }
         }
 
-        public void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        public static void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int index = layers.FindIndex((layer) => layer.Name == "Vanilla: Inventory");
             if (index != -1)
             {
                 layers.Insert(index - 1, new LegacyGameInterfaceLayer("Fargos: Soul Toggler", delegate
                 {
-                    if (_lastUpdateUIGameTime != null && TogglerUserInterface?.CurrentState != null)
-                        TogglerUserInterface.Draw(Main.spriteBatch, _lastUpdateUIGameTime);
+                    if (LastUpdateUIGameTime != null && TogglerUserInterface?.CurrentState != null)
+                        TogglerUserInterface.Draw(Main.spriteBatch, LastUpdateUIGameTime);
                     return true;
                 }, InterfaceScaleType.UI));
 
                 layers.Insert(index, new LegacyGameInterfaceLayer("Fargos: Soul Toggler Toggler", delegate
                 {
-                    if (_lastUpdateUIGameTime != null && TogglerToggleUserInterface?.CurrentState != null)
-                        TogglerToggleUserInterface.Draw(Main.spriteBatch, _lastUpdateUIGameTime);
+                    if (LastUpdateUIGameTime != null && TogglerToggleUserInterface?.CurrentState != null)
+                        TogglerToggleUserInterface.Draw(Main.spriteBatch, LastUpdateUIGameTime);
 
                     return true;
                 }, InterfaceScaleType.UI));

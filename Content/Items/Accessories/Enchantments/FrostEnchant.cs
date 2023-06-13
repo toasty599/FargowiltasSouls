@@ -34,7 +34,7 @@ There is a 60 second cooldown for this effect
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new Color(122, 189, 185);
+        protected override Color nameColor => new(122, 189, 185);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Frost");
 
         public override void SetDefaults()

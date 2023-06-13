@@ -3,7 +3,6 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
@@ -66,7 +65,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
                 n.GetGlobalNPC<EModeGlobalNPC>().PaladinsShield = true;
                 if (Main.rand.NextBool())
                 {
-                    int d = Dust.NewDust(n.position, n.width, n.height, 246, 0f, -1.5f, 0, new Color());
+                    int d = Dust.NewDust(n.position, n.width, n.height, DustID.GoldCoin, 0f, -1.5f, 0, new Color());
                     Main.dust[d].velocity *= 0.5f;
                     Main.dust[d].noLight = true;
                 }

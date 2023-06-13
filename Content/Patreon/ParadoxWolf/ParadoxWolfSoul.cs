@@ -26,7 +26,7 @@ There is a cooldown of 3 seconds between uses");
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = 5;
+            Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }
 
@@ -50,7 +50,7 @@ There is a cooldown of 3 seconds between uses");
                     {
                         Vector2 velocity = new Vector2(2, 2).RotatedBy(spread * i);
 
-                        int index2 = Dust.NewDust(player.Center, 0, 0, 37, velocity.X, velocity.Y, 100);
+                        int index2 = Dust.NewDust(player.Center, 0, 0, DustID.Obsidian, velocity.X, velocity.Y, 100);
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].noLight = true;
                     }
@@ -91,7 +91,7 @@ There is a cooldown of 3 seconds between uses");
             //checking for direction
             int direction = 0;
 
-            if ((player.controlRight && player.releaseRight))
+            if (player.controlRight && player.releaseRight)
             {
                 if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
                 {
@@ -99,7 +99,7 @@ There is a cooldown of 3 seconds between uses");
                 }
             }
             //left
-            else if ((player.controlLeft && player.releaseLeft))
+            else if (player.controlLeft && player.releaseLeft)
             {
                 if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
                 {

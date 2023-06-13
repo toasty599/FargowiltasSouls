@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -97,7 +98,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         {
             target.AddBuff(ModContent.BuffType<HexedBuff>(), 120);
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             switch ((int)Projectile.ai[0])
             {
@@ -119,7 +120,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Vector2 drawPosition = Projectile.Center - Main.screenPosition;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture.Width, num156);
+            Rectangle rectangle = new(0, y3, texture.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Color color = Projectile.GetAlpha(lightColor);
             Main.EntitySpriteDraw(texture, drawPosition, rectangle, color, Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);

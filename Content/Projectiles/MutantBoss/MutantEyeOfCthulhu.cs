@@ -1,13 +1,12 @@
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -87,7 +86,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             {
                 float accel = 0.03f;
 
-                Vector2 target = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);// + 150f * Vector2.UnitX.RotatedBy(cyanScytheAngleOffset);
+                Vector2 target = new(Projectile.localAI[0], Projectile.localAI[1]);// + 150f * Vector2.UnitX.RotatedBy(cyanScytheAngleOffset);
                 target += 180 * Projectile.DirectionTo(target).RotatedBy(MathHelper.PiOver2);
 
                 float angle = Projectile.DirectionTo(target).ToRotation();
@@ -96,7 +95,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 if (p != Main.maxProjectiles)
                 {
                     Main.projectile[p].timeLeft = Projectile.timeLeft + 180 + 30 + 150; //+ 60 + 240;
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                         Main.projectile[p].timeLeft -= 30;
                 }
             };
@@ -175,13 +174,13 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                     SpawnProjectile(Projectile.Center - Projectile.velocity / 2);
 
                     float accel = 0.025f;
-                    Vector2 target = new Vector2(Projectile.localAI[0], Projectile.localAI[1]); //+ 150f * Vector2.UnitX.RotatedBy(goldScytheAngleOffset);
+                    Vector2 target = new(Projectile.localAI[0], Projectile.localAI[1]); //+ 150f * Vector2.UnitX.RotatedBy(goldScytheAngleOffset);
                     float angle = Projectile.DirectionTo(target).ToRotation();
                     int p = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantScythe2>(), Projectile.damage, 0, Main.myPlayer, accel, angle);
                     if (p != Main.maxProjectiles)
                         Main.projectile[p].timeLeft = Projectile.timeLeft + 180 + 30;
 
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                     {
                         p = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantScythe2>(), Projectile.damage, 0, Main.myPlayer, accel, angle);
                         if (p != Main.maxProjectiles)
@@ -233,7 +232,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(BuffID.Obstructed, 15);
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
@@ -271,7 +270,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = Projectile.GetAlpha(lightColor);

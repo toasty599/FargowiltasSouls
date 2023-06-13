@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 {
@@ -121,11 +123,11 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         {
             for (int i = 0; i < 20; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 62, -Projectile.velocity.X * 0.2f,
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PurpleTorch, -Projectile.velocity.X * 0.2f,
                     -Projectile.velocity.Y * 0.2f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 2f;
-                dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 60, -Projectile.velocity.X * 0.2f,
+                dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.RedTorch, -Projectile.velocity.X * 0.2f,
                     -Projectile.velocity.Y * 0.2f, 100);
                 Main.dust[dust].velocity *= 2f;
             }
@@ -139,7 +141,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(ModContent.BuffType<LightningRodBuff>(), Main.rand.Next(300, 1200));
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
         }
     }

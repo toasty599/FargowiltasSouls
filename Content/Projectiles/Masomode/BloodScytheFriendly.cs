@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode

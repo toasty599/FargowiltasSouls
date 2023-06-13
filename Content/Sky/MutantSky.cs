@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.MutantBoss;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -57,7 +58,7 @@ namespace FargowiltasSouls.Content.Sky
                         break;
 
                     case 36: //slime rain
-                        if (FargoSoulsWorld.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[2] > 180 * 3 - 60)
+                        if (WorldSavingSystem.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[2] > 180 * 3 - 60)
                             ChangeColorIfDefault(Color.Blue);
                         break;
 
@@ -114,7 +115,7 @@ namespace FargowiltasSouls.Content.Sky
 
         private Color ColorToUse(ref float opacity)
         {
-            Color color = new Color(51, 255, 191);
+            Color color = new(51, 255, 191);
             opacity = intensity * 0.5f + lifeIntensity * 0.5f;
 
             if (specialColorLerp > 0 && specialColor != null)

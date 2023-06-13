@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 "\n'Chaos'");
         }
 
-        protected override Color nameColor => new Color(221, 85, 125);
+        protected override Color nameColor => new(221, 85, 125);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Adamantite");
 
         public override void SetDefaults()

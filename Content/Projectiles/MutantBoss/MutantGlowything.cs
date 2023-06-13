@@ -57,9 +57,9 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Texture2D glow = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int rect1 = glow.Height;
             int rect2 = 0;
-            Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);
+            Rectangle glowrectangle = new(0, rect2, glow.Width, rect1);
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
-            Color glowcolor = new Color(255, 0, 0, 0);
+            Color glowcolor = new(255, 0, 0, 0);
 
             float scale = Projectile.scale;
             Main.EntitySpriteDraw(glow, Projectile.Center + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), Projectile.GetAlpha(glowcolor),

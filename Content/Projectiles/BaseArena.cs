@@ -201,7 +201,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 int frame = (Projectile.frame + x) % Main.projFrames[Projectile.type];
                 int y3 = num156 * frame; //ypos of upper left corner of sprite to draw
-                Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+                Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
                 Vector2 origin2 = rectangle.Size() / 2f;
 
                 float rotation = 2f * MathHelper.Pi / 32 * x + Projectile.ai[0];

@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                     Main.player[Projectile.owner].ChangeDir(-1);
             }
 
-            Vector2 vector14 = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
+            Vector2 vector14 = new(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
             float num166 = Main.player[Projectile.owner].position.X + Main.player[Projectile.owner].width / 2 - vector14.X;
             float num167 = Main.player[Projectile.owner].position.Y + Main.player[Projectile.owner].height / 2 - vector14.Y;
             float distance = (float)Math.Sqrt(num166 * num166 + num167 * num167);
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
                 for (int i = 0; i < 2; i++)
                 {
-                    Vector2 offset = new Vector2();
+                    Vector2 offset = new();
                     double angle = Main.rand.NextDouble() * 2d * Math.PI;
                     offset.X += (float)(Math.Sin(angle) * dist);
                     offset.Y += (float)(Math.Cos(angle) * dist);
@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Vector2 position = Projectile.Center;
             Vector2 mountedCenter = Main.player[Projectile.owner].MountedCenter;
             Rectangle? sourceRectangle = new Rectangle?();
-            Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
+            Vector2 origin = new(texture.Width * 0.5f, texture.Height * 0.5f);
             float num1 = texture.Height;
             Vector2 vector24 = mountedCenter - position;
             float rotation = (float)Math.Atan2(vector24.Y, vector24.X) - 1.57f;
@@ -172,7 +172,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
                 new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2,

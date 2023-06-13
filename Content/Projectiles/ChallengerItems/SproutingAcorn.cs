@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             for (int index = 0; index < 10; ++index)
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 7);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WoodFurniture);
         }
     }
 }

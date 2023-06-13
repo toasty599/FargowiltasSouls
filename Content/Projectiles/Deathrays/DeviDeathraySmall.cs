@@ -1,13 +1,10 @@
 ﻿using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Common.Graphics.Primitives;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.Linq;
 using Terraria;
 using Terraria.Graphics.Shaders;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Deathrays
 {
@@ -104,7 +101,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         }
         public float WidthFunction(float _) => Projectile.width * Projectile.scale * 1.2f;
 
-        public Color ColorFunction(float _) => new(232, 140, 240, 100);
+        public static Color ColorFunction(float _) => new(232, 140, 240, 100);
 
         public override bool PreDraw(ref Color lightColor)
         {

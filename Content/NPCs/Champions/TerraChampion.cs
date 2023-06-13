@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,13 +10,13 @@ using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Pets;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -166,7 +165,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             if (NPC.HasValidTarget && player.Center.Y >= Main.worldSurface * 16 && !player.ZoneUnderworldHeight)
                 NPC.timeLeft = 600;
 
-            if (FargoSoulsWorld.EternityMode && NPC.ai[1] != -1 && NPC.life < NPC.lifeMax / 10)
+            if (WorldSavingSystem.EternityMode && NPC.ai[1] != -1 && NPC.life < NPC.lifeMax / 10)
             {
                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, player.Center);
                 NPC.life = NPC.lifeMax / 10;
@@ -209,7 +208,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Vector2 dir = NPC.DirectionTo(player.Center);
-                                float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
+                                float ai1New = Main.rand.NextBool() ? 1 : -1; //randomize starting direction
                                 Vector2 vel = Vector2.Normalize(dir) * 22f;
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<HostileLightning>(),
                                     FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer, dir.ToRotation(), ai1New);
@@ -225,7 +224,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         {
                             int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TerraLightningOrb2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                             Main.projectile[p].localAI[0] += 1f + Main.rand.NextFloatDirection(); //random starting rotation
-                            Main.projectile[p].localAI[1] = (Main.rand.NextBool()) ? 1 : -1;
+                            Main.projectile[p].localAI[1] = Main.rand.NextBool() ? 1 : -1;
                             Main.projectile[p].netUpdate = true;
                         }
                     }
@@ -402,7 +401,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                     float rotationOffset = (float)Math.PI / 2 + (float)Math.PI / 2 / 4.5f * i;
                                     rotationOffset *= Math.Sign(-sinModifier);
                                     Vector2 vel2 = Vector2.UnitX.RotatedBy(Math.PI / 4 * (Main.rand.NextDouble() - 0.5)) * 36f;
-                                    float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
+                                    float ai1New = Main.rand.NextBool() ? 1 : -1; //randomize starting direction
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel2.RotatedBy(NPC.localAI[1] + rotationOffset), ModContent.ProjectileType<HostileLightning>(),
                                         FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer, NPC.localAI[1] + rotationOffset, ai1New);
                                 }
@@ -522,7 +521,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                                 for (int i = 0; i < 20; i++)
                                 {
-                                    int d = Dust.NewDust(target.position, target.width, target.height, 87, 0f, 0f, 0, default(Color), 2f);
+                                    int d = Dust.NewDust(target.position, target.width, target.height, DustID.GemTopaz, 0f, 0f, 0, default, 2f);
                                     Main.dust[d].noGravity = true;
                                     Main.dust[d].velocity *= 5f;
                                 }
@@ -554,7 +553,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             NPC.netUpdate = true;
 
             Vector2 dustOffset = new Vector2(77, -41) * NPC.scale; //dust from horns
-            int dust = Dust.NewDust(NPC.Center + NPC.velocity - dustOffset.RotatedBy(NPC.rotation), 0, 0, DustID.Torch, NPC.velocity.X * .4f, NPC.velocity.Y * 0.4f, 0, default(Color), 2f);
+            int dust = Dust.NewDust(NPC.Center + NPC.velocity - dustOffset.RotatedBy(NPC.rotation), 0, 0, DustID.Torch, NPC.velocity.X * .4f, NPC.velocity.Y * 0.4f, 0, default, 2f);
             Main.dust[dust].velocity *= 2;
             if (Main.rand.NextBool())
             {
@@ -563,7 +562,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             }
 
             dustOffset.Y *= -1f;
-            dust = Dust.NewDust(NPC.Center + NPC.velocity - dustOffset.RotatedBy(NPC.rotation), 0, 0, DustID.Torch, NPC.velocity.X * .4f, NPC.velocity.Y * 0.4f, 0, default(Color), 2f);
+            dust = Dust.NewDust(NPC.Center + NPC.velocity - dustOffset.RotatedBy(NPC.rotation), 0, 0, DustID.Torch, NPC.velocity.X * .4f, NPC.velocity.Y * 0.4f, 0, default, 2f);
             Main.dust[dust].velocity *= 2;
             if (Main.rand.NextBool())
             {
@@ -747,7 +746,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 600);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 600);
                 target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
@@ -774,7 +773,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TerraChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TerraChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

@@ -1,8 +1,4 @@
-﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using Microsoft.Xna.Framework;
-using System;
-using Terraria;
-using Terraria.Audio;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 

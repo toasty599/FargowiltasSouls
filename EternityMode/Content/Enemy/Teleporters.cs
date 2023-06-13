@@ -1,7 +1,6 @@
 using System.IO;
 using Terraria.ModLoader.IO;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 
@@ -64,7 +63,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                             int index1 = Main.rand.Next(num1 - num5, num1 + num5);
                             for (int index2 = Main.rand.Next(num2 - num5, num2 + num5); index2 < num2 + num5; ++index2)
                             {
-                                if ((index2 < num2 - 4 || index2 > num2 + 4 || (index1 < num1 - 4 || index1 > num1 + 4)) && (index2 < num4 - 1 || index2 > num4 + 1 || (index1 < num3 - 1 || index1 > num3 + 1)) && Main.tile[index1, index2].HasUnactuatedTile)
+                                if ((index2 < num2 - 4 || index2 > num2 + 4 || index1 < num1 - 4 || index1 > num1 + 4) && (index2 < num4 - 1 || index2 > num4 + 1 || index1 < num3 - 1 || index1 > num3 + 1) && Main.tile[index1, index2].HasUnactuatedTile)
                                 {
                                     bool flag2 = true;
                                     if (npc.HasValidTarget && Main.player[npc.target].ZoneDungeon && (npc.type == NPCID.DarkCaster || npc.type >= NPCID.RaggedCaster && npc.type <= NPCID.DiabolistWhite) && !Main.wallDungeon[(int)Main.tile[index1, index2 - 1].WallType])

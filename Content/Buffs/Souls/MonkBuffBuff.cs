@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             }
         }
 
-        private void MonkDash(Player player, bool vertical, int direction)
+        private static void MonkDash(Player player, bool vertical, int direction)
         {
             //horizontal
             if (!vertical)
@@ -110,7 +110,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             //dash dust n stuff
             for (int num17 = 0; num17 < 20; num17++)
             {
-                int num18 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 31, 0f, 0f, 100, default, 2f);
+                int num18 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, DustID.Smoke, 0f, 0f, 100, default, 2f);
                 Dust expr_CDB_cp_0 = Main.dust[num18];
                 expr_CDB_cp_0.position.X = expr_CDB_cp_0.position.X + Main.rand.Next(-5, 6);
                 Dust expr_D02_cp_0 = Main.dust[num18];

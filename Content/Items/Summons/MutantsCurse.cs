@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.NPCs.MutantBoss;
 using Microsoft.Xna.Framework;
 using Terraria;

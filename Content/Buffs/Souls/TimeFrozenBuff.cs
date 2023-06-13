@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.Effects;
@@ -41,7 +42,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             player.GetModPlayer<FargoSoulsPlayer>().MutantNibble = true; //no heal
             player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
 
-            FargowiltasSouls.Instance.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
+            FargowiltasSouls.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
 
             if (!Main.dedServ && player.whoAmI == Main.myPlayer)
             {
@@ -54,7 +55,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                     }
 
                     if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
-                        && FargoSoulsWorld.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5)
+                        && WorldSavingSystem.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5)
                     {
                         Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
                     }

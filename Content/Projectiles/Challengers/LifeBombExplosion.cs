@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Projectiles.Challengers
 {
@@ -39,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             Projectile.rotation += 2f;
             if (Main.rand.NextBool(6))
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87);
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 0.5f;
             }
@@ -60,7 +62,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    int d2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87);
+                    int d2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz);
                     Main.dust[d2].noGravity = true;
                     Main.dust[d2].velocity *= 0.5f;
                 }
@@ -70,7 +72,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);
         }
         public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.9f;
@@ -81,7 +83,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             Vector2 drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             for (int j = 0; j < 12; j++)

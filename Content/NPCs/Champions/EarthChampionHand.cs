@@ -1,12 +1,12 @@
 using FargowiltasSouls.Content.Projectiles.Champions;
 using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
@@ -229,7 +229,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                             NPC.localAI[1] = 0;
                             NPC.netUpdate = true;
 
-                            if (head.localAI[2] == 1 && FargoSoulsWorld.EternityMode) //explosion chain
+                            if (head.localAI[2] == 1 && WorldSavingSystem.EternityMode) //explosion chain
                             {
                                 //NPC.ai[1] -= 30;
 
@@ -278,7 +278,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX * NPC.ai[3], ModContent.ProjectileType<FlowerPetal>(),
-                                FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, head.localAI[2] == 1 && FargoSoulsWorld.EternityMode ? 0 : 1);
+                                FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, head.localAI[2] == 1 && WorldSavingSystem.EternityMode ? 0 : 1);
                         }
                     }
 
@@ -347,7 +347,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, 0, 0f, Main.myPlayer);
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<FuseBomb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
 
-                                    if (head.localAI[2] == 1 && FargoSoulsWorld.EternityMode)
+                                    if (head.localAI[2] == 1 && WorldSavingSystem.EternityMode)
                                     {
                                         for (int i = 0; i < 4; i++)
                                         {
@@ -564,7 +564,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 300);
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(BuffID.Burning, 300);
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.LethargicBuff>(), 300);

@@ -27,14 +27,14 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             Texture2D dpad = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/DPad", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = dpad.Height / 4; //ypos of lower right corner of sprite to draw
             int y3 = num156 * (int)(Main.GlobalTimeWrappedHourly % 0.5 * 8); //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, dpad.Width, num156);
+            Rectangle rectangle = new(0, y3, dpad.Width, num156);
 
             Vector2 drawPos = (drawPlayer.gravDir > 0 ? drawPlayer.Bottom : drawPlayer.Top) - Main.screenPosition;
             drawPos.Y += 48 * drawPlayer.gravDir;
 
             const float scale = 2f;
 
-            DrawData data = new DrawData(dpad, drawPos, rectangle, Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, rectangle.Size() / 2, scale, SpriteEffects.None, 0);
+            DrawData data = new(dpad, drawPos, rectangle, Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, rectangle.Size() / 2, scale, SpriteEffects.None, 0);
             drawInfo.DrawDataCache.Add(data);
         }
     }

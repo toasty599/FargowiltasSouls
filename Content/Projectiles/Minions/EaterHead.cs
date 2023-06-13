@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -145,7 +144,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             float playerGroundCompareHeight = player.Center.Y;
             for (int i = 0; i < 20; i++)
             {
-                Vector2 pos = new Vector2(player.Center.X, playerGroundCompareHeight);
+                Vector2 pos = new(player.Center.X, playerGroundCompareHeight);
                 if (IsInTile(pos))
                     break;
                 playerGroundCompareHeight += 16;

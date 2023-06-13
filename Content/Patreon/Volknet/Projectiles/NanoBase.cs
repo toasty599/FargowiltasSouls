@@ -1,10 +1,8 @@
 ﻿using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -281,7 +279,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
         }
 
 
-        public bool AllSet(Player owner)
+        public static bool AllSet(Player owner)
         {
             bool channel = owner.channel;
             bool anyp = NPCUtils.AnyProj(ModContent.ProjectileType<NanoProbe>(), owner.whoAmI);

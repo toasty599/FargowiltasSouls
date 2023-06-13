@@ -26,7 +26,7 @@ Increases your max number of sentries by 1
             //             '这只是个开始...'");
         }
 
-        protected override Color nameColor => new Color(0, 255, 255);
+        protected override Color nameColor => new(0, 255, 255);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

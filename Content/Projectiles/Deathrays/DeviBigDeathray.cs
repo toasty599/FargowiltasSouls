@@ -1,11 +1,9 @@
 ﻿using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Common.Graphics.Primitives;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using SteelSeries.GameSense;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -114,10 +112,10 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             Vector2 vector79 = Projectile.Center + Projectile.velocity * (Projectile.localAI[1] - 14f);
             for (int num809 = 0; num809 < 2; num809 = num3 + 1)
             {
-                float num810 = Projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * 1.57079637f;
+                float num810 = Projectile.velocity.ToRotation() + (Main.rand.NextBool(2)? -1f : 1f) * 1.57079637f;
                 float num811 = (float)Main.rand.NextDouble() * 2f + 2f;
-                Vector2 vector80 = new Vector2((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
-                int num812 = Dust.NewDust(vector79, 0, 0, 244, vector80.X, vector80.Y, 0, default, 1f);
+                Vector2 vector80 = new((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
+                int num812 = Dust.NewDust(vector79, 0, 0, DustID.CopperCoin, vector80.X, vector80.Y, 0, default, 1f);
                 Main.dust[num812].noGravity = true;
                 Main.dust[num812].scale = 1.7f;
                 num3 = num809;
@@ -125,7 +123,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             if (Main.rand.NextBool(5))
             {
                 Vector2 value29 = Projectile.velocity.RotatedBy(1.5707963705062866, default) * ((float)Main.rand.NextDouble() - 0.5f) * Projectile.width;
-                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 244, 0f, 0f, 100, default, 1.5f);
+                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, DustID.CopperCoin, 0f, 0f, 100, default, 1.5f);
                 Dust dust = Main.dust[num813];
                 dust.velocity *= 0.5f;
                 Main.dust[num813].velocity.Y = -Math.Abs(Main.dust[num813].velocity.Y);
@@ -136,7 +134,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             const int increment = 100;
             for (int i = 0; i < array3[0]; i += increment)
             {
-                if (Main.rand.Next(3) != 0)
+                if (!Main.rand.NextBool(3))
                     continue;
                 float offset = i + Main.rand.NextFloat(-increment, increment);
                 if (offset < 0)
@@ -144,7 +142,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
                 if (offset > array3[0])
                     offset = array3[0];
                 int d = Dust.NewDust(Projectile.position + Projectile.velocity * offset,
-                    Projectile.width, Projectile.height, 86, 0f, 0f, 0, default, Main.rand.NextFloat(4f, 8f));
+                    Projectile.width, Projectile.height, DustID.GemAmethyst, 0f, 0f, 0, default, Main.rand.NextFloat(4f, 8f));
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity += Projectile.velocity * 0.5f;
                 Main.dust[d].velocity *= Main.rand.NextFloat(12f, 24f);
@@ -175,7 +173,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         }
 
         public static Color[] DeviColors => new Color[] { new(216, 108, 224, 100), new(232, 140, 240, 100), new(224, 16, 216, 100), new(240, 220, 240, 100) };
-        public Color ColorFunction(float trailInterpolant)
+        public static Color ColorFunction(float trailInterpolant)
         {
             float time = (float)(0.5 * (1 + Math.Sin(1.5f * Main.GlobalTimeWrappedHourly % 1)));
             float localInterpolant = (time + (1 - trailInterpolant)) / 2;
@@ -239,7 +237,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         {
             return Projectile.scale * 5;
         }
-        public Color RingColorFunction(float trailInterpolant)
+        public static Color RingColorFunction(float trailInterpolant)
         {
             float time = (float)(0.5 * (1 + Math.Sin(Main.GlobalTimeWrappedHourly - trailInterpolant) / 2));
             Color color = Color.Lerp(Color.Blue, Color.Red, trailInterpolant) * 2;

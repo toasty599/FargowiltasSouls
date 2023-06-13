@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             // '自1902年以来融化的灵魂'");
         }
 
-        protected override Color nameColor => new Color(100, 78, 116);
+        protected override Color nameColor => new(100, 78, 116);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Spooky");
 
         public override void SetDefaults()

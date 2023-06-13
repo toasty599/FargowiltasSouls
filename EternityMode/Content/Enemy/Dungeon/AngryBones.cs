@@ -60,7 +60,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
 
                 for (int i = 0; i < 15; i++)
                 {
-                    Vector2 speed = new Vector2(Main.rand.Next(-50, 51), Main.rand.Next(-100, 1));
+                    Vector2 speed = new(Main.rand.Next(-50, 51), Main.rand.Next(-100, 1));
                     speed.Normalize();
                     speed *= Main.rand.NextFloat(3f, 6f);
                     speed.Y -= Math.Abs(speed.X) * 0.2f;

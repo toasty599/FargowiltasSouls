@@ -1,9 +1,9 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             //vanilla typhoon dust (ech)
             Vector2 vector2_2 = (Main.rand.NextFloat() * (float)Math.PI - (float)Math.PI / 2f).ToRotationVector2();
             vector2_2 *= Main.rand.Next(3, 8);
-            int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1f);
+            int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1f);
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity /= 4f;
             Main.dust[index2].velocity -= Projectile.velocity;
@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             {
                 Vector2 vector2_1 = (Vector2.Normalize(Projectile.velocity) * new Vector2(Projectile.width / 2f, Projectile.height) * 0.75f).RotatedBy((index1 - (num1 / 2 - 1)) * 6.28318548202515 / num1, new Vector2()) + Projectile.Center;
                 Vector2 vector2_2 = vector2_1 - Projectile.Center;
-                int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, 87, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
+                int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, DustID.GemTopaz, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity = vector2_2;
             }
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
                 target.AddBuff(ModContent.BuffType<MidasBuff>(), 300);
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

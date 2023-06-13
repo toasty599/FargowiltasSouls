@@ -2,7 +2,6 @@ using FargowiltasSouls.Content.NPCs.Critters;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using FargowiltasSouls.Content.Items.Placables;

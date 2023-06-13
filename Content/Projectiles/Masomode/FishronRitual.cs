@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.EternityMode;
-using FargowiltasSouls.EternityMode.Content.Boss.HM;
+﻿using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using System;
@@ -7,6 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.tileCollide = false;
             Projectile.timeLeft = 300;
             Projectile.alpha = 255;
-            if (FargoSoulsWorld.MasochistModeReal) //Fargowiltas.Instance.MasomodeEXLoaded)
+            if (WorldSavingSystem.MasochistModeReal) //Fargowiltas.Instance.MasomodeEXLoaded)
                 Projectile.extraUpdates = 1;
         }
 
@@ -98,9 +98,9 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                         scale *= 0.42f;
                         num *= -0.75f;
                     }
-                    Vector2 vector21 = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                    Vector2 vector21 = new(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
                     vector21.Normalize();
-                    int index21 = Dust.NewDust(Projectile.Center, 0, 0, 135, 0f, 0f, 100, new Color(), 2f);
+                    int index21 = Dust.NewDust(Projectile.Center, 0, 0, DustID.IceTorch, 0f, 0f, 100, new Color(), 2f);
                     Main.dust[index21].noGravity = true;
                     Main.dust[index21].noLight = true;
                     Main.dust[index21].position += vector21 * 204f * scale;
@@ -135,9 +135,9 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             int num1 = (300 - Projectile.timeLeft) / 60;
             float num2 = Projectile.scale * 0.4f;
             float num3 = Main.rand.Next(1, 3);
-            Vector2 vector2 = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+            Vector2 vector2 = new(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
             vector2.Normalize();
-            int index2 = Dust.NewDust(Projectile.Center, 0, 0, 135, 0f, 0f, 100, new Color(), 2f);
+            int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.IceTorch, 0f, 0f, 100, new Color(), 2f);
             Main.dust[index2].noGravity = true;
             Main.dust[index2].noLight = true;
             Main.dust[index2].velocity = vector2 * num3;

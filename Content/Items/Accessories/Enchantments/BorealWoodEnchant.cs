@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //in force fires more snowballs, more often, with much higher dmg cap
         }
 
-        protected override Color nameColor => new Color(139, 116, 100);
+        protected override Color nameColor => new(139, 116, 100);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Boreal");
 
         public override void SetDefaults()

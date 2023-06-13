@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     for (int index1 = 0; index1 < 8; ++index1)
                     {
                         Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy(index1 * 3.14159274101257 / 4.0, new Vector2()) * new Vector2(2f, 8f)).RotatedBy(Projectile.rotation - 1.57079637050629, new Vector2());
-                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, 228, 0.0f, 0.0f, 0, new Color(), 1f);
+                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.GoldFlame, 0.0f, 0.0f, 0, new Color(), 1f);
                         Main.dust[index2].scale = 1.5f;
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].position = Projectile.Center + vector2;
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     for (int index1 = 0; index1 < 4; ++index1)
                     {
                         Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy(index1 * 3.14159274101257 / 4.0, new Vector2()) * new Vector2(2f, 4f)).RotatedBy(Projectile.rotation - 1.57079637050629, new Vector2());
-                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, 228, 0.0f, 0.0f, 0, new Color(), 1f);
+                        int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.GoldFlame, 0.0f, 0.0f, 0, new Color(), 1f);
                         Main.dust[index2].scale = 1.5f;
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].position = Projectile.Center + vector2;
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.rotation = Projectile.velocity.ToRotation() + 1.570796f;
 
             Vector2 vector21 = Vector2.UnitY.RotatedBy(Projectile.rotation, new Vector2()) * 8f * 2;
-            int index21 = Dust.NewDust(Projectile.Center, 0, 0, 228, 0.0f, 0.0f, 0, new Color(), 1f);
+            int index21 = Dust.NewDust(Projectile.Center, 0, 0, DustID.GoldFlame, 0.0f, 0.0f, 0, new Color(), 1f);
             Main.dust[index21].position = Projectile.Center + vector21;
             Main.dust[index21].scale = 1f;
             Main.dust[index21].noGravity = true;
@@ -120,14 +120,14 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Projectile.position.X -= Projectile.width / 2;
                 Projectile.position.Y -= Projectile.height / 2;
                 for (int index = 0; index < 4; ++index)
-                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 for (int index1 = 0; index1 < 40; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 228, 0.0f, 0.0f, 0, new Color(), 2.5f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldFlame, 0.0f, 0.0f, 0, new Color(), 2.5f);
                     Main.dust[index2].noGravity = true;
                     Dust dust1 = Main.dust[index2];
                     dust1.velocity = dust1.velocity * 3f;
-                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 228, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldFlame, 0.0f, 0.0f, 100, new Color(), 1.5f);
                     Dust dust2 = Main.dust[index3];
                     dust2.velocity = dust2.velocity * 2f;
                     Main.dust[index3].noGravity = true;

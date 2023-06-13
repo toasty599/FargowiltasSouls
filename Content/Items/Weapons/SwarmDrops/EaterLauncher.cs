@@ -4,7 +4,6 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 
 namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
@@ -53,7 +52,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    Vector2 offset = new Vector2();
+                    Vector2 offset = new();
                     double angle = Main.rand.NextDouble() * 2d * Math.PI;
                     offset.X += (float)(Math.Sin(angle) * 300);
                     offset.Y += (float)(Math.Cos(angle) * 300);
@@ -67,7 +66,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
                     dust.noGravity = true;
                     dust.scale = 1f;
 
-                    Vector2 offset2 = new Vector2();
+                    Vector2 offset2 = new();
                     double angle2 = Main.rand.NextDouble() * 2d * Math.PI;
                     offset2.X += (float)(Math.Sin(angle2) * 600);
                     offset2.Y += (float)(Math.Cos(angle2) * 600);

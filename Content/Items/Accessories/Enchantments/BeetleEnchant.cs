@@ -37,7 +37,7 @@ Beetle buffs capped at level two
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new Color(109, 92, 133);
+        protected override Color nameColor => new(109, 92, 133);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Beetle");
 
         public override void SetDefaults()

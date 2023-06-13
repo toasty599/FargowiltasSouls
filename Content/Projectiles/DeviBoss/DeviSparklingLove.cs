@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -108,12 +108,12 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    float baseRotation = FargoSoulsWorld.EternityMode ? Main.rand.NextFloat(MathHelper.TwoPi) : 0;
+                    float baseRotation = WorldSavingSystem.EternityMode ? Main.rand.NextFloat(MathHelper.TwoPi) : 0;
 
                     int max = 8;
-                    if (FargoSoulsWorld.EternityMode)
+                    if (WorldSavingSystem.EternityMode)
                         max = 12;
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                         max = 8; //lowered because maso doubles down on it
 
                     for (int i = 0; i < max; i++)
@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, speed, ModContent.ProjectileType<GlowLine>(), Projectile.damage, 0f, Main.myPlayer, 2, rotation - MathHelper.PiOver2);
                     }
 
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                     {
                         for (int i = 0; i < max; i++)
                         {
@@ -184,17 +184,17 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
 
                 for (int index1 = 0; index1 < 15; ++index1)
                 {
-                    int index2 = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), scaleModifier * 2.5f);
+                    int index2 = Dust.NewDust(dustPoint, 46, 46, DustID.GemAmethyst, 0f, 0f, 0, new Color(), scaleModifier * 2.5f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 16f * scaleModifier;
-                    int index3 = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), scaleModifier);
+                    int index3 = Dust.NewDust(dustPoint, 46, 46, DustID.GemAmethyst, 0f, 0f, 0, new Color(), scaleModifier);
                     Main.dust[index3].velocity *= 8f * scaleModifier;
                     Main.dust[index3].noGravity = true;
                 }
 
                 for (int i = 0; i < 5; i++)
                 {
-                    int d = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), Main.rand.NextFloat(1f, 2f) * scaleModifier);
+                    int d = Dust.NewDust(dustPoint, 46, 46, DustID.GemAmethyst, 0f, 0f, 0, new Color(), Main.rand.NextFloat(1f, 2f) * scaleModifier);
                     Main.dust[d].velocity *= Main.rand.NextFloat(1f, 4f) * scaleModifier;
                 }
             }
@@ -212,7 +212,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
@@ -231,7 +231,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
 
                 for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
                 {
-                    Color color27 = new Color(255, 255, 255, 50);
+                    Color color27 = new(255, 255, 255, 50);
                     color27 *= 0.5f;
                     color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                     Vector2 value4 = Projectile.oldPos[i];

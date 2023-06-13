@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPCID.BrainofCthulhu].Value; //Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = texture2D13.Height / Main.npcFrameCount[NPCID.BrainofCthulhu]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color = Projectile.GetAlpha(lightColor);

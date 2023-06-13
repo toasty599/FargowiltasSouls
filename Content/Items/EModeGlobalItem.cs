@@ -1,9 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Souls;
-
-using FargowiltasSouls.Content.Items.Accessories.Forces;
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -11,6 +6,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Items
 {
@@ -18,7 +14,7 @@ namespace FargowiltasSouls.Content.Items
     {
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             //ammo nerf
@@ -51,7 +47,7 @@ namespace FargowiltasSouls.Content.Items
         }
         public override bool CanUseItem(Item item, Player player)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return base.CanUseItem(item, player);
 
             if (item.damage <= 0 && (item.type == ItemID.RodofDiscord || item.type == ItemID.ActuationRod || item.type == ItemID.WireKite || item.type == ItemID.WireCutter || item.type == ItemID.Wrench || item.type == ItemID.BlueWrench || item.type == ItemID.GreenWrench || item.type == ItemID.MulticolorWrench || item.type == ItemID.YellowWrench || item.type == ItemID.Actuator))
@@ -70,7 +66,7 @@ namespace FargowiltasSouls.Content.Items
         }
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             if (!NPC.downedBoss3 && item.type == ItemID.WaterBolt)
@@ -116,7 +112,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (!FargoSoulsWorld.EternityMode)
+            if (!WorldSavingSystem.EternityMode)
                 return;
 
             //if (item.damage > 0 && (item.ammo == AmmoID.Arrow || item.ammo == AmmoID.Bullet || item.ammo == AmmoID.Dart))
@@ -178,14 +174,14 @@ namespace FargowiltasSouls.Content.Items
                     break;
 
                 case ItemID.Zenith:
-                    if (FargoSoulsWorld.downedMutant)
+                    if (WorldSavingSystem.DownedMutant)
                     {
                         ItemBalance(tooltips, EModeChange.Neutral, "ZenithNone");
                     }
                     else
                     {
                         string bossesToKill = "";
-                        if (!FargoSoulsWorld.downedAbom)
+                        if (!WorldSavingSystem.DownedAbom)
                         {
                             bossesToKill += $" {Language.GetTextValue("Mods.FargowiltasSouls.NPCName.AbomBoss")},";
                         }

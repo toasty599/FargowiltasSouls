@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -47,11 +46,11 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             for (int i = 0; i < 15; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 6, 0f, 0f, 100, default, 3f);
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
                 dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 6, 0f, 0f, 100, default, 1f);
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1f);
                 Main.dust[dust].velocity *= 3f;
             }
         }

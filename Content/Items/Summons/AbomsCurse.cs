@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.NPCs.AbomBoss;
 using Microsoft.Xna.Framework;
 using Terraria;

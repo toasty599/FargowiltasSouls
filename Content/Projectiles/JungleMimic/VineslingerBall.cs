@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             Vector2 position = Projectile.Center;
             Vector2 mountedCenter = Main.player[Projectile.owner].MountedCenter;
             Rectangle? sourceRectangle = new Rectangle?();
-            Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
+            Vector2 origin = new(texture.Width * 0.5f, texture.Height * 0.5f);
             float num1 = texture.Height;
             Vector2 vector2_4 = mountedCenter - position;
             float rotation = (float)Math.Atan2(vector2_4.Y, vector2_4.X) - 1.57f;

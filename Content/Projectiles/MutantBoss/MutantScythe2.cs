@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0, 0, 0, default, 2.5f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz, 0, 0, 0, default, 2.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 6f;
                 }

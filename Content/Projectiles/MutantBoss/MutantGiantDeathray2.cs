@@ -3,13 +3,11 @@ using FargowiltasSouls.Common.Graphics.Primitives;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Souls;
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.IO;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.Shaders;
@@ -45,7 +43,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 maxTime += 180;
         }
 
@@ -132,7 +130,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             }
 
             Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 7f * num801;
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 Projectile.scale *= 5f;
 
             if (Projectile.scale > num801)
@@ -257,7 +255,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
 
             stall = true;
 
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
@@ -286,7 +284,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             //return MathHelper.Lerp(baseWidth, baseWidth * 2, trailInterpolant);
         }
 
-        public Color ColorFunction(float trailInterpolant) => Color.Lerp(new(31, 187, 192, 100), new(51, 255, 191, 100), trailInterpolant);
+        public static Color ColorFunction(float trailInterpolant) => Color.Lerp(new(31, 187, 192, 100), new(51, 255, 191, 100), trailInterpolant);
 
         public override bool PreDraw(ref Color lightColor)
         {

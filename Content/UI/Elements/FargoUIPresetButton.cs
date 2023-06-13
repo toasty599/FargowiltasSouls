@@ -5,16 +5,16 @@ using System;
 using Terraria;
 using Terraria.UI;
 
-namespace FargowiltasSouls.Content.UI
+namespace FargowiltasSouls.Content.UI.Elements
 {
-    public class UIPresetButton : UIElement
+    public class FargoUIPresetButton : UIElement
     {
         public Texture2D Texture;
         public Action<ToggleBackend> ApplyPreset;
         public Action<ToggleBackend> SavePreset;
         public string Text;
 
-        public UIPresetButton(Texture2D tex, Action<ToggleBackend> preset, string text)
+        public FargoUIPresetButton(Texture2D tex, Action<ToggleBackend> preset, string text)
         {
             Texture = tex;
             ApplyPreset = preset;
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.UI
             Height.Set(20, 0);
         }
 
-        public UIPresetButton(Texture2D tex, Action<ToggleBackend> preset, Action<ToggleBackend> save, string text)
+        public FargoUIPresetButton(Texture2D tex, Action<ToggleBackend> preset, Action<ToggleBackend> save, string text)
         {
             Texture = tex;
             ApplyPreset = preset;
@@ -61,12 +61,12 @@ namespace FargowiltasSouls.Content.UI
             }
 
             // Drawing
-            Texture2D outlineTexture = FargowiltasSouls.UserInterfaceManager.PresetButtonOutline.Value;
+            Texture2D outlineTexture = FargoUIManager.PresetButtonOutline.Value;
             Vector2 position = style.Position();
             spriteBatch.Draw(outlineTexture, position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
 
             position += new Vector2(2);
-            Rectangle frame = new Rectangle(0, 0, 20, 20);
+            Rectangle frame = new(0, 0, 20, 20);
             if (hovered)
                 frame.X += 20;
             spriteBatch.Draw(Texture, position, frame, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);

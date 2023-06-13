@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.AbomBoss;
 using Terraria;
 using Terraria.ID;

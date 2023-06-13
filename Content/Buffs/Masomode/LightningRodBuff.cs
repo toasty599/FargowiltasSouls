@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
             //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你将会吸引雷电");
         }
 
-        private void SpawnLightning(Entity obj, int type, int damage, IEntitySource source)
+        private static void SpawnLightning(Entity obj, int type, int damage, IEntitySource source)
         {
             //tends to spawn in ceilings if the player goes indoors/underground
             Point tileCoordinates = obj.Top.ToTileCoordinates();

@@ -6,10 +6,8 @@ using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,6 +15,7 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -88,7 +87,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             EModeGlobalNPC.cultBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             if (npc.ai[3] == -1f)
@@ -197,7 +196,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         }
                         else
                         {
-                            if (npc.ai[1] == (FargoSoulsWorld.MasochistModeReal ? 5f : 60f) && Main.netMode != NetmodeID.MultiplayerClient) //single wave
+                            if (npc.ai[1] == (WorldSavingSystem.MasochistModeReal ? 5f : 60f) && Main.netMode != NetmodeID.MultiplayerClient) //single wave
                             {
                                 for (int i = 0; i < Main.maxNPCs; i++)
                                 {
@@ -268,7 +267,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     }
                                     else //aimed lightning
                                     {
-                                        if (FargoSoulsWorld.MasochistModeReal)
+                                        if (WorldSavingSystem.MasochistModeReal)
                                         {
                                             Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
                                             float ai1New = Main.rand.Next(100);
@@ -367,7 +366,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<CelestialRune>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MutantsPact>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.DungeonFishingCrateHard, 5));
@@ -480,12 +479,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.HitEffect(npc, hitDirection, damage);
 
-            if (!FargoSoulsWorld.SwarmActive)
+            if (!WorldSavingSystem.SwarmActive)
             {
                 NPC cultist = FargoSoulsUtil.NPCExists(npc.ai[3], NPCID.CultistBoss);
 
                 //yes, this spawns two clones without the check
-                if (cultist != null && NPC.CountNPCS(npc.type) < (FargoSoulsWorld.MasochistModeReal ? Math.Min(TotalCultistCount + 1, 12) : TotalCultistCount))
+                if (cultist != null && NPC.CountNPCS(npc.type) < (WorldSavingSystem.MasochistModeReal ? Math.Min(TotalCultistCount + 1, 12) : TotalCultistCount))
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -545,7 +544,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (npc.ai[2] > 0f && npc.ai[3] > 0f)
             {
-                Vector2 pivot = new Vector2(npc.ai[2], npc.ai[3]);
+                Vector2 pivot = new(npc.ai[2], npc.ai[3]);
                 npc.velocity = Vector2.Normalize(pivot - npc.Center).RotatedBy(Math.PI / 2) * 6f;
             }
 
@@ -591,7 +590,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             bool result = base.SafePreAI(npc);
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             npc.dontTakeDamage = true;
@@ -632,7 +631,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 npc.velocity.X = npc.ai[2];
                 npc.velocity.Y = npc.ai[3];
             }
-            else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !FargoSoulsWorld.MasochistModeReal)
+            else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !WorldSavingSystem.MasochistModeReal)
             {
                 if (++Timer > 20 && Timer < 40)
                 {
@@ -679,7 +678,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (npc.type == NPCID.CultistDragonHead)
             {
-                if (FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
+                if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
                     npc.Center = Main.npc[EModeGlobalNPC.cultBoss].Center;
 
                 if (NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4 && Main.netMode != NetmodeID.MultiplayerClient)
@@ -730,7 +729,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            if (!FargoSoulsWorld.MasochistModeReal)
+            if (!WorldSavingSystem.MasochistModeReal)
                 npc.lifeMax /= 2;
         }
 

@@ -1,17 +1,9 @@
-﻿using FargowiltasSouls.Content.NPCs;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.IO;
-using System.Linq;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.UI;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Content.Projectiles.Pets
 {

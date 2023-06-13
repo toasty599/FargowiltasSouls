@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             float opacity = Main.mouseTextColor / 255f;
             opacity *= opacity;
 
-            DrawData data = new DrawData(hurtbox, drawPlayer.Center - Main.screenPosition, rectangle, Color.White * opacity, 0f, rectangle.Size() / 2, 1f, SpriteEffects.None, 0);
+            DrawData data = new(hurtbox, drawPlayer.Center - Main.screenPosition, rectangle, Color.White * opacity, 0f, rectangle.Size() / 2, 1f, SpriteEffects.None, 0);
             drawInfo.DrawDataCache.Add(data);
         }
     }

@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -51,7 +52,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
             if (Projectile.velocity != Vector2.Zero && Main.rand.NextBool(3))
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 88, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 114, default, 2f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemSapphire, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 114, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 1.8f;
                 Main.dust[dust].velocity.Y -= 0.5f;
@@ -86,7 +87,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistModeReal) //if (Fargowiltas.Instance.MasomodeEXLoaded)
+            if (WorldSavingSystem.MasochistModeReal) //if (Fargowiltas.Instance.MasomodeEXLoaded)
             {
                 if (!target.tongued)
                     SoundEngine.PlaySound(SoundID.ForceRoarPitched, target.Center);
@@ -106,9 +107,9 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             {
                 Texture2D texture = TextureAssets.Chain12.Value;
                 Vector2 position = Projectile.Center;
-                Vector2 mountedCenter = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
+                Vector2 mountedCenter = new(Projectile.localAI[0], Projectile.localAI[1]);
                 Rectangle? sourceRectangle = new Rectangle?();
-                Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
+                Vector2 origin = new(texture.Width * 0.5f, texture.Height * 0.5f);
                 float num1 = texture.Height;
                 Vector2 vector24 = mountedCenter - position;
                 float rotation = (float)Math.Atan2(vector24.Y, vector24.X) - 1.57f;
@@ -140,7 +141,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Texture2D texture2D13 = TextureAssets.Npc[NPCID.TheHungry].Value;
             int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

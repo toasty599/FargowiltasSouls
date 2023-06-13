@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -79,7 +78,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 {
                     float num1 = Projectile.rotation + (float)((Main.rand.NextBool(2) ? -1.0 : 1.0) * 1.57079637050629);
                     float num2 = (float)(Main.rand.NextDouble() * 0.800000011920929 + 1.0);
-                    Vector2 vector2 = new Vector2((float)Math.Cos((double)num1) * num2, (float)Math.Sin((double)num1) * num2);
+                    Vector2 vector2 = new((float)Math.Cos((double)num1) * num2, (float)Math.Sin((double)num1) * num2);
                     int index2 = Dust.NewDust(Projectile.Center, 0, 0, DustID.Electric, vector2.X, vector2.Y, 0, new Color(), 1f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].scale = 1.2f;
@@ -97,7 +96,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     return;
                 Projectile.frameCounter = 0;
                 float num1 = Projectile.velocity.Length();
-                UnifiedRandom unifiedRandom = new UnifiedRandom((int)Projectile.ai[1]);
+                UnifiedRandom unifiedRandom = new((int)Projectile.ai[1]);
                 int num2 = 0;
                 Vector2 spinningpoint = -Vector2.UnitY;
                 Vector2 rotationVector2;
@@ -174,7 +173,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             float num2 = (float)(Projectile.rotation + 1.57079637050629 + (Main.rand.NextBool(2) ? -1.0 : 1.0) * 1.57079637050629);
             float num3 = (float)(Main.rand.NextDouble() * 2.0 + 2.0);
-            Vector2 vector2 = new Vector2((float)Math.Cos(num2) * num3, (float)Math.Sin(num2) * num3);
+            Vector2 vector2 = new((float)Math.Cos(num2) * num3, (float)Math.Sin(num2) * num3);
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {
                 int index = Dust.NewDust(Projectile.oldPos[i], 0, 0, DustID.Vortex, vector2.X, vector2.Y, 0, new Color(), 1f);

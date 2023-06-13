@@ -1,8 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Pets;
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Projectiles.Pets;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

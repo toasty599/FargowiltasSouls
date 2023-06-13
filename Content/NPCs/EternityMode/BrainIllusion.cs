@@ -1,7 +1,7 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityMode
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 target.AddBuff(BuffID.Poisoned, 120);
                 target.AddBuff(BuffID.Darkness, 120);
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityMode
                 //SoundEngine.PlaySound(NPC.DeathSound, NPC.Center);
                 for (int i = 0; i < 40; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
                     Main.dust[d].velocity *= 2.5f;
                     Main.dust[d].scale += 0.5f;
                 }

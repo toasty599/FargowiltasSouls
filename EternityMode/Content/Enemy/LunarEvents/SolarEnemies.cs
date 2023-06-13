@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
 {
@@ -110,7 +110,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && npc.Distance(Main.npc[EModeGlobalNPC.cultBoss].Center) < 3000)
             {
                 IsCultistProjectile = true;
-                if (!FargoSoulsWorld.MasochistModeReal)
+                if (!WorldSavingSystem.MasochistModeReal)
                     npc.damage = (int)(npc.damage * .6);
             }
         }
@@ -119,7 +119,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         {
             base.AI(npc);
 
-            if (IsCultistProjectile && !FargoSoulsWorld.SwarmActive && !FargoSoulsWorld.MasochistModeReal)
+            if (IsCultistProjectile && !WorldSavingSystem.SwarmActive && !WorldSavingSystem.MasochistModeReal)
                 npc.position += npc.velocity * Math.Min(0.5f, ++Timer / 60f - 1f);
         }
     }

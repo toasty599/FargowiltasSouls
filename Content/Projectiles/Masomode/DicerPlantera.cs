@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -150,7 +151,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                             float rotation = Main.rand.NextFloat(MathHelper.TwoPi);
                             for (int i = 0; i < max; i++)
                             {
-                                int type = FargoSoulsWorld.MasochistModeReal ? ProjectileID.PoisonSeedPlantera : ProjectileID.SeedPlantera;
+                                int type = WorldSavingSystem.MasochistModeReal ? ProjectileID.PoisonSeedPlantera : ProjectileID.SeedPlantera;
                                 int p = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, range / time * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i + rotation),
                                     type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                                 if (p != Main.maxProjectiles)
@@ -180,7 +181,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects spriteEffects = SpriteEffects.None;

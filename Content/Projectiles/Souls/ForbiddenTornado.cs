@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
@@ -82,7 +81,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Vector2 value72 = new Vector2(point8.X, num1127) * 16f + new Vector2(8f);
             Vector2 value73 = new Vector2(point8.X, num1128) * 16f + new Vector2(8f);
             Vector2 vector145 = Vector2.Lerp(value72, value73, 0.5f);
-            Vector2 value74 = new Vector2(0f, value73.Y - value72.Y);
+            Vector2 value74 = new(0f, value73.Y - value72.Y);
             value74.X = value74.Y * 0.2f;
             Projectile.width = (int)(value74.X * 0.65f);
             Projectile.height = (int)value74.Y;
@@ -115,12 +114,12 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                     float value75 = -0.5f;
                     float value76 = 0.9f;
                     float amount3 = Main.rand.NextFloat();
-                    Vector2 value77 = new Vector2(MathHelper.Lerp(0.1f, 1f, Main.rand.NextFloat()), MathHelper.Lerp(value75, value76, amount3));
+                    Vector2 value77 = new(MathHelper.Lerp(0.1f, 1f, Main.rand.NextFloat()), MathHelper.Lerp(value75, value76, amount3));
                     value77.X *= MathHelper.Lerp(2.2f, 0.6f, amount3);
                     value77.X *= -1f;
-                    Vector2 value78 = new Vector2(6f, 10f);
+                    Vector2 value78 = new(6f, 10f);
                     Vector2 position3 = vector145 + value74 * value77 * 0.5f + value78;
-                    Dust dust34 = Main.dust[Dust.NewDust(position3, 0, 0, 269, 0f, 0f, 0, default, 1f)];
+                    Dust dust34 = Main.dust[Dust.NewDust(position3, 0, 0, DustID.Sandnado, 0f, 0f, 0, default, 1f)];
                     dust34.position = position3;
                     dust34.customData = vector145 + value78;
                     dust34.fadeIn = 1f;
@@ -141,7 +140,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             float density = 50f;
             for (float i = 0; i < (int)density; i++)
             {
-                Color color = new Color(212, 192, 100);
+                Color color = new(212, 192, 100);
                 color.A /= 2;
                 float lerpamount = Math.Abs(density / 2 - i) > density / 2 * 0.6f ? Math.Abs(density / 2 - i) / (density / 2) : 0f; //if too low or too high up, start making it transparent
                 color = Color.Lerp(color, Color.Transparent, lerpamount);

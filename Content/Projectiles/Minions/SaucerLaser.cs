@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             int num = Main.rand.Next(3, 7);
             for (int index1 = 0; index1 < num; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.Center - Projectile.velocity / 2f, 0, 0, 228, 0.0f, 0.0f, 100, new Color(), 2.1f);
+                int index2 = Dust.NewDust(Projectile.Center - Projectile.velocity / 2f, 0, 0, DustID.GoldFlame, 0.0f, 0.0f, 100, new Color(), 2.1f);
                 Dust dust = Main.dust[index2];
                 dust.velocity = dust.velocity * 2f;
                 Main.dust[index2].noGravity = true;

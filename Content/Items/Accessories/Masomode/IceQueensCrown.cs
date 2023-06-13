@@ -3,7 +3,6 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
-using System.CodeDom;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

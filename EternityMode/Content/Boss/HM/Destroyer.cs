@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,6 +17,7 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = false;
         }
 
-        private int ProjectileDamage(NPC npc) => FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 9);
+        private static int ProjectileDamage(NPC npc) => FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 9);
 
         private void CoilAI(NPC npc)
         {
@@ -96,13 +96,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             {
                 if (npc.localAI[2] >= 0)
                 {
-                    npc.localAI[2] = FargoSoulsWorld.MasochistModeReal ? -60 : 0;
+                    npc.localAI[2] = WorldSavingSystem.MasochistModeReal ? -60 : 0;
                     AttackModeTimer = 0; //for edge case where destroyer coils, then goes below 10% while coiling, make sure DR behaves right
                 }
 
                 if (--npc.localAI[2] < -120)
                 {
-                    npc.localAI[2] += FargoSoulsWorld.MasochistModeReal ? 3 : 6;
+                    npc.localAI[2] += WorldSavingSystem.MasochistModeReal ? 3 : 6;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 distance = npc.DirectionTo(Main.player[npc.target].Center) * 14f;
@@ -166,7 +166,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float ratio = (float)npc.life / npc.lifeMax;
-                    if (FargoSoulsWorld.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal)
                         ratio = 0;
 
                     int max = (int)(14f - 10f * ratio);
@@ -184,11 +184,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             for (int i = 0; i < 20; i++) //arena dust
             {
-                Vector2 offset = new Vector2();
+                Vector2 offset = new();
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * 600);
                 offset.Y += (float)(Math.Cos(angle) * 600);
-                Dust dust = Main.dust[Dust.NewDust(pivot + offset - new Vector2(4, 4), 0, 0, 112, 0, 0, 100, Color.White, 1f)];
+                Dust dust = Main.dust[Dust.NewDust(pivot + offset - new Vector2(4, 4), 0, 0, DustID.Clentaminator_Purple, 0, 0, 100, Color.White, 1f)];
                 dust.velocity = Vector2.Zero;
                 if (Main.rand.NextBool(3))
                     dust.velocity += Vector2.Normalize(offset) * 5f;
@@ -209,7 +209,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     for (int i = 0; i < 20; i++)
                     {
-                        int d = Dust.NewDust(target.position, target.width, target.height, 112, 0f, 0f, 0, default(Color), 2f);
+                        int d = Dust.NewDust(target.position, target.width, target.height, DustID.Clentaminator_Purple, 0f, 0f, 0, default, 2f);
                         Main.dust[d].noGravity = true;
                         Main.dust[d].velocity *= 5f;
                     }
@@ -353,7 +353,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (Main.netMode != NetmodeID.MultiplayerClient && AttackModeTimer > P2_ATTACK_SPACING - 120 && AttackModeTimer < P2_ATTACK_SPACING * 2 - 60)
             {
-                int interval = FargoSoulsWorld.MasochistModeReal ? 40 : 120;
+                int interval = WorldSavingSystem.MasochistModeReal ? 40 : 120;
                 if (AttackModeTimer % interval == 12) //make a probe shoot
                 {
                     List<NPC> probes = Main.npc.Where(n => n.active && n.type == NPCID.Probe).ToList();
@@ -394,7 +394,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 SecondaryAttackTimer = 0;
             if (AttackModeTimer >= darkStarThreshold && AttackModeTimer <= upperDarkStarTime + 90) //spaced star spread attack
             {
-                if (FargoSoulsWorld.MasochistModeReal)
+                if (WorldSavingSystem.MasochistModeReal)
                 {
                     num15 *= 0.75f;
                     num16 *= 0.75f;
@@ -428,7 +428,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     Vector2 targetPos = Main.player[npc.target].Center;
 
-                    List<int> segments = new List<int>();
+                    List<int> segments = new();
                     foreach (NPC n in Main.npc.Where(n => n.active && n.realLife == npc.whoAmI && n.Distance(targetPos) < 1600))
                         segments.Add(n.whoAmI);
 
@@ -487,7 +487,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         SecondaryAttackTimer = 1;
                         npc.velocity = 20f * npc.DirectionTo(target);//.RotatedBy(MathHelper.ToRadians(30) * (Main.rand.NextBool() ? -1 : 1));
 
-                        if (!FargoSoulsWorld.MasochistModeReal) //deflect away at the last second
+                        if (!WorldSavingSystem.MasochistModeReal) //deflect away at the last second
                         {
                             float targetSpeedDirection = MathHelper.WrapAngle(Main.player[npc.target].velocity.ToRotation() - npc.velocity.ToRotation());
                             npc.velocity = npc.velocity.RotatedBy(MathHelper.ToRadians(30) * -Math.Sign(targetSpeedDirection));
@@ -509,7 +509,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     bool playerIsInFront = Math.Abs(angle) < MathHelper.ToRadians(45);
                     if (!playerIsInFront)
                     {
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                             maxSpeed /= 2;
                         else if (maxSpeed > 4)
                             maxSpeed = 4;
@@ -560,7 +560,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
         }
 
-        private void MovementAI(NPC npc, Vector2 target, float num15, float num16, float maxSpeed)
+        private static void MovementAI(NPC npc, Vector2 target, float num15, float num16, float maxSpeed)
         {
             float num17 = target.X;
             float num18 = target.Y;
@@ -652,12 +652,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             EModeGlobalNPC.destroyBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return true;
 
             if (!InPhase2)
             {
-                if (npc.life < (int)(npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? 0.95 : .75)))
+                if (npc.life < (int)(npc.lifeMax * (WorldSavingSystem.MasochistModeReal ? 0.95 : .75)))
                 {
                     InPhase2 = true;
                     AttackModeTimer = P2_COIL_BEGIN_TIME;
@@ -749,7 +749,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<GroundStick>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrateHard, 5));
             npcLoot.Add(emodeRule);
@@ -811,7 +811,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             bool result = base.SafePreAI(npc);
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return result;
 
             NPC destroyer = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.TheDestroyer);
@@ -862,10 +862,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (++ProbeReleaseTimer > 60)
                 {
                     ProbeReleaseTimer = -Main.rand.Next(360);
-                    float lifeThreshold = FargoSoulsWorld.MasochistModeReal ? 0.8f : 0.4f;
+                    float lifeThreshold = WorldSavingSystem.MasochistModeReal ? 0.8f : 0.4f;
                     if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax * lifeThreshold && NPC.CountNPCS(NPCID.Probe) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        if (Main.rand.NextBool(FargoSoulsWorld.MasochistModeReal ? 5 : 10)) //higher chance in maso
+                        if (Main.rand.NextBool(WorldSavingSystem.MasochistModeReal ? 5 : 10)) //higher chance in maso
                         {
                             npc.ai[2] = 1;
                             npc.HitEffect();
@@ -1051,9 +1051,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
-            return FargoSoulsWorld.SwarmActive
+            return WorldSavingSystem.SwarmActive
                 || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer)
-                || FargoSoulsWorld.MasochistModeReal;
+                || WorldSavingSystem.MasochistModeReal;
         }
 
         public override void OnFirstTick(NPC npc)
@@ -1070,12 +1070,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             bool result = base.SafePreAI(npc);
 
-            if (FargoSoulsWorld.SwarmActive || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
+            if (WorldSavingSystem.SwarmActive || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
                 return result;
 
             //bool isCoiling = Main.npc[EModeGlobalNPC.destroyBoss].GetGlobalNPC<Destroyer>().IsCoiling;
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 //if (isCoiling && npc.localAI[0] > 30) //disable vanilla lasers during coil
                 if (npc.localAI[0] > 30)
@@ -1117,7 +1117,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     Vector2 towardsPlayer = 6f * npc.DirectionTo(Main.player[npc.target].Center);
 
                     float dustScale = 0.5f + 2.5f * AttackTimer / attackTime;
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 90, 2f * towardsPlayer.X, 2f * towardsPlayer.Y, 0, default(Color), dustScale);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.GemRuby, 2f * towardsPlayer.X, 2f * towardsPlayer.Y, 0, default, dustScale);
                     Main.dust[d].noGravity = true;
 
                     if (++AttackTimer > attackTime)

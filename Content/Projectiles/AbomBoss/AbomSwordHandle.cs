@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
-using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 
             //Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<AbomBlast>(), 0, 0f, Projectile.owner);
 
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<AbomFangBuff>(), 300);
                 target.AddBuff(BuffID.Burning, 180);

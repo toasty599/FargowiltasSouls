@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -32,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 
         public override bool? CanDamage()
         {
-            return Projectile.ai[1] <= 0 || FargoSoulsWorld.MasochistModeReal;
+            return Projectile.ai[1] <= 0 || WorldSavingSystem.MasochistModeReal;
         }
 
         public override void AI()
@@ -55,7 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
                 Projectile.netUpdate = true;
                 Player target = Main.player[Player.FindClosest(Projectile.position, Projectile.width, Projectile.height)];
                 Projectile.velocity = Projectile.DirectionTo(target.Center);
-                if (FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()) && Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.abomBoss].localAI[3] > 1)
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()) && Main.npc[EModeGlobalNPC.abomBoss].localAI[3] > 1)
                     Projectile.velocity *= 7f;
                 else
                     Projectile.velocity *= 24f;
@@ -72,13 +74,13 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
             float speed = 12;
             for (int i = 0; i < dustMax; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, Scale: 3.5f);
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz, Scale: 3.5f);
                 Main.dust[d].velocity *= speed;
                 Main.dust[d].noGravity = true;
             }
             for (int i = 0; i < dustMax; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, Scale: 3.5f);
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Scale: 3.5f);
                 Main.dust[d].velocity *= speed;
                 Main.dust[d].noGravity = true;
             }
@@ -86,7 +88,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 //target.AddBuff(BuffID.Burning, 180);
@@ -102,7 +104,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
@@ -123,7 +125,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(255, 255, 255, Projectile.ai[1] < 0 ? 150 : 255) * Projectile.Opacity * (Projectile.ai[1] <= 0 || FargoSoulsWorld.MasochistModeReal ? 1f : 0.5f);
+            return new Color(255, 255, 255, Projectile.ai[1] < 0 ? 150 : 255) * Projectile.Opacity * (Projectile.ai[1] <= 0 || WorldSavingSystem.MasochistModeReal ? 1f : 0.5f);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         {
             for (int i = 0; i < 50; i++)
             {
-                Vector2 pos = new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20));
+                Vector2 pos = new(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20));
                 int dust = Dust.NewDust(pos, Projectile.width, Projectile.height, DustID.Blood, 0, 0, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
             }

@@ -1,10 +1,9 @@
-﻿using FargowiltasSouls.Utilities;
+﻿using FargowiltasSouls.Common.Utilities;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Default;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -20,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'I'm a what?'");
         }
 
-        protected override Color nameColor => new Color(50, 80, 193);
+        protected override Color nameColor => new(50, 80, 193);
         public override string wizardEffect => "";
 
         public override void SetDefaults()

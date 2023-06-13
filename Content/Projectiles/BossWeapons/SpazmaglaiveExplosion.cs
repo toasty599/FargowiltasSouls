@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -102,9 +101,9 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             float num180 = Projectile.localAI[0] / num178;
             Texture2D texture2D5 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Color color33 = Color.White;
-            Color color34 = new Color(255, 255, 255, 0);
-            Color color35 = new Color(30, 180, 30, 0);
-            Color color36 = new Color(0, 30, 0, 0);
+            Color color34 = new(255, 255, 255, 0);
+            Color color35 = new(30, 180, 30, 0);
+            Color color36 = new(0, 30, 0, 0);
             ulong num181 = 1uL;
             for (float num182 = 0f; num182 < 15f; num182 += 0.66f)
             {

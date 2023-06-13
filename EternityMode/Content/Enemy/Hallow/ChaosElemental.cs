@@ -1,7 +1,6 @@
 ﻿using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.NPCs;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;

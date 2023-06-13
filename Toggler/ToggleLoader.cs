@@ -7,9 +7,23 @@ namespace FargowiltasSouls.Toggler
 {
     public static class ToggleLoader
     {
-        public static Dictionary<string, Toggle> LoadedToggles;
-        public static List<int> HeaderToggles;
-        public static Dictionary<string, (string name, int item)> LoadedHeaders;
+        public static Dictionary<string, Toggle> LoadedToggles
+        {
+            get;
+            private set;
+        }
+
+        public static List<int> HeaderToggles
+        {
+            get;
+            private set;
+        }
+
+        public static Dictionary<string, (string name, int item)> LoadedHeaders
+        {
+            get;
+            private set;
+        }
 
         public static void Load()
         {
@@ -19,10 +33,18 @@ namespace FargowiltasSouls.Toggler
             LoadTogglesFromAssembly(FargowiltasSouls.Instance.Code);
         }
 
+        public static void Unload()
+        {
+            LoadedToggles?.Clear();
+            HeaderToggles?.Clear();
+            LoadedHeaders?.Clear();
+        }
+
+
         public static void LoadTogglesFromAssembly(Assembly assembly)
         {
             Type[] types = assembly.GetTypes();
-            List<ToggleCollection> collections = new List<ToggleCollection>();
+            List<ToggleCollection> collections = new();
 
             for (int i = 0; i < types.Length; i++)
             {
@@ -39,28 +61,18 @@ namespace FargowiltasSouls.Toggler
                 }
             }
 
-            IEnumerable<ToggleCollection> orderedCollections = collections.OrderBy((collection) => collection.Priority);
+            var orderedCollections = collections.OrderBy((collection) => collection.Priority);
             FargowiltasSouls.Instance.Logger.Info($"ToggleCollections found: {orderedCollections.Count()}");
 
             foreach (ToggleCollection collection in orderedCollections)
             {
-                List<Toggle> toggleCollectionChildren = collection.Load(LoadedToggles.Count - 1);
+                List<Toggle> toggleCollectionChildren = collection.Load();
 
                 foreach (Toggle toggle in toggleCollectionChildren)
                 {
                     RegisterToggle(toggle);
                 }
             }
-        }
-
-        public static void Unload()
-        {
-            if (LoadedToggles != null)
-                LoadedToggles.Clear();
-            if (HeaderToggles != null)
-                HeaderToggles.Clear();
-            if (LoadedHeaders != null)
-                LoadedHeaders.Clear();
         }
 
         public static void RegisterToggle(Toggle toggle)

@@ -6,7 +6,6 @@ using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
@@ -15,6 +14,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -167,7 +167,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         npc.velocity = Vector2.Zero;
 
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                         {
                             StompTimer = 25;
                         }
@@ -190,7 +190,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 for (int i = 0; i < max; i++)
                                 {
                                     Vector2 vel = Main.rand.NextFloat(5f, 15f) * j * baseVel.RotatedBy(MathHelper.PiOver4 * 0.8f / max * i * -j);
-                                    vel *= FargoSoulsWorld.MasochistModeReal ? 2f : 1.5f;
+                                    vel *= WorldSavingSystem.MasochistModeReal ? 2f : 1.5f;
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                 }
                             }
@@ -219,7 +219,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             EModeGlobalNPC.queenSlimeBoss = npc.whoAmI;
 
-            if (FargoSoulsWorld.SwarmActive)
+            if (WorldSavingSystem.SwarmActive)
                 return true;
 
             void TrySpawnMinions(ref bool check, double threshold)
@@ -362,7 +362,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (RainTimer > delay && RainTimer < delay + maxAttackTime && RainTimer % 5 == 0)
                         {
                             const float maxWavy = 200;
-                            Vector2 focusPoint = new Vector2(npc.Center.X, Math.Min(npc.Center.Y, Main.player[npc.target].Center.Y));
+                            Vector2 focusPoint = new(npc.Center.X, Math.Min(npc.Center.Y, Main.player[npc.target].Center.Y));
                             focusPoint.X += maxWavy * RainDirection * (float)Math.Sin(Math.PI * 2f / maxAttackTime * attackTimer * 1.5f);
                             focusPoint.Y -= 500;
 
@@ -417,7 +417,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (!Stompy(npc))
                         return false;
 
-                    if (!FargoSoulsWorld.MasochistModeReal)
+                    if (!WorldSavingSystem.MasochistModeReal)
                     {
                         if (npc.ai[1] == 0)
                             SoundEngine.PlaySound(npc.DeathSound, npc.Center);
@@ -444,7 +444,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return true;
         }
 
-        private bool NPCInAnyTiles(NPC npc)
+        private static bool NPCInAnyTiles(NPC npc)
         {
             //WHERE'S TJHE FKC IJNGI METHOD FOR HTIS? ITS NOT COLLISION.SOLKIDCOLLIOSOM ITS NOPT COLLISON.SOLDITILES I HATE 1.4 IHATE TMODLAOREI I HATE THIS FUSPTID FUCKIGN GNAME SOFU KIGN MCUCH FUCK FUCK FUCK
             bool isInTilesIncludingPlatforms = false;
@@ -486,7 +486,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            LeadingConditionRule emodeRule = new(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<GelicWings>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HallowedFishingCrateHard, 5));
             npcLoot.Add(emodeRule);
@@ -534,7 +534,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 npc.knockBackResist = 0;
         }
 
@@ -542,7 +542,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.AI(npc);
 
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
                 {

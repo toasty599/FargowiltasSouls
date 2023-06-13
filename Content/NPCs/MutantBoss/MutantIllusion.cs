@@ -85,13 +85,13 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
                 NPC.active = false;
                 for (int i = 0; i < 40; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
                     Main.dust[d].velocity *= 2.5f;
                     Main.dust[d].scale += 0.5f;
                 }
                 for (int i = 0; i < 20; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 229, 0f, 0f, 0, default(Color), 2f);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 2f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 9f;

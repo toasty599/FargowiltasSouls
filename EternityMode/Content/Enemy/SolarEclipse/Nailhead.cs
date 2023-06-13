@@ -2,7 +2,6 @@ using System.IO;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 
@@ -88,7 +87,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
                         }
                     }
 
-                    Vector2 vector2_1 = new Vector2(-1f, -1f);
+                    Vector2 vector2_1 = new(-1f, -1f);
 
                     for (int index = 0; index < maxValue; ++index)
                     {
@@ -102,7 +101,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
                     for (int index = 0; index < length; ++index)
                     {
                         float num1 = Main.rand.Next(8, 13);
-                        Vector2 vector2_2 = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
+                        Vector2 vector2_2 = new(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
                         vector2_2.Normalize();
 
                         if (maxValue > 0)

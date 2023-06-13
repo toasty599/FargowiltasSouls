@@ -8,11 +8,8 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -59,7 +56,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
 
                     Player.Teleport(teleportPos, 1);
-                    NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
                     unstableCD = 60;
                 }
@@ -108,6 +105,25 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }*/
             }
         }
+
+        public override void PostUpdate()
+        {
+            if (!FreeEaterSummon && !Main.npc.Any(n => n.active && (n.type == NPCID.EaterofWorldsHead || n.type == NPCID.EaterofWorldsBody || n.type == NPCID.EaterofWorldsTail)))
+            {
+                FreeEaterSummon = true;
+            }
+
+            if (NymphsPerfumeRestoreLife > 0 && --NymphsPerfumeRestoreLife == 0)
+            {
+                if (Player.statLife < Player.statLifeMax2)
+                    Player.statLife = Player.statLifeMax2;
+                //doing it like this so it accounts for your lifeMax after respawn
+                //regular OnRespawn() doesnt account for lifeforce, and is lowered by dying with oceanic maul
+            }
+
+            ConcentratedRainbowMatterTryAutoHeal();
+        }
+
 
         public override void PostUpdateBuffs()
         {
@@ -258,7 +274,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 for (int i = 0; i < 30; i++)
                 {
-                    int d = Dust.NewDust(Player.position, Player.width, Player.height, 87, 0, 0, 0, default, 2.5f);
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.GemTopaz, 0, 0, 0, default, 2.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                 }
@@ -361,6 +377,83 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
+        public override void UpdateBadLifeRegen()
+        {
+            if (Player.electrified && Player.wet)
+                Player.lifeRegen -= 16;
+
+            void DamageOverTime(int badLifeRegen, bool affectLifeRegenCount = false)
+            {
+                if (Player.lifeRegen > 0)
+                    Player.lifeRegen = 0;
+
+                if (affectLifeRegenCount && Player.lifeRegenCount > 0)
+                    Player.lifeRegen = 0;
+
+                Player.lifeRegenTime = 0;
+                Player.lifeRegen -= badLifeRegen;
+            }
+
+            if (NanoInjection)
+                DamageOverTime(10);
+
+            if (Shadowflame)
+                DamageOverTime(10);
+
+            if (GodEater)
+            {
+                DamageOverTime(170, true);
+
+                Player.lifeRegenCount -= 70;
+            }
+
+            if (MutantNibble)
+                DamageOverTime(0, true);
+
+            if (Infested)
+                DamageOverTime(InfestedExtraDot());
+
+            if (Rotting)
+                DamageOverTime(2);
+
+            if (CurseoftheMoon)
+                DamageOverTime(20);
+
+            if (Oiled && Player.lifeRegen < 0)
+            {
+                Player.lifeRegen *= 2;
+            }
+
+            if (MutantPresence)
+            {
+                if (Player.lifeRegen > 5)
+                    Player.lifeRegen = 5;
+            }
+
+            if (FlamesoftheUniverse)
+                DamageOverTime((30 + 50 + 48 + 30) / 2, true);
+
+            if (Smite)
+                DamageOverTime(0, true);
+
+            if (Anticoagulation)
+                DamageOverTime(4, true);
+
+            if (Player.lifeRegen < 0)
+            {
+                if (TerraForce)
+                {
+                    Player.lifeRegen = (int)(Player.lifeRegen * 0.4f);
+                }
+                else if (LeadEnchantItem != null)
+                {
+                    Player.lifeRegen = (int)(Player.lifeRegen * 0.6f);
+                }
+
+                FusedLensCanDebuff = true;
+            }
+        }
+
         public override void PostUpdateMiscEffects()
         {
             //these are here so that emode minion nerf can properly detect the real set bonuses over in EModePlayer postupdateequips
@@ -396,7 +489,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (GoldEnchMoveCoins)
             {
-                ChestUI.MoveCoins(Player.inventory, Player.bank.item, ContainerTransferContext.FromUnknown(Player));
+                ChestUI.MoveCoins(Player.inventory, Player.bank.item);
                 GoldEnchMoveCoins = false;
             }
 

@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Projectile.ai[0] = -1f;
                 for (int index1 = 0; index1 < 13; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 261, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 90, new Color(), 2.5f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.AncientLight, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 90, new Color(), 2.5f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].fadeIn = 1f;
                     Dust dust = Main.dust[index2];
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 if (Main.rand.Next(10 - (int)Math.Min(7f, Projectile.velocity.Length())) < 1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 261, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 90, new Color(), 2.5f);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.AncientLight, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 90, new Color(), 2.5f);
                     Main.dust[index2].noGravity = true;
                     Dust dust1 = Main.dust[index2];
                     dust1.velocity = dust1.velocity * 0.2f;
@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             for (int index1 = 0; index1 < 13; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 262, 0f, 0f, 90, new Color(), 2.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.AmberBolt, 0f, 0f, 90, new Color(), 2.5f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].fadeIn = 1f;
                 Dust dust = Main.dust[index2];

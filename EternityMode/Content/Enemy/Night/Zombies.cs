@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using Terraria;
 using Terraria.ID;
@@ -50,7 +51,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
             }
 
             if (Main.rand.NextBool(8))
-                FargowiltasSouls.Content.NPCs.EModeGlobalNPC.Horde(npc, 6);
+                EModeGlobalNPC.Horde(npc, 6);
             if (armedId != -1 && Main.rand.NextBool(5))
                 npc.Transform(armedId);
         }

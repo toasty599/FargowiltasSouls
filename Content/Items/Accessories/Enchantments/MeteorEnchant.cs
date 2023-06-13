@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -23,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new Color(95, 71, 82);
+        protected override Color nameColor => new(95, 71, 82);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Meteor");
 
         public override void SetDefaults()

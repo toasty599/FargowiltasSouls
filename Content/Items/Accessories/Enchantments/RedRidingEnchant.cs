@@ -25,7 +25,7 @@ Missing any attack will reset these bonuses
 'Big Bad Red Riding Hood'");
         }
 
-        protected override Color nameColor => new Color(192, 27, 60);
+        protected override Color nameColor => new(192, 27, 60);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.RedRiding");
 
         public override void SetDefaults()
@@ -73,7 +73,7 @@ Missing any attack will reset these bonuses
 
         private static Item PickAmmo(Player player)
         {
-            Item item = new Item();
+            Item item = new();
             bool flag = false;
             for (int i = 54; i < 58; i++)
             {

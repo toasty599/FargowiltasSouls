@@ -17,6 +17,7 @@ using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls
 {
@@ -26,7 +27,7 @@ namespace FargowiltasSouls
         {
             if (ModLoader.TryGetMod("BossChecklist", out Mod bossChecklist))
             {
-                Func<bool> AllPlayersAreDead = () => Main.player.All(plr => !plr.active || plr.dead);
+                static bool AllPlayersAreDead() => Main.player.All(plr => !plr.active || plr.dead);
 
                 void Add(string type, string bossName, List<int> npcIDs, float progression, Func<bool> downed, Func<bool> available, List<int> collectibles, List<int> spawnItems, bool hasKilledAllMessage, string portrait = null)
                 {
@@ -52,19 +53,11 @@ namespace FargowiltasSouls
                     );
                 }
 
-                List<int> TryAddMusicBoxToCollectibles(string musicBoxName, params int[] items)
-                {
-                    List<int> collectibles = new List<int>(items);
-                    if (ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod))
-                        collectibles.Add(ModContent.Find<ModItem>("FargowiltasMusic", musicBoxName).Type);
-                    return collectibles;
-                }
-
                 Add("Boss",
                     "DeviBoss",
                     new List<int> { ModContent.NPCType<DeviBoss>() },
                     6.9f,
-                    () => FargoSoulsWorld.downedDevi,
+                    () => WorldSavingSystem.DownedDevi,
                     () => true,
                     new List<int>(new int[] {
                         ModContent.ItemType<DeviMusicBox>(),
@@ -81,7 +74,7 @@ namespace FargowiltasSouls
                     "AbomBoss",
                     new List<int> { ModContent.NPCType<AbomBoss>() },
                     20f,
-                    () => FargoSoulsWorld.downedAbom,
+                    () => WorldSavingSystem.DownedAbom,
                     () => true,
                     new List<int>(new int[] {
                         ModContent.ItemType<AbomMusicBox>(),
@@ -98,7 +91,7 @@ namespace FargowiltasSouls
                     "MutantBoss",
                     new List<int> { ModContent.NPCType<MutantBoss>() },
                     23f,
-                    () => FargoSoulsWorld.downedMutant,
+                    () => WorldSavingSystem.DownedMutant,
                     () => true,
                     new List<int>(new int[] {
                         ModContent.ItemType<MutantMusicBox>(),
@@ -118,7 +111,7 @@ namespace FargowiltasSouls
                     "TimberChampion",
                     new List<int> { ModContent.NPCType<TimberChampion>() },
                     18.1f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TimberChampion],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TimberChampion],
                     () => true,
                     new List<int>(TimberForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
@@ -128,7 +121,7 @@ namespace FargowiltasSouls
                     "TerraChampion",
                     new List<int> { ModContent.NPCType<TerraChampion>(), ModContent.NPCType<TerraChampionBody>(), ModContent.NPCType<TerraChampionTail>() },
                     18.15f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TerraChampion],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TerraChampion],
                     () => true,
                     new List<int>(TerraForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
@@ -139,7 +132,7 @@ namespace FargowiltasSouls
                     "EarthChampion",
                     new List<int> { ModContent.NPCType<EarthChampion>(), ModContent.NPCType<EarthChampionHand>() },
                     18.2f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.EarthChampion],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.EarthChampion],
                     () => true,
                     new List<int>(EarthForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
@@ -150,7 +143,7 @@ namespace FargowiltasSouls
                     "NatureChampion",
                     new List<int> { ModContent.NPCType<NatureChampion>(), ModContent.NPCType<NatureChampionHead>() },
                     18.25f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.NatureChampion],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.NatureChampion],
                     () => true,
                     new List<int>(NatureForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
@@ -161,7 +154,7 @@ namespace FargowiltasSouls
                     "LifeChampion",
                     new List<int> { ModContent.NPCType<LifeChampion>() },
                     18.3f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.LifeChampion],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.LifeChampion],
                     () => true,
                     new List<int>(LifeForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
@@ -172,7 +165,7 @@ namespace FargowiltasSouls
                     "ShadowChampion",
                     new List<int> { ModContent.NPCType<ShadowChampion>() },
                     18.35f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.ShadowChampion],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.ShadowChampion],
                     () => true,
                     new List<int>(ShadowForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
@@ -182,7 +175,7 @@ namespace FargowiltasSouls
                     "SpiritChampion",
                     new List<int> { ModContent.NPCType<SpiritChampion>(), ModContent.NPCType<SpiritChampionHand>() },
                     18.4f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.SpiritChampion],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.SpiritChampion],
                     () => true,
                     new List<int>(SpiritForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
@@ -193,7 +186,7 @@ namespace FargowiltasSouls
                     "WillChampion",
                     new List<int> { ModContent.NPCType<WillChampion>() },
                     18.45f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.WillChampion],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.WillChampion],
                     () => true,
                     new List<int>(WillForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
@@ -204,7 +197,7 @@ namespace FargowiltasSouls
                     "CosmosChampion",
                     new List<int> { ModContent.NPCType<CosmosChampion>() },
                     18.5f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CosmosChampion],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.CosmosChampion],
                     () => true,
                     new List<int>(CosmoForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
@@ -220,7 +213,7 @@ namespace FargowiltasSouls
                     "TrojanSquirrel",
                     new List<int> { ModContent.NPCType<TrojanSquirrel>() },
                     0.5f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TrojanSquirrel],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel],
                     () => true,
                     new List<int>(new int[]
                     {
@@ -238,7 +231,7 @@ namespace FargowiltasSouls
                     "LifeChallenger",
                     new List<int> { ModContent.NPCType<LifeChallenger>() },
                     11.49f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.LifeChallenger],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.LifeChallenger],
                     () => true,
                     new List<int>(new int[]
                     {
@@ -260,7 +253,7 @@ namespace FargowiltasSouls
                     //TODO: ADD LOOT
                     new List<int> { ModContent.NPCType<BanishedBaron>() },
                     8.7f,
-                    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.BanishedBaron],
+                    () => WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.BanishedBaron],
                     () => true,
                     new List<int>(new int[]
                     {
@@ -275,7 +268,7 @@ namespace FargowiltasSouls
                 //    //TODO: ADD LOOT
                 //    new List<int> { ModContent.NPCType<CursedCoffin>() },
                 //    4.75f,
-                //    () => FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.CursedCoffin],
+                //    () => WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.CursedCoffin],
                 //    () => true,
                 //    new List<int>(new int[]
                 //    {

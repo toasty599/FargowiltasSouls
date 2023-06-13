@@ -9,7 +9,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
@@ -214,16 +213,16 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             for (int num615 = 0; num615 < 45; num615++)
             {
-                int num616 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1.5f);
+                int num616 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
                 Main.dust[num616].velocity *= 1.4f;
             }
 
             for (int num617 = 0; num617 < 30; num617++)
             {
-                int num618 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 3.5f);
+                int num618 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                 Main.dust[num618].noGravity = true;
                 Main.dust[num618].velocity *= 7f;
-                num618 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1.5f);
+                num618 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                 Main.dust[num618].velocity *= 3f;
             }
 
@@ -275,7 +274,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
@@ -304,7 +303,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             if (Projectile.ai[1] < 0) //flying, lights on
             {
                 Texture2D eyes = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Vanilla/GolemLights1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Rectangle eyeRectangle = new Rectangle(0, eyes.Height / 2, eyes.Width, eyes.Height / 2);
+                Rectangle eyeRectangle = new(0, eyes.Height / 2, eyes.Width, eyes.Height / 2);
                 Vector2 eyeOrigin = eyeRectangle.Size() / 2f;
                 eyeOrigin.Y -= 4;
                 Main.EntitySpriteDraw(eyes, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(eyeRectangle), Color.White * Projectile.Opacity, Projectile.rotation, eyeOrigin, Projectile.scale, effects, 0);

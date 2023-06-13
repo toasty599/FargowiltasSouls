@@ -1,8 +1,4 @@
-﻿using FargowiltasSouls.EternityMode;
-using FargowiltasSouls.EternityMode.Content.Boss.HM;
-//using FargowiltasSouls.EternityMode.Content.Boss.HM;
-using FargowiltasSouls.EternityMode.Content.Boss.PHM;
-using FargowiltasSouls.Content.Projectiles.Masomode;
+﻿//using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -183,14 +179,14 @@ namespace FargowiltasSouls.Content.Projectiles
             //Main.spriteBatch.End(); Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             Texture2D Texture = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            Rectangle rectangle = new Rectangle(0, 0, Texture.Width, Texture.Height);
+            Rectangle rectangle = new(0, 0, Texture.Width, Texture.Height);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             const int length = 3000;
             Vector2 offset = Projectile.rotation.ToRotationVector2() * length / 2f;
             Vector2 position = Projectile.Center - Main.screenLastPosition + new Vector2(0f, Projectile.gfxOffY) + offset;
             //const float resolutionCompensation = 128f / 24f; //i made the image higher res, this compensates to keep original display size
-            Rectangle destination = new Rectangle((int)position.X, (int)position.Y, length, (int)(rectangle.Height * Projectile.scale));
+            Rectangle destination = new((int)position.X, (int)position.Y, length, (int)(rectangle.Height * Projectile.scale));
 
             Color drawColor = Projectile.GetAlpha(lightColor);
 

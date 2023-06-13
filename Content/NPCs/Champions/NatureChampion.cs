@@ -2,7 +2,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Core.ItemDropRules;
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,7 +13,6 @@ using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
@@ -337,23 +336,23 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                                 for (int i = 0; i < 30; i++)
                                 {
-                                    int dust = Dust.NewDust(dustPos, 32, 32, 31, 0f, 0f, 100, default(Color), 3f);
+                                    int dust = Dust.NewDust(dustPos, 32, 32, DustID.Smoke, 0f, 0f, 100, default, 3f);
                                     Main.dust[dust].velocity *= 1.4f;
                                 }
 
                                 for (int i = 0; i < 20; i++)
                                 {
-                                    int dust = Dust.NewDust(dustPos, 32, 32, 6, 0f, 0f, 100, default(Color), 3.5f);
+                                    int dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                                     Main.dust[dust].noGravity = true;
                                     Main.dust[dust].velocity *= 7f;
-                                    dust = Dust.NewDust(dustPos, 32, 32, 6, 0f, 0f, 100, default(Color), 1.5f);
+                                    dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                                     Main.dust[dust].velocity *= 3f;
                                 }
 
                                 float scaleFactor9 = 0.5f;
                                 for (int j = 0; j < 4; j++)
                                 {
-                                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default(Vector2), Main.rand.Next(61, 64));
+                                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), dustPos, default, Main.rand.Next(61, 64));
                                     Main.gore[gore].velocity *= scaleFactor9;
                                     Main.gore[gore].velocity.X += 1f;
                                     Main.gore[gore].velocity.Y += 1f;
@@ -545,7 +544,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     goto case 2;
 
                 case 11: //deathrays
-                    if (NPC.ai[2] == 0 && FargoSoulsWorld.EternityMode)
+                    if (NPC.ai[2] == 0 && WorldSavingSystem.EternityMode)
                     {
                         NPC.ai[2] = 1;
 
@@ -576,7 +575,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         }
                     }
 
-                    if (++NPC.ai[1] > 330 || !FargoSoulsWorld.EternityMode) //wait
+                    if (++NPC.ai[1] > 330 || !WorldSavingSystem.EternityMode) //wait
                     {
                         NPC.TargetClosest();
                         NPC.ai[0]++;
@@ -592,7 +591,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     goto case 0;
             }
 
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 if (NPC.HasValidTarget && NPC.Distance(player.Center) > 1400 && Vector2.Distance(NPC.Center, player.Center) < 3000f
                   && player.Center.Y > Main.worldSurface * 16 && !player.ZoneUnderworldHeight && NPC.ai[0] > 1)// && NPC.ai[0] != 9) //enrage
@@ -609,7 +608,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                 Vector2 dustOffset = Vector2.Normalize(player.Center - NPC.Center) * 1400;
                 for (int i = 0; i < 20; i++) //dust ring for enrage range
                 {
-                    int d = Dust.NewDust(NPC.Center + dustOffset.RotatedByRandom(2 * Math.PI), 0, 0, 59, Scale: 2f);
+                    int d = Dust.NewDust(NPC.Center + dustOffset.RotatedByRandom(2 * Math.PI), 0, 0, DustID.BlueTorch, Scale: 2f);
                     Main.dust[d].velocity = NPC.velocity;
                     Main.dust[d].noGravity = true;
                 }
@@ -679,7 +678,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(BuffID.Frostburn, 300);
                 target.AddBuff(BuffID.OnFire, 300);
@@ -709,10 +708,10 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         {
                             if (j == 0)
                                 continue;
-                            Vector2 distBetween = new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) -
+                            Vector2 distBetween = new(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) -
                             X(j - chainsPerUse, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X),
-                            Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y) -
-                            Y(j - chainsPerUse, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y));
+                            Y(j, neckOrigin.Y, neckOrigin.Y + 50, connector.Y) -
+                            Y(j - chainsPerUse, neckOrigin.Y, neckOrigin.Y + 50, connector.Y));
                             if (distBetween.Length() > 36 && chainsPerUse > 0.01f)
                             {
                                 chainsPerUse -= 0.01f;
@@ -720,7 +719,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                 continue;
                             }
                             float projTrueRotation = distBetween.ToRotation() - (float)Math.PI / 2;
-                            Vector2 lightPos = new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X), Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y));
+                            Vector2 lightPos = new(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X), Y(j, neckOrigin.Y, neckOrigin.Y + 50, connector.Y));
 
                             spawnNeck = !spawnNeck;
                             if (spawnNeck)
@@ -746,7 +745,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.NatureChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.NatureChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -760,16 +759,16 @@ namespace FargowiltasSouls.Content.NPCs.Champions
         private static float X(float t, float x0, float x1, float x2)
         {
             return (float)(
-                x0 * Math.Pow((1 - t), 2) +
-                x1 * 2 * t * Math.Pow((1 - t), 1) +
+                x0 * Math.Pow(1 - t, 2) +
+                x1 * 2 * t * Math.Pow(1 - t, 1) +
                 x2 * Math.Pow(t, 2)
             );
         }
         private static float Y(float t, float y0, float y1, float y2)
         {
             return (float)(
-                 y0 * Math.Pow((1 - t), 2) +
-                 y1 * 2 * t * Math.Pow((1 - t), 1) +
+                 y0 * Math.Pow(1 - t, 2) +
+                 y1 * 2 * t * Math.Pow(1 - t, 1) +
                  y2 * Math.Pow(t, 2)
              );
         }
@@ -806,10 +805,10 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         {
                             if (j == 0)
                                 continue;
-                            Vector2 distBetween = new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) -
+                            Vector2 distBetween = new(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) -
                             X(j - chainsPerUse, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X),
-                            Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y) -
-                            Y(j - chainsPerUse, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y));
+                            Y(j, neckOrigin.Y, neckOrigin.Y + 50, connector.Y) -
+                            Y(j - chainsPerUse, neckOrigin.Y, neckOrigin.Y + 50, connector.Y));
                             if (distBetween.Length() > 36 && chainsPerUse > 0.01f)
                             {
                                 chainsPerUse -= 0.01f;
@@ -817,8 +816,8 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                 continue;
                             }
                             float projTrueRotation = distBetween.ToRotation() - (float)Math.PI / 2;
-                            Vector2 lightPos = new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X), Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y));
-                            spriteBatch.Draw(neckTex2D, new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) - screenPos.X, Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y) - screenPos.Y),
+                            Vector2 lightPos = new(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X), Y(j, neckOrigin.Y, neckOrigin.Y + 50, connector.Y));
+                            spriteBatch.Draw(neckTex2D, new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) - screenPos.X, Y(j, neckOrigin.Y, neckOrigin.Y + 50, connector.Y) - screenPos.Y),
                             new Rectangle(0, 0, neckTex2D.Width, neckTex2D.Height), NPC.GetAlpha(Lighting.GetColor((int)lightPos.X / 16, (int)lightPos.Y / 16)), projTrueRotation,
                             new Vector2(neckTex2D.Width * 0.5f, neckTex2D.Height * 0.5f), 1f, connector.X < neckOrigin.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                         }

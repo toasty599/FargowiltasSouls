@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.NPCs;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Souls

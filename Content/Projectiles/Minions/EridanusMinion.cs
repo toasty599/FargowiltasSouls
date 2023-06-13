@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -309,12 +308,12 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Texture2D glowerTex = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/CosmosChampion_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int size = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = size * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, projTex.Width, size);
+            Rectangle rectangle = new(0, y3, projTex.Width, size);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects flipper = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Color projColor = Projectile.GetAlpha(lightColor);
             int add = 150;
-            Color glowColor = new Color(add + Main.DiscoR / 3, add + Main.DiscoG / 3, add + Main.DiscoB / 3);
+            Color glowColor = new(add + Main.DiscoR / 3, add + Main.DiscoG / 3, add + Main.DiscoB / 3);
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);

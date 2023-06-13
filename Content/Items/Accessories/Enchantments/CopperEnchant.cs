@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'Behold'");
         }
 
-        protected override Color nameColor => new Color(213, 102, 23);
+        protected override Color nameColor => new(213, 102, 23);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Copper");
 
         public override void SetDefaults()
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     cdLength = 150;
                 }
 
-                List<int> npcIndexes = new List<int>();
+                List<int> npcIndexes = new();
                 float closestDist = 500f;
                 NPC closestNPC;
 

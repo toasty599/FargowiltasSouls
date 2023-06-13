@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -37,14 +38,14 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
         {
             for (int i = 0; i < 4; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 222);
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.FireworkFountain_Yellow);
                 Main.dust[d].velocity *= 2f;
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 //target.AddBuff(BuffID.Confused, 300);

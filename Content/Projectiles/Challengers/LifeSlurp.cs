@@ -1,4 +1,4 @@
-using System;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);
         }
         public override bool PreDraw(ref Color lightColor)
@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Content.Projectiles.Challengers
             Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/ShardGem{rGem}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

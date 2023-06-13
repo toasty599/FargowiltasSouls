@@ -3,12 +3,12 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
-namespace FargowiltasSouls.Content.UI
+namespace FargowiltasSouls.Content.UI.Elements
 {
     public class SoulTogglerButton : UIState
     {
         public UIImage Icon;
-        public UIHoverTextImageButton IconHighlight;
+        public FargoUIHoverTextImageButton IconHighlight;
         public UIImage IconFlash;
         public UIOncomingMutant OncomingMutant;
 
@@ -17,24 +17,24 @@ namespace FargowiltasSouls.Content.UI
             const int x = 570;
             const int y = 275;
 
-            IconFlash = new UIImage(FargowiltasSouls.UserInterfaceManager.SoulTogglerButton_MouseOverTexture);
+            IconFlash = new UIImage(FargoUIManager.SoulTogglerButton_MouseOverTexture);
             IconFlash.Left.Set(x, 0);
             IconFlash.Top.Set(y, 0);
             Append(IconFlash);
 
-            Icon = new UIImage(FargowiltasSouls.UserInterfaceManager.SoulTogglerButtonTexture);
+            Icon = new UIImage(FargoUIManager.SoulTogglerButtonTexture);
             Icon.Left.Set(x, 0); //26
             Icon.Top.Set(y, 0); //300
             Append(Icon);
 
-            IconHighlight = new UIHoverTextImageButton(FargowiltasSouls.UserInterfaceManager.SoulTogglerButton_MouseOverTexture, FargoSoulsUtil.IsChinese() ? "设置饰品效果" : "Configure Accessory Effects");
+            IconHighlight = new FargoUIHoverTextImageButton(FargoUIManager.SoulTogglerButton_MouseOverTexture, FargoSoulsUtil.IsChinese() ? "设置饰品效果" : "Configure Accessory Effects");
             IconHighlight.Left.Set(0, 0);
             IconHighlight.Top.Set(0, 0);
             IconHighlight.SetVisibility(1f, 0);
             IconHighlight.OnClick += IconHighlight_OnClick;
             Icon.Append(IconHighlight);
 
-            OncomingMutant = new UIOncomingMutant(FargowiltasSouls.UserInterfaceManager.OncomingMutantTexture.Value, FargowiltasSouls.UserInterfaceManager.OncomingMutantAuraTexture.Value, FargoSoulsUtil.IsChinese() ? "永恒模式已开启" : "Eternity Mode is enabled", FargoSoulsUtil.IsChinese() ? "受虐模式已开启" : "Masochist Mode is enabled");
+            OncomingMutant = new UIOncomingMutant(FargoUIManager.OncomingMutantTexture.Value, FargoUIManager.OncomingMutantAuraTexture.Value, FargoSoulsUtil.IsChinese() ? "永恒模式已开启" : "Eternity Mode is enabled", FargoSoulsUtil.IsChinese() ? "受虐模式已开启" : "Masochist Mode is enabled");
             OncomingMutant.Left.Set(610, 0);
             OncomingMutant.Top.Set(250, 0);
             Append(OncomingMutant);
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.UI
                 return;
             }
 
-            FargowiltasSouls.UserInterfaceManager.ToggleSoulToggler();
+            FargoUIManager.ToggleSoulToggler();
             Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HasClickedWrench = true;
         }
 

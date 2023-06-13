@@ -1,8 +1,6 @@
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
@@ -22,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new Color(152, 142, 131);
+        protected override Color nameColor => new(152, 142, 131);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Iron");
 
         public override void SetDefaults()

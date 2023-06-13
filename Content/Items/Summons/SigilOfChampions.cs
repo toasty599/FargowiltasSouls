@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -37,7 +36,7 @@ Not consumed on use");
 
         public override bool CanUseItem(Player player)
         {
-            List<int> bosses = new List<int>(new int[] {
+            List<int> bosses = new(new int[] {
                 ModContent.NPCType<CosmosChampion>(),
                 ModContent.NPCType<EarthChampion>(),
                 ModContent.NPCType<LifeChampion>(),

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Placables.MusicBoxes
 {
@@ -37,7 +38,7 @@ namespace FargowiltasSouls.Content.Items.Placables.MusicBoxes
 
         public override void SetDefaults()
         {
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTurn = true;
             Item.useAnimation = 15;
             Item.useTime = 10;
@@ -46,7 +47,7 @@ namespace FargowiltasSouls.Content.Items.Placables.MusicBoxes
             Item.createTile = ModContent.TileType<Tiles.MusicBoxes.MutantMusicBoxSheet>();
             Item.width = 32;
             Item.height = 32;
-            Item.rare = 11;
+            Item.rare = ItemRarityID.Purple;
             Item.value = Item.sellPrice(0, 7, 0, 0);
             Item.accessory = true;
         }

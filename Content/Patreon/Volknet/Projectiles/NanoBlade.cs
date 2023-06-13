@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.Volknet.Projectiles
@@ -54,7 +53,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
             if (owner.GetModPlayer<NanoPlayer>().NanoCoreMode == 0 && owner.channel)
             {
                 Projectile.frame = (int)Projectile.localAI[0];
-                Rectangle Frame = new Rectangle(0, (int)Projectile.localAI[0] * 47, 340, 47);
+                Rectangle Frame = new(0, (int)Projectile.localAI[0] * 47, 340, 47);
                 Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
                 Color color = Projectile.GetAlpha(lightColor) * Main.rand.NextFloat(0.2f, 0.3f);
                 for (int i = 0; i < 5; i++)
@@ -93,7 +92,7 @@ namespace FargowiltasSouls.Patreon.Volknet.Projectiles
 
             for (int index1 = 0; index1 < 12; ++index1)
             {
-                int index2 = Dust.NewDust(target.position, target.width, target.height, 157, 0f, 0f, 100, new Color(), 2f);
+                int index2 = Dust.NewDust(target.position, target.width, target.height, DustID.ChlorophyteWeapon, 0f, 0f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].noLight = true;
                 Main.dust[index2].velocity = Projectile.DirectionTo(target.Center) * 9f + Main.rand.NextVector2Circular(12f, 12f);

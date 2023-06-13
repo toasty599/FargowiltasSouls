@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Projectiles.Challengers;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -37,7 +38,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 case 0:
                     if (body.ai[0] == 0 && body.localAI[0] <= 0)
                     {
-                        NPC.ai[1] += FargoSoulsWorld.EternityMode ? 1.5f : 1f;
+                        NPC.ai[1] += WorldSavingSystem.EternityMode ? 1.5f : 1f;
 
                         if (body.dontTakeDamage)
                             NPC.ai[1] += 1f;
@@ -65,13 +66,13 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                     break;
 
                 case 1: //acorn spray
-                    if (++NPC.ai[1] % (body.dontTakeDamage || FargoSoulsWorld.MasochistModeReal ? 30 : 45) == 0)
+                    if (++NPC.ai[1] % (body.dontTakeDamage || WorldSavingSystem.MasochistModeReal ? 30 : 45) == 0)
                     {
                         const float gravity = 0.2f;
                         float time = 80f;
                         if (body.dontTakeDamage)
                             time = 60f;
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                             time = 45f;
                         Vector2 distance = Main.player[NPC.target].Center - NPC.Center;// + player.velocity * 30f;
                         distance.X = distance.X / time;
@@ -100,7 +101,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
                         int start = 60;
                         int end = 300;
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                         {
                             start -= 30;
                             end -= 90;
@@ -115,8 +116,8 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                             if (NPC.ai[1] > start)
                             {
                                 float ratio = (NPC.ai[1] - start) / (end - start);
-                                Vector2 target = new Vector2(NPC.Center.X, Main.player[NPC.target].Center.Y);
-                                target.X += Math.Sign(NPC.direction) * (550f + (FargoSoulsWorld.EternityMode ? 1800f : 1200f) * (1f - ratio));
+                                Vector2 target = new(NPC.Center.X, Main.player[NPC.target].Center.Y);
+                                target.X += Math.Sign(NPC.direction) * (550f + (WorldSavingSystem.EternityMode ? 1800f : 1200f) * (1f - ratio));
 
                                 ShootSquirrelAt(target);
                             }
@@ -140,7 +141,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             float time = origTime;
             if (body.dontTakeDamage)
                 time -= 15;
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 time -= 15;
 
             gravity *= origTime / time;

@@ -3,9 +3,7 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -98,7 +96,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                     }
                     else
                     {
-                        Vector2 speed = new Vector2(Main.rand.NextFloat(40f), Main.rand.NextFloat(-20f, 20f));
+                        Vector2 speed = new(Main.rand.NextFloat(40f), Main.rand.NextFloat(-20f, 20f));
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed,
                             ModContent.ProjectileType<QueenFlocko>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.whoAmI, -1);
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, -speed,

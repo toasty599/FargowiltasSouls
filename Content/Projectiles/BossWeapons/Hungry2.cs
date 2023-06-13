@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -55,9 +54,9 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
 
             //dust!
-            int dustId = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 60, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2f);
+            int dustId = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2f);
             Main.dust[dustId].noGravity = true;
-            int dustId3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 60, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2f);
+            int dustId3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2f);
             Main.dust[dustId3].noGravity = true;
 
             if (Projectile.ai[0] == 0)
@@ -184,18 +183,18 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             for (int i = 0; i < 30; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 31, 0f, 0f, 100, default, 3f);
+                    Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].velocity *= 1.4f;
             }
 
             for (int i = 0; i < 20; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 6, 0f, 0f, 100, default, 3.5f);
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
                 dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, 6, 0f, 0f, 100, default, 1.5f);
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dust].velocity *= 3f;
             }
 

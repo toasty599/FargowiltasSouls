@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -89,18 +88,18 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D star = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
+            Rectangle rect = new(0, 0, star.Width, star.Height);
             float scale = Main.rand.NextFloat(0.9f, 1.1f);
-            Vector2 origin = new Vector2(star.Width / 2 + scale, star.Height / 2 + scale);
+            Vector2 origin = new(star.Width / 2 + scale, star.Height / 2 + scale);
 
             float of1 = 6;
-            Vector2 offset1 = new Vector2(Main.rand.NextFloat(-of1, of1), Main.rand.NextFloat(-of1, of1));
+            Vector2 offset1 = new(Main.rand.NextFloat(-of1, of1), Main.rand.NextFloat(-of1, of1));
             Main.spriteBatch.Draw(star, Projectile.Center + offset1 - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rect), Color.White, 0, origin, scale, SpriteEffects.None, 0);
 
             float of2 = 3;
-            Vector2 offset2 = new Vector2(Main.rand.NextFloat(-of2, of2), Main.rand.NextFloat(-of2, of2));
+            Vector2 offset2 = new(Main.rand.NextFloat(-of2, of2), Main.rand.NextFloat(-of2, of2));
             Main.spriteBatch.Draw(star, Projectile.Center + offset2 - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rect), Color.Pink, 0, origin, scale, SpriteEffects.None, 0);
-            DrawData starDraw = new DrawData(star, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rect), Color.Pink, 0, origin, scale, SpriteEffects.None, 0);
+            DrawData starDraw = new(star, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rect), Color.Pink, 0, origin, scale, SpriteEffects.None, 0);
             GameShaders.Misc["LCWingShader"].UseColor(Color.Pink).UseSecondaryColor(Color.LightPink);
             GameShaders.Misc["LCWingShader"].Apply(new DrawData?());
             starDraw.Draw(Main.spriteBatch);

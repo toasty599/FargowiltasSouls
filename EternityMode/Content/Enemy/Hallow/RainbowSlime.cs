@@ -3,7 +3,6 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
@@ -130,10 +129,10 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
                 }
                 for (int i = 0; i < 20; i++)
                 {
-                    int num469 = Dust.NewDust(npc.Center, npc.width, npc.height, DustID.RainbowMk2, -npc.velocity.X * 0.2f, -npc.velocity.Y * 0.2f, 100, default(Color), 5f);
+                    int num469 = Dust.NewDust(npc.Center, npc.width, npc.height, DustID.RainbowMk2, -npc.velocity.X * 0.2f, -npc.velocity.Y * 0.2f, 100, default, 5f);
                     Main.dust[num469].noGravity = true;
                     Main.dust[num469].velocity *= 2f;
-                    num469 = Dust.NewDust(npc.Center, npc.width, npc.height, DustID.RainbowMk2, -npc.velocity.X * 0.2f, -npc.velocity.Y * 0.2f, 100, default(Color), 2f);
+                    num469 = Dust.NewDust(npc.Center, npc.width, npc.height, DustID.RainbowMk2, -npc.velocity.X * 0.2f, -npc.velocity.Y * 0.2f, 100, default, 2f);
                     Main.dust[num469].velocity *= 2f;
                 }
                 return false;
@@ -146,7 +145,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
 
                     for (int i = 0; i < slimes.Length; i++)
                     {
-                        if (Main.rand.Next(3) != 0)
+                        if (!Main.rand.NextBool(3))
                             continue;
 
                         int spawn = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), 1);

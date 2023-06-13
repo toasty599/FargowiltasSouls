@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -112,7 +111,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                         {
                             for (int i = 0; i < 10; i++)
                             {
-                                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 157, -Projectile.velocity.X * 0.1f, -Projectile.velocity.Y * 0.1f, Scale: 2.5f);
+                                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.ChlorophyteWeapon, -Projectile.velocity.X * 0.1f, -Projectile.velocity.Y * 0.1f, Scale: 2.5f);
                                 Main.dust[d].noGravity = true;
                                 Main.dust[d].velocity *= 4f;
                             }
@@ -137,7 +136,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
             if (Projectile.localAI[0] != 0 && Projectile.localAI[1] != 0)
             {
-                Vector2 planteraCenter = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
+                Vector2 planteraCenter = new(Projectile.localAI[0], Projectile.localAI[1]);
 
                 int length = (int)Projectile.Distance(planteraCenter);
                 const int increment = 512;
@@ -169,9 +168,9 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             {
                 Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Vanilla/Chain26", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Vector2 position = Projectile.Center;
-                Vector2 mountedCenter = new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
+                Vector2 mountedCenter = new(Projectile.localAI[0], Projectile.localAI[1]);
                 Rectangle? sourceRectangle = new Rectangle?();
-                Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
+                Vector2 origin = new(texture.Width * 0.5f, texture.Height * 0.5f);
                 float num1 = texture.Height;
                 Vector2 vector24 = mountedCenter - position;
                 float rotation = (float)Math.Atan2(vector24.Y, vector24.X) - 1.57f;
@@ -200,7 +199,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

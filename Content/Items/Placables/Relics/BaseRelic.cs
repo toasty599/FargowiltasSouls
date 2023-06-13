@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Placables.Relics

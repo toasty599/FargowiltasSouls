@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             //if (Main.invasionType != 1 && Projectile.timeLeft > 90) Projectile.timeLeft = 90; //despawn fast outside goblin event
 
-            int dustId = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 60, Projectile.velocity.X * 0.2f,
+            int dustId = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, Projectile.velocity.X * 0.2f,
                 Projectile.velocity.Y * 0.2f, 100, default, 2f);
             Main.dust[dustId].noGravity = true;
         }
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             for (int i = 0; i < 30; i++)
             {
-                int dustId = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 60, 0, 0, 100, default, 3f);
+                int dustId = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, 0, 0, 100, default, 3f);
                 Main.dust[dustId].noGravity = true;
                 Main.dust[dustId].velocity *= 8f;
             }

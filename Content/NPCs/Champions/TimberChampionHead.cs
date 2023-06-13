@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Challengers;
 using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
@@ -10,12 +9,12 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.Champions
 {
@@ -186,7 +185,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                 float offset = 16 * 12 * current;
                                 for (int i = -1; i <= 1; i += 2)
                                 {
-                                    Vector2 spawnPos = new Vector2(NPC.Center.X + offset * i, player.Center.Y + 1500);
+                                    Vector2 spawnPos = new(NPC.Center.X + offset * i, player.Center.Y + 1500);
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                         Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, -Vector2.UnitY, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 19);
                                 }
@@ -245,7 +244,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         const int snowballThreshold = 2;
 
-                        if (NPC.ai[3] > snowballThreshold && FargoSoulsWorld.EternityMode) //snowball shotgun
+                        if (NPC.ai[3] > snowballThreshold && WorldSavingSystem.EternityMode) //snowball shotgun
                         {
                             bool feedbackFX = NPC.ai[2] == 1;
 
@@ -289,9 +288,9 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                 NPC.ai[2] = 0;
                                 NPC.ai[3]++;
                                 const float gravity = 0.2f;
-                                float time = FargoSoulsWorld.MasochistModeReal ? 40f : 30f;
+                                float time = WorldSavingSystem.MasochistModeReal ? 40f : 30f;
                                 Vector2 distance = player.Center - NPC.Center;
-                                if (FargoSoulsWorld.MasochistModeReal)
+                                if (WorldSavingSystem.MasochistModeReal)
                                     distance.X += player.velocity.X * time;
                                 distance.X = distance.X / time;
                                 distance.Y = distance.Y / time - 0.5f * gravity * time;
@@ -377,7 +376,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                     break;
 
                 case 6:
-                    if (!FargoSoulsWorld.MasochistModeReal)
+                    if (!WorldSavingSystem.MasochistModeReal)
                         NPC.ai[1] -= 0.5f; //more time to kill lesser squrrls
                     goto case 0;
 
@@ -391,7 +390,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                         if (NPC.ai[1] < noMoreChainsTime)
                         {
                             NPC.position += (player.position - player.oldPosition) / 2;
-                            if (FargoSoulsWorld.EternityMode)
+                            if (WorldSavingSystem.EternityMode)
                             {
                                 targetPos = player.Center + 150 * NPC.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(10));
                                 NPC.velocity = NPC.DirectionTo(targetPos) * NPC.velocity.Length();
@@ -487,7 +486,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                         int attackInterval = 6;
 
-                        if (FargoSoulsWorld.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal)
                         {
                             targetPos = player.Center;
                             targetPos.X += player.velocity.X * 45f;
@@ -503,7 +502,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
                                     int damage = NPC.ai[1] > 120 ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 4) : 0;
                                     for (int i = -2; i <= 2; i++)
                                     {
-                                        Vector2 speed = new Vector2(5f * i, -20f);
+                                        Vector2 speed = new(5f * i, -20f);
                                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<TimberSnowball2>(), damage, 0f, Main.myPlayer, NPC.target, NPC.whoAmI);
                                     }
                                 }
@@ -530,11 +529,11 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
                             NPC.ai[1]++;
 
-                            int end = FargoSoulsWorld.MasochistModeReal ? 180 : 240;
+                            int end = WorldSavingSystem.MasochistModeReal ? 180 : 240;
 
                             if (NPC.ai[1] % attackInterval == 0)
                             {
-                                Vector2 basePos = new Vector2(NPC.Center.X, Main.player[NPC.target].Center.Y);
+                                Vector2 basePos = new(NPC.Center.X, Main.player[NPC.target].Center.Y);
 
                                 const int max = 3;
                                 for (int i = -max; i <= max; i++)
@@ -619,7 +618,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
             float gravity = 0.6f;
             const float origTime = 75;
             float time = 60;
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
                 time /= 2;
 
             gravity *= origTime / time;
@@ -652,7 +651,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.GuiltyBuff>(), 600);
         }
 
@@ -676,7 +675,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedBoss[(int)FargoSoulsWorld.Downed.TimberChampion], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TimberChampion], -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -83,8 +84,8 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
             for (int index1 = 0; index1 < 20; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 92, 0.0f, 0.0f, 0, new Color(), 1f);
-                if (Main.rand.Next(3) != 0)
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Frost, 0.0f, 0.0f, 0, new Color(), 1f);
+                if (!Main.rand.NextBool(3))
                 {
                     Dust dust1 = Main.dust[index2];
                     dust1.velocity = dust1.velocity * 2f;
@@ -102,7 +103,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Chilled, 300);
             target.AddBuff(BuffID.Frostburn, 300);
         }
@@ -117,7 +118,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

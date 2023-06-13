@@ -2,13 +2,13 @@ using System.IO;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 {
@@ -123,7 +123,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
                 NetSync(npc, false);
             }
 
-            if (FargoSoulsWorld.MasochistModeReal && npc.type == NPCID.ManEater && target.Male)
+            if (WorldSavingSystem.MasochistModeReal && npc.type == NPCID.ManEater && target.Male)
             {
                 target.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.Snatchers", target.name)), 999999, 0);
             }

@@ -29,7 +29,7 @@ Enemies that touch them will destroy them and take damage
             // '你对南瓜的突发渴望永远不会得到满足'");
         }
 
-        protected override Color nameColor => new Color(227, 101, 28);
+        protected override Color nameColor => new(227, 101, 28);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Pumpkin");
 
         public override void SetDefaults()

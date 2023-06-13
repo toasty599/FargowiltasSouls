@@ -1,6 +1,6 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Misc;
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
 
         public override void OpenBossBag(Player player)
         {
-            if (FargoSoulsWorld.EternityMode)
+            if (WorldSavingSystem.EternityMode)
             {
                 player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<EternalEnergy>(), Main.rand.Next(6) + 15);
             }

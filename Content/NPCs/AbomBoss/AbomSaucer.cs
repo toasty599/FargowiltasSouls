@@ -161,7 +161,7 @@ namespace FargowiltasSouls.Content.NPCs.AbomBoss
         {
             for (int i = 0; i < 3; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 87, 0f, 0f, 0, default(Color), 1f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemTopaz, 0f, 0f, 0, default, 1f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 3f;
             }
@@ -169,7 +169,7 @@ namespace FargowiltasSouls.Content.NPCs.AbomBoss
             {
                 for (int i = 0; i < 30; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 87, 0f, 0f, 0, default(Color), 2.5f);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemTopaz, 0f, 0f, 0, default, 2.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 12f;
                 }

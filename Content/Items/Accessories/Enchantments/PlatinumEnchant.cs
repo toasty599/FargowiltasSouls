@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new Color(83, 103, 143);
+        protected override Color nameColor => new(83, 103, 143);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Platinum");
 
         public override void SetDefaults()

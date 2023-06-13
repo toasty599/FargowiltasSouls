@@ -5,9 +5,9 @@ using Terraria.GameContent;
 using Terraria.Localization;
 using Terraria.UI;
 
-namespace FargowiltasSouls.Content.UI
+namespace FargowiltasSouls.Content.UI.Elements
 {
-    public class UIHeader : UIElement
+    public class FargoUIHeader : UIElement
     {
         public const int TextureTextPadding = 8;
         public const int TextureBarPadding = 4;
@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.UI
         string Key;
         int Item;
 
-        public UIHeader(string key, int item, (int width, int height) dimensions)
+        public FargoUIHeader(string key, int item, (int width, int height) dimensions)
         {
             Key = key;
             Item = item;
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.UI
             base.DrawSelf(spriteBatch);
 
             CalculatedStyle dimensions = GetDimensions();
-            Vector2 position = new Vector2(dimensions.X, dimensions.Y);
+            Vector2 position = new(dimensions.X, dimensions.Y);
             // I honestly forget why I did half of these calculations at this point
             spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle((int)position.X + 2, /*Y*/ (int)dimensions.Y + 22 - 1 + 0, (int)dimensions.Width - 2, 1), Color.Black);
             spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle((int)position.X + 2, /*Y*/ (int)dimensions.Y + 22 - 1 + 1, (int)dimensions.Width - 2, 1), Color.LightGray);

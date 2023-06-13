@@ -23,7 +23,7 @@ Ballista pierces more targets and panics when you take damage
             // '侍卫？你能快点吗？'");
         }
 
-        protected override Color nameColor => new Color(148, 143, 140);
+        protected override Color nameColor => new(148, 143, 140);
         public override string wizardEffect => "";
 
         public override void SetDefaults()

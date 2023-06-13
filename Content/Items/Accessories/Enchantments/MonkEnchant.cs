@@ -28,7 +28,7 @@ Lightning Aura can now crit and strikes faster
             // '返本还僧'");
         }
 
-        protected override Color nameColor => new Color(146, 5, 32);
+        protected override Color nameColor => new(146, 5, 32);
         public override string wizardEffect => "";
 
         public override void SetDefaults()

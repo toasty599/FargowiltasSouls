@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -90,7 +91,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
                 target.AddBuff(BuffID.Electrified, 60);
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.brainBoss, NPCID.BrainofCthulhu)
-                && FargoSoulsWorld.MasochistModeReal)
+                && WorldSavingSystem.MasochistModeReal)
             {
                 target.AddBuff(BuffID.Poisoned, 120);
                 target.AddBuff(BuffID.Darkness, 120);
@@ -114,9 +115,9 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Texture2D hitboxindicator = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/MutantBoss/MutantSphereGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Vector2 scale = new Vector2(1, 1 + Projectile.velocity.Length() / 5 * (Projectile.extraUpdates + 1));
+            Vector2 scale = new(1, 1 + Projectile.velocity.Length() / 5 * (Projectile.extraUpdates + 1));
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, scale, SpriteEffects.None, 0);
 
             /*if (Projectile.timeLeft > 10 * (Projectile.extraUpdates + 1))

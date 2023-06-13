@@ -1,8 +1,6 @@
-using FargowiltasSouls.Content.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Misc;
 
 namespace FargowiltasSouls.Content.Items.Weapons.Misc

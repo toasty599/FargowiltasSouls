@@ -21,7 +21,7 @@ Lead Poisoning deals damage over time and spreads to nearby enemies
             Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new Color(67, 69, 88);
+        protected override Color nameColor => new(67, 69, 88);
         public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Lead");
 
         public override void SetDefaults()

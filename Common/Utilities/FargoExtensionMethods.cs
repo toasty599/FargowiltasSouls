@@ -2,7 +2,7 @@
 using System.Linq;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Utilities
+namespace FargowiltasSouls.Common.Utilities
 {
     public static class FargoExtensionMethods
     {
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Utilities
         /// Inteded to be used specifically for item names. <br />
         /// This only modifies it in the inventory.
         /// </summary>
-        public static TooltipLine ArticlePrefixAdjustment(this TooltipLine itemName, int prefixID, string[] localizationArticles)
+        public static TooltipLine ArticlePrefixAdjustment(this TooltipLine itemName, string[] localizationArticles)
         {
             List<string> splitName = itemName.Text.Split(' ').ToList();
 

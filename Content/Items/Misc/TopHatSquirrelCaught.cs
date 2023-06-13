@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.NPCs.Critters;
+﻿using FargowiltasSouls.Content.NPCs.Critters;
 using Terraria.ID;
 using Terraria.ModLoader;
 

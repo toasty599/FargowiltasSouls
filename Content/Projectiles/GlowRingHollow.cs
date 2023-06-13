@@ -1,4 +1,4 @@
-using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -190,7 +190,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                                 for (int i = 0; i < 100; i++)
                                 {
-                                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 86, Scale: 4f);
+                                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.GemAmethyst, Scale: 4f);
                                     Main.dust[d].velocity *= 4f;
                                     Main.dust[d].noGravity = true;
                                 }
@@ -227,7 +227,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         {
                             Projectile.Center = npc.Center;
                             radius = 2000 - 1200 * npc.GetGlobalNPC<Retinazer>().AuraRadiusCounter / 180f;
-                            if (FargoSoulsWorld.MasochistModeReal)
+                            if (WorldSavingSystem.MasochistModeReal)
                                 radius *= 0.75f;
                             if (radius == 2000)
                                 Projectile.localAI[0] = -1;
@@ -320,7 +320,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
 

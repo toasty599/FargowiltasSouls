@@ -1,7 +1,5 @@
 ﻿using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
-using FargowiltasSouls.Content.Items.Accessories.Expert;
-using System.Data;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

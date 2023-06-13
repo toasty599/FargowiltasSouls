@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -59,7 +60,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal)
             {
                 target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
                 target.AddBuff(BuffID.Bleeding, 600);
