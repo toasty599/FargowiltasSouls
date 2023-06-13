@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FargowiltasSouls.Patreon.Volknet. Projectiles;
+using FargowiltasSouls.Patreon.Volknet.Projectiles;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -11,6 +11,7 @@ using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Patreon.Duck;
 using FargowiltasSouls.Patreon.DevAesthetic;
 using FargowiltasSouls.Patreon.Sasha;
+using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Patreon.Volknet
 {

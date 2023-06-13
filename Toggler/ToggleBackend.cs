@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.ModPlayers;
+using Microsoft.Xna.Framework;
 using SteelSeries.GameSense;
 using System.Collections.Generic;
 using System.IO;

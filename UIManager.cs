@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.UI;
+﻿using FargowiltasSouls.Core;
+using FargowiltasSouls.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

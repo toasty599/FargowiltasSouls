@@ -17,6 +17,8 @@ using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {

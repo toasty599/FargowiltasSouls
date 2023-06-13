@@ -20,6 +20,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {

@@ -13,7 +13,7 @@ using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls
+namespace FargowiltasSouls.Core.ModPlayers
 {
     public class EModePlayer : ModPlayer
     {
@@ -217,7 +217,7 @@ namespace FargowiltasSouls
                         Player.AddBuff(ModContent.BuffType<Smite>(), 2);
                 }
 
-                if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight) 
+                if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight)
                     && Player.HeldItem.type != ItemID.Umbrella && Player.HeldItem.type != ItemID.TragicUmbrella
                     && Player.armor[0].type != ItemID.UmbrellaHat && Player.armor[0].type != ItemID.Eyebrella)
                 {
@@ -256,7 +256,7 @@ namespace FargowiltasSouls
 
                 if (!fargoSoulsPlayer.PureHeart && !Player.buffImmune[BuffID.Suffocation] && Player.ZoneSkyHeight && Player.whoAmI == Main.myPlayer)
                 {
-                    bool inLiquid = Collision.DrownCollision(Player.position, Player.width, Player.height, Player.gravDir) || (!Player.armor[0].IsAir && (Player.armor[0].type == ItemID.FishBowl || Player.armor[0].type == ItemID.GoldGoldfishBowl));
+                    bool inLiquid = Collision.DrownCollision(Player.position, Player.width, Player.height, Player.gravDir) || !Player.armor[0].IsAir && (Player.armor[0].type == ItemID.FishBowl || Player.armor[0].type == ItemID.GoldGoldfishBowl);
                     if (!inLiquid)
                     {
                         Player.breath -= 3;
@@ -474,7 +474,7 @@ namespace FargowiltasSouls
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            if ((Main.snowMoon && NPC.waveNumber < 20) || (Main.pumpkinMoon && NPC.waveNumber < 15))
+            if (Main.snowMoon && NPC.waveNumber < 20 || Main.pumpkinMoon && NPC.waveNumber < 15)
             {
                 if (NPC.waveNumber > 1)
                     NPC.waveNumber--;
@@ -599,7 +599,7 @@ namespace FargowiltasSouls
                     return 1f;
 
                 case var _ when ReworkedSpears.Contains(item.type):
-                    return 1.50f; 
+                    return 1.50f;
                 default:
                     break;
             }

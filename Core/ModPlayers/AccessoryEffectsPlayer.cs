@@ -22,7 +22,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls
+namespace FargowiltasSouls.Core.ModPlayers
 {
     public partial class FargoSoulsPlayer
     {
