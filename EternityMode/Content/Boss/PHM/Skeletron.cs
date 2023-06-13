@@ -15,6 +15,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles.Champions;
 using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
@@ -134,7 +135,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     Vector2 vel = -8 * Vector2.UnitX;
                                     spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * (i + 0.5));
                                     vel = vel.RotatedBy(Math.PI / 2 * (i + 0.5));
-                                    int p = Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Champions.ShadowGuardian>(),
+                                    int p = Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<ShadowGuardian>(),
                                         FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                     if (p != Main.maxProjectiles)
                                         Main.projectile[p].timeLeft = 1200 / 8 + 1;

@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.localAI[0] = 1;
                 NPC plantera = FargoSoulsUtil.NPCExists(NPC.plantBoss, NPCID.Plantera);
                 if (plantera != null && Projectile.Distance(plantera.Center) < 1600f && Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, 4f * Projectile.ai[1].ToRotationVector2(), ModContent.ProjectileType<CrystalLeafShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, 4f * Projectile.ai[1].ToRotationVector2(), ModContent.ProjectileType<CrystalLeafShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
         }
 

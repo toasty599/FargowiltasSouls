@@ -1,4 +1,6 @@
 using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

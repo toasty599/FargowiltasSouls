@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
@@ -11,6 +12,6 @@ namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 
         public bool CanShowItemDropInUI() => true;
 
-        public string GetConditionDescription() => $"[i:{ModContent.ItemType<FargowiltasSouls.Content.Items.Masochist>()}]Hardmode Eternity Mode drop rate";
+        public string GetConditionDescription() => $"[i:{ModContent.ItemType<Masochist>()}]Hardmode Eternity Mode drop rate";
     }
 }

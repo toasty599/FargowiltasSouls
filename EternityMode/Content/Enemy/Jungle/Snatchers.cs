@@ -8,6 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
@@ -72,7 +73,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
                     && (npc.Distance(victim.Center) < 160 || victim.whoAmI != Main.myPlayer)
                     && victim.GetModPlayer<FargoSoulsPlayer>().MashCounter < 20)
                 {
-                    victim.AddBuff(ModContent.BuffType<FargowiltasSouls.Content.Buffs.Boss.Grabbed>(), 2);
+                    victim.AddBuff(ModContent.BuffType<GrabbedBuff>(), 2);
                     victim.velocity = Vector2.Zero;
                     npc.Center = victim.Center;
                 }

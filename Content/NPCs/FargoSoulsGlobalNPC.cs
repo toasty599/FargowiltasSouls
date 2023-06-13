@@ -16,6 +16,7 @@ using FargowiltasSouls.Content.Items.Weapons.Misc;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs

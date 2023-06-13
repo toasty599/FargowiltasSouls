@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -50,7 +52,7 @@ Not consumed on use");
 
             for (int i = 0; i < Main.maxNPCs; i++) //no using during another champ fight
             {
-                if (Main.npc[i].active && i == FargowiltasSouls.Content.NPCs.EModeGlobalNPC.championBoss && bosses.Contains(Main.npc[i].type))
+                if (Main.npc[i].active && i == EModeGlobalNPC.championBoss && bosses.Contains(Main.npc[i].type))
                     return false;
             }
             return true;

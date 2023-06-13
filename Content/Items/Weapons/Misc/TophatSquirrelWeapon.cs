@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Misc;
+using FargowiltasSouls.Content.Projectiles.Critters;
 
 namespace FargowiltasSouls.Content.Items.Weapons.Misc
 {

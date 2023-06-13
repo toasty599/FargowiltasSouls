@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -60,7 +61,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             .AddIngredient(ItemID.MagnetSphere)
             .AddIngredient(ItemID.FragmentVortex, 35)
             .AddIngredient(ItemID.LunarBar, 5)
-            .AddIngredient(ModContent.ItemType<FargowiltasSouls.Content.Items.Accessories.Masomode.CelestialRune>())
+            .AddIngredient(ModContent.ItemType<CelestialRune>())
             .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerCultist"))
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))

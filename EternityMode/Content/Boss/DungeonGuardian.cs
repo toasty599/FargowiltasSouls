@@ -11,6 +11,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles.Champions;
+using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Content.Projectiles.DeviBoss;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss
 {
@@ -51,7 +54,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.AI(npc);
 
-            FargowiltasSouls.Content.NPCs.EModeGlobalNPC.guardBoss = npc.whoAmI;
+            EModeGlobalNPC.guardBoss = npc.whoAmI;
             npc.damage = npc.defDamage;
             npc.defense = npc.defDefense;
 
@@ -256,7 +259,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                                 Vector2 vel = -18 * Vector2.UnitX;
                                 spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * i);
                                 vel = vel.RotatedBy(Math.PI / 2 * i);
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Champions.ShadowGuardian>(),
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<ShadowGuardian>(),
                                     FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                             }
                         }
@@ -291,7 +294,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                         for (int i = 0; i < max; i++)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + 1000 * baseOffset.RotatedBy(2 * Math.PI / max * i),
-                                -10f * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.DeviBoss.DeviGuardian>(),
+                                -10f * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<DeviGuardian>(),
                                 FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                         }
                     }

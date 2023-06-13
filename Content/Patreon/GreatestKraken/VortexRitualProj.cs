@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -38,9 +39,9 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             Projectile.penetrate = -1;
             Projectile.scale = 0.5f;
 
-            Projectile.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
-            Projectile.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

@@ -2,6 +2,7 @@
 using FargowiltasSouls.Content.NPCs;
 using Terraria;
 using Terraria.ID;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy
 {
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(Terraria.ModLoader.ModContent.BuffType<FargowiltasSouls.Content.Buffs.Masomode.Unlucky>(), 60 * 30);
+            target.AddBuff(Terraria.ModLoader.ModContent.BuffType<UnluckyBuff>(), 60 * 30);
 			target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
         }
     }

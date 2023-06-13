@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.NPCs;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss
 {
@@ -88,7 +89,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.AI(npc);
 
-            FargowiltasSouls.Content.NPCs.EModeGlobalNPC.Aura(npc, 200, BuffID.VortexDebuff, false, DustID.Vortex);
+            EModeGlobalNPC.Aura(npc, 200, BuffID.VortexDebuff, false, DustID.Vortex);
 
             if (!npc.dontTakeDamage && npc.HasValidTarget)
             {

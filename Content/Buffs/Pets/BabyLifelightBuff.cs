@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles.Pets;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -19,9 +20,9 @@ namespace FargowiltasSouls.Content.Buffs.Pets
         {
             player.buffTime[buffIndex] = 18000;
             player.GetModPlayer<FargoSoulsPlayer>().BabyLifelight = true;
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Pets.BabyLifelight>()] <= 0 && player.whoAmI == Main.myPlayer)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<BabyLifelight>()] <= 0 && player.whoAmI == Main.myPlayer)
             {
-                Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Pets.BabyLifelight>(), 0, 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<BabyLifelight>(), 0, 0f, player.whoAmI);
             }
         }
     }
