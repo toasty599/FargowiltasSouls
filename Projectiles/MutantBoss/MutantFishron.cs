@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantFishron : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/NPCs/Resprites/NPC_370";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_370";
 
         int p = -1;
 
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 Projectile.localAI[1] = 1;
                 SoundEngine.PlaySound(SoundID.Zombie20, Projectile.Center);
-                p = FargoSoulsUtil.AnyBossAlive() ? Main.npc[NPCs.FargoSoulsGlobalNPC.boss].target : Player.FindClosest(Projectile.Center, 0, 0);
+                p = FargoSoulsUtil.AnyBossAlive() ? Main.npc[FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC.boss].target : Player.FindClosest(Projectile.Center, 0, 0);
                 Projectile.netUpdate = true;
             }
 

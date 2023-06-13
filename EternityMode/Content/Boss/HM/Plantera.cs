@@ -4,7 +4,7 @@ using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.NPCs.EternityMode;
+using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Projectiles.MutantBoss;
 using Microsoft.Xna.Framework;

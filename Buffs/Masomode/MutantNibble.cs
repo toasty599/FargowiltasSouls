@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().MutantNibble = true;
+            npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().MutantNibble = true;
         }
     }
 }

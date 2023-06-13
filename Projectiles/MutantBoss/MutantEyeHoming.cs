@@ -1,4 +1,4 @@
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;

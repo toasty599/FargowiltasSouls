@@ -1,4 +1,4 @@
-using FargowiltasSouls.NPCs.AbomBoss;
+using FargowiltasSouls.Content.NPCs.AbomBoss;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

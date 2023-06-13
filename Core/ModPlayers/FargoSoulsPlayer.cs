@@ -7,7 +7,7 @@ using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Accessories.Souls;
 using FargowiltasSouls.Items.Armor;
 using FargowiltasSouls.Items.Dyes;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.ChallengerItems;
 using FargowiltasSouls.Projectiles.Masomode;

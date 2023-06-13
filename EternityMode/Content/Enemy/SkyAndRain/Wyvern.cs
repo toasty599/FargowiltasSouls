@@ -45,7 +45,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
             base.OnFirstTick(npc);
 
             if (Main.hardMode && Main.rand.NextBool(10))
-                NPCs.EModeGlobalNPC.Horde(npc, 2);
+                FargowiltasSouls.Content.NPCs.EModeGlobalNPC.Horde(npc, 2);
         }
 
         public override void AI(NPC npc)

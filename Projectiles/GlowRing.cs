@@ -1,6 +1,6 @@
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
-using FargowiltasSouls.NPCs.EternityMode;
+using FargowiltasSouls.Content.NPCs.EternityMode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

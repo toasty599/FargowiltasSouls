@@ -2,8 +2,8 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.NPCs.EternityMode;
+using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Projectiles.Masomode;

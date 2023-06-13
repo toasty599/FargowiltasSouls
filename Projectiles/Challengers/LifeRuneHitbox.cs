@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs.Challengers;
+using FargowiltasSouls.Content.NPCs.Challengers;
 
 namespace FargowiltasSouls.Projectiles.Challengers
 {

@@ -45,8 +45,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune =
                     FargoSoulsWorld.MasochistModeReal
-                    && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
-                    && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5;
+                    && FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                    && Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5;
             }
         }
 
@@ -107,10 +107,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
 
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
-                && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+                && FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
             {
                 //final spark spheres
-                if (FargoSoulsWorld.MasochistModeReal && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5
+                if (FargoSoulsWorld.MasochistModeReal && Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5
                     && Projectile.Colliding(Projectile.Hitbox, Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GetPrecisionHurtbox()))
                 {
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<TimeFrozen>()))
@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
             {
                 if (FargoSoulsWorld.EternityMode)
                 {

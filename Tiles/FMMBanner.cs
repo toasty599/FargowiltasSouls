@@ -1,5 +1,5 @@
 using FargowiltasSouls.Items.Placeables;
-using FargowiltasSouls.NPCs.Critters;
+using FargowiltasSouls.Content.NPCs.Critters;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

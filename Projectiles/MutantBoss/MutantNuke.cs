@@ -46,8 +46,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 SoundEngine.PlaySound(SoundID.Item20, Projectile.position);
             }
 
-            if (!FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
-                || Main.npc[NPCs.EModeGlobalNPC.mutantBoss].dontTakeDamage)
+            if (!FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                || Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].dontTakeDamage)
             {
                 Projectile.Kill();
                 return;

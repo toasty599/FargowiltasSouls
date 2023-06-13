@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
 
-            NPCs.FargoSoulsGlobalNPC fargoNPC = npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>();
+            FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC fargoNPC = npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>();
             fargoNPC.lightningRodTimer++;
             if (fargoNPC.lightningRodTimer >= 60)
             {

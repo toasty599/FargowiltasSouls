@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 }
             }
 
-            NPC moonLord = FargoSoulsUtil.NPCExists(NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
+            NPC moonLord = FargoSoulsUtil.NPCExists(FargowiltasSouls.Content.NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
             Projectile arena = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, Projectile.ai[0], ModContent.ProjectileType<LunarRitual>()));
             if (moonLord != null && arena != null && moonLord.ai[0] != 2f)
             {

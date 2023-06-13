@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.NPCs;
+﻿using FargowiltasSouls.Content.NPCs;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.Effects;

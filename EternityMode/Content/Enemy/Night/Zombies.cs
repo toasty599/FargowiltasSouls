@@ -50,7 +50,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
             }
 
             if (Main.rand.NextBool(8))
-                NPCs.EModeGlobalNPC.Horde(npc, 6);
+                FargowiltasSouls.Content.NPCs.EModeGlobalNPC.Horde(npc, 6);
             if (armedId != -1 && Main.rand.NextBool(5))
                 npc.Transform(armedId);
         }

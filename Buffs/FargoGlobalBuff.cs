@@ -1,7 +1,7 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Core.ModPlayers;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Buffs
             switch (type)
             {
                 case BuffID.BrokenArmor:
-                    npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().BrokenArmor = true;
+                    npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().BrokenArmor = true;
                     break;
 
                 //                //case BuffID.Chilled: npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Chilled = true; break;
@@ -146,11 +146,11 @@ namespace FargowiltasSouls.Buffs
                     break;
 
                 case BuffID.Electrified:
-                    npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Electrified = true;
+                    npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().Electrified = true;
                     break;
 
                 case BuffID.Suffocation:
-                    npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Suffocation = true;
+                    npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().Suffocation = true;
                     break;
 
                 case BuffID.OnFire:

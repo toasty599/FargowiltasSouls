@@ -52,7 +52,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.AI(npc);
 
-            NPCs.EModeGlobalNPC.guardBoss = npc.whoAmI;
+            FargowiltasSouls.Content.NPCs.EModeGlobalNPC.guardBoss = npc.whoAmI;
             npc.damage = npc.defDamage;
             npc.defense = npc.defDefense;
 

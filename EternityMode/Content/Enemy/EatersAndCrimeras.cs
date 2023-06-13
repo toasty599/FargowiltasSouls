@@ -25,7 +25,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnFirstTick(npc);
 
             if (NPC.downedBoss2 && Main.rand.NextBool(5))
-                NPCs.EModeGlobalNPC.Horde(npc, 5);
+                FargowiltasSouls.Content.NPCs.EModeGlobalNPC.Horde(npc, 5);
         }
 
         public override void AI(NPC npc)

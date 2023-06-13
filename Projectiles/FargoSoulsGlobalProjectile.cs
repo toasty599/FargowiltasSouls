@@ -5,7 +5,7 @@ using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Accessories.Souls;
 using FargowiltasSouls.Items.Weapons.SwarmDrops;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Projectiles.Souls;

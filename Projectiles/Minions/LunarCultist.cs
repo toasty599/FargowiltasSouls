@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 {
                     if (Projectile.ai[1] % 2 != 0) //when attacking, check for emode ml
                     {
-                        NPC moonLord = FargoSoulsUtil.NPCExists(NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
+                        NPC moonLord = FargoSoulsUtil.NPCExists(FargowiltasSouls.Content.NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
                         if (moonLord != null)
                         {
                             switch (moonLord.GetGlobalNPC<MoonLordCore>().VulnerabilityState)

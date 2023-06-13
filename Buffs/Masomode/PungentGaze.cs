@@ -1,6 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 
 namespace FargowiltasSouls.Buffs.Masomode
 {

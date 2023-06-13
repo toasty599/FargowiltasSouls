@@ -1,4 +1,4 @@
-using FargowiltasSouls.NPCs.Challengers;
+using FargowiltasSouls.Content.NPCs.Challengers;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

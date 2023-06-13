@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.NPCs.Champions;
+using FargowiltasSouls.Content.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

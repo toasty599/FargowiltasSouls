@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Core;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

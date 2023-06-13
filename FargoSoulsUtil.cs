@@ -1,6 +1,6 @@
 ﻿using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.NPCs.Challengers;
+using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Content.NPCs.Challengers;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;

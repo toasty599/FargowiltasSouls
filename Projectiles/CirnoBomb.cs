@@ -1,6 +1,6 @@
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System.Linq;
