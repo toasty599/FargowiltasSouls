@@ -1,4 +1,4 @@
-using FargowiltasSouls.Projectiles.JungleMimic;
+using FargowiltasSouls.Content.Projectiles.JungleMimic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

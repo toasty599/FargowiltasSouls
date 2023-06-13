@@ -197,7 +197,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = $"FargowiltasSouls/NPCs/Challengers/{Name}_Still",
+                CustomTexturePath = $"FargowiltasSouls/Content/NPCs/Challengers/{Name}_Still",
                 Position = new Vector2(16 * 4, 16 * 4),
                 PortraitPositionXOverride = 16 * 1.5f,
                 PortraitPositionYOverride = 16 * 3

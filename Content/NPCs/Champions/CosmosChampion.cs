@@ -1,13 +1,13 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Placeables.Relics;
 using FargowiltasSouls.Items.Placeables.Trophies;
-using FargowiltasSouls.Projectiles;
-using FargowiltasSouls.Projectiles.Champions;
+using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

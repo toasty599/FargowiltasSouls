@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.value = 500000;
             Item.rare = ItemRarityID.Purple;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.BigStinger>();
+            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.BigStinger>();
             Item.useAmmo = AmmoID.Dart;
             Item.UseSound = SoundID.Item97;
             Item.shootSpeed = 15f;

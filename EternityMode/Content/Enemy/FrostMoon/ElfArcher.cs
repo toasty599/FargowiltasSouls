@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.EternityMode.NPCMatching;
-using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Projectiles.Champions;
+using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 {
     public class LesserSquirrel : ModNPC
     {
-        public override string Texture => "FargowiltasSouls/NPCs/Critters/TophatSquirrelCritter";
+        public override string Texture => "FargowiltasSouls/Content/NPCs/Critters/TophatSquirrelCritter";
 
         public int counter;
 

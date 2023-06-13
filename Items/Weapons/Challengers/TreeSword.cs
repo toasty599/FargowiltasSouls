@@ -1,4 +1,4 @@
-using FargowiltasSouls.Projectiles.ChallengerItems;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Minions;
-using FargowiltasSouls.Projectiles.JungleMimic;
+using FargowiltasSouls.Content.Projectiles.JungleMimic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

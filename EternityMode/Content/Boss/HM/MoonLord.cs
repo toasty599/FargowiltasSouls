@@ -5,9 +5,8 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Projectiles;
-using FargowiltasSouls.Projectiles.Deathrays;
-using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Content.Projectiles.Deathrays;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -20,6 +19,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {
@@ -257,7 +257,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 int damage = 40;
                                 float rotation = 2f * (float)Math.PI / max;
                                 Vector2 vel = Vector2.UnitY * speed;
-                                int type = ModContent.ProjectileType<Projectiles.MutantBoss.MutantSphereRing>();
+                                int type = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.MutantBoss.MutantSphereRing>();
                                 for (int i = 0; i < max; i++)
                                 {
                                     vel = vel.RotatedBy(rotation);
@@ -419,7 +419,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     int damage = 40;
                                     float rotation = 2f * (float)Math.PI / max;
                                     Vector2 vel = Vector2.UnitY * speed;
-                                    int type = ModContent.ProjectileType<Projectiles.MutantBoss.MutantSphereRing>();
+                                    int type = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.MutantBoss.MutantSphereRing>();
                                     for (int i = 0; i < max; i++)
                                     {
                                         vel = vel.RotatedBy(rotation);

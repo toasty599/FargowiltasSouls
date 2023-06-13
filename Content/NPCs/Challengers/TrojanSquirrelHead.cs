@@ -1,4 +1,4 @@
-using FargowiltasSouls.Projectiles.Challengers;
+using FargowiltasSouls.Content.Projectiles.Challengers;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

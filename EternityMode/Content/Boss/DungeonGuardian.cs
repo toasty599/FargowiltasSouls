@@ -3,7 +3,7 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -257,7 +257,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                                 Vector2 vel = -18 * Vector2.UnitX;
                                 spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * i);
                                 vel = vel.RotatedBy(Math.PI / 2 * i);
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<Projectiles.Champions.ShadowGuardian>(),
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Champions.ShadowGuardian>(),
                                     FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                             }
                         }
@@ -292,7 +292,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                         for (int i = 0; i < max; i++)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + 1000 * baseOffset.RotatedBy(2 * Math.PI / max * i),
-                                -10f * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<Projectiles.DeviBoss.DeviGuardian>(),
+                                -10f * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.DeviBoss.DeviGuardian>(),
                                 FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                         }
                     }
@@ -386,7 +386,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
-                                        ModContent.ProjectileType<Projectiles.Champions.ShadowGuardian>(),
+                                        ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Champions.ShadowGuardian>(),
                                         FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 20), 0f, Main.myPlayer);
                                 }
                             }

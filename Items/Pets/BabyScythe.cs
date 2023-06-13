@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Pets;
-using FargowiltasSouls.Projectiles.Pets;
+using FargowiltasSouls.Content.Projectiles.Pets;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

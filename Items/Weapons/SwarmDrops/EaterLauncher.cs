@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Items.Weapons.BossDrops;
-using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

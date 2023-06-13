@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 10;
-            Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.FargoSoulsGlobalProjectile>().CanSplit = false;
             Projectile.scale *= 0.75f;
 
             Projectile.usesLocalNPCImmunity = true;

@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.useTime = 16;
             Item.knockBack = 6f;
             Item.noUseGraphic = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.MechFlail>();
+            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.MechFlail>();
             Item.shootSpeed = 50f;
             Item.UseSound = SoundID.Item1;
             Item.DamageType = DamageClass.Melee;

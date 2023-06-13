@@ -8,13 +8,12 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using System.Collections.Generic;
 using Terraria.DataStructures;
-using FargowiltasSouls.Projectiles.Challengers;
+using FargowiltasSouls.Content.Projectiles.Challengers;
 using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Items.BossBags;
 using FargowiltasSouls.Items.Weapons.Challengers;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Placeables.Trophies;
-using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.Items.Summons;
@@ -26,6 +25,7 @@ using static System.Formats.Asn1.AsnWriter;
 using FargowiltasSouls.Patreon.Sasha;
 using FargowiltasSouls.Items.Placeables.Relics;
 using FargowiltasSouls.Items.Pets;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Content.NPCs.Challengers
 {
@@ -34,6 +34,8 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
     public class LifeChallenger : ModNPC
     {
         #region Variables
+        const string PartsPath = "FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/";
+
         const int DefaultHeight = 200;
         const int DefaultWidth = 200;
 
@@ -2943,7 +2945,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                         Vector2 drawPos = NPC.Center + (drawRot.ToRotationVector2() * ChunkDistance) - screenPos;
                         //Vector2 drawPos = Trianglinator(i, screenPos);
 
-                        Texture2D ChunkTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"NPCs/Challengers/LifeChallengerParts/ShardGold{chunklist[i]}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                        Texture2D ChunkTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + $"ShardGold{chunklist[i]}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         float ChunkRotation = chunkrotlist[i];
                         chunkrotlist[i] += ChunkRotationSpeed;
 
@@ -2953,7 +2955,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 for (int i = 0; i < RuneCount; i++)
                 {
                     float drawRot = (float)(BodyRotation + (Math.PI * 2 / RuneCount * i));
-                    Texture2D RuneTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"NPCs/Challengers/LifeChallengerParts/Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Texture2D RuneTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + $"Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Vector2 drawPos = NPC.Center + (drawRot.ToRotationVector2() * RuneDistance) - screenPos;
                     float RuneRotation = drawRot + MathHelper.PiOver2;
 
@@ -2984,8 +2986,8 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 //draw wings
                 //draws 4 things: 2 upper wings, 2 lower wings
 
-                Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Texture2D wingLtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/LifeChallenger_WingLower", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D wingLtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "LifeChallenger_WingLower", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Vector2 wingdrawPos = NPC.Center - screenPos;
                 int currentFrame = NPC.frame.Y;
                 int wingUHeight = wingUtexture.Height / Main.npcFrameCount[NPC.type];
@@ -3032,7 +3034,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             float PyramidRot = 0;
             if (NPC.velocity.ToRotation() > MathHelper.Pi)
             {
-            Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
+            Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
             }
             else
             {
@@ -3040,7 +3042,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
             }
             if ((SpritePhase == 1 && Draw) || NPC.IsABestiaryIconDummy) //whole pyramid
             {
-                Texture2D pyramid = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/Phase1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D pyramid = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "Phase1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Rectangle rect = new Rectangle(0, 0, pyramid.Width, pyramid.Height);
                 Vector2 origin = pyramid.Size() / 2;
                 Vector2 wobble = new Vector2((float)Math.Sin(MathHelper.ToRadians(5.632167f /*purposefully random weird number*/ * DrawTime)), (float)Math.Sin(MathHelper.ToRadians(3*DrawTime))) * PyramidWobble;
@@ -3053,11 +3055,11 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
                 Vector2[] origins = new Vector2[4];
                 Vector2[] offsets = new Vector2[4];
 
-                pyramidp[0] = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/Phase2U", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                pyramidp[1] = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/Phase2L", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                pyramidp[2] = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/Phase2R", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                pyramidp[3] = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/Phase2D", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
+                pyramidp[0] = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "Phase2U", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                pyramidp[1] = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "Phase2L", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                pyramidp[2] = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "Phase2R", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                pyramidp[3] = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "Phase2D", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
                 float expansion = ChunkDistance / ChunkDistanceMax;
                 float P = (float)Math.Sqrt(SpritePhase - 1); //1 in p2, sqrt2 in p3, this doesn't draw in p1
                 offsets[0] = new Vector2(0, -15) * (float)Math.Abs(Math.Sin(MathHelper.ToRadians(DrawTime * P))) * expansion + new Vector2(0, -30); //top
@@ -3082,7 +3084,7 @@ namespace FargowiltasSouls.Content.NPCs.Challengers
 
         public override void FindFrame(int frameHeight)
         {
-            //Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Challengers/LifeChallengerParts/LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
+            //Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
             double fpf = 60/10; //  60/fps
             NPC.spriteDirection = NPC.direction;
             NPC.frameCounter += 1;

@@ -7,7 +7,7 @@ using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Consumables;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
-using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -984,7 +984,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             //alt behaviour cthulunado no spawn sharky
             if (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj
-                && sourceProj.type == ProjectileID.Cthulunado && sourceProj.GetGlobalProjectile<Projectiles.EModeGlobalProjectile>().altBehaviour)
+                && sourceProj.type == ProjectileID.Cthulunado && sourceProj.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.EModeGlobalProjectile>().altBehaviour)
             {
                 npc.type = NPCID.None;
                 npc.active = false;

@@ -1,5 +1,5 @@
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Projectiles.AbomBoss;
+using FargowiltasSouls.Content.Projectiles.AbomBoss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

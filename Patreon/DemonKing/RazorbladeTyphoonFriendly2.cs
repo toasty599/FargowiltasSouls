@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.DemonKing
 {
-    public class RazorbladeTyphoonFriendly2 : Projectiles.BossWeapons.RazorbladeTyphoonFriendly
+    public class RazorbladeTyphoonFriendly2 : FargowiltasSouls.Content.Projectiles.BossWeapons.RazorbladeTyphoonFriendly
     {
         public override string Texture => "Terraria/Images/Projectile_409";
 

@@ -4,11 +4,10 @@ using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
-using FargowiltasSouls.Projectiles;
-using FargowiltasSouls.Projectiles.BossWeapons;
-using FargowiltasSouls.Projectiles.Masomode;
-using FargowiltasSouls.Projectiles.Minions;
-using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
+using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
@@ -21,6 +20,7 @@ using Terraria.Graphics.Capture;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls
 {
@@ -1457,7 +1457,7 @@ namespace FargowiltasSouls
 
                 if (VortexStealth && Player.GetToggleValue("VortexV") && !Player.HasBuff(ModContent.BuffType<VortexCD>()))
                 {
-                    int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
+                    int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
                     Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                     Main.projectile[p].netUpdate = true;
 
@@ -2036,7 +2036,7 @@ namespace FargowiltasSouls
                     electricAttack = true;
                 }
             }
-            else if (proj.ModProjectile is Projectiles.Deathrays.BaseDeathray)
+            else if (proj.ModProjectile is FargowiltasSouls.Content.Projectiles.Deathrays.BaseDeathray)
             {
                 electricAttack = true;
             }
@@ -2506,7 +2506,7 @@ namespace FargowiltasSouls
                     if (BetsysHeartItem != null)
                     {
                         Vector2 vel = Player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
-                        Projectile.NewProjectile(Player.GetSource_Accessory(BetsysHeartItem), Player.Center, vel, ModContent.ProjectileType<Projectiles.BetsyDash>(), (int)(100 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(BetsysHeartItem), Player.Center, vel, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BetsyDash>(), (int)(100 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
 
                         Player.immune = true;
                         Player.immuneTime = Math.Max(Player.immuneTime, 2);
@@ -2527,7 +2527,7 @@ namespace FargowiltasSouls
                         SpecialDashCD += 60;
 
                         Vector2 vel = Player.DirectionTo(Main.MouseWorld) * 20;
-                        Projectile.NewProjectile(Player.GetSource_Accessory(QueenStingerItem), Player.Center, vel, ModContent.ProjectileType<Projectiles.BeeDash>(), (int)(44 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(QueenStingerItem), Player.Center, vel, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BeeDash>(), (int)(44 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
                     }
 
                     Player.AddBuff(ModContent.BuffType<Buffs.BetsyDash>(), 20);

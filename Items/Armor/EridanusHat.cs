@@ -151,13 +151,13 @@ Increases your max number of sentries by 4");
 
                 if (player.whoAmI == Main.myPlayer)
                 {
-                    if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.EridanusMinion>()] < 1)
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.EridanusMinion>()] < 1)
                     {
-                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusMinion>(), 300, 12f, player.whoAmI, -1);
+                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.EridanusMinion>(), 300, 12f, player.whoAmI, -1);
                     }
-                    if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.EridanusRitual>()] < 1)
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.EridanusRitual>()] < 1)
                     {
-                        Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusRitual>(), 0, 0f, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.EridanusRitual>(), 0, 0f, player.whoAmI);
                     }
                 }
             }

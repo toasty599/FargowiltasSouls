@@ -1,4 +1,4 @@
-using FargowiltasSouls.Projectiles.Minions;
+using FargowiltasSouls.Content.Projectiles.Minions;
 using Terraria;
 using Terraria.ModLoader;
 

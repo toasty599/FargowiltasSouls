@@ -3,7 +3,7 @@ using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Items.Placeables.Relics;
-using FargowiltasSouls.Projectiles.Champions;
+using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = $"FargowiltasSouls/NPCs/Champions/{Name}_Still",
+                CustomTexturePath = $"FargowiltasSouls/Content/NPCs/Champions/{Name}_Still",
                 Position = new Vector2(4, 0),
                 PortraitScale = 0.5f,
                 PortraitPositionXOverride = 0

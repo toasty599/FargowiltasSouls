@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Projectiles.BossWeapons;
+﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

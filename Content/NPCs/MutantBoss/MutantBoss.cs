@@ -8,7 +8,7 @@ using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Items.Placeables.Relics;
 using FargowiltasSouls.Items.Placeables.Trophies;
 using FargowiltasSouls.Items.Summons;
-using FargowiltasSouls.Projectiles.MutantBoss;
+using FargowiltasSouls.Content.Projectiles.MutantBoss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

@@ -1,11 +1,11 @@
-using FargowiltasSouls.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {

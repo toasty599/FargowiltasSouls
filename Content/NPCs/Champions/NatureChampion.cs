@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Content.NPCs.Champions
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = $"FargowiltasSouls/NPCs/Champions/{Name}_Still",
+                CustomTexturePath = $"FargowiltasSouls/Content/NPCs/Champions/{Name}_Still",
                 Scale = 0.3f,
                 Position = new Vector2(48f, 16 * 4),
                 PortraitScale = 0.3f,

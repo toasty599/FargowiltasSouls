@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             //Item.scale = 1.3f;
             Item.rare = ItemRarityID.Purple;
             Item.UseSound = SoundID.Item1;
-            Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.HentaiSpear>();
+            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.HentaiSpear>();
             Item.value = Item.sellPrice(0, 70);
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
                 }
                 else
                 {
-                    Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.HentaiSpear>();
+                    Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.HentaiSpear>();
                     Item.shootSpeed = 6f;
                 }
 

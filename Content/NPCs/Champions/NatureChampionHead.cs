@@ -1,5 +1,5 @@
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Projectiles.Champions;
+using FargowiltasSouls.Content.Projectiles.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

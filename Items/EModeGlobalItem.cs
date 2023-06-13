@@ -1,7 +1,7 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Items.Accessories.Forces;
-using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

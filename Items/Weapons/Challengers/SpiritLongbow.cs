@@ -1,7 +1,7 @@
 //JAVYZ TODO: SPIRIT LONGBOW
 /*
 
-using FargowiltasSouls.Projectiles.ChallengerItems;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

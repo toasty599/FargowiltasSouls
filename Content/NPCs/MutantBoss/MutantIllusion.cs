@@ -1,6 +1,6 @@
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Projectiles.MutantBoss;
+using FargowiltasSouls.Content.Projectiles.MutantBoss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.NPCs.MutantBoss
     [AutoloadBossHead]
     public class MutantIllusion : ModNPC
     {
-        public override string Texture => "FargowiltasSouls/NPCs/MutantBoss/MutantBoss";
+        public override string Texture => "FargowiltasSouls/Content/NPCs/MutantBoss/MutantBoss";
 
         public override void SetStaticDefaults()
         {

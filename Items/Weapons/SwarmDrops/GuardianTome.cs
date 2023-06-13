@@ -1,5 +1,5 @@
 using FargowiltasSouls.Items.Materials;
-using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;

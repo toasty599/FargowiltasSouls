@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

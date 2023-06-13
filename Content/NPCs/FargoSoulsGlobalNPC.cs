@@ -6,7 +6,7 @@ using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Weapons.BossDrops;
 using FargowiltasSouls.Items.Weapons.Misc;
 using FargowiltasSouls.Content.NPCs.EternityMode;
-using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;

@@ -18,9 +18,9 @@ namespace FargowiltasSouls.Buffs.Pets
         {
             player.buffTime[buffIndex] = 18000;
             player.GetModPlayer<FargoSoulsPlayer>().BabyAbom = true;
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Pets.BabyAbom>()] <= 0 && player.whoAmI == Main.myPlayer)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Pets.BabyAbom>()] <= 0 && player.whoAmI == Main.myPlayer)
             {
-                Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Pets.BabyAbom>(), 0, 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Pets.BabyAbom>(), 0, 0f, player.whoAmI);
             }
         }
     }

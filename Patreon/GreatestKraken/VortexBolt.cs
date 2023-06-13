@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.GreatestKraken
 {
-    public class VortexBolt : Projectiles.LightningArc
+    public class VortexBolt : FargowiltasSouls.Content.Projectiles.LightningArc
     {
         public override string Texture => "Terraria/Images/Projectile_466";
 
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 
             Projectile.usesIDStaticNPCImmunity = false;
             Projectile.idStaticNPCHitCooldown = 0;
-            Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+            Projectile.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
 
             Projectile.timeLeft = 30 * (Projectile.extraUpdates + 1);
         }

@@ -1,4 +1,3 @@
-using FargowiltasSouls.Projectiles.Minions;
 //using FargowiltasSouls.Buffs.Minions;
 using Microsoft.Xna.Framework;
 using System.Linq;
@@ -35,7 +34,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             Item.knockBack = 3;
             Item.rare = ItemRarityID.Green;
             Item.UseSound = SoundID.Item44;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Minions.BrainMinion>();
+            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.BrainMinion>();
             Item.shootSpeed = 10f;
             //Item.buffType = ModContent.BuffType<BrainMinion>();
             Item.autoReuse = true;

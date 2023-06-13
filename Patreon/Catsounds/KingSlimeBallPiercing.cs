@@ -2,9 +2,9 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Patreon.Catsounds
 {
-    public class KingSlimeBallPiercing : Projectiles.BossWeapons.SlimeBall
+    public class KingSlimeBallPiercing : FargowiltasSouls.Content.Projectiles.BossWeapons.SlimeBall
     {
-        public override string Texture => "FargowiltasSouls/Projectiles/BossWeapons/SlimeBall";
+        public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/SlimeBall";
 
         public override void SetStaticDefaults()
         {
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
     }
 }

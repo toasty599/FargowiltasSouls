@@ -3,7 +3,7 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -83,7 +83,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
                 if (AttackCycleTimer == 240 && !CanDoAttack && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
                 {
-                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
                     NetSync(npc);
                 }
             }

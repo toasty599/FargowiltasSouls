@@ -38,10 +38,10 @@ namespace FargowiltasSouls.Buffs.Masomode
                 player.buffTime[buffIndex] = 2;
                 if (player.whoAmI == Main.npc[EModeGlobalNPC.fishBoss].target
                     && player.whoAmI == Main.myPlayer
-                    && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Masomode.FishronRitual2>()] < 1)
+                    && player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Masomode.FishronRitual2>()] < 1)
                 {
                     Projectile.NewProjectile(Main.npc[EModeGlobalNPC.fishBoss].GetSource_FromThis(), Main.npc[EModeGlobalNPC.fishBoss].Center, Vector2.Zero,
-                        ModContent.ProjectileType<Projectiles.Masomode.FishronRitual2>(), 0, 0f, player.whoAmI, 0f, EModeGlobalNPC.fishBoss);
+                        ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Masomode.FishronRitual2>(), 0, 0f, player.whoAmI, 0f, EModeGlobalNPC.fishBoss);
                 }
             }
             else

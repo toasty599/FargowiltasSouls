@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.Duck
 {
-    public class RailgunBlast : Projectiles.Deathrays.MutantSpecialDeathray
+    public class RailgunBlast : FargowiltasSouls.Content.Projectiles.Deathrays.MutantSpecialDeathray
     {
         public RailgunBlast() : base(20, 1.25f) { }
 
@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Patreon.Duck
             Projectile.hide = true;
             Projectile.penetrate = -1;
 
-            Projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargowiltasSouls.Content.Projectiles.FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -180,7 +180,7 @@ namespace FargowiltasSouls.Patreon.Duck
             target.immune[Projectile.owner] = 12;
             target.AddBuff(BuffID.Electrified, 600);
 
-            if (Projectile.owner == Main.myPlayer && Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] < 60)
+            if (Projectile.owner == Main.myPlayer && Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.LightningArc>()] < 60)
             {
                 const int max = 3;
                 int count = max;
@@ -191,7 +191,7 @@ namespace FargowiltasSouls.Patreon.Duck
                         if (--count < 0)
                             break;
                         Vector2 vel = Main.rand.NextFloat(10f, 20f) * target.DirectionTo(n.Center);
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, vel, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.LightningArc>(),
                             Projectile.damage / 10, Projectile.knockBack / 10, Projectile.owner, vel.ToRotation(), Main.rand.Next(80));
                     }
                 }
@@ -199,10 +199,10 @@ namespace FargowiltasSouls.Patreon.Duck
                 for (int i = -spray; i <= spray; i++)
                 {
                     Vector2 vel = Main.rand.NextFloat(10f, 20f) * Projectile.velocity.RotatedBy(MathHelper.ToRadians(30) / spray * (i + Main.rand.NextFloat(-0.5f, 0.5f)));
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, vel, ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.LightningArc>(),
                         Projectile.damage / 10, Projectile.knockBack / 10, Projectile.owner, vel.ToRotation(), Main.rand.Next(80));
                 }
-                Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] += max * 2;
+                Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.LightningArc>()] += max * 2;
             }
         }
 

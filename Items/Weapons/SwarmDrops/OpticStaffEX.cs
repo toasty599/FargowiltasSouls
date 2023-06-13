@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Minions;
-using FargowiltasSouls.Projectiles.Minions;
+using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

@@ -7,12 +7,11 @@ using FargowiltasSouls.Items.Accessories.Souls;
 using FargowiltasSouls.Items.Armor;
 using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Projectiles;
-using FargowiltasSouls.Projectiles.ChallengerItems;
-using FargowiltasSouls.Projectiles.Masomode;
-using FargowiltasSouls.Projectiles.Minions;
-using FargowiltasSouls.Projectiles.Pets;
-using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Content.Projectiles.Pets;
+using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,6 +29,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls
 {
