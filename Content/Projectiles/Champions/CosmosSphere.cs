@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -82,7 +83,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
                     Projectile.netUpdate = true;
                 }
 
-                NPC eridanus = FargoSoulsUtil.NPCExists(FargowiltasSouls.Content.NPCs.EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>());
+                NPC eridanus = FargoSoulsUtil.NPCExists(EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>());
                 if (/*Projectile.ai[0] < 0 &&*/ Projectile.ai[1] > 0 && eridanus != null && eridanus.HasValidTarget)
                 {
                     float modifier = Projectile.ai[1] / 60f;

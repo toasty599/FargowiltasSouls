@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles.DeviBoss
                 Vector2 vel = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.ToRadians(30f) * -Math.Sign(Projectile.ai[1]));
                 //make it cover the windback and then some more
                 float ai0 = MathHelper.ToRadians(30 + 60) * Math.Sign(Projectile.ai[1]);
-                Projectile.NewProjectile(Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<Deathrays.DeviLightBeam>(),
+                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel, ModContent.ProjectileType<Deathrays.DeviLightBeam>(),
                     Projectile.damage, Projectile.knockBack, Projectile.owner, ai0);
             }
         }

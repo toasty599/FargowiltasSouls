@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Buffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -39,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[Projectile.owner] = 8;
-            target.AddBuff(ModContent.BuffType<Buffs.Souls.HellFire>(), 300);
+            target.AddBuff(ModContent.BuffType<HellFireBuff>(), 300);
         }
 
         public override bool PreDraw(ref Color lightColor)

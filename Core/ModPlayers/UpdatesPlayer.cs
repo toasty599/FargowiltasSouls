@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
 
                     Player.Teleport(teleportPos, 1);
-                    NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
                     unstableCD = 60;
                 }
@@ -396,7 +396,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (GoldEnchMoveCoins)
             {
-                ChestUI.MoveCoins(Player.inventory, Player.bank.item, ContainerTransferContext.FromUnknown(Player));
+                ChestUI.MoveCoins(Player.inventory, Player.bank.item);
                 GoldEnchMoveCoins = false;
             }
 

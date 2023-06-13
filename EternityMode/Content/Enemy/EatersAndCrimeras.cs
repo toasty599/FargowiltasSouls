@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Projectiles.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.NPCs;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy
 {
@@ -25,7 +26,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnFirstTick(npc);
 
             if (NPC.downedBoss2 && Main.rand.NextBool(5))
-                FargowiltasSouls.Content.NPCs.EModeGlobalNPC.Horde(npc, 5);
+                EModeGlobalNPC.Horde(npc, 5);
         }
 
         public override void AI(NPC npc)

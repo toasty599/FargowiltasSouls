@@ -9,6 +9,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Projectiles.Champions;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
 {
@@ -81,7 +82,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
                 Projectile.NewProjectile(npc.GetSource_FromThis(),
                     AttackTarget + Main.rand.NextVector2Circular(80, 80),
                     new Vector2(Main.rand.NextFloat(-.5f, .5f), Main.rand.NextFloat(3f)),
-                    ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Champions.SpiritCrossBone>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                    ModContent.ProjectileType<SpiritCrossBone>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
 
             if (AttackTimer > 390)

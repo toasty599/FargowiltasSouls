@@ -242,7 +242,7 @@ namespace FargowiltasSouls
             AddToggle("MasoRainbowConfig", ModContent.ItemType<ConcentratedRainbowMatter>());
             AddToggle("MasoHealingPotionConfig", ModContent.ItemType<ConcentratedRainbowMatter>());
             AddToggle("MasoNymphConfig", ModContent.ItemType<NymphsPerfume>());
-            AddToggle("MasoSqueakConfig", ModContent.ItemType<FargowiltasSouls.Content.Items.Accessories.Masomode.SqueakyToy>());
+            AddToggle("MasoSqueakConfig", ModContent.ItemType<SqueakyToy>());
             AddToggle("MasoPouchConfig", ModContent.ItemType<WretchedPouch>());
             AddToggle("MasoClippedConfig", ModContent.ItemType<WyvernFeather>());
 			AddToggle("MasoGrav2Config", ModContent.ItemType<WyvernFeather>());

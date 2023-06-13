@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.NPCs;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
@@ -76,7 +77,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 {
                     if (Projectile.ai[1] % 2 != 0) //when attacking, check for emode ml
                     {
-                        NPC moonLord = FargoSoulsUtil.NPCExists(FargowiltasSouls.Content.NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
+                        NPC moonLord = FargoSoulsUtil.NPCExists(EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
                         if (moonLord != null)
                         {
                             switch (moonLord.GetGlobalNPC<MoonLordCore>().VulnerabilityState)

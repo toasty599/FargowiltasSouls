@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -87,7 +88,7 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
             {
                 Projectile.localAI[1] = 1;
                 SoundEngine.PlaySound(SoundID.Zombie20, Projectile.Center);
-                p = FargoSoulsUtil.AnyBossAlive() ? Main.npc[FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC.boss].target : Player.FindClosest(Projectile.Center, 0, 0);
+                p = FargoSoulsUtil.AnyBossAlive() ? Main.npc[FargoSoulsGlobalNPC.boss].target : Player.FindClosest(Projectile.Center, 0, 0);
                 Projectile.netUpdate = true;
             }
 

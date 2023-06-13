@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -35,7 +36,7 @@ Right click pattern becomes denser with up to 12 empty minion slots
             Item.scale = 2f;
             Item.rare = ItemRarityID.Purple;
             Item.UseSound = SoundID.Item1;
-            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.SparklingLove>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingLove>();
             Item.value = Item.sellPrice(0, 70);
             Item.noMelee = true; //no melee hitbox
             Item.noUseGraphic = true; //dont draw Item
@@ -52,7 +53,7 @@ Right click pattern becomes denser with up to 12 empty minion slots
         {
             if (player.altFunctionUse == 2)
             {
-                Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.SparklingDevi>();
+                Item.shoot = ModContent.ProjectileType<SparklingDevi>();
                 Item.useStyle = ItemUseStyleID.Swing;
                 Item.DamageType = DamageClass.Summon;
                 Item.noUseGraphic = false;
@@ -63,7 +64,7 @@ Right click pattern becomes denser with up to 12 empty minion slots
             }
             else
             {
-                Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.SparklingLove>();
+                Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingLove>();
                 Item.useStyle = ItemUseStyleID.Swing;
                 Item.DamageType = DamageClass.Melee;
                 Item.noUseGraphic = true;

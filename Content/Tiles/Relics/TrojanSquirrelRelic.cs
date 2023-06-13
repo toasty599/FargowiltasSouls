@@ -4,6 +4,6 @@ namespace FargowiltasSouls.Content.Tiles.Relics
 {
     public class TrojanSquirrelRelic : BaseRelic
     {
-        protected override int ItemType => ModContent.ItemType<FargowiltasSouls.Content.Items.Placables.Relics.TrojanSquirrelRelic>();
+        protected override int ItemType => ModContent.ItemType<Items.Placables.Relics.TrojanSquirrelRelic>();
     }
 }

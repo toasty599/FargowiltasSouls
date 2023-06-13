@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -74,7 +75,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.WillChampion>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.WillChampion>()))
             {
                 if (FargoSoulsWorld.EternityMode)
                 {
@@ -83,7 +84,7 @@ namespace FargowiltasSouls.Content.Projectiles.Champions
                 }
                 target.AddBuff(BuffID.Bleeding, 300);
             }
-            if (FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
             {
                 if (FargoSoulsWorld.EternityMode)
                 {

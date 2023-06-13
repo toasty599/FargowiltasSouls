@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
@@ -47,8 +48,8 @@ namespace FargowiltasSouls.Content.Projectiles.MutantBoss
                 SoundEngine.PlaySound(SoundID.Item20, Projectile.position);
             }
 
-            if (!FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
-                || Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.mutantBoss].dontTakeDamage)
+            if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                || Main.npc[EModeGlobalNPC.mutantBoss].dontTakeDamage)
             {
                 Projectile.Kill();
                 return;

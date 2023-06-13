@@ -23,14 +23,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<SqueakyToy>(), 120);
+            target.AddBuff(ModContent.BuffType<SqueakyToyBuff>(), 120);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<FargowiltasSouls.Content.Items.Accessories.Masomode.SqueakyToy>(), 10));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<SqueakyToy>(), 10));
         }
     }
 }

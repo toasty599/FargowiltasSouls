@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -37,7 +38,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
             Item.scale = 1f;
             Item.rare = ItemRarityID.Purple;
             Item.UseSound = SoundID.Item1;
-            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.StyxScythe>();
+            Item.shoot = ModContent.ProjectileType<StyxScythe>();
             Item.value = Item.sellPrice(0, 70);
             //Item.noMelee = true; //no melee hitbox
             //Item.noUseGraphic = true; //dont draw Item
@@ -54,7 +55,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
         {
             if (player.altFunctionUse == 2)
             {
-                Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.StyxGazer>();
+                Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.StyxGazer>();
                 Item.useStyle = ItemUseStyleID.Shoot;
                 Item.DamageType = DamageClass.Magic;
                 Item.noUseGraphic = true;
@@ -63,7 +64,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
             }
             else
             {
-                Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.StyxScythe>();
+                Item.shoot = ModContent.ProjectileType<StyxScythe>();
                 Item.useStyle = ItemUseStyleID.Swing;
                 Item.DamageType = DamageClass.Melee;
                 Item.noUseGraphic = false;

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -60,7 +61,7 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<FargowiltasSouls.Content.Items.Accessories.Masomode.AeolusBoots>()) //add terraspark boots
+            .AddIngredient(ModContent.ItemType<AeolusBoots>()) //add terraspark boots
             .AddIngredient(ItemID.FlyingCarpet)
             .AddIngredient(ItemID.SweetheartNecklace)
             .AddIngredient(ItemID.Magiluminescence)

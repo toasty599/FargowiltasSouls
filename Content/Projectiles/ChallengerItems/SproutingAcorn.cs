@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             int sproutType = ModContent.ProjectileType<Sprout>();
             if (Projectile.owner == Main.myPlayer && !Main.projectile.Any(p => p.active && p.type == sproutType && p.owner == Projectile.owner && p.ai[0] == target.whoAmI))
             {
-                Projectile.NewProjectile(Entity.InheritSource(Projectile), target.Center, Vector2.Zero, sproutType, Projectile.damage, 0f, Main.myPlayer, target.whoAmI);
+                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), target.Center, Vector2.Zero, sproutType, Projectile.damage, 0f, Main.myPlayer, target.whoAmI);
             }
         }
 

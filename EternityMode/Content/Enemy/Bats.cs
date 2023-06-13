@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -73,7 +74,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<FargowiltasSouls.Content.Items.Consumables.RabiesShot>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<RabiesShot>(), 5));
         }
     }
 }

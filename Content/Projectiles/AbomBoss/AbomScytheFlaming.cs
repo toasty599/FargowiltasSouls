@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -55,7 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles.AbomBoss
                 Projectile.netUpdate = true;
                 Player target = Main.player[Player.FindClosest(Projectile.position, Projectile.width, Projectile.height)];
                 Projectile.velocity = Projectile.DirectionTo(target.Center);
-                if (FargoSoulsUtil.BossIsAlive(ref FargowiltasSouls.Content.NPCs.EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()) && Main.npc[FargowiltasSouls.Content.NPCs.EModeGlobalNPC.abomBoss].localAI[3] > 1)
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()) && Main.npc[EModeGlobalNPC.abomBoss].localAI[3] > 1)
                     Projectile.velocity *= 7f;
                 else
                     Projectile.velocity *= 24f;

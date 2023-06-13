@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
 {
@@ -40,7 +41,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
             //Item.scale = 1.3f;
             Item.rare = ItemRarityID.Purple;
             Item.UseSound = SoundID.Item1;
-            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.HentaiSpear>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.HentaiSpear>();
             Item.value = Item.sellPrice(0, 70);
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -105,7 +106,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                 }
                 else
                 {
-                    Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.HentaiSpear>();
+                    Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.HentaiSpear>();
                     Item.shootSpeed = 6f;
                 }
 
@@ -203,7 +204,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                 .AddIngredient(ModContent.ItemType<AbomEnergy>(), 30)
                 .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 30)
                 .AddIngredient(ModContent.ItemType<PhantasmalEnergy>())
-                .AddIngredient(ModContent.ItemType<FargowiltasSouls.Content.Items.Accessories.Masomode.MutantEye>())
+                .AddIngredient(ModContent.ItemType<MutantEye>())
                 .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
                 .Register();
         }

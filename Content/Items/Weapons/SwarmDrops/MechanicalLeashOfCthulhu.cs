@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,7 +32,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
             Item.useTime = 16;
             Item.knockBack = 6f;
             Item.noUseGraphic = true;
-            Item.shoot = ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.BossWeapons.MechFlail>();
+            Item.shoot = ModContent.ProjectileType<MechFlail>();
             Item.shootSpeed = 50f;
             Item.UseSound = SoundID.Item1;
             Item.DamageType = DamageClass.Melee;
