@@ -1,5 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.Content.Buffs.Minions
 {
@@ -18,7 +20,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
         public override void Update(Player player, ref int buffIndex)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Minions.BrainMinion>()] > 0) modPlayer.BrainMinion = true;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<ModProjectile>()] > 0) modPlayer.BrainMinion = true;
             if (!modPlayer.BrainMinion)
             {
                 player.DelBuff(buffIndex);

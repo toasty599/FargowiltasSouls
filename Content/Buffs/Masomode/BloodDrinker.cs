@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.NPCs;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -18,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().BloodDrinker = true;
+            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker = true;
         }
     }
 }

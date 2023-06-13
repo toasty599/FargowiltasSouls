@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.ModPlayers;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -49,7 +51,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().MutantNibble = true;
+            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().MutantNibble = true;
         }
     }
 }

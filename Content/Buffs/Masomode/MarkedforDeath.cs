@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -21,10 +23,10 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         {
             player.GetModPlayer<FargoSoulsPlayer>().DeathMarked = true;
 
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Masomode.DeathSkull>()] < 1)
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<DeathSkull>()] < 1)
                 Projectile.NewProjectile(player.GetSource_Buff(buffIndex),
                     player.Center - 200f * Vector2.UnitY, Vector2.Zero,
-                    ModContent.ProjectileType<FargowiltasSouls.Content.Projectiles.Masomode.DeathSkull>(), 0, 0f, player.whoAmI);
+                    ModContent.ProjectileType<DeathSkull>(), 0, 0f, player.whoAmI);
         }
     }
 }

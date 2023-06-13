@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.ModPlayers;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,8 +32,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         {
             npc.defense = 0;
             npc.defDefense = 0;
-            npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().GodEater = true;
-            npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().HellFire = true;
+            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().GodEater = true;
+            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().HellFire = true;
         }
     }
 }

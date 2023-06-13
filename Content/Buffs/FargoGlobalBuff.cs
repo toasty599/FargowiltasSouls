@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Content.Buffs
             switch (type)
             {
                 case BuffID.BrokenArmor:
-                    npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().BrokenArmor = true;
+                    npc.GetGlobalNPC<FargoSoulsGlobalNPC>().BrokenArmor = true;
                     break;
 
                 //                //case BuffID.Chilled: npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Chilled = true; break;
@@ -146,11 +146,11 @@ namespace FargowiltasSouls.Content.Buffs
                     break;
 
                 case BuffID.Electrified:
-                    npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().Electrified = true;
+                    npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Electrified = true;
                     break;
 
                 case BuffID.Suffocation:
-                    npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().Suffocation = true;
+                    npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Suffocation = true;
                     break;
 
                 case BuffID.OnFire:

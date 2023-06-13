@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.ModPlayers;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -30,7 +32,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
             if (realNPC != null && realNPC.boss)
                 return;
 
-            npc.GetGlobalNPC<FargowiltasSouls.Content.NPCs.FargoSoulsGlobalNPC>().Lethargic = true;
+            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Lethargic = true;
         }
     }
 }
