@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Items.Pets
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Summons a baby shadow creature\n'Born in the darkness, molded by it'");
+            // Tooltip.SetDefault("Summons a baby shadow creature\n'Born in the darkness, molded by it'");
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

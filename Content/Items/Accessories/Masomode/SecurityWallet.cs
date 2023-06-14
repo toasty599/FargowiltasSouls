@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
@@ -9,10 +9,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Security Wallet");
-            Tooltip.SetDefault(@"Grants immunity to Midas
+            // DisplayName.SetDefault("Security Wallet");
+            /* Tooltip.SetDefault(@"Grants immunity to Midas
 Drastically improves reforges
-'Not secure against being looted off of one's corpse'");
+'Not secure against being looted off of one's corpse'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "安全钱包");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'无法保证在多人游戏中的效果'
             // 免疫点金手和偷取物品的敌人

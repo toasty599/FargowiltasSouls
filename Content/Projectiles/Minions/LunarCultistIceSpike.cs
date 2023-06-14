@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice Spike");
+            // DisplayName.SetDefault("Ice Spike");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Lighting.AddLight(Projectile.Center, 0.3f, 0.75f, 0.9f);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn, 240);
         }

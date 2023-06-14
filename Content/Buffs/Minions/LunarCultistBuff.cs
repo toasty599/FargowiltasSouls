@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Minions;
+﻿using FargowiltasSouls.Content.Projectiles.Minions;
 
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunar Cultist");
-            Description.SetDefault("The Lunar Cultist will protect you");
+            // DisplayName.SetDefault("Lunar Cultist");
+            // Description.SetDefault("The Lunar Cultist will protect you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "拜月教徒");

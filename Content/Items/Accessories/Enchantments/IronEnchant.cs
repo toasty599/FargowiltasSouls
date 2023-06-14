@@ -11,13 +11,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Iron Enchantment");
+            // DisplayName.SetDefault("Iron Enchantment");
 
             string tooltip =
 @"You attract items from a larger range
 33% chance to not consume crafting ingredients at an Iron Anvil
 'Strike while the iron is hot'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
         }
 
         protected override Color nameColor => new(152, 142, 131);

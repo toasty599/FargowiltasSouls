@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,12 +11,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skull Charm");
-            Tooltip.SetDefault(@"Grants immunity to Dazed
+            // DisplayName.SetDefault("Skull Charm");
+            /* Tooltip.SetDefault(@"Grants immunity to Dazed
 Increases damage dealt by 15% and damage taken by 10%
 Enemies are less likely to target you
 The crystal skull charges energy to attack as you attack
-'No longer in the zone'");
+'No longer in the zone'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "头骨挂坠");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'不在这个区域了'
             // 免疫眩晕

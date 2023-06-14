@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Bosses.VanillaEternity;
+﻿using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Royal Subject");
+            // DisplayName.SetDefault("Royal Subject");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "皇家工蜂");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.QueenBee];
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.scale = 0.5f;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = (int)(NPC.lifeMax * 0.7 * System.Math.Max(1.0, bossLifeScale / 2));
             NPC.damage = (int)(NPC.damage * 0.9);
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.position -= NPC.velocity / 3;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 180));
             target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             return false;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

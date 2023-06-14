@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Items.Misc;
+﻿using FargowiltasSouls.Content.Items.Misc;
 using FargowiltasSouls.Content.Items.Placables;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.NPCs.Critters
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Top Hat Squirrel");
+            // DisplayName.SetDefault("Top Hat Squirrel");
             Main.npcFrameCount[NPC.type] = 6;
             NPCID.Sets.TownCritter[NPC.type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "高顶礼帽松鼠");
@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.NPCs.Critters
             NPC.rarity = 1; //appears on lifeform analyzer
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
                 for (int k = 0; k < 20; k++)

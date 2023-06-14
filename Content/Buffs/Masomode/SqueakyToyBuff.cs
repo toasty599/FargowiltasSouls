@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Squeaky Toy");
-            Description.SetDefault("Your attacks are squeaky toys!");
+            // DisplayName.SetDefault("Squeaky Toy");
+            // Description.SetDefault("Your attacks are squeaky toys!");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "吱吱响的玩具");

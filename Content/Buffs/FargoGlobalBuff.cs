@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Buffs
 {
     internal class FargoGlobalBuff : GlobalBuff
     {
-        public override void ModifyBuffTip(int type, ref string tip, ref int rare)
+        public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
         {
             if (WorldSavingSystem.EternityMode)
             {

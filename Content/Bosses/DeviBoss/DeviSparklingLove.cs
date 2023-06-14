@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sparkling Love");
+            // DisplayName.SetDefault("Sparkling Love");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

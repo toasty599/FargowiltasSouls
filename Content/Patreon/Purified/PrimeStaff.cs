@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Content.Patreon.Purified
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Prime Staff");
-            Tooltip.SetDefault("Summons Skeletron Prime to fight for you\n'Using expert hacking skills (turning it off and on again), you've reprogrammed a terror of the night!'");
+            // DisplayName.SetDefault("Prime Staff");
+            // Tooltip.SetDefault("Summons Skeletron Prime to fight for you\n'Using expert hacking skills (turning it off and on again), you've reprogrammed a terror of the night!'");
             ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 1;
         }
 

@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Time Frozen");
-            Description.SetDefault("You are stopped in time");
+            // DisplayName.SetDefault("Time Frozen");
+            // Description.SetDefault("You are stopped in time");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = false;

@@ -11,10 +11,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Universe Core");
-            Tooltip.SetDefault(@"Crits deal 4x instead of 2x
+            // DisplayName.SetDefault("Universe Core");
+            /* Tooltip.SetDefault(@"Crits deal 4x instead of 2x
 All attacks inflict Flames of the Universe
-'Bursting with ultra-high-energy cosmic rays'");
+'Bursting with ultra-high-energy cosmic rays'"); */
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 8));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;

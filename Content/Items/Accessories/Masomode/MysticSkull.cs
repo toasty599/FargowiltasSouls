@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,13 +11,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mystic Skull");
-            Tooltip.SetDefault(@"Works in your inventory
+            // DisplayName.SetDefault("Mystic Skull");
+            /* Tooltip.SetDefault(@"Works in your inventory
 Grants immunity to Suffocation
 10% reduced magic damage
 Automatically use mana potions when needed
 Increases pickup range for mana stars
-'The quietly muttering head of a defeated foe'");
+'The quietly muttering head of a defeated foe'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神秘头骨");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败敌人的喃喃自语的脑袋'
             // 放在物品栏中即可生效

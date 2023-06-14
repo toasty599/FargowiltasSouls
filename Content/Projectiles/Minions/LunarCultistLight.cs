@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Light");
+            // DisplayName.SetDefault("Ancient Light");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 

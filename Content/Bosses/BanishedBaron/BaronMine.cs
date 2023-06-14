@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public bool BeenOutside = false;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Banished Baron's Mine");
+            // DisplayName.SetDefault("Banished Baron's Mine");
             Main.projFrames[Projectile.type] = 3;
         }
         public override void SetDefaults()

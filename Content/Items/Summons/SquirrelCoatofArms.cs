@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Squirrel Coat of Arms");
-            Tooltip.SetDefault("Summons squirrelly wrath");
+            // DisplayName.SetDefault("Squirrel Coat of Arms");
+            // Tooltip.SetDefault("Summons squirrelly wrath");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;

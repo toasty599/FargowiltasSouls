@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Geyser");
+            // DisplayName.SetDefault("Geyser");
         }
 
         public override void SetDefaults()
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.localNPCHitCooldown = 10;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire, 600);
         }

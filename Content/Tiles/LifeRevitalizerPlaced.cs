@@ -26,8 +26,8 @@ namespace FargowiltasSouls.Content.Tiles
             //TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
             TileObjectData.addTile(Type);
 
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Life Revitalizer");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Life Revitalizer");
             AddMapEntry(Color.Pink, name);
 
             AnimationFrameHeight = 54;

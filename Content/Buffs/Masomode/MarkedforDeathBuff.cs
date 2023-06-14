@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Masomode;
+﻿using FargowiltasSouls.Content.Projectiles.Masomode;
 
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Marked for Death");
-            Description.SetDefault("Just don't get hit");
+            // DisplayName.SetDefault("Marked for Death");
+            // Description.SetDefault("Just don't get hit");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
 

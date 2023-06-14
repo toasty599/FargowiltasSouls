@@ -20,22 +20,22 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
         #region Overrides
         public override void Load()
         {
-            On.Terraria.Main.CheckMonoliths += DrawToCustomRenderTargets;
-            On.Terraria.Main.DoDraw_DrawNPCsOverTiles += DrawPixelRenderTarget;
+            Terraria.On_Main.CheckMonoliths += DrawToCustomRenderTargets;
+            Terraria.On_Main.DoDraw_DrawNPCsOverTiles += DrawPixelRenderTarget;
             ResizeRenderTarget(true);
         }
 
         public override void Unload()
         {
-            On.Terraria.Main.CheckMonoliths -= DrawToCustomRenderTargets;
-            On.Terraria.Main.DoDraw_DrawNPCsOverTiles -= DrawPixelRenderTarget;
+            Terraria.On_Main.CheckMonoliths -= DrawToCustomRenderTargets;
+            Terraria.On_Main.DoDraw_DrawNPCsOverTiles -= DrawPixelRenderTarget;
         }
 
         public override void PostUpdateEverything() => ResizeRenderTarget(false);
         #endregion
 
         #region Methods
-        private void DrawPixelRenderTarget(On.Terraria.Main.orig_DoDraw_DrawNPCsOverTiles orig, Main self)
+        private void DrawPixelRenderTarget(Terraria.On_Main.orig_DoDraw_DrawNPCsOverTiles orig, Main self)
         {
             orig(self);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
             Main.spriteBatch.End();
         }
 
-        private void DrawToCustomRenderTargets(On.Terraria.Main.orig_CheckMonoliths orig)
+        private void DrawToCustomRenderTargets(Terraria.On_Main.orig_CheckMonoliths orig)
         {
             // Clear our render target from the previous frame.
             PixelPrimDrawersList.Clear();

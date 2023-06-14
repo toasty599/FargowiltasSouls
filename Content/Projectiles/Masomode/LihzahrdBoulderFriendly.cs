@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Boulder");
+            // DisplayName.SetDefault("Boulder");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

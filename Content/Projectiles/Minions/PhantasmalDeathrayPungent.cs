@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Divine Deathray");
+            // DisplayName.SetDefault("Divine Deathray");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
@@ -115,14 +115,14 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], Projectile.width * Projectile.scale, DelegateMethods.CastLight);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Confused, 300);
             if (!target.boss)
                 target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 300);
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (Projectile.ai[1] != 0f)
                 crit = true;

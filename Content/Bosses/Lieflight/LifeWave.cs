@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Wave");
+            // DisplayName.SetDefault("Life Wave");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

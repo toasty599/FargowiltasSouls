@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("True Eye of Mutant");
+            // DisplayName.SetDefault("True Eye of Mutant");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -187,7 +187,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             localAI1 = num19 + num18;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
             if (WorldSavingSystem.EternityMode)

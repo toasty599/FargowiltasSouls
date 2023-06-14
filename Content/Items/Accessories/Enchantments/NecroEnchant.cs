@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Souls;
+﻿using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -14,14 +14,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Necro Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Necro Enchantment");
+            /* Tooltip.SetDefault(
 @"Slain enemies may drop a pile of bones
 Touch a pile of bones to spawn a friendly Dungeon Guardian
 Damage scales with the defeated enemy's max HP
 Bosses will drop bones every 10% of their HP lost
 Effects of Bone Glove
-'Welcome to the bone zone'");
+'Welcome to the bone zone'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "死灵魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"击杀敌人时有几率爆出一摞骨头

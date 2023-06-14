@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Items.Placables.Trophies
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Trojan Squirrel Trophy");
+            // DisplayName.SetDefault("Trojan Squirrel Trophy");
         }
     }
 }

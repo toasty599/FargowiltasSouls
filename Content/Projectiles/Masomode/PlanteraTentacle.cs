@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Planty Tentacle");
+            // DisplayName.SetDefault("Planty Tentacle");
             Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.PlanterasTentacle];
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             //Gore.NewGore(Projectile.Center, Vector2.Zero, mod.GetGoreSlot("Assets/Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "388" : "389")), Projectile.scale);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<IvyVenomBuff>(), 240);
         }

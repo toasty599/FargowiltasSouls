@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Oceanic Ritual");
+            // DisplayName.SetDefault("Oceanic Ritual");
             Main.projFrames[Projectile.type] = 3;
         }
 
@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.frame = 0;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             base.OnHitPlayer(target, damage, crit);
 

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Fire");
+            // DisplayName.SetDefault("Eye Fire");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
         }*/
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 8;
             target.AddBuff(BuffID.CursedInferno, 600);

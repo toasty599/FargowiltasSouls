@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("The Small Sting");
-            Tooltip.SetDefault("Uses darts for ammo" +
+            // DisplayName.SetDefault("The Small Sting");
+            /* Tooltip.SetDefault("Uses darts for ammo" +
                 "\n50% chance to not consume ammo" +
                 "\nStingers will stick to enemies, hitting the same spot again will deal extra damage" +
-                "\n'Repurposed from the abdomen of a defeated foe..'");
+                "\n'Repurposed from the abdomen of a defeated foe..'"); */
         }
 
         public override void SetDefaults()

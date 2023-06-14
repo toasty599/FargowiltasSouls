@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Soul of Dimensions");
+            // DisplayName.SetDefault("Soul of Dimensions");
 
             string tooltip =
 @"Increases HP by 300
@@ -34,7 +34,7 @@ Effects of Paladin's Shield, Frozen Turtle Shell, Arctic Diving Gear, Frog Legs,
 Effects of Lava Waders, Angler Tackle Bag, Paint Sprayer, Presserator, Cell Phone, and Gravity Globe
 Effects of Shield of Cthulhu and Master Ninja Gear
 'The dimensions of Terraria at your fingertips'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 18));

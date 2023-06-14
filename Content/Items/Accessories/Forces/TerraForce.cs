@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Terra Force");
+            // DisplayName.SetDefault("Terra Force");
 
             string tooltip =
 $"[i:{ModContent.ItemType<CopperEnchant>()}][i:{ModContent.ItemType<ObsidianEnchant>()}][i:{ModContent.ItemType<LeadEnchant>()}] Attacks spawn lightning, explosions, and inflict Lead Poisoning\n" +
@@ -34,7 +34,7 @@ $"[i:{ModContent.ItemType<SilverEnchant>()}] Right Click to guard with your shie
 $"[i:{ModContent.ItemType<TungstenEnchant>()}] 300% increased sword size and projectile size every quarter second\n" +
 $"[i:{ModContent.ItemType<ObsidianEnchant>()}] Grants immunity to fire and lava\n" +
 "'The land lends its strength'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"[i:{0}][i:{6}][i:{3}] 攻击释放闪电，引发爆炸，造成铅中毒

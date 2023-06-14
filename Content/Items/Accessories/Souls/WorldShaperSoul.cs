@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("World Shaper Soul");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("World Shaper Soul");
+            /* Tooltip.SetDefault(
 @"Increased block and wall placement speed by 50%
 Near infinite block placement and mining reach
 Mining speed tripled
@@ -26,7 +26,7 @@ Grants toggleable Builder Mode:
 Effect can be disabled in Soul Toggles menu
 Effects of the Cell Phone and Royal Gel
 Summons a pet Magic Lantern
-'Limitless possibilities'");
+'Limitless possibilities'"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铸世者之魂");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             //@"增加50%物块和墙壁的放置速度

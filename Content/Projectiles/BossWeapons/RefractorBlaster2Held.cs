@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Diffractor Blaster");
+            // DisplayName.SetDefault("Diffractor Blaster");
             Main.projFrames[Projectile.type] = 7;
         }
 

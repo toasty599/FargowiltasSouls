@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Seal");
+            // DisplayName.SetDefault("Life Seal");
             base.SetStaticDefaults();
             Main.projFrames[Projectile.type] = 4;
         }
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             base.OnHitPlayer(target, damage, crit);
 

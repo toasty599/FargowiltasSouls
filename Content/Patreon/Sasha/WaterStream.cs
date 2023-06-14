@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Water Stream");
+            // DisplayName.SetDefault("Water Stream");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 

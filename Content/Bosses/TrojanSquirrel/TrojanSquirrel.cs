@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Trojan Squirrel");
+            // DisplayName.SetDefault("Trojan Squirrel");
 
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             }
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
@@ -818,7 +818,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

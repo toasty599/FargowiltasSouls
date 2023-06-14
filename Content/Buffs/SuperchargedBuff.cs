@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Supercharged");
-            Description.SetDefault("20% increased move speed, 10% increased attack speed, your attacks electrify");
+            // DisplayName.SetDefault("Supercharged");
+            // Description.SetDefault("20% increased move speed, 10% increased attack speed, your attacks electrify");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Items.Placables.MusicBoxes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Music Box (???)");
-            Tooltip.SetDefault("Sakuzyo 'rePrologue'");
+            // DisplayName.SetDefault("Music Box (???)");
+            // Tooltip.SetDefault("Sakuzyo 'rePrologue'");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 

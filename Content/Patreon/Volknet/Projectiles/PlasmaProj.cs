@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
         public override void SetStaticDefaults()
         {
 
-            DisplayName.SetDefault("Plasma Bolt");
+            // DisplayName.SetDefault("Plasma Bolt");
             //DisplayName.AddTranslation(GameCulture.Chinese, "等离子束");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.WitheredArmor, 600);
             target.AddBuff(BuffID.Electrified, 600);
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             return false;
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             float slotsUsed = 0;
 

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Patreon.Purified
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Micro Prime");
+            // DisplayName.SetDefault("Micro Prime");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;

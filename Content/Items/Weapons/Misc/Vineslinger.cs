@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.Misc
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Vineslinger");
-            Tooltip.SetDefault("Hitting an enemy fires leaves");
+            // DisplayName.SetDefault("Vineslinger");
+            // Tooltip.SetDefault("Hitting an enemy fires leaves");
         }
 
         public override void SetDefaults()

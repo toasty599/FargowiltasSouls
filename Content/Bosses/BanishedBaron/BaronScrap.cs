@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Banished Baron Scrap");
+            // DisplayName.SetDefault("Banished Baron Scrap");
         }
         public override void SetDefaults()
         {

@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Content.Patreon.Shucks
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.owner == Main.myPlayer)
                 Projectile.vampireHeal((int)Math.Round(1.0 / 0.075, MidpointRounding.AwayFromZero) + 1, Projectile.Center, target);

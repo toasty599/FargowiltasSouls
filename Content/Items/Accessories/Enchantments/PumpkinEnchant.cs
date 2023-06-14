@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Souls;
+﻿using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -13,12 +13,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Pumpkin Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Pumpkin Enchantment");
+            /* Tooltip.SetDefault(
 @"You will grow pumpkins while walking on the ground
 When fully grown, they will heal 25 HP and spawn damaging embers
 Enemies that touch them will destroy them and take damage
-'Your sudden pumpkin craving will never be satisfied'");
+'Your sudden pumpkin craving will never be satisfied'"); */
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "南瓜魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,

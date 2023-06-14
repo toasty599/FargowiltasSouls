@@ -9,9 +9,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tim's Concoction");
-            Tooltip.SetDefault(@"Certain enemies will drop potions when defeated
-'Smells funny'");
+            // DisplayName.SetDefault("Tim's Concoction");
+            /* Tooltip.SetDefault(@"Certain enemies will drop potions when defeated
+'Smells funny'"); */
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

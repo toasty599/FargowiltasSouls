@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Energy Heart");
+            // DisplayName.SetDefault("Energy Heart");
         }
 
         public override void SetDefaults()
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             Projectile.scale = 1f - Projectile.alpha / 255f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.LovestruckBuff>(), 240);
         }

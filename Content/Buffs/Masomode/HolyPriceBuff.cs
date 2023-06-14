@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Holy Price");
-            Description.SetDefault("30% decreased attack speed");
+            // DisplayName.SetDefault("Holy Price");
+            // Description.SetDefault("30% decreased attack speed");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crystal Leaf");
+            // DisplayName.SetDefault("Crystal Leaf");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.rotation = Projectile.ai[1] + (float)Math.PI / 2f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 300));
             if (WorldSavingSystem.EternityMode)

@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Dicer");
-            Tooltip.SetDefault("'A defeated foe's attack now on a string'");
+            // DisplayName.SetDefault("The Dicer");
+            // Tooltip.SetDefault("'A defeated foe's attack now on a string'");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "切肉器");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'一个被击败的敌人的攻击,用线拴着'");

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flameburst Minion");
+            // DisplayName.SetDefault("Flameburst Minion");
         }
 
         public override void SetDefaults()

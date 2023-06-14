@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snowball");
+            // DisplayName.SetDefault("Snowball");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             Projectile.position += Main.npc[(int)Projectile.ai[1]].velocity;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Chilled, 180);

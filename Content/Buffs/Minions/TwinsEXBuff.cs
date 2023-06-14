@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Twins EX");
-            Description.SetDefault("The real Twins will fight for you");
+            // DisplayName.SetDefault("Twins EX");
+            // Description.SetDefault("The real Twins will fight for you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

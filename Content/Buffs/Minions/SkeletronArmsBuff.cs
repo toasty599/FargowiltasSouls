@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skeletron Arms");
-            Description.SetDefault("The Skeletron arms will protect you");
+            // DisplayName.SetDefault("Skeletron Arms");
+            // Description.SetDefault("The Skeletron arms will protect you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "骷髅王之手");

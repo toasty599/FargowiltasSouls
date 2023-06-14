@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Content.Patreon.ManliestDove
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Fig Branch");
-            Tooltip.SetDefault("Summons a Dove companion");
+            // DisplayName.SetDefault("Fig Branch");
+            // Tooltip.SetDefault("Summons a Dove companion");
         }
 
         public override void SetDefaults()

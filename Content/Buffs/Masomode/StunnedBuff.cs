@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 
@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stunned");
-            Description.SetDefault("You're too dizzy to move");
+            // DisplayName.SetDefault("Stunned");
+            // Description.SetDefault("You're too dizzy to move");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "昏迷");

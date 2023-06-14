@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Unlucky");
-            Description.SetDefault("You are feeling pretty unlucky");
+            // DisplayName.SetDefault("Unlucky");
+            // Description.SetDefault("You are feeling pretty unlucky");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
         }

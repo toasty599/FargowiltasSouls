@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Core.Globals
         public virtual void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit) { }
 
         public virtual void SafeModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit) { }
-        public sealed override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        public sealed override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
 
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Core.Globals
         }
 
         public virtual void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) { }
-        public sealed override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public sealed override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
 
@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Core.Globals
         public virtual void OnHitByAnything(NPC npc, Player player, int damage, float knockback, bool crit) { }
 
         public virtual void SafeOnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit) { }
-        public sealed override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        public sealed override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitByItem(npc, player, item, damage, knockback, crit);
 
@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Core.Globals
         }
 
         public virtual void SafeOnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit) { }
-        public sealed override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        public sealed override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitByProjectile(npc, projectile, damage, knockback, crit);
 

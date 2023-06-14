@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Invader");
+            // DisplayName.SetDefault("Cosmic Invader");
             Main.projFrames[Projectile.type] = 4;
         }
 

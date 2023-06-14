@@ -11,9 +11,9 @@ namespace FargowiltasSouls.Content.Items.Armor
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("True Mutant Pants");
-            Tooltip.SetDefault(@"50% increased damage and 20% increased critical strike chance
-40% increased movement and melee speed");
+            // DisplayName.SetDefault("True Mutant Pants");
+            /* Tooltip.SetDefault(@"50% increased damage and 20% increased critical strike chance
+40% increased movement and melee speed"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "真·突变之胫");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"增加50%伤害和20%暴击率
             //增加40%移动和近战攻击速度

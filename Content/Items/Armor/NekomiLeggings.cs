@@ -11,9 +11,9 @@ namespace FargowiltasSouls.Content.Items.Armor
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Nekomi Leggings");
-            Tooltip.SetDefault(@"7% increased critical strike chance
-10% increased movement speed");
+            // DisplayName.SetDefault("Nekomi Leggings");
+            /* Tooltip.SetDefault(@"7% increased critical strike chance
+10% increased movement speed"); */
         }
 
         public override void SetDefaults()

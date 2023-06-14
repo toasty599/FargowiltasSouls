@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Deviantt");
+            // DisplayName.SetDefault("Deviantt");
 
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             //if (ContentModLoaded) NPC.lifeMax = (int)(NPC.lifeMax * 1.5);
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax /** 0.5f*/ * bossLifeScale);
@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             return NPC.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, NPC.Center)) < Player.defaultHeight;
         }
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */
         {
             if (target.type == ModContent.Find<ModNPC>("Fargowiltas", "Deviantt").Type
                 || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Abominationn").Type
@@ -2067,12 +2067,12 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<LovestruckBuff>(), 240);
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -2082,14 +2082,14 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             }
         }
 
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             //if (Item.melee && !ContentModLoaded) damage = (int)(damage * 1.25);
 
             ModifyHitByAnything(player, ref damage, ref knockback, ref crit);
         }
 
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             //if ((projectile.melee || projectile.minion) && !ContentModLoaded) damage = (int)(damage * 1.25);
 

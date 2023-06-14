@@ -14,11 +14,11 @@ namespace FargowiltasSouls.Content.Items.Armor
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eridanus Hat");
-            Tooltip.SetDefault(@"5% increased damage
+            // DisplayName.SetDefault("Eridanus Hat");
+            /* Tooltip.SetDefault(@"5% increased damage
 5% increased critical strike chance
 Increases your max number of minions by 4
-Increases your max number of sentries by 4");
+Increases your max number of sentries by 4"); */
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

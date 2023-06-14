@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Frost Enchantment");
+            // DisplayName.SetDefault("Frost Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰霜魔石");
 
@@ -23,7 +23,7 @@ When they hit an enemy they are inflicted with Frostbite and frozen solid
 Press the Freeze Key to chill everything for 20 seconds
 There is a 60 second cooldown for this effect
 'Let's coat the world in a deep freeze'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"你的周围会出现冰锥

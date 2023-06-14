@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rainbow Slime Spike");
+            // DisplayName.SetDefault("Rainbow Slime Spike");
         }
 
         public override void SetDefaults()
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Slimed, 120);
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.FlamesoftheUniverseBuff>(), 120);

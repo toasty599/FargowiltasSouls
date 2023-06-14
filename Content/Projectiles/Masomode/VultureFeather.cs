@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vulture Feather");
+            // DisplayName.SetDefault("Vulture Feather");
         }
 
         public override void SetDefaults()

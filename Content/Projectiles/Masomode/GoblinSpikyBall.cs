@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spiky Ball");
+            // DisplayName.SetDefault("Spiky Ball");
         }
 
         public override void SetDefaults()
@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Main.dust[dustId].noGravity = true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             Projectile.timeLeft = 0;
         }

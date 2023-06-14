@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dark Star");
+            // DisplayName.SetDefault("Dark Star");
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.velocity /= ratio;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.primeBoss, NPCID.SkeletronPrime))
                 target.AddBuff(ModContent.BuffType<NanoInjectionBuff>(), 360);

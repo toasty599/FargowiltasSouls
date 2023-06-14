@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Razorblade Typhoon");
+            // DisplayName.SetDefault("Razorblade Typhoon");
             Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.alpha = (int)(255f * (1f - Projectile.timeLeft / Projectile.localAI[1]));
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //target.immune[Projectile.owner] = 1;
             /*target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);

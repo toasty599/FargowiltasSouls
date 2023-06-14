@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/FishStickProj";
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }

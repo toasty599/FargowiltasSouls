@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -10,12 +10,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sands of Time");
-            Tooltip.SetDefault(@"Works in your inventory
+            // DisplayName.SetDefault("Sands of Time");
+            /* Tooltip.SetDefault(@"Works in your inventory
 Grants immunity to Mighty Wind
 You respawn twice as fast when no boss is alive
 Use to teleport to your last death point
-'Whatever you do, don't drop it'");
+'Whatever you do, don't drop it'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "时之沙");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'无论你做什么,都不要丢下它'
             // 放在物品栏中即可生效
@@ -75,7 +75,7 @@ Use to teleport to your last death point
                     player.Teleport(player.lastDeathPostion, 1);
                     player.velocity = Vector2.Zero;
                     if (Main.netMode == NetmodeID.MultiplayerClient)
-                        NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, player.lastDeathPostion.X, player.lastDeathPostion.Y, 1);
+                        NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, player.lastDeathPostion.X, player.lastDeathPostion.Y, 1);
                 }
 
                 for (int index = 0; index < 70; ++index)

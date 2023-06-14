@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Timber Explosion");
+            // DisplayName.SetDefault("Timber Explosion");
         }
 
         public override void SetDefaults()

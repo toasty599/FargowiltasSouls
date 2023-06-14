@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Content.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abominationn's Curse");
-            Tooltip.SetDefault("Must be used on the surface");
+            // DisplayName.SetDefault("Abominationn's Curse");
+            // Tooltip.SetDefault("Must be used on the surface");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 10));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;

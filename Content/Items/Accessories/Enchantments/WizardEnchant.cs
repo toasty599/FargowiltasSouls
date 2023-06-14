@@ -13,10 +13,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Wizard Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Wizard Enchantment");
+            /* Tooltip.SetDefault(
 @"Enhances the power of all other Enchantments to their Force effects
-'I'm a what?'");
+'I'm a what?'"); */
         }
 
         protected override Color nameColor => new(50, 80, 193);

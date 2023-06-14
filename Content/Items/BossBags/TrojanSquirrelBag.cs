@@ -1,7 +1,10 @@
-﻿using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
+﻿using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
+using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
+using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,38 +14,26 @@ namespace FargowiltasSouls.Content.Items.BossBags
     {
         protected override bool IsPreHMBag => true;
 
-        public override int BossBagNPC => ModContent.NPCType<TrojanSquirrel>();
-
-        public override void OpenBossBag(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<BoxofGizmos>());
-
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), Main.rand.Next(new int[] {
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoxofGizmos>()));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<TrojanSquirrel>()));
+            itemLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 5));
+            itemLoot.Add(ItemDropRule.Common(ItemID.WoodenCrate, 1, 5, 5));
+            itemLoot.Add(ItemDropRule.Common(ItemID.HerbBag, 1, 5, 5));
+            itemLoot.Add(ItemDropRule.Common(ItemID.Acorn, 1, 100, 100));
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, new int[]
+            {
+                ItemID.Squirrel,
+                ItemID.SquirrelRed
+            }));
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, new int[]
+            {
                 ModContent.ItemType<TreeSword>(),
                 ModContent.ItemType<MountedAcornGun>(),
                 ModContent.ItemType<SnowballStaff>(),
                 ModContent.ItemType<KamikazeSquirrelStaff>()
             }));
-
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), Main.rand.Next(new int[] {
-                ItemID.Squirrel,
-                ItemID.SquirrelRed,
-                //ItemID.SquirrelGold,
-                //ItemID.GemSquirrelAmber,
-                //ItemID.GemSquirrelAmethyst,
-                //ItemID.GemSquirrelDiamond,
-                //ItemID.GemSquirrelEmerald,
-                //ItemID.GemSquirrelRuby,
-                //ItemID.GemSquirrelSapphire,
-                //ItemID.GemSquirrelTopaz
-            }));
-
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ItemID.WoodenCrate, 5);
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ItemID.HerbBag, 5);
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ItemID.Acorn, 100);
-
-            if (Main.rand.NextBool(5))
-                player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type);
         }
     }
 }

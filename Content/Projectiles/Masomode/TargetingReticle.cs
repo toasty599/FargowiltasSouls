@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Targeting Reticle");
+            // DisplayName.SetDefault("Targeting Reticle");
         }
 
         public override void SetDefaults()

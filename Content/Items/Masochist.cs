@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant's Gift");
-            Tooltip.SetDefault(@"World must be in Expert Mode
+            // DisplayName.SetDefault("Mutant's Gift");
+            /* Tooltip.SetDefault(@"World must be in Expert Mode
 [c/ff0000:Not] intended for use with Master Mode
 Toggles Eternity Mode and enables Master Mode drops
 Deviantt provides a starter pack and progress-based advice
@@ -27,7 +27,7 @@ Improves base stats
 Debuffs wear off faster when not attacking
 Cannot be used while a boss is alive
 [i:1612][c/00ff00:Recommended to use Fargo's Mutant Mod Debuff Display (in config)]
-[c/ff0000:NOT INTENDED FOR USE WITH OTHER CONTENT MODS OR MODDED DIFFICULTIES]");
+[c/ff0000:NOT INTENDED FOR USE WITH OTHER CONTENT MODS OR MODDED DIFFICULTIES]"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体的礼物");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'用开/关受虐模式'");
 

@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crystal Leaf");
+            // DisplayName.SetDefault("Crystal Leaf");
         }
 
         public override void SetDefaults()
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.tileCollide = true;
         }
 
-        public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
+        public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
             if (target.hurtCooldowns[1] == 0)
             {

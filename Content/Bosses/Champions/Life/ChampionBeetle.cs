@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle");
+            // DisplayName.SetDefault("Beetle");
             Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.BrokenArmor, 300);
             if (WorldSavingSystem.EternityMode)

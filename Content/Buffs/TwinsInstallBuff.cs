@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Twins Install");
-            Description.SetDefault("Effects of Cursed Inferno and Ichor");
+            // DisplayName.SetDefault("Twins Install");
+            // Description.SetDefault("Effects of Cursed Inferno and Ichor");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

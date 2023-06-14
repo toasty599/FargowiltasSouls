@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Items.Misc
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Top Hat Squirrel");
+            // DisplayName.SetDefault("Top Hat Squirrel");
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
         }
 

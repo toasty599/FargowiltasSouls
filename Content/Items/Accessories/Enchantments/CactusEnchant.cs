@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Souls;
+﻿using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -15,11 +15,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Cactus Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Cactus Enchantment");
+            /* Tooltip.SetDefault(
 @"While attacking you release a spray of needles
 Enemies will explode into needles on death if they are struck with your needles
-'It's the quenchiest!'");
+'It's the quenchiest!'"); */
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "仙人掌魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 

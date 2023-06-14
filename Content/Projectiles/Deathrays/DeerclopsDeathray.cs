@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Ice Beam");
+            // DisplayName.SetDefault("Ice Beam");
         }
 
         public override void SetDefaults()
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             Projectile.position -= Projectile.velocity;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Frozen, 30);
 

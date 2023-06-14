@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nature Cloud");
+            // DisplayName.SetDefault("Nature Cloud");
             Main.projFrames[Projectile.type] = 6;
         }
 
@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Wet, 300);
             if (WorldSavingSystem.EternityMode)

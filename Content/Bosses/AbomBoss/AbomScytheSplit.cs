@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abominationn Scythe");
+            // DisplayName.SetDefault("Abominationn Scythe");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

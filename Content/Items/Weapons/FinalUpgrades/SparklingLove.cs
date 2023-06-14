@@ -16,10 +16,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Sparkling Love");
-            Tooltip.SetDefault(@"Right click to summon the soul of Deviantt
+            // DisplayName.SetDefault("Sparkling Love");
+            /* Tooltip.SetDefault(@"Right click to summon the soul of Deviantt
 Right click pattern becomes denser with up to 12 empty minion slots
-'The soul-consuming demon axe of love and justice from a defeated foe...'");
+'The soul-consuming demon axe of love and justice from a defeated foe...'"); */
         }
 
         public override void SetDefaults()

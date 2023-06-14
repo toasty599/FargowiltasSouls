@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wall of Flesh Reticle");
+            // DisplayName.SetDefault("Wall of Flesh Reticle");
         }
 
         public override void SetDefaults()

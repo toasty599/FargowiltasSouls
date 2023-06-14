@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mech Flail");
+            // DisplayName.SetDefault("Mech Flail");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.ai[0] != 1f && Projectile.owner == Main.myPlayer && Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MechEyeProjectile>()] < 60)
             {

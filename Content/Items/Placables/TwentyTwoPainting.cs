@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Items.Placables
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("22 Painting");
-            Tooltip.SetDefault("'Keuhm E. Dee'");
+            // DisplayName.SetDefault("22 Painting");
+            // Tooltip.SetDefault("'Keuhm E. Dee'");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

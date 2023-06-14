@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
 
                     Player.Teleport(teleportPos, 1);
-                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+                    NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
                     unstableCD = 60;
                 }

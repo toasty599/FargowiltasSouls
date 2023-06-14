@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -21,16 +21,16 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Force of Earth");
+            // DisplayName.SetDefault("Force of Earth");
 
-            Tooltip.SetDefault(
+            /* Tooltip.SetDefault(
 $"[i:{ModContent.ItemType<CobaltEnchant>()}] Grants an explosion jump and you explode on hit\n" +
 $"[i:{ModContent.ItemType<MythrilEnchant>()}] Stop attacking to gradually increase attack speed for up to 5 seconds\n" +
 $"[i:{ModContent.ItemType<PalladiumEnchant>()}] Grants Rapid Healing after striking an enemy and spawn life orbs based on healing\n" +
 $"[i:{ModContent.ItemType<OrichalcumEnchant>()}] Attacks spawn flower petals and damaging debuffs deal 4x damage\n" +
 $"[i:{ModContent.ItemType<AdamantiteEnchant>()}] Every weapon shot will split into 3, deal 33% damage and have 66% less iframes\n" +
 $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacks generate titanium shards, reaching max grants Titanium Shield\n" +
-"'Gaia's blessing shines upon you'");
+"'Gaia's blessing shines upon you'"); */
 
             string tooltip_ch =
 @"[i:{0}] 额外获得一次爆炸二段跳，受击时你会剧烈爆炸（译者注：大地之力只有受击爆炸效果，没有爆炸跳跃效果）

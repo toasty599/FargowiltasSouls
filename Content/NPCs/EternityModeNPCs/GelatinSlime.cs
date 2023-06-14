@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crystal Slime");
+            // DisplayName.SetDefault("Crystal Slime");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.lifeMax *= 3;
         }
 
-        public override bool? CanHitNPC(NPC target) => false;
+        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */ => false;
 
         public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             return false;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nuke");
+            // DisplayName.SetDefault("Nuke");
             Main.projFrames[Projectile.type] = 5;
         }
 

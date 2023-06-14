@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Spirit");
+            // DisplayName.SetDefault("Champion of Spirit");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "魂灵英灵");
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
@@ -58,10 +58,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
             NPC.dontTakeDamage = true;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -236,7 +236,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                         }
 
                         NPC.life = 0;
-                        NPC.StrikeNPCNoInteraction(NPC.lifeMax, 0f, 0);
+                        NPC.SimpleStrikeNPC(NPC.lifeMax, 0, noPlayerInteraction: true);
                         NPC.active = false;
                     }
                     break;
@@ -291,10 +291,9 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
             return true;
         }
 
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            damage /= 2;
-            return true;
+            modifiers.FinalDamage /= 2;
         }
 
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f)
@@ -329,7 +328,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                 NPC.velocity.Y = cap * Math.Sign(NPC.velocity.Y);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
             {

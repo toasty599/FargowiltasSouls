@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,11 +12,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wyvern Feather");
-            Tooltip.SetDefault(@"Grants immunity to Clipped Wings and Crippled
+            // DisplayName.SetDefault("Wyvern Feather");
+            /* Tooltip.SetDefault(@"Grants immunity to Clipped Wings and Crippled
 Your attacks have a 10% chance to inflict Clipped Wings on non-boss enemies
 Stabilizes gravity in space and in liquids
-'Warm to the touch'");
+'Warm to the touch'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "龙牙");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'触感温暖'
             // 免疫剪除羽翼和残疾

@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Cage");
+            // DisplayName.SetDefault("Life Cage");
         }
         public override void SetDefaults()
         {

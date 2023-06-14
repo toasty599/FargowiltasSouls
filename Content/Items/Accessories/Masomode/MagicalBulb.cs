@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -14,13 +14,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magical Bulb");
-            Tooltip.SetDefault(@"Grants immunity to Acid Venom, Ivy Venom, and Swarming
+            // DisplayName.SetDefault("Magical Bulb");
+            /* Tooltip.SetDefault(@"Grants immunity to Acid Venom, Ivy Venom, and Swarming
 Press the Magical Cleanse key to cure yourself of most debuffs on a cooldown
 Cleanse cooldown is faster when not attacking
 Increases life regeneration based on how much light you receive
 Attracts a legendary plant's offspring which flourishes in combat
-'Matricide?'");
+'Matricide?'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "魔法球茎");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'杀妈?'
             // 免疫毒液, 常春藤毒和蜂群

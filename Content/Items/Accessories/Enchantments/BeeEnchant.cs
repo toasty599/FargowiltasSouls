@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Bee Enchantment");
+            // DisplayName.SetDefault("Bee Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蜜蜂魔石");
 
@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 @"Increases the strength of friendly bees
 Melee hits and most piercing attacks spawn bees
 'According to all known laws of aviation, there is no way a bee should be able to fly'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"增加友好蜜蜂的力量

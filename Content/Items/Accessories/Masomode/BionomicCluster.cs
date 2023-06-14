@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bionomic Cluster");
-            Tooltip.SetDefault("Grants immunity to Frostburn, Shadowflame, and Squeaky Toy" +
+            // DisplayName.SetDefault("Bionomic Cluster");
+            /* Tooltip.SetDefault("Grants immunity to Frostburn, Shadowflame, and Squeaky Toy" +
                 "\nGrants immunity to Flames of the Universe, Clipped Wings, Crippled, Webbed, and Purified" +
                 "\nGrants immunity to Lovestruck, Stinky, Midas, and Hexed" +
                 "\nUse to teleport to your last death point" +
@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
                 "\n    Press the Frigid Spell key to cast Ice Rod" +
                 "\n    Right click to zoom and drastically improves reforges" +
                 "\n    Stabilizes gravity in space and in liquids" +
-                "\n'The amalgamate born of a thousand common enemies'");
+                "\n'The amalgamate born of a thousand common enemies'"); */
 
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生态集群");
             // Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "使你免疫霜冻、暗影焰、吱吱作响的玩具、愧疚、强风和窒息减益" +

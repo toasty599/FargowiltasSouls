@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pungent Gaze");
+            // DisplayName.SetDefault("Pungent Gaze");
             Main.debuff[Type] = true;
         }
 

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Masomode;
+﻿using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fused");
-            Description.SetDefault("You're going out with a bang");
+            // DisplayName.SetDefault("Fused");
+            // Description.SetDefault("You're going out with a bang");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "导火线");

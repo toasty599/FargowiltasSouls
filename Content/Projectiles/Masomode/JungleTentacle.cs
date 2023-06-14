@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Jungle Tentacle");
+            // DisplayName.SetDefault("Jungle Tentacle");
             Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.PlanterasTentacle];
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.IvyVenomBuff>(), 240);
         }

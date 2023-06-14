@@ -242,7 +242,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             dust3.noGravity = true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Electrified, 360);
         }

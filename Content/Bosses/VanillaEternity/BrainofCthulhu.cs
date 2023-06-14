@@ -291,12 +291,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return base.SafePreAI(npc);
         }
 
-        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (npc.life > 0)
                 damage *= Math.Max(0.2, Math.Sqrt((double)npc.life / npc.lifeMax));
 
-            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         public override void OnKill(NPC npc)
@@ -325,7 +325,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             npcLoot.Add(emodeRule);
         }
 
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
@@ -417,7 +417,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return result;
         }
 
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 

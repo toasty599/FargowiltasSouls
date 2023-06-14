@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Supersonic Soul");
+            // DisplayName.SetDefault("Supersonic Soul");
 
             string tooltip =
 @"Allows Supersonic running, flight, and extra mobility on ice
@@ -36,7 +36,7 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
             //免疫岩浆和坠落伤害
             //拥有飞毯效果";
 
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "超音速之魂");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 

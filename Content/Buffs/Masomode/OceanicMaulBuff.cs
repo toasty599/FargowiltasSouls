@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Core.Globals;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Oceanic Maul");
-            Description.SetDefault("Defensive stats and max life are savaged");
+            // DisplayName.SetDefault("Oceanic Maul");
+            // Description.SetDefault("Defensive stats and max life are savaged");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
 

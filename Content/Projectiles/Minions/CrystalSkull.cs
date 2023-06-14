@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crystal Skull");
+            // DisplayName.SetDefault("Crystal Skull");
             Main.projFrames[Projectile.type] = 6;
         }
 

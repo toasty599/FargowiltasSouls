@@ -1208,7 +1208,7 @@ namespace FargowiltasSouls.Content.Projectiles
             firstTickAICheckDone = true;
         }
 
-        public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
@@ -1306,7 +1306,7 @@ namespace FargowiltasSouls.Content.Projectiles
             return base.OnTileCollide(projectile, oldVelocity);
         }
 
-        public override void ModifyHitPlayer(Projectile projectile, Player target, ref int damage, ref bool crit)
+        public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
@@ -1315,7 +1315,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 damage *= 2;
         }
 
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(projectile, target, damage, knockback, crit);
 
@@ -1338,7 +1338,7 @@ namespace FargowiltasSouls.Content.Projectiles
             }
         }
 
-        public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
+        public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
         {
             if (!WorldSavingSystem.EternityMode)
                 return;

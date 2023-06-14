@@ -11,14 +11,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Forbidden Enchantment");
+            // DisplayName.SetDefault("Forbidden Enchantment");
 
             string tooltip =
 @"Double tap down to call an ancient storm to the cursor location
 Any projectiles shot through your storm gain 30% damage
 Touch it yourself to add back missing wing time
 'Walk like an Egyptian'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
         }
 
         protected override Color nameColor => new(231, 178, 28);

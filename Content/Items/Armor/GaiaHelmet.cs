@@ -14,10 +14,10 @@ namespace FargowiltasSouls.Content.Items.Armor
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Gaia Helmet");
-            Tooltip.SetDefault(@"10% increased damage
+            // DisplayName.SetDefault("Gaia Helmet");
+            /* Tooltip.SetDefault(@"10% increased damage
 5% increased critical strike chance
-Increases max number of minions and sentries by 1");
+Increases max number of minions and sentries by 1"); */
         }
 
         public override void SetDefaults()

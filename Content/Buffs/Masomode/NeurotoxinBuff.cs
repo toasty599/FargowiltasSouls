@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Neurotoxin");
-            Description.SetDefault("Your body is shutting down");
+            // DisplayName.SetDefault("Neurotoxin");
+            // Description.SetDefault("Your body is shutting down");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

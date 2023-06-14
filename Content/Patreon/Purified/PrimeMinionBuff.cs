@@ -6,8 +6,8 @@ namespace FargowiltasSouls.Content.Patreon.Purified
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Prime");
-            Description.SetDefault("Skeletron Prime will fight for you");
+            // DisplayName.SetDefault("Mini Prime");
+            // Description.SetDefault("Skeletron Prime will fight for you");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }

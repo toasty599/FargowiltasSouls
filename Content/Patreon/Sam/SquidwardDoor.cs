@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Patreon.Sam
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("'After you Mr. Squidward'");
+            // Tooltip.SetDefault("'After you Mr. Squidward'");
         }
 
         public override void SetDefaults()

@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant Sickle");
+            // DisplayName.SetDefault("Mutant Sickle");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             return false;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);

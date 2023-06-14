@@ -11,11 +11,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Tiki Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Tiki Enchantment");
+            /* Tooltip.SetDefault(
 @"Increases whip range by 20%
 Whip your summons to make them work harder
-'Aku Aku!'");
+'Aku Aku!'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "提基魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"在召唤栏用光后你仍可以召唤临时的哨兵和仆从

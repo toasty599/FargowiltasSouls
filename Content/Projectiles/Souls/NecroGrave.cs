@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Necro Grave");
+            // DisplayName.SetDefault("Necro Grave");
         }
 
         public override void SetDefaults()

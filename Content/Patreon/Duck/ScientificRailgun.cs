@@ -11,11 +11,11 @@ namespace FargowiltasSouls.Content.Patreon.Duck
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Scientific Railgun");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Scientific Railgun");
+            /* Tooltip.SetDefault(
 @"Uses coins for ammo
 Higher valued coins do more damage
-'Particular and specific'");
+'Particular and specific'"); */
         }
 
         public override void SetDefaults()

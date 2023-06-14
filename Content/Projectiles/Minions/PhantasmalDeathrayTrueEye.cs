@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Phantasmal Deathray");
+            // DisplayName.SetDefault("Phantasmal Deathray");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
@@ -118,12 +118,12 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], Projectile.width * Projectile.scale, DelegateMethods.CastLight);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             crit = true;
         }

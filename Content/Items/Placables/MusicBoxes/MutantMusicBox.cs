@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Items.Placables.MusicBoxes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Music Box (Mutant)");
-            Tooltip.SetDefault("Sakuzyo 'Steel Red'");
+            // DisplayName.SetDefault("Music Box (Mutant)");
+            // Tooltip.SetDefault("Sakuzyo 'Steel Red'");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 

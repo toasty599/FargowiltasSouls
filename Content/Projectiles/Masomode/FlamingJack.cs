@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flaming Jack");
+            // DisplayName.SetDefault("Flaming Jack");
             Main.projFrames[Projectile.type] = 3;
         }
 
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 600);
             target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 600);

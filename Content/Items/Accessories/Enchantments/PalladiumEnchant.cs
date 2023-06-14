@@ -14,11 +14,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Palladium Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Palladium Enchantment");
+            /* Tooltip.SetDefault(
 @"Briefly increases life regeneration after striking an enemy
 You spawn an orb of damaging life energy every 80 life regenerated
-'You feel your wounds slowly healing'");
+'You feel your wounds slowly healing'"); */
         }
 
         protected override Color nameColor => new(245, 172, 40);

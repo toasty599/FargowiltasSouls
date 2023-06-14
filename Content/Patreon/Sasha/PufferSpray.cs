@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("PufferSpray");
+            // DisplayName.SetDefault("PufferSpray");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
             Main.dust[dustId].noGravity = true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 7;
         }

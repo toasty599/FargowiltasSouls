@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bite-size Baron");
-            Description.SetDefault("EX form not included");
+            // DisplayName.SetDefault("Bite-size Baron");
+            // Description.SetDefault("EX form not included");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }

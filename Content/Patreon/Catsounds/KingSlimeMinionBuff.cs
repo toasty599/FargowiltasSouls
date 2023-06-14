@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Patreon.Catsounds
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini King Slime");
-            Description.SetDefault("This Mini King Slime will protect you");
+            // DisplayName.SetDefault("Mini King Slime");
+            // Description.SetDefault("This Mini King Slime will protect you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Love Ray");
+            // DisplayName.SetDefault("Love Ray");
         }
 
         public override void AI()
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.LovestruckBuff>(), 240);
         }

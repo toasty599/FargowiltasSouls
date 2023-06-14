@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantasmal Bolt");
+            // DisplayName.SetDefault("Phantasmal Bolt");
             Main.projFrames[Projectile.type] = 5;
         }
 
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 360);
         }

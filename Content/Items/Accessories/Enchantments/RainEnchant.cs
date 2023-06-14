@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Rain Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Rain Enchantment");
+            /* Tooltip.SetDefault(
 @"Grants immunity to Wet
 Spawns a miniature storm that follows your cursor
 It only attacks if there is a clear line of sight between you
 Effects of Inner Tube
-'Come again some other day'");
+'Come again some other day'"); */
         }
 
         protected override Color nameColor => new(255, 236, 0);

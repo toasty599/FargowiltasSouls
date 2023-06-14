@@ -525,7 +525,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Gold"))
                 Player.hasLuckyCoin = true;
             //discount card
-            Player.discount = true;
+            Player.discountAvailable = true;
             //midas
             GoldEnchantActive = true;
 
@@ -960,7 +960,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 FargoSoulsUtil.GrossVanillaDodgeDust(Player);
                 Player.Teleport(teleportPos, 1);
                 FargoSoulsUtil.GrossVanillaDodgeDust(Player);
-                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+                NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
                 Player.velocity.X = 12f * direction;
                 if (Main.netMode == NetmodeID.MultiplayerClient)

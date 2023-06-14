@@ -1,4 +1,4 @@
-
+﻿
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant Fang");
-            Description.SetDefault("The power of Eternity Mode compels you");
+            // DisplayName.SetDefault("Mutant Fang");
+            // Description.SetDefault("The power of Eternity Mode compels you");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变毒牙");
             //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒模式的力量压迫着你");
             Main.debuff[Type] = true;

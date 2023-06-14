@@ -14,10 +14,10 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Moon Blast");
+            // DisplayName.SetDefault("Moon Blast");
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))

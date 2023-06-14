@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lost Soul");
+            // DisplayName.SetDefault("Lost Soul");
             ProjectileID.Sets.TrailingMode[Type] = 1;
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
         }
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             CooldownSlot = 1;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.HexedBuff>(), 240);
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.ReverseManaFlowBuff>(), 600);

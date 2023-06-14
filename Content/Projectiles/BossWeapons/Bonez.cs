@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bonez");
+            // DisplayName.SetDefault("Bonez");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.rotation += 0.4f * System.Math.Sign(Projectile.velocity.X);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.owner == Main.myPlayer)
             {

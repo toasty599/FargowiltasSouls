@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Baby Guardian");
+            // DisplayName.SetDefault("Baby Guardian");
         }
 
         public override void SetDefaults()
@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
             target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);

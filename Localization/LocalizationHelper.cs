@@ -9,6 +9,7 @@ using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Summons;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Patreon.DemonKing;
 using FargowiltasSouls.Content.Patreon.LaBonez;
@@ -35,9 +36,9 @@ namespace FargowiltasSouls
 
             void Add(string key, string message)
             {
-                ModTranslation text = LocalizationLoader.CreateTranslation(Instance, key);
-                text.SetDefault(message);
-                LocalizationLoader.AddTranslation(text);
+                LocalizedText text = Language.GetOrRegister(Instance, key);
+                // text.SetDefault(message);
+                LocalizationLoader.AddTranslation(text)/* tModPorter Note: Removed. Use Language.GetOrRegister */;
             }
 
             void AddBossSpawnInfo(string bossName, string spawnInfo)
@@ -47,9 +48,9 @@ namespace FargowiltasSouls
 
             void AddToggle(string toggle, int item, string color = "ffffff")
             {
-                ModTranslation text = LocalizationLoader.CreateTranslation(Instance, toggle);
-                text.SetDefault($"[i:{item}] [c/{color}:{{$Mods.{Name}.Toggler.{toggle}}}]");
-                LocalizationLoader.AddTranslation(text);
+                LocalizedText text = Language.GetOrRegister(Instance, toggle);
+                // text.SetDefault($"[i:{item}] [c/{color}:{{$Mods.{Name}.Toggler.{toggle}}}]");
+                LocalizationLoader.AddTranslation(text)/* tModPorter Note: Removed. Use Language.GetOrRegister */;
             }
 
             #endregion helpers

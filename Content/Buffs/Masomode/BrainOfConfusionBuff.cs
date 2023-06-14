@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cerebral Mindbreak");
-            Description.SetDefault("30% decreased damage dealt");
+            // DisplayName.SetDefault("Cerebral Mindbreak");
+            // Description.SetDefault("30% decreased damage dealt");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

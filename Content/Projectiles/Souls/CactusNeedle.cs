@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cactus Needle");
+            // DisplayName.SetDefault("Cactus Needle");
         }
 
         public override void SetDefaults()
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             //}
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.timeLeft = 0;
 

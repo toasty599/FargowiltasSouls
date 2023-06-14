@@ -13,14 +13,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Silver Enchantment");
+            // DisplayName.SetDefault("Silver Enchantment");
 
             string tooltip =
 @"Right Click to guard with your shield
 Guard just before being hit to parry and negate damage
 Parry blocks up to 100 damage
 'Reflection'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
         }
 
         protected override Color nameColor => new(180, 180, 204);

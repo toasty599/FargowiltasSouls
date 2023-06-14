@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Enchanted Lightblade");
+            // DisplayName.SetDefault("Enchanted Lightblade");
             Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -142,7 +142,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             Projectile.rotation += rotspeed;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);

@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Phantasmal Deathray");
+            // DisplayName.SetDefault("Phantasmal Deathray");
         }
 
         public override bool? CanDamage()

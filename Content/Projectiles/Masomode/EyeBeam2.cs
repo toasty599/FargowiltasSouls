@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Beam");
+            // DisplayName.SetDefault("Eye Beam");
         }
 
         public override void SetDefaults()
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             AIType = ProjectileID.EyeBeam;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 300);
             NPC npc = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);

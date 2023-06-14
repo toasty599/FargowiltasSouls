@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,11 +11,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Platinum Enchantment");
+            // DisplayName.SetDefault("Platinum Enchantment");
             string tooltip =
 @"20% chance for enemies to drop 5x loot
 'Its value is immeasurable'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铂金魔石");
             //             string tooltip_ch = 

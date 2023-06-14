@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rush Job");
-            Description.SetDefault("The Nurse cannot heal you again yet");
+            // DisplayName.SetDefault("Rush Job");
+            // Description.SetDefault("The Nurse cannot heal you again yet");
             Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

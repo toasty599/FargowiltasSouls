@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Patreon.DevAesthetic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dev Rocket");
+            // DisplayName.SetDefault("Dev Rocket");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 24;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Content.Patreon.DevAesthetic
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.timeLeft = 0;
             if (Projectile.localAI[1] == 0)

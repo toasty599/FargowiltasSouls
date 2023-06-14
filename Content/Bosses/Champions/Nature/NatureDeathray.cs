@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Nature Deathray");
+            // DisplayName.SetDefault("Nature Deathray");
         }
 
         public override void AI()
@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             Projectile.position += new Vector2(14 * npc.spriteDirection, 28).RotatedBy(npc.rotation);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

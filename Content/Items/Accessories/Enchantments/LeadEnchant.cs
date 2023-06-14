@@ -11,14 +11,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Lead Enchantment");
+            // DisplayName.SetDefault("Lead Enchantment");
 
             string tooltip =
 @"You take 40% less from damage over time
 Attacks inflict enemies with Lead Poisoning
 Lead Poisoning deals damage over time and spreads to nearby enemies
 'Not recommended for eating'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
         }
 
         protected override Color nameColor => new(67, 69, 88);

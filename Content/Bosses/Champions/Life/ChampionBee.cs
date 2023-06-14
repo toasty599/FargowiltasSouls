@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bee");
+            // DisplayName.SetDefault("Bee");
             Main.projFrames[Projectile.type] = 4;
         }
 
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.BrokenArmor, 300);
             if (WorldSavingSystem.EternityMode)

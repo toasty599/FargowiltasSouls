@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Void");
+            // DisplayName.SetDefault("Void");
         }
 
         public override void SetDefaults()

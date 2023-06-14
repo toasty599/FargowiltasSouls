@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
             return true;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
             //target.AddBuff(BuffID.WitheredWeapon, 600);

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Fire");
+            // DisplayName.SetDefault("Eye Fire");
         }
 
         public override void SetDefaults()
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Main.rand.NextBool(6))
                 target.AddBuff(39, 480, true);

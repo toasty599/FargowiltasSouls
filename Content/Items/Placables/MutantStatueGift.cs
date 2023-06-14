@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Items.Placables
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Mutant Statue (Gift)");
+            // DisplayName.SetDefault("Mutant Statue (Gift)");
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

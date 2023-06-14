@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Brain of Cthulhu");
+            // DisplayName.SetDefault("Brain of Cthulhu");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "克苏鲁之脑");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.BrainofCthulhu];
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             return NPC.alpha == 0;
         }
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */
         {
             return NPC.alpha == 0;
         }
@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.MasochistModeReal)
             {
@@ -150,7 +150,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

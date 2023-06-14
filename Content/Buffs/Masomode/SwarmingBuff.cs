@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Swarming");
-            Description.SetDefault("Hornets are attacking from every direction!");
+            // DisplayName.SetDefault("Swarming");
+            // Description.SetDefault("Hornets are attacking from every direction!");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蜂群");
             //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "黄蜂正从四面八方向你发起进攻!");
             Main.debuff[Type] = true;

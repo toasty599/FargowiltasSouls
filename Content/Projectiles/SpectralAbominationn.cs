@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectral Abominationn");
+            // DisplayName.SetDefault("Spectral Abominationn");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
@@ -205,7 +205,7 @@ namespace FargowiltasSouls.Content.Projectiles
             scytheRotation += 0.5f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 0;
             //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);

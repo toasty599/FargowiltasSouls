@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Horseman's Blade");
+            // DisplayName.SetDefault("The Horseman's Blade");
         }
 
         public override void SetDefaults()
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.rotation += Projectile.velocity.Length() / (Projectile.velocity.X > 0 ? 30f : -30f);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 600);
             target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 600);

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dash");
+            // DisplayName.SetDefault("Dash");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Projectiles
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.BetsysCurse, 20 * 60);
 

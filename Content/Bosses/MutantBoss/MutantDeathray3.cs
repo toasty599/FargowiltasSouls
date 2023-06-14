@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Blazing Deathray");
+            // DisplayName.SetDefault("Blazing Deathray");
         }
 
         public override void SetDefaults()
@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             //if (Projectile.localAI[0] == maxTime - 1) Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 0;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

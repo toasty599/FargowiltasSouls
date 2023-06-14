@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Retiray telegraph");
+            // DisplayName.SetDefault("Retiray telegraph");
         }
 
         public override void SetDefaults()

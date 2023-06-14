@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sparkling Love");
+            // DisplayName.SetDefault("Sparkling Love");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<BerserkedBuff>(), 240);
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 240);

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Abominationn Seal");
+            // DisplayName.SetDefault("Abominationn Seal");
         }
 
         protected override void Movement(NPC npc)
@@ -39,17 +39,15 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             return new Color(255, 255, 0, 0) * Projectile.Opacity * (targetPlayer == Main.myPlayer ? 1f : 0.15f);
         }
 
-        public override void OnHitPlayer(Player player, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            base.OnHitPlayer(player, damage, crit);
-
             if (WorldSavingSystem.EternityMode)
             {
-                player.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
+                target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 //player.AddBuff(ModContent.BuffType<Unstable>(), 240);
-                player.AddBuff(ModContent.BuffType<Buffs.Masomode.BerserkedBuff>(), 120);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.BerserkedBuff>(), 120);
             }
-            player.AddBuff(BuffID.Bleeding, 600);
+            target.AddBuff(BuffID.Bleeding, 600);
         }
     }
 }

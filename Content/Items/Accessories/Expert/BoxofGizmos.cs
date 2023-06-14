@@ -7,11 +7,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Box of Gizmos");
-            Tooltip.SetDefault(@"Works in your inventory
+            // DisplayName.SetDefault("Box of Gizmos");
+            /* Tooltip.SetDefault(@"Works in your inventory
 Stand still to expose nearby treasure
 Grants autofire to all items
-Slightly reduces use speed of affected items");
+Slightly reduces use speed of affected items"); */
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         public override string Texture => "FargowiltasSouls/Content/Bosses/Lieflight/LifeProjLarge";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cross");
+            // DisplayName.SetDefault("Cross");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             }
             Projectile.ai[0] += 1f;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);

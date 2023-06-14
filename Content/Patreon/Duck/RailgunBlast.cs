@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Patreon.Duck
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Railgun Blast");
+            // DisplayName.SetDefault("Railgun Blast");
         }
 
         public override void SetDefaults()
@@ -177,7 +177,7 @@ namespace FargowiltasSouls.Content.Patreon.Duck
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 12;
             target.AddBuff(BuffID.Electrified, 600);

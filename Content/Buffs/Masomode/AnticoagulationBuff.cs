@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Core.Globals;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Anticoagulation");
-            Description.SetDefault("Losing life, shed blood when hurt, enemies will drink it and grow stronger");
+            // DisplayName.SetDefault("Anticoagulation");
+            // Description.SetDefault("Losing life, shed blood when hurt, enemies will drink it and grow stronger");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "凝血失效");
             //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "生命流失，受伤时鲜血四溅，敌怪会吸收你溅出的鲜血并变得更强");
 

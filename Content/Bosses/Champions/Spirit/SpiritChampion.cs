@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Spirit");
+            // DisplayName.SetDefault("Champion of Spirit");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "魂灵英灵");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
             NPC.alpha = 255;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
@@ -919,7 +919,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                 NPC.velocity.Y = cap * Math.Sign(NPC.velocity.Y);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
             {
@@ -951,7 +951,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0 && NPC.localAI[3] == 2)
             {

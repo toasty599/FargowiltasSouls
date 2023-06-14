@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zenith");
+            // DisplayName.SetDefault("Zenith");
             Main.projFrames[Projectile.type] = 11;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -159,7 +159,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.alpha = 0;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             for (int i = 0; i < 30; i++)
             {

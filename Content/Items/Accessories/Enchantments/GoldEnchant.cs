@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Gold Enchantment");
+            // DisplayName.SetDefault("Gold Enchantment");
             string tooltip =
 @"Your attacks inflict Midas
 Automatically sends coins to your piggy bank when picked up
@@ -20,7 +20,7 @@ You will not be able to move or attack, but will be immune to all damage
 Press again to exit early
 Effects of Greedy Ring
 'Gold makes the world go round'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //             attacks spawn coins, collect them to reduce cooldown?
 

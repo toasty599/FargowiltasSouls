@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantasmal Sphere");
+            // DisplayName.SetDefault("Phantasmal Sphere");
             Main.projFrames[Projectile.type] = 2;
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
         public bool PlayedSound = false;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Enchanted Lifeblade");
+            // DisplayName.SetDefault("Enchanted Lifeblade");
             Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;

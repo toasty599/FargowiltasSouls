@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lesser Fairy");
+            // DisplayName.SetDefault("Lesser Fairy");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "小精灵");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Pixie];
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.PurifiedBuff>(), 300);
@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

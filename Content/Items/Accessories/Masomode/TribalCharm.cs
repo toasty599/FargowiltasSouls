@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs;
+﻿using FargowiltasSouls.Content.Buffs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tribal Charm");
-            Tooltip.SetDefault(@"When attacking by manually clicking, increases non-summon damage by 30%
+            // DisplayName.SetDefault("Tribal Charm");
+            /* Tooltip.SetDefault(@"When attacking by manually clicking, increases non-summon damage by 30%
 Grants immunity to Webbed and Purified
 Grants autofire to all weapons (this effect also works in your inventory)
-'An idol of the ancient jungle dwellers'");
+'An idol of the ancient jungle dwellers'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "部落挂坠");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'远古丛林居民的偶像'
             // 免疫织网和净化

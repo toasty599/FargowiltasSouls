@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sky Dragon's Fury");
+            // DisplayName.SetDefault("Sky Dragon's Fury");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.Electrosphere];
         }
 
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.velocity += Projectile.velocity.RotatedBy(Math.PI / 2) / ai0 * Projectile.velocity.Length();
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             //target.AddBuff(BuffID.OnFire, 600);
             //target.AddBuff(BuffID.Ichor, 600);

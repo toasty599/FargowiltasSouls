@@ -145,7 +145,7 @@ namespace FargowiltasSouls.Core.Globals
             return true;
         }
 
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
             {
@@ -1184,7 +1184,7 @@ namespace FargowiltasSouls.Core.Globals
             //}
         }
 
-        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
+        public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
         {
             if (WorldSavingSystem.EternityMode && BeetleOffenseAura)
             {
@@ -1192,7 +1192,7 @@ namespace FargowiltasSouls.Core.Globals
             }
         }
 
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             //ModifyHitByEither(npc, player, ref damage, ref knockback, ref crit);
 
@@ -1203,7 +1203,7 @@ namespace FargowiltasSouls.Core.Globals
             }
         }
 
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             Player player = Main.player[projectile.owner];
 
@@ -1216,7 +1216,7 @@ namespace FargowiltasSouls.Core.Globals
             }
         }
 
-        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (WorldSavingSystem.EternityMode)
             {
@@ -1231,7 +1231,7 @@ namespace FargowiltasSouls.Core.Globals
             }
 
             //normal damage calc
-            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         //make aura enemies display them one day(tm)

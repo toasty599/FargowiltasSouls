@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snowball");
+            // DisplayName.SetDefault("Snowball");
         }
 
         public override void SetDefaults()
@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             Projectile.velocity.Y += Projectile.ai[0];
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Chilled, 60);
         }

@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Accursed Sarcophagus");
+            // DisplayName.SetDefault("Accursed Sarcophagus");
             Main.projFrames[Projectile.type] = 5;
             Main.projPet[Projectile.type] = true;
         }

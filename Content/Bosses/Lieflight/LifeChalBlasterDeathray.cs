@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Holy Deathray");
+            // DisplayName.SetDefault("Holy Deathray");
         }
 
         public override bool? CanDamage() => Projectile.scale >= 1f;
@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

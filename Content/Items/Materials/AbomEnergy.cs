@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abominable Energy");
+            // DisplayName.SetDefault("Abominable Energy");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 5));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;

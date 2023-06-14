@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("The Regurgitator");
-            Tooltip.SetDefault("'The enslaved face of a defeated foe...'");
+            // DisplayName.SetDefault("The Regurgitator");
+            // Tooltip.SetDefault("'The enslaved face of a defeated foe...'");
         }
 
         public override void SetDefaults()

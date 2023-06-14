@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Styx Gazer");
+            // DisplayName.SetDefault("Styx Gazer");
         }
 
         public override void SetDefaults()
@@ -177,7 +177,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return null;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.localNPCImmunity[target.whoAmI]++;
 

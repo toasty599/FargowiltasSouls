@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Squirrel Hook");
+            // DisplayName.SetDefault("Squirrel Hook");
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 4800;
         }
 

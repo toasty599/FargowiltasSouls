@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,12 +11,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Essences
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Occultist's Essence");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Occultist's Essence");
+            /* Tooltip.SetDefault(
 @"18% increased summon damage
 Increases your max number of minions by 1
 Increases your max number of sentries by 1
-'This is only the beginning..'");
+'This is only the beginning..'"); */
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "术士精华");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,

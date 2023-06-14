@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Critters
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Squirrel's Judgement");
+            // DisplayName.SetDefault("Squirrel's Judgement");
         }
 
         public override void SetDefaults()

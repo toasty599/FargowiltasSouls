@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Will Deathray");
+            // DisplayName.SetDefault("Will Deathray");
         }
 
         public override bool? CanDamage()
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

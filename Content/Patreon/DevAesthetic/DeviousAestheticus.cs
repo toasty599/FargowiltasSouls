@@ -11,10 +11,10 @@ namespace FargowiltasSouls.Content.Patreon.DevAesthetic
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Devious Aestheticus");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Devious Aestheticus");
+            /* Tooltip.SetDefault(
 @"Shot spread scales with up to 6 empty minion slots
-'If you're seeing this, You've been in a coma for 20 years, I don't know where this message will be, but please wake up'");
+'If you're seeing this, You've been in a coma for 20 years, I don't know where this message will be, but please wake up'"); */
         }
 
         public override void SetDefaults()

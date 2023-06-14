@@ -11,11 +11,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Orichalcum Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Orichalcum Enchantment");
+            /* Tooltip.SetDefault(
 @"Flower petals will cause extra damage to your target and inflict Orichalcum Poison
 Damaging debuffs deal 2.5x damage
-'Nature blesses you'");
+'Nature blesses you'"); */
         }
 
         protected override Color nameColor => new(235, 50, 145);

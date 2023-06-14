@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eridanus, Champion of Cosmos");
+            // DisplayName.SetDefault("Eridanus, Champion of Cosmos");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "厄里达诺斯, 宇宙英灵");
 
             Main.npcFrameCount[NPC.type] = 9;
@@ -112,10 +112,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             NPC.trapImmune = true;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             //NPC.damage = (int)(FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f * 0.5f));
-            NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -1747,7 +1747,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
             {
@@ -1758,14 +1758,13 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             }
         }
 
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
             if (WorldSavingSystem.EternityMode)
-                damage *= 0.9;
-            return true;
+                modifiers.FinalDamage *= 0.9f;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

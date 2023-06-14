@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Light Bomb");
+            // DisplayName.SetDefault("Light Bomb");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

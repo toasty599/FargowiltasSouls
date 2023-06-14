@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dash");
-            Description.SetDefault("You're moving at high speed!");
+            // DisplayName.SetDefault("Dash");
+            // Description.SetDefault("You're moving at high speed!");
             //Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

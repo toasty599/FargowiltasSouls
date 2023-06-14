@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chalice of the Moon");
-            Tooltip.SetDefault(@"Grants immunity to Venom, Ivy Venom, Burning, Fused, Low Ground, and Marked for Death
+            // DisplayName.SetDefault("Chalice of the Moon");
+            /* Tooltip.SetDefault(@"Grants immunity to Venom, Ivy Venom, Burning, Fused, Low Ground, and Marked for Death
 Grants immunity to Swarming, Atrophied, Jammed, Reverse Mana Flow, and Antisocial
 Press the Magical Cleanse key to cure yourself of most debuffs
 Increases life regeneration based on how much light you receive
@@ -23,7 +23,7 @@ Fastfall will create a fiery eruption on impact after falling a certain distance
 When you land after a jump, you create a burst of boulders
 You fire additional attacks depending on weapon type and erupt into Ancient Visions when injured
 Summons a friendly Cultist and plant to fight at your side
-'Consume it'");
+'Consume it'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "月之杯");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"月亮的微笑
             // 免疫毒液, 常春藤毒, 燃烧, 导火线, 低地和死亡标记

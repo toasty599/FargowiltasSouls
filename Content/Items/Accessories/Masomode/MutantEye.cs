@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Minions;
+﻿using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -14,15 +14,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant Eye");
-            Tooltip.SetDefault(@"Grants immunity to Mutant Fang
+            // DisplayName.SetDefault("Mutant Eye");
+            /* Tooltip.SetDefault(@"Grants immunity to Mutant Fang
 25% increased graze bonus damage cap
 Upgrades Sparkling Adoration hearts to love rays
 Increases damage gained per graze
 Increases Spectral Abominationn respawn rate and damage
 Press the Bomb key to unleash a wave of spheres and destroy most hostile projectiles
 Mutant Bomb has a 60 second cooldown
-'Only a little suspicious'");
+'Only a little suspicious'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变者之眼");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'有点可疑'
             // 擦弹增加暴击伤害的上限增加50%

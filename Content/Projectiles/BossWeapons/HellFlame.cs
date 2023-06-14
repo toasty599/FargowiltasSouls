@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override string Texture => "Terraria/Images/Projectile_687";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Flame");
+            // DisplayName.SetDefault("Hell Flame");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             hitbox.Height += 60;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 5;
             target.AddBuff(BuffID.OnFire, 180, false);

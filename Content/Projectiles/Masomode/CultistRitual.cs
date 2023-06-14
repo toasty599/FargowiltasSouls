@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Cultist Ritual");
+            // DisplayName.SetDefault("Cultist Ritual");
             Main.projFrames[Projectile.type] = 2;
         }
 
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.hide = true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             base.OnHitPlayer(target, damage, crit);
 

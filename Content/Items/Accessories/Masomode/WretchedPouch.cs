@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,13 +12,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wretched Pouch");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Wretched Pouch");
+            /* Tooltip.SetDefault(
 @"Grants immunity to Shadowflame
 While attacking, increases damage by 120% but reduces damage reduction by 20% and massively decreases movement
 While attacking, shadowflame tentacles lash out at nearby enemies
 Attack speed bonuses are half as effective
-'The accursed incendiary powder of a defeated foe'");
+'The accursed incendiary powder of a defeated foe'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "诅咒袋子");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人的诅咒燃烧炸药'
             // 免疫暗影烈焰

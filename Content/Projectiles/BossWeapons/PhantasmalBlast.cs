@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantasmal Blast");
+            // DisplayName.SetDefault("Phantasmal Blast");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
         }
 
@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return Projectile.frame < 4;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
             target.immune[Projectile.owner] = 1;

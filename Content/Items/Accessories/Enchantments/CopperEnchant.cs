@@ -15,10 +15,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Copper Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Copper Enchantment");
+            /* Tooltip.SetDefault(
 @"Crits have a chance to shock enemies with chain lightning
-'Behold'");
+'Behold'"); */
         }
 
         protected override Color nameColor => new(213, 102, 23);

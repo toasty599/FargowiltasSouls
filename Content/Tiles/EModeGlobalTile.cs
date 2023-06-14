@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Content.Tiles
                     }
                     else
                     {
-                        NetMessage.SendData(MessageID.SpawnBoss, -1, -1, null, p, -1f);
+                        NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, -1, -1, null, p, -1f);
                     }
                 }
             }

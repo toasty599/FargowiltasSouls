@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Big Brain Buster");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Big Brain Buster");
+            /* Tooltip.SetDefault(
 "Repeated summons increase the size and damage of the minion\n" +
 $"This caps at {BigBrainProj.MaxMinionSlots} slots\n" +
-"'The reward for slaughtering many...'");
+"'The reward for slaughtering many...'"); */
             ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 1;
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

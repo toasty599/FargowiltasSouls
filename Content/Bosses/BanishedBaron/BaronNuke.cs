@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         private SoundStyle Beep = new("FargowiltasSouls/Assets/Sounds/NukeBeep");
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Banished Baron's Spicy Beeping Nuclear Torpedo of Death and Destruction");
+            // DisplayName.SetDefault("Banished Baron's Spicy Beeping Nuclear Torpedo of Death and Destruction");
         }
         public override void SetDefaults()
         {
@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             return false;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
 
         }

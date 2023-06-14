@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.Misc
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Overgrown Key");
-            Tooltip.SetDefault("Summons a Jungle Mimic to fight for you\nNeeds 2 minion slots");
+            // DisplayName.SetDefault("Overgrown Key");
+            // Tooltip.SetDefault("Summons a Jungle Mimic to fight for you\nNeeds 2 minion slots");
             ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 2;
         }
 

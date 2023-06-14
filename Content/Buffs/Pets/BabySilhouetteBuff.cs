@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Baby Silhouette");
-            Description.SetDefault("Won't see the light until it's already grown up");
+            // DisplayName.SetDefault("Baby Silhouette");
+            // Description.SetDefault("Won't see the light until it's already grown up");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }

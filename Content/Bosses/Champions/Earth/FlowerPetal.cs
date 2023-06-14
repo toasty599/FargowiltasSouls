@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flower Petal");
+            // DisplayName.SetDefault("Flower Petal");
             Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.PurifiedBuff>(), 300);

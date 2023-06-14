@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Sniper's Soul");
+            // DisplayName.SetDefault("Sniper's Soul");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神枪手之魂");
 
@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 15% increased ranged critical chance
 Effects of Sniper Scope
 'Ready, aim, fire'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //string tooltip_ch =
             //@"增加30%远程伤害

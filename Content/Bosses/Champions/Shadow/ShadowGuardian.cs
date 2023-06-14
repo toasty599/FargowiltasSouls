@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dungeon Guardian");
+            // DisplayName.SetDefault("Dungeon Guardian");
         }
 
         public override void SetDefaults()
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 Main.rand.NextBool() ? "Gore_54" : "Gore_55").Type, Projectile.scale);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Darkness, 300);
             if (WorldSavingSystem.EternityMode)

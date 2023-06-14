@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant");
+            // DisplayName.SetDefault("Mutant");
 
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             SceneEffectPriority = SceneEffectPriority.BossHigh;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)Math.Round(NPC.damage * 0.5);
             NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 0.5 * bossLifeScale);
@@ -133,7 +133,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             return NPC.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, NPC.Center)) < Player.defaultHeight && NPC.ai[0] > -1;
         }
 
-        public override bool? CanHitNPC(NPC target)
+        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */
         {
             if (target.type == ModContent.Find<ModNPC>("Fargowiltas", "Deviantt").Type
                 || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Abominationn").Type
@@ -3478,7 +3478,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         #endregion
 
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
             {
@@ -3489,7 +3489,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -3500,7 +3500,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
 
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
             if (WorldSavingSystem.AngryMutant)
                 damage *= 0.07f;

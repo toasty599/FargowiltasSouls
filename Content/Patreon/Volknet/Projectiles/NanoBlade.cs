@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
     {
         public override void SetStaticDefaults()           //320,47
         {
-            DisplayName.SetDefault("Plasma Blade");
+            // DisplayName.SetDefault("Plasma Blade");
             //DisplayName.AddTranslation(GameCulture.Chinese, "等离子能量刃");
             Main.projFrames[Projectile.type] = 4;
             //ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             float point = 0;
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (320 - 24) * Projectile.scale, 30, ref point);
         }
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             target.AddBuff(BuffID.WitheredArmor, 600);
             target.AddBuff(BuffID.BrokenArmor, 600);
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 
         int chainsawSoundTimer;
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 2;
 

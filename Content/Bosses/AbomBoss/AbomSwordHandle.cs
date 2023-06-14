@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Styx Gazer Blade");
+            // DisplayName.SetDefault("Styx Gazer Blade");
         }
 
         public override void SetDefaults()
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Main.dust[d].velocity *= 4f;*/
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.velocity.X = target.Center.X < Main.projectile[(int)Projectile.ai[1]].Center.X ? -15f : 15f;
             target.velocity.Y = -10f;

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Torch God");
+            // DisplayName.SetDefault("Torch God");
             Main.projFrames[Projectile.type] = 3;
         }
 
@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 100) * Projectile.Opacity;
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 60);
         }

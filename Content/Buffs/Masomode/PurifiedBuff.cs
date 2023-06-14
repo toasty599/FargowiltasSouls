@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Purified");
-            Description.SetDefault("You are cleansed");
+            // DisplayName.SetDefault("Purified");
+            // Description.SetDefault("You are cleansed");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
 

@@ -983,7 +983,7 @@ namespace FargowiltasSouls.Content.Projectiles
             return true;
         }
 
-        public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (stormTimer > 0)
                 damage = (int)(damage * (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6 : 1.3));
@@ -1028,7 +1028,7 @@ namespace FargowiltasSouls.Content.Projectiles
             }
         }
 
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
@@ -1106,7 +1106,7 @@ namespace FargowiltasSouls.Content.Projectiles
             }
         }
 
-        public override void ModifyHitPlayer(Projectile projectile, Player target, ref int damage, ref bool crit)
+        public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
         {
             NPC sourceNPC = projectile.GetSourceNPC();
             if (sourceNPC is not null && sourceNPC.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)

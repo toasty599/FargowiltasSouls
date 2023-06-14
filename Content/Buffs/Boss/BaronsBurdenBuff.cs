@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Boss
         public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderDebuff";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Baron's Burden");
-            Description.SetDefault("Gravity heavily increased outside water\nBreathe water instead of air\nGet back in!");
+            // DisplayName.SetDefault("Baron's Burden");
+            // Description.SetDefault("Gravity heavily increased outside water\nBreathe water instead of air\nGet back in!");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

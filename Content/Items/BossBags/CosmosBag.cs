@@ -1,7 +1,7 @@
 ﻿using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Materials;
-using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.BossBags
@@ -10,13 +10,12 @@ namespace FargowiltasSouls.Content.Items.BossBags
     {
         protected override bool IsPreHMBag => false;
 
-        public override int BossBagNPC => ModContent.NPCType<CosmosChampion>();
-
-        public override void OpenBossBag(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<Eridanium>(), 10);
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<UniverseCore>());
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.Find<ModItem>("Fargowiltas", "CrucibleCosmos").Type);
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<UniverseCore>()));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<CosmosChampion>()));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Eridanium>(), 1, 10, 10));
+            itemLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "CrucibleCosmos").Type));
         }
     }
 }

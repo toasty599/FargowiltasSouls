@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("First Strike");
-            Description.SetDefault("Your next attack will be enhanced");
+            // DisplayName.SetDefault("First Strike");
+            // Description.SetDefault("Your next attack will be enhanced");
             Main.buffNoSave[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "先发制人");
             //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的下一次攻击将会得到增强");

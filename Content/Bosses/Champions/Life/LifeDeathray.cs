@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Holy Deathray");
+            // DisplayName.SetDefault("Holy Deathray");
         }
 
         public override void AI()
@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);

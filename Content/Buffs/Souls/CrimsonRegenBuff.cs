@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crimson Regen");
-            Description.SetDefault("You are regenning your last wound");
+            // DisplayName.SetDefault("Crimson Regen");
+            // Description.SetDefault("You are regenning your last wound");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
         }

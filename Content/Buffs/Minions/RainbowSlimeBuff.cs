@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rainbow Slime");
-            Description.SetDefault("The Rainbow Slime will protect you");
+            // DisplayName.SetDefault("Rainbow Slime");
+            // Description.SetDefault("The Rainbow Slime will protect you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "彩虹史莱姆");

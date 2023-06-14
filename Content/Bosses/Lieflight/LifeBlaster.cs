@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         float glowIntensity = 1f;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Blaster");
+            // DisplayName.SetDefault("Life Blaster");
             Main.projFrames[Projectile.type] = 11;
         }
         public override void SetDefaults()
@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             }
         }
         public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 255 - Projectile.alpha) * Projectile.Opacity;
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);

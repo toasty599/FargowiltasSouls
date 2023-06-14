@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Super Flocko");
+            // DisplayName.SetDefault("Super Flocko");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;

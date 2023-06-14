@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pumpkin");
+            // DisplayName.SetDefault("Pumpkin");
             Main.projFrames[Projectile.type] = 5;
         }
 

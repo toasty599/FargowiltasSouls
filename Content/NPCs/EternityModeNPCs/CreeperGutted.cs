@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Toggler;
+﻿using FargowiltasSouls.Core.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gutted Creeper");
+            // DisplayName.SetDefault("Gutted Creeper");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爬行者");
             Main.npcFrameCount[NPC.type] = 3;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 NPC.frame.Y = frameHeight * 2;
         }
 
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             damage *= 3;
         }
@@ -164,7 +164,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             return null;
         }
 
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))
             {
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.CreeperHitbox>(), NPC.damage, 6f, (int)NPC.ai[0]);
 

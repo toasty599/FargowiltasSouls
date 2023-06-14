@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Mounts
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Trojan Squirrel");
-            Description.SetDefault("You are riding a squirrel mech");
+            // DisplayName.SetDefault("Trojan Squirrel");
+            // Description.SetDefault("You are riding a squirrel mech");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

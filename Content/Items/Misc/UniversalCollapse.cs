@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Items.Misc
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Universal Collapse");
-            Tooltip.SetDefault("Destroys the Universe");
+            // DisplayName.SetDefault("Universal Collapse");
+            // Tooltip.SetDefault("Destroys the Universe");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宇宙坍缩");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "毁灭宇宙");
 

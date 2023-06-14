@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ModLoader;
@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant Nibble");
-            Description.SetDefault("You cannot heal at all");
+            // DisplayName.SetDefault("Mutant Nibble");
+            // Description.SetDefault("You cannot heal at all");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
 

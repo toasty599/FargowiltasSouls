@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Colossus Soul");
+            // DisplayName.SetDefault("Colossus Soul");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巨像之魂");
 
@@ -25,7 +25,7 @@ Enemies are more likely to target you
 Effects of Brain of Confusion, Star Veil, and Bee Cloak
 Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 'Nothing can stop you'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //string tooltip_ch =
             //@"增加100点最大生命值

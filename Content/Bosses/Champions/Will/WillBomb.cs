@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Will Bomb");
+            // DisplayName.SetDefault("Will Bomb");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             Projectile.rotation += Projectile.velocity.Length() * 0.03f * Math.Sign(Projectile.velocity.X);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

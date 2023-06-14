@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Seal");
+            // DisplayName.SetDefault("Cosmic Seal");
             base.SetStaticDefaults();
             Main.projFrames[Projectile.type] = 2;
         }
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             base.OnHitPlayer(target, damage, crit);
 

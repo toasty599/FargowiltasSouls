@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Skull");
+            // DisplayName.SetDefault("Hell Skull");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.ClothiersCurse];
@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }*/
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 8;
             target.AddBuff(ModContent.BuffType<HellFireBuff>(), 300);

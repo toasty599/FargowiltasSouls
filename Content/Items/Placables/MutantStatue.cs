@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Items.Placables
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant Statue");
+            // DisplayName.SetDefault("Mutant Statue");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

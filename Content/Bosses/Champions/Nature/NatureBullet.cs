@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nature Bullet");
+            // DisplayName.SetDefault("Nature Bullet");
         }
 
         public override void SetDefaults()
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                 Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Frostburn, 180);
             if (WorldSavingSystem.EternityMode)

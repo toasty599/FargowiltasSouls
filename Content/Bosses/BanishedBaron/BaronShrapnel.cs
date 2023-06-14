@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Banished Baron Mine Shrapnel");
+            // DisplayName.SetDefault("Banished Baron Mine Shrapnel");
         }
         public override void SetDefaults()
         {

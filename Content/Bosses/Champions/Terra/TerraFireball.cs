@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fireball");
+            // DisplayName.SetDefault("Fireball");
         }
 
         public override void SetDefaults()
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             Projectile.rotation += 0.3f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 600);
             if (WorldSavingSystem.EternityMode)

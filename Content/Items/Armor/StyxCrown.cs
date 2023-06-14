@@ -14,10 +14,10 @@ namespace FargowiltasSouls.Content.Items.Armor
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Styx Crown");
-            Tooltip.SetDefault(@"10% increased damage
+            // DisplayName.SetDefault("Styx Crown");
+            /* Tooltip.SetDefault(@"10% increased damage
 10% increased critical strike chance
-Increases max number of minions and sentries by 3");
+Increases max number of minions and sentries by 3"); */
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
         }
 

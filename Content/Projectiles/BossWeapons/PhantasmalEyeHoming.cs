@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantasmal Eye");
+            // DisplayName.SetDefault("Phantasmal Eye");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.localAI[1] += 0.25f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 600);
             target.immune[Projectile.owner] = 1;

@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Acorn");
+            // DisplayName.SetDefault("Acorn");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI * 1.25f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.GuiltyBuff>(), 600);

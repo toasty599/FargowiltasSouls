@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fish Stick");
+            // DisplayName.SetDefault("Fish Stick");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             });
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
 

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flameburst");
+            // DisplayName.SetDefault("Flameburst");
         }
 
         public override void SetDefaults()
@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Darkness, 300);
             if (WorldSavingSystem.EternityMode)

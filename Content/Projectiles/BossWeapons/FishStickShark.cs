@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shark");
+            // DisplayName.SetDefault("Shark");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.MiniSharkron];
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.position += Projectile.velocity * 0.5f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.timeLeft = 0;
         }

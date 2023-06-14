@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Core.Globals;
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Nature");
+            // DisplayName.SetDefault("Champion of Nature");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然英灵");
             Main.npcFrameCount[NPC.type] = 14;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             SceneEffectPriority = SceneEffectPriority.BossLow;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
@@ -668,7 +668,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
             {
@@ -677,7 +677,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

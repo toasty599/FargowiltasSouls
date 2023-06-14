@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fireball");
+            // DisplayName.SetDefault("Fireball");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.SolarWhipSwordExplosion];
         }
 

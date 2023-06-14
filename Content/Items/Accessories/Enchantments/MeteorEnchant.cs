@@ -14,12 +14,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Meteor Enchantment");
+            // DisplayName.SetDefault("Meteor Enchantment");
 
             string tooltip =
 @"A meteor shower initiates every few seconds while attacking
 'Drop a draco on 'em'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
         }
 
         protected override Color nameColor => new(95, 71, 82);
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             }
         }
 
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (fromEnch)
             {

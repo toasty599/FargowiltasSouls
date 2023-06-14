@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nature Icicle");
+            // DisplayName.SetDefault("Nature Icicle");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Chilled, 300);

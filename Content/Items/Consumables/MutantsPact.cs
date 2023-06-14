@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Content.Items.Consumables
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant's Pact");
-            Tooltip.SetDefault("Permanently increases the number of accessory slots");
+            // DisplayName.SetDefault("Mutant's Pact");
+            // Tooltip.SetDefault("Permanently increases the number of accessory slots");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 6));
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

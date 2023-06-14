@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -19,8 +20,8 @@ namespace FargowiltasSouls.Content.Tiles.MusicBoxes
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Music Box");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Music Box");
             AddMapEntry(new Color(200, 200, 200), name);
         }
 

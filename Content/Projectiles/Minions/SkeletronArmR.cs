@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skeletron Hand");
+            // DisplayName.SetDefault("Skeletron Hand");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.rotation = (float)Math.Atan2(angle.Y, angle.X) + (float)Math.PI / 2f;
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             hitDirection = Math.Sign(target.Center.X - Main.player[Projectile.owner].Center.X);
         }

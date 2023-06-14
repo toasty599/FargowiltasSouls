@@ -13,15 +13,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Red Riding Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Red Riding Enchantment");
+            /* Tooltip.SetDefault(
 @"Attacks ignore 10 enemy defense and deal 5 flat extra damage
 Each successive attack ignores an additional 10 defense and deals 5 more damage
 Upon reaching 10 stacks, spawn a rain of arrows
 The arrow type defaults to Venom or whatever is first in your inventory
 Homing and minion attacks do not increase these bonuses
 Missing any attack will reset these bonuses
-'Big Bad Red Riding Hood'");
+'Big Bad Red Riding Hood'"); */
         }
 
         protected override Color nameColor => new(192, 27, 60);

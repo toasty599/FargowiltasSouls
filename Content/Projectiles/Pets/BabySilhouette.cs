@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Baby Silhouette");
+            // DisplayName.SetDefault("Baby Silhouette");
             Main.projFrames[Projectile.type] = 6;
             Main.projPet[Projectile.type] = true;
         }

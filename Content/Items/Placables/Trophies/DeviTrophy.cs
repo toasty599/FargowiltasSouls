@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Items.Placables.Trophies
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Deviantt Trophy");
+            // DisplayName.SetDefault("Deviantt Trophy");
         }
     }
 }

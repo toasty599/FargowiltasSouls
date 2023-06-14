@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Geyser");
+            // DisplayName.SetDefault("Geyser");
         }
 
         public override void SetDefaults()

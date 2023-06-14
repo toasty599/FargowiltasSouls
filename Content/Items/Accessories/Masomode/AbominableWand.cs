@@ -11,14 +11,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abominable Wand");
-            Tooltip.SetDefault(@"Grants immunity to Abominable Fang and Abominable Presence
+            // DisplayName.SetDefault("Abominable Wand");
+            /* Tooltip.SetDefault(@"Grants immunity to Abominable Fang and Abominable Presence
 Increased damage gained per Sparkling Adoration graze and halves heart cooldown
 Spectral Abominationn periodically manifests to support your critical hits
 With Styx armor, charges energy when graze is maxed
 You can endure any attack and survive with 1 life
 Endurance recovers when you reach full life again
-'Seems like something's missing'");
+'Seems like something's missing'"); */
             //Upgrades Cute Fishron to Cute Fishron EX");
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶手杖");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"免疫憎恶毒牙

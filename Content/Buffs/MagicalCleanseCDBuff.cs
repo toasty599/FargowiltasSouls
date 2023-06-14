@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magical Cleanse Cooldown");
-            Description.SetDefault("You cannot cleanse debuffs yet");
+            // DisplayName.SetDefault("Magical Cleanse Cooldown");
+            // Description.SetDefault("You cannot cleanse debuffs yet");
             Main.debuff[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Force of Spirit");
+            // DisplayName.SetDefault("Force of Spirit");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "心灵之力");
 
@@ -37,7 +37,7 @@ $"[i:{ModContent.ItemType<HallowEnchant>()}] Become immune after striking an ene
 $"[i:{ModContent.ItemType<TikiEnchant>()}] Whip your summons to make them work harder\n" +
 $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damaging and healing orbs\n" +
 "'Ascend from this mortal realm'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"[i:{0}] 受到致死伤害时会以200生命值重生并爆出几根骨头

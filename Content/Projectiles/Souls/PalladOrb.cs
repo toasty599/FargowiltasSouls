@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Palladium Life Orb");
+            // DisplayName.SetDefault("Palladium Life Orb");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.timeLeft > 0)
                 Projectile.Kill();

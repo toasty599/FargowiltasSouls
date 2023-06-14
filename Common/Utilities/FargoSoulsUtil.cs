@@ -477,7 +477,7 @@ namespace FargowiltasSouls
             if (p != Main.maxProjectiles)
             {
                 Main.projectile[p].originalDamage = rawBaseDamage;
-                Main.projectile[p].ContinuouslyUpdateDamage = true;
+                Main.projectile[p].ContinuouslyUpdateDamageStats = true;
             }
             return p;
         }
@@ -569,7 +569,7 @@ namespace FargowiltasSouls
                 {
                     // If the player is in multiplayer, request a spawn
                     // This will only work if NPCID.Sets.MPAllowedEnemies[type] is true, set in NPC code
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: bossType);
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: bossType);
                 }
             }
         }

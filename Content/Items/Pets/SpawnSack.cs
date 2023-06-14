@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Content.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spawn Sack");
-            Tooltip.SetDefault("Summons the spawn of Mutant\n'You think you're safe?'");
+            // DisplayName.SetDefault("Spawn Sack");
+            // Tooltip.SetDefault("Summons the spawn of Mutant\n'You think you're safe?'");
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart of the Master");
-            Tooltip.SetDefault(@"Grants immunity to Living Wasteland, Hypothermia, Oozed, Withered Weapon, and Withered Armor
+            // DisplayName.SetDefault("Heart of the Master");
+            /* Tooltip.SetDefault(@"Grants immunity to Living Wasteland, Hypothermia, Oozed, Withered Weapon, and Withered Armor
 Grants immunity to Feral Bite, Mutant Nibble, Flipped, Unstable, Distorted, and Curse of the Moon
 Grants immunity to Wet, Electrified, Oceanic Maul, Smite, Moon Leech, Nullification Curse, and water debuffs
 Increases damage and critical strike chance by 10% and increases damage reduction by 5%
@@ -30,7 +30,7 @@ Graze attacks to gain a bomb that will freeze almost all enemies and projectiles
 Reduces your hurtbox size for projectiles
 Hold the Precision Seal key to disable dashes and double jumps
 Summons a friendly Mini Saucer and true eyes of Cthulhu
-'Warm, beating, and no body needed'");
+'Warm, beating, and no body needed'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒者之心");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'大多数情况下已经不用受苦了'
             // 免疫人形废土,冻结,渗入,枯萎武器和枯萎盔甲

@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cultist Arrow");
+            // DisplayName.SetDefault("Cultist Arrow");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             CooldownSlot = 1;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 300);
             Projectile.timeLeft = 0;

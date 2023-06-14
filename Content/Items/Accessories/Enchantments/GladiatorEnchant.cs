@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Souls;
+﻿using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -15,11 +15,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Gladiator Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Gladiator Enchantment");
+            /* Tooltip.SetDefault(
 @"Spears will rain down on struck enemies
 Grants knockback immunity when you are facing the attack
-'Are you not entertained?'");
+'Are you not entertained?'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "角斗士魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"长矛将倾泄在被攻击的敌人身上

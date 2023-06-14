@@ -1,7 +1,8 @@
-using FargowiltasSouls.Content.NPCs.Critters;
+﻿using FargowiltasSouls.Content.NPCs.Critters;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using FargowiltasSouls.Content.Items.Placables;
@@ -22,8 +23,8 @@ namespace FargowiltasSouls.Content.Tiles
             TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
 
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Banner");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Banner");
             AddMapEntry(new Color(13, 88, 130), name);
 
             //name.AddTranslation((int)GameCulture.CultureName.Chinese, "旗帜");

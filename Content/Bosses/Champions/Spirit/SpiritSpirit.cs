@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spirit");
+            // DisplayName.SetDefault("Spirit");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

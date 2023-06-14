@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Consumables
@@ -9,12 +9,12 @@ namespace FargowiltasSouls.Content.Items.Consumables
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ordinary Carrot");
-            Tooltip.SetDefault(@"Increases night vision
+            // DisplayName.SetDefault("Ordinary Carrot");
+            /* Tooltip.SetDefault(@"Increases night vision
 Minor improvements to all stats
 1 minute duration
 Right click to increase view range while in inventory
-'Plucked from the face of a defeated foe'");
+'Plucked from the face of a defeated foe'"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "普通的胡萝卜");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             //@"提高夜视能力

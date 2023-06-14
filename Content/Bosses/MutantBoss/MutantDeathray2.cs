@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Phantasmal Deathray");
+            // DisplayName.SetDefault("Phantasmal Deathray");
         }
 
         public override bool? CanDamage()
@@ -133,7 +133,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.rotation = Projectile.velocity.ToRotation() - 1.57079637f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

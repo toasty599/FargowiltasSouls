@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eater Tail");
+            // DisplayName.SetDefault("Eater Tail");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
             EModeGlobalProjectile.IgnoreMinionNerf[Type] = true;

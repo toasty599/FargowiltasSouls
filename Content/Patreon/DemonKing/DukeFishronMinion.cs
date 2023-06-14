@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Patreon.DemonKing
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Duke Fishron");
+            // DisplayName.SetDefault("Duke Fishron");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
@@ -277,7 +277,7 @@ namespace FargowiltasSouls.Content.Patreon.DemonKing
             Projectile.position += Projectile.velocity / 4f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 900);
 

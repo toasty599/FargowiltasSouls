@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bubble");
+            // DisplayName.SetDefault("Bubble");
         }
 
         public override void SetDefaults()
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.light = 0f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Wet, 600);
         }

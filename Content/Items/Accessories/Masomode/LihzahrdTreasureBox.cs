@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,11 +11,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Treasure Box");
-            Tooltip.SetDefault(@"Grants immunity to Burning, Fused, and Low Ground
+            // DisplayName.SetDefault("Lihzahrd Treasure Box");
+            /* Tooltip.SetDefault(@"Grants immunity to Burning, Fused, and Low Ground
 Double tap DOWN in the air to fastfall
 Fastfall will create a fiery eruption on impact after falling a certain distance
-'Too many booby traps to open'");
+'Too many booby traps to open'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神庙蜥蜴宝藏盒");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'陷阱太多,打不开'
             // 免疫燃烧，导火线和低地

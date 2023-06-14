@@ -13,10 +13,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Pearlwood Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Pearlwood Enchantment");
+            /* Tooltip.SetDefault(
 @"Attacks may spawn a homing star when they hit something
-'Too little, too late…'");
+'Too little, too late…'"); */
         }
 
         protected override Color nameColor => new(173, 154, 95);

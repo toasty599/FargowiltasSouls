@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Patreon.Purified
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Prime Laser Arm");
+            // DisplayName.SetDefault("Prime Laser Arm");
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;

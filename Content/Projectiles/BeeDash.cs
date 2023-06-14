@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dash");
+            // DisplayName.SetDefault("Dash");
             Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.QueenBee];
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Projectiles
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Venom, 600);
         }

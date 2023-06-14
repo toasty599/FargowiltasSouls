@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         private NPC lifelight;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Rune");
+            // DisplayName.SetDefault("Life Rune");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 2;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 Projectile.hostile = true;
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);

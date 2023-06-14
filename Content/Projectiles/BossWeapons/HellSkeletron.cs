@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Skeletron");
+            // DisplayName.SetDefault("Hell Skeletron");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.rotation += 1f * Math.Sign(Projectile.velocity.X);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 8;
             target.AddBuff(ModContent.BuffType<HellFireBuff>(), 300);

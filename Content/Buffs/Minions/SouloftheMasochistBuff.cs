@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul of the Master");
-            Description.SetDefault("The power of Eternity Mode is with you");
+            // DisplayName.SetDefault("Soul of the Master");
+            // Description.SetDefault("The power of Eternity Mode is with you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐之魂");

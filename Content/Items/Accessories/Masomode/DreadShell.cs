@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dread Shell");
-            Tooltip.SetDefault(@"Grants immunity to Anticoagulation
+            // DisplayName.SetDefault("Dread Shell");
+            /* Tooltip.SetDefault(@"Grants immunity to Anticoagulation
 Grants immunity to knockback
 Right Click to guard with your shield
 Defense and damage reduction drastically decreased while and shortly after guarding
@@ -21,7 +21,7 @@ Guard exactly as an attack touches you to parry and counter it on a very long co
 Parry blocks up to 200 damage
 Counterattack deals massive damage and inflicts Anticoagulation
 Absorb Anticoagulation blood clots to gain 30% increased damage
-'It was a mistake to chum here'");
+'It was a mistake to chum here'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "恐惧螺壳");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"免疫凝血失效和击退
             // 右键点击来用护盾防护

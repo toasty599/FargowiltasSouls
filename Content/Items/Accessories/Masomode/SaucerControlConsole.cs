@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
@@ -9,12 +9,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Saucer Control Console");
-            Tooltip.SetDefault(@"Grants immunity to Electrified and Distorted
+            // DisplayName.SetDefault("Saucer Control Console");
+            /* Tooltip.SetDefault(@"Grants immunity to Electrified and Distorted
 Press the Ammo Cycle key to cycle ammos (this effect works passively from inventory)
 Summons a friendly Mini Saucer
 The saucer's tractor beam slows enemies hit by it
-'Just keep it in airplane mode'");
+'Just keep it in airplane mode'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "飞碟控制台");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'保持在飞行模式'
             // 免疫带电

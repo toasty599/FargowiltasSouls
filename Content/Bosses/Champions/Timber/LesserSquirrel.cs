@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lesser Squirrel");
+            // DisplayName.SetDefault("Lesser Squirrel");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "小松鼠");
             Main.npcFrameCount[NPC.type] = 6;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
@@ -127,7 +127,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             return true;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Boss
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abominable Fang");
-            Description.SetDefault("The power of Eternity Mode compels you");
+            // DisplayName.SetDefault("Abominable Fang");
+            // Description.SetDefault("The power of Eternity Mode compels you");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶毒牙");
             //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒模式的力量压迫着你");
             Main.debuff[Type] = true;

@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Patreon.Catsounds
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("King Slime");
+            // DisplayName.SetDefault("King Slime");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Content.Patreon.Catsounds
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Slimed, 180);
         }

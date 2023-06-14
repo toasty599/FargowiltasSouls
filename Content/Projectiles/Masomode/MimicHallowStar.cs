@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override string Texture => "Terraria/Images/Projectile_92";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hallow Star");
+            // DisplayName.SetDefault("Hallow Star");
         }
 
         public override void SetDefaults()

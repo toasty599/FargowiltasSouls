@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cactus Mine");
+            // DisplayName.SetDefault("Cactus Mine");
         }
 
         public override void SetDefaults()

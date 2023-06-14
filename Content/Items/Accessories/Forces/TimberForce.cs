@@ -22,18 +22,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Force of Timber");
+            // DisplayName.SetDefault("Force of Timber");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "森林之力");
 
-            Tooltip.SetDefault(
+            /* Tooltip.SetDefault(
 $"[i:{ModContent.ItemType<WoodEnchant>()}] You gain a shop discount based on bestiary completion\n" +
 $"[i:{ModContent.ItemType<BorealWoodEnchant>()}] Attacks will periodically be accompanied by several snowballs\n" +
 $"[i:{ModContent.ItemType<RichMahoganyEnchant>()}] All grappling hooks shoot, pull, and retract 2.5x as fast\n" +
 $"[i:{ModContent.ItemType<EbonwoodEnchant>()}][i:{ModContent.ItemType<ShadewoodEnchant>()}] You have an aura of Corruption and Bleeding\n" +
 $"[i:{ModContent.ItemType<PalmWoodEnchant>()}] Double tap down to spawn up to 3 palm tree sentries\n" +
 $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star when they hit something\n" +
-"'Extremely rigid'");
+"'Extremely rigid'"); */
 
             string tooltip_ch =
 @"[i:{0}] 商店价格会依据你的图鉴解锁度降低

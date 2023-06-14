@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Hungry");
+            // DisplayName.SetDefault("The Hungry");
             Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.TheHungry];
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
             /*ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.MasochistModeReal) //if (Fargowiltas.Instance.MasomodeEXLoaded)
             {

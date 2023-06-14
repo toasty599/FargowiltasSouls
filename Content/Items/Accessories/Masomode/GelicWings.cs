@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,12 +12,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gelic Wings");
-            Tooltip.SetDefault(@"Acts as wings
+            // DisplayName.SetDefault("Gelic Wings");
+            /* Tooltip.SetDefault(@"Acts as wings
 Grants immunity to Flipped caused by the Underground Hallow
 Allows the wearer to double jump
 When you land after a jump, slime spikes shoot out to your sides
-'Step on me'");
+'Step on me'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "明胶羽翼");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"免疫由地下神圣之地造成的翻转减益
             // 可让持有者二连跳

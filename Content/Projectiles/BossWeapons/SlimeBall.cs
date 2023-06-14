@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Slime Ball");
+            // DisplayName.SetDefault("Slime Ball");
         }
 
         public override void SetDefaults()
@@ -54,14 +54,14 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Slimed, 240);
             if (oil)
                 target.AddBuff(BuffID.Oiled, 240);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Slimed, 240);
         }

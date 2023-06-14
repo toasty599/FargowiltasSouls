@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectral Fishron");
+            // DisplayName.SetDefault("Spectral Fishron");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 11;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -170,7 +170,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         }
 
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

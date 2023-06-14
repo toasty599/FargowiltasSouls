@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Moth");
+            // DisplayName.SetDefault("Moth");
             Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.Moth];//24;
         }
 

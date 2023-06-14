@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bubble");
+            // DisplayName.SetDefault("Bubble");
         }
 
         public override void SetDefaults()
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
             Projectile.extraUpdates = 1;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 7;
         }

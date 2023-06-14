@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fireball");
+            // DisplayName.SetDefault("Fireball");
         }
 
         public override void SetDefaults()
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.velocity.Y += Projectile.ai[0];
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 600);
             target.AddBuff(BuffID.BrokenArmor, 600);

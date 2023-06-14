@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Blazing Deathray");
+            // DisplayName.SetDefault("Blazing Deathray");
         }
 
         public override void SetDefaults()
@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.rotation = Projectile.velocity.ToRotation() - 1.57079637f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire, 600);
         }

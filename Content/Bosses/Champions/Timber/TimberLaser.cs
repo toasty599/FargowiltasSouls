@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Laser");
+            // DisplayName.SetDefault("Laser");
         }
 
         public override void SetDefaults()
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.GuiltyBuff>(), 300);

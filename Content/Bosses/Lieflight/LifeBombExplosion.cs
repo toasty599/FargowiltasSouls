@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Bomb");
+            // DisplayName.SetDefault("Life Bomb");
             Main.projFrames[Projectile.type] = 3;
         }
         public override void SetDefaults()
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             }
             Projectile.ai[0] += 1f;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);

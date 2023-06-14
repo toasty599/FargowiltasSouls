@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Cosmic Deathray");
+            // DisplayName.SetDefault("Cosmic Deathray");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
@@ -142,12 +142,12 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             crit = true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 360);
         }

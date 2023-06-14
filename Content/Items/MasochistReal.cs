@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forgotten Gift");
-            Tooltip.SetDefault("[c/ff0000:Debug item]\nLeft click: Toggles session ability to play Maso\nRight click: Toggles world ability to play Maso");
+            // DisplayName.SetDefault("Forgotten Gift");
+            // Tooltip.SetDefault("[c/ff0000:Debug item]\nLeft click: Toggles session ability to play Maso\nRight click: Toggles world ability to play Maso");
         }
 
         public override void SetDefaults()

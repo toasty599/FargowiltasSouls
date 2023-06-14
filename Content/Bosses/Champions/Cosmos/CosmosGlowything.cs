@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Invader");
+            // DisplayName.SetDefault("Cosmic Invader");
         }
 
         public override void SetDefaults()

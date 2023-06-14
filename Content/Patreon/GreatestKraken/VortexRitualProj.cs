@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Patreon.GreatestKraken
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Vortex Ritual");
+            // DisplayName.SetDefault("Vortex Ritual");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -328,20 +328,16 @@ namespace FargowiltasSouls.Content.Patreon.GreatestKraken
             return (int)(damage * Projectile.scale / 5f);
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            damage = GetDamage(damage);
+            modifiers.FinalDamage.Base = GetDamage((int)modifiers.FinalDamage.Base);
         }
 
-        public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
+        public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
-            damage = GetDamage(damage);
+            modifiers.FinalDamage.Base = GetDamage((int)modifiers.FinalDamage.Base);
         }
 
-        public override void ModifyHitPvp(Player target, ref int damage, ref bool crit)
-        {
-            damage = GetDamage(damage);
-        }
 
         public override Color? GetAlpha(Color lightColor)
         {

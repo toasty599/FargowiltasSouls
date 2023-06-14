@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Beetle Enchantment");
+            // DisplayName.SetDefault("Beetle Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "甲虫魔石");
 
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 When hit, beetles instead protect you from damage for 10 seconds
 Beetle buffs capped at level two
 'The unseen life of dung courses through your veins'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "甲虫魔石");
 

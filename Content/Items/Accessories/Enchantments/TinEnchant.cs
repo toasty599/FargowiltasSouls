@@ -13,14 +13,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Tin Enchantment");
+            // DisplayName.SetDefault("Tin Enchantment");
 
             string tooltip =
 @"Sets your critical strike chance to 5%
 Every crit will increase it by 5% up to double your critical strike chance or 15%
 Getting hit resets your crit to 5%
 'Return of the Crit'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
         }
 
         protected override Color nameColor => new(162, 139, 78);

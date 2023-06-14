@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Mine");
+            // DisplayName.SetDefault("Life Mine");
         }
         public override void SetDefaults()
         {
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 Projectile.Kill();
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);

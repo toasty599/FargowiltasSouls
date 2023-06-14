@@ -10,9 +10,9 @@ namespace FargowiltasSouls.Content.Patreon.Catsounds
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Medallion of the Fallen King");
-            Tooltip.SetDefault(
-@"Spawns a King Slime Minion that scales with summon damage");
+            // DisplayName.SetDefault("Medallion of the Fallen King");
+            /* Tooltip.SetDefault(
+@"Spawns a King Slime Minion that scales with summon damage"); */
         }
 
         public override void SetDefaults()

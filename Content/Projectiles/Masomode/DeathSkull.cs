@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Death Skull");
+            // DisplayName.SetDefault("Death Skull");
             Main.projFrames[Projectile.type] = 8;
         }
 

@@ -16,14 +16,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Tungsten Enchantment");
+            // DisplayName.SetDefault("Tungsten Enchantment");
 
             string tooltip =
 @"150% increased weapon size but reduces melee speed
 Every half second a projectile will be doubled in size
 Enlarged projectiles and non-projectile swords deal 10% more damage and have an additional chance to crit
 'Bigger is always better'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
         }
 
         protected override Color nameColor => new(176, 210, 178);

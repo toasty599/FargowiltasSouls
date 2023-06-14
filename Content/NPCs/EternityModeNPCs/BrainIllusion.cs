@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Brain of Cthulhu");
+            // DisplayName.SetDefault("Brain of Cthulhu");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "克苏鲁之脑");
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.aiStyle = -1;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = 0;
             NPC.lifeMax = 9999;
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.MasochistModeReal)
             {
@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

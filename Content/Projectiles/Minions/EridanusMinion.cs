@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eridanus");
+            // DisplayName.SetDefault("Eridanus");
             Main.projFrames[Projectile.type] = 9;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
@@ -297,7 +297,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Projectile.velocity.Y = cap * Math.Sign(Projectile.velocity.Y);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) => target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 360);
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 360);
 
         public override bool? CanCutTiles() => false;
 

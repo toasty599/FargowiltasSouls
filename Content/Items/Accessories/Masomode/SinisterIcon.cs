@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,11 +11,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sinister Icon");
-            Tooltip.SetDefault(@"Grants immunity to Unlucky and Stunned
+            // DisplayName.SetDefault("Sinister Icon");
+            /* Tooltip.SetDefault(@"Grants immunity to Unlucky and Stunned
 Increases spawn rate
 Non-boss enemies will drop doubled loot
-'Most definitely not alive'");
+'Most definitely not alive'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "邪恶画像");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'肯定不是活着的'
             // 阻止受虐模式导致的Boss自然生成

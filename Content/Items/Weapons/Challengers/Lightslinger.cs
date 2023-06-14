@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lightslinger");
-            Tooltip.SetDefault("Converts bullets to hallowed shots of light\nAfter 40 shots, press Right Click to fire a lightbomb\n25% chance to not consume ammo");
+            // DisplayName.SetDefault("Lightslinger");
+            // Tooltip.SetDefault("Converts bullets to hallowed shots of light\nAfter 40 shots, press Right Click to fire a lightbomb\n25% chance to not consume ammo");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rainbow Slime");
+            // DisplayName.SetDefault("Rainbow Slime");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             //ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.FlamesoftheUniverseBuff>(), 120);
         }

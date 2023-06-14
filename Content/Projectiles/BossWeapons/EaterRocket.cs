@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eater Rocket");
+            // DisplayName.SetDefault("Eater Rocket");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         bool sweetspot;
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             Player owner = Main.player[Projectile.owner];
             Vector2 middleOfSweetspot = owner.Center + owner.DirectionTo(target.Center) * 450;

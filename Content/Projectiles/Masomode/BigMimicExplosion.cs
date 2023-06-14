@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion");
+            // DisplayName.SetDefault("Explosion");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.DD2ExplosiveTrapT3Explosion];
         }
 
@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return Projectile.frame == 1 || Projectile.frame == 2;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.MidasBuff>(), 600);
         }

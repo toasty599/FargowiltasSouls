@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Bosses.DeviBoss;
+﻿using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fake Heart");
+            // DisplayName.SetDefault("Fake Heart");
         }
 
         public override void SetDefaults()

@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 {
     public partial class FargoSoulsPlayer
     {
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Projectile, consider using ModifyHitNPC instead */
         {
             if (proj.hostile)
                 return;
@@ -31,18 +31,18 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(proj))
             {
                 if (Main.rand.Next(100) < Player.ActualClassCrit(DamageClass.Summon))
-                    crit = true;
+                    modifiers.SetCrit();
             }
 
             if (apprenticeBonusDamage)
             {
                 if (ShadowForce)
                 {
-                    damage = (int)(damage * 2.5f);
+                    modifiers.FinalDamage.Base = (int)(modifiers.FinalDamage.Base * 2.5f);
                 }
                 else
                 {
-                    damage = (int)(damage * 1.5f);
+                    modifiers.FinalDamage.Base = (int)(modifiers.FinalDamage.Base * 2.5f);
                 }
 
                 apprenticeBonusDamage = false;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 int dustId = Dust.NewDust(new Vector2(proj.position.X, proj.position.Y + 2f), proj.width, proj.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
                 Main.dust[dustId].noGravity = true;
 
-                int blastDamage = damage;
+                int blastDamage = (int)modifiers.FinalDamage.Base;
                 if (!TerrariaSoul)
                     blastDamage = Math.Min(blastDamage, FargoSoulsUtil.HighestDamageTypeScaling(Player, 300));
                 Projectile.NewProjectile(Player.GetSource_Misc(""), target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, blastDamage, 0, Player.whoAmI);
@@ -61,34 +61,33 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Hexed || (ReverseManaFlow && proj.CountsAsClass(DamageClass.Magic)))
             {
-                target.life += damage;
-                target.HealEffect(damage);
+                target.life += (int)modifiers.FinalDamage.Base;
+                target.HealEffect((int)modifiers.FinalDamage.Base);
 
                 if (target.life > target.lifeMax)
                 {
                     target.life = target.lifeMax;
                 }
 
-                damage = 0;
-                knockback = 0;
-                crit = false;
-
+                modifiers.FinalDamage *= 0f;
+                modifiers.Knockback *= 0;
+                modifiers.DisableCrit();
                 return;
 
             }
 
             if (SqueakyToy)
             {
-                damage = 1;
+                modifiers.FinalDamage.Base = 1;
                 Squeak(target.Center);
                 return;
             }
 
             if (Asocial && FargoSoulsUtil.IsSummonDamage(proj, true, false))
             {
-                damage = 0;
-                knockback = 0;
-                crit = false;
+                modifiers.FinalDamage *= 0f;
+                modifiers.Knockback *= 0;
+                modifiers.DisableCrit();
             }
 
             if (Atrophied && (proj.CountsAsClass(DamageClass.Melee) || proj.CountsAsClass(DamageClass.Throwing)))
@@ -111,7 +110,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             ModifyHitNPCBoth(target, ref damage, ref crit, proj.DamageType);
         }
 
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Item, consider using ModifyHitNPC instead */
         {
             if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
             {
@@ -191,21 +190,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public override void ModifyHitPvp(Item item, Player target, ref int damage, ref bool crit)
-        {
-            if (!SqueakyToy) return;
-            damage = 1;
-            Squeak(target.Center);
-        }
-
-        public override void ModifyHitPvpWithProj(Projectile proj, Player target, ref int damage, ref bool crit)
-        {
-            if (!SqueakyToy) return;
-            damage = 1;
-            Squeak(target.Center);
-        }
-
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */
         {
             if (target.type == NPCID.TargetDummy || target.friendly)
                 return;
@@ -213,7 +198,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (proj.minion)// && proj.type != ModContent.ProjectileType<CelestialRuneAncientVision>() && proj.type != ModContent.ProjectileType<SpookyScythe>())
                 TryAdditionalAttacks(proj.damage, proj.DamageType);
 
-            OnHitNPCEither(target, damage, knockback, crit, proj.DamageType, projectile: proj);
+            OnHitNPCEither(target, hit.Damage, hit.Knockback, hit.Crit, proj.DamageType, projectile: proj);
 
             if (OriEnchantItem != null && proj.type == ProjectileID.FlowerPetal)
             {
@@ -524,7 +509,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 NebulaOnHit(target, projectile, damageClass);
         }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Item, consider using OnHitNPC instead */
         {
             if (target.type == NPCID.TargetDummy || target.friendly)
                 return;
@@ -532,7 +517,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             OnHitNPCEither(target, damage, knockback, crit, item.DamageType, item: item);
         }
 
-        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
             if (NecromanticBrewItem != null && IsInADashState)
             {
@@ -554,7 +539,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 damage = (int)(damage * 0.8);
         }
 
-        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
             if (GroundStick)
             {
@@ -576,12 +561,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             //damage = (int)(damage * 0.8);
         }
 
-        public override void OnHitByNPC(NPC npc, int damage, bool crit)
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
             OnHitByEither(npc, null);
         }
 
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
             OnHitByEither(null, proj);
         }
@@ -637,7 +622,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             return true;
         }
 
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
         {
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
                 ((DeviBoss)Main.npc[EModeGlobalNPC.deviBoss].ModNPC).playerInvulTriggered = true;
@@ -728,7 +713,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 FossilEnchant.FossilHurt(this, (int)damage);
         }
 
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void OnHurt(Player.HurtInfo info)
         {
             WasHurtBySomething = true;
 

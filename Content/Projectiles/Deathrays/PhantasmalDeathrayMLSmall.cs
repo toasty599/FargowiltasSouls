@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Phantasmal Deathray II");
+            // DisplayName.SetDefault("Phantasmal Deathray II");
         }
 
         public override bool? CanDamage()
@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, DelegateMethods.CastLight);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
         }

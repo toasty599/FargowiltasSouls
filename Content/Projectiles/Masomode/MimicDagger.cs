@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override string Texture => "Terraria/Images/Projectile_93";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magic Dagger");
+            // DisplayName.SetDefault("Magic Dagger");
         }
 
         public override void SetDefaults()
@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.ai[0]++;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
         }

@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.BossBags
@@ -9,11 +10,10 @@ namespace FargowiltasSouls.Content.Items.BossBags
     {
         protected override bool IsPreHMBag => true;
 
-        public override int BossBagNPC => ModContent.NPCType<DeviBoss>();
-
-        public override void OpenBossBag(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            player.QuickSpawnItem(player.GetSource_OpenItem(Item.type), ModContent.ItemType<DeviatingEnergy>(), Main.rand.Next(16) + 15);
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<DeviatingEnergy>(), 1, 15, 30));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<DeviBoss>()));
         }
     }
 }

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Masomode;
+﻿using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Shadow");
+            // DisplayName.SetDefault("Champion of Shadow");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影英灵");
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             NPC.BossBar = ModContent.GetInstance<CompositeBossBar>();
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
@@ -678,7 +678,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 NPC.velocity.Y = cap * Math.Sign(NPC.velocity.Y);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Darkness, 300);
             if (WorldSavingSystem.EternityMode)

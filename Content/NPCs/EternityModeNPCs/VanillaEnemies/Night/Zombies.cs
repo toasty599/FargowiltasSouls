@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Night
 
 
 
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Night
             }
         }
 
-        public override void OnHitNPC(NPC npc, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC npc, NPC target, NPC.HitInfo hit)
         {
             base.OnHitNPC(npc, target, damage, knockback, crit);
 

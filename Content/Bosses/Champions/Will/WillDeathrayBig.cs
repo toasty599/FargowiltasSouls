@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Will Deathray");
+            // DisplayName.SetDefault("Will Deathray");
             Main.projFrames[Projectile.type] = 5;
         }
 
@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                 Projectile.frame = 0;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

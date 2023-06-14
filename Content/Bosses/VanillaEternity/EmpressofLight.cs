@@ -628,7 +628,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         #endregion helper funcs
 
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
@@ -644,12 +644,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 damage = (int)(damage * 0.75);
         }
 
-        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (npc.life < npc.lifeMax / 2)
                 damage *= 2.0 / 3.0;
 
-            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

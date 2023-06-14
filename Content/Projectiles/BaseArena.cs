@@ -166,7 +166,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.hide = false;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.velocity = target.DirectionTo(Projectile.Center) * 4f;
         }

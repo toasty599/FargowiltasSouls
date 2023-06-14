@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Medusa Head");
+            // DisplayName.SetDefault("Medusa Head");
         }
 
         public override void SetDefaults()

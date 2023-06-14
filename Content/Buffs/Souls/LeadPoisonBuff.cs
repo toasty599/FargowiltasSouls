@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lead Poison");
+            // DisplayName.SetDefault("Lead Poison");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铅中毒");

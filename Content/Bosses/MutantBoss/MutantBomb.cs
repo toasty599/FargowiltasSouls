@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantasmal Blast");
+            // DisplayName.SetDefault("Phantasmal Blast");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
         }
 
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

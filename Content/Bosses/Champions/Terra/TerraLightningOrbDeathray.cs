@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Lightning Deathray");
+            // DisplayName.SetDefault("Lightning Deathray");
         }
 
         public override bool? CanDamage()
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

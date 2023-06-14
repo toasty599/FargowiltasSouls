@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Shadow Deathray");
+            // DisplayName.SetDefault("Shadow Deathray");
         }
 
         public override bool? CanDamage()
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Darkness, 300);
             if (WorldSavingSystem.EternityMode)

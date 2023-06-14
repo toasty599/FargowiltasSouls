@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Timber");
+            // DisplayName.SetDefault("Champion of Timber");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "木英灵");
             Main.npcFrameCount[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             SceneEffectPriority = SceneEffectPriority.BossLow;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
@@ -649,13 +649,13 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<GuiltyBuff>(), 600);
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

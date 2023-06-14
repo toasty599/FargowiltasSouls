@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Palm Tree");
+            // DisplayName.SetDefault("Palm Tree");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 

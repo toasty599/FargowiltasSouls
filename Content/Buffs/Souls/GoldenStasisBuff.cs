@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Golden Stasis");
-            Description.SetDefault("You are immune to all damage, but cannot move");
+            // DisplayName.SetDefault("Golden Stasis");
+            // Description.SetDefault("You are immune to all damage, but cannot move");
             Main.buffNoSave[Type] = true;
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "不动金身");

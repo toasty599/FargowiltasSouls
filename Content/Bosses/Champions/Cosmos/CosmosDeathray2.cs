@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Cosmic Deathray");
+            // DisplayName.SetDefault("Cosmic Deathray");
         }
 
         public override bool? CanDamage()
@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             }
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && target.type == modNPC.Type)
                 damage *= 4;
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 damage *= 12;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoonBuff>(), 360);

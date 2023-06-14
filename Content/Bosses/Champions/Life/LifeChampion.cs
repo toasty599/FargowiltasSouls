@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Life");
+            // DisplayName.SetDefault("Champion of Life");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生命英灵");
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
@@ -93,10 +93,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             NPC.alpha = 255;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -693,26 +693,25 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                 NPC.velocity.Y = cap * Math.Sign(NPC.velocity.Y);
         }
 
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            damage /= 10;
+            modifiers.FinalDamage /= 10;
             if (NPC.localAI[2] == 0 && NPC.life < NPC.lifeMax / 3
                 || NPC.localAI[2] == 1 && NPC.life < NPC.lifeMax / 3 && WorldSavingSystem.EternityMode)
             {
-                damage = 1;
-                crit = false;
-                return false;
+                modifiers.FinalDamage *= 0f;
+                modifiers.FinalDamage += 1f;
+                modifiers.DisableCrit();
             }
-            return true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

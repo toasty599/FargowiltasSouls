@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nature Rain");
+            // DisplayName.SetDefault("Nature Rain");
         }
 
         public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             Lighting.AddLight(Projectile.Center, 0.5f, 0.75f, 1f);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Wet, 300);
             if (WorldSavingSystem.EternityMode)

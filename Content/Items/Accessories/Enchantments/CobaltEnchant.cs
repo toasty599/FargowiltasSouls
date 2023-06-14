@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Cobalt Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Cobalt Enchantment");
+            /* Tooltip.SetDefault(
 @"Grants an explosion jump that inflicts Oiled and grants brief invulnerability
 When you are hurt, you violently explode to damage nearby enemies
-'I can't believe it's not Palladium'");
+'I can't believe it's not Palladium'"); */
         }
 
         protected override Color nameColor => new(61, 164, 196);

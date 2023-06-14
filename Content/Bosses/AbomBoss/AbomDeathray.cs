@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Abominable Deathray");
+            // DisplayName.SetDefault("Abominable Deathray");
         }
 
         public override void AI()
@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Projectile.rotation = Projectile.velocity.ToRotation() - 1.57079637f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

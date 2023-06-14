@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice Mist");
+            // DisplayName.SetDefault("Ice Mist");
         }
 
         public override void SetDefaults()
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Lighting.AddLight(Projectile.Center, 0.3f, 0.75f, 0.9f);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn, 240);
         }

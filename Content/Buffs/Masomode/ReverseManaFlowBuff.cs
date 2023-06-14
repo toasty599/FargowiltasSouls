@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Reverse Mana Flow");
-            Description.SetDefault("Your magic weapons cost life instead of mana");
+            // DisplayName.SetDefault("Reverse Mana Flow");
+            // Description.SetDefault("Your magic weapons cost life instead of mana");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "反魔力流");

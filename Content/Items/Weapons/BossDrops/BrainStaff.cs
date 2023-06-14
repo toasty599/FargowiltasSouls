@@ -1,4 +1,4 @@
-//using FargowiltasSouls.Content.Buffs.Minions;
+﻿//using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using System.Linq;
@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mind Break");
-            Tooltip.SetDefault("'An old foe beaten into submission..'");
+            // DisplayName.SetDefault("Mind Break");
+            // Tooltip.SetDefault("'An old foe beaten into submission..'");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精神崩坏");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'一个被迫屈服的老对手..'");
 

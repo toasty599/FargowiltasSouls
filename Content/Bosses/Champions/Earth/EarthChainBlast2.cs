@@ -16,11 +16,11 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chain Blast");
+            // DisplayName.SetDefault("Chain Blast");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 300);
             if (WorldSavingSystem.EternityMode)

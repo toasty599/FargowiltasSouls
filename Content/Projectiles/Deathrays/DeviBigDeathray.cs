@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Love Ray");
+            // DisplayName.SetDefault("Love Ray");
         }
 
         public override void SetDefaults()
@@ -150,7 +150,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Ichor, 2); //lots of defense down stack to make damage calc consistent
             target.AddBuff(BuffID.WitheredArmor, 2);

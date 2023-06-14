@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Top Hat Squirrel");
+            // DisplayName.SetDefault("Top Hat Squirrel");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<GuiltyBuff>(), 120);

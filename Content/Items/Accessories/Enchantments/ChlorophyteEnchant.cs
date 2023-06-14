@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Chlorophyte Enchantment");
+            // DisplayName.SetDefault("Chlorophyte Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "叶绿魔石");
 
@@ -22,7 +22,7 @@ While using wings, spores will continuously spawn
 Allows the ability to dash slightly
 Double tap a direction
 'The jungle's essence crystallizes around you'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"召唤一圈叶状水晶射击附近的敌人

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Force of Nature");
+            // DisplayName.SetDefault("Force of Nature");
 
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然之力");
 
@@ -37,7 +37,7 @@ $"[i:{ModContent.ItemType<JungleEnchant>()}] Grants a double spore jump\n" +
 $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] Not moving puts you in stealth\n" +
 $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushrooms\n" +
 "'Tapped into every secret of the wilds'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"[i:{0}] 在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量

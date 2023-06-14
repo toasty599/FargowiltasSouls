@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Berserker's Soul");
+            // DisplayName.SetDefault("Berserker's Soul");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "狂战士之魂");
 
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 Increased melee knockback
 Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 'None shall live to tell the tale'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
             //string tooltip_ch =
             //@"增加30%近战伤害
             //增加20%近战攻速

@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Love Ray");
+            // DisplayName.SetDefault("Love Ray");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.position -= Projectile.velocity;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Lovestruck, 300);
             target.immune[Projectile.owner] = 1;

@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Will");
+            // DisplayName.SetDefault("Champion of Will");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "意志英灵");
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.TrailCacheLength[NPC.type] = 12;
@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             NPC.netAlways = true;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
@@ -701,7 +701,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (WorldSavingSystem.EternityMode)
             {
@@ -711,7 +711,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             target.AddBuff(BuffID.Bleeding, 300);
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

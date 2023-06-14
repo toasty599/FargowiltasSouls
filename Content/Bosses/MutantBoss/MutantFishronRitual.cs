@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fish Nuke");
+            // DisplayName.SetDefault("Fish Nuke");
         }
 
         public override void SetDefaults()
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 10;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

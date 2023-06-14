@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Saucer");
+            // DisplayName.SetDefault("Mini Saucer");
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             NPC.dontTakeDamage = true;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax /** 0.5f*/ * bossLifeScale);
@@ -156,7 +156,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 NPC.localAI[0] = 0;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             for (int i = 0; i < 3; i++)
             {

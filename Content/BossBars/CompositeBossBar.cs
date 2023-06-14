@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.BossBars
             return base.GetIconTexture(ref iconFrame);
         }
 
-        public override bool? ModifyInfo(ref BigProgressBarInfo info, ref float lifePercent, ref float shieldPercent)
+        public override bool? ModifyInfo(ref BigProgressBarInfo info, ref float life, ref float lifeMax, ref float shield, ref float shieldMax)/* tModPorter Note: life and shield current and max values are now separate to allow for hp/shield number text draw */
         {
             NPC npc = FargoSoulsUtil.NPCExists(info.npcIndexToAimAt);
 

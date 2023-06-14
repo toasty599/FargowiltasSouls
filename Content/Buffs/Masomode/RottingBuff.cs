@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Core.Globals;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rotting");
-            Description.SetDefault("Your body is wasting away");
+            // DisplayName.SetDefault("Rotting");
+            // Description.SetDefault("Your body is wasting away");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
 

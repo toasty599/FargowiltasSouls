@@ -1009,7 +1009,7 @@ namespace FargowiltasSouls.Core.Globals
             return base.CheckDead(npc);
         }
 
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             ModifyHitByBoth(npc, player, ref damage);
 
@@ -1019,7 +1019,7 @@ namespace FargowiltasSouls.Core.Globals
             //            }*/
         }
 
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             Player player = Main.player[projectile.owner];
             ModifyHitByBoth(npc, player, ref damage);
@@ -1035,12 +1035,12 @@ namespace FargowiltasSouls.Core.Globals
             }
         }
 
-        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
             OnHitByEither(npc, player);
         }
 
-        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
             OnHitByEither(npc, Main.player[projectile.owner]);
         }
@@ -1065,7 +1065,7 @@ namespace FargowiltasSouls.Core.Globals
             return true;
         }
 
-        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
+        public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
         {
             if (target.HasBuff(ModContent.BuffType<ShellHideBuff>()))
                 damage *= 2;
@@ -1074,7 +1074,7 @@ namespace FargowiltasSouls.Core.Globals
                 damage = (int)(damage * 1.3);
         }
 
-        public override void ModifyHitNPC(NPC npc, NPC target, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitNPC(NPC npc, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (target.type == ModContent.NPCType<CreeperGutted>())
                 damage /= 20;
@@ -1094,7 +1094,7 @@ namespace FargowiltasSouls.Core.Globals
             return null;
         }
 
-        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
@@ -1133,7 +1133,7 @@ namespace FargowiltasSouls.Core.Globals
             return true;
         }
 
-        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
         {
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();

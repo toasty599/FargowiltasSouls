@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mimic");
+            // DisplayName.SetDefault("Mimic");
             Main.projFrames[Projectile.type] = 8;
         }
 
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.PurifiedBuff>(), 300);
         }

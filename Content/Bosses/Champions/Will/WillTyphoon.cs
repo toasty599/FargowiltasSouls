@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Will Typhoon");
+            // DisplayName.SetDefault("Will Typhoon");
             Main.projFrames[Projectile.type] = 22;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

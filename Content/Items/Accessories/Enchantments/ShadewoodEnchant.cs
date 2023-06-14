@@ -16,11 +16,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Shadewood Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Shadewood Enchantment");
+            /* Tooltip.SetDefault(
 @"You have an aura of Bleeding
 Enemies struck while Bleeding spew damaging blood
-'Surprisingly clean'");
+'Surprisingly clean'"); */
         }
 
         protected override Color nameColor => new(88, 104, 118);

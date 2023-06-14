@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Deviantt's Curse");
+            // DisplayName.SetDefault("Deviantt's Curse");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 7));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;

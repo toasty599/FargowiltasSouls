@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Dark Artist Enchantment");
+            // DisplayName.SetDefault("Dark Artist Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗黑艺术家魔石");
 
@@ -23,7 +23,7 @@ Switching weapons will increase the next attack's damage by 50% and spawn an inf
 Greatly enhances Flameburst effectiveness
 'The shadows hold more than they seem'";
 
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
             //             string tooltip_ch =
             // @"召唤一个爆炸烈焰哨兵，在充能完毕后会移动至光标位置
             // 然后将其算作一个哨兵

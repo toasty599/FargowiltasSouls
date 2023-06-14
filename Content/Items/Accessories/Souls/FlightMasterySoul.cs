@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,14 +14,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Flight Mastery Soul");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Flight Mastery Soul");
+            /* Tooltip.SetDefault(
 @"Allows for infinite flight
 Hold DOWN and JUMP to hover
 Hold UP to boost faster
 Increases gravity
 Allows the control of gravity
-'Ascend'");
+'Ascend'"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "飞行大师之魂");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             //@"使你获得无限飞行能力

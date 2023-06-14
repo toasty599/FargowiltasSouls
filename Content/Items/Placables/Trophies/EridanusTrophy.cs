@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Items.Placables.Trophies
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Eridanus Trophy");
+            // DisplayName.SetDefault("Eridanus Trophy");
         }
     }
 }

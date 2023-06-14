@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hungry");
+            // DisplayName.SetDefault("Hungry");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 

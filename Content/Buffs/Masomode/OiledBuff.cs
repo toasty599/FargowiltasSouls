@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Oiled");
-            Description.SetDefault("Taking more damage from being on fire");
+            // DisplayName.SetDefault("Oiled");
+            // Description.SetDefault("Taking more damage from being on fire");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
 

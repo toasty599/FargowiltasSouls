@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         public override string Texture => "FargowiltasSouls/Content/Bosses/Lieflight/LifeCageProjectile";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cage Telegraph");
+            // DisplayName.SetDefault("Cage Telegraph");
         }
         public override void SetDefaults()
         {

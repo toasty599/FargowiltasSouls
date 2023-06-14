@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bee");
+            // DisplayName.SetDefault("Bee");
             Main.projFrames[Projectile.type] = 4;
         }
 
@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.tileCollide = Projectile.localAI[0] > 180;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Poisoned, 300);
             target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);

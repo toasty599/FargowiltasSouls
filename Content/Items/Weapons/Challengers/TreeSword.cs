@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+﻿using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tree Sword");
-            Tooltip.SetDefault("Shoots an acorn");
+            // DisplayName.SetDefault("Tree Sword");
+            // Tooltip.SetDefault("Shoots an acorn");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "树剑");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "射出橡实");
 

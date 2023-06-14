@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Content.Items.Pets
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gold-Tinged Feather");
-            Tooltip.SetDefault("Summons a lesser angel that provides light");
+            // DisplayName.SetDefault("Gold-Tinged Feather");
+            // Tooltip.SetDefault("Summons a lesser angel that provides light");
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

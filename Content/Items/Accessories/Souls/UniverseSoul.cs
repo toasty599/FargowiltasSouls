@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Soul of the Universe");
+            // DisplayName.SetDefault("Soul of the Universe");
 
             string tooltip =
 @"66% increased all damage for your current weapon class
@@ -27,7 +27,7 @@ All attacks inflict Flames of the Universe
 Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 'The heavens themselves bow to you'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));

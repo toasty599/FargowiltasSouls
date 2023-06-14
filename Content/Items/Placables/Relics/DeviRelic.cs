@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Items.Placables.Relics
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Deviantt Relic");
+            // DisplayName.SetDefault("Deviantt Relic");
         }
     }
 }

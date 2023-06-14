@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eridanus Fist");
+            // DisplayName.SetDefault("Eridanus Fist");
             Main.projFrames[Projectile.type] = 11;
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire, 600);
         }

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Bolt");
+            // DisplayName.SetDefault("Cosmic Bolt");
             Main.projFrames[Projectile.type] = 5;
         }
 
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);

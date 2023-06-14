@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frostfireball");
+            // DisplayName.SetDefault("Frostfireball");
         }
 
         public override void SetDefaults()
@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn, 240);
             //target.AddBuff(BuffID.ShadowFlame, 240);

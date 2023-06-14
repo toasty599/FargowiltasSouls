@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Retirang");
+            // DisplayName.SetDefault("Retirang");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.rotation += 1f * Math.Sign(Projectile.ai[0]);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Ichor, 120);
             if (WorldSavingSystem.EternityMode)

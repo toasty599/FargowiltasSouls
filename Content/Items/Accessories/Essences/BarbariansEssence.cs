@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,12 +11,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Essences
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Barbarian's Essence");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Barbarian's Essence");
+            /* Tooltip.SetDefault(
 @"18% increased melee damage
 10% increased melee speed
 5% increased melee crit chance
-'This is only the beginning..'");
+'This is only the beginning..'"); */
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "野蛮人精华");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,

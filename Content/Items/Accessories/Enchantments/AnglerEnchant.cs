@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,12 +11,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Angler Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Angler Enchantment");
+            /* Tooltip.SetDefault(
 @"Increases fishing power
 You catch fish almost instantly
 Effects of Lavaproof Tackle Bag
-'As long as they aren't all shoes, you can go home happily'");
+'As long as they aren't all shoes, you can go home happily'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "渔夫魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chine, 
             // @"增加渔力

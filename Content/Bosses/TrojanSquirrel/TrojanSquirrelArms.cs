@@ -204,7 +204,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             return pos;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

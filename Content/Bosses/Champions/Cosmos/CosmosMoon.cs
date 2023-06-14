@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Moon");
+            // DisplayName.SetDefault("Cosmic Moon");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -220,12 +220,12 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             }
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            damage *= 2;
+            modifiers.FinalDamage *= 2f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

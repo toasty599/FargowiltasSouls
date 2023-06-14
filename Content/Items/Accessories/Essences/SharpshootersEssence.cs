@@ -11,12 +11,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Essences
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Sharpshooter's Essence");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Sharpshooter's Essence");
+            /* Tooltip.SetDefault(
 @"18% increased ranged damage
 10% chance to not consume ammo
 5% increased ranged critical chance
-'This is only the beginning..'");
+'This is only the beginning..'"); */
         }
 
         protected override Color nameColor => new(188, 253, 68);

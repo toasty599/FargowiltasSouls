@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Core.Globals;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("God Eater");
-            Description.SetDefault("Your soul is cursed by divine wrath");
+            // DisplayName.SetDefault("God Eater");
+            // Description.SetDefault("Your soul is cursed by divine wrath");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             BuffID.Sets.IsAnNPCWhipDebuff[Type] = true; //ignore most debuff immunity

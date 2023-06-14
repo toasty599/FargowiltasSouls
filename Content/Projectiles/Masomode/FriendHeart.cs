@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Friend Heart");
+            // DisplayName.SetDefault("Friend Heart");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.rotation = Projectile.velocity.ToRotation() - (float)Math.PI / 2;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Lovestruck, 600);
 

@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("The Rockslide");
-            Tooltip.SetDefault("'The crumbling remains of a defeated foe..'");
+            // DisplayName.SetDefault("The Rockslide");
+            // Tooltip.SetDefault("'The crumbling remains of a defeated foe..'");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "山崩");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'被击败的敌人的破碎残骸'");

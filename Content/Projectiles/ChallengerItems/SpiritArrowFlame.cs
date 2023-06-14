@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
         public override string Texture => "Terraria/Images/Projectile_659"; //spirit flame
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spirit Flame");
+            // DisplayName.SetDefault("Spirit Flame");
 
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;

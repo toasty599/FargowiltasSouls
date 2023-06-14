@@ -12,11 +12,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Molten Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Molten Enchantment");
+            /* Tooltip.SetDefault(
 @"Nearby enemies are ignited
 Enemies take 25% increased damage while inside the inferno ring
-'They shall know the fury of hell' ");
+'They shall know the fury of hell' "); */
         }
 
         protected override Color nameColor => new(193, 43, 43);

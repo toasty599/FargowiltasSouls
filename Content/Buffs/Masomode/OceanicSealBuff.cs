@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Masomode;
+﻿using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -11,9 +11,9 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Oceanic Seal");
+            // DisplayName.SetDefault("Oceanic Seal");
             base.SetStaticDefaults();
-            Description.SetDefault("No dodging, no lifesteal, no supersonic, no escape");
+            // Description.SetDefault("No dodging, no lifesteal, no supersonic, no escape");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

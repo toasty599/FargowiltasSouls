@@ -16,12 +16,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sparkling Adoration");
-            Tooltip.SetDefault(@"Grants immunity to Lovestruck and Fake Hearts
+            // DisplayName.SetDefault("Sparkling Adoration");
+            /* Tooltip.SetDefault(@"Grants immunity to Lovestruck and Fake Hearts
 Graze attacks to gain up to x1.25 increased damage
 Damage bonus decreases over time and is fully lost on hit
 Your attacks periodically summon life-draining hearts
-'With all of your emotion!'");
+'With all of your emotion!'"); */
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 11));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 

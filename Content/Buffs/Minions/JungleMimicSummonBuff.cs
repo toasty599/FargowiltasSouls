@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Jungle Mimic");
-            Description.SetDefault("The Jungle Mimic will fight for you");
+            // DisplayName.SetDefault("Jungle Mimic");
+            // Description.SetDefault("The Jungle Mimic will fight for you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

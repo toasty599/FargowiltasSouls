@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using Terraria;
 using Terraria.ID;
@@ -12,12 +12,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Galactic Globe");
-            Tooltip.SetDefault(@"Grants immunity to Nullification Curse, Flipped, Unstable, and Curse of the Moon
+            // DisplayName.SetDefault("Galactic Globe");
+            /* Tooltip.SetDefault(@"Grants immunity to Nullification Curse, Flipped, Unstable, and Curse of the Moon
 Allows the holder to control gravity
 Summons the true eyes of Cthulhu to protect you
 Increases flight time by 100%
-'Always watching'");
+'Always watching'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "银河球");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'时刻注视'
             // 免疫翻转,不稳定,扭曲和月之诅咒

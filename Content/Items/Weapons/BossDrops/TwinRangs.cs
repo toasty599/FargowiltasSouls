@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.BossWeapons;
+﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -12,9 +12,9 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Twinrangs");
-            Tooltip.SetDefault("Fire a different twinrang depending on mouse click" +
-                "\n'The compressed forms of defeated foes..'");
+            // DisplayName.SetDefault("Twinrangs");
+            /* Tooltip.SetDefault("Fire a different twinrang depending on mouse click" +
+                "\n'The compressed forms of defeated foes..'"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "双子");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "被打败的敌人的压缩形态..");
         }

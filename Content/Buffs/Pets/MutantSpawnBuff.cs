@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant Spawn");
-            Description.SetDefault("Mutant Spawn");
+            // DisplayName.SetDefault("Mutant Spawn");
+            // Description.SetDefault("Mutant Spawn");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }

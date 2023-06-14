@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Coin");
+            // DisplayName.SetDefault("Coin");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
             Main.projFrames[Projectile.type] = 4;
         }
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Midas, 300);
         }

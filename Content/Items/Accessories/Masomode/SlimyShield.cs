@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,12 +11,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Slimy Shield");
-            Tooltip.SetDefault(@"Grants immunity to Slimed
+            // DisplayName.SetDefault("Slimy Shield");
+            /* Tooltip.SetDefault(@"Grants immunity to Slimed
 Increases fall speed
 When you land after a jump, slime will fall from the sky over your cursor
 Slime inflicts Slimed and Oiled
-'Torn from the innards of a defeated foe'");
+'Torn from the innards of a defeated foe'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "粘液盾");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'从被打败的敌人的内脏中撕裂而来'
             // 免疫黏糊

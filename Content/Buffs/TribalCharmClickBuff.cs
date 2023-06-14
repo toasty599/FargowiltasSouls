@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tribal Charm");
-            Description.SetDefault("Gain an instant of increased damage when you click to attack");
+            // DisplayName.SetDefault("Tribal Charm");
+            // Description.SetDefault("Gain an instant of increased damage when you click to attack");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }

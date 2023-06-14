@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lightning Rod");
-            Description.SetDefault("You attract thunderbolts");
+            // DisplayName.SetDefault("Lightning Rod");
+            // Description.SetDefault("You attract thunderbolts");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "避雷针");

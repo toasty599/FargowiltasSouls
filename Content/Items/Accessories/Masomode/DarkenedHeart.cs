@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,11 +10,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Darkened Heart");
-            Tooltip.SetDefault(@"Grants immunity to Rotting
+            // DisplayName.SetDefault("Darkened Heart");
+            /* Tooltip.SetDefault(@"Grants immunity to Rotting
 10% increased movement speed and increased turnaround traction
 You spawn mini eaters to seek out enemies every few attacks
-'Flies refuse to approach it'");
+'Flies refuse to approach it'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "腐化之心");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'苍蝇都不想接近它'
             // 免疫腐败

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Whirlpool");
+            // DisplayName.SetDefault("Whirlpool");
             Main.projFrames[Projectile.type] = 6;
         }
 

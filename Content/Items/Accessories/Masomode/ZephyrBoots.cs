@@ -10,12 +10,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zephyr Boots");
-            Tooltip.SetDefault(@"Allows flight and super fast running
+            // DisplayName.SetDefault("Zephyr Boots");
+            /* Tooltip.SetDefault(@"Allows flight and super fast running
 8% increased movement speed
 Allows the holder to double jump
 Increases jump height and negates fall damage
-'Run like the wind'");
+'Run like the wind'"); */
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

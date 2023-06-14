@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Daybreak");
+            // DisplayName.SetDefault("Daybreak");
         }
 
         public override void SetDefaults()
@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return Color.White;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 900);
             target.AddBuff(BuffID.Burning, 180);

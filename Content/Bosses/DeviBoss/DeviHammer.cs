@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Paladin's Hammer");
+            // DisplayName.SetDefault("Paladin's Hammer");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (!target.HasBuff(ModContent.BuffType<Buffs.Masomode.StunnedBuff>()))
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.StunnedBuff>(), 60);

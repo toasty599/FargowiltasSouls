@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stinger");
+            // DisplayName.SetDefault("Stinger");
         }
 
         public override void SetDefaults()
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             //Projectile.position += Projectile.velocity * 0.5f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Venom, 600);
         }

@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snowstorm Cooldown");
-            Description.SetDefault("You cannot chill yet");
+            // DisplayName.SetDefault("Snowstorm Cooldown");
+            // Description.SetDefault("You cannot chill yet");
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }

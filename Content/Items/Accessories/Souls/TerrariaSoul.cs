@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Soul of Terraria");
+            // DisplayName.SetDefault("Soul of Terraria");
 
             string tooltip =
 @"Summons fireballs, shadow orbs, icicles, leaf crystals, flameburst minion, hallowed sword and shield, and beetles
@@ -38,7 +38,7 @@ Your attacks inflict Midas, Enemies explode into needles
 You violently explode to damage nearby enemies when hurt and revive with 200 HP when killed
 Effects of Flower Boots and Greedy Ring
 'A true master of Terraria'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 24));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;

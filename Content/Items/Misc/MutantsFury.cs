@@ -1,4 +1,4 @@
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Content.Items.Misc
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant's Fury");
-            Tooltip.SetDefault("'REALLY enrages Mutant... or doesn't'");
+            // DisplayName.SetDefault("Mutant's Fury");
+            // Tooltip.SetDefault("'REALLY enrages Mutant... or doesn't'");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变狂怒");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'真·正激怒突变体... 也许并不'");
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

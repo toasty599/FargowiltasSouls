@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Venom Spit");
+            // DisplayName.SetDefault("Venom Spit");
         }
 
         public override void SetDefaults()
@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return new Color(255, lightColor.G, 255, lightColor.A);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Venom, 180);
         }

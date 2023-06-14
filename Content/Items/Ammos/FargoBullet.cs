@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Ammos;
+﻿using FargowiltasSouls.Content.Projectiles.Ammos;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Materials;
@@ -9,11 +9,11 @@ namespace FargowiltasSouls.Content.Items.Ammos
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Amalgamated Bullet Pouch");
-            Tooltip.SetDefault("Chases after your enemy\n" +
+            // DisplayName.SetDefault("Amalgamated Bullet Pouch");
+            /* Tooltip.SetDefault("Chases after your enemy\n" +
                                "Bounces several times\n" +
                                "Each impact causes an explosion of crystal shards\n" +
-                               "Inflicts several debuffs");
+                               "Inflicts several debuffs"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "混合子弹袋");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             //"追踪敌人\n" +

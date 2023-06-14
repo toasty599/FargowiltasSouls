@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadowflame Tentacle");
+            // DisplayName.SetDefault("Shadowflame Tentacle");
         }
 
         public override void SetDefaults()
@@ -30,14 +30,14 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.ShadowFlame, 300);
             if (Projectile.owner == Main.myPlayer)
                 Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().WretchedPouchCD += 8;
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             hitDirection = Main.player[Projectile.owner].Center.X > target.Center.X ? -1 : 1;
         }

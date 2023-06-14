@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spiky Ball");
+            // DisplayName.SetDefault("Spiky Ball");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<InfestedBuff>(), 360);
             target.AddBuff(BuffID.Venom, 360);

@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lovestruck");
-            Description.SetDefault("You are in love!");
+            // DisplayName.SetDefault("Lovestruck");
+            // Description.SetDefault("You are in love!");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
 

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         bool empowered = false;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Retiglaive");
+            // DisplayName.SetDefault("Retiglaive");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -157,7 +157,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.rotation += Projectile.direction * -0.4f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             /*if (!hitSomething)
             {

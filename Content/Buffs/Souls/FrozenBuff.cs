@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frozen");
-            Description.SetDefault("You cannot move");
+            // DisplayName.SetDefault("Frozen");
+            // Description.SetDefault("You cannot move");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = false;

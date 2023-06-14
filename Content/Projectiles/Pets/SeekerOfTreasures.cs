@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Seeker of Treasures");
+            // DisplayName.SetDefault("Seeker of Treasures");
             Main.projFrames[Projectile.type] = 3;
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.LightPet[Projectile.type] = true;

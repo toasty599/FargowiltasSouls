@@ -14,13 +14,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Crystal Assassin Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Crystal Assassin Enchantment");
+            /* Tooltip.SetDefault(
 @"Allows the ability to dash
 Use Assassin hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
 Using the Rod of Discord will also grant this buff
 First Strike ensures your next attack hits a vital spot dealing 3x damage and reducing defense by 10
-'Now you see me, now you don’t'");
+'Now you see me, now you don’t'"); */
         }
 
         protected override Color nameColor => new(36, 157, 207);
@@ -115,7 +115,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
                 if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
                 {
                     modPlayer.Player.Teleport(teleportPos, 1);
-                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, modPlayer.Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+                    NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, modPlayer.Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
                     modPlayer.Player.AddBuff(ModContent.BuffType<FirstStrikeBuff>(), 60);
 

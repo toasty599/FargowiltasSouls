@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Spider Enchantment");
+            // DisplayName.SetDefault("Spider Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蜘蛛魔石");
 
@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 @"Your minions and sentries can crit
 Summon crits do x1.5 damage instead of x2
 'Arachnophobia is punishable by arachnid induced death'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"你的仆从和哨兵现在可以造成暴击且有15%基础暴击率

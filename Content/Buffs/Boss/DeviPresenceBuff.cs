@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Boss
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Deviant Presence");
-            Description.SetDefault("Friendly NPCs take massively increased damage");
+            // DisplayName.SetDefault("Deviant Presence");
+            // Description.SetDefault("Friendly NPCs take massively increased damage");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "戴维安驾到");
             //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "大幅增加友方NPC受到的伤害");
             Main.debuff[Type] = true;

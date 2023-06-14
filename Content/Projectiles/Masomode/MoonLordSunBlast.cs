@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Sun Blast");
+            // DisplayName.SetDefault("Sun Blast");
         }
 
         public override void SetDefaults()
@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Burning, 120);
             target.AddBuff(BuffID.OnFire, 300);

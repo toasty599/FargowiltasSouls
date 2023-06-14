@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Blazing Deathray");
+            // DisplayName.SetDefault("Blazing Deathray");
         }
 
         public override void AI()
@@ -146,7 +146,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
         const int descendTime = 30;
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<StunnedBuff>(), 120);
 

@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
@@ -9,12 +9,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Queen's Stinger");
-            Tooltip.SetDefault("Grants immunity to Infested" +
+            // DisplayName.SetDefault("The Queen's Stinger");
+            /* Tooltip.SetDefault("Grants immunity to Infested" +
                 "\nPress the Special Dash key to perform a short quick bee dash" +
                 "\nHoney buff increases your armor penetration by 10" +
                 "\nBees and weak Hornets become friendly" +
-                "\n'Ripped right off of a defeated foe'");
+                "\n'Ripped right off of a defeated foe'"); */
 
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "女王的毒刺");
             // Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'从一个被打败的敌人身上撕下来'" +

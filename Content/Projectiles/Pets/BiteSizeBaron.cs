@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bite-size Baron");
+            // DisplayName.SetDefault("Bite-size Baron");
             Main.projFrames[Projectile.type] = 8;
             Main.projPet[Projectile.type] = true;
         }

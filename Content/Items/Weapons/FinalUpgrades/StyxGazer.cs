@@ -19,9 +19,9 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Styx Gazer");
-            Tooltip.SetDefault(@"Right click to wield a blade of infernal magic
-'The blazing scythe wand sword destruction ray of a defeated foe...'");
+            // DisplayName.SetDefault("Styx Gazer");
+            /* Tooltip.SetDefault(@"Right click to wield a blade of infernal magic
+'The blazing scythe wand sword destruction ray of a defeated foe...'"); */
         }
 
         public override void SetDefaults()

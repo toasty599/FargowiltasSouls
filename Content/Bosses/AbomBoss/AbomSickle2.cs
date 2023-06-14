@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abominationn Sickle");
+            // DisplayName.SetDefault("Abominationn Sickle");
         }
 
         public override void SetDefaults()
@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             return false;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

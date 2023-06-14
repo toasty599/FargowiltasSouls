@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cursed Flame");
+            // DisplayName.SetDefault("Cursed Flame");
             Main.projFrames[Projectile.type] = 5;
         }
 
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.CursedInferno, 120);
         }

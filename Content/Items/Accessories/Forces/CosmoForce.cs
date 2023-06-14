@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
 using Terraria.Localization;
@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Force of Cosmos");
+            // DisplayName.SetDefault("Force of Cosmos");
 
             string tooltip =
 $"[i:{ModContent.ItemType<MeteorEnchant>()}] A meteor shower initiates every few seconds while attacking\n" +
@@ -33,7 +33,7 @@ $"[i:{ModContent.ItemType<NebulaEnchant>()}] Hurting enemies has a chance to spa
 $"[i:{ModContent.ItemType<StardustEnchant>()}] A stardust guardian will protect you from nearby enemies\n" +
 $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze time for 9 seconds, 60 second cooldown\n" +
 "'Been around since the Big Bang'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"[i:{0}] 攻击时每过几秒便会召唤一次流星雨

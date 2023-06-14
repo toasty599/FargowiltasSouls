@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Drinker");
-            Description.SetDefault("30% increased damage");
+            // DisplayName.SetDefault("Blood Drinker");
+            // Description.SetDefault("30% increased damage");
         }
 
         public override void Update(Player player, ref int buffIndex)

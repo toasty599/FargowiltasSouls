@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -20,8 +21,8 @@ namespace FargowiltasSouls.Content.Tiles
             //TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
             TileObjectData.addTile(Type);
 
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Mutant Statue");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Mutant Statue");
             AddMapEntry(new Color(144, 144, 144), name);
         }
 

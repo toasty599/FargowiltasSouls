@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dubious Circuitry");
-            Tooltip.SetDefault(@"Grants immunity to Cursed Inferno, Ichor, Lightning Rod, Defenseless, Nano Injection, and knockback
+            // DisplayName.SetDefault("Dubious Circuitry");
+            /* Tooltip.SetDefault(@"Grants immunity to Cursed Inferno, Ichor, Lightning Rod, Defenseless, Nano Injection, and knockback
 When inflicted with Cursed Inferno, 15% increased attack speed and you inflict Cursed Inferno
 When inflicted with Ichor, 15% increased critical strike chance and you inflict Ichor
 Press the Debuff Install key to inflict yourself with Cursed Inferno and Ichor for 30 seconds
@@ -21,7 +21,7 @@ Electric and ray attacks supercharge you and do halved damage if not already sup
 While supercharged, you have increased movement speed, attack speed, and inflict Electrified
 Two friendly probes fight by your side and will supercharge with you
 Reduces damage taken by 5%
-'Malware probably not included'");
+'Malware probably not included'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "可疑电路");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'里面也许没有恶意软件'
             // 免疫诅咒地狱,脓液,避雷针,毫无防御,昏迷和击退

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Divine Deathray");
+            // DisplayName.SetDefault("Divine Deathray");
         }
 
         public override void AI()
@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             Projectile.position -= Projectile.velocity;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<FlippedBuff>(), 300);
             target.AddBuff(BuffID.Confused, 300);

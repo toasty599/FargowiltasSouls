@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("True Eye of Cthulhu");
+            // DisplayName.SetDefault("True Eye of Cthulhu");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             //ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
@@ -277,7 +277,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             localAI1 = num19 + num18;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
         }

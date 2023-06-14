@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Shot");
+            // DisplayName.SetDefault("Life Shot");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             }
             //}
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);

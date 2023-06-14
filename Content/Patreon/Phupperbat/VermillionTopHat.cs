@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Patreon.Phupperbat
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Vermillion Top Hat");
-            Tooltip.SetDefault("Summons a dead princess\n'Duck, Duck, Bat'");
+            // DisplayName.SetDefault("Vermillion Top Hat");
+            // Tooltip.SetDefault("Summons a dead princess\n'Duck, Duck, Bat'");
         }
 
         public override void SetDefaults()

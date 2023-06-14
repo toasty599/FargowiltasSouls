@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lava Wet");
-            Description.SetDefault("You are dripping lava");
+            // DisplayName.SetDefault("Lava Wet");
+            // Description.SetDefault("You are dripping lava");
             Main.buffNoSave[Type] = true;
         }
 

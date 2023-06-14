@@ -14,10 +14,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Boreal Wood Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Boreal Wood Enchantment");
+            /* Tooltip.SetDefault(
 @"Attacks will periodically be accompanied by several snowballs
-'The cooler wood'");
+'The cooler wood'"); */
 
             //in force fires more snowballs, more often, with much higher dmg cap
         }

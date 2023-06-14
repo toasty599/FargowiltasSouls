@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         #region Standard
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lieflight");
+            // DisplayName.SetDefault("Lieflight");
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.TrailCacheLength[NPC.type] = 18;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
@@ -191,9 +191,9 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             NPC.dontTakeDamage = true; //until it Appears in Opening
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -2497,17 +2497,15 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         #endregion
         #endregion
         #region Overrides
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            damage /= 2;
+            modifiers.FinalDamage /= 2f;
 
             if (useDR)
-                damage /= 4;
+                modifiers.FinalDamage /= 4f;
 
             if (phaseProtectionDR)
-                damage /= 4;
-
-            return true;
+                modifiers.FinalDamage /= 4f;
         }
 
         public override void UpdateLifeRegen(ref int damage)
@@ -2527,7 +2525,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             }
             return false;
         }
-        public override bool? CanHitNPC(NPC target)
+        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */
         {
             if (HitPlayer)
             {
@@ -2567,7 +2565,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             return x * x / (a * a) + y * y / (b * b) < 1; //point collision detection
         }
         #endregion
-        public override void HitEffect(int hitDirection, double HitDamage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

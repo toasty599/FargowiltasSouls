@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Phantasmal Deathray");
+            // DisplayName.SetDefault("Phantasmal Deathray");
         }
 
         public override void SetDefaults()
@@ -241,7 +241,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             base.Kill(timeLeft);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 1; //balanceing
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);

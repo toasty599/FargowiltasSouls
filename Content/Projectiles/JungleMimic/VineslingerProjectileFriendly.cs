@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
         {
             Main.projFrames[Projectile.type] = 4;
 
-            DisplayName.SetDefault("Living Leaf Projectile");
+            // DisplayName.SetDefault("Living Leaf Projectile");
         }
 
         public override void SetDefaults()

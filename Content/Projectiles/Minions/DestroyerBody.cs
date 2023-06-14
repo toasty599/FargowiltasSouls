@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Destroyer Body");
+            // DisplayName.SetDefault("Destroyer Body");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 

@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             disabledToggles = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
         }
 
-        public override void OnEnterWorld(Player player)
+        public override void OnEnterWorld()
         {
             Toggler.TryLoad();
             Toggler.LoadPlayerToggles(this);
@@ -427,7 +427,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Mash = false;
         }
 
-        public override void OnRespawn(Player player)
+        public override void OnRespawn()
         {
             if (NymphsPerfumeRespawn)
                 NymphsPerfumeRestoreLife = 6;
@@ -1340,7 +1340,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Main.screenPosition += Main.rand.NextVector2Circular(7, 7);
         }
 
-        public override void clientClone(ModPlayer clientClone)
+        public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
         {
             FargoSoulsPlayer modPlayer = clientClone as FargoSoulsPlayer;
             modPlayer.Toggler = Toggler;

@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Shroomite Enchantment");
+            // DisplayName.SetDefault("Shroomite Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蘑菇魔石");
 
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 Not moving puts you in stealth
 While in stealth, more mushrooms will spawn
 'Made with real shrooms!'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
             // @"所有攻击都会留下蘑菇尾迹

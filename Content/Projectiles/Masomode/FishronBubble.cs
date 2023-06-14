@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Detonating Bubble");
+            // DisplayName.SetDefault("Detonating Bubble");
             Main.projFrames[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return new Color(255, 255, 255, 0) * Projectile.Opacity;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Wet, 420);
             //target.AddBuff(ModContent.BuffType<SqueakyToy>(), Main.rand.Next(60, 180));

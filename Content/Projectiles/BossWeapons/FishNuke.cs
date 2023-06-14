@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fish Nuke");
+            // DisplayName.SetDefault("Fish Nuke");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
         }*/
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             /*if (damage < target.lifeMax / 25)
                 damage = target.lifeMax / 25;

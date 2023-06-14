@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Patreon.Shucks
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Baby Crimetroid");
-            Description.SetDefault("The Baby is following you");
+            // DisplayName.SetDefault("Baby Crimetroid");
+            // Description.SetDefault("The Baby is following you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }

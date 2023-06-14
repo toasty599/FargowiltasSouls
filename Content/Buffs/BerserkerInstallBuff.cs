@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Berserker Install");
-            Description.SetDefault("'Get them! Berserker!'");
+            // DisplayName.SetDefault("Berserker Install");
+            // Description.SetDefault("'Get them! Berserker!'");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

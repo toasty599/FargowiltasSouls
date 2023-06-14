@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flaming Scythe");
+            // DisplayName.SetDefault("Flaming Scythe");
         }
 
         public override void SetDefaults()
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 900);
             target.AddBuff(ModContent.BuffType<LivingWastelandBuff>(), 900);

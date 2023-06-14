@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cirno Bomb");
+            // DisplayName.SetDefault("Cirno Bomb");
         }
 
         public override void SetDefaults()

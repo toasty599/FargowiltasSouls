@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nebula Blaze");
+            // DisplayName.SetDefault("Nebula Blaze");
             Main.projFrames[Projectile.type] = 4;
         }
 
@@ -219,7 +219,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<BerserkedBuff>(), 300);
             target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);

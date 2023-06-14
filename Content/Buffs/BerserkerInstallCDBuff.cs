@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Berserker Cooldown");
-            Description.SetDefault("You cannot go berserk yet");
+            // DisplayName.SetDefault("Berserker Cooldown");
+            // Description.SetDefault("You cannot go berserk yet");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

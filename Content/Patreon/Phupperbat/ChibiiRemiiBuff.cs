@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Patreon.Phupperbat
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chibii Remii");
-            Description.SetDefault("Devil 'Remilia Stretch'");
+            // DisplayName.SetDefault("Chibii Remii");
+            // Description.SetDefault("Devil 'Remilia Stretch'");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vineslinger Ball");
+            // DisplayName.SetDefault("Vineslinger Ball");
         }
         public override void SetDefaults()
         {
@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
 
             return true;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.owner == Main.myPlayer)
             {

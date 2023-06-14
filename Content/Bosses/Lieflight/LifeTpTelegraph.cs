@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         public override string Texture => "FargowiltasSouls/Assets/Effects/LifeStar";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Teleport Telegraph");
+            // DisplayName.SetDefault("Teleport Telegraph");
         }
         public override void SetDefaults()
         {

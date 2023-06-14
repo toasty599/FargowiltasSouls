@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vortex");
+            // DisplayName.SetDefault("Vortex");
         }
 
         public override void SetDefaults()
@@ -224,7 +224,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Electrified, 360);
             //if (WorldSavingSystem.MasochistMode) target.AddBuff(ModContent.BuffType<Buffs.Masomode.LightningRod>(), 360);

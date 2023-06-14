@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,15 +10,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Aeolus Boots");
-            Tooltip.SetDefault(@"Allows flight, super fast running, and extra mobility on ice
+            // DisplayName.SetDefault("Aeolus Boots");
+            /* Tooltip.SetDefault(@"Allows flight, super fast running, and extra mobility on ice
 The wearer can run even faster on sand
 8% increased movement speed
 Increases jump speed and allows auto-jump
 Flowers grow on the grass you walk on
 Allows the holder to double jump
 Increases jump height and negates fall damage
-'Back and better than ever'");
+'Back and better than ever'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "埃俄罗斯之靴");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"使你获得飞行和快速奔跑能力，提供冰面上的额外机动性
             // 增加8%移动速度

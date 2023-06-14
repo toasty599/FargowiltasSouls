@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Consumables
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Items.Consumables
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rabies Shot");
-            Tooltip.SetDefault("Cures Feral Bite");
+            // DisplayName.SetDefault("Rabies Shot");
+            // Tooltip.SetDefault("Cures Feral Bite");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "狂犬疫苗");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "治愈野性咬噬");
 

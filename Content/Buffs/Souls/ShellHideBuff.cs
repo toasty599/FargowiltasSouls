@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shell Hide");
-            Description.SetDefault("Projectiles are being blocked");
+            // DisplayName.SetDefault("Shell Hide");
+            // Description.SetDefault("Projectiles are being blocked");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

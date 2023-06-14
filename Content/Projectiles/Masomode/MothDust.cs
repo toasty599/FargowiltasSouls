@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Moth Dust");
+            // DisplayName.SetDefault("Moth Dust");
         }
 
         public override void SetDefaults()
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Lighting.AddLight(Projectile.position, .3f, .1f, .3f);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
             {

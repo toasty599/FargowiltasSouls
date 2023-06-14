@@ -10,12 +10,12 @@ namespace FargowiltasSouls.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forgor Gift");
-            Tooltip.SetDefault(@"[c/ff0000:Debug item]
+            // DisplayName.SetDefault("Forgor Gift");
+            /* Tooltip.SetDefault(@"[c/ff0000:Debug item]
 Resets vanilla and Souls mod invasion/boss flags, INCLUDING hardmode (Wall of Flesh downed flag)
 Right click allows getting a new gift from Deviantt, resets credit/discount card, resets your emode slot, rabies vaccine, sinew dash, etc.
 Right click on the item in inventory to reset Mutant phase 1 skip
-i forgor");
+i forgor"); */
         }
 
         public override void SetDefaults()

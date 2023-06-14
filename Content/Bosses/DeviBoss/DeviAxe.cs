@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sparkling Love");
+            // DisplayName.SetDefault("Sparkling Love");
         }
 
         public override void SetDefaults()
@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             }*/
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.velocity.X = target.Center.X < Main.npc[(int)Projectile.ai[0]].Center.X ? -15f : 15f;
             target.velocity.Y = -10f;

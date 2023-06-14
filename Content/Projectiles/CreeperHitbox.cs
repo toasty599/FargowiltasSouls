@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Creeper");
+            // DisplayName.SetDefault("Creeper");
         }
 
         public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles
             return true;
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             hitDirection = Main.player[Projectile.owner].Center.X > target.Center.X ? -1 : 1;
         }

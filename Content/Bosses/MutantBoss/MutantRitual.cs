@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Mutant Seal");
+            // DisplayName.SetDefault("Mutant Seal");
             Main.projFrames[Projectile.type] = 2;
         }
 
@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             base.OnHitPlayer(target, damage, crit);
 

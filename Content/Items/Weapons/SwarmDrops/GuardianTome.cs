@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.BossWeapons;
+﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("The Guardian");
-            Tooltip.SetDefault("'It's their turn to run'");
+            // DisplayName.SetDefault("The Guardian");
+            // Tooltip.SetDefault("'It's their turn to run'");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "守卫者");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "现在轮到他们跑了");

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Moon Sickle");
+            // DisplayName.SetDefault("Moon Sickle");
         }
 
         public override void SetDefaults()
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return Color.White;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.MasochistModeReal)
             {

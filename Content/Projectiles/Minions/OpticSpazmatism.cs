@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spazmatism");
+            // DisplayName.SetDefault("Spazmatism");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Projectile.velocity.Y = 24 * Math.Sign(Projectile.velocity.Y);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 8;
             target.AddBuff(BuffID.Ichor, 600);

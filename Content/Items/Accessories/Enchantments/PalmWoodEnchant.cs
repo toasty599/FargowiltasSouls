@@ -13,10 +13,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Palm Wood Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Palm Wood Enchantment");
+            /* Tooltip.SetDefault(
 @"Double tap down to spawn a palm tree sentry that throws nuts at enemies
-'Alarmingly calm'");
+'Alarmingly calm'"); */
 
             //attack rate and damage increased, you can spawn 2 additional trees
         }

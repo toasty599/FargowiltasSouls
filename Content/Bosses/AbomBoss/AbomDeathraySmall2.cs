@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Deathray");
+            // DisplayName.SetDefault("Deathray");
         }
 
         public override bool? CanDamage()

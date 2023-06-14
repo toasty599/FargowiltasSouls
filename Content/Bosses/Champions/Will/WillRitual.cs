@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Will Seal");
+            // DisplayName.SetDefault("Will Seal");
             Main.projFrames[Projectile.type] = 22;
         }
 
@@ -42,10 +42,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            base.OnHitPlayer(target, damage, crit);
-
             if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);

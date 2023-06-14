@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Minions;
+﻿using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Kamikaze Squirrel Staff");
-            Tooltip.SetDefault("Summons friendly squirrels to cuddle your foes\nRight click to make them explode");
+            // DisplayName.SetDefault("Kamikaze Squirrel Staff");
+            // Tooltip.SetDefault("Summons friendly squirrels to cuddle your foes\nRight click to make them explode");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神风松鼠杖");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "召唤出友善的松鼠，拥抱你的敌人\n右键点击让松鼠爆炸");

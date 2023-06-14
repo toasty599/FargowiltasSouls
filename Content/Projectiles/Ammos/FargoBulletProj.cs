@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fargo Bullet");
+            // DisplayName.SetDefault("Fargo Bullet");
         }
 
         public override void SetDefaults()
@@ -154,7 +154,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             OnHit();
 

@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             return false;
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             float speedModifier = Math.Abs(Projectile.velocity.X) / 3f;
             if (speedModifier < 0.1f)
@@ -163,7 +163,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             knockback *= Math.Max(1f, Math.Abs(Projectile.velocity.X) * 1.5f);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             float ratio = 1f - Math.Abs(Projectile.velocity.X) / 4f;
             if (ratio < 0)

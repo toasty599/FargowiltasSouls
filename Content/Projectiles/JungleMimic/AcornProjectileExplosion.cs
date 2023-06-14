@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Acorn Explosion");
+            // DisplayName.SetDefault("Acorn Explosion");
         }
 
         public override void SetDefaults()

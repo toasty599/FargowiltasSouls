@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Patreon
 {
     public class PatreonGlobalNPC : GlobalNPC
     {
-        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
         {
             if (SoulConfig.Instance.PatreonRoomba && type == NPCID.Steampunker)
             {

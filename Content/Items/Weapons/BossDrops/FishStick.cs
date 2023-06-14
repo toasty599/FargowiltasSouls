@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Fish Stick");
-            Tooltip.SetDefault("Right click to throw a sharknado stick\n'The carcass of a defeated foe shoved violently on a stick..'");
+            // DisplayName.SetDefault("Fish Stick");
+            // Tooltip.SetDefault("Right click to throw a sharknado stick\n'The carcass of a defeated foe shoved violently on a stick..'");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "鱼杖");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'一个被打败的敌人的尸体,用棍子粗暴地串起来..'");
         }

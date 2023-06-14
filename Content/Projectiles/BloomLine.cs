@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloom Line");
+            // DisplayName.SetDefault("Bloom Line");
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
 

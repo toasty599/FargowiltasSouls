@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Invader");
+            // DisplayName.SetDefault("Cosmic Invader");
             Main.projFrames[Projectile.type] = 4;
         }
 
@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Obstructed, 20);
             target.AddBuff(BuffID.Blackout, 300);

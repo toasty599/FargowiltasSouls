@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.IO;
 using Terraria;
@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadow Orb");
+            // DisplayName.SetDefault("Shadow Orb");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影珠");
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             NPC.chaseable = false;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 9999;
         }
@@ -127,7 +127,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 NPC.dontTakeDamage = true;
         }
 
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
             NPC.dontTakeDamage = true;
             NPC.localAI[3] = 1;
@@ -150,13 +150,13 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             return false;
         }
 
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             damage = 0;
             NPC.life++;
         }
 
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))
             {

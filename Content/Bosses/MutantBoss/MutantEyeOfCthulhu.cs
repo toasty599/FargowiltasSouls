@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye of Cthulhu");
+            // DisplayName.SetDefault("Eye of Cthulhu");
             Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.EyeofCthulhu];
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -231,7 +231,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Projectile.frame = 3;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

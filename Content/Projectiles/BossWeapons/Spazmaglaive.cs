@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         bool hitSomething = false;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spazmaglaive");
+            // DisplayName.SetDefault("Spazmaglaive");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return Projectile.Distance(new Vector2(targetHitbox.Center.X, targetHitbox.Center.Y)) < 150; //big circular hitbox because otherwise it misses too often
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.CursedInferno, 120);
 

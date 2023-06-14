@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Big Brain");
+            // DisplayName.SetDefault("Big Brain");
             Main.projFrames[Projectile.type] = 12;
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -94,12 +94,12 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.Center = player.Center + new Vector2(0, (200 + Projectile.alpha) * Projectile.scale).RotatedBy(Projectile.ai[1] + Projectile.ai[0] / MathHelper.TwoPi);
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             damage = (int)(damage * Projectile.scale);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 6;
         }

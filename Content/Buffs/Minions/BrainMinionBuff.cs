@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 
@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Brain of Cthulhu");
-            Description.SetDefault("The mini Brain of Cthulhu will fight for you");
+            // DisplayName.SetDefault("Brain of Cthulhu");
+            // Description.SetDefault("The mini Brain of Cthulhu will fight for you");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "克苏鲁之脑");

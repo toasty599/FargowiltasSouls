@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gold Shell");
+            // DisplayName.SetDefault("Gold Shell");
         }
 
         public override void SetDefaults()

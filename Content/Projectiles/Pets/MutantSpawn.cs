@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant Spawn");
+            // DisplayName.SetDefault("Mutant Spawn");
             Main.projFrames[Projectile.type] = 12;
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;

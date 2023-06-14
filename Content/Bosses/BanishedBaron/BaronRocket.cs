@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public bool BeenOutside = false;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Banished Baron's Rocket");
+            // DisplayName.SetDefault("Banished Baron's Rocket");
         }
         public override void SetDefaults()
         {
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             //}
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.OnFire, 600);

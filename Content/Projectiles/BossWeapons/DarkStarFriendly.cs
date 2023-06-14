@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.velocity *= 1.02f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (hasIframes)
                 target.immune[Projectile.owner] = 6;

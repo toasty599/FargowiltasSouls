@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Abominationn Seal");
+            // DisplayName.SetDefault("Abominationn Seal");
         }
 
         protected override void Movement(NPC npc)
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Projectile.rotation += 1f;
         }
 
-        public override void OnHitPlayer(Player player, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             base.OnHitPlayer(player, damage, crit);
 

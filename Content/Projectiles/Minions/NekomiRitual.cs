@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Nekomi Ritual");
+            // DisplayName.SetDefault("Nekomi Ritual");
         }
 
         public override void SetDefaults()

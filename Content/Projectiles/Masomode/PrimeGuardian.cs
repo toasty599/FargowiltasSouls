@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dungeon Guardian Prime");
+            // DisplayName.SetDefault("Dungeon Guardian Prime");
             Main.projFrames[Projectile.type] = 3;
         }
 
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.rotation += Projectile.direction * .3f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<NanoInjectionBuff>(), 480);
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 480);

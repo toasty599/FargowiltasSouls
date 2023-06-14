@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vortex");
+            // DisplayName.SetDefault("Vortex");
         }
 
         public override void SetDefaults()
@@ -193,7 +193,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             dust3.noGravity = true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Electrified, 360);
             if (WorldSavingSystem.EternityMode)

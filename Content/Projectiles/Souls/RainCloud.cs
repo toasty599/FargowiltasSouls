@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rain Cloud");
+            // DisplayName.SetDefault("Rain Cloud");
             Main.projFrames[Projectile.type] = 6;
         }
 

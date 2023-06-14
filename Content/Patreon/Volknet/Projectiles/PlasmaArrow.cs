@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Plasma Arrow");
+            // DisplayName.SetDefault("Plasma Arrow");
             //DisplayName.AddTranslation(GameCulture.Chinese, "等离子矢");
         }
         public override void SetDefaults()
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {

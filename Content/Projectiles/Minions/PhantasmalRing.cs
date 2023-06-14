@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantasmal Ring");
+            // DisplayName.SetDefault("Phantasmal Ring");
             Main.projFrames[Projectile.type] = 2;
         }
 

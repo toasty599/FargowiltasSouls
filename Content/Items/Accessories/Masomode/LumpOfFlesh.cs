@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
 using Terraria.ID;
@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lump of Flesh");
-            Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, Slow, and Frozen
+            // DisplayName.SetDefault("Lump of Flesh");
+            /* Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, Slow, and Frozen
 Increases damage dealt by 15%
 Increases spawn rate of rare enemies
 Your cursor causes nearby enemies to take increased damage
@@ -24,7 +24,7 @@ Defense and damage reduction drastically decreased while and shortly after guard
 Dashing leaves a trail of blood spikes
 The pungent eyeball charges energy to fire a laser as you attack
 Enemies are less likely to target you
-'It's growing'");
+'It's growing'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "肉团");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'它在增长'
             // 免疫致盲,阻塞和眩晕

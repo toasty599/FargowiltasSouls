@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Light Shot");
+            // DisplayName.SetDefault("Light Shot");
 
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;

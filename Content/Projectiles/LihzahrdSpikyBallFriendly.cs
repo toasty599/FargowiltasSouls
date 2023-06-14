@@ -6,10 +6,6 @@ namespace FargowiltasSouls.Content.Projectiles
 {
     public class LihzahrdSpikyBallFriendly : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Spiky Ball");
-        }
 
         public override void SetDefaults()
         {
@@ -23,17 +19,12 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.localNPCHitCooldown = 10;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Venom, 300);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            target.AddBuff(BuffID.Venom, 300);
-        }
-
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Venom, 300);
         }

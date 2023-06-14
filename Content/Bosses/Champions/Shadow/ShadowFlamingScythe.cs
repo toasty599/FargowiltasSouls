@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flaming Scythe");
+            // DisplayName.SetDefault("Flaming Scythe");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Darkness, 300);
             if (WorldSavingSystem.EternityMode)

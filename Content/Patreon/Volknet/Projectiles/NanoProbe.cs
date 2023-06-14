@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
         public bool OldChannel = false;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nano Probe");
+            // DisplayName.SetDefault("Nano Probe");
             //DisplayName.AddTranslation(GameCulture.Chinese, "纳米探针");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;

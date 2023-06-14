@@ -16,9 +16,9 @@ namespace FargowiltasSouls.Content.Items.Armor
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Nekomi Hood");
-            Tooltip.SetDefault(@"7% increased damage
-Increases max number of minions by 2");
+            // DisplayName.SetDefault("Nekomi Hood");
+            /* Tooltip.SetDefault(@"7% increased damage
+Increases max number of minions by 2"); */
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
         }
 

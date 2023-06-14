@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crosshair");
+            // DisplayName.SetDefault("Crosshair");
         }
         public override void SetDefaults()
         {

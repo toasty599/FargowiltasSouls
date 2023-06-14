@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Content.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ener-Gear");
-            Tooltip.SetDefault("Summons a bite-size baron\n'100% rust-proof or your money back'");
+            // DisplayName.SetDefault("Ener-Gear");
+            // Tooltip.SetDefault("Summons a bite-size baron\n'100% rust-proof or your money back'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 11));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

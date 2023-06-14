@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Cursed Deathray");
+            // DisplayName.SetDefault("Cursed Deathray");
         }
 
         public override void AI()

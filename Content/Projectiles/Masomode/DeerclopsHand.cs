@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadow Hand");
+            // DisplayName.SetDefault("Shadow Hand");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.InsanityShadowHostile];
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = ProjectileID.Sets.TrailCacheLength[ProjectileID.InsanityShadowHostile];
             ProjectileID.Sets.TrailingMode[Projectile.type] = ProjectileID.Sets.TrailingMode[ProjectileID.InsanityShadowHostile];
@@ -117,7 +117,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.rotation += MathHelper.Pi;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Frostburn, 90);
             target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);

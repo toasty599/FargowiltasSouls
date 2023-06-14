@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Earth");
+            // DisplayName.SetDefault("Champion of Earth");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大地英灵");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             NPC.alpha = 255;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
@@ -409,7 +409,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.OnFire, 300);
             if (WorldSavingSystem.EternityMode)
@@ -419,7 +419,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {

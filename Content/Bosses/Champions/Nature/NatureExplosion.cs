@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nature Explosion");
+            // DisplayName.SetDefault("Nature Explosion");
         }
 
         public override void SetDefaults()
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             return Math.Sqrt(dX * dX + dY * dY) <= Projectile.width / 2;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Burning, 300);

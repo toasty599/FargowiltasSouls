@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,13 +11,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Stardust Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Stardust Enchantment");
+            /* Tooltip.SetDefault(
 @"A stardust guardian will protect you from nearby enemies
 Press the Freeze Key to freeze time for 5 seconds
 While time is frozen, your minions will continue to attack
 There is a 60 second cooldown for this effect
-'The power of the Stand is yours'");
+'The power of the Stand is yours'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "星尘魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
             // @"双击'下'键将你的守卫引至光标位置

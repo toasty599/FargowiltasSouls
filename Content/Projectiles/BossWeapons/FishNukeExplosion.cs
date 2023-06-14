@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fish Nuke");
+            // DisplayName.SetDefault("Fish Nuke");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
         }*/
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //target.immune[Projectile.owner] = 0;
             /*target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);

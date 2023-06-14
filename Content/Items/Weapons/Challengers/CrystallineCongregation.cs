@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         private bool lastLMouse = false;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crystalline Congregation");
-            Tooltip.SetDefault("Summon up to 20 crystal balls near your mouse cursor that home towards you \n Release the button to send them towards your cursor");
+            // DisplayName.SetDefault("Crystalline Congregation");
+            // Tooltip.SetDefault("Summon up to 20 crystal balls near your mouse cursor that home towards you \n Release the button to send them towards your cursor");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

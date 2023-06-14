@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloodshed");
+            // DisplayName.SetDefault("Bloodshed");
             Main.projFrames[Projectile.type] = 4;
         }
 

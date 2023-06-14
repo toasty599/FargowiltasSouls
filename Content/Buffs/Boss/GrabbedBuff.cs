@@ -1,4 +1,4 @@
-
+﻿
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Grabbed");
-            Description.SetDefault("Mash movement keys to escape!");
+            // DisplayName.SetDefault("Grabbed");
+            // Description.SetDefault("Mash movement keys to escape!");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "抓住你了！");
             //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "狂点你的移动键来逃离这个！");
             Main.debuff[Type] = true;

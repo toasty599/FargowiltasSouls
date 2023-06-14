@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Terra");
+            // DisplayName.SetDefault("Champion of Terra");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉英灵");
 
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             NPC.dontCountMe = true;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
@@ -146,7 +146,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             return false;
         }
 
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
             damage = 1;
             crit = false;
@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             return false;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.OnFire, 600);
             if (WorldSavingSystem.EternityMode)

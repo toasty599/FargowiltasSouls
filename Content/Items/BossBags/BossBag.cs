@@ -11,13 +11,13 @@ namespace FargowiltasSouls.Content.Items.BossBags
     {
         protected abstract bool IsPreHMBag { get; }
 
-        public override void SetStaticDefaults()
+        public sealed override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treasure Bag");
-            Tooltip.SetDefault("Right click to open");
+            // DisplayName.SetDefault("Treasure Bag");
+            // Tooltip.SetDefault("Right click to open");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宝藏袋");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "右键点击可打开");
+            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宝藏袋");
+            //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "右键点击可打开");
 
             ItemID.Sets.BossBag[Item.type] = true;
             if (IsPreHMBag)
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 
-        public override void SetDefaults()
+        public sealed override void SetDefaults()
         {
             Item.maxStack = 999;
             Item.consumable = true;
@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
         public sealed override bool CanRightClick() => true;
 
         //thing for all bags?
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        public sealed override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {
             // Draw the periodic glow effect behind the item when dropped in the world (hence PreDrawInWorld)
             Texture2D texture = TextureAssets.Item[Item.type].Value;

@@ -13,11 +13,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Adamantite Enchantment");
-            Tooltip.SetDefault("Every weapon shot will split into 2" +
+            // DisplayName.SetDefault("Adamantite Enchantment");
+            /* Tooltip.SetDefault("Every weapon shot will split into 2" +
                 "\nAll weapon shots deal 50% damage" +
                 "\nThey hit twice as fast and gain armor penetration equal to 50% damage" +
-                "\n'Chaos'");
+                "\n'Chaos'"); */
         }
 
         protected override Color nameColor => new(221, 85, 125);

@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Probe");
+            // DisplayName.SetDefault("Probe");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 

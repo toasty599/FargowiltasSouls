@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Refreshed");
-            Description.SetDefault("Increased mobility and flight time");
+            // DisplayName.SetDefault("Refreshed");
+            // Description.SetDefault("Increased mobility and flight time");
             Main.buffNoSave[Type] = true;
         }
 

@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Soul of the Master");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Soul of the Master");
+            /* Tooltip.SetDefault(
 @"Increases wing time by 200%, armor penetration by 50, and movement speed by 20%
 Increases max life by 100%, damage for your current weapon class by 50%, and damage reduction by 10%
 Increases life regen drastically, your cursor causes nearby enemies to take increased damage
@@ -36,7 +36,7 @@ Reduces hurtbox size, hold the Precision Seal key to disable dashes and double j
 Right Click to parry attacks with extremely tight timing
 Use to teleport to your last death point
 Summons the aid of all Eternity Mode bosses to your side
-'Embrace mastery, embrace eternity'");
+'Embrace mastery, embrace eternity'"); */
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐之魂");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,

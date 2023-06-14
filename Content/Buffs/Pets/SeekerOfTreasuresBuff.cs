@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Seeker of Treasures");
-            Description.SetDefault("Give it a few thousand years to grow up");
+            // DisplayName.SetDefault("Seeker of Treasures");
+            // Description.SetDefault("Give it a few thousand years to grow up");
             Main.buffNoTimeDisplay[Type] = true;
             Main.lightPet[Type] = true;
         }

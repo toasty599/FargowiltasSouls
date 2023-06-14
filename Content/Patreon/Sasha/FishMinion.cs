@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fish Minion");
+            // DisplayName.SetDefault("Fish Minion");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             Main.projFrames[Projectile.type] = 4;
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 10;
         }

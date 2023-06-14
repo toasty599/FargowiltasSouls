@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Patreon.Gittle
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Roomba");
-            Description.SetDefault("This Roomba is following you");
+            // DisplayName.SetDefault("Roomba");
+            // Description.SetDefault("This Roomba is following you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "扫地机器人");

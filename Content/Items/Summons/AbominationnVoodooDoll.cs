@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -13,9 +13,9 @@ namespace FargowiltasSouls.Content.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abominationn Voodoo Doll");
-            Tooltip.SetDefault("Summons Abominationn to your town" +
-                "\n'You are a terrible person'");
+            // DisplayName.SetDefault("Abominationn Voodoo Doll");
+            /* Tooltip.SetDefault("Summons Abominationn to your town" +
+                "\n'You are a terrible person'"); */
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶巫毒娃娃");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "你可真是个坏东西");

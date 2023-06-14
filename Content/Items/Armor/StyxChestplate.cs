@@ -11,11 +11,11 @@ namespace FargowiltasSouls.Content.Items.Armor
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Styx Chestplate");
-            Tooltip.SetDefault(@"15% increased damage
+            // DisplayName.SetDefault("Styx Chestplate");
+            /* Tooltip.SetDefault(@"15% increased damage
 10% increased critical strike chance
 Reduces damage taken by 10%
-Increases your life regeneration");
+Increases your life regeneration"); */
         }
 
         public override void SetDefaults()

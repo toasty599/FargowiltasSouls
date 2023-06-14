@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Will Shell");
+            // DisplayName.SetDefault("Will Shell");
         }
 
         public override void SetDefaults()

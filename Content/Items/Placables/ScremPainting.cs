@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Items.Placables
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Screm Painting");
-            Tooltip.SetDefault("'Merry N. Tuse'");
+            // DisplayName.SetDefault("Screm Painting");
+            // Tooltip.SetDefault("'Merry N. Tuse'");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "尖叫猫猫");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "Merry N. Tuse");
 

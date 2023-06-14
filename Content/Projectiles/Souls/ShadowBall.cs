@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadow Ball");
+            // DisplayName.SetDefault("Shadow Ball");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.ShadowFlame, 240);
         }

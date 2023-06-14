@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crystal Shard");
+            // DisplayName.SetDefault("Crystal Shard");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.QueenSlimeMinionBlueSpike];
         }
 
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             return Color.White * Projectile.Opacity;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Chilled, 180);

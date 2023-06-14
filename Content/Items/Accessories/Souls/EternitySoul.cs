@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Soul of Eternity");
+            // DisplayName.SetDefault("Soul of Eternity");
 
             //oh no idk even for translate
             //put the string array in localization files
@@ -58,13 +58,13 @@ Efectos de pociones de Brillo, Espeleólogo, Cazador, y Sentido del peligro; Efe
             DisplayName.AddTranslation((int)GameCulture.CultureName.Spanish, "Alma de la Eternidad");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Spanish, tooltip_sp);
 
-            Tooltip.SetDefault(
+            /* Tooltip.SetDefault(
 @"'Mortal or Immortal, all things acknowledge your claim to divinity'
 Crit chance is set to 50%
 Crit to increase it by 10%
 At 100% every attack gains 10% life steal
 You also gain +5% damage and +5 defense
-This stacks up to 950 times until you get hit");
+This stacks up to 950 times until you get hit"); */
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;

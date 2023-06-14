@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Content.Patreon.Volknet
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nano Core");
-            Tooltip.SetDefault("When holding this, 7 nano units will appear and construct weapons.\nLeft click to attack and right click to switch weapons.\n\'The science sits in our side.\'");
+            // DisplayName.SetDefault("Nano Core");
+            // Tooltip.SetDefault("When holding this, 7 nano units will appear and construct weapons.\nLeft click to attack and right click to switch weapons.\n\'The science sits in our side.\'");
             //DisplayName.AddTranslation(GameCulture.Chinese, "纳米核心");
             //Tooltip.AddTranslation(GameCulture.Chinese, "手持时可以产生7个纳米单元组成武器。\n左键发动攻击，右键切换形态。\n\'科学站在我们这边\'");
         }
@@ -191,13 +191,13 @@ namespace FargowiltasSouls.Content.Patreon.Volknet
             }
         }
 
-        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
             //if (NanoCoreMode == 0 && Player.HeldItem.type == ModContent.ItemType<NanoCore>() && Player.channel)
             //    damage /= 2;
         }
 
-        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
             //if (NanoCoreMode == 0 && Player.HeldItem.type == ModContent.ItemType<NanoCore>() && Player.channel)
             //    damage /= 2;

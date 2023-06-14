@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Projectile.penetrate = 1;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             int sproutType = ModContent.ProjectileType<Sprout>();
             if (Projectile.owner == Main.myPlayer && !Main.projectile.Any(p => p.active && p.type == sproutType && p.owner == Projectile.owner && p.ai[0] == target.whoAmI))

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,9 +9,9 @@ namespace FargowiltasSouls.Content.Items.Misc
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Galactic Reformer");
-            Tooltip.SetDefault("Destroys an incredibly massive area\n" +
-                                "Use at your own risk");
+            // DisplayName.SetDefault("Galactic Reformer");
+            /* Tooltip.SetDefault("Destroys an incredibly massive area\n" +
+                                "Use at your own risk"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "银河重构器");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "破坏一片难以置信的巨大区域\n" +
             //"风险自负");

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Slime King's Slasher");
-            Tooltip.SetDefault("'Torn from the insides of a defeated foe..'");
+            // DisplayName.SetDefault("Slime King's Slasher");
+            // Tooltip.SetDefault("'Torn from the insides of a defeated foe..'");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "史莱姆王的屠戮者");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'撕裂敌人内部而得来的..'");
         }
@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
             return false;
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Slimed, 120);
         }

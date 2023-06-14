@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Molten Amplify");
+            // DisplayName.SetDefault("Molten Amplify");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
         }

@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Celestial Fragment");
+            // DisplayName.SetDefault("Celestial Fragment");
             Main.projFrames[Projectile.type] = 4;
         }
 
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 300);
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 300);

@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Blazing Deathray");
+            // DisplayName.SetDefault("Blazing Deathray");
         }
 
         public override void SetDefaults()
@@ -137,18 +137,18 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], 10, DelegateMethods.CastLight);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 6;
             target.AddBuff(BuffID.OnFire, 600);
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             damage = (int)(damage * Math.Min(1f, 0.1f + 0.9f * Spinup));
         }
 
-        public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
+        public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
             damage = (int)(damage * Math.Min(1f, 0.1f + 0.9f * Spinup));
         }

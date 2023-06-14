@@ -12,12 +12,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Precision Seal");
-            Tooltip.SetDefault(@"Grants immunity to Smite
+            // DisplayName.SetDefault("Precision Seal");
+            /* Tooltip.SetDefault(@"Grants immunity to Smite
 Reduces your hurtbox size for projectiles
 Hold the Precision Seal key to disable dashes and double jumps
 Your hurtbox size is reduced even when not shown
-'Dodge so close you can almost taste it'");
+'Dodge so close you can almost taste it'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "玲珑圣印");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"使你免疫惩戒减益
             // 缩小你对于敌对弹幕的碰撞判定

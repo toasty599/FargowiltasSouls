@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Blazing Deathray");
+            // DisplayName.SetDefault("Blazing Deathray");
         }
 
         public override void AI()

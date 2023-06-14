@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Patreon.ParadoxWolf
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wolf Dash");
+            // DisplayName.SetDefault("Wolf Dash");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }

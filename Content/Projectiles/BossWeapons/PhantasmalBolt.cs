@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantasmal Bolt");
+            // DisplayName.SetDefault("Phantasmal Bolt");
             Main.projFrames[Projectile.type] = 5;
         }
 
@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 1;
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,15 +11,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pure Heart");
-            Tooltip.SetDefault(@"Grants immunity to Rotting and Bloodthirsty
+            // DisplayName.SetDefault("Pure Heart");
+            /* Tooltip.SetDefault(@"Grants immunity to Rotting and Bloodthirsty
 Grants immunity to biome debuffs
 10% increased movement speed, 10% increased max life, increased turnaround traction
 You spawn mini eaters to seek out enemies every few attacks
 Creepers hover around you blocking some damage
 A new Creeper appears every 15 seconds, and 5 can exist at once
 Creeper respawn speed increases when not moving
-'It pulses with vitality'");
+'It pulses with vitality'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "纯净之心");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"它充满活力地跳动着'
             // 免疫腐败和嗜血

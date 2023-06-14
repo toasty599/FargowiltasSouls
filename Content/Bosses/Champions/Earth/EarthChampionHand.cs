@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Masomode;
+﻿using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Champion of Earth");
+            // DisplayName.SetDefault("Champion of Earth");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大地英灵");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             NPC.trapImmune = true;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
             NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
@@ -513,13 +513,13 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             NPC.frame.Y = NPC.localAI[3] == 1 ? 0 : frameHeight;
         }
 
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
             damage = 0;
             return true;
         }
 
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))
             {
@@ -560,7 +560,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                 NPC.velocity.Y = cap * Math.Sign(NPC.velocity.Y);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.OnFire, 300);
             if (WorldSavingSystem.EternityMode)

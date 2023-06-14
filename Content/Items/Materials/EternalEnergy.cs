@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -10,9 +10,9 @@ namespace FargowiltasSouls.Content.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eternal Energy");
-            Tooltip.SetDefault(@"Grants immunity to almost all Eternity Mode debuffs
-'Proof of having embraced eternity'");
+            // DisplayName.SetDefault("Eternal Energy");
+            /* Tooltip.SetDefault(@"Grants immunity to almost all Eternity Mode debuffs
+'Proof of having embraced eternity'"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "施虐狂");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             //@"'受苦的证明'

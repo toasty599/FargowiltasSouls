@@ -465,7 +465,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return isInTilesIncludingPlatforms;
         }
 
-        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (npc.life < npc.lifeMax / 2)
                 damage *= 0.8;
@@ -473,10 +473,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (GelatinSubjectDR)
                 damage *= 0.25;
 
-            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
@@ -610,7 +610,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             //    npc.localAI[0] = 25f;
         }
 
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 

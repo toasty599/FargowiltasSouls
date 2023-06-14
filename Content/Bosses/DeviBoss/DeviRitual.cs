@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Deviantt Seal");
+            // DisplayName.SetDefault("Deviantt Seal");
             base.SetStaticDefaults();
         }
 
@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                 Projectile.Kill();
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             base.OnHitPlayer(target, damage, crit);
 

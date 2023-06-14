@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Tornado");
+            // DisplayName.SetDefault("Forbidden Tornado");
         }
 
         public override void SetDefaults()

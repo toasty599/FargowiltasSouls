@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Supreme Deathbringer Fairy");
-            Tooltip.SetDefault(@"Grants immunity to Slimed, Berserked, Lethargic, and Infested
+            // DisplayName.SetDefault("Supreme Deathbringer Fairy");
+            /* Tooltip.SetDefault(@"Grants immunity to Slimed, Berserked, Lethargic, and Infested
 Honey buff increases your armor penetration by 10
 Increased fall speed
 When you land after a jump, slime will fall from the sky over your cursor
@@ -26,7 +26,7 @@ Increases speed when dashing by 50%
 When dashing, take 75% less contact damage and reflect 100% of contact damage on attacker
 Bees and weak Hornets become friendlier
 Summons 2 Skeletron arms to whack enemies
-'Supremacy not necessarily guaranteed'");
+'Supremacy not necessarily guaranteed'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "至高告死精灵");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'霸权不一定能得到保证'
             // 免疫黏糊, 狂暴, 昏昏欲睡和感染

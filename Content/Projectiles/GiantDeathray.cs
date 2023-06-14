@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Phantasmal Deathray");
+            // DisplayName.SetDefault("Phantasmal Deathray");
         }
 
         public override void SetDefaults()
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.localAI[1] = MathHelper.Lerp(Projectile.localAI[1], num807, amount);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 300);

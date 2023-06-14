@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Minions;
+﻿using FargowiltasSouls.Content.Projectiles.Minions;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eater of Worlds");
-            Description.SetDefault("The mini Eater of Worlds will fight for you");
+            // DisplayName.SetDefault("Eater of Worlds");
+            // Description.SetDefault("The mini Eater of Worlds will fight for you");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "世界吞噬者");

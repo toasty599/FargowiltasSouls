@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Blazing Deathray");
+            // DisplayName.SetDefault("Blazing Deathray");
             Main.projFrames[Projectile.type] = 4;
         }
 
@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
         public override Color? GetAlpha(Color lightColor) => new Color(255, 100, 100, 100) * 0.95f;
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Burning, 300);
             target.AddBuff(BuffID.OnFire, 300);

@@ -18,10 +18,10 @@ namespace FargowiltasSouls.Content.Patreon.Northstrider
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("1001 Nights");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("1001 Nights");
+            /* Tooltip.SetDefault(
 @"Destroys an area around you including yourself
-''");
+''"); */
         }
 
         public override void SetDefaults()

@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spirit Hand");
+            // DisplayName.SetDefault("Spirit Hand");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
             Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Wraith, 0f, 0f, 0, default, 2f)].noGravity = true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

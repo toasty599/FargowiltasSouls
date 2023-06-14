@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Wave");
+            // DisplayName.SetDefault("Frost Wave");
         }
 
         public override void SetDefaults()
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Projectile.coldDamage = true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {

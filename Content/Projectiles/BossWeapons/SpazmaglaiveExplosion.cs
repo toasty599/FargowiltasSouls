@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cursed Inferno");
+            // DisplayName.SetDefault("Cursed Inferno");
         }
 
         public override void AI()
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.CursedInferno, 180, false);
         }

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Phantom Phoenix");
+            // DisplayName.SetDefault("Phantom Phoenix");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.DD2PhoenixBowShot];
@@ -142,7 +142,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.rotation += (float)Math.PI;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             //target.AddBuff(BuffID.OnFire, 600);
             //target.AddBuff(BuffID.Ichor, 600);

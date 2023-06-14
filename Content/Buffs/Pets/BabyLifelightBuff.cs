@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Petlight");
-            Description.SetDefault("Behold, the light of an angel");
+            // DisplayName.SetDefault("Petlight");
+            // Description.SetDefault("Behold, the light of an angel");
             Main.buffNoTimeDisplay[Type] = true;
             //Main.vanityPet[Type] = true;
             Main.lightPet[Type] = true;

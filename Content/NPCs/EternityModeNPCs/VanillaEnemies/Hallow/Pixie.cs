@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
             EModeGlobalNPC.Aura(npc, 100, ModContent.BuffType<SqueakyToyBuff>());
         }
 
-        public override void OnHitNPC(NPC npc, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC npc, NPC target, NPC.HitInfo hit)
         {
             base.OnHitNPC(npc, target, damage, knockback, crit);
 

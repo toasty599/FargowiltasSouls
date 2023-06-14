@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Titanium Shield Cooldown");
-            Description.SetDefault("You are charging up Titanium Shield");
+            // DisplayName.SetDefault("Titanium Shield Cooldown");
+            // Description.SetDefault("You are charging up Titanium Shield");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

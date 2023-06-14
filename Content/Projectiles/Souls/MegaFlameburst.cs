@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mega Flameburst");
+            // DisplayName.SetDefault("Mega Flameburst");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 

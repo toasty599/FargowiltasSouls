@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tree");
+            // DisplayName.SetDefault("Tree");
         }
 
         public override void SetDefaults()

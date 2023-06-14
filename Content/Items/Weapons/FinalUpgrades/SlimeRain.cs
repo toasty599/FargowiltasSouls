@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.BossWeapons;
+﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Slime Rain");
-            Tooltip.SetDefault("'The King's innards spread across the land..'");
+            // DisplayName.SetDefault("Slime Rain");
+            // Tooltip.SetDefault("'The King's innards spread across the land..'");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "史莱姆雨");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "史莱姆王的内腑撒得遍地都是..");
         }
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
             }
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Slimed, 240);
         }

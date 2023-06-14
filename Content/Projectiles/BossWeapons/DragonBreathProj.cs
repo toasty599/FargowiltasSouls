@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dragon's Breath");
+            // DisplayName.SetDefault("Dragon's Breath");
         }
 
         public override void SetDefaults()
@@ -200,7 +200,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 5;
 

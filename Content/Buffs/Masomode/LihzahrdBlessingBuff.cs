@@ -8,8 +8,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Blessing");
-            Description.SetDefault("Wires enabled and reduced spawn rates in Jungle Temple");
+            // DisplayName.SetDefault("Lihzahrd Blessing");
+            // Description.SetDefault("Wires enabled and reduced spawn rates in Jungle Temple");
         }
 
         public override void Update(Player player, ref int buffIndex)

@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
@@ -10,10 +10,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Deerclawps");
-            Tooltip.SetDefault("Grants immunity to Slow and Frozen" +
+            // DisplayName.SetDefault("Deerclawps");
+            /* Tooltip.SetDefault("Grants immunity to Slow and Frozen" +
                 "\nDashing leaves a trail of ice spikes" +
-                "\n'The trimmed nails of a defeated foe'");
+                "\n'The trimmed nails of a defeated foe'"); */
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰鹿爪");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"免疫缓慢和冰冻

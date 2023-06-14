@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Phantasmal Deathray");
+            // DisplayName.SetDefault("Phantasmal Deathray");
             ProjectileID.Sets.DismountsPlayersOnHit[Projectile.type] = true;
         }
 
@@ -229,7 +229,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         private int hits;
 
-        public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
+        public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
             base.ModifyHitPlayer(target, ref damage, ref crit);
             DamageRampup(ref damage);
@@ -251,7 +251,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             hits++;
 

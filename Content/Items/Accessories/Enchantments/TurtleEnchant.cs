@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -11,15 +11,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Turtle Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Turtle Enchantment");
+            /* Tooltip.SetDefault(
 @"100% of contact damage is reflected
 When standing still and not attacking, you will enter your shell
 While in your shell, you will gain 90% damage resistance 
 Additionally you will destroy incoming projectiles and deal 10x more thorns damage
 The shell lasts at least 1 second and up to 20 attacks blocked
 Enemies will explode into needles on death if they are struck with your needles
-'You suddenly have the urge to hide in a shell'");
+'You suddenly have the urge to hide in a shell'"); */
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "乌龟魔石");
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             // @"反弹100%接触伤害

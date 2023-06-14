@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadowflame Portal");
+            // DisplayName.SetDefault("Shadowflame Portal");
         }
 
         public override void SetDefaults()

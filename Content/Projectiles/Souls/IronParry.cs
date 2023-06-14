@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Iron Parry");
+            // DisplayName.SetDefault("Iron Parry");
             Main.projFrames[Projectile.type] = 7;
         }
 

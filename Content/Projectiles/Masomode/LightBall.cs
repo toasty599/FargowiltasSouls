@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public virtual bool DoNotSpawnDust => false;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Light Ball");
+            // DisplayName.SetDefault("Light Ball");
         }
 
         public override void SetDefaults()
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.PurifiedBuff>(), 300);
         }

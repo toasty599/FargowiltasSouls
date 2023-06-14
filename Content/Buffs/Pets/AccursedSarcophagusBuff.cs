@@ -9,8 +9,8 @@ namespace FargowiltasSouls.Content.Buffs.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Accursed Sarcophagus");
-            Description.SetDefault("It'll keep its hands off");
+            // DisplayName.SetDefault("Accursed Sarcophagus");
+            // Description.SetDefault("It'll keep its hands off");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }

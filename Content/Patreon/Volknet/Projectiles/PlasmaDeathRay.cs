@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
         public int LaserTime = 30;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Plasma Deathray");
+            // DisplayName.SetDefault("Plasma Deathray");
             //DisplayName.AddTranslation(GameCulture.Chinese, "等离子致命光");
         }
         public override void SetDefaults()
@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             return false;
         }
         
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.WitheredArmor, 1800);
             target.AddBuff(BuffID.Frostburn, 1800);

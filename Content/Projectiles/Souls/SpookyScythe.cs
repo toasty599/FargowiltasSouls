@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Scythe");
+            // DisplayName.SetDefault("Scythe");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 

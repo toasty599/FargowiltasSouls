@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override string Texture => "Terraria/Images/Item_536";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Titan Glove");
+            // DisplayName.SetDefault("Titan Glove");
         }
 
         public override void SetDefaults()

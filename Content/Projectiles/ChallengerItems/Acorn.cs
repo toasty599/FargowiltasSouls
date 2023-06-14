@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Acorn");
+            // DisplayName.SetDefault("Acorn");
         }
 
         public override void SetDefaults()

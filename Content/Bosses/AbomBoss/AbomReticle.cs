@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abominationn Reticle");
+            // DisplayName.SetDefault("Abominationn Reticle");
         }
 
         public override void SetDefaults()

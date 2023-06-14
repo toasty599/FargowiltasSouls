@@ -19,8 +19,8 @@ namespace FargowiltasSouls.Content.Items.Misc
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eternity Advisor");
-            Tooltip.SetDefault("Suggests loadouts for Eternity Mode based on progression");
+            // DisplayName.SetDefault("Eternity Advisor");
+            // Tooltip.SetDefault("Suggests loadouts for Eternity Mode based on progression");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

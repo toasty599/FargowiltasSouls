@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Shadow Force");
+            // DisplayName.SetDefault("Shadow Force");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影之力");
 
@@ -40,7 +40,7 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] After attacking for 2 seconds y
 $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase the next attack's damage by 150%\n" +
 $"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion that will travel to your mouse after charging\n" +
 "'Dark, Darker, Yet Darker'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"[i:{0}] 四颗暗影珠绕着你旋转

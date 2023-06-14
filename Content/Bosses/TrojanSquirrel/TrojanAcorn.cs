@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Acorn");
+            // DisplayName.SetDefault("Acorn");
         }
 
         public override void SetDefaults()

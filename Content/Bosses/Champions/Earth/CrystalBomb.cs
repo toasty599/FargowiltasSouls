@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crystal Bomb");
+            // DisplayName.SetDefault("Crystal Bomb");
         }
 
         public override void SetDefaults()
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                 Projectile.tileCollide = true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(BuffID.Chilled, 180);

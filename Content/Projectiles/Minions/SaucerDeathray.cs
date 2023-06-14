@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Saucer Beam");
+            // DisplayName.SetDefault("Saucer Beam");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             behindProjectiles.Add(index);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Electrified, 360);
             target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 30);

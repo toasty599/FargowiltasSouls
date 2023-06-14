@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Guilty");
-            Description.SetDefault("Weapons dulled by the guilt of slaying innocent critters");
+            // DisplayName.SetDefault("Guilty");
+            // Description.SetDefault("Weapons dulled by the guilt of slaying innocent critters");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "内疚");

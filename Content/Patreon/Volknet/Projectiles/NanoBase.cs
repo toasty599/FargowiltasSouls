@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
         //public float SummonDamageModifier = 1;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nano Core");
+            // DisplayName.SetDefault("Nano Core");
             //DisplayName.AddTranslation(GameCulture.Chinese, "纳米基核");
         }
         public override void SetDefaults()

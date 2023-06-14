@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crystal Spike");
+            // DisplayName.SetDefault("Crystal Spike");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.QueenSlimeMinionBlueSpike];
         }
 
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 fargo.Call("LowRenderProj", Projectile);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.timeLeft = 0;
         }

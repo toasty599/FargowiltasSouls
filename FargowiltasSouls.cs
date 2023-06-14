@@ -33,7 +33,6 @@ using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
-using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.Patreon.Volknet;
 
 namespace FargowiltasSouls
@@ -169,13 +168,13 @@ namespace FargowiltasSouls
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop += DropBasedOnMasterOrEMode_CanDrop;
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction += DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
 
-            On.Terraria.Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
-            On.Terraria.NPC.checkArmorPenetration += CheckArmorPenetration;
-            On.Terraria.Player.AddBuff += AddBuff;
+            Terraria.On_Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
+            Terraria.On_NPC.checkArmorPenetration += CheckArmorPenetration;
+            Terraria.On_Player.AddBuff += AddBuff;
         }
 
         private static bool LifeRevitalizer_CheckSpawn_Internal(
-            On.Terraria.Player.orig_CheckSpawn_Internal orig,
+            Terraria.On_Player.orig_CheckSpawn_Internal orig,
             int x, int y)
         {
             if (orig(x, y))
@@ -204,7 +203,7 @@ namespace FargowiltasSouls
         }
 
         private int CheckArmorPenetration(
-            On.Terraria.NPC.orig_checkArmorPenetration orig,
+            On_NPC.orig_checkArmorPenetration orig,
             NPC self,
             int armorPenetration)
         {
@@ -219,7 +218,7 @@ namespace FargowiltasSouls
         }
 
         private void AddBuff(
-            On.Terraria.Player.orig_AddBuff orig,
+            Terraria.On_Player.orig_AddBuff orig,
             Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
             FargoSoulsPlayer modPlayer = self.GetModPlayer<FargoSoulsPlayer>();

@@ -7,8 +7,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Loose Pockets");
-            Description.SetDefault("An item might be taken from you");
+            // DisplayName.SetDefault("Loose Pockets");
+            // Description.SetDefault("An item might be taken from you");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
         }

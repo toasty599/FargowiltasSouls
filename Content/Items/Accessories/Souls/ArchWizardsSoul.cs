@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Arch Wizard's Soul");
+            // DisplayName.SetDefault("Arch Wizard's Soul");
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巫师之魂");
 
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 Increases your maximum mana by 200
 Effects of Celestial Cuffs and Mana Flower
 'Arcane to the core'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
             //string tooltip_ch =
             //@"增加30%魔法伤害
             //增加20%施法速度

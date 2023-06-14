@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frostburn Arrow");
+            // DisplayName.SetDefault("Frostburn Arrow");
         }
 
         public override void SetDefaults()
@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.coldDamage = true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Frostburn, 240);
             target.AddBuff(BuffID.Chilled, 120);

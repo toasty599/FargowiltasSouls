@@ -16,11 +16,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Ancient Hallowed Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Ancient Hallowed Enchantment");
+            /* Tooltip.SetDefault(
 @"You gain a shield that can reflect projectiles
 Summons a Terraprisma familiar that scales with minion damage
-'Have you power enough to wield me?'");
+'Have you power enough to wield me?'"); */
         }
 
         protected override Color nameColor => new(150, 133, 100);

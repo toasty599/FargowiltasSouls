@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Force of Will");
+            // DisplayName.SetDefault("Force of Will");
 
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "意志之力");
 
@@ -33,7 +33,7 @@ $"[i:{ModContent.ItemType<GladiatorEnchant>()}] Grants knockback immunity when y
 $"[i:{ModContent.ItemType<RedRidingEnchant>()}] Successive attack gain bonus damage \n" +
 $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness of healing sources by 50%\n" +
 "'A mind of unbreakable determination'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"[i:{0}] 按下“金身”键会将你包裹在一个黄金壳中

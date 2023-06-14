@@ -12,10 +12,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Ancient Cobalt Enchantment");
-            Tooltip.SetDefault(
+            // DisplayName.SetDefault("Ancient Cobalt Enchantment");
+            /* Tooltip.SetDefault(
 @"Grants an explosion jump that inflicts Oiled
-'Ancient Kobold'");
+'Ancient Kobold'"); */
         }
 
         protected override Color nameColor => new(53, 76, 116);

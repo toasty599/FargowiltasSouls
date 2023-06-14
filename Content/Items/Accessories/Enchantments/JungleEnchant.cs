@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Jungle Enchantment");
+            // DisplayName.SetDefault("Jungle Enchantment");
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "丛林魔石");
 
@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 Allows the ability to dash slightly
 Double tap a direction
 'The wrath of the jungle dwells within'";
-            Tooltip.SetDefault(tooltip);
+            // Tooltip.SetDefault(tooltip);
             //             string tooltip_ch =
             // @"使你获得孢子二段跳能力
             // '丛林之怒深藏其中'";
