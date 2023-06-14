@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Content.UI.Elements;
-using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Core.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Minions;
-using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Core.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;

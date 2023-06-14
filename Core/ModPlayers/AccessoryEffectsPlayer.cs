@@ -4,7 +4,6 @@ using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Content.Projectiles.Souls;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -22,6 +21,7 @@ using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {

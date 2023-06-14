@@ -1,7 +1,8 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Forces;
+using FargowiltasSouls.Core.Toggler;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Toggler.Content
+namespace FargowiltasSouls.Core.Toggler.Content
 {
     public class EnchantToggles : ToggleCollection
     {
@@ -88,7 +89,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string HallowDodge;
         public string Hallowed;
         public string HallowS;
-        
+
         public string Spectre;
         public string Tiki;
 

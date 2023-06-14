@@ -1,7 +1,8 @@
-﻿using Terraria.ID;
+﻿using FargowiltasSouls.Core.Toggler;
+using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Toggler.Content
+namespace FargowiltasSouls.Core.Toggler.Content
 {
     public class PetToggles : ToggleCollection
     {

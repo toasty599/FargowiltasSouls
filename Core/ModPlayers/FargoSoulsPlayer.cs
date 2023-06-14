@@ -2,7 +2,6 @@ using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Content.Projectiles.Souls;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -30,6 +29,7 @@ using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {

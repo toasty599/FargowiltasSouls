@@ -1,7 +1,6 @@
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles.Souls;
-using FargowiltasSouls.Toggler;
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,6 +22,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.Projectiles
 {

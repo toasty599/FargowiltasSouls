@@ -1,6 +1,6 @@
 ﻿using Terraria;
 
-namespace FargowiltasSouls.Toggler
+namespace FargowiltasSouls.Core.Toggler
 {
     public static class SoulCheck
     {

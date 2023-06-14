@@ -1,9 +1,10 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.Toggler;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Toggler.Content
+namespace FargowiltasSouls.Core.Toggler.Content
 {
     public class MasoToggles : ToggleCollection
     {
@@ -41,7 +42,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoSqueak;
         public string MasoPouch;
         public string MasoClipped;
-		public string MasoGrav2;
+        public string MasoGrav2;
         public string TribalCharm;
         public string TribalCharmClickBonus;
 

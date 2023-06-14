@@ -1,7 +1,8 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Core.Toggler;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Toggler.Content
+namespace FargowiltasSouls.Core.Toggler.Content
 {
     public class SoulToggles : ToggleCollection
     {

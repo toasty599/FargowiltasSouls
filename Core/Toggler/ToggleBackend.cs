@@ -5,7 +5,7 @@ using System.Linq;
 using Terraria;
 using Terraria.IO;
 
-namespace FargowiltasSouls.Toggler
+namespace FargowiltasSouls.Core.Toggler
 {
     public class ToggleBackend
     {

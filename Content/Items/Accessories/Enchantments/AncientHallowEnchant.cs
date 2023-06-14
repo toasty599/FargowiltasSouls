@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Minions;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -8,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {

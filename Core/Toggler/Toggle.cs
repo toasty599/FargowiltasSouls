@@ -1,4 +1,4 @@
-﻿namespace FargowiltasSouls.Toggler
+﻿namespace FargowiltasSouls.Core.Toggler
 {
     public class Toggle
     {

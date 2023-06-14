@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace FargowiltasSouls.Toggler
+namespace FargowiltasSouls.Core.Toggler
 {
     public abstract class ToggleCollection
     {

@@ -1,7 +1,6 @@
 ﻿using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -19,7 +18,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls
 {

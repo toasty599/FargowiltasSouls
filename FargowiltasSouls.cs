@@ -4,7 +4,6 @@ using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Assets.Effects.Shaders;
 using FargowiltasSouls.Content.Sky;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -34,6 +33,7 @@ using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Patreon.Volknet;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls
 {

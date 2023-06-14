@@ -5,7 +5,6 @@ using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 
@@ -18,6 +17,7 @@ using Terraria.DataStructures;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {

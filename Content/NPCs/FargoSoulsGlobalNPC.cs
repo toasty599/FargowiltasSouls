@@ -1,6 +1,5 @@
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Masomode;
-using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -18,6 +17,7 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.NPCs
 {

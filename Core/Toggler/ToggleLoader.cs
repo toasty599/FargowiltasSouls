@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace FargowiltasSouls.Toggler
+namespace FargowiltasSouls.Core.Toggler
 {
     public static class ToggleLoader
     {
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Toggler
                     {
                         collections.Add(toggles);
                     }
-                    
+
                 }
             }
 
