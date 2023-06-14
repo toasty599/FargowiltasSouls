@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles
 {
     public class SpectralAbominationn : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/NPCs/Eternals/AbominationnSoul";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Eternals/AbominationnSoul";
 
         private const float PI = (float)Math.PI;
         private const float rotationPerTick = PI / 57f;

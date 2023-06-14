@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/MutantBoss/MutantBoss";
 
-        public static string trailTexture => "Content/NPCs/Eternals/MutantSoul";
+        public static string trailTexture => "Assets/ExtraTextures/Eternals/MutantSoul";
         public static int npcType => ModContent.NPCType<MutantBoss>();
         public bool auraTrail;
 

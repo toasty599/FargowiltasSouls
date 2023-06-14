@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 {
     public class AbomMinion : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/NPCs/Eternals/AbominationnSoul";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Eternals/AbominationnSoul";
 
         public override void SetStaticDefaults()
         {

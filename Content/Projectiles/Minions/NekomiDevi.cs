@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 {
     public class NekomiDevi : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/NPCs/Eternals/DevianttSoul";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Eternals/DevianttSoul";
 
         public override void SetStaticDefaults()
         {
