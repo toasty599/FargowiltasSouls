@@ -657,7 +657,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (!InPhase2)
             {
-                if (npc.life < (int)(npc.lifeMax * (WorldSavingSystem.MasochistModeReal ? 0.95 : .75)))
+                if (npc.life < (int)(npc.lifeMax * (WorldSavingSystem.MasochistModeReal ? 0.95 : 75)))
                 {
                     InPhase2 = true;
                     AttackModeTimer = P2_COIL_BEGIN_TIME;

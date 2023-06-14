@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles.Deathrays;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
-    public class GiantDeathray : Deathrays.MutantSpecialDeathray
+    public class GiantDeathray : MutantSpecialDeathray
     {
         public GiantDeathray() : base(180) { }
 

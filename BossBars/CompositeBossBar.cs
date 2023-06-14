@@ -1,5 +1,5 @@
-﻿using FargowiltasSouls.Content.NPCs.Challengers;
-using FargowiltasSouls.Content.NPCs.Champions;
+﻿using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.BossBars
                 {
                     int ballCount = 0;
                     int untouchedBalls = 0;
-                    foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<ShadowOrb>() && n.ai[0] == npc.whoAmI))
+                    foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<ShadowOrbNPC>() && n.ai[0] == npc.whoAmI))
                     {
                         ballCount++;
                         if (!n.dontTakeDamage)

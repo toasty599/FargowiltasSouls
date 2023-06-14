@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles.Deathrays;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -6,7 +7,7 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class GuardianDeathraySmall : Deathrays.BaseDeathray
+    public class GuardianDeathraySmall : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/GuardianDeathray";
         public GuardianDeathraySmall() : base(30) { }

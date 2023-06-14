@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.Champions;
+using FargowiltasSouls.Content.Bosses.Champions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Core.Systems;
@@ -250,20 +251,20 @@ namespace FargowiltasSouls.Content.NPCs
                         {
                             if (noBiome)
                             {
-                                pool[NPCID.CorruptBunny] = NPC.downedBoss1 ? .02f : .01f;
-                                pool[NPCID.CrimsonBunny] = NPC.downedBoss1 ? .02f : .01f;
+                                pool[NPCID.CorruptBunny] = NPC.downedBoss1 ? .02f : 01f;
+                                pool[NPCID.CrimsonBunny] = NPC.downedBoss1 ? .02f : 01f;
                             }
 
                             if (snow)
                             {
-                                pool[NPCID.CorruptPenguin] = NPC.downedBoss1 ? .04f : .02f;
-                                pool[NPCID.CrimsonPenguin] = NPC.downedBoss1 ? .04f : .02f;
+                                pool[NPCID.CorruptPenguin] = NPC.downedBoss1 ? .04f : 02f;
+                                pool[NPCID.CrimsonPenguin] = NPC.downedBoss1 ? .04f : 02f;
                             }
 
                             if (ocean || Main.raining)
                             {
-                                pool[NPCID.CorruptGoldfish] = NPC.downedBoss1 ? .04f : .02f;
-                                pool[NPCID.CrimsonGoldfish] = NPC.downedBoss1 ? .04f : .02f;
+                                pool[NPCID.CorruptGoldfish] = NPC.downedBoss1 ? .04f : 02f;
+                                pool[NPCID.CrimsonGoldfish] = NPC.downedBoss1 ? .04f : 02f;
                             }
 
                             if (NPC.downedBoss1)
@@ -272,7 +273,7 @@ namespace FargowiltasSouls.Content.NPCs
                                     pool[NPCID.DoctorBones] = .05f;
 
                                 if (NPC.downedBoss3 && !NPC.downedMechBoss2 && bossCanSpawn)
-                                    pool[NPCID.EyeofCthulhu] = Main.bloodMoon ? .0004f : .0002f;
+                                    pool[NPCID.EyeofCthulhu] = Main.bloodMoon ? .0004f : 0002f;
                             }
                         }
 
@@ -391,7 +392,7 @@ namespace FargowiltasSouls.Content.NPCs
                             if (normalSpawn)
                             {
                                 if (noBiome && bossCanSpawn)
-                                    pool[NPCID.KingSlime] = Main.slimeRain ? .0004f : .0002f;
+                                    pool[NPCID.KingSlime] = Main.slimeRain ? .0004f : 0002f;
 
                                 if (NPC.downedMechBossAny && (noBiome || dungeon))
                                     pool[NPCID.CultistArcherWhite] = .01f;
@@ -803,7 +804,7 @@ namespace FargowiltasSouls.Content.NPCs
         {
             base.OnKill(npc);
 
-            if (npc.type == NPCID.Painter && WorldSavingSystem.DownedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss.MutantBoss>()))
+            if (npc.type == NPCID.Painter && WorldSavingSystem.DownedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss>()))
                 Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.ItemType<ScremPainting>());
         }
 

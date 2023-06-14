@@ -10,8 +10,8 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
-using FargowiltasSouls.Content.NPCs.MutantBoss;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Bosses.MutantBoss;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {

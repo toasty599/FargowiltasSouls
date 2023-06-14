@@ -3,8 +3,8 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Audio;
-using FargowiltasSouls.Content.NPCs.Challengers;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Content.Bosses.Lieflight;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using FargowiltasSouls.Content.Bosses.DeviBoss;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
@@ -43,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
             {
                 target.AddBuff(ModContent.BuffType<Berserked>(), 240);
                 target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 240);

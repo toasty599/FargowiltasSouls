@@ -1,5 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Content.NPCs.AbomBoss;
+﻿using FargowiltasSouls.Content.Bosses.AbomBoss;
+using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Patreon.DemonKing;

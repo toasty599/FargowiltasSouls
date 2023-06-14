@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class PlanteraCrystalLeafRing : MutantBoss.MutantCrystalLeaf
+    public class PlanteraCrystalLeafRing : Bosses.MutantBoss.MutantCrystalLeaf
     {
         public override string Texture => "Terraria/Images/Projectile_226";
 
@@ -36,7 +37,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
             Projectile.scale *= 1.5f;
 
-            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<MutantBoss.MutantMark2>());
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<MutantMark2>());
             if (byIdentity != -1)
             {
                 Vector2 offset = new Vector2(100, 0).RotatedBy(Projectile.ai[1]);

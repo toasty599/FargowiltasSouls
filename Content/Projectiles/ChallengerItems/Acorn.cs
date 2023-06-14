@@ -5,9 +5,9 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 {
-    public class Acorn : Challengers.TrojanAcorn
+    public class Acorn : Bosses.TrojanSquirrel.TrojanAcorn
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Champions/TimberAcorn";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/TimberAcorn";
 
         public override void SetStaticDefaults()
         {

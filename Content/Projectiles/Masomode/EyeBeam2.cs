@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -38,7 +39,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 }
             }
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.EarthChampion>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<EarthChampion>()))
             {
                 target.AddBuff(BuffID.Burning, 300);
             }

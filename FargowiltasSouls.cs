@@ -29,10 +29,10 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Tiles;
 using FargowiltasSouls.Content.UI;
-using FargowiltasSouls.Content.NPCs.AbomBoss;
-using FargowiltasSouls.Content.NPCs.MutantBoss;
-using FargowiltasSouls.Content.NPCs.DeviBoss;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.Bosses.AbomBoss;
+using FargowiltasSouls.Content.Bosses.DeviBoss;
 
 namespace FargowiltasSouls
 {
@@ -670,7 +670,7 @@ namespace FargowiltasSouls
 
                 //    bossHealthBar.Call("hbStart");
                 //    bossHealthBar.Call("hbSetColours", new Color(55, 255, 191), new Color(0f, 1f, 0f), new Color(0f, 0.5f, 1f));
-                //    //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("Content/NPCs/MutantBoss/MutantBoss_Head_Boss"));
+                //    //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("Content/Bosses/MutantBoss/MutantBoss_Head_Boss"));
                 //    bossHealthBar.Call("hbSetTexture",
                 //        bossHealthBar.GetTexture("UI/MoonLordBarStart"), null,
                 //        bossHealthBar.GetTexture("UI/MoonLordBarEnd"), null);

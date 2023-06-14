@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.NPCs.DeviBoss;
+using FargowiltasSouls.Content.Bosses.DeviBoss;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

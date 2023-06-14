@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles.Deathrays;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-    public class HentaiSpearDeathray : Deathrays.MutantSpecialDeathray
+    public class HentaiSpearDeathray : MutantSpecialDeathray
     {
         public HentaiSpearDeathray() : base(90) { }
 

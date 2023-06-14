@@ -11,9 +11,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles.Champions;
 using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Content.Projectiles.DeviBoss;
+using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Content.Bosses.Champions;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss
 {

@@ -19,8 +19,8 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles.MutantBoss;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Bosses.MutantBoss;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {

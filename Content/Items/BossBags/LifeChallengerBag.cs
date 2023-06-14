@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Placables;
+﻿using FargowiltasSouls.Content.Bosses.Lieflight;
+using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using Terraria;
 using Terraria.ID;
@@ -10,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
     {
         protected override bool IsPreHMBag => true;
 
-        public override int BossBagNPC => ModContent.NPCType<NPCs.Challengers.LifeChallenger>();
+        public override int BossBagNPC => ModContent.NPCType<LifeChallenger>();
 
         public override void OpenBossBag(Player player)
         {

@@ -1,11 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles.Deathrays;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class GolemDeathraySmall : Deathrays.BaseDeathray
+    public class GolemDeathraySmall : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/PhantasmalDeathrayGolem";
         public GolemDeathraySmall() : base(60) { }

@@ -4,7 +4,6 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.NPCs.EternityMode;
 using FargowiltasSouls.Content.Projectiles.Masomode;
-using FargowiltasSouls.Content.Projectiles.MutantBoss;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -17,6 +16,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Bosses.MutantBoss;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 {

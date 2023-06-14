@@ -12,6 +12,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Bosses.AbomBoss;
+using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Content.Bosses.MutantBoss;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -80,7 +83,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         maxTime = 30;
                         alphaModifier = 10;
 
-                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<AbomBoss>());
                         if (abom != null)
                         {
                             Projectile.Center = abom.Center;
@@ -127,7 +130,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         maxTime = 60;
                         alphaModifier = 6f;
 
-                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<AbomBoss>());
                         if (abom != null)
                         {
                             Projectile.Center = abom.Center;
@@ -149,7 +152,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         maxTime = 150;
                         alphaModifier = 7f;
 
-                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<AbomBoss>());
                         if (abom != null)
                         {
                             Projectile.Center = abom.Center;
@@ -172,7 +175,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         maxTime = 120;
                         alphaModifier = 4f;
 
-                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<AbomBoss>());
                         if (abom != null)
                         {
                             Vector2 targetPos = abom.Center + Vector2.UnitX * Projectile.ai[1];
@@ -292,7 +295,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         alphaModifier = 1;
                         Projectile.scale = 0.5f;
 
-                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<DeviBoss>());
                         if (npc != null)
                         {
                             Projectile.Center = npc.Center;
@@ -417,7 +420,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         alphaModifier = counter > maxTime / 2 ? 6 : 3;
                         Projectile.scale = 4f;
 
-                        NPC mutant = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+                        NPC mutant = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<MutantBoss>());
                         if (mutant != null)
                         {
                             float targetRot = MathHelper.WrapAngle(mutant.ai[3]);

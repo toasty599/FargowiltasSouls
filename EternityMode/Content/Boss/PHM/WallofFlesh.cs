@@ -189,7 +189,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                 }
             }
-            else if (npc.life < npc.lifeMax * (WorldSavingSystem.MasochistModeReal ? 0.9 : .75)) //enter phase 2
+            else if (npc.life < npc.lifeMax * (WorldSavingSystem.MasochistModeReal ? 0.9 : 75)) //enter phase 2
             {
                 InPhase2 = true;
                 npc.netUpdate = true;
@@ -247,7 +247,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     ChainBarrageTimer = 0;
                 }
             }
-            else if (InPhase2 && npc.life < npc.lifeMax * (WorldSavingSystem.MasochistModeReal ? .8 : .5)) //enter phase 3
+            else if (InPhase2 && npc.life < npc.lifeMax * (WorldSavingSystem.MasochistModeReal ? .8 : 5)) //enter phase 3
             {
                 InPhase3 = true;
                 npc.netUpdate = true;

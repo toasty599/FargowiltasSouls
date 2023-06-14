@@ -8,7 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
-using FargowiltasSouls.Content.Projectiles.Champions;
+using FargowiltasSouls.Content.Bosses.Champions;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
 {

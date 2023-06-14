@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.NPCs.Challengers;
+using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

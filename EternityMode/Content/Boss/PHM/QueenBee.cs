@@ -4,7 +4,6 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.NPCs.EternityMode;
-using FargowiltasSouls.Content.Projectiles.Champions;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
@@ -18,6 +17,7 @@ using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Bosses.Champions;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {

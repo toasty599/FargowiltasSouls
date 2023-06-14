@@ -14,10 +14,10 @@ using Terraria.ModLoader;
 using Terraria;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Items.Armor;
-using FargowiltasSouls.Content.NPCs.DeviBoss;
-using FargowiltasSouls.Content.NPCs.AbomBoss;
-using FargowiltasSouls.Content.NPCs.MutantBoss;
 using Terraria.DataStructures;
+using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.Bosses.AbomBoss;
+using FargowiltasSouls.Content.Bosses.DeviBoss;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -338,7 +338,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 /*if (target.FindBuffIndex(ModContent.BuffType<GodEater>()) < 0 && target.aiStyle != 37)
                 {
-                    if (target.type != ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                    if (target.type != ModContent.NPCType<Bosses.MutantBoss.MutantBoss>())
                     {
                         target.DelBuff(4);
                         target.buffImmune[ModContent.BuffType<GodEater>()] = false;

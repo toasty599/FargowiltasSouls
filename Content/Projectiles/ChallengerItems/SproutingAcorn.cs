@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 {
     public class SproutingAcorn : Acorn
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Champions/TimberAcorn";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/TimberAcorn";
 
         public override void SetDefaults()
         {

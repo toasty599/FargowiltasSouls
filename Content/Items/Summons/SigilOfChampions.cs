@@ -1,6 +1,6 @@
+using FargowiltasSouls.Content.Bosses.Champions;
 using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Content.NPCs.Champions;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

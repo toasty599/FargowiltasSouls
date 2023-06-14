@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.AbomBoss;
+﻿using FargowiltasSouls.Content.Bosses.AbomBoss;
+using FargowiltasSouls.Content.Projectiles.Deathrays;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-    public class StyxGazer : Deathrays.AbomSpecialDeathray
+    public class StyxGazer : AbomSpecialDeathray
     {
         public StyxGazer() : base(120) { }
         public int counter;

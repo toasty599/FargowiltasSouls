@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Expert;
+﻿using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
+using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using Terraria;
 using Terraria.ID;
@@ -10,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
     {
         protected override bool IsPreHMBag => true;
 
-        public override int BossBagNPC => ModContent.NPCType<NPCs.Challengers.TrojanSquirrel>();
+        public override int BossBagNPC => ModContent.NPCType<TrojanSquirrel>();
 
         public override void OpenBossBag(Player player)
         {

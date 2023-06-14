@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles.Deathrays;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -7,7 +8,7 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
-    public class FriendRay : Deathrays.BaseDeathray
+    public class FriendRay : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/DeviDeathray";
         public FriendRay() : base(120) { }

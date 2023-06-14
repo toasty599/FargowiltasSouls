@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Projectiles.AbomBoss;
+using FargowiltasSouls.Content.Bosses.AbomBoss;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

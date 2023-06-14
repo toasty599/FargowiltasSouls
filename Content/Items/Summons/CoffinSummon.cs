@@ -8,7 +8,7 @@ using Terraria.Audio;
 using FargowiltasSouls.Content.NPCs.Challengers;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader.IO;
-using FargowiltasSouls.Content.NPCs.Champions;
+using FargowiltasSouls.Content.Bosses.Champions;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {

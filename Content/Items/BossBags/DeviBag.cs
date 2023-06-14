@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,7 +9,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
     {
         protected override bool IsPreHMBag => true;
 
-        public override int BossBagNPC => ModContent.NPCType<NPCs.DeviBoss.DeviBoss>();
+        public override int BossBagNPC => ModContent.NPCType<DeviBoss>();
 
         public override void OpenBossBag(Player player)
         {

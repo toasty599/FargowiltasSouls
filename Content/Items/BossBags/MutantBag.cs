@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Misc;
 using FargowiltasSouls.Core.Systems;
 using Terraria;
@@ -10,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
     {
         protected override bool IsPreHMBag => false;
 
-        public override int BossBagNPC => ModContent.NPCType<NPCs.MutantBoss.MutantBoss>();
+        public override int BossBagNPC => ModContent.NPCType<MutantBoss>();
 
         public override void OpenBossBag(Player player)
         {

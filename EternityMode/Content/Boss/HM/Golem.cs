@@ -736,7 +736,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else if (AttackTimer < fireTime + 150 && DoDeathray)
                     {
-                        npc.velocity.X += SweepToLeft ? -.15f : .15f;
+                        npc.velocity.X += SweepToLeft ? -.15f : 15f;
 
                         Tile tile = Framing.GetTileSafely(npc.Center); //stop if reached a wall, but only 1sec after started firing
                         if (AttackTimer > fireTime + 60 && tile.HasUnactuatedTile && tile.TileType == TileID.LihzahrdBrick && tile.WallType == WallID.LihzahrdBrickUnsafe

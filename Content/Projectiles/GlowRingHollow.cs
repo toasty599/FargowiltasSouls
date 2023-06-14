@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.Bosses.AbomBoss;
+using FargowiltasSouls.Content.Bosses.Champions;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
@@ -79,7 +81,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             Projectile.alpha = 0;
                         }
 
-                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<AbomBoss>());
                         if (npc != null)
                         {
                             Projectile.Center = npc.Center;
@@ -131,7 +133,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         color = Color.Yellow;
                         alphaModifier = 10;
-                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.LifeChampion>());
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<LifeChampion>());
                         if (npc != null && npc.ai[3] == 0)
                         {
                             Projectile.Center = npc.Center;
@@ -246,7 +248,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         maxTime = 300 - 90;
                         alphaModifier = Projectile.localAI[0] > maxTime / 2 ? 10 : 1;
 
-                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.TerraChampion>());
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<TerraChampion>());
                         if (npc != null)
                         {
                             Projectile.Center = npc.Center + Vector2.Normalize(npc.velocity).RotatedBy(MathHelper.PiOver2) * 300;

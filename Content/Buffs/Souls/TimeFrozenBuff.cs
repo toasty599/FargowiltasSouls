@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Content.NPCs;
+﻿using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.Audio;
@@ -48,13 +50,13 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             {
                 if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
                 {
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>())
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<CosmosChampion>())
                     && Main.npc[EModeGlobalNPC.championBoss].ai[0] == 15)
                     {
                         Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.championBoss].Center);
                     }
 
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>())
                         && WorldSavingSystem.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5)
                     {
                         Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);

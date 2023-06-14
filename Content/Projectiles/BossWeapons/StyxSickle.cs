@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
     public class StyxSickle : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/AbomBoss/AbomSickle";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/AbomBoss/AbomSickle";
 
         public override void SetStaticDefaults()
         {

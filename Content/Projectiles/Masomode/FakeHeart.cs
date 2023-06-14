@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
@@ -79,7 +80,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     target.statDefense = defense;
                     target.endurance = endurance;
 
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
                         target.AddBuff(ModContent.BuffType<LovestruckBuff>(), 240);
                 }
                 else

@@ -20,6 +20,9 @@ using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
+using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.DeviBoss;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -207,7 +210,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.DD2ExplosiveTrapT3Explosion:
                     {
                         if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active
-                            && (npc.type == ModContent.NPCType<NPCs.Challengers.TrojanSquirrel>() || npc.type == ModContent.NPCType<NPCs.Champions.TimberChampion>()))
+                            && (npc.type == ModContent.NPCType<TrojanSquirrel>() || npc.type == ModContent.NPCType<TimberChampion>()))
                         {
                             projectile.DamageType = DamageClass.Default;
                             projectile.friendly = false;
@@ -221,7 +224,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.ShadowFlame:
                     {
                         if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active
-                            && npc.type == ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+                            && npc.type == ModContent.NPCType<ShadowChampion>())
                         {
                             projectile.DamageType = DamageClass.Default;
                             projectile.friendly = false;
@@ -269,7 +272,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case ProjectileID.DesertDjinnCurse:
                     {
-                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == ModContent.NPCType<ShadowChampion>())
                             projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
                     }
                     break;
@@ -278,7 +281,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active)
                         {
-                            if (npc.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+                            if (npc.type == ModContent.NPCType<DeviBoss>())
                             {
                                 projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
                                 if (npc.ai[0] == 5)
@@ -286,7 +289,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 else
                                     projectile.timeLeft = 90;
                             }
-                            else if (npc.type == ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+                            else if (npc.type == ModContent.NPCType<ShadowChampion>())
                             {
                                 projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
                             }
@@ -413,7 +416,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 {
                     if (modPlayer.Jammed && projectile.CountsAsClass(DamageClass.Ranged) && projectile.type != ProjectileID.ConfettiGun)
                     {
-                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
                         projectile.active = false;
                     }
 
@@ -558,7 +561,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 if (projectile.type == ProjectileID.ShadowBeamHostile)
                 {
-                    if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+                    if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<DeviBoss>())
                     {
                         projectile.timeLeft = WorldSavingSystem.MasochistModeReal ? 1200 : 420;
                     }
@@ -566,7 +569,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 if (projectile.type == ProjectileID.DD2ExplosiveTrapT3Explosion && projectile.hostile)
                 {
-                    if (projectile.GetSourceNPC() is NPC sourceNPC && (sourceNPC.type == ModContent.NPCType<NPCs.Challengers.TrojanSquirrel>() || sourceNPC.type == ModContent.NPCType<NPCs.Champions.TimberChampion>()))
+                    if (projectile.GetSourceNPC() is NPC sourceNPC && (sourceNPC.type == ModContent.NPCType<TrojanSquirrel>() || sourceNPC.type == ModContent.NPCType<TimberChampion>()))
                     {
                         projectile.position = projectile.Bottom;
                         projectile.height = 16 * 6;

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class PrimeGuardian : MutantBoss.MutantGuardian
+    public class PrimeGuardian : Bosses.MutantBoss.MutantGuardian
     {
         public override string Texture => "Terraria/Images/NPC_127";
 

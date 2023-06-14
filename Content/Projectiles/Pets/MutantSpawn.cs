@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
@@ -115,7 +116,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
                     case 1: //spawn mutant
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), Projectile.Center, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+                            FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), Projectile.Center, ModContent.NPCType<MutantBoss>());
                             FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}MutantBoss", 175, 75, 255);
                         }
                         break;
