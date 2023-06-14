@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon
+namespace FargowiltasSouls.Content.Patreon
 {
     public class PatreonGlobalItem : GlobalItem
     {

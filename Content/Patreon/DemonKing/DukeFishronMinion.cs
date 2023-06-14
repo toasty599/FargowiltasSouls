@@ -10,7 +10,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.DemonKing
+namespace FargowiltasSouls.Content.Patreon.DemonKing
 {
     public class DukeFishronMinion : ModProjectile
     {

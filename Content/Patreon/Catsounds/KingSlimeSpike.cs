@@ -2,7 +2,7 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Patreon.Catsounds
+namespace FargowiltasSouls.Content.Patreon.Catsounds
 {
     public class KingSlimeSpike : SlimeSpikeFriendly
     {

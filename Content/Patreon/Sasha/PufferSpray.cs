@@ -5,7 +5,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Sasha
+namespace FargowiltasSouls.Content.Patreon.Sasha
 {
     public class PufferSpray : ModProjectile
     {

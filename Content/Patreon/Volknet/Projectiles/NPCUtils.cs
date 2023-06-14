@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Patreon.Volknet.Projectiles
+namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 {
     public static class NPCUtils
     {

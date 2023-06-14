@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon
+namespace FargowiltasSouls.Content.Patreon
 {
     public abstract class PatreonModItem : SoulsItem
     {

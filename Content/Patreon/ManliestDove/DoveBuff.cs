@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 
 
-namespace FargowiltasSouls.Patreon.ManliestDove
+namespace FargowiltasSouls.Content.Patreon.ManliestDove
 {
     public class DoveBuff : ModBuff
     {

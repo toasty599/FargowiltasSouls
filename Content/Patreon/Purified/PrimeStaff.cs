@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Purified
+namespace FargowiltasSouls.Content.Patreon.Purified
 {
     public class PrimeStaff : PatreonModItem
     {

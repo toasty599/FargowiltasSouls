@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Phupperbat
+namespace FargowiltasSouls.Content.Patreon.Phupperbat
 {
     public class VermillionTopHat : PatreonModItem
     {

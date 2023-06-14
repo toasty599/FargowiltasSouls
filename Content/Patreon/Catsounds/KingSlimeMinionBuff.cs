@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Catsounds
+namespace FargowiltasSouls.Content.Patreon.Catsounds
 {
     public class KingSlimeMinionBuff : ModBuff
     {

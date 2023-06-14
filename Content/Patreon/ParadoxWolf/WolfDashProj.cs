@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.ParadoxWolf
+namespace FargowiltasSouls.Content.Patreon.ParadoxWolf
 {
     public class WolfDashProj : ModProjectile
     {

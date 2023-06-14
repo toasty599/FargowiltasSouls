@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Sasha
+namespace FargowiltasSouls.Content.Patreon.Sasha
 {
     public class SpikyLure : ModProjectile
     {

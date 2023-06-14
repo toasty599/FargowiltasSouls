@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Volknet.Projectiles
+namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 {
     public class PlasmaArrow : ModProjectile
     {

@@ -7,7 +7,7 @@ using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Volknet.Projectiles
+namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 {
     class NanoBlade : ModProjectile
     {

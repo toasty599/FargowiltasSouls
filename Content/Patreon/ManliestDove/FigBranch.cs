@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.ManliestDove
+namespace FargowiltasSouls.Content.Patreon.ManliestDove
 {
     public class FigBranch : PatreonModItem
     {

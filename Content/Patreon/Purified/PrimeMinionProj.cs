@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Purified
+namespace FargowiltasSouls.Content.Patreon.Purified
 {
     public class PrimeMinionProj : ModProjectile
     {

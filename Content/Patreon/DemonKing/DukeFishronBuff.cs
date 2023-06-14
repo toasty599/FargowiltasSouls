@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.DemonKing
+namespace FargowiltasSouls.Content.Patreon.DemonKing
 {
     public class DukeFishronBuff : ModBuff
     {

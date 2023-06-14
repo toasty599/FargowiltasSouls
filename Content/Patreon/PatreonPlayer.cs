@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core;
+﻿using FargowiltasSouls.Content.Patreon.ParadoxWolf;
+using FargowiltasSouls.Core;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -248,7 +249,7 @@ namespace FargowiltasSouls
             {
                 if (damageSource.TryGetCausingEntity(out Entity entity) && entity is NPC npc && npc.active && npc.type == NPCID.Wolf)
                 {
-                    Item.NewItem(Player.GetSource_Death(), Player.Hitbox, ModContent.ItemType<Patreon.ParadoxWolf.ParadoxWolfSoul>());
+                    Item.NewItem(Player.GetSource_Death(), Player.Hitbox, ModContent.ItemType<ParadoxWolfSoul>());
                 }
             }
         }

@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace FargowiltasSouls.Patreon.Sam
+namespace FargowiltasSouls.Content.Patreon.Sam
 {
     public class SquidwardDoorOpen : ModTile
     {

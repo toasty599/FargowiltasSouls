@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Volknet.Projectiles
+namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 {
     public class NanoBase : ModProjectile
     {

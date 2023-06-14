@@ -33,6 +33,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Content.Patreon.Volknet;
 
 namespace FargowiltasSouls
 {
@@ -901,7 +902,7 @@ namespace FargowiltasSouls
                     case PacketID.SyncNanoCoreMode:
                         {
                             Player player = Main.player[reader.ReadByte()];
-                            player.GetModPlayer<Patreon.Volknet.NanoPlayer>().NanoCoreMode = reader.Read7BitEncodedInt();
+                            player.GetModPlayer<NanoPlayer>().NanoCoreMode = reader.Read7BitEncodedInt();
                         }
                         break;
 

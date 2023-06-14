@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Shucks
+namespace FargowiltasSouls.Content.Patreon.Shucks
 {
     public class CrimetroidEgg : PatreonModItem
     {

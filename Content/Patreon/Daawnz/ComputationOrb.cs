@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Patreon.Daawnz
+namespace FargowiltasSouls.Content.Patreon.Daawnz
 {
     public class ComputationOrb : PatreonModItem
     {

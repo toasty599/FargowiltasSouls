@@ -1,6 +1,6 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-namespace FargowiltasSouls.Patreon.Purified
+namespace FargowiltasSouls.Content.Patreon.Purified
 {
     public class PrimeMinionBuff : ModBuff
     {

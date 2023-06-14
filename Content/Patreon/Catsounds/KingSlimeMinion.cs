@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Catsounds
+namespace FargowiltasSouls.Content.Patreon.Catsounds
 {
     public class KingSlimeMinion : ModProjectile
     {

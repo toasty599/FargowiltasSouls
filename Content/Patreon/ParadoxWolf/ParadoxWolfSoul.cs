@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.ParadoxWolf
+namespace FargowiltasSouls.Content.Patreon.ParadoxWolf
 {
     public class ParadoxWolfSoul : PatreonModItem
     {

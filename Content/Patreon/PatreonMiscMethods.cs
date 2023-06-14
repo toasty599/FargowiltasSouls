@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon
+namespace FargowiltasSouls.Content.Patreon
 {
     public static class PatreonMiscMethods
     {

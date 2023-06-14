@@ -2,7 +2,7 @@
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Patreon.DemonKing;
+using FargowiltasSouls.Content.Patreon.DemonKing;
 using Terraria;
 using Terraria.ModLoader;
 

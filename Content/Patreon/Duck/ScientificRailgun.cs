@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Duck
+namespace FargowiltasSouls.Content.Patreon.Duck
 {
     public class ScientificRailgun : PatreonModItem
     {

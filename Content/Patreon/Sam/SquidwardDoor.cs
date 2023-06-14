@@ -1,7 +1,7 @@
 ﻿using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Patreon.Sam
+namespace FargowiltasSouls.Content.Patreon.Sam
 {
     public class SquidwardDoor : PatreonModItem
     {

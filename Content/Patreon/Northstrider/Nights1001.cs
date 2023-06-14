@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Northstrider
+namespace FargowiltasSouls.Content.Patreon.Northstrider
 {
     public class Nights1001 : PatreonModItem
     {

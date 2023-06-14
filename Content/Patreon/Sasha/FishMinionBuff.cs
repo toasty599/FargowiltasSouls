@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Sasha
+namespace FargowiltasSouls.Content.Patreon.Sasha
 {
     public class FishMinionBuff : ModBuff
     {

@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Gittle
+namespace FargowiltasSouls.Content.Patreon.Gittle
 {
     public class RoombaPetBuff : ModBuff
     {

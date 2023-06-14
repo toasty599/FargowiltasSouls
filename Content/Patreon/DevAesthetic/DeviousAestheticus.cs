@@ -4,7 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.DevAesthetic
+namespace FargowiltasSouls.Content.Patreon.DevAesthetic
 {
     public class DeviousAestheticus : PatreonModItem
     {

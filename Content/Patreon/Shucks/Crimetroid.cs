@@ -4,7 +4,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.Shucks
+namespace FargowiltasSouls.Content.Patreon.Shucks
 {
     public class Crimetroid : ModProjectile
     {

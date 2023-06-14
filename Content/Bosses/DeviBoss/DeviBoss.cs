@@ -1,6 +1,6 @@
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Patreon.Phupperbat;
+using FargowiltasSouls.Content.Patreon.Phupperbat;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;

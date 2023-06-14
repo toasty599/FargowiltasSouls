@@ -3,7 +3,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.LaBonez
+namespace FargowiltasSouls.Content.Patreon.LaBonez
 {
     public class PiranhaPlantVoodooDoll : PatreonModItem
     {

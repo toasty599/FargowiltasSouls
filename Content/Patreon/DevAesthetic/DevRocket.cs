@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.DevAesthetic
+namespace FargowiltasSouls.Content.Patreon.DevAesthetic
 {
     class DevRocket : ModProjectile
     {

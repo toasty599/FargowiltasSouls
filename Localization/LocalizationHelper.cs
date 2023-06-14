@@ -10,6 +10,21 @@ using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Summons;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content;
+using FargowiltasSouls.Content.Patreon.Gittle;
+using FargowiltasSouls.Content.Patreon.Volknet;
+using FargowiltasSouls.Content.Patreon.Shucks;
+using FargowiltasSouls.Content.Patreon.Purified;
+using FargowiltasSouls.Content.Patreon.DevAesthetic;
+using FargowiltasSouls.Content.Patreon.GreatestKraken;
+using FargowiltasSouls.Content.Patreon.LaBonez;
+using FargowiltasSouls.Content.Patreon.DemonKing;
+using FargowiltasSouls.Content.Patreon.Catsounds;
+using FargowiltasSouls.Content.Patreon.ManliestDove;
+using FargowiltasSouls.Content.Patreon.ParadoxWolf;
+using FargowiltasSouls.Content.Patreon.Sam;
+using FargowiltasSouls.Content.Patreon.Sasha;
+using FargowiltasSouls.Content.Patreon.Daawnz;
 
 namespace FargowiltasSouls
 {
@@ -440,21 +455,21 @@ namespace FargowiltasSouls
         #endregion pet toggles
 
         #region patreon toggles
-        AddToggle("PatreonHeader", ModContent.ItemType<Patreon.Gittle.RoombaPet>());
-            AddToggle("PatreonRoomba", ModContent.ItemType<Patreon.Gittle.RoombaPet>());
-            AddToggle("PatreonOrb", ModContent.ItemType<Patreon.Daawnz.ComputationOrb>());
-            AddToggle("PatreonFishingRod", ModContent.ItemType<Patreon.Sasha.MissDrakovisFishingPole>());
-            AddToggle("PatreonDoor", ModContent.ItemType<Patreon.Sam.SquidwardDoor>());
-            AddToggle("PatreonWolf", ModContent.ItemType<Patreon.ParadoxWolf.ParadoxWolfSoul>());
-            AddToggle("PatreonDove", ModContent.ItemType<Patreon.ManliestDove.FigBranch>());
-            AddToggle("PatreonKingSlime", ModContent.ItemType<Patreon.Catsounds.MedallionoftheFallenKing>());
-            AddToggle("PatreonFishron", ModContent.ItemType<Patreon.DemonKing.StaffOfUnleashedOcean>());
-            AddToggle("PatreonPlant", ModContent.ItemType<Patreon.LaBonez.PiranhaPlantVoodooDoll>());
-            AddToggle("PatreonDevious", ModContent.ItemType<Patreon.DevAesthetic.DeviousAestheticus>());
-            AddToggle("PatreonVortex", ModContent.ItemType<Patreon.GreatestKraken.VortexMagnetRitual>());
-            AddToggle("PatreonPrime", ModContent.ItemType<Patreon.Purified.PrimeStaff>());
-            AddToggle("PatreonCrimetroid", ModContent.ItemType<Patreon.Shucks.CrimetroidEgg>());
-            AddToggle("PatreonNanoCore", ModContent.ItemType<Patreon.Volknet.NanoCore>());
+        AddToggle("PatreonHeader", ModContent.ItemType<RoombaPet>());
+            AddToggle("PatreonRoomba", ModContent.ItemType<RoombaPet>());
+            AddToggle("PatreonOrb", ModContent.ItemType<ComputationOrb>());
+            AddToggle("PatreonFishingRod", ModContent.ItemType<MissDrakovisFishingPole>());
+            AddToggle("PatreonDoor", ModContent.ItemType<SquidwardDoor>());
+            AddToggle("PatreonWolf", ModContent.ItemType<ParadoxWolfSoul>());
+            AddToggle("PatreonDove", ModContent.ItemType<FigBranch>());
+            AddToggle("PatreonKingSlime", ModContent.ItemType<MedallionoftheFallenKing>());
+            AddToggle("PatreonFishron", ModContent.ItemType<StaffOfUnleashedOcean>());
+            AddToggle("PatreonPlant", ModContent.ItemType<PiranhaPlantVoodooDoll>());
+            AddToggle("PatreonDevious", ModContent.ItemType<DeviousAestheticus>());
+            AddToggle("PatreonVortex", ModContent.ItemType<VortexMagnetRitual>());
+            AddToggle("PatreonPrime", ModContent.ItemType<PrimeStaff>());
+            AddToggle("PatreonCrimetroid", ModContent.ItemType<CrimetroidEgg>());
+            AddToggle("PatreonNanoCore", ModContent.ItemType<NanoCore>());
             #endregion patreon toggles
 
             #endregion Toggles

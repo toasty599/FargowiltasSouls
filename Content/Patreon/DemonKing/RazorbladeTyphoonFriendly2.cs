@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Patreon.DemonKing
+namespace FargowiltasSouls.Content.Patreon.DemonKing
 {
     public class RazorbladeTyphoonFriendly2 : RazorbladeTyphoonFriendly
     {

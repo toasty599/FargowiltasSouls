@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Patreon.Catsounds
+namespace FargowiltasSouls.Content.Patreon.Catsounds
 {
     public class MedallionoftheFallenKing : PatreonModItem
     {
