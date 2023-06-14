@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Bosses.Champions;
+﻿using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

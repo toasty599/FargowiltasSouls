@@ -1,4 +1,12 @@
-using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
+using FargowiltasSouls.Content.Bosses.Champions.Earth;
+using FargowiltasSouls.Content.Bosses.Champions.Life;
+using FargowiltasSouls.Content.Bosses.Champions.Nature;
+using FargowiltasSouls.Content.Bosses.Champions.Shadow;
+using FargowiltasSouls.Content.Bosses.Champions.Spirit;
+using FargowiltasSouls.Content.Bosses.Champions.Terra;
+using FargowiltasSouls.Content.Bosses.Champions.Timber;
+using FargowiltasSouls.Content.Bosses.Champions.Will;
 using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;

@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.Champions.Earth;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

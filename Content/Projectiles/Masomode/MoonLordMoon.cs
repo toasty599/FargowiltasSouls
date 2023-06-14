@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;
@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
     public class MoonLordMoon : CosmosMoon
     {
-        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/CosmosMoon";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Cosmos/CosmosMoon";
 
         public override void SetStaticDefaults()
         {

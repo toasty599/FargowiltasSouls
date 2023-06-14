@@ -13,7 +13,7 @@ using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
-using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss
 {

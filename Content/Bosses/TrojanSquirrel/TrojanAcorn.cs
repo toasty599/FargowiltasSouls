@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 {
-    public class TrojanAcorn : Champions.TimberAcorn
+    public class TrojanAcorn : FargowiltasSouls.Content.Bosses.Champions.Timber.TimberAcorn
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/TimberAcorn";
 

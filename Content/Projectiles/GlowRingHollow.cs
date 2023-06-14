@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.Bosses.AbomBoss;
-using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.Champions.Life;
+using FargowiltasSouls.Content.Bosses.Champions.Terra;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using Microsoft.Xna.Framework;

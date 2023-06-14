@@ -17,7 +17,7 @@ using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.Champions.Will;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {

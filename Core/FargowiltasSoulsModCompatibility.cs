@@ -18,7 +18,15 @@ using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
-using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
+using FargowiltasSouls.Content.Bosses.Champions.Earth;
+using FargowiltasSouls.Content.Bosses.Champions.Life;
+using FargowiltasSouls.Content.Bosses.Champions.Nature;
+using FargowiltasSouls.Content.Bosses.Champions.Shadow;
+using FargowiltasSouls.Content.Bosses.Champions.Spirit;
+using FargowiltasSouls.Content.Bosses.Champions.Terra;
+using FargowiltasSouls.Content.Bosses.Champions.Timber;
+using FargowiltasSouls.Content.Bosses.Champions.Will;
 
 namespace FargowiltasSouls
 {
@@ -127,7 +135,7 @@ namespace FargowiltasSouls
                     new List<int>(TerraForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/TerraChampion_Still"
+                    "Content/Bosses/Champions/Terra/TerraChampion_Still"
                 );
                 Add("MiniBoss",
                     "EarthChampion",
@@ -138,7 +146,7 @@ namespace FargowiltasSouls
                     new List<int>(EarthForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/EarthChampion_Still"
+                    "Content/Bosses/Champions/Earth/EarthChampion_Still"
                 );
                 Add("MiniBoss",
                     "NatureChampion",
@@ -149,7 +157,7 @@ namespace FargowiltasSouls
                     new List<int>(NatureForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/NatureChampion_Still"
+                    "Content/Bosses/Champions/Nature/NatureChampion_Still"
                 );
                 Add("MiniBoss",
                     "LifeChampion",
@@ -160,7 +168,7 @@ namespace FargowiltasSouls
                     new List<int>(LifeForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/LifeChampion_Still"
+                    "Content/Bosses/Champions/Life/LifeChampion_Still"
                 );
                 Add("MiniBoss",
                     "ShadowChampion",
@@ -181,7 +189,7 @@ namespace FargowiltasSouls
                     new List<int>(SpiritForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/SpiritChampion_Still"
+                    "Content/Bosses/Champions/Spirit/SpiritChampion_Still"
                 );
                 Add("MiniBoss",
                     "WillChampion",

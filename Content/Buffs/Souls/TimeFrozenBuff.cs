@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Bosses.Champions;
+﻿using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Core.Systems;

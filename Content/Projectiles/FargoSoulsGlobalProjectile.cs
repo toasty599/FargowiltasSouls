@@ -20,9 +20,10 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
-using FargowiltasSouls.Content.Bosses.Champions;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Content.Bosses.Champions.Shadow;
+using FargowiltasSouls.Content.Bosses.Champions.Timber;
 
 namespace FargowiltasSouls.Content.Projectiles
 {

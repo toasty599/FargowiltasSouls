@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Bosses.Champions;
+﻿using FargowiltasSouls.Content.Bosses.Champions.Earth;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;

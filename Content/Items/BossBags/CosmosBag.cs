@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.Bosses.Champions;
+﻿using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
