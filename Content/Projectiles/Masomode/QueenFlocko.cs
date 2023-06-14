@@ -49,7 +49,6 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 vel = Projectile.DirectionTo(player.Center) * 7f;
-                    float xDistance = Math.Abs(player.Center.X - Projectile.Center.X);
                     for (int i = -1; i <= 1; i++)
                     {
                         Vector2 velocity = vel.RotatedBy(MathHelper.ToRadians(4) * i);

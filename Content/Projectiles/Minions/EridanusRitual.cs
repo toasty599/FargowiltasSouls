@@ -62,13 +62,13 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             if (Projectile.rotation > PI)
                 Projectile.rotation -= 2f * PI;
 
-            switch (Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusTimer / (60 * 10))
+            Projectile.frame = (Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusTimer / (60 * 10)) switch
             {
-                case 0: Projectile.frame = 1; break;
-                case 1: Projectile.frame = 2; break;
-                case 2: Projectile.frame = 0; break;
-                default: Projectile.frame = 3; break;
-            }
+                0 => 1,
+                1 => 2,
+                2 => 0,
+                _ => 3,
+            };
 
             //handle countdown between phase changes
             Projectile.localAI[0] = Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusTimer % (float)(60 * 10) / (60 * 10) * 12f - 1f;

@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
-    public class Atrophied : ModBuff
+    public class AtrophiedBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

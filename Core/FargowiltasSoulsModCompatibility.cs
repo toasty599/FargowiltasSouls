@@ -15,18 +15,18 @@ using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Bosses.Lieflight;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
+using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
+using FargowiltasSouls.Content.Bosses.Champions.Will;
+using FargowiltasSouls.Content.Bosses.Champions.Spirit;
+using FargowiltasSouls.Content.Bosses.Champions.Shadow;
+using FargowiltasSouls.Content.Bosses.Champions.Life;
+using FargowiltasSouls.Content.Bosses.Champions.Nature;
+using FargowiltasSouls.Content.Bosses.Champions.Earth;
+using FargowiltasSouls.Content.Bosses.Champions.Terra;
+using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
-using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
-using FargowiltasSouls.Content.Bosses.Champions.Earth;
-using FargowiltasSouls.Content.Bosses.Champions.Life;
-using FargowiltasSouls.Content.Bosses.Champions.Nature;
-using FargowiltasSouls.Content.Bosses.Champions.Shadow;
-using FargowiltasSouls.Content.Bosses.Champions.Spirit;
-using FargowiltasSouls.Content.Bosses.Champions.Terra;
-using FargowiltasSouls.Content.Bosses.Champions.Timber;
-using FargowiltasSouls.Content.Bosses.Champions.Will;
 
 namespace FargowiltasSouls
 {
@@ -135,7 +135,7 @@ namespace FargowiltasSouls
                     new List<int>(TerraForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/Terra/TerraChampion_Still"
+                    "Content/NPCs/Champions/TerraChampion_Still"
                 );
                 Add("MiniBoss",
                     "EarthChampion",
@@ -146,7 +146,7 @@ namespace FargowiltasSouls
                     new List<int>(EarthForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/Earth/EarthChampion_Still"
+                    "Content/NPCs/Champions/EarthChampion_Still"
                 );
                 Add("MiniBoss",
                     "NatureChampion",
@@ -157,7 +157,7 @@ namespace FargowiltasSouls
                     new List<int>(NatureForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/Nature/NatureChampion_Still"
+                    "Content/NPCs/Champions/NatureChampion_Still"
                 );
                 Add("MiniBoss",
                     "LifeChampion",
@@ -168,7 +168,7 @@ namespace FargowiltasSouls
                     new List<int>(LifeForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/Life/LifeChampion_Still"
+                    "Content/NPCs/Champions/LifeChampion_Still"
                 );
                 Add("MiniBoss",
                     "ShadowChampion",
@@ -189,7 +189,7 @@ namespace FargowiltasSouls
                     new List<int>(SpiritForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/Bosses/Champions/Spirit/SpiritChampion_Still"
+                    "Content/NPCs/Champions/SpiritChampion_Still"
                 );
                 Add("MiniBoss",
                     "WillChampion",
@@ -234,7 +234,7 @@ namespace FargowiltasSouls
                     }),
                     new List<int> { ModContent.ItemType<SquirrelCoatofArms>() },
                     false,
-                    "Content/Bosses/TrojanSquirrel/TrojanSquirrel_Still"
+                    "Content/NPCs/Challengers/TrojanSquirrel_Still"
                 );
                 Add("Boss",
                     "LifeChallenger",
@@ -253,7 +253,7 @@ namespace FargowiltasSouls
                     }),
                     new List<int> { ModContent.ItemType<FragilePixieLamp>() },
                     false,
-                    "Content/Bosses/Lieflight/LifeChallenger"
+                    "Content/NPCs/Challengers/LifeChallenger"
                 );
                 //JAVYZ TODO: Banished Baron
                 /*
@@ -285,7 +285,7 @@ namespace FargowiltasSouls
                 //    }),
                 //    new List<int> { ModContent.ItemType<CoffinSummon>() },
                 //    false,
-                //    "Content/Bosses/CursedCoffin/CursedCoffin_Still"
+                //    "Content/NPCs/Challengers/CursedCoffin_Still"
                 //);
 
                 #endregion challengers

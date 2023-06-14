@@ -1,5 +1,5 @@
 using FargowiltasSouls.Content.Bosses.MutantBoss;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Content.Sky
         private float specialColorLerp = 0f;
         private Color? specialColor = null;
         private int delay = 0;
-        private int[] xPos = new int[50];
-        private int[] yPos = new int[50];
+        private readonly int[] xPos = new int[50];
+        private readonly int[] yPos = new int[50];
 
         public override void Update(GameTime gameTime)
         {

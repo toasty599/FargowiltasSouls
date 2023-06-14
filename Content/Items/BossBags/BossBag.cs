@@ -36,6 +36,8 @@ namespace FargowiltasSouls.Content.Items.BossBags
             Item.expert = true;
         }
 
+        public sealed override bool CanRightClick() => true;
+
         //thing for all bags?
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {

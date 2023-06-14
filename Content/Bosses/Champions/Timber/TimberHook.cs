@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<FargowiltasSouls.Content.Bosses.Champions.Timber.TimberChampion>());
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<TimberChampion>());
             if (npc == null)
             {
                 Projectile.Kill();

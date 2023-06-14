@@ -48,20 +48,19 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
-            int dusttype;
-            switch (coinType)
+            var dusttype = coinType switch
             {
-                case 0: dusttype = 9; break;
-                case 1: dusttype = 11; break;
-                case 2: dusttype = 19; break;
-                default: dusttype = 11; break;
-            }
+                0 => 9,
+                1 => 11,
+                2 => 19,
+                _ => 11,
+            };
             for (int index1 = 0; index1 < 10; ++index1)
             {
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dusttype, 0.0f, 0.0f, 0, new Color(), 1f);
                 Main.dust[index2].noGravity = true;
                 Dust dust = Main.dust[index2];
-                dust.velocity = dust.velocity - Projectile.velocity * 0.5f;
+                dust.velocity -= Projectile.velocity * 0.5f;
             }
         }
 

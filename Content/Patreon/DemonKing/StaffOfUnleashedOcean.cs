@@ -1,3 +1,5 @@
+using FargowiltasSouls.Content.Patreon;
+using FargowiltasSouls.Content.Patreon.DemonKing;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             {
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SnowBlock);
                 Dust dust = Main.dust[index2];
-                dust.velocity = dust.velocity * 0.6f;
+                dust.velocity *= 0.6f;
             }
         }
 

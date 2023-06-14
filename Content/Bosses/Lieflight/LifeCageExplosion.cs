@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
     public class LifeCageExplosion : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/Rune1";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/Rune1";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cage Explosion");

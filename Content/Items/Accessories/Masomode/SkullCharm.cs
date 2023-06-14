@@ -1,4 +1,3 @@
-using FargowiltasSouls.Core.Toggler;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

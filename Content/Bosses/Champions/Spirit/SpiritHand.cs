@@ -1,5 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 {
     public class SpiritHand : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/NPCs/Champions/SpiritChampionHand";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Spirit/SpiritChampionHand";
 
         public override void SetStaticDefaults()
         {
@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 
             if (Projectile.localAI[0] > 60 && Projectile.localAI[0] < 180)
             {
-                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<FargowiltasSouls.Content.Bosses.Champions.Spirit.SpiritChampion>()))
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<SpiritChampion>()))
                 {
                     float rotation = Projectile.velocity.ToRotation();
                     Vector2 vel = Main.player[Main.npc[EModeGlobalNPC.championBoss].target].Center - Projectile.Center;

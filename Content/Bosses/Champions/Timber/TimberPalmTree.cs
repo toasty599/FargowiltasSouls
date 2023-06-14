@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                         const float gravity = 0.2f;
                         float time = 90f;
                         Vector2 distance = player.Center - Projectile.Center;
-                        distance.X = distance.X / time;
+                        distance.X /= time;
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
                         for (int i = 0; i < 10; i++)
                         {

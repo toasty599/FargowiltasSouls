@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.NPCs;
+﻿using FargowiltasSouls.Core.Globals;
 using System;
 using Terraria;
 using Terraria.ID;

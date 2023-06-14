@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 {
     public class TitaniumShard : ModProjectile
     {
-        private int shrinkTimer = 0;
+        private readonly int shrinkTimer = 0;
         public override string Texture => "Terraria/Images/Projectile_908";
 
         public override void SetStaticDefaults()
@@ -50,9 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Projectile.rotation = Main.rand.NextFloat() * 6.28318548f;
             }
             Projectile.rotation += 0.0157079641f;
-            int num;
-            int num2;
-            AI_GetMyGroupIndexAndFillBlackList(null, out num, out num2);
+            AI_GetMyGroupIndexAndFillBlackList(null, out int num, out int num2);
             float f = (num / (float)num2 + player.miscCounterNormalized * 6f) * 6.28318548f;
             float scaleFactor = 24f + num2 * 6f;
             Vector2 value = player.position - player.oldPosition;

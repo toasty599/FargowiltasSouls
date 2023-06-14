@@ -87,27 +87,27 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                 int num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default, Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore97 = Main.gore[num620];
-                gore97.velocity.X = gore97.velocity.X + 1f;
+                gore97.velocity.X++;
                 Gore gore98 = Main.gore[num620];
-                gore98.velocity.Y = gore98.velocity.Y + 1f;
+                gore98.velocity.Y++;
                 num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default, Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore99 = Main.gore[num620];
-                gore99.velocity.X = gore99.velocity.X - 1f;
+                gore99.velocity.X--;
                 Gore gore100 = Main.gore[num620];
-                gore100.velocity.Y = gore100.velocity.Y + 1f;
+                gore100.velocity.Y++;
                 num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default, Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore101 = Main.gore[num620];
-                gore101.velocity.X = gore101.velocity.X + 1f;
+                gore101.velocity.X++;
                 Gore gore102 = Main.gore[num620];
-                gore102.velocity.Y = gore102.velocity.Y - 1f;
+                gore102.velocity.Y--;
                 num620 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default, Main.rand.Next(61, 64));
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore103 = Main.gore[num620];
-                gore103.velocity.X = gore103.velocity.X - 1f;
+                gore103.velocity.X--;
                 Gore gore104 = Main.gore[num620];
-                gore104.velocity.Y = gore104.velocity.Y - 1f;
+                gore104.velocity.Y--;
             }
 
 

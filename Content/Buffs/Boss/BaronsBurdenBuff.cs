@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Content.Buffs.Boss
 {
     public class BaronsBurdenBuff : ModBuff
     {
-        public override string Texture => "FargowiltasSouls/Content/BuffsPlaceholderDebuff";
+        public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderDebuff";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Baron's Burden");

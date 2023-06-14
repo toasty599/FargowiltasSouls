@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Core.Toggler;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -112,9 +111,9 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             {
                 int num18 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, DustID.Smoke, 0f, 0f, 100, default, 2f);
                 Dust expr_CDB_cp_0 = Main.dust[num18];
-                expr_CDB_cp_0.position.X = expr_CDB_cp_0.position.X + Main.rand.Next(-5, 6);
+                expr_CDB_cp_0.position.X += Main.rand.Next(-5, 6);
                 Dust expr_D02_cp_0 = Main.dust[num18];
-                expr_D02_cp_0.position.Y = expr_D02_cp_0.position.Y + Main.rand.Next(-5, 6);
+                expr_D02_cp_0.position.Y += Main.rand.Next(-5, 6);
                 Main.dust[num18].velocity *= 0.2f;
                 Main.dust[num18].scale *= 1f + Main.rand.Next(20) * 0.01f;
                 //Main.dust[num18].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, this);

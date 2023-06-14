@@ -16,8 +16,8 @@ using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Core.Systems.BossBars;
+using FargowiltasSouls.Content.BossBars;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 {
@@ -727,7 +727,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
-            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/ShadowChampion_Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Bosses/Champions/ShadowChampion_Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rectangle = NPC.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 

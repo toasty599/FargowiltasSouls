@@ -9,8 +9,6 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
 {
     public class FishMinion : HoverShooter
     {
-        int count = 0;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fish Minion");
@@ -82,9 +80,6 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-
-            Color color26 = lightColor;
-            color26 = Projectile.GetAlpha(color26);
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 

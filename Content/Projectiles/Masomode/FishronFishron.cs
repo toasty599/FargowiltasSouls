@@ -1,5 +1,6 @@
+using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class FishronFishron : Bosses.MutantBoss.MutantFishron
+    public class FishronFishron : MutantFishron
     {
         bool firstTick = false;
         public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Vanilla/NPC_370";

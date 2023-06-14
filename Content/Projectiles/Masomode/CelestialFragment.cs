@@ -34,14 +34,13 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.frame = (int)Projectile.ai[0];
             if (Main.rand.NextBool(20))
             {
-                int type;
-                switch ((int)Projectile.ai[0])
+                var type = (int)Projectile.ai[0] switch
                 {
-                    case 0: type = 242; break; //nebula
-                    case 1: type = 127; break; //solar
-                    case 2: type = 229; break; //vortex
-                    default: type = 135; break; //stardust
-                }
+                    0 => 242,
+                    1 => 127,
+                    2 => 229,
+                    _ => 135,
+                };
                 Dust dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, type, 0f, 0f, 0, new Color(), 1f)];
                 dust.velocity *= 4f;
                 dust.fadeIn = 1f;
@@ -52,14 +51,13 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            int type;
-            switch ((int)Projectile.ai[0])
+            var type = (int)Projectile.ai[0] switch
             {
-                case 0: type = 242; break; //nebula
-                case 1: type = 127; break; //solar
-                case 2: type = 229; break; //vortex
-                default: type = 135; break; //stardust
-            }
+                0 => 242,
+                1 => 127,
+                2 => 229,
+                _ => 135,
+            };
             for (int i = 0; i < 20; i++)
             {
                 Dust dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, type, 0f, 0f, 0, new Color(), 1f)];
@@ -77,7 +75,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             switch ((int)Projectile.ai[0])
             {
                 case 0: target.AddBuff(ModContent.BuffType<ReverseManaFlowBuff>(), 180); break; //nebula
-                case 1: target.AddBuff(ModContent.BuffType<Atrophied>(), 180); break; //solar
+                case 1: target.AddBuff(ModContent.BuffType<AtrophiedBuff>(), 180); break; //solar
                 case 2: target.AddBuff(ModContent.BuffType<JammedBuff>(), 180); break; //vortex
                 default: target.AddBuff(ModContent.BuffType<AntisocialBuff>(), 180); break; //stardust
             }

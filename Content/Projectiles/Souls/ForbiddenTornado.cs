@@ -73,9 +73,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             float num1125 = 15f;
             float num1126 = 15f;
             Point point8 = Projectile.Center.ToTileCoordinates();
-            int num1127;
-            int num1128;
-            Collision.ExpandVertically(point8.X, point8.Y, out num1127, out num1128, (int)num1125, (int)num1126);
+            Collision.ExpandVertically(point8.X, point8.Y, out int num1127, out int num1128, (int)num1125, (int)num1126);
             num1127++;
             num1128--;
             Vector2 value72 = new Vector2(point8.X, num1127) * 16f + new Vector2(8f);

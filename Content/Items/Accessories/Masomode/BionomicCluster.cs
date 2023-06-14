@@ -2,7 +2,6 @@
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Core.Toggler;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -1,6 +1,3 @@
-using FargowiltasSouls.EternityMode.Content.Boss.HM;
-using FargowiltasSouls.EternityMode.Content.Boss.PHM;
-using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,13 +15,15 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.Bosses.VanillaEternity;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Bosses.Champions.Earth;
-using FargowiltasSouls.Content.Bosses.Champions.Spirit;
 using FargowiltasSouls.Content.Bosses.Champions.Terra;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using FargowiltasSouls.Content.Bosses.Champions.Will;
+using FargowiltasSouls.Content.Bosses.Champions.Spirit;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -221,7 +220,7 @@ namespace FargowiltasSouls.Content.Projectiles
             }
         }
 
-        private bool NonSwarmFight(Projectile projectile, params int[] types)
+        private static bool NonSwarmFight(Projectile projectile, params int[] types)
         {
             if (WorldSavingSystem.SwarmActive)
                 return false;
@@ -413,7 +412,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             {
                                 for (int i = -2; i <= 2; i++)
                                 {
-                                    Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center,
+                                    Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center,
                                         1.5f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 / 2 * i),
                                         ModContent.ProjectileType<PhantasmalBolt2>(), projectile.damage, 0f, Main.myPlayer);
                                 }
@@ -646,7 +645,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             Vector2 baseVel = Vector2.Lerp(projectile.velocity, Vector2.UnitX * projectile.velocity.Length() * Math.Sign(projectile.velocity.X), 0.75f);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center + 200f * Vector2.Normalize(projectile.velocity), baseVel.RotatedBy(MathHelper.ToRadians(30) * i), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
+                                Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center + 200f * Vector2.Normalize(projectile.velocity), baseVel.RotatedBy(MathHelper.ToRadians(30) * i), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 0f, ai1);
                             }
                         }
                     }
@@ -754,7 +753,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
                                         float spawnOffset = 800;
-                                        Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center + projectile.rotation.ToRotationVector2() * spawnOffset, Vector2.Zero, ProjectileID.FairyQueenLance, projectile.damage, projectile.knockBack, projectile.owner, projectile.rotation + offset * i, projectile.ai[0]);
+                                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center + projectile.rotation.ToRotationVector2() * spawnOffset, Vector2.Zero, ProjectileID.FairyQueenLance, projectile.damage, projectile.knockBack, projectile.owner, projectile.rotation + offset * i, projectile.ai[0]);
                                     }
                                 }
                             }
@@ -1002,7 +1001,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         if (!(sourceNPC is NPC && (sourceNPC.type == ModContent.NPCType<DeviBoss>() || sourceNPC.type == ModContent.NPCType<SpiritChampion>())))
                         {
-                            FargoSoulsUtil.NewNPCEasy(Terraria.Entity.InheritSource(projectile), projectile.Center, NPCID.SandShark,
+                            FargoSoulsUtil.NewNPCEasy(Entity.InheritSource(projectile), projectile.Center, NPCID.SandShark,
                                 velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-20, -10)));
                         }
                     }
@@ -1048,7 +1047,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient && !WorldSavingSystem.MasochistModeReal)
                                     {
-                                        Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ModContent.ProjectileType<PhantasmalSphereDeathray>(),
+                                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ModContent.ProjectileType<PhantasmalSphereDeathray>(),
                                             0, 0f, Main.myPlayer, 0f, projectile.identity);
                                     }
 
@@ -1096,7 +1095,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             float ai1 = phase2 ? 60 + Main.rand.Next(60) : 90 + Main.rand.Next(30);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, speed, ModContent.ProjectileType<BetsyPhoenix>(),
+                                Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, speed, ModContent.ProjectileType<BetsyPhoenix>(),
                                     projectile.damage, 0f, Main.myPlayer, Player.FindClosest(projectile.Center, 0, 0), ai1);
                             }
                         }
@@ -1144,7 +1143,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, projVel, type, projectile.damage, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, projVel, type, projectile.damage, 0f, Main.myPlayer);
                         }
                     }
                     break;
@@ -1187,7 +1186,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 Vector2 vel = Main.rand.NextFloat(6f, 18f) * j * baseVel.RotatedBy(MathHelper.PiOver4 / max * (i + 0.5f) * -j);
                                 vel *= WorldSavingSystem.MasochistModeReal ? 2f : 1.5f;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -1265,7 +1264,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         int num129 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Sand, 0f, projectile.velocity.Y / 2f, 0, default, 1f);
                         Dust expr_59B0_cp_0 = Main.dust[num129];
-                        expr_59B0_cp_0.velocity.X = expr_59B0_cp_0.velocity.X * 0.4f;
+                        expr_59B0_cp_0.velocity.X *= 0.4f;
                         projectile.active = false;
 
                     }
@@ -1353,7 +1352,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 180);
             }
 
-            //if (sourceNPC is NPC && sourceNPC.ModNPC is Bosses.MutantBoss.MutantBoss)
+            //if (sourceNPC is NPC && sourceNPC.ModNPC is MutantBoss)
             //    target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
 
             switch (projectile.type)
@@ -1685,7 +1684,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.NebulaSphere:
                 case ProjectileID.NebulaLaser:
                 case ProjectileID.NebulaBolt:
-                    target.AddBuff(ModContent.BuffType<Berserked>(), 300);
+                    target.AddBuff(ModContent.BuffType<BerserkedBuff>(), 300);
                     target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
                     break;
 
@@ -1851,7 +1850,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.BloodNautilusTears:
                 case ProjectileID.BloodNautilusShot:
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, Vector2.Zero, ModContent.ProjectileType<BloodFountain>(), projectile.damage, 0f, Main.myPlayer, Main.rand.Next(16, 48));
+                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, Vector2.Zero, ModContent.ProjectileType<BloodFountain>(), projectile.damage, 0f, Main.myPlayer, Main.rand.Next(16, 48));
                     break;
 
                 default:

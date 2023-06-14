@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.UI
 {
     public class SoulToggler : UIState
     {
-        public static Regex RemoveItemTags = new(@"\[[^\[\]]*\]");
+        public readonly static Regex RemoveItemTags = new(@"\[[^\[\]]*\]");
 
         public bool NeedsToggleListBuilding;
         public string DisplayMod;
@@ -191,8 +191,8 @@ namespace FargowiltasSouls.Content.UI
                     if (ToggleList.Count > 0) // Don't add for the first header
                         ToggleList.Add(new UIText("", 0.2f)); // Blank line
 
-                    (string name, int item) header = ToggleLoader.LoadedHeaders[toggle.InternalName];
-                    ToggleList.Add(new FargoUIHeader(header.name, header.item, (BackWidth - 16, 20)));
+                    (string name, int item) = ToggleLoader.LoadedHeaders[toggle.InternalName];
+                    ToggleList.Add(new FargoUIHeader(name, item, (BackWidth - 16, 20)));
                 }
                 else if (!SearchBar.IsEmpty)
                 {
@@ -203,15 +203,15 @@ namespace FargowiltasSouls.Content.UI
                     if (closestHeader > index)
                         closestHeader = ToggleLoader.HeaderToggles[ToggleLoader.HeaderToggles.FindIndex(i => i == closestHeader) - 1];
 
-                    (string name, int item) header = ToggleLoader.LoadedHeaders[togglesAsLists[closestHeader].InternalName];
+                    (string name, int item) = ToggleLoader.LoadedHeaders[togglesAsLists[closestHeader].InternalName];
 
-                    if (!usedHeaders.Contains(header.name))
+                    if (!usedHeaders.Contains(name))
                     {
                         if (ToggleList.Count > 0) // Don't add for the first header
                             ToggleList.Add(new UIText("", 0.2f)); // Blank line
 
-                        ToggleList.Add(new FargoUIHeader(header.name, header.item, (BackWidth - 16, 20)));
-                        usedHeaders.Add(header.name);
+                        ToggleList.Add(new FargoUIHeader(name, item, (BackWidth - 16, 20)));
+                        usedHeaders.Add(name);
                     }
                 }
 

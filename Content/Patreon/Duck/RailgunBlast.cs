@@ -1,4 +1,5 @@
-﻿
+﻿using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Projectiles.Deathrays;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.Duck
 {
-    public class RailgunBlast : Content.Projectiles.Deathrays.MutantSpecialDeathray
+    public class RailgunBlast : MutantSpecialDeathray
     {
         public RailgunBlast() : base(20, 1.25f) { }
 
@@ -33,7 +34,7 @@ namespace FargowiltasSouls.Content.Patreon.Duck
             Projectile.hide = true;
             Projectile.penetrate = -1;
 
-            Projectile.GetGlobalProjectile<Content.Projectiles.FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

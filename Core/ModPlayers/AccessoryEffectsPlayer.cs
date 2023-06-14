@@ -1,6 +1,4 @@
-﻿using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Content.NPCs.EternityMode;
-using FargowiltasSouls.Content.Projectiles.BossWeapons;
+﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Content.Projectiles.Souls;
@@ -21,7 +19,9 @@ using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -1373,7 +1373,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 TikiEnchantActive = true;
         }
 
-        private int getNumSentries()
+        private int GetNumSentries()
         {
             int count = 0;
 
@@ -2379,7 +2379,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     if (MasochistSoul)
                         damage *= 2;
                     damage = (int)(damage * Player.ActualClassDamage(DamageClass.Magic));
-                    int proj = Projectile.NewProjectile(Player.GetSource_Accessory(AgitatingLensItem), Player.Center, Player.velocity * 0.1f, ModContent.ProjectileType<BloodScytheFriendly>(), damage, 5f, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(AgitatingLensItem), Player.Center, Player.velocity * 0.1f, ModContent.ProjectileType<BloodScytheFriendly>(), damage, 5f, Player.whoAmI);
                 }
             }
         }
@@ -2397,16 +2397,16 @@ namespace FargowiltasSouls.Core.ModPlayers
                     {
                         int index2 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.ScourgeOfTheCorruptor, 0.0f, 0.0f, 0, new Color(), 1f);
                         Dust dust = Main.dust[index2];
-                        dust.scale = dust.scale * 1.1f;
+                        dust.scale *= 1.1f;
                         Main.dust[index2].noGravity = true;
                     }
                     for (int index1 = 0; index1 < 30; ++index1)
                     {
                         int index2 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.ScourgeOfTheCorruptor, 0.0f, 0.0f, 0, new Color(), 1f);
                         Dust dust1 = Main.dust[index2];
-                        dust1.velocity = dust1.velocity * 2.5f;
+                        dust1.velocity *= 2.5f;
                         Dust dust2 = Main.dust[index2];
-                        dust2.scale = dust2.scale * 0.8f;
+                        dust2.scale *= 0.8f;
                         Main.dust[index2].noGravity = true;
                     }
                     int num = 2;
@@ -2702,9 +2702,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 int j = i + 1;
 
-                Item temp = Player.inventory[i];
-                Player.inventory[i] = Player.inventory[j];
-                Player.inventory[j] = temp;
+                (Player.inventory[j], Player.inventory[i]) = (Player.inventory[i], Player.inventory[j]);
             }
         }
 

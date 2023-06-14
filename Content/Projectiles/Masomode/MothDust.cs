@@ -1,10 +1,10 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
             {
-                target.AddBuff(ModContent.BuffType<Berserked>(), 240);
+                target.AddBuff(ModContent.BuffType<BerserkedBuff>(), 240);
                 target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 240);
                 target.AddBuff(ModContent.BuffType<GuiltyBuff>(), 240);
                 target.AddBuff(ModContent.BuffType<LovestruckBuff>(), 240);

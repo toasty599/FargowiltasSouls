@@ -194,18 +194,18 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitY.RotatedByRandom(3.14159274101257) * (float)Main.rand.NextDouble() * Projectile.width / 2f;
                 Main.dust[index2].noGravity = true;
                 Dust dust1 = Main.dust[index2];
-                dust1.velocity = dust1.velocity * 3f;
+                dust1.velocity *= 3f;
                 Dust dust2 = Main.dust[index2];
-                dust2.velocity = dust2.velocity + vector2 * Main.rand.NextFloat();
+                dust2.velocity += vector2 * Main.rand.NextFloat();
                 int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Type1, 0.0f, 0.0f, 100, new Color(), Scale2);
                 Main.dust[index3].position = Projectile.Center + Vector2.UnitY.RotatedByRandom(3.14159274101257) * (float)Main.rand.NextDouble() * Projectile.width / 2f;
                 Dust dust3 = Main.dust[index3];
-                dust3.velocity = dust3.velocity * 2f;
+                dust3.velocity *= 2f;
                 Main.dust[index3].noGravity = true;
                 Main.dust[index3].fadeIn = 1f;
                 Main.dust[index3].color = Color.Crimson * 0.5f;
                 Dust dust4 = Main.dust[index3];
-                dust4.velocity = dust4.velocity + vector2 * Main.rand.NextFloat();
+                dust4.velocity += vector2 * Main.rand.NextFloat();
             }
             for (int index1 = 0; index1 < 20; ++index1)
             {
@@ -213,15 +213,15 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitX.RotatedByRandom(3.14159274101257).RotatedBy((double)Projectile.velocity.ToRotation(), new Vector2()) * Projectile.width / 3f;
                 Main.dust[index2].noGravity = true;
                 Dust dust1 = Main.dust[index2];
-                dust1.velocity = dust1.velocity * 0.5f;
+                dust1.velocity *= 0.5f;
                 Dust dust2 = Main.dust[index2];
-                dust2.velocity = dust2.velocity + vector2 * (float)(0.600000023841858 + 0.600000023841858 * (double)Main.rand.NextFloat());
+                dust2.velocity += vector2 * (float)(0.600000023841858 + 0.600000023841858 * (double)Main.rand.NextFloat());
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Berserked>(), 300);
+            target.AddBuff(ModContent.BuffType<BerserkedBuff>(), 300);
             target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
         }
 

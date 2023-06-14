@@ -1,5 +1,5 @@
 using FargowiltasSouls.Content.Bosses.MutantBoss;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -11,7 +11,6 @@ namespace FargowiltasSouls.Content.Sky
     public class MutantSky2 : CustomSky
     {
         private bool isActive = false;
-        private bool increase = true;
         private float intensity = 0f;
 
         public override void Update(GameTime gameTime)
@@ -55,19 +54,16 @@ namespace FargowiltasSouls.Content.Sky
         public override void Activate(Vector2 position, params object[] args)
         {
             isActive = true;
-            increase = true;
         }
 
         public override void Deactivate(params object[] args)
         {
             isActive = false;
-            increase = true;
         }
 
         public override void Reset()
         {
             isActive = false;
-            increase = true;
         }
 
         public override bool IsActive()

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -5,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 {
-    public class Acorn : Bosses.TrojanSquirrel.TrojanAcorn
+    public class Acorn : TrojanAcorn
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Timber/TimberAcorn";
 

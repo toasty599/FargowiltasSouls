@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             Main.debuff[Type] = true;
         }
 
-        public override string Texture => "FargowiltasSouls/Content/BuffsPlaceholderDebuff";
+        public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderDebuff";
 
         public override void Update(NPC npc, ref int buffIndex)
         {

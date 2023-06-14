@@ -130,17 +130,17 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldFlame, 0.0f, 0.0f, 0, new Color(), 2.5f);
                 Main.dust[index2].noGravity = true;
                 Dust dust1 = Main.dust[index2];
-                dust1.velocity = dust1.velocity * 3f;
+                dust1.velocity *= 3f;
                 int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldFlame, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 Dust dust2 = Main.dust[index3];
-                dust2.velocity = dust2.velocity * 2f;
+                dust2.velocity *= 2f;
                 Main.dust[index3].noGravity = true;
             }
             for (int index1 = 0; index1 < 1; ++index1)
             {
                 int index2 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + new Vector2(Projectile.width * Main.rand.Next(100) / 100f, Projectile.height * Main.rand.Next(100) / 100f) - Vector2.One * 10f, new Vector2(), Main.rand.Next(61, 64), 1f);
                 Gore gore = Main.gore[index2];
-                gore.velocity = gore.velocity * 0.3f;
+                gore.velocity *= 0.3f;
                 Main.gore[index2].velocity.X += Main.rand.Next(-10, 11) * 0.05f;
                 Main.gore[index2].velocity.Y += Main.rand.Next(-10, 11) * 0.05f;
             }

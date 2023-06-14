@@ -1,6 +1,6 @@
 ﻿using FargowiltasSouls.Content.Bosses.Champions.Earth;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

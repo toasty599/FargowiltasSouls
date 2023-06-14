@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
 {
     public class WillRitual : BaseArena
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Champions/WillTyphoon";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Will/WillTyphoon";
 
         public WillRitual() : base(MathHelper.Pi / 140f, 1200f, ModContent.NPCType<WillChampion>(), 87, 5) { }
 

@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class PlanteraCrystalLeafRing : Bosses.MutantBoss.MutantCrystalLeaf
+    public class PlanteraCrystalLeafRing : MutantCrystalLeaf
     {
         public override string Texture => "Terraria/Images/Projectile_226";
 

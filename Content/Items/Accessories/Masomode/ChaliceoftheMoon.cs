@@ -1,7 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Core.Toggler;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -69,7 +68,7 @@ Summons a friendly Cultist and plant to fight at your side
             fargoPlayer.AdditionalAttacks = true;
 
             //chalice
-            player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
+            player.buffImmune[ModContent.BuffType<AtrophiedBuff>()] = true;
             player.buffImmune[ModContent.BuffType<JammedBuff>()] = true;
             player.buffImmune[ModContent.BuffType<ReverseManaFlowBuff>()] = true;
             player.buffImmune[ModContent.BuffType<AntisocialBuff>()] = true;

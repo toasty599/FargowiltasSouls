@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Berserked>()] = true;
+            player.buffImmune[ModContent.BuffType<BerserkedBuff>()] = true;
 
             player.GetModPlayer<FargoSoulsPlayer>().AgitatingLensItem = Item;
         }

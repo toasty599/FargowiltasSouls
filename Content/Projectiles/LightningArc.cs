@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     return;
                 int index3 = Dust.NewDust(Projectile.Center + Projectile.velocity.RotatedBy(1.57079637050629, new Vector2()) * ((float)Main.rand.NextDouble() - 0.5f) * Projectile.width - Vector2.One * 4f, 8, 8, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 Dust dust = Main.dust[index3];
-                dust.velocity = dust.velocity * 0.5f;
+                dust.velocity *= 0.5f;
                 Main.dust[index3].velocity.Y = -Math.Abs(Main.dust[index3].velocity.Y);
             }
             else

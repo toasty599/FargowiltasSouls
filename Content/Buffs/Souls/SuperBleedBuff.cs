@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大出血");
         }
 
-        public override string Texture => "FargowiltasSouls/Content/BuffsPlaceholderBuff";
+        public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderBuff";
 
         public override void Update(NPC npc, ref int buffIndex)
         {

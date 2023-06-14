@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         if (WorldSavingSystem.MasochistModeReal)
                             time = 45f;
                         Vector2 distance = Main.player[NPC.target].Center - NPC.Center;// + player.velocity * 30f;
-                        distance.X = distance.X / time;
+                        distance.X /= time;
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
                         for (int i = 0; i < 10; i++)
                         {
@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             Vector2 distance = target - NPC.Center;// + player.velocity * 30f;
             distance.X += Main.rand.NextFloat(-128, 128);
-            distance.X = distance.X / time;
+            distance.X /= time;
             distance.Y = distance.Y / time - 0.5f * gravity * time;
 
             distance.X += Math.Min(4f, Math.Abs(NPC.velocity.X)) * Math.Sign(NPC.velocity.X);

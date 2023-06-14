@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             Main.projFrames[Projectile.type] = 4;
         }
 
-        int originalSize = 70;
+        readonly int originalSize = 70;
 
         public override void SetDefaults()
         {

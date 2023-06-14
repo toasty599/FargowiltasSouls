@@ -1,9 +1,9 @@
-﻿using FargowiltasSouls.Content.NPCs;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls

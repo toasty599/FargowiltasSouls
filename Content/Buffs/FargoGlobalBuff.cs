@@ -1,6 +1,4 @@
-﻿
-using FargowiltasSouls.Content.NPCs;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 using Terraria;
@@ -11,6 +9,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Buffs
 {

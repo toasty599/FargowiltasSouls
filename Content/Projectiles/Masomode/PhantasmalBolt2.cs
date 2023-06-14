@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

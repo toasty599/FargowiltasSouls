@@ -1,7 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Core.Toggler;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitY.RotatedByRandom(3.14159274101257) * (float)Main.rand.NextDouble() * Projectile.width / 2f;
                 Main.dust[index2].noGravity = true;
                 Dust dust = Main.dust[index2];
-                dust.velocity = dust.velocity * 3f;
+                dust.velocity *= 3f;
             }
             for (int index1 = 0; index1 < 10; ++index1)
             {
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitX.RotatedByRandom(3.14159274101257).RotatedBy((double)Projectile.velocity.ToRotation(), new Vector2()) * Projectile.width / 2f;
                 Main.dust[index2].noGravity = true;
                 Dust dust = Main.dust[index2];
-                dust.velocity = dust.velocity * 3f;
+                dust.velocity *= 3f;
             }
             for (int index1 = 0; index1 < 5; ++index1)
             {
@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Main.dust[index2].position = Projectile.Center + Vector2.UnitX.RotatedByRandom(3.14159274101257).RotatedBy((double)Projectile.velocity.ToRotation(), new Vector2()) * Projectile.width / 2f;
                 Main.dust[index2].noGravity = true;
                 Dust dust = Main.dust[index2];
-                dust.velocity = dust.velocity * 3f;
+                dust.velocity *= 3f;
             }
         }
 
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         {
             if (Projectile.localAI[1] == 1)
             {
-                Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Bosses/MutantBoss/MutantEye_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/MutantBoss/MutantEye_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 int rect1 = glow.Height / Main.projFrames[Projectile.type];
                 int rect2 = rect1 * Projectile.frame;
 

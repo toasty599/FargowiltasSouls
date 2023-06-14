@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Content.NPCs;
+﻿using FargowiltasSouls.Core.Globals;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
-        public override string Texture => "FargowiltasSouls/Content/BuffsPlaceholderDebuff";
+        public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderDebuff";
 
         public override void Update(NPC npc, ref int buffIndex)
         {

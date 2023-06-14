@@ -135,10 +135,8 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 
                                 SoundEngine.PlaySound(SoundID.Item75, Projectile.Center);
                                 bool Consume = Main.rand.NextBool(4);
-                                int damage = 0, type = 0, usedAmmoItemId = 0;
-                                float kb = 0, speed = 0;
                                 bool cs = true;
-                                if (owner.PickAmmo(owner.HeldItem, out type, out speed, out damage, out kb, out usedAmmoItemId, !Consume))
+                                if (owner.PickAmmo(owner.HeldItem, out int type, out float speed, out int damage, out float kb, out int usedAmmoItemId, !Consume))
                                 {
                                     speed *= 4;
                                     speed += 64;

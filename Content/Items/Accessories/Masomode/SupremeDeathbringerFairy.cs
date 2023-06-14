@@ -1,7 +1,6 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Core.Toggler;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -72,7 +71,7 @@ Summons 2 Skeletron arms to whack enemies
             }
 
             //agitating lens
-            player.buffImmune[ModContent.BuffType<Berserked>()] = true;
+            player.buffImmune[ModContent.BuffType<BerserkedBuff>()] = true;
             //player.GetDamage(DamageClass.Generic) += 0.1f;
             fargoPlayer.AgitatingLensItem = Item;
 

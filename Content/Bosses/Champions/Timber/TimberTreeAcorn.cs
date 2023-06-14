@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 {
     public class TimberTreeAcorn : TimberAcorn
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Champions/TimberAcorn";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Timber/TimberAcorn";
 
         public override void SetStaticDefaults()
         {

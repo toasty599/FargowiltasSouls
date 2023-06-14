@@ -13,7 +13,7 @@ using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 {
@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             return true;
         }
 
-        int JumpTreshold => WorldSavingSystem.MasochistModeReal ? 30 : 60;
+        static int JumpTreshold => WorldSavingSystem.MasochistModeReal ? 30 : 60;
 
         bool drawTrail;
 
@@ -156,7 +156,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             Vector2 distance = player.Top - NPC.Bottom;
                             distance.X += WorldSavingSystem.MasochistModeReal ? player.velocity.X * time : 420 * Math.Sign(distance.X);
 
-                            distance.X = distance.X / time;
+                            distance.X /= time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
                             NPC.velocity = distance;
 
@@ -273,7 +273,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                         const float gravity = 0.2f;
                         float time = 60f;
                         Vector2 distance = player.Center - NPC.Center;// + player.velocity * 30f;
-                        distance.X = distance.X / time;
+                        distance.X /= time;
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
                         for (int i = 0; i < 15; i++)
                         {
@@ -311,7 +311,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             const float gravity = 0.2f;
                             float time = 45f;
                             Vector2 distance = player.Center - NPC.Center + player.velocity * 15f;
-                            distance.X = distance.X / time;
+                            distance.X /= time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
                             for (int i = 0; i < 30; i++)
                             {

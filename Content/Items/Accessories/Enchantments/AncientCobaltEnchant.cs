@@ -1,6 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Content.Projectiles.Souls;
-using FargowiltasSouls.Core.Toggler;
+﻿using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

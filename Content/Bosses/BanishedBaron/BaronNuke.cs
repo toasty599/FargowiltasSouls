@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
     public class BaronNuke : ModProjectile
     {
 
-        private int ExplosionDiameter = WorldSavingSystem.MasochistModeReal ? 400 : 350;
+        private readonly int ExplosionDiameter = WorldSavingSystem.MasochistModeReal ? 400 : 350;
 
         private SoundStyle Beep = new("FargowiltasSouls/Assets/Sounds/NukeBeep");
         public override void SetStaticDefaults()

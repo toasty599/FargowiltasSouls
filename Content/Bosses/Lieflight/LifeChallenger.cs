@@ -66,9 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         private bool shoot = false;
 
-        private List<int> availablestates = new(0);
-
-        private List<int> choicelist = new(0);
+        private readonly List<int> availablestates = new(0);
 
         public Vector2 LockVector1 = new(0, 0);
 
@@ -79,8 +77,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         private Vector2 AuraCenter = new(0, 0);
 
         public float choice;
-
-        private int oldchoice = 999;
 
         private int index;
 
@@ -108,7 +104,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         private int oldP1state;
 
-        private int P1statecount = 6;
+        private readonly int P1statecount = 6;
 
         private bool Draw = false;
 
@@ -117,17 +113,13 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         int flyTimer = 9000;
 
-        private List<int> intervalist = new(0);
+        private readonly List<int> intervalist = new(0);
 
         int P2Threshold => Main.expertMode ? (int)(NPC.lifeMax * 0.66) : 0;
-        int P3Threshold => WorldSavingSystem.EternityMode ? NPC.lifeMax / (WorldSavingSystem.MasochistModeReal ? 2 : 3) : 0;
         int SansThreshold => WorldSavingSystem.MasochistModeReal && UseTrueOriginAI ? NPC.lifeMax / 10 : 0;
 
         private List<int> chunklist = new(0);
-        private List<float> chunkrotlist = new(0);
-
-        float ChunkTriangleInnerRotation = 0;
-        float ChunkTriangleOuterRotation = 0;
+        private readonly List<float> chunkrotlist = new(0);
 
         public float RuneDistance = 100;
 
@@ -267,10 +259,10 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
             //rotation
             BodyRotation += RPS * MathHelper.TwoPi / 60f; //first number is rotations/second
-            ChunkTriangleOuterRotation -= 0.2f * MathHelper.TwoPi / 60f; //first number is rotations/second
-            ChunkTriangleInnerRotation += 0.1f * MathHelper.TwoPi / 60f; //first number is rotations/second
-            ChunkTriangleInnerRotation %= MathHelper.TwoPi;
-            ChunkTriangleOuterRotation %= MathHelper.TwoPi;
+            //ChunkTriangleOuterRotation -= 0.2f * MathHelper.TwoPi / 60f; //first number is rotations/second
+            //ChunkTriangleInnerRotation += 0.1f * MathHelper.TwoPi / 60f; //first number is rotations/second
+            //ChunkTriangleInnerRotation %= MathHelper.TwoPi;
+            //ChunkTriangleOuterRotation %= MathHelper.TwoPi;
 
             if (P1state != -2) //do not check during spawn anim
             {
@@ -2299,10 +2291,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             if (NPC.ai[1] < NPC.localAI[2])
             { //wait for blast
                 Flying = false;
-                float flySpeed2 = 0.5f;
                 //float inertia2 = 1f;
-                Vector2 OnPlayer = new(Player.Center.X, Player.Center.Y);
-                Vector2 flyonPlayer = NPC.DirectionTo(OnPlayer) * flySpeed2;
+                //Vector2 flyonPlayer = NPC.DirectionTo(OnPlayer) * flySpeed2;
                 // NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
                 if (NPC.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -2915,6 +2905,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         public const int ChunkCount = 12;
         public const int RuneCount = 12;
         const int ChunkSpriteCount = 12;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //DRAW BODY AND WINGS
         {
 
@@ -2952,7 +2943,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                         Vector2 drawPos = NPC.Center + drawRot.ToRotationVector2() * ChunkDistance - screenPos;
                         //Vector2 drawPos = Trianglinator(i, screenPos);
 
-                        Texture2D ChunkTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + $"ShardGold{chunklist[i]}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                        Texture2D ChunkTexture = ModContent.Request<Texture2D>(PartsPath + $"ShardGold{chunklist[i]}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         float ChunkRotation = chunkrotlist[i];
                         chunkrotlist[i] += ChunkRotationSpeed;
 
@@ -2962,7 +2953,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 for (int i = 0; i < RuneCount; i++)
                 {
                     float drawRot = (float)(BodyRotation + Math.PI * 2 / RuneCount * i);
-                    Texture2D RuneTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + $"Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Texture2D RuneTexture = ModContent.Request<Texture2D>(PartsPath + $"Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Vector2 drawPos = NPC.Center + drawRot.ToRotationVector2() * RuneDistance - screenPos;
                     float RuneRotation = drawRot + MathHelper.PiOver2;
 
@@ -2971,18 +2962,13 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     {
                         Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f;
                         Color glowColor;
+
                         if (i % 3 == 0) //cyan
-                        {
                             glowColor = new Color(0f, 1f, 1f, 0f) * 0.7f;
-                        }
                         else if (i % 3 == 1) //yellow
-                        {
                             glowColor = new Color(1f, 1f, 0f, 0f) * 0.7f;
-                        }
                         else //pink
-                        {
                             glowColor = new Color(1, 192 / 255f, 203 / 255f, 0f) * 0.7f;
-                        }
 
                         Main.spriteBatch.Draw(RuneTexture, drawPos + afterimageOffset, null, NPC.GetAlpha(glowColor), RuneRotation, RuneTexture.Size() * 0.5f, NPC.scale, SpriteEffects.None, 0f);
                     }
@@ -2993,8 +2979,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 //draw wings
                 //draws 4 things: 2 upper wings, 2 lower wings
 
-                Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Texture2D wingLtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "LifeChallenger_WingLower", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D wingUtexture = ModContent.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D wingLtexture = ModContent.Request<Texture2D>(PartsPath + "LifeChallenger_WingLower", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Vector2 wingdrawPos = NPC.Center - screenPos;
                 int currentFrame = NPC.frame.Y;
                 int wingUHeight = wingUtexture.Height / Main.npcFrameCount[NPC.type];
@@ -3039,11 +3025,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             }
             float PyramidRot = 0;
-            if (NPC.velocity.ToRotation() > MathHelper.Pi)
-            {
-                Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
-            }
-            else
+            if (NPC.velocity.ToRotation() !> MathHelper.Pi)
             {
                 PyramidRot = 0f + MathHelper.Pi * NPC.velocity.X / 300;
             }
@@ -3066,7 +3048,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 pyramidp[1] = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "Phase2L", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 pyramidp[2] = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "Phase2R", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 pyramidp[3] = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "Phase2D", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Texture2D wingUtexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
                 float expansion = ChunkDistance / ChunkDistanceMax;
                 float P = (float)Math.Sqrt(SpritePhase - 1); //1 in p2, sqrt2 in p3, this doesn't draw in p1
                 offsets[0] = new Vector2(0, -15) * (float)Math.Abs(Math.Sin(MathHelper.ToRadians(DrawTime * P))) * expansion + new Vector2(0, -30); //top

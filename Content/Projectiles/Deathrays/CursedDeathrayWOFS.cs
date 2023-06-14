@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.EternityMode.Content.Boss.PHM;
+﻿using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

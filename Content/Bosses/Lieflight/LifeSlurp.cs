@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
     public class LifeSlurp : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/ShardGem1";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/ShardGem1";
 
         private int rGem = 1;
 

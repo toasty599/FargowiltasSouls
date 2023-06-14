@@ -1,7 +1,7 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Placables.Relics;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -402,19 +402,16 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                                         Main.npc[heads[i]].ai[2] = 0;
                                         Main.npc[heads[i]].localAI[1] = 0;
                                         Main.npc[heads[i]].netUpdate = true;
-
-                                        int glowType;
-                                        switch ((int)Main.npc[heads[i]].ai[3])
+                                        var glowType = (int)Main.npc[heads[i]].ai[3] switch
                                         {
-                                            case -3: glowType = -7; break;
-                                            case -2: glowType = -8; break;
-                                            case -1: glowType = -9; break;
-                                            case 1: glowType = -10; break;
-                                            case 2: glowType = -11; break;
-                                            case 3: glowType = -12; break;
-                                            default: glowType = 0; break;
-                                        }
-
+                                            -3 => -7,
+                                            -2 => -8,
+                                            -1 => -9,
+                                            1 => -10,
+                                            2 => -11,
+                                            3 => -12,
+                                            _ => 0,
+                                        };
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
                                     }
@@ -470,19 +467,16 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                             Main.npc[targetHead].netUpdate = true;
 
                             SoundEngine.PlaySound(SoundID.ForceRoarPitched, Main.npc[targetHead].Center);
-
-                            int glowType;
-                            switch ((int)Main.npc[targetHead].ai[3])
+                            var glowType = (int)Main.npc[targetHead].ai[3] switch
                             {
-                                case -3: glowType = -7; break;
-                                case -2: glowType = -8; break;
-                                case -1: glowType = -9; break;
-                                case 1: glowType = -10; break;
-                                case 2: glowType = -11; break;
-                                case 3: glowType = -12; break;
-                                default: glowType = 0; break;
-                            }
-
+                                -3 => -7,
+                                -2 => -8,
+                                -1 => -9,
+                                1 => -10,
+                                2 => -11,
+                                3 => -12,
+                                _ => 0,
+                            };
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, targetHead, glowType);
                         };
@@ -558,19 +552,16 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                             Main.npc[heads[i]].ai[2] = 0;
                             Main.npc[heads[i]].localAI[1] = 0;
                             Main.npc[heads[i]].netUpdate = true;
-
-                            int glowType;
-                            switch ((int)Main.npc[heads[i]].ai[3])
+                            var glowType = (int)Main.npc[heads[i]].ai[3] switch
                             {
-                                case -3: glowType = -7; break;
-                                case -2: glowType = -8; break;
-                                case -1: glowType = -9; break;
-                                case 1: glowType = -10; break;
-                                case 2: glowType = -11; break;
-                                case 3: glowType = -12; break;
-                                default: glowType = 0; break;
-                            }
-
+                                -3 => -7,
+                                -2 => -8,
+                                -1 => -9,
+                                1 => -10,
+                                2 => -11,
+                                3 => -12,
+                                _ => 0,
+                            };
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
                         }

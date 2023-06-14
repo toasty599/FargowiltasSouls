@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 target.AddBuff(BuffID.Obstructed, 15);
             }
 
-            target.AddBuff(ModContent.BuffType<Berserked>(), 300);
+            target.AddBuff(ModContent.BuffType<BerserkedBuff>(), 300);
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 120);
         }
     }

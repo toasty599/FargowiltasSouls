@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Content.Projectiles
     //TODO: make this a proper inherited class and a modproj equivalent, axe the dictionary
     public class A_SourceNPCGlobalProjectile : GlobalProjectile
     {
-        public static Dictionary<int, bool> SourceNPCSync = new();
-        public static Dictionary<int, bool> DamagingSync = new();
+        internal static Dictionary<int, bool> SourceNPCSync = new();
+        internal static Dictionary<int, bool> DamagingSync = new();
 
         public override void Unload()
         {
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void SendExtraAI(Projectile projectile, BitWriter bits, BinaryWriter writer)
         {
             if (NeedsSync(SourceNPCSync, projectile.type))
-                writer.Write7BitEncodedInt(sourceNPC is NPC ? sourceNPC.whoAmI : Main.maxNPCs);
+                writer.Write7BitEncodedInt(sourceNPC is not null ? sourceNPC.whoAmI : Main.maxNPCs);
 
             if (NeedsSync(DamagingSync, projectile.type))
             {
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override bool PreAI(Projectile projectile)
         {
-            if (sourceNPC is NPC && !sourceNPC.active)
+            if (sourceNPC is not null && !sourceNPC.active)
                 sourceNPC = null;
 
             return base.PreAI(projectile);

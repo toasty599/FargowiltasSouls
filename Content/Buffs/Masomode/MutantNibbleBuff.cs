@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ModLoader;
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
                     case 6: player.AddBuff(ModContent.BuffType<RottingBuff>(), Main.rand.Next(300)); break;
                     case 7: player.AddBuff(ModContent.BuffType<SqueakyToyBuff>(), Main.rand.Next(120)); break;
                     case 8: player.AddBuff(ModContent.BuffType<UnstableBuff>(), Main.rand.Next(90)); break;
-                    case 9: player.AddBuff(ModContent.BuffType<Berserked>(), Main.rand.Next(180)); break;
+                    case 9: player.AddBuff(ModContent.BuffType<BerserkedBuff>(), Main.rand.Next(180)); break;
                 }
             }
 

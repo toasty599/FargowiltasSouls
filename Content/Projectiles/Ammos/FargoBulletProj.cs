@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
     public class FargoBulletProj : ModProjectile
     {
         private int _bounce = 6;
-        private int[] dusts = new int[] { 130, 55, 133, 131, 132 };
+        private readonly int[] dusts = new int[] { 130, 55, 133, 131, 132 };
         private int currentDust = 0;
 
         public override void SetStaticDefaults()
@@ -211,9 +211,9 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             int gore = Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.position.X - 10f, Projectile.position.Y - 10f), default, Main.rand.Next(61, 64));
             Main.gore[gore].velocity *= 0.3f;
             Gore gore1 = Main.gore[gore];
-            gore1.velocity.X = gore1.velocity.X + Main.rand.Next(-10, 11) * 0.05f;
+            gore1.velocity.X += Main.rand.Next(-10, 11) * 0.05f;
             Gore gore2 = Main.gore[gore];
-            gore2.velocity.Y = gore2.velocity.Y + Main.rand.Next(-10, 11) * 0.05f;
+            gore2.velocity.Y += Main.rand.Next(-10, 11) * 0.05f;
             if (Projectile.owner == Main.myPlayer)
             {
                 Projectile.localAI[1] = -1f;
@@ -250,17 +250,17 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
                 int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, rand, -Projectile.velocity.X * 0.3f,
                     -Projectile.velocity.Y * 0.3f, 0, default, 1.2f);
                 Dust dust1 = Main.dust[dust];
-                dust1.velocity.X = dust1.velocity.X + Main.rand.Next(-50, 51) * 0.01f;
+                dust1.velocity.X += Main.rand.Next(-50, 51) * 0.01f;
                 Dust dust2 = Main.dust[dust];
-                dust2.velocity.Y = dust2.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
+                dust2.velocity.Y += Main.rand.Next(-50, 51) * 0.01f;
                 Dust dust3 = Main.dust[dust];
-                dust3.velocity.X = dust3.velocity.X * (1f + Main.rand.Next(-50, 51) * 0.01f);
+                dust3.velocity.X *= (1f + Main.rand.Next(-50, 51) * 0.01f);
                 Dust dust4 = Main.dust[dust];
-                dust4.velocity.Y = dust4.velocity.Y * (1f + Main.rand.Next(-50, 51) * 0.01f);
+                dust4.velocity.Y *= (1f + Main.rand.Next(-50, 51) * 0.01f);
                 Dust dust5 = Main.dust[dust];
-                dust5.velocity.X = dust5.velocity.X + Main.rand.Next(-50, 51) * 0.05f;
+                dust5.velocity.X += Main.rand.Next(-50, 51) * 0.05f;
                 Dust dust6 = Main.dust[dust];
-                dust6.velocity.Y = dust6.velocity.Y + Main.rand.Next(-50, 51) * 0.05f;
+                dust6.velocity.Y += Main.rand.Next(-50, 51) * 0.05f;
                 Main.dust[dust].scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
 
@@ -269,18 +269,18 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
                 int rand = Main.rand.Next(276, 283);
                 int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, -Projectile.velocity * 0.3f, rand);
                 Gore gore1 = Main.gore[gore];
-                gore1.velocity.X = gore1.velocity.X + Main.rand.Next(-50, 51) * 0.01f;
+                gore1.velocity.X += Main.rand.Next(-50, 51) * 0.01f;
                 Gore gore2 = Main.gore[gore];
-                gore2.velocity.Y = gore2.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
+                gore2.velocity.Y += Main.rand.Next(-50, 51) * 0.01f;
                 Gore gore3 = Main.gore[gore];
-                gore3.velocity.X = gore3.velocity.X * (1f + Main.rand.Next(-50, 51) * 0.01f);
+                gore3.velocity.X *= (1f + Main.rand.Next(-50, 51) * 0.01f);
                 Gore gore4 = Main.gore[gore];
-                gore4.velocity.Y = gore4.velocity.Y * (1f + Main.rand.Next(-50, 51) * 0.01f);
+                gore4.velocity.Y *= (1f + Main.rand.Next(-50, 51) * 0.01f);
                 Main.gore[gore].scale *= 1f + Main.rand.Next(-20, 21) * 0.01f;
                 Gore gore5 = Main.gore[gore];
-                gore5.velocity.X = gore5.velocity.X + Main.rand.Next(-50, 51) * 0.05f;
+                gore5.velocity.X += Main.rand.Next(-50, 51) * 0.05f;
                 Gore gore6 = Main.gore[gore];
-                gore6.velocity.Y = gore6.velocity.Y + Main.rand.Next(-50, 51) * 0.05f;
+                gore6.velocity.Y += Main.rand.Next(-50, 51) * 0.05f;
             }
         }
     }

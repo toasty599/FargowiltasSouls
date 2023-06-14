@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
@@ -7,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Projectiles
 {

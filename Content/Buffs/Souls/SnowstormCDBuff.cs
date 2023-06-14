@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 {
     public class SnowstormCDBuff : ModBuff
     {
-        public override string Texture => "FargowiltasSouls/Content/BuffsPlaceholderDebuff";
+        public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderDebuff";
 
         public override void SetStaticDefaults()
         {

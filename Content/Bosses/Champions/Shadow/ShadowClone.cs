@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 {
     public class ShadowClone : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/NPCs/Champions/ShadowChampion";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Shadow/ShadowChampion";
 
         public override void SetStaticDefaults()
         {

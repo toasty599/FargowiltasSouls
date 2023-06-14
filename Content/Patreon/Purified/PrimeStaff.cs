@@ -57,16 +57,13 @@ namespace FargowiltasSouls.Content.Patreon.Purified
 
                 if (++counter >= 4)
                     counter = 0;
-
-                int limbType;
-                switch (counter)
+                var limbType = counter switch
                 {
-                    case 0: limbType = ModContent.ProjectileType<PrimeMinionVice>(); break;
-                    case 1: limbType = ModContent.ProjectileType<PrimeMinionSaw>(); break;
-                    case 2: limbType = ModContent.ProjectileType<PrimeMinionLaserGun>(); break;
-                    default: limbType = ModContent.ProjectileType<PrimeMinionCannon>(); break;
-                }
-
+                    0 => ModContent.ProjectileType<PrimeMinionVice>(),
+                    1 => ModContent.ProjectileType<PrimeMinionSaw>(),
+                    2 => ModContent.ProjectileType<PrimeMinionLaserGun>(),
+                    _ => ModContent.ProjectileType<PrimeMinionCannon>(),
+                };
                 FargoSoulsUtil.NewSummonProjectile(source, spawnPos, Main.rand.NextVector2Circular(10, 10), limbType, Item.damage, knockback, player.whoAmI);
             }
             return false;

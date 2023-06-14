@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Core.Toggler;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -77,9 +76,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 //int stackedIndex;
                 //int totalIndexes;
                 //AI_GetMyGroupIndexAndFillBlackList(ai156_blacklistedTargets, out stackedIndex, out totalIndexes);
-                Vector2 vector;
-                float targetAngle;
-                AI_156_GetIdlePosition(1, 1, out vector, out targetAngle);
+                AI_156_GetIdlePosition(1, 1, out Vector2 vector, out float targetAngle);
                 Projectile.velocity = Vector2.Zero;
 
                 if (player.Center.X > Projectile.Center.X)
@@ -104,9 +101,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 int stackedIndex3;
                 int totalIndexes3;
                 //AI_GetMyGroupIndexAndFillBlackList(ai156_blacklistedTargets, out stackedIndex3, out totalIndexes3);
-                Vector2 value2;
-                float targetAngle2;
-                AI_156_GetIdlePosition(1, 1, out value2, out targetAngle2);
+                AI_156_GetIdlePosition(1, 1, out Vector2 value2, out float targetAngle2);
                 Projectile.velocity = Vector2.Zero;
                 Projectile.Center = Vector2.SmoothStep(Projectile.Center, value2, 0.45f);
                 Projectile.rotation = Projectile.rotation.AngleLerp(targetAngle2, 0.45f);
@@ -365,7 +360,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             return false;
         }
 
-        private void DrawProj_EmpressBlade(Projectile proj, float hueOverride)
+        private static void DrawProj_EmpressBlade(Projectile proj, float hueOverride)
         {
             Main.CurrentDrawnEntityShader = -1;
             PrepareDrawnEntityDrawing(proj, Main.GetProjectileDesiredShader(proj.whoAmI));

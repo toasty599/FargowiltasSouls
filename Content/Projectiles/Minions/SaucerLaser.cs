@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 int index2 = Dust.NewDust(Projectile.Center - Projectile.velocity / 2f, 0, 0, DustID.GoldFlame, 0.0f, 0.0f, 100, new Color(), 2.1f);
                 Dust dust = Main.dust[index2];
-                dust.velocity = dust.velocity * 2f;
+                dust.velocity *= 2f;
                 Main.dust[index2].noGravity = true;
             }
         }

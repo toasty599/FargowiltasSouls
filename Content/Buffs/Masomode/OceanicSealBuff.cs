@@ -1,6 +1,5 @@
-using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
-
+using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

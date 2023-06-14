@@ -15,7 +15,7 @@ using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 {
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = $"FargowiltasSouls/Content/NPCs/Champions/{Name}_Still",
+                CustomTexturePath = $"FargowiltasSouls/Content/Bosses/Champions/{Name}_Still",
                 Position = new Vector2(4, 0),
                 PortraitScale = 0.5f,
                 PortraitPositionXOverride = 0
@@ -935,22 +935,13 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 
         public override void FindFrame(int frameHeight)
         {
-            switch ((int)NPC.ai[0])
+            NPC.frame.Y = (int)NPC.ai[0] switch
             {
-                case -4: //eyes closed
-                case 0:
-                case 2:
-                case 4:
-                case 6:
-                case 8:
-                    NPC.frame.Y = frameHeight;
-                    break;
-
-                default: //eyes open
-                    NPC.frame.Y = 0;
-                    break;
-            }
-
+                //eyes closed
+                -4 or 0 or 2 or 4 or 6 or 8 => frameHeight,
+                //eyes open
+                _ => 0,
+            };
             if (NPC.localAI[3] == 0)
             {
                 if (NPC.ai[2] == 1 && NPC.ai[1] > 180)

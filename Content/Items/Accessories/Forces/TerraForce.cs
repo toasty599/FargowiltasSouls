@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
-using FargowiltasSouls.Core.Toggler;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;

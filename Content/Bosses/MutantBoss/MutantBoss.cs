@@ -25,7 +25,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
@@ -2330,7 +2330,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     float gravity = 0.2f;
                     float time = WorldSavingSystem.MasochistModeReal ? 120f : 180f;
                     Vector2 distance = player.Center - NPC.Center;
-                    distance.X = distance.X / time;
+                    distance.X /= time;
                     distance.Y = distance.Y / time - 0.5f * gravity * time;
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance, ModContent.ProjectileType<MutantNuke>(), WorldSavingSystem.MasochistModeReal ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3f) : 0, 0f, Main.myPlayer, gravity);
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantFishronRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3f), 0f, Main.myPlayer, NPC.whoAmI);

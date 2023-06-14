@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
 {
     public class WillDeathrayBig : BaseDeathray
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Champions/WillDeathray";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Will/WillDeathray";
 
         public PrimDrawer LaserDrawer { get; private set; } = null;
 

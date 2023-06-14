@@ -1,6 +1,5 @@
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Content.Patreon.Phupperbat;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
@@ -25,7 +24,8 @@ using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Content.Patreon.Phupperbat;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
@@ -1443,7 +1443,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                             const float gravity = 0.15f;
                             const float time = 180f;
                             Vector2 distance = target - NPC.Center;
-                            distance.X = distance.X / time;
+                            distance.X /= time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -2152,7 +2152,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                     Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<VermillionTopHat>());
             }
 
-            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedDevi, -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.downedDevi, -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

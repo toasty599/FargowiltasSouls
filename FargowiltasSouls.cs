@@ -1,7 +1,5 @@
 ﻿global using FargowiltasSouls.Core.ModPlayers;
-using FargowiltasSouls.EternityMode.Content.Boss.HM;
-using FargowiltasSouls.Content.NPCs;
-using FargowiltasSouls.Content.NPCs.EternityMode;
+global using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Assets.Effects.Shaders;
 using FargowiltasSouls.Content.Sky;
 using Microsoft.Xna.Framework;
@@ -29,11 +27,14 @@ using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Tiles;
 using FargowiltasSouls.Content.UI;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.Bosses.VanillaEternity;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
-using FargowiltasSouls.Content.Patreon.Volknet;
+using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Content.Patreon.Volknet;
 
 namespace FargowiltasSouls
 {
@@ -312,9 +313,6 @@ namespace FargowiltasSouls
 
             ToggleLoader.Unload();
 
-            SoulToggler.RemoveItemTags = null;
-            ToggleBackend.ConfigPath = null;
-
             FreezeKey = null;
             GoldKey = null;
             SmokeBombKey = null;
@@ -587,8 +585,8 @@ namespace FargowiltasSouls
                     199,
                     ModContent.BuffType<AnticoagulationBuff>(),
                     ModContent.BuffType<AntisocialBuff>(),
-                    ModContent.BuffType<Atrophied>(),
-                    ModContent.BuffType<Berserked>(),
+                    ModContent.BuffType<AtrophiedBuff>(),
+                    ModContent.BuffType<BerserkedBuff>(),
                     ModContent.BuffType<BloodthirstyBuff>(),
                     ModContent.BuffType<ClippedWingsBuff>(),
                     ModContent.BuffType<CrippledBuff>(),
@@ -671,7 +669,7 @@ namespace FargowiltasSouls
 
                 //    bossHealthBar.Call("hbStart");
                 //    bossHealthBar.Call("hbSetColours", new Color(55, 255, 191), new Color(0f, 1f, 0f), new Color(0f, 0.5f, 1f));
-                //    //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("Content/Bosses/MutantBoss/MutantBoss_Head_Boss"));
+                //    //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("Content/NPCs/MutantBoss/MutantBoss_Head_Boss"));
                 //    bossHealthBar.Call("hbSetTexture",
                 //        bossHealthBar.GetTexture("UI/MoonLordBarStart"), null,
                 //        bossHealthBar.GetTexture("UI/MoonLordBarEnd"), null);

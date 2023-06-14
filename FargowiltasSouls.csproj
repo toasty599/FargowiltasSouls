@@ -22,7 +22,5 @@
     <Folder Include="Content\Items\Items\Weapons\Misc\" />
     <Folder Include="Content\Items\Items\Weapons\SummonVariants\" />
     <Folder Include="Content\Items\Items\Weapons\SwarmDrops\" />
-    <Folder Include="Content\NPCs\VanillaNPCs\" />
-    <Folder Include="Core\Globals\" />
   </ItemGroup>
 </Project>

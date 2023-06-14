@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             {
                 player.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 //player.AddBuff(ModContent.BuffType<Unstable>(), 240);
-                player.AddBuff(ModContent.BuffType<Buffs.Masomode.Berserked>(), 120);
+                player.AddBuff(ModContent.BuffType<Buffs.Masomode.BerserkedBuff>(), 120);
             }
             player.AddBuff(BuffID.Bleeding, 600);
         }

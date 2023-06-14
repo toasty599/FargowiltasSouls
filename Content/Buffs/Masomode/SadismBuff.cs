@@ -1,4 +1,4 @@
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 {
     public class SadismBuff : ModBuff
     {
-        public override string Texture => "FargowiltasSouls/Content/BuffsPlaceholderBuff";
+        public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderBuff";
 
         public override void SetStaticDefaults()
         {
@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         {
             player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;
             player.buffImmune[ModContent.BuffType<AntisocialBuff>()] = true;
-            player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
-            player.buffImmune[ModContent.BuffType<Berserked>()] = true;
+            player.buffImmune[ModContent.BuffType<AtrophiedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<BerserkedBuff>()] = true;
             player.buffImmune[ModContent.BuffType<BloodthirstyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
             player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;

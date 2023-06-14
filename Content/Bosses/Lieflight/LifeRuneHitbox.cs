@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
     public class LifeRuneHitbox : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/Rune1";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/Rune1";
 
         private NPC lifelight;
         public override void SetStaticDefaults()

@@ -1,5 +1,3 @@
-using FargowiltasSouls.EternityMode.Content.Boss.PHM;
-using FargowiltasSouls.Content.NPCs.EternityMode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,6 +5,8 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Bosses.VanillaEternity;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 
 namespace FargowiltasSouls.Content.Projectiles
 {

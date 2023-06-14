@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Buffs;
-using FargowiltasSouls.Core.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

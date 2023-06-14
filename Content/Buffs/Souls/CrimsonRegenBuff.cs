@@ -29,9 +29,9 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 int num7 = Main.rand.Next(-40, 41);
                 int num8 = Main.rand.Next(-40, 41);
                 Dust dust = Main.dust[num6];
-                dust.position.X = dust.position.X + num7;
+                dust.position.X += num7;
                 Dust dust2 = Main.dust[num6];
-                dust2.position.Y = dust2.position.Y + num8;
+                dust2.position.Y += num8;
                 Main.dust[num6].velocity.X = (float)-(float)num7 * 0.075f;
                 Main.dust[num6].velocity.Y = (float)-(float)num8 * 0.075f;
             }

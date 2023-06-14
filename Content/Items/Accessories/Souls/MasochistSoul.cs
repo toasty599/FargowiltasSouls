@@ -2,7 +2,6 @@
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Core.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -320,8 +319,8 @@ Summons the aid of all Eternity Mode bosses to your side
             //sadism
             player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;
             player.buffImmune[ModContent.BuffType<AntisocialBuff>()] = true;
-            player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
-            player.buffImmune[ModContent.BuffType<Berserked>()] = true;
+            player.buffImmune[ModContent.BuffType<AtrophiedBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<BerserkedBuff>()] = true;
             player.buffImmune[ModContent.BuffType<BloodthirstyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
             player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;

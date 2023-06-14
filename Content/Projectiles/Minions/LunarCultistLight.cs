@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].fadeIn = 1f;
                     Dust dust = Main.dust[index2];
-                    dust.velocity = dust.velocity * 4f;
+                    dust.velocity *= 4f;
                     Main.dust[index2].noLight = true;
                 }
             }
@@ -55,12 +55,12 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.AncientLight, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 90, new Color(), 2.5f);
                     Main.dust[index2].noGravity = true;
                     Dust dust1 = Main.dust[index2];
-                    dust1.velocity = dust1.velocity * 0.2f;
+                    dust1.velocity *= 0.2f;
                     Main.dust[index2].fadeIn = 0.4f;
                     if (Main.rand.NextBool(6))
                     {
                         Dust dust2 = Main.dust[index2];
-                        dust2.velocity = dust2.velocity * 5f;
+                        dust2.velocity *= 5f;
                         Main.dust[index2].noLight = true;
                     }
                     else
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].fadeIn = 1f;
                 Dust dust = Main.dust[index2];
-                dust.velocity = dust.velocity * 4f;
+                dust.velocity *= 4f;
                 Main.dust[index2].noLight = true;
             }
         }

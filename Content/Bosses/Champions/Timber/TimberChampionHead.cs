@@ -14,7 +14,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 {
@@ -292,7 +292,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                                 Vector2 distance = player.Center - NPC.Center;
                                 if (WorldSavingSystem.MasochistModeReal)
                                     distance.X += player.velocity.X * time;
-                                distance.X = distance.X / time;
+                                distance.X /= time;
                                 distance.Y = distance.Y / time - 0.5f * gravity * time;
                                 for (int i = 0; i < 20; i++)
                                 {
@@ -357,7 +357,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                                 const float gravity = 0.2f;
                                 float time = 90f;
                                 Vector2 distance = spawnPos - NPC.Center;
-                                distance.X = distance.X / time;
+                                distance.X /= time;
                                 distance.Y = distance.Y / time - 0.5f * gravity * time;
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance, ModContent.ProjectileType<TimberTreeAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target);
                             }
@@ -625,7 +625,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
             Vector2 distance = target - NPC.Center;
             distance.X += Main.rand.NextFloat(-32, 32);
-            distance.X = distance.X / time;
+            distance.X /= time;
             distance.Y = distance.Y / time - 0.5f * gravity * time;
 
             SoundEngine.PlaySound(SoundID.Item1, NPC.Center);

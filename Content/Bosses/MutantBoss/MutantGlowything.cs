@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         Vector2 spawnPoint;
 
-        float scalefactor;
+        readonly float scalefactor;
         public override void AI()
         {
             Projectile.rotation = Projectile.ai[0];

@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Color color = Color.White;
+            Color color;
             if (Projectile.ai[1] > 3)
                 color = Color.Lerp(new Color(255, 255, 255, 0), new Color(255, 95, 46, 50), (7 - Projectile.ai[1]) / 4);
 

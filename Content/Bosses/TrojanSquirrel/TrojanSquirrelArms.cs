@@ -171,7 +171,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                             const float gravity = 0.5f;
                             float time = 45f;
                             Vector2 distance = target - pos;
-                            distance.X = distance.X / time;
+                            distance.X /= time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, distance, ModContent.ProjectileType<TrojanSnowball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, gravity);

@@ -88,15 +88,15 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                 if (!Main.rand.NextBool(3))
                 {
                     Dust dust1 = Main.dust[index2];
-                    dust1.velocity = dust1.velocity * 2f;
+                    dust1.velocity *= 2f;
                     Main.dust[index2].noGravity = true;
                     Dust dust2 = Main.dust[index2];
-                    dust2.scale = dust2.scale * 1.75f;
+                    dust2.scale *= 1.75f;
                 }
                 else
                 {
                     Dust dust = Main.dust[index2];
-                    dust.scale = dust.scale * 0.5f;
+                    dust.scale *= 0.5f;
                 }
             }
         }

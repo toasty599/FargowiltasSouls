@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Berserked>(), 120);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.BerserkedBuff>(), 120);
             }
             target.AddBuff(BuffID.Bleeding, 600);
         }

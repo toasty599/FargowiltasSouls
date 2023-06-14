@@ -57,14 +57,13 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             if (Projectile.localAI[0] == 0f)
             {
                 Projectile.localAI[0] = 1f;
-                int type;
-                switch ((int)Projectile.ai[0])
+                var type = (int)Projectile.ai[0] switch
                 {
-                    case 0: type = 242; break; //nebula
-                    case 1: type = 127; break; //solar
-                    case 2: type = 229; break; //vortex
-                    default: type = 135; break; //stardust
-                }
+                    0 => 242,
+                    1 => 127,
+                    2 => 229,
+                    _ => 135,
+                };
                 for (int index = 0; index < 50; ++index)
                 {
                     Dust dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, type, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -155,7 +154,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             switch ((int)Projectile.ai[0])
             {
                 case 0: target.AddBuff(ModContent.BuffType<ReverseManaFlowBuff>(), 360); break; //nebula
-                case 1: target.AddBuff(ModContent.BuffType<Atrophied>(), 360); break; //solar
+                case 1: target.AddBuff(ModContent.BuffType<AtrophiedBuff>(), 360); break; //solar
                 case 2: target.AddBuff(ModContent.BuffType<JammedBuff>(), 360); break; //vortex
                 default: target.AddBuff(ModContent.BuffType<AntisocialBuff>(), 360); break; //stardust
             }
@@ -165,14 +164,13 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
-            int type;
-            switch ((int)Projectile.ai[0])
+            var type = (int)Projectile.ai[0] switch
             {
-                case 0: type = 242; break; //nebula
-                case 1: type = 127; break; //solar
-                case 2: type = 229; break; //vortex
-                default: type = 135; break; //stardust
-            }
+                0 => 242,
+                1 => 127,
+                2 => 229,
+                _ => 135,
+            };
             for (int index = 0; index < 80; ++index)
             {
                 Dust dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, type, 0.0f, 0.0f, 0, new Color(), 1f)];

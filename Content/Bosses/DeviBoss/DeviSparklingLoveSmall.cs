@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Berserked>(), 240);
+            target.AddBuff(ModContent.BuffType<BerserkedBuff>(), 240);
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 240);
             target.AddBuff(ModContent.BuffType<GuiltyBuff>(), 240);
             target.AddBuff(ModContent.BuffType<LovestruckBuff>(), 240);

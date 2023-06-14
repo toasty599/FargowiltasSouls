@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Content.UI.Elements
         public const int TextureBarPadding = 4;
         public const int ItemTextureDimensions = 32;
 
-        string Key;
-        int Item;
+        readonly string Key;
+        readonly int Item;
 
         public FargoUIHeader(string key, int item, (int width, int height) dimensions)
         {

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     public class ShadowEnchantOrb : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_18";
-        int invisTimer = 0;
+        readonly int invisTimer = 0;
 
         public override void SetStaticDefaults()
         {

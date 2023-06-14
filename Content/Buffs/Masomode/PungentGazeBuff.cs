@@ -1,12 +1,12 @@
 using Terraria;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
     public class PungentGazeBuff : ModBuff
     {
-        public override string Texture => "FargowiltasSouls/Content/BuffsPlaceholderDebuff";
+        public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderDebuff";
 
         public override void SetStaticDefaults()
         {

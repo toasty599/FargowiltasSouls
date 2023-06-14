@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.BossBars;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Items.Placables.Relics;
@@ -5,7 +6,6 @@ using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Core.Systems.BossBars;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -598,7 +598,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                                 ExplodeAttack();
                             }
 
-                            distance.X = distance.X / time;
+                            distance.X /= time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
                             NPC.velocity = distance;
 

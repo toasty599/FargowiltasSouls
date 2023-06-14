@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Content.Projectiles
         }
 
         private int counter;
-        private int drawLayers = 1;
+        private readonly int drawLayers = 1;
         public override void AI()
         {
             int maxTime = 60;

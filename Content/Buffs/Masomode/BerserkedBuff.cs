@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
-    public class Berserked : ModBuff
+    public class BerserkedBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

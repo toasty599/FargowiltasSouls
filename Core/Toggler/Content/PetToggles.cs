@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Core.Toggler;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler.Content

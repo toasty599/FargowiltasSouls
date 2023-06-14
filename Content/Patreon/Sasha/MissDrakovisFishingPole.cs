@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Core;
+using FargowiltasSouls.Content.Patreon.Sasha;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

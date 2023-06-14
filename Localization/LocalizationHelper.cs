@@ -10,21 +10,20 @@ using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Summons;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content;
-using FargowiltasSouls.Content.Patreon.Gittle;
-using FargowiltasSouls.Content.Patreon.Volknet;
-using FargowiltasSouls.Content.Patreon.Shucks;
-using FargowiltasSouls.Content.Patreon.Purified;
+using FargowiltasSouls.Content.Patreon.DemonKing;
+using FargowiltasSouls.Content.Patreon.LaBonez;
 using FargowiltasSouls.Content.Patreon.DevAesthetic;
 using FargowiltasSouls.Content.Patreon.GreatestKraken;
-using FargowiltasSouls.Content.Patreon.LaBonez;
-using FargowiltasSouls.Content.Patreon.DemonKing;
-using FargowiltasSouls.Content.Patreon.Catsounds;
-using FargowiltasSouls.Content.Patreon.ManliestDove;
-using FargowiltasSouls.Content.Patreon.ParadoxWolf;
+using FargowiltasSouls.Content.Patreon.Purified;
+using FargowiltasSouls.Content.Patreon.Volknet;
+using FargowiltasSouls.Content.Patreon.Shucks;
 using FargowiltasSouls.Content.Patreon.Sam;
-using FargowiltasSouls.Content.Patreon.Sasha;
 using FargowiltasSouls.Content.Patreon.Daawnz;
+using FargowiltasSouls.Content.Patreon.Catsounds;
+using FargowiltasSouls.Content.Patreon.ParadoxWolf;
+using FargowiltasSouls.Content.Patreon.Sasha;
+using FargowiltasSouls.Content.Patreon.ManliestDove;
+using FargowiltasSouls.Content.Patreon.Gittle;
 
 namespace FargowiltasSouls
 {

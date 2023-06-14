@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Items.Misc
             return text;
         }
 
-        private string GetBuildTextRandom(params int[] args) //takes number of accs to use as first param and list of accs as the rest
+        private static string GetBuildTextRandom(params int[] args) //takes number of accs to use as first param and list of accs as the rest
         {
             List<int> choices = new();
             int maxSize = args.Length - 1;

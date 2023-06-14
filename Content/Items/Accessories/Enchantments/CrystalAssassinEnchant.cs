@@ -5,7 +5,6 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 
 using FargowiltasSouls.Content.Buffs.Souls;
-using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -63,7 +62,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
                 const float gravity = 0.18f;
                 float time = 60f;
                 Vector2 distance = Main.MouseWorld - modPlayer.Player.Center;
-                distance.X = distance.X / time;
+                distance.X /= time;
                 distance.Y = distance.Y / time - 0.5f * gravity * time;
 
                 modPlayer.CrystalSmokeBombProj = Main.projectile[Projectile.NewProjectile(modPlayer.Player.GetSource_Misc(""), modPlayer.Player.Center, distance + Main.rand.NextVector2Square(0, 0) * 2,

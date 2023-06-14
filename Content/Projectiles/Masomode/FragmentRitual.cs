@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.EternityMode.Content.Boss.HM;
+﻿using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -47,14 +47,14 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.localAI[0] = (int)npc.GetGlobalNPC<MoonLordCore>().VulnerabilityTimer / 56.25f; //number to hide
                 Projectile.localAI[0]--;
 
-                switch (npc.GetGlobalNPC<MoonLordCore>().VulnerabilityState) //match ML vulnerability to fragment
+                Projectile.frame = npc.GetGlobalNPC<MoonLordCore>().VulnerabilityState switch //match ML vulnerability to fragment
                 {
-                    case 0: Projectile.frame = 1; break;
-                    case 1: Projectile.frame = 2; break;
-                    case 2: Projectile.frame = 0; break;
-                    case 3: Projectile.frame = 3; break;
-                    default: Projectile.frame = 4; break;
-                }
+                    0 => 1,
+                    1 => 2,
+                    2 => 0,
+                    3 => 3,
+                    _ => 4,
+                };
             }
             else
             {

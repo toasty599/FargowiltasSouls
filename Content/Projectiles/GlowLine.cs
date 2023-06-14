@@ -1,6 +1,4 @@
-using FargowiltasSouls.EternityMode.Content.Boss.HM;
 //using FargowiltasSouls.EternityMode.Content.Boss.HM;
-using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +10,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
@@ -213,13 +212,13 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
 
-                        switch ((int)Projectile.ai[1])
+                        color = (int)Projectile.ai[1] switch
                         {
-                            case 0: color = Color.Magenta; break; //nebula
-                            case 1: color = Color.Orange; break; //solar
-                            case 2: color = new Color(51, 255, 191); break; //vortex
-                            default: color = Color.SkyBlue; break; //stardust
-                        }
+                            0 => Color.Magenta,
+                            1 => Color.Orange,
+                            2 => new Color(51, 255, 191),
+                            _ => Color.SkyBlue,
+                        };
                         maxTime = 20;
                         alphaModifier = -1;
                         Projectile.alpha = 0;

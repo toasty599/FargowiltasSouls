@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
 {
     public class FargoArrowProj : ModProjectile
     {
-        private int[] dusts = new int[] { 130, 55, 133, 131, 132 };
+        private readonly int[] dusts = new int[] { 130, 55, 133, 131, 132 };
         private int currentDust = 0;
         private int timer = 0;
         private Vector2 velocity;
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
                     int num273 = Dust.NewDust(Projectile.Center, 0, 0, DustID.FireworkFountain_Green, 0f, 0f, 100, default, 0.5f);
                     Main.dust[num273].velocity *= 1.6f;
                     Dust expr_9845_cp_0 = Main.dust[num273];
-                    expr_9845_cp_0.velocity.Y = expr_9845_cp_0.velocity.Y - 1f;
+                    expr_9845_cp_0.velocity.Y--;
                     Main.dust[num273].position = Vector2.Lerp(Main.dust[num273].position, Projectile.Center, 0.5f);
                     Main.dust[num273].noGravity = true;
                 }
@@ -184,15 +184,15 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             int num616 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, default, Main.rand.Next(61, 64), 1f);
             Main.gore[num616].velocity *= 0.4f;
             Gore expr_14419_cp_0 = Main.gore[num616];
-            expr_14419_cp_0.velocity.X = expr_14419_cp_0.velocity.X + Main.rand.Next(-10, 11) * 0.1f;
+            expr_14419_cp_0.velocity.X += Main.rand.Next(-10, 11) * 0.1f;
             Gore expr_14449_cp_0 = Main.gore[num616];
-            expr_14449_cp_0.velocity.Y = expr_14449_cp_0.velocity.Y + Main.rand.Next(-10, 11) * 0.1f;
+            expr_14449_cp_0.velocity.Y += Main.rand.Next(-10, 11) * 0.1f;
             num616 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, default, Main.rand.Next(61, 64), 1f);
             Main.gore[num616].velocity *= 0.4f;
             Gore expr_144DD_cp_0 = Main.gore[num616];
-            expr_144DD_cp_0.velocity.X = expr_144DD_cp_0.velocity.X + Main.rand.Next(-10, 11) * 0.1f;
+            expr_144DD_cp_0.velocity.X += Main.rand.Next(-10, 11) * 0.1f;
             Gore expr_1450D_cp_0 = Main.gore[num616];
-            expr_1450D_cp_0.velocity.Y = expr_1450D_cp_0.velocity.Y + Main.rand.Next(-10, 11) * 0.1f;
+            expr_1450D_cp_0.velocity.Y += Main.rand.Next(-10, 11) * 0.1f;
             if (Projectile.owner == Main.myPlayer)
             {
                 Projectile.penetrate = -1;

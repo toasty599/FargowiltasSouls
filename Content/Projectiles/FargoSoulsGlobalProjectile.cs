@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.CodeAnalysis;
@@ -19,10 +18,11 @@ using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
-using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.Bosses.Champions.Shadow;
+using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
 
 namespace FargowiltasSouls.Content.Projectiles
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles
             && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
         private bool firstTick = true;
-        private bool squeakyToy = false;
+        private readonly bool squeakyToy = false;
         public const int TimeFreezeMoveDuration = 10;
         public int TimeFrozen = 0;
         public bool TimeFreezeImmune;
@@ -319,7 +319,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue("Adamantite")
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, false)
-                && CanSplit && Array.IndexOf(noSplit, projectile.type) <= -1
+                && CanSplit && Array.IndexOf(NoSplit, projectile.type) <= -1
                 && projectile.aiStyle != ProjAIStyleID.Spear)
             {
                 if (projectile.owner == Main.myPlayer
@@ -342,7 +342,7 @@ namespace FargowiltasSouls.Content.Projectiles
             }
         }
 
-        public static int[] noSplit => new int[] {
+        public static int[] NoSplit => new int[] {
             ProjectileID.SandnadoFriendly,
             ProjectileID.LastPrism,
             ProjectileID.LastPrismLaser,
@@ -417,7 +417,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 {
                     if (modPlayer.Jammed && projectile.CountsAsClass(DamageClass.Ranged) && projectile.type != ProjectileID.ConfettiGun)
                     {
-                        Projectile.NewProjectile(Terraria.Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
+                        Projectile.NewProjectile(Entity.InheritSource(projectile), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
                         projectile.active = false;
                     }
 
@@ -876,7 +876,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
                     if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
@@ -985,9 +985,6 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            Player player = Main.player[projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
             if (stormTimer > 0)
                 damage = (int)(damage * (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6 : 1.3));
 
@@ -1112,7 +1109,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref int damage, ref bool crit)
         {
             NPC sourceNPC = projectile.GetSourceNPC();
-            if (sourceNPC is NPC && sourceNPC.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)
+            if (sourceNPC is not null && sourceNPC.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)
             {
                 damage = (int)Math.Round(damage * 1.3);
             }

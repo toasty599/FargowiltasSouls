@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Items.Summons
         public override void UseItemFrame(Player player)
         {
             float shake = (120 - player.itemAnimation) / 20;
-            player.itemLocation = player.itemLocation + new Vector2(Main.rand.NextFloat(-shake, shake), Main.rand.NextFloat(-shake, shake));
+            player.itemLocation += new Vector2(Main.rand.NextFloat(-shake, shake), Main.rand.NextFloat(-shake, shake));
         }
         public override void HoldItem(Player player)
         {

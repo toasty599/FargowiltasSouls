@@ -60,13 +60,12 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
             counter++;
             for (int i = -max; i <= max; i++)
             {
-                int newType;
-                switch (Main.rand.Next(3))
+                var newType = Main.rand.Next(3) switch
                 {
-                    case 0: newType = ModContent.ProjectileType<HellBone>(); break;
-                    case 1: newType = ModContent.ProjectileType<HellBonez>(); break;
-                    default: newType = ModContent.ProjectileType<HellSkeletron>(); break;
-                }
+                    0 => ModContent.ProjectileType<HellBone>(),
+                    1 => ModContent.ProjectileType<HellBonez>(),
+                    _ => ModContent.ProjectileType<HellSkeletron>(),
+                };
                 Projectile.NewProjectile(source, position, Main.rand.NextFloat(0.8f, 1.2f) * velocity.RotatedBy(rotation * i + Main.rand.NextFloat(-rotation, rotation)), newType, damage, knockback, player.whoAmI);
             }
             if (counter > 4)

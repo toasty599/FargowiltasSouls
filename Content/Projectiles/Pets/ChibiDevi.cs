@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Core;
-using FargowiltasSouls.Content.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,6 +11,7 @@ using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Projectiles.Pets
 {
@@ -388,7 +388,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
 
         public static int ShortCD => 600;
         public static int MediumCD => Main.rand.Next(3600, 7200);
-        public int LongCD => MediumCD * 2;
+        public static int LongCD => MediumCD * 2;
 
         public void TryTalkWithCD(TalkType talkType, int CD)
         {

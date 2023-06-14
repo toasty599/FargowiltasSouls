@@ -1,12 +1,13 @@
+using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 {
-    public class TrojanAcorn : FargowiltasSouls.Content.Bosses.Champions.Timber.TimberAcorn
+    public class TrojanAcorn : TimberAcorn
     {
-        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/TimberAcorn";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Timber/TimberAcorn";
 
         public override void SetStaticDefaults()
         {

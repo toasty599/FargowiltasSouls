@@ -1,5 +1,3 @@
-using FargowiltasSouls.EternityMode;
-using FargowiltasSouls.Content.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
@@ -13,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {

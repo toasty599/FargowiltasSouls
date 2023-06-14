@@ -41,12 +41,12 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            projHitbox.X = projHitbox.X + projHitbox.Width / 2;
-            projHitbox.Y = projHitbox.Y + projHitbox.Height / 2;
+            projHitbox.X += projHitbox.Width / 2;
+            projHitbox.Y += projHitbox.Height / 2;
             projHitbox.Width = (int)(420 * Projectile.scale);
             projHitbox.Height = (int)(420 * Projectile.scale);
-            projHitbox.X = projHitbox.X - projHitbox.Width / 2;
-            projHitbox.Y = projHitbox.Y - projHitbox.Height / 2;
+            projHitbox.X -= projHitbox.Width / 2;
+            projHitbox.Y -= projHitbox.Height / 2;
             return null;
         }
 
@@ -95,11 +95,11 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                         Main.dust[index2].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
                         Main.dust[index2].noGravity = true;
                         Dust dust1 = Main.dust[index2];
-                        dust1.velocity = dust1.velocity * 1f;
+                        dust1.velocity *= 1f;
                         int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0.0f, 0.0f, 100, new Color(), 1.5f);
                         Main.dust[index3].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
                         Dust dust2 = Main.dust[index3];
-                        dust2.velocity = dust2.velocity * 1f;
+                        dust2.velocity *= 1f;
                         Main.dust[index3].noGravity = true;
                     }
 
