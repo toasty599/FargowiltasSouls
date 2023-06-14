@@ -880,8 +880,10 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         }
         public void P1PeriodicNuke()
         {
+            ref float PeriodicNukeTimer = ref NPC.ai[3];
+
             Player Player = Main.player[NPC.target];
-            if (NPC.ai[3] > 600f)
+            if (PeriodicNukeTimer > 600f)
             {
                 SoundEngine.PlaySound(SoundID.Item91, NPC.Center);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -891,11 +893,11 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     Vector2 shootatPlayer = NPC.DirectionTo(Player.Center) * ProjectileSpeed;
                     float ai1 = WorldSavingSystem.EternityMode ? 1 : 0;
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero - shootatPlayer, ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), knockBack, Main.myPlayer, 32f, ai1);
-                    NPC.ai[3] = 0f;
+                    PeriodicNukeTimer = 0f;
                 }
                 NPC.netUpdate = true;
             }
-            NPC.ai[3] += 1f;
+            PeriodicNukeTimer += 1f;
         }
         public void P1Transition()
         {
