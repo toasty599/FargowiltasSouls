@@ -1,4 +1,3 @@
-using FargowiltasSouls.BossBars;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,6 +17,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.NPCs;
+using FargowiltasSouls.Core.Systems.BossBars;
 
 namespace FargowiltasSouls.Content.Bosses.Champions
 {

@@ -9,7 +9,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.UI.BigProgressBar;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.BossBars
+namespace FargowiltasSouls.Core.Systems.BossBars
 {
     public class CompositeBossBar : ModBossBar
     {
