@@ -30,9 +30,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.StupidSn
             }
         }
 
-        public override void OnHitByAnything(NPC npc, Player player, int damage, float knockback, bool crit)
+        public override void OnHitByAnything(NPC npc, Player player, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitByAnything(npc, player, damage, knockback, crit);
+            base.OnHitByAnything(npc, player, hit, damageDone);
 
             if (!WasHit)
             {
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.StupidSn
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 300);
             target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 300);

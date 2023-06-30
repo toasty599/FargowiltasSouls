@@ -134,19 +134,23 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
             }
         }
 
-        public static void TungstenModifyDamage(Player player, ref int damage, ref bool crit, DamageClass damageClass)
+        public static void TungstenModifyDamage(Player player, ref NPC.HitModifiers modifiers, DamageClass damageClass)
         {
             bool forceBuff = player.GetModPlayer<FargoSoulsPlayer>().TerraForce;
 
-            damage = (int)(damage * (forceBuff ? 1.2 : 1.1));
+            modifiers.FinalDamage *= forceBuff ? 1.2f : 1.1f;
 
             int max = forceBuff ? 2 : 1;
             for (int i = 0; i < max; i++)
             {
-                if (crit)
-                    break;
+                // TODO: performance I guess
+                // if (crit)
+                    // break;
 
-                crit = Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass);
+                if (Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass))
+                {
+                    modifiers.SetCrit();
+                }
             }
         }
 

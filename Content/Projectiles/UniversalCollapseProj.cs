@@ -67,15 +67,15 @@ namespace FargowiltasSouls.Content.Projectiles
                 NPC npc = Main.npc[i];
                 if (npc.active && !npc.boss && !npc.dontTakeDamage)
                 {
-                    npc.StrikeNPC(npc.lifeMax + npc.defense, 0, 0, true);
+                    npc.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                 }
             }
 
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
             {
-                int def = Main.LocalPlayer.statDefense;
+                var def = Main.LocalPlayer.statDefense;
                 float dr = Main.LocalPlayer.endurance;
-                Main.LocalPlayer.statDefense = 0;
+                Main.LocalPlayer.statDefense.FinalMultiplier *= 0;
                 Main.LocalPlayer.endurance = 0f;
 
                 int damage = Math.Max(9999, Main.LocalPlayer.statLifeMax2 * 2);

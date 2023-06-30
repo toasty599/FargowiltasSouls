@@ -157,7 +157,7 @@ Mods: {
 
 		BossChecklist: {
 			#remember to add spawn conditions with LocalizationHelper!
-
+			
 			DeviBossDespawn: Deviantt bores of the battle...
 			DeviBossKilledAll: Deviantt is satisfied with its show of love.
 			AbomBossDespawn: Abominationn sees no worthy opponent...
@@ -4299,13 +4299,40 @@ Mods: {
 				Tooltip: Permanently grants immunity to Feral Bite
 			}
 
-			LifeDye.DisplayName: Heavenly Dye
-			WillDye.DisplayName: Willpower Dye
-			GaiaDye.DisplayName: Gaia Dye
-			AbomEnergy.DisplayName: Abominable Energy
-			BrokenBlade.DisplayName: Broken Blade
-			BrokenHilt.DisplayName: Broken Hilt
-			DeviatingEnergy.DisplayName: Deviating Energy
+			LifeDye: {
+				DisplayName: Heavenly Dye
+				Tooltip: ""
+			}
+
+			WillDye: {
+				DisplayName: Willpower Dye
+				Tooltip: ""
+			}
+
+			GaiaDye: {
+				DisplayName: Gaia Dye
+				Tooltip: ""
+			}
+
+			AbomEnergy: {
+				DisplayName: Abominable Energy
+				Tooltip: ""
+			}
+
+			BrokenBlade: {
+				DisplayName: Broken Blade
+				Tooltip: ""
+			}
+
+			BrokenHilt: {
+				DisplayName: Broken Hilt
+				Tooltip: ""
+			}
+
+			DeviatingEnergy: {
+				DisplayName: Deviating Energy
+				Tooltip: ""
+			}
 
 			Eridanium: {
 				DisplayName: Eridanium
@@ -4321,7 +4348,10 @@ Mods: {
 					'''
 			}
 
-			PhantasmalEnergy.DisplayName: Phantasmal Energy
+			PhantasmalEnergy: {
+				DisplayName: Phantasmal Energy
+				Tooltip: ""
+			}
 
 			EternityAdvisor: {
 				DisplayName: Eternity Advisor
@@ -4342,7 +4372,10 @@ Mods: {
 				Tooltip: "'REALLY enrages Mutant... or doesn't'"
 			}
 
-			TopHatSquirrelCaught.DisplayName: Top Hat Squirrel
+			TopHatSquirrelCaught: {
+				DisplayName: Top Hat Squirrel
+				Tooltip: ""
+			}
 
 			UniversalCollapse: {
 				DisplayName: Universal Collapse
@@ -4418,33 +4451,115 @@ Mods: {
 					'''
 			}
 
-			AbomRelic.DisplayName: Abominationn Relic
-			DeviRelic.DisplayName: Deviantt Relic
-			EarthChampionRelic.DisplayName: Earth Champion Relic
-			EridanusRelic.DisplayName: Eridanus Relic
-			LifeChampionRelic.DisplayName: Life Champion Relic
-			MutantRelic.DisplayName: Mutant Relic
-			NatureChampionRelic.DisplayName: Nature Champion Relic
-			ShadowChampionRelic.DisplayName: Shadow Champion Relic
-			SpiritChampionRelic.DisplayName: Spirit Champion Relic
-			TerraChampionRelic.DisplayName: Terra Champion Relic
-			TimberChampionRelic.DisplayName: Timber Champion Relic
-			TrojanSquirrelRelic.DisplayName: Trojan Squirrel Relic
-			WillChampionRelic.DisplayName: Will Champion Relic
-			AbomTrophy.DisplayName: Abominationn Trophy
-			DeviTrophy.DisplayName: Deviantt Trophy
-			EridanusTrophy.DisplayName: Eridanus Trophy
-			MutantTrophy.DisplayName: Mutant Trophy
-			TrojanSquirrelTrophy.DisplayName: Trojan Squirrel Trophy
-			MutantStatue.DisplayName: Mutant Statue
-			MutantStatueGift.DisplayName: Mutant Statue (Gift)
+			AbomRelic: {
+				DisplayName: Abominationn Relic
+				Tooltip: ""
+			}
+
+			DeviRelic: {
+				DisplayName: Deviantt Relic
+				Tooltip: ""
+			}
+
+			EarthChampionRelic: {
+				DisplayName: Earth Champion Relic
+				Tooltip: ""
+			}
+
+			EridanusRelic: {
+				DisplayName: Eridanus Relic
+				Tooltip: ""
+			}
+
+			LifeChampionRelic: {
+				DisplayName: Life Champion Relic
+				Tooltip: ""
+			}
+
+			MutantRelic: {
+				DisplayName: Mutant Relic
+				Tooltip: ""
+			}
+
+			NatureChampionRelic: {
+				DisplayName: Nature Champion Relic
+				Tooltip: ""
+			}
+
+			ShadowChampionRelic: {
+				DisplayName: Shadow Champion Relic
+				Tooltip: ""
+			}
+
+			SpiritChampionRelic: {
+				DisplayName: Spirit Champion Relic
+				Tooltip: ""
+			}
+
+			TerraChampionRelic: {
+				DisplayName: Terra Champion Relic
+				Tooltip: ""
+			}
+
+			TimberChampionRelic: {
+				DisplayName: Timber Champion Relic
+				Tooltip: ""
+			}
+
+			TrojanSquirrelRelic: {
+				DisplayName: Trojan Squirrel Relic
+				Tooltip: ""
+			}
+
+			WillChampionRelic: {
+				DisplayName: Will Champion Relic
+				Tooltip: ""
+			}
+
+			AbomTrophy: {
+				DisplayName: Abominationn Trophy
+				Tooltip: ""
+			}
+
+			DeviTrophy: {
+				DisplayName: Deviantt Trophy
+				Tooltip: ""
+			}
+
+			EridanusTrophy: {
+				DisplayName: Eridanus Trophy
+				Tooltip: ""
+			}
+
+			MutantTrophy: {
+				DisplayName: Mutant Trophy
+				Tooltip: ""
+			}
+
+			TrojanSquirrelTrophy: {
+				DisplayName: Trojan Squirrel Trophy
+				Tooltip: ""
+			}
+
+			MutantStatue: {
+				DisplayName: Mutant Statue
+				Tooltip: ""
+			}
+
+			MutantStatueGift: {
+				DisplayName: Mutant Statue (Gift)
+				Tooltip: ""
+			}
 
 			ScremPainting: {
 				DisplayName: Screm Painting
 				Tooltip: "'Merry N. Tuse'"
 			}
 
-			TophatSquirrelBanner.DisplayName: Tophat Squirrel Banner
+			TophatSquirrelBanner: {
+				DisplayName: Tophat Squirrel Banner
+				Tooltip: ""
+			}
 
 			TwentyTwoPainting: {
 				DisplayName: 22 Painting
@@ -4470,7 +4585,10 @@ Mods: {
 				Tooltip: Summons the Champions
 			}
 
-			DevisCurse.DisplayName: Deviantt's Curse
+			DevisCurse: {
+				DisplayName: Deviantt's Curse
+				Tooltip: ""
+			}
 
 			MutantsCurse: {
 				DisplayName: Mutant's Curse
@@ -5065,8 +5183,15 @@ Mods: {
 				Tooltip: Xi vs Sakuzyo 'Storia'
 			}
 
-			LifeChallengerRelic.DisplayName: Life Challenger Relic
-			LifeChallengerTrophy.DisplayName: Lieflight Trophy
+			LifeChallengerRelic: {
+				DisplayName: Life Challenger Relic
+				Tooltip: ""
+			}
+
+			LifeChallengerTrophy: {
+				DisplayName: Lieflight Trophy
+				Tooltip: ""
+			}
 
 			FragilePixieLamp: {
 				DisplayName: Crystalline Effigy
@@ -6108,5 +6233,135 @@ Mods: {
 		PatreonPrime: "[i:5781] [c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonPrime}]"
 		PatreonCrimetroid: "[i:5784] [c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonCrimetroid}]"
 		PatreonNanoCore: "[i:5785] [c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonNanoCore}]"
+
+		Keybinds: {
+			Freeze.DisplayName: Freeze
+			"Turn Gold.DisplayName": Turn  Gold
+			"Throw Smoke Bomb.DisplayName": Throw  Smoke  Bomb
+			"Special Dash.DisplayName": Special  Dash
+			Bomb.DisplayName: Bomb
+			"Open Soul Toggler.DisplayName": Open  Soul  Toggler
+			"Precision Movement.DisplayName": Precision  Movement
+			"Magical Cleanse.DisplayName": Magical  Cleanse
+			"Frigid Spell.DisplayName": Frigid  Spell
+			"Debuff Install.DisplayName": Debuff  Install
+			"Ammo Cycle.DisplayName": Ammo  Cycle
+		}
+
+		Configs: {
+			SoulConfig: {
+				DisplayName: Soul Config
+
+				HideTogglerWhenInventoryIsClosed: {
+					Label: "{$Mods.FargowiltasSouls.Config.HideToggler}"
+					Tooltip: "{$Mods.FargowiltasSouls.Config.HideTogglerDescription}"
+				}
+
+				DeviChatter: {
+					Label: "{$Mods.FargowiltasSouls.Config.DeviChatter}"
+					Tooltip: ""
+				}
+
+				ToggleSearchReset: {
+					Label: "{$Mods.FargowiltasSouls.Config.ToggleSearchReset}"
+					Tooltip: ""
+				}
+
+				BigTossMode: {
+					Label: "{$Mods.FargowiltasSouls.Config.BigTossMode}"
+					Tooltip: ""
+				}
+
+				BossRecolors: {
+					Label: "{$Mods.FargowiltasSouls.Config.MasoBossRecolors}"
+					Tooltip: ""
+				}
+
+				PrecisionSealIsHold: {
+					Label: "{$Mods.FargowiltasSouls.Config.Precision}"
+					Tooltip: "{$Mods.FargowiltasSouls.Config.PrecisionTooltip}"
+				}
+
+				OncomingMutantX: {
+					Label: "{$Mods.FargowiltasSouls.Config.OncomingMutantX}"
+					Tooltip: ""
+				}
+
+				OncomingMutantY: {
+					Label: "{$Mods.FargowiltasSouls.Config.OncomingMutantY}"
+					Tooltip: ""
+				}
+
+				PatreonRoomba: {
+					Label: "{$Mods.FargowiltasSouls.PatreonRoomba}"
+					Tooltip: ""
+				}
+
+				PatreonOrb: {
+					Label: "{$Mods.FargowiltasSouls.PatreonOrb}"
+					Tooltip: ""
+				}
+
+				PatreonFishingRod: {
+					Label: "{$Mods.FargowiltasSouls.PatreonFishingRod}"
+					Tooltip: ""
+				}
+
+				PatreonDoor: {
+					Label: "{$Mods.FargowiltasSouls.PatreonDoor}"
+					Tooltip: ""
+				}
+
+				PatreonWolf: {
+					Label: "{$Mods.FargowiltasSouls.PatreonWolf}"
+					Tooltip: ""
+				}
+
+				PatreonDove: {
+					Label: "{$Mods.FargowiltasSouls.PatreonDove}"
+					Tooltip: ""
+				}
+
+				PatreonKingSlime: {
+					Label: "{$Mods.FargowiltasSouls.PatreonKingSlime}"
+					Tooltip: ""
+				}
+
+				PatreonFishron: {
+					Label: "{$Mods.FargowiltasSouls.PatreonFishron}"
+					Tooltip: ""
+				}
+
+				PatreonPlant: {
+					Label: "{$Mods.FargowiltasSouls.PatreonPlant}"
+					Tooltip: ""
+				}
+
+				PatreonDevious: {
+					Label: "{$Mods.FargowiltasSouls.PatreonDevious}"
+					Tooltip: ""
+				}
+
+				PatreonVortex: {
+					Label: "{$Mods.FargowiltasSouls.PatreonVortex}"
+					Tooltip: ""
+				}
+
+				PatreonPrime: {
+					Label: "{$Mods.FargowiltasSouls.PatreonPrime}"
+					Tooltip: ""
+				}
+
+				PatreonCrimetroid: {
+					Label: "{$Mods.FargowiltasSouls.PatreonCrimetroid}"
+					Tooltip: ""
+				}
+
+				PatreonNanoCore: {
+					Label: "{$Mods.FargowiltasSouls.PatreonNanoCore}"
+					Tooltip: ""
+				}
+			}
+		}
 	}
 }

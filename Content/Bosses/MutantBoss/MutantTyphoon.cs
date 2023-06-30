@@ -89,12 +89,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             if (WorldSavingSystem.EternityMode)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                player.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
-                player.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }
-            player.AddBuff(ModContent.BuffType<DefenselessBuff>(), Main.rand.Next(600, 900));
-            player.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(300, 600));
+            target.AddBuff(ModContent.BuffType<DefenselessBuff>(), Main.rand.Next(600, 900));
+            target.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(300, 600));
         }
 
         public override void Kill(int timeLeft)

@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             }
             else if (counter > 300)
             {
-                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
             }
         }
 

@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            hitDirection = Main.player[Projectile.owner].Center.X > target.Center.X ? -1 : 1;
+            modifiers.HitDirectionOverride = Main.player[Projectile.owner].Center.X > target.Center.X ? -1 : 1;
         }
     }
 }

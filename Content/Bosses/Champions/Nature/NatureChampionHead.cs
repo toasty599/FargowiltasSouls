@@ -57,10 +57,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             NPC.aiStyle = -1;
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -419,8 +419,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            damage /= 3;
-            return true;
+            modifiers.FinalDamage /= 3;
         }
 
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f)
@@ -469,7 +468,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             if (NPC.life <= 0)
             {
                 NPC body = FargoSoulsUtil.NPCExists(NPC.ai[1], ModContent.NPCType<NatureChampion>());
-                body?.HitEffect(hitDirection, damage);
+                body?.HitEffect(hit);
             }
         }
 

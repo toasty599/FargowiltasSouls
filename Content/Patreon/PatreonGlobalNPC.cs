@@ -19,15 +19,16 @@ namespace FargowiltasSouls.Content.Patreon
 {
     public class PatreonGlobalNPC : GlobalNPC
     {
-        public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
-        {
-            if (SoulConfig.Instance.PatreonRoomba && type == NPCID.Steampunker)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<RoombaPet>());
-                shop.item[nextSlot].shopCustomPrice = 50000;
-                nextSlot++;
-            }
-        }
+        // TODO: shops
+        // public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
+        // {
+        //     if (SoulConfig.Instance.PatreonRoomba && type == NPCID.Steampunker)
+        //     {
+        //         shop.item[nextSlot].SetDefaults(ModContent.ItemType<RoombaPet>());
+        //         shop.item[nextSlot].shopCustomPrice = 50000;
+        //         nextSlot++;
+        //     }
+        // }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {

@@ -159,8 +159,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             if (Projectile.scale >= 5)
             {
-                damage = (int)(damage * 1.5);
-                crit = true;
+                modifiers.FinalDamage *= 1.5f;
+                modifiers.SetCrit();
             }
         }
 

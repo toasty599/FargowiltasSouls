@@ -231,23 +231,23 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
-            base.ModifyHitPlayer(target, ref damage, ref crit);
-            DamageRampup(ref damage);
+            base.ModifyHitPlayer(target, ref modifiers);
+            DamageRampup(ref modifiers);
             if (hits > 180)
                 target.endurance = 0;
         }
 
-        private void DamageRampup(ref int damage)
+        private void DamageRampup(ref Player.HurtModifiers modifiers)
         {
             int tempHits = hits - 90;
             if (tempHits > 0)
             {
-                double modifier = Math.Min(1.0 + tempHits / 6.0, 100.0);
-                damage = (int)(damage * modifier);
+                var modifier = Math.Min(1.0f + tempHits / 6.0f, 100.0f);
+                modifiers.FinalDamage *= modifier;
             }
             else
             {
-                damage = (int)(hits / 90.0 * damage);
+                modifiers.FinalDamage *= hits / 90;
             }
         }
 

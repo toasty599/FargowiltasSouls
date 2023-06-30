@@ -10,9 +10,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.BoneLee);
 
-        public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+            base.ModifyHitByAnything(npc, player, ref modifiers);
 
             if (Main.rand.NextBool(10) && npc.HasPlayerTarget && player.whoAmI == npc.target && player.active && !player.dead && !player.ghost)
             {
@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
                 if (doTheTeleport)
                 {
                     FargoSoulsUtil.GrossVanillaDodgeDust(npc);
-                    damage = 0;
+                    modifiers.FinalDamage.Flat = 0;
                     npc.Center = teleportTarget;
                     npc.netUpdate = true;
                     FargoSoulsUtil.GrossVanillaDodgeDust(npc);
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Obstructed, 60);
             target.velocity.X = npc.velocity.Length() * npc.direction;

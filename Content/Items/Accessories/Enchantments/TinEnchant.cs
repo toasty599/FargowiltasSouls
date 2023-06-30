@@ -74,9 +74,9 @@ Getting hit resets your crit to 5%
         }
 
         //increase crit
-        public static void TinOnHitEnemy(FargoSoulsPlayer modPlayer, int damage, bool crit)
+        public static void TinOnHitEnemy(FargoSoulsPlayer modPlayer, NPC.HitInfo hitInfo)
         {
-            if (crit)
+            if (hitInfo.Crit)
                 modPlayer.TinCritBuffered = true;
 
             if (modPlayer.TinCritBuffered && modPlayer.TinProcCD <= 0)
@@ -91,7 +91,7 @@ Getting hit resets your crit to 5%
 
                 void TryHeal(int healDenominator, int healCooldown)
                 {
-                    int amountToHeal = damage / healDenominator;
+                    int amountToHeal = hitInfo.Damage / healDenominator;
                     if (modPlayer.TinCrit >= 100 && modPlayer.HealTimer <= 0 && !modPlayer.Player.moonLeech && !modPlayer.MutantNibble && amountToHeal > 0)
                     {
                         modPlayer.HealTimer = healCooldown;

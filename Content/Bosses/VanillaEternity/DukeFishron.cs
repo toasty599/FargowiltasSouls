@@ -819,7 +819,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 600);
@@ -832,9 +832,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (TakeNoDamageOnHit)
-                damage = 0;
+                modifiers.FinalDamage.Flat = 0;
 
-            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            base.ModifyIncomingHit(npc, ref modifiers);
         }
 
         public override bool CheckDead(NPC npc)
@@ -1010,7 +1010,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
@@ -1050,7 +1050,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);
             target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;

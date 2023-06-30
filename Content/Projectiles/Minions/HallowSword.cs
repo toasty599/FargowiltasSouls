@@ -363,7 +363,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         private static void DrawProj_EmpressBlade(Projectile proj, float hueOverride)
         {
             Main.CurrentDrawnEntityShader = -1;
-            PrepareDrawnEntityDrawing(proj, Main.GetProjectileDesiredShader(proj.whoAmI));
+            PrepareDrawnEntityDrawing(proj, Main.GetProjectileDesiredShader(proj));
             Vector2 vector = proj.Center - Main.screenPosition;
             proj.GetFairyQueenWeaponsColor(0f, 0f, new float?(hueOverride));
             Color fairyQueenWeaponsColor = proj.GetFairyQueenWeaponsColor(0.5f, 0f, new float?(hueOverride));

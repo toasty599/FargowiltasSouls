@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.aiStyle = -1;
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = 9999;
             NPC.life = 9999;
@@ -198,7 +198,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            damage = 0;
+            modifiers.FinalDamage.Flat = 0;
             NPC.life++;
         }
 
@@ -206,7 +206,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         {
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))
                 projectile.penetrate = 0;
-            damage = 0;
+            modifiers.FinalDamage.Flat = 0;
             NPC.life++;
         }
 

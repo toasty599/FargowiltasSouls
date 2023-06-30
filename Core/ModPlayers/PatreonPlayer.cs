@@ -138,17 +138,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Item, consider using OnHitNPC instead */
-        {
-            OnHitEither(target);
-        }
-
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */
-        {
-            OnHitEither(target);
-        }
-
-        private void OnHitEither(NPC target)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Gittle)
             {
@@ -167,7 +157,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (ModLoader.TryGetMod("CalamityMod", out Mod _))
                 {
-                    target.StrikeNPC(target.lifeMax, 0f, 0);
+                    target.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                 }
             }
 
@@ -179,14 +169,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Item, consider using ModifyHitNPC instead */
+        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (CompOrb && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon)
             {
-                damage = (int)(damage * 1.25f);
+                modifiers.FinalDamage *= 1.25f;
 
                 if (Player.manaSick)
-                    damage = (int)(damage * Player.manaSickReduction);
+                    modifiers.FinalDamage *= Player.manaSickReduction;
 
                 for (int num468 = 0; num468 < 20; num468++)
                 {
@@ -201,14 +191,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Projectile, consider using ModifyHitNPC instead */
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (CompOrb && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon)
             {
-                damage = (int)(damage * 1.25f);
+                modifiers.FinalDamage *= 1.25f;
 
                 if (Player.manaSick)
-                    damage = (int)(damage * Player.manaSickReduction);
+                    modifiers.FinalDamage *= Player.manaSickReduction;
 
                 for (int num468 = 0; num468 < 20; num468++)
                 {

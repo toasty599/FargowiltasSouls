@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            hitDirection = Math.Sign(target.Center.X - Main.player[Projectile.owner].Center.X);
+            modifiers.HitDirectionOverride = Math.Sign(target.Center.X - Main.player[Projectile.owner].Center.X);
         }
 
         public override bool PreDraw(ref Color lightColor)

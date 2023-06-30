@@ -47,15 +47,15 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            base.OnHitPlayer(player, damage, crit);
+            base.OnHitPlayer(target, info);
 
             if (WorldSavingSystem.EternityMode)
             {
-                player.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
+                target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
                 //player.AddBuff(ModContent.BuffType<Unstable>(), 240);
-                player.AddBuff(ModContent.BuffType<Buffs.Masomode.BerserkedBuff>(), 120);
+                target.AddBuff(ModContent.BuffType<Buffs.Masomode.BerserkedBuff>(), 120);
             }
-            player.AddBuff(BuffID.Bleeding, 600);
+            target.AddBuff(BuffID.Bleeding, 600);
         }
     }
 }

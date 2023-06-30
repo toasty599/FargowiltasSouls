@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                     target.life = target.lifeMax;
                 CombatText.NewText(target.Hitbox, CombatText.HealLife, damage);
                 damage = 0;
-                crit = false;
+                modifiers.DisableCrit();
             }
         }*/
 

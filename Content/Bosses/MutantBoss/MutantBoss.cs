@@ -119,10 +119,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             SceneEffectPriority = SceneEffectPriority.BossHigh;
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.damage = (int)Math.Round(NPC.damage * 0.5);
-            NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 0.5 * bossLifeScale);
+            NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 0.5 * balance);
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -133,7 +133,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             return NPC.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, NPC.Center)) < Player.defaultHeight && NPC.ai[0] > -1;
         }
 
-        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */
+        public override bool CanHitNPC(NPC target)
         {
             if (target.type == ModContent.Find<ModNPC>("Fargowiltas", "Deviantt").Type
                 || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Abominationn").Type
@@ -3503,8 +3503,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
             if (WorldSavingSystem.AngryMutant)
-                damage *= 0.07f;
-            return true;
+                modifiers.FinalDamage *= 0.07f;
         }
 
         public override bool CheckDead()

@@ -1011,7 +1011,7 @@ namespace FargowiltasSouls.Core.Globals
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            ModifyHitByBoth(npc, player, ref damage);
+            ModifyHitByBoth(npc, player, ref modifiers);
 
             //            /*if (Chilled)
             //            {
@@ -1022,16 +1022,16 @@ namespace FargowiltasSouls.Core.Globals
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             Player player = Main.player[projectile.owner];
-            ModifyHitByBoth(npc, player, ref damage);
+            ModifyHitByBoth(npc, player, ref modifiers);
         }
 
-        public void ModifyHitByBoth(NPC npc, Player player, ref int damage)
+        public void ModifyHitByBoth(NPC npc, Player player, ref NPC.HitModifiers modifiers)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && npc.boss)
             {
-                NecroEnchant.NecroSpawnGraveBoss(this, npc, player, damage);
+                NecroEnchant.NecroSpawnGraveBoss(this, npc, player, (int)modifiers.FinalDamage.Flat);
             }
         }
 
@@ -1068,16 +1068,16 @@ namespace FargowiltasSouls.Core.Globals
         public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
         {
             if (target.HasBuff(ModContent.BuffType<ShellHideBuff>()))
-                damage *= 2;
+                modifiers.FinalDamage *= 2;
 
             if (BloodDrinker)
-                damage = (int)(damage * 1.3);
+                modifiers.FinalDamage *= 1.3f;
         }
 
         public override void ModifyHitNPC(NPC npc, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (target.type == ModContent.NPCType<CreeperGutted>())
-                damage /= 20;
+                modifiers.FinalDamage /= 20;
         }
 
         public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
@@ -1101,17 +1101,17 @@ namespace FargowiltasSouls.Core.Globals
 
             if (Smite)
             {
-                damage *= 1.2;
+                modifiers.FinalDamage *= 1.2f;
             }
 
             if (MoltenAmplify)
             {
-                damage *= 1.25;
+                modifiers.FinalDamage *= 1.25f;
             }
 
             if (PungentGazeTime > 0)
             {
-                damage *= 1.0 + 0.15 * PungentGazeTime / PungentGazeBuff.MAX_TIME;
+                modifiers.FinalDamage *= 1.0f + 0.15f * PungentGazeTime / PungentGazeBuff.MAX_TIME;
             }
 
             //            //if (modPlayer.KnightEnchant && Villain && !npc.boss)
@@ -1126,11 +1126,10 @@ namespace FargowiltasSouls.Core.Globals
 
             if (modPlayer.DeviGraze)
             {
-                damage *= 1.0 + modPlayer.DeviGrazeBonus;
+                modifiers.FinalDamage *= 1.0f + (float)modPlayer.DeviGrazeBonus;
             }
 
             //            //normal damage calc
-            return true;
         }
 
         public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
@@ -1140,7 +1139,8 @@ namespace FargowiltasSouls.Core.Globals
 
             if (modPlayer.WoodEnchantDiscount)
             {
-                WoodEnchant.WoodDiscount(shop);
+                // TODO: shops
+                // WoodEnchant.WoodDiscount(shop);
             }
         }
 

@@ -49,7 +49,7 @@ Missing any attack will reset these bonuses
             }
         }
 
-        public static void HuntressBonus(FargoSoulsPlayer modPlayer, Projectile proj, NPC target, ref int damage)
+        public static void HuntressBonus(FargoSoulsPlayer modPlayer, Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
             proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().HuntressProj = 2;
 
@@ -71,7 +71,7 @@ Missing any attack will reset these bonuses
             }
 
             proj.ArmorPenetration = 10 * modPlayer.HuntressStage;
-            damage += 5 * modPlayer.HuntressStage;
+            modifiers.SourceDamage += 5 * modPlayer.HuntressStage;
         }
 
         public override void AddRecipes()

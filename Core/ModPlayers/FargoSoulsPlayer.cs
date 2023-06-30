@@ -1340,7 +1340,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Main.screenPosition += Main.rand.NextVector2Circular(7, 7);
         }
 
-        public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
+        public override void CopyClientState(ModPlayer clientClone)
         {
             FargoSoulsPlayer modPlayer = clientClone as FargoSoulsPlayer;
             modPlayer.Toggler = Toggler;

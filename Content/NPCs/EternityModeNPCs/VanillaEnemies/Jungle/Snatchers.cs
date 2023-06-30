@@ -107,14 +107,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
         {
-            base.ModifyHitPlayer(npc, target, ref damage, ref crit);
+            base.ModifyHitPlayer(npc, target, ref modifiers);
 
             target.longInvince = true;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Bleeding, 300);
 

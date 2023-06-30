@@ -17,7 +17,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Brain of Cthulhu");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "克苏鲁之脑");
+            // TODO: localization
+            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "克苏鲁之脑");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.BrainofCthulhu];
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
@@ -63,7 +64,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             return NPC.alpha == 0;
         }
 
-        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */
+        public override bool CanHitNPC(NPC target)
         {
             return NPC.alpha == 0;
         }
@@ -82,7 +83,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC brain = FargoSoulsUtil.NPCExists(NPC.ai[0], NPCID.BrainofCthulhu);
             if (brain == null)
             {
-                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                 NPC.HitEffect();
                 NPC.active = false;
                 return;
@@ -117,7 +118,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             }
             else if (NPC.localAI[0] > attackDelay + 180)// || NPC.Distance(new Vector2(NPC.ai[2], NPC.ai[3])) < NPC.velocity.Length() + 1f)
             {
-                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                 NPC.HitEffect();
                 NPC.active = false;
             }

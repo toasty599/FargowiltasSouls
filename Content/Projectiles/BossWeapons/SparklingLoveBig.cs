@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (Projectile.timeLeft < 15)
-                crit = true;
+                modifiers.SetCrit();
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

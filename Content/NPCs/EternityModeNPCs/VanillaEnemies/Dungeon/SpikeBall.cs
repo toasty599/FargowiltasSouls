@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FusedExplosion>(), npc.damage, 0f, Main.myPlayer);
                     npc.life = 0;
                     npc.HitEffect();
-                    npc.StrikeNPCNoInteraction(999999, 0f, 0);
+                    npc.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                 }
                 else if (Counter > 1800 - 300)
                 {
@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.BrokenArmor, 600);
             if (OutsideDungeon)

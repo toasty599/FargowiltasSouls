@@ -64,9 +64,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (UseMassDefense)
-                damage /= 2;
+                // TODO: maybe use defense for this?
+                modifiers.FinalDamage /= 2;
 
-            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            base.ModifyIncomingHit(npc, ref modifiers);
         }
 
         public override bool CheckDead(NPC npc)
@@ -87,20 +88,20 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return base.CheckDead(npc);
         }
 
-        public override void SafeModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        public override void SafeModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            base.SafeModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
+            base.SafeModifyHitByItem(npc, player, item, ref modifiers);
 
             if (EaterofWorldsHead.HaveSpawnDR > 0)
-                damage /= 10;
+                modifiers.FinalDamage /= 10;
         }
 
-        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            base.SafeModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+            base.SafeModifyHitByProjectile(npc, projectile, ref modifiers);
 
             if (EaterofWorldsHead.HaveSpawnDR > 0)
-                damage /= projectile.numHits + 1;
+                modifiers.FinalDamage /= projectile.numHits + 1;
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -122,7 +123,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.CursedInferno, 180);
             target.AddBuff(ModContent.BuffType<RottingBuff>(), 600);
@@ -575,7 +576,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.AI(npc);
 
             if (++SuicideCounter > 600)
-                npc.StrikeNPCNoInteraction(9999, 0f, 0);
+                npc.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
         }
 
         public override void OnKill(NPC npc)

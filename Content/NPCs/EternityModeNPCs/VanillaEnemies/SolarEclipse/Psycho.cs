@@ -24,14 +24,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SolarEcl
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Obstructed, 120);
         }
 
-        public override void OnHitByAnything(NPC npc, Player player, int damage, float knockback, bool crit)
+        public override void OnHitByAnything(NPC npc, Player player, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitByAnything(npc, player, damage, knockback, crit);
+            base.OnHitByAnything(npc, player, hit, damageDone);
 
             Counter = 0;
         }

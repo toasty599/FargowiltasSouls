@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Core.Systems
 
         public override void PostUpdateWorld()
         {
-            NPC.LunarShieldPowerExpert = 150;
+            NPC.LunarShieldPowerMax = 150;
 
             if (ShouldBeEternityMode)
             {
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Core.Systems
 
             if (WorldSavingSystem.EternityMode)
             {
-                NPC.LunarShieldPowerExpert = 50;
+                NPC.LunarShieldPowerMax = 50;
 
                 if (Main.raining || Sandstorm.Happening || Main.bloodMoon)
                 {

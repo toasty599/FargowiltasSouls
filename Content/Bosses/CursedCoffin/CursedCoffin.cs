@@ -110,9 +110,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ScaleExpertStats(int numPlayers, float balance)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
 
         public override void SendExtraAI(BinaryWriter writer)

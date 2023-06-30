@@ -704,43 +704,43 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return true;
         }
 
-        public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+            base.ModifyHitByAnything(npc, player, ref modifiers);
 
             if (IsCoiling)
             {
                 if (npc.life < npc.lifeMax / 10)
                 {
                     float modifier = Math.Min(1f, AttackModeTimer / 480f);
-                    damage = (int)(damage * modifier);
+                    modifiers.FinalDamage *= modifier;
                 }
                 else
                 {
-                    damage = (int)(damage * 0.1);
+                    modifiers.FinalDamage *= 0.1f;
                 }
             }
             else if (PrepareToCoil || AttackModeTimer >= P2_COIL_BEGIN_TIME - 120 || npc.life < npc.lifeMax / 10)
             {
-                damage = (int)(damage * 0.1);
+                modifiers.FinalDamage *= 0.1f;
             }
         }
 
-        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            base.SafeModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+            base.SafeModifyHitByProjectile(npc, projectile, ref modifiers);
 
             if (projectile.numHits > 0 && !FargoSoulsUtil.IsSummonDamage(projectile))
-                damage = (int)(damage * (2.0 / 3.0 + 1.0 / 3.0 * 1 / projectile.numHits));
+                modifiers.FinalDamage *= 2.0f / 3.0f + 1.0f / 3.0f * 1f / projectile.numHits;
             if (projectile.type == ProjectileID.RainFriendly)
-                damage /= 2;
+                modifiers.FinalDamage /= 2;
             if (projectile.type == ProjectileID.SoulDrain)
-                damage = (int)(damage * 0.75);
+                modifiers.FinalDamage *= 0.75f;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Electrified, 60);
             target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
@@ -949,9 +949,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return true;
         }
 
-        public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+            base.ModifyHitByAnything(npc, player, ref modifiers);
 
             NPC destroyer = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.TheDestroyer);
 
@@ -965,34 +965,34 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (npc.life < npc.lifeMax / 10)
                 {
                     float modifier = Math.Min(1f, destroyerEmode.AttackModeTimer / 480f);
-                    damage = (int)(damage * modifier);
+                    modifiers.FinalDamage *= modifier;
                 }
                 else
                 {
-                    damage = (int)(damage * 0.1);
+                    modifiers.FinalDamage *= 0.1f;
                 }
             }
             else if (destroyerEmode.PrepareToCoil || destroyerEmode.AttackModeTimer >= Destroyer.P2_COIL_BEGIN_TIME - 120 || destroyer.life < destroyer.lifeMax / 10)
             {
-                damage = (int)(damage * 0.1);
+                modifiers.FinalDamage *= 0.1f;
             }
         }
 
-        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            base.SafeModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+            base.SafeModifyHitByProjectile(npc, projectile, ref modifiers);
 
             if (projectile.numHits > 0 && !FargoSoulsUtil.IsSummonDamage(projectile))
-                damage = (int)(damage * (2.0 / 3.0 + 1.0 / 3.0 * 1 / projectile.numHits));
+                modifiers.FinalDamage *= 2.0f / 3.0f + 1.0f / 3.0f * 1f / projectile.numHits;
             if (projectile.type == ProjectileID.RainFriendly)
-                damage /= 2;
+                modifiers.FinalDamage /= 2;
             if (projectile.type == ProjectileID.SoulDrain)
-                damage = (int)(damage * 0.75);
+                modifiers.FinalDamage *= 0.75f;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Electrified, 60);
             target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);

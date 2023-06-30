@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -489,7 +490,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (GoldEnchMoveCoins)
             {
-                ChestUI.MoveCoins(Player.inventory, Player.bank.item);
+                ChestUI.MoveCoins(Player.inventory, Player.bank.item, ContainerTransferContext.FromUnknown(Player));
                 GoldEnchMoveCoins = false;
             }
 

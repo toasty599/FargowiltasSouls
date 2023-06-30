@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
             if (++counter > 900)
             {
-                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
             }
 
             if (!NPC.dontTakeDamage && WorldSavingSystem.EternityMode)
@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             if (NPC.life <= 0)
             {
                 for (int k = 0; k < 20; k++)
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hitDirection, -1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f);
 
                 SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 

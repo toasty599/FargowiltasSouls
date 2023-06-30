@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             if (dist > 300 && dist < 600)
             {
-                damage = (int)(damage * 1.5);
+                modifiers.FinalDamage *= 1.5f;
                 sweetspot = true;
             }
         }

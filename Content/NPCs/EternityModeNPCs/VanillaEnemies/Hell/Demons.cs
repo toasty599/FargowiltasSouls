@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hell
                         int guide = NPC.FindFirstNPC(NPCID.Guide);
                         if (guide != -1 && Main.npc[guide].active && Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Main.npc[guide].StrikeNPC(9999, 0f, 0);
+                            Main.npc[guide].SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
 
                             int p = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
                             if (p != -1 && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.wallBoss, NPCID.WallofFlesh))

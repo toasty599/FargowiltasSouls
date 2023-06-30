@@ -402,7 +402,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
             target.AddBuff(ModContent.BuffType<SwarmingBuff>(), 600);
@@ -411,9 +411,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (!WorldSavingSystem.SwarmActive && NPC.AnyNPCs(ModContent.NPCType<RoyalSubject>()))
-                damage /= 2;
+                modifiers.FinalDamage /= 2;
 
-            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            base.ModifyIncomingHit(npc, ref modifiers);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

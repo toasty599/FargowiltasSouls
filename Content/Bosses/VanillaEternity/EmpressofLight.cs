@@ -630,26 +630,26 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
             target.AddBuff(ModContent.BuffType<SmiteBuff>(), 1800);
         }
 
-        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            base.SafeModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+            base.SafeModifyHitByProjectile(npc, projectile, ref modifiers);
 
             if (ProjectileID.Sets.CultistIsResistantTo[projectile.type] && !FargoSoulsUtil.IsSummonDamage(projectile))
-                damage = (int)(damage * 0.75);
+                modifiers.FinalDamage *= 0.75f;
         }
 
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (npc.life < npc.lifeMax / 2)
-                damage *= 2.0 / 3.0;
+                modifiers.FinalDamage *= 2.0f / 3.0f;
 
-            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            base.ModifyIncomingHit(npc, ref modifiers);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

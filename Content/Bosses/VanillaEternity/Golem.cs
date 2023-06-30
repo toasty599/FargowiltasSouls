@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.BrokenArmor, 600);
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
@@ -407,9 +407,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
-            damage *= 0.9;
+            modifiers.FinalDamage *= 0.9f;
 
-            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            base.ModifyIncomingHit(npc, ref modifiers);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -524,9 +524,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position) => false;
 
-        public override void SafeOnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        public override void SafeOnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            base.SafeOnHitByProjectile(npc, projectile, damage, knockback, crit);
+            base.SafeOnHitByProjectile(npc, projectile, hit, damageDone);
 
             if (projectile.maxPenetrate != 1 && FargoSoulsUtil.CanDeleteProjectile(projectile))
                 projectile.timeLeft = 0;

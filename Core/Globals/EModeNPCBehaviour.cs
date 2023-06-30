@@ -59,57 +59,57 @@ namespace FargowiltasSouls.Core.Globals
         }
 
 
-        public virtual void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit) { }
+        public virtual void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers) { }
 
-        public virtual void SafeModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit) { }
+        public virtual void SafeModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers) { }
         public sealed override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
+            base.ModifyHitByItem(npc, player, item, ref modifiers);
 
             if (!WorldSavingSystem.EternityMode)
                 return;
 
-            SafeModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
-            ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+            SafeModifyHitByItem(npc, player, item, ref modifiers);
+            ModifyHitByAnything(npc, player, ref modifiers);
         }
 
-        public virtual void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) { }
+        public virtual void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers) { }
         public sealed override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+            base.ModifyHitByProjectile(npc, projectile, ref modifiers);
 
             if (!WorldSavingSystem.EternityMode)
                 return;
 
-            SafeModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
-            ModifyHitByAnything(npc, Main.player[projectile.owner], ref damage, ref knockback, ref crit);
+            SafeModifyHitByProjectile(npc, projectile, ref modifiers);
+            ModifyHitByAnything(npc, Main.player[projectile.owner], ref modifiers);
         }
 
 
-        public virtual void OnHitByAnything(NPC npc, Player player, int damage, float knockback, bool crit) { }
+        public virtual void OnHitByAnything(NPC npc, Player player, NPC.HitInfo hit, int damageDone) { }
 
-        public virtual void SafeOnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit) { }
+        public virtual void SafeOnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone) { }
         public sealed override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitByItem(npc, player, item, damage, knockback, crit);
+            base.OnHitByItem(npc, player, item, hit, damageDone);
 
             if (!WorldSavingSystem.EternityMode)
                 return;
 
-            SafeOnHitByItem(npc, player, item, damage, knockback, crit);
-            ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+            SafeOnHitByItem(npc, player, item, hit, damageDone);
+            // ModifyHitByAnything(npc, player, hit);
         }
 
-        public virtual void SafeOnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit) { }
+        public virtual void SafeOnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone) { }
         public sealed override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitByProjectile(npc, projectile, damage, knockback, crit);
+            base.OnHitByProjectile(npc, projectile, hit, damageDone);
 
             if (!WorldSavingSystem.EternityMode)
                 return;
 
-            SafeOnHitByProjectile(npc, projectile, damage, knockback, crit);
-            ModifyHitByAnything(npc, Main.player[projectile.owner], ref damage, ref knockback, ref crit);
+            SafeOnHitByProjectile(npc, projectile, hit, damageDone);
+            // ModifyHitByAnything(npc, Main.player[projectile.owner], ref damage, ref knockback, ref crit);
         }
 
 

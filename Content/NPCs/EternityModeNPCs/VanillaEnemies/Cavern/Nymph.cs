@@ -70,29 +70,29 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<LovestruckBuff>(), 240);
 
-            npc.life += damage * 2;
+            npc.life += hurtInfo.Damage * 2;
             if (npc.life > npc.lifeMax)
                 npc.life = npc.lifeMax;
-            CombatText.NewText(npc.Hitbox, CombatText.HealLife, damage * 2);
+            CombatText.NewText(npc.Hitbox, CombatText.HealLife, hurtInfo.Damage * 2);
             npc.netUpdate = true;
         }
 
-        public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+            base.ModifyHitByAnything(npc, player, ref modifiers);
 
             if (player.loveStruck)
             {
                 Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
                 float ai1 = 30 + Main.rand.Next(30);
-                Projectile.NewProjectile(npc.GetSource_FromThis(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), damage, 0f, Main.myPlayer, npc.whoAmI, ai1);
+                Projectile.NewProjectile(npc.GetSource_FromThis(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), (int)modifiers.FinalDamage.Flat, 0f, Main.myPlayer, npc.whoAmI, ai1);
 
-                damage = 0;
-                crit = false;
+                modifiers.FinalDamage.Flat = 0;
+                modifiers.DisableCrit();
             }
         }
 

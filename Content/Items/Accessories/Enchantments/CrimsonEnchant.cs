@@ -44,7 +44,7 @@ This does not affect hits dealing less than 10 damage
             modPlayer.CrimsonEnchantActive = true;
         }
 
-        public static void CrimsonHurt(Player player, FargoSoulsPlayer modPlayer, ref int damage)
+        public static void CrimsonHurt(Player player, FargoSoulsPlayer modPlayer, ref Player.HurtModifiers modifiers)
         {
             //if was already healing, stop the heal and do nothing
             if (player.HasBuff(ModContent.BuffType<CrimsonRegenBuff>()))
@@ -52,11 +52,11 @@ This does not affect hits dealing less than 10 damage
                 player.ClearBuff(ModContent.BuffType<CrimsonRegenBuff>());
             }
             //start new heal
-            else if (damage >= 10)
+            else if (modifiers.FinalDamage.Flat >= 10)
             {
                 player.AddBuff(ModContent.BuffType<CrimsonRegenBuff>(), 300);
 
-                int totalToRegen = damage / 2;
+                int totalToRegen = (int)modifiers.FinalDamage.Flat / 2;
                 modPlayer.CrimsonRegenAmount = (int)(totalToRegen / 5f * 2f);
             }
         }

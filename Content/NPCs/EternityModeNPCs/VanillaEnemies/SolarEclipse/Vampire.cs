@@ -14,14 +14,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SolarEcl
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Weak, 600);
 
-            npc.life += damage * 2;
+            npc.life += hurtInfo.Damage * 2;
             if (npc.life > npc.lifeMax)
                 npc.life = npc.lifeMax;
-            CombatText.NewText(npc.Hitbox, CombatText.HealLife, damage * 2);
+            CombatText.NewText(npc.Hitbox, CombatText.HealLife, hurtInfo.Damage * 2);
 
             npc.netUpdate = true;
         }

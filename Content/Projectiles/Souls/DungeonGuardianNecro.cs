@@ -53,7 +53,14 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            crit = Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().TerrariaSoul;
+            if (Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().TerrariaSoul)
+            {
+                modifiers.SetCrit();
+            }
+            else
+            {
+                modifiers.DisableCrit();
+            }
         }
 
         public override void Kill(int timeLeft)

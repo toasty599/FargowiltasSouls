@@ -294,9 +294,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (npc.life > 0)
-                damage *= Math.Max(0.2, Math.Sqrt((double)npc.life / npc.lifeMax));
+                modifiers.FinalDamage *= Math.Max(0.2f, (float)Math.Sqrt((double)npc.life / npc.lifeMax));
 
-            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            base.ModifyIncomingHit(npc, ref modifiers);
         }
 
         public override void OnKill(NPC npc)
@@ -327,7 +327,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             if (WorldSavingSystem.MasochistModeReal)
             {
@@ -419,7 +419,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             if (WorldSavingSystem.MasochistModeReal)
             {

@@ -80,7 +80,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            return true;
         }
 
         public override bool CheckDead()

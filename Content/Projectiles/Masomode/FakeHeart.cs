@@ -65,17 +65,17 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 if (target.GetModPlayer<FargoSoulsPlayer>().DevianttHeartItem == null)
                 {
                     target.hurtCooldowns[0] = 0;
-                    int defense = target.statDefense;
+                    var defense = target.statDefense;
                     float endurance = target.endurance;
-                    target.statDefense = 0;
+                    target.statDefense.FinalMultiplier *= 0;
                     target.endurance = 0;
                     if (FargoSoulsUtil.IsChinese())
                     {
-                        target.Hurt(PlayerDeathReason.ByCustomReason(target.name + "感到了心碎。"), Projectile.damage, 0, false, false, false, 0);
+                        target.Hurt(PlayerDeathReason.ByCustomReason(target.name + "感到了心碎。"), Projectile.damage, 0, false, false, 0, false);
                     }
                     else
                     {
-                        target.Hurt(PlayerDeathReason.ByCustomReason(target.name + " was deceived by Fake Heart."), Projectile.damage, 0, false, false, false, 0);
+                        target.Hurt(PlayerDeathReason.ByCustomReason(target.name + " was deceived by Fake Heart."), Projectile.damage, 0, false, false, 0, false);
                     }
                     target.statDefense = defense;
                     target.endurance = endurance;

@@ -2525,7 +2525,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             }
             return false;
         }
-        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */
+        public override bool CanHitNPC(NPC target)
         {
             if (HitPlayer)
             {

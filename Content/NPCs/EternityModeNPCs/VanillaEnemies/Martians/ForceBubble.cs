@@ -10,9 +10,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Martians
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.ForceBubble);
 
-        public override void OnHitByAnything(NPC npc, Player player, int damage, float knockback, bool crit)
+        public override void OnHitByAnything(NPC npc, Player player, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitByAnything(npc, player, damage, knockback, crit);
+            base.OnHitByAnything(npc, player, hit, damageDone);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

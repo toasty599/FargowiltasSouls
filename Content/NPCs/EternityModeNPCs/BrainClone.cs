@@ -55,14 +55,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         {
             if (EModeGlobalNPC.brainBoss < 0f || EModeGlobalNPC.brainBoss >= Main.maxNPCs)
             {
-                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                 NPC.active = false;
                 return;
             }
             NPC brain = Main.npc[EModeGlobalNPC.brainBoss];
             if (!brain.active || brain.type != NPCID.BrainofCthulhu)
             {
-                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                 NPC.active = false;
                 return;
             }
@@ -209,9 +209,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            damage = 0;
-            crit = false;
-            return false;
+            modifiers.FinalDamage.Flat = 0;
+            modifiers.DisableCrit();
         }
 
         public override void HitEffect(NPC.HitInfo hit)
