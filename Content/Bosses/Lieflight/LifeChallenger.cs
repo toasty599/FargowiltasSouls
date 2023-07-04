@@ -52,8 +52,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         public bool Variant = false;
 
-        public bool DidLaser = false;
-
         private int dustcounter;
 
         public int state;
@@ -102,8 +100,9 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         private bool Draw = false;
 
-        bool useDR;
-        bool phaseProtectionDR;
+        private bool useDR;
+        private bool phaseProtectionDR;
+        private bool DoAura;
 
         int flyTimer = 9000;
 
@@ -237,6 +236,10 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             NPC.chaseable = true;
             useDR = false;
             phaseProtectionDR = false;
+            if (WorldSavingSystem.MasochistModeReal)
+            {
+                DoAura = true;
+            }
 
             if (PhaseOne && NPC.life < P2Threshold)
                 phaseProtectionDR = true;
@@ -266,9 +269,9 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             if (P1state != -2) //do not check during spawn anim
             {
                 //Aura
-                if (WorldSavingSystem.MasochistModeReal)
+                if (DoAura)
                 {
-                    if (dustcounter > 5)
+                    if (dustcounter > 5 && (DoAura && state == 1 || P1state == 4)) //do dust instead of runes during rune expand attack
                     {
                         for (int l = 0; l < 180; l++)
                         {
@@ -413,11 +416,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                             resetFly = false;
                         }
                         */
-                        if (NPC.life < NPC.lifeMax / 3 && WorldSavingSystem.MasochistModeReal && !DidLaser)
-                        {
-                            state = 100;
-                            resetFly = false;
-                        }
                         if (!PhaseOne && NPC.life < SansThreshold)
                         {
                             state = 101;
@@ -469,14 +467,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                             case 9: //p3 teleport on you -> shit nukes
                                 AttackTeleportNukes();
                                 break;
-                            case 99: // (big spinny ray with real damaging lingering spinning scar projectiles and invisible damaging projectiles under it covering the entirety)
-                                AttackP3Start();
-                                break;
-                            case 100: //phase 3 transition
-                                {
-                                    P3Transition();
-                                    break;
-                                }
                             case 101: // Life is a cage, and death is the key.
                                 {
                                     AttackFinal();
@@ -844,66 +834,183 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         public void P1Transition()
         {
             ref float P1AI_Timer = ref NPC.ai[2];
+            ref float SubAttack = ref NPC.localAI[1];
+            
+
             Charging = false;
             Flying = false;
-
             useDR = true;
-
+            DoAura = true;
             NPC.velocity *= 0.95f;
 
-            if (RPS < 0.2f) //speed up rotation up
+            void PhaseTransition()
             {
-                RPS += 0.1f / 100;
-            }
-            else
-            {
-                RPS = 0.2f;
-            }
-
-            //if (WorldSavingSystem.MasochistModeReal)
-            //{
-            //    int heal = (int)(NPC.lifeMax / 100f * Main.rand.NextFloat(1f, 1.5f));
-            //    NPC.life += heal;
-            //    if (NPC.life > NPC.lifeMax)
-            //        NPC.life = NPC.lifeMax;
-            //    CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
-            //}
-            if (AI_Timer < 60)
-            {
-                if (AI_Timer % 5 == 0)
-                    SoundEngine.PlaySound(SoundID.Tink, Main.LocalPlayer.Center);
-
-                if (PyramidWobble > 0)
-                    PyramidWobble -= 0.2f;
-
-                int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Gold, Scale: 1.5f);
-                Main.dust[dust].velocity = (Main.dust[dust].position - NPC.Center) / 10;
-            }
-            if (AI_Timer == 60f)
-            {
-                SoundEngine.PlaySound(SoundID.Item62, Main.LocalPlayer.Center);
-                for (int i = 0; i < 60; i++)
+                if (RPS < 0.2f) //speed up rotation up
                 {
+                    RPS += 0.1f / 100;
+                }
+                else
+                {
+                    RPS = 0.2f;
+                }
+
+                //if (WorldSavingSystem.MasochistModeReal)
+                //{
+                //    int heal = (int)(NPC.lifeMax / 100f * Main.rand.NextFloat(1f, 1.5f));
+                //    NPC.life += heal;
+                //    if (NPC.life > NPC.lifeMax)
+                //        NPC.life = NPC.lifeMax;
+                //    CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
+                //}
+                if (AI_Timer < 60)
+                {
+                    if (AI_Timer % 5 == 0)
+                        SoundEngine.PlaySound(SoundID.Tink, Main.LocalPlayer.Center);
+
+                    if (PyramidWobble > 0)
+                        PyramidWobble -= 0.2f;
+
                     int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Gold, Scale: 1.5f);
-                    Main.dust[dust].velocity = (Main.dust[dust].position - NPC.Center) / 5;
+                    Main.dust[dust].velocity = (Main.dust[dust].position - NPC.Center) / 10;
+                }
+                if (AI_Timer == 60f)
+                {
+                    SoundEngine.PlaySound(SoundID.Item62, Main.LocalPlayer.Center);
+                    for (int i = 0; i < 60; i++)
+                    {
+                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Gold, Scale: 1.5f);
+                        Main.dust[dust].velocity = (Main.dust[dust].position - NPC.Center) / 5;
+                    }
+                }
+                if (AI_Timer >= 60f)
+                {
+                    SpritePhase = 2;
+                    if (ChunkDistance < ChunkDistanceMax)
+                        ChunkDistance++;
+
+                }
+
+                if (AI_Timer == 180f)
+                {
+                    //mine explosion
+                    const int MineAmount = 100;
+                    for (int i = 0; i < MineAmount; i++)
+                    {
+                        float rotation = (i / 64f) * MathHelper.TwoPi;
+                        float distance = Main.rand.Next(1200);
+                        Vector2 pos = NPC.Center + (rotation.ToRotationVector2() * distance);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<LifeTransitionBomb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, pos.X, pos.Y);
+                    }
+                    SoundEngine.PlaySound(SoundID.Item82, Main.LocalPlayer.Center);
+
+                    if (!Main.dedServ)
+                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        foreach (Projectile p in Main.projectile)
+                        {
+                            if (p.type == ModContent.ProjectileType<LifeBombExplosion>())
+                            {
+                                //make them fade
+                                p.ai[0] = Math.Max(p.ai[0], 2400 - 30);
+                                p.netUpdate = true;
+                            }
+                        }
+                    }
+
+                    
+                }
+                if (AI_Timer == 240f)
+                {
+                    LockVector1 = -NPC.DirectionTo(Main.player[NPC.target].Center);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, LockVector1.ToRotation());
                 }
             }
-            if (AI_Timer >= 60f)
+            
+            void LaserSpin()
             {
-                SpritePhase = 2;
-                if (ChunkDistance < ChunkDistanceMax)
-                    ChunkDistance++;
+                ref float RandomDistance = ref NPC.ai[0];
+                ref float LaserTimer = ref NPC.localAI[2];
+                //ref float RotationDirection = ref NPC.localAI[0];
 
-            }
+                Player Player = Main.player[NPC.target];
+                NPC.velocity *= 0.9f;
 
-            if (AI_Timer == 180f)
-            {
-                SoundEngine.PlaySound(SoundID.Item82, Main.LocalPlayer.Center);
+                NPC.dontTakeDamage = true;
+                if (AttackF1)
+                {
+                    AttackF1 = false;
+                    
+                    //SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Zombie_104") with { Volume = 0.5f }, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
+                    NPC.velocity.X = 0;
+                    NPC.velocity.Y = 0;
+                    Flying = false;
+                    
+                    //RotationDirection = Main.rand.NextBool() ? 1 : -1;
+                    NPC.netUpdate = true;
+                    rotspeed = 0;
+                    rot = 0;
+                }
 
-                if (!Main.dedServ)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+                //for a starting time, make it fade in, then make it spin faster and faster up to a max speed
+                int fadeintime = 10;
+                if (Main.netMode != NetmodeID.MultiplayerClient && LaserTimer < fadeintime)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, LockVector1,
+                                    ModContent.ProjectileType<LifeChalDeathray>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI);
+                }
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                int endTime = 850;
+
+                if (Main.netMode != NetmodeID.MultiplayerClient && LaserTimer >= fadeintime)
+                {
+                    if (rotspeed < 0.82f)
+                    {
+                        rotspeed += 2f / 60 / 4;
+                    }
+                    else
+                    {
+                        rotspeed = 0.82f;
+                    }
+                    rot += MathHelper.Pi / 180 * rotspeed;
+                    Vector2 rotV = LockVector1.RotatedBy(rot);
+                    int rayDamage = FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, WorldSavingSystem.MasochistModeReal ? 4f : 1.5f);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, rotV,
+                        ModContent.ProjectileType<LifeChalDeathray>(), rayDamage, 0f, Main.myPlayer, 0, NPC.whoAmI);
+                    //randomly make Scar obstacles at specific points, obstacles have Projectile.ai[1] = LaserTimer
+                    /*
+                    if (LaserTimer % 8 == 0 && Main.netMode != NetmodeID.MultiplayerClient && rotspeed > 0.82f)
+                    {
+                        if (intervalist.Count < 1)
+                        {
+                            intervalist.Clear();
+                            for (int i = 0; i < 6; i++)
+                            {
+                                intervalist.Add(i);
+                            }
+                        }
+                        index2 = Main.rand.Next(intervalist.Count);
+                        NPC.netUpdate = true;
+                        interval = intervalist[index2];
+                        intervalist.RemoveAt(index2);
+
+
+                        RandomDistance = Main.rand.Next(200);
+                        int dist = 200 * interval + (int)RandomDistance;
+
+                        Vector2 distV = NPC.Center - new Vector2(0f, dist).RotatedBy(rot);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), distV, Vector2.Zero, ModContent.ProjectileType<LifeScar>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, AI_Timer, endTime);
+
+                        NPC.netUpdate = true;
+                    }
+                    */
+                    
+                }
+
+                LaserTimer++;
+                if (LaserTimer > endTime)
                 {
                     foreach (Projectile p in Main.projectile)
                     {
@@ -914,19 +1021,31 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                             p.netUpdate = true;
                         }
                     }
-                }
 
-                PhaseOne = false;
-                NPC.netUpdate = true;
-                NPC.TargetClosest(true);
-                NPC.netUpdate = true;
-                AttackF1 = true;
-                AI_Timer = 0f;
-                P1AI_Timer = 0f;
-                NPC.ai[3] = 0f;
-                NPC.ai[0] = 0f;
-                state = 0;
+                    DoAura = WorldSavingSystem.MasochistModeReal;
+                    PhaseOne = false;
+                    NPC.netUpdate = true;
+                    NPC.TargetClosest(true);
+                    NPC.netUpdate = true;
+                    AttackF1 = true;
+                    AI_Timer = 0f;
+                    NPC.ai[2] = 0f;
+                    NPC.ai[3] = 0f;
+                    NPC.ai[0] = 0f;
+                    StateReset();
+                }
             }
+            
+            
+            
+
+            PhaseTransition();
+            //ExpandRunes();
+            if (AI_Timer > 280)
+            {
+                LaserSpin();
+            }
+            
         }
 
         #endregion
@@ -1000,125 +1119,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             }
 
             NPC.position -= NPC.velocity * (1f - speedModifier);
-        }
-        public void P3Transition()
-        {
-            Flying = true;
-            useDR = true;
-            //PhaseThree = true;
-
-            statecount = 10;
-            availablestates.Clear();
-
-
-
-
-            if (AI_Timer == 120f)
-            {
-                SoundEngine.PlaySound(SoundID.Item82, Main.LocalPlayer.Center);
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
-                SpritePhase = 3;
-            }
-            if (AI_Timer >= 180f)
-            {
-                DidLaser = true;
-                NPC.netUpdate = true;
-                state = 99;
-                AI_Timer = 0f;
-                NPC.ai[2] = 0f;
-                NPC.ai[3] = 0f;
-                NPC.ai[0] = 0f;
-                AttackF1 = true;
-                NPC.dontTakeDamage = true;
-                NPC.TargetClosest(true);
-            }
-        }
-        public void AttackP3Start() //unused
-        {
-            ref float RandomDistance = ref NPC.ai[0];
-
-            NPC.dontTakeDamage = true;
-            if (AttackF1)
-            {
-                SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Zombie_104") with { Volume = 0.5f }, NPC.Center);
-                AttackF1 = false;
-                NPC.velocity.X = 0;
-                NPC.velocity.Y = 0;
-                Flying = false;
-
-                NPC.netUpdate = true;
-                rotspeed = 0;
-                rot = 0;
-            }
-
-            Player Player = Main.player[NPC.target];
-            if (NPC.Distance(Player.Center) > 2000)
-            {
-                FlyingState(1.5f);
-            }
-            else
-            {
-                Flying = false;
-                NPC.velocity *= 0.9f;
-            }
-
-            //for a starting time, make it fade in, then make it spin faster and faster up to a max speed
-            int fadeintime = 10;
-            if (Main.netMode != NetmodeID.MultiplayerClient && AI_Timer < fadeintime)
-            {
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(0f, -1f),
-                                ModContent.ProjectileType<LifeChalDeathray>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI);
-            }
-
-            int endTime = 1650;
-            if (!WorldSavingSystem.MasochistModeReal)
-                endTime = 1237;
-
-            if (Main.netMode != NetmodeID.MultiplayerClient && AI_Timer >= fadeintime)
-            {
-                if (rotspeed < 0.88f)
-                {
-                    rotspeed += 2f / 60 / 4;
-                }
-                rot += MathHelper.Pi / 180 * rotspeed;
-                Vector2 rotV = new Vector2(0f, -1f).RotatedBy(rot);
-                int rayDamage = FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, WorldSavingSystem.MasochistModeReal ? 4f : 1.5f);
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, rotV,
-                    ModContent.ProjectileType<LifeChalDeathray>(), rayDamage, 0f, Main.myPlayer, 0, NPC.whoAmI);
-                //randomly make Scar obstacles at specific points, obstacles have Projectile.ai[1] = AI_Timer
-                if (AI_Timer % 8 == 0 && Main.netMode != NetmodeID.MultiplayerClient && rotspeed > 0.82f)
-                {
-                    if (intervalist.Count < 1)
-                    {
-                        intervalist.Clear();
-                        for (int i = 0; i < 6; i++)
-                        {
-                            intervalist.Add(i);
-                        }
-                    }
-                    index2 = Main.rand.Next(intervalist.Count);
-                    NPC.netUpdate = true;
-                    interval = intervalist[index2];
-                    intervalist.RemoveAt(index2);
-
-                    RandomDistance = Main.rand.Next(200);
-                    int dist = 200 * interval + (int)RandomDistance;
-                    Vector2 distV = NPC.Center - new Vector2(0f, dist).RotatedBy(rot);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), distV, Vector2.Zero, ModContent.ProjectileType<LifeScar>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, AI_Timer, endTime);
-                    NPC.netUpdate = true;
-                }
-            }
-
-            if (AI_Timer > endTime)
-            {
-
-                NPC.dontTakeDamage = false;
-                Flying = true;
-                oldstate = state;
-                StateReset();
-                rotspeed = 0;
-                rot = 0;
-            }
         }
         public void AttackFinal()
         {
@@ -2003,7 +2003,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 // NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
                 if (AI_Timer == 1 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    /*
+                    // ARC
                     int timeLeft = ((int)RandomWindup - 30);
                     for (int i = -1; i < 2; i+= 2)
                     {
@@ -2012,14 +2012,15 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = timeLeft;
                     }
-                    */
+                    // ARC
+
                     float ai0 = -(RandomWindup - 30);
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 12), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
 
                     if (!PhaseOne)
                     {
-                        /*
+                        // ARC
                         for (int i = -1; i < 2; i+= 2)
                         {
                             float rot = ((NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4)).ToRotation();
@@ -2027,7 +2028,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].timeLeft = timeLeft;
                         }
-                        */
+                        // ARC
+
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
                     }
@@ -2040,16 +2042,16 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             }
             if (AI_Timer == RandomWindup - 20 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                /*
+                // ARC
                 float rot1 = (NPC.Center - Player.Center).RotatedBy((-MathHelper.Pi / 12) + (RandomSide * MathHelper.Pi / 6)).ToRotation();
                 int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot1);
                 if (p1 != Main.maxProjectiles)
                     Main.projectile[p1].timeLeft = 20;
-                */
+                // ARC
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12 + RandomSide * MathHelper.Pi / 6), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
                 if (!PhaseOne)
                 {
-                    /*
+                    // ARC
                     for (int i = -1; i < 2; i+= 2)
                     {
                         float rot2 = (NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4).ToRotation();
@@ -2057,7 +2059,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                         if (p2 != Main.maxProjectiles)
                             Main.projectile[p2].timeLeft = 20;
                     }
-                    */
+                    // ARC
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
                 }
@@ -2428,7 +2430,14 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
             if (AI_Timer < ExpandTime) //expand
             {
-                RuneDistance = (float)(100 + Math.Pow(AI_Timer / 5, 2));
+                if (WorldSavingSystem.MasochistModeReal)
+                {
+                    RuneDistance = Math.Min((float)(100 + Math.Pow(AI_Timer / 5, 2)), 1200);
+                }
+                else
+                {
+                    RuneDistance = (float)(100 + Math.Pow(AI_Timer / 5, 2));
+                }
                 RPS += 0.0005f;
             }
 
@@ -2477,7 +2486,14 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             if (AI_Timer >= ExpandTime + AttackDuration) //retract
             {
                 HitPlayer = false; //stop dealing contact damage (anti-cheese)
-                RuneDistance = (float)(100 + Math.Pow((ExpandTime - (AI_Timer - ExpandTime - AttackDuration)) / 5, 2));
+                if (WorldSavingSystem.MasochistModeReal)
+                {
+                    RuneDistance = Math.Min((float)(100 + Math.Pow((ExpandTime - (AI_Timer - ExpandTime - AttackDuration)) / 5, 2)), 1200);
+                }
+                else
+                {
+                    RuneDistance = (float)(100 + Math.Pow((ExpandTime - (AI_Timer - ExpandTime - AttackDuration)) / 5, 2));
+                }
                 RPS -= 0.0005f;
             }
             if (AI_Timer >= ExpandTime + AttackDuration + ExpandTime)
@@ -2677,7 +2693,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     float RuneRotation = drawRot + MathHelper.PiOver2;
 
                     //rune glow
-                    for (int j = 0; j < 12; j++)
+                    for (int j = 0; j < RuneCount; j++)
                     {
                         Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f;
                         Color glowColor;
@@ -2689,11 +2705,40 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                         else //pink
                             glowColor = new Color(1, 192 / 255f, 203 / 255f, 0f) * 0.7f;
 
-                        Main.spriteBatch.Draw(RuneTexture, drawPos + afterimageOffset, null, NPC.GetAlpha(glowColor), RuneRotation, RuneTexture.Size() * 0.5f, NPC.scale, SpriteEffects.None, 0f);
+                        Main.spriteBatch.Draw(RuneTexture, drawPos + afterimageOffset, null, glowColor, RuneRotation, RuneTexture.Size() * 0.5f, NPC.scale, SpriteEffects.None, 0f);
                     }
-                    spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: drawColor, rotation: RuneRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
+                    spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: Color.White, rotation: RuneRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
                 }
 
+                //draw arena runes
+                if (DoAura)
+                {
+                    const int AuraRuneCount = 48;
+                    for (int i = 0; i < AuraRuneCount; i++)
+                    {
+                        float drawRot = (float)(BodyRotation + Math.PI * 2 / AuraRuneCount * i);
+                        Texture2D RuneTexture = ModContent.Request<Texture2D>(PartsPath + $"Rune{(i % RuneCount) + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                        Vector2 drawPos = NPC.Center + drawRot.ToRotationVector2() * (1100 + RuneDistance) - screenPos;
+                        float RuneRotation = drawRot + MathHelper.PiOver2;
+
+                        //rune glow
+                        for (int j = 0; j < AuraRuneCount; j++)
+                        {
+                            Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f;
+                            Color glowColor;
+
+                            if (i % 3 == 0) //cyan
+                                glowColor = new Color(0f, 1f, 1f, 0f) * 0.7f;
+                            else if (i % 3 == 1) //yellow
+                                glowColor = new Color(1f, 1f, 0f, 0f) * 0.7f;
+                            else //pink
+                                glowColor = new Color(1, 192 / 255f, 203 / 255f, 0f) * 0.7f;
+
+                            Main.spriteBatch.Draw(RuneTexture, drawPos + afterimageOffset, null, glowColor, RuneRotation, RuneTexture.Size() * 0.5f, NPC.scale, SpriteEffects.None, 0f);
+                        }
+                        spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: Color.White, rotation: RuneRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
+                    }
+                }
 
                 //draw wings
                 //draws 4 things: 2 upper wings, 2 lower wings
@@ -2908,10 +2953,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 				state = 100;
 			}
             */
-            if (!DidLaser && NPC.life < NPC.lifeMax / 3 && WorldSavingSystem.MasochistModeReal)
-            {
-                state = 100;
-            }
 
             if (!PhaseOne && NPC.life < SansThreshold)
             {

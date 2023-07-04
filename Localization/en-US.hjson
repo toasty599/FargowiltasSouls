@@ -5916,6 +5916,7 @@ Mods: {
 			JevilScar.DisplayName: Enchanted Lightblade
 			LifeBlaster.DisplayName: Life Blaster
 			LifeBomb.DisplayName: Life Mine
+			LifeTransitionBomb.DisplayName: Life Mine
 			LifeBombExplosion.DisplayName: Life Bomb
 			LifeCageExplosion.DisplayName: Cage Explosion
 			LifeCageProjectile.DisplayName: Life Cage
