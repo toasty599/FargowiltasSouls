@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Items.Consumables
 
                 SoundEngine.PlaySound(SoundID.Roar, player.Center);
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Thunder"), player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Thunder"), player.Center);
             }
             return true;
         }

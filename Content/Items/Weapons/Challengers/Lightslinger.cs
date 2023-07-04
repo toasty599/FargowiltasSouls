@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             else
             {
                 if (++player.GetModPlayer<FargoSoulsPlayer>().LightslingerHitShots >= ReqShots)
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/ChargeSound"), player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), player.Center);
             }
 
             return base.UseItem(player);

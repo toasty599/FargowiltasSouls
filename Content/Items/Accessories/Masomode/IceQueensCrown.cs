@@ -76,7 +76,7 @@ Press the Bomb key to use your freeze bomb
 
             if (!Main.dedServ)
             {
-                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Sounds/Graze") { Volume = 0.5f }, Main.LocalPlayer.Center);
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Graze") { Volume = 0.5f }, Main.LocalPlayer.Center);
             }
 
             Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);
