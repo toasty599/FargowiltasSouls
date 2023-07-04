@@ -1081,6 +1081,13 @@ namespace FargowiltasSouls.Core.Globals
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
+            if (OceanicMaul)
+                modifiers.ArmorPenetration += 20;
+            if (CurseoftheMoon)
+                modifiers.ArmorPenetration += 10;
+            if (Rotting)
+                modifiers.ArmorPenetration += 10;
+
             if (Smite)
             {
                 modifiers.FinalDamage *= 1.2f;

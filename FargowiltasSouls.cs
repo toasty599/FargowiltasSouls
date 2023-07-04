@@ -169,8 +169,6 @@ namespace FargowiltasSouls
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction += DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
 
             On_Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
-            // TODO: it's 7 am I'll do this after
-            // Terraria.On_NPC.checkArmorPenetration += CheckArmorPenetration;
             On_Player.AddBuff += AddBuff;
         }
 
@@ -202,22 +200,7 @@ namespace FargowiltasSouls
 
             return true;
         }
-        /*
-         private int CheckArmorPenetration(
-             On_NPC.orig_checkArmorPenetration orig,
-             NPC self,
-             int armorPenetration)
-         {
-             FargoSoulsGlobalNPC globalNPC = self.GetGlobalNPC<FargoSoulsGlobalNPC>();
-             if (globalNPC.OceanicMaul)
-                 armorPenetration += 20;
-             if (globalNPC.CurseoftheMoon)
-                 armorPenetration += 10;
-             if (globalNPC.Rotting)
-                 armorPenetration += 10;
-             return orig(self, armorPenetration);
-         }
-        */
+        
         private void AddBuff(
             Terraria.On_Player.orig_AddBuff orig,
             Player self, int type, int timeToAdd, bool quiet, bool foodHack)
