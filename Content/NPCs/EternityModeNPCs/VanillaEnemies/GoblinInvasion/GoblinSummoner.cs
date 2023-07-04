@@ -54,9 +54,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.GoblinIn
             }
         }
 
-        public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+            base.ModifyHitByAnything(npc, player, ref modifiers);
 
             if (Main.rand.NextBool(3) && Main.netMode != NetmodeID.MultiplayerClient)
             {

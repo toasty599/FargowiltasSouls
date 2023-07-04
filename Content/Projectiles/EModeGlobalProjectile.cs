@@ -1312,12 +1312,12 @@ namespace FargowiltasSouls.Content.Projectiles
                 return;
 
             if (NPC.downedGolemBoss && projectile.type == ProjectileID.VortexLightning)
-                damage *= 2;
+                modifiers.FinalDamage *= 2;
         }
 
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(projectile, target, damage, knockback, crit);
+            base.OnHitNPC(projectile, target, hit, damageDone);
 
             if (!WorldSavingSystem.EternityMode)
                 return;
@@ -1329,7 +1329,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         player.AddBuff(BuffID.RapidHealing, 60 * 5);
                     break;
                 case ProjectileID.CobaltNaginata:
-                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), damage / 2, 0f, Main.myPlayer);
+                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
                     if (p != null)
                         p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                     break;

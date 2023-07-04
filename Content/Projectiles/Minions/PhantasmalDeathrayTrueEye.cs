@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            crit = true;
+            modifiers.SetCrit();
         }
     }
 }

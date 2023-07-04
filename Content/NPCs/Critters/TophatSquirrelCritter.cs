@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.NPCs.Critters
         {
             if (NPC.life <= 0)
                 for (int k = 0; k < 20; k++)
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hitDirection, -1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f);
         }
     }
 }

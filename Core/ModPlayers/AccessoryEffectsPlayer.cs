@@ -1359,7 +1359,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     {
                         NPC npc = Main.npc[i];
                         if (npc.active && !npc.dontTakeDamage && npc.life == 1 && npc.lifeMax > 1)
-                            npc.StrikeNPC(9999, 0f, 0);
+                            npc.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                     }
                 }
             }
@@ -2018,7 +2018,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             ProjectileID.DD2LightningBugZap
         };
 
-        public void GroundStickCheck(Projectile proj, ref int damage)
+        public void GroundStickCheck(Projectile proj, ref Player.HurtModifiers modifiers)
         {
             if (!Player.GetToggleValue("MasoLightning"))
                 return;
@@ -2048,7 +2048,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (electricAttack && Player.whoAmI == Main.myPlayer && !Player.HasBuff(ModContent.BuffType<SuperchargedBuff>()))
             {
-                damage /= 2;
+                modifiers.FinalDamage /= 2;
 
                 Player.AddBuff(ModContent.BuffType<SuperchargedBuff>(), 60 * 30);
 
@@ -3007,7 +3007,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         #endregion maso acc
 
-        public bool TryParryAttack(ref int damage)
+        // TODO: rework this because we can only get final damage in hurtinfo hooks
+        public bool TryParryAttack(ref Player.HurtModifiers modifiers)
         {
             if (GuardRaised && shieldTimer > 0 && !Player.immune)
             {
@@ -3044,8 +3045,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
                 }
 
-                int damageBlocked = Math.Min(damageBlockCap, damage);
-                damage -= damageBlockCap;
+                int damageBlocked = /*Math.Min(damageBlockCap, damage);*/ 0;
+                modifiers.FinalDamage -= damageBlockCap;
 
                 if (DreadShellItem != null)
                 {
@@ -3069,7 +3070,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Player.buffImmune[debuff] = true;
                 }
             }
-            return damage <= 0; //return whether parry completely blocked the attack
+
+            return false;
+            // return damage <= 0; //return whether parry completely blocked the attack
         }
 
         private const int BASE_PARRY_WINDOW = 20;

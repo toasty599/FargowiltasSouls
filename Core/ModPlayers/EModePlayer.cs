@@ -63,14 +63,15 @@ namespace FargowiltasSouls.Core.ModPlayers
             ShorterDebuffsTimer = 0;
         }
 
-        public override void OnEnterWorld()
-        {
-            foreach (NPC npc in Main.npc.Where(npc => npc.active))
-            {
-                if (npc.TryGetGlobalNPC(out EModeNPCBehaviour eModeNPC, false))
-                    eModeNPC.TryLoadSprites(npc);
-            }
-        }
+        // TODO: null crash on TryGetGlobalNPC here 
+        // public override void OnEnterWorld()
+        // {
+        //     foreach (NPC npc in Main.npc.Where(npc => npc.active))
+        //     {
+        //         if (npc.TryGetGlobalNPC(out EModeNPCBehaviour eModeNPC, false))
+        //             eModeNPC.TryLoadSprites(npc);
+        //     }
+        // }
 
         public override void PreUpdate()
         {
@@ -328,7 +329,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                             damage *= 2;
 
                         if (Player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
-                            Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + " was pricked by a Cactus."), damage, 0, false, false, false, 0);
+                            Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + " was pricked by a Cactus."), damage, 0, false, false,  0, false);
                     }
                 }
             }
@@ -463,13 +464,13 @@ namespace FargowiltasSouls.Core.ModPlayers
             ShorterDebuffsTimer = MaxShorterDebuffsTimer;
 
             if (!WorldSavingSystem.EternityMode)
-                return base.ModifyHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
+                base.ModifyHurt(ref modifiers);
 
             //because NO MODIFY/ONHITPLAYER HOOK WORKS
-            if (damageSource.SourceProjectileType is int && damageSource.SourceProjectileType == ProjectileID.Explosives)
+            if (modifiers.DamageSource.SourceProjectileType is int && modifiers.DamageSource.SourceProjectileType == ProjectileID.Explosives)
                 Player.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
 
-            return base.ModifyHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
+            base.ModifyHurt(ref modifiers);
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -496,17 +497,17 @@ namespace FargowiltasSouls.Core.ModPlayers
             //    //shroomite headpieces
             //    if (item.useAmmo == AmmoID.Arrow || item.useAmmo == AmmoID.Stake)
             //    {
-            //        damage /= Player.arrowDamage.Multiplicative;
+            //        modifiers.FinalDamage Player.arrowDamage.Multiplicative;
             //        damage += Player.arrowDamage.Multiplicative - 1f;
             //    }
             //    else if (item.useAmmo == AmmoID.Bullet || item.useAmmo == AmmoID.CandyCorn)
             //    {
-            //        damage /= Player.bulletDamage.Multiplicative;
+            //        modifiers.FinalDamage /= Player.bulletDamage.Multiplicative;
             //        damage += Player.bulletDamage.Multiplicative - 1f;
             //    }
             //    else if (item.useAmmo == AmmoID.Rocket || item.useAmmo == AmmoID.StyngerBolt || item.useAmmo == AmmoID.JackOLantern || item.useAmmo == AmmoID.NailFriendly)
             //    {
-            //        damage /= Player.bulletDamage.Multiplicative;
+            //        modifiers.FinalDamage /= Player.bulletDamage.Multiplicative;
             //        damage += Player.bulletDamage.Multiplicative - 1f;
             //    }
             //}

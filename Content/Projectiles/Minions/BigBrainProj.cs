@@ -96,7 +96,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            damage = (int)(damage * Projectile.scale);
+            modifiers.FinalDamage *= Projectile.scale;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

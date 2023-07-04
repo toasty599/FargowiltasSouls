@@ -159,8 +159,8 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                 speedModifier = 0.1f;
             if (speedModifier > 1.5f)
                 speedModifier = 1.5f;
-            damage = (int)(damage * Math.Sqrt(Projectile.scale) * speedModifier);
-            knockback *= Math.Max(1f, Math.Abs(Projectile.velocity.X) * 1.5f);
+            modifiers.FinalDamage *= (float)Math.Sqrt(Projectile.scale) * speedModifier;
+            modifiers.Knockback *= Math.Max(1f, Math.Abs(Projectile.velocity.X) * 1.5f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

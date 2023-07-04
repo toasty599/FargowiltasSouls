@@ -335,32 +335,32 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return false;
         }
 
-        public override void SafeOnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        public override void SafeOnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
-            base.SafeOnHitByItem(npc, player, item, damage, knockback, crit);
+            base.SafeOnHitByItem(npc, player, item, hit, damageDone);
 
             if (item.CountsAsClass(DamageClass.Melee) || item.CountsAsClass(DamageClass.Throwing))
-                MeleeDamageCounter += damage;
+                MeleeDamageCounter += hit.Damage;
             if (item.CountsAsClass(DamageClass.Ranged))
-                RangedDamageCounter += damage;
+                RangedDamageCounter += hit.Damage;
             if (item.CountsAsClass(DamageClass.Magic))
-                MagicDamageCounter += damage;
+                MagicDamageCounter += hit.Damage;
             if (item.CountsAsClass(DamageClass.Summon))
-                MinionDamageCounter += damage;
+                MinionDamageCounter += hit.Damage;
         }
 
-        public override void SafeOnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        public override void SafeOnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            base.SafeOnHitByProjectile(npc, projectile, damage, knockback, crit);
+            base.SafeOnHitByProjectile(npc, projectile, hit, damageDone);
 
             if (projectile.CountsAsClass(DamageClass.Melee) || projectile.CountsAsClass(DamageClass.Throwing))
-                MeleeDamageCounter += damage;
+                MeleeDamageCounter += hit.Damage;
             if (projectile.CountsAsClass(DamageClass.Ranged))
-                RangedDamageCounter += damage;
+                RangedDamageCounter += hit.Damage;
             if (projectile.CountsAsClass(DamageClass.Magic))
-                MagicDamageCounter += damage;
+                MagicDamageCounter += hit.Damage;
             if (FargoSoulsUtil.IsSummonDamage(projectile))
-                MinionDamageCounter += damage;
+                MinionDamageCounter += hit.Damage;
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -478,7 +478,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void HitEffect(NPC npc, NPC.HitInfo hit)
         {
-            base.HitEffect(npc, hitDirection, damage);
+            base.HitEffect(npc, hit);
 
             if (!WorldSavingSystem.SwarmActive)
             {
@@ -554,7 +554,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 300);
             target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 300);
@@ -652,7 +652,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
         }
@@ -698,24 +698,24 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
-            damage *= Math.Min(1.0, DamageReductionTimer / 300.0);
+            modifiers.FinalDamage *= Math.Min(1.0f, DamageReductionTimer / 300.0f);
 
-            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            base.ModifyIncomingHit(npc, ref modifiers);
         }
 
-        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            base.SafeModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+            base.SafeModifyHitByProjectile(npc, projectile, ref modifiers);
 
             if (projectile.maxPenetrate > 1)
-                damage /= projectile.maxPenetrate;
+                modifiers.FinalDamage /= projectile.maxPenetrate;
             else if (projectile.maxPenetrate < 0)
-                damage /= 4;
+                modifiers.FinalDamage /= 4;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 300);
@@ -743,7 +743,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 300);

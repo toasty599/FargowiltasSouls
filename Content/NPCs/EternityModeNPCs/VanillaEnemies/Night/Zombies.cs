@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Night
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<RottingBuff>(), 300);
 
@@ -139,9 +139,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Night
 
         public override void OnHitNPC(NPC npc, NPC target, NPC.HitInfo hit)
         {
-            base.OnHitNPC(npc, target, damage, knockback, crit);
+            base.OnHitNPC(npc, target, hit);
 
-            if (target.townNPC && target.life < damage)
+            if (target.townNPC && (hit.InstantKill || target.life < hit.Damage))
             {
                 target.Transform(npc.type);
             }

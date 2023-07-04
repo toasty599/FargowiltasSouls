@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.aiStyle = -1;
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.damage = 0;
             NPC.lifeMax = 9999;
@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             {
                 NPC.life = 0;
                 NPC.HitEffect();
-                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                 NPC.active = false;
                 return;
             }

@@ -986,7 +986,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (stormTimer > 0)
-                damage = (int)(damage * (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6 : 1.3));
+                modifiers.FinalDamage *= Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6f : 1.3f;
 
             int AccountForDefenseShred(int modifier)
             {
@@ -1004,14 +1004,16 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (AdamModifier != 0)
             {
-                damage /= AdamModifier;
-                damage -= AccountForDefenseShred(AdamModifier);
+                modifiers.FinalDamage /= AdamModifier;
+                // TODO: maybe use defense here
+                modifiers.FinalDamage -= AccountForDefenseShred(AdamModifier);
             }
 
             if (NinjaSpeedup > 0)
             {
-                damage /= 2;
-                damage -= AccountForDefenseShred(2);
+                modifiers.FinalDamage /= 2;
+                // TODO: maybe use defense here
+                modifiers.FinalDamage -= AccountForDefenseShred(AdamModifier);
             }
 
             if (noInteractionWithNPCImmunityFrames)
@@ -1019,12 +1021,12 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
             {
-                crit = true;
+                modifiers.SetCrit();
             }
 
             if (tikiMinion && tikiTimer > MAX_TIKI_TIMER * projectile.MaxUpdates / 4)
             {
-                crit = true;
+                modifiers.SetCrit();
             }
         }
 
@@ -1111,12 +1113,13 @@ namespace FargowiltasSouls.Content.Projectiles
             NPC sourceNPC = projectile.GetSourceNPC();
             if (sourceNPC is not null && sourceNPC.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)
             {
-                damage = (int)Math.Round(damage * 1.3);
+                modifiers.FinalDamage *= 1.3f;
+                // damage = (int)Math.Round(damage * 1.3);
             }
 
             if (squeakyToy)
             {
-                damage = 1;
+                modifiers.SetMaxDamage(1);
                 FargoSoulsPlayer.Squeak(target.Center);
             }
         }

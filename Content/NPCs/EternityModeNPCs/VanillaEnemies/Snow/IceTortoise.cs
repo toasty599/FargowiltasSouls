@@ -8,19 +8,19 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Snow
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.IceTortoise);
 
-        public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+            base.ModifyHitByAnything(npc, player, ref modifiers);
 
             float reduction = (float)npc.life / npc.lifeMax;
             if (reduction < 0.5f)
                 reduction = 0.5f;
-            damage = (int)(damage * reduction);
+            modifiers.FinalDamage *= reduction;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 60);
         }

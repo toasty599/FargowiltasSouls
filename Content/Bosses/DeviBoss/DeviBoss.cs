@@ -23,6 +23,7 @@ using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Assets.ExtraTextures;
+using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Patreon.Phupperbat;
@@ -138,10 +139,10 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             //if (ContentModLoaded) NPC.lifeMax = (int)(NPC.lifeMax * 1.5);
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax /** 0.5f*/ * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax /** 0.5f*/ * balance);
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -153,7 +154,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             return NPC.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, NPC.Center)) < Player.defaultHeight;
         }
 
-        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */
+        public override bool CanHitNPC(NPC target)
         {
             if (target.type == ModContent.Find<ModNPC>("Fargowiltas", "Deviantt").Type
                 || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Abominationn").Type
@@ -2086,31 +2087,33 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
         {
             //if (Item.melee && !ContentModLoaded) damage = (int)(damage * 1.25);
 
-            ModifyHitByAnything(player, ref damage, ref knockback, ref crit);
+            ModifyHitByAnything(player, ref modifiers);
         }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             //if ((projectile.melee || projectile.minion) && !ContentModLoaded) damage = (int)(damage * 1.25);
 
-            ModifyHitByAnything(Main.player[projectile.owner], ref damage, ref knockback, ref crit);
+            ModifyHitByAnything(Main.player[projectile.owner], ref modifiers);
         }
 
-        public void ModifyHitByAnything(Player player, ref int damage, ref float knockback, ref bool crit)
+        public void ModifyHitByAnything(Player player, ref NPC.HitModifiers hitModifiers)
         {
             if (player.loveStruck)
             {
-                /*npc.life += damage;
-                if (npc.life > npc.lifeMax)
-                    npc.life = npc.lifeMax;
-                CombatText.NewText(npc.Hitbox, CombatText.HealLife, damage);*/
+                hitModifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
+                {
+                    /*npc.life += damage;
+                    if (npc.life > npc.lifeMax)
+                        npc.life = npc.lifeMax;
+                    CombatText.NewText(npc.Hitbox, CombatText.HealLife, damage);*/
 
-                Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
-                float ai1 = 30 + Main.rand.Next(30);
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), damage, 0f, Main.myPlayer, NPC.whoAmI, ai1);
+                    Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
+                    float ai1 = 30 + Main.rand.Next(30);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), hitInfo.Damage, 0f, Main.myPlayer, NPC.whoAmI, ai1);
 
-                damage = 0;
-                crit = false;
+                    hitInfo.Null();
+                };
             }
         }
 

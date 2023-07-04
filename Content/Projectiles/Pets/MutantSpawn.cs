@@ -107,7 +107,8 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
                         if (Projectile.owner == Main.myPlayer)
                         {
                             SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
-                            player.Hurt(Terraria.DataStructures.PlayerDeathReason.ByOther(6), 777, 0, false, false, false, -1);
+                            // TODO: figure out old args
+                            player.Hurt(Terraria.DataStructures.PlayerDeathReason.ByOther(6), 777, 0, false, false, -1, false);
                             player.immune = false;
                             player.immuneTime = 0;
                         }

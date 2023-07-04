@@ -126,9 +126,9 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && target.type == modNPC.Type)
-                damage *= 4;
+                modifiers.FinalDamage *= 4;
             if (target.type == ModContent.NPCType<DeviBoss.DeviBoss>())
-                damage *= 12;
+                modifiers.FinalDamage *= 12;
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)

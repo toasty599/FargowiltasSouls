@@ -1188,7 +1188,7 @@ namespace FargowiltasSouls.Core.Globals
         {
             if (WorldSavingSystem.EternityMode && BeetleOffenseAura)
             {
-                damage = (int)(damage * 1.25f);
+                modifiers.FinalDamage *= 1.25f;
             }
         }
 
@@ -1221,17 +1221,17 @@ namespace FargowiltasSouls.Core.Globals
             if (WorldSavingSystem.EternityMode)
             {
                 if (BeetleDefenseAura)
-                    damage *= 0.75;
+                    modifiers.FinalDamage *= 0.75f;
 
                 if (PaladinsShield)
-                    damage *= 0.5;
+                    modifiers.FinalDamage *= 0.5f;
 
                 if (WorldSavingSystem.MasochistModeReal && (npc.boss || FargoSoulsUtil.AnyBossAlive() && npc.Distance(Main.npc[FargoSoulsGlobalNPC.boss].Center) < 3000))
-                    damage *= 0.9;
+                    modifiers.FinalDamage *= 0.9f;
             }
 
             //normal damage calc
-            return base.ModifyIncomingHit(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+            base.ModifyIncomingHit(npc, ref modifiers);
         }
 
         //make aura enemies display them one day(tm)
@@ -1310,7 +1310,7 @@ namespace FargowiltasSouls.Core.Globals
                     {
                         NPC newNPC = Main.npc[j];
                         newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;
-                        newNPC.GetGlobalNPC<EModeNPCBehaviour>(false).FirstTick = false;
+                        newNPC.GetGlobalNPC<EModeNPCBehaviour>().FirstTick = false;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, j);
                     }

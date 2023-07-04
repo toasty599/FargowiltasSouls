@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            base.OnHitPlayer(target, damage, crit);
+            base.OnHitPlayer(target, info);
 
             if (WorldSavingSystem.EternityMode)
             {

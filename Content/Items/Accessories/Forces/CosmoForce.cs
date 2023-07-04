@@ -35,27 +35,28 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
 "'Been around since the Big Bang'";
             // Tooltip.SetDefault(tooltip);
 
-            string tooltip_ch =
-@"[i:{0}] 攻击时每过几秒便会召唤一次流星雨
-[i:{1}] 允许你使用日耀护盾进行冲刺
-[i:{1}] 攻击有几率造成太阳耀斑减益
-[i:{2}] 双击“下”键切换至隐形模式，生成一个旋涡
-[i:{3}] 对敌人造成伤害时有几率生成强化焰
-[i:{4}] 星尘守卫将保护你不受附近敌人的伤害
-[i:{4}] 按下“冻结”键后会冻结时间，持续9秒，有60秒冷却时间
-“自宇宙大爆炸以来就一直存在”";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, string.Format(tooltip_ch, Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
-
-            string tooltip_pt =
-@"[i:{0}] Uma chuva de meteoros é iniciada a cada poucos segundos enquanto você ataca
-[i:{1}] O escudo solar permite fazer uma corrida através dos inimigos
-[i:{1}] Ataques podem infligir o efeito negativo Chamas do Sol
-[i:{2}] Aperte duas vezes para baixo para entrar no modo sorrateiro e invocar um vórtice
-[i:{3}] Ferir inimigos tem uma chance de gerar impulsos de reforços
-[i:{4}] Um guardião de pó das estrelas protegerá você dos inimigos próximos
-[i:{4}] Aperte a tecla Congelar para congelar o tempo por 9 segundos, tempo de recarga de 60 segundos
-'Estive por aí desde o Big Bang'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Portuguese, string.Format(tooltip_pt, Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
+            // TODO: localization
+//             string tooltip_ch =
+// @"[i:{0}] 攻击时每过几秒便会召唤一次流星雨
+// [i:{1}] 允许你使用日耀护盾进行冲刺
+// [i:{1}] 攻击有几率造成太阳耀斑减益
+// [i:{2}] 双击“下”键切换至隐形模式，生成一个旋涡
+// [i:{3}] 对敌人造成伤害时有几率生成强化焰
+// [i:{4}] 星尘守卫将保护你不受附近敌人的伤害
+// [i:{4}] 按下“冻结”键后会冻结时间，持续9秒，有60秒冷却时间
+// “自宇宙大爆炸以来就一直存在”";
+//             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, string.Format(tooltip_ch, Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
+//
+//             string tooltip_pt =
+// @"[i:{0}] Uma chuva de meteoros é iniciada a cada poucos segundos enquanto você ataca
+// [i:{1}] O escudo solar permite fazer uma corrida através dos inimigos
+// [i:{1}] Ataques podem infligir o efeito negativo Chamas do Sol
+// [i:{2}] Aperte duas vezes para baixo para entrar no modo sorrateiro e invocar um vórtice
+// [i:{3}] Ferir inimigos tem uma chance de gerar impulsos de reforços
+// [i:{4}] Um guardião de pó das estrelas protegerá você dos inimigos próximos
+// [i:{4}] Aperte a tecla Congelar para congelar o tempo por 9 segundos, tempo de recarga de 60 segundos
+// 'Estive por aí desde o Big Bang'";
+//             Tooltip.AddTranslation((int)GameCulture.CultureName.Portuguese, string.Format(tooltip_pt, Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4]));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -194,13 +194,13 @@ namespace FargowiltasSouls.Content.Patreon.Volknet
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
             //if (NanoCoreMode == 0 && Player.HeldItem.type == ModContent.ItemType<NanoCore>() && Player.channel)
-            //    damage /= 2;
+            //    modifiers.FinalDamage /= 2;
         }
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
             //if (NanoCoreMode == 0 && Player.HeldItem.type == ModContent.ItemType<NanoCore>() && Player.channel)
-            //    damage /= 2;
+            //    modifiers.FinalDamage /= 2;
         }
     }
 }

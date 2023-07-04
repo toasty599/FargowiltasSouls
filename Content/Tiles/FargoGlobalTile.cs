@@ -216,7 +216,8 @@ namespace FargowiltasSouls.Content.Tiles
                 float distance = Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8));
                 if (distance > 100 && distance < 1000)
                 {
-                    Framing.GetTileSafely(i, j).IsActuated = false;
+                    var tileSafely = Framing.GetTileSafely(i, j);
+                    tileSafely.IsActuated = false;
                     //if (Main.netMode == NetmodeID.Server)
                     //    NetMessage.SendTileSquare(-1, i, j, 1);
                 }

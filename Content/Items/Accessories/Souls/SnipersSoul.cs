@@ -72,7 +72,7 @@ hive pack*/
             .AddIngredient(ItemID.SniperRifle)
             .AddIngredient(ItemID.Tsunami)
             .AddIngredient(ItemID.StakeLauncher)
-            .AddIngredient(ItemID.EldMelter)
+            .AddIngredient(ItemID.ElfMelter)
             .AddIngredient(ItemID.Xenopopper)
             .AddIngredient(ItemID.Celeb2)
 

@@ -145,12 +145,12 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            damage = (int)(damage * Math.Min(1f, 0.1f + 0.9f * Spinup));
+            modifiers.FinalDamage *= Math.Min(1f, 0.1f + 0.9f * Spinup);
         }
 
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
-            damage = (int)(damage * Math.Min(1f, 0.1f + 0.9f * Spinup));
+            modifiers.FinalDamage *= Math.Min(1f, 0.1f + 0.9f * Spinup);
         }
 
         public override Color? GetAlpha(Color lightColor)

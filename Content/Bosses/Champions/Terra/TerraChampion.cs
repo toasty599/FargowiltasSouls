@@ -87,10 +87,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             NPC.scale *= 1.5f;
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             //NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -738,9 +738,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
 
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            //if (NPC.ai[3] == 1) damage /= 10;
-            if (NPC.life < NPC.lifeMax / 10) damage /= 3;
-            return true;
+            //if (NPC.ai[3] == 1) modifiers.FinalDamage /= 10;
+            if (NPC.life < NPC.lifeMax / 10) modifiers.FinalDamage /= 3;
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)

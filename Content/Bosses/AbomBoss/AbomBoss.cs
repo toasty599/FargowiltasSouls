@@ -100,10 +100,10 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             SceneEffectPriority = SceneEffectPriority.BossMedium;
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax /** 0.5f*/ * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax /** 0.5f*/ * balance);
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             return NPC.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, NPC.Center)) < Player.defaultHeight && NPC.ai[0] != 0 && NPC.ai[0] != 10 && NPC.ai[0] != 18;
         }
 
-        public override bool CanHitNPC(NPC target)/* tModPorter Suggestion: Return true instead of null */
+        public override bool CanHitNPC(NPC target)
         {
             if (target.type == ModContent.Find<ModNPC>("Fargowiltas", "Deviantt").Type
                 || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Abominationn").Type
@@ -1514,7 +1514,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         //public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         //{
         //    if (NPC.localAI[3] > 1 && Main.expertMode)
-        //        damage /= 2;
+        //        modifiers.FinalDamage /= 2;
 
         //    return true;
         //}

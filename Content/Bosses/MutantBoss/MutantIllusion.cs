@@ -17,7 +17,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Mutant");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体");
+            // TODO: localization
+            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体");
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
@@ -62,10 +63,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             NPC.aiStyle = -1;
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.damage = (int)(NPC.damage * 0.5f);
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.5f * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.5f * balance);
         }
 
         public override bool CanHitPlayer(Player target, ref int CooldownSlot)
@@ -80,7 +81,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 NPC.life = 0;
                 NPC.HitEffect();
-                NPC.StrikeNPCNoInteraction(9999, 0f, 0);
+                NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                 NPC.active = false;
                 for (int i = 0; i < 40; i++)
                 {

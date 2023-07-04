@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            crit = false;
+            modifiers.DisableCrit();
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -98,7 +98,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
                 if (p.active && p.type == Projectile.type && p != Projectile && Projectile.Hitbox.Intersects(p.Hitbox))
                 {
-                    target.StrikeNPC(damage / 2, 0, 0, true); //normal damage but looks like a crit ech
+                    target.SimpleStrikeNPC(Projectile.damage / 2, 0, noPlayerInteraction: true, crit: false);
+                    // target.StrikeNPC(damage / 2, 0, 0, true); //normal damage but looks like a crit ech
                     target.AddBuff(BuffID.Poisoned, 600);
                     DustRing(p, 16);
                     p.Kill();

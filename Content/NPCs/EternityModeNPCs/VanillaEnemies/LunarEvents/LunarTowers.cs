@@ -2,6 +2,7 @@ using System.IO;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using System;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -77,8 +78,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
             }
 
-            if (SpawnedDuringLunarEvent && ShieldStrength > NPC.LunarShieldPowerExpert)
-                ShieldStrength = NPC.LunarShieldPowerExpert;
+            if (SpawnedDuringLunarEvent && ShieldStrength > NPC.LunarShieldPowerMax)
+                ShieldStrength = NPC.LunarShieldPowerMax;
 
             void Aura(int debuff)
             {
@@ -126,7 +127,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             if (!WorldSavingSystem.EternityMode)
                 return;
@@ -134,14 +135,21 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
         }
 
-        public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+            base.ModifyHitByAnything(npc, player, ref modifiers);
 
             if (!WorldSavingSystem.EternityMode)
                 return;
 
-            damage = npc.Distance(player.Center) > 2500 ? 0 : damage / 2;
+            if (npc.Distance(player.Center) > 2500)
+            {
+                modifiers.Null();
+            }
+            else
+            {
+                modifiers.FinalDamage /= 2;
+            }
         }
     }
 

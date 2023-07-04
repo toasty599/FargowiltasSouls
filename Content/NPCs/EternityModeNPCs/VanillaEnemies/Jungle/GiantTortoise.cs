@@ -31,17 +31,17 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
                 && (npc.Distance(Main.player[npc.target].Center) < 10 * 16 || Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0));
         }
 
-        public override void SafeOnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        public override void SafeOnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
-            base.SafeOnHitByItem(npc, player, item, damage, knockback, crit);
+            base.SafeOnHitByItem(npc, player, item, hit, damageDone);
 
             if (npc.type == NPCID.GiantTortoise)
-                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was impaled by a Giant Tortoise."), damage / 2, 0);
+                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was impaled by a Giant Tortoise."), hit.Damage / 2, 0);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
 

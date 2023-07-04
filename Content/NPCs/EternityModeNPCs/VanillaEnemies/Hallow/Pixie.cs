@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
 
         public override void OnHitNPC(NPC npc, NPC target, NPC.HitInfo hit)
         {
-            base.OnHitNPC(npc, target, damage, knockback, crit);
+            base.OnHitNPC(npc, target, hit);
 
             target.AddBuff(ModContent.BuffType<UnluckyBuff>(), 60 * 30);
         }

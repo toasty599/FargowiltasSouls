@@ -32,9 +32,6 @@ namespace FargowiltasSouls.Content.BossBars
 
             bossHeadIndex = npc.GetBossHeadTextureIndex();
 
-            int life = npc.life;
-            int lifeMax = npc.lifeMax;
-
             bool retval = true;
 
             if (npc.ModNPC is TrojanSquirrel trojanSquirrel)
@@ -51,27 +48,24 @@ namespace FargowiltasSouls.Content.BossBars
             {
                 if (npc.ai[0] == -1)
                 {
-                    shieldPercent = 1;
+                    shield = 1;
+                    shieldMax = 1;
+                    // shieldPercent = 1;
                 }
                 else
                 {
-                    int ballCount = 0;
-                    int untouchedBalls = 0;
                     foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<ShadowOrbNPC>() && n.ai[0] == npc.whoAmI))
                     {
-                        ballCount++;
+                        shieldMax++;
                         if (!n.dontTakeDamage)
-                            untouchedBalls++;
+                            shield++;
                     }
-                    shieldPercent = Utils.Clamp((float)untouchedBalls / ballCount, 0f, 1f);
                 }
             }
             else
             {
                 retval = false;
             }
-
-            lifePercent = Utils.Clamp((float)life / lifeMax, 0f, 1f);
 
             return retval;
         }

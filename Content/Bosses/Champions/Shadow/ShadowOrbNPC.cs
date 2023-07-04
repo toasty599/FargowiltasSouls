@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.IO;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
@@ -15,7 +16,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Shadow Orb");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影珠");
+            // TODO: localization
+            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影珠");
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
@@ -54,7 +56,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             NPC.chaseable = false;
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = 9999;
         }
@@ -132,7 +134,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             NPC.dontTakeDamage = true;
             NPC.localAI[3] = 1;
             NPC.netUpdate = true;
-            damage = 0;
+            modifiers.Null();
 
             SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
@@ -146,13 +148,11 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 Main.dust[num228].noGravity = true;
                 Main.dust[num228].velocity = vector7;
             }
-
-            return false;
         }
 
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            damage = 0;
+            modifiers.Null();
             NPC.life++;
         }
 
@@ -163,7 +163,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 projectile.penetrate = 0;
                 projectile.timeLeft = 0;
             }
-            damage = 0;
+            modifiers.Null();
             NPC.life++;
         }
 

@@ -114,7 +114,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                     {
                         if (modPlayer.WoodForce && npc.life < 200 && !npc.boss && !(npc.realLife > -1 && Main.npc[npc.realLife].active && Main.npc[npc.realLife].boss))
                         {
-                            npc.StrikeNPC(npc.lifeMax + npc.defense, 0f, 0);
+                            npc.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
                         }
                         else if (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0))
                         {

@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Crimson
                     foreach (NPC target in Main.npc.Where(
                       n => n.active && n.type != npc.type && !n.boss && n.CanBeChasedBy() && npc.Distance(n.Center) < 300 && npc.Hitbox.Intersects(n.Hitbox)))
                     {
-                        target.StrikeNPC(npc.damage, 4f, Math.Sign(target.Center.X - npc.Center.X));
+                        target.SimpleStrikeNPC(npc.damage, Math.Sign(target.Center.X - npc.Center.X), knockBack: 4f);
 
                         OnHitSomething(npc, npc.damage);
 
@@ -93,11 +93,11 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Crimson
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPlayer(npc, target, damage, crit);
+            base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Bleeding, 300);
 
-            OnHitSomething(npc, damage);
+            OnHitSomething(npc, hurtInfo.Damage);
 
             npc.netUpdate = true;
             NetSync(npc, false);

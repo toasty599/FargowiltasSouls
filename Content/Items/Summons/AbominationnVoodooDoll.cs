@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Items.Summons
                         else if (abom != null)
                         {
                             abom.life = 0;
-                            abom.StrikeNPC(9999, 0f, 0);
+                            abom.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
 
                             FargoSoulsUtil.SpawnBossNetcoded(Main.player[p], ModContent.NPCType<MutantBoss>(), false);
 

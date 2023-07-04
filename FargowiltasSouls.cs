@@ -168,13 +168,14 @@ namespace FargowiltasSouls
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop += DropBasedOnMasterOrEMode_CanDrop;
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction += DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
 
-            Terraria.On_Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
-            Terraria.On_NPC.checkArmorPenetration += CheckArmorPenetration;
-            Terraria.On_Player.AddBuff += AddBuff;
+            On_Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
+            // TODO: it's 7 am I'll do this after
+            // Terraria.On_NPC.checkArmorPenetration += CheckArmorPenetration;
+            On_Player.AddBuff += AddBuff;
         }
 
         private static bool LifeRevitalizer_CheckSpawn_Internal(
-            Terraria.On_Player.orig_CheckSpawn_Internal orig,
+            On_Player.orig_CheckSpawn_Internal orig,
             int x, int y)
         {
             if (orig(x, y))
@@ -202,20 +203,20 @@ namespace FargowiltasSouls
             return true;
         }
 
-        private int CheckArmorPenetration(
-            On_NPC.orig_checkArmorPenetration orig,
-            NPC self,
-            int armorPenetration)
-        {
-            FargoSoulsGlobalNPC globalNPC = self.GetGlobalNPC<FargoSoulsGlobalNPC>();
-            if (globalNPC.OceanicMaul)
-                armorPenetration += 20;
-            if (globalNPC.CurseoftheMoon)
-                armorPenetration += 10;
-            if (globalNPC.Rotting)
-                armorPenetration += 10;
-            return orig(self, armorPenetration);
-        }
+        // private int CheckArmorPenetration(
+        //     On_NPC.orig_checkArmorPenetration orig,
+        //     NPC self,
+        //     int armorPenetration)
+        // {
+        //     FargoSoulsGlobalNPC globalNPC = self.GetGlobalNPC<FargoSoulsGlobalNPC>();
+        //     if (globalNPC.OceanicMaul)
+        //         armorPenetration += 20;
+        //     if (globalNPC.CurseoftheMoon)
+        //         armorPenetration += 10;
+        //     if (globalNPC.Rotting)
+        //         armorPenetration += 10;
+        //     return orig(self, armorPenetration);
+        // }
 
         private void AddBuff(
             Terraria.On_Player.orig_AddBuff orig,
@@ -279,7 +280,7 @@ namespace FargowiltasSouls
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop -= DropBasedOnMasterOrEMode_CanDrop;
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction -= DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
 
-            NPC.LunarShieldPowerExpert = 150;
+            NPC.LunarShieldPowerMax = 150;
 
             static void RestoreSprites(Dictionary<int, Asset<Texture2D>> buffer, Asset<Texture2D>[] original)
             {

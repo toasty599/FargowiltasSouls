@@ -36,9 +36,7 @@ namespace FargowiltasSouls
 
             void Add(string key, string message)
             {
-                LocalizedText text = Language.GetOrRegister(Instance, key);
-                // text.SetDefault(message);
-                LocalizationLoader.AddTranslation(text)/* tModPorter Note: Removed. Use Language.GetOrRegister */;
+                Language.GetOrRegister(key, () => message);
             }
 
             void AddBossSpawnInfo(string bossName, string spawnInfo)
@@ -48,9 +46,7 @@ namespace FargowiltasSouls
 
             void AddToggle(string toggle, int item, string color = "ffffff")
             {
-                LocalizedText text = Language.GetOrRegister(Instance, toggle);
-                // text.SetDefault($"[i:{item}] [c/{color}:{{$Mods.{Name}.Toggler.{toggle}}}]");
-                LocalizationLoader.AddTranslation(text)/* tModPorter Note: Removed. Use Language.GetOrRegister */;
+                Language.GetOrRegister(toggle, () => $"[i:{item}] [c/{color}:{{$Mods.{Name}.Toggler.{toggle}}}]");
             }
 
             #endregion helpers
