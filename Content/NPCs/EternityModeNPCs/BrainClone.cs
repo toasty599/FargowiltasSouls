@@ -3,6 +3,7 @@ using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -209,8 +210,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage.Flat = 0;
-            modifiers.DisableCrit();
+            modifiers.Null();
         }
 
         public override void HitEffect(NPC.HitInfo hit)

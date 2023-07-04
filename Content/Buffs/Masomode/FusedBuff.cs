@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
                 player.immune = false;
                 player.immuneTime = 0;
                 int damage = (int)(Math.Max(player.statLife, player.statLifeMax) * 2.0 / 3.0);
-                // TODO: I have no idea what previous falses were
+                // TODO: 1.4.4 porting: I have no idea what previous falses were
                 player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.Fused", player.name)), damage, 0, dodgeable: false);
                 Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<FusedExplosion>(), damage, 12f, Main.myPlayer);
             }

@@ -3007,6 +3007,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         #endregion maso acc
 
+        // TODO: rework this because we can only get final damage in hurtinfo hooks
         public bool TryParryAttack(ref Player.HurtModifiers modifiers)
         {
             if (GuardRaised && shieldTimer > 0 && !Player.immune)
@@ -3044,7 +3045,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
                 }
 
-                int damageBlocked = Math.Min(damageBlockCap, (int)modifiers.FinalDamage.Flat);
+                int damageBlocked = /*Math.Min(damageBlockCap, damage);*/ 0;
                 modifiers.FinalDamage -= damageBlockCap;
 
                 if (DreadShellItem != null)
@@ -3069,7 +3070,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Player.buffImmune[debuff] = true;
                 }
             }
-            return modifiers.FinalDamage.Flat <= 0; //return whether parry completely blocked the attack
+
+            return false;
+            // return damage <= 0; //return whether parry completely blocked the attack
         }
 
         private const int BASE_PARRY_WINDOW = 20;

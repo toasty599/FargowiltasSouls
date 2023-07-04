@@ -51,13 +51,16 @@ This does not affect hits dealing less than 10 damage
             {
                 player.ClearBuff(ModContent.BuffType<CrimsonRegenBuff>());
             }
-            //start new heal
-            else if (modifiers.FinalDamage.Flat >= 10)
+            else
             {
-                player.AddBuff(ModContent.BuffType<CrimsonRegenBuff>(), 300);
-
-                int totalToRegen = (int)modifiers.FinalDamage.Flat / 2;
-                modPlayer.CrimsonRegenAmount = (int)(totalToRegen / 5f * 2f);
+                modifiers.ModifyHurtInfo += (ref Player.HurtInfo hurtInfo) =>
+                {
+                    if (hurtInfo.Damage < 10) return;
+                    player.AddBuff(ModContent.BuffType<CrimsonRegenBuff>(), 300);
+                        
+                    int totalToRegen = hurtInfo.Damage / 2;
+                    modPlayer.CrimsonRegenAmount = (int)(totalToRegen / 5f * 2f);
+                };
             }
         }
 

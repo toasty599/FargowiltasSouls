@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Common.Utilities;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -32,7 +33,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
                 if (doTheTeleport)
                 {
                     FargoSoulsUtil.GrossVanillaDodgeDust(npc);
-                    modifiers.FinalDamage.Flat = 0;
+                    modifiers.Null();
                     npc.Center = teleportTarget;
                     npc.netUpdate = true;
                     FargoSoulsUtil.GrossVanillaDodgeDust(npc);

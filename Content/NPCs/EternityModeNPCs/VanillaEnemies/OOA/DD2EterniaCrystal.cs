@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Common.Utilities;
+using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using FargowiltasSouls.Core.Globals;
@@ -38,7 +39,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.OOA
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (InvulTimer > 0)
-                modifiers.FinalDamage.Flat = 0;
+                modifiers.Null();
 
             base.ModifyIncomingHit(npc, ref modifiers);
         }

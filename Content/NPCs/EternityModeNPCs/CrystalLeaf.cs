@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -198,7 +199,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage.Flat = 0;
+            modifiers.Null();
             NPC.life++;
         }
 
@@ -206,7 +207,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         {
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))
                 projectile.penetrate = 0;
-            modifiers.FinalDamage.Flat = 0;
+            modifiers.Null();
             NPC.life++;
         }
 

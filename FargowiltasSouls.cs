@@ -168,14 +168,14 @@ namespace FargowiltasSouls
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop += DropBasedOnMasterOrEMode_CanDrop;
             //On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction += DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
 
-            Terraria.On_Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
+            On_Player.CheckSpawn_Internal += LifeRevitalizer_CheckSpawn_Internal;
             // TODO: it's 7 am I'll do this after
             // Terraria.On_NPC.checkArmorPenetration += CheckArmorPenetration;
-            Terraria.On_Player.AddBuff += AddBuff;
+            On_Player.AddBuff += AddBuff;
         }
 
         private static bool LifeRevitalizer_CheckSpawn_Internal(
-            Terraria.On_Player.orig_CheckSpawn_Internal orig,
+            On_Player.orig_CheckSpawn_Internal orig,
             int x, int y)
         {
             if (orig(x, y))

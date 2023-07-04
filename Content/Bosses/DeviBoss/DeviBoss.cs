@@ -23,6 +23,7 @@ using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Assets.ExtraTextures;
+using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Patreon.Phupperbat;
@@ -2100,18 +2101,19 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
         {
             if (player.loveStruck)
             {
-                /*npc.life += damage;
-                if (npc.life > npc.lifeMax)
-                    npc.life = npc.lifeMax;
-                CombatText.NewText(npc.Hitbox, CombatText.HealLife, damage);*/
+                hitModifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
+                {
+                    /*npc.life += damage;
+                    if (npc.life > npc.lifeMax)
+                        npc.life = npc.lifeMax;
+                    CombatText.NewText(npc.Hitbox, CombatText.HealLife, damage);*/
 
-                Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
-                float ai1 = 30 + Main.rand.Next(30);
-                // TODO: should we be using FinalDamage.Flat here?
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), (int)hitModifiers.FinalDamage.Flat, 0f, Main.myPlayer, NPC.whoAmI, ai1);
+                    Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
+                    float ai1 = 30 + Main.rand.Next(30);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), hitInfo.Damage, 0f, Main.myPlayer, NPC.whoAmI, ai1);
 
-                hitModifiers.FinalDamage.Flat = 0;
-                hitModifiers.DisableCrit();
+                    hitInfo.Null();
+                };
             }
         }
 

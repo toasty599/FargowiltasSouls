@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -87,12 +88,13 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
 
             if (player.loveStruck)
             {
-                Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
-                float ai1 = 30 + Main.rand.Next(30);
-                Projectile.NewProjectile(npc.GetSource_FromThis(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), (int)modifiers.FinalDamage.Flat, 0f, Main.myPlayer, npc.whoAmI, ai1);
-
-                modifiers.FinalDamage.Flat = 0;
-                modifiers.DisableCrit();
+                modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
+                {
+                    Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
+                    float ai1 = 30 + Main.rand.Next(30);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), hitInfo.Damage, 0f, Main.myPlayer, npc.whoAmI, ai1);
+                    hitInfo.Null();
+                };
             }
         }
 

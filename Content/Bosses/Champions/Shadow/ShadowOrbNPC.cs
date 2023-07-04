@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.IO;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
@@ -133,7 +134,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             NPC.dontTakeDamage = true;
             NPC.localAI[3] = 1;
             NPC.netUpdate = true;
-            modifiers.FinalDamage.Flat = 0;
+            modifiers.Null();
 
             SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
@@ -151,7 +152,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage.Flat = 0;
+            modifiers.Null();
             NPC.life++;
         }
 
@@ -162,7 +163,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 projectile.penetrate = 0;
                 projectile.timeLeft = 0;
             }
-            modifiers.FinalDamage.Flat = 0;
+            modifiers.Null();
             NPC.life++;
         }
 

@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
 
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage.Flat = 1;
+            modifiers.SetMaxDamage(1);
             modifiers.DisableCrit();
         }
 

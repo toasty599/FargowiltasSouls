@@ -2,6 +2,7 @@ using System.IO;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using System;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -143,7 +144,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
             if (npc.Distance(player.Center) > 2500)
             {
-                modifiers.FinalDamage.Flat = 0;
+                modifiers.Null();
             }
             else
             {

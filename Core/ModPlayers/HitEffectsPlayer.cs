@@ -7,7 +7,7 @@ using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
-
+using FargowiltasSouls.Common.Utilities;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
@@ -69,9 +69,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     target.life = target.lifeMax;
                 }
 
-                modifiers.FinalDamage *= 0f;
-                modifiers.Knockback *= 0;
-                modifiers.DisableCrit();
+                modifiers.Null();
                 return;
 
             }
@@ -85,16 +83,12 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Asocial && FargoSoulsUtil.IsSummonDamage(proj, true, false))
             {
-                modifiers.FinalDamage *= 0f;
-                modifiers.Knockback *= 0;
-                modifiers.DisableCrit();
+                modifiers.Null();
             }
 
             if (Atrophied && (proj.CountsAsClass(DamageClass.Melee) || proj.CountsAsClass(DamageClass.Throwing)))
             {
-                modifiers.FinalDamage.Flat = 0;
-                modifiers.Knockback.Flat = 0;
-                modifiers.DisableCrit();
+                modifiers.Null();
             }
 
             if (TungstenEnchantItem != null && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale != 1)
@@ -119,18 +113,18 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Hexed || (ReverseManaFlow && item.CountsAsClass(DamageClass.Magic)))
             {
-                // TODO: I doubt flat thing works
-                target.life += (int)modifiers.FinalDamage.Flat;
-                target.HealEffect((int)modifiers.FinalDamage.Flat);
-
-                if (target.life > target.lifeMax)
+                modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
                 {
-                    target.life = target.lifeMax;
-                }
+                    target.life += hitInfo.Damage;
+                    target.HealEffect(hitInfo.Damage);
 
-                modifiers.FinalDamage *= 0;
-                modifiers.Knockback *= 0;
-                modifiers.DisableCrit();
+                    if (target.life > target.lifeMax)
+                    {
+                        target.life = target.lifeMax;
+                    }
+                    
+                    hitInfo.Null();
+                };
 
                 return;
 
@@ -138,16 +132,14 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (SqueakyToy)
             {
-                modifiers.FinalDamage.Flat = 1;
+                modifiers.SetMaxDamage(1);
                 Squeak(target.Center);
                 return;
             }
 
             if (Atrophied)
             {
-                modifiers.FinalDamage *= 0;
-                modifiers.FinalDamage *= 0;
-                modifiers.DisableCrit();
+                modifiers.Null();
             }
 
             if (TungstenEnchantItem != null && Toggler != null && Player.GetToggleValue("Tungsten")
@@ -161,17 +153,19 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ModifyHitNPCBoth(NPC target, ref NPC.HitModifiers modifiers, DamageClass damageClass)
         {
-            // TODO: figure out how to check for crits
-            // if (crit)
-            // {
-            //     if (Eternity)
-            //         modifiers.FinalDamage *= 5;
-            //     else if (UniverseCore)
-            //         modifiers.FinalDamage *= 2;
-            //
-            //     if (SpiderEnchantActive && damageClass.CountsAsClass(DamageClass.Summon) && !TerrariaSoul)
-            //         modifiers.FinalDamage *= 0.75f;
-            // }
+            modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
+            {
+                if (hitInfo.Crit)
+                {
+                    if (Eternity)
+                        hitInfo.Damage *= 5;
+                    else if (UniverseCore)
+                        hitInfo.Damage *= 2;
+                
+                    if (SpiderEnchantActive && damageClass.CountsAsClass(DamageClass.Summon) && !TerrariaSoul)
+                        hitInfo.Damage = (int)(hitInfo.Damage * 0.75);
+                }
+            };
 
             if (DeerSinewNerf)
             {
@@ -642,40 +636,45 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.whoAmI == Main.myPlayer && !noDodge && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
             {
                 Squeak(Player.Center);
-                modifiers.FinalDamage.Flat = 1;
+                modifiers.SetMaxDamage(1);
             }
 
-            if (TryParryAttack(ref modifiers))
-            {
-                // TODO: I doubt it cancels everything
-                // TODO: I woke up and noticed tModPorter note
-                modifiers.FinalDamage *= 0;
-                return;
-            }
+            // TODO: check tModPorter note
+            // if (TryParryAttack(ref modifiers))
+            // {
+            //     // cancel damage
+            //     return;
+            // }
 
             if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
             {
                 CrimsonEnchant.CrimsonHurt(Player, this, ref modifiers);
             }
 
-            if (StyxSet && !BetsyDashing && !GoldShell && modifiers.FinalDamage.Flat > 1 && Player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
+            if (StyxSet && !BetsyDashing && !GoldShell && Player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
             {
-                int scythesSacrificed = 0;
-                const int maxSacrifice = 4;
-                const double maxDR = 0.20;
-                int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
-                for (int i = 0; i < Main.maxProjectiles; i++)
+                modifiers.ModifyHurtInfo += (ref Player.HurtInfo hurtInfo) =>
                 {
-                    if (Main.projectile[i].active && Main.projectile[i].type == scytheType && Main.projectile[i].owner == Player.whoAmI)
+                    if(hurtInfo.Damage <= 1) return;
+                    
+                    int scythesSacrificed = 0;
+                    const int maxSacrifice = 4;
+                    const double maxDR = 0.20;
+                    int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
+                    for (int i = 0; i < Main.maxProjectiles; i++)
                     {
-                        if (Player.whoAmI == Main.myPlayer)
-                            Main.projectile[i].Kill();
-                        if (++scythesSacrificed >= maxSacrifice)
-                            break;
+                        if (Main.projectile[i].active && Main.projectile[i].type == scytheType && Main.projectile[i].owner == Player.whoAmI)
+                        {
+                            if (Player.whoAmI == Main.myPlayer)
+                                Main.projectile[i].Kill();
+                            if (++scythesSacrificed >= maxSacrifice)
+                                break;
+                        }
                     }
-                }
 
-                modifiers.FinalDamage *= 1.0f - (float)maxDR / maxSacrifice * scythesSacrificed;
+                    // should not go below 1 due to math so no hacking here
+                    hurtInfo.Damage *= (int)(1.0f - (float)maxDR / maxSacrifice * scythesSacrificed);
+                };
             }
 
             if (DeerSinewNerf && DeerSinewFreezeCD <= 0 && (modifiers.DamageSource.SourceNPCIndex != -1 || (modifiers.DamageSource.SourceProjectileType != -1 && Main.projectile[modifiers.DamageSource.SourceProjectileType].aiStyle != ProjAIStyleID.FallingTile)))

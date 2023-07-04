@@ -832,7 +832,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (TakeNoDamageOnHit)
-                modifiers.FinalDamage.Flat = 0;
+                modifiers.Null();
 
             base.ModifyIncomingHit(npc, ref modifiers);
         }

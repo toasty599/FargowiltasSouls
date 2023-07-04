@@ -1009,43 +1009,18 @@ namespace FargowiltasSouls.Core.Globals
             return base.CheckDead(npc);
         }
 
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
-        {
-            ModifyHitByBoth(npc, player, ref modifiers);
-
-            //            /*if (Chilled)
-            //            {
-            //                damage =  (int)(damage * 1.25f);
-            //            }*/
-        }
-
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
-        {
-            Player player = Main.player[projectile.owner];
-            ModifyHitByBoth(npc, player, ref modifiers);
-        }
-
-        public void ModifyHitByBoth(NPC npc, Player player, ref NPC.HitModifiers modifiers)
-        {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
-            if (modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && npc.boss)
-            {
-                NecroEnchant.NecroSpawnGraveBoss(this, npc, player, (int)modifiers.FinalDamage.Flat);
-            }
-        }
-
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
-            OnHitByEither(npc, player);
+            OnHitByEither(npc, player, damageDone);
         }
 
         public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            OnHitByEither(npc, Main.player[projectile.owner]);
+            OnHitByEither(npc, Main.player[projectile.owner], damageDone);
         }
 
-        public void OnHitByEither(NPC npc, Player player)
+        // TODO: damageDone or hitInfo.Damage ?
+        public void OnHitByEither(NPC npc, Player player, int damageDone)
         {
             if (Anticoagulation && player.whoAmI == Main.myPlayer)
             {
@@ -1055,6 +1030,13 @@ namespace FargowiltasSouls.Core.Globals
                     const float speed = 12f;
                     Projectile.NewProjectile(npc.GetSource_OnHurt(player), npc.Center, Main.rand.NextVector2Circular(speed, speed), type, 0, 0f, Main.myPlayer, 1f);
                 }
+            }
+            
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (damageDone > 0 && modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && npc.boss)
+            {
+                NecroEnchant.NecroSpawnGraveBoss(this, npc, player, damageDone);
             }
         }
 

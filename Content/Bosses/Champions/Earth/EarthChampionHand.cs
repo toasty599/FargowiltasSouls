@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -513,10 +514,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             NPC.frame.Y = NPC.localAI[3] == 1 ? 0 : frameHeight;
         }
 
+        // TODO: make it immune?
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            // TODO: see if this works
-            modifiers.FinalDamage.Flat = 0;
+            modifiers.Null();
         }
 
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)

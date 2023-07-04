@@ -60,18 +60,12 @@ namespace FargowiltasSouls.Content.BossBars
                         if (!n.dontTakeDamage)
                             shield++;
                     }
-                    
-                    // TODO: redundant?
-                    // shieldPercent = Utils.Clamp((float)untouchedBalls / ballCount, 0f, 1f);
                 }
             }
             else
             {
                 retval = false;
             }
-
-            // TODO: redundant?
-            // lifePercent = Utils.Clamp(life / lifeMax, 0f, 1f);
 
             return retval;
         }

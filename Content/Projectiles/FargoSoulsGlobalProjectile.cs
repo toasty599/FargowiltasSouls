@@ -1119,7 +1119,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (squeakyToy)
             {
-                modifiers.FinalDamage.Flat = 1;
+                modifiers.SetMaxDamage(1);
                 FargoSoulsPlayer.Squeak(target.Center);
             }
         }
