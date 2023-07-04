@@ -2152,6 +2152,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             ref float ShotCount = ref NPC.ai[2];
 
             Player Player = Main.player[NPC.target];
+            int startup = WorldSavingSystem.MasochistModeReal ? 40 : WorldSavingSystem.EternityMode ? 50 : 60;
+
             if (AttackF1)
             {
                 AttackF1 = false;
@@ -2167,7 +2169,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             Vector2 flyonPlayer2 = NPC.DirectionTo(Player.Center) * flySpeed3;
             NPC.velocity = (NPC.velocity * (inertia3 - 1f) + flyonPlayer2) / inertia3;
 
-            const int startup = 40;
             int endtime = 360 + startup;
 
             //replacing below outdated code
