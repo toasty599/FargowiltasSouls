@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         {
             Item.damage = 56;
             Item.DamageType = DamageClass.Magic;
-            Item.width = 44;
+            Item.width = 56;
             Item.height = 56;
             Item.useTime = 5;
             Item.useAnimation = 5;

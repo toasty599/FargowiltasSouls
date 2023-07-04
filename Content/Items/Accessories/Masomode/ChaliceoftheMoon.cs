@@ -40,8 +40,8 @@ Summons a friendly Cultist and plant to fight at your side
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
+            Item.width = 32;
+            Item.height = 54;
             Item.accessory = true;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 7);
