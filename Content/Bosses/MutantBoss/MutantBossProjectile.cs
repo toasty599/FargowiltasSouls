@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/MutantBoss/MutantBoss";
 
-        public static string trailTexture => "Assets/ExtraTextures/Eternals/MutantSoul";
+        public static string trailTexture => "FargowiltasSouls/Assets/ExtraTextures/Eternals/MutantSoul";
         public static int npcType => ModContent.NPCType<MutantBoss>();
         public bool auraTrail;
 
@@ -144,18 +144,18 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>(trailTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = ModContent.Request<Texture2D>(trailTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Texture2D aura = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Bosses/MutantBoss/MutantAura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D aura = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/MutantBoss/MutantAura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int auraFrameHeight = aura.Height / auraFrames;
             int auraY = auraFrameHeight * (int)Projectile.localAI[0];
             Rectangle auraRectangle = new(0, auraY, aura.Width, auraFrameHeight);
 
-            /*Texture2D lightning = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Bosses/MutantBoss/MutantLightning", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            /*Texture2D lightning = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/MutantBoss/MutantLightning", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int lightningFrameHeight = lightning.Height / lightningFrames;
             int lightningY = lightningFrameHeight * (int)Projectile.localAI[0];
             Rectangle lightningRectangle = new Rectangle(0, lightningY, lightning.Width, lightningFrameHeight);*/
@@ -238,7 +238,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     ? Projectile.scale * Main.cursorScale * 0.8f * Main.rand.NextFloat(0.75f, 1.25f)
                     : Projectile.scale * modifier * Main.cursorScale * 1.25f;
 
-                Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D star = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Rectangle rect = new(0, 0, star.Width, star.Height);
                 Vector2 origin = new(star.Width / 2 + sansScale, star.Height / 2 + sansScale);
 

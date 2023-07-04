@@ -773,8 +773,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             int currentFrame = NPC.frame.Y / (texture2D13.Height / Main.npcFrameCount[NPC.type]);
-            Texture2D wing = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/LifeChampion_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D wingGlow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Champions/LifeChampion_WingsGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D wing = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Champions/LifeChampion_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D wingGlow = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Champions/LifeChampion_WingsGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int wingHeight = wing.Height / Main.npcFrameCount[NPC.type];
             Rectangle wingRectangle = new(0, currentFrame * wingHeight, wing.Width, wingHeight);
             Vector2 wingOrigin = wingRectangle.Size() / 2f;
@@ -828,7 +828,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                 spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             }
 
-            Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D star = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rect = new(0, 0, star.Width, star.Height);
             float scale = NPC.localAI[3] == 0 ? NPC.ai[2] * Main.rand.NextFloat(1f, 2.5f) : (Main.cursorScale + 0.3f) * Main.rand.NextFloat(0.8f, 1.2f);
             Vector2 origin = new(star.Width / 2 + scale, star.Height / 2 + scale);

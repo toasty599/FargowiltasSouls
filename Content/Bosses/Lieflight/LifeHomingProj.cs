@@ -37,6 +37,9 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         public override void AI()
         {
+            ref float ProjTimer = ref Projectile.ai[0];
+            ref float PlayerIndex = ref Projectile.ai[1];
+            ref float FadeOut = ref Projectile.ai[2];
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X < 0 ? 1 : -1;
             Projectile.rotation = Projectile.velocity.X < 0 ? Projectile.velocity.ToRotation() + (float)Math.PI : Projectile.velocity.ToRotation();
 
@@ -54,14 +57,14 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     Projectile.frame = 0;
             }
 
-            if (Projectile.ai[0] > 30f)
+            if (ProjTimer > 30f)
             {
-                if (Projectile.ai[0] == 31f)
-                    Projectile.ai[1] = Player.FindClosest(Projectile.Center, 0, 0);
+                if (ProjTimer == 31f)
+                    PlayerIndex = Player.FindClosest(Projectile.Center, 0, 0);
 
-                if (Main.player[(int)Projectile.ai[1]].active && !Main.player[(int)Projectile.ai[1]].dead)
+                if (Main.player[(int)PlayerIndex].active && !Main.player[(int)PlayerIndex].dead)
                 {
-                    Vector2 vectorToIdlePosition = Main.player[(int)Projectile.ai[1]].Center - Projectile.Center;
+                    Vector2 vectorToIdlePosition = Main.player[(int)PlayerIndex].Center - Projectile.Center;
                     float num = vectorToIdlePosition.Length();
                     float speed = WorldSavingSystem.MasochistModeReal ? 24f : 22f;
                     float inertia = 15f;
@@ -87,11 +90,19 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     }
                 }
             }
-            if (Projectile.ai[0] > 600f)
+            if (ProjTimer > 540f)
             {
-                Projectile.Kill();
+                FadeOut = 1;
             }
-            Projectile.ai[0] += 1f;
+            if (FadeOut == 1)
+            {
+                Projectile.Opacity -= (1 / 60f);
+                if (Projectile.Opacity < 0.05f)
+                {
+                    Projectile.Kill();
+                }
+            }
+            ProjTimer += 1f;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {

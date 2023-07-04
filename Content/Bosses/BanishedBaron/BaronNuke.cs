@@ -150,7 +150,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             //draw glow ring
             float modifier = Projectile.localAI[0] / Projectile.ai[0];
             Color RingColor = Color.Lerp(Color.Orange, Color.Red, modifier);
-            Texture2D ringTexture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/GlowRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D ringTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/GlowRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int ringy = ringTexture.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             float RingScale = Projectile.scale * ExplosionDiameter / ringTexture.Height;
             int ringy3 = ringy * Projectile.frame; //ypos of upper left corner of sprite to draw

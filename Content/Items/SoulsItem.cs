@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Items
         /// <summary>
         /// The location of the item's glowmask texture, defaults to the item's internal texture name with _glow
         /// </summary>
-        public virtual string Glowmaskstring => Texture.Remove(0, "FargowiltasSouls/".Length) + "_glow";
+        public virtual string Glowmaskstring => Texture + "_glow";
 
         /// <summary>
         /// The amount of frames in the item's animation. <br />
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Items
             if (Mod.RequestAssetIfExists(Glowmaskstring, out Asset<Texture2D> _))
             {
                 Item item = Main.item[whoAmI];
-                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(Glowmaskstring, AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture = ModContent.Request<Texture2D>(Glowmaskstring, AssetRequestMode.ImmediateLoad).Value;
                 int height = texture.Height / NumFrames;
                 int width = texture.Width;
                 int frame = NumFrames > 1 ? height * Main.itemFrame[whoAmI] : 0;

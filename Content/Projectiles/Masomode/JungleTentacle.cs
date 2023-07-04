@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             if (Projectile.localAI[0] != 0 && Projectile.localAI[1] != 0)
             {
-                Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/NPCs/Vanilla/Chain27", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Vanilla/Chain27", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Vector2 position = Projectile.Center;
                 Vector2 mountedCenter = new(Projectile.localAI[0], Projectile.localAI[1]);
                 Rectangle? sourceRectangle = new Rectangle?();

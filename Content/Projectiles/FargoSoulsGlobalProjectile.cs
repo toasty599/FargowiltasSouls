@@ -598,7 +598,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         Player player = Main.player[projectile.owner];
                         if (player.HeldItem.type == ModContent.ItemType<Blender>())
                         {
-                            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/PlanteraTentacle", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                            Texture2D texture2D13 = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/PlanteraTentacle", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                             Rectangle rectangle = new(0, 0, texture2D13.Width, texture2D13.Height);
                             Vector2 origin2 = rectangle.Size() / 2f;
 
@@ -1179,7 +1179,7 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             if (projectile.type == ProjectileID.RuneBlast)
             {
-                Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/RuneBlast", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture2D13 = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/RuneBlast", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 int num156 = texture2D13.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
                 int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
                 Rectangle rectangle = new(0, y3, texture2D13.Width, num156);

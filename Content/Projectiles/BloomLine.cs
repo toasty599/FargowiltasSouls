@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         color = Color.DeepPink; //Color.Lerp(Color.DeepPink, Color.Magenta, 0.5f);
                         alphaModifier = 1;
                         Projectile.scale = 0.6f;
-                        maxTime = 40;
+                        maxTime = 60;
                         Projectile.rotation = Projectile.ai[1];
                     }
                     break;

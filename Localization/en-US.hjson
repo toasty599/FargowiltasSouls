@@ -226,7 +226,7 @@ Mods: {
 			MasochistPreTooltip: Enables Masochist Mode when used in Master Mode
 			ForgottenGift: "world is currently maso: "
 
-			FargoSoulsWorld: {
+			WorldUpdatingSystem: {
 				EternityOn: Eternity Mode activated!
 				EternityOff: Eternity Mode deactivated.
 				EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
@@ -5184,7 +5184,7 @@ Mods: {
 			}
 
 			LifeChallengerRelic: {
-				DisplayName: Life Challenger Relic
+				DisplayName: Lieflight Relic
 				Tooltip: ""
 			}
 

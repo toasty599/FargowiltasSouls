@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (Projectile.ai[1] != 5)
             {
-                Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Bosses/MutantBoss/MutantSpearAimGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D glow = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/MutantBoss/MutantSpearAimGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 float modifier = Projectile.timeLeft / (60f - Projectile.localAI[1]);
                 Color glowColor = new(51, 255, 191, 210);
                 if (Projectile.ai[1] > 1)

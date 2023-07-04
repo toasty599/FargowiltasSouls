@@ -361,7 +361,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Color color26 = lightColor;
             color26 = Projectile.GetAlpha(color26);
 
-            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Projectiles/Minions/LunarCultistTrail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/Minions/LunarCultistTrail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 3)
             {
                 Color color27 = color26;

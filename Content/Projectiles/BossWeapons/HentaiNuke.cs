@@ -155,7 +155,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Assets/ExtraTextures/HentaiNuke/HentaiNuke_" + Projectile.frame.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D13 = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/HentaiNuke/HentaiNuke_" + Projectile.frame.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rectangle = texture2D13.Bounds;
             Vector2 origin2 = rectangle.Size() / 2f;
 

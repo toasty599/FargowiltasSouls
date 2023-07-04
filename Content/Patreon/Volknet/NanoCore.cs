@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet
 
         public override void SafePostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D tex = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Content/Patreon/Volknet/NanoCoreGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D tex = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Patreon/Volknet/NanoCoreGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             spriteBatch.Draw(tex, Item.Center - Main.screenPosition, new Rectangle(0, 0, tex.Width, tex.Height), Color.White, rotation, tex.Size() / 2, scale, SpriteEffects.None, 0);
         }
 

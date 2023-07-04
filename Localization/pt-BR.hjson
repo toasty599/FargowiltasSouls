@@ -226,13 +226,13 @@ Mods: {
 			MasochistPreTooltip: Ativa o Modo Masoquista quando usado no Modo Mestre
 			ForgottenGift: "mundo atualmente maso: "
 
-			FargoSoulsWorld: {
-				EternityOn: Modo Eternidade ativado!
-				EternityOff: Modo Eternidade desativado.
-				EternityWrongDifficulty: Dificuldade muito baixa, Modo Eternidade desativado...
-				MasochistOn: Mestre e Eternidade combinados: Modo Masoquista ativado!!
-				MasochistOff: Modo Masoquista desativado.
-				BloodMoonCancel: A Lua de Sangue mudou de ideia e foi embora...
+			WorldUpdatingSystem: {
+				// EternityOn: Eternity Mode activated!
+				// EternityOff: Eternity Mode deactivated.
+				// EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
+				// MasochistOn: Master and Eternity combined: Masochist Mode activated!!
+				// MasochistOff: Masochist Mode deactivated.
+				// BloodMoonCancel: The Blood Moon changed its mind and left...
 			}
 
 			MutantSkipP1: Mutant se cansa da charada...
@@ -5175,7 +5175,7 @@ Mods: {
 			}
 
 			LifeChallengerRelic: {
-				// DisplayName: Life Challenger Relic
+				// DisplayName: Lieflight Relic
 				// Tooltip: ""
 			}
 

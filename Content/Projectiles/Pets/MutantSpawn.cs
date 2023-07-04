@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects spriteEffects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Content/Projectiles/Pets/{Name}_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = ModContent.Request<Texture2D>($"Content/Projectiles/Pets/{Name}_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             /*float scale = ((Main.mouseTextColor / 200f - 0.35f) * 0.3f + 0.9f) * Projectile.scale;
             Main.EntitySpriteDraw(texture2D14, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * Projectile.Opacity, Projectile.rotation, origin2, scale, spriteEffects, 0);*/
             for (int i = 1; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
