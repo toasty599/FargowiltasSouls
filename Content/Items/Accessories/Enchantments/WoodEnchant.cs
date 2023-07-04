@@ -94,16 +94,15 @@ Discount effect works in vanity slots"); */
             }
         }
 
-        public static void WoodDiscount(Chest shop)
+        public static void WoodDiscount(Item[] items)
         {
             BestiaryUnlockProgressReport bestiaryProgressReport = Main.GetBestiaryProgressReport();
             float discount = 1f - bestiaryProgressReport.CompletionPercent / 2f; //50% discount at 100% bestiary
-
-            for (int i = 0; i < 40; i++)
+            foreach (Item item in items)
             {
-                int? originalPrice = shop.item[i].shopCustomPrice == null ? shop.item[i].value : shop.item[i].shopCustomPrice;
+                int? originalPrice = item.shopCustomPrice == null ? item.value : item.shopCustomPrice;
 
-                shop.item[i].shopCustomPrice = (int)((float)originalPrice * discount);
+                item.shopCustomPrice = (int)((float)originalPrice * discount);
             }
         }
 

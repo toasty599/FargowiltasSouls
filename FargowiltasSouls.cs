@@ -202,22 +202,22 @@ namespace FargowiltasSouls
 
             return true;
         }
-
-        // private int CheckArmorPenetration(
-        //     On_NPC.orig_checkArmorPenetration orig,
-        //     NPC self,
-        //     int armorPenetration)
-        // {
-        //     FargoSoulsGlobalNPC globalNPC = self.GetGlobalNPC<FargoSoulsGlobalNPC>();
-        //     if (globalNPC.OceanicMaul)
-        //         armorPenetration += 20;
-        //     if (globalNPC.CurseoftheMoon)
-        //         armorPenetration += 10;
-        //     if (globalNPC.Rotting)
-        //         armorPenetration += 10;
-        //     return orig(self, armorPenetration);
-        // }
-
+        /*
+         private int CheckArmorPenetration(
+             On_NPC.orig_checkArmorPenetration orig,
+             NPC self,
+             int armorPenetration)
+         {
+             FargoSoulsGlobalNPC globalNPC = self.GetGlobalNPC<FargoSoulsGlobalNPC>();
+             if (globalNPC.OceanicMaul)
+                 armorPenetration += 20;
+             if (globalNPC.CurseoftheMoon)
+                 armorPenetration += 10;
+             if (globalNPC.Rotting)
+                 armorPenetration += 10;
+             return orig(self, armorPenetration);
+         }
+        */
         private void AddBuff(
             Terraria.On_Player.orig_AddBuff orig,
             Player self, int type, int timeToAdd, bool quiet, bool foodHack)

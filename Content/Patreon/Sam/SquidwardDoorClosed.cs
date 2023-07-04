@@ -46,8 +46,8 @@ namespace FargowiltasSouls.Content.Patreon.Sam
             AddMapEntry(new Color(200, 200, 200), name);
 
             AdjTiles = new int[] { TileID.ClosedDoor };
-            // TODO: d o o r s
-            // OpenDoorID/* tModPorter Note: Removed. Use TileID.Sets.OpenDoorID instead */ = ModContent.TileType<SquidwardDoorOpen>();
+
+            TileID.Sets.OpenDoorID[Type] = ModContent.TileType<SquidwardDoorOpen>();
         }
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)

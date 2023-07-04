@@ -18,6 +18,7 @@ using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
+using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -618,7 +619,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return false;
             return true;
         }
-
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
         {
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
@@ -640,11 +640,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
             // TODO: check tModPorter note
-            // if (TryParryAttack(ref modifiers))
-            // {
-            //     // cancel damage
-            //     return;
-            // }
+            if (TryParryAttack(ref modifiers))
+            {
+                //negate damage
+            }
 
             if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
             {

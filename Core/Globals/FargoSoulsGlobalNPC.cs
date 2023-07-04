@@ -1121,8 +1121,7 @@ namespace FargowiltasSouls.Core.Globals
 
             if (modPlayer.WoodEnchantDiscount)
             {
-                // TODO: shops
-                // WoodEnchant.WoodDiscount(shop);
+                WoodEnchant.WoodDiscount(items);
             }
         }
 

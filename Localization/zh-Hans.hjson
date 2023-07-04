@@ -6339,5 +6339,7 @@ Mods: {
 				}
 			}
 		}
+
+		// Conditions.RoombaPetSold: Mods.FargowiltasSouls.Conditions.RoombaPetSold
 	}
 }
