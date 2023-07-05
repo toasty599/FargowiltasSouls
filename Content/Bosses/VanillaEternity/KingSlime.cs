@@ -274,17 +274,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            LeadingConditionRule emodeRule = new(new EModeDropCondition());
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<SlimyShield>()));
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.WoodenCrate, 5));
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.LifeCrystal, 3));
-            npcLoot.Add(emodeRule);
-        }
-
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, hurtInfo);

@@ -92,12 +92,5 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            if (npc.type == NPCID.BlackRecluse || npc.type == NPCID.BlackRecluseWall)
-                FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.SpiderEgg, 50));
-        }
     }
 }

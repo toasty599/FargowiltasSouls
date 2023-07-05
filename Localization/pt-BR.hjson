@@ -21,7 +21,8 @@ Mods: {
 			// Cobalt: Explosion damage increased
 			// Copper: Lightning damage increased, cooldown reduced
 			// Crimson: ""
-			// CrystalAssassin: DarkArtist: ""
+			// CrystalAssassin: ""
+			// DarkArtist: ""
 			// Ebonwood: Damage threshold increased to 25, additonally kills any npcs with less than 200 HP
 			// Forbidden: ""
 			// Fossil: ""
@@ -65,7 +66,6 @@ Mods: {
 			// ValhallaKnight: ""
 			// Vortex: ""
 			// Wood: Bestiary and banner multiplier increased to 5
-			// DarkArtist: Mods.FargowiltasSouls.WizardEffect.DarkArtist
 		}
 
 		SetBonus: {

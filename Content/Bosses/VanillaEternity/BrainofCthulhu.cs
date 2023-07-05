@@ -310,21 +310,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             npc.DropItemInstanced(npc.position, npc.Size, ItemID.CrimsonFishingCrate, 5);
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            LeadingConditionRule emodeRule = new(new EModeDropCondition());
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<GuttedHeart>()));
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.CrimsonFishingCrate, 5));
-
-            //to make up for no loot until dead
-            emodeRule.OnSuccess(ItemDropRule.Common(ItemID.TissueSample, 1, 60, 60));
-            emodeRule.OnSuccess(ItemDropRule.Common(ItemID.CrimtaneOre, 1, 200, 200));
-
-            npcLoot.Add(emodeRule);
-        }
-
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, hurtInfo);

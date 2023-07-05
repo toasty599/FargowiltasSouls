@@ -44,12 +44,5 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             EModeGlobalNPC.Aura(npc, 450, BuffID.WitheredWeapon, true, 15);
             EModeGlobalNPC.Aura(npc, 150, BuffID.Cursed, false, 20);
         }
-
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ModContent.ItemType<TimsConcoction>(), 5));
-        }
     }
 }

@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

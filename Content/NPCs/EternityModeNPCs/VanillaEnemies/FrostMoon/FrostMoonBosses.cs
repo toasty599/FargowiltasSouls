@@ -15,13 +15,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoo
             NPCID.IceQueen
         );
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Present, 1, 1, 5));
-        }
-
         public override bool PreKill(NPC npc)
         {
             if (Main.snowMoon && NPC.waveNumber < 15)

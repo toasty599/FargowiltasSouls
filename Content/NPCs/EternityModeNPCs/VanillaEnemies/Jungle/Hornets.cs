@@ -106,15 +106,5 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
             target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
             target.AddBuff(ModContent.BuffType<SwarmingBuff>(), 600);
         }
-
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            if (npc.type == NPCID.MossHornet)
-                FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Stinger, 2));
-
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.JungleGrassSeeds, 10));
-        }
     }
 }

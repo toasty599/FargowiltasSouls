@@ -397,18 +397,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return npc.ai[0] < 4 ? base.GetAlpha(npc, drawColor) : new Color(255, drawColor.G / 2, drawColor.B / 2);
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            LeadingConditionRule emodeRule = new(new EModeDropCondition());
-            LeadingConditionRule noTwin = new(new Conditions.MissingTwin());
-            emodeRule.OnSuccess(noTwin);
-            noTwin.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<FusedLens>()));
-            noTwin.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrateHard, 5));
-            npcLoot.Add(emodeRule);
-        }
-
         public override bool CheckDead(NPC npc)
         {
             if (WorldSavingSystem.SwarmActive || WorldSavingSystem.MasochistModeReal)
@@ -859,18 +847,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override Color? GetAlpha(NPC npc, Color drawColor)
         {
             return npc.ai[0] < 4 ? base.GetAlpha(npc, drawColor) : new Color(drawColor.R / 2, 255, drawColor.B / 2);
-        }
-
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            LeadingConditionRule emodeRule = new(new EModeDropCondition());
-            LeadingConditionRule noTwin = new(new Conditions.MissingTwin());
-            emodeRule.OnSuccess(noTwin);
-            noTwin.OnSuccess(ItemDropRule.BossBag(ModContent.ItemType<FusedLens>()));
-            noTwin.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrateHard, 5));
-            npcLoot.Add(emodeRule);
         }
 
         public override bool CheckDead(NPC npc)

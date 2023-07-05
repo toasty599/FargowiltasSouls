@@ -279,14 +279,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             WorldSavingSystem.DownedBetsy = true;
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            LeadingConditionRule emodeRule = new(new EModeDropCondition());
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<BetsysHeart>()));
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.GoldenCrateHard, 5));
-            npcLoot.Add(emodeRule);
-        }
-
         public override void LoadSprites(NPC npc, bool recolor)
         {
             LoadNPCSprite(recolor, npc.type);

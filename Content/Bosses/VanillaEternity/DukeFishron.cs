@@ -924,35 +924,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return base.CheckDead(npc);
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            LeadingConditionRule emodeRule = new(new EModeDropCondition());
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MutantAntibodies>()));
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MutantsCreditCard>()));
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.OceanCrateHard, 5));
-            emodeRule.OnSuccess(ItemDropRule.OneFromOptions(1,
-                ItemID.FuzzyCarrot,
-                ItemID.AnglerHat,
-                ItemID.AnglerVest,
-                ItemID.AnglerPants,
-                ItemID.GoldenFishingRod,
-                ItemID.GoldenBugNet,
-                ItemID.FishHook,
-                ItemID.HighTestFishingLine,
-                ItemID.AnglerEarring,
-                ItemID.TackleBox,
-                ItemID.FishermansGuide,
-                ItemID.WeatherRadio,
-                ItemID.Sextant,
-                ItemID.FinWings,
-                ItemID.BottomlessBucket,
-                ItemID.SuperAbsorbantSponge,
-                ItemID.HotlineFishingHook
-            ));
-            npcLoot.Add(emodeRule);
-        }
 
         public override void LoadSprites(NPC npc, bool recolor)
         {

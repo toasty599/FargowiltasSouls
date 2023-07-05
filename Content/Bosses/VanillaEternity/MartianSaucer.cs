@@ -112,11 +112,5 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<SaucerControlConsole>(), 5));
-        }
     }
 }

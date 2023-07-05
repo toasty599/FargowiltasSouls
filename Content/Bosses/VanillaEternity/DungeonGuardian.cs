@@ -426,11 +426,5 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.ModifyIncomingHit(npc, ref modifiers);
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.BossBag(ModContent.ItemType<SinisterIcon>()));
-        }
     }
 }

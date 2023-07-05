@@ -22,6 +22,7 @@ Mods: {
 			Copper: 增加闪电伤害，冷却时间减少
 			// Crimson: ""
 			CrystalAssassin: ""
+			DarkArtist: ""
 			Ebonwood: 伤害判定门槛从10提高至25，并且会杀死光环内任何小于200血量的生物
 			// Forbidden: ""
 			// Fossil: ""
@@ -65,7 +66,6 @@ Mods: {
 			// ValhallaKnight: ""
 			// Vortex: ""
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
-			DarkArtist: ""
 		}
 
 		SetBonus: {

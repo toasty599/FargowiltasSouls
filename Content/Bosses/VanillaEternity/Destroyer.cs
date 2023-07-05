@@ -746,15 +746,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            LeadingConditionRule emodeRule = new(new EModeDropCondition());
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<GroundStick>()));
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrateHard, 5));
-            npcLoot.Add(emodeRule);
-        }
 
         public override void LoadSprites(NPC npc, bool recolor)
         {

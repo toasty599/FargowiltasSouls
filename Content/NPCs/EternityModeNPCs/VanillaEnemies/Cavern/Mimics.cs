@@ -293,13 +293,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GoldenCrate));
-        }
-
         public override void OnKill(NPC npc)
         {
             base.OnKill(npc);

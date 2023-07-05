@@ -16,15 +16,13 @@ namespace FargowiltasSouls.Core.Globals
 
         public override bool InstancePerEntity => true;
 
-        //gameMenu check so that npcloot actually populates
-        //TODO: find better way to make behaviour actually emode only but npcloot populate properly
         public sealed override bool AppliesToEntity(NPC entity, bool lateInstantiation)
         {
             if (Matcher.Satisfies(entity.type))
             {
                 TryLoadSprites(entity);
-
-                return WorldSavingSystem.EternityMode || Main.gameMenu;
+                
+                return WorldSavingSystem.EternityMode;
             }
             return false;
         }

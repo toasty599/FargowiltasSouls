@@ -107,12 +107,5 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
             target.AddBuff(ModContent.BuffType<FusedBuff>(), 1800);
             target.AddBuff(ModContent.BuffType<UnluckyBuff>(), 1800);
         }
-
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.PartyGirlGrenade, 1, 1, 10));
-        }
     }
 }
