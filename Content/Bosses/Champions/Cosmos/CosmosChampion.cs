@@ -1821,8 +1821,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
             Texture2D npcTex = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
 
-            Texture2D npcGlow = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Champions/CosmosChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D npcGlow2 = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Champions/CosmosChampion_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D npcGlow = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/Champions/Cosmos/CosmosChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D npcGlow2 = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/Champions/Cosmos/CosmosChampion_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rectangle = NPC.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = NPC.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;

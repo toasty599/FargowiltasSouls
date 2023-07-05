@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = $"FargowiltasSouls/Content/NPCs/Champions/{Name}_Still",
+                CustomTexturePath = $"FargowiltasSouls/Content/Bosses/Champions/Terra/{Name}_Still",
                 Scale = 1.25f,
                 Position = new Vector2(16 * 10.5f * 1.25f, 0),
                 PortraitScale = 1.25f,
@@ -795,7 +795,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
-            Texture2D glowmask = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Champions/TerraChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowmask = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/Champions/Terra/TerraChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Main.EntitySpriteDraw(glowmask, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, NPC.rotation, origin2, NPC.scale, effects, 0);
             return false;
         }

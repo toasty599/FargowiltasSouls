@@ -135,7 +135,7 @@ namespace FargowiltasSouls
                     new List<int>(TerraForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/NPCs/Champions/TerraChampion_Still"
+                    "Content/Bosses/Champions/Terra/TerraChampion_Still"
                 );
                 Add("MiniBoss",
                     "EarthChampion",
@@ -146,7 +146,7 @@ namespace FargowiltasSouls
                     new List<int>(EarthForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/NPCs/Champions/EarthChampion_Still"
+                    "Content/Bosses/Champions/Earth/EarthChampion_Still"
                 );
                 Add("MiniBoss",
                     "NatureChampion",
@@ -157,7 +157,7 @@ namespace FargowiltasSouls
                     new List<int>(NatureForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/NPCs/Champions/NatureChampion_Still"
+                    "Content/Bosses/Champions/Nature/NatureChampion_Still"
                 );
                 Add("MiniBoss",
                     "LifeChampion",
@@ -168,7 +168,7 @@ namespace FargowiltasSouls
                     new List<int>(LifeForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/NPCs/Champions/LifeChampion_Still"
+                    "Content/Bosses/Champions/Life/LifeChampion_Still"
                 );
                 Add("MiniBoss",
                     "ShadowChampion",
@@ -189,7 +189,7 @@ namespace FargowiltasSouls
                     new List<int>(SpiritForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
-                    "Content/NPCs/Champions/SpiritChampion_Still"
+                    "Content/Bosses/Champions/Spirit/SpiritChampion_Still"
                 );
                 Add("MiniBoss",
                     "WillChampion",

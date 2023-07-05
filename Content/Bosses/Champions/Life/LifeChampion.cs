@@ -773,8 +773,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             int currentFrame = NPC.frame.Y / (texture2D13.Height / Main.npcFrameCount[NPC.type]);
-            Texture2D wing = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Champions/LifeChampion_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Texture2D wingGlow = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Champions/LifeChampion_WingsGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D wing = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/Champions/Life/LifeChampion_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D wingGlow = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/Champions/Life/LifeChampion_WingsGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int wingHeight = wing.Height / Main.npcFrameCount[NPC.type];
             Rectangle wingRectangle = new(0, currentFrame * wingHeight, wing.Width, wingHeight);
             Vector2 wingOrigin = wingRectangle.Size() / 2f;

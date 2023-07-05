@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = $"FargowiltasSouls/Content/NPCs/Champions/{Name}_Still",
+                CustomTexturePath = $"FargowiltasSouls/Content/Bosses/Champions/Earth/{Name}_Still",
                 Scale = 0.75f,
                 Position = new Vector2(0, 10),
                 PortraitScale = 0.5f,
@@ -469,7 +469,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                 Main.EntitySpriteDraw(texture2D13, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, NPC.scale, effects, 0);
             }
 
-            Texture2D glowmask = ModContent.Request<Texture2D>($"FargowiltasSouls/Content/NPCs/Champions/{Name}_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowmask = ModContent.Request<Texture2D>($"FargowiltasSouls/Content/Bosses/Champions/Earth/{Name}_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
             if (NPC.dontTakeDamage)
             {

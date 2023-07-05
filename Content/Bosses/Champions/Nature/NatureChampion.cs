@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = $"FargowiltasSouls/Content/NPCs/Champions/{Name}_Still",
+                CustomTexturePath = $"FargowiltasSouls/Content/Bosses/Champions/Nature/{Name}_Still",
                 Scale = 0.3f,
                 Position = new Vector2(48f, 16 * 4),
                 PortraitScale = 0.3f,
@@ -788,7 +788,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                 {
                     if (NPC.Distance(Main.LocalPlayer.Center) <= 1200)
                     {
-                        string neckTex = "FargowiltasSouls/Content/NPCs/Champions/NatureChampion_Neck";
+                        string neckTex = "FargowiltasSouls/Content/Bosses/Champions/Nature/NatureChampion_Neck";
                         Texture2D neckTex2D = ModContent.Request<Texture2D>(neckTex, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         Vector2 connector = Main.npc[i].Center;
                         Vector2 neckOrigin = NPC.Center + new Vector2(54 * NPC.spriteDirection, -10);
@@ -815,7 +815,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                         }
                     }
 
-                    /*Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Champions/NatureChampion_Neck", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    /*Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/Champions/Nature/NatureChampion_Neck", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Vector2 position = Main.npc[i].Center;
                     Vector2 mountedCenter = NPC.Center + new Vector2(54 * NPC.spriteDirection, -10);
                     Rectangle? sourceRectangle = new Rectangle?();
@@ -880,7 +880,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             if (glow > 0)
                 glow--;
             glow += 3;
-            Texture2D texture2D14 = ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Champions/NatureChampionHead_Glow" + glow.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D14 = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/Champions/Nature/NatureChampionHead_Glow" + glow.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
             Main.EntitySpriteDraw(texture2D13, head.Center - screenPos + new Vector2(0f, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), head.GetAlpha(drawColor), head.rotation, origin2, head.scale, effects, 0);
             Main.EntitySpriteDraw(texture2D14, head.Center - screenPos + new Vector2(0f, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, head.rotation, origin2, head.scale, effects, 0);
