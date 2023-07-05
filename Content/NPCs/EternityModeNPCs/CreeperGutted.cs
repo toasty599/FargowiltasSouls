@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             Player player = Main.player[(int)NPC.ai[0]];
             if (!player.active || player.dead || !player.GetModPlayer<FargoSoulsPlayer>().GuttedHeart)
             {
-                NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
+                NPC.SimpleStrikeNPC(NPC.lifeMax * 2, 0);
                 return;
             }
 
@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 if (player.whoAmI == Main.myPlayer && !player.GetToggleValue("MasoBrain"))
                 {
                     int n = NPC.whoAmI;
-                    NPC.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
+                    NPC.SimpleStrikeNPC(NPC.lifeMax * 2, 0);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n, 9999f);
                     return;
