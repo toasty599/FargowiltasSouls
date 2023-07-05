@@ -942,8 +942,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 {
                     AttackF1 = false;
                     
-                    //SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Zombie_104") with { Volume = 0.5f }, NPC.Center);
-                    SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
+                    //SoundEngine.PlaySound(SoundID.Zombie104 with { Volume = 0.5f }, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Zombie104 with { Volume = 0.5f}, NPC.Center);
                     NPC.velocity.X = 0;
                     NPC.velocity.Y = 0;
                     Flying = false;

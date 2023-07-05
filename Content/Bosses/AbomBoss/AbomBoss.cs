@@ -167,7 +167,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 if (NPC.Distance(Main.player[NPC.target].Center) < 1500)
                 {
                     NPC.localAI[3] = 1;
-                    SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Roar_0"), NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
                     NPC.localAI[0] = Main.rand.Next(3); //start on a random strong attack
                     NPC.localAI[1] = Main.rand.Next(2); //start on a random super
                 }
@@ -351,7 +351,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                         {
                             ritualProj = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                         }
-                        SoundEngine.PlaySound(new SoundStyle("Terraria/Assets/Sounds/Roar_0"), NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
                     }
                     break;
 

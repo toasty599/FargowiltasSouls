@@ -1349,7 +1349,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (WorldSavingSystem.EternityMode && NPC.ai[0] != 9 || WorldSavingSystem.MasochistModeReal)
                 {
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Thunder") { Pitch = -0.5f }, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Thunder with { Pitch = -0.5f }, NPC.Center);
 
                     float lookSign = Math.Sign(NPC.localAI[1]);
                     float arcSign = Math.Sign(NPC.ai[2]);

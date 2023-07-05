@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (Projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Zombie_104") { Volume = 0.5f }, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Zombie104 with { Volume = 0.5f }, Projectile.Center);
 
                 displayMaxTime = Math.Min(maxTime, Projectile.timeLeft + 2);
             }
