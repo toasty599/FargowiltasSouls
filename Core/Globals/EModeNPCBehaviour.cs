@@ -18,13 +18,7 @@ namespace FargowiltasSouls.Core.Globals
 
         public sealed override bool AppliesToEntity(NPC entity, bool lateInstantiation)
         {
-            if (Matcher.Satisfies(entity.type))
-            {
-                TryLoadSprites(entity);
-                
-                return WorldSavingSystem.EternityMode;
-            }
-            return false;
+            return lateInstantiation && Matcher.Satisfies(entity.type);
         }
 
         public override void Load()
@@ -34,11 +28,17 @@ namespace FargowiltasSouls.Core.Globals
         }
 
         public abstract NPCMatcher CreateMatcher();
-        /// <summary>
-        /// Override this and return a new instance of your EModeNPCBehaviour subclass if you have any reference-type variables
-        /// </summary>
-        public virtual EModeNPCBehaviour NewInstance() => (EModeNPCBehaviour)MemberwiseClone();
 
+        // TODO I hope no behaviours actually needed the old NewInstance method
+        // In all of tML's endless wisdom, the only way to properly instantiate
+        // a global is to return base.NewInstance() and that can't fit into the
+        // old API. In the interest of making literally half the mod work, this
+        // is just a bandaid fix.
+        public override GlobalNPC NewInstance(NPC target) {
+            TryLoadSprites(target);
+
+            return WorldSavingSystem.EternityMode ? base.NewInstance(target) : null;
+        }
 
         public bool FirstTick = true;
         public virtual void OnFirstTick(NPC npc) { }
