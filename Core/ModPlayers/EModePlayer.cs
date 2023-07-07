@@ -63,15 +63,19 @@ namespace FargowiltasSouls.Core.ModPlayers
             ShorterDebuffsTimer = 0;
         }
 
-        // TODO: null crash on TryGetGlobalNPC here 
-        // public override void OnEnterWorld()
-        // {
-        //     foreach (NPC npc in Main.npc.Where(npc => npc.active))
-        //     {
-        //         if (npc.TryGetGlobalNPC(out EModeNPCBehaviour eModeNPC, false))
-        //             eModeNPC.TryLoadSprites(npc);
-        //     }
-        // }
+        public override void OnEnterWorld()
+        {
+            foreach (NPC npc in Main.npc.Where(npc => npc.active))
+            {
+                foreach (var entityGlobal in npc.EntityGlobals)
+                {
+                    if (entityGlobal is EModeNPCBehaviour eModeNPC)
+                    {
+                        eModeNPC.TryLoadSprites(npc);
+                    }
+                }
+            }
+        }
 
         public override void PreUpdate()
         {
