@@ -183,9 +183,9 @@ namespace FargowiltasSouls.Content.Items
                         string bossesToKill = "";
                         if (!WorldSavingSystem.DownedAbom)
                         {
-                            bossesToKill += $" {Language.GetTextValue("Mods.FargowiltasSouls.NPCName.AbomBoss")},";
+                            bossesToKill += $" {Language.GetTextValue("Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName")},";
                         }
-                        bossesToKill += $" {Language.GetTextValue("Mods.FargowiltasSouls.NPCName.MutantBoss")}";
+                        bossesToKill += $" {Language.GetTextValue("Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName")}";
 
                         ItemBalance(tooltips, EModeChange.Nerf, "ZenithHitRate", bossesToKill);
                     }
