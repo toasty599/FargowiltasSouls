@@ -5451,7 +5451,7 @@ Mods: {
 			DungeonGuardian.DisplayName: 地牢守卫
 			EaterRocket.DisplayName: 吞噬者火箭
 			EyeFireFriendly.DisplayName: 魔眼烈火
-			// EyeProjectile2.DisplayName: Mods.FargowiltasSouls.ProjectileName.EyeProjectile2
+			// EyeProjectile2.DisplayName: Mods.FargowiltasSouls.Projectiles.EyeProjectile2.DisplayName
 			FishNuke.DisplayName: 猪鲨核弹
 			FishNukeExplosion.DisplayName: 猪鲨核弹
 			FishStickProj.DisplayName: 鱼杖
@@ -5537,8 +5537,8 @@ Mods: {
 			CosmosBolt.DisplayName: 宇宙矢
 			CosmosDeathray.DisplayName: 宇宙死亡射线
 			CosmosDeathray2.DisplayName: 宇宙死亡射线
-			// CosmicFireball.DisplayName: Mods.FargowiltasSouls.ProjectileName.CosmicFireball
-			// CosmicFireball2.DisplayName: Mods.FargowiltasSouls.ProjectileName.CosmicFireball2
+			// CosmicFireball.DisplayName: Mods.FargowiltasSouls.Projectiles.CosmicFireball.DisplayName
+			// CosmicFireball2.DisplayName: Mods.FargowiltasSouls.Projectiles.CosmicFireball2.DisplayName
 			CosmosGlowything.DisplayName: 宇宙入侵怪仆从
 			CosmosInvader.DisplayName: 宇宙入侵怪仆从
 			CosmosInvaderTime.DisplayName: 宇宙入侵怪仆从
@@ -5576,7 +5576,7 @@ Mods: {
 			NatureRain.DisplayName: 自然之雨
 			ShadowClone.DisplayName: 暗影英灵
 			ShadowDeathraySmall.DisplayName: 暗影死亡射线
-			// ShadowFlameScythe.DisplayName: Mods.FargowiltasSouls.ProjectileName.ShadowFlameScythe
+			// ShadowFlameScythe.DisplayName: Mods.FargowiltasSouls.Projectiles.ShadowFlameScythe.DisplayName
 			ShadowGuardian.DisplayName: 地牢守卫
 			ShadowOrb.DisplayName: 暗影珠
 			SpiritCrossBone.DisplayName: 交叉骨头
@@ -5688,8 +5688,8 @@ Mods: {
 			CultistFireball.DisplayName: 火球
 			CultistRitual.DisplayName: 教徒仪式
 			CultistVortex.DisplayName: 星旋旋涡
-			// CultistFireballHoming.DisplayName: Mods.FargowiltasSouls.ProjectileName.CultistFireballHoming
-			// CuresedFlameHostile2.DisplayName: Mods.FargowiltasSouls.ProjectileName.CuresedFlameHostile2
+			// CultistFireballHoming.DisplayName: Mods.FargowiltasSouls.Projectiles.CultistFireballHoming.DisplayName
+			// CuresedFlameHostile2.DisplayName: Mods.FargowiltasSouls.Projectiles.CuresedFlameHostile2.DisplayName
 			CursedFlamethrower.DisplayName: 魔眼烈火
 			DarkStar.DisplayName: 暗星
 			DarkStarDestroyer.DisplayName: 暗星
@@ -5702,7 +5702,7 @@ Mods: {
 			DrakanianDaybreak.DisplayName: 破晓之光
 			ElfArcherArrow.DisplayName: 霜冻箭
 			ElfCopterBullet.DisplayName: 爆炸子弹
-			// ElfcopterBulletExplosion.DisplayName: Mods.FargowiltasSouls.ProjectileName.ElfcopterBulletExplosion
+			// ElfcopterBulletExplosion.DisplayName: Mods.FargowiltasSouls.Projectiles.ElfcopterBulletExplosion.DisplayName
 			EyeBeam2.DisplayName: 魔眼光束
 			EyeFire2.DisplayName: 魔眼烈火
 			FakeHeart.DisplayName: 假心
@@ -5746,7 +5746,7 @@ Mods: {
 			MoonLordSun.DisplayName: 太阳
 			MoonLordSunBlast.DisplayName: 太阳爆炸
 			MoonLordVortex.DisplayName: 星旋旋涡
-			// MoonLordvortexOld.DisplayName: Mods.FargowiltasSouls.ProjectileName.MoonLordvortexOld
+			// MoonLordvortexOld.DisplayName: Mods.FargowiltasSouls.Projectiles.MoonLordvortexOld.DisplayName
 			MothDust.DisplayName: 蛾尘
 			MothronZenith.DisplayName: 天顶剑
 			PhantasmalBolt2.DisplayName: 幻影矢
@@ -5991,7 +5991,7 @@ Mods: {
 			NanoBlade.DisplayName: 等离子能量刃
 			NanoProbe.DisplayName: 纳米探针
 			PlasmaArrow.DisplayName: 等离子矢
-			// PlasmaDeathray.DisplayName: Mods.FargowiltasSouls.ProjectileName.PlasmaDeathray
+			// PlasmaDeathray.DisplayName: Mods.FargowiltasSouls.Projectiles.PlasmaDeathray.DisplayName
 			PlasmaProj.DisplayName: 等离子束
 			GlowRingHallow.DisplayName: 预警光环
 			AbomBlast.DisplayName: 幻象爆炸

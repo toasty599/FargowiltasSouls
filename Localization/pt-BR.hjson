@@ -6012,21 +6012,21 @@ Mods: {
 			PlasmaArrow.DisplayName: Flecha de Plasma
 			PlasmaDeathray.DisplayName: Raio da Morte de Plasma
 			PlasmaProj.DisplayName: Raio de Plasma
-			// GlowRingHallow.DisplayName: Mods.FargowiltasSouls.ProjectileName.GlowRingHallow
+			// GlowRingHallow.DisplayName: Mods.FargowiltasSouls.Projectiles.GlowRingHallow.DisplayName
 			// AbomBlast.DisplayName: Phantasmal Blast
 			// AbomFlocko2.DisplayName: Super Flocko
 			// AbomFlocko3.DisplayName: Super Flocko
 			// AbomLaser.DisplayName: Laser
 			// EyeProjectile.DisplayName: EyeProjectile2
 			// HentaiSpearDash.DisplayName: The Penetrator
-			// HentaiSpearRing.DisplayName: Mods.FargowiltasSouls.ProjectileName.HentaiSpearRing
+			// HentaiSpearRing.DisplayName: Mods.FargowiltasSouls.Projectiles.HentaiSpearRing.DisplayName
 			// CosmosFireball.DisplayName: Cosmic Fireball
 			// CosmosFireball2.DisplayName: Cosmic Fireball
-			// EatrhPalladOrb.DisplayName: Mods.FargowiltasSouls.ProjectileName.EatrhPalladOrb
+			// EatrhPalladOrb.DisplayName: Mods.FargowiltasSouls.Projectiles.EatrhPalladOrb.DisplayName
 			// ShadowFlameburst.DisplayName: Flameburst
 			// ShadowFlamingScythe.DisplayName: Flaming Scythe
-			// TimerPalmTree.DisplayName: Mods.FargowiltasSouls.ProjectileName.TimerPalmTree
-			// WireFireball2.DisplayName: Mods.FargowiltasSouls.ProjectileName.WireFireball2
+			// TimerPalmTree.DisplayName: Mods.FargowiltasSouls.Projectiles.TimerPalmTree.DisplayName
+			// WireFireball2.DisplayName: Mods.FargowiltasSouls.Projectiles.WireFireball2.DisplayName
 			// DeviRitual2.DisplayName: Deviantt Seal
 			// CursedFireballHoming.DisplayName: Cursed Flame
 			// CursedFlameHostile2.DisplayName: Cursed Flame
