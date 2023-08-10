@@ -20,10 +20,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "皇家工蜂");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.QueenBee];
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = NPCID.Sets.DebuffImmunitySets[NPCID.QueenBee].SpecificallyImmuneTo
-            });
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type] = NPCID.Sets.SpecificDebuffImmunity[NPCID.QueenBee];
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

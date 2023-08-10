@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.hasJumpOption_Cloud = true;
+            player.GetJumpState<CloudInABottleJump>().Enable();
         }
 
         public override void AddRecipes()

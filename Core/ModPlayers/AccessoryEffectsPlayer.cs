@@ -654,7 +654,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
             else if (Player.controlJump && Player.GetToggleValue("Jungle"))
             {
-                if (Player.canJumpAgain_Blizzard || Player.canJumpAgain_Sandstorm || Player.canJumpAgain_Cloud || Player.canJumpAgain_Fart || Player.canJumpAgain_Sail || Player.canJumpAgain_Unicorn)
+                if (Player.GetJumpState<BlizzardInABottleJump>().Available || Player.GetJumpState<SandstormInABottleJump>().Available || Player.GetJumpState<CloudInABottleJump>().Available || Player.GetJumpState<FartInAJarJump>().Available || Player.GetJumpState<TsunamiInABottleJump>().Available || Player.GetJumpState<UnicornMountJump>().Available)
                 {
                 }
                 else
@@ -1749,10 +1749,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             //bundle
             if (Player.GetToggleValue("SupersonicJumps") && Player.wingTime == 0)
             {
-                Player.hasJumpOption_Cloud = true;
-                Player.hasJumpOption_Sandstorm = true;
-                Player.hasJumpOption_Blizzard = true;
-                Player.hasJumpOption_Fart = true;
+                Player.GetJumpState<CloudInABottleJump>().Enable();
+                Player.GetJumpState<SandstormInABottleJump>().Enable();
+                Player.GetJumpState<BlizzardInABottleJump>().Enable();
+                Player.GetJumpState<FartInAJarJump>().Enable();
             }
 
             //magic carpet
@@ -1872,7 +1872,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //sharkron balloon
             if (Player.GetToggleValue("TrawlerJump") && Player.wingTime == 0)
-                Player.hasJumpOption_Sail = true;
+                Player.GetJumpState<TsunamiInABottleJump>().Enable();
 
             Player.jumpBoost = true;
             Player.noFallDmg = true;

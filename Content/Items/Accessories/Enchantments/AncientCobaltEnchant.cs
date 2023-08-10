@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     modPlayer.CobaltImmuneTimer = 15;
             }
 
-            if (modPlayer.CanCobaltJump || modPlayer.JustCobaltJumped && !player.isPerformingJump_Cloud && !player.isPerformingJump_Blizzard && !player.isPerformingJump_Fart && !player.isPerformingJump_Sail && !player.isPerformingJump_Sandstorm && !modPlayer.JungleJumping)
+            if (modPlayer.CanCobaltJump || modPlayer.JustCobaltJumped && !player.GetJumpState<CloudInABottleJump>().Active && !player.GetJumpState<BlizzardInABottleJump>().Active && !player.GetJumpState<FartInAJarJump>().Active && !player.GetJumpState<TsunamiInABottleJump>().Active && !player.GetJumpState<SandstormInABottleJump>().Active && !modPlayer.JungleJumping)
             {
                 if (modPlayer.CobaltEnchantItem != null)
                 {
