@@ -80,8 +80,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         private bool HitPlayer = false;
 
-        int interval = 0;
-
         int index2;
 
         int firstblaster = 2;
