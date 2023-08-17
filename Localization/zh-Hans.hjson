@@ -4252,7 +4252,7 @@ Mods: {
 
 			MutantsPact: {
 				DisplayName: 突变体契约
-				//Tooltip: Permanently adds an accessory slot that only accepts an Enchantment, Force or Soul
+				// Tooltip: Permanently adds an accessory slot that only accepts an Enchantment, Force or Soul
 			}
 
 			OrdinaryCarrot: {
