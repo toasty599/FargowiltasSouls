@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Core.Systems;
 //using FargowiltasSouls.Content.Buffs.Souls;
 //using FargowiltasSouls.Content.Projectiles.Critters;
 using Microsoft.Xna.Framework;
@@ -232,7 +233,7 @@ namespace FargowiltasSouls.Content.Items
                 player.GetModPlayer<FargoSoulsPlayer>().WasHurtBySomething = true; //with abom rebirth, die to chaos state
             }
 
-            if (item.type == ItemID.PotionOfReturn && (FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(ModContent.NPCType<AbomBoss>())) != null || FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(ModContent.NPCType<AbomBoss>())) != null))
+            if (item.type == ItemID.PotionOfReturn && FargoSoulsUtil.AnyBossAlive() && WorldSavingSystem.EternityMode)
             {
                 return false;
             }
