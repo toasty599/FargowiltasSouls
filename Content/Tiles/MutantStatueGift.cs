@@ -28,7 +28,6 @@ namespace FargowiltasSouls.Content.Tiles
             // name.SetDefault("Mutant Statue");
             AddMapEntry(new Color(144, 144, 144), name);
 
-            AnimationFrameHeight = 54;
         }
         public override void MouseOver(int i, int j)
         {
