@@ -50,9 +50,9 @@ namespace FargowiltasSouls.Content.Tiles
             i += 1;
             j += 2;
 
-            Item.NewItem(new EntitySource_TileBreak(i, j - 1), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Masochist>());
+            //Item.NewItem(new EntitySource_TileBreak(i, j - 1), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Masochist>());
             WorldGen.KillTile(i, j, noItem: true);
-            WorldGen.PlaceTile(i, j, ModContent.TileType<MutantStatue>());
+            //WorldGen.PlaceTile(i, j, ModContent.TileType<MutantStatue>());
 
             return true;
         }
