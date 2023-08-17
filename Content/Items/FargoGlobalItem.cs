@@ -233,11 +233,12 @@ namespace FargowiltasSouls.Content.Items
                 player.GetModPlayer<FargoSoulsPlayer>().WasHurtBySomething = true; //with abom rebirth, die to chaos state
             }
 
+            /*
             if (item.type == ItemID.PotionOfReturn && FargoSoulsUtil.AnyBossAlive() && WorldSavingSystem.EternityMode)
             {
                 return false;
             }
-
+            */
             if (item.damage > 0 && item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0)
             {
                 player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = Math.Max(item.useTime, item.useAnimation) + item.reuseDelay + 6;

@@ -617,11 +617,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         bool AliveCheck(Player p, bool forceDespawn = false)
         {
-            if (WorldSavingSystem.SwarmActive || forceDespawn || (!p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 5000f) && NPC.localAI[3] > 0)
+            if (WorldSavingSystem.SwarmActive || forceDespawn || (!p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 3000f) && NPC.localAI[3] > 0)
             {
                 NPC.TargetClosest();
                 p = Main.player[NPC.target];
-                if (WorldSavingSystem.SwarmActive || forceDespawn || !p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 5000f)
+                if (WorldSavingSystem.SwarmActive || forceDespawn || !p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 3000f)
                 {
                     if (NPC.timeLeft > 30)
                         NPC.timeLeft = 30;
@@ -3236,6 +3236,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.ai[3] = NPC.ai[3].AngleLerp(newRotation, 0.015f);
             }
 
+            /*
             //if targets are all dead, will despawn much more aggressively to reduce respawn cheese
             if (NPC.localAI[2] > 30)
             {
@@ -3244,6 +3245,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     AliveCheck(player, true);
                 return;
             }
+            */
+            if (!AliveCheck(player))
+                return;
 
             if (--NPC.localAI[0] < 0) //just visual explosions
             {
