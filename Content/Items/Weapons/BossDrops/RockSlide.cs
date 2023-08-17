@@ -24,8 +24,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         {
             Item.damage = 88;
             Item.DamageType = DamageClass.Magic;
-            Item.width = 24;
-            Item.height = 28;
+            Item.width = 38;
+            Item.height = 46;
             Item.useTime = 12;
             Item.useAnimation = 12;
             Item.useStyle = ItemUseStyleID.Shoot;

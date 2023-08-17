@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
         {
             Item.damage = 358;
             Item.DamageType = DamageClass.Magic;
-            Item.width = 24;
-            Item.height = 28;
+            Item.width = 38;
+            Item.height = 46;
             Item.useTime = 60;
             Item.useAnimation = 60;
             Item.useStyle = ItemUseStyleID.Shoot;
