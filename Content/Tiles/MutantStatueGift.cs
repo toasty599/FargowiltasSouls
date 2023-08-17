@@ -39,20 +39,15 @@ namespace FargowiltasSouls.Content.Tiles
         }
         public override bool RightClick(int i, int j)
         {
-                
-            Player player = Main.LocalPlayer;
 
             Tile tile = Framing.GetTileSafely(i, j);
             //account for possibly clicking on any part of the multi-tile, negate it to have coords of top left corner
             i -= tile.TileFrameX / 18;
             j -= tile.TileFrameY / 18;
-            //add offset to get middle tile
+            //add offset to get middle bottom tile
             i += 1;
             j += 2;
-
-            //Item.NewItem(new EntitySource_TileBreak(i, j - 1), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Masochist>());
             WorldGen.KillTile(i, j, noItem: true);
-            //WorldGen.PlaceTile(i, j, ModContent.TileType<MutantStatue>());
 
             return true;
         }
@@ -62,12 +57,11 @@ namespace FargowiltasSouls.Content.Tiles
             //account for possibly clicking on any part of the multi-tile, negate it to have coords of top left corner
             i -= tile.TileFrameX / 18;
             j -= tile.TileFrameY / 18;
-            //add offset to get middle tile
+            //add offset to get middle bottom tile
             i += 1;
             j += 2;
 
             Item.NewItem(new EntitySource_TileBreak(i, j - 1), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Masochist>());
-            WorldGen.KillTile(i, j, noItem: true);
             WorldGen.PlaceTile(i, j, ModContent.TileType<MutantStatue>());
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
@@ -75,15 +69,6 @@ namespace FargowiltasSouls.Content.Tiles
             num = 0;
         }
         public override bool CanDrop(int i, int j) => false;
-        //public override bool CanKillTile(int i, int j, ref bool blockDamaged) => false;
-
-        /*
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            //Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Masochist>());
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Placables.MutantStatueGift>());
-        }
-        */
 
     }
 }
