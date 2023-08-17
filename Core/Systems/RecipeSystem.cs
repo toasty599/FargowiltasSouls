@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Core.Systems
             if (modPlayer.IronEnchantItem == null)
                 return;
 
-            if (recipe.requiredTile.Contains(TileID.MythrilAnvil) && !modPlayer.TerraForce)
+            if (recipe.requiredTile.Contains(TileID.MythrilAnvil) && !modPlayer.WizardEnchantActive)
                 return;
 
             //calc the new amount consumed (each has 33% of not)
