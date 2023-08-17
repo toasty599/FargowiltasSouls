@@ -13,6 +13,9 @@
     <None Remove="Folders to Port\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Content\Tiles\MutantStatueGift.png" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>

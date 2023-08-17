@@ -196,7 +196,7 @@ namespace FargowiltasSouls.Core.Globals
 
         protected static void LoadGore(bool recolor, int type)
         {
-            LoadSpriteBuffered(recolor, type, TextureAssets.Gore, FargowiltasSouls.TextureBuffer.Gore, "Assets/Gores/Gore_");
+            LoadSpriteBuffered(recolor, type, TextureAssets.Gore, FargowiltasSouls.TextureBuffer.Gore, "Gores/Gore_");
         }
 
         protected static void LoadGoreRange(bool recolor, int type, int lastType)

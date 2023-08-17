@@ -25,10 +25,11 @@ namespace FargowiltasSouls.Content.Tiles
             // name.SetDefault("Mutant Statue");
             AddMapEntry(new Color(144, 144, 144), name);
         }
-
+        /*
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Placables.MutantStatue>());
         }
+        */
     }
 }

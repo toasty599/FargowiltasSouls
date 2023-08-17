@@ -68,7 +68,10 @@ namespace FargowiltasSouls.Content.Tiles.Relics
             // "MapObject.Relic" refers to the translation key for the vanilla "Relic" text
             AddMapEntry(new Color(233, 207, 94), Language.GetText("MapObject.Relic"));
         }
-
+        public override bool CanDrop(int i, int j)
+        {
+            return false;
+        }
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             // This code here infers the placeStyle the tile was placed with. Only required if you go the Item.placeStyle approach. You just need Item.NewItem otherwise

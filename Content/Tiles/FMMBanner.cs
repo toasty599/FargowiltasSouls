@@ -29,14 +29,17 @@ namespace FargowiltasSouls.Content.Tiles
 
             //name.AddTranslation((int)GameCulture.CultureName.Chinese, "旗帜");
         }
-
+        public override bool CanDrop(int i, int j)
+        {
+            return false;
+        }
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             int style = frameX / 18;
             int item = /*style == 0 ?*/ ModContent.ItemType<TophatSquirrelBanner>();// : ModContent.ItemType<FezSquirrelBanner>();
             Item.NewItem(new Terraria.DataStructures.EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, item);
         }
-
+        
         public override void NearbyEffects(int i, int j, bool closer)
         {
             if (!closer) return;
