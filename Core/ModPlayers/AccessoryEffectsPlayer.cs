@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
@@ -404,6 +405,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     Player.manaRegenDelay = (int)Player.maxRegenDelay;
                 }
+
+                Player.wingTime = Player.wingTimeMax;
             }
             if (!flag)
             {
@@ -3008,7 +3011,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         #endregion maso acc
 
         // TODO: rework this because we can only get final damage in hurtinfo hooks
-        public bool TryParryAttack(ref Player.HurtModifiers modifiers)
+        public void TryParryAttack(ref Player.HurtInfo hurtInfo)
         {
             if (GuardRaised && shieldTimer > 0 && !Player.immune)
             {
@@ -3045,8 +3048,16 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
                 }
 
-                int damageBlocked = /*Math.Min(damageBlockCap, damage);*/ 0;
-                modifiers.FinalDamage -= damageBlockCap;
+                int damageBlocked = Math.Min(damageBlockCap, hurtInfo.Damage);
+                var newDamage = hurtInfo.Damage - damageBlocked;
+                if (newDamage < 1)
+                {
+                    hurtInfo.Null();
+                }
+                else
+                {
+                    hurtInfo.Damage = newDamage;
+                }
 
                 if (DreadShellItem != null)
                 {
@@ -3070,9 +3081,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Player.buffImmune[debuff] = true;
                 }
             }
-
-            return false;
-            // return damage <= 0; //return whether parry completely blocked the attack
         }
 
         private const int BASE_PARRY_WINDOW = 20;

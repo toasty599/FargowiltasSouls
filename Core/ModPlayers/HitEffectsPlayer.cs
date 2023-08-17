@@ -39,11 +39,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 if (ShadowForce)
                 {
-                    modifiers.FinalDamage.Base = (int)(modifiers.FinalDamage.Base * 2.5f);
+                    modifiers.FinalDamage *= 2.5f;
                 }
                 else
                 {
-                    modifiers.FinalDamage.Base = (int)(modifiers.FinalDamage.Base * 2.5f);
+                    modifiers.FinalDamage *= 1.5f;
                 }
 
                 apprenticeBonusDamage = false;
@@ -54,10 +54,13 @@ namespace FargowiltasSouls.Core.ModPlayers
                 int dustId = Dust.NewDust(new Vector2(proj.position.X, proj.position.Y + 2f), proj.width, proj.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
                 Main.dust[dustId].noGravity = true;
 
-                int blastDamage = (int)modifiers.FinalDamage.Base;
-                if (!TerrariaSoul)
-                    blastDamage = Math.Min(blastDamage, FargoSoulsUtil.HighestDamageTypeScaling(Player, 300));
-                Projectile.NewProjectile(Player.GetSource_Misc(""), target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, blastDamage, 0, Player.whoAmI);
+                modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
+                {
+                    var blastDamage = hitInfo.Damage;
+                    if (!TerrariaSoul)
+                        blastDamage = Math.Min(blastDamage, FargoSoulsUtil.HighestDamageTypeScaling(Player, 300));
+                    Projectile.NewProjectile(Player.GetSource_Misc(""), target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, blastDamage, 0, Player.whoAmI);
+                };
             }
             /*
             if (Hexed || (ReverseManaFlow && proj.CountsAsClass(DamageClass.Magic)))
@@ -655,11 +658,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 modifiers.SetMaxDamage(1);
             }
 
-            // TODO: check tModPorter note
-            if (TryParryAttack(ref modifiers))
-            {
-                //negate damage
-            }
+            modifiers.ModifyHurtInfo += TryParryAttack;
 
             if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
             {

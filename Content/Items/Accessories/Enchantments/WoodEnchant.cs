@@ -100,6 +100,7 @@ Discount effect works in vanity slots"); */
             float discount = 1f - bestiaryProgressReport.CompletionPercent / 2f; //50% discount at 100% bestiary
             foreach (Item item in items)
             {
+                if(item == null) continue;
                 int? originalPrice = item.shopCustomPrice == null ? item.value : item.shopCustomPrice;
 
                 item.shopCustomPrice = (int)((float)originalPrice * discount);
