@@ -63,14 +63,9 @@ namespace FargowiltasSouls.Content.Tiles
 
             return true;
         }
-        public override bool CanDrop(int i, int j)
-        {
-            return false;
-        }
-        public override bool CanKillTile(int i, int j, ref bool blockDamaged)
-        {
-            return false;
-        }
+        public override bool CanDrop(int i, int j) => false;
+        public override bool CanKillTile(int i, int j, ref bool blockDamaged) => false;
+
         /*
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
