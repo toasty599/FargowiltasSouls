@@ -4274,7 +4274,7 @@ Mods: {
 
 			MutantsPact: {
 				DisplayName: Mutant's Pact
-				Tooltip: Permanently increases the number of accessory slots
+				Tooltip: Permanently adds an accessory slot that only accepts an Enchantment, Force or Soul
 			}
 
 			OrdinaryCarrot: {
