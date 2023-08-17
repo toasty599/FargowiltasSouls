@@ -2940,7 +2940,7 @@ Mods: {
 				Tooltip:
 					'''
 					Double tap down to toggle stealth, reducing chance for enemies to target you but slowing movement
-					When entering stealth, spawn a vortex that draws in enemies and projectiles
+					When entering stealth, spawn a vortex that draws in projectiles
 					While in stealth, your own projectiles will not be sucked in
 					'Tear into reality'
 					'''
