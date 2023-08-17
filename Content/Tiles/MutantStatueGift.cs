@@ -46,22 +46,19 @@ namespace FargowiltasSouls.Content.Tiles
             //account for possibly clicking on any part of the multi-tile, negate it to have coords of top left corner
             i -= tile.TileFrameX / 18;
             j -= tile.TileFrameY / 18;
-            //add offset to get the coord right below the middle-bottom of this multi-tile
+            //add offset to get middle tile
             i += 1;
-            j += 3;
+            j += 2;
 
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Masochist>());
-            for (int x = -1; x < 2; x++)
-            {
-                for (int y = 0; y < 3; y++)
-                {
-                    WorldGen.KillTile(i - x, j - 1 - y, noItem: true);
-                }
-            }
-            
-            WorldGen.PlaceTile(i, j - 1, ModContent.TileType<MutantStatue>());
+            Item.NewItem(new EntitySource_TileBreak(i, j - 1), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Masochist>());
+            WorldGen.KillTile(i, j, noItem: true);
+            WorldGen.PlaceTile(i, j, ModContent.TileType<MutantStatue>());
 
             return true;
+        }
+        public override void NumDust(int i, int j, bool fail, ref int num)
+        {
+            num = 0;
         }
         public override bool CanDrop(int i, int j) => false;
         public override bool CanKillTile(int i, int j, ref bool blockDamaged) => false;

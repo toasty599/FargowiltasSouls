@@ -114,6 +114,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Hexed || (ReverseManaFlow && item.CountsAsClass(DamageClass.Magic)))
             {
+                
                 modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
                 {
                     target.life += hitInfo.Damage;
