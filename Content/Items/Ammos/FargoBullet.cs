@@ -40,7 +40,8 @@ namespace FargowiltasSouls.Content.Items.Ammos
         {
             CreateRecipe()
             .AddIngredient(ItemID.EndlessMusketPouch)
-            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "SilverPouch").Type)
+            .AddRecipeGroup("Fargowiltas:AnySilverPouch")
+            //.AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "SilverPouch").Type)
             .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "MeteorPouch").Type)
             .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "CursedPouch").Type)
             .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "IchorPouch").Type)
