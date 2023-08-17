@@ -1006,14 +1006,14 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 modifiers.FinalDamage /= AdamModifier;
                 // TODO: maybe use defense here
-                modifiers.FinalDamage -= AccountForDefenseShred(AdamModifier);
+                modifiers.FinalDamage.Flat -= AccountForDefenseShred(AdamModifier);
             }
 
             if (NinjaSpeedup > 0)
             {
                 modifiers.FinalDamage /= 2;
                 // TODO: maybe use defense here
-                modifiers.FinalDamage -= AccountForDefenseShred(AdamModifier);
+                modifiers.FinalDamage.Flat -= AccountForDefenseShred(2);
             }
 
             if (noInteractionWithNPCImmunityFrames)

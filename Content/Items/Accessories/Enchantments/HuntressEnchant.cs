@@ -71,7 +71,7 @@ Missing any attack will reset these bonuses
             }
 
             proj.ArmorPenetration = 10 * modPlayer.HuntressStage;
-            modifiers.SourceDamage += 5 * modPlayer.HuntressStage;
+            modifiers.SourceDamage.Flat += 5 * modPlayer.HuntressStage;
         }
 
         public override void AddRecipes()

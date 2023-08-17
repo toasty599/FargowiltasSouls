@@ -110,15 +110,11 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     int num8 = AI_156_TryAttackingNPCs(ai156_blacklistedTargets, false);
                     if (num8 != -1)
                     {
-                        Projectile.ai[0] = Main.rand.NextFromList(new int[]
-                        {
-                                             num,
-                                             num3
-                        });
+                        AI_156_StartAttack();
+                        Projectile.ai[0] = Main.rand.NextFromList(num, num3);
                         Projectile.ai[0] = num3;
                         Projectile.ai[1] = num8;
                         Projectile.netUpdate = true;
-                        return;
                     }
                 }
             }
@@ -146,6 +142,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                                                  num3
                         });
                         Projectile.ai[1] = num18;
+                        AI_156_StartAttack();
                         Projectile.netUpdate = true;
                         return;
                     }
@@ -168,6 +165,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                                                      num3
                             });
                             Projectile.ai[1] = num19;
+                            AI_156_StartAttack();
                             Projectile.netUpdate = true;
                             return;
                         }
@@ -245,6 +243,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                                                              num3
                                 });
                                 Projectile.ai[1] = num24;
+                                AI_156_StartAttack();
                                 Projectile.netUpdate = true;
                                 return;
                             }
@@ -256,6 +255,14 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 }
             }
 
+        }
+        
+        private void AI_156_StartAttack()
+        {
+            for (int i = 0; i < Projectile.localNPCImmunity.Length; i++)
+            {
+                Projectile.localNPCImmunity[i] = 0;
+            }
         }
 
         //private void AI_GetMyGroupIndexAndFillBlackList(List<int> blackListedTargets, out int index, out int totalIndexesInGroup)
