@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Common
         public abstract int Loadout { get; }
         public override bool CanAcceptItem(Item checkItem, AccessorySlotType context)
         {
-            if (context == AccessorySlotType.FunctionalSlot && base.CanAcceptItem(checkItem, context))
+            if ((context == AccessorySlotType.FunctionalSlot || context == AccessorySlotType.VanitySlot) && base.CanAcceptItem(checkItem, context))
             {
                 if (checkItem.ModItem is BaseEnchant || checkItem.ModItem is BaseForce || checkItem.ModItem is BaseSoul)
                 {
@@ -47,6 +47,10 @@ namespace FargowiltasSouls.Common
             {
                 case AccessorySlotType.FunctionalSlot:
                     Main.hoverItemName = "Enchantment, Force or Soul";
+                    break;
+                case AccessorySlotType.VanitySlot:
+                    break;
+                    Main.hoverItemName = "Vanity Enchantment, Force or Soul";
                     break;
             }
         }
