@@ -5211,7 +5211,7 @@ Mods: {
 				DisplayName: 憎恶
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.AbomBoss}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.AbomBossSpawnInfo}"
 					// DespawnMessage: "{0} is no longer after you..."
 				}
@@ -5223,7 +5223,7 @@ Mods: {
 				DisplayName: 特洛伊松鼠
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.TrojanSquirrel}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.TrojanSquirrelSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TrojanSquirrelDespawn
 				}
@@ -5236,7 +5236,7 @@ Mods: {
 				DisplayName: 厄里达诺斯，宇宙英灵
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.CosmosChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.CosmosChampionSpawnInfo}"
 					// DespawnMessage: "{0} is no longer after you..."
 				}
@@ -5246,7 +5246,7 @@ Mods: {
 				DisplayName: 大地英灵
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.EarthChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.EarthChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.EarthChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.EarthChampionDespawn
 				}
@@ -5260,7 +5260,7 @@ Mods: {
 				DisplayName: 生命英灵
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.LifeChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChampionDespawn
 				}
@@ -5270,7 +5270,7 @@ Mods: {
 				DisplayName: 自然英灵
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.NatureChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.NatureChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.NatureChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.NatureChampionDespawn
 				}
@@ -5282,7 +5282,7 @@ Mods: {
 				DisplayName: 暗影英灵
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.ShadowChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.ShadowChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.ShadowChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.ShadowChampionDespawn
 				}
@@ -5294,7 +5294,7 @@ Mods: {
 				DisplayName: 心灵英灵
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.SpiritChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.SpiritChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.SpiritChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.SpiritChampionDespawn
 				}
@@ -5306,7 +5306,7 @@ Mods: {
 				DisplayName: 泰拉英灵
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.TerraChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TerraChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.TerraChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TerraChampionDespawn
 				}
@@ -5319,7 +5319,7 @@ Mods: {
 				DisplayName: 木英灵
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.TimberChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.TimberChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TimberChampionDespawn
 				}
@@ -5331,7 +5331,7 @@ Mods: {
 				DisplayName: 意志英灵
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.WillChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.WillChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.WillChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.WillChampionDespawn
 				}
@@ -5354,7 +5354,7 @@ Mods: {
 				DisplayName: 突变体
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.MutantBoss}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.MutantBossSpawnInfo}"
 					// DespawnMessage: "{0} is no longer after you..."
 				}
@@ -5366,7 +5366,7 @@ Mods: {
 				DisplayName: 戴薇安
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.DeviBoss}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.DeviBossSpawnInfo}"
 					// DespawnMessage: "{0} is no longer after you..."
 				}
@@ -5378,7 +5378,7 @@ Mods: {
 				// DisplayName: Lieflight
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.LifeChallenger}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChallengerSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChallengerDespawn
 				}

@@ -1013,7 +1013,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 modifiers.FinalDamage /= 2;
                 // TODO: maybe use defense here
-                modifiers.FinalDamage -= AccountForDefenseShred(AdamModifier);
+                modifiers.FinalDamage -= AccountForDefenseShred(2);
             }
 
             if (noInteractionWithNPCImmunityFrames)

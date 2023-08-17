@@ -196,10 +196,10 @@ Mods: {
 
 		Message: {
 			// HasAwoken: has awoken!
-			// SquirrelCoatofArms: "{$Mods.FargowiltasSouls.NPCName.TrojanSquirrel} {$Mods.FargowiltasSouls.Message.HasAwoken}"
-			// DevisCurse: "{$Mods.FargowiltasSouls.NPCName.DeviBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
-			// AbomsCurse: "{$Mods.FargowiltasSouls.NPCName.AbomBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
-			// MutantsCurse: "{$Mods.FargowiltasSouls.NPCName.MutantBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			// SquirrelCoatofArms: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			// DevisCurse: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			// AbomsCurse: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			// MutantsCurse: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName} {$Mods.FargowiltasSouls.Message.HasAwoken}"
 			// AbominationnVoodooDoll: Mutant has been enraged by the death of his brother!
 			// AbominationnVoodooDollFail: The doll teleports back into your hands. Maybe it shouldn't be used underground...
 
@@ -222,7 +222,7 @@ Mods: {
 			// PiranhaPlantVoodooDollOff: The suffering wanes...
 			// MasochistSpawnDevi: Deviantt has awoken!
 			// MasochistWrongDifficulty: World must be Expert difficulty or harder!
-			// MasochistModeUnlocked: "{$Mods.FargowiltasSouls.Items.Masochist} surges with new power.DisplayName...!"
+			// MasochistModeUnlocked: "{$Mods.FargowiltasSouls.Items.Masochist.DisplayName} surges with new power...!"
 			// MasochistPreTooltip: Enables Masochist Mode when used in Master Mode
 			// ForgottenGift: "world is currently maso: "
 
@@ -5255,7 +5255,7 @@ Mods: {
 				// DisplayName: Abominationn
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.AbomBoss}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.AbomBossSpawnInfo}"
 					// DespawnMessage: "{0} is no longer after you..."
 				}
@@ -5267,7 +5267,7 @@ Mods: {
 				// DisplayName: Trojan Squirrel
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.TrojanSquirrel}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.TrojanSquirrelSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TrojanSquirrelDespawn
 				}
@@ -5280,7 +5280,7 @@ Mods: {
 				// DisplayName: Eridanus, Champion of Cosmos
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.CosmosChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.CosmosChampionSpawnInfo}"
 					// DespawnMessage: "{0} is no longer after you..."
 				}
@@ -5290,7 +5290,7 @@ Mods: {
 				// DisplayName: Champion of Earth
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.EarthChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.EarthChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.EarthChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.EarthChampionDespawn
 				}
@@ -5304,7 +5304,7 @@ Mods: {
 				// DisplayName: Champion of Life
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.LifeChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChampionDespawn
 				}
@@ -5314,7 +5314,7 @@ Mods: {
 				// DisplayName: Champion of Nature
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.NatureChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.NatureChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.NatureChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.NatureChampionDespawn
 				}
@@ -5326,19 +5326,19 @@ Mods: {
 				// DisplayName: Champion of Shadow
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.ShadowChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.ShadowChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.ShadowChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.ShadowChampionDespawn
 				}
 			}
 
-			// ShadowOrb.DisplayName: Mods.FargowiltasSouls.NPCName.ShadowOrb
+			// ShadowOrb.DisplayName: Mods.FargowiltasSouls.NPCs.ShadowOrb.DisplayName
 
 			SpiritChampion: {
 				// DisplayName: Champion of Spirit
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.SpiritChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.SpiritChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.SpiritChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.SpiritChampionDespawn
 				}
@@ -5350,7 +5350,7 @@ Mods: {
 				// DisplayName: Champion of Terra
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.TerraChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TerraChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.TerraChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TerraChampionDespawn
 				}
@@ -5363,7 +5363,7 @@ Mods: {
 				// DisplayName: Champion of Timber
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.TimberChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.TimberChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TimberChampionDespawn
 				}
@@ -5375,7 +5375,7 @@ Mods: {
 				// DisplayName: Champion of Will
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.WillChampion}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.WillChampion.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.WillChampionSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.WillChampionDespawn
 				}
@@ -5388,7 +5388,7 @@ Mods: {
 			// BrainIllusionAttack.DisplayName: Brain of Cthulhu
 			// CreeperGutted.DisplayName: Gutted Creeper
 			// CrystalLeaf.DisplayName: Crystal Leaf
-			// DetonatingBubble.DisplayName: Mods.FargowiltasSouls.NPCName.DetonatingBubble
+			// DetonatingBubble.DisplayName: Mods.FargowiltasSouls.NPCs.DetonatingBubble.DisplayName
 			// DetonatingBubbleEX.DisplayName: Detonating Bubble
 			// GelatinSlime.DisplayName: Crystal Slime
 			// GelatinSubject.DisplayName: Gelatin Subject
@@ -5398,7 +5398,7 @@ Mods: {
 				// DisplayName: Mutant
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.MutantBoss}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.MutantBossSpawnInfo}"
 					// DespawnMessage: "{0} is no longer after you..."
 				}
@@ -5410,7 +5410,7 @@ Mods: {
 				// DisplayName: Deviantt
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.DeviBoss}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.DeviBossSpawnInfo}"
 					// DespawnMessage: "{0} is no longer after you..."
 				}
@@ -5422,7 +5422,7 @@ Mods: {
 				// DisplayName: Lieflight
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCName.LifeChallenger}"
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChallengerSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChallengerDespawn
 				}
