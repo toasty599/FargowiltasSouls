@@ -43,6 +43,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 player.immune = true;
                 modPlayer.CobaltImmuneTimer--;
             }
+            if (modPlayer.CobaltCooldownTimer > 0)
+            {
+                modPlayer.CobaltCooldownTimer--;
+            }
 
 
             if (player.jump <= 0 && player.velocity.Y == 0f)
@@ -55,7 +59,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 modPlayer.CanCobaltJump = false;
             }
 
-            if (player.controlJump && player.releaseJump && player.GetToggleValue("AncientCobalt") && modPlayer.CanCobaltJump && !modPlayer.JustCobaltJumped)
+            if (player.controlJump && player.releaseJump && player.GetToggleValue("AncientCobalt") && modPlayer.CanCobaltJump && !modPlayer.JustCobaltJumped && modPlayer.CobaltCooldownTimer <= 0)
             {
                 int projType = ModContent.ProjectileType<CobaltExplosion>();
 
@@ -65,6 +69,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                 if (modPlayer.CobaltImmuneTimer <= 0)
                     modPlayer.CobaltImmuneTimer = 15;
+
+                if (modPlayer.CobaltCooldownTimer <= 10)
+                    modPlayer.CobaltCooldownTimer = 10;
             }
 
             if (modPlayer.CanCobaltJump || modPlayer.JustCobaltJumped && !player.isPerformingJump_Cloud && !player.isPerformingJump_Blizzard && !player.isPerformingJump_Fart && !player.isPerformingJump_Sail && !player.isPerformingJump_Sandstorm && !modPlayer.JungleJumping)

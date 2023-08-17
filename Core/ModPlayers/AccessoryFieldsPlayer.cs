@@ -76,6 +76,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public Item CobaltEnchantItem;
         public bool CanCobaltJump;
         public bool JustCobaltJumped;
+        public int CobaltCooldownTimer;
         public int CobaltImmuneTimer;
         public Item MythrilEnchantItem;
         public int MythrilTimer;
