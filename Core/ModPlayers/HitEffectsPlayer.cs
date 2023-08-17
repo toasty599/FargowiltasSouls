@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     blastDamage = Math.Min(blastDamage, FargoSoulsUtil.HighestDamageTypeScaling(Player, 300));
                 Projectile.NewProjectile(Player.GetSource_Misc(""), target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, blastDamage, 0, Player.whoAmI);
             }
-
+            /*
             if (Hexed || (ReverseManaFlow && proj.CountsAsClass(DamageClass.Magic)))
             {
                 target.life += (int)modifiers.FinalDamage.Base;
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             }
-
+            */
             if (SqueakyToy)
             {
                 modifiers.FinalDamage.Base = 1;
@@ -111,10 +111,9 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 modifiers.FinalDamage /= 2;
             }
-
+            /*
             if (Hexed || (ReverseManaFlow && item.CountsAsClass(DamageClass.Magic)))
             {
-                
                 modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
                 {
                     target.life += hitInfo.Damage;
@@ -131,7 +130,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             }
-
+            */
             if (SqueakyToy)
             {
                 modifiers.SetMaxDamage(1);
@@ -166,6 +165,19 @@ namespace FargowiltasSouls.Core.ModPlayers
                 
                     if (SpiderEnchantActive && damageClass.CountsAsClass(DamageClass.Summon) && !TerrariaSoul)
                         hitInfo.Damage = (int)(hitInfo.Damage * 0.75);
+                }
+
+                if (Hexed || (ReverseManaFlow && damageClass == DamageClass.Magic))
+                {
+                    target.life += hitInfo.Damage;
+                    target.HealEffect(hitInfo.Damage);
+                    if (target.life > target.lifeMax)
+                    {
+                        target.life = target.lifeMax;
+                    }
+                    hitInfo.Null();
+                    return;
+
                 }
             };
 
@@ -207,6 +219,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         private void OnHitNPCEither(NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, Projectile projectile = null, Item item = null)
         {
+
             //doing this so that damage-inheriting effects dont double dip or explode due to taking on crit boost
             int GetBaseDamage()
             {
@@ -218,6 +231,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                     baseDamage = Player.GetWeaponDamage(item);
                 return baseDamage;
             }
+
+            
 
             if (StyxSet)
             {
