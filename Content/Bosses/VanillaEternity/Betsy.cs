@@ -26,6 +26,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DD2Betsy);
 
+        public int EntranceTimer = 0;
+
         public int FuryRingTimer;
         public int FuryRingShotRotationCounter;
 
@@ -66,6 +68,30 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (WorldSavingSystem.SwarmActive)
                 return true;
+
+
+            if (EntranceTimer == 0)
+            {
+                SoundEngine.PlaySound(SoundID.DD2_BetsyScream, npc.Center);
+            }
+            if (EntranceTimer < 60 * 2)
+            {
+                EntranceTimer++;
+                npc.dontTakeDamage = true;
+                npc.TargetClosest(false);
+                npc.spriteDirection = Math.Sign(npc.DirectionTo(Main.player[npc.target].Center).X);
+                npc.rotation = npc.DirectionTo(Main.player[npc.target].Center).ToRotation();
+                if (npc.spriteDirection == -1)
+                {
+                    npc.rotation += MathHelper.Pi;
+                }
+                return false;
+                
+            }
+            if (EntranceTimer == 60 * 2)
+            {
+                npc.dontTakeDamage = false;
+            }
 
             if (WorldSavingSystem.MasochistModeReal)
             {
