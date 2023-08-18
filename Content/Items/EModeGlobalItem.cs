@@ -7,6 +7,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Content.Items
 {
@@ -57,9 +58,14 @@ namespace FargowiltasSouls.Content.Items
                     return false;
             }
 
-            if (item.type == ItemID.RodofDiscord && FargoSoulsUtil.AnyBossAlive())
+            if ((item.type == ItemID.RodofDiscord || item.type == ItemID.RodOfHarmony) && FargoSoulsUtil.AnyBossAlive())
             {
                 player.chaosState = true;
+            }
+
+            if (item.type == ItemID.RodOfHarmony && player.chaosState)
+            {
+                player.Hurt(PlayerDeathReason.ByPlayerItem(item.type, item), player.statLifeMax2 / 7, 0);
             }
 
             return base.CanUseItem(item, player);
@@ -123,6 +129,9 @@ namespace FargowiltasSouls.Content.Items
             switch (item.type)
             {
                 case ItemID.RodofDiscord:
+                    ItemBalance(tooltips, EModeChange.Nerf, "RodofDiscord");
+                    break;
+                case ItemID.RodOfHarmony:
                     ItemBalance(tooltips, EModeChange.Nerf, "RodofDiscord");
                     break;
 
