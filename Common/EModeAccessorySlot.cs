@@ -2,20 +2,34 @@
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Patreon.ParadoxWolf;
 using FargowiltasSouls.Core.Systems;
+using System.Linq;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Common
 {
     public abstract class EModeAccessorySlot : ModAccessorySlot
     {
+        int[] AllowedItemExceptions = new int[]
+        {
+            ModContent.ItemType<ParadoxWolfSoul>(),
+            ItemID.RareEnchantment,
+            ItemID.SoulofLight,
+            ItemID.SoulofNight,
+            ItemID.SoulofFlight,
+            ItemID.SoulofFright,
+            ItemID.SoulofSight,
+            ItemID.SoulofMight,
+        };
         public abstract int Loadout { get; }
         public override bool CanAcceptItem(Item checkItem, AccessorySlotType context)
         {
-            if ((context == AccessorySlotType.FunctionalSlot || context == AccessorySlotType.VanitySlot) && base.CanAcceptItem(checkItem, context))
+            if ((context == AccessorySlotType.FunctionalSlot || context == AccessorySlotType.VanitySlot) && (base.CanAcceptItem(checkItem, context)) || AllowedItemExceptions.Contains(checkItem.type))
             {
-                if (checkItem.ModItem is BaseEnchant || checkItem.ModItem is BaseForce || checkItem.ModItem is BaseSoul)
+                if (checkItem.ModItem is BaseEnchant || checkItem.ModItem is BaseForce || checkItem.ModItem is BaseSoul || AllowedItemExceptions.Contains(checkItem.type))
                 {
                     return true;
                 }
@@ -25,7 +39,7 @@ namespace FargowiltasSouls.Common
         }
         public override bool ModifyDefaultSwapSlot(Item item, int accSlotToSwapTo)
         {
-            if (item.ModItem is BaseEnchant || item.ModItem is BaseForce || item.ModItem is BaseSoul)
+            if (item.ModItem is BaseEnchant || item.ModItem is BaseForce || item.ModItem is BaseSoul || AllowedItemExceptions.Contains(item.type))
             {
                 return true;
             }
