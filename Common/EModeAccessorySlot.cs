@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Common
                     Main.hoverItemName = "Enchantment, Force or Soul";
                     break;
                 case AccessorySlotType.VanitySlot:
-                    Main.hoverItemName = "Vanity Enchantment, Force or Soul";
+                    Main.hoverItemName = "Social Enchantment, Force or Soul";
                     break;
             }
         }
