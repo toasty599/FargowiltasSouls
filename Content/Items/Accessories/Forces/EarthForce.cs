@@ -10,7 +10,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public static int[] Enchants => new int[]
         {
             ModContent.ItemType<CobaltEnchant>(),
-            ModContent.ItemType<AncientCobaltEnchant>(),
             ModContent.ItemType<PalladiumEnchant>(),
             ModContent.ItemType<MythrilEnchant>(),
             ModContent.ItemType<OrichalcumEnchant>(),
@@ -63,6 +62,7 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacks generate titanium shards,
             MythrilEnchant.MythrilEffect(player, Item);
             //shards
             modPlayer.CobaltEnchantItem = Item;
+            AncientCobaltEnchant.AncientCobaltEffect(player, Item, 250);
             //regen on hit, heals
             PalladiumEnchant.PalladiumEffect(player, Item);
             //fireballs and petals
