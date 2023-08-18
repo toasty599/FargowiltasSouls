@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Common
             ItemID.SoulofFlight,
             ItemID.SoulofFright,
             ItemID.SoulofSight,
-            ItemID.SoulofMight,
+            ItemID.SoulofMight, 
         };
         public abstract int Loadout { get; }
         public override bool CanAcceptItem(Item checkItem, AccessorySlotType context)
@@ -31,6 +31,7 @@ namespace FargowiltasSouls.Common
             {
                 if (checkItem.ModItem is BaseEnchant || checkItem.ModItem is BaseForce || checkItem.ModItem is BaseSoul || AllowedItemExceptions.Contains(checkItem.type))
                 {
+                    
                     return true;
                 }
                 return false;
