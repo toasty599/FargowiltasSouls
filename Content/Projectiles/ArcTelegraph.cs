@@ -41,9 +41,9 @@ namespace FargowiltasSouls.Content.Projectiles
         }
         public override void AI()
         {
-            Main.NewText(Projectile.ai[0]);
-            Main.NewText(Projectile.ai[1]);
-            Main.NewText(coneWidth + " " + coneLength);
+            // Main.NewText(Projectile.ai[0]);
+            // Main.NewText(Projectile.ai[1]);
+            // Main.NewText(coneWidth + " " + coneLength);
         }
         public static float WidthFunction(float progress)
         {
