@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Common
             }
             return false;
         }
-        public override bool IsVisibleWhenNotEnabled() => !(WorldSavingSystem.EternityMode && Player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot);
+        public override bool IsVisibleWhenNotEnabled() => false;
         public override bool IsEnabled()
         {
             return WorldSavingSystem.EternityMode && Player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot && Player.CurrentLoadoutIndex == Loadout;
