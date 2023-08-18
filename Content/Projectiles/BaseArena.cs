@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             //this can also be used for general npc-reliant checks and killing the proj
         }
-
+        float speed = 17;
         public override void AI()
         {
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], npcType);
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         Vector2 movement = Projectile.Center - player.Center;
                         float difference = movement.Length() - threshold;
                         movement.Normalize();
-                        movement *= difference < 17f ? difference : 17f;
+                        movement *= difference < speed ? difference : speed;
                         player.position += movement;
 
                         for (int i = 0; i < 20; i++)
@@ -130,6 +130,14 @@ namespace FargowiltasSouls.Content.Projectiles
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity *= 5f;
                         }
+                        if (speed <= 60f)
+                        {
+                            speed += 3/60f;
+                        }
+                    }
+                    else
+                    {
+                        speed = 17;
                     }
                 }
             }
