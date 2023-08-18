@@ -853,7 +853,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             ShadowEnchantActive = true;
         }
-
+        private int ShadowOrbRespawnTimer;
         public void ShadowEffectPostEquips()
         {
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Shadow"))
@@ -887,9 +887,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                     }
                 }
-                //equipped somwthing that allows for more or less, respawn
-                else if (currentOrbs != max)
+                //equipped somwthing that allows for more or less, respawn, only once every 10 seconds to prevent exploit
+                else if (currentOrbs != max && ShadowOrbRespawnTimer <= 0)
                 {
+                    ShadowOrbRespawnTimer = 60 * 10;
+
                     for (int i = 0; i < Main.maxProjectiles; i++)
                     {
                         Projectile proj = Main.projectile[i];
@@ -909,6 +911,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                     }
                 }
+                ShadowOrbRespawnTimer--;
             }
         }
 
