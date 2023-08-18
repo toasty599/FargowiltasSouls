@@ -83,7 +83,14 @@ namespace FargowiltasSouls.Content.UI
 
             if (!Main.playerInventory && SoulConfig.Instance.HideTogglerWhenInventoryIsClosed)
                 CloseSoulToggler();
-
+            if (!Main.playerInventory)
+            {
+                CloseSoulTogglerButton();
+            }
+            else
+            {
+                OpenSoulTogglerButton();
+            }
             if (TogglerUserInterface?.CurrentState != null)
                 TogglerUserInterface.Update(gameTime);
             if (TogglerToggleUserInterface?.CurrentState != null)
@@ -106,6 +113,8 @@ namespace FargowiltasSouls.Content.UI
         public static bool IsTogglerOpen() => TogglerUserInterface.CurrentState == SoulToggler;
 
         public static void OpenToggler() => TogglerUserInterface.SetState(SoulToggler);
+        public static void CloseSoulTogglerButton() => TogglerToggleUserInterface.SetState(null);
+        public static void OpenSoulTogglerButton() => TogglerToggleUserInterface.SetState(SoulTogglerButton);
 
         public static void ToggleSoulToggler()
         {
