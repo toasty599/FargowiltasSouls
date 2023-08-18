@@ -58,14 +58,22 @@ namespace FargowiltasSouls.Content.Items
                     return false;
             }
 
-            if ((item.type == ItemID.RodofDiscord || item.type == ItemID.RodOfHarmony) && FargoSoulsUtil.AnyBossAlive())
+            if (item.type == ItemID.RodofDiscord && FargoSoulsUtil.AnyBossAlive())
             {
                 player.chaosState = true;
             }
 
-            if (item.type == ItemID.RodOfHarmony && player.chaosState)
+            if (item.type == ItemID.RodOfHarmony && FargoSoulsUtil.AnyBossAlive())
             {
-                player.Hurt(PlayerDeathReason.ByPlayerItem(item.type, item), player.statLifeMax2 / 7, 0);
+                player.hurtCooldowns[0] = 0;
+                var defense = player.statDefense;
+                float endurance = player.endurance;
+                player.statDefense.FinalMultiplier *= 0;
+                player.endurance = 0;
+                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " didn't materialize."), player.statLifeMax2 / 7, 0, false, false, 0, false);
+                player.statDefense = defense;
+                player.endurance = endurance;
+                
             }
 
             return base.CanUseItem(item, player);
