@@ -41,24 +41,40 @@ namespace FargowiltasSouls
                 void Add(string type, string bossName, List<int> npcIDs, float progression, Func<bool> downed, Func<bool> available, List<int> collectibles, List<int> spawnItems, bool hasKilledAllMessage, string portrait = null)
                 {
                     bossChecklist.Call(
-                        $"Add{type}",
+                        $"Log{type}",
                         this,
-                        $"$Mods.{Name}.NPCs.{bossName}.DisplayName",
-                        npcIDs,
+                        bossName,
                         progression,
                         downed,
-                        available,
-                        collectibles,
-                        spawnItems,
-                        $"$Mods.{Name}.BossChecklist.{bossName}SpawnInfo",
-                        hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"Mods.{Name}.BossChecklist.{bossName}KilledAll" : $"Mods.{Name}.BossChecklist.{bossName}Despawn") : $"Mods.{Name}.BossChecklist.{bossName}Despawn",
-                        portrait == null ? null : new Action<SpriteBatch, Rectangle, Color>((spriteBatch, rect, color) =>
+                        npcIDs,
+                        new Dictionary<string, object>()
                         {
-                            Texture2D tex = Assets.Request<Texture2D>(portrait, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                            Rectangle sourceRect = tex.Bounds;
-                            float scale = Math.Min(1f, (float)rect.Width / sourceRect.Width);
-                            spriteBatch.Draw(tex, rect.Center.ToVector2(), sourceRect, color, 0f, sourceRect.Size() / 2, scale, SpriteEffects.None, 0);
-                        })
+                            { "spawnItems", spawnItems },
+                            // { "collectibles", collectibles }, // it's fetched from npc loot? TODO: refactor method calls below
+                            { "availability", available },
+                            { "despawnMessage", hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"Mods.{Name}.BossChecklist.{bossName}KilledAll" : $"Mods.{Name}.BossChecklist.{bossName}Despawn") : $"Mods.{Name}.BossChecklist.{bossName}Despawn" },
+                            {
+                                "customPortrait",
+                                portrait == null ? null : new Action<SpriteBatch, Rectangle, Color>((spriteBatch, rect, color) =>
+                                {
+                                    Texture2D tex = Assets.Request<Texture2D>(portrait, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                                    Rectangle sourceRect = tex.Bounds;
+                                    float scale = Math.Min(1f, (float)rect.Width / sourceRect.Width);
+                                    spriteBatch.Draw(tex, rect.Center.ToVector2(), sourceRect, color, 0f, sourceRect.Size() / 2, scale, SpriteEffects.None, 0);
+                                })
+                            }
+                        }
+                        // available,
+                        // collectibles,
+                        // spawnItems,
+                        // hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"Mods.{Name}.BossChecklist.{bossName}KilledAll" : $"Mods.{Name}.BossChecklist.{bossName}Despawn") : $"Mods.{Name}.BossChecklist.{bossName}Despawn",
+                        // portrait == null ? null : new Action<SpriteBatch, Rectangle, Color>((spriteBatch, rect, color) =>
+                        // {
+                        //     Texture2D tex = Assets.Request<Texture2D>(portrait, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                        //     Rectangle sourceRect = tex.Bounds;
+                        //     float scale = Math.Min(1f, (float)rect.Width / sourceRect.Width);
+                        //     spriteBatch.Draw(tex, rect.Center.ToVector2(), sourceRect, color, 0f, sourceRect.Size() / 2, scale, SpriteEffects.None, 0);
+                        // })
                     );
                 }
 
@@ -234,7 +250,7 @@ namespace FargowiltasSouls
                     }),
                     new List<int> { ModContent.ItemType<SquirrelCoatofArms>() },
                     false,
-                    "Content/NPCs/Challengers/TrojanSquirrel_Still"
+                    "Content/Bosses/TrojanSquirrel/TrojanSquirrel_Still"
                 );
                 Add("Boss",
                     "LifeChallenger",
@@ -253,7 +269,7 @@ namespace FargowiltasSouls
                     }),
                     new List<int> { ModContent.ItemType<FragilePixieLamp>() },
                     false,
-                    "Content/NPCs/Challengers/LifeChallenger"
+                    "Content/Bosses/Lieflight/LifeChallenger"
                 );
                 //JAVYZ TODO: Banished Baron
                 /*
