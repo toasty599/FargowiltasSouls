@@ -1,6 +1,7 @@
 using FargowiltasSouls.Content.Projectiles;
 
 using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -41,9 +42,21 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             FargoSoulsPlayer modplayer = player.GetModPlayer<FargoSoulsPlayer>();
             modplayer.AdamantiteEnchantItem = item;
         }
-
+        static int[] AdamIgnoreItems = new int[]
+        {
+            ItemID.NightsEdge,
+            ItemID.TrueNightsEdge,
+            ItemID.Excalibur,
+            ItemID.TrueExcalibur,
+            ItemID.TerraBlade
+        };
         public static void AdamantiteSplit(Projectile projectile, FargoSoulsPlayer modPlayer)
         {
+            
+            if (AdamIgnoreItems.Contains(modPlayer.Player.HeldItem.type))
+            {
+                return;
+            }
             foreach (Projectile p in FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(8), 1f))
             {
                 if (p != null && p.active)
