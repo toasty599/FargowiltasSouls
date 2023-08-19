@@ -32,16 +32,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Chilled,
-                    BuffID.Suffocation,
-                    ModContent.BuffType<LethargicBuff>(),
-                    ModContent.BuffType<ClippedWingsBuff>(),
-                }
-            });
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Chilled] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Suffocation] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<LethargicBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<ClippedWingsBuff>()] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {

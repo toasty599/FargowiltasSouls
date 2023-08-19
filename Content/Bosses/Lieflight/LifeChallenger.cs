@@ -144,17 +144,11 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.Chilled,
-                    BuffID.Suffocation,
-                    ModContent.BuffType<LethargicBuff>(),
-                    ModContent.BuffType<ClippedWingsBuff>()
-                }
-            });
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Chilled] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Suffocation] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<LethargicBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {

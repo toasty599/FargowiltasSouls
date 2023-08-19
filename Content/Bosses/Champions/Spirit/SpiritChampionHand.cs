@@ -25,19 +25,13 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                 Hide = true
             });
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.Chilled,
-                    BuffID.OnFire,
-                    BuffID.Suffocation,
-                    ModContent.BuffType<LethargicBuff>(),
-                    ModContent.BuffType<ClippedWingsBuff>(),
-                    ModContent.BuffType<LightningRodBuff>()
-                }
-            });
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Chilled] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Suffocation] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<LethargicBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<ClippedWingsBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<LightningRodBuff>()] = true;
         }
 
         public override void SetDefaults()

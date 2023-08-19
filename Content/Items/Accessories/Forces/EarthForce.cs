@@ -10,6 +10,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public static int[] Enchants => new int[]
         {
             ModContent.ItemType<CobaltEnchant>(),
+            ModContent.ItemType<AncientCobaltEnchant>(),
             ModContent.ItemType<PalladiumEnchant>(),
             ModContent.ItemType<MythrilEnchant>(),
             ModContent.ItemType<OrichalcumEnchant>(),

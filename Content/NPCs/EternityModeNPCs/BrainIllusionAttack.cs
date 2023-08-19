@@ -29,17 +29,11 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 Hide = true
             });
 
-            NPCID.Sets.DebuffImmunitySets.Add(Type, new Terraria.DataStructures.NPCDebuffImmunityData 
-            {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.OnFire,
-                    BuffID.Confused,
-                    BuffID.Suffocation,
-                    BuffID.CursedInferno,
-                    BuffID.Burning,
-                }
-            });
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Suffocation] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.CursedInferno] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Burning] = true;
         }
 
         public override void SetDefaults()

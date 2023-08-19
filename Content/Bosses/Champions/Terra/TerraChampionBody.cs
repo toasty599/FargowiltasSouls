@@ -22,11 +22,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
 
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                ImmuneToAllBuffsThatAreNotWhips = true,
-                ImmuneToWhips = true
-            });
+            NPCID.Sets.ImmuneToAllBuffs[NPC.type] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {

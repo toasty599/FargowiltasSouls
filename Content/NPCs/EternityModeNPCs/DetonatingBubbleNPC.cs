@@ -19,15 +19,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爆炸泡泡");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.OnFire,
-                    BuffID.Suffocation
-                }
-            });
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Suffocation] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {

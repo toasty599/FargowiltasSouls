@@ -22,24 +22,19 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.Chilled,
-                    BuffID.OnFire,
-                    BuffID.Suffocation,
-                    ModContent.BuffType<LethargicBuff>(),
-                    ModContent.BuffType<ClippedWingsBuff>(),
-                    ModContent.BuffType<MutantNibbleBuff>(),
-                    ModContent.BuffType<OceanicMaulBuff>(),
-                    ModContent.BuffType<LightningRodBuff>(),
-                    ModContent.BuffType<SadismBuff>(),
-                    ModContent.BuffType<GodEaterBuff>(),
-                    ModContent.BuffType<TimeFrozenBuff>()
-                }
-            });
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Chilled] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Suffocation] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<LethargicBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<ClippedWingsBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<MutantNibbleBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<OceanicMaulBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<LightningRodBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<SadismBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<GodEaterBuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[NPC.type][ModContent.BuffType<TimeFrozenBuff>()] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
