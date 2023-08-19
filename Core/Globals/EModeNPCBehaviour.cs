@@ -37,8 +37,7 @@ namespace FargowiltasSouls.Core.Globals
         public override GlobalNPC NewInstance(NPC target) {
             TryLoadSprites(target);
 
-            return base.NewInstance(target);
-            //return WorldSavingSystem.EternityMode ? base.NewInstance(target) : null;
+            return WorldSavingSystem.EternityMode ? base.NewInstance(target) : target.GetGlobalNPC<SillyLittleQuestionMark>();
         }
 
         public bool FirstTick = true;
