@@ -446,13 +446,26 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.shadowDodge) //prehurt hook not called on titanium dodge
                 Player.AddBuff(ModContent.BuffType<HolyPriceBuff>(), 600);
         }
-
-        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
 
             ShadowDodgeNerf();
+        }
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
+        {
+            if (!WorldSavingSystem.EternityMode)
+                return;
+
+            ShadowDodgeNerf();
+        }
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+        {
+            if (!WorldSavingSystem.EternityMode)
+                return;
+
+            //ShadowDodgeNerf();
         }
 
         public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
@@ -460,7 +473,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!WorldSavingSystem.EternityMode)
                 return;
 
-            ShadowDodgeNerf();
+            //ShadowDodgeNerf();
         }
 
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
