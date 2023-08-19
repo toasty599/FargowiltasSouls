@@ -699,8 +699,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             if (NPC.localAI[2] == 0 && NPC.life < NPC.lifeMax / 3
                 || NPC.localAI[2] == 1 && NPC.life < NPC.lifeMax / 3 && WorldSavingSystem.EternityMode)
             {
-                modifiers.FinalDamage *= 0f;
-                modifiers.FinalDamage += 1f;
+                modifiers.SetMaxDamage(1);
                 modifiers.DisableCrit();
             }
         }
