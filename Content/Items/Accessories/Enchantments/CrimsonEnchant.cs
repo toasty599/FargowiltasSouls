@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             // DisplayName.SetDefault("Crimson Enchantment");
             /* Tooltip.SetDefault(
-@"After taking a hit, regen is greatly increased until the half the hit is healed off
+@"After taking a hit, regen is greatly increased until half the hit is healed off
 If you take another hit before it's healed, the heal ends early
 This does not affect hits dealing less than 10 damage
 'The blood of your enemy is your rebirth'"); */
