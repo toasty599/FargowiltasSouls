@@ -18,6 +18,7 @@ using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
+using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -118,13 +119,11 @@ namespace FargowiltasSouls.Core.Globals
             FlamesoftheUniverse = false;
             PungentGazeTime = 0;
         }
-
         public override void SetDefaults(NPC npc)
         {
             if (npc.rarity > 0 && !RareNPCs.Contains(npc.type))
                 RareNPCs.Add(npc.type);
         }
-
         public override bool PreAI(NPC npc)
         {
             if (npc.boss || npc.type == NPCID.EaterofWorldsHead)

@@ -625,6 +625,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             return 1f;
         }
 
+
         public override bool ModifyNurseHeal(NPC nurse, ref int health, ref bool removeDebuffs, ref string chatText)
         {
             if (!WorldSavingSystem.EternityMode)
