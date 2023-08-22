@@ -738,7 +738,12 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                 const float offsetY = 65;
                 int max = WorldSavingSystem.MasochistModeReal ? 4 : 2;
                 for (int i = -max; i <= max; i++)
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(offsetX * i, -offsetY), Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
+                {
+                    Projectile p = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(offsetX * i, -offsetY), Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
+                    p.friendly = false;
+                    p.hostile = true;
+                }
+
             }
         }
 

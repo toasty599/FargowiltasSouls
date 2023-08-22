@@ -124,10 +124,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                 offset.X += (float)(Math.Sin(angle) * AoE);
                 offset.Y += (float)(Math.Cos(angle) * AoE);
                 Vector2 spawnPos = npc.Center + offset - new Vector2(4, 4);
-                Dust dust = Main.dust[Dust.NewDust(
-                        spawnPos, 0, 0,
-                        DustID.Shadowflame, 0, 0, 100, Color.White, 1f
-                        )];
+                Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0,DustID.Shadowflame, 0, 0, 100, Color.White, 1f)];
                 dust.velocity = npc.velocity;
                 if (Main.rand.NextBool(3))
                     dust.velocity += Vector2.Normalize(offset) * -5f;
