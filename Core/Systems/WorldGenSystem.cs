@@ -88,6 +88,7 @@ namespace FargowiltasSouls.Core.Systems
                     if (TryPlacingStatue(positionX + offsetX, positionY + offsetY))
                     {
                         placed = true;
+                        WorldSavingSystem.PlacedMutantStatue = true;
                         break;
                     }
                 }
