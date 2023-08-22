@@ -20,6 +20,7 @@ using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.Core.ModPlayers;
+using Terraria.Audio;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -46,6 +47,8 @@ namespace FargowiltasSouls.Core.Globals
         public bool SolarFlare;
         public bool TimeFrozen;
         public bool HellFire;
+        public bool Corrupted;
+        public bool CorruptedForce;
         public bool Infested;
         public int MaxInfestTime;
         public float InfestedDust;
@@ -68,6 +71,8 @@ namespace FargowiltasSouls.Core.Globals
 
         public bool SnowChilled;
         public int SnowChilledTimer;
+
+        public int EbonCorruptionTimer;
 
         public bool Chilled;
         public bool Smite;
@@ -102,6 +107,8 @@ namespace FargowiltasSouls.Core.Globals
             LeadPoison = false;
             SolarFlare = false;
             HellFire = false;
+            Corrupted = false;
+            CorruptedForce = false;
             OriPoison = false;
             Infested = false;
             Electrified = false;
@@ -235,7 +242,10 @@ namespace FargowiltasSouls.Core.Globals
             //                }
 
             //            }
-
+            if (!npc.HasBuff<CorruptingBuff>())
+            {
+                EbonCorruptionTimer -= Math.Min(3, EbonCorruptionTimer);
+            }
             if (SnowChilled)
             {
                 SnowChilledTimer--;
@@ -249,9 +259,9 @@ namespace FargowiltasSouls.Core.Globals
                     retval = false;
                 }
             }
-
             return retval;
         }
+        
 
         public override void PostAI(NPC npc)
         {
@@ -324,6 +334,22 @@ namespace FargowiltasSouls.Core.Globals
                 }
             }
 
+            if (Corrupted || CorruptedForce)
+            {
+                if (Main.rand.Next(4) < 3)
+                {
+                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Shadowflame, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
+                    Main.dust[dust].noGravity = true;
+
+                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
+                    if (Main.rand.NextBool(4))
+                    {
+                        Main.dust[dust].noGravity = false;
+                        Main.dust[dust].scale *= 0.5f;
+                    }
+                }
+            }
 
             if (OriPoison)
             {
@@ -1058,6 +1084,11 @@ namespace FargowiltasSouls.Core.Globals
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
         {
+            if (Corrupted || CorruptedForce)
+            {
+                modifiers.FinalDamage *= 0.9f;
+            }
+
             if (target.HasBuff(ModContent.BuffType<ShellHideBuff>()))
                 modifiers.FinalDamage *= 2;
 
@@ -1092,6 +1123,15 @@ namespace FargowiltasSouls.Core.Globals
         {
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (Corrupted)
+            {
+                modifiers.ArmorPenetration += 10;
+            }
+            if (CorruptedForce)
+            {
+                modifiers.ArmorPenetration += 30;
+            }
 
             if (OceanicMaul)
                 modifiers.ArmorPenetration += 20;

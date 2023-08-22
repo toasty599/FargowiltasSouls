@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public abstract class BaseEnchant : SoulsItem
     {
         protected abstract Color nameColor { get; }
-        public string wizardEffect => Name.Contains("Wizard") ? null : Language.GetTextValue($"Mods.FargowiltasSouls.WizardEffect.{Name.Replace("Enchantment", "").Replace("Enchant", "")}");
+        public string wizardEffect => Language.GetTextValue($"Mods.FargowiltasSouls.WizardEffect.{Name.Replace("Enchantment", "").Replace("Enchant", "")}");
 
         public override void SetStaticDefaults()
         {

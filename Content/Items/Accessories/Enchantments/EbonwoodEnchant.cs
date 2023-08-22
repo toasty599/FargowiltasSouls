@@ -1,10 +1,15 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -36,9 +41,8 @@ Any projectiles that would deal less than 10 damage to you are destroyed
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<FargoSoulsPlayer>().EbonwoodEnchantItem = Item;
+            EbonwoodEffect(player);
         }
-
-        static int ebonTimer;
 
         public static void EbonwoodEffect(Player player)
         {
@@ -49,81 +53,26 @@ Any projectiles that would deal less than 10 damage to you are destroyed
 
             int dist = modPlayer.WoodForce ? 400 : 200;
 
-            int rate = modPlayer.WoodForce ? 2 : 4;
-            if (++ebonTimer >= rate)
-            {
-                ebonTimer = 0;
-
-                int damageThreshold = modPlayer.WoodForce ? 25 : 10;
-
-                float defenseFactor = 0.5f;
-                if (Main.masterMode)
-                    defenseFactor = 1f;
-                else if (Main.expertMode)
-                    defenseFactor = 0.75f;
-
-                int closestProj = -1;
-                float closestProjDist = dist;
-
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    Projectile proj = Main.projectile[i];
-
-                    if (proj.active && proj.hostile && proj.damage > 0 && proj.aiStyle != ProjAIStyleID.FallingTile && (proj.ModProjectile == null || proj.ModProjectile.CanDamage() != false))
-                    {
-                        float projDist = proj.Distance(player.Center);
-                        if (projDist < closestProjDist && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank <= 0)
-                        {
-                            int calcDamage = (int)(proj.damage * 2 * FargoSoulsUtil.ProjWorldDamage);
-                            int dealtDamage = (int)(calcDamage - player.statDefense * defenseFactor);
-
-                            if (dealtDamage <= damageThreshold)
-                            {
-                                closestProj = proj.whoAmI;
-                                closestProjDist = projDist;
-                            }
-                        }
-                    }
-                }
-
-                if (closestProj != -1)
-                {
-                    Projectile proj = Main.projectile[closestProj];
-
-                    //Main.NewText($"proj calc: {calcDamage} damage vs {player.statDefense * defenseFactor} defense factor");
-                    SoundEngine.PlaySound(SoundID.NPCDeath52 with { Volume = 0.5f }, proj.Center);
-                    for (int j = 0; j < 20; j++)
-                    {
-                        int d = Dust.NewDust(proj.Center, 0, 0, DustID.Shadowflame, Scale: 2f);
-                        Main.dust[d].velocity *= 2f;
-                        Main.dust[d].noGravity = true;
-                    }
-
-                    proj.Kill();
-                }
-            }
-
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-
                 if (npc.active && !npc.friendly && npc.lifeMax > 5 && !npc.dontTakeDamage)
                 {
                     Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
-                    if (player.Distance(npcComparePoint) < dist)
+                    if (player.Distance(npcComparePoint) < dist && (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
                     {
-                        if (modPlayer.WoodForce && npc.life < 200 && !npc.boss && !(npc.realLife > -1 && Main.npc[npc.realLife].active && Main.npc[npc.realLife].boss))
+                        if (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>()))
                         {
-                            npc.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
-                        }
-                        else if (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0))
-                        {
-                            npc.AddBuff(BuffID.ShadowFlame, 10);
+                            npc.AddBuff(ModContent.BuffType<CorruptingBuff>(), 2);
                         }
                     }
+                    if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().EbonCorruptionTimer > 60 * 4)
+                    {
+                        EbonwoodProc(player, npc, dist, modPlayer.WoodForce, 5);
+                    }
+
                 }
             }
-
             //dust
             for (int i = 0; i < 20; i++)
             {
@@ -144,8 +93,64 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                     dust.noGravity = true;
                 }
             }
+            
         }
 
+        public static void EbonwoodProc(Player player, NPC npc, int AoE, bool force, int limit)
+        {
+            //corrupt all in vicinity
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npcToProcOn = Main.npc[i];
+                if (npcToProcOn.active && !npcToProcOn.friendly && npcToProcOn.lifeMax > 5 && !npcToProcOn.dontTakeDamage)
+                {
+                    Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npcToProcOn, npc.Center);
+                    if (npc.Distance(npcComparePoint) < AoE && !npc.HasBuff<CorruptedBuffForce>() && !npc.HasBuff<CorruptedBuff>() && limit > 0)
+                    {
+                        EbonwoodProc(player, npc, AoE, force, limit - 1); //yes this chains (up to 3 times deep)
+                    }
+                }
+            }
+
+            Corrupt(npc, force);
+            SoundEngine.PlaySound(SoundID.NPCDeath55, npc.Center);
+            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().EbonCorruptionTimer = 0;
+
+            //dust
+            //dust
+            for (int i = 0; i < 200; i++)
+            {
+                
+                Vector2 offset = new(Main.rand.Next(-AoE, AoE), Main.rand.Next(-AoE, AoE));
+                if (offset.Length() > AoE)
+                {
+                    offset = Vector2.Normalize(offset) * AoE;
+                }
+                Vector2 spawnPos = npc.Center + offset;
+
+                Dust dust = Main.dust[Dust.NewDust(
+                        spawnPos, 0, 0,
+                        DustID.Shadowflame, 0, 0, 100, Color.White, 1f
+                        )];
+                dust.velocity = npc.velocity;
+                if (Main.rand.NextBool(3))
+                    dust.velocity += Vector2.Normalize(offset) * -5f;
+                dust.noGravity = true;
+            }
+        }
+        private static void Corrupt(NPC npc, bool force)
+        {
+            if (npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>()) //don't stack the buffs under any circumstances
+            {
+                return;
+            }
+            if (force)
+            {
+                npc.AddBuff(ModContent.BuffType<CorruptedBuffForce>(), 60 * 60 * 60);
+                return;
+            }
+            npc.AddBuff(ModContent.BuffType<CorruptedBuff>(), 60 * 60 * 60);
+        }
         public override void AddRecipes()
         {
             CreateRecipe()

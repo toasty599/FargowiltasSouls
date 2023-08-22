@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			Adamantite: Projectiles now split into 3
+			Wizard: Adamantite: Projectiles now split into 3
 			AncientHallow: No upgrade
 			AncientShadow: Number of Shadow Orbs increased
 			Angler: No upgrade
@@ -2218,6 +2218,11 @@ Mods: {
 				Description: Mods.FargowiltasSouls.BuffDescription.SuperBleedBuff
 			}
 
+			CorruptingBuff: {
+				DisplayName: Corrupting
+				Description: You are becoming corrupted
+			}
+
 			TimeFrozenBuff: {
 				DisplayName: Time Frozen
 				Description: You are stopped in time
@@ -2260,6 +2265,16 @@ Mods: {
 
 			Recovering.Description: Mods.FargowiltasSouls.BuffDescription.Recovering
 			Shadwoflame.Description: Mods.FargowiltasSouls.BuffDescription.Shadwoflame
+
+			CorruptedBuff: {
+				DisplayName: Corrupted Buff
+				Description: Mods.FargowiltasSouls.Buffs.CorruptedBuff.Description
+			}
+
+			CorruptedBuffForce: {
+				DisplayName: Corrupted Buff Force
+				Description: Mods.FargowiltasSouls.Buffs.CorruptedBuffForce.Description
+			}
 		}
 
 		Items: {
@@ -2321,7 +2336,7 @@ Mods: {
 			}
 
 			AshWoodEnchant: {
-				DisplayName: Ash Wood Enchant
+				DisplayName: Ash Enchantment
 				Tooltip:
 					'''
 					On Fire debuff doesn't damage you or town NPCs
@@ -2442,8 +2457,9 @@ Mods: {
 				DisplayName: Ebonwood Enchantment
 				Tooltip:
 					'''
-					You are surrounded by an aura of Corruption
-					After an enemy remains in the aura for 5 seconds it bursts, causing all enemies in their vicinity to be Corrupted, reducing their defense and damage
+					You are surrounded by an aura that builds up Corruption on enemies
+					After 4 seconds of buildup they burst, causing all enemies in their vicinity to be Corrupted
+					Corrupted enemies have 10 less defense and deal 10% less contact damage
 					'Untapped potential'
 					'''
 			}
@@ -2654,8 +2670,8 @@ Mods: {
 					'''
 					Grants immunity to lava
 					You have normal movement and can swim in lava
-					While standing in lava or lava wet, your attacks spawn explosions and apply Firecracker
-					Effects of Ash Wood Enchant
+					While standing in lava or lava wet, your attacks spawn explosions and are accompanied by balls of fire
+					Effects of Ash Enchantment
 					'The earth calls'
 					'''
 			}
@@ -3152,7 +3168,7 @@ Mods: {
 					[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
 					[i:FargowiltasSouls/TungstenEnchant] 300% increased sword size and projectile size every quarter second
 					[i:FargowiltasSouls/ObsidianEnchant] Grants immunity to lava
-					[i:FargowiltasSouls/AshwoodEnchant] While burning, player and town NPC attacks are accompanied by fireballs
+					[i:FargowiltasSouls/AshWoodEnchant] While burning or in lava, player and town NPC attacks are accompanied by fireballs
 					'The land lends its strength'
 					'''
 			}

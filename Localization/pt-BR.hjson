@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			// Adamantite: Projectiles now split into 3
+			// Wizard: Adamantite: Projectiles now split into 3
 			// AncientHallow: No upgrade
 			// AncientShadow: Number of Shadow Orbs increased
 			// Angler: No upgrade
@@ -2218,6 +2218,11 @@ Mods: {
 				// Description: Mods.FargowiltasSouls.BuffDescription.SuperBleedBuff
 			}
 
+			CorruptingBuff: {
+				// DisplayName: Corrupting
+				// Description: You are becoming corrupted
+			}
+
 			TimeFrozenBuff: {
 				// DisplayName: Time Frozen
 				// Description: You are stopped in time
@@ -2260,6 +2265,16 @@ Mods: {
 
 			Recovering.Description: A Enfermeira não pode te curar novamente ainda
 			// Shadwoflame.Description: Mods.FargowiltasSouls.BuffDescription.Shadwoflame
+
+			CorruptedBuff: {
+				// DisplayName: Corrupted Buff
+				// Description: Mods.FargowiltasSouls.Buffs.CorruptedBuff.Description
+			}
+
+			CorruptedBuffForce: {
+				// DisplayName: Corrupted Buff Force
+				// Description: Mods.FargowiltasSouls.Buffs.CorruptedBuffForce.Description
+			}
 		}
 
 		Items: {
@@ -2327,7 +2342,7 @@ Mods: {
 			}
 
 			AshWoodEnchant: {
-				// DisplayName: Ash Wood Enchant
+				// DisplayName: Ash Enchantment
 				/* Tooltip:
 					'''
 					On Fire debuff doesn't damage you or town NPCs

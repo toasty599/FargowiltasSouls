@@ -674,10 +674,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             StatLifePrevious = Player.statLife;
 
-            if (EbonwoodEnchantItem != null)
-                EbonwoodEnchant.EbonwoodEffect(Player);
-
-
             if (TitaniumDRBuff && prevDyes == null)
             {
                 prevDyes = new List<int>();

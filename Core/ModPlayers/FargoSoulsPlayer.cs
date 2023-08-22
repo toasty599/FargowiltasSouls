@@ -1418,11 +1418,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 BorealWoodEnchant.BorealSnowballs(this, damage);
             }
 
-            if (AshWoodEnchantItem != null && (Player.onFire || Player.onFire2 || Player.onFire3) && Player.GetToggleValue("AshWood") && AshwoodCD <= 0)
+            bool ashBurning = AshWoodEnchantItem != null && (Player.onFire || Player.onFire2 || Player.onFire3);
+            bool obsidianWet = Player.lavaWet && ObsidianEnchantItem != null;
+            if ((ashBurning || obsidianWet) && Player.GetToggleValue("AshWood") && AshwoodCD <= 0)
             {
-                AshwoodCD = WoodForce ? 20 : 30;
-
-
+                AshwoodCD = TerraForce ? 20 : 30;
                 AshWoodEnchant.AshwoodFireball(this, damage);
             }
 

@@ -77,8 +77,6 @@ While standing in lava or lava wet, your attacks spawn explosions and apply Fire
             Player player = modPlayer.Player;
             Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.ObsidianEnchantItem), target.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), damage, 0, player.whoAmI);
 
-            target.AddBuff(BuffID.FlameWhipEnemyDebuff, 30);
-
             if (modPlayer.TerraForce)
             {
                 modPlayer.ObsidianCD = 20;
