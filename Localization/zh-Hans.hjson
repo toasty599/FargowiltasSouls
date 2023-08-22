@@ -10,61 +10,61 @@ Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
 			Adamantite: 弹幕现在会分裂成三个
-			// AncientHallow: ""
-			// AncientShadow: ""
-			// Angler: ""
-			// Bee: ""
-			// Beetle: ""
+			// AncientHallow: No upgrade
+			// AncientShadow: Number of Shadow Orbs increased
+			// Angler: No upgrade
+			// Bee: No upgrade
+			// Beetle: No upgrade
 			Boreal: 更频繁的释放更多雪球
 			// Cactus: Number of needles and damage increased
-			// Chlorophyte: ""
+			// Chlorophyte: No upgrade
 			Cobalt: 增加爆炸伤害
 			Copper: 增加闪电伤害，冷却时间减少
-			// Crimson: ""
+			// Crimson: No upgrade
 			CrystalAssassin: ""
 			DarkArtist: ""
 			Ebonwood: 伤害判定门槛从10提高至25，并且会杀死光环内任何小于200血量的生物
-			// Forbidden: ""
-			// Fossil: ""
-			// Frost: ""
-			// Gladiator: ""
-			// Gold: ""
-			// Hallow: ""
+			// Forbidden: No upgrade
+			// Fossil: No upgrade
+			// Frost: No upgrade
+			// Gladiator: No upgrade
+			// Gold: No upgrade
+			// Hallow: No upgrade
 			Iron: 物品拾取距离提升到四倍，合成加成现在也对任何秘银砧生效
 			Lead: 增加铅中毒伤害，持续伤害减免提升到60%
-			// Meteor: ""
-			// Miner: ""
+			// Meteor: No upgrade
+			// Miner: No upgrade
 			Molten: ""
 			Mythril: 增加最大攻速加成，持续时间更长
-			// Nebula: ""
-			// Necro: ""
+			// Nebula: No upgrade
+			// Necro: No upgrade
 			Ninja: 弹幕速度增加3倍而非2倍，护甲穿透再增加20点
 			Obsidian: 你不再需要岩浆来引发爆炸，冷却时间减少
 			Orichalcum: 倍数提高到4
 			Palladium: 快速治疗总是持续5秒，增加钯金珠伤害
 			PalmWood: 增加攻击速度和伤害，可以额外召唤两个棕榈树哨兵
 			Pearlwood: 增加伤害，冷却时间减少
-			// Platinum: ""
-			// Pumpkin: ""
-			// Rain: ""
-			// RedRiding: ""
+			// Platinum: No upgrade
+			// Pumpkin: No upgrade
+			// Rain: No upgrade
+			// RedRiding: No upgrade
 			RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升
 			Shadewood: 增加光环大小和血液伤害，并且会附加灵液效果
-			// Shinobi: ""
-			// Shroomite: ""
+			// Shinobi: No upgrade
+			// Shroomite: No upgrade
 			Silver: 格挡会给予惊人一刻增益
-			// Solar: ""
-			// Spectre: ""
-			// Spider: ""
-			// Spooky: ""
-			// Stardust: ""
-			// Tiki: ""
+			// Solar: No upgrade
+			// Spectre: No upgrade
+			// Spider: No upgrade
+			// Spooky: No upgrade
+			// Stardust: No upgrade
+			// Tiki: No upgrade
 			Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
 			Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
 			Tungsten: 将武器大小提升到300%，伤害加成提升到20%，冷却时间减少
-			// Turtle: ""
-			// ValhallaKnight: ""
-			// Vortex: ""
+			// Turtle: No upgrade
+			// ValhallaKnight: No upgrade
+			// Vortex: No upgrade
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
 		}
 

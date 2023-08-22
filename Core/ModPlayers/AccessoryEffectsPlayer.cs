@@ -874,6 +874,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     max = 3;
                 }
+                if (!AncientShadowEnchantActive) //if you have normal shadow enchant, only 2 orbs. this is to prevent wizard ench from giving you 4, by enabling ShadowForce bool
+                {
+                    max = 2;
+                }
 
                 //spawn for first time
                 if (currentOrbs == 0)
@@ -888,7 +892,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
                 //equipped somwthing that allows for more or less, respawn, only once every 10 seconds to prevent exploit
-                else if (currentOrbs != max && ShadowOrbRespawnTimer <= 0)
+                else if ((currentOrbs < max && ShadowOrbRespawnTimer <= 0) || currentOrbs > max)
                 {
                     ShadowOrbRespawnTimer = 60 * 10;
 

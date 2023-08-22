@@ -10,61 +10,61 @@ Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
 			// Adamantite: Projectiles now split into 3
-			// AncientHallow: ""
-			// AncientShadow: ""
-			// Angler: ""
-			// Bee: ""
-			// Beetle: ""
+			// AncientHallow: No upgrade
+			// AncientShadow: Number of Shadow Orbs increased
+			// Angler: No upgrade
+			// Bee: No upgrade
+			// Beetle: No upgrade
 			// Boreal: Fires more snowballs more often
 			// Cactus: Number of needles and damage increased
-			// Chlorophyte: ""
+			// Chlorophyte: No upgrade
 			// Cobalt: Explosion damage increased
 			// Copper: Lightning damage increased, cooldown reduced
-			// Crimson: ""
-			// CrystalAssassin: ""
-			// DarkArtist: ""
+			// Crimson: No upgrade
+			// CrystalAssassin: No upgrade
+			// DarkArtist: No upgrade
 			// Ebonwood: Damage threshold increased to 25, additonally kills any npcs with less than 200 HP
-			// Forbidden: ""
-			// Fossil: ""
-			// Frost: ""
-			// Gladiator: ""
-			// Gold: ""
-			// Hallow: ""
+			// Forbidden: No upgrade
+			// Fossil: No upgrade
+			// Frost: No upgrade
+			// Gladiator: No upgrade
+			// Gold: No upgrade
+			// Hallow: No upgrade
 			// Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
 			// Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
-			// Meteor: ""
-			// Miner: ""
+			// Meteor: No upgrade
+			// Miner: No upgrade
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
 			// Mythril: Max attack speed bonus increased and lasts longer
-			// Nebula: ""
-			// Necro: ""
+			// Nebula: No upgrade
+			// Necro: No upgrade
 			// Ninja: Armor pen increased to 45
 			// Obsidian: You no longer need lava to spawn explosions, cooldown reduced
 			// Orichalcum: Increases multiplier to 4x
 			// Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
 			// PalmWood: Attack speed and damage increased, 2 more trees can be spawned
 			// Pearlwood: Damage increased and cooldown reduced
-			// Platinum: ""
-			// Pumpkin: ""
-			// Rain: ""
-			// RedRiding: ""
+			// Platinum: No upgrade
+			// Pumpkin: No upgrade
+			// Rain: No upgrade
+			// RedRiding: No upgrade
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
 			// Shadewood: Aura size and blood damage increased, additionally applies Ichor
-			// Shinobi: ""
-			// Shroomite: ""
+			// Shinobi: No upgrade
+			// Shroomite: No upgrade
 			// Silver: Parrying blocks up to 200 damage and grants the Striking Moment buff
-			// Solar: ""
-			// Spectre: ""
-			// Spider: ""
-			// Spooky: ""
-			// Stardust: ""
-			// Tiki: ""
+			// Solar: No upgrade
+			// Spectre: No upgrade
+			// Spider: No upgrade
+			// Spooky: No upgrade
+			// Stardust: No upgrade
+			// Tiki: No upgrade
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
 			// Tungsten: Increased weapon size to 300%, bonus damage to 20%, cooldown reduced
-			// Turtle: ""
-			// ValhallaKnight: ""
-			// Vortex: ""
+			// Turtle: No upgrade
+			// ValhallaKnight: No upgrade
+			// Vortex: No upgrade
 			// Wood: Bestiary and banner multiplier increased to 5
 		}
 
@@ -2322,8 +2322,8 @@ Mods: {
 				// DisplayName: Bee Enchantment
 				/* Tooltip:
 					'''
-					Increases the strength of friendly bees
 					Melee hits and most piercing attacks spawn bees
+					Effects of Hive Pack
 					'According to all known laws of aviation, there is no way a bee should be able to fly'
 					''' */
 			}
@@ -2950,7 +2950,7 @@ Mods: {
 				// DisplayName: Wizard Enchantment
 				/* Tooltip:
 					'''
-					Enhances the power of all other Enchantments to their Force effects
+					Enhances the power of most other Enchantments to their Force effects
 					'I'm a what?'
 					''' */
 			}
@@ -3050,8 +3050,8 @@ Mods: {
 				/* Tooltip:
 					'''
 					[i:FargowiltasSouls/CobaltEnchant] Grants an explosion jump and you explode on hit
-					[i:FargowiltasSouls/PalladiumEnchant] Stop attacking to gradually increase attack speed for up to 5 seconds
-					[i:FargowiltasSouls/MythrilEnchant] Grants Rapid Healing after striking an enemy and spawn life orbs based on healing
+					[i:FargowiltasSouls/MythrilEnchant] Stop attacking to gradually increase attack speed for up to 5 seconds
+					[i:FargowiltasSouls/PalladiumEnchant] Grants Rapid Healing after striking an enemy and spawn life orbs based on healing
 					[i:FargowiltasSouls/OrichalcumEnchant] Attacks spawn flower petals and damaging debuffs deal 4x damage
 					[i:FargowiltasSouls/AdamantiteEnchant] Every weapon shot will split into 3, deal 33% damage and have 66% less iframes
 					[i:FargowiltasSouls/TitaniumEnchant] Attacks generate titanium shards, reaching max grants Titanium Shield
@@ -3066,6 +3066,7 @@ Mods: {
 					[i:FargowiltasSouls/PumpkinEnchant] You will grow pumpkins while walking on the ground
 					[i:FargowiltasSouls/CactusEnchant] Enemies may explode into needles on death
 					[i:FargowiltasSouls/BeeEnchant] Melee hits and most piercing attacks spawn bees
+					[i:FargowiltasSouls/BeeEnchant] Effects of Hive Pack
 					[i:FargowiltasSouls/SpiderEnchant] 30% chance for minions and sentries to crit for x1.5 damage instead of x2
 					[i:FargowiltasSouls/TurtleEnchant] When standing still and not attacking, you will enter your shell
 					[i:FargowiltasSouls/BeetleEnchant] Beetles aid both offense and defense
@@ -3100,7 +3101,6 @@ Mods: {
 					[i:FargowiltasSouls/NecroEnchant] Slain enemies may drop a pile of bones
 					[i:FargowiltasSouls/NinjaEnchant] Drastically increases projectile and attack speed but reduces damage
 					[i:FargowiltasSouls/CrystalAssassinEnchant] Throw a smoke bomb to teleport to it and gain the First Strike Buff
-					[i:FargowiltasSouls/CrystalAssassinEnchant] Effects of Volatile Gel
 					[i:FargowiltasSouls/SpookyEnchant] All of your minions gain an extra scythe attack
 					[i:FargowiltasSouls/MonkEnchant] Don't attack to gain a single use monk dash
 					[i:FargowiltasSouls/ShinobiEnchant] Dash into any walls, to teleport through them to the next opening
