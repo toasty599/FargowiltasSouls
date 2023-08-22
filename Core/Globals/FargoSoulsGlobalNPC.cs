@@ -19,6 +19,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using Terraria.ModLoader.IO;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -616,6 +617,15 @@ namespace FargowiltasSouls.Core.Globals
                     damage = 20;
                 }
             }
+            bool anyAshwood = modPlayer.AshWoodEnchantItem != null;
+            if (npc.onFire)
+            {
+                if (npc.townNPC && anyAshwood)
+                {
+                    npc.lifeRegen += 8;
+                    damage -= 1;
+                }
+            }
 
             //20 dps
             if (OriPoison)
@@ -1057,6 +1067,9 @@ namespace FargowiltasSouls.Core.Globals
 
         public override void ModifyHitNPC(NPC npc, NPC target, ref NPC.HitModifiers modifiers)
         {
+            Player player = Main.player[Main.myPlayer];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
             if (target.type == ModContent.NPCType<CreeperGutted>())
                 modifiers.FinalDamage /= 20;
         }

@@ -486,8 +486,14 @@ namespace FargowiltasSouls
 
             Item.NewItem(null, player.Center, ModContent.ItemType<EurusSock>());
             Item.NewItem(null, player.Center, ModContent.ItemType<PuffInABottle>());
+            //int bugnet = (Main.zenithWorld || Main.remixWorld) ? ItemID.FireproofBugNet : ItemID.BugNet;
             Item.NewItem(null, player.Center, ItemID.BugNet);
             Item.NewItem(null, player.Center, ItemID.GrapplingHook);
+
+            if (Main.zenithWorld || Main.remixWorld)
+            {
+                Item.NewItem(null, player.Center, ItemID.ObsidianSkinPotion, 5);
+            }
 
             //only give once per world
             if (!WorldSavingSystem.ReceivedTerraStorage)

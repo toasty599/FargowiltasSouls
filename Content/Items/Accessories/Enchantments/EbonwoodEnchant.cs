@@ -23,7 +23,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
         }
 
         protected override Color nameColor => new(100, 90, 141);
-        public override string wizardEffect => Language.GetTextValue("Mods.FargowiltasSouls.WizardEffect.Ebonwood");
+        
 
         public override void SetDefaults()
         {

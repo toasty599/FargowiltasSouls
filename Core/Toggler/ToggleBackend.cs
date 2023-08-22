@@ -131,6 +131,7 @@ namespace FargowiltasSouls.Core.Toggler
             player.SetToggleValue("PalladiumOrb", false);
 
             player.SetToggleValue("CopperConfig", false);
+            player.SetToggleValue("AshWood", false);
 
             player.SetToggleValue("Gladiator", false);
             player.SetToggleValue("RedRidingRain", false);

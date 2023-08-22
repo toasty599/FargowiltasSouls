@@ -440,6 +440,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Anticoagulation)
                 DamageOverTime(4, true);
 
+            if (Player.onFire && Player.GetModPlayer<FargoSoulsPlayer>().AshWoodEnchantItem != null)
+            {
+                Player.lifeRegen += 8;
+            }
+
             if (Player.lifeRegen < 0)
             {
                 if (TerraForce)
