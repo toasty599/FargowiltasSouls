@@ -336,18 +336,13 @@ namespace FargowiltasSouls.Core.Globals
 
             if (Corrupted || CorruptedForce)
             {
-                if (Main.rand.Next(4) < 3)
+                if (Main.rand.Next(8) < 9)
                 {
                     int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Shadowflame, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
                     Main.dust[dust].noGravity = true;
 
-                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
-                    if (Main.rand.NextBool(4))
-                    {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
-                    }
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 10f;
                 }
             }
 
