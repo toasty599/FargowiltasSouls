@@ -2458,7 +2458,7 @@ Mods: {
 				Tooltip:
 					'''
 					You are surrounded by an aura that builds up Corruption on enemies
-					After 4 seconds of buildup they burst, causing all enemies in their vicinity to be Corrupted
+					After 4 seconds of buildup they burst, Corrupting all nearby enemies
 					Corrupted enemies have 10 less defense and deal 10% less contact damage
 					'Untapped potential'
 					'''
