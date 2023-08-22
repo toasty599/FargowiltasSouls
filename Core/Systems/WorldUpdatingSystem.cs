@@ -16,6 +16,33 @@ namespace FargowiltasSouls.Core.Systems
         {
             NPC.LunarShieldPowerMax = NPC.downedMoonlord ? 50 : 100;
 
+            Main.NewText(PlacedMutantStatue);
+            Main.NewText(Main.remixWorld);
+            
+            if (!PlacedMutantStatue && (Main.zenithWorld || Main.remixWorld))
+            {
+                int positionX = Main.spawnTileX; //offset by dimensions of statue
+                int positionY = Main.spawnTileY;
+                int checkUp = -30;
+                int checkDown = 10;
+                bool placed = false;
+                for (int offsetX = -50; offsetX <= 50; offsetX++)
+                {
+                    for (int offsetY = checkUp; offsetY <= checkDown; offsetY++)
+                    {
+                        if (WorldGenSystem.TryPlacingStatue(positionX + offsetX, positionY + offsetY))
+                        {
+                            placed = true;
+                            PlacedMutantStatue = true;
+                            break;
+                        }
+                    }
+
+                    if (placed)
+                        break;
+                }
+            }
+
             if (ShouldBeEternityMode)
             {
                 if (WorldSavingSystem.EternityMode && !FargoSoulsUtil.WorldIsExpertOrHarder())
