@@ -66,7 +66,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                             npc.AddBuff(ModContent.BuffType<CorruptingBuff>(), 2);
                         }
                     }
-                    if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().EbonCorruptionTimer > 60 * 4)
+                    if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().EbonCorruptionTimer > 60 * 4 && (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>())))
                     {
                         EbonwoodProc(player, npc, dist, modPlayer.WoodForce, 5);
                     }
@@ -117,17 +117,13 @@ Any projectiles that would deal less than 10 damage to you are destroyed
             npc.GetGlobalNPC<FargoSoulsGlobalNPC>().EbonCorruptionTimer = 0;
 
             //dust
-            //dust
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 60; i++)
             {
-                
-                Vector2 offset = new(Main.rand.Next(-AoE, AoE), Main.rand.Next(-AoE, AoE));
-                if (offset.Length() > AoE)
-                {
-                    offset = Vector2.Normalize(offset) * AoE;
-                }
-                Vector2 spawnPos = npc.Center + offset;
-
+                Vector2 offset = new();
+                double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                offset.X += (float)(Math.Sin(angle) * AoE);
+                offset.Y += (float)(Math.Cos(angle) * AoE);
+                Vector2 spawnPos = npc.Center + offset - new Vector2(4, 4);
                 Dust dust = Main.dust[Dust.NewDust(
                         spawnPos, 0, 0,
                         DustID.Shadowflame, 0, 0, 100, Color.White, 1f
@@ -146,10 +142,10 @@ Any projectiles that would deal less than 10 damage to you are destroyed
             }
             if (force)
             {
-                npc.AddBuff(ModContent.BuffType<CorruptedBuffForce>(), 60 * 60 * 60);
+                npc.AddBuff(ModContent.BuffType<CorruptedBuffForce>(), 60 * 4);
                 return;
             }
-            npc.AddBuff(ModContent.BuffType<CorruptedBuff>(), 60 * 60 * 60);
+            npc.AddBuff(ModContent.BuffType<CorruptedBuff>(), 60 * 4);
         }
         public override void AddRecipes()
         {

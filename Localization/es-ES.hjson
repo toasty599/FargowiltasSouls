@@ -23,7 +23,7 @@ Mods: {
 			// Crimson: No upgrade
 			// CrystalAssassin: No upgrade
 			// DarkArtist: No upgrade
-			// Ebonwood: Aura size increased, defense reduction increased to 30
+			// Ebonwood: Damage threshold increased to 25, additonally kills any npcs with less than 200 HP
 			// Forbidden: No upgrade
 			// Fossil: No upgrade
 			// Frost: No upgrade
@@ -2458,7 +2458,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					You are surrounded by an aura that builds up Corruption on enemies
-					After 4 seconds of buildup they burst, Corrupting enemies in an area
+					After 4 seconds of buildup they burst, Corrupting all nearby enemies
 					Corrupted enemies have 10 less defense and deal 10% less contact damage
 					'Untapped potential'
 					''' */
