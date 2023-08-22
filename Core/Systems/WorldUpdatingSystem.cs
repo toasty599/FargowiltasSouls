@@ -15,9 +15,6 @@ namespace FargowiltasSouls.Core.Systems
         public override void PostUpdateWorld()
         {
             NPC.LunarShieldPowerMax = NPC.downedMoonlord ? 50 : 100;
-
-            Main.NewText(PlacedMutantStatue);
-            Main.NewText(Main.remixWorld);
             
             if (!PlacedMutantStatue && (Main.zenithWorld || Main.remixWorld))
             {
