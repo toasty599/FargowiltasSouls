@@ -1,5 +1,8 @@
-﻿using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PirateInvasion;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
+using System;
+using System.Reflection;
 using Terraria;
 using Terraria.ID;
 

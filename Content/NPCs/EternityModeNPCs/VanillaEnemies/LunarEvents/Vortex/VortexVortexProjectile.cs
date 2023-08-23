@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Vortex");
-            Main.projFrames[Projectile.type] = 8;
+            Main.projFrames[Projectile.type] = 9;
         }
 
         public override void SetDefaults()
@@ -40,12 +40,18 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             Snow,
             Desert,
             Jungle,
-            Dungeon
+            Dungeon,
+            Cloud
         }
         private int GetBiome() //purposefully not networked
         {
             ref float Biome = ref Projectile.localAI[0];
+            ref float ParentID = ref Projectile.ai[0];
             Player player = Main.LocalPlayer;
+            if (Main.projectile[(int)ParentID].active && Main.projectile[(int)ParentID].Center.Y - Projectile.Center.Y > 0) //if coming from up angle, use cloud texture
+            {
+                return (int)Biomes.Cloud;
+            }
             if (player.ZoneCorrupt)
             {
                 return (int)Biomes.Corruption;

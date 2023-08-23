@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
+using FargowiltasSouls.Content.Bosses.VanillaEternity;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -7,6 +9,7 @@ using System.Linq;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.BigProgressBar;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.BossBars
@@ -67,6 +70,22 @@ namespace FargowiltasSouls.Content.BossBars
                         return null;
                     }
 
+                }
+            }
+            else if (npc.type == NPCID.LunarTowerStardust)
+            {
+                if (npc.TryGetGlobalNPC(out LunarTowerStardust modNPC))
+                {
+                    if (shield <= 0)
+                    {
+                        shield = shieldMax = modNPC.Cells.Count;
+                    }
+                    shield = modNPC.Cells.Count;
+                    if (modNPC.Cells.Count <= 0)
+                    {
+                        return false;
+                    }
+                    return true;
                 }
             }
             else

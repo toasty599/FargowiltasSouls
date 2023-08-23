@@ -5417,6 +5417,7 @@ Mods: {
 			}
 
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
+			// StardustMinion.DisplayName: Stardust Minion
 		}
 
 		Tiles: {

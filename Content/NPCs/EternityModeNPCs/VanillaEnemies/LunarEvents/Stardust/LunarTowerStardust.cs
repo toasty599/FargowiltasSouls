@@ -9,6 +9,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Content.BossBars;
+using static FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust.StardustMinion;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust
 {
@@ -34,57 +36,89 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         public enum Attacks
         {
             Idle,
-            VortexVortex,
-            LightningBall,
-
+            CellExpandContract,
+            CellRush,
+            CellRings,
+            CellBallCharge
         }
         public override List<int> RandomAttacks => new List<int>() //these are randomly chosen attacks in p1
         {
-            (int)Attacks.LightningBall
+            (int)Attacks.CellExpandContract,
+            (int)Attacks.CellRush,
+            (int)Attacks.CellRings,
+            (int)Attacks.CellBallCharge
         };
+        private bool gotBossBar = false;
+        public List<NPC> Cells = new List<NPC> { };
+        public const int CellAmount = 20;
         public override void ShieldsDownAI(NPC npc)
         {
-            const int attackTime = 420;
-
-            //if (AttackTimer > attackTime / 2)
-            //{
-            //    float scale = 4f * (attackTime - attackTime / 2) / (attackTime / 2);
-            //    int d = Dust.NewDust(npc.Center, 0, 0, AuraDust, Scale: scale);
-            //    Main.dust[d].velocity *= 12f;
-            //    Main.dust[d].noGravity = true;
-            //}
-
-            if (++AttackTimer > attackTime)
+            if (!gotBossBar)
             {
-                AttackTimer = 0;
-
-                npc.TargetClosest(false);
-                NetSync(npc);
-
-                if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                npc.BossBar = ModContent.GetInstance<CompositeBossBar>();
+                gotBossBar = true;
+            }
+            SpawnMinions(npc);
+            Player target = Main.player[npc.target];
+            if (npc.HasPlayerTarget && target.active)
+            {
+                switch (Attack)
                 {
-                    const float rotate = (float)Math.PI / 12f;
-                    Vector2 speed = Main.player[npc.target].Center - npc.Center;
-                    speed.Normalize();
-                    speed *= 8f;
-                    for (int i = 0; i < 24; i++)
-                    {
-                        Vector2 vel = speed.RotatedBy(rotate * i);
-                        int n = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.AncientLight, 0,
-                            0f, (Main.rand.NextFloat() - 0.5f) * 0.3f * 6.28318548202515f / 60f, vel.X, vel.Y);
-                        if (n != Main.maxNPCs)
-                        {
-                            Main.npc[n].velocity = vel;
-                            Main.npc[n].netUpdate = true;
-                            if (Main.netMode == NetmodeID.Server)
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        }
-                    }
+                    case (int)Attacks.CellExpandContract:
+                        CellExpandContract(npc, target);
+                        break;
+                    case (int)Attacks.CellRush:
+                        CellRush(npc, target);
+                        break;
+                    case (int)Attacks.CellRings:
+                        CellRings(npc, target);
+                        break;
+                    case (int)Attacks.CellBallCharge:
+                        CellBallCharge(npc, target);
+                        break;
+                    case (int)Attacks.Idle:
+                        Idle(npc, target);
+                        break;
                 }
             }
         }
         #region Attacks
-        private void AttackTemplate(NPC npc, Player player)
+        private void CellExpandContract(NPC npc, Player player)
+        {
+            const int WindupDuration = 60 * 1;
+            const int AttackDuration = 60 * 4;
+            const int EndlagDuration = 60 * 2;
+            void Windup()
+            {
+                CellState((int)States.PrepareExpand);
+            }
+            void Attack()
+            {
+                CellState((int)States.Expand);
+            }
+            void Endlag()
+            {
+
+            }
+
+            if (AttackTimer <= WindupDuration)
+            {
+                Windup();
+            }
+            else if (AttackTimer <= WindupDuration + AttackDuration)
+            {
+                Attack();
+            }
+            else
+            {
+                Endlag();
+            }
+            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
+            {
+                EndAttack(npc);
+            }
+        }
+        private void CellRush(NPC npc, Player player)
         {
             const int WindupDuration = 60 * 2;
             const int AttackDuration = 60 * 2;
@@ -117,6 +151,107 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
             {
                 EndAttack(npc);
+            }
+        }
+        private void CellRings(NPC npc, Player player)
+        {
+            const int WindupDuration = 60 * 2;
+            const int AttackDuration = 60 * 2;
+            const int EndlagDuration = 60 * 2;
+            void Windup()
+            {
+
+            }
+            void Attack()
+            {
+
+            }
+            void Endlag()
+            {
+
+            }
+
+            if (AttackTimer <= WindupDuration)
+            {
+                Windup();
+            }
+            else if (AttackTimer <= WindupDuration + AttackDuration)
+            {
+                Attack();
+            }
+            else
+            {
+                Endlag();
+            }
+            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
+            {
+                EndAttack(npc);
+            }
+        }
+        private void CellBallCharge(NPC npc, Player player)
+        {
+            const int WindupDuration = 60 * 2;
+            const int AttackDuration = 60 * 2;
+            const int EndlagDuration = 60 * 2;
+            void Windup()
+            {
+
+            }
+            void Attack()
+            {
+
+            }
+            void Endlag()
+            {
+
+            }
+
+            if (AttackTimer <= WindupDuration)
+            {
+                Windup();
+            }
+            else if (AttackTimer <= WindupDuration + AttackDuration)
+            {
+                Attack();
+            }
+            else
+            {
+                Endlag();
+            }
+            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
+            {
+                EndAttack(npc);
+            }
+        }
+        private void CellState(int state)
+        {
+            foreach (NPC cell in Cells)
+            {
+                if (cell.active)
+                {
+                    cell.ai[1] = state;
+                }
+            }
+        }
+        private void SpawnMinions(NPC npc)
+        {
+            if (Cells.Count < CellAmount)
+            {
+                NPC spawn = NPC.NewNPCDirect(npc.GetSource_FromThis(), npc.Center + Main.rand.Next(-20, 20) * Vector2.UnitX + Main.rand.Next(-20, 20) * Vector2.UnitY, ModContent.NPCType<StardustMinion>());
+                spawn.ai[1] = 1;
+                spawn.ai[2] = npc.whoAmI;
+                spawn.lifeMax = spawn.life = spawn.lifeMax * 10;
+                Cells.Append(spawn);
+                spawn.ai[3] = Cells.IndexOf(spawn);
+                return;
+            }
+        }
+        const int IdleTime = 90;
+        private void Idle(NPC npc, Player player)
+        {
+            if (AttackTimer > IdleTime)
+            {
+                RandomAttack(npc);
             }
         }
         #endregion

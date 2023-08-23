@@ -29,6 +29,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             Projectile.tileCollide = false;
             Projectile.alpha = 255;
             Projectile.penetrate = -1;
+            Projectile.timeLeft = 60 * 60 * 60;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
