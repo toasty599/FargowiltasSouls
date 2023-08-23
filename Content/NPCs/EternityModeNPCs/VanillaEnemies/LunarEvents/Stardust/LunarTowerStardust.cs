@@ -11,6 +11,7 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using FargowiltasSouls.Content.BossBars;
 using static FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust.StardustMinion;
+using Terraria.Audio;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust
 {
@@ -49,7 +50,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             (int)Attacks.CellBallCharge
         };
         private bool gotBossBar = false;
-        public List<NPC> Cells = new List<NPC> { };
         public const int CellAmount = 20;
         public override void ShieldsDownAI(NPC npc)
         {
@@ -90,17 +90,22 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             const int EndlagDuration = 60 * 2;
             void Windup()
             {
-                CellState((int)States.PrepareExpand);
+                if (AttackTimer == 1)
+                {
+                    CellState((int)States.PrepareExpand);
+                }
             }
             void Attack()
             {
-                CellState((int)States.Expand);
+                if (AttackTimer - WindupDuration == 1)
+                {
+                    CellState((int)States.Expand);
+                }
             }
             void Endlag()
             {
 
             }
-
             if (AttackTimer <= WindupDuration)
             {
                 Windup();
@@ -225,25 +230,23 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         }
         private void CellState(int state)
         {
-            Main.NewText(state);
-            foreach (NPC cell in Cells)
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (cell.active)
+                if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<StardustMinion>())
                 {
-                    cell.ai[1] = state;
+                    Main.npc[i].ai[1] = state;
                 }
             }
         }
         private void SpawnMinions(NPC npc)
         {
-            if (Cells.Count < CellAmount)
+            int cells = NPC.CountNPCS(ModContent.NPCType<StardustMinion>());
+            if (cells < CellAmount)
             {
                 NPC spawn = NPC.NewNPCDirect(npc.GetSource_FromThis(), npc.Center + Main.rand.Next(-20, 20) * Vector2.UnitX + Main.rand.Next(-20, 20) * Vector2.UnitY, ModContent.NPCType<StardustMinion>());
                 spawn.ai[1] = 1;
                 spawn.ai[2] = npc.whoAmI;
-                spawn.lifeMax = spawn.life = spawn.lifeMax * 10;
-                Cells.Append(spawn);
-                spawn.ai[3] = Cells.IndexOf(spawn);
+                spawn.ai[3] = cells;
                 return;
             }
         }

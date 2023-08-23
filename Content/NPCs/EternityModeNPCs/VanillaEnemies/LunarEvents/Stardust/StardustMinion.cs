@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             ref float State = ref NPC.ai[1];
             ref float parentIndex = ref NPC.ai[2];
-            ref float index = ref NPC.ai[3];
+            ref float num = ref NPC.ai[3];
 
             ref float param1 = ref NPC.localAI[0];
             ref float param2 = ref NPC.localAI[1];
@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 NPC.active = false;
             }
             LunarTowerStardust parentModNPC = parent.GetGlobalNPC<LunarTowerStardust>();
-
+            Main.NewText(State);
             switch (State)
             {
                 case (int)States.Idle: //default, chill around center of pillar
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     {
                         //rotating at 1/4 rotations per second
                         float rotation = MathHelper.PiOver2 * parentModNPC.AttackTimer / 60f;
-                        rotation += MathHelper.TwoPi * (index / LunarTowerStardust.CellAmount);
+                        rotation += MathHelper.TwoPi * (num / LunarTowerStardust.CellAmount);
                         Vector2 desiredLocation = parent.Center + parent.height * 0.8f * rotation.ToRotationVector2();
                         Home(desiredLocation, 12, 6);
                         break;
@@ -127,7 +127,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             ref float State = ref NPC.ai[1];
             ref float parentIndex = ref NPC.ai[2];
-            ref float index = ref NPC.ai[3];
             NPC parent = Main.npc[(int)parentIndex];
             if (!parent.active)
             {

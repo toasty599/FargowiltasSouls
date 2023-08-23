@@ -74,19 +74,18 @@ namespace FargowiltasSouls.Content.BossBars
             }
             else if (npc.type == NPCID.LunarTowerStardust)
             {
-                if (npc.TryGetGlobalNPC(out LunarTowerStardust modNPC))
+                int cells = NPC.CountNPCS(ModContent.NPCType<StardustMinion>());
+                
+                if (cells <= 0)
                 {
-                    if (shield <= 0)
-                    {
-                        shield = shieldMax = modNPC.Cells.Count;
-                    }
-                    shield = modNPC.Cells.Count;
-                    if (modNPC.Cells.Count <= 0)
-                    {
-                        return false;
-                    }
-                    return true;
+                    return false;
                 }
+                if (shield <= 0)
+                {
+                    shield = shieldMax = cells;
+                }
+                shield = cells;
+                return true;
             }
             else
             {
