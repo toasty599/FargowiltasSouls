@@ -225,6 +225,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         }
         private void CellState(int state)
         {
+            Main.NewText(state);
             foreach (NPC cell in Cells)
             {
                 if (cell.active)
