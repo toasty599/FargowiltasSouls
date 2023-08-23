@@ -1519,6 +1519,11 @@ Mods: {
 				Description: 再给它几千年时间来长大
 			}
 
+			NibbleBuff: {
+				// DisplayName: Nibble
+				// Description: Just one tiny bite (please)
+			}
+
 			BrokenShell: {
 				DisplayName: 破损龟壳
 				Description: 暂时无法缩壳
@@ -4429,6 +4434,15 @@ Mods: {
 					'''
 			}
 
+			HokeyBall: {
+				// DisplayName: Hokey Ball
+				/* Tooltip:
+					'''
+					Summons Nibble
+					'Show Nibble'
+					''' */
+			}
+
 			AbomRelic: {
 				DisplayName: 憎恶圣物
 				// Tooltip: ""
@@ -6068,6 +6082,7 @@ Mods: {
 			// MimicTitanGlove.DisplayName: Titan Glove
 			// KamikazePixie.DisplayName: Pixie
 			// BabyLifelight.DisplayName: Petlight
+			// Nibble.DisplayName: Nibble
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce] [c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

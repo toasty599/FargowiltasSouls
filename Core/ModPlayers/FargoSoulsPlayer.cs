@@ -172,6 +172,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             BabyLifelight = false;
             BabySilhouette = false;
             BiteSizeBaron = false;
+            Nibble = false;
             ChibiDevi = false;
             MutantSpawn = false;
             BabyAbom = false;

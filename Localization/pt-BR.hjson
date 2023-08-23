@@ -1519,6 +1519,11 @@ Mods: {
 				Description: Dê a ele alguns milhares de anos para crescer
 			}
 
+			NibbleBuff: {
+				// DisplayName: Nibble
+				// Description: Just one tiny bite (please)
+			}
+
 			BrokenShell: {
 				DisplayName: Casco Quebrado
 				Description: Você não pode entrar no seu casco ainda
@@ -4446,6 +4451,15 @@ Mods: {
 					'''
 			}
 
+			HokeyBall: {
+				// DisplayName: Hokey Ball
+				/* Tooltip:
+					'''
+					Summons Nibble
+					'Show Nibble'
+					''' */
+			}
+
 			AbomRelic: {
 				DisplayName: Relíquia do Abominationn
 				// Tooltip: ""
@@ -6087,6 +6101,7 @@ Mods: {
 			// MimicTitanGlove.DisplayName: Titan Glove
 			// KamikazePixie.DisplayName: Pixie
 			// BabyLifelight.DisplayName: Petlight
+			// Nibble.DisplayName: Nibble
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce] [c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
