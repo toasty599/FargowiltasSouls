@@ -619,7 +619,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 else if (proj != null)
                     attacker = proj.Center;
                 if (attacker != default)
-                    Player.velocity = Vector2.Normalize(Player.Center - attacker) * 30;
+                    Player.velocity = Vector2.Normalize(Player.Center - attacker) * 30 * 2;
             }
         }
 
