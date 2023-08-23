@@ -2,6 +2,8 @@
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.NPCMatching;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -21,7 +23,24 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             new NPCMatcher().MatchType(NPCID.LunarTowerNebula);
 
         public LunarTowerNebula() : base(ModContent.BuffType<ReverseManaFlowBuff>(), 58) { }
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
 
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
+            npc.damage = (int)Math.Round(npc.damage * 0.6f);
+        }
+        private enum Attacks
+        {
+            Idle,
+            VortexVortex,
+            LightningBall,
+
+        }
+        public override List<int> RandomAttacks => new List<int>() //these are randomly chosen attacks in p1
+        {
+            (int)Attacks.LightningBall
+        };
         public override void ShieldsDownAI(NPC npc)
         {
             if (--AttackTimer < 0)

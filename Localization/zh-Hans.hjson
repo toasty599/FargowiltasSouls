@@ -5231,6 +5231,11 @@ Mods: {
 			}
 
 			// MostlyOrdinaryrock.Tooltip: Mods.FargowiltasSouls.ItemTooltip.MostlyOrdinaryrock
+
+			WiresPainting: {
+				// DisplayName: Wires Painting
+				// Tooltip: Look inside
+			}
 		}
 
 		NPCs: {
@@ -6095,6 +6100,9 @@ Mods: {
 			// MimicTitanGlove.DisplayName: Titan Glove
 			// KamikazePixie.DisplayName: Pixie
 			// BabyLifelight.DisplayName: Petlight
+			// SolarMeteor.DisplayName: Solar Meteor
+			// SolarFlamePillarSpawner.DisplayName: Solar Flame Pillar Spawner
+			// SolarFlamePillar.DisplayName: Solar Flame Pillar
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

@@ -14,10 +14,14 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 using System.Linq;
 using static Terraria.ModLoader.PlayerDrawLayer;
+using static Terraria.GameContent.Animations.Actions.NPCs;
+using System.Collections.Generic;
+using System.Reflection;
+using Terraria.GameContent.Golf;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents
 {
-    public abstract class LunarTowers : EModeNPCBehaviour
+    public abstract class LunarTowers : PillarBehaviour
     {
         public abstract int ShieldStrength { get; set; }
 
@@ -41,30 +45,43 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         public int AuraSync;
         public bool SpawnedDuringLunarEvent;
 
-        public int Phase = 0;
-        public float PhaseHealthRatio = 0.5f;
+        public int Attack = 0;
+        public int OldAttack = 0;
+        public abstract List<int> RandomAttacks { get; }
 
         public bool spawned;
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             base.SendExtraAI(npc, bitWriter, binaryWriter);
-
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
             binaryWriter.Write7BitEncodedInt(AttackTimer);
+            binaryWriter.Write7BitEncodedInt(Attack);
             bitWriter.WriteBit(SpawnedDuringLunarEvent);
         }
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
         {
             base.ReceiveExtraAI(npc, bitReader, binaryReader);
-
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
             AttackTimer = binaryReader.Read7BitEncodedInt();
+            Attack = binaryReader.Read7BitEncodedInt();
             SpawnedDuringLunarEvent = bitReader.ReadBit();
         }
 
         public override void OnFirstTick(NPC npc)
         {
             base.OnFirstTick(npc);
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
             npc.boss = true;
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
@@ -82,9 +99,15 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         }
         public override void AI(NPC npc)
         {
-            base.AI(npc);
+            bool DontRunAI = npc.type == NPCID.LunarTowerSolar && (Attack == 1);//don't run vanilla AI during solar slam attack or fireball spit attack
+            if (!DontRunAI) 
+            {
+                base.AI(npc);
+            }
             if (!WorldSavingSystem.EternityMode)
+            {
                 return;
+            }
 
             if (!spawned)
             {
@@ -125,8 +148,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 npc.TargetClosest(false);
                 if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > AuraSize * 1.5f)
                 {
-                    Phase = 1;
-                    PhaseHealthRatio = 1;
                     const int heal = 2000;
                     npc.life += heal;
                     if (npc.life > npc.lifeMax)
@@ -134,10 +155,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
                 }
             }
+            npc.boss = !npc.dontTakeDamage && npc.HasPlayerTarget;
             bool anyPlayersClose = AnyPlayerWithin(npc, AuraSize);
             if (anyPlayersClose)
             {
-                npc.boss = !npc.dontTakeDamage;
                 AttackTimer++;
             }
             if (npc.dontTakeDamage)
@@ -145,27 +166,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if (anyPlayersClose)
                 {
                     ShieldsUpAI(npc);
-                }
-                if (npc.life < npc.lifeMax * PhaseHealthRatio)
-                {
-                    npc.life = (int)(npc.lifeMax * PhaseHealthRatio);
-                }
-            }
-            else
-            {
-                if (anyPlayersClose)
-                {
-                    //when shields down, if life is lower than threshhold, put shields back up, go to next non-attacking phase, and ignore rest of AI.
-                    if ((float)npc.life / npc.lifeMax < PhaseHealthRatio && Phase >= 0)
-                    {
-                        Phase = -(Phase + 1);
-                        AttackTimer = 0;
-                        SoundEngine.PlaySound(SoundID.NPCDeath58, npc.Center);
-                        ShieldStrength = NPC.LunarShieldPowerMax;
-                        return;
-                    }
-                    //when shields down, kill all pillar enemies and go to attack phase
-                    if (Phase < 0)
+                    if (ShieldStrength <= 20) //at 20 shield, kill all shield and pillar enemies and go to attack phase
                     {
                         foreach (NPC n in Main.npc)
                         {
@@ -194,9 +195,29 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                                 n.StrikeInstantKill();
                             }
                         }
-                        PhaseHealthRatio -= 0.5f;
-                        Phase = -Phase;
+                        ShieldStrength = 0;
                     }
+                }
+                if (npc.life < npc.lifeMax)
+                {
+                    npc.life = npc.lifeMax;
+                }
+            }
+            else
+            {
+                if (anyPlayersClose)
+                {
+                    /*
+                    //when shields down, if life is lower than threshhold, put shields back up, go to next non-attacking phase, and ignore rest of AI.
+                    if ((float)npc.life / npc.lifeMax < PhaseHealthRatio && Phase >= 0)
+                    {
+                        Phase = -(Phase + 1);
+                        AttackTimer = 0;
+                        SoundEngine.PlaySound(SoundID.NPCDeath58, npc.Center);
+                        ShieldStrength = NPC.LunarShieldPowerMax;
+                        return;
+                    }
+                    */
                     ShieldsDownAI(npc);
                 }
             }
@@ -207,7 +228,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             base.OnHitPlayer(npc, target, hurtInfo);
 
             if (!WorldSavingSystem.EternityMode)
+            {
                 return;
+            }
 
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
         }
@@ -217,7 +240,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             base.ModifyHitByAnything(npc, player, ref modifiers);
 
             if (!WorldSavingSystem.EternityMode)
+            {
                 return;
+            }
 
             if (npc.Distance(player.Center) > AuraSize)
             {
@@ -228,5 +253,26 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 modifiers.FinalDamage /= 2;
             }
         }
+        #region Help Methods
+        public void RandomAttack(NPC npc)
+        {
+            npc.TargetClosest(false);
+            Attack = Main.rand.Next(RandomAttacks);
+            while (Attack == OldAttack)
+            {
+                Attack = Main.rand.Next(RandomAttacks);
+            }
+            OldAttack = Attack;
+            AttackTimer = 0;
+            NetSync(npc);
+        }
+        public void EndAttack(NPC npc)
+        {
+            npc.TargetClosest(false);
+            NetSync(npc);
+            Attack = 0;
+            AttackTimer = 0;
+        }
+        #endregion
     }
 }

@@ -138,7 +138,6 @@ namespace FargowiltasSouls.Core.Globals
                 boss = npc.whoAmI;
 
             bool retval = base.PreAI(npc);
-
             if (TimeFrozen)
             {
                 npc.position = npc.oldPosition;

@@ -17,6 +17,8 @@
     <None Remove="Content\Buffs\Souls\CorruptedBuff.png" />
     <None Remove="Content\Items\Accessories\Enchantments\AshWoodEnchant.png" />
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
+    <None Remove="Content\Items\Placables\WiresPainting.png" />
+    <None Remove="Content\Items\Placables\WiresPaintingSheet.png" />
     <None Remove="Content\Tiles\MutantStatueGift.png" />
   </ItemGroup>
   <ItemGroup>

@@ -198,7 +198,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                CustomTexturePath = $"FargowiltasSouls/Content/NPCs/TrojanSquirrel/{Name}_Still",
+                CustomTexturePath = $"FargowiltasSouls/Content/Bosses/TrojanSquirrel/{Name}_Still",
                 Position = new Vector2(16 * 4, 16 * 4),
                 PortraitPositionXOverride = 16 * 1.5f,
                 PortraitPositionYOverride = 16 * 3
