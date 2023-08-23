@@ -211,7 +211,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.DD2ExplosiveTrapT3Explosion:
                     {
                         if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active
-                            && (npc.type == ModContent.NPCType<TrojanSquirrel>() || npc.type == ModContent.NPCType<TimberChampion>()))
+                            && (npc.ModNPC is TrojanSquirrelPart || npc.type == ModContent.NPCType<TimberChampion>()))
                         {
                             projectile.DamageType = DamageClass.Default;
                             projectile.friendly = false;
