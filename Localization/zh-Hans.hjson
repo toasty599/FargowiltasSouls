@@ -58,7 +58,7 @@ Mods: {
 			// Spider: ""
 			// Spooky: ""
 			// Stardust: ""
-			// Tiki: ""
+			// Tiki: Increases whip range by 20%
 			Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
 			Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
 			Tungsten: 将武器大小提升到300%，伤害加成提升到20%，冷却时间减少

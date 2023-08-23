@@ -58,7 +58,7 @@ Mods: {
 			// Spider: ""
 			// Spooky: ""
 			// Stardust: ""
-			// Tiki: ""
+			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
 			// Tungsten: Increased weapon size to 300%, bonus damage to 20%, cooldown reduced
@@ -2872,7 +2872,6 @@ Mods: {
 				// DisplayName: Tiki Enchantment
 				/* Tooltip:
 					'''
-					Increases whip range by 20%
 					Whip your summons to make them work harder
 					'Aku Aku!'
 					''' */
@@ -3014,9 +3013,8 @@ Mods: {
 				/* Tooltip:
 					'''
 					Works in your inventory
-					Stand still to expose nearby treasure
+					Stand still to expose nearby treasure and enemies
 					Grants autofire to all items
-					Slightly reduces use speed of affected items
 					''' */
 			}
 
