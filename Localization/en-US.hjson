@@ -1006,7 +1006,7 @@ Mods: {
 			BrainOfConfusion: Lowers your damage output on successful dodge
 			ZenithNone: No nerfs in effect
 			ZenithHitRate: Vastly reduced hit rate, improves by defeating:
-			VampireKnives: Reduced lifesteal rate when above 33% life
+			VampireKnives: Reduced lifesteal rate when above 50% life
 			Zapinator: Cannot stack damage multipliers
 			OOASet: Set bonus increases minimum summon damage when you attack using other classes
 			MiningHelmet: Increases Undead Miner spawn rates
@@ -4242,7 +4242,7 @@ Mods: {
 				DisplayName: Deer Sinew
 				Tooltip:
 					'''
-					Allows the ability to dash
+					Allows the ability to dash without a dash accessory
 					Double tap a direction
 					Taking damage may briefly freeze you
 					Reduces damage when your speed increases, down to 0.85x at max

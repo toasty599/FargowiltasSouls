@@ -213,3 +213,7 @@ maso wof ray also inflicts unstable
 adjusted swarming ai of hornets
 nymph no longer inflicts lovestruck on hit
 bug fix, most keybinds are now properly disabled by timestop, stuns, gold shell, etc.
+low ground disables gravitation
+partially restored vampire knives nerf
+temporary debuff immunities (parry, gold shell, etc.) can only block debuffs that nurse can cleanse
+deer sinew tooltip specifically say dash without accessory
