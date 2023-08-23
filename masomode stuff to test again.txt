@@ -212,3 +212,4 @@ wof ray inflicts smite instead of confused
 maso wof ray also inflicts unstable
 adjusted swarming ai of hornets
 nymph no longer inflicts lovestruck on hit
+bug fix, most keybinds are now properly disabled by timestop, stuns, gold shell, etc.
