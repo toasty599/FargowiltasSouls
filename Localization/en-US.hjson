@@ -3014,9 +3014,8 @@ Mods: {
 				Tooltip:
 					'''
 					Works in your inventory
-					Stand still to expose nearby treasure
+					Stand still to expose nearby treasure and enemies
 					Grants autofire to all items
-					Slightly reduces use speed of affected items
 					'''
 			}
 

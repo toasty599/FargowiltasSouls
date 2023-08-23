@@ -202,3 +202,4 @@ fixed being unable to make new characters
 
 added lieflight new theme
 added trojan squirrel new theme
+box of gizmos autofire penalty removed, also grants hunter potion effect when still

@@ -585,15 +585,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 HaveCheckedAttackSpeed = true;
 
-                if (!Berserked && !TribalCharm && BoxofGizmos && !item.autoReuse && !Player.autoReuseAllWeapons && !Player.FeralGloveReuse(item))
-                {
-                    int targetUseTime = useTime + 6;
-                    while (useTime / AttackSpeed < targetUseTime)
-                    {
-                        AttackSpeed -= .05f;
-                    }
-                }
-
                 if (Berserked)
                 {
                     AttackSpeed += .1f;
