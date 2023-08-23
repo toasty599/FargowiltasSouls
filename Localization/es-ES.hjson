@@ -4262,7 +4262,7 @@ Mods: {
 				// DisplayName: Deer Sinew
 				/* Tooltip:
 					'''
-					Allows the ability to dash
+					Allows the ability to dash without a dash accessory
 					Double tap a direction
 					Taking damage may briefly freeze you
 					Reduces damage when your speed increases, down to 0.85x at max

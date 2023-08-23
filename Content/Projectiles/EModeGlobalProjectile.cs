@@ -709,9 +709,20 @@ namespace FargowiltasSouls.Content.Projectiles
 
                         projectile.position -= projectile.velocity * slowdown * Utils.Clamp((float)Math.Sqrt(1f - counter / 60f), 0f, 1f);
                     }
-                    else if (NonSwarmFight(projectile, NPCID.HallowBoss) && sourceNPC.ai[0] == 6 && sourceNPC.ai[1] > 60)
+                    else if (NonSwarmFight(projectile, NPCID.HallowBoss))
                     {
-                        projectile.position += sourceNPC.position - sourceNPC.oldPosition;
+                        if (sourceNPC.ai[0] == 7 && sourceNPC.ai[1] < 255) //phase 2 exclusive angled walls attack
+                        {
+                            if (sourceNPC.HasValidTarget)
+                            {
+                                float modifier = WorldSavingSystem.MasochistModeReal ? 0.6f : 0.4f;
+                                projectile.position += modifier * (Main.player[sourceNPC.target].position - Main.player[sourceNPC.target].oldPosition);
+                            }
+                        }
+                        else if (sourceNPC.ai[0] == 6 && sourceNPC.ai[1] > 60) //the massive aoe sword spam during sun beams
+                        {
+                            projectile.position += sourceNPC.position - sourceNPC.oldPosition;
+                        }
                     }
                     break;
 

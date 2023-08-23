@@ -219,3 +219,5 @@ temporary debuff immunities (parry, gold shell, etc.) can only block debuffs tha
 deer sinew tooltip specifically say dash without accessory
 emode secretly massively reduces damage from DOT debuffs at 10 life or less (NOT in maso)
 nekomi buff, you can only lose meter on hit every 90ticks
+golem geyser telegraph vfx adjusted
+empress p2 angled sword walls buffed, they slightly track your movement
