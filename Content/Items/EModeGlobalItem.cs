@@ -219,9 +219,9 @@ namespace FargowiltasSouls.Content.Items
                     }
                     break;
 
-                //case ItemID.VampireKnives:
-                //    ItemBalance(tooltips, EModeChange.Nerf, "VampireKnives");
-                //    break;
+                case ItemID.VampireKnives:
+                    ItemBalance(tooltips, EModeChange.Nerf, "VampireKnives");
+                    break;
 
                 case ItemID.ZapinatorGray:
                 case ItemID.ZapinatorOrange:
