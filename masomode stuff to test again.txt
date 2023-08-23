@@ -208,3 +208,5 @@ maso reti fires a comically large deathray
 tiki ench nerfed, no longer gives whip range, reduced buff duration from 1sec to 0.33sec
 added tiki force effect that gives old whip range up
 doubled velocity of big toss mode
+wof ray inflicts smite instead of confused
+maso wof ray also inflicts unstable
