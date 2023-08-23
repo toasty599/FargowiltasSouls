@@ -221,3 +221,6 @@ emode secretly massively reduces damage from DOT debuffs at 10 life or less (NOT
 nekomi buff, you can only lose meter on hit every 90ticks
 golem geyser telegraph vfx adjusted
 empress p2 angled sword walls buffed, they slightly track your movement
+earth champ life adjusted to reduce p2 heal, overall life slightly reduced
+life champ life adjusted to remove heals, overall life slightly reduced
+abom life adjusted to remove heal, overall life slightly reduced, effective p2 life reduced
