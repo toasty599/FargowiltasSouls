@@ -210,3 +210,4 @@ added tiki force effect that gives old whip range up
 doubled velocity of big toss mode
 wof ray inflicts smite instead of confused
 maso wof ray also inflicts unstable
+adjusted swarming ai of hornets
