@@ -32,10 +32,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 5f);
             npc.damage = (int)Math.Round(npc.damage * 0.6f);
         }
-        private enum Attacks
+        public enum Attacks
         {
             Idle,
             PillarSlam,
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                             float random = Main.rand.Next(-distance / 5, distance / 4);
                             Vector2 pos = OriginalLocation + Vector2.UnitX * (distance * x + random);
                             Vector2 vel = Vector2.UnitY * 16;
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<SolarFlamePillarSpawner>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<PillarSpawner>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, ai0: 1);
                         }
                         
                     }
@@ -262,7 +262,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 EndAttack(npc);
             }
         }
-        private const int IdleTime = 120;
+        private const int IdleTime = 60 * 2;
         private void Idle(NPC npc, Player player)
         {
             if (AttackTimer == (int)(IdleTime * 0.75f))

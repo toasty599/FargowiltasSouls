@@ -6129,6 +6129,10 @@ Mods: {
 			SolarMeteor.DisplayName: Solar Meteor
 			SolarFlamePillarSpawner.DisplayName: Solar Flame Pillar Spawner
 			SolarFlamePillar.DisplayName: Solar Flame Pillar
+			LightningTelegraph.DisplayName: Lightning Telegraph
+			PillarSpawner.DisplayName: Pillar Spawner
+			VortexVortex.DisplayName: Vortex Vortex
+			VortexVortexProjectile.DisplayName: Vortex Vortex Projectile
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

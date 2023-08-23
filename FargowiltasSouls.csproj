@@ -19,6 +19,8 @@
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
     <None Remove="Content\Items\Placables\WiresPainting.png" />
     <None Remove="Content\Items\Placables\WiresPaintingSheet.png" />
+    <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\LightningTelegraph.png" />
+    <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\VortexVortexProjectile.png" />
     <None Remove="Content\Tiles\MutantStatueGift.png" />
   </ItemGroup>
   <ItemGroup>

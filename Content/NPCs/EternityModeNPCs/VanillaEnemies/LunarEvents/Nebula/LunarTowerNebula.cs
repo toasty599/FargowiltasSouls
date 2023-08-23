@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
             npc.damage = (int)Math.Round(npc.damage * 0.6f);
         }
-        private enum Attacks
+        public enum Attacks
         {
             Idle,
             VortexVortex,
@@ -104,5 +104,42 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             //    }
             //}
         }
+        #region Attacks
+        private void AttackTemplate(NPC npc, Player player)
+        {
+            const int WindupDuration = 60 * 2;
+            const int AttackDuration = 60 * 2;
+            const int EndlagDuration = 60 * 2;
+            void Windup()
+            {
+
+            }
+            void Attack()
+            {
+
+            }
+            void Endlag()
+            {
+
+            }
+
+            if (AttackTimer <= WindupDuration)
+            {
+                Windup();
+            }
+            else if (AttackTimer <= WindupDuration + AttackDuration)
+            {
+                Attack();
+            }
+            else
+            {
+                Endlag();
+            }
+            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
+            {
+                EndAttack(npc);
+            }
+        }
+        #endregion
     }
 }

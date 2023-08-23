@@ -82,6 +82,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 return;
             }
+            if (npc.type == NPCID.LunarTowerStardust)
+            {
+                npc.ai[1] = 1000; //disable first tick vanilla constellation spawn
+            }
             npc.boss = true;
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
@@ -108,7 +112,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 return;
             }
-
+            if (npc.type == NPCID.LunarTowerStardust)
+            {
+                npc.ai[1] = 1000; //disable vanilla constellation spawn
+            }
             if (!spawned)
             {
                 spawned = true;
@@ -263,6 +270,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 Attack = Main.rand.Next(RandomAttacks);
             }
             OldAttack = Attack;
+            if (npc.life < npc.lifeMax * 0.3f && npc.type == NPCID.LunarTowerVortex)
+            {
+                Attack = (int)Vortex.LunarTowerVortex.Attacks.VortexVortex;
+            }
             AttackTimer = 0;
             NetSync(npc);
         }
