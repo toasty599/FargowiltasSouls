@@ -211,3 +211,4 @@ doubled velocity of big toss mode
 wof ray inflicts smite instead of confused
 maso wof ray also inflicts unstable
 adjusted swarming ai of hornets
+nymph no longer inflicts lovestruck on hit
