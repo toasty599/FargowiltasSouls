@@ -160,7 +160,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             float Scale1 = 1.7f;
             float Scale2 = 0.8f;
             float Scale3 = 2f;
-            Vector2 vector2 = (Projectile.rotation - 1.570796f).ToRotationVector2() * Projectile.velocity.Length() * Projectile.MaxUpdates;
+            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 2).ToRotationVector2() * Projectile.velocity.Length() * Projectile.MaxUpdates;
             if (Projectile.type == 635)
             {
                 Type1 = 88;
