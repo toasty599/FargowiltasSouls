@@ -204,3 +204,4 @@ added lieflight new theme
 added trojan squirrel new theme
 box of gizmos autofire penalty removed, also grants hunter potion effect when still
 fixed long standing bug where dg swarm had full emode ai
+maso reti fires a comically large deathray
