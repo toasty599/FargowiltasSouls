@@ -157,6 +157,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             GaiaSet = false;
             StyxSet = false;
             NekomiSet = false;
+            if (NekomiHitCD > 0)
+                NekomiHitCD--;
 
             BrainMinion = false;
             EaterMinion = false;

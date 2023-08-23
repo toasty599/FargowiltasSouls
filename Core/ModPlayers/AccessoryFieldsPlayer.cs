@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool NekomiSet;
         public int NekomiMeter;
         public int NekomiTimer;
+        public int NekomiHitCD;
 
         //        //minions
         public bool BrainMinion;
