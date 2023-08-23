@@ -58,8 +58,9 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (Main.rand.NextBool(6))
             {
-                if (!Main.rand.NextBool(Projectile.extraUpdates))
-                    return;
+                if (Projectile.extraUpdates >= 1)
+                    if (!Main.rand.NextBool(Projectile.extraUpdates))
+                        return;
                 for (int index1 = 0; index1 < 2; ++index1)
                 {
                     float num1 = Projectile.rotation + (float)((Main.rand.NextBool(2)? -1.0 : 1.0) * (float)Math.PI / 2);
