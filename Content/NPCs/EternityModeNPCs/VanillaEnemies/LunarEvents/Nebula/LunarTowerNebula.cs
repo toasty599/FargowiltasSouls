@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Nebula
 {
@@ -28,21 +29,44 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             base.SetDefaults(npc);
 
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
-            npc.damage = (int)Math.Round(npc.damage * 0.6f);
+            npc.damage = 110;
         }
         public enum Attacks
         {
             Idle,
-            VortexVortex,
-            LightningBall,
+            MirageDeathray,
+            TeleportJumpscare,
+            MassiveNebulaArcanum
 
         }
         public override List<int> RandomAttacks => new List<int>() //these are randomly chosen attacks in p1
         {
-            (int)Attacks.LightningBall
+            (int)Attacks.MirageDeathray,
+            (int)Attacks.TeleportJumpscare,
+            (int)Attacks.MassiveNebulaArcanum
         };
         public override void ShieldsDownAI(NPC npc)
         {
+            Player target = Main.player[npc.target];
+            if (npc.HasPlayerTarget && target.active)
+            {
+                switch (Attack)
+                {
+                    case (int)Attacks.MirageDeathray:
+                        MirageDeathray(npc, target);
+                        break;
+                    case (int)Attacks.TeleportJumpscare:
+                        TeleportJumpscare(npc, target);
+                        break;
+                    case (int)Attacks.MassiveNebulaArcanum:
+                        MassiveNebulaArcanum(npc, target);
+                        break;
+                    case (int)Attacks.Idle:
+                        Idle(npc, target);
+                        break;
+                }
+            }
+            /*
             if (--AttackTimer < 0)
             {
                 AttackTimer = 300;
@@ -84,35 +108,25 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 SoundEngine.PlaySound(SoundID.Item8, npc.Center);
                 npc.netUpdate = true;
             }
-
-            //if (++Counter[2] > 60)
-            //{
-            //    Counter[2] = 0;
-            //    npc.TargetClosest(false);
-            //    if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient && npc.Distance(Main.player[npc.target].Center) < 5000)
-            //    {
-            //        for (int i = 0; i < 3; i++)
-            //        {
-            //            Vector2 position = Main.player[npc.target].Center;
-            //            position.X += Main.rand.Next(-150, 151);
-            //            position.Y -= Main.rand.Next(600, 801);
-            //            Vector2 speed = Main.player[npc.target].Center - position;
-            //            speed.Normalize();
-            //            speed *= 10f;
-            //            Projectile.NewProjectile(position, speed, ProjectileID.NebulaLaser, 40, 0f, Main.myPlayer);
-            //        }
-            //    }
-            //}
+            */
         }
         #region Attacks
-        private void AttackTemplate(NPC npc, Player player)
+        private void MirageDeathray(NPC npc, Player player)
         {
-            const int WindupDuration = 60 * 2;
+            const int WindupDuration = 60 * 1;
             const int AttackDuration = 60 * 2;
-            const int EndlagDuration = 60 * 2;
+            const int EndlagDuration = 60 * 0;
             void Windup()
             {
-
+                if (AttackTimer == 1 && Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    int randReal = Main.rand.Next(4);
+                    for (int i = 0; i < 4; i++)
+                    {
+                        int fake = randReal == i ? 0 : 1;
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<NebulaPillarProj>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage * 2), 3f, Main.myPlayer, i, fake, npc.whoAmI);
+                    }
+                }
             }
             void Attack()
             {
@@ -138,6 +152,173 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
             {
                 EndAttack(npc);
+            }
+        }
+        private Vector2 tpPos = Vector2.Zero;
+        private void TeleportJumpscare(NPC npc, Player player)
+        {
+            const int WindupDuration = 70;
+            const int AttackDuration = 45;
+            const int EndlagDuration = 60;
+            const int SafeAngle = 30;
+            void Windup()
+            {
+                if (AttackTimer == 1) //set random
+                {
+                    const int tpVar = 300;
+                    tpPos = player.Center + (Vector2.UnitY * Main.rand.NextFloat(0, tpVar)) + (Main.rand.NextFloat(-tpVar, tpVar) * Vector2.UnitX);
+                    SoundEngine.PlaySound(SoundID.NPCDeath58, tpPos);
+                    npc.netUpdate = true;
+                    NetSync(npc);
+                }
+                if (AttackTimer == 10) //use random, telegraph tp
+                {
+                    npc.netUpdate = true;
+                    NetSync(npc);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int time = WindupDuration - 10;
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), tpPos, Vector2.Zero, ModContent.ProjectileType<NebulaTelegraph>(), 0, 0, Main.myPlayer, time);
+                        for (int i = -1; i < 2; i += 2)
+                        {
+                            float angle = (-Vector2.UnitY).RotatedBy(i * MathHelper.ToRadians(SafeAngle)).ToRotation();
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), tpPos, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), 0, 0, Main.myPlayer, 5, angle, time);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), tpPos, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), 0, 0, Main.myPlayer, 6, i, time);
+                        }
+                    }
+                }
+            }
+            void Attack()
+            {
+                if (AttackTimer - WindupDuration == 1)
+                {
+                    npc.Center = tpPos;
+                    npc.netUpdate = true;
+                    NetSync(npc);
+                    SoundEngine.PlaySound(SoundID.Item8, tpPos);
+                }
+                float ratio = ((float)AttackTimer - WindupDuration) / AttackDuration;
+                const int AttackCD = 2;
+                if ((AttackTimer - WindupDuration) % AttackCD == 0)
+                {
+                    SoundEngine.PlaySound(SoundID.Item20, npc.Center);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        for (int i = -1; i < 2; i += 2)
+                        {
+                            Vector2 angle = (Vector2.UnitY).RotatedBy(i * ratio * MathHelper.ToRadians(150));
+                            float speed = 16;
+                            Vector2 vel = angle * speed;
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<PillarNebulaBlaze>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, 0.02f, ai2: npc.whoAmI);
+                        }
+                    }
+                }
+            }
+            void Endlag()
+            {
+
+            }
+
+            if (AttackTimer <= WindupDuration)
+            {
+                Windup();
+            }
+            else if (AttackTimer <= WindupDuration + AttackDuration)
+            {
+                Attack();
+            }
+            else
+            {
+                Endlag();
+            }
+            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
+            {
+                EndAttack(npc);
+            }
+        }
+        private void MassiveNebulaArcanum(NPC npc, Player player)
+        {
+            const int WindupDuration = 0;
+            const int AttackDuration = 60 * 4;
+            const int EndlagDuration = 60 * 1;
+            void Attack()
+            {
+                if (AttackTimer == WindupDuration + 1)
+                {
+                    SoundEngine.PlaySound(SoundID.Item117, npc.Center);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Vector2 offset = -(Vector2.UnitY * npc.height / 2);
+                        Vector2 vel = Vector2.Normalize(offset);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + offset, vel, ModContent.ProjectileType<PillarArcanum>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, 0f, 1);
+                    }
+                }
+            }
+            void Endlag()
+            {
+
+            }
+
+            if (AttackTimer <= WindupDuration)
+            {
+            }
+            else if (AttackTimer <= WindupDuration + AttackDuration)
+            {
+                Attack();
+            }
+            else
+            {
+                Endlag();
+            }
+            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
+            {
+                EndAttack(npc);
+            }
+        }
+        private void Idle(NPC npc, Player player)
+        {
+            const int WindupDuration = 60 * 0;
+            const int AttackDuration = 60 * 3;
+            const int EndlagDuration = 60 * 1;
+            void Windup()
+            {
+            }
+            void Attack()
+            {
+                const int AttackCD = 40;
+                if (AttackTimer % AttackCD == AttackCD - 1)
+                {
+                    SoundEngine.PlaySound(SoundID.Item20, npc.Center);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int speed = Main.rand.Next(6, 8);
+                        Vector2 pos = npc.Center - (0.65f * npc.height * Vector2.UnitY) + Vector2.UnitX * Main.rand.NextFloat(-npc.width / 3, npc.width / 3);
+                        Vector2 vel = Vector2.Normalize(pos - npc.Center) * speed;
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<PillarNebulaBlaze>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, 0.03f, ai2: npc.whoAmI);
+                    }
+                    
+                }
+            }
+            void Endlag()
+            {
+
+            }
+
+            if (AttackTimer <= WindupDuration)
+            {
+                Windup();
+            }
+            else if (AttackTimer <= WindupDuration + AttackDuration)
+            {
+                Attack();
+            }
+            else
+            {
+                Endlag();
+            }
+            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
+            {
+                RandomAttack(npc);
             }
         }
         #endregion

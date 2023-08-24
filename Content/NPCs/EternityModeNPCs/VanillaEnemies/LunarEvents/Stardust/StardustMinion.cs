@@ -243,19 +243,20 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         }
                         if (NPC.Distance(parent.Center) <= NearParent && substate == HomeBack)
                         {
+                            substate = 0;
                             State = (float)States.Idle;
                         }
                         break;
                     }
             }
         }
-        const float ScissorSpeed = 1;
         public void Scissor(NPC parent, float num, LunarTowerStardust parentModNPC, bool trackPlayer)
         {
             const float speedFactor = 0.05f;
             Player player = Main.player[parent.target];
             int Side = (num >= LunarTowerStardust.CellAmount / 2) ? 1 : -1;
             int x = Side == 1 ? (int)num - LunarTowerStardust.CellAmount / 2 : (int)num;
+            float ScissorSpeed = 1f + (0.08f * (5-x));
             int Distance = (x * parentModNPC.AuraSize / (LunarTowerStardust.CellAmount / 2)) + (parent.width / 2);
             if (Side == 1)
             {

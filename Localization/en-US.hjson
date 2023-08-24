@@ -6147,6 +6147,11 @@ Mods: {
 			PillarSpawner.DisplayName: Pillar Spawner
 			VortexVortex.DisplayName: Vortex Vortex
 			VortexVortexProjectile.DisplayName: Vortex Vortex Projectile
+			PillarNebulaBlaze.DisplayName: Pillar Nebula Blaze
+			NebulaDeathray.DisplayName: Nebula Deathray
+			NebulaPillarProj.DisplayName: Nebula Pillar Proj
+			NebulaTelegraph.DisplayName: Nebula Telegraph
+			PillarArcanum.DisplayName: Pillar Arcanum
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

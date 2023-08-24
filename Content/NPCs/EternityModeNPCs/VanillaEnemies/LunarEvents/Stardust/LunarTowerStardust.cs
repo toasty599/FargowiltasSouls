@@ -290,7 +290,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         private void CellScissor(NPC npc, Player player)
         {
             const int WindupDuration = 90;
-            const int AttackDuration = 60 * 4;
+            const int AttackDuration = 60 * 4 + 20;
             const int EndlagDuration = 60 * 2;
             void Windup()
             {
