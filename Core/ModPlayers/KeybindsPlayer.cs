@@ -123,6 +123,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (FargowiltasSouls.SoulToggleKey.JustPressed)
                 FargoUIManager.ToggleSoulToggler();
 
+            if (FargowiltasSouls.GoldKey.JustPressed && GoldEnchantActive)
+            {
+                GoldKey();
+            }
+
             #endregion
 
             if (GoldShell || Player.CCed || NoUsingItems > 2)
@@ -131,11 +136,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
             #region blocked by stuns
-
-            if (FargowiltasSouls.GoldKey.JustPressed && GoldEnchantActive)
-            {
-                GoldKey();
-            }
 
             if (FargowiltasSouls.SmokeBombKey.JustPressed && CrystalEnchantActive && SmokeBombCD == 0)
                 CrystalAssassinEnchant.SmokeBombKey(this);
