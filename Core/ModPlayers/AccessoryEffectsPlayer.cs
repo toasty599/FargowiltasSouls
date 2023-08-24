@@ -2006,6 +2006,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.accThirdEye = true;
             Player.accCalendar = true;
             Player.accWeatherRadio = true;
+            Player.chiselSpeed = true;
+            Player.treasureMagnet = true;
         }
 
 
