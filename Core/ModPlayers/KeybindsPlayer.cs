@@ -61,11 +61,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     MashPressed[3] = false;
             }
 
-            if (FargowiltasSouls.GoldKey.JustPressed && GoldEnchantActive)
-            {
-                GoldKey();
-            }
-
             if (FargowiltasSouls.FreezeKey.JustPressed)
             {
                 if (StardustEnchantActive && !Player.HasBuff(ModContent.BuffType<TimeStopCDBuff>()))
@@ -136,6 +131,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
             #region blocked by stuns
+
+            if (FargowiltasSouls.GoldKey.JustPressed && GoldEnchantActive)
+            {
+                GoldKey();
+            }
 
             if (FargowiltasSouls.SmokeBombKey.JustPressed && CrystalEnchantActive && SmokeBombCD == 0)
                 CrystalAssassinEnchant.SmokeBombKey(this);

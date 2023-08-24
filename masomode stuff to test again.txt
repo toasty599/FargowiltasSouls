@@ -227,3 +227,7 @@ abom life adjusted to remove heal, overall life slightly reduced, effective p2 l
 added hokey ball (0.1% drop from shark)
 
 pumpkin moon loot is locked to wave 15
+fixed emode DOT death prevention not working
+fixed certain stuns e.g. actual stunned debuff not blocking keybinds as intended
+getting hit by mutant spark disables items
+maso skeletron has no reticle and uses dg attacks when spinning
