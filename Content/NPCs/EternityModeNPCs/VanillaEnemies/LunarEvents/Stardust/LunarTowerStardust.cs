@@ -32,23 +32,42 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             base.SetDefaults(npc);
 
         }
+        List<int> DragonParts = new List<int>
+                {
+                    NPCID.CultistDragonHead,
+                    NPCID.CultistDragonBody1,
+                    NPCID.CultistDragonBody2,
+                    NPCID.CultistDragonBody3,
+                    NPCID.CultistDragonBody4,
+                    NPCID.CultistDragonTail
+                };
+        public override bool CheckDead(NPC npc)
+        {
+            foreach (NPC n in Main.npc.Where(n => n.active && DragonParts.Contains(n.type)))
+            {
+                n.StrikeInstantKill();
+                n.checkDead();
+            }
+            return base.CheckDead(npc);
+        }
         public enum Attacks
         {
             Idle,
             CellExpandContract,
             CellRush,
-            CellRings,
-            CellBallCharge
+            CellCurves,
+            CellScissor
         }
         public override List<int> RandomAttacks => new List<int>() //these are randomly chosen attacks in p1
         {
             (int)Attacks.CellExpandContract,
             (int)Attacks.CellRush,
-            (int)Attacks.CellRings,
-            (int)Attacks.CellBallCharge
+            (int)Attacks.CellCurves,
+            (int)Attacks.CellScissor
         };
         private bool gotBossBar = false;
         public const int CellAmount = 20;
+        public float CellRotation = 0;
         public override void ShieldsDownAI(NPC npc)
         {
             if (!gotBossBar)
@@ -58,13 +77,20 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             int cells = 0;
             int bigCells = 0;
-            foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[0] == npc.whoAmI)) 
+            foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[2] == npc.whoAmI)) 
             {
                 if (n.frame.Y == 0) //frame check is to check if big
                 {
                     bigCells++;
                 }
                 cells++;
+            }
+            foreach (NPC n in Main.npc.Where(n => n.active && DragonParts.Contains(n.type)))
+            {
+                //The dragon is purposefully not immune because it's meant to bait aggro, this is a mechanic you need to deal with. Same goes for the pillar.
+                n.defense = 99999;
+                n.life = n.lifeMax;
+                n.GivenName = "Stardust Dragon";
             }
             //cells are sorted by a unique key, stored in their NPC.ai[3], that determines their behavior during attacks, for example spot in a circle. 
             //here it only spawns new cells if there's missing keys, and missing cells.
@@ -74,7 +100,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 for (int i = 0; i < CellAmount; i++)
                 {
                     bool foundCell = false;
-                    foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[0] == npc.whoAmI && n.ai[3] == i)) //frame check is to check if big
+                    foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[2] == npc.whoAmI && n.ai[3] == i)) //frame check is to check if big
                     {
                         foundCell = true;
                         break;
@@ -87,8 +113,23 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 }
                 
             }
+            if (NPC.CountNPCS(NPCID.CultistDragonHead) <= 0 && bigCells < CellAmount / 2) //spawn james at half cells
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    int n = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)(npc.Center.Y - npc.height * 0.45f), NPCID.CultistDragonHead);
+                    if (Main.npc[n].active)
+                    {
+                        Main.npc[n].GivenName = "Stardust Dragon";
+                        Main.npc[n].dontTakeDamage = true;
+
+                    }
+                }
+                SoundEngine.PlaySound(SoundID.Item119, npc.Center);
+            }
             if (bigCells > 0)
             {
+                //The pillar is purposefully not immune because it's meant to bait aggro, this is a mechanic you need to deal with. Same goes for the dragon.
                 npc.defense = 99999999;
                 npc.life = npc.lifeMax;
             }
@@ -111,18 +152,22 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 {
                     case (int)Attacks.CellExpandContract:
                         CellExpandContract(npc, target);
+                        CellRotation++;
                         break;
                     case (int)Attacks.CellRush:
                         CellRush(npc, target);
+                        CellRotation++;
                         break;
-                    case (int)Attacks.CellRings:
-                        CellRings(npc, target);
+                    case (int)Attacks.CellCurves:
+                        CellCurves(npc, target);
+                        CellRotation++;
                         break;
-                    case (int)Attacks.CellBallCharge:
-                        CellBallCharge(npc, target);
+                    case (int)Attacks.CellScissor:
+                        CellScissor(npc, target);
                         break;
                     case (int)Attacks.Idle:
                         Idle(npc, target);
+                        CellRotation++;
                         break;
                 }
             }
@@ -130,13 +175,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         #region Attacks
         private void CellExpandContract(NPC npc, Player player)
         {
-            const int WindupDuration = 60 * 2;
-            const int AttackDuration = 60 * 4;
-            const int EndlagDuration = 60 * 2;
+            const int WindupDuration = 90;
+            const int AttackDuration = 60 * 6;
+            const int EndlagDuration = 60 * 1;
             void Windup()
             {
                 if (AttackTimer == 1)
                 {
+                    SoundEngine.PlaySound(SoundID.Item77, npc.Center);
                     CellState((int)States.PrepareExpand);
                 }
             }
@@ -144,6 +190,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 if (AttackTimer - WindupDuration == 1)
                 {
+                    SoundEngine.PlaySound(SoundID.Item92, npc.Center);
                     CellState((int)States.Expand);
                 }
             }
@@ -170,22 +217,59 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         }
         private void CellRush(NPC npc, Player player)
         {
-            const int WindupDuration = 60 * 2;
-            const int AttackDuration = 60 * 2;
-            const int EndlagDuration = 60 * 2;
+            const int AttackDuration = 60 * 9;
+            const int ForceSendTime = 60 * 4;
+            void Attack()
+            {
+                if (AttackTimer == 1)
+                {
+                    SoundEngine.PlaySound(SoundID.Item44, npc.Center);
+                    CellState((int)States.PrepareRush);
+                }
+                if (AttackTimer == ForceSendTime)
+                {
+                    SoundEngine.PlaySound(SoundID.Item96, npc.Center);
+                    foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[2] == npc.whoAmI && n.ai[1] != (float)States.Rush && n.ai[1] != (float)States.Contract))
+                    {
+                        n.ai[1] = (float)States.Rush;
+                    }
+                }
+            }
+            Attack();
+            if (AttackTimer > AttackDuration)
+            {
+                EndAttack(npc);
+            }
+        }
+        private void CellCurves(NPC npc, Player player)
+        {
+            const int WindupDuration = 90;
+            const int AttackDuration = 10 * CellAmount;
+            const int EndlagDuration = 60 * 6;
             void Windup()
             {
-
+                if (AttackTimer == 1)
+                {
+                    SoundEngine.PlaySound(SoundID.Item88, npc.Center);
+                    CellState((int)States.Idle);
+                }
             }
             void Attack()
             {
-
+                const int AttackCD = 10;
+                if (AttackTimer % AttackCD == AttackCD - 1)
+                {
+                    SoundEngine.PlaySound(SoundID.Item115, npc.Center);
+                    foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[2] == npc.whoAmI && n.ai[1] != (float)States.Curve)) 
+                    {
+                        n.ai[1] = (float)States.Curve;
+                        break;
+                    }
+                }
             }
             void Endlag()
             {
-
             }
-
             if (AttackTimer <= WindupDuration)
             {
                 Windup();
@@ -203,59 +287,36 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 EndAttack(npc);
             }
         }
-        private void CellRings(NPC npc, Player player)
+        private void CellScissor(NPC npc, Player player)
         {
-            const int WindupDuration = 60 * 2;
-            const int AttackDuration = 60 * 2;
+            const int WindupDuration = 90;
+            const int AttackDuration = 60 * 4;
             const int EndlagDuration = 60 * 2;
             void Windup()
             {
-
+                if (AttackTimer == 1)
+                {
+                    SoundEngine.PlaySound(SoundID.Item113, npc.Center);
+                    CellState((int)States.PrepareScissor);
+                }
+                CellRotation = 45; //degrees
             }
             void Attack()
             {
-
+                if (AttackTimer - WindupDuration == 1)
+                {
+                    SoundEngine.PlaySound(SoundID.Item113, npc.Center);
+                    CellState((int)States.Scissor);
+                }
             }
             void Endlag()
             {
-
+                if (AttackTimer - WindupDuration - AttackDuration == 1)
+                {
+                    CellState((int)States.ScissorContract);
+                    CellRotation = 0;
+                }
             }
-
-            if (AttackTimer <= WindupDuration)
-            {
-                Windup();
-            }
-            else if (AttackTimer <= WindupDuration + AttackDuration)
-            {
-                Attack();
-            }
-            else
-            {
-                Endlag();
-            }
-            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
-            {
-                EndAttack(npc);
-            }
-        }
-        private void CellBallCharge(NPC npc, Player player)
-        {
-            const int WindupDuration = 60 * 2;
-            const int AttackDuration = 60 * 2;
-            const int EndlagDuration = 60 * 2;
-            void Windup()
-            {
-
-            }
-            void Attack()
-            {
-
-            }
-            void Endlag()
-            {
-
-            }
-
             if (AttackTimer <= WindupDuration)
             {
                 Windup();
@@ -285,13 +346,16 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         }
         private void SpawnMinion(NPC npc, int cell)
         {
-            NPC spawn = NPC.NewNPCDirect(npc.GetSource_FromThis(), npc.Center + Main.rand.Next(-20, 20) * Vector2.UnitX + Main.rand.Next(-20, 20) * Vector2.UnitY, ModContent.NPCType<StardustMinion>());
-            spawn.ai[1] = 1;
-            spawn.ai[2] = npc.whoAmI;
-            spawn.ai[3] = cell;
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC spawn = NPC.NewNPCDirect(npc.GetSource_FromThis(), npc.Center + Main.rand.Next(-20, 20) * Vector2.UnitX + Main.rand.Next(-20, 20) * Vector2.UnitY, ModContent.NPCType<StardustMinion>());
+                spawn.ai[1] = 1;
+                spawn.ai[2] = npc.whoAmI;
+                spawn.ai[3] = cell;
+            }
             return;
         }
-        const int IdleTime = 90;
+        const int IdleTime = 60;
         private void Idle(NPC npc, Player player)
         {
             if (AttackTimer == 1)
@@ -300,6 +364,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             if (AttackTimer > IdleTime)
             {
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    
+                }
                 RandomAttack(npc);
             }
         }

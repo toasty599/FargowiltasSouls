@@ -74,23 +74,15 @@ namespace FargowiltasSouls.Content.BossBars
             }
             else if (npc.type == NPCID.LunarTowerStardust)
             {
-                int cells = 0;
-                foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[0] == npc.whoAmI && n.frame.Y == 0)) //frame check is to check if big
+                int cellLife = 0;
+                int cellLifeMax = 0;
+                foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[2] == npc.whoAmI && n.frame.Y == 0)) //frame check is to check if big
                 {
-                    cells++;
+                    cellLife += n.life;
+                    cellLifeMax += n.lifeMax;
                 }
-                
-                if (cells <= 0)
-                {
-                    shield = 0;
-                    shieldMax = 0;
-                    return null;
-                }
-                if (shield <= 0)
-                {
-                    shield = shieldMax = cells;
-                }
-                shield = cells;
+                life = npc.life + cellLife;
+                lifeMax = npc.lifeMax + cellLifeMax;
                 return true;
             }
             else

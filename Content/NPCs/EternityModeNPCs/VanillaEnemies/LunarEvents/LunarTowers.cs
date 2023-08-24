@@ -27,16 +27,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
         protected readonly int DebuffNotToInflict;
         protected readonly int AuraDust;
-        public int AuraSize = 1500;
+        public int AuraSize = 5000;
 
         protected LunarTowers(int debuffNotToInflict, int auraDust)
         {
             DebuffNotToInflict = debuffNotToInflict;
             AuraDust = auraDust;
-        }
-        public virtual void ShieldsUpAI(NPC npc)
-        {
-
         }
         public abstract void ShieldsDownAI(NPC npc);
 
@@ -170,9 +166,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             if (npc.dontTakeDamage)
             {
+                AuraSize = 5000;
                 if (anyPlayersClose)
                 {
-                    ShieldsUpAI(npc);
                     if (ShieldStrength <= 20) //at 20 shield, kill all shield and pillar enemies and go to attack phase
                     {
                         foreach (NPC n in Main.npc)
@@ -212,6 +208,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             else
             {
+                if (AuraSize > 1500)
+                {
+                    AuraSize-= 40;
+                }
+                else
+                {
+                    AuraSize = 1500;
+                }
                 if (anyPlayersClose)
                 {
                     /*
