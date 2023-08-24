@@ -78,6 +78,17 @@ namespace FargowiltasSouls.Content.Items
 
             return base.CanUseItem(item, player);
         }
+        public override bool? UseItem(Item item, Player player)
+        {
+            if (!WorldSavingSystem.EternityMode)
+                return base.UseItem(item, player);
+
+            if (item.type == ItemID.MechdusaSummon && Main.zenithWorld)
+            {
+                Main.time = 18000;
+            }
+            return base.UseItem(item, player);
+        }
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (!WorldSavingSystem.EternityMode)
