@@ -225,3 +225,5 @@ earth champ life adjusted to reduce p2 heal, overall life slightly reduced
 life champ life adjusted to remove heals, overall life slightly reduced
 abom life adjusted to remove heal, overall life slightly reduced, effective p2 life reduced
 added hokey ball (0.1% drop from shark)
+
+pumpkin moon loot is locked to wave 15
