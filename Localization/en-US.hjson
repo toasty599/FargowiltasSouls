@@ -546,6 +546,7 @@ Mods: {
 			DefenseFleshKnuckleConfig: Flesh Knuckles Aggro
 			DefensePaladinConfig: Paladin's Shield
 			DefenseFrozenConfig: Frozen Turtle Shell
+			ShimmerImmunityConfig: Shimmer Immunity
 			FlightMasteryHeader: "{$Mods.FargowiltasSouls.Items.FlightMasterySoul.DisplayName}"
 			FlightMasteryInsigniaConfig: Soaring Insignia Acceleration
 			FlightMasteryGravityConfig: Amplified Gravity
@@ -3875,7 +3876,7 @@ Mods: {
 					Increases HP by 100
 					15% damage reduction
 					Increases life regeneration by 5
-					Grants immunity to knockback, several debuffs, and fall damage
+					Grants immunity to knockback, several debuffs, Shimmering, and fall damage
 					Enemies are more likely to target you
 					Effects of Brain of Confusion, Star Veil, and Bee Cloak
 					Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
@@ -4070,7 +4071,7 @@ Mods: {
 					'''
 					Increased block and wall placement speed by 50%
 					Near infinite block placement and mining reach
-					Mining speed tripled
+					Mining speed tripled, plus effect of Ancient Chisel
 					Shows the location of enemies, traps, and treasures
 					Auto paint and actuator effect
 					Provides light and allows gravity control
@@ -4078,7 +4079,7 @@ Mods: {
 					    Tiles and walls will not be consumed
 						Increased placement speed and range
 					Effect can be disabled in Soul Toggles menu
-					Effects of the Cell Phone and Royal Gel
+					Effects of the Cell Phone, Royal Gel and Treasure Magnet
 					Summons a pet Magic Lantern
 					'Limitless possibilities'
 					'''
@@ -6322,6 +6323,7 @@ Mods: {
 		DefenseFleshKnuckleConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DefenseFleshKnuckleConfig}]"
 		DefensePaladinConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DefensePaladinConfig}]"
 		DefenseFrozenConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DefenseFrozenConfig}]"
+		ShimmerImmunityConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.ShimmerImmunityConfig}]"
 		FlightMasteryHeader: "[i:FargowiltasSouls/FlightMasterySoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FlightMasteryHeader}]"
 		FlightMasteryInsigniaConfig: "[i:FargowiltasSouls/FlightMasterySoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FlightMasteryInsigniaConfig}]"
 		FlightMasteryGravityConfig: "[i:FargowiltasSouls/FlightMasterySoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FlightMasteryGravityConfig}]"

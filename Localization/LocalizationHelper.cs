@@ -347,6 +347,7 @@ namespace FargowiltasSouls
             AddToggle("DefenseFleshKnuckleConfig", "ColossusSoul");
             AddToggle("DefensePaladinConfig", "ColossusSoul");
             AddToggle("DefenseFrozenConfig", "ColossusSoul");
+            AddToggle("ShimmerImmunityConfig", "ColossusSoul");
 
             AddToggle("FlightMasteryHeader", "FlightMasterySoul");
             AddToggle("FlightMasteryInsigniaConfig", "FlightMasterySoul");

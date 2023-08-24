@@ -1709,6 +1709,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                     if (target.active && Player != target && Vector2.Distance(target.Center, Player.Center) < 400) target.AddBuff(BuffID.PaladinsShield, 30);
                 }
             }
+            if (Player.GetToggleValue("ShimmerImmunity", false))
+            {
+                Player.buffImmune[BuffID.Shimmer] = true;
+            }
         }
 
         private bool extraCarpetDuration = true;
