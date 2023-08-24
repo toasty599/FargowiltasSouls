@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			Wizard: Adamantite: Projectiles now split into 3
+			Adamantite: Projectiles now split into 3
 			AncientHallow: No upgrade
 			AncientShadow: Number of Shadow Orbs increased
 			Angler: No upgrade
@@ -23,7 +23,7 @@ Mods: {
 			Crimson: No upgrade
 			CrystalAssassin: No upgrade
 			DarkArtist: No upgrade
-			Ebonwood: Damage threshold increased to 25, additonally kills any npcs with less than 200 HP
+			Ebonwood: Aura size increased, defense reduction increased to 30
 			Forbidden: No upgrade
 			Fossil: No upgrade
 			Frost: No upgrade

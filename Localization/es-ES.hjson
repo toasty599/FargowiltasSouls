@@ -67,6 +67,7 @@ Mods: {
 			// Vortex: No upgrade
 			// Wood: Bestiary and banner multiplier increased to 5
 			// AshWood: Fires balls of fire more often
+			// Adamantite: Projectiles now split into 3
 		}
 
 		SetBonus: {
@@ -660,6 +661,7 @@ Mods: {
 			// CrystalGelatinConfig: Mods.FargowiltasSouls.Toggler.CrystalGelatinConfig
 			// SilverConfig: Mods.FargowiltasSouls.Toggler.SilverConfig
 			// MasoHoneyConfig: Mods.FargowiltasSouls.Toggler.MasoHoneyConfig
+			// ShimmerImmunityConfig: Shimmer Immunity
 		}
 
 		UI: {
@@ -6584,5 +6586,6 @@ Mods: {
 		}
 
 		// Conditions.RoombaPetSold: Mods.FargowiltasSouls.Conditions.RoombaPetSold
+		// ShimmerImmunityConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:Shimmer Immunity]"
 	}
 }
