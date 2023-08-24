@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             NPC.CloneDefaults(NPCID.StardustCellBig);
 
-            NPC.lifeMax = 5000;
+            NPC.lifeMax = 12000;
             NPC.damage = 80;
 
             NPC.aiStyle = -1;
@@ -89,21 +89,26 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 case (int)States.Idle: //default, chill around center of pillar
                     {
-                        Vector2 vectorToIdlePosition = parent.Center - NPC.Center;
-                        Home(vectorToIdlePosition, 12, 6);
+                        //rotating at 1/2 rotations per second
+                        float rotation = MathHelper.Pi * parentModNPC.AttackTimer / 60f;
+                        rotation += MathHelper.TwoPi * (num / LunarTowerStardust.CellAmount);
+                        Vector2 desiredLocation = parent.Center + parent.height * 0.8f * rotation.ToRotationVector2();
+                        NPC.velocity = (desiredLocation - NPC.Center) * 0.05f;
                         break;
                     }
                 case (int)States.PrepareExpand:
                     {
-                        //rotating at 1/4 rotations per second
-                        float rotation = MathHelper.PiOver2 * parentModNPC.AttackTimer / 60f;
+                        //rotating at 1/8 rotations per second
+                        float rotation = MathHelper.PiOver4 * parentModNPC.AttackTimer / 60f;
                         rotation += MathHelper.TwoPi * (num / LunarTowerStardust.CellAmount);
                         Vector2 desiredLocation = parent.Center + parent.height * 0.8f * rotation.ToRotationVector2();
-                        Home(desiredLocation, 12, 6);
+                        NPC.velocity = (desiredLocation - NPC.Center) * 0.05f;
                         break;
                     }
                 case (int)States.Expand:
-                    { 
+                    {
+                        Vector2 vectorToIdlePosition = parent.Center - NPC.Center;
+                        Home(vectorToIdlePosition, 12, 6);
                         break;
                     }
                 case (int)States.Contract: //is this one needed? just go to idle?
@@ -134,6 +139,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             NPC.life = NPC.lifeMax;
             NPC.dontTakeDamage = true;
+            NPC.position = NPC.Center;
+            NPC.width = 26;
+            NPC.height = 26;
+            NPC.Center = NPC.position;
             return false;
         }
         public override void DrawBehind(int index)

@@ -31,8 +31,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
-            npc.damage = (int)Math.Round(npc.damage * 0.6f);
         }
         public enum Attacks
         {
@@ -58,7 +56,54 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 npc.BossBar = ModContent.GetInstance<CompositeBossBar>();
                 gotBossBar = true;
             }
-            SpawnMinions(npc);
+            int cells = 0;
+            int bigCells = 0;
+            foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[0] == npc.whoAmI)) 
+            {
+                if (n.frame.Y == 0) //frame check is to check if big
+                {
+                    bigCells++;
+                }
+                cells++;
+            }
+            //cells are sorted by a unique key, stored in their NPC.ai[3], that determines their behavior during attacks, for example spot in a circle. 
+            //here it only spawns new cells if there's missing keys, and missing cells.
+            //yes this will probably lag some pcs a bit, it's a lot to check in one frame
+            if (cells < CellAmount)
+            {
+                for (int i = 0; i < CellAmount; i++)
+                {
+                    bool foundCell = false;
+                    foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<StardustMinion>() && n.ai[0] == npc.whoAmI && n.ai[3] == i)) //frame check is to check if big
+                    {
+                        foundCell = true;
+                        break;
+                    }
+                    if (!foundCell)
+                    {
+                        SpawnMinion(npc, i);
+                        bigCells++;
+                    }
+                }
+                
+            }
+            if (bigCells > 0)
+            {
+                npc.defense = 99999999;
+                npc.life = npc.lifeMax;
+            }
+            else
+            {
+                if (npc.defense != 0) //trigger shield going down animation
+                {
+                    CellState((int)States.Idle);
+                    npc.defense = 0;
+                    npc.ai[3] = 1f;
+                    npc.netUpdate = true;
+                    NetSync(npc);
+                }
+                return;
+            }
             Player target = Main.player[npc.target];
             if (npc.HasPlayerTarget && target.active)
             {
@@ -85,7 +130,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         #region Attacks
         private void CellExpandContract(NPC npc, Player player)
         {
-            const int WindupDuration = 60 * 1;
+            const int WindupDuration = 60 * 2;
             const int AttackDuration = 60 * 4;
             const int EndlagDuration = 60 * 2;
             void Windup()
@@ -238,21 +283,21 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 }
             }
         }
-        private void SpawnMinions(NPC npc)
+        private void SpawnMinion(NPC npc, int cell)
         {
-            int cells = NPC.CountNPCS(ModContent.NPCType<StardustMinion>());
-            if (cells < CellAmount)
-            {
-                NPC spawn = NPC.NewNPCDirect(npc.GetSource_FromThis(), npc.Center + Main.rand.Next(-20, 20) * Vector2.UnitX + Main.rand.Next(-20, 20) * Vector2.UnitY, ModContent.NPCType<StardustMinion>());
-                spawn.ai[1] = 1;
-                spawn.ai[2] = npc.whoAmI;
-                spawn.ai[3] = cells;
-                return;
-            }
+            NPC spawn = NPC.NewNPCDirect(npc.GetSource_FromThis(), npc.Center + Main.rand.Next(-20, 20) * Vector2.UnitX + Main.rand.Next(-20, 20) * Vector2.UnitY, ModContent.NPCType<StardustMinion>());
+            spawn.ai[1] = 1;
+            spawn.ai[2] = npc.whoAmI;
+            spawn.ai[3] = cell;
+            return;
         }
         const int IdleTime = 90;
         private void Idle(NPC npc, Player player)
         {
+            if (AttackTimer == 1)
+            {
+                CellState((int)States.Idle);
+            }
             if (AttackTimer > IdleTime)
             {
                 RandomAttack(npc);
