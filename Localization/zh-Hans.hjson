@@ -67,6 +67,7 @@ Mods: {
 			// Vortex: No upgrade
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
 			// AshWood: Fires balls of fire more often
+			// Adamantite: Projectiles now split into 3
 		}
 
 		SetBonus: {
@@ -660,6 +661,7 @@ Mods: {
 			CrystalGelatinConfig: 挥发明胶效果
 			// SilverConfig: Mods.FargowiltasSouls.Toggler.SilverConfig
 			// MasoHoneyConfig: Mods.FargowiltasSouls.Toggler.MasoHoneyConfig
+			// ShimmerImmunityConfig: Shimmer Immunity
 		}
 
 		UI: {
@@ -6540,5 +6542,6 @@ Mods: {
 		}
 
 		// Conditions.RoombaPetSold: Mods.FargowiltasSouls.Conditions.RoombaPetSold
+		// ShimmerImmunityConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:Shimmer Immunity]"
 	}
 }
