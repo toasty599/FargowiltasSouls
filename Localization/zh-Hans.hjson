@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			// Wizard: Adamantite: Projectiles now split into 3
+			// Adamantite: Projectiles now split into 3
 			// AncientHallow: No upgrade
 			// AncientShadow: Number of Shadow Orbs increased
 			// Angler: No upgrade
@@ -67,7 +67,6 @@ Mods: {
 			// Vortex: No upgrade
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
 			// AshWood: Fires balls of fire more often
-			// Adamantite: Projectiles now split into 3
 		}
 
 		SetBonus: {
@@ -547,6 +546,7 @@ Mods: {
 			DefenseFleshKnuckleConfig: 血肉指虎仇恨
 			DefensePaladinConfig: 圣骑士护盾
 			DefenseFrozenConfig: 冰冻海龟壳
+			// ShimmerImmunityConfig: Shimmer Immunity
 			// FlightMasteryHeader: "{$Mods.FargowiltasSouls.Items.FlightMasterySoul.DisplayName}"
 			FlightMasteryInsigniaConfig: 翱翔徽章加速
 			FlightMasteryGravityConfig: 太空中重力正常
@@ -661,7 +661,6 @@ Mods: {
 			CrystalGelatinConfig: 挥发明胶效果
 			// SilverConfig: Mods.FargowiltasSouls.Toggler.SilverConfig
 			// MasoHoneyConfig: Mods.FargowiltasSouls.Toggler.MasoHoneyConfig
-			// ShimmerImmunityConfig: Shimmer Immunity
 		}
 
 		UI: {
@@ -6300,6 +6299,7 @@ Mods: {
 		// DefenseFleshKnuckleConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DefenseFleshKnuckleConfig}]"
 		// DefensePaladinConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DefensePaladinConfig}]"
 		// DefenseFrozenConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DefenseFrozenConfig}]"
+		// ShimmerImmunityConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.ShimmerImmunityConfig}]"
 		// FlightMasteryHeader: "[i:FargowiltasSouls/FlightMasterySoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FlightMasteryHeader}]"
 		// FlightMasteryInsigniaConfig: "[i:FargowiltasSouls/FlightMasterySoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FlightMasteryInsigniaConfig}]"
 		// FlightMasteryGravityConfig: "[i:FargowiltasSouls/FlightMasterySoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FlightMasteryGravityConfig}]"
@@ -6542,6 +6542,5 @@ Mods: {
 		}
 
 		// Conditions.RoombaPetSold: Mods.FargowiltasSouls.Conditions.RoombaPetSold
-		// ShimmerImmunityConfig: "[i:FargowiltasSouls/ColossusSoul][c/ffffff:Shimmer Immunity]"
 	}
 }
