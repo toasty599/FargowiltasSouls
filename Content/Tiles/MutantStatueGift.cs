@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Tiles
             TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
-            TileObjectData.newTile.LavaDeath = true;
+            TileObjectData.newTile.LavaDeath = false;
             //TileObjectData.newTile.Origin = new Point16(0, 1);
             //TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
             TileObjectData.addTile(Type);
