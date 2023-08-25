@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework;
 using FargowiltasSouls.Content.BossBars;
 using static FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust.StardustMinion;
 using Terraria.Audio;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust
 {
@@ -113,7 +114,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 }
                 
             }
-            if (NPC.CountNPCS(NPCID.CultistDragonHead) <= 0 && bigCells < CellAmount / 2) //spawn james at half cells
+            int DragonSpawn = WorldSavingSystem.MasochistModeReal ? CellAmount / 2 : 0;
+            if (NPC.CountNPCS(NPCID.CultistDragonHead) <= 0 && bigCells < DragonSpawn) //spawn james at half cells in maso, or 0 cells in emode
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
