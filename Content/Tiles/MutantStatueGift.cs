@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Content.Tiles
             Main.tileFrameImportant[Type] = true;
             Main.tileObsidianKill[Type] = true;
             Main.tileNoAttach[Type] = true;
+            TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
             TileObjectData.newTile.LavaDeath = true;
