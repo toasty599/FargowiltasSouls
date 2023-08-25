@@ -429,11 +429,15 @@ namespace FargowiltasSouls.Content.Projectiles
 
                     if (modPlayer.ShroomEnchantActive && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 /*&& !townNPCProj*/ && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 75)
                     {
-                        if (shroomiteMushroomCD >= 22)
+                        if (shroomiteMushroomCD >= 18)
                         {
                             shroomiteMushroomCD = 0;
 
-                            if (player.stealth == 0 || modPlayer.NatureForce || modPlayer.WizardEnchantActive)
+                            if (modPlayer.NatureForce || modPlayer.WizardEnchantActive)
+                            {
+                                shroomiteMushroomCD = 15;
+                            }
+                            if (player.stealth == 0)
                             {
                                 shroomiteMushroomCD = 10;
                             }
