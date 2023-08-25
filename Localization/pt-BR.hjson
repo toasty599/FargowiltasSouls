@@ -12,6 +12,7 @@ Mods: {
 			// Adamantite: Projectiles now split into 3
 			// AncientHallow: No upgrade
 			// AncientShadow: Number of Shadow Orbs increased
+			// AncientCobalt: No upgrade
 			// Angler: No upgrade
 			// Bee: No upgrade
 			// Beetle: No upgrade
@@ -30,16 +31,19 @@ Mods: {
 			// Gladiator: No upgrade
 			// Gold: No upgrade
 			// Hallow: No upgrade
+			// Huntress: No upgrade
 			// Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
+			// Jungle: No upgrade
 			// Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
 			// Meteor: No upgrade
 			// Miner: No upgrade
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
+			// Monk: No upgrade
 			// Mythril: Max attack speed bonus increased and lasts longer
 			// Nebula: No upgrade
 			// Necro: No upgrade
 			// Ninja: Armor pen increased to 45
-			// Obsidian: You no longer need lava to spawn explosions, cooldown reduced
+			// Obsidian: You no longer need lava to spawn explosions or fireballs, cooldown reduced
 			// Orichalcum: Increases multiplier to 4x
 			// Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
 			// PalmWood: Attack speed and damage increased, 2 more trees can be spawned
@@ -51,13 +55,16 @@ Mods: {
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
 			// Shadewood: Aura size and blood damage increased, additionally applies Ichor
 			// Shinobi: No upgrade
-			// Shroomite: No upgrade
+			// Shroomite: Mushrooms are spawned more often
 			// Silver: Parrying blocks up to 200 damage and grants the Striking Moment buff
 			// Solar: No upgrade
 			// Spectre: No upgrade
 			// Spider: No upgrade
 			// Spooky: No upgrade
 			// Stardust: No upgrade
+			// Snow: No upgrade
+			// Shadow: No upgrade
+			// Squire: No upgrade
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%

@@ -12,6 +12,7 @@ Mods: {
 			// Adamantite: Projectiles now split into 3
 			// AncientHallow: No upgrade
 			// AncientShadow: Number of Shadow Orbs increased
+			// AncientCobalt: No upgrade
 			// Angler: No upgrade
 			// Bee: No upgrade
 			// Beetle: No upgrade
@@ -30,11 +31,14 @@ Mods: {
 			// Gladiator: No upgrade
 			// Gold: No upgrade
 			// Hallow: No upgrade
+			// Huntress: No upgrade
 			Iron: 物品拾取距离提升到四倍，合成加成现在也对任何秘银砧生效
+			// Jungle: No upgrade
 			Lead: 增加铅中毒伤害，持续伤害减免提升到60%
 			// Meteor: No upgrade
 			// Miner: No upgrade
 			Molten: ""
+			// Monk: No upgrade
 			Mythril: 增加最大攻速加成，持续时间更长
 			// Nebula: No upgrade
 			// Necro: No upgrade
@@ -51,13 +55,16 @@ Mods: {
 			RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升
 			Shadewood: 增加光环大小和血液伤害，并且会附加灵液效果
 			// Shinobi: No upgrade
-			// Shroomite: No upgrade
+			// Shroomite: Mushrooms are spawned more often
 			Silver: 格挡会给予惊人一刻增益
 			// Solar: No upgrade
 			// Spectre: No upgrade
 			// Spider: No upgrade
 			// Spooky: No upgrade
 			// Stardust: No upgrade
+			// Snow: No upgrade
+			// Shadow: No upgrade
+			// Squire: No upgrade
 			// Tiki: Increases whip range by 20%
 			Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
 			Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
