@@ -2722,7 +2722,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     {
                         float drawRot = (float)(BodyRotation + Math.PI * 2 / AuraRuneCount * i);
                         Texture2D RuneTexture = ModContent.Request<Texture2D>(PartsPath + $"Rune{(i % RuneCount) + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                        Vector2 drawPos = NPC.Center + drawRot.ToRotationVector2() * (1100 + RuneDistance) - screenPos;
+                        Vector2 drawPos = AuraCenter + drawRot.ToRotationVector2() * (1100 + RuneDistance) - screenPos;
                         float RuneRotation = drawRot + MathHelper.PiOver2;
 
                         //rune glow
