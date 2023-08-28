@@ -77,7 +77,7 @@ namespace FargowiltasSouls
                         // })
                     );
                 }
-
+                bool calamity = ModLoader.HasMod("CalamityMod");
                 Add("Boss",
                     "DeviBoss",
                     new List<int> { ModContent.NPCType<DeviBoss>() },
@@ -94,11 +94,11 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.ItemType<DevisCurse>() },
                     true
                 );
-
+                float abomValue = calamity ? 22.6f : 20;
                 Add("Boss",
                     "AbomBoss",
                     new List<int> { ModContent.NPCType<AbomBoss>() },
-                    20f,
+                    abomValue,
                     () => WorldSavingSystem.DownedAbom,
                     () => true,
                     new List<int>(new int[] {
@@ -111,11 +111,11 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.ItemType<AbomsCurse>() },
                     true
                 );
-
+                float mutantValue = calamity ? 30 : 23;
                 Add("Boss",
                     "MutantBoss",
                     new List<int> { ModContent.NPCType<MutantBoss>() },
-                    23f,
+                    mutantValue,
                     () => WorldSavingSystem.DownedMutant,
                     () => true,
                     new List<int>(new int[] {
