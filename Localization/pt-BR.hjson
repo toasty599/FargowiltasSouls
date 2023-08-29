@@ -2356,7 +2356,7 @@ Mods: {
 			}
 
 			AshWoodEnchant: {
-				// DisplayName: Ash Enchantment
+				// DisplayName: Ash Wood Enchantment
 				/* Tooltip:
 					'''
 					On Fire debuff doesn't damage you or town NPCs
