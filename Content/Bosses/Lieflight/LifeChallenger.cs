@@ -169,7 +169,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             NPC.aiStyle = -1;
             NPC.lifeMax = 47000;
             NPC.defense = 0;
-            NPC.damage = 55;
+            NPC.damage = 60;
             NPC.knockBackResist = 0f;
             NPC.width = 200;
             NPC.height = 200;
