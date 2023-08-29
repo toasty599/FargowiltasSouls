@@ -369,7 +369,6 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 spookyCD--;
             }
-
             if (projectile.owner == Main.myPlayer)
             {
                 //reset tungsten size

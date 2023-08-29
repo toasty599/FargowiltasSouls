@@ -5278,6 +5278,17 @@ Mods: {
 				// DisplayName: Wires Painting
 				// Tooltip: Look inside
 			}
+
+			PrismaRegalia: {
+				// DisplayName: Prisma Regalia
+				/* Tooltip:
+					'''
+					Hitting with the tip of the spear releases homing stars
+					Hold to charge for more damage
+					While fully charged, hits release extra stars regardless
+					'The radiant power of a foe's pure essence...'
+					''' */
+			}
 		}
 
 		NPCs: {

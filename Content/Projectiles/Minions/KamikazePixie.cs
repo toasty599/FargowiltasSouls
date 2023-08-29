@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                         {
                             SoundEngine.PlaySound(SoundID.Item12, Projectile.position);
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (prediction - Projectile.Center) / 10,
-                                            ModContent.ProjectileType<LightslingerBombshot>(), (int)(Projectile.damage * 0.3f), Projectile.knockBack, Main.myPlayer, 0, Projectile.whoAmI);
+                                            ModContent.ProjectileType<LightslingerBombshot>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Main.myPlayer, 0, Projectile.whoAmI);
                         }
                     }
                     else //we lost em boys
@@ -200,7 +200,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0, -1f);
                     Main.dust[d].scale += 0.5f;
                 }
-                Projectile.damage *= 3;
+                Projectile.damage *= 6;
                 Projectile.position = Projectile.Center;
                 Projectile.width = Projectile.height = 128;
                 Projectile.Center = Projectile.position;
