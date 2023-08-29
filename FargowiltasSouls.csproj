@@ -14,6 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\UI\EnchantSlotIcon.png" />
+    <None Remove="Content\Bosses\Champions\Cosmos\CosmosChampion_Still.png" />
     <None Remove="Content\Buffs\Souls\CorruptedBuff.png" />
     <None Remove="Content\Items\Accessories\Enchantments\AshWoodEnchant.png" />
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
