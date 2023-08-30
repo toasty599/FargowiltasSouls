@@ -1019,6 +1019,7 @@ Mods: {
 			ZenithHitRate: Taxa de acerto consideravelmente reduzida, melhora ao derrotar:
 			VampireKnives: Reduz a taxa de roubo de vida quando acima de 33% de vida
 			Zapinator: Não pode acumular multiplicadores de dano
+			// CoinGun: Damage of Platinum and Gold Coins heavily reduced, damage of Silver Coins slightly reduced, and damage of Copper Coins increased
 			OOASet: O bônus de conjunto aumenta o dano de invocação mínimo quando você ataca usando outras classes
 			MiningHelmet: Aumenta a taxa de criação do Minerador Zumbi
 			MoonsDrops: Os chefes e minichefes não deixam cair itens até ondas tardias
@@ -1732,7 +1733,7 @@ Mods: {
 				/* Description:
 					'''
 					Gravity heavily increased outside water
-					Breathe water instead of air
+					Breathe water instead of air, and improved underwater movement
 					''' */
 			}
 
@@ -6175,6 +6176,7 @@ Mods: {
 			// BaronWhirlpool.DisplayName: Baron Whirlpool
 			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
+			// BaronDeathray.DisplayName: Baron Deathray
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

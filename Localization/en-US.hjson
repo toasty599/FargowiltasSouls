@@ -1017,8 +1017,9 @@ Mods: {
 			BrainOfConfusion: Lowers your damage output on successful dodge
 			ZenithNone: No nerfs in effect
 			ZenithHitRate: Vastly reduced hit rate, improves by defeating:
-			VampireKnives: Reduced lifesteal rate when above 50% life
+			VampireKnives: Reduced lifesteal rate when above 50% lifereturn BalanceTypes.Damage;
 			Zapinator: Cannot stack damage multipliers
+			CoinGun: Damage of Platinum and Gold Coins heavily reduced, damage of Silver Coins slightly reduced, and damage of Copper Coins increased
 			OOASet: Set bonus increases minimum summon damage when you attack using other classes
 			MiningHelmet: Increases Undead Miner spawn rates
 			MoonsDrops: Bosses and minibosses drop no items until wave {0}
@@ -1732,7 +1733,7 @@ Mods: {
 				Description:
 					'''
 					Gravity heavily increased outside water
-					Breathe water instead of air
+					Breathe water instead of air, and improved underwater movement
 					'''
 			}
 
@@ -6184,6 +6185,7 @@ Mods: {
 			BaronWhirlpool.DisplayName: Baron Whirlpool
 			BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
+			BaronDeathray.DisplayName: Baron Deathray
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

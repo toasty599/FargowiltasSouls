@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -44,12 +45,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             ref float State = ref Projectile.ai[2];
 
             NPC baron = Main.npc[(int)ParentID];
-            if (baron == null || baron.type != ModContent.NPCType<BanishedBaron>() || !NPC.AnyNPCs(ModContent.NPCType<BanishedBaron>()))
+            if (!baron.active || baron.type != ModContent.NPCType<BanishedBaron>() || !NPC.AnyNPCs(ModContent.NPCType<BanishedBaron>()))
             {
                 Projectile.Kill();
             }
             Player player = Main.player[baron.target];
-            if (player != null)
+            if (player.active)
             {
                 if (Timer == 0) //done this way to work with world borders
                 {
@@ -68,14 +69,20 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     Projectile.Center = Main.screenPosition + new Vector2(Main.screenWidth / 2, Main.screenHeight / 2); //not player center to work with map borders
                 }
                 Projectile.Center = Projectile.Center.X * Vector2.UnitX + player.Center.Y * Vector2.UnitY;
-                if (State == 1)
+
+                int wallAttackTime = WorldSavingSystem.MasochistModeReal ? 60 : WorldSavingSystem.EternityMode ? 70 : 80;
+                if (State == 1 && Timer % wallAttackTime == 0)
                 {
-                    FireBolts(player);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        FireBolts(player);
+                    }
+                    
                 }
             }
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= 5;
+                Projectile.alpha -= 3;
             }
             else
             {
@@ -184,10 +191,19 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         private void FireBolts(Player player)
         {
             int Side = Math.Sign(player.Center.X - Projectile.Center.X);
-            for (int i = -5; i <= 5; i++)
+            for (int i = -10; i <= 10; i++)
             {
-
+                const int speed = 7;
+                const float distancePos = 3.2f;
+                const float randomPos = 9;
+                const float maxRot = MathHelper.Pi / 17;
+                float posX = Projectile.Center.X + (Side * (Projectile.width * 0.8f + WaterwallDistance));
+                float posY = player.Center.Y + (i * Projectile.height * distancePos) + Main.rand.NextFloat(-randomPos, randomPos);
+                Vector2 pos = posX * Vector2.UnitX + posY * Vector2.UnitY;
+                Vector2 vel = (Vector2.UnitX * Side).RotatedBy(Main.rand.NextFloat(-maxRot, maxRot)) * speed;
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), pos, vel, ModContent.ProjectileType<BaronWhirlpoolBolt>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 2, -Side);
             }
+            SoundEngine.PlaySound(SoundID.Item21, Projectile.Center + (Vector2.UnitX * Side * (Projectile.width * 0.8f + WaterwallDistance)));
         }
     }
 }

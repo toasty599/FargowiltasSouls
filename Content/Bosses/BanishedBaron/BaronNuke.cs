@@ -122,11 +122,18 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void Kill(int timeLeft)
         {
+            
             for (int i = 0; i < 100; i++)
             {
-                Vector2 pos = Projectile.Center + new Vector2(0, Main.rand.Next(Projectile.width)).RotatedBy(Main.rand.NextFloat(MathHelper.TwoPi)); //circle with highest density in middle
-                int d = Dust.NewDust(pos, 0, 0, DustID.Torch, 0f, 0f, 0, default, 1.5f);
+                Vector2 pos = Projectile.Center + new Vector2(0, Main.rand.NextFloat(ExplosionDiameter * 0.8f)).RotatedBy(Main.rand.NextFloat(MathHelper.TwoPi)); //circle with highest density in middle
+                int d = Dust.NewDust(pos, 0, 0, DustID.Fireworks, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
+            }
+            
+            float scaleFactor9 = 2;
+            for (int j = 0; j < 20; j++)
+            {
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2.UnitX * 5).RotatedByRandom(MathHelper.TwoPi), Main.rand.Next(61, 64), scaleFactor9);
             }
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
@@ -147,6 +154,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         //(public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.9f;
         public override bool PreDraw(ref Color lightColor)
         {
+            if (Projectile.localAI[0] >= Projectile.ai[0] - 2) //if exploding
+            {
+                return false;
+            }
             //draw glow ring
             float modifier = Projectile.localAI[0] / Projectile.ai[0];
             Color RingColor = Color.Lerp(Color.Orange, Color.Red, modifier);
@@ -156,7 +167,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             int ringy3 = ringy * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle ringrect = new(0, ringy3, ringTexture.Width, ringy);
             Vector2 ringorigin = ringrect.Size() / 2f;
-            Main.EntitySpriteDraw(ringTexture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(ringrect), Projectile.GetAlpha(RingColor), Projectile.rotation, ringorigin, RingScale, SpriteEffects.None, 0);
+            RingColor *= modifier;
+            Main.EntitySpriteDraw(ringTexture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(ringrect), RingColor, Projectile.rotation, ringorigin, RingScale, SpriteEffects.None, 0);
 
             //draw projectile
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;

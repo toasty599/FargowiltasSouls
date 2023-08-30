@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.Systems;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -65,12 +66,19 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 case 1: //underwater whirlpool, go straight out
                     int sign = Math.Sign(Projectile.velocity.X);
-                    if (Projectile.velocity.X < 14)
+                    int maxSpeed = WorldSavingSystem.MasochistModeReal ? 16 : WorldSavingSystem.EternityMode ? 14 : 12;
+                    if (Math.Abs(Projectile.velocity.X) < maxSpeed)
                     {
                         Projectile.velocity.X += sign * 0.06f;
                     }
                     break;
-                case 2:
+                case 2: //arena whirlpool, curve back in
+                    int sign2 = Math.Sign(Projectile.ai[1]);
+                    int maxSpeed2 = WorldSavingSystem.MasochistModeReal ? 14 : WorldSavingSystem.EternityMode ? 12 : 10;
+                    if (Math.Abs(Projectile.velocity.X) < maxSpeed2)
+                    {
+                        Projectile.velocity.X += sign2 * 0.5f;
+                    }
                     break;
             }
         }

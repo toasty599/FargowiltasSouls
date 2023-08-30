@@ -158,6 +158,21 @@ namespace FargowiltasSouls.Content.Projectiles
                         
                         break;
                     }
+                case 7: //sweeping nebula pillar shot telegraph
+                    {
+                        NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<BanishedBaron>());
+                        if (baron != null)
+                        {
+                            Projectile.rotation = baron.rotation;
+                            Projectile.Center = baron.Center + (baron.rotation.ToRotationVector2() * baron.width / 3);
+                        }
+                        color = Color.DeepPink;
+                        alphaModifier = 1;
+                        Projectile.scale = 1f;
+                        maxTime = (int)Projectile.ai[2];
+
+                        break;
+                    }
                 default:
                     Main.NewText("bloom line: you shouldnt be seeing this text, show terry or javyz");
                     break;

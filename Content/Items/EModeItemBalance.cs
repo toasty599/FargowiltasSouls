@@ -9,37 +9,28 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using static FargowiltasSouls.Content.Items.EmodeItemBalance;
+using static FargowiltasSouls.Content.Items.EmodeItemBalance.EmodeItemBalanceTooltip;
 
 namespace FargowiltasSouls.Content.Items
 {
     public class EmodeItemBalance : EModePlayer
     {
-        public enum BalanceTypes
-        {
-            None,
-            CustomNerf,
-            CustomBuff,
-            CustomNeutral,
-            Damage,
-            AttackSpeed,
-        };
         /// <summary>
         /// Applies an Eternity-exclusive balance change to chosen item type. <br />
-        /// Non-custom BalanceTypes have their effects automatically applied. <br />
-        /// Return BalanceTypes.CustomBuff or BalanceTypes.CustomNerf for manually applied effects. <br />
+        /// If the balanceTextKeys include the string "Damage" or "Speed", those effects will be automatically applied.
         /// Default balanceNumber is -1. <br />
         /// Default balanceTextKeys is null. <br />
         /// Default extra is empty. <br />
         /// Number and extra is used on the first tooltip line.
         /// </summary>
-        public static BalanceTypes EmodeBalance(ref Item item, ref float balanceNumber, ref string[] balanceTextKeys, ref string extra)
+        public static EModeChange EmodeBalance(ref Item item, ref float balanceNumber, ref string[] balanceTextKeys, ref string extra)
         {
             switch (item.type)
             {
                 case ItemID.RodofDiscord:
                 case ItemID.RodOfHarmony:
                     balanceTextKeys = new string[] { "RodofDiscord" };
-                    return BalanceTypes.CustomNerf;
+                    return EModeChange.Nerf;
 
                 //case ItemID.ArcheryPotion:
                 //case ItemID.MagicQuiver:
@@ -51,21 +42,21 @@ namespace FargowiltasSouls.Content.Items
 
                 //case ItemID.CrystalBullet:
                 //case ItemID.HolyArrow:
-                    //ItemBalance(tooltips, EModeChange.Nerf, "Split");
-                    //break;
+                //ItemBalance(tooltips, EModeChange.Nerf, "Split");
+                //break;
 
                 //case ItemID.ChlorophyteBullet:
-                    //ItemBalance(tooltips, EModeChange.Nerf, "ChlorophyteBullet");
-                    //tooltips.Add(new TooltipLine(Mod, "masoNerf3", "[c/ff0000:Eternity Mode:] Further reduced damage"));
-                    //break;
+                //ItemBalance(tooltips, EModeChange.Nerf, "ChlorophyteBullet");
+                //tooltips.Add(new TooltipLine(Mod, "masoNerf3", "[c/ff0000:Eternity Mode:] Further reduced damage"));
+                //break;
 
                 case ItemID.WaterBolt:
                     if (!NPC.downedBoss3)
                     {
                         balanceTextKeys = new string[] { "WaterBolt" };
-                        return BalanceTypes.CustomNerf;
+                        return EModeChange.Nerf;
                     }
-                    return BalanceTypes.None;
+                    return EModeChange.None;
 
                 case ItemID.HallowedGreaves:
                 case ItemID.HallowedHeadgear:
@@ -80,22 +71,22 @@ namespace FargowiltasSouls.Content.Items
                 case ItemID.AncientHallowedMask:
                 case ItemID.AncientHallowedPlateMail:
                     balanceTextKeys = new string[] { "HolyDodge" };
-                    return BalanceTypes.CustomNerf;
+                    return EModeChange.Nerf;
 
                 case ItemID.FrozenTurtleShell:
                 case ItemID.FrozenShield:
                     balanceTextKeys = new string[] { "FrozenTurtleShell" };
-                    return BalanceTypes.CustomNerf;
+                    return EModeChange.Nerf;
 
                 case ItemID.BrainOfConfusion:
                     balanceTextKeys = new string[] { "BrainOfConfusion" };
-                    return BalanceTypes.CustomNerf;
+                    return EModeChange.Nerf;
 
                 case ItemID.Zenith:
                     if (WorldSavingSystem.DownedMutant || ModLoader.HasMod("CalamityMod"))
                     {
                         balanceTextKeys = new string[] { "ZenithNone" };
-                        return BalanceTypes.CustomNeutral;
+                        return EModeChange.Neutral;
                     }
                     else
                     {
@@ -108,18 +99,42 @@ namespace FargowiltasSouls.Content.Items
 
                         balanceTextKeys = new string[] { "ZenithHitRate" };
                         extra = bossesToKill;
-                        return BalanceTypes.CustomNerf;
+                        return EModeChange.Nerf;
                     }
-                    
+
 
                 case ItemID.VampireKnives:
                     balanceTextKeys = new string[] { "VampireKnives" };
-                    return BalanceTypes.CustomNerf;
+                    return EModeChange.Nerf;
 
                 case ItemID.ZapinatorGray:
                 case ItemID.ZapinatorOrange:
                     balanceTextKeys = new string[] { "Zapinator" };
-                    return BalanceTypes.CustomNerf;
+                    return EModeChange.Nerf;
+
+                case ItemID.PiercingStarlight:
+                    balanceNumber = 0.9f;
+                    return EModeChange.Nerf;
+
+                case ItemID.CoinGun:
+                    balanceTextKeys = new string[] { "CoinGun" };
+                    return EModeChange.Nerf;
+                case ItemID.CopperCoin:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 1.6f;
+                    return EModeChange.Buff;
+                case ItemID.SilverCoin:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.95f;
+                    return EModeChange.Nerf;
+                case ItemID.GoldCoin:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.55f;
+                    return EModeChange.Nerf;
+                case ItemID.PlatinumCoin:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.3f;
+                    return EModeChange.Nerf;
 
                 //case ItemID.EmpressBlade:
                 //    tooltips.Add(new TooltipLine(Mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
@@ -221,11 +236,13 @@ namespace FargowiltasSouls.Content.Items
                 //case ItemID.DD2LightningAuraT2Popper:
                 //case ItemID.DD2LightningAuraT3Popper:
                 case ItemID.FetidBaghnakhs:
+                    balanceTextKeys = new string[] { "Speed" };
                     balanceNumber = 0.75f;
-                    return BalanceTypes.AttackSpeed;
+                    return EModeChange.Nerf;
                 case ItemID.MoonlordTurretStaff:
+                    balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 0.5f;
-                    return BalanceTypes.Damage;
+                    return EModeChange.Nerf;
 
                 //case ItemID.MonkAltHead:
                 //case ItemID.MonkAltPants:
@@ -261,37 +278,41 @@ namespace FargowiltasSouls.Content.Items
                 case ItemID.NaughtyPresent:
                     balanceNumber = 15;
                     balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
-                    return BalanceTypes.CustomNerf;
+                    return EModeChange.Nerf;
 
                 case ItemID.CobaltNaginata:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "CobaltNaginataRework" };
-                    return BalanceTypes.CustomBuff;
+                    return EModeChange.Buff;
                 case ItemID.MythrilHalberd:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "MythrilHalberdRework" };
-                    return BalanceTypes.CustomBuff;
+                    return EModeChange.Buff;
                 case ItemID.OrichalcumHalberd:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "OrichalcumHalberdRework" };
-                    return BalanceTypes.CustomBuff;
+                    return EModeChange.Buff;
                 case ItemID.PalladiumPike:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "PalladiumPikeRework" };
-                    return BalanceTypes.CustomBuff;
+                    return EModeChange.Buff;
                 case ItemID.Spear:
                 case ItemID.AdamantiteGlaive:
                 case ItemID.TitaniumTrident:
                 case ItemID.Trident:
-                case ItemID.ObsidianSwordfish:
                 case ItemID.Swordfish:
                 case ItemID.ChlorophytePartisan:
                     balanceNumber = 1;
                     balanceTextKeys = new string[] { "SpearRework" };
-                    return BalanceTypes.CustomBuff;
+                    return EModeChange.Buff;
+
+                case ItemID.ObsidianSwordfish:
+                    balanceNumber = 0.8f;
+                    balanceTextKeys = new string[] { "Damage", "SpearRework" };
+                    return EModeChange.Buff;
 
                 default:
-                    return BalanceTypes.None;
+                    return EModeChange.None;
             }
         }
 
@@ -303,118 +324,127 @@ namespace FargowiltasSouls.Content.Items
             string extra = string.Empty;
             float balanceNumber = -1;
             string[] balanceTextKeys = null;
-            BalanceTypes balance = EmodeBalance(ref item, ref balanceNumber, ref balanceTextKeys, ref extra);
-
-            switch (balance)
-            {
-                case BalanceTypes.Damage:
-                    damage *= balanceNumber;
-                    break;
-                case BalanceTypes.AttackSpeed:
-                    AttackSpeed *= balanceNumber;
-                    break;
-            }
-
-        }
-    }
-    public class EmodeItemBalanceTooltip : GlobalItem
-    {
-        enum EModeChange
-        {
-            Nerf,
-            Buff,
-            Neutral
-        }
-
-
-        void ItemBalance(List<TooltipLine> tooltips, EModeChange change, string key, int amount = 0)
-        {
-            string prefix = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{change}");
-            string nerf = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{key}", amount == 0 ? null : amount);
-            tooltips.Add(new TooltipLine(Mod, $"{change}{key}", $"{prefix} {nerf}"));
-        }
-
-        void ItemBalance(List<TooltipLine> tooltips, EModeChange change, string key, string extra)
-        {
-            string prefix = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{change}");
-            string nerf = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{key}");
-            tooltips.Add(new TooltipLine(Mod, $"{change}{key}", $"{prefix} {nerf} {extra}"));
-        }
-
-        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-        {
-            if (!WorldSavingSystem.EternityMode)
-                return;
-
-            //if (item.damage > 0 && (item.ammo == AmmoID.Arrow || item.ammo == AmmoID.Bullet || item.ammo == AmmoID.Dart))
-            //{
-            //    tooltips.Add(new TooltipLine(Mod, "masoAmmoNerf", "[c/ff0000:Eternity Mode:] Contributes 50% less damage to weapons"));
-            //}
-            string extra = string.Empty;
-            float balanceNumber = -1;
-            string[] balanceTextKeys = null;
-            BalanceTypes balance = EmodeBalance(ref item, ref balanceNumber, ref balanceTextKeys, ref extra);
-
+            EmodeBalance(ref item, ref balanceNumber, ref balanceTextKeys, ref extra);
             if (balanceTextKeys != null)
             {
                 for (int i = 0; i < balanceTextKeys.Length; i++)
                 {
-                    switch (balance)
+                    switch (balanceTextKeys[i])
                     {
-                        case BalanceTypes.Damage:
+                        case "Damage":
                             {
-
-                                EModeChange change = balanceNumber > 1 ? EModeChange.Buff : balanceNumber < 1 ? EModeChange.Nerf : EModeChange.Neutral;
-                                int amount = change == EModeChange.Buff ? (int)((balanceNumber - 1) * 100) : (int)((1 - balanceNumber) * 100);
-                                ItemBalance(tooltips, change, "Damage", amount);
+                                damage *= balanceNumber;
                                 break;
                             }
 
-                        case BalanceTypes.AttackSpeed:
-                            {
-                                EModeChange change = balanceNumber > 1 ? EModeChange.Buff : balanceNumber < 1 ? EModeChange.Nerf : EModeChange.Neutral;
-                                int amount = change == EModeChange.Buff ? (int)((balanceNumber - 1) * 100) : (int)((1 - balanceNumber) * 100);
-                                ItemBalance(tooltips, change, "Speed", amount);
-                                break;
-                            }
 
-                        case BalanceTypes.CustomBuff:
-                        case BalanceTypes.CustomNerf:
-                        case BalanceTypes.CustomNeutral:
+                        case "Speed":
                             {
-                                EModeChange change = balance == BalanceTypes.CustomBuff ? EModeChange.Buff : balance == BalanceTypes.CustomNerf ? EModeChange.Nerf : EModeChange.Neutral;
-                                if (balanceNumber != -1 && balanceTextKeys != null && i == 0)
-                                {
-                                    ItemBalance(tooltips, change, balanceTextKeys[i], (int)balanceNumber);
-                                }
-                                else if (extra != string.Empty && balanceTextKeys != null && i == 0)
-                                {
-                                    ItemBalance(tooltips, change, balanceTextKeys[i], extra);
-                                }
-                                else
-                                {
-                                    ItemBalance(tooltips, change, balanceTextKeys[i]);
-                                }
+                                AttackSpeed *= balanceNumber;
                                 break;
                             }
                     }
                 }
             }
-            
-
-
-            if (item.shoot > ProjectileID.None && ProjectileID.Sets.IsAWhip[item.shoot])
+        }
+        public class EmodeItemBalanceTooltip : GlobalItem
+        {
+            public enum EModeChange
             {
-                ItemBalance(tooltips, EModeChange.Nerf, "WhipSpeed");
-                ItemBalance(tooltips, EModeChange.Nerf, "WhipStack");
+                None,
+                Nerf,
+                Buff,
+                Neutral
             }
-            //else if (item.CountsAsClass(DamageClass.Summon))
-            //{
-            //    if (!(EModeGlobalProjectile.IgnoreMinionNerf.TryGetValue(item.shoot, out bool ignoreNerf) && ignoreNerf))
-            //        ItemBalance(tooltips, EModeChange.Nerf, "MinionStack");
 
-            //    ItemBalance(tooltips, EModeChange.Nerf, "SummonMulticlass");
-            //}
+
+            void ItemBalance(List<TooltipLine> tooltips, EModeChange change, string key, int amount = 0)
+            {
+                string prefix = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{change}");
+                string nerf = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{key}", amount == 0 ? null : amount);
+                tooltips.Add(new TooltipLine(Mod, $"{change}{key}", $"{prefix} {nerf}"));
+            }
+
+            void ItemBalance(List<TooltipLine> tooltips, EModeChange change, string key, string extra)
+            {
+                string prefix = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{change}");
+                string nerf = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{key}");
+                tooltips.Add(new TooltipLine(Mod, $"{change}{key}", $"{prefix} {nerf} {extra}"));
+            }
+
+            public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+            {
+                if (!WorldSavingSystem.EternityMode)
+                    return;
+
+                //if (item.damage > 0 && (item.ammo == AmmoID.Arrow || item.ammo == AmmoID.Bullet || item.ammo == AmmoID.Dart))
+                //{
+                //    tooltips.Add(new TooltipLine(Mod, "masoAmmoNerf", "[c/ff0000:Eternity Mode:] Contributes 50% less damage to weapons"));
+                //}
+                string extra = string.Empty;
+                float balanceNumber = -1;
+                string[] balanceTextKeys = null;
+                EModeChange balance = EmodeBalance(ref item, ref balanceNumber, ref balanceTextKeys, ref extra);
+
+                if (balanceTextKeys != null)
+                {
+                    for (int i = 0; i < balanceTextKeys.Length; i++)
+                    {
+                        switch (balanceTextKeys[i])
+                        {
+                            case "Damage":
+                                {
+
+                                    EModeChange change = balanceNumber > 1 ? EModeChange.Buff : balanceNumber < 1 ? EModeChange.Nerf : EModeChange.Neutral;
+                                    int amount = change == EModeChange.Buff ? (int)Math.Round((balanceNumber - 1f) * 100f) : (int)Math.Round((1f - balanceNumber) * 100f);
+                                    ItemBalance(tooltips, change, "Damage", amount);
+                                    break;
+                                }
+
+                            case "Speed":
+                                {
+                                    EModeChange change = balanceNumber > 1 ? EModeChange.Buff : balanceNumber < 1 ? EModeChange.Nerf : EModeChange.Neutral;
+                                    int amount = change == EModeChange.Buff ? (int)Math.Round((balanceNumber - 1f) * 100f) : (int)Math.Round((1f - balanceNumber) * 100f);
+                                    ItemBalance(tooltips, change, "Speed", amount);
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    EModeChange change = balance;
+                                    if (balanceNumber != -1 && balanceTextKeys != null && i == 0)
+                                    {
+                                        ItemBalance(tooltips, change, balanceTextKeys[i], (int)balanceNumber);
+                                    }
+                                    else if (extra != string.Empty && balanceTextKeys != null && i == 0)
+                                    {
+                                        ItemBalance(tooltips, change, balanceTextKeys[i], extra);
+                                    }
+                                    else
+                                    {
+                                        ItemBalance(tooltips, change, balanceTextKeys[i]);
+                                    }
+                                    break;
+                                }
+                        }
+                    }
+                }
+
+
+
+                if (item.shoot > ProjectileID.None && ProjectileID.Sets.IsAWhip[item.shoot])
+                {
+                    ItemBalance(tooltips, EModeChange.Nerf, "WhipSpeed");
+                    ItemBalance(tooltips, EModeChange.Nerf, "WhipStack");
+                }
+                //else if (item.CountsAsClass(DamageClass.Summon))
+                //{
+                //    if (!(EModeGlobalProjectile.IgnoreMinionNerf.TryGetValue(item.shoot, out bool ignoreNerf) && ignoreNerf))
+                //        ItemBalance(tooltips, EModeChange.Nerf, "MinionStack");
+
+                //    ItemBalance(tooltips, EModeChange.Nerf, "SummonMulticlass");
+                //}
+            }
         }
     }
 }
