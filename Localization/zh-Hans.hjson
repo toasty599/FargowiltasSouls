@@ -5270,6 +5270,11 @@ Mods: {
 					'The radiant power of a foe's pure essence...'
 					''' */
 			}
+
+			BaronSummon: {
+				// Tooltip: ""
+				// DisplayName: Baron Summon
+			}
 		}
 
 		NPCs: {
@@ -5452,6 +5457,7 @@ Mods: {
 
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
+			// BanishedBaron.DisplayName: Banished Baron
 		}
 
 		Tiles: {
@@ -6148,6 +6154,7 @@ Mods: {
 			// NebulaPillarProj.DisplayName: Nebula Pillar Proj
 			// NebulaTelegraph.DisplayName: Nebula Telegraph
 			// PillarArcanum.DisplayName: Pillar Arcanum
+			// BaronWhirlpool.DisplayName: Baron Whirlpool
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

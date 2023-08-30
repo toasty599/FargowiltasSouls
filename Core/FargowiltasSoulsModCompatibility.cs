@@ -27,6 +27,7 @@ using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Content.Bosses.BanishedBaron;
 
 namespace FargowiltasSouls
 {
@@ -271,11 +272,9 @@ namespace FargowiltasSouls
                     false,
                     "Content/Bosses/Lieflight/LifeChallenger"
                 );
-                //JAVYZ TODO: Banished Baron
-                /*
+                
                 Add("Boss",
                     "BanishedBaron",
-                    //TODO: ADD LOOT
                     new List<int> { ModContent.NPCType<BanishedBaron>() },
                     8.7f,
                     () => WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.BanishedBaron],
@@ -287,7 +286,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.ItemType<BaronSummon>() },
                     true
                 );
-                */
+                
                 //Add("Boss",
                 //    "CursedCoffin",
                 //    //TODO: ADD LOOT
