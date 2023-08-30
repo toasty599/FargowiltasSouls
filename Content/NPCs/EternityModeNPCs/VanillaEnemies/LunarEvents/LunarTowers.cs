@@ -167,7 +167,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 AuraSize = 5000;
                 if (anyPlayersClose)
                 {
-                    if (ShieldStrength <= 20) //at 20 shield, kill all shield and pillar enemies and go to attack phase
+                    if (ShieldStrength <= 70) //at 20 shield, kill all shield and pillar enemies and go to attack phase
                     {
                         foreach (NPC n in Main.npc)
                         {

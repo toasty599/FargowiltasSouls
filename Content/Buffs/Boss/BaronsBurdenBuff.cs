@@ -24,6 +24,10 @@ namespace FargowiltasSouls.Content.Buffs.Boss
             {
                 player.velocity.Y += 0.4f;
                 player.velocity.X *= 0.9f;
+                if (player.statLife > 10)
+                {
+                    player.statLife -= 1;
+                }
             }
         }
     }

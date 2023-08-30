@@ -1733,7 +1733,6 @@ Mods: {
 					'''
 					Gravity heavily increased outside water
 					Breathe water instead of air
-					Get back in!
 					''' */
 			}
 
@@ -6155,6 +6154,8 @@ Mods: {
 			// NebulaTelegraph.DisplayName: Nebula Telegraph
 			// PillarArcanum.DisplayName: Pillar Arcanum
 			// BaronWhirlpool.DisplayName: Baron Whirlpool
+			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
+			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

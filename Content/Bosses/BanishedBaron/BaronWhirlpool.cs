@@ -73,6 +73,18 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     Fade = true;
                 }
             }
+            const int projTime = 50;
+            if (Projectile.alpha == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                int everyThird = (int)(Number % 3);
+                if (Timer % projTime == 0 && Timer % (projTime * 3) == projTime * everyThird)
+                {
+                    for (int i = -1; i < 2; i += 2)
+                    {
+                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center + Vector2.UnitX * i * Projectile.width * Main.rand.NextFloat(0.2f, 0.35f) + Vector2.UnitY * Main.rand.Next(-Projectile.height / 4, Projectile.height / 4), (Vector2.UnitX * i).RotatedBy(Main.rand.NextFloat(MathHelper.Pi / 24)), ModContent.ProjectileType<BaronWhirlpoolBolt>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner, 1);
+                    }
+                }
+            }
             if (Timer < 20)
             {
                 Projectile.alpha -= 17;
@@ -102,7 +114,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             if (Animate)
             {
-                if (++Projectile.frameCounter > 3)
+                if (++Projectile.frameCounter > 2)
                 {
                     if (++Projectile.frame >= Main.projFrames[Type])
                     {
@@ -116,4 +128,3 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
     }
 }
-

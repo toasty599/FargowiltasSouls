@@ -32,20 +32,6 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.light = 1;
         }
 
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 2)
-            {
-                Rectangle trailHitbox = projHitbox;
-                Vector2 diff = Projectile.oldPos[i] - Projectile.Center;
-                trailHitbox.X += (int)diff.X;
-                trailHitbox.Y += (int)diff.Y;
-                if (trailHitbox.Intersects(targetHitbox))
-                    return true;
-            }
-            return false;
-        }
-
         Vector2 HomePos = Vector2.Zero;
         public override void AI()
         {
@@ -80,7 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
                 if (player != null && Projectile.localAI[0] > 10) //homing
                 {
-                    Vector2 vectorToIdlePosition = Vector2.Lerp(HomePos, player.Center, 0.85f) - Projectile.Center;
+                    Vector2 vectorToIdlePosition = LerpWithoutClamp(HomePos, player.Center, Projectile.ai[2]) - Projectile.Center;
                     float speed = WorldSavingSystem.MasochistModeReal ? 18f : 18f;
                     float inertia = 20f;
                     float deadzone = WorldSavingSystem.MasochistModeReal ? 150f : 180f;
@@ -107,6 +93,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
             }
             //}
+        }
+        Vector2 LerpWithoutClamp(Vector2 A, Vector2 B, float t)
+        {
+            return A + (B - A) * t;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
