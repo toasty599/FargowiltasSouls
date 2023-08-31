@@ -71,15 +71,16 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Projectile.Kill();
             }
-            Tile tile = Framing.GetTileSafely(Projectile.Center);
-            bool InBlocks = tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
-            if (!Projectile.tileCollide && !InBlocks)
+            if (!Projectile.tileCollide)
             {
-                Projectile.tileCollide = true;
+                if (!Collision.SolidCollision(Projectile.position, Projectile.height, Projectile.width)) //this check is inside to stop checking once tileCollide is on
+                {
+                    Projectile.tileCollide = true;
+                }
             }
             if (Projectile.ai[0] == 1) //floating
             {
-                if (Collision.WetCollision(Projectile.position, Projectile.width, Projectile.height) || InBlocks)
+                if (Collision.WetCollision(Projectile.position,  Projectile.width, Projectile.height) || Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
                     Projectile.velocity.Y -= 0.30f;
                 else
                 {
