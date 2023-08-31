@@ -1499,8 +1499,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPC.TargetClosest(false);
             if (WorldSavingSystem.EternityMode && State == (int)StateEnum.P2LaserSweep) //combos into predictive dash in emode
             {
-                availablestates.Remove((int)State);
                 State = (int)StateEnum.P2PredictiveDash;
+                availablestates.Remove((int)StateEnum.P2LaserSweep);
+                availablestates.Remove((int)StateEnum.P2PredictiveDash);
             }
             else if ((State == (int)StateEnum.Swim) || Phase == 2)
                 RandomizeState();
