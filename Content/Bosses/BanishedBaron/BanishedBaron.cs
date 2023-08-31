@@ -172,9 +172,57 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         #endregion
         #region Overrides
+        #region Hitbox
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
+        {
+            if (HitPlayer)
+            {
+                Vector2 boxPos = target.position;
+                Vector2 boxDim = target.Size;
+                return Collides(boxPos, boxDim);
+            }
+            return false;
+        }
+        public override bool CanHitNPC(NPC target)
+        {
+            if (HitPlayer)
+            {
+                Vector2 boxPos = target.position;
+                Vector2 boxDim = target.Size;
+                return Collides(boxPos, boxDim);
+            }
+            return false;
+        }
+        public bool Collides(Vector2 boxPos, Vector2 boxDim)
+        {
+            //circular hitbox-inator
+            Vector2 ellipseDim = NPC.Size;
+            Vector2 ellipseCenter = NPC.position + 0.5f * new Vector2(NPC.width, NPC.height);
 
-        public override bool CanHitPlayer(Player target, ref int CooldownSlot) => HitPlayer;
-        public override bool CanHitNPC(NPC target) => HitPlayer;
+            float x = 0f; //ellipse center
+            float y = 0f; //ellipse center
+            if (boxPos.X > ellipseCenter.X)
+            {
+                x = boxPos.X - ellipseCenter.X; //left corner
+            }
+            else if (boxPos.X + boxDim.X < ellipseCenter.X)
+            {
+                x = boxPos.X + boxDim.X - ellipseCenter.X; //right corner
+            }
+            if (boxPos.Y > ellipseCenter.Y)
+            {
+                y = boxPos.Y - ellipseCenter.Y; //top corner
+            }
+            else if (boxPos.Y + boxDim.Y < ellipseCenter.Y)
+            {
+                y = boxPos.Y + boxDim.Y - ellipseCenter.Y; //bottom corner
+            }
+            float a = ellipseDim.X / 2f;
+            float b = ellipseDim.Y / 2f;
+
+            return x * x / (a * a) + y * y / (b * b) < 1; //point collision detection
+        }
+        #endregion
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position) => !(Timer < 90+50 && State == (int)StateEnum.P1FadeDash);
 
         public override void BossHeadSlot(ref int index)
@@ -303,6 +351,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             //npcLoot.Add(rule);
         }
+
         #endregion
         #region AI
         public override void AI()
@@ -684,6 +733,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 NPC.rotation = NPC.DirectionTo(LockVector1).ToRotation();
                 NPC.velocity = ((NPC.Distance(LockVector1) / 10) + 1) * NPC.rotation.ToRotationVector2();
                 NPC.noTileCollide = true;
+                NPC.dontTakeDamage = true;
             }
             if (Timer == 90)
             {
@@ -714,6 +764,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer == 90 + ReactionTime)
             {
+                NPC.dontTakeDamage = false;
                 SoundEngine.PlaySound(BaronRoar, NPC.Center);
                 float baseSpeed = 45;
                 float extraSpeed = (float)Math.Sqrt((player.Center - NPC.Center).Length()) / 1.5f;
@@ -722,7 +773,18 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer > 90 + ReactionTime)
             {
+                NPC.dontTakeDamage = false; //here too for safety
                 NPC.velocity *= 0.975f;
+            }
+            if ((Timer == 90 + ReactionTime + 15 || Timer == 90 + ReactionTime + 20) && WorldSavingSystem.EternityMode)
+            {
+                SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Vector2 vel = NPC.velocity;
+                    float trackingPower = WorldSavingSystem.MasochistModeReal ? 1.5f : 1f;
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 3, player.whoAmI, trackingPower); //ai2 is tracking power, above 1 is pseudo-predictive
+                }
             }
             if (Timer > 90 + ReactionTime + 30 && NPC.velocity.Length() < 1.5f)
             {

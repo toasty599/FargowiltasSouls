@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 4);
             target.AddBuff(BuffID.OnFire3, 60 * 10);
-            target.AddBuff(BuffID.BrokenArmor, 60 * 20);
+            target.AddBuff(BuffID.BrokenArmor, 60 * 40);
 
         }
         public override void Kill(int timeLeft)
