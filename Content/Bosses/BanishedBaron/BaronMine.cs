@@ -113,11 +113,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     Vector2 pos = new Vector2(0, 1).RotatedBy(Projectile.rotation + i * MathHelper.TwoPi / 8);
                     Vector2 vel = pos * Main.rand.NextFloat(4, 7) * speedmod;
                     pos *= offset;
-                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
-                    if (Main.projectile[p].active && p != Main.maxProjectiles)
-                    {
-                        Main.projectile[p].scale = Projectile.scale;
-                    }
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
                 }
             }
         }
