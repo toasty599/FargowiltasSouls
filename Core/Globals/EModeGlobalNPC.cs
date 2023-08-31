@@ -806,7 +806,7 @@ namespace FargowiltasSouls.Core.Globals
 
             if (npc.type == NPCID.Painter && WorldSavingSystem.DownedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss>()))
                 Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.ItemType<ScremPainting>());
-        }they
+        }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             #region tim's concoction drops
