@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             Projectile.alpha = 255;
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 15;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override bool PreAI()

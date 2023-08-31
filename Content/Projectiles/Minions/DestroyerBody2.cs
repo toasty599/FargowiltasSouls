@@ -37,6 +37,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.hide = true;
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
