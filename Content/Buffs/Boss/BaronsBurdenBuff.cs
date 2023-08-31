@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Buffs.Boss
                 player.velocity.X *= 0.9f;
                 if (player.statLife > 10)
                 {
-                    player.statLife -= 1;
+                    player.lifeRegen = -1 * 90;
                 }
             }
         }

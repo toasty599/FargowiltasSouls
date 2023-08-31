@@ -1007,7 +1007,9 @@ Mods: {
 			Buff: "[c/00ff00:Modo Eternidade:]"
 			Neutral: "[c/ffff00:Modo Eternidade:]"
 			Damage: Dano reduzido em {0}%
+			// DamagePositive: Increased damage by {0}%
 			Speed: Velocidade reduzida em {0}%
+			// SpeedPositive: Reduced speed by {0}%
 			RodofDiscord: Durante batalhas contra chefes, cada uso leva vida
 			Split: Frequência de divisão reduzida
 			ChlorophyteBullet: Velocidade e duração reduzidos
@@ -1733,7 +1735,8 @@ Mods: {
 				/* Description:
 					'''
 					Gravity heavily increased outside water
-					Breathe water instead of air, and improved underwater movement
+					Breathe water but cannot breathe air
+					Improved underwater movement
 					''' */
 			}
 
@@ -5243,7 +5246,7 @@ Mods: {
 				// DisplayName: Crystalline Congregation
 				/* Tooltip:
 					'''
-					Summon up to 20 crystal balls near your mouse cursor that home towards you 
+					Summon up to 30 crystal balls near your mouse cursor that home towards you 
 					 Release the button to send them towards your cursor
 					''' */
 			}
@@ -6177,6 +6180,7 @@ Mods: {
 			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
 			// BaronDeathray.DisplayName: Baron Deathray
+			// BaronEyeFlash.DisplayName: Baron Eye Flash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

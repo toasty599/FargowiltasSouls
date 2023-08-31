@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                         foundTarget = false;
                         Projectile.netUpdate = true;
                     }
-                    if (Projectile.ai[1] > 60 * 8 || Vector2.Distance(npc.Center, Projectile.Center) <= 25)
+                    if (Projectile.ai[1] > 60 * 15 || Vector2.Distance(npc.Center, Projectile.Center) <= 25)
                     {
                         Projectile.Kill();
                     }

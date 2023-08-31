@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (HomePos == Vector2.Zero) //get homing pos
             {
                 Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
-                if (player != null)
+                if (player.active && !player.ghost)
                 {
                     HomePos = player.Center;
                 }
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (Projectile.ai[0] == 3 || Projectile.ai[0] == 1) //homing
             {
                 Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
-                if (player != null && Projectile.localAI[0] > 10) //homing
+                if (player.active && !player.ghost && Projectile.localAI[0] > 10) //homing
                 {
                     Vector2 vectorToIdlePosition = LerpWithoutClamp(HomePos, player.Center, Projectile.ai[2]) - Projectile.Center;
                     float speed = WorldSavingSystem.MasochistModeReal ? 18f : 18f;
@@ -100,15 +100,31 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            if (WorldSavingSystem.EternityMode)
-                target.AddBuff(BuffID.OnFire, 600);
+            target.AddBuff(BuffID.OnFire, 600);
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
+            target.AddBuff(BuffID.OnFire3, 600);
         }
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 20; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 0, default, 1.5f);
-                Main.dust[d].noGravity = true;
+                int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 3f);
+                Main.dust[dust].velocity *= 1.4f;
+            }
+
+            for (int i = 0; i < 15; i++)
+            {
+                int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 7f;
+                dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
+                Main.dust[dust].velocity *= 3f;
             }
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -82,7 +83,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.Kill();
             }
             Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
-            if (player != null) //homing
+            if (Projectile.localAI[0] < 60)
+            {
+                Projectile.velocity *= 0.965f;
+            }
+            else if (player.active && !player.ghost) //homing
             {
                 Vector2 vectorToIdlePosition = player.Center - Projectile.Center;
                 float speed = WorldSavingSystem.MasochistModeReal ? 24f : 20f;
@@ -118,11 +123,20 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
+            target.AddBuff(BuffID.OnFire, 60 * 10);
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
+            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 4);
+            target.AddBuff(BuffID.OnFire3, 60 * 10);
+            target.AddBuff(BuffID.BrokenArmor, 60 * 20);
 
         }
         public override void Kill(int timeLeft)
         {
-            
+            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+
             for (int i = 0; i < 100; i++)
             {
                 Vector2 pos = Projectile.Center + new Vector2(0, Main.rand.NextFloat(ExplosionDiameter * 0.8f)).RotatedBy(Main.rand.NextFloat(MathHelper.TwoPi)); //circle with highest density in middle

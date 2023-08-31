@@ -54,13 +54,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 if (Timer == 0) //done this way to work with world borders
                 {
-                    if (player.Center.X < MaxDistance)
+                    const int WorldEdgeExtraWidth = 300; //extra width for projectile attack to be visible all the way
+                    if (player.Center.X < MaxDistance + WorldEdgeExtraWidth)
                     {
-                        Projectile.Center = new Vector2(MaxDistance, player.Center.Y);
+                        Projectile.Center = new Vector2(MaxDistance + WorldEdgeExtraWidth, player.Center.Y);
                     }
-                    else if (player.Center.X > Main.maxTilesX - MaxDistance)
+                    else if (player.Center.X > Main.maxTilesX - (MaxDistance + WorldEdgeExtraWidth))
                     {
-                        Projectile.Center = new Vector2(Main.maxTilesX - MaxDistance, player.Center.Y);
+                        Projectile.Center = new Vector2(Main.maxTilesX - MaxDistance + WorldEdgeExtraWidth, player.Center.Y);
                     }
                     else
                     {
@@ -117,7 +118,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 for (int i = -15; i <= 15; i++)
                 {
-                    Vector2 center = Projectile.Center + Vector2.UnitX * Side * (WaterwallDistance + (rectangle.Width / 2)) + Vector2.UnitY * i * Projectile.height;
+                    Vector2 pos = Projectile.Center.X * Vector2.UnitX + Main.LocalPlayer.Center.Y * Vector2.UnitY; //draw locally so you always see the wall on your screen
+                    Vector2 center = pos + Vector2.UnitX * Side * (WaterwallDistance + (rectangle.Width / 2)) + Vector2.UnitY * i * Projectile.height;
                     center.Y = (float)Math.Floor(center.Y / rectangle.Height) * rectangle.Height; //makes them not smoothly move up and down, but jump one chunk at a time
                     if (Collision.SolidCollision(center - rectangle.Size() / 2, rectangle.Width, rectangle.Height))
                     {

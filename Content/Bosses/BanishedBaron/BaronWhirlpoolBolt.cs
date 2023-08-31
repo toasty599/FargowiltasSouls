@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -27,12 +28,22 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = 1;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.scale = 1f;
             Projectile.light = 1;
         }
 
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.Bleeding, 60 * 6);
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
+            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 5);
+            
+        }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
             => Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) < projHitbox.Width / 2;
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -34,17 +36,29 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public bool Fade;
         public bool Animate;
         public Projectile Child;
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
+            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 4);
+            target.AddBuff(BuffID.Rabies, 60 * 10);
+        }
         public override void AI()
         {
             ref float ParentID = ref Projectile.ai[0];
             ref float Number = ref Projectile.ai[1];
             ref float Timer = ref Projectile.localAI[0];
 
+            Projectile.netUpdate = true; //it's choppy if this isn't done always
+
             if (Number == BanishedBaron.MaxWhirlpools)
             {
                 NPC parent = Main.npc[(int)ParentID];
                 const int BaronHeight = 132 / 2;
-                if (parent != null && parent.type == ModContent.NPCType<BanishedBaron>())
+                if (parent.active && parent.type == ModContent.NPCType<BanishedBaron>())
                 {
                     Projectile.Center = parent.Center + (Vector2.UnitY * ((Projectile.height / 2) + BaronHeight));
                 }
@@ -57,7 +71,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             else
             {
                 Projectile parent = Main.projectile[(int)ParentID];
-                if (parent != null && parent.type == Type && !Animate)
+                if (parent.active && parent.type == Type && !Animate)
                 {
                     Projectile.Center = parent.Center + Vector2.UnitY * Projectile.height;
                     int frame = Main.projectile[(int)ParentID].frame - 1;
@@ -97,8 +111,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     Projectile.alpha = 0;
                 }
             }
-            bool collision = Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height);
-            if (Timer == 8 && Number > 0 && !collision)
+            bool collision = WorldSavingSystem.MasochistModeReal ? false : Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height); //no collision check in maso
+            if (collision && Number > 3)
+            {
+                Number = 3;
+            }
+            if (Timer == 8 && Number > 0)
             {
                 Child = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center + Vector2.UnitY * Projectile.height, Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI, Number - 1);
             }
@@ -109,8 +127,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 {
                     if (Child != null)
                     {
-                        (Child.ModProjectile as BaronWhirlpool).Fade = true;
-                        (Child.ModProjectile as BaronWhirlpool).Animate = true;
+                        if (Child.active && Child.type == Type)
+                        {
+                            (Child.ModProjectile as BaronWhirlpool).Fade = true;
+                            (Child.ModProjectile as BaronWhirlpool).Animate = true;
+                        }
                     }
                     Projectile.Kill();
                 }

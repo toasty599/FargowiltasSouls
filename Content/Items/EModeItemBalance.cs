@@ -397,7 +397,8 @@ namespace FargowiltasSouls.Content.Items
 
                                     EModeChange change = balanceNumber > 1 ? EModeChange.Buff : balanceNumber < 1 ? EModeChange.Nerf : EModeChange.Neutral;
                                     int amount = change == EModeChange.Buff ? (int)Math.Round((balanceNumber - 1f) * 100f) : (int)Math.Round((1f - balanceNumber) * 100f);
-                                    ItemBalance(tooltips, change, "Damage", amount);
+                                    string key = change == EModeChange.Buff ? "DamagePositive" : "Damage";
+                                    ItemBalance(tooltips, change, key, amount);
                                     break;
                                 }
 
@@ -405,7 +406,8 @@ namespace FargowiltasSouls.Content.Items
                                 {
                                     EModeChange change = balanceNumber > 1 ? EModeChange.Buff : balanceNumber < 1 ? EModeChange.Nerf : EModeChange.Neutral;
                                     int amount = change == EModeChange.Buff ? (int)Math.Round((balanceNumber - 1f) * 100f) : (int)Math.Round((1f - balanceNumber) * 100f);
-                                    ItemBalance(tooltips, change, "Speed", amount);
+                                    string key = change == EModeChange.Buff ? "SpeedPositive" : "Speed";
+                                    ItemBalance(tooltips, change, key, amount);
                                     break;
                                 }
 

@@ -1007,7 +1007,9 @@ Mods: {
 			Buff: "[c/00ff00:永恒模式：]"
 			Neutral: "[c/ffff00:永恒模式：]"
 			Damage: 伤害降低{0}%
+			// DamagePositive: Increased damage by {0}%
 			Speed: 攻击速度降低{0}%
+			// SpeedPositive: Reduced speed by {0}%
 			RodofDiscord: 在Boss战中，每次使用都会消耗生命
 			Split: 降低分裂频率
 			ChlorophyteBullet: 速度减慢，存在时间降低
@@ -1733,7 +1735,8 @@ Mods: {
 				/* Description:
 					'''
 					Gravity heavily increased outside water
-					Breathe water instead of air, and improved underwater movement
+					Breathe water but cannot breathe air
+					Improved underwater movement
 					''' */
 			}
 
@@ -5228,7 +5231,7 @@ Mods: {
 				// DisplayName: Crystalline Congregation
 				/* Tooltip:
 					'''
-					Summon up to 20 crystal balls near your mouse cursor that home towards you 
+					Summon up to 30 crystal balls near your mouse cursor that home towards you 
 					 Release the button to send them towards your cursor
 					''' */
 			}
@@ -6158,6 +6161,7 @@ Mods: {
 			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
 			// BaronDeathray.DisplayName: Baron Deathray
+			// BaronEyeFlash.DisplayName: Baron Eye Flash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

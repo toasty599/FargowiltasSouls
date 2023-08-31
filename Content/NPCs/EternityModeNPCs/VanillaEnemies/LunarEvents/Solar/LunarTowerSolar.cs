@@ -292,13 +292,16 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             if (AttackTimer > IdleTime)
             {
+                /*
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
+                    
                     if (Main.npc[i].active && (Main.npc[i].type == NPCID.SolarCrawltipedeBody || Main.npc[i].type == NPCID.SolarCrawltipedeTail))
                     {
                         Main.npc[i].GivenName = "John Crawltipede";
                     }
                 }
+                */
                 RandomAttack(npc);
             }
         }

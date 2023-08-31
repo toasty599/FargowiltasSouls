@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             // DisplayName.SetDefault("Banished Baron's Mine");
             Main.projFrames[Projectile.type] = 3;
         }
+
         public override void SetDefaults()
         {
             Projectile.width = 58;
@@ -29,8 +30,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.scale = 1f;
+            Projectile.scale = 2f;
             Projectile.light = 1;
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.Bleeding, 60 * 6);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -104,9 +110,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 pos = new Vector2(0, 1).RotatedBy(Projectile.rotation + i * MathHelper.TwoPi / 8);
-                    Vector2 vel = pos * 6 * speedmod;
+                    Vector2 vel = pos * Main.rand.NextFloat(4, 7) * speedmod;
                     pos *= offset;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
+                    if (Main.projectile[p].active && p != Main.maxProjectiles)
+                    {
+                        Main.projectile[p].scale = Projectile.scale;
+                    }
                 }
             }
         }
