@@ -41,11 +41,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Essences
                 .AddIngredient(ItemID.ZombieArm)
                 .AddIngredient(ItemID.ChainKnife)
                 .AddIngredient(ItemID.IceBlade)
-                .AddIngredient(ItemID.Shroomerang)
                 .AddIngredient(ItemID.JungleYoyo)
                 .AddIngredient(ItemID.CombatWrench)
-                .AddIngredient(ItemID.Flamarang)
                 .AddIngredient(ItemID.Terragrim)
+                .AddIngredient(ItemID.Trimarang)
                 .AddIngredient(ItemID.WarriorEmblem)
                 .AddIngredient(ItemID.HallowedBar, 5)
 

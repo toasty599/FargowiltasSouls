@@ -159,7 +159,10 @@ namespace FargowiltasSouls.Content.Items
                 //    tooltips.Add(new TooltipLine(Mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 20%"));
                 //    break;
 
-                //case ItemID.StarCannon:
+               case ItemID.StarCannon:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.7f;
+                    return EModeChange.Nerf;
                 //case ItemID.ElectrosphereLauncher:
                 //case ItemID.DaedalusStormbow:
                 //case ItemID.BeesKnees:
@@ -168,10 +171,14 @@ namespace FargowiltasSouls.Content.Items
                 //    break;
 
                 //case ItemID.Beenade:
-                //case ItemID.BlizzardStaff:
-                //    ItemBalance(tooltips, EModeChange.Nerf, "Damage", 33);
-                //    ItemBalance(tooltips, EModeChange.Nerf, "Speed", 33);
-                //    break;
+                case ItemID.BlizzardStaff:
+                    balanceTextKeys = new string[] { "Damage", "Speed" };
+                    balanceNumber = 0.7f;
+                    return EModeChange.Nerf;
+                case ItemID.DD2SquireBetsySword:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.85f;
+                    return EModeChange.Nerf;
 
                 //case ItemID.Tsunami:
                 //case ItemID.Flairon:

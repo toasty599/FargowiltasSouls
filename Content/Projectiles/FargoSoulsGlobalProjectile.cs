@@ -329,10 +329,11 @@ namespace FargowiltasSouls.Content.Projectiles
                     //apen is inherited from proj to proj
                     projectile.ArmorPenetration += projectile.damage / 2;
 
-                    AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer);
+                    AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer, 8);
                 }
 
-                AdamModifier = modPlayer.EarthForce ? 3 : 2;
+                //AdamModifier = modPlayer.EarthForce ? 3 : 2;
+                AdamModifier = 1;
             }
 
             if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)
@@ -1085,7 +1086,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 ReduceIFrames(projectile, target, 2);
 
             if (AdamModifier != 0)
-                ReduceIFrames(projectile, target, AdamModifier);
+                ReduceIFrames(projectile, target, Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().EarthForce ? 3 : 2);
 
             if (projectile.type == ProjectileID.IceBlock && Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().FrigidGemstoneItem != null)
             {

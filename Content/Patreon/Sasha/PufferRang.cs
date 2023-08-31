@@ -22,7 +22,6 @@ namespace FargowiltasSouls.Content.Patreon.Sasha
         {
             Projectile.CloneDefaults(ProjectileID.EnchantedBoomerang);
             AIType = ProjectileID.EnchantedBoomerang;
-
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.scale = 2f;

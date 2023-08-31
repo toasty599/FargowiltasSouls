@@ -28,6 +28,8 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             Projectile.timeLeft = 600;
             Projectile.extraUpdates = 1;
             Projectile.alpha = 255;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 15;
         }
 
         public override bool PreAI()

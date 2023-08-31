@@ -36,6 +36,8 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             Projectile.width = 52;
             Projectile.height = 56;
             AIType = ProjectileID.BabySlime;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 15;
         }
         public override bool? CanCutTiles()
         {

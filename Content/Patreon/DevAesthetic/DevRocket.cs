@@ -29,6 +29,8 @@ namespace FargowiltasSouls.Content.Patreon.DevAesthetic
             Projectile.penetrate = 2;
 
             Projectile.timeLeft = 75 * (Projectile.extraUpdates + 1);
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 15;
         }
 
         private Color color;

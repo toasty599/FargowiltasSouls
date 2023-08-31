@@ -806,8 +806,7 @@ namespace FargowiltasSouls.Core.Globals
 
             if (npc.type == NPCID.Painter && WorldSavingSystem.DownedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss>()))
                 Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.ItemType<ScremPainting>());
-        }
-
+        }they
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             #region tim's concoction drops
@@ -1105,7 +1104,6 @@ namespace FargowiltasSouls.Core.Globals
             //if (npc.ModNPC == null || npc.ModNPC.Mod is FargowiltasSouls) //not for other mods
             //{
             int allowedRecursionDepth = 10;
-
             void AddDrop(IItemDropRule dropRule)
             {
                 if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
