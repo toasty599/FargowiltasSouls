@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         color = Color.Gray; //Color.Lerp(Color.DeepPink, Color.Magenta, 0.5f);
                         alphaModifier = 1;
                         Projectile.scale = 1f;
-                        maxTime = 60;
+                        maxTime = 70;
                     }
                     break;
                 case 3: //banished baron nuke telegraph

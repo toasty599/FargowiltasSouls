@@ -1480,8 +1480,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 float RotationSpeed = WorldSavingSystem.EternityMode ? 1.2f : 1f;
                 RotateTowards(NPC.Center + LockVector1, RotationSpeed);
             }
+            else if (WorldSavingSystem.EternityMode && Timer > PositioningTime + WindupTime + AttackTime) // in emode, go right into predictive dash without endlag
+            {
+                StateReset();
+            }
             else if (Timer > PositioningTime + WindupTime + AttackTime + Endlag)
             {
+                
                 NPC.velocity = Vector2.Zero;
                 StateReset();
             }
@@ -1492,7 +1497,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         void StateReset()
         {
             NPC.TargetClosest(false);
-            if ((State == (int)StateEnum.Swim) || Phase == 2)
+            if (WorldSavingSystem.EternityMode && State == (int)StateEnum.P2LaserSweep) //combos into predictive dash in emode
+            {
+                availablestates.Remove((int)State);
+                State = (int)StateEnum.P2PredictiveDash;
+            }
+            else if ((State == (int)StateEnum.Swim) || Phase == 2)
                 RandomizeState();
             else
                 State = (int)StateEnum.Swim;
