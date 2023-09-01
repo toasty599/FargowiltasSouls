@@ -50,7 +50,7 @@ Increases jump height and negates fall damage
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.LightningBoots)
+                .AddIngredient(ItemID.TerrasparkBoots)
                 .AddIngredient(ItemID.BalloonHorseshoeFart)
                 .AddIngredient(ModContent.ItemType<EurusSock>())
                 .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)

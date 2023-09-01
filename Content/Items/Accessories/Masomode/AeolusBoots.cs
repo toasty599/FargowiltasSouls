@@ -82,7 +82,6 @@ Increases jump height and negates fall damage
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<ZephyrBoots>())
-                .AddIngredient(ItemID.TerrasparkBoots)
                 .AddIngredient(ItemID.AmphibianBoots)
                 .AddIngredient(ItemID.FairyBoots)
                 .AddIngredient(ItemID.SandBoots)
