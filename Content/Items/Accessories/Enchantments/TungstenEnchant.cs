@@ -132,7 +132,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
                 if (hasCD)
                 {
-                    modPlayer.TungstenCD = 30;
+                    modPlayer.TungstenCD = 40;
 
                     if (modPlayer.Eternity)
                         modPlayer.TungstenCD = 0;

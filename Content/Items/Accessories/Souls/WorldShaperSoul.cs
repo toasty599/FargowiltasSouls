@@ -109,7 +109,7 @@ Summons a pet Magic Lantern
             .AddIngredient(ItemID.ActuationAccessory)
             .AddIngredient(ItemID.LaserRuler)
             .AddIngredient(ItemID.RoyalGel)
-            .AddIngredient(ItemID.CellPhone)
+            .AddIngredient(ItemID.Shellphone)
             //.AddIngredient(ItemID.BloodHamaxe) //haemoraxe
             .AddRecipeGroup("FargowiltasSouls:AnyDrax")
             .AddIngredient(ItemID.ShroomiteDiggingClaw)
