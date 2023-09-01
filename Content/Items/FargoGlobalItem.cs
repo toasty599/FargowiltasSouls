@@ -98,12 +98,20 @@ namespace FargowiltasSouls.Content.Items
             return base.ConsumeItem(item, player);
         }
 
+        static List<int> TungstenAlwaysAffects = new List<int>
+        {
+            ItemID.TerraBlade,
+            ItemID.NightsEdge,
+            ItemID.TrueNightsEdge,
+            ItemID.Excalibur,
+            ItemID.TrueExcalibur
+        };
         public override void ModifyItemScale(Item item, Player player, ref float scale)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (modPlayer.TungstenEnchantItem != null && player.GetToggleValue("Tungsten")
-                && !item.IsAir && item.damage > 0 && !item.noMelee && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+                && !item.IsAir && item.damage > 0 && (!item.noMelee || TungstenAlwaysAffects.Contains(item.type)) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
             {
                 scale *= TungstenEnchant.TungstenIncreaseWeaponSize(modPlayer);
             }
