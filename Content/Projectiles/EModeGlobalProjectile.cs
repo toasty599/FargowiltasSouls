@@ -54,7 +54,8 @@ namespace FargowiltasSouls.Content.Projectiles
                 ProjectileID.Trident,
                 ProjectileID.ObsidianSwordfish,
                 ProjectileID.Swordfish,
-                ProjectileID.ChlorophytePartisan
+                ProjectileID.ChlorophytePartisan,
+                ProjectileID.TheRottedFork
             };
 
 

@@ -44,7 +44,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                 ItemID.Trident,
                 ItemID.ObsidianSwordfish,
                 ItemID.Swordfish,
-                ItemID.ChlorophytePartisan
+                ItemID.ChlorophytePartisan,
+                ItemID.TheRottedFork
             };
 
         public int MythrilHalberdTimer;

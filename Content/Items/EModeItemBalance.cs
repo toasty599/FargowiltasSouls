@@ -305,6 +305,7 @@ namespace FargowiltasSouls.Content.Items
                     return EModeChange.Buff;
                 case ItemID.Spear:
                 case ItemID.AdamantiteGlaive:
+                case ItemID.TheRottedFork:
                 case ItemID.TitaniumTrident:
                 case ItemID.Trident:
                 case ItemID.Swordfish:
