@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public static Dictionary<int, bool> IgnoreMinionNerf = new();
 
-        public List<int> ReworkedSpears = new()
+        public static List<int> ReworkedSpears = new()
         {
                 ProjectileID.Spear,
                 ProjectileID.AdamantiteGlaive,
@@ -476,6 +476,11 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
                         }
                         break;
+                    case var _ when ReworkedSpears.Contains(projectile.type):
+                        {
+                            projectile.damage = (int)(projectile.damage * 1.5f);
+                            break;
+                        }
 
                     default:
                         break;
@@ -579,13 +584,29 @@ namespace FargowiltasSouls.Content.Projectiles
                         projectile.rotation += MathHelper.ToRadians(135f);
                     }
 
-                    if (projectile.type == ProjectileID.ChlorophytePartisan && projectile.ai[1] == duration / 2 + WaitTime * 2 / 3)
+                    //extra effects
+                    switch (projectile.type)
                     {
-                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.SporeCloud, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
-                    }
-                    if (projectile.type == ProjectileID.OrichalcumHalberd && (projectile.ai[1] == duration / 2 || projectile.ai[1] == duration / 2 + WaitTime))
-                    {
-                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.FlowerPetal, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
+                        case ProjectileID.ChlorophytePartisan:
+                            {
+                                if (projectile.ai[1] == duration / 2 + WaitTime * 2 / 3)
+                                {
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.SporeCloud, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
+                                }
+                                break;
+                            }
+                        case ProjectileID.OrichalcumHalberd:
+                            {
+                                if (projectile.ai[1] == duration / 2 || projectile.ai[1] == duration / 2 + WaitTime)
+                                {
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.FlowerPetal, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
+                                }
+                                break;
+                            }
+                        case ProjectileID.TheRottedFork:
+                            {
+                                break;
+                            }
                     }
                     #endregion
                     return false;
@@ -1326,6 +1347,7 @@ namespace FargowiltasSouls.Content.Projectiles
             if (NPC.downedGolemBoss && projectile.type == ProjectileID.VortexLightning)
                 modifiers.FinalDamage *= 2;
         }
+
 
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {

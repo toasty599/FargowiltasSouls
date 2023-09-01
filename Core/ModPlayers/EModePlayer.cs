@@ -13,6 +13,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -31,22 +32,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int ShorterDebuffsTimer;
         public const int MaxShorterDebuffsTimer = 60;
-
-        public List<int> ReworkedSpears = new()
-        {
-                ItemID.Spear,
-                ItemID.AdamantiteGlaive,
-                ItemID.CobaltNaginata,
-                ItemID.MythrilHalberd,
-                ItemID.OrichalcumHalberd,
-                ItemID.PalladiumPike,
-                ItemID.TitaniumTrident,
-                ItemID.Trident,
-                ItemID.ObsidianSwordfish,
-                ItemID.Swordfish,
-                ItemID.ChlorophytePartisan,
-                ItemID.TheRottedFork
-            };
 
         public int MythrilHalberdTimer;
         private int WeaponUseTimer => Player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer;
@@ -529,8 +514,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             //    }
             //}
 
-            if (ReworkedSpears.Contains(item.type))
-                damage *= 1.5f;
         }
 
         public float AttackSpeed

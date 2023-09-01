@@ -598,10 +598,6 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.MonkStaffT2:
                 case ProjectileID.MonkStaffT3_Alt:
                     {
-                        //if (firstTick)
-                        //{
-                        //    projectile.velocity *= projectile.scale;
-                        //}
                         
                         Vector2 vector = player.RotatedRelativePoint(player.MountedCenter);
                         projectile.direction = player.direction;
