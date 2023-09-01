@@ -24,6 +24,8 @@ using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -358,7 +360,6 @@ namespace FargowiltasSouls.Content.Projectiles
             ProjectileID.Celeb2Weapon,
             ProjectileID.Xenopopper
         };
-
         public override bool PreAI(Projectile projectile)
         {
             bool retVal = true;
@@ -590,8 +591,175 @@ namespace FargowiltasSouls.Content.Projectiles
                 firstTick = false;
             }
 
+            //Tungsten fixes and such
+
+            switch (projectile.type)
+            {
+                case ProjectileID.MonkStaffT2:
+                case ProjectileID.MonkStaffT3_Alt:
+                    {
+                        //if (firstTick)
+                        //{
+                        //    projectile.velocity *= projectile.scale;
+                        //}
+                        
+                        Vector2 vector = player.RotatedRelativePoint(player.MountedCenter);
+                        projectile.direction = player.direction;
+                        player.heldProj = projectile.whoAmI;
+                        projectile.Center = vector;
+                        if (player.dead)
+                        {
+                            projectile.Kill();
+                            return false;
+                        }
+                        if (!player.frozen)
+                        {
+                            if (projectile.type == 699)
+                            {
+                                projectile.spriteDirection = (projectile.direction = player.direction);
+                                Vector2 vector2 = vector;
+                                projectile.alpha -= 127;
+                                if (projectile.alpha < 0)
+                                {
+                                    projectile.alpha = 0;
+                                }
+                                if (projectile.localAI[0] > 0f)
+                                {
+                                    projectile.localAI[0] -= 1f;
+                                }
+                                float num = (float)player.itemAnimation / (float)player.itemAnimationMax;
+                                float num2 = 1f - num;
+                                float num3 = projectile.velocity.ToRotation();
+                                float num4 = projectile.velocity.Length() * projectile.scale; 
+                                float num5 = 22f * projectile.scale;
+                                Vector2 spinningpoint = new Vector2(1f, 0f).RotatedBy((float)Math.PI + num2 * ((float)Math.PI * 2f)) * new Vector2(num4, projectile.ai[0] * projectile.scale);
+                                projectile.position += spinningpoint.RotatedBy(num3) + new Vector2(num4 + num5, 0f).RotatedBy(num3);
+                                Vector2 target = vector2 + spinningpoint.RotatedBy(num3) + new Vector2(num4 + num5 + 40f, 0f).RotatedBy(num3);
+                                projectile.rotation = vector2.AngleTo(target) + (float)Math.PI / 4f * (float)player.direction;
+                                if (projectile.spriteDirection == -1)
+                                {
+                                    projectile.rotation += (float)Math.PI;
+                                }
+                                vector2.DirectionTo(projectile.Center);
+                                Vector2 vector3 = vector2.DirectionTo(target);
+                                Vector2 vector4 = projectile.velocity.SafeNormalize(Vector2.UnitY);
+                                float num6 = 2f;
+                                for (int i = 0; (float)i < num6; i++)
+                                {
+                                    Dust dust = Dust.NewDustDirect(projectile.Center, 14, 14, 228, 0f, 0f, 110);
+                                    dust.velocity = vector2.DirectionTo(dust.position) * 2f;
+                                    dust.position = projectile.Center + vector4.RotatedBy(num2 * ((float)Math.PI * 2f) * 2f + (float)i / num6 * ((float)Math.PI * 2f)) * 10f;
+                                    dust.scale = 1f + 0.6f * Main.rand.NextFloat();
+                                    dust.velocity += vector4 * 3f;
+                                    dust.noGravity = true;
+                                }
+                                for (int j = 0; j < 1; j++)
+                                {
+                                    if (Main.rand.Next(3) == 0)
+                                    {
+                                        Dust dust2 = Dust.NewDustDirect(projectile.Center, 20, 20, 228, 0f, 0f, 110);
+                                        dust2.velocity = vector2.DirectionTo(dust2.position) * 2f;
+                                        dust2.position = projectile.Center + vector3 * -110f;
+                                        dust2.scale = 0.45f + 0.4f * Main.rand.NextFloat();
+                                        dust2.fadeIn = 0.7f + 0.4f * Main.rand.NextFloat();
+                                        dust2.noGravity = true;
+                                        dust2.noLight = true;
+                                    }
+                                }
+                            }
+                            else if (projectile.type == 708)
+                            {
+                                Lighting.AddLight(player.Center, 0.75f, 0.9f, 1.15f);
+                                projectile.spriteDirection = (projectile.direction = player.direction);
+                                projectile.alpha -= 127;
+                                if (projectile.alpha < 0)
+                                {
+                                    projectile.alpha = 0;
+                                }
+                                float num7 = (float)player.itemAnimation / (float)player.itemAnimationMax;
+                                float num8 = 1f - num7;
+                                float num9 = projectile.velocity.ToRotation();
+                                float num10 = projectile.velocity.Length() * projectile.scale; //this is literally the only line of code i changed
+                                float num11 = 22f * projectile.scale; //this one too
+                                Vector2 spinningpoint2 = new Vector2(1f, 0f).RotatedBy((float)Math.PI + num8 * ((float)Math.PI * 2f)) * new Vector2(num10, projectile.ai[0] * projectile.scale);
+                                projectile.position += spinningpoint2.RotatedBy(num9) + new Vector2(num10 + num11, 0f).RotatedBy(num9);
+                                Vector2 vector5 = vector + spinningpoint2.RotatedBy(num9) + new Vector2(num10 + num11 + 40f, 0f).RotatedBy(num9);
+                                projectile.rotation = (vector5 - vector).SafeNormalize(Vector2.UnitX).ToRotation() + (float)Math.PI / 4f * (float)player.direction;
+                                if (projectile.spriteDirection == -1)
+                                {
+                                    projectile.rotation += (float)Math.PI;
+                                }
+                                (projectile.Center - vector).SafeNormalize(Vector2.Zero);
+                                (vector5 - vector).SafeNormalize(Vector2.Zero);
+                                Vector2 vector6 = projectile.velocity.SafeNormalize(Vector2.UnitY);
+                                if ((player.itemAnimation == 2 || player.itemAnimation == 6 || player.itemAnimation == 10) && projectile.owner == Main.myPlayer)
+                                {
+                                    Vector2 vector7 = vector6 + Main.rand.NextVector2Square(-0.2f, 0.2f);
+                                    vector7 *= 12f;
+                                    switch (player.itemAnimation)
+                                    {
+                                        case 2:
+                                            vector7 = vector6.RotatedBy(0.3839724659919739);
+                                            break;
+                                        case 6:
+                                            vector7 = vector6.RotatedBy(-0.3839724659919739);
+                                            break;
+                                        case 10:
+                                            vector7 = vector6.RotatedBy(0.0);
+                                            break;
+                                    }
+                                    vector7 *= 10f + (float)Main.rand.Next(4);
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vector7, 709, projectile.damage, 0f, projectile.owner);
+                                }
+                                for (int k = 0; k < 3; k += 2)
+                                {
+                                    float num12 = 1f;
+                                    float num13 = 1f;
+                                    switch (k)
+                                    {
+                                        case 1:
+                                            num13 = -1f;
+                                            break;
+                                        case 2:
+                                            num13 = 1.25f;
+                                            num12 = 0.5f;
+                                            break;
+                                        case 3:
+                                            num13 = -1.25f;
+                                            num12 = 0.5f;
+                                            break;
+                                    }
+                                    if (Main.rand.Next(6) != 0)
+                                    {
+                                        num13 *= 1.2f;
+                                        Dust dust3 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 226, 0f, 0f, 100);
+                                        dust3.velocity = vector6 * (4f + 4f * Main.rand.NextFloat()) * num13 * num12;
+                                        dust3.noGravity = true;
+                                        dust3.noLight = true;
+                                        dust3.scale = 0.75f;
+                                        dust3.fadeIn = 0.8f;
+                                        dust3.customData = this;
+                                        if (Main.rand.Next(3) == 0)
+                                        {
+                                            dust3.noGravity = false;
+                                            dust3.fadeIn = 0f;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (player.whoAmI == Main.myPlayer && player.itemAnimation <= 2)
+                        {
+                            projectile.Kill();
+                            player.reuseDelay = 2;
+                        }
+                        return false; //don't run vanilla code
+                    }
+            }
+
             return retVal;
         }
+
 
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
