@@ -56,7 +56,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
         public static float TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
         {
-            return 1f + (modPlayer.TerraForce ? 2f : 1.5f);
+            return 1f + (modPlayer.TerraForce ? 2f : 1f);
         }
 
         public static bool TungstenAlwaysAffectProj(Projectile projectile)
@@ -146,7 +146,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         {
             bool forceBuff = player.GetModPlayer<FargoSoulsPlayer>().TerraForce;
 
-            modifiers.FinalDamage *= forceBuff ? 1.2f : 1.1f;
+            modifiers.FinalDamage *= forceBuff ? 1.15f : 1.075f;
 
             int max = forceBuff ? 2 : 1;
             for (int i = 0; i < max; i++)

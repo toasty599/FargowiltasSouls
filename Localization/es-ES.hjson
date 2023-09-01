@@ -199,8 +199,9 @@ Mods: {
 			// SpiritChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underground desert.
 			// WillChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
 			// CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
-			// TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions]
-			// LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Hallow at day.
+			// TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
+			// LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+			// BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/BaronSummon] underwater at the Ocean.
 		}
 
 		Message: {
@@ -5506,9 +5507,18 @@ Mods: {
 				}
 			}
 
+			BanishedBaron: {
+				// DisplayName: Banished Baron
+
+				BossChecklistIntegration: {
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
+					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.BanishedBaronSpawnInfo}"
+					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.BanishedBaronDespawn
+				}
+			}
+
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
-			// BanishedBaron.DisplayName: Banished Baron
 		}
 
 		Tiles: {

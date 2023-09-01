@@ -69,7 +69,7 @@ Mods: {
 			Tiki: Increases whip range by 20%
 			Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
-			Tungsten: Increased weapon size to 300%, bonus damage to 20%, cooldown reduced
+			Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
 			Turtle: No upgrade
 			ValhallaKnight: No upgrade
 			Vortex: No upgrade
@@ -199,8 +199,9 @@ Mods: {
 			SpiritChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underground desert.
 			WillChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
 			CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
-			TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions]
-			LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Hallow at day.
+			TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
+			LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+			BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/BaronSummon] underwater at the Ocean.
 		}
 
 		Message: {
@@ -2949,9 +2950,9 @@ Mods: {
 				DisplayName: Tungsten Enchantment
 				Tooltip:
 					'''
-					150% increased weapon size but reduces melee speed
+					100% increased weapon size but reduces melee speed
 					Every half second a projectile will be doubled in size
-					Enlarged projectiles and non-projectile swords deal 10% more damage and have an additional chance to crit
+					Enlarged projectiles and non-projectile swords deal 7.5% more damage and have an additional chance to crit
 					'Bigger is always better'
 					'''
 			}
@@ -3181,7 +3182,7 @@ Mods: {
 					[i:FargowiltasSouls/IronEnchant] You attract items from further away, 33% chance to not consume items at an Anvil
 					[i:FargowiltasSouls/LeadEnchant] You take 60% less from damage over time
 					[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
-					[i:FargowiltasSouls/TungstenEnchant] 300% increased sword size and projectile size every quarter second
+					[i:FargowiltasSouls/TungstenEnchant] Weapon size increased to 300% and projectile size every quarter second
 					[i:FargowiltasSouls/ObsidianEnchant] Grants immunity to lava
 					[i:FargowiltasSouls/AshWoodEnchant] While burning or in lava, player and town NPC attacks are accompanied by fireballs
 					'The land lends its strength'
@@ -5486,9 +5487,18 @@ Mods: {
 				}
 			}
 
+			BanishedBaron: {
+				DisplayName: Banished Baron
+
+				BossChecklistIntegration: {
+					EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
+					SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.BanishedBaronSpawnInfo}"
+					DespawnMessage: Mods.FargowiltasSouls.BossChecklist.BanishedBaronDespawn
+				}
+			}
+
 			DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			StardustMinion.DisplayName: Stardust Minion
-			BanishedBaron.DisplayName: Banished Baron
 		}
 
 		Tiles: {
