@@ -1,10 +1,12 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles;
 
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -35,6 +37,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.AshWoodEnchantItem = item;
+            player.buffImmune[ModContent.BuffType<OiledBuff>()] = true;
             player.ashWoodBonus = true;
 
             if (modPlayer.AshwoodCD > 0)
