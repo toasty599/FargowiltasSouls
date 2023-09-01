@@ -371,7 +371,7 @@ namespace FargowiltasSouls.Core.Globals
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.ByCondition(new Conditions.IsHardmode(), ItemID.OasisCrateHard));
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.ByCondition(new Conditions.IsHardmode(), ModContent.ItemType<SandsofTime>(), 5));
 
-                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<SandsofTime>()));
+                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.ByCondition(new Conditions.IsPreHardmode(), ModContent.ItemType<SandsofTime>()));
                     break;
                 case NPCID.DarkCaster:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.WaterBolt, 50));

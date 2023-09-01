@@ -146,7 +146,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         {
             bool forceBuff = player.GetModPlayer<FargoSoulsPlayer>().TerraForce;
 
-            modifiers.FinalDamage *= forceBuff ? 1.15f : 1.075f;
+            modifiers.FinalDamage *= forceBuff ? 1.15f : 1.1f;
 
             int max = forceBuff ? 2 : 1;
             for (int i = 0; i < max; i++)
