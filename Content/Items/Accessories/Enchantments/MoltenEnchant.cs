@@ -46,7 +46,7 @@ Enemies take 25% increased damage while inside the inferno ring
                 Lighting.AddLight((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f), 0.65f, 0.4f, 0.1f);
                 int buff = BuffID.OnFire;
                 float distance = 200f;
-                int baseDamage = 25;
+                int baseDamage = 40;
 
                 if (modPlayer.NatureForce)
                 {
@@ -65,6 +65,11 @@ Enemies take 25% increased damage while inside the inferno ring
                         {
                             if (Vector2.Distance(player.Center, FargoSoulsUtil.ClosestPointInHitbox(npc.Hitbox, player.Center)) <= distance)
                             {
+                                if (player.FindBuffIndex(BuffID.OnFire) == -1)
+                                {
+                                    player.AddBuff(BuffID.OnFire, 2);
+                                }
+
                                 int dmgRate = 30;//60;
 
                                 if (npc.FindBuffIndex(buff) == -1)
