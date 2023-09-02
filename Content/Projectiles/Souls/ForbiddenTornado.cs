@@ -44,8 +44,15 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 {
                     p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().stormTimer = 240;
                 }
+            };
+            if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
+            {
+                if (Projectile.Colliding(Projectile.Hitbox, Main.LocalPlayer.Hitbox))
+                {
+                    Main.LocalPlayer.wingTime = Main.LocalPlayer.wingTimeMax;
+                }
             }
-
+            
             Projectile.velocity = Vector2.UnitY;
             Projectile.position -= Projectile.velocity;
 
