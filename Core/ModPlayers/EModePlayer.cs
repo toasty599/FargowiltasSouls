@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (Player.ZoneUnderworldHeight)
                 {
-                    if (!(Player.fireWalk || fargoSoulsPlayer.PureHeart || Player.lavaMax > 0))
+                    if (fargoSoulsPlayer.AshWoodEnchantItem == null && !(Player.fireWalk || fargoSoulsPlayer.PureHeart || Player.lavaMax > 0))
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.OnFire, 2);
                 }
 

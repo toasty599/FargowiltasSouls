@@ -1398,12 +1398,10 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (Player.whoAmI != Main.myPlayer)
                 return;
-
             if (CactusEnchantActive)
             {
                 CactusEnchant.CactusSelfProc(this);
             }
-
             if (BorealEnchantItem != null && Player.GetToggleValue("Boreal") && BorealCD <= 0)
             {
                 BorealCD = WoodForce ? 30 : 60;
