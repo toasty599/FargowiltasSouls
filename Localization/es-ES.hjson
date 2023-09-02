@@ -5344,6 +5344,11 @@ Mods: {
 				// Tooltip: ""
 				// DisplayName: Naval Rustrifle
 			}
+
+			DecrepitAirstrikeRemote: {
+				// DisplayName: Decrepit Airstrike Remote
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -6238,6 +6243,9 @@ Mods: {
 			// BaronDeathray.DisplayName: Baron Deathray
 			// BaronEyeFlash.DisplayName: Baron Eye Flash
 			// BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			// DecrepitAirstrike.DisplayName: Decrepit Airstrike
+			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
+			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

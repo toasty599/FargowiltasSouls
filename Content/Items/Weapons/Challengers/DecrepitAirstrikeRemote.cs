@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 200;
+            Item.damage = 300;
             Item.DamageType = DamageClass.Summon;
             Item.width = 82;
             Item.height = 24;
@@ -33,9 +34,9 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item66;
             Item.autoReuse = false;
-            Item.shoot = ProjectileID.PurificationPowder; 
+            Item.shoot = ModContent.ProjectileType<DecrepitAirstrike>();
             Item.shootSpeed = 1f;
-
+            Item.sentry = true;
             Item.noMelee = true;
         }
 
@@ -46,11 +47,30 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override bool CanUseItem(Player player)
         {
-            
-            return base.CanUseItem(player);
+            return player.ownedProjectileCounts[Item.shoot] < 1;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            Vector2 mouse = Main.MouseWorld;
+            int CurrentSentries = 0;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile proj = Main.projectile[i];
+                if (proj.active && proj.owner == player.whoAmI && proj.sentry)
+                {
+                    CurrentSentries++;
+                }
+            }
+            if (CurrentSentries >= player.maxTurrets)
+            {
+                return false;
+            }
+            for (int i = 0; i < player.maxTurrets - CurrentSentries; i++)
+            {
+                Projectile.NewProjectile(source, mouse.X, mouse.Y, 0f, 0f, type, damage, knockback, player.whoAmI, i == 0 ? 0 : 1, ai2: player.maxTurrets - CurrentSentries); //ai0 sets the first spawned turret as the original
+            }
+            Projectile.NewProjectile(source, mouse.X, mouse.Y, 0f, 0f, ModContent.ProjectileType<GlowRingHollow>(), damage, knockback, player.whoAmI, 14, 60 * 4 + 30); 
+            player.UpdateMaxTurrets();
             return false;
         }
         public override bool? UseItem(Player player)

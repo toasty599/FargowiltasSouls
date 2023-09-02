@@ -5321,8 +5321,23 @@ Mods: {
 			}
 
 			NavalRustrifle: {
-				Tooltip: ""
 				DisplayName: Naval Rustrifle
+				Tooltip: 
+					'''
+					Manually reload after each shot
+					Time the reload correctly to empower your next shot
+					Empowered shots deal double damage and are guaranteed to crit
+					'''
+			}
+
+			DecrepitAirstrikeRemote: {
+				DisplayName: Decrepit Airstrike Remote
+				Tooltip: 
+					'''
+					Marks a location with a reticle, consuming all your sentry slots
+					In 5 seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
+					All your minions hit by the explosion are blown up into homing splinters that are guaranteed to crit
+					'''
 			}
 		}
 
@@ -6218,6 +6233,9 @@ Mods: {
 			BaronDeathray.DisplayName: Baron Deathray
 			BaronEyeFlash.DisplayName: Baron Eye Flash
 			BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			DecrepitAirstrike.DisplayName: Decrepit Airstrike
+			DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
+			DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

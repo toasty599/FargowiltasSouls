@@ -343,13 +343,19 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<BanishedBaronRelic>()));
 
-            //LeadingConditionRule rule = new LeadingConditionRule(new Conditions.NotExpert());
-            //rule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<EnchantedLifeblade>(), ModContent.ItemType<Lightslinger>(), ModContent.ItemType<CrystallineCongregation>(), ModContent.ItemType<KamikazePixieStaff>()));
-            //rule.OnSuccess(ItemDropRule.Common(ItemID.HallowedFishingCrateHard, 1, 1, 5)); //hallowed crate
-            //rule.OnSuccess(ItemDropRule.Common(ItemID.SoulofLight, 1, 1, 3));
-            //rule.OnSuccess(ItemDropRule.Common(ItemID.PixieDust, 1, 15, 25));
+            LeadingConditionRule rule = new LeadingConditionRule(new Conditions.NotExpert());
+            rule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<TheBaronsTusk>(), ModContent.ItemType<TheBaronsTusk>(), ModContent.ItemType<NavalRustrifle>(), ModContent.ItemType<DecrepitAirstrikeRemote>()));
+            rule.OnSuccess(ItemDropRule.Common(5003, 1, 1, 5)); //seaside crate
+            rule.OnSuccess(ItemDropRule.OneFromOptions(3, ItemID.Sextant, ItemID.WeatherRadio, ItemID.FishermansGuide));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.FishingBobber, 4, 1, 1));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.FishingPotion, 3, 2, 5));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.SonarPotion, 2, 2, 5));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.CratePotion, 5, 2, 5));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.GoldenBugNet, 50, 1, 1));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.FishHook, 50, 1, 1));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.GoldenFishingRod, 150, 1, 1));
 
-            //npcLoot.Add(rule);
+            npcLoot.Add(rule);
         }
 
         #endregion
