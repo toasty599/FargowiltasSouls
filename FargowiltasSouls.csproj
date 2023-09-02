@@ -8,8 +8,12 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="Content\Items\Items\**" />
+    <Compile Remove="Content\Items\Items\**" />
     <Compile Remove="Folders to Port\**" />
+    <EmbeddedResource Remove="Content\Items\Items\**" />
     <EmbeddedResource Remove="Folders to Port\**" />
+    <None Remove="Content\Items\Items\**" />
     <None Remove="Folders to Port\**" />
   </ItemGroup>
   <ItemGroup>
@@ -22,21 +26,20 @@
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
     <None Remove="Content\Items\Placables\WiresPainting.png" />
     <None Remove="Content\Items\Placables\WiresPaintingSheet.png" />
+    <None Remove="Content\Items\Weapons\BossDrops\DecrepitAirstrikeRemote.png" />
+    <None Remove="Content\Items\Weapons\Challengers\DecrepitAirstrikeRemote.png" />
+    <None Remove="Content\Items\Weapons\Challengers\NavalRustrifle.png" />
+    <None Remove="Content\Items\Weapons\Challengers\TheBaronsTusk.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinion.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinionOld.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\LightningTelegraph.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\VortexVortexProjectile.png" />
+    <None Remove="Content\PlayerDrawLayers\RustrifleReloadBar.png" />
+    <None Remove="Content\PlayerDrawLayers\RustrifleReloadSlider.png" />
+    <None Remove="Content\PlayerDrawLayers\RustrifleReloadZone.png" />
     <None Remove="Content\Tiles\MutantStatueGift.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Items\Items\Weapons\BossDrops\" />
-    <Folder Include="Content\Items\Items\Weapons\Challengers\" />
-    <Folder Include="Content\Items\Items\Weapons\FinalUpgrades\" />
-    <Folder Include="Content\Items\Items\Weapons\Misc\" />
-    <Folder Include="Content\Items\Items\Weapons\SummonVariants\" />
-    <Folder Include="Content\Items\Items\Weapons\SwarmDrops\" />
   </ItemGroup>
 </Project>

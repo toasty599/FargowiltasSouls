@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Placables;
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 //using FargowiltasSouls.Content.Buffs.Souls;
@@ -104,7 +105,8 @@ namespace FargowiltasSouls.Content.Items
             ItemID.NightsEdge,
             ItemID.TrueNightsEdge,
             ItemID.Excalibur,
-            ItemID.TrueExcalibur
+            ItemID.TrueExcalibur,
+            ModContent.ItemType<TheBaronsTusk>()
         };
         public override void ModifyItemScale(Item item, Player player, ref float scale)
         {

@@ -44,6 +44,10 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool FreeEaterSummon = true;
         public int Screenshake;
 
+        public bool RustRifleReloading = false;
+        public float RustRifleReloadZonePos = 0;
+        public float RustRifleReloadProgress = 0;
+
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
         public bool DoubleTap
@@ -429,6 +433,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!Mash && MashCounter > 0)
                 MashCounter--;
             Mash = false;
+
         }
 
         public override void OnRespawn()

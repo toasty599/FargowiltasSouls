@@ -246,9 +246,14 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "Speed" };
                     balanceNumber = 0.75f;
                     return EModeChange.Nerf;
+
                 case ItemID.MoonlordTurretStaff:
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 0.5f;
+                    return EModeChange.Nerf;
+                case ItemID.RainbowCrystalStaff:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.6f;
                     return EModeChange.Nerf;
 
                 //case ItemID.MonkAltHead:

@@ -17,7 +17,7 @@ Mods: {
 			// Angler: No upgrade
 			// Bee: No upgrade
 			// Beetle: No upgrade
-			// Boreal: Fires more snowballs more often
+			// BorealWood: Fires more snowballs more often
 			// Cactus: Number of needles and damage increased
 			// Chlorophyte: No upgrade
 			// Cobalt: Explosion damage increased
@@ -148,7 +148,7 @@ Mods: {
 			// LifeChallenger: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms. Its true form cannot be perceived.
 			// Silhouette: An elusive being that always travels under cover of a black fog in the night. It feels sensitive when its true form is exposed.
 			// FrigidHydrangaea: This draconic beast hibernates in the frozen caverns, only waking when provoked. Should it really be living in the cold?
-			// BanishedBaron: Cast out from the hierarchy, it hid itself while it tried to repair itself. Imperfect work left its strength and speed hindered.
+			// BanishedBaron: Cast out from the hierarchy, it hid while it tried to repair itself. Imperfect work left its strength and speed hindered.
 			// MagmaConstruct: Overseer of the planet's core. It has taken over the underworld in the absence of the land's former master. It has no organic parts.
 			// TimberChampion: Channeling a Force has granted this wooden contraption fantastic power. But doesn't that squirrel in the cockpit look familiar?
 			// TerraChampion: Only the brain of this colossal serpent is still organic. Transformed into enchanted rock and metal, its body is impervious to attack.
@@ -5328,6 +5328,22 @@ Mods: {
 				// Tooltip: ""
 				// DisplayName: Baron Summon
 			}
+
+			TheBaronsTusk: {
+				// DisplayName: The Baron's Tusk
+				/* Tooltip:
+					'''
+					Swings emit flying shrapnel, that can embed in enemies
+					Hitting enemies that have more than 15 embedded shrapnel with the tusk rips it out, dealing a big chunk of damage, and is guaranteed to crit
+					Shrapnel is also ripped out when the enemy dies
+					Receives 75% benefit from melee speed boosts
+					''' */
+			}
+
+			NavalRustrifle: {
+				// Tooltip: ""
+				// DisplayName: Naval Rustrifle
+			}
 		}
 
 		NPCs: {
@@ -6221,6 +6237,7 @@ Mods: {
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
 			// BaronDeathray.DisplayName: Baron Deathray
 			// BaronEyeFlash.DisplayName: Baron Eye Flash
+			// BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
