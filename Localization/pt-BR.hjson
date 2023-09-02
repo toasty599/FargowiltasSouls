@@ -5312,13 +5312,23 @@ Mods: {
 			}
 
 			NavalRustrifle: {
-				// Tooltip: ""
 				// DisplayName: Naval Rustrifle
+				/* Tooltip:
+					'''
+					Manually reload after each shot
+					Time the reload correctly to empower your next shot
+					Empowered shots deal double damage and are guaranteed to crit
+					''' */
 			}
 
 			DecrepitAirstrikeRemote: {
 				// DisplayName: Decrepit Airstrike Remote
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Marks a location with a reticle, consuming all your sentry slots
+					In 5 seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
+					All your minions hit by the explosion are blown up into homing splinters that are guaranteed to crit
+					''' */
 			}
 		}
 

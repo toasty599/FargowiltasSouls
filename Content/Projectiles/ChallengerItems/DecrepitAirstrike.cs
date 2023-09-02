@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Projectile.width = 80;
             Projectile.height = 82;
             Projectile.aiStyle = -1;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
             Projectile.friendly = true;
@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                 {
                     SoundEngine.PlaySound(Beep, Projectile.Center);
                 }
-                if (Projectile.timeLeft == 30)
+                if (Projectile.timeLeft == 30 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 offset = Vector2.UnitY * -700 + Vector2.UnitX * Main.rand.NextFloat(-300, 300);
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + offset, Vector2.Zero, ModContent.ProjectileType<DecrepitAirstrikeNuke>(), Projectile.damage * (int)slotsConsumed, 2, Projectile.owner, Projectile.Center.X, Projectile.Center.Y, Projectile.timeLeft);

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 {
     public class RustrifleReload : PlayerDrawLayer
     {
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().RustRifleReloading;
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().RustRifleReloading && drawInfo.drawPlayer.HeldItem.type == ModContent.ItemType<NavalRustrifle>();
         public override Position GetDefaultPosition() => new Between();
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 Player player = drawInfo.drawPlayer;
                 FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-                Vector2 barPos = (player.gravDir > 0 ? player.Top : player.Bottom) - Main.screenPosition;
+                Vector2 barPos = (player.gravDir > 0 ? player.Bottom : player.Top) - Main.screenPosition;
 
                 Texture2D barTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/RustrifleReloadBar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Rectangle barRectangle = barTexture.Bounds;
