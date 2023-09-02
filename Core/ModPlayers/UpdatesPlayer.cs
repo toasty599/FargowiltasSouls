@@ -228,7 +228,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     {
                         int diff = StyxCrown.MINIMUM_DPS - dps;
                         if (diff > 0)
-                            StyxMeter += diff;
+                            StyxMeter += diff / 2; //from testing: compared to 1.4.3, this was giving twice as much meter. thus we're halving it
                     }
 
                     //if (Player.getDPS() == 0) Main.NewText("bug! styx timer ran with 0 dps, show this to terry");
