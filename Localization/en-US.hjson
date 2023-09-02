@@ -5316,7 +5316,6 @@ Mods: {
 					Swings emit flying shrapnel, that can embed in enemies
 					Hitting enemies that have more than 15 embedded shrapnel with the tusk rips it out, dealing a big chunk of damage, and is guaranteed to crit
 					Shrapnel is also ripped out when the enemy dies
-					Receives 75% benefit from melee speed boosts
 					'''
 			}
 
