@@ -1415,7 +1415,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             bool ashBurning = AshWoodEnchantItem != null && (Player.onFire || Player.onFire2 || Player.onFire3);
             if ((ashBurning || ObsidianEnchantItem != null) && Player.GetToggleValue("AshWood") && AshwoodCD <= 0)
             {
-                AshwoodCD = TerraForce ? 20 : 30;
+                AshwoodCD = TerraForce ? 15 : ObsidianEnchantItem != null ? 20 : 30;
                 AshWoodEnchant.AshwoodFireball(this, damage);
             }
 

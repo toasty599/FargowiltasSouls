@@ -2620,8 +2620,8 @@ Mods: {
 				// DisplayName: Molten Enchantment
 				/* Tooltip:
 					'''
-					Nearby enemies are ignited
-					Enemies take 25% increased damage while inside the inferno ring
+					Ignite yourself while enemies are close
+					Enemies in the inferno ring take 25% more damage and are ignited
 					'They shall know the fury of hell' 
 					''' */
 			}
