@@ -50,7 +50,7 @@ Mods: {
 			// PalmWood: Attack speed and damage increased, 2 more trees can be spawned
 			// Pearlwood: Damage increased and cooldown reduced
 			// Platinum: No upgrade
-			// Pumpkin: No upgrade
+			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
 			// Rain: No upgrade
 			// RedRiding: No upgrade
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
@@ -2363,7 +2363,8 @@ Mods: {
 				// DisplayName: Ash Wood Enchantment
 				/* Tooltip:
 					'''
-					Fire debuffs don't damage you or town NPCs
+					Fire debuffs don't damage you
+					Above effect works for town NPCs while equipped or in your inventory
 					While you're burning, attacks are accompanied by balls of fire
 					Grants immunity to Oiled
 					Reduces damage from touching lava
@@ -5333,6 +5334,17 @@ Mods: {
 			BanishedBaronBag: {
 				// Tooltip: ""
 				// DisplayName: Banished Baron Bag
+			}
+
+			RustedOxygenTank: {
+				// DisplayName: Rusted Oxygen Tank
+				/* Tooltip:
+					'''
+					Works in your inventory
+					You count as wet outside water
+					While not mounted, grants floaty watery movement
+					Increased movement speed while in any liquid
+					''' */
 			}
 		}
 

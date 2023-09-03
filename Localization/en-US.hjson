@@ -5344,6 +5344,18 @@ Mods: {
 				Tooltip: ""
 				DisplayName: Banished Baron Bag
 			}
+
+			RustedOxygenTank: {
+				DisplayName: Rusted Oxygen Tank
+				Tooltip:
+					'''
+					Works in your inventory
+					You count as wet outside water
+					While not mounted, grants floaty watery movement
+					Increased movement speed while in any liquid
+					'Nobody knows how it works'
+					'''
+			}
 		}
 
 		NPCs: {
