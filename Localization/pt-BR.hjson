@@ -5344,7 +5344,13 @@ Mods: {
 					You count as wet outside water
 					While not mounted, grants floaty watery movement
 					Increased movement speed while in any liquid
+					'Nobody knows how it works'
 					''' */
+			}
+
+			RoseTintedVisor: {
+				// Tooltip: ""
+				// DisplayName: Rose Tinted Visor
 			}
 		}
 
@@ -6244,6 +6250,7 @@ Mods: {
 			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
 			// MechLureProjectile.DisplayName: Mech Lure Projectile
+			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

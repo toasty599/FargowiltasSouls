@@ -7,8 +7,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 
-namespace FargowiltasSouls.Content.Items.Weapons.Challengers
+namespace FargowiltasSouls.Content.PlayerDrawLayers
 {
     public class RustrifleReload : PlayerDrawLayer
     {
@@ -23,20 +24,20 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
                 Vector2 barPos = (player.gravDir > 0 ? player.Bottom : player.Top) - Main.screenPosition;
 
-                Texture2D barTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/RustrifleReloadBar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D barTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/RustrifleReloadBar", AssetRequestMode.ImmediateLoad).Value;
                 Rectangle barRectangle = barTexture.Bounds;
 
-                
+
                 barPos.Y += 40 * player.gravDir;
 
                 int barWidth = barRectangle.Width - 16;
                 Vector2 barPos0 = barPos - Vector2.UnitX * barWidth / 2;
-                
+
 
                 DrawData bar = new(barTexture, barPos, barRectangle, Color.White, player.gravDir < 0 ? MathHelper.Pi : 0f, barRectangle.Size() / 2, 1f, SpriteEffects.None, 0);
                 drawInfo.DrawDataCache.Add(bar);
 
-                Texture2D zoneTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/RustrifleReloadZone", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D zoneTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/RustrifleReloadZone", AssetRequestMode.ImmediateLoad).Value;
                 Rectangle zoneRectangle = zoneTexture.Bounds;
 
 
@@ -44,7 +45,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 DrawData zone = new(zoneTexture, zonePos, zoneRectangle, Color.White, player.gravDir < 0 ? MathHelper.Pi : 0f, zoneRectangle.Size() / 2, 1f, SpriteEffects.None, 0);
                 drawInfo.DrawDataCache.Add(zone);
 
-                Texture2D sliderTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/RustrifleReloadSlider", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D sliderTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/RustrifleReloadSlider", AssetRequestMode.ImmediateLoad).Value;
                 Rectangle sliderRectangle = sliderTexture.Bounds;
 
 

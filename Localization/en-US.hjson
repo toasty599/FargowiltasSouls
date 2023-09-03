@@ -5356,6 +5356,11 @@ Mods: {
 					'Nobody knows how it works'
 					'''
 			}
+
+			RoseTintedVisor: {
+				Tooltip: ""
+				DisplayName: Rose Tinted Visor
+			}
 		}
 
 		NPCs: {
@@ -6254,6 +6259,7 @@ Mods: {
 			DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
 			MechLureProjectile.DisplayName: Mech Lure Projectile
+			RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

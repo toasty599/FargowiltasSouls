@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.shoot = ModContent.ProjectileType<CrystallineCongregationProj>();
             Item.shootSpeed = 1f;
             Item.noMelee = true;
-            Item.mana = 5; //BALANCE
+            Item.mana = 7;
         }
         public override Vector2? HoldoutOffset()
         {
