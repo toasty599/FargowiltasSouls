@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             if (modPlayer.WoodForce)
             {
-                attackRate = 30;
+                attackRate = 35;
             }
 
             if (Projectile.ai[1] >= attackRate)

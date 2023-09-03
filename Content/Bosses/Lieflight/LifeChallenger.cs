@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         public double Phase;
 
-        private bool first = true;
+        //private bool first = true;
 
         private bool flyfast;
 
@@ -2964,6 +2964,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 oldstate = -665;
             }
 
+            /*
             if (first)
             {
                 state = 0;
@@ -2971,6 +2972,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 first = false;
                 oldstate = -666;
             }
+            */
             NPC.netUpdate = true;
         }
 
