@@ -2357,7 +2357,8 @@ Mods: {
 				DisplayName: Ash Wood Enchantment
 				Tooltip:
 					'''
-					Fire debuffs don't damage you or town NPCs
+					Fire debuffs don't damage you
+					Above effect works for town NPCs while equipped or in your inventory
 					While you're burning, attacks are accompanied by balls of fire
 					Grants immunity to Oiled
 					Reduces damage from touching lava

@@ -28,6 +28,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Item.value = 50000;
         }
 
+        public override void UpdateInventory(Player player)
+        {
+            AshWoodEnchant.PassiveEffect(player);
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             ObsidianEffect(player, Item);

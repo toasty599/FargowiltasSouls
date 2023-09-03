@@ -637,7 +637,7 @@ namespace FargowiltasSouls.Core.Globals
                     damage = 20;
                 }
             }
-            bool anyAshwood = modPlayer.AshWoodEnchantItem != null;
+            bool anyAshwood = modPlayer.fireNoDamage;
             if (npc.onFire)
             {
                 if (npc.townNPC && anyAshwood)

@@ -60,6 +60,10 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}] Grants immunity to fire and lava\
 //             Tooltip.AddTranslation((int)GameCulture.CultureName.Portuguese, string.Format(tooltip_pt, Enchants[0], Enchants[1], Enchants[2], Enchants[3], Enchants[4], Enchants[5], Enchants[6]));
         }
 
+        public override void UpdateInventory(Player player)
+        {
+            AshWoodEnchant.PassiveEffect(player);
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();

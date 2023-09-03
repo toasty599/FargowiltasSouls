@@ -27,14 +27,20 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }
-
+        public static void PassiveEffect(Player player)
+        {
+            player.GetModPlayer<FargoSoulsPlayer>().fireNoDamage = true;
+        }
+        public override void UpdateInventory(Player player) => PassiveEffect(player);
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            
             AshwoodEffect(player, Item);
         }
 
         public static void AshwoodEffect(Player player, Item item)
         {
+            PassiveEffect(player);
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.AshWoodEnchantItem = item;
             player.buffImmune[ModContent.BuffType<OiledBuff>()] = true;

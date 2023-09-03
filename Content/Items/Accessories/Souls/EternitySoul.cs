@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -127,6 +128,7 @@ This stacks up to 950 times until you get hit"); */
         void PassiveEffect(Player player)
         {
             BionomicCluster.PassiveEffect(player, Item);
+            AshWoodEnchant.PassiveEffect(player);
 
             player.GetModPlayer<FargoSoulsPlayer>().CanAmmoCycle = true;
 

@@ -48,6 +48,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public float RustRifleReloadZonePos = 0;
         public float RustRifleReloadProgress = 0;
 
+        public bool fireNoDamage = false;
+
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
         public bool DoubleTap
@@ -243,6 +245,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             ShadewoodEnchantItem = null;
             PearlwoodEnchantItem = null;
             AshWoodEnchantItem = null;
+            fireNoDamage = false;
 
             RainEnchantActive = false;
             AncientShadowEnchantActive = false;
