@@ -347,7 +347,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             //TODO: Add loot
-            //npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BanishedBaronBag>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BanishedBaronBag>()));
             //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BanishedBaronTrophy>(), 10));
 
             //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<BanishedBaronRelic>()));
