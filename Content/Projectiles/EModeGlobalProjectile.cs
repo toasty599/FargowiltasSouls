@@ -589,7 +589,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         case ProjectileID.ChlorophytePartisan:
                             {
-                                if (projectile.ai[1] == duration / 2 + WaitTime * 2 / 3)
+                                if (projectile.ai[1] == duration / 2 + WaitTime * 2 / 3 && Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.SporeCloud, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
                                 }
@@ -597,7 +597,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
                         case ProjectileID.OrichalcumHalberd:
                             {
-                                if (projectile.ai[1] == duration / 2 || projectile.ai[1] == duration / 2 + WaitTime)
+                                if (projectile.ai[1] == duration / 2 || projectile.ai[1] == duration / 2 + WaitTime && Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.FlowerPetal, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
                                 }

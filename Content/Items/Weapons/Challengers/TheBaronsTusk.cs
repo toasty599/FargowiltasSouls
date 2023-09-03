@@ -59,9 +59,12 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             {
                 SoundEngine.PlaySound(SoundID.Item1, player.Center);
                 SoundEngine.PlaySound(SoundID.Item39, player.Center);
-
-                Vector2 vel = Item.shootSpeed * Vector2.Normalize(Main.MouseWorld - player.itemLocation).RotatedByRandom(MathHelper.Pi / 14);
-                Projectile.NewProjectile(Item.GetSource_FromThis(), player.itemLocation, vel, Item.shoot, Item.damage / 3, Item.knockBack, player.whoAmI);
+                for (int i = 0; i < 3; i++)
+                {
+                    Vector2 vel = (Item.shootSpeed + Main.rand.Next(-2, 2)) * Vector2.Normalize(Main.MouseWorld - player.itemLocation).RotatedByRandom(MathHelper.Pi / 14);
+                    Projectile.NewProjectile(Item.GetSource_FromThis(), player.itemLocation, vel, Item.shoot, Item.damage / 3, Item.knockBack, player.whoAmI);
+                }
+                
             }
             if (Timer > 2 * player.itemAnimationMax / 3)
             {

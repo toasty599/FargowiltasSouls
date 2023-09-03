@@ -51,8 +51,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (HomePos == Vector2.Zero) //get homing pos
             {
-                Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
-                if (player.active && !player.ghost)
+                Player player = Main.player[(int)Projectile.ai[1]];
+                if (player != null && player.active && !player.ghost)
                 {
                     HomePos = player.Center;
                 }
@@ -63,8 +63,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Projectile.ai[0] == 3 || Projectile.ai[0] == 1) //homing
             {
-                Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
-                if (player.active && !player.ghost && Projectile.localAI[0] > 10) //homing
+                Player player = Main.player[(int)Projectile.ai[1]];
+                if (player != null && player.active && !player.ghost && Projectile.localAI[0] > 10) //homing
                 {
                     Vector2 vectorToIdlePosition = LerpWithoutClamp(HomePos, player.Center, Projectile.ai[2]) - Projectile.Center;
                     float speed = WorldSavingSystem.MasochistModeReal ? 18f : 18f;

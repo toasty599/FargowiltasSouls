@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -7,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
@@ -35,7 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public bool Fade;
         public bool Animate;
-        public Projectile Child;
+        public int ChildID;
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
@@ -45,6 +47,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 4);
             target.AddBuff(BuffID.Rabies, 60 * 10);
+        }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write7BitEncodedInt(ChildID);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            ChildID = reader.Read7BitEncodedInt();
         }
         public override void AI()
         {
@@ -116,21 +126,22 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Number = 3;
             }
-            if (Timer == 8 && Number > 0)
+            if (Timer == 8 && Number > 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Child = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center + Vector2.UnitY * Projectile.height, Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI, Number - 1);
+                ChildID = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center + Vector2.UnitY * Projectile.height, Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI, Number - 1);
             }
             if (Fade)
             {
                 Projectile.alpha += 17;
                 if (Projectile.alpha >= 238)
                 {
-                    if (Child != null)
+                    Projectile child = Main.projectile[ChildID];
+                    if (child != null)
                     {
-                        if (Child.active && Child.type == Type)
+                        if (child.active && child.type == Type)
                         {
-                            (Child.ModProjectile as BaronWhirlpool).Fade = true;
-                            (Child.ModProjectile as BaronWhirlpool).Animate = true;
+                            (child.ModProjectile as BaronWhirlpool).Fade = true;
+                            (child.ModProjectile as BaronWhirlpool).Animate = true;
                         }
                     }
                     Projectile.Kill();

@@ -20,7 +20,6 @@ namespace FargowiltasSouls.Content.Buffs.Boss
         public override void Update(Player player, ref int buffIndex)
         {
             player.gills = true;
-            player.accFlipper = true;
             player.ignoreWater = true;
             if (!player.wet)
             {

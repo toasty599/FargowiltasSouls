@@ -45,12 +45,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             ref float State = ref Projectile.ai[2];
 
             NPC baron = Main.npc[(int)ParentID];
-            if (!baron.active || baron.type != ModContent.NPCType<BanishedBaron>() || !NPC.AnyNPCs(ModContent.NPCType<BanishedBaron>()))
+            if (baron == null || !baron.active || baron.type != ModContent.NPCType<BanishedBaron>() || !NPC.AnyNPCs(ModContent.NPCType<BanishedBaron>()))
             {
                 Projectile.Kill();
             }
             Player player = Main.player[baron.target];
-            if (player.active)
+            if (player != null && player.active && !player.dead && !player.ghost)
             {
                 if (Timer == 0) //done this way to work with world borders
                 {

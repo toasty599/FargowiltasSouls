@@ -27,6 +27,7 @@ using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
+using FargowiltasSouls.Content.Items.Summons;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
@@ -164,11 +165,19 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.localAI[0]);
+            writer.Write7BitEncodedInt(ArenaProjID);
+            writer.Write7BitEncodedInt(Phase);
+            writer.WriteVector2(LockVector1);
+            writer.WriteVector2(LockVector2);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.localAI[0] = reader.ReadSingle();
+            ArenaProjID = reader.Read7BitEncodedInt();
+            Phase = reader.Read7BitEncodedInt();
+            LockVector1 = reader.ReadVector2();
+            LockVector2 = reader.ReadVector2();
         }
         #endregion
         #region Overrides
@@ -405,8 +414,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (ArenaProjID == -1 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         ArenaProjID = Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, Vector2.Zero, type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, NPC.whoAmI, 2);
-                        NPC.netUpdate = true;
+                        
                     }
+                    NPC.netUpdate = true;
                     break;
             }
             //Normal looping attack AI
@@ -507,6 +517,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -24);
                 }
+                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.BanishedBaron] && Main.netMode != NetmodeID.MultiplayerClient)
+                    Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<BaronSummon>());
             }
             if (Timer > 90)
             {
@@ -813,6 +825,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 AI2 = Math.Sign(NPC.Center.X - player.Center.X);
                 LockVector1 = player.Center + new Vector2(Xstart * AI2, 0);
                 SoundEngine.PlaySound(BaronYell, NPC.Center);
+                NPC.netUpdate = true;
             }
             if (AI3 == 0)
             {
@@ -1351,7 +1364,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         void P2Whirlpool()
         {
             Projectile arena = Main.projectile[ArenaProjID];
-            bool arenaReal = arena.active && arena.type == ModContent.ProjectileType<BaronArenaWhirlpool>();
+            bool arenaReal = arena != null && arena.active && arena.type == ModContent.ProjectileType<BaronArenaWhirlpool>();
             if (!arenaReal)
             {
                 NPC.velocity = Vector2.Zero;

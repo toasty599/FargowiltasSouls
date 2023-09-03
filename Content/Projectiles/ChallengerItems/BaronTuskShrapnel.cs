@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
             Projectile.scale = 1f;
             Projectile.timeLeft = 60 * 60;
@@ -58,6 +58,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                 case 1:
                     {
                         Projectile.friendly = false;
+                        Projectile.tileCollide = false;
                         if (EmbeddedNPC.active)
                         {
                             Projectile.Center = EmbeddedNPC.Center + embedOffset;
@@ -73,6 +74,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                     {
                         Projectile.velocity = Vector2.Normalize(embedOffset) * 20;
                         Projectile.friendly = true;
+                        Projectile.tileCollide = true;
                         Projectile.penetrate = 2;
                         EmbeddedNPC = null;
                         embedOffset = Vector2.Zero;
