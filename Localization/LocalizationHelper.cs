@@ -127,7 +127,7 @@ namespace FargowiltasSouls
                 AddBossSpawnInfo("LifeChallenger", $"Spawn by using [i:{"FragilePixieLamp"}] in the Hallow at day.");
                 //JAVYZ TODO: Cursed Coffin and Banished Baron
                 //AddBossSpawnInfo("CursedCoffin", $"Spawn by using [i:{"CoffinSummon"}] in the Underground Desert.");
-                //AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{"BaronSummon"}] underwater at the ocean.");
+                AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{"BaronSummon"}] underwater at the ocean.");
             }
 
             #endregion boss spawn info

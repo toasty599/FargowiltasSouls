@@ -90,7 +90,6 @@ namespace FargowiltasSouls.Content.Projectiles
                         Projectile.rotation = Projectile.ai[1];
                     }
                     break;
-                //JAVYZ TODO: Banished Baron
                 
                 case 2: //banished baron dash telegraph
                     {

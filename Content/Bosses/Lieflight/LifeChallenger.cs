@@ -209,6 +209,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             writer.Write7BitEncodedInt(index2);
             writer.Write7BitEncodedInt(P1state);
             writer.Write7BitEncodedInt(oldP1state);
+            writer.WriteVector2(LockVector1);
+            writer.WriteVector2(LockVector2);
             writer.Write(UseTrueOriginAI);
         }
 
@@ -221,6 +223,9 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             P1state = reader.Read7BitEncodedInt();
             oldP1state = reader.Read7BitEncodedInt();
             UseTrueOriginAI = reader.ReadBoolean();
+            LockVector1 = reader.ReadVector2();
+            LockVector2 = reader.ReadVector2();
+
         }
         #endregion
         #region AI
