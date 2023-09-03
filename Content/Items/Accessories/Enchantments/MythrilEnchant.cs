@@ -55,7 +55,7 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
             else
             {
                 fargoPlayer.MythrilTimer++;
-                if (fargoPlayer.MythrilTimer == fargoPlayer.MythrilMaxTime - 1)
+                if (fargoPlayer.MythrilTimer == fargoPlayer.MythrilMaxTime - 1 && player.whoAmI == Main.myPlayer)
                 {
                     SoundEngine.PlaySound(new SoundStyle($"{nameof(FargowiltasSouls)}/Assets/Sounds/ChargeSound"), player.Center);
                 }

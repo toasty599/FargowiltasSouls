@@ -5315,7 +5315,8 @@ Mods: {
 				Tooltip:
 					'''
 					Swings emit flying shrapnel, that can embed in enemies
-					Hitting enemies that have more than 15 embedded shrapnel with the tusk rips it out, dealing a big chunk of damage, and is guaranteed to crit
+					Hitting enemies that have more than 15 embedded shrapnel with the tusk rips it out
+					The rip deals a large chunk of damage and is guaranteed to critically strike
 					Shrapnel is also ripped out when the enemy dies
 					'''
 			}
@@ -5326,7 +5327,7 @@ Mods: {
 					'''
 					Manually reload after each shot
 					Time the reload correctly to empower your next shot
-					Empowered shots deal double damage and are guaranteed to crit
+					Empowered shots deal double damage and are guaranteed to critically strike
 					'''
 			}
 
@@ -5336,7 +5337,8 @@ Mods: {
 					'''
 					Marks a location with a reticle, consuming all your sentry slots
 					In 5 seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
-					All your minions hit by the explosion are blown up into homing splinters that are guaranteed to crit
+					All your minions hit by the explosion are blown up into homing splinters
+					Splinters are guaranteed to critically strike
 					'''
 			}
 
@@ -5351,15 +5353,19 @@ Mods: {
 					'''
 					Works in your inventory
 					You count as wet outside water
-					While not mounted, grants floaty watery movement
+					While not mounted, grants floaty water movement
 					Increased movement speed while in any liquid
 					'Nobody knows how it works'
 					'''
 			}
 
 			RoseTintedVisor: {
-				Tooltip: ""
 				DisplayName: Rose Tinted Visor
+				Tooltip:
+				'''
+				Fires up to 6 lasers on release, depending on charge time
+				Has extra critical strike chance depending on lasers charged, up to 100%
+				'''
 			}
 		}
 

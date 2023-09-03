@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Projectile.friendly = false;
                 if (Projectile.ai[0] < 60 * 3)
                     Projectile.ai[0]++;
-                if (Projectile.ai[0] == 60 * 3 - 1)
+                if (Projectile.ai[0] == 60 * 3 - 1 && player.whoAmI == Main.myPlayer)
                 {
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), Projectile.Center + Projectile.velocity * Projectile.Size.Length() / 2);
                 }

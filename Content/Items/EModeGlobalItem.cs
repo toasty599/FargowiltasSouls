@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Items
                 if (ePlayer.MythrilHalberdTimer > 121)
                     ePlayer.MythrilHalberdTimer = 121;
 
-                if (ePlayer.MythrilHalberdTimer == 120)
+                if (ePlayer.MythrilHalberdTimer == 120 && player.whoAmI == Main.myPlayer)
                 {
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), player.Center);
                 }

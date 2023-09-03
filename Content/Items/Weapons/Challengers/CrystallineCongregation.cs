@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.channel = true;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 1f;
-            Item.value = Item.sellPrice(0, 25);
+            Item.value = Item.sellPrice(0, 10);
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item101;
             Item.autoReuse = true;
@@ -53,7 +53,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 delay--;
             if (delay == 1)
             {
-                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), player.Center);
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), player.Center);
+                }
                 //dust
                 double spread = 2 * Math.PI / 36;
                 for (int i = 0; i < 36; i++)
