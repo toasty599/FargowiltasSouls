@@ -201,7 +201,7 @@ Mods: {
 			// CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
 			// TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
 			// LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
-			// BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/BaronSummon] underwater at the Ocean.
+			// BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		}
 
 		Message: {
@@ -5276,9 +5276,9 @@ Mods: {
 					''' */
 			}
 
-			BaronSummon: {
-				// Tooltip: ""
-				// DisplayName: Baron Summon
+			MechLure: {
+				// DisplayName: Mechanical Lure
+				// Tooltip: Throw underwater at the Ocean to lure out a shrouded creature
 			}
 
 			TheBaronsTusk: {
@@ -5309,6 +5309,11 @@ Mods: {
 					In 5 seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
 					All your minions hit by the explosion are blown up into homing splinters that are guaranteed to crit
 					''' */
+			}
+
+			BanishedBaronBag: {
+				// Tooltip: ""
+				// DisplayName: Banished Baron Bag
 			}
 		}
 
@@ -6207,6 +6212,7 @@ Mods: {
 			// DecrepitAirstrike.DisplayName: Decrepit Airstrike
 			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
+			// MechLureProjectile.DisplayName: Mech Lure Projectile
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

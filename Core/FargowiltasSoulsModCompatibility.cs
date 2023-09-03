@@ -283,7 +283,7 @@ namespace FargowiltasSouls
                     {
 
                     }),
-                    new List<int> { ModContent.ItemType<BaronSummon>() },
+                    new List<int> { ModContent.ItemType<MechLure>() },
                     true
                 );
                 

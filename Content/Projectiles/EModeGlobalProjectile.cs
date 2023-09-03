@@ -1363,9 +1363,14 @@ namespace FargowiltasSouls.Content.Projectiles
                         player.AddBuff(BuffID.RapidHealing, 60 * 5);
                     break;
                 case ProjectileID.CobaltNaginata:
-                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
-                    if (p != null)
-                        p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                    if (projectile.ai[2] < 2) //only twice per swing
+                    {
+                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
+                        if (p != null)
+                            p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                        projectile.ai[2]++;
+                    }
+                    
                     break;
                 default:
                     break;

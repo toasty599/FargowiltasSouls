@@ -28,6 +28,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Items.Summons;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
@@ -149,6 +150,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronDeath");
+            NPC.alpha = 255;
 
             Music = MusicID.OtherworldlyBoss1;
             SceneEffectPriority = SceneEffectPriority.BossLow;
@@ -386,9 +388,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             if (State == 0 && Timer == 0) //opening
             {
-                NPC.position = player.Center + new Vector2(player.direction * 300, -100) - NPC.Size / 2;
+                NPC.position = player.Center + new Vector2(Math.Sign(player.Center.X - Main.spawnTileX) * 1400, -100) - NPC.Size / 2;
                 NPC.rotation = NPC.DirectionTo(player.Center).ToRotation();
-                LockVector1 = player.Center;
                 NPC.velocity = Vector2.Zero;
             }
             //Phase 1/2 specific passive attributes
@@ -508,8 +509,37 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         {
             Anim = 1;
             //NPC.rotation = (float)(Math.Sin(MathHelper.ToRadians(Timer) * 16) * MathHelper.Pi/24);
-            RotateTowards(player.Center, 0.5f);
-            if (Timer == 30)
+            if (LockVector1 == Vector2.Zero)
+            {
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    Projectile p = Main.projectile[i];
+                    if (p != null && p.active && p.type == ModContent.ProjectileType<MechLureProjectile>())
+                    {
+                        LockVector1 = p.Center;
+                        break;
+                    }
+                }
+                if (LockVector1 == Vector2.Zero) //no lure found
+                {
+                    LockVector1 = player.Center;
+                }
+            }
+            if (NPC.alpha > 0)
+            {
+                NPC.alpha -= 2;
+            }
+            else
+            {
+                NPC.alpha = 0;
+            }
+            if (LockVector1 != Vector2.Zero)
+            {
+                RotateTowards(LockVector1, 1.5f);
+                NPC.velocity = (LockVector1 - NPC.Center) * 0.05f;
+            }
+            
+            if (Timer == 60)
             {
                 SoundEngine.PlaySound(SoundID.Item21, NPC.Center);
                 SoundEngine.PlaySound(SoundID.Item92, NPC.Center);
@@ -518,7 +548,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -24);
                 }
                 if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.BanishedBaron] && Main.netMode != NetmodeID.MultiplayerClient)
-                    Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<BaronSummon>());
+                    Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<MechLure>());
             }
             if (Timer > 90)
             {

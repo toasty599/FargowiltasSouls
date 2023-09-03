@@ -13,9 +13,8 @@ using FargowiltasSouls.Content.Bosses.BanishedBaron;
 namespace FargowiltasSouls.Content.Items.Summons
 {
 
-    public class BaronSummon : SoulsItem
+    public class MechLure : SoulsItem
     {
-        public override string Texture => "FargowiltasSouls/Content/Items/Placeholder";
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Baron Summon");
@@ -32,17 +31,21 @@ namespace FargowiltasSouls.Content.Items.Summons
             Item.height = 32;
             Item.useAnimation = 30;
             Item.useTime = 30;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useStyle = ItemUseStyleID.Rapier;
             Item.rare = ItemRarityID.Orange;
             Item.consumable = true;
             Item.maxStack = 20;
-            Item.noUseGraphic = false;
+            Item.noUseGraphic = true;
+            Item.shoot = ModContent.ProjectileType<MechLureProjectile>();
+            Item.shootSpeed = 10f;
+            Item.UseSound  = SoundID.Item1;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe() //change
-                .AddRecipeGroup("FargowiltasSouls:AnyGoldBar", 4)
+                .AddRecipeGroup(RecipeGroupID.IronBar, 4)
+                .AddIngredient(ItemID.Worm, 3)
                 .AddTile(TileID.DemonAltar)
                 .Register();
         }
@@ -56,6 +59,7 @@ namespace FargowiltasSouls.Content.Items.Summons
 
         public override bool? UseItem(Player player)
         {
+            /*
             if (player.whoAmI == Main.myPlayer)
             {
                 // If the player using the item is the client
@@ -74,6 +78,7 @@ namespace FargowiltasSouls.Content.Items.Summons
                     NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<BanishedBaron>());
                 }
             }
+            */
             return true;
         }
     }
