@@ -69,7 +69,6 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                 || projectile.type == ProjectileID.MonkStaffT2
                 || projectile.type == ProjectileID.Arkhalis
                 || projectile.type == ProjectileID.Terragrim
-                //|| projectile.type == ProjectileID.PiercingStarlight
                 || projectile.type == ProjectileID.JoustingLance
                 || projectile.type == ProjectileID.HallowJoustingLance
                 || projectile.type == ProjectileID.ShadowJoustingLance
