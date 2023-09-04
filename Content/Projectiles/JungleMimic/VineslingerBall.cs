@@ -26,10 +26,11 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
 
         public override bool PreDraw(ref Color lightColor)
         {
+            //chain texture drawing
             Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/JungleMimic/VineslingerChain", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
             Vector2 position = Projectile.Center;
-            Vector2 mountedCenter = Main.player[Projectile.owner].MountedCenter;
+            Vector2 mountedCenter = Main.player[Projectile.owner].MountedCenter + Vector2.UnitY * 6;
             Rectangle? sourceRectangle = new Rectangle?();
             Vector2 origin = new(texture.Width * 0.5f, texture.Height * 0.5f);
             float num1 = texture.Height;
@@ -58,7 +59,16 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
                 }
             }
 
-            return true;
+            //ball texture drawing
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
+            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
+            Vector2 origin2 = rectangle.Size() / 2f;
+            Color color26 = lightColor;
+            color26 = Projectile.GetAlpha(color26);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
+            return false;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

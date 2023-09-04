@@ -5362,10 +5362,10 @@ Mods: {
 			RoseTintedVisor: {
 				DisplayName: Rose Tinted Visor
 				Tooltip:
-				'''
-				Fires up to 6 lasers on release, depending on charge time
-				Has extra critical strike chance depending on lasers charged, up to 100%
-				'''
+					'''
+					Fires up to 6 lasers on release, depending on charge time
+					Has extra critical strike chance depending on lasers charged, up to 100%
+					'''
 			}
 		}
 

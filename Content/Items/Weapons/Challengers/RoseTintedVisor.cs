@@ -55,7 +55,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                     Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Top + Vector2.UnitY * 8, vel, Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
                     player.velocity -= vel;
                 }
-                SoundEngine.PlaySound(SoundID.Item68, player.Center);
+                if (Charges >= 6)
+                {
+                    SoundEngine.PlaySound(SoundID.Item68, player.Center);
+                }
                 player.reuseDelay = 45;
                 Charges = 0;
             }
