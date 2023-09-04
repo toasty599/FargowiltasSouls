@@ -1237,7 +1237,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             {
                                 if (projectile.ai[1] == duration / 2 || projectile.ai[1] == duration / 2 + WaitTime && Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.FlowerPetal, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Normalize(projectile.velocity) * 5, ProjectileID.FlowerPetal, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
                                 }
                                 break;
                             }
