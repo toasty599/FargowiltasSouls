@@ -174,7 +174,7 @@ namespace FargowiltasSouls.Content.Items
                     return EModeChange.Nerf;
                 case ItemID.DD2SquireBetsySword:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.85f;
+                    balanceNumber = 0.70f;
                     return EModeChange.Nerf;
 
                 //case ItemID.Tsunami:
