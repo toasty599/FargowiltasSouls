@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 {
                     Vector2 aim = Vector2.UnitY * -30;
                     child = FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), Projectile.Center + (Vector2.UnitY * height / 2), NPCID.SolarGoop, velocity: aim);
-                    if (Main.npc[child].active)
+                    if (Main.npc[child].active && child != Main.maxNPCs)
                     {
                         Main.npc[child].damage = Projectile.damage;
                     }

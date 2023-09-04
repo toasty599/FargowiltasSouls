@@ -107,6 +107,7 @@ namespace FargowiltasSouls.Content.Items
             ItemID.Excalibur,
             ItemID.TrueExcalibur,
             ItemID.PiercingStarlight,
+            ItemID.TheHorsemansBlade,
             ModContent.ItemType<TheBaronsTusk>()
         };
         public override void ModifyItemScale(Item item, Player player, ref float scale)

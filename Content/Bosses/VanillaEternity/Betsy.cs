@@ -69,6 +69,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (WorldSavingSystem.SwarmActive)
                 return true;
 
+            npc.boss = npc.HasValidTarget || !DD2Event.Ongoing; //allow players to respawn in mp if everyone is dead during event
 
             if (EntranceTimer == 0)
             {
