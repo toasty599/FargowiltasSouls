@@ -48,7 +48,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
             modPlayer.TungstenEnchantItem = item;
 
-            if (!modPlayer.TerrariaSoul && player.HeldItem.damage > 0 && player.HeldItem.CountsAsClass(DamageClass.Melee) && (!item.noMelee || FargoGlobalItem.TungstenAlwaysAffects.Contains(item.type)) && player.HeldItem.pick == 0 && player.HeldItem.axe == 0 && player.HeldItem.hammer == 0)
+            if (!modPlayer.TerrariaSoul && player.HeldItem.damage > 0 && player.HeldItem.CountsAsClass(DamageClass.Melee) && (!player.HeldItem.noMelee || FargoGlobalItem.TungstenAlwaysAffects.Contains(player.HeldItem.type)) && player.HeldItem.pick == 0 && player.HeldItem.axe == 0 && player.HeldItem.hammer == 0)
             {
                 modPlayer.Player.GetAttackSpeed(DamageClass.Melee) -= 0.5f;
             }
