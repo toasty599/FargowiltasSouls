@@ -357,6 +357,7 @@ namespace FargowiltasSouls.Content.Items
                 velocity *= 2;
             else if (modPlayer.UniverseSoul)
                 velocity *= 1.5f;
+
         }
 
         //        public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount)

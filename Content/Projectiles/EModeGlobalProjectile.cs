@@ -512,7 +512,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 OnFirstTick(projectile);
             }
-
+            
             counter++;
 
             //delay the very bottom piece of sharknados spawning in, also delays spawning sharkrons

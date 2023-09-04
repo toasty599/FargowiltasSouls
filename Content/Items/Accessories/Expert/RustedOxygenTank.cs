@@ -72,12 +72,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
                 player.velocity.Y = (0f - Player.jumpSpeed) * player.gravDir;
                 player.jump = Player.jumpHeight;
             }
-            if (player.mount == null)
-            {
-                player.position -= player.velocity * 0.5f; //water speed is half of normal speed
-            }
-            
-            
+            player.position -= player.velocity * 0.5f; //water speed is half of normal speed
+
+
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual) => PassiveEffect(player);
