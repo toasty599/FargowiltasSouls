@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Items
             return base.ConsumeItem(item, player);
         }
 
-        static List<int> TungstenAlwaysAffects = new List<int>
+        public static List<int> TungstenAlwaysAffects = new List<int>
         {
             ItemID.TerraBlade,
             ItemID.NightsEdge,

@@ -112,9 +112,6 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "Zapinator" };
                     return EModeChange.Nerf;
 
-                case ItemID.PiercingStarlight:
-                    balanceNumber = 0.9f;
-                    return EModeChange.Nerf;
 
                 case ItemID.CoinGun:
                     balanceTextKeys = new string[] { "CoinGun" };
@@ -256,6 +253,16 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 0.6f;
                     return EModeChange.Nerf;
 
+                    /*
+                case ItemID.TerraBlade:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.6f;
+                    return EModeChange.Nerf;
+                    */
+                case ItemID.PiercingStarlight:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.6f;
+                    return EModeChange.Nerf;
                 //case ItemID.MonkAltHead:
                 //case ItemID.MonkAltPants:
                 //case ItemID.MonkAltShirt:
