@@ -37,8 +37,10 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (player.active && !player.dead && modPlayer.PalmEnchantItem != null)
-                Projectile.timeLeft = 2;
+            if (!(player.active && !player.dead && modPlayer.PalmEnchantItem != null))
+            {
+                Projectile.Kill();
+            }//this is to work properly with sentry despawning
 
             Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
             if (Projectile.velocity.Y > 16f)

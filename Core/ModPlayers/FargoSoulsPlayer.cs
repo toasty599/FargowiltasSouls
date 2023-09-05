@@ -405,6 +405,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Stunned = false;
             HaveCheckedAttackSpeed = false;
             BoxofGizmos = false;
+            OxygenTank = false;
             //IronEnchantShield = false;
             SilverEnchantItem = null;
             DreadShellItem = null;

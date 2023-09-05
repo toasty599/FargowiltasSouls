@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
@@ -63,6 +64,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                     unstableCD = 60;
                 }
                 unstableCD--;
+            }
+
+            if (OxygenTank)
+            {
+                RustedOxygenTank.PassiveEffect(Player);
             }
 
             if (BeeEnchantActive && BeeCD > 0)

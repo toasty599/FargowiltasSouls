@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
             Item.expert = true;
         }
 
-        void PassiveEffect(Player player)
+        public static void PassiveEffect(Player player)
         {
             if (Collision.WetCollision(player.position - 20 * Vector2.UnitX - 20 * Vector2.UnitY, player.width + 10, player.height + 10)) //need some extra otherwise you get stuck near water
             {
@@ -77,8 +77,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual) => PassiveEffect(player);
-        public override void UpdateVanity(Player player) => PassiveEffect(player);
-        public override void UpdateInventory(Player player) => PassiveEffect(player);
+        public override void UpdateAccessory(Player player, bool hideVisual) => player.GetModPlayer<FargoSoulsPlayer>().OxygenTank = true;
+        public override void UpdateVanity(Player player) => player.GetModPlayer<FargoSoulsPlayer>().OxygenTank = true;
+        public override void UpdateInventory(Player player) => player.GetModPlayer<FargoSoulsPlayer>().OxygenTank = true;
     }
 }

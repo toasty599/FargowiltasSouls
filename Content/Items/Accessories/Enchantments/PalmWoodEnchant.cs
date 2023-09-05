@@ -50,9 +50,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                 if (modPlayer.WoodForce)
                 {
-                    maxSpawn = 3;
+                    maxSpawn = 2;
                 }
-
 
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<PalmTreeSentry>()] > maxSpawn - 1)
                 {
@@ -67,6 +66,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                         }
                     }
                 }
+                
 
                 FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), mouse - 10 * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), modPlayer.WoodForce ? 100 : 15, 0f, player.whoAmI);
             }
