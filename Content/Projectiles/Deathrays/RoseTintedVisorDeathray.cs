@@ -47,7 +47,11 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CanHit = false;
-            Length = (int)(target.Center - Projectile.Center).Length();
+            if (Length > (int)(target.Center - Projectile.Center).Length())
+            {
+                Length = (int)(target.Center - Projectile.Center).Length();
+            }
+            
         }
         public override void AI()
         {
