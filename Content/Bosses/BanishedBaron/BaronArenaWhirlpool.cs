@@ -193,6 +193,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         private void FireBolts(Player player)
         {
             int Side = Math.Sign(player.Center.X - Projectile.Center.X);
+            if (Side == 0)
+            {
+                Side = 1;
+            }
             for (int i = -10; i <= 10; i++)
             {
                 const int speed = 7;
