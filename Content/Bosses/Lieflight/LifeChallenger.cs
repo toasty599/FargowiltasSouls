@@ -614,7 +614,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 NPC.dontTakeDamage = false;
             }
 
-            if (AI_Timer > 60 && chunklist.Count < ChunkCount)
+            if (chunklist.Count < ChunkCount)
             {
                 
                 //generating an even sphere using cartesian coordinates
@@ -638,7 +638,11 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 }
                 //}
             }
-            ChunkDistance = 1000 - ((1000 - ChunkDistanceMax) * ((float)AI_Timer / 240f));
+            if (AI_Timer < 180f)
+            {
+                ChunkDistance = 1000 - ((1000 - ChunkDistanceMax) * ((float)AI_Timer / 180f));
+            }
+            
             if (AI_Timer >= 240 && chunklist.Count >= ChunkCount)
             {
                 ChunkDistance = ChunkDistanceMax; // for good measure
@@ -898,6 +902,11 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 //        NPC.life = NPC.lifeMax;
                 //    CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
                 //}
+                if (AI_Timer == 5)
+                {
+                    SoundEngine.PlaySound(SoundID.Item29 with { Volume = 1.5f, Pitch = -0.5f }, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.ScaryScream with { Pitch = -0.5f }, NPC.Center);
+                }
                 if (AI_Timer < 60)
                 {
                     //if (AI_Timer % 5 == 0)
@@ -2028,6 +2037,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 NPC.netUpdate = true;
             }
 
+            float arcWidth = PhaseOne ? MathHelper.Pi / 5 : MathHelper.Pi / 7;
 
             if (AI_Timer < RandomWindup)
             { //wait for blast
@@ -2041,18 +2051,18 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     int timeLeft = ((int)RandomWindup - 30);
                     for (int i = -1; i < 2; i+= 2)
                     {
-                        float rot = (NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 12).ToRotation();
+                        float rot = (Player.Center - NPC.Center).RotatedBy(i * MathHelper.Pi / 9).ToRotation();
                         //TODO: arc telegraph
                         
-                        //int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot);
-                        //if (p != Main.maxProjectiles)
-                            //Main.projectile[p].timeLeft = timeLeft;
+                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, rot.ToRotationVector2(), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcWidth, 1000);
+                        if (p != Main.maxProjectiles)
+                            Main.projectile[p].timeLeft = timeLeft;
                     }
                     // ARC
 
-                    float ai0 = -(RandomWindup - 30);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 12), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
+                    //float ai0 = -(RandomWindup - 30);
+                    //Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
+                    //Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 12), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
 
                     if (!PhaseOne)
                     {
@@ -2060,15 +2070,15 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                         for (int i = -1; i < 2; i+= 2)
                         {
                             //TODO: arc telegraph
-                            float rot = ((NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4)).ToRotation();
-                            //int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot);
-                            //if (p != Main.maxProjectiles)
-                            //    Main.projectile[p].timeLeft = timeLeft;
+                            float rot = ((Player.Center - NPC.Center).RotatedBy(i * MathHelper.Pi / 4)).ToRotation();
+                            int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, rot.ToRotationVector2(), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcWidth, 1000);
+                            if (p != Main.maxProjectiles)
+                                Main.projectile[p].timeLeft = timeLeft;
                         }
                         // ARC
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
+                        //Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
+                        //Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, ai0, 2);
                     }
                 }
             }
@@ -2080,27 +2090,27 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             if (AI_Timer == RandomWindup - 20 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 // ARC
-                float rot1 = (NPC.Center - Player.Center).RotatedBy((-MathHelper.Pi / 12) + (RandomSide * MathHelper.Pi / 6)).ToRotation();
+                float rot1 = (Player.Center - NPC.Center).RotatedBy((-MathHelper.Pi / 9) + (RandomSide * MathHelper.Pi / 4.5f)).ToRotation();
                 //TODO: arc telegraph
-                //int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot1);
-                //if (p1 != Main.maxProjectiles)
-                   // Main.projectile[p1].timeLeft = 20;
+                int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, rot1.ToRotationVector2(), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcWidth, 1000);
+                if (p1 != Main.maxProjectiles)
+                    Main.projectile[p1].timeLeft = 20;
                 // ARC
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12 + RandomSide * MathHelper.Pi / 6), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
+                //Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 12 + RandomSide * MathHelper.Pi / 6), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
                 if (!PhaseOne)
                 {
                     // ARC
                     for (int i = -1; i < 2; i+= 2)
                     {
-                        float rot2 = (NPC.Center - Player.Center).RotatedBy(i * MathHelper.Pi / 4).ToRotation();
+                        float rot2 = (Player.Center - NPC.Center).RotatedBy(i * MathHelper.Pi / 4).ToRotation();
                         //TODO: arc telegraph
-                        //int p2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, rot2);
-                        //if (p2 != Main.maxProjectiles)
-                            //Main.projectile[p2].timeLeft = 20;
+                        int p2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, rot2.ToRotationVector2(), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcWidth, 1000);
+                        if (p2 != Main.maxProjectiles)
+                            Main.projectile[p2].timeLeft = 20;
                     }
                     // ARC
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
+                    //Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
+                   // Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (NPC.Center - Player.Center).RotatedBy(-MathHelper.Pi / 4), Vector2.Zero, ModContent.ProjectileType<LifeCrosshair>(), 0, 0f, Main.myPlayer, -20, 2);
                 }
             }
             else if (AI_Timer == RandomWindup)
@@ -2109,21 +2119,24 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 LockVector2 = NPC.DirectionTo(Player.Center) * shootSpeed;
                 NPC.netUpdate = true;
             }
-            else if ((AI_Timer - RandomWindup) % 10 == 0 && AI_Timer > RandomWindup && Main.netMode != NetmodeID.MultiplayerClient && (AI_Timer < RandomWindup + 90 && PhaseOne || AI_Timer < RandomWindup + 270 && !PhaseOne)) //blast
+            else if ((AI_Timer - RandomWindup) % 10 == 0 && AI_Timer > RandomWindup && (AI_Timer < RandomWindup + 90 && PhaseOne || AI_Timer < RandomWindup + 270 && !PhaseOne)) //blast
             {
                 SoundEngine.PlaySound(SoundID.Item12, Player.Center);
                 float knockBack10 = 3f;
-                for (int i = -3; i < 17; i++)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, LockVector2.RotatedBy(i * -MathHelper.Pi / 48 + i * RandomSide * MathHelper.Pi / 24), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
-                    if (p != Main.maxProjectiles)
-                        Main.projectile[p].timeLeft = 120;
-
-                    if (!PhaseOne)
+                    for (int i = -3; i < 17; i++)
                     {
-                        p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, LockVector2.RotatedBy(MathHelper.Pi / 4 + (i + 4) * MathHelper.Pi / 48 - (RandomSide * MathHelper.Pi / 2 + (i + 4) * RandomSide * MathHelper.Pi / 24)), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
+                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, LockVector2.RotatedBy(i * -MathHelper.Pi / 48 + i * RandomSide * MathHelper.Pi / 24), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = 120;
+
+                        if (!PhaseOne)
+                        {
+                            p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, LockVector2.RotatedBy(MathHelper.Pi / 4 + (i + 4) * MathHelper.Pi / 48 - (RandomSide * MathHelper.Pi / 2 + (i + 4) * RandomSide * MathHelper.Pi / 24)), ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer);
+                            if (p != Main.maxProjectiles)
+                                Main.projectile[p].timeLeft = 120;
+                        }
                     }
                 }
             }
