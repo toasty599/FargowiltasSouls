@@ -33,13 +33,32 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
         }
-
+        const int MaxLength = 1000;
+        int Length = 10;
+        bool CanHit = true;
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (!CanHit)
+            {
+                return false;
+            }
+            return base.CanHitNPC(target);
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            CanHit = false;
+            Length = (int)(target.Center - Projectile.Center).Length();
+        }
         public override void AI()
         {
             Vector2? vector78 = null;
             if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)
             {
                 Projectile.velocity = -Vector2.UnitY;
+            }
+            if (CanHit && Length < MaxLength)
+            {
+                Length += 60;
             }
             /*int ai1 = (int)Projectile.ai[1];
             if (Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<DeviBoss>())
@@ -84,7 +103,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             float[] array3 = new float[(int)num805];
             //Collision.LaserScan(samplingPoint, Projectile.velocity, num806 * Projectile.scale, 3000f, array3);
             for (int i = 0; i < array3.Length; i++)
-                array3[i] = 3000f;
+                array3[i] = Length;
             float num807 = 0f;
             int num3;
             for (int num808 = 0; num808 < array3.Length; num808 = num3 + 1)
@@ -152,7 +171,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             LaserDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, GameShaders.Misc["FargowiltasSouls:GenericDeathray"]);
 
             // Get the laser end position.
-            Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance * 1.1f;
+            Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * Projectile.localAI[1] * 1.1f;
 
             // Create 8 points that span across the draw distance from the projectile center.
             Vector2 initialDrawPoint = Projectile.Center;
