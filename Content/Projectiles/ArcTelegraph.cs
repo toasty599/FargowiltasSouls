@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using FargowiltasSouls.Content.Bosses.Lieflight;
 using Terraria.DataStructures;
 using System.IO;
+using System;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -35,14 +36,16 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             writer.Write7BitEncodedInt(npc);
             writer.Write(Projectile.localAI[1]);
+            writer.Write(Projectile.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             npc = reader.Read7BitEncodedInt();
             Projectile.localAI[1] = reader.ReadSingle();
+            Projectile.localAI[2] = reader.ReadSingle();
         }
-
+        ref float Timer => ref Projectile.localAI[2];
         int npc;
         public override void OnSpawn(IEntitySource source)
         {
@@ -63,7 +66,7 @@ namespace FargowiltasSouls.Content.Projectiles
         }
         public override void AI()
         {
-            Projectile.position -= Projectile.velocity;
+            
 
             switch (Projectile.ai[0])
             {
@@ -80,6 +83,8 @@ namespace FargowiltasSouls.Content.Projectiles
                         break;
                     }
             }
+            Projectile.position -= Projectile.velocity;
+            Timer++;
         }
         public float WidthFunction(float progress)
         {
@@ -87,7 +92,17 @@ namespace FargowiltasSouls.Content.Projectiles
         }
         public Color ColorFunction(float progress)
         {
-            return telegraphColor;
+            switch (Projectile.ai[0])
+            {
+                case 1:
+                    {
+                        //Color color = Color.Lerp(Color.Transparent, telegraphColor, (float)Math.Sqrt(Math.Sin(progress * MathHelper.Pi))) * 1f;
+                        Color color = Color.Lerp(Color.Transparent, telegraphColor, (float)Math.Sin(progress * MathHelper.Pi)) * 1f;
+                        return Color.Lerp(Color.Transparent, color, Math.Min(Timer / 10, 1));
+                    }
+                default:
+                    return telegraphColor;
+            }
         }
         public void SetEffectParameters(Effect effect)
         {
