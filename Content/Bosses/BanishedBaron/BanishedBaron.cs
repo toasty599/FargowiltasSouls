@@ -29,6 +29,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+using FargowiltasSouls.Content.Items.Placables.Trophies;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
@@ -350,7 +351,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         {
             //TODO: Add loot
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BanishedBaronBag>()));
-            //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BanishedBaronTrophy>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BaronTrophy>(), 10));
 
             //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<BanishedBaronRelic>()));
 

@@ -5367,6 +5367,11 @@ Mods: {
 					Has extra critical strike chance depending on lasers charged, up to 100%
 					'''
 			}
+
+			BaronTrophy: {
+				DisplayName: Banished Baron Trophy
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {

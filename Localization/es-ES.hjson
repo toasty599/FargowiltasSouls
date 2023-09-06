@@ -5387,6 +5387,11 @@ Mods: {
 					Has extra critical strike chance depending on lasers charged, up to 100%
 					''' */
 			}
+
+			BaronTrophy: {
+				// DisplayName: Baron Trophy
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

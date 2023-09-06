@@ -27,6 +27,7 @@
     <None Remove="Content\Items\Accessories\Expert\RustedOxygenTank.png" />
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
     <None Remove="Content\Items\BossBags\BanishedBaronBag.png" />
+    <None Remove="Content\Items\Placables\Trophies\BaronTrophy.png" />
     <None Remove="Content\Items\Placables\WiresPainting.png" />
     <None Remove="Content\Items\Placables\WiresPaintingSheet.png" />
     <None Remove="Content\Items\Summons\MechLure.png" />
@@ -45,6 +46,9 @@
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadSlider.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadZone.png" />
     <None Remove="Content\Tiles\MutantStatueGift.png" />
+    <None Remove="Content\Tiles\Trophies\BaronTrophy.png" />
+    <None Remove="Content\Tiles\Trophies\EridanusTrophy.png" />
+    <None Remove="Content\Tiles\Trophies\LifeChallengerTrophy.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
