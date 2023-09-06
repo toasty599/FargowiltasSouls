@@ -7,6 +7,7 @@ using Terraria.Graphics;
 using System.Collections.Generic;
 using FargowiltasSouls.Content.Bosses.Lieflight;
 using Terraria.DataStructures;
+using System.IO;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -29,15 +30,35 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.width = 1;
             Projectile.height = 1;
         }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write7BitEncodedInt(npc);
+            writer.Write(Projectile.localAI[1]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            npc = reader.Read7BitEncodedInt();
+            Projectile.localAI[1] = reader.ReadSingle();
+        }
+
         int npc;
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<LifeChallenger>())
+            switch (Projectile.ai[0])
             {
-                npc = parentNpc.whoAmI;
-                float angleToMe = Projectile.velocity.ToRotation();
-                float angleToPlayer = (Main.player[parentNpc.target].Center - parentNpc.Center).ToRotation();
-                Projectile.localAI[1] = MathHelper.WrapAngle(angleToMe - angleToPlayer);
+                case 1:
+                    {
+                        if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<LifeChallenger>())
+                        {
+                            npc = parentNpc.whoAmI;
+                            float angleToMe = Projectile.velocity.ToRotation();
+                            float angleToPlayer = (Main.player[parentNpc.target].Center - parentNpc.Center).ToRotation();
+                            Projectile.localAI[1] = MathHelper.WrapAngle(angleToMe - angleToPlayer);
+                        }
+                        break;
+                    }
             }
         }
         public override void AI()

@@ -121,16 +121,14 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         public float RuneDistance = DefaultRuneDistance;
 
 
-        public const float ChunkDistanceMax = 65;
+        public const float DefaultChunkDistance = 65;
 
         public float ChunkDistance = 1000;
 
+        public int PyramidPhase = 0;
+        public int PyramidTimer = 0;
+        public const int PyramidAnimationTime = 60;
 
-        public float SpritePhase = 1;
-
-        public int DrawTime = 0;
-
-        public float PyramidWobble = 5;
 
 
         //NPC.AI
@@ -242,7 +240,6 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             Main.dayTime = true;
             NPC.defense = NPC.defDefense;
             NPC.chaseable = true;
-            useDR = false;
             phaseProtectionDR = false;
             if (WorldSavingSystem.MasochistModeReal)
             {
@@ -267,6 +264,30 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 CombatText.NewText(NPC.Hitbox, CombatText.HealLife, healPerSecond);
             }
 
+            if (PyramidPhase == 1)
+            {
+                if (PyramidTimer == PyramidAnimationTime)
+                {
+                    SoundEngine.PlaySound(SoundID.Item53, NPC.Center);
+                    NPC.HitSound = SoundID.Item52;
+                    useDR = true;
+                    NPC.defense = NPC.defDefense + 100;
+                    NPC.netUpdate = true;
+                }
+                ChunkDistance = DefaultChunkDistance * (1 - Math.Min((float)PyramidTimer / PyramidAnimationTime, 1f));
+            }
+            else if (PyramidPhase == -1)
+            {
+                if (PyramidTimer == 5)
+                {
+                    SoundEngine.PlaySound(SoundID.Shatter with { Pitch = -0.5f }, NPC.Center);
+                    NPC.HitSound = SoundID.NPCHit4;
+                    useDR = false;
+                    NPC.defense = NPC.defDefense;
+                    NPC.netUpdate = true;
+                }
+                ChunkDistance = DefaultChunkDistance * Math.Min((float)PyramidTimer / PyramidAnimationTime, 1f);
+            }
             //rotation
             BodyRotation += RPS * MathHelper.TwoPi / 60f; //first number is rotations/second
             //ChunkTriangleOuterRotation -= 0.2f * MathHelper.TwoPi / 60f; //first number is rotations/second
@@ -640,12 +661,12 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             }
             if (AI_Timer < 180f)
             {
-                ChunkDistance = 1000 - ((1000 - ChunkDistanceMax) * ((float)AI_Timer / 180f));
+                ChunkDistance = 1000 - ((1000 - DefaultChunkDistance) * ((float)AI_Timer / 180f));
             }
             
             if (AI_Timer >= 240 && chunklist.Count >= ChunkCount)
             {
-                ChunkDistance = ChunkDistanceMax; // for good measure
+                ChunkDistance = DefaultChunkDistance; // for good measure
                 P1state = -3;
                 oldP1state = P1state;
                 P1stateReset();
@@ -750,7 +771,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootatPlayer3, ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 300f, Main.myPlayer, 32f, ai1);
                 }
             }
-            if (AI_Timer >= 145f)
+            if (AI_Timer >= 120f)
             {
                 oldP1state = P1state;
                 P1stateReset();
@@ -855,7 +876,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             ref float PeriodicNukeTimer = ref NPC.ai[3];
 
             Player Player = Main.player[NPC.target];
-            if (PeriodicNukeTimer > 600f)
+            if (PeriodicNukeTimer > 600 && WorldSavingSystem.EternityMode)
             {
                 SoundEngine.PlaySound(SoundID.Item91, NPC.Center);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -882,6 +903,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             useDR = true;
             DoAura = true;
             NPC.velocity *= 0.95f;
+
+            NPC.ai[3] = 0; //no periodic nuke
 
             void PhaseTransition()
             {
@@ -912,25 +935,18 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     //if (AI_Timer % 5 == 0)
                         //SoundEngine.PlaySound(SoundID.Tink, Main.LocalPlayer.Center);
 
-                    if (PyramidWobble > 0)
-                        PyramidWobble -= 0.2f;
-
                     int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Gold, Scale: 1.5f);
                     Main.dust[dust].velocity = (Main.dust[dust].position - NPC.Center) / 10;
                 }
                 if (AI_Timer == 60f)
                 {
-                    SoundEngine.PlaySound(SoundID.Item62, Main.LocalPlayer.Center);
+                    PyramidPhase = 1;
+                    PyramidTimer = 0;
                     for (int i = 0; i < 60; i++)
                     {
                         int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Gold, Scale: 1.5f);
                         Main.dust[dust].velocity = (Main.dust[dust].position - NPC.Center) / 5;
                     }
-                }
-                if (AI_Timer >= 60f)
-                {
-                    SpritePhase = 2;
-
                 }
 
                 if (AI_Timer == 180f)
@@ -1064,6 +1080,9 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                             p.netUpdate = true;
                         }
                     }
+
+                    PyramidPhase = -1;
+                    PyramidTimer = 0;
 
                     DoAura = WorldSavingSystem.MasochistModeReal;
                     PhaseOne = false;
@@ -2451,6 +2470,9 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 NPC.netUpdate = true;
                 SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
 
+                PyramidPhase = 1;
+                PyramidTimer = 0;
+
                 //invisible rune hitbox
                 for (int i = 0; i < RuneCount; i++)
                 {
@@ -2469,7 +2491,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 {
                     //decrease size to size of circle
                     NPC.position = NPC.Center;
-                    NPC.Size = new Vector2(ChunkDistanceMax * 2, ChunkDistanceMax * 2);
+                    NPC.Size = new Vector2(DefaultChunkDistance * 2, DefaultChunkDistance * 2);
                     NPC.Center = NPC.position;
                 }
 
@@ -2563,6 +2585,10 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                         }
                     }
                 }
+
+                PyramidPhase = -1;
+                PyramidTimer = 0;
+
                 if (PhaseOne)
                 {
                     //revert size
@@ -2588,11 +2614,12 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         {
             modifiers.FinalDamage /= 2f;
 
-            if (useDR)
-                modifiers.FinalDamage /= 4f;
-
             if (phaseProtectionDR)
                 modifiers.FinalDamage /= 4f;
+            else if (useDR)
+                modifiers.FinalDamage /= 2.5f;
+
+            
         }
 
         public override void UpdateLifeRegen(ref int damage)
@@ -2818,25 +2845,27 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
                 //draw wings
                 //draws 4 things: 2 upper wings, 2 lower wings
-
-                Texture2D wingUtexture = ModContent.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Texture2D wingLtexture = ModContent.Request<Texture2D>(PartsPath + "LifeChallenger_WingLower", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Vector2 wingdrawPos = NPC.Center - screenPos;
-                int currentFrame = NPC.frame.Y;
-                int wingUHeight = wingUtexture.Height / Main.npcFrameCount[NPC.type];
-                Rectangle wingURectangle = new(0, currentFrame * wingUHeight, wingUtexture.Width, wingUHeight);
-                int wingLHeight = wingLtexture.Height / Main.npcFrameCount[NPC.type];
-                Rectangle wingLRectangle = new(0, currentFrame * wingLHeight, wingLtexture.Width, wingLHeight);
-                Vector2 wingUOrigin = new(wingUtexture.Width / 2, wingUtexture.Height / 2 / Main.npcFrameCount[NPC.type]);
-                Vector2 wingLOrigin = new(wingLtexture.Width / 2, wingLtexture.Height / 2 / Main.npcFrameCount[NPC.type]);
-
-                for (int i = -1; i < 2; i += 2)
+                if (ChunkDistance > 3)
                 {
-                    float wingLRotation = NPC.rotation - MathHelper.PiOver2 + MathHelper.ToRadians(110 * i);
-                    float wingURotation = NPC.rotation - MathHelper.PiOver2 + MathHelper.ToRadians(70 * i);
-                    SpriteEffects flip = i == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-                    spriteBatch.Draw(origin: wingUOrigin, texture: wingUtexture, position: wingdrawPos + wingURotation.ToRotationVector2() * (ChunkDistance + 30), sourceRectangle: wingURectangle, color: drawColor, rotation: wingURotation, scale: NPC.scale, effects: flip, layerDepth: 0f);
-                    spriteBatch.Draw(origin: wingLOrigin, texture: wingLtexture, position: wingdrawPos + wingLRotation.ToRotationVector2() * (ChunkDistance + 30), sourceRectangle: wingLRectangle, color: drawColor, rotation: wingLRotation, scale: NPC.scale, effects: flip, layerDepth: 0f);
+                    Texture2D wingUtexture = ModContent.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Texture2D wingLtexture = ModContent.Request<Texture2D>(PartsPath + "LifeChallenger_WingLower", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Vector2 wingdrawPos = NPC.Center - screenPos;
+                    int currentFrame = NPC.frame.Y;
+                    int wingUHeight = wingUtexture.Height / Main.npcFrameCount[NPC.type];
+                    Rectangle wingURectangle = new(0, currentFrame * wingUHeight, wingUtexture.Width, wingUHeight);
+                    int wingLHeight = wingLtexture.Height / Main.npcFrameCount[NPC.type];
+                    Rectangle wingLRectangle = new(0, currentFrame * wingLHeight, wingLtexture.Width, wingLHeight);
+                    Vector2 wingUOrigin = new(wingUtexture.Width / 2, wingUtexture.Height / 2 / Main.npcFrameCount[NPC.type]);
+                    Vector2 wingLOrigin = new(wingLtexture.Width / 2, wingLtexture.Height / 2 / Main.npcFrameCount[NPC.type]);
+
+                    for (int i = -1; i < 2; i += 2)
+                    {
+                        float wingLRotation = NPC.rotation - MathHelper.PiOver2 + MathHelper.ToRadians(110 * i);
+                        float wingURotation = NPC.rotation - MathHelper.PiOver2 + MathHelper.ToRadians(70 * i);
+                        SpriteEffects flip = i == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+                        spriteBatch.Draw(origin: wingUOrigin, texture: wingUtexture, position: wingdrawPos + wingURotation.ToRotationVector2() * (ChunkDistance + 30), sourceRectangle: wingURectangle, color: drawColor, rotation: wingURotation, scale: NPC.scale, effects: flip, layerDepth: 0f);
+                        spriteBatch.Draw(origin: wingLOrigin, texture: wingLtexture, position: wingdrawPos + wingLRotation.ToRotationVector2() * (ChunkDistance + 30), sourceRectangle: wingLRectangle, color: drawColor, rotation: wingLRotation, scale: NPC.scale, effects: flip, layerDepth: 0f);
+                    }
                 }
 
 
@@ -2846,7 +2875,9 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //DRAW STAR
         {
             //if ((SpritePhase > 1 || !Draw) && !NPC.IsABestiaryIconDummy) //star
-            //{
+            if (ChunkDistance > 20)
+            {
+
                 spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
 
@@ -2863,7 +2894,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
 
                 spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-            //}
+            }
             foreach (Vector4 chunk in chunklist.Where(pos => pos.Z > 0))
             {
                 /*
@@ -2874,52 +2905,68 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 */
                 DrawChunk(chunk, spriteBatch, drawColor, screenPos);
             }
+            if (PyramidPhase != 0) //draw pyramid
+            {
+                if (PyramidPhase == 1 && PyramidTimer > PyramidAnimationTime)
+                {
+                    Texture2D pyramid = ModContent.Request<Texture2D>(PartsPath + "PyramidFull", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Rectangle pyramidRect = new(0, 0, pyramid.Width, pyramid.Height);
+                    Vector2 pyramidOrigin = pyramidRect.Size() / 2;
+                    //Vector2 wobble = new Vector2((float)Math.Sin(MathHelper.ToRadians(5.632167f * DrawTime)), (float)Math.Sin(MathHelper.ToRadians(3 * DrawTime))) * PyramidWobble;
+                    spriteBatch.Draw(origin: pyramidOrigin, texture: pyramid, position: NPC.Center - screenPos, sourceRectangle: pyramidRect, color: drawColor, rotation: 0, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
+                }
+                else
+                {
+                    Texture2D[] pyramidp = new Texture2D[4];
+                    Rectangle[] rects = new Rectangle[4];
+                    Vector2[] origins = new Vector2[4];
+                    Vector2[] offsets = new Vector2[4];
+
+                    pyramidp[0] = ModContent.Request<Texture2D>(PartsPath + "Pyramid_U", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    pyramidp[1] = ModContent.Request<Texture2D>(PartsPath + "Pyramid_L", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    pyramidp[2] = ModContent.Request<Texture2D>(PartsPath + "Pyramid_R", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    pyramidp[3] = ModContent.Request<Texture2D>(PartsPath + "Pyramid_D", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    float progress = 0;
+                    if (PyramidPhase > 0)
+                    {
+                        progress = 1 - Math.Min((float)PyramidTimer / PyramidAnimationTime, 1f);
+                    }
+                    else if (PyramidPhase < 0)
+                    {
+                        progress = Math.Min((float)PyramidTimer / PyramidAnimationTime, 1f);
+                        if (progress >= 1)
+                        {
+                            PyramidPhase = 0;
+                        }
+                    }
+                    float expansion = progress;
+                    byte alpha = (byte)(255 * (1-progress));
+                    offsets[0] = new Vector2(0, -15) * expansion + new Vector2(0, -30); //top
+                    offsets[1] = new Vector2(-12.5f, 3) * expansion + new Vector2(-25, 10); //left
+                    offsets[2] = new Vector2(12.5f, 3) * expansion + new Vector2(25, 10); //right
+                    offsets[3] = new Vector2(0, 10) * expansion + new Vector2(0, 20);  //bottom
+
+                    Color color = drawColor;
+                    color.A = alpha;
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        rects[i] = new Rectangle(0, 0, pyramidp[i].Width, pyramidp[i].Height);
+                        origins[i] = pyramidp[i].Size() / 2;
+
+                        spriteBatch.Draw(origin: origins[i], texture: pyramidp[i], position: NPC.Center + offsets[i] - screenPos, sourceRectangle: rects[i], color: color, rotation: +0, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
+                    }
+                }
+                PyramidTimer++;
+            }
             /*
             float PyramidRot = 0;
             if (NPC.velocity.ToRotation() !> MathHelper.Pi)
             {
                 PyramidRot = 0f + MathHelper.Pi * NPC.velocity.X / 300;
             }
-            if (SpritePhase == 1 && Draw || NPC.IsABestiaryIconDummy) //whole pyramid
-            {
-                Texture2D pyramid = ModContent.Request<Texture2D>(PartsPath + "Phase1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                Rectangle rect = new(0, 0, pyramid.Width, pyramid.Height);
-                Vector2 origin = pyramid.Size() / 2;
-                Vector2 wobble = new Vector2((float)Math.Sin(MathHelper.ToRadians(5.632167f * DrawTime)), (float)Math.Sin(MathHelper.ToRadians(3 * DrawTime))) * PyramidWobble;
-                spriteBatch.Draw(origin: origin, texture: pyramid, position: NPC.Center + wobble - screenPos, sourceRectangle: rect, color: drawColor, rotation: PyramidRot, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
-            }
-            else if (Draw) //broken pyramid
-            {
-                Texture2D[] pyramidp = new Texture2D[4];
-                Rectangle[] rects = new Rectangle[4];
-                Vector2[] origins = new Vector2[4];
-                Vector2[] offsets = new Vector2[4];
-
-                pyramidp[0] = ModContent.Request<Texture2D>(PartsPath + "Phase2U", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                pyramidp[1] = ModContent.Request<Texture2D>(PartsPath + "Phase2L", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                pyramidp[2] = ModContent.Request<Texture2D>(PartsPath + "Phase2R", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                pyramidp[3] = ModContent.Request<Texture2D>(PartsPath + "Phase2D", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                float expansion = ChunkDistance / ChunkDistanceMax;
-                float P = (float)Math.Sqrt(SpritePhase - 1); //1 in p2, sqrt2 in p3, this doesn't draw in p1
-                offsets[0] = new Vector2(0, -15) * (float)Math.Abs(Math.Sin(MathHelper.ToRadians(DrawTime * P))) * expansion + new Vector2(0, -30); //top
-                offsets[1] = new Vector2(-12.5f, 3) * (float)Math.Abs(Math.Sin(MathHelper.ToRadians(DrawTime * P))) * expansion + new Vector2(-25, 10) * P; //left
-                offsets[2] = new Vector2(12.5f, 3) * (float)Math.Abs(Math.Sin(MathHelper.ToRadians(DrawTime * P))) * expansion + new Vector2(25, 10) * P; //right
-                offsets[3] = new Vector2(0, 10) * (float)Math.Abs(Math.Sin(MathHelper.ToRadians(DrawTime * P))) * expansion + new Vector2(0, 20) * P;  //bottom
-
-                for (int i = 0; i < 4; i++)
-                {
-                    rects[i] = new Rectangle(0, 0, pyramidp[i].Width, pyramidp[i].Height);
-                    origins[i] = pyramidp[i].Size() / 2;
-                    offsets[i] = offsets[i].RotatedBy(PyramidRot);
-
-                    spriteBatch.Draw(origin: origins[i], texture: pyramidp[i], position: NPC.Center + offsets[i] - screenPos, sourceRectangle: rects[i], color: drawColor, rotation: PyramidRot, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
-                }
-
-
-            }
             */
 
-            DrawTime++;
         }
 
         public override void FindFrame(int frameHeight)
@@ -2975,7 +3022,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         {
             AI_Timer = 0f;
             NPC.ai[2] = 0f;
-            NPC.ai[3] = 0f;
+            //NPC.ai[3] = 0f;
             AttackF1 = true;
             NPC.netUpdate = true;
         }
@@ -3062,10 +3109,17 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         private void DrawChunk(Vector4 chunk, SpriteBatch spriteBatch, Color drawColor, Vector2 screenPos)
         {
+            if (ChunkDistance <= 20)
+            {
+                return;
+            }
             Vector3 pos = chunk.X * Vector3.UnitX + chunk.Y * Vector3.UnitY + chunk.Z * Vector3.UnitZ;
             string textureString = $"ShardGold{chunk.W}";
             float scale = 0.3f * pos.Z;
+
             byte alpha = (byte)(150 + (100f * pos.Z));
+
+
             Color color = drawColor;
             color.A = alpha;
             Vector2 drawPos = NPC.Center + pos.X * Vector2.UnitX * ChunkDistance + pos.Y * Vector2.UnitY * ChunkDistance - screenPos;
