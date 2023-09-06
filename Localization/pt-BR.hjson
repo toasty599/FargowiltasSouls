@@ -26,7 +26,7 @@ Mods: {
 			// CrystalAssassin: No upgrade
 			// DarkArtist: No upgrade
 			// Ebonwood: Aura size increased, defense reduction increased to 30
-			// Forbidden: No upgrade
+			// Forbidden: Damage boost increased from 30 to 60%
 			// Fossil: No upgrade
 			// Frost: No upgrade
 			// Gladiator: No upgrade
@@ -5360,7 +5360,7 @@ Mods: {
 			}
 
 			BaronTrophy: {
-				// DisplayName: Baron Trophy
+				// DisplayName: Banished Baron Trophy
 				// Tooltip: ""
 			}
 		}

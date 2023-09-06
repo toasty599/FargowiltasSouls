@@ -26,7 +26,7 @@ Mods: {
 			CrystalAssassin: ""
 			DarkArtist: ""
 			Ebonwood: 伤害判定门槛从10提高至25，并且会杀死光环内任何小于200血量的生物
-			// Forbidden: No upgrade
+			// Forbidden: Damage boost increased from 30 to 60%
 			// Fossil: No upgrade
 			// Frost: No upgrade
 			// Gladiator: No upgrade
@@ -5341,7 +5341,7 @@ Mods: {
 			}
 
 			BaronTrophy: {
-				// DisplayName: Baron Trophy
+				// DisplayName: Banished Baron Trophy
 				// Tooltip: ""
 			}
 		}

@@ -2327,7 +2327,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void OnLandingEffects()
         {
-            CanSummonForbiddenStorm = true;
+            
 
             //Player.justJumped use this tbh
             if (SlimyShieldFalling) //landing

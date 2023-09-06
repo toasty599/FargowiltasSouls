@@ -297,6 +297,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (GuttedHeart)
                 GuttedHeartEffect();
 
+            if (Player.velocity.Y == 0) //practically, if on the ground or hooked or similar
+            {
+                CanSummonForbiddenStorm = true;
+            }
+
             if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null || GelicWingsItem != null)
                 OnLandingEffects();
 
