@@ -142,6 +142,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool DarkArtistSpawn;
         public int DarkArtistSpawnCD;
         public bool ForbiddenEnchantActive;
+        public bool CanSummonForbiddenStorm = false;
         public Item FossilEnchantItem;
         public bool FrostEnchantActive;
         public int IcicleCount;

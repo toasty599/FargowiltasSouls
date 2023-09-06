@@ -299,9 +299,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             //Player.setForbidden = true;
             //add cd
 
-            if (DoubleTap)
+            if (DoubleTap && CanSummonForbiddenStorm)
             {
                 CommandForbiddenStorm();
+                CanSummonForbiddenStorm = false;
 
                 /*Vector2 mouse = Main.MouseWorld;
 
@@ -2326,6 +2327,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void OnLandingEffects()
         {
+            CanSummonForbiddenStorm = true;
+
             //Player.justJumped use this tbh
             if (SlimyShieldFalling) //landing
             {

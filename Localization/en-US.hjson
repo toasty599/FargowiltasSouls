@@ -26,7 +26,7 @@ Mods: {
 			CrystalAssassin: No upgrade
 			DarkArtist: No upgrade
 			Ebonwood: Aura size increased, defense reduction increased to 30
-			Forbidden: No upgrade
+			Forbidden: Damage boost increased from 30 to 60%
 			Fossil: No upgrade
 			Frost: No upgrade
 			Gladiator: No upgrade
@@ -2491,6 +2491,7 @@ Mods: {
 					Double tap down to call an ancient storm to the cursor location
 					Any projectiles shot through your storm gain 30% damage
 					Touch it yourself to add back missing wing time
+					Storm can be resummoned after touching the ground
 					'Walk like an Egyptian'
 					'''
 			}
