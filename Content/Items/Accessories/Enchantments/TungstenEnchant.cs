@@ -48,7 +48,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
             modPlayer.TungstenEnchantItem = item;
 
-            if (!modPlayer.TerrariaSoul && player.HeldItem.damage > 0 && player.HeldItem.CountsAsClass(DamageClass.Melee) && !player.HeldItem.noMelee && player.HeldItem.pick == 0 && player.HeldItem.axe == 0 && player.HeldItem.hammer == 0)
+            if (!modPlayer.TerrariaSoul && player.HeldItem.damage > 0 && player.HeldItem.CountsAsClass(DamageClass.Melee) && (!player.HeldItem.noMelee || FargoGlobalItem.TungstenAlwaysAffects.Contains(player.HeldItem.type)) && player.HeldItem.pick == 0 && player.HeldItem.axe == 0 && player.HeldItem.hammer == 0)
             {
                 modPlayer.Player.GetAttackSpeed(DamageClass.Melee) -= 0.5f;
             }
@@ -56,7 +56,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
         public static float TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
         {
-            return 1f + (modPlayer.TerraForce ? 3f : 1.5f);
+            return 1f + (modPlayer.TerraForce ? 2f : 1f);
         }
 
         public static bool TungstenAlwaysAffectProj(Projectile projectile)
@@ -69,15 +69,22 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                 || projectile.type == ProjectileID.MonkStaffT2
                 || projectile.type == ProjectileID.Arkhalis
                 || projectile.type == ProjectileID.Terragrim
-                || projectile.type == ProjectileID.PiercingStarlight
                 || projectile.type == ProjectileID.JoustingLance
                 || projectile.type == ProjectileID.HallowJoustingLance
                 || projectile.type == ProjectileID.ShadowJoustingLance
                 || projectile.type == ModContent.ProjectileType<PrismaRegaliaProj>();
         }
+        public static bool TungstenNeverAffectsProj(Projectile projectile)
+        {
+            return projectile.type == ProjectileID.PiercingStarlight;
+        }
 
         public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer, IEntitySource source)
         {
+            if (TungstenNeverAffectsProj(projectile))
+            {
+                return;
+            }
             bool canAffect = false;
             bool hasCD = true;
             if (TungstenAlwaysAffectProj(projectile))
@@ -124,7 +131,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
                 if (hasCD)
                 {
-                    modPlayer.TungstenCD = 30;
+                    modPlayer.TungstenCD = 40;
 
                     if (modPlayer.Eternity)
                         modPlayer.TungstenCD = 0;
@@ -138,7 +145,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         {
             bool forceBuff = player.GetModPlayer<FargoSoulsPlayer>().TerraForce;
 
-            modifiers.FinalDamage *= forceBuff ? 1.2f : 1.1f;
+            modifiers.FinalDamage *= forceBuff ? 1.15f : 1.1f;
 
             int max = forceBuff ? 2 : 1;
             for (int i = 0; i < max; i++)

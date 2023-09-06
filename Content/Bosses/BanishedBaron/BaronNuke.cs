@@ -1,4 +1,5 @@
 ﻿using System;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -82,7 +83,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.Kill();
             }
             Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
-            if (player != null) //homing
+            if (Projectile.localAI[0] < 60)
+            {
+                Projectile.velocity *= 0.965f;
+            }
+            else if (player.active && !player.ghost) //homing
             {
                 Vector2 vectorToIdlePosition = player.Center - Projectile.Center;
                 float speed = WorldSavingSystem.MasochistModeReal ? 24f : 20f;
@@ -118,15 +123,31 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
+            target.AddBuff(BuffID.OnFire, 60 * 10);
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
+            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 4);
+            target.AddBuff(BuffID.OnFire3, 60 * 10);
+            target.AddBuff(BuffID.BrokenArmor, 60 * 40);
 
         }
         public override void Kill(int timeLeft)
         {
+            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+
             for (int i = 0; i < 100; i++)
             {
-                Vector2 pos = Projectile.Center + new Vector2(0, Main.rand.Next(Projectile.width)).RotatedBy(Main.rand.NextFloat(MathHelper.TwoPi)); //circle with highest density in middle
-                int d = Dust.NewDust(pos, 0, 0, DustID.Torch, 0f, 0f, 0, default, 1.5f);
+                Vector2 pos = Projectile.Center + new Vector2(0, Main.rand.NextFloat(ExplosionDiameter * 0.8f)).RotatedBy(Main.rand.NextFloat(MathHelper.TwoPi)); //circle with highest density in middle
+                int d = Dust.NewDust(pos, 0, 0, DustID.Fireworks, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
+            }
+            
+            float scaleFactor9 = 2;
+            for (int j = 0; j < 20; j++)
+            {
+                int gore = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2.UnitX * 5).RotatedByRandom(MathHelper.TwoPi), Main.rand.Next(61, 64), scaleFactor9);
             }
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
@@ -134,7 +155,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 pos = new Vector2(0, 6).RotatedBy(i * MathHelper.TwoPi / 24);
+                    Vector2 pos = new Vector2(0, Main.rand.NextFloat(5, 7)).RotatedBy(i * MathHelper.TwoPi / 24);
                     Vector2 vel = pos.RotatedBy(Main.rand.NextFloat(-MathHelper.TwoPi / 64, MathHelper.TwoPi / 64));
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
                 }
@@ -147,6 +168,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         //(public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.9f;
         public override bool PreDraw(ref Color lightColor)
         {
+            if (Projectile.localAI[0] >= Projectile.ai[0] - 2) //if exploding
+            {
+                return false;
+            }
             //draw glow ring
             float modifier = Projectile.localAI[0] / Projectile.ai[0];
             Color RingColor = Color.Lerp(Color.Orange, Color.Red, modifier);
@@ -156,7 +181,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             int ringy3 = ringy * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle ringrect = new(0, ringy3, ringTexture.Width, ringy);
             Vector2 ringorigin = ringrect.Size() / 2f;
-            Main.EntitySpriteDraw(ringTexture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(ringrect), Projectile.GetAlpha(RingColor), Projectile.rotation, ringorigin, RingScale, SpriteEffects.None, 0);
+            RingColor *= modifier;
+            Main.EntitySpriteDraw(ringTexture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(ringrect), RingColor, Projectile.rotation, ringorigin, RingScale, SpriteEffects.None, 0);
 
             //draw projectile
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;

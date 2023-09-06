@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.useAnimation = 8;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 0.5f;
-            Item.value = Item.sellPrice(0, 25);
+            Item.value = Item.sellPrice(0, 10);
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item12;
             Item.autoReuse = true;
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         {
             type = ShotType;
             if (player.altFunctionUse == 2)
-                damage *= 5;
+                damage *= 10;
         }
         public override Vector2? HoldoutOffset()
         {
@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             }
             else
             {
-                if (++player.GetModPlayer<FargoSoulsPlayer>().LightslingerHitShots >= ReqShots)
+                if (++player.GetModPlayer<FargoSoulsPlayer>().LightslingerHitShots >= ReqShots && player.whoAmI == Main.myPlayer)
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), player.Center);
             }
 

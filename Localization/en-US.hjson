@@ -10,12 +10,14 @@ Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
 			Adamantite: Projectiles now split into 3
+			Apprentice: No upgrade
 			AncientHallow: No upgrade
 			AncientShadow: Number of Shadow Orbs increased
+			AncientCobalt: No upgrade
 			Angler: No upgrade
 			Bee: No upgrade
 			Beetle: No upgrade
-			Boreal: Fires more snowballs more often
+			BorealWood: Fires more snowballs more often
 			Cactus: Number of needles and damage increased
 			Chlorophyte: No upgrade
 			Cobalt: Explosion damage increased
@@ -24,17 +26,20 @@ Mods: {
 			CrystalAssassin: No upgrade
 			DarkArtist: No upgrade
 			Ebonwood: Aura size increased, defense reduction increased to 30
-			Forbidden: No upgrade
+			Forbidden: Damage boost increased from 30 to 60%
 			Fossil: No upgrade
 			Frost: No upgrade
 			Gladiator: No upgrade
 			Gold: No upgrade
 			Hallow: No upgrade
+			Huntress: No upgrade
 			Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
+			Jungle: No upgrade
 			Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
 			Meteor: No upgrade
 			Miner: No upgrade
 			Molten: Inferno ring does more damage and can affect enemies in slightly larger range
+			Monk: No upgrade
 			Mythril: Max attack speed bonus increased and lasts longer
 			Nebula: No upgrade
 			Necro: No upgrade
@@ -45,7 +50,7 @@ Mods: {
 			PalmWood: Attack speed and damage increased, 2 more trees can be spawned
 			Pearlwood: Damage increased and cooldown reduced
 			Platinum: No upgrade
-			Pumpkin: No upgrade
+			Pumpkin: Pumpkins can grow while flying, and heal for twice as much
 			Rain: No upgrade
 			RedRiding: No upgrade
 			RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
@@ -58,10 +63,13 @@ Mods: {
 			Spider: No upgrade
 			Spooky: No upgrade
 			Stardust: No upgrade
+			Snow: No upgrade
+			Shadow: No upgrade
+			Squire: No upgrade
 			Tiki: Increases whip range by 20%
 			Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
-			Tungsten: Increased weapon size to 300%, bonus damage to 20%, cooldown reduced
+			Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
 			Turtle: No upgrade
 			ValhallaKnight: No upgrade
 			Vortex: No upgrade
@@ -140,7 +148,7 @@ Mods: {
 			LifeChallenger: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms. Its true form cannot be perceived.
 			Silhouette: An elusive being that always travels under cover of a black fog in the night. It feels sensitive when its true form is exposed.
 			FrigidHydrangaea: This draconic beast hibernates in the frozen caverns, only waking when provoked. Should it really be living in the cold?
-			BanishedBaron: Cast out from the hierarchy, it hid itself while it tried to repair itself. Imperfect work left its strength and speed hindered.
+			BanishedBaron: Cast out from the hierarchy, it hid while it tried to repair itself. Imperfect work left its strength and speed hindered.
 			MagmaConstruct: Overseer of the planet's core. It has taken over the underworld in the absence of the land's former master. It has no organic parts.
 			TimberChampion: Channeling a Force has granted this wooden contraption fantastic power. But doesn't that squirrel in the cockpit look familiar?
 			TerraChampion: Only the brain of this colossal serpent is still organic. Transformed into enchanted rock and metal, its body is impervious to attack.
@@ -180,7 +188,7 @@ Mods: {
 			CursedCoffinDespawn: The Cursed Coffin returns to its slumber...
 			BanishedBaronDespawn: The Banished Baron dives deeper into the ocean...
 			DeviBossSpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
-			AbomBossSpawnInfo: Spawn by using [i:FargowiltasSouls/AbomsCure]
+			AbomBossSpawnInfo: Spawn by using [i:FargowiltasSouls/AbomsCurse]
 			MutantBossSpawnInfo: Throw [i:FargowiltasSouls/MutantsCurse] into a pool of lava while Abominationn is alive in Mutant's presence.
 			TimberChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] on the surface during day.
 			TerraChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] underground.
@@ -191,8 +199,9 @@ Mods: {
 			SpiritChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underground desert.
 			WillChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
 			CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
-			TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions]
-			LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Hallow at day.
+			TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
+			LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+			BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		}
 
 		Message: {
@@ -999,7 +1008,9 @@ Mods: {
 			Buff: "[c/00ff00:Eternity Mode:]"
 			Neutral: "[c/ffff00:Eternity Mode:]"
 			Damage: Reduced damage by {0}%
+			DamagePositive: Increased damage by {0}%
 			Speed: Reduced speed by {0}%
+			SpeedPositive: Reduced speed by {0}%
 			RodofDiscord: During boss fights, every use takes life
 			Split: Reduced split frequency
 			ChlorophyteBullet: Reduced speed and duration
@@ -1009,8 +1020,9 @@ Mods: {
 			BrainOfConfusion: Lowers your damage output on successful dodge
 			ZenithNone: No nerfs in effect
 			ZenithHitRate: Vastly reduced hit rate, improves by defeating:
-			VampireKnives: Reduced lifesteal rate when above 50% life
+			VampireKnives: Reduced lifesteal rate when above 50% lifereturn BalanceTypes.Damage;
 			Zapinator: Cannot stack damage multipliers
+			CoinGun: Damage of Platinum and Gold Coins heavily reduced, damage of Silver Coins slightly reduced, and damage of Copper Coins increased
 			OOASet: Set bonus increases minimum summon damage when you attack using other classes
 			MiningHelmet: Increases Undead Miner spawn rates
 			MoonsDrops: Bosses and minibosses drop no items until wave {0}
@@ -1724,8 +1736,8 @@ Mods: {
 				Description:
 					'''
 					Gravity heavily increased outside water
-					Breathe water instead of air
-					Get back in!
+					Breathe water but cannot breathe air
+					Improved underwater movement
 					'''
 			}
 
@@ -2342,11 +2354,13 @@ Mods: {
 			}
 
 			AshWoodEnchant: {
-				DisplayName: Ash Enchantment
+				DisplayName: Ash Wood Enchantment
 				Tooltip:
 					'''
-					On Fire debuff doesn't damage you or town NPCs
+					Fire debuffs don't damage you
+					Above effect works for town NPCs while equipped or in your inventory
 					While you're burning, attacks are accompanied by balls of fire
+					Grants immunity to Oiled
 					Reduces damage from touching lava
 					'''
 			}
@@ -2477,6 +2491,7 @@ Mods: {
 					Double tap down to call an ancient storm to the cursor location
 					Any projectiles shot through your storm gain 30% damage
 					Touch it yourself to add back missing wing time
+					Storm can be resummoned after touching the ground
 					'Walk like an Egyptian'
 					'''
 			}
@@ -2607,8 +2622,8 @@ Mods: {
 				DisplayName: Molten Enchantment
 				Tooltip:
 					'''
-					Nearby enemies are ignited
-					Enemies take 25% increased damage while inside the inferno ring
+					Ignite yourself while enemies are close
+					Enemies in the inferno ring take 25% more damage and are ignited
 					'They shall know the fury of hell' 
 					'''
 			}
@@ -2677,7 +2692,7 @@ Mods: {
 					Grants immunity to lava
 					You have normal movement and can swim in lava
 					While standing in lava or lava wet, your attacks spawn explosions and are accompanied by balls of fire
-					Effects of Ash Enchantment
+					Effects of Ash Wood Enchantment
 					'The earth calls'
 					'''
 			}
@@ -2938,8 +2953,8 @@ Mods: {
 				DisplayName: Tungsten Enchantment
 				Tooltip:
 					'''
-					150% increased weapon size but reduces melee speed
-					Every half second a projectile will be doubled in size
+					100% increased weapon size but reduces melee speed
+					Once ever 2/3 of a second a projectile will be doubled in size
 					Enlarged projectiles and non-projectile swords deal 10% more damage and have an additional chance to crit
 					'Bigger is always better'
 					'''
@@ -3170,7 +3185,7 @@ Mods: {
 					[i:FargowiltasSouls/IronEnchant] You attract items from further away, 33% chance to not consume items at an Anvil
 					[i:FargowiltasSouls/LeadEnchant] You take 60% less from damage over time
 					[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
-					[i:FargowiltasSouls/TungstenEnchant] 300% increased sword size and projectile size every quarter second
+					[i:FargowiltasSouls/TungstenEnchant] Weapon size increased to 300% and projectile size every quarter second
 					[i:FargowiltasSouls/ObsidianEnchant] Grants immunity to lava
 					[i:FargowiltasSouls/AshWoodEnchant] While burning or in lava, player and town NPC attacks are accompanied by fireballs
 					'The land lends its strength'
@@ -4388,7 +4403,11 @@ Mods: {
 
 			EternityAdvisor: {
 				DisplayName: Eternity Advisor
-				Tooltip: Suggests loadouts for Eternity Mode based on progression
+				Tooltip:
+					'''
+					Suggests loadouts for Eternity Mode based on progression
+					[c/ff0000: Note: These suggestions are currently outdated. Take them with a grain of salt.]
+					'''
 			}
 
 			GalacticReformer: {
@@ -5244,7 +5263,7 @@ Mods: {
 				DisplayName: Crystalline Congregation
 				Tooltip:
 					'''
-					Summon up to 20 crystal balls near your mouse cursor that home towards you 
+					Summon up to 30 crystal balls near your mouse cursor that home towards you 
 					 Release the button to send them towards your cursor
 					'''
 			}
@@ -5274,6 +5293,85 @@ Mods: {
 			WiresPainting: {
 				DisplayName: Wires Painting
 				Tooltip: Look inside
+			}
+
+			PrismaRegalia: {
+				DisplayName: Prisma Regalia
+				Tooltip:
+					'''
+					Hitting with the tip of the spear releases homing stars
+					Hold to charge for more damage
+					While fully charged, hits release extra stars regardless
+					'The radiant power of a foe's pure essence...'
+					'''
+			}
+
+			MechLure: {
+				DisplayName: Mechanical Lure
+				Tooltip: Throw underwater at the Ocean to lure out a shrouded creature
+			}
+
+			TheBaronsTusk: {
+				DisplayName: The Baron's Tusk
+				Tooltip:
+					'''
+					Swings emit flying shrapnel, that can embed in enemies
+					Hitting enemies that have more than 15 embedded shrapnel with the tusk rips it out
+					The rip deals a large chunk of damage and is guaranteed to critically strike
+					Shrapnel is also ripped out when the enemy dies
+					'''
+			}
+
+			NavalRustrifle: {
+				DisplayName: Naval Rustrifle
+				Tooltip:
+					'''
+					Manually reload after each shot
+					Time the reload correctly to empower your next shot
+					Empowered shots deal double damage and are guaranteed to critically strike
+					'''
+			}
+
+			DecrepitAirstrikeRemote: {
+				DisplayName: Decrepit Airstrike Remote
+				Tooltip:
+					'''
+					Marks a location with a reticle, consuming all your sentry slots
+					In 5 seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
+					All your minions hit by the explosion are blown up into homing splinters
+					Splinters are guaranteed to critically strike
+					'''
+			}
+
+			BanishedBaronBag: {
+				Tooltip: ""
+				DisplayName: Banished Baron Bag
+			}
+
+			RustedOxygenTank: {
+				DisplayName: Rusted Oxygen Tank
+				Tooltip:
+					'''
+					Works in your inventory
+					You count as wet outside water
+					Grants floaty water movement
+					Increased movement speed while in any liquid
+					'Nobody knows how it works'
+					'''
+			}
+
+			RoseTintedVisor: {
+				DisplayName: Rose Tinted Visor
+				Tooltip:
+					'''
+					Fires up to 6 lasers on release, depending on charge time
+					Has extra critical strike chance depending on lasers charged, up to 100%
+					'''
+			}
+
+			BaronTrophy: {
+				DisplayName: Banished Baron Trophy
+				Tooltip: ""
 			}
 		}
 
@@ -5452,6 +5550,16 @@ Mods: {
 					EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
 					SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChallengerSpawnInfo}"
 					DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChallengerDespawn
+				}
+			}
+
+			BanishedBaron: {
+				DisplayName: Banished Baron
+
+				BossChecklistIntegration: {
+					EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
+					SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.BanishedBaronSpawnInfo}"
+					DespawnMessage: Mods.FargowiltasSouls.BossChecklist.BanishedBaronDespawn
 				}
 			}
 
@@ -6153,6 +6261,17 @@ Mods: {
 			NebulaPillarProj.DisplayName: Nebula Pillar Proj
 			NebulaTelegraph.DisplayName: Nebula Telegraph
 			PillarArcanum.DisplayName: Pillar Arcanum
+			BaronWhirlpool.DisplayName: Baron Whirlpool
+			BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
+			BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
+			BaronDeathray.DisplayName: Baron Deathray
+			BaronEyeFlash.DisplayName: Baron Eye Flash
+			BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			DecrepitAirstrike.DisplayName: Decrepit Airstrike
+			DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
+			DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
+			MechLureProjectile.DisplayName: Mech Lure Projectile
+			RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

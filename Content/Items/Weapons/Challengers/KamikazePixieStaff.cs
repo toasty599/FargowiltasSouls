@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 95;
+            Item.damage = 47;
             Item.DamageType = DamageClass.Summon;
             Item.width = 50;
             Item.height = 50;
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.useAnimation = 46;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 2;
-            Item.value = Item.sellPrice(0, 25);
+            Item.value = Item.sellPrice(0, 10);
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item44;
             Item.autoReuse = true;

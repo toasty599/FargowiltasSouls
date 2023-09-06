@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -29,6 +30,9 @@ namespace FargowiltasSouls.Content.Patreon.DevAesthetic
             Projectile.penetrate = 2;
 
             Projectile.timeLeft = 75 * (Projectile.extraUpdates + 1);
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 15;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         private Color color;

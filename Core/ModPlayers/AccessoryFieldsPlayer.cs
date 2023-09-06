@@ -142,6 +142,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool DarkArtistSpawn;
         public int DarkArtistSpawnCD;
         public bool ForbiddenEnchantActive;
+        public bool CanSummonForbiddenStorm = false;
         public Item FossilEnchantItem;
         public bool FrostEnchantActive;
         public int IcicleCount;
@@ -355,6 +356,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool PrecisionSealNoDashNoJump;
         public Item GelicWingsItem;
         public bool ConcentratedRainbowMatter;
+        
 
         //debuffs
         public bool Hexed;
@@ -427,7 +429,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int ReallyAwfulDebuffCooldown;
 
         public bool BoxofGizmos;
-
+        public bool OxygenTank;
 
 
 

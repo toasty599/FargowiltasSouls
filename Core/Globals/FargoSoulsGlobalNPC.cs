@@ -637,7 +637,7 @@ namespace FargowiltasSouls.Core.Globals
                     damage = 20;
                 }
             }
-            bool anyAshwood = modPlayer.AshWoodEnchantItem != null;
+            bool anyAshwood = modPlayer.fireNoDamage;
             if (npc.onFire)
             {
                 if (npc.townNPC && anyAshwood)
@@ -971,12 +971,10 @@ namespace FargowiltasSouls.Core.Globals
                     npcLoot.Add(BossDrop(ModContent.ItemType<FishStick>()));
                     break;
 
-                //JAVYZ TODO: Prisma Regalia
-                /*
             case NPCID.HallowBoss:
                 npcLoot.Add(BossDrop(ModContent.ItemType<PrismaRegalia>()));
                 break;
-                */
+                
 
                 case NPCID.DD2Betsy:
                     npcLoot.Add(BossDrop(ModContent.ItemType<DragonBreath>()));

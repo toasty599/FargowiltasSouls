@@ -2,6 +2,7 @@ using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.Champions.Life;
 using FargowiltasSouls.Content.Bosses.Champions.Terra;
 using FargowiltasSouls.Content.Bosses.VanillaEternity;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -281,6 +282,14 @@ namespace FargowiltasSouls.Content.Projectiles
                             Projectile.Kill();
                             return;
                         }
+                    }
+                    break;
+                case 14: //nuke button
+                    {
+                        color = Color.Red;
+                        radius = DecrepitAirstrikeNuke.ExplosionDiameter / 2;
+                        maxTime = (int)Projectile.ai[1];
+                        alphaModifier = 3;
                     }
                     break;
 

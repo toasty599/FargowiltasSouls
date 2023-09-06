@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public static Dictionary<int, bool> IgnoreMinionNerf = new();
 
-        public List<int> ReworkedSpears = new()
+        public static List<int> ReworkedSpears = new()
         {
                 ProjectileID.Spear,
                 ProjectileID.AdamantiteGlaive,
@@ -475,6 +475,11 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
                         }
                         break;
+                    case var _ when ReworkedSpears.Contains(projectile.type):
+                        {
+                            projectile.damage = (int)(projectile.damage * 1.5f);
+                            break;
+                        }
 
                     default:
                         break;
@@ -507,7 +512,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 OnFirstTick(projectile);
             }
-
+            
             counter++;
 
             //delay the very bottom piece of sharknados spawning in, also delays spawning sharkrons
@@ -520,74 +525,6 @@ namespace FargowiltasSouls.Content.Projectiles
             }
             switch (projectile.type)
             {
-                case var _ when ReworkedSpears.Contains(projectile.type):
-                    #region Special Spear Swing Style
-                    Texture2D tex = (Texture2D)TextureAssets.Projectile[projectile.type];
-                    float HoldoutRangeMax = (float)tex.Size().Length() * projectile.scale; //since sprite is diagonal
-                    float HoldoutRangeMin = (float)projectile.Size.Length(); //(float)-tex.Size().Length() / 4 * projectile.scale; 
-                    Player player = Main.player[projectile.owner];
-
-
-
-
-                    int duration = (int)(player.itemAnimationMax / 1.5f);
-                    int WaitTime = player.itemAnimationMax / 5;
-                    player.heldProj = projectile.whoAmI;
-                    projectile.spriteDirection = player.direction;
-                    if (projectile.ai[1] == 0)
-                        SwingDirection = Main.rand.NextBool(2) ? 1 : -1;
-                    float Swing = 13; //higher value = less swing
-                    projectile.usesLocalNPCImmunity = true;
-                    projectile.localNPCHitCooldown = player.itemAnimationMax; //only hit once per swing
-                                                                              //projectile.ai[1] is time from spawn
-                                                                              //projectile.ai[0] is extension, between 0 and 1
-                    if (projectile.timeLeft > player.itemAnimationMax)
-                    {
-                        projectile.timeLeft = player.itemAnimationMax;
-                    }
-                    if (projectile.ai[1] <= duration / 2)
-                    {
-                        projectile.ai[0] = projectile.ai[1] / (duration / 2);
-                        projectile.velocity = projectile.velocity.RotatedBy(SwingDirection * projectile.spriteDirection * -Math.PI / (Swing * player.itemAnimationMax));
-                    }
-                    else if (projectile.ai[1] <= duration / 2 + WaitTime)
-                    {
-                        projectile.ai[0] = 1;
-                        projectile.velocity = projectile.velocity.RotatedBy(SwingDirection * projectile.spriteDirection * (1.5 * duration / WaitTime) * Math.PI / (Swing * player.itemAnimationMax)); //i know how wacky this looks
-                    }
-                    else //backswing
-                    {
-                        //projectile.friendly = false; //no hit on backswing
-                        projectile.ai[0] = (duration + WaitTime - projectile.ai[1]) / (duration / 2);
-                        projectile.velocity = projectile.velocity.RotatedBy(SwingDirection * projectile.spriteDirection * -Math.PI / (Swing * player.itemAnimationMax));
-                    }
-                    //if (projectile.ai[1] == duration / 2)
-                    //SoundEngine.PlaySound(SoundID.Item1, player.Center);
-
-                    projectile.ai[1]++;
-                    projectile.velocity = Vector2.Normalize(projectile.velocity); //store direction
-                    projectile.Center = player.MountedCenter + Vector2.SmoothStep(projectile.velocity * HoldoutRangeMin, projectile.velocity * HoldoutRangeMax, projectile.ai[0]);
-
-                    projectile.rotation = projectile.velocity.ToRotation();
-                    if (projectile.spriteDirection == -1)
-                    {
-                        projectile.rotation += MathHelper.ToRadians(45f);
-                    }
-                    else
-                    {
-                        projectile.rotation += MathHelper.ToRadians(135f);
-                    }
-
-                    if (projectile.type == ProjectileID.ChlorophytePartisan && projectile.ai[1] == duration / 2 + WaitTime * 2 / 3)
-                    {
-                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.SporeCloud, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
-                    }
-                    if (projectile.type == ProjectileID.OrichalcumHalberd && (projectile.ai[1] == duration / 2 || projectile.ai[1] == duration / 2 + WaitTime))
-                    {
-                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.FlowerPetal, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
-                    }
-                    #endregion
-                    return false;
                 default:
                     break;
 
@@ -1219,6 +1156,105 @@ namespace FargowiltasSouls.Content.Projectiles
             firstTickAICheckDone = true;
         }
 
+        public override void PostAI(Projectile projectile)
+        {
+            switch (projectile.type)
+            {
+                case var _ when ReworkedSpears.Contains(projectile.type):
+                    #region Special Spear Swing Style
+                    Texture2D tex = (Texture2D)TextureAssets.Projectile[projectile.type];
+                    float HoldoutRangeMax = (float)tex.Size().Length() * projectile.scale; //since sprite is diagonal
+                    float HoldoutRangeMin = (float)projectile.Size.Length(); //(float)-tex.Size().Length() / 4 * projectile.scale; 
+                    Player player = Main.player[projectile.owner];
+
+
+
+
+                    int duration = (int)(player.itemAnimationMax / 1.5f);
+                    int WaitTime = player.itemAnimationMax / 5;
+                    player.heldProj = projectile.whoAmI;
+                    projectile.spriteDirection = player.direction;
+                    if (projectile.ai[1] == 0)
+                        SwingDirection = Main.rand.NextBool(2) ? 1 : -1;
+                    float Swing = 13; //higher value = less swing
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = player.itemAnimationMax; //only hit once per swing
+                                                                              //projectile.ai[1] is time from spawn
+                                                                              //projectile.ai[0] is extension, between 0 and 1
+                    if (projectile.timeLeft > player.itemAnimationMax)
+                    {
+                        projectile.timeLeft = player.itemAnimationMax;
+                    }
+                    if (projectile.ai[1] <= duration / 2)
+                    {
+                        projectile.ai[0] = projectile.ai[1] / (duration / 2);
+                        projectile.velocity = projectile.velocity.RotatedBy(SwingDirection * projectile.spriteDirection * -Math.PI / (Swing * player.itemAnimationMax));
+                    }
+                    else if (projectile.ai[1] <= duration / 2 + WaitTime)
+                    {
+                        projectile.ai[0] = 1;
+                        projectile.velocity = projectile.velocity.RotatedBy(SwingDirection * projectile.spriteDirection * (1.5 * duration / WaitTime) * Math.PI / (Swing * player.itemAnimationMax)); //i know how wacky this looks
+                    }
+                    else //backswing
+                    {
+                        //projectile.friendly = false; //no hit on backswing
+                        projectile.ai[0] = (duration + WaitTime - projectile.ai[1]) / (duration / 2);
+                        projectile.velocity = projectile.velocity.RotatedBy(SwingDirection * projectile.spriteDirection * -Math.PI / (Swing * player.itemAnimationMax));
+                    }
+                    //if (projectile.ai[1] == duration / 2)
+                    //SoundEngine.PlaySound(SoundID.Item1, player.Center);
+
+                    projectile.ai[1]++;
+                    //projectile.velocity = Vector2.Normalize(projectile.velocity); //store direction
+                    projectile.Center = player.MountedCenter + Vector2.SmoothStep(Vector2.Normalize(projectile.velocity) * HoldoutRangeMin, Vector2.Normalize(projectile.velocity) * HoldoutRangeMax, projectile.ai[0]);
+                    projectile.position -= projectile.velocity;
+
+                    projectile.rotation = projectile.velocity.ToRotation();
+                    if (projectile.spriteDirection == -1)
+                    {
+                        projectile.rotation += MathHelper.ToRadians(45f);
+                    }
+                    else
+                    {
+                        projectile.rotation += MathHelper.ToRadians(135f);
+                    }
+
+                    
+                    //extra effects
+                    switch (projectile.type)
+                    {
+                        /*
+                        case ProjectileID.ChlorophytePartisan:
+                            {
+                                if (projectile.ai[1] == duration / 2 + WaitTime * 2 / 3 && Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity * 5, ProjectileID.SporeCloud, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
+                                }
+                                break;
+                            }
+                        */
+                        case ProjectileID.OrichalcumHalberd:
+                            {
+                                if (projectile.ai[1] == duration / 2 || projectile.ai[1] == duration / 2 + WaitTime && Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Normalize(projectile.velocity) * 5, ProjectileID.FlowerPetal, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
+                                }
+                                break;
+                            }
+                            /*
+                        case ProjectileID.TheRottedFork:
+                            {
+                                break;
+                            }
+                            */
+                    }
+                    
+                    #endregion
+                    break;
+                default:
+                    break;
+            }
+        }
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (!WorldSavingSystem.EternityMode)
@@ -1326,6 +1362,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 modifiers.FinalDamage *= 2;
         }
 
+
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(projectile, target, hit, damageDone);
@@ -1340,9 +1377,14 @@ namespace FargowiltasSouls.Content.Projectiles
                         player.AddBuff(BuffID.RapidHealing, 60 * 5);
                     break;
                 case ProjectileID.CobaltNaginata:
-                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
-                    if (p != null)
-                        p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                    if (projectile.ai[2] < 2) //only twice per swing
+                    {
+                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
+                        if (p != null)
+                            p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                        projectile.ai[2]++;
+                    }
+                    
                     break;
                 default:
                     break;

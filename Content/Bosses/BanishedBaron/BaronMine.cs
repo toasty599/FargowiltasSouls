@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             // DisplayName.SetDefault("Banished Baron's Mine");
             Main.projFrames[Projectile.type] = 3;
         }
+
         public override void SetDefaults()
         {
             Projectile.width = 58;
@@ -29,8 +30,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.scale = 1f;
+            Projectile.scale = 2f;
             Projectile.light = 1;
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.Bleeding, 60 * 6);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -55,6 +61,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             if (Projectile.frameCounter > 9)
             {
+                Projectile.frame++;
                 Projectile.frame %= 3;
                 Projectile.frameCounter = 0;
             }
@@ -64,15 +71,16 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Projectile.Kill();
             }
-            Tile tile = Framing.GetTileSafely(Projectile.Center);
-            bool InBlocks = tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
-            if (!Projectile.tileCollide && !InBlocks)
+            if (!Projectile.tileCollide)
             {
-                Projectile.tileCollide = true;
+                if (!Collision.SolidCollision(Projectile.position, Projectile.height, Projectile.width)) //this check is inside to stop checking once tileCollide is on
+                {
+                    Projectile.tileCollide = true;
+                }
             }
             if (Projectile.ai[0] == 1) //floating
             {
-                if (Collision.WetCollision(Projectile.position, Projectile.width, Projectile.height) || InBlocks)
+                if (Collision.WetCollision(Projectile.position,  Projectile.width, Projectile.height) || Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
                     Projectile.velocity.Y -= 0.30f;
                 else
                 {
@@ -103,7 +111,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 pos = new Vector2(0, 1).RotatedBy(Projectile.rotation + i * MathHelper.TwoPi / 8);
-                    Vector2 vel = pos * 6 * speedmod;
+                    Vector2 vel = pos * Main.rand.NextFloat(4, 7) * speedmod;
                     pos *= offset;
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
                 }

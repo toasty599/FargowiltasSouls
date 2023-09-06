@@ -82,7 +82,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 npc.ai[1] = 1000; //disable first tick vanilla constellation spawn
             }
-            npc.boss = true;
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
         }
@@ -158,7 +157,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
                 }
             }
-            npc.boss = !npc.dontTakeDamage && npc.HasPlayerTarget;
             bool anyPlayersClose = AnyPlayerWithin(npc, AuraSize);
             if (anyPlayersClose)
             {
@@ -169,7 +167,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 AuraSize = 5000;
                 if (anyPlayersClose)
                 {
-                    if (ShieldStrength <= 20) //at 20 shield, kill all shield and pillar enemies and go to attack phase
+                    if (ShieldStrength <= 70) //at 20 shield, kill all shield and pillar enemies and go to attack phase
                     {
                         foreach (NPC n in Main.npc)
                         {

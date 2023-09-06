@@ -1,4 +1,5 @@
 ﻿//using FargowiltasSouls.EternityMode.Content.Boss.HM;
+using FargowiltasSouls.Content.Bosses.BanishedBaron;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -89,11 +90,10 @@ namespace FargowiltasSouls.Content.Projectiles
                         Projectile.rotation = Projectile.ai[1];
                     }
                     break;
-                //JAVYZ TODO: Banished Baron
-                /*
+                
                 case 2: //banished baron dash telegraph
                     {
-                        NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Challengers.BanishedBaron>());
+                        NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<BanishedBaron>());
                         if (baron != null)
                         {
                             Projectile.rotation = baron.rotation;
@@ -102,12 +102,12 @@ namespace FargowiltasSouls.Content.Projectiles
                         color = Color.Gray; //Color.Lerp(Color.DeepPink, Color.Magenta, 0.5f);
                         alphaModifier = 1;
                         Projectile.scale = 1f;
-                        maxTime = 60;
+                        maxTime = 70;
                     }
                     break;
                 case 3: //banished baron nuke telegraph
                     {
-                        NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Challengers.BanishedBaron>());
+                        NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<BanishedBaron>());
                         if (baron != null)
                         {
                             Projectile.rotation = baron.rotation;
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
                 case 4: //banished baron mine flurry telegraph
                     {
-                        NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Challengers.BanishedBaron>());
+                        NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<BanishedBaron>());
                         if (baron != null)
                         {
                             Projectile.rotation = baron.rotation;
@@ -133,7 +133,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         maxTime = 29;
                     }
                     break;
-                */
+                
                 case 5: //nebula pillar shot telegraph
                     {
                         Projectile.rotation = Projectile.ai[1];
@@ -155,6 +155,21 @@ namespace FargowiltasSouls.Content.Projectiles
                         color = Color.DeepPink;
                         Projectile.scale = 1f;
                         
+                        break;
+                    }
+                case 7: //sweeping nebula pillar shot telegraph
+                    {
+                        NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<BanishedBaron>());
+                        if (baron != null)
+                        {
+                            Projectile.rotation = baron.rotation;
+                            Projectile.Center = baron.Center + (baron.rotation.ToRotationVector2() * baron.width / 3);
+                        }
+                        color = Color.DeepPink;
+                        alphaModifier = 1;
+                        Projectile.scale = 1f;
+                        maxTime = (int)Projectile.ai[2];
+
                         break;
                     }
                 default:

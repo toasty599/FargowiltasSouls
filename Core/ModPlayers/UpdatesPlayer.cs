@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
@@ -63,6 +64,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                     unstableCD = 60;
                 }
                 unstableCD--;
+            }
+
+            if (OxygenTank)
+            {
+                RustedOxygenTank.PassiveEffect(Player);
             }
 
             if (BeeEnchantActive && BeeCD > 0)
@@ -228,7 +234,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     {
                         int diff = StyxCrown.MINIMUM_DPS - dps;
                         if (diff > 0)
-                            StyxMeter += diff;
+                            StyxMeter += diff / 2; //from testing: compared to 1.4.3, this was giving twice as much meter. thus we're halving it
                     }
 
                     //if (Player.getDPS() == 0) Main.NewText("bug! styx timer ran with 0 dps, show this to terry");
@@ -290,6 +296,11 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (GuttedHeart)
                 GuttedHeartEffect();
+
+            if (Player.velocity.Y == 0) //practically, if on the ground or hooked or similar
+            {
+                CanSummonForbiddenStorm = true;
+            }
 
             if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null || GelicWingsItem != null)
                 OnLandingEffects();

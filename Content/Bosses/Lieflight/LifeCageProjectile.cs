@@ -44,6 +44,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                         Main.LocalPlayer.wingTime = Main.LocalPlayer.wingTimeMax;
                         break;
                 }
+                if (Main.LocalPlayer.grapCount > 0)
+                    Main.LocalPlayer.RemoveAllGrapplingHooks();
                 SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
             }
             if (NPC.CountNPCS(ModContent.NPCType<LifeChallenger>()) < 1)

@@ -32,20 +32,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.light = 1;
         }
 
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 2)
-            {
-                Rectangle trailHitbox = projHitbox;
-                Vector2 diff = Projectile.oldPos[i] - Projectile.Center;
-                trailHitbox.X += (int)diff.X;
-                trailHitbox.Y += (int)diff.Y;
-                if (trailHitbox.Intersects(targetHitbox))
-                    return true;
-            }
-            return false;
-        }
-
+        Vector2 HomePos = Vector2.Zero;
         public override void AI()
         {
             Dust.NewDust(Projectile.Center - new Vector2(1, 1), 2, 2, DustID.Torch, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
@@ -62,16 +49,24 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (!(tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]))
                     Projectile.tileCollide = true;
             }
+            if (HomePos == Vector2.Zero) //get homing pos
+            {
+                Player player = Main.player[(int)Projectile.ai[1]];
+                if (player != null && player.active && !player.ghost)
+                {
+                    HomePos = player.Center;
+                }
+            }
             if (Projectile.ai[0] == 2) //accelerating
             {
                 Projectile.velocity *= 1.05f;
             }
             if (Projectile.ai[0] == 3 || Projectile.ai[0] == 1) //homing
             {
-                Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
-                if (player != null && Projectile.localAI[0] > 10) //homing
+                Player player = Main.player[(int)Projectile.ai[1]];
+                if (player != null && player.active && !player.ghost && Projectile.localAI[0] > 10) //homing
                 {
-                    Vector2 vectorToIdlePosition = player.Center - Projectile.Center;
+                    Vector2 vectorToIdlePosition = LerpWithoutClamp(HomePos, player.Center, Projectile.ai[2]) - Projectile.Center;
                     float speed = WorldSavingSystem.MasochistModeReal ? 18f : 18f;
                     float inertia = 20f;
                     float deadzone = WorldSavingSystem.MasochistModeReal ? 150f : 180f;
@@ -99,17 +94,37 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             //}
         }
+        Vector2 LerpWithoutClamp(Vector2 A, Vector2 B, float t)
+        {
+            return A + (B - A) * t;
+        }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            if (WorldSavingSystem.EternityMode)
-                target.AddBuff(BuffID.OnFire, 600);
+            target.AddBuff(BuffID.OnFire, 600);
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
+            target.AddBuff(BuffID.OnFire3, 600);
         }
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 20; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 0, default, 1.5f);
-                Main.dust[d].noGravity = true;
+                int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 3f);
+                Main.dust[dust].velocity *= 1.4f;
+            }
+
+            for (int i = 0; i < 15; i++)
+            {
+                int dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 7f;
+                dust = Dust.NewDust(Projectile.position, Projectile.width,
+                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
+                Main.dust[dust].velocity *= 3f;
             }
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
         }
@@ -120,7 +135,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         //(public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.9f;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Projectile.ai[0] != 3 ? Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value : ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/Bosses/BanishedBaron/BaronRocketTorp", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D13 = Projectile.ai[0] != 3 ? Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value : ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/BanishedBaron/BaronRocketTorp", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);

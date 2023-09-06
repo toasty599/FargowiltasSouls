@@ -10,12 +10,14 @@ Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
 			// Adamantite: Projectiles now split into 3
+			// Apprentice: No upgrade
 			// AncientHallow: No upgrade
 			// AncientShadow: Number of Shadow Orbs increased
+			// AncientCobalt: No upgrade
 			// Angler: No upgrade
 			// Bee: No upgrade
 			// Beetle: No upgrade
-			// Boreal: Fires more snowballs more often
+			// BorealWood: Fires more snowballs more often
 			// Cactus: Number of needles and damage increased
 			// Chlorophyte: No upgrade
 			// Cobalt: Explosion damage increased
@@ -24,17 +26,20 @@ Mods: {
 			// CrystalAssassin: No upgrade
 			// DarkArtist: No upgrade
 			// Ebonwood: Aura size increased, defense reduction increased to 30
-			// Forbidden: No upgrade
+			// Forbidden: Damage boost increased from 30 to 60%
 			// Fossil: No upgrade
 			// Frost: No upgrade
 			// Gladiator: No upgrade
 			// Gold: No upgrade
 			// Hallow: No upgrade
+			// Huntress: No upgrade
 			// Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
+			// Jungle: No upgrade
 			// Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
 			// Meteor: No upgrade
 			// Miner: No upgrade
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
+			// Monk: No upgrade
 			// Mythril: Max attack speed bonus increased and lasts longer
 			// Nebula: No upgrade
 			// Necro: No upgrade
@@ -45,7 +50,7 @@ Mods: {
 			// PalmWood: Attack speed and damage increased, 2 more trees can be spawned
 			// Pearlwood: Damage increased and cooldown reduced
 			// Platinum: No upgrade
-			// Pumpkin: No upgrade
+			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
 			// Rain: No upgrade
 			// RedRiding: No upgrade
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
@@ -58,10 +63,13 @@ Mods: {
 			// Spider: No upgrade
 			// Spooky: No upgrade
 			// Stardust: No upgrade
+			// Snow: No upgrade
+			// Shadow: No upgrade
+			// Squire: No upgrade
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
-			// Tungsten: Increased weapon size to 300%, bonus damage to 20%, cooldown reduced
+			// Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
 			// Turtle: No upgrade
 			// ValhallaKnight: No upgrade
 			// Vortex: No upgrade
@@ -180,7 +188,7 @@ Mods: {
 			// CursedCoffinDespawn: The Cursed Coffin returns to its slumber...
 			// BanishedBaronDespawn: The Banished Baron dives deeper into the ocean...
 			// DeviBossSpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
-			// AbomBossSpawnInfo: Spawn by using [i:FargowiltasSouls/AbomsCure]
+			// AbomBossSpawnInfo: Spawn by using [i:FargowiltasSouls/AbomsCurse]
 			// MutantBossSpawnInfo: Throw [i:FargowiltasSouls/MutantsCurse] into a pool of lava while Abominationn is alive in Mutant's presence.
 			// TimberChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] on the surface during day.
 			// TerraChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] underground.
@@ -191,8 +199,9 @@ Mods: {
 			// SpiritChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underground desert.
 			// WillChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
 			// CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
-			// TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions]
-			// LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Hallow at day.
+			// TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
+			// LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+			// BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		}
 
 		Message: {
@@ -999,7 +1008,9 @@ Mods: {
 			Buff: "[c/00ff00:Modo Eternidade:]"
 			Neutral: "[c/ffff00:Modo Eternidade:]"
 			Damage: Dano reduzido em {0}%
+			// DamagePositive: Increased damage by {0}%
 			Speed: Velocidade reduzida em {0}%
+			// SpeedPositive: Reduced speed by {0}%
 			RodofDiscord: Durante batalhas contra chefes, cada uso leva vida
 			Split: Frequência de divisão reduzida
 			ChlorophyteBullet: Velocidade e duração reduzidos
@@ -1011,6 +1022,7 @@ Mods: {
 			ZenithHitRate: Taxa de acerto consideravelmente reduzida, melhora ao derrotar:
 			VampireKnives: Reduz a taxa de roubo de vida quando acima de 33% de vida
 			Zapinator: Não pode acumular multiplicadores de dano
+			// CoinGun: Damage of Platinum and Gold Coins heavily reduced, damage of Silver Coins slightly reduced, and damage of Copper Coins increased
 			OOASet: O bônus de conjunto aumenta o dano de invocação mínimo quando você ataca usando outras classes
 			MiningHelmet: Aumenta a taxa de criação do Minerador Zumbi
 			MoonsDrops: Os chefes e minichefes não deixam cair itens até ondas tardias
@@ -1724,8 +1736,8 @@ Mods: {
 				/* Description:
 					'''
 					Gravity heavily increased outside water
-					Breathe water instead of air
-					Get back in!
+					Breathe water but cannot breathe air
+					Improved underwater movement
 					''' */
 			}
 
@@ -2348,11 +2360,13 @@ Mods: {
 			}
 
 			AshWoodEnchant: {
-				// DisplayName: Ash Enchantment
+				// DisplayName: Ash Wood Enchantment
 				/* Tooltip:
 					'''
-					On Fire debuff doesn't damage you or town NPCs
+					Fire debuffs don't damage you
+					Above effect works for town NPCs while equipped or in your inventory
 					While you're burning, attacks are accompanied by balls of fire
+					Grants immunity to Oiled
 					Reduces damage from touching lava
 					''' */
 			}
@@ -5235,7 +5249,7 @@ Mods: {
 				// DisplayName: Crystalline Congregation
 				/* Tooltip:
 					'''
-					Summon up to 20 crystal balls near your mouse cursor that home towards you 
+					Summon up to 30 crystal balls near your mouse cursor that home towards you 
 					 Release the button to send them towards your cursor
 					''' */
 			}
@@ -5269,6 +5283,85 @@ Mods: {
 			WiresPainting: {
 				// DisplayName: Wires Painting
 				// Tooltip: Look inside
+			}
+
+			PrismaRegalia: {
+				// DisplayName: Prisma Regalia
+				/* Tooltip:
+					'''
+					Hitting with the tip of the spear releases homing stars
+					Hold to charge for more damage
+					While fully charged, hits release extra stars regardless
+					'The radiant power of a foe's pure essence...'
+					''' */
+			}
+
+			MechLure: {
+				// DisplayName: Mechanical Lure
+				// Tooltip: Throw underwater at the Ocean to lure out a shrouded creature
+			}
+
+			TheBaronsTusk: {
+				// DisplayName: The Baron's Tusk
+				/* Tooltip:
+					'''
+					Swings emit flying shrapnel, that can embed in enemies
+					Hitting enemies that have more than 15 embedded shrapnel with the tusk rips it out
+					The rip deals a large chunk of damage and is guaranteed to critically strike
+					Shrapnel is also ripped out when the enemy dies
+					''' */
+			}
+
+			NavalRustrifle: {
+				// DisplayName: Naval Rustrifle
+				/* Tooltip:
+					'''
+					Manually reload after each shot
+					Time the reload correctly to empower your next shot
+					Empowered shots deal double damage and are guaranteed to critically strike
+					''' */
+			}
+
+			DecrepitAirstrikeRemote: {
+				// DisplayName: Decrepit Airstrike Remote
+				/* Tooltip:
+					'''
+					Marks a location with a reticle, consuming all your sentry slots
+					In 5 seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
+					All your minions hit by the explosion are blown up into homing splinters
+					Splinters are guaranteed to critically strike
+					''' */
+			}
+
+			BanishedBaronBag: {
+				// Tooltip: ""
+				// DisplayName: Banished Baron Bag
+			}
+
+			RustedOxygenTank: {
+				// DisplayName: Rusted Oxygen Tank
+				/* Tooltip:
+					'''
+					Works in your inventory
+					You count as wet outside water
+					Grants floaty water movement
+					Increased movement speed while in any liquid
+					'Nobody knows how it works'
+					''' */
+			}
+
+			RoseTintedVisor: {
+				// DisplayName: Rose Tinted Visor
+				/* Tooltip:
+					'''
+					Fires up to 6 lasers on release, depending on charge time
+					Has extra critical strike chance depending on lasers charged, up to 100%
+					''' */
+			}
+
+			BaronTrophy: {
+				// DisplayName: Banished Baron Trophy
+				// Tooltip: ""
 			}
 		}
 
@@ -5447,6 +5540,16 @@ Mods: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
 					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChallengerSpawnInfo}"
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChallengerDespawn
+				}
+			}
+
+			BanishedBaron: {
+				// DisplayName: Banished Baron
+
+				BossChecklistIntegration: {
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
+					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.BanishedBaronSpawnInfo}"
+					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.BanishedBaronDespawn
 				}
 			}
 
@@ -6148,6 +6251,17 @@ Mods: {
 			// NebulaPillarProj.DisplayName: Nebula Pillar Proj
 			// NebulaTelegraph.DisplayName: Nebula Telegraph
 			// PillarArcanum.DisplayName: Pillar Arcanum
+			// BaronWhirlpool.DisplayName: Baron Whirlpool
+			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
+			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
+			// BaronDeathray.DisplayName: Baron Deathray
+			// BaronEyeFlash.DisplayName: Baron Eye Flash
+			// BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			// DecrepitAirstrike.DisplayName: Decrepit Airstrike
+			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
+			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
+			// MechLureProjectile.DisplayName: Mech Lure Projectile
+			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

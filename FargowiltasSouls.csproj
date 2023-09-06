@@ -8,32 +8,49 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="Content\Items\Items\**" />
+    <Compile Remove="Content\Items\Items\**" />
     <Compile Remove="Folders to Port\**" />
+    <EmbeddedResource Remove="Content\Items\Items\**" />
     <EmbeddedResource Remove="Folders to Port\**" />
+    <None Remove="Content\Items\Items\**" />
     <None Remove="Folders to Port\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\Gores\CosmosGore1.png" />
     <None Remove="Assets\UI\EnchantSlotIcon.png" />
+    <None Remove="Content\Bosses\BanishedBaron\BaronWhirlpool.png" />
+    <None Remove="Content\Bosses\Champions\Cosmos\CosmosChampion_Still.png" />
+    <None Remove="Content\Buffs\Boss\BaronsBurdenBuff.png" />
     <None Remove="Content\Buffs\Souls\CorruptedBuff.png" />
     <None Remove="Content\Items\Accessories\Enchantments\AshWoodEnchant.png" />
+    <None Remove="Content\Items\Accessories\Expert\RustedOxygenTank.png" />
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
+    <None Remove="Content\Items\BossBags\BanishedBaronBag.png" />
+    <None Remove="Content\Items\Placables\Trophies\BaronTrophy.png" />
     <None Remove="Content\Items\Placables\WiresPainting.png" />
     <None Remove="Content\Items\Placables\WiresPaintingSheet.png" />
+    <None Remove="Content\Items\Summons\MechLure.png" />
+    <None Remove="Content\Items\Summons\MechLureProjectile.png" />
+    <None Remove="Content\Items\Weapons\BossDrops\DecrepitAirstrikeRemote.png" />
+    <None Remove="Content\Items\Weapons\Challengers\DecrepitAirstrikeRemote.png" />
+    <None Remove="Content\Items\Weapons\Challengers\NavalRustrifle.png" />
+    <None Remove="Content\Items\Weapons\Challengers\RoseTintedVisor.png" />
+    <None Remove="Content\Items\Weapons\Challengers\TheBaronsTusk.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinion.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinionOld.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\LightningTelegraph.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\VortexVortexProjectile.png" />
+    <None Remove="Content\PlayerDrawLayers\RoseTintedVisorDrawLayer.png" />
+    <None Remove="Content\PlayerDrawLayers\RustrifleReloadBar.png" />
+    <None Remove="Content\PlayerDrawLayers\RustrifleReloadSlider.png" />
+    <None Remove="Content\PlayerDrawLayers\RustrifleReloadZone.png" />
     <None Remove="Content\Tiles\MutantStatueGift.png" />
+    <None Remove="Content\Tiles\Trophies\BaronTrophy.png" />
+    <None Remove="Content\Tiles\Trophies\EridanusTrophy.png" />
+    <None Remove="Content\Tiles\Trophies\LifeChallengerTrophy.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Items\Items\Weapons\BossDrops\" />
-    <Folder Include="Content\Items\Items\Weapons\Challengers\" />
-    <Folder Include="Content\Items\Items\Weapons\FinalUpgrades\" />
-    <Folder Include="Content\Items\Items\Weapons\Misc\" />
-    <Folder Include="Content\Items\Items\Weapons\SummonVariants\" />
-    <Folder Include="Content\Items\Items\Weapons\SwarmDrops\" />
   </ItemGroup>
 </Project>

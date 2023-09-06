@@ -12,6 +12,8 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -30,21 +32,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int ShorterDebuffsTimer;
         public const int MaxShorterDebuffsTimer = 60;
-
-        public List<int> ReworkedSpears = new()
-        {
-                ItemID.Spear,
-                ItemID.AdamantiteGlaive,
-                ItemID.CobaltNaginata,
-                ItemID.MythrilHalberd,
-                ItemID.OrichalcumHalberd,
-                ItemID.PalladiumPike,
-                ItemID.TitaniumTrident,
-                ItemID.Trident,
-                ItemID.ObsidianSwordfish,
-                ItemID.Swordfish,
-                ItemID.ChlorophytePartisan
-            };
 
         public int MythrilHalberdTimer;
         private int WeaponUseTimer => Player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer;
@@ -127,7 +114,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (Player.ZoneUnderworldHeight)
                 {
-                    if (!(Player.fireWalk || fargoSoulsPlayer.PureHeart || Player.lavaMax > 0))
+                    bool anyAshwoodEffect = fargoSoulsPlayer.AshWoodEnchantItem != null || fargoSoulsPlayer.ObsidianEnchantItem != null;
+                    if (anyAshwoodEffect || !(Player.fireWalk || fargoSoulsPlayer.PureHeart || Player.lavaMax > 0))
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.OnFire, 2);
                 }
 
@@ -507,8 +495,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!WorldSavingSystem.EternityMode)
                 return;
 
-            damage *= MasoItemNerfs(item);
-
             //if (item.DamageType == DamageClass.Ranged) //changes all of these to additive
             //{
             //    //shroomite headpieces
@@ -528,103 +514,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             //        damage += Player.bulletDamage.Multiplicative - 1f;
             //    }
             //}
+
         }
 
-        float AttackSpeed
+        public float AttackSpeed
         {
             get { return Player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed; }
             set { Player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed = value; }
         }
-
-        private float MasoItemNerfs(Item item)
-        {
-            switch (item.type)
-            {
-                //case ItemID.DemonScythe:
-                //    if (!NPC.downedBoss2)
-                //    {
-                //        AttackSpeed *= 0.75f;
-                //        return 0.5f;
-                //    }
-                //    return 2f / 3f;
-
-                //case ItemID.StarCannon:
-                //case ItemID.ElectrosphereLauncher:
-                //case ItemID.DaedalusStormbow:
-                //case ItemID.BeesKnees:
-                //case ItemID.LaserMachinegun:
-                //    return 2f / 3f;
-
-                //case ItemID.Beenade:
-                //case ItemID.BlizzardStaff:
-                //    AttackSpeed *= 2f / 3f;
-                //    return 2f / 3f;
-
-                //case ItemID.DD2BetsyBow:
-                //case ItemID.Uzi:
-                //case ItemID.PhoenixBlaster:
-                //case ItemID.Handgun:
-                //case ItemID.SpikyBall:
-                //case ItemID.Xenopopper:
-                //case ItemID.PainterPaintballGun:
-                //case ItemID.MoltenFury:
-                //    return 0.75f;
-
-                //case ItemID.SnowmanCannon:
-                //case ItemID.SkyFracture:
-                //    return 0.8f;
-
-                //case ItemID.SpaceGun:
-                //    return 0.85f;
-
-                //case ItemID.Tsunami:
-                //case ItemID.Flairon:
-                //case ItemID.ChlorophyteShotbow:
-                //case ItemID.HellwingBow:
-                //case ItemID.DartPistol:
-                //case ItemID.DartRifle:
-                //case ItemID.Megashark:
-                //case ItemID.ChainGun:
-                //case ItemID.VortexBeater:
-                //case ItemID.RavenStaff:
-                //case ItemID.XenoStaff:
-                //case ItemID.NebulaArcanum:
-                //case ItemID.Phantasm:
-                //case ItemID.Razorpine:
-                //case ItemID.StardustDragonStaff:
-                //case ItemID.SDMG:
-                //case ItemID.LastPrism:
-                //    return 0.85f;
-
-                //case ItemID.BeeGun:
-                //case ItemID.Grenade:
-                //case ItemID.StickyGrenade:
-                //case ItemID.BouncyGrenade:
-                //case ItemID.DD2BallistraTowerT1Popper:
-                //case ItemID.DD2BallistraTowerT2Popper:
-                //case ItemID.DD2BallistraTowerT3Popper:
-                //case ItemID.DD2ExplosiveTrapT1Popper:
-                //case ItemID.DD2ExplosiveTrapT2Popper:
-                //case ItemID.DD2ExplosiveTrapT3Popper:
-                //case ItemID.DD2FlameburstTowerT1Popper:
-                //case ItemID.DD2FlameburstTowerT2Popper:
-                //case ItemID.DD2FlameburstTowerT3Popper:
-                //case ItemID.DD2LightningAuraT1Popper:
-                //case ItemID.DD2LightningAuraT2Popper:
-                //case ItemID.DD2LightningAuraT3Popper:
-                case ItemID.FetidBaghnakhs:
-                    AttackSpeed *= 0.75f;
-                    return 1f;
-
-                case var _ when ReworkedSpears.Contains(item.type):
-                    return 1.50f;
-                default:
-                    break;
-            }
-
-            return 1f;
-        }
-
 
         public override bool ModifyNurseHeal(NPC nurse, ref int health, ref bool removeDebuffs, ref string chatText)
         {

@@ -44,6 +44,12 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool FreeEaterSummon = true;
         public int Screenshake;
 
+        public bool RustRifleReloading = false;
+        public float RustRifleReloadZonePos = 0;
+        public float RustRifleReloadProgress = 0;
+
+        public bool fireNoDamage = false;
+
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
         public bool DoubleTap
@@ -239,6 +245,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             ShadewoodEnchantItem = null;
             PearlwoodEnchantItem = null;
             AshWoodEnchantItem = null;
+            fireNoDamage = false;
 
             RainEnchantActive = false;
             AncientShadowEnchantActive = false;
@@ -398,6 +405,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Stunned = false;
             HaveCheckedAttackSpeed = false;
             BoxofGizmos = false;
+            OxygenTank = false;
             //IronEnchantShield = false;
             SilverEnchantItem = null;
             DreadShellItem = null;
@@ -429,6 +437,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!Mash && MashCounter > 0)
                 MashCounter--;
             Mash = false;
+
         }
 
         public override void OnRespawn()
@@ -1398,12 +1407,10 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (Player.whoAmI != Main.myPlayer)
                 return;
-
             if (CactusEnchantActive)
             {
                 CactusEnchant.CactusSelfProc(this);
             }
-
             if (BorealEnchantItem != null && Player.GetToggleValue("Boreal") && BorealCD <= 0)
             {
                 BorealCD = WoodForce ? 30 : 60;
@@ -1415,7 +1422,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             bool ashBurning = AshWoodEnchantItem != null && (Player.onFire || Player.onFire2 || Player.onFire3);
             if ((ashBurning || ObsidianEnchantItem != null) && Player.GetToggleValue("AshWood") && AshwoodCD <= 0)
             {
-                AshwoodCD = TerraForce ? 20 : 30;
+                AshwoodCD = TerraForce ? 15 : ObsidianEnchantItem != null ? 20 : 30;
                 AshWoodEnchant.AshwoodFireball(this, damage);
             }
 

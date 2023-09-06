@@ -49,14 +49,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             ItemID.TrueExcalibur,
             ItemID.TerraBlade
         };
-        public static void AdamantiteSplit(Projectile projectile, FargoSoulsPlayer modPlayer)
+        public static void AdamantiteSplit(Projectile projectile, FargoSoulsPlayer modPlayer, int splitDegreeAngle)
         {
             
             if (AdamIgnoreItems.Contains(modPlayer.Player.HeldItem.type))
             {
                 return;
             }
-            foreach (Projectile p in FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(8), 1f))
+            foreach (Projectile p in FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(splitDegreeAngle), modPlayer.EarthForce ? 1f / 3 : 1f / 2))
             {
                 if (p != null && p.active)
                 {

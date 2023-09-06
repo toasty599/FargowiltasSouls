@@ -29,6 +29,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             Projectile.ignoreWater = true;
             Projectile.Opacity = 0f;
         }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+            => Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) < projHitbox.Width / 2;
 
         public override void AI()
         {

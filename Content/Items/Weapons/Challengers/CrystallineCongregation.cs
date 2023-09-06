@@ -32,14 +32,14 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.channel = true;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 1f;
-            Item.value = Item.sellPrice(0, 25);
+            Item.value = Item.sellPrice(0, 10);
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item101;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<CrystallineCongregationProj>();
             Item.shootSpeed = 1f;
             Item.noMelee = true;
-            Item.mana = 5; //BALANCE
+            Item.mana = 7;
         }
         public override Vector2? HoldoutOffset()
         {
@@ -53,7 +53,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 delay--;
             if (delay == 1)
             {
-                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), player.Center);
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), player.Center);
+                }
                 //dust
                 double spread = 2 * Math.PI / 36;
                 for (int i = 0; i < 36; i++)
@@ -70,7 +73,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         }
         public override bool CanUseItem(Player player)
         {
-            if (player.ownedProjectileCounts[Item.shoot] >= 20)
+            if (player.ownedProjectileCounts[Item.shoot] >= 30)
             {
                 Item.useTime = 30;
                 Item.useAnimation = 30;
@@ -91,7 +94,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         }
         public override bool CanShoot(Player player) //different from CanUseItem because here you hold weapon out, and use mana
         {
-            return player.ownedProjectileCounts[Item.shoot] < 20 && base.CanShoot(player);
+            return player.ownedProjectileCounts[Item.shoot] < 30 && base.CanShoot(player);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

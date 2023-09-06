@@ -24,10 +24,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.penetrate = 1;
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
-            Projectile.scale = 1f;
+            Projectile.scale = 2f;
             Projectile.light = 1;
         }
 
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.Bleeding, 60 * 4);
+        }
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.RotatedBy(MathHelper.Pi).ToRotation();

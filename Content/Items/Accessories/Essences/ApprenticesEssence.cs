@@ -38,7 +38,7 @@ Increases your maximum mana by 50
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.WandofSparking)
+                .AddIngredient(ItemID.WandofFrosting)
                 .AddIngredient(ItemID.ZapinatorGray)
                 .AddIngredient(ItemID.Vilethorn)
                 .AddIngredient(ItemID.CrimsonRod)

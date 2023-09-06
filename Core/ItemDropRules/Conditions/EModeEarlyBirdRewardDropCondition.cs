@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 {
     public class EModeEarlyBirdRewardDropCondition : IItemDropRuleCondition
     {
-        public bool CanDrop(DropAttemptInfo info) => !info.IsInSimulation && (!Main.hardMode || WorldSavingSystem.EternityMode);
+        public bool CanDrop(DropAttemptInfo info) => !info.IsInSimulation && (!Main.hardMode && WorldSavingSystem.EternityMode);
 
         public bool CanShowItemDropInUI() => true;
 

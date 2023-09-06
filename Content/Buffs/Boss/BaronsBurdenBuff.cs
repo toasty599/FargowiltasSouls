@@ -5,7 +5,6 @@ namespace FargowiltasSouls.Content.Buffs.Boss
 {
     public class BaronsBurdenBuff : ModBuff
     {
-        public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderDebuff";
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Baron's Burden");
@@ -20,10 +19,15 @@ namespace FargowiltasSouls.Content.Buffs.Boss
         public override void Update(Player player, ref int buffIndex)
         {
             player.gills = true;
+            player.ignoreWater = true;
             if (!player.wet)
             {
                 player.velocity.Y += 0.4f;
                 player.velocity.X *= 0.9f;
+                if (player.statLife > 10)
+                {
+                    player.lifeRegen = -1 * 90;
+                }
             }
         }
     }

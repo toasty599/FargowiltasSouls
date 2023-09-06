@@ -31,10 +31,17 @@ Increases jump height and negates fall damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //lightning boots
+            //terraspark
             player.accRunSpeed = 6.75f;
-            player.rocketBoots = player.vanityRocketBoots = ArmorIDs.RocketBoots.SpectreBoots;
+            player.rocketBoots = player.vanityRocketBoots = ArmorIDs.RocketBoots.TerrasparkBoots;
             player.moveSpeed += 0.08f;
+            player.iceSkate = true;
+
+            //lava wader
+            player.waterWalk = true;
+            player.fireWalk = true;
+            player.lavaMax += 420;
+            player.lavaRose = true;
 
             //fart balloon
             if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoAeolus"))
@@ -50,7 +57,7 @@ Increases jump height and negates fall damage
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.LightningBoots)
+                .AddIngredient(ItemID.TerrasparkBoots)
                 .AddIngredient(ItemID.BalloonHorseshoeFart)
                 .AddIngredient(ModContent.ItemType<EurusSock>())
                 .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)

@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Placables;
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 //using FargowiltasSouls.Content.Buffs.Souls;
@@ -98,12 +99,23 @@ namespace FargowiltasSouls.Content.Items
             return base.ConsumeItem(item, player);
         }
 
+        public static List<int> TungstenAlwaysAffects = new List<int>
+        {
+            ItemID.TerraBlade,
+            ItemID.NightsEdge,
+            ItemID.TrueNightsEdge,
+            ItemID.Excalibur,
+            ItemID.TrueExcalibur,
+            ItemID.PiercingStarlight,
+            ItemID.TheHorsemansBlade,
+            ModContent.ItemType<TheBaronsTusk>()
+        };
         public override void ModifyItemScale(Item item, Player player, ref float scale)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (modPlayer.TungstenEnchantItem != null && player.GetToggleValue("Tungsten")
-                && !item.IsAir && item.damage > 0 && !item.noMelee && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+                && !item.IsAir && item.damage > 0 && (!item.noMelee || TungstenAlwaysAffects.Contains(item.type)) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
             {
                 scale *= TungstenEnchant.TungstenIncreaseWeaponSize(modPlayer);
             }
@@ -347,6 +359,7 @@ namespace FargowiltasSouls.Content.Items
                 velocity *= 2;
             else if (modPlayer.UniverseSoul)
                 velocity *= 1.5f;
+
         }
 
         //        public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount)

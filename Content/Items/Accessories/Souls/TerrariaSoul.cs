@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -101,6 +102,7 @@ Effects of Flower Boots and Greedy Ring
         public override void UpdateInventory(Player player)
         {
             player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantDiscount = true;
+            AshWoodEnchant.PassiveEffect(player);
         }
 
         public override void AddRecipes()
