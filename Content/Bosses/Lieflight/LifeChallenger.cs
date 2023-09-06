@@ -2672,11 +2672,13 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         {
             if (NPC.life <= 0)
             {
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 400; i++)
                 {
                     int DustType = Main.rand.NextFromList(DustID.YellowTorch, DustID.PinkTorch, DustID.UltraBrightTorch);
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustType, 0, 0, 100, new Color(), 1f);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustType, 0, 0, 100, new Color(), 1f);
+                    Main.dust[d].velocity = Vector2.Normalize(Main.dust[d].position - NPC.Center) * Main.rand.NextFloat(50);
                 }
+                /*
                 for (int i = 1; i <= 50; i++)
                 {
                     Vector2 rand = new(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
@@ -2684,6 +2686,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     if (!Main.dedServ)
                         Gore.NewGore(NPC.GetSource_FromThis(), NPC.position + rand, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"ShardGold{j}").Type, NPC.scale);
                 }
+                */
                 /*
                 for (int i = 1; i <= 4; i++)
                 {

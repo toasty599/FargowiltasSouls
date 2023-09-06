@@ -1,4 +1,6 @@
 ﻿using System;
+using FargowiltasSouls.Common.Graphics.Particles;
+using System.Drawing;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -136,12 +138,16 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void Kill(int timeLeft)
         {
             Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
-
-            for (int i = 0; i < 100; i++)
+            
+            for (int i = 0; i < 200; i++)
             {
                 Vector2 pos = Projectile.Center + new Vector2(0, Main.rand.NextFloat(ExplosionDiameter * 0.8f)).RotatedBy(Main.rand.NextFloat(MathHelper.TwoPi)); //circle with highest density in middle
-                int d = Dust.NewDust(pos, 0, 0, DustID.Fireworks, 0f, 0f, 0, default, 1.5f);
-                Main.dust[d].noGravity = true;
+                Vector2 vel = (pos - Projectile.Center) / 500;
+                Particle p = new ExpandingBloomParticle(pos, vel, Color.Lerp(Color.Yellow, Color.Red, pos.Distance(Projectile.Center) / (ExplosionDiameter / 2f)), startScale: Vector2.One * 3, endScale: Vector2.One * 6, lifetime: 60);
+                p.Velocity *= 2f;
+                p.Spawn();
+                //int d = Dust.NewDust(pos, 0, 0, DustID.Fireworks, 0f, 0f, 0, default, 1.5f);
+                //Main.dust[d].noGravity = true;
             }
             
             float scaleFactor9 = 2;
@@ -153,12 +159,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             for (int i = 0; i < 24; i++)
             {
+                
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 pos = new Vector2(0, Main.rand.NextFloat(5, 7)).RotatedBy(i * MathHelper.TwoPi / 24);
                     Vector2 vel = pos.RotatedBy(Main.rand.NextFloat(-MathHelper.TwoPi / 64, MathHelper.TwoPi / 64));
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
                 }
+                
+                
             }
         }
         /*public override Color? GetAlpha(Color lightColor)

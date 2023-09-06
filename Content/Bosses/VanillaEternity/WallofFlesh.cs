@@ -19,6 +19,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
+using FargowiltasSouls.Common.Graphics.Particles;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -124,17 +125,26 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
                 else if (WorldEvilAttackCycleTimer > 600 - 120) //telegraph for special attacks
                 {
-                    int type = !UseCorruptAttack ? 75 : 170; //corruption dust, then crimson dust
-                    int speed = !UseCorruptAttack ? 10 : 8;
-                    float scale = !UseCorruptAttack ? 6f : 4f;
-                    float speedModifier = !UseCorruptAttack ? 12f : 5f;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        int type = !UseCorruptAttack ? 75 : 170; //corruption dust, then crimson dust
+                        Color color = !UseCorruptAttack ? new(96, 248, 2) : Color.Gold;
+                        int speed = !UseCorruptAttack ? 10 : 8;
+                        float scale = !UseCorruptAttack ? 6f : 4f;
+                        float speedModifier = !UseCorruptAttack ? 12f : 5f;
 
-                    Vector2 direction = npc.DirectionTo(Main.player[npc.target].Center);
-                    Vector2 vel = speed * direction;
+                        Vector2 direction = npc.DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.Pi / 10);
+                        Vector2 vel = speed * direction * Main.rand.NextFloat(0.4f, 0.8f);
 
-                    int d = Dust.NewDust(npc.Center + 32f * direction, 0, 0, type, vel.X, vel.Y, 100, Color.White, scale);
-                    Main.dust[d].velocity *= speedModifier;
-                    Main.dust[d].noGravity = true;
+                        /*
+                        int d = Dust.NewDust(npc.Center + 32f * direction, 0, 0, type, vel.X, vel.Y, 100, Color.White, scale);
+                        Main.dust[d].velocity *= speedModifier;
+                        Main.dust[d].noGravity = true;
+                        */
+                        Particle p = new ExpandingBloomParticle(npc.Center + 32f * direction + vel * 50, -vel / 2, color, startScale: Vector2.Zero, endScale: Vector2.One * scale, lifetime: 25);
+                        p.Velocity *= 2f;
+                        p.Spawn();
+                    }
                 }
                 else if (WorldEvilAttackCycleTimer < 240) //special attacks
                 {
