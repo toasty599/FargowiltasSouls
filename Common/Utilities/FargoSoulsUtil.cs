@@ -1069,6 +1069,10 @@ namespace FargowiltasSouls
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
         }
-        #endregion
-    }
+		#endregion
+
+		#region Easings
+		public static float SineInOut(float value) => (0f - (MathF.Cos((value * MathF.PI)) - 1f)) / 2f;
+		#endregion
+	}
 }
