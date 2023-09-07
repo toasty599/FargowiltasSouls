@@ -289,6 +289,10 @@ namespace FargowiltasSouls.Content.Projectiles
                         color = Color.Red;
                         radius = DecrepitAirstrikeNuke.ExplosionDiameter / 2;
                         maxTime = (int)Projectile.ai[1];
+                        if (Projectile.timeLeft > maxTime)
+                        {
+                            Projectile.timeLeft = maxTime; //otherwise doesn't dissappear faster with ninja, ninja scales timeLeft tick speed
+                        }
                         alphaModifier = 3;
                     }
                     break;

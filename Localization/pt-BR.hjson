@@ -5327,7 +5327,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Marks a location with a reticle, consuming all your sentry slots
-					In 5 seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
+					In a few seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
 					All your minions hit by the explosion are blown up into homing splinters
 					Splinters are guaranteed to critically strike
 					''' */
