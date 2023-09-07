@@ -558,7 +558,13 @@ namespace FargowiltasSouls
                     dust.color = color;
             }
         }
-        public static void AuraParticles(Entity entity, float distance, Color color = default, bool reverse = false, float scaleModifier = 1f)
+        /// <summary>
+        /// Makes an aura out of particles, same form as old dust auras.
+        /// Different particle types:
+        /// 0/default: circular bloom "ball"
+        /// 1: small sparkle
+        /// </summary>
+        public static void AuraParticles(Entity entity, float distance, Color color = default, bool reverse = false, float scaleModifier = 1f, int particleType = 0)
         {
             const int baseDistance = 500;
             const int baseMax = 20;
@@ -581,14 +587,35 @@ namespace FargowiltasSouls
                 Vector2 offset = spawnPos - Main.LocalPlayer.Center;
                 if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
                     continue;
-
-                Particle p = new ExpandingBloomParticle(
-                        position: spawnPos,
-                        velocity: entity.velocity,
-                        drawColor: color != default ? color : Color.White,
-                        startScale: Vector2.One * scale * scaleModifier,
-                        endScale: Vector2.One * 0,
-                        lifetime: 30);
+                Particle p = null;
+                switch (particleType)
+                {
+                    case 1:
+                        {
+                            p = new SmallSparkle(
+                            worldPosition: spawnPos,
+                            velocity: entity.velocity,
+                            drawColor: color != default ? color : Color.White,
+                            scale: scale * scaleModifier,
+                            lifetime: 30,
+                            rotation: Main.rand.NextFloat(MathHelper.TwoPi),
+                            rotationSpeed: Main.rand.NextFloat(-MathHelper.Pi / 32, MathHelper.Pi / 32)
+                            );
+                            break;
+                        }
+                    default:
+                        {
+                            p = new ExpandingBloomParticle(
+                            position: spawnPos,
+                            velocity: entity.velocity,
+                            drawColor: color != default ? color : Color.White,
+                            startScale: Vector2.One * scale * scaleModifier,
+                            endScale: Vector2.One * 0,
+                            lifetime: 30
+                            );
+                            break;
+                        }
+                }
                 p.Spawn();
                 if (Main.rand.NextBool(3))
                 {
