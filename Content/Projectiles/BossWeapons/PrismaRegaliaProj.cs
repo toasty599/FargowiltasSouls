@@ -35,6 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Vector2 HitboxCenter = Projectile.Center + Projectile.velocity * (Projectile.Size.Length() / 2f - HitboxSize.Length() / 2f);
             hitbox = new Rectangle((int)(HitboxCenter.X - HitboxSize.X / 2f), (int)(HitboxCenter.Y - HitboxSize.Y / 2f), (int)HitboxSize.X, (int)HitboxSize.Y);
         }
+        public float maxCharge = 60 * 2.5f;
         public int SwingDirection = 1;
         public float Extension = 0;
         int OrigAnimMax = 30;
@@ -42,6 +43,9 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         Vector2 ChargeVector = Vector2.Zero;
         public override void AI()
         {
+            ref float chargeLevel = ref Projectile.ai[0];
+            ref float timer = ref Projectile.ai[1];
+
             Player player = Main.player[Projectile.owner];
             player.heldProj = Projectile.whoAmI;
             if (Projectile.localAI[0] == 0)
@@ -57,73 +61,33 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Projectile.velocity = player.DirectionTo(Main.MouseWorld);
                 Projectile.Center = player.MountedCenter + Projectile.velocity * HoldoutRangeMin;
                 Projectile.friendly = false;
-                if (Projectile.ai[0] < 60 * 3)
-                    Projectile.ai[0]++;
-                if (Projectile.ai[0] == 60 * 3 - 1 && player.whoAmI == Main.myPlayer)
+                if (chargeLevel < maxCharge)
+                    chargeLevel++;
+                if (chargeLevel == (int)maxCharge - 1 && player.whoAmI == Main.myPlayer)
                 {
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), Projectile.Center + Projectile.velocity * Projectile.Size.Length() / 2);
                 }
-                Projectile.localAI[1] = Projectile.ai[0]; //store the charge amount
+                Projectile.localAI[1] = chargeLevel; //store the charge amount
                 //int d = Dust.NewDust(player.MountedCenter + Projectile.velocity * Projectile.Size.Length() * 0.95f, 0, 0, DustID.CrystalPulse);
                 //Main.dust[d].noGravity = true;
-                FargoSoulsUtil.AuraDust(player, Projectile.Size.Length() * 0.95f, DustID.CrystalPulse);
+                bool charged = chargeLevel >= maxCharge - 1;
+                FargoSoulsUtil.AuraParticles(player, Projectile.Size.Length() * 0.95f, color: charged ? Color.HotPink : Color.DeepPink, particleType: charged ? 1 : 0);
             }
             else
             {
                 Projectile.friendly = true;
-                if (Projectile.ai[0] > -1) //check once
+                if (chargeLevel > -1) //check once
                 {
-                    Projectile.damage = (int)(Projectile.damage * (1 + Projectile.ai[0] / 60f)); //modify this to change damage charge
-                    Charged = Projectile.ai[0] == 60 * 3;
-                    Projectile.ai[0] = -1;
+                    Projectile.damage = (int)(Projectile.damage * (1.15f + chargeLevel / 60f)); //modify this to change damage charge
+                    Charged = chargeLevel == maxCharge;
+                    chargeLevel = -1;
 
                 }
-                /*
-                if (Charged) //charge until spear will hit mouse
-                {
-                    //this charge is super janky and unfinished. please do this better than me. the rest is pretty polished though. there's also no sound or dust effects here.
-
-                    if (Projectile.ai[0] > -2) //check once
-                    {
-                        Vector2 ChargePos = Main.MouseWorld - (Projectile.velocity * HoldoutRangeMax);
-                        ChargeVector = player.DirectionTo(ChargePos) * player.Distance(ChargePos) / 15;
-                        Projectile.ai[0] = -2;
-                    }
-
-                    player.velocity = ChargeVector;
-                    player.controlLeft = false;
-                    player.controlRight = false;
-                    player.controlJump = false;
-                    player.controlDown = false;
-                    player.controlUseItem = false;
-                    player.controlUseTile = false;
-                    player.controlHook = false;
-                    player.controlMount = false;
-
-                    if (Projectile.ai[0] < -18) //one frame before player reaches target, stop
-                    {
-                        player.velocity = Vector2.Zero;
-                        if (Projectile.timeLeft > 10)
-                        {
-                            Projectile.timeLeft = 10;
-                        }
-                        Projectile.Center = player.MountedCenter + (Projectile.velocity * HoldoutRangeMax);
-                    }
-                    else
-                    {
-                        Projectile.Center = player.MountedCenter;
-                    }
-                    Projectile.ai[0]--;
-                    
-                }
-                else //normal swing
-                {
-                */
                 int duration = (int)(OrigAnimMax / 1.5f);
                 int WaitTime = OrigAnimMax / 5;
 
 
-                if (Projectile.ai[1] == 0)
+                if (timer == 0)
                     SwingDirection = Main.rand.NextBool(2) ? 1 : -1;
                 float Swing = 13; //higher value = less swing
                 Projectile.localNPCHitCooldown = OrigAnimMax;   //only hit once per swing
@@ -133,12 +97,12 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 {
                     Projectile.timeLeft = OrigAnimMax;
                 }
-                if (Projectile.ai[1] <= duration / 2)
+                if (timer <= duration / 2)
                 {
-                    Extension = Projectile.ai[1] / (duration / 2);
+                    Extension = timer / (duration / 2);
                     Projectile.velocity = Projectile.velocity.RotatedBy(SwingDirection * Projectile.spriteDirection * -Math.PI / (Swing * OrigAnimMax));
                 }
-                else if (Projectile.ai[1] <= duration / 2 + WaitTime)
+                else if (timer <= duration / 2 + WaitTime)
                 {
                     Extension = 1;
                     Projectile.velocity = Projectile.velocity.RotatedBy(SwingDirection * Projectile.spriteDirection * (1.5 * duration / WaitTime) * Math.PI / (Swing * OrigAnimMax)); //i know how wacky this looks
@@ -146,17 +110,17 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 else
                 {
                     Projectile.friendly = false; //no hit on backswing
-                    Extension = (duration + WaitTime - Projectile.ai[1]) / (duration / 2);
+                    Extension = (duration + WaitTime - timer) / (duration / 2);
                     Projectile.velocity = Projectile.velocity.RotatedBy(SwingDirection * Projectile.spriteDirection * -Math.PI / (Swing * OrigAnimMax));
                 }
 
-                if (Projectile.ai[1] == duration / 2)
+                if (timer == duration / 2)
                 {
                     float pitch = Charged ? -1 : 0;
                     SoundEngine.PlaySound(SoundID.Item1 with { Pitch = pitch}, player.Center);
                 }
 
-                Projectile.ai[1]++;
+                timer++;
                 Projectile.velocity = Vector2.Normalize(Projectile.velocity); //store direction
                 Projectile.Center = player.MountedCenter + Vector2.SmoothStep(Projectile.velocity * HoldoutRangeMin, Projectile.velocity * HoldoutRangeMax, Extension);
                 //}
@@ -185,10 +149,10 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             {
                 count = 4;
             }
-            if (Extension > 0.7f)
+            if (Extension > 0.675f)
             {
                 SoundEngine.PlaySound(SoundID.Item68, pos);
-                count += 4;
+                count += 3;
             }
             if (count == 0)
             {
@@ -234,7 +198,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             //offset glow
             for (int j = 0; j < 16; j++)
             {
-                float offsetDistance = 4f * (Projectile.localAI[1] / 180f);
+                float offsetDistance = 4f * (Projectile.localAI[1] / maxCharge);
                 Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * offsetDistance;
                 Color glowColor = Main.DiscoColor * 0.3f;
                 Main.spriteBatch.Draw(texture2D13, pos + afterimageOffset, null, glowColor, Projectile.rotation, origin2, Projectile.scale, effects, 0f);

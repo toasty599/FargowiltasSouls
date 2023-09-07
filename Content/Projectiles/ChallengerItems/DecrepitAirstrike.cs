@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/TargetingReticle";
 
-        const int maxTime = 60 * 5;
+        const int maxTime = 60 * 4;
         private SoundStyle Beep = new("FargowiltasSouls/Assets/Sounds/NukeBeep");
         public override void SetDefaults()
         {
@@ -54,6 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                 if (Projectile.timeLeft % 60 == 0 && Projectile.timeLeft > 30)
                 {
                     SoundEngine.PlaySound(Beep, Projectile.Center);
+                    CombatText.NewText(Projectile.Hitbox, Color.Red, Projectile.timeLeft / 60, true);
                 }
                 if (Projectile.timeLeft == 30 && Main.netMode != NetmodeID.MultiplayerClient)
                 {

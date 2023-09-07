@@ -976,6 +976,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer >= ReactTime && NPC.velocity.Length() > 5)
             {
+                int rocketTime = (int)(5 * NPC.velocity.Length() / 20);
                 if (Timer % 5 == 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
@@ -1044,13 +1045,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 float prog = AI3 / ArcTime;
                 
-                //float DyDp = (float)(-((YMax - YMin) * Math.Cos(MathHelper.Pi * prog))) * (-1/(2*AI2*Xstart));
                 Vector2 curve = Curve(prog);
                 Vector2 dydx = Curve(prog + 0.00001f) - curve;
                 NPC.rotation = dydx.ToRotation();
                 LockVector1 = player.Center + curve; 
-                //NPC.rotation = (LockVector1 - NPC.Center).ToRotation();
-                //NPC.rotation = NPC.DirectionTo(player.Center).RotatedBy(MathHelper.PiOver2 * AI2).ToRotation();
                 NPC.velocity = LockVector1 - NPC.Center;
                 AI3++;
 
@@ -1059,7 +1057,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     SoundEngine.PlaySound(SoundID.Item63, NPC.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Vector2 vel = new Vector2(0, Main.rand.Next(15, 25));
+                        Vector2 vel = new Vector2(0, Main.rand.Next(15, 20));
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<BaronMine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, player.whoAmI);
                     }
                 }

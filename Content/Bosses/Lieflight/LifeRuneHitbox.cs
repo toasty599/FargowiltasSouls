@@ -1,4 +1,5 @@
 ﻿using System;
+using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -12,11 +13,10 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
     {
         public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/Rune1";
 
-        private NPC lifelight;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Life Rune");
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
         public override void SetDefaults()
@@ -44,12 +44,11 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         public override void AI()
         {
-            if (Main.npc[(int)Projectile.ai[0]] == null)
+            NPC lifelight = Main.npc[(int)Projectile.ai[0]];
+            if (lifelight == null || !lifelight.active || lifelight.type != ModContent.NPCType<LifeChallenger>())
             {
-                Main.NewText("he's dead");
                 Projectile.Kill();
             }
-            lifelight = Main.npc[(int)Projectile.ai[0]]; //get npc
             float RuneDistance = lifelight.localAI[0];
             float BodyRotation = lifelight.localAI[1];
             int RuneCount = (int)lifelight.localAI[2];
@@ -57,20 +56,37 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
             float runeRot = (float)(BodyRotation + Math.PI * 2 / RuneCount * i);
             Vector2 runePos = lifelight.Center + runeRot.ToRotationVector2() * RuneDistance;
-            Projectile.Center = runePos;
+            Projectile.velocity = runePos - Projectile.Center;
 
+            Color color;
             if (i % 3 == 0) //cyan
             {
-                Dust.NewDust(Projectile.Center, 0, 0, DustID.UltraBrightTorch);
+                //Dust.NewDust(Projectile.Center, 0, 0, DustID.UltraBrightTorch);
+                color = Color.Cyan;
             }
             else if (i % 3 == 1) //yellow
             {
-                Dust.NewDust(Projectile.Center, 0, 0, DustID.YellowTorch);
+                //Dust.NewDust(Projectile.Center, 0, 0, DustID.YellowTorch);
+                color = Color.Goldenrod;
             }
             else //pink
             {
-                Dust.NewDust(Projectile.Center, 0, 0, DustID.PinkTorch);
+                //Dust.NewDust(Projectile.Center, 0, 0, DustID.PinkTorch);
+                color = Color.DeepPink;
             }
+
+            for (int j = 0; j < Projectile.oldPos.Length; j++)
+            {
+                Particle p = new ExpandingBloomParticle(
+                        position: Projectile.oldPos[j] + (Projectile.Size / 2) + Projectile.velocity,
+                        velocity: Vector2.Zero,
+                        drawColor: color,
+                        startScale: Vector2.One * 1.2f * (1 - ((float)j / Projectile.oldPos.Length)),
+                        endScale: Vector2.One * 0f,
+                        lifetime: 1);
+                p.Spawn();
+            }
+            
 
             //fix for weird bug (may not fix it)
             if (Projectile.timeLeft < 595)

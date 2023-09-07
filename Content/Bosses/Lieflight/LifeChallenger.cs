@@ -23,6 +23,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using FargowiltasSouls.Common.Graphics.Particles;
 
 namespace FargowiltasSouls.Content.Bosses.Lieflight
 {
@@ -2674,9 +2675,18 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             {
                 for (int i = 0; i < 400; i++)
                 {
-                    int DustType = Main.rand.NextFromList(DustID.YellowTorch, DustID.PinkTorch, DustID.UltraBrightTorch);
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustType, 0, 0, 100, new Color(), 1f);
-                    Main.dust[d].velocity = Vector2.Normalize(Main.dust[d].position - NPC.Center) * Main.rand.NextFloat(50);
+                    Color color = Main.rand.NextFromList(Color.Goldenrod, Color.Pink, Color.Cyan);
+                    Particle p = new SmallSparkle(
+                        worldPosition: NPC.Center, 
+                        velocity: (Main.rand.NextFloat(5, 50) * Vector2.UnitX).RotatedByRandom(MathHelper.TwoPi), 
+                        drawColor: color, 
+                        scale: 1f, 
+                        lifetime: Main.rand.Next(20, 80), 
+                        rotation:0, 
+                        rotationSpeed: Main.rand.NextFloat(-MathHelper.Pi / 8, MathHelper.Pi / 8)
+                        );
+                    p.Spawn();
+                    p.Position -= p.Velocity * 4; //implosion
                 }
                 /*
                 for (int i = 1; i <= 50; i++)
