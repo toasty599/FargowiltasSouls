@@ -1,6 +1,5 @@
 ﻿global using FargowiltasSouls.Core.ModPlayers;
 global using FargowiltasSouls.Core.Toggler;
-using FargowiltasSouls.Assets.Effects.Shaders;
 using FargowiltasSouls.Content.Sky;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -112,19 +111,19 @@ namespace FargowiltasSouls
                 #region shaders
 
                 //loading refs for shaders
-                Ref<Effect> lcRef = new(Assets.Request<Effect>("Assets/Effects/LifeChampionShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> wcRef = new(Assets.Request<Effect>("Assets/Effects/WillChampionShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> gaiaRef = new(Assets.Request<Effect>("Assets/Effects/GaiaShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> textRef = new(Assets.Request<Effect>("Assets/Effects/TextShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> invertRef = new(Assets.Request<Effect>("Assets/Effects/Invert", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> finalSparkRef = new(Assets.Request<Effect>("Assets/Effects/FinalSpark", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> mutantDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/MutantFinalDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> willDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/WillDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> willBigDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/WillBigDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> deviBigDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/DeviTouhouDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> deviRingRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/DeviRingShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> genericDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/GenericDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
-                Ref<Effect> blobTrailRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/BlobTrailShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> lcRef = new(Assets.Request<Effect>("Assets/Effects/Armor/LifeChampionShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> wcRef = new(Assets.Request<Effect>("Assets/Effects/Armor/WillChampionShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> gaiaRef = new(Assets.Request<Effect>("Assets/Effects/Armor/GaiaShader", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> textRef = new(Assets.Request<Effect>("Assets/Effects/TextShader", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> invertRef = new(Assets.Request<Effect>("Assets/Effects/Invert", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> finalSparkRef = new(Assets.Request<Effect>("Assets/Effects/FinalSpark", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> mutantDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/MutantFinalDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> willDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/WillDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> willBigDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/WillBigDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> deviBigDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/DeviTouhouDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> deviRingRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/DeviRingShader", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> genericDeathrayRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/GenericDeathrayShader", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> blobTrailRef = new(Assets.Request<Effect>("Assets/Effects/PrimitiveShaders/BlobTrailShader", AssetRequestMode.ImmediateLoad).Value);
 
                 //loading shaders from refs
                 GameShaders.Misc["LCWingShader"] = new MiscShaderData(lcRef, "LCWings");
@@ -136,19 +135,19 @@ namespace FargowiltasSouls
                 GameShaders.Misc["GaiaShader"] = new MiscShaderData(gaiaRef, "GaiaGlow");
                 GameShaders.Armor.BindShader(ModContent.ItemType<GaiaDye>(), new ArmorShaderData(gaiaRef, "GaiaArmor").UseColor(new Color(0.44f, 1, 0.09f)).UseSecondaryColor(new Color(0.5f, 1f, 0.9f)));
 
-                GameShaders.Misc["PulseUpwards"] = new MiscShaderData(textRef, "PulseUpwards");
-                GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
-                GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
-                GameShaders.Misc["FargowiltasSouls:MutantDeathray"] = new MiscShaderData(mutantDeathrayRef, "TrailPass");
-                GameShaders.Misc["FargowiltasSouls:WillDeathray"] = new MiscShaderData(willDeathrayRef, "TrailPass");
-                GameShaders.Misc["FargowiltasSouls:WillBigDeathray"] = new MiscShaderData(willBigDeathrayRef, "TrailPass");
-                GameShaders.Misc["FargowiltasSouls:DeviBigDeathray"] = new MiscShaderData(deviBigDeathrayRef, "TrailPass");
-                GameShaders.Misc["FargowiltasSouls:DeviRing"] = new MiscShaderData(deviRingRef, "TrailPass");
-                GameShaders.Misc["FargowiltasSouls:GenericDeathray"] = new MiscShaderData(genericDeathrayRef, "TrailPass");
-                GameShaders.Misc["FargowiltasSouls:BlobTrail"] = new MiscShaderData(blobTrailRef, "TrailPass");
+                //GameShaders.Misc["PulseUpwards"] = new MiscShaderData(textRef, "PulseUpwards");
+                //GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
+                //GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
+                //GameShaders.Misc["FargowiltasSouls:MutantDeathray"] = new MiscShaderData(mutantDeathrayRef, "TrailPass");
+                //GameShaders.Misc["FargowiltasSouls:WillDeathray"] = new MiscShaderData(willDeathrayRef, "TrailPass");
+                //GameShaders.Misc["FargowiltasSouls:WillBigDeathray"] = new MiscShaderData(willBigDeathrayRef, "TrailPass");
+                //GameShaders.Misc["FargowiltasSouls:DeviBigDeathray"] = new MiscShaderData(deviBigDeathrayRef, "TrailPass");
+                //GameShaders.Misc["FargowiltasSouls:DeviRing"] = new MiscShaderData(deviRingRef, "TrailPass");
+                //GameShaders.Misc["FargowiltasSouls:GenericDeathray"] = new MiscShaderData(genericDeathrayRef, "TrailPass");
+                //GameShaders.Misc["FargowiltasSouls:BlobTrail"] = new MiscShaderData(blobTrailRef, "TrailPass");
 
-                Filters.Scene["FargowiltasSouls:FinalSpark"] = new Filter(new FinalSparkShader(finalSparkRef, "FinalSpark"), EffectPriority.High);
-                Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
+                //Filters.Scene["FargowiltasSouls:FinalSpark"] = new Filter(new FinalSparkShader(finalSparkRef, "FinalSpark"), EffectPriority.High);
+                //Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
 
                 Filters.Scene["FargowiltasSouls:Solar"] = new Filter(Filters.Scene["MonolithSolar"].GetShader(), EffectPriority.Medium);
                 Filters.Scene["FargowiltasSouls:Vortex"] = new Filter(Filters.Scene["MonolithVortex"].GetShader(), EffectPriority.Medium);

@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Common.Graphics.Shaders;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -34,13 +35,13 @@ Cannot be used while a boss is alive
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        static bool canPlaymaso => WorldSavingSystem.CanPlayMaso || Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso;
+        public static bool CanPlayMaso => WorldSavingSystem.CanPlayMaso || Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso;
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
             base.SafeModifyTooltips(tooltips);
 
-            if (canPlaymaso)
+            if (CanPlayMaso)
             {
                 TooltipLine line = new(Mod, "tooltip", Language.GetTextValue($"Mods.{Mod.Name}.Message.{Name}ExtraTooltip"));
                 tooltips.Add(line);
@@ -49,14 +50,13 @@ Cannot be used while a boss is alive
 
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
         {
-            if (canPlaymaso)
+            if (CanPlayMaso)
             {
                 if (line.Mod == "Terraria" && line.Name == "ItemName" || line.Mod == Mod.Name && line.Name == "tooltip")
                 {
                     Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
                     Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
-                    var lineshader = GameShaders.Misc["PulseUpwards"].UseColor(new Color(28, 222, 152)).UseSecondaryColor(new Color(168, 245, 228));
-                    lineshader.Apply();
+					ShaderManager.GetShaderIfExists("Text").SetMainColor(new Color(28, 222, 152)).SetSecondaryColor(new Color(168, 245, 228)).Apply(true, "PulseUpwards");
                     Utils.DrawBorderString(Main.spriteBatch, line.Text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
                     Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
                     Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Common.Graphics.Shaders;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
         #region Fields/Properties
 
         public BasicEffect BaseEffect;
-        public MiscShaderData Shader;
+        public Shader Shader;
         public WidthTrailFunction WidthFunc;
         public ColorTrailFunction ColorFunc;
 
@@ -65,8 +66,10 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
             // If the shader exists, set the correct view and apply it.
             if (Shader != null)
             {
-                Shader.Shader.Parameters["uWorldViewProjection"].SetValue(view * projection);
-                Shader.Apply();
+                Shader.WrappedEffect.Parameters["worldViewProjection"]?.SetValue(view * projection);
+				Shader.WrappedEffect.Parameters["time"]?.SetValue(Main.GlobalTimeWrappedHourly);
+
+				Shader.Apply(false);
             }
             // Else, apply the base effect.
             else
@@ -108,8 +111,9 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
             // If the shader exists, set the correct view and apply it.
             if (Shader != null)
             {
-                Shader.Shader.Parameters["uWorldViewProjection"].SetValue(view * effectProjetion);
-                Shader.Apply();
+                Shader.WrappedEffect.Parameters["worldViewProjection"]?.SetValue(view * effectProjetion);
+                Shader.WrappedEffect.Parameters["time"]?.SetValue(Main.GlobalTimeWrappedHourly);
+                Shader.Apply(false);
             }
             // Else, apply the base effect.
             else
@@ -128,7 +132,7 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
         /// <param name="widthFunc">The width function</param>
         /// <param name="colorFunc">The color function</param>
         /// <param name="shader">The shader, if any</param>
-        public PrimDrawer(WidthTrailFunction widthFunc, ColorTrailFunction colorFunc, MiscShaderData shader = null)
+        public PrimDrawer(WidthTrailFunction widthFunc, ColorTrailFunction colorFunc, Shader shader = null)
         {
             WidthFunc = widthFunc;
             ColorFunc = colorFunc;

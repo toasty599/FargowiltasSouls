@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Common.Graphics.Shaders;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -69,9 +70,9 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public void DrawPixelPrimitives(SpriteBatch spriteBatch)
         {
-            TrailDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, GameShaders.Misc["FargowiltasSouls:BlobTrail"]);
-            GameShaders.Misc["FargowiltasSouls:BlobTrail"].SetShaderTexture(FargosTextureRegistry.FadedStreak);
-            TrailDrawer.DrawPixelPrims(Projectile.oldPos, Projectile.Size * 0.5f - Main.screenPosition, 25);
-        }
+			TrailDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, ShaderManager.GetShaderIfExists("BlobTrail"));
+			FargoSoulsUtil.SetTexture1(FargosTextureRegistry.FadedStreak.Value);
+			TrailDrawer.DrawPixelPrims(Projectile.oldPos, Projectile.Size * 0.5f - Main.screenPosition, 25);
+		}
     }
 }

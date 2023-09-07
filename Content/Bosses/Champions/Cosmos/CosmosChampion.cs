@@ -20,6 +20,7 @@ using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 {
@@ -1439,8 +1440,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                     if (NPC.ai[1] >= 10) //for timestop visual
                     {
-                        if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                            Terraria.Graphics.Effects.Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(NPC.Center);
+                        if (Main.netMode != NetmodeID.Server)
+                            ShaderManager.GetFilterIfExists("Invert").SetFocusPosition(NPC.Center);
                     }
 
                     /*if (NPC.ai[1] < 10)
