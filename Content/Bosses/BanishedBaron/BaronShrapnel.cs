@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = 1;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.scale = 2f;
             Projectile.light = 1;

@@ -1038,6 +1038,7 @@ Mods: {
 			CobaltNaginataRework: Causes a small explosion on striking enemies
 			MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
 			OrichalcumHalberdRework: Releases flower petals at apex of swing
+			SuperStarCannon: Decreased maximum pierce to 7
 		}
 
 		EternityMode: {

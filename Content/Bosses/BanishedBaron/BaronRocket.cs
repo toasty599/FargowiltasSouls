@@ -57,18 +57,27 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     HomePos = player.Center;
                 }
             }
-            if (Projectile.ai[0] == 2) //accelerating
+            if (Projectile.ai[0] == 2) //accelerating rocket
             {
                 Projectile.velocity *= 1.05f;
             }
-            if (Projectile.ai[0] == 3 || Projectile.ai[0] == 1) //homing
+            if (Projectile.ai[0] == 4) //slower accelerating torpedo
+            {
+                Projectile.velocity *= 1.05f;
+            }
+            if (Projectile.ai[0] == 3 || Projectile.ai[0] == 1) //homing rocket or torpedo
             {
                 Player player = Main.player[(int)Projectile.ai[1]];
-                if (player != null && player.active && !player.ghost && Projectile.localAI[0] > 10) //homing
+                bool homeTime = (Projectile.ai[0] == 3 && Projectile.localAI[0] > 10) || (Projectile.ai[0] == 1 && Projectile.localAI[0] > 40);
+                if (!homeTime)
+                {
+                    Projectile.velocity *= 0.96f;
+                }
+                if (player != null && player.active && !player.ghost && homeTime) 
                 {
                     Vector2 vectorToIdlePosition = LerpWithoutClamp(HomePos, player.Center, Projectile.ai[2]) - Projectile.Center;
-                    float speed = WorldSavingSystem.MasochistModeReal ? 18f : 18f;
-                    float inertia = 20f;
+                    float speed = Projectile.ai[0] == 1 ? 24f : 18f;
+                    float inertia = Projectile.ai[0] == 1 ? 24f : 20f;
                     float deadzone = WorldSavingSystem.MasochistModeReal ? 150f : 180f;
                     float num = vectorToIdlePosition.Length();
                     if (num > deadzone && home)
@@ -135,7 +144,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         //(public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.9f;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Projectile.ai[0] != 3 ? Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value : ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/BanishedBaron/BaronRocketTorp", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D13 = Projectile.ai[0] != 3 && Projectile.ai[0] != 4 ? Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value : ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/BanishedBaron/BaronRocketTorp", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);

@@ -565,6 +565,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronHit"), NPC.Center);
                 if (!Main.dedServ)
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 100;
+
             }
             if (Timer < 90)
             {
@@ -572,7 +573,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 RotateTowards(up, 5f);
                 if (Main.LocalPlayer.wet)
                 {
-                    Main.LocalPlayer.velocity.Y -= 0.2f;
+                    Main.LocalPlayer.velocity.Y -= 0.05f;
                 }
             }
             if (Timer == 90)
@@ -584,7 +585,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer > 90)
             {
-                if (!Wet())
+                if (!Wet() || Timer > 90 + 60)
                 {
                     NPC.velocity *= 0.95f;
                     if (NPC.velocity.Length() < 0.1f)
@@ -594,10 +595,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
                     }
                 }
-                if (Main.LocalPlayer.wet && Main.LocalPlayer.velocity.Y > -15)
+                if (Main.LocalPlayer.wet && Main.LocalPlayer.velocity.Y > -30)
                 {
-                    Main.LocalPlayer.velocity.Y -= 1.5f;
-                    Main.LocalPlayer.position.Y -= 4f;
+                    Main.LocalPlayer.velocity.Y -= 2.5f;
+                    Main.LocalPlayer.position.Y -= 8f;
                 }
             }
             
@@ -715,7 +716,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 SoundEngine.PlaySound(BaronYell, NPC.Center);
             }
             LockVector1.Y = NPC.Center.Y;
-            RotateTowards(LockVector1, 8);
+            RotateTowards(player.Center, 1);
             if (Timer > 10 && Timer % 30 == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
@@ -738,22 +739,34 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             int ReactionTime = WorldSavingSystem.EternityMode ? 30 : 50;
             if (Timer == 1)
             {
-                LockVector1 = player.Center + new Vector2(Main.rand.NextFloat(500, 550), 0).RotatedByRandom(MathHelper.TwoPi);
+                LockVector1 = player.Center + (Vector2.UnitX * Main.rand.Next(600, 700)).RotatedByRandom(MathHelper.TwoPi);
                 NPC.netUpdate = true;
             }
             if (Timer < 60)
             {
+                if (NPC.buffType[0] != 0) //cleanse all buffs
+                    NPC.DelBuff(0);
+
                 if (AI3 != 22) //look for valid teleport spots while readying attack
                 {
-                    if (Collision.CanHitLine(LockVector1 - NPC.Size / 2, NPC.width, NPC.height, player.Center, NPC.width, NPC.height)) //if can dash to player at arrival spot
+                    bool collide = false;
+                    for (float i = 0; i < 1; i += 0.1f)
                     {
-                        AI3 = 22; //check over, valid spot located
+                        if (Collision.SolidCollision(LockVector1 - NPC.Size / 2 + ((player.Center - LockVector1) * i), NPC.width, NPC.height)) //if can dash to player at arrival spot
+                        {
+                            collide = true;
+                            break;
+                        }
                         
+                    }
+                    if (collide)
+                    {
+                        LockVector1 = player.Center + (Vector2.UnitX * Main.rand.Next(600, 700)).RotatedByRandom(MathHelper.TwoPi); //find new spot
+                        NPC.netUpdate = true;
                     }
                     else
                     {
-                        LockVector1 = player.Center + new Vector2(Main.rand.NextFloat(500, 550), 0).RotatedByRandom(MathHelper.TwoPi); //find new spot
-                        NPC.netUpdate = true;
+                        AI3 = 22; //check over, valid spot located
                     }
                 }
                 RotateTowards(player.Center, 2);
@@ -779,6 +792,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer > 60 && Timer < 90) //move Very Fast to "teleport" spot
             {
+                if (NPC.buffType[0] != 0) //cleanse all buffs
+                    NPC.DelBuff(0);
+
                 NPC.rotation = NPC.DirectionTo(LockVector1).ToRotation();
                 NPC.velocity = ((NPC.Distance(LockVector1) / 10) + 1) * NPC.rotation.ToRotationVector2();
                 NPC.noTileCollide = true;
@@ -786,7 +802,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer == 90)
             {
-                if (!Collision.SolidCollision(NPC.Center, NPC.width, NPC.height))
+                if (!Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
                 {
                     NPC.noTileCollide = false;
                 }
@@ -824,6 +840,23 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 NPC.dontTakeDamage = false; //here too for safety
                 NPC.velocity *= 0.975f;
+
+                if (NPC.velocity.Length() > 8 && WorldSavingSystem.EternityMode)
+                {
+                    int rocketTime = 11;
+                    if (Timer % rocketTime == 0)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
+                        for (int i = -1; i < 2; i += 2)
+                        {
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Vector2 v = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * i) * 1f;
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v * 20), v * 0.3f, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 4, player.whoAmI);
+                            }
+                        }
+                    }
+                }
             }
             if ((Timer == 90 + ReactionTime + 15 || Timer == 90 + ReactionTime + 20) && WorldSavingSystem.EternityMode)
             {
@@ -846,7 +879,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             int Duration = WorldSavingSystem.MasochistModeReal ? 100 : WorldSavingSystem.EternityMode ? 150 : 180;
             const int Waves = 2;
             const int Ymax = 600;
-            const int Xstart = 800;
+            const int Xstart = 1000;
 
             float prog = Timer / Duration;
 
@@ -866,6 +899,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (NPC.velocity.Length() > 20)
                 {
                     NPC.velocity *= 20 / NPC.velocity.Length();
+                }
+                if (Timer == Math.Round(Duration * 0.33f) || Timer == Math.Round(Duration * 0.66f) || Timer == Math.Round(Duration * 0.99f))
+                {
+                    SoundEngine.PlaySound(SoundID.Item63, NPC.Center);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Vector2 vel = (-NPC.rotation).ToRotationVector2() * 5;
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<BaronMine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, player.whoAmI);
+                    }
                 }
                 if (prog > 1)
                 {
@@ -959,7 +1001,31 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer < ReactTime - 5) //stop aligning 5 frames before dashing
             {
-                NPC.velocity = player.velocity;
+                Vector2 target = player.Center + (Vector2.Normalize(NPC.Center - player.Center) * 500);
+                if ((NPC.Distance(target) < 25 && AI3 == 0) || (Timer % 60 == 0 && AI3 != 0))
+                {
+                    AI3 = Main.rand.NextFloat(-1, 1);
+                    NPC.netUpdate = true;
+                }
+
+                if (AI3 == 0)
+                {
+                    if (NPC.velocity.Length() < 20 + (player.velocity.Length() / 2))
+                    {
+                        NPC.velocity += NPC.DirectionTo(target) * 0.02f;
+                        NPC.velocity = NPC.DirectionTo(target) * NPC.velocity.Length() * 1.05f;
+                    }
+                    else
+                    {
+                        NPC.velocity = NPC.DirectionTo(target) * (20 + (player.velocity.Length() / 2));
+
+                    }
+                }
+                else
+                {
+                    NPC.velocity = (target - NPC.Center) / 10;
+                }
+
                 LockVector1 = NPC.DirectionTo(player.Center + (player.velocity * PredictStr)) * PredictStr;
                 RotateTowards(NPC.Center + LockVector1, 4);
             }
@@ -974,10 +1040,17 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 float lambda = Vector2.Dot(uv, lp);
                 LockVector2 = NPC.Center + (uv * lambda);
             }
+            if (Timer >= ReactTime && NPC.velocity.Length() < 20)
+            {
+                if (NPC.Distance(player.Center) > 600) //he kept despawning otherwise??
+                {
+                    NPC.Center -= NPC.velocity;
+                }
+            }
             if (Timer >= ReactTime && NPC.velocity.Length() > 5)
             {
-                int rocketTime = (int)(5 * NPC.velocity.Length() / 20);
-                if (Timer % 5 == 0)
+                int rocketTime = (int)(8 * 20 / NPC.velocity.Length());
+                if (Timer % rocketTime == 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
                     for (int i = -1; i < 2; i += 2)
@@ -1140,6 +1213,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     NPC.velocity = NPC.DirectionTo(target) * (20 + (player.velocity.Length() / 2));
 
                 }
+                if (Timer > 2)
+                {
+                    Timer = 2;
+                }
             }
             else
             {
@@ -1149,31 +1226,27 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             if (AI3 != 0 && Timer < 300)
             {
-                if (Timer % 20 < 5)
+
+                bool volleyTime = (Timer > 40 && Timer < 100) || (Timer > 140 && Timer < 200) || (Timer > 240 && Timer < 300);
+                if (volleyTime)
                 {
                     Anim = 1;
+                    if (Timer % 8 == 0)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            int side = (Timer > 140 && Timer < 200) ? -1 : 1;
+                            float speed = Main.rand.NextFloat(10, 25);
+                            Vector2 vel = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * side).RotatedByRandom(MathHelper.Pi / 8) * speed;
+                            float trackingPower = WorldSavingSystem.MasochistModeReal ? 1 : 1;
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (Vector2.Normalize(vel) * 20), vel, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, player.whoAmI, trackingPower); //ai2 is tracking power
+                        }
+                    }
                 }
                 else
                 {
                     Anim = 0;
-                }
-                if (Timer % 20 == 0)
-                {
-                    
-                    SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        float speed = 10f;
-                        int side = (Timer % 40 == 0) ? 1 : -1;
-                        Vector2 v = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * side) * 1f;
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v * 20), v * speed, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, player.whoAmI);
-                        if (side == 1 && WorldSavingSystem.EternityMode)
-                        {
-                            Vector2 v2 = NPC.rotation.ToRotationVector2() * 1f;
-                            float trackingPower = WorldSavingSystem.MasochistModeReal ? 1 : 0.8f;
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v2 * 20), v2 * 0.6f, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, player.whoAmI, trackingPower); //ai2 is tracking power
-                        }
-                    }
                 }
                 //fire rockets
             }
@@ -1182,7 +1255,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Anim = 0;
             }
-            if (Timer > 350)
+            if (Timer > 310)
             {
                 NPC.velocity = Vector2.Zero;
                 StateReset();
@@ -1190,7 +1263,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         void P2SpinDash()
         {
-            const int radius = 600;
+            const int radius = 500;
             const float startRot = MathHelper.PiOver2 * 0.7f;
             float rotModifier = 3.5f;
             if (Timer == 1)
@@ -1222,31 +1295,37 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (AI3 > 0) //rotate a random bit below, and then dash
             {
-                const int rotStart = 36;
+                const int rotStart = 38;
                 const int dashStart = 45;
                 const int DashSpeed = 27;
 
                 AI2 += Math.Sign(AI2); //internal timer, efficient variable use (?)
                 
                 Vector2 target = player.Center + LockVector1;
-                NPC.velocity = (target - NPC.Center) / 10;
+                
 
 
-                if (Math.Abs(AI2) > rotStart)
+                if (Math.Abs(AI2) <= rotStart)
                 {
-                    rotModifier = 0.1f; //rotate very slowly when preparing for dash
-                    RotateTowards(player.Center, 20);
-                    if (Math.Abs(AI2) > dashStart && Math.Abs(NPC.rotation - NPC.DirectionTo(player.Center).ToRotation()) < MathHelper.Pi / 32)
+                    NPC.velocity = (target - NPC.Center) / 10;
+                    NPC.rotation = NPC.velocity.ToRotation();
+                    if (Math.Abs(AI2) == rotStart)
+                    {
+                        SoundEngine.PlaySound(BaronYell, NPC.Center);
+                    }
+                }
+                else //prepare for dash and dash
+                {
+                    const int reactTime = 20;
+                    rotModifier = 0.025f; //rotate very slowly when preparing for dash
+                    RotateTowards(player.Center, 6f);
+                    if (Math.Abs(AI2) > dashStart + reactTime)
                     {
                         SoundEngine.PlaySound(BaronRoar, NPC.Center);
                         NPC.velocity = NPC.rotation.ToRotationVector2() * DashSpeed;
                         AI3 = -1;
                         AI2 = Math.Sign(AI2);
                     }
-                }
-                else
-                {
-                    NPC.rotation = NPC.velocity.ToRotation();
                 }
 
                 float rotation = MathHelper.ToRadians(AI3 * Math.Sign(AI2) * rotModifier);
@@ -1341,16 +1420,20 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
 
             const int cd = 5;
-            const int Flurry1Time = 60;
-            const int Flurry2Time = 200;
+            const int Flurry1Time = 20;
+            const int Flurry2Time = 130;
             bool time = (Timer >= Flurry1Time && Timer <= Flurry1Time + (cd*6)) || (Timer >= Flurry2Time && Timer <= Flurry2Time + (cd*6));
             bool timeFirstHalf = (Timer >= Flurry1Time && Timer <= Flurry1Time + (cd * 3)) || (Timer >= Flurry2Time && Timer <= Flurry2Time + (cd * 3));
             if (time)
             {
-                if (Timer == Flurry1Time || Timer == Flurry2Time) //choose side
+                if (Timer == Flurry1Time) //choose side
                 {
                     AI4 = Main.rand.NextBool() ? 1 : -1;
                     NPC.netUpdate = true;
+                }
+                if (Timer == Flurry2Time)
+                {
+                    AI4 = -AI4; //switch side
                     NPC.netUpdate = true;
                 }
                 Anim = 1;
@@ -1384,7 +1467,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Anim = 0;
             }
 
-            if (Timer > 390)
+            if (Timer > 320)
             {
                 NPC.velocity = Vector2.Zero;
                 StateReset();
@@ -1457,14 +1540,25 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         void P2LaserSweep()
         {
             const int PositioningTime = 30;
-            const int WindupTime = 72;
-            int AttackTime = WorldSavingSystem.MasochistModeReal ? 65 : 75;
+            const int WindupTime = 90;
+            int AttackTime = 120;
             const int Endlag = 10;
             const int distance = 500;
             const float MaxRot = MathHelper.Pi / 5;
             if (Timer == 1)
             {
-                AI2 = Math.Sign(NPC.Center.X - player.Center.X);
+                //go towards center of arena so you don't get fucked by arena border and can't go around
+                Projectile arena = Main.projectile[ArenaProjID];
+                bool arenaReal = arena != null && arena.active && arena.type == ModContent.ProjectileType<BaronArenaWhirlpool>();
+                if (!arenaReal)
+                {
+                    AI2 = Math.Sign(NPC.Center.X - player.Center.X);
+                }
+                else
+                {
+                    AI2 = Math.Sign(arena.Center.X - player.Center.X);
+                    HitPlayer = false;
+                }
                 LockVector1 = new Vector2(distance * AI2, 0);
 
             }
@@ -1475,6 +1569,18 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             else if (Timer < PositioningTime) //if close enough, start attack
             {
                 Timer = PositioningTime;
+                HitPlayer = true;
+                if (WorldSavingSystem.EternityMode)
+                {
+                    SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Vector2 vel = NPC.rotation.ToRotationVector2() * 10f;
+                        int nukeDur = Main.rand.Next(160, 160); //nuke duration
+                        NPC.netUpdate = true;
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -vel, ModContent.ProjectileType<BaronNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, nukeDur, player.whoAmI);
+                    }
+                }
             }
             if (Timer < PositioningTime) //get to position
             {
@@ -1521,11 +1627,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/LaserSound"), NPC.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, NPC.rotation.ToRotationVector2(), ModContent.ProjectileType<BaronDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0: NPC.whoAmI);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, NPC.rotation.ToRotationVector2(), ModContent.ProjectileType<BaronDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0: NPC.whoAmI, ai2: AttackTime);
                     }
                     NPC.netUpdate = true;
                 }
-                float RotationSpeed = WorldSavingSystem.EternityMode ? 1.2f : 1f;
+                float progress = (Timer - PositioningTime - WindupTime) / AttackTime;
+                float RotationSpeed = WorldSavingSystem.EternityMode ? 3f * progress : 2.5f * progress;
                 RotateTowards(NPC.Center + LockVector1, RotationSpeed);
             }
             else if (WorldSavingSystem.EternityMode && Timer > PositioningTime + WindupTime + AttackTime) // in emode, go right into predictive dash without endlag
@@ -1610,8 +1717,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     return false;
                 }
             }
-            if (NPC.timeLeft < 300)
-                NPC.timeLeft = 300;
+            if (NPC.timeLeft < 600)
+                NPC.timeLeft = 600;
 
             return true;
         }

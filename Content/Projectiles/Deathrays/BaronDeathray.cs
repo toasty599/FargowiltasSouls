@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
         public PrimDrawer LaserDrawer { get; private set; } = null;
 
-        public BaronDeathray() : base(90, drawDistance: 3500) { }
+        public BaronDeathray() : base(300, drawDistance: 3500) { }
 
         public override void SetStaticDefaults()
         {
@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
                 Projectile.velocity = baron.rotation.ToRotationVector2();
                 Projectile.rotation = baron.rotation;
                 Projectile.Center = baron.Center + (baron.width / 3) * Projectile.rotation.ToRotationVector2();
-                maxTime = WorldSavingSystem.MasochistModeReal ? 65 : 75;
+                maxTime = Projectile.ai[2];
             }
             else
             {

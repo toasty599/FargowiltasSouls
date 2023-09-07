@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Content.Items
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
-
+            
             if (!NPC.downedBoss3 && item.type == ItemID.WaterBolt)
             {
                 type = ProjectileID.WaterGun;

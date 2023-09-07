@@ -158,7 +158,11 @@ namespace FargowiltasSouls.Content.Items
 
                case ItemID.StarCannon:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.7f;
+                    balanceNumber = 0.55f;
+                    return EModeChange.Nerf;
+                case ItemID.SuperStarCannon:
+                    balanceTextKeys = new string[] { "SuperStarCannon" };
+                    balanceNumber = 7;
                     return EModeChange.Nerf;
                 //case ItemID.ElectrosphereLauncher:
                 //case ItemID.DaedalusStormbow:
@@ -340,7 +344,6 @@ namespace FargowiltasSouls.Content.Items
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
-
             string extra = string.Empty;
             float balanceNumber = -1;
             string[] balanceTextKeys = null;
