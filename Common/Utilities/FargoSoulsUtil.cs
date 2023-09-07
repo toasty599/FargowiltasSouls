@@ -19,6 +19,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Common.Graphics.Particles;
 
 namespace FargowiltasSouls
 {
@@ -555,6 +556,45 @@ namespace FargowiltasSouls
                 dust.noGravity = true;
                 if (color != default)
                     dust.color = color;
+            }
+        }
+        public static void AuraParticles(Entity entity, float distance, Color color = default, bool reverse = false, float scaleModifier = 1f)
+        {
+            const int baseDistance = 500;
+            const int baseMax = 20;
+
+            int pMax = (int)(distance / baseDistance * baseMax);
+            if (pMax < 10)
+                pMax = 10;
+            if (pMax > 40)
+                pMax = 40;
+
+            float scale = distance / baseDistance;
+            if (scale < 0.75f)
+                scale = 0.75f;
+            if (scale > 2f)
+                scale = 2f;
+
+            for (int i = 0; i < pMax; i++)
+            {
+                Vector2 spawnPos = entity.Center + Main.rand.NextVector2CircularEdge(distance, distance);
+                Vector2 offset = spawnPos - Main.LocalPlayer.Center;
+                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
+                    continue;
+
+                Particle p = new ExpandingBloomParticle(
+                        position: spawnPos,
+                        velocity: entity.velocity,
+                        drawColor: color != default ? color : Color.White,
+                        startScale: Vector2.One * scale * scaleModifier,
+                        endScale: Vector2.One * 0,
+                        lifetime: 30);
+                p.Spawn();
+                if (Main.rand.NextBool(3))
+                {
+                    p.Velocity += Vector2.Normalize(entity.Center - p.Position) * Main.rand.NextFloat(5f) * (reverse ? -1f : 1f);
+                    p.Position += p.Velocity * 5f;
+                }
             }
         }
 

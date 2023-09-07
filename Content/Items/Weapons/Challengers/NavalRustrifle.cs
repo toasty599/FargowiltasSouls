@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (modPlayer.RustRifleReloading)
             {
-                modPlayer.RustRifleReloadProgress = (1 + (float)Math.Sin(MathHelper.Pi * (Timer-30) / 60f)) / 2;
+                modPlayer.RustRifleReloadProgress = (1 + (float)Math.Sin(MathHelper.Pi * (Timer-30) / 60f)) / 2f;
                 Timer++;
             }
         }

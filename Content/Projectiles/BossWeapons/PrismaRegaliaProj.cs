@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Projectile.localAI[1] = Projectile.ai[0]; //store the charge amount
                 //int d = Dust.NewDust(player.MountedCenter + Projectile.velocity * Projectile.Size.Length() * 0.95f, 0, 0, DustID.CrystalPulse);
                 //Main.dust[d].noGravity = true;
-                FargoSoulsUtil.AuraDust(player, Projectile.Size.Length() * 0.95f, DustID.CrystalPulse);
+                FargoSoulsUtil.AuraParticles(player, Projectile.Size.Length() * 0.95f, Color.DeepPink);
             }
             else
             {

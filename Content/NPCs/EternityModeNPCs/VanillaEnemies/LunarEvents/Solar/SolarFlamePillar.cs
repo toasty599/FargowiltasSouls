@@ -1,7 +1,9 @@
+using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Drawing;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -57,8 +59,16 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             if (Timer < 60 * 2)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SolarFlare);
-                Main.dust[d].velocity.X = 0;
+                //int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SolarFlare);
+                //Main.dust[d].velocity.X = 0;
+                Particle p = new ExpandingBloomParticle(
+                    position: Main.rand.NextVector2FromRectangle(Projectile.Hitbox),
+                    velocity: Vector2.UnitY * Main.rand.NextFloat(-20, 0),
+                    drawColor: Microsoft.Xna.Framework.Color.Goldenrod,
+                    startScale: Vector2.One * 1,
+                    endScale: Vector2.One * 0,
+                    lifetime: 60);
+                p.Spawn();
             }
             else
             {
