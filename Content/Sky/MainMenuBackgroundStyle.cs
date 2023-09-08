@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Sky
     {
         //theres some unnecessary clutter in here but oh well
 
-        private float intensity = 0.5f;
+        private float intensity = 0.2f;
         private float lifeIntensity = 1f;
         private float specialColorLerp = 0f;
         private Color? specialColor = null;
