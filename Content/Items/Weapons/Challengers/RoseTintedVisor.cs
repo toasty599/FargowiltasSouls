@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 250;
+            Item.damage = 325;
             Item.DamageType = DamageClass.Magic;
             Item.width = 20;
             Item.height = 20;
