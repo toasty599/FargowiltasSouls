@@ -1615,7 +1615,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             else if (Timer < PositioningTime + WindupTime + AttackTime) //rotate back with attack deathray
             {
-                float RotationSpeed = WorldSavingSystem.EternityMode ? 1.15f : 1.1f;
+                float RotationSpeed = WorldSavingSystem.EternityMode ? 1.1f : 1f;
 
                 
                 if (Timer == PositioningTime + WindupTime)
