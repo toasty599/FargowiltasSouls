@@ -2955,7 +2955,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					100% increased weapon size but reduces melee speed
-					Once ever 2/3 of a second a projectile will be doubled in size
+					Once every 2/3 of a second a projectile will be doubled in size
 					Enlarged projectiles and non-projectile swords deal 10% more damage and have an additional chance to crit
 					'Bigger is always better'
 					''' */

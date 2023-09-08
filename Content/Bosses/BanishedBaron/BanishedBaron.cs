@@ -1615,7 +1615,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             else if (Timer < PositioningTime + WindupTime + AttackTime) //rotate back with attack deathray
             {
-                float TrackingTime = WorldSavingSystem.EternityMode ? 0.95f : 0.5f;
+                float TrackingTime = WorldSavingSystem.EternityMode ? 0.95f : 0.8f;
+                float progress = (Timer - PositioningTime - WindupTime) / AttackTime;
+                float RotationSpeed = WorldSavingSystem.EternityMode ? 1.25f : 1.1f;
+
+                
                 if (Timer < PositioningTime + WindupTime + AttackTime * TrackingTime) //keep tracking for part of attack
                 {
                     LockVector1 = (player.Center - NPC.Center);
@@ -1624,6 +1628,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 {
                     //const float RotationFactor = 0.75f;
 
+                    AI4 = NPC.rotation; //cache rotation
+                    RotateTowards(NPC.Center + LockVector1, RotationSpeed);
+
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/LaserSound_Slow") with { Pitch = -0.2f }, NPC.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -1631,9 +1638,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     }
                     NPC.netUpdate = true;
                 }
-                float progress = (Timer - PositioningTime - WindupTime) / AttackTime;
-                float RotationSpeed = WorldSavingSystem.EternityMode ? 3f * progress : 2.5f * progress;
-                RotateTowards(NPC.Center + LockVector1, RotationSpeed);
+                else
+                {
+                    NPC.rotation += Math.Sign(NPC.rotation - AI4) * RotationSpeed * MathHelper.Pi / 180; //keep rotating in direction rotated first frame, no turning direction
+                }
+                
+                
             }
             else if (WorldSavingSystem.EternityMode && Timer > PositioningTime + WindupTime + AttackTime) // in emode, go right into predictive dash without endlag
             {
