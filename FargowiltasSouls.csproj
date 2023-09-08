@@ -17,8 +17,10 @@
     <None Remove="Folders to Port\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\ExtraTextures\Vanilla\Background_7.png" />
     <None Remove="Assets\Gores\CosmosGore1.png" />
     <None Remove="Assets\UI\EnchantSlotIcon.png" />
+    <None Remove="Assets\UI\MenuLogo.png" />
     <None Remove="Content\Bosses\BanishedBaron\BaronWhirlpool.png" />
     <None Remove="Content\Bosses\Champions\Cosmos\CosmosChampion_Still.png" />
     <None Remove="Content\Buffs\Boss\BaronsBurdenBuff.png" />
