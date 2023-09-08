@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
     public class LifeCageProjectile : ModProjectile
     {
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     Main.LocalPlayer.RemoveAllGrapplingHooks();
                 SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
             }
-            if (NPC.CountNPCS(ModContent.NPCType<LifeChallenger>()) < 1)
+            if (NPC.CountNPCS(ModContent.NPCType<Lifelight>()) < 1)
             {
                 Projectile.Kill();
             }

@@ -8,7 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     public class LifeTpTelegraph : ModProjectile
@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<LifeChallenger>())
+            if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<Lifelight>())
                 npc = parentNpc.whoAmI;
         }
 

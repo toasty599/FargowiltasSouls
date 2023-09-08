@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Projectiles;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     public class JevilScar : ModProjectile
@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                     }
                 }
             }
-            if (Projectile.ai[0] > 1200 || NPC.CountNPCS(ModContent.NPCType<LifeChallenger>()) < 1) //set to 1200 at end of attack by lieflight, then fades out
+            if (Projectile.ai[0] > 1200 || NPC.CountNPCS(ModContent.NPCType<Lifelight>()) < 1) //set to 1200 at end of attack by Lifelight, then fades out
             {
                 Projectile.alpha += 17;
                 Projectile.hostile = false;

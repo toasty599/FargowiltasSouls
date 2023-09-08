@@ -1,5 +1,5 @@
 ﻿using FargowiltasSouls.Content.Bosses.DeviBoss;
-using FargowiltasSouls.Content.Bosses.Lieflight;
+using FargowiltasSouls.Content.Bosses.Lifelight;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
@@ -10,14 +10,14 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.BossBags
 {
-    public class LifeChallengerBag : BossBag
+    public class LifelightBag : BossBag
     {
         protected override bool IsPreHMBag => false;
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeRevitalizer>()));
-            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<LifeChallenger>()));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<Lifelight>()));
             itemLoot.Add(new OneFromOptionsDropRule(1, 1, new int[] 
             {
                 ModContent.ItemType<EnchantedLifeblade>(),

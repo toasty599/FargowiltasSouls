@@ -4,11 +4,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
     public class LifeSplittingProjSmall : LifeProjSmall
     {
-        public override string Texture => "FargowiltasSouls/Content/Bosses/Lieflight/LifeProjSmall";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Lifelight/LifeProjSmall";
         public override void AI()
         {
             if (Projectile.ai[0] == 45f)

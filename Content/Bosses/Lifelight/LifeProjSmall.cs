@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     public class LifeProjSmall : ModProjectile

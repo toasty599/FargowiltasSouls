@@ -145,7 +145,7 @@ Mods: {
 			TrojanSquirrel: Built by squirrels, for squirrels! Made of woods collected from numerous lands. It fits a lot more squirrels than it appears.
 			GuardianOfAncientTreasures: Lurks deep underground, jealously guarding its horde of jewels and precious metals. Its scales are as hard as stone.
 			CursedCoffin: A mindless fusion of over a hundred wicked souls. It feeds on the bodies of lost travellers and adds their spirits to itself.
-			LifeChallenger: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms. Its true form cannot be perceived.
+			Lifelight: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms. Its true form cannot be perceived.
 			Silhouette: An elusive being that always travels under cover of a black fog in the night. It feels sensitive when its true form is exposed.
 			FrigidHydrangaea: This draconic beast hibernates in the frozen caverns, only waking when provoked. Should it really be living in the cold?
 			BanishedBaron: Cast out from the hierarchy, it hid while it tried to repair itself. Imperfect work left its strength and speed hindered.
@@ -184,7 +184,7 @@ Mods: {
 			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
 			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
 			TrojanSquirrelDespawn: Trojan Squirrel returns to its squirrel clan...
-			LifeChallengerDespawn: Lieflight fades away...
+			LifelightDespawn: Lifelight fades away...
 			CursedCoffinDespawn: The Cursed Coffin returns to its slumber...
 			BanishedBaronDespawn: The Banished Baron dives deeper into the ocean...
 			DeviBossSpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
@@ -200,7 +200,7 @@ Mods: {
 			WillChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
 			CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
 			TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
-			LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+			LifelightSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
 			BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		}
 
@@ -5196,7 +5196,7 @@ Mods: {
 
 			PinkEskimoEnchant.DisplayName: Mods.FargowiltasSouls.Items.PinkEskimoEnchant.DisplayName
 
-			LifeChallengerBag: {
+			LifelightBag: {
 				DisplayName: Treasure Bag
 				Tooltip: Right click to open
 			}
@@ -5245,13 +5245,13 @@ Mods: {
 				Tooltip: Xi vs Sakuzyo 'Storia'
 			}
 
-			LifeChallengerRelic: {
-				DisplayName: Lieflight Relic
+			LifelightRelic: {
+				DisplayName: Lifelight Relic
 				Tooltip: ""
 			}
 
-			LifeChallengerTrophy: {
-				DisplayName: Lieflight Trophy
+			LifelightTrophy: {
+				DisplayName: Lifelight Trophy
 				Tooltip: ""
 			}
 
@@ -5544,13 +5544,13 @@ Mods: {
 
 			ShadowOrbNPC.DisplayName: Shadow Orb
 
-			LifeChallenger: {
-				DisplayName: Lieflight
+			Lifelight: {
+				DisplayName: Lifelight
 
 				BossChecklistIntegration: {
-					EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
-					SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChallengerSpawnInfo}"
-					DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChallengerDespawn
+					EntryName: "{$Mods.FargowiltasSouls.NPCs.Lifelight.DisplayName}"
+					SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifelightSpawnInfo}"
+					DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifelightDespawn
 				}
 			}
 

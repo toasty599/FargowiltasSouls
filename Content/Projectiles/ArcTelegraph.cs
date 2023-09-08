@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics;
 using System.Collections.Generic;
-using FargowiltasSouls.Content.Bosses.Lieflight;
+using FargowiltasSouls.Content.Bosses.Lifelight;
 using Terraria.DataStructures;
 using System.IO;
 using System;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 case 1:
                     {
-                        if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<LifeChallenger>())
+                        if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<Lifelight>())
                         {
                             npc = parentNpc.whoAmI;
                             float angleToMe = Projectile.velocity.ToRotation();

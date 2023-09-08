@@ -1,64 +1,80 @@
-using System;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
 using FargowiltasSouls.Core.Systems;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
-    public class LifeBomb : ModProjectile
+    public class LifeBombExplosion : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Life Mine");
+            // DisplayName.SetDefault("Life Bomb");
+            Main.projFrames[Projectile.type] = 3;
         }
         public override void SetDefaults()
         {
-            Projectile.width = 25;
-            Projectile.height = 25;
-            Projectile.aiStyle = 0;
+            Projectile.width = 50;
+            Projectile.height = 50;
+            Projectile.aiStyle = -1;
             Projectile.hostile = true;
-            AIType = 14;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
         }
 
-        public override bool? CanDamage() => false;
+        public override bool? CanDamage() => Projectile.alpha < 100;
 
         public override void AI()
         {
-            Projectile.ai[0] += 2f;
-            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz, Projectile.velocity.X, Projectile.velocity.Y, 0, default, 0.25f);
-            Projectile.rotation = Projectile.velocity.ToRotation() - (float)Math.PI / 2;
-            if (Projectile.ai[0] >= 60f)
+            if (++Projectile.frameCounter >= 5)
             {
-                Projectile.velocity = Projectile.velocity * 0.96f;
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 3)
+                    Projectile.frame = 0;
             }
-            if (Projectile.ai[0] >= 100f)
+            Projectile.rotation += 2f;
+            if (Main.rand.NextBool(6))
             {
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= 0.5f;
+            }
+
+            //pulsate
+            if (Projectile.localAI[0] == 0)
+                Projectile.localAI[0] += Main.rand.Next(60);
+            Projectile.scale = 1.1f + 0.1f * (float)Math.Sin(MathHelper.TwoPi / 15 * ++Projectile.localAI[1]);
+
+            if (Projectile.ai[0] > 2400 - 30)
+            {
+                Projectile.alpha += 8;
+                if (Projectile.alpha > 255)
+                    Projectile.alpha = 255;
+            }
+
+            if (Projectile.ai[0] > 2400f || NPC.CountNPCS(ModContent.NPCType<Lifelight>()) < 1)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    int d2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz);
+                    Main.dust[d2].noGravity = true;
+                    Main.dust[d2].velocity *= 0.5f;
+                }
                 Projectile.Kill();
             }
+            Projectile.ai[0] += 1f;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);
         }
-
-        public override void Kill(int timeLeft)
-        {
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-            int damage = Projectile.damage;
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + Projectile.width / 2, Projectile.position.Y + Projectile.height / 2, 0f, 0f, ModContent.ProjectileType<LifeBombExplosion>(), damage, 0f, Main.myPlayer);
-        }
-
-        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
+        public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.9f;
 
         public override bool PreDraw(ref Color lightColor)
         {

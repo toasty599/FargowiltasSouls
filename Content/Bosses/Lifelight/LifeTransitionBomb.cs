@@ -7,12 +7,12 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Core.Systems;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     public class LifeTransitionBomb : LifeBomb
     {
-        public override string Texture => "FargowiltasSouls/Content/Bosses/Lieflight/LifeBomb";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Lifelight/LifeBomb";
 
         Vector2 OriginalPosition = Vector2.Zero;
         Vector2 DesiredPosition = Vector2.Zero;

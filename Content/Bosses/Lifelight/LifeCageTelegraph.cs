@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
     public class LifeCageTelegraph : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Bosses/Lieflight/LifeCageProjectile";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Lifelight/LifeCageProjectile";
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Cage Telegraph");

@@ -5,32 +5,44 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
-    public class LifeNeggravProj : ModProjectile
+    public class LifeSlurp : ModProjectile
     {
-        int RotDirect = 1;
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifelightParts/ShardGem1";
 
-        private bool rTexture = false;
+        private int rGem = 1;
 
-        public override string Texture => "FargowiltasSouls/Content/Bosses/Lieflight/LifeProjLarge";
+        public bool home = true;
+
+        public bool homingonPlayer;
+
+        public bool chosenDirection;
+
+        public bool First = true;
+
+        public NPC lifelight;
+
+        private int RotDirect = 1;
+
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Cross");
+            // DisplayName.SetDefault("Gem");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
         public override void SetDefaults()
         {
-            Projectile.width = 32;
-            Projectile.height = 32;
+            Projectile.width = 24;
+            Projectile.height = 24;
             Projectile.aiStyle = 0;
             Projectile.hostile = true;
             AIType = 14;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
+            Projectile.alpha = 255;
             Projectile.light = 0.5f;
             Projectile.scale = 1f;
         }
@@ -41,7 +53,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             {
                 Projectile.rotation = Main.rand.Next(100);
                 RotDirect = Main.rand.NextBool(2) ? -1 : 1;
-                rTexture = Main.rand.NextBool(2);
+                rGem = Main.rand.Next(1, 9);
             }
             Projectile.rotation += 0.2f * RotDirect;
 
@@ -53,9 +65,65 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 Main.dust[index2].velocity.X *= 0.5f;
                 Main.dust[index2].velocity.Y *= 0.5f;
             }
-            Projectile.velocity.Y -= 0.25f;
-            Projectile.velocity.X = Projectile.velocity.X * 0.999f;
-            if (Projectile.ai[0] > 360f)
+
+            if (Projectile.alpha > 0)
+            {
+                Projectile.alpha -= 4;
+            }
+            if (Projectile.ai[0] > 30f)
+            {
+                if (First)
+                {
+                    lifelight = Main.npc[(int)Projectile.ai[1]];
+                    Projectile.ai[1] = 0;
+                    First = false;
+                }
+                Player Player = Main.player[lifelight.target];
+                Vector2 vectorToIdlePosition = Projectile.Center;
+                float speed = 8f;
+                float inertia = 5f;
+                if (Projectile.ai[1] <= 90f)
+                {
+                    vectorToIdlePosition = lifelight.Center - Projectile.Center;
+                    speed = 8f;
+                }
+                if (Projectile.ai[1] > 90f)
+                {
+                    vectorToIdlePosition = Player.Center - Projectile.Center;
+                    speed = 12f;
+                    homingonPlayer = true;
+                    home = false;
+                }
+                float num = vectorToIdlePosition.Length();
+                if (num < 200f && homingonPlayer)
+                {
+                    home = false;
+                }
+                if (num < 20f)
+                {
+                    Projectile.ai[1] += 1f;
+                }
+                if (num > 20f && home)
+                {
+                    vectorToIdlePosition.Normalize();
+                    vectorToIdlePosition *= speed;
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1f) + vectorToIdlePosition) / inertia;
+                }
+                else if (Projectile.velocity == Vector2.Zero)
+                {
+                    Projectile.velocity.X = -0.15f;
+                    Projectile.velocity.Y = -0.05f;
+                }
+                if (!home && homingonPlayer && !chosenDirection)
+                {
+                    double rotationrad = MathHelper.ToRadians(Main.rand.Next(-100, 100));
+                    vectorToIdlePosition.Normalize();
+                    vectorToIdlePosition = vectorToIdlePosition.RotatedBy(rotationrad) * speed;
+                    Projectile.velocity = vectorToIdlePosition;
+                    chosenDirection = true;
+                }
+            }
+            if (Projectile.ai[0] > 600f)
             {
                 Projectile.Kill();
             }
@@ -66,11 +134,10 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             if (WorldSavingSystem.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);
         }
-
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = rTexture ? ModContent.Request<Texture2D>($"{Texture}2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value : ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value; ;
-            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = ModContent.Request<Texture2D>($"FargowiltasSouls/Assets/ExtraTextures/LifelightParts/ShardGem{rGem}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;

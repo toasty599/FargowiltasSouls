@@ -7,12 +7,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     public class LifeCageExplosion : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/Rune1";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifelightParts/Rune1";
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Cage Explosion");

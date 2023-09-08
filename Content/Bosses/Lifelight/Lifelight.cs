@@ -25,11 +25,11 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using FargowiltasSouls.Common.Graphics.Particles;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     [AutoloadBossHead]
-    public class LifeChallenger : ModNPC
+    public class Lifelight : ModNPC
     {
         #region Variables
         
@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         #region Standard
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Lieflight");
+            // DisplayName.SetDefault("Lifelight");
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.TrailCacheLength[NPC.type] = 18;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             NPC.DeathSound = SoundID.NPCDeath7;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LieflightNoCum") : MusicID.OtherworldlyBoss1;
+                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LifelightNoCum") : MusicID.OtherworldlyBoss1;
             SceneEffectPriority = SceneEffectPriority.BossLow;
 
             NPC.value = Item.buyPrice(0, 15);
@@ -607,7 +607,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             if (!Main.dedServ && UseTrueOriginAI && ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
                 && musicMod.Version >= Version.Parse("0.1.1.5"))
             {
-                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Lieflight");
+                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Lifelight");
             }
 
 
@@ -624,7 +624,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 if (!Main.dedServ)
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
 
-                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.LifeChallenger] && Main.netMode != NetmodeID.MultiplayerClient)
+                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.Lifelight] && Main.netMode != NetmodeID.MultiplayerClient)
                     Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<FragilePixieLamp>());
 
                 SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center);
@@ -2722,7 +2722,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         public const int ChunkCount = 10 * 5;
         public const int RuneCount = 12;
         const int ChunkSpriteCount = 12;
-        const string PartsPath = "FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/";
+        const string PartsPath = "FargowiltasSouls/Assets/ExtraTextures/LifelightParts/";
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //DRAW BODY AND WINGS
         {
@@ -2849,8 +2849,8 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
                 //draws 4 things: 2 upper wings, 2 lower wings
                 if (ChunkDistance > 3)
                 {
-                    Texture2D wingUtexture = ModContent.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                    Texture2D wingLtexture = ModContent.Request<Texture2D>(PartsPath + "LifeChallenger_WingLower", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Texture2D wingUtexture = ModContent.Request<Texture2D>(PartsPath + "Lifelight_WingUpper", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    Texture2D wingLtexture = ModContent.Request<Texture2D>(PartsPath + "Lifelight_WingLower", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Vector2 wingdrawPos = NPC.Center - screenPos;
                     int currentFrame = NPC.frame.Y;
                     int wingUHeight = wingUtexture.Height / Main.npcFrameCount[NPC.type];
@@ -2977,7 +2977,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
 
         public override void FindFrame(int frameHeight)
         {
-            //Texture2D wingUtexture = ModContent.Request<Texture2D>(PartsPath + "LifeChallenger_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
+            //Texture2D wingUtexture = ModContent.Request<Texture2D>(PartsPath + "Lifelight_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
             double fpf = 60 / 10; //  60/fps
             NPC.spriteDirection = NPC.direction;
             NPC.frameCounter += 1;
@@ -2986,7 +2986,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         }
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.LifeChallenger], -1);
+            NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.Lifelight], -1);
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
@@ -2994,10 +2994,10 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<LifeChallengerBag>()));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeChallengerTrophy>(), 10));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<LifelightBag>()));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifelightTrophy>(), 10));
 
-            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<LifeChallengerRelic>()));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<LifelightRelic>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<LifelightMasterPet>(), 4));
 
             LeadingConditionRule rule = new(new Conditions.NotExpert());

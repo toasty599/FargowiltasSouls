@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Core.Systems;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     public class LifeNuke : ModProjectile

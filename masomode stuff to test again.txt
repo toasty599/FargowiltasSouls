@@ -18,12 +18,12 @@ force adam nerf, 33% damage
 force adam adjustment, reduces iframes to 1/3rd
 ninja ench buff, has 15 armor pen as base
 abom wand buff, protection from DOT on revive lasts 15sec, was 5
-increased lieflight DR when protected e.g. phase transition, certain attacks from 50% to 66%
-lieflight reaction shotgun
+increased Lifelight DR when protected e.g. phase transition, certain attacks from 50% to 66%
+Lifelight reaction shotgun
 	waves despawn earlier to avoid projectile cap issues
 	will fly at you if you run too far during this attack
-lieflight 6 nukes attack adjusted to reduce projectile cap issues
-fixed homing projs not targeting lieflight in p3
+Lifelight 6 nukes attack adjusted to reduce projectile cap issues
+fixed homing projs not targeting Lifelight in p3
 (ancient) cobalt nerf/exploit fix, jump only gives iframes if you dont currently have iframes from previous jump
 mutant's gift clarifies that emode enables master drops
 wretched pouch gives +120% damage, was 60%, attacking now slows fall speed and gives -20% DR
@@ -200,7 +200,7 @@ removed fire imp and lava slime modified spawns i give up
 fixed leash sprite being 4x bigger than it should
 fixed being unable to make new characters
 
-added lieflight new theme
+added Lifelight new theme
 added trojan squirrel new theme
 box of gizmos autofire penalty removed, also grants hunter potion effect when still
 fixed long standing bug where dg swarm had full emode ai

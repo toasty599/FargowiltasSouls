@@ -4,14 +4,14 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     public class LifeScar : ModProjectile
     {
         bool init = false;
 
-        public override string Texture => "FargowiltasSouls/Content/Bosses/Lieflight/LifeBombExplosion";
+        public override string Texture => "FargowiltasSouls/Content/Bosses/Lifelight/LifeBombExplosion";
 
         public override void SetStaticDefaults()
         {

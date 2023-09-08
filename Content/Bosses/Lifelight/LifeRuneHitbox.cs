@@ -6,12 +6,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     public class LifeRuneHitbox : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifeChallengerParts/Rune1";
+        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifelightParts/Rune1";
 
         public override void SetStaticDefaults()
         {
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.scale = 1.5f;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 6000;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) //line collision, needed because of the speed they move at when creating the arena, to form a solid wall
         {
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
         public override void AI()
         {
             NPC lifelight = Main.npc[(int)Projectile.ai[0]];
-            if (lifelight == null || !lifelight.active || lifelight.type != ModContent.NPCType<LifeChallenger>())
+            if (lifelight == null || !lifelight.active || lifelight.type != ModContent.NPCType<Lifelight>())
             {
                 Projectile.Kill();
             }

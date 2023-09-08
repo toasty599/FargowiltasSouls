@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Core.Systems
             WillChampion,
             CosmosChampion,
             TrojanSquirrel,
-            LifeChallenger,
+            Lifelight,
             CursedCoffin,
             BanishedBaron
         }

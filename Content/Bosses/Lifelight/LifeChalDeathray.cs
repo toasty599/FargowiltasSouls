@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Content.Bosses.Lieflight
+namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
     public class LifeChalDeathray : BaseDeathray
     {
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Bosses.Lieflight
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<LifeChallenger>());
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<Lifelight>());
             if (npc == null)
             {
                 Projectile.Kill();

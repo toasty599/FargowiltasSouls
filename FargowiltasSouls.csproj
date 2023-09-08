@@ -50,7 +50,7 @@
     <None Remove="Content\Tiles\MutantStatueGift.png" />
     <None Remove="Content\Tiles\Trophies\BaronTrophy.png" />
     <None Remove="Content\Tiles\Trophies\EridanusTrophy.png" />
-    <None Remove="Content\Tiles\Trophies\LifeChallengerTrophy.png" />
+    <None Remove="Content\Tiles\Trophies\LifelightTrophy.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
