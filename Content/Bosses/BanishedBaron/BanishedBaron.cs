@@ -139,8 +139,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 32500;
-            NPC.defense = 0;
+            NPC.lifeMax = 30500;
+            NPC.defense = 15;
             NPC.damage = 80;
             NPC.knockBackResist = 0f;
             NPC.width = 194;
