@@ -28,6 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 150;
+            Projectile.DamageType = DamageClass.MeleeNoSpeed;
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox)
         {
