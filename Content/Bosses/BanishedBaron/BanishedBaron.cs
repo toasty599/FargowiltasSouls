@@ -1615,20 +1615,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             else if (Timer < PositioningTime + WindupTime + AttackTime) //rotate back with attack deathray
             {
-                float TrackingTime = WorldSavingSystem.EternityMode ? 0.95f : 0.8f;
-                float progress = (Timer - PositioningTime - WindupTime) / AttackTime;
-                float RotationSpeed = WorldSavingSystem.EternityMode ? 1.25f : 1.1f;
+                float RotationSpeed = WorldSavingSystem.EternityMode ? 1.15f : 1.1f;
 
                 
-                if (Timer < PositioningTime + WindupTime + AttackTime * TrackingTime) //keep tracking for part of attack
-                {
-                    LockVector1 = (player.Center - NPC.Center);
-                }
                 if (Timer == PositioningTime + WindupTime)
                 {
                     //const float RotationFactor = 0.75f;
 
                     AI4 = NPC.rotation; //cache rotation
+                    LockVector1 = (player.Center - NPC.Center);
                     RotateTowards(NPC.Center + LockVector1, RotationSpeed);
 
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/LaserSound_Slow") with { Pitch = -0.2f }, NPC.Center);
