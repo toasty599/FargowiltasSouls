@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<Lifelight>())
+            if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<LifeChallenger>())
                 npc = parentNpc.whoAmI;
         }
 

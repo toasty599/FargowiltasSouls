@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     }
                 }
             }
-            if (Projectile.ai[0] > 1200 || NPC.CountNPCS(ModContent.NPCType<Lifelight>()) < 1) //set to 1200 at end of attack by Lifelight, then fades out
+            if (Projectile.ai[0] > 1200 || NPC.CountNPCS(ModContent.NPCType<LifeChallenger>()) < 1) //set to 1200 at end of attack by Lifelight, then fades out
             {
                 Projectile.alpha += 17;
                 Projectile.hostile = false;

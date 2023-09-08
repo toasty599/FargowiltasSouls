@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Items.Summons
         public override bool CanUseItem(Player Player)
         {
             if (Player.ZoneHallow && Main.dayTime)
-                return !NPC.AnyNPCs(NPCType<Lifelight>()); //not (x or y)
+                return !NPC.AnyNPCs(NPCType<LifeChallenger>()); //not (x or y)
             return false;
         }
         public Vector2 OriginalLocation = Vector2.Zero;
@@ -75,8 +75,6 @@ namespace FargowiltasSouls.Content.Items.Summons
                     //shatter effect
                     for (int i = 0; i < 50; i++)
                         Dust.NewDust(ItemCenter - Item.Size / 2, Item.width, Item.height, DustID.Glass, player.velocity.X, player.velocity.Y, 100, new Color(), 1f);
-                    for (int i = 1; i < 4; i++)
-                        Gore.NewGore(Item.GetSource_FromThis(), ItemCenter, player.velocity, Find<ModGore>(Mod.Name, $"PixieLampGore{i}").Type, Item.scale);
                 }
                 else
                 {
@@ -88,7 +86,7 @@ namespace FargowiltasSouls.Content.Items.Summons
 
         public override bool? UseItem(Player Player)
         {
-            FargoSoulsUtil.SpawnBossNetcoded(Player, NPCType<Lifelight>());
+            FargoSoulsUtil.SpawnBossNetcoded(Player, NPCType<LifeChallenger>());
             return true;
         }
     }

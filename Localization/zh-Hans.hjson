@@ -5316,8 +5316,8 @@ Mods: {
 			}
 
 			BanishedBaronBag: {
-				// Tooltip: ""
-				// DisplayName: Banished Baron Bag
+				// DisplayName: Treasure Bag
+				// Tooltip: Right click to open
 			}
 
 			RustedOxygenTank: {
@@ -5537,6 +5537,7 @@ Mods: {
 
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
+			// LifeChallenger.DisplayName: Lifelight
 		}
 
 		Tiles: {

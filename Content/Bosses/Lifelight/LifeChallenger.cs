@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     [AutoloadBossHead]
-    public class Lifelight : ModNPC
+    public class LifeChallenger : ModNPC
     {
         #region Variables
         
@@ -129,6 +129,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         public int PyramidPhase = 0;
         public int PyramidTimer = 0;
         public const int PyramidAnimationTime = 60;
+
+        private bool DrawRunes = true;
 
 
 
@@ -607,7 +609,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             if (!Main.dedServ && UseTrueOriginAI && ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
                 && musicMod.Version >= Version.Parse("0.1.1.5"))
             {
-                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Lifelight");
+                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Lieflight");
             }
 
 
@@ -2468,6 +2470,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 {
                     float runeRot = (float)(BodyRotation + Math.PI * 2 / RuneCount * i);
                     Vector2 runePos = NPC.Center + runeRot.ToRotationVector2() * RuneDistance;
+                    DrawRunes = false;
+                    NPC.netUpdate = true;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), runePos, Vector2.Zero, ModContent.ProjectileType<LifeRuneHitbox>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, NPC.whoAmI, i);
@@ -2476,10 +2480,14 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 {
                     Flying = false;
                     NPC.velocity = Vector2.Zero;
+                    //decrease size to size of triangle
+                    NPC.position = NPC.Center;
+                    NPC.Size = new Vector2(DefaultChunkDistance * 2, DefaultChunkDistance * 2);
+                    NPC.Center = NPC.position;
                 }
                 else //PhaseOne
                 {
-                    //decrease size to size of circle
+                    //decrease size to size of triangle
                     NPC.position = NPC.Center;
                     NPC.Size = new Vector2(DefaultChunkDistance * 2, DefaultChunkDistance * 2);
                     NPC.Center = NPC.position;
@@ -2575,6 +2583,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         }
                     }
                 }
+                DrawRunes = true;
+                NPC.netUpdate = true;
 
                 PyramidPhase = -1;
                 PyramidTimer = 0;
@@ -2591,6 +2601,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 else
                 {
+                    //revert size
+                    NPC.position = NPC.Center;
+                    NPC.Size = new Vector2(DefaultWidth, DefaultHeight);
+                    NPC.Center = NPC.position;
+
                     Flying = true;
                     oldstate = state;
                     StateReset();
@@ -2688,23 +2703,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     p.Spawn();
                     p.Position -= p.Velocity * 4; //implosion
                 }
-                /*
-                for (int i = 1; i <= 50; i++)
-                {
-                    Vector2 rand = new(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
-                    int j = Main.rand.Next(ChunkSpriteCount) + 1;
-                    if (!Main.dedServ)
-                        Gore.NewGore(NPC.GetSource_FromThis(), NPC.position + rand, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"ShardGold{j}").Type, NPC.scale);
-                }
-                */
-                /*
-                for (int i = 1; i <= 4; i++)
-                {
-                    Vector2 rand = new(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
-                    if (!Main.dedServ)
-                        Gore.NewGore(NPC.GetSource_FromThis(), NPC.position + rand, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"Pyramid{i}").Type, NPC.scale);
-                }
-                */
                 return;
             }
         }
@@ -2724,11 +2722,10 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         const int ChunkSpriteCount = 12;
         const string PartsPath = "FargowiltasSouls/Assets/ExtraTextures/LifelightParts/";
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //DRAW BODY AND WINGS
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) 
         {
             const float ChunkRotationSpeed = MathHelper.TwoPi * (1f / 360);
 
-            //ChunkRotation += ChunkRotationSpeed;
 
             if (NPC.GetLifePercent() < (float)chunklist.Count / (float)ChunkCount && P1state != -2) //not during opening
             {
@@ -2748,71 +2745,38 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             });
             foreach (Vector4 chunk in chunklist.Where(pos => pos.Z <= 0))
             {
-                /*
-                if (SpritePhase > 1 && chunklist.IndexOf(chunk) % 2 == 0)
-                {
-                    continue;
-                }
-                */
                 DrawChunk(chunk, spriteBatch, drawColor, screenPos);
             }
             if (Draw || NPC.IsABestiaryIconDummy)
             {
-
-                
-                //const int RuneSpriteCount = 12;
-
-
-
-                /*
-                if (chunklist < ChunkCount)
+                if (DrawRunes)
                 {
-                    chunklist = InitializeSpriteList(ChunkSpriteCount, ChunkCount);
-                }
-                */
 
-
-                /*
-                if (SpritePhase > 1)
-                {
-                    for (int i = 0; i < ChunkCount; i++)
+                    for (int i = 0; i < RuneCount; i++)
                     {
-                        float drawRot = (float)(-BodyRotation - Math.PI * 2 / ChunkCount * i);
-                        Vector2 drawPos = NPC.Center + drawRot.ToRotationVector2() * ChunkDistance - screenPos;
-                        //Vector2 drawPos = Trianglinator(i, screenPos);
 
-                        Texture2D ChunkTexture = ModContent.Request<Texture2D>(PartsPath + $"ShardGold{chunklist[i]}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                        float ChunkRotation = chunklist[i];
-                        chunklist[i] += ChunkRotationSpeed;
+                        Texture2D RuneTexture = ModContent.Request<Texture2D>(PartsPath + $"Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                        float drawRot = (float)(BodyRotation + Math.PI * 2 / RuneCount * i);
+                        Vector2 drawPos = NPC.Center + drawRot.ToRotationVector2() * RuneDistance - screenPos;
+                        float RuneRotation = drawRot + MathHelper.PiOver2;
 
-                        spriteBatch.Draw(origin: new Vector2(ChunkTexture.Width / 2, ChunkTexture.Height / 2), texture: ChunkTexture, position: drawPos, sourceRectangle: null, color: drawColor, rotation: ChunkRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
+                        //rune glow
+                        for (int j = 0; j < 12; j++)
+                        {
+                            Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f;
+                            Color glowColor;
+
+                            if (i % 3 == 0) //cyan
+                                glowColor = new Color(0f, 1f, 1f, 0f) * 0.7f;
+                            else if (i % 3 == 1) //yellow
+                                glowColor = new Color(1f, 1f, 0f, 0f) * 0.7f;
+                            else //pink
+                                glowColor = new Color(1, 192 / 255f, 203 / 255f, 0f) * 0.7f;
+
+                            Main.spriteBatch.Draw(RuneTexture, drawPos + afterimageOffset, null, glowColor, RuneRotation, RuneTexture.Size() * 0.5f, NPC.scale, SpriteEffects.None, 0f);
+                        }
+                        spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: Color.White, rotation: RuneRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
                     }
-                }
-                */
-
-                for (int i = 0; i < RuneCount; i++)
-                {
-                    float drawRot = (float)(BodyRotation + Math.PI * 2 / RuneCount * i);
-                    Texture2D RuneTexture = ModContent.Request<Texture2D>(PartsPath + $"Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                    Vector2 drawPos = NPC.Center + drawRot.ToRotationVector2() * RuneDistance - screenPos;
-                    float RuneRotation = drawRot + MathHelper.PiOver2;
-
-                    //rune glow
-                    for (int j = 0; j < RuneCount; j++)
-                    {
-                        Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f;
-                        Color glowColor;
-
-                        if (i % 3 == 0) //cyan
-                            glowColor = new Color(0f, 1f, 1f, 0f) * 0.7f;
-                        else if (i % 3 == 1) //yellow
-                            glowColor = new Color(1f, 1f, 0f, 0f) * 0.7f;
-                        else //pink
-                            glowColor = new Color(1, 192 / 255f, 203 / 255f, 0f) * 0.7f;
-
-                        Main.spriteBatch.Draw(RuneTexture, drawPos + afterimageOffset, null, glowColor, RuneRotation, RuneTexture.Size() * 0.5f, NPC.scale, SpriteEffects.None, 0f);
-                    }
-                    spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: Color.White, rotation: RuneRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
                 }
 
                 //draw arena runes
@@ -2844,6 +2808,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: Color.White, rotation: RuneRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
                     }
                 }
+
 
                 //draw wings
                 //draws 4 things: 2 upper wings, 2 lower wings
@@ -2899,12 +2864,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             }
             foreach (Vector4 chunk in chunklist.Where(pos => pos.Z > 0))
             {
-                /*
-                if (SpritePhase > 1 && chunklist.IndexOf(chunk) % 2 == 0)
-                {
-                    continue;
-                }
-                */
                 DrawChunk(chunk, spriteBatch, drawColor, screenPos);
             }
             if (PyramidPhase != 0) //draw pyramid

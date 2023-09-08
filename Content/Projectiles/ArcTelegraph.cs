@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 case 1:
                     {
-                        if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<Lifelight>())
+                        if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<LifeChallenger>())
                         {
                             npc = parentNpc.whoAmI;
                             float angleToMe = Projectile.velocity.ToRotation();

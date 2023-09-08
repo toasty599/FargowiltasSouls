@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     Main.LocalPlayer.RemoveAllGrapplingHooks();
                 SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
             }
-            if (NPC.CountNPCS(ModContent.NPCType<Lifelight>()) < 1)
+            if (NPC.CountNPCS(ModContent.NPCType<LifeChallenger>()) < 1)
             {
                 Projectile.Kill();
             }
