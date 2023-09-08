@@ -678,7 +678,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<BaronNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, AI2, player.whoAmI);
                 }
             }
-            if (Timer > AI2 - 10 && AI2 > 0)
+            if (Timer > AI2 + 10 && AI2 > 0)
             {
                 Anim = 0;
                 StateReset();
