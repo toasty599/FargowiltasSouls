@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     int maxSpeed2 = WorldSavingSystem.MasochistModeReal ? 14 : WorldSavingSystem.EternityMode ? 12 : 10;
                     if (Math.Abs(Projectile.velocity.X) < maxSpeed2)
                     {
-                        Projectile.velocity.X += sign2 * 0.5f;
+                        Projectile.velocity.X += sign2 * 0.12f;
                     }
                     break;
             }

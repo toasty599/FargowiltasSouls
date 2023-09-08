@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 5f);
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
             npc.damage = (int)Math.Round(npc.damage * 0.9f);
         }
         public enum Attacks

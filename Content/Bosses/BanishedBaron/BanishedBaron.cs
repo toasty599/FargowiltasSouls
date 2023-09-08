@@ -1531,7 +1531,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 arena.ai[2] = 0; //deactivate projectile shooting AI of arena
             }
-            if (Timer > 480)
+            if (Timer > 500)
             {
                 NPC.velocity = Vector2.Zero;
                 StateReset();
