@@ -165,7 +165,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                     ProjectileID.FairyQueenMagicItemShot, Projectile.damage / 6, Projectile.knockBack, Projectile.owner, -1, Main.rand.NextFloat(1)); //random ai1 decides color completely randomly
                 if (Main.projectile[p] != null && p != Main.maxProjectiles)
                 {
-                    Main.projectile[p].DamageType = DamageClass.Melee;
+                    Main.projectile[p].DamageType = DamageClass.MeleeNoSpeed;
                     //Main.projectile[p].
                 }
             }
