@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                     Main.rand.NextFloat(MathHelper.TwoPi), Main.rand.NextFloat(-MathHelper.Pi / 24, MathHelper.Pi / 24));
                 p.Spawn();
             }
-            if (Main.mouseLeftRelease && Charges > 0 && player.whoAmI == Main.myPlayer)
+            if ((Main.mouseLeftRelease || player.dead) && Charges > 0 && player.whoAmI == Main.myPlayer)
             {
                 for (int i = 0; i < Charges; i++)
                 {
