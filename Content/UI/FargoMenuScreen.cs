@@ -12,8 +12,10 @@ namespace FargowiltasSouls.Content.UI
 {
     public class FargoMenuScreen : ModMenu
     {
-
-        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/MenuLogo");
+        bool forgor = false;
+        public override Asset<Texture2D> Logo => forgor ? 
+            ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/ForgorMenuLogo") : 
+            ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/MenuLogo");
 
         //public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"");
 
@@ -28,6 +30,7 @@ namespace FargowiltasSouls.Content.UI
 
         public override void OnSelected()
         {
+            forgor = Main.rand.NextBool(100);
             //SoundEngine.PlaySound(SoundID.Roar);
         }
 
