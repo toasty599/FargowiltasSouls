@@ -3243,10 +3243,14 @@ Mods: {
 					Allows flight, super fast running, and extra mobility on ice
 					The wearer can run even faster on sand
 					8% increased movement speed
+					Provides the ability to walk on water, honey and lava
+					Grants immunity to fire blocks and 7 seconds of immunity to lava
+					Reduces damage from touching lava
 					Increases jump speed and allows auto-jump
 					Flowers grow on the grass you walk on
 					Allows the holder to double jump
 					Increases jump height and negates fall damage
+
 					'Back and better than ever'
 					'''
 			}
@@ -3851,8 +3855,11 @@ Mods: {
 				DisplayName: Zephyr Boots
 				Tooltip:
 					'''
-					Allows flight and super fast running
+					Allows flight, super fast running, and extra mobility on ice
 					8% increased movement speed
+					Provides the ability to walk on water, honey and lava
+					Grants immunity to fire blocks and 7 seconds of immunity to lava
+					Reduces damage from touching lava
 					Allows the holder to double jump
 					Increases jump height and negates fall damage
 					'Run like the wind'
