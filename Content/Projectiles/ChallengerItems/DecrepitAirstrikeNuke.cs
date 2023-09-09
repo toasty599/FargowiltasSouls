@@ -1,5 +1,6 @@
 using FargowiltasSouls.Content.Bosses.BanishedBaron;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
+using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -101,18 +102,33 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
         public override void Kill(int timeLeft)
         {
             Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
-
-            
-            foreach (Projectile p in Main.projectile.Where(p => p.active && !p.hostile && p.owner == Main.myPlayer && p.minion && Projectile.Colliding(Projectile.Hitbox, p.Hitbox)))
+            void EchsplodeMinion(Projectile p, ref int hitsLeft)
             {
+                if (hitsLeft <= 0)
+                {
+                    return;
+                }
+                hitsLeft--;
                 for (int i = 0; i < 5; i++)
                 {
                     Vector2 vel = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 15f;
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), p.Center, p.velocity + vel, ModContent.ProjectileType<DecrepitAirstrikeNukeSplinter>(), Projectile.damage / 6, Projectile.knockBack / 10, Projectile.owner);
                 }
                 p.Kill();
-                
+
                 SoundEngine.PlaySound(SoundID.Item67, p.Center);
+            }
+
+            int hitsLeft = Main.player[Projectile.owner].maxMinions;
+
+            //prioritize squirrels first because funny
+            foreach (Projectile p in Main.projectile.Where(p => p.type == ModContent.ProjectileType<KamikazeSquirrel>() && p.active && !p.hostile && p.owner == Main.myPlayer && p.minion && Projectile.Colliding(Projectile.Hitbox, p.Hitbox)))
+            {
+                EchsplodeMinion(p, ref hitsLeft);
+            }
+            foreach (Projectile p in Main.projectile.Where(p => p.type != ModContent.ProjectileType<KamikazeSquirrel>() && p.active && !p.hostile && p.owner == Main.myPlayer && p.minion && Projectile.Colliding(Projectile.Hitbox, p.Hitbox)))
+            {
+                EchsplodeMinion(p, ref hitsLeft);
             }
             
 
