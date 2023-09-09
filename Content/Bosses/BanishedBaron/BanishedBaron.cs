@@ -1561,7 +1561,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     AI2 = Math.Sign(arena.Center.X - player.Center.X);
                     HitPlayer = false;
                 }
-                LockVector1 = new Vector2(distance * AI2, -distance/2);
+                LockVector1 = new Vector2(distance * AI2, -distance);
 
             }
             if (Timer < PositioningTime && NPC.Distance(player.Center + LockVector1) > 25) //don't progress time if too far away from start position
