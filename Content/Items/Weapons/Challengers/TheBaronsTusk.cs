@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 140;
+            Item.damage = 95;
             Item.DamageType = DamageClass.Melee;
             Item.width = 66;
             Item.height = 64;
