@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 120;
+            Item.damage = 130;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 82;
             Item.height = 24;
@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         public override bool? UseItem(Player player)
         {
             player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloading = true;
-            player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloadZonePos = 0.6f;
+            player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloadZonePos = 0.7f;
             return base.UseItem(player);
         }
     }
