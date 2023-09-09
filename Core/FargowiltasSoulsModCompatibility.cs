@@ -281,7 +281,11 @@ namespace FargowiltasSouls
                     () => true,
                     new List<int>(new int[]
                     {
-
+                        ModContent.ItemType<BaronTrophy>(),
+                        ModContent.ItemType<TheBaronsTusk>(),
+                        ModContent.ItemType<RoseTintedVisor>(),
+                        ModContent.ItemType<NavalRustrifle>(),
+                        ModContent.ItemType<DecrepitAirstrikeRemote>(),
                     }),
                     new List<int> { ModContent.ItemType<MechLure>() },
                     true
