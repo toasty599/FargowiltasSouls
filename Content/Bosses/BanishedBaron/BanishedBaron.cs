@@ -111,8 +111,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 19;
-            NPCID.Sets.TrailCacheLength[NPC.type] = 18; //decrease later if not needed
-            NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 10;
+            NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
@@ -274,10 +274,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             for (int i = 0; i < Math.Min(Trail, NPCID.Sets.TrailCacheLength[NPC.type]); i++) //math.min to safeguard against uncached trail
             {
+                float oldrot = NPC.oldRot[i] + (NPC.direction == 1 ? 0 : MathHelper.Pi);
                 Vector2 value4 = NPC.oldPos[i];
                 int oldFrame = Frame;
                 Rectangle oldRectangle = new Rectangle(0, oldFrame * bodytexture.Height / Main.npcFrameCount[NPC.type], bodytexture.Width, bodytexture.Height / Main.npcFrameCount[NPC.type]);
-                DrawData oldGlow = new DrawData(bodytexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldRectangle), NPC.GetAlpha(drawColor) * (0.5f / i), rot, new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), NPC.scale, flip, 0);
+                DrawData oldGlow = new DrawData(bodytexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldRectangle), NPC.GetAlpha(drawColor) * (0.5f / i), oldrot, new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), NPC.scale, flip, 0);
                 GameShaders.Misc["LCWingShader"].UseColor(Color.Blue).UseSecondaryColor(Color.Black);
                 GameShaders.Misc["LCWingShader"].Apply(oldGlow);
                 oldGlow.Draw(spriteBatch);
