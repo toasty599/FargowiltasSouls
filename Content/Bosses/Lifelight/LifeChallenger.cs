@@ -149,6 +149,16 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            { // Influences how the NPC looks in the Bestiary
+                CustomTexturePath = "FargowiltasSouls/Assets/Effects/LifeStar", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
+                Position = new Vector2(0f, 0f),
+                PortraitPositionXOverride = 0f,
+                PortraitPositionYOverride = 0f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[]

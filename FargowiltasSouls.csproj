@@ -23,6 +23,7 @@
     <None Remove="Assets\UI\MenuLogo.png" />
     <None Remove="Content\Bosses\BanishedBaron\BaronWhirlpool.png" />
     <None Remove="Content\Bosses\Champions\Cosmos\CosmosChampion_Still.png" />
+    <None Remove="Content\Bosses\Lifelight\Lifelight.png" />
     <None Remove="Content\Buffs\Boss\BaronsBurdenBuff.png" />
     <None Remove="Content\Buffs\Souls\CorruptedBuff.png" />
     <None Remove="Content\Items\Accessories\Enchantments\AshWoodEnchant.png" />
