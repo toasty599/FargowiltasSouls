@@ -152,7 +152,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPC.DeathSound = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronDeath");
             NPC.alpha = 255;
 
-            Music = MusicID.OtherworldlyBoss1;
+            Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
+                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Baron") : MusicID.DukeFishron;
             SceneEffectPriority = SceneEffectPriority.BossLow;
 
             NPC.value = Item.buyPrice(0, 2);

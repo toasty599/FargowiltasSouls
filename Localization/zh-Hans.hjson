@@ -5324,7 +5324,7 @@ Mods: {
 				// DisplayName: Rusted Oxygen Tank
 				/* Tooltip:
 					'''
-					Works in your inventory
+					Works in vanity slots, and in your inventory while favorited
 					You count as wet outside water
 					Grants floaty water movement
 					Increased movement speed while in any liquid
