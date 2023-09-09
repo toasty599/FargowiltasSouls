@@ -21,6 +21,9 @@ using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.Core.ModPlayers;
 using Terraria.Audio;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -562,8 +565,34 @@ namespace FargowiltasSouls.Core.Globals
                     Main.dust[d].noGravity = true;
                 }
             }
-        }
 
+            
+        }
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            int shrapnel = 0;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile proj = Main.projectile[i];
+                if (proj.active && proj.type == ModContent.ProjectileType<BaronTuskShrapnel>() && proj.owner == Main.myPlayer)
+                {
+                    if ((proj.ModProjectile as BaronTuskShrapnel).EmbeddedNPC == npc)
+                    {
+                        shrapnel++;
+                    }
+                }
+            }
+            if (shrapnel >= 15)
+            {
+                Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/GlowRing", AssetRequestMode.ImmediateLoad);
+                Rectangle rectangle = texture.Bounds;
+                Vector2 origin2 = rectangle.Size() / 2f;
+                Color color = Color.Red;
+                float ringScale = npc.scale / 3f;
+                spriteBatch.Draw(texture, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color, npc.rotation, origin2, ringScale, SpriteEffects.None, 0);
+            }
+            base.PostDraw(npc, spriteBatch, screenPos, drawColor);
+        }
         public override Color? GetAlpha(NPC npc, Color drawColor)
         {
             if (Chilled)

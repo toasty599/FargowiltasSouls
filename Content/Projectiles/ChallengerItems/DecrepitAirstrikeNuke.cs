@@ -41,6 +41,16 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 
         private Vector2 origPos = Vector2.Zero;
         private bool firstTick = true;
+
+        private int HitCount = 0;
+        public override bool? CanHitNPC(NPC target)
+        {
+            return HitCount <= 4;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            HitCount++;
+        }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) //circular hitbox
         {
             int clampedX = projHitbox.Center.X - targetHitbox.Center.X;
@@ -62,7 +72,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             {
                 if (Projectile.timeLeft > TimeLeft)
                 {
-                    Projectile.timeLeft = (int)TimeLeft;
+                    Projectile.timeLeft = (int)TimeLeft + 3;
                 }
                 origPos = Projectile.Center;
                 firstTick = false;
@@ -70,13 +80,17 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             }
             Vector2 target = TargetX * Vector2.UnitX + TargetY * Vector2.UnitY;
             Projectile.rotation = (-Projectile.DirectionTo(target)).ToRotation();
-            Projectile.Center = Vector2.Lerp(origPos, target, (TimeLeft - Projectile.timeLeft) / TimeLeft);
-            if (Projectile.timeLeft <= 2)
+            
+            if (Projectile.timeLeft <= 3)
             {
-                Projectile.position = Projectile.Center;
                 Projectile.width = ExplosionDiameter;
                 Projectile.height = ExplosionDiameter;
-                Projectile.Center = Projectile.position;
+                Projectile.Center = target;
+                Projectile.velocity = Vector2.Zero;
+            }
+            else
+            {
+                Projectile.Center = Vector2.Lerp(origPos, target, (TimeLeft - (Projectile.timeLeft - 3)) / TimeLeft);
             }
             if (Projectile.timeLeft % 5 == 0)
             {

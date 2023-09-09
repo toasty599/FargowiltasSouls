@@ -2853,8 +2853,13 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 float scale = 0.45f * Main.rand.NextFloat(1f, 2.5f);
                 Vector2 origin = new(star.Width / 2 + scale, star.Height / 2 + scale);
 
-                spriteBatch.Draw(star, NPC.Center - screenPos, new Rectangle?(rect), Color.HotPink, 0, origin, scale, SpriteEffects.None, 0);
-                DrawData starDraw = new(star, NPC.Center - screenPos, new Rectangle?(rect), Color.HotPink, 0, origin, scale, SpriteEffects.None, 0);
+                Vector2 pos = NPC.Center - screenPos;
+                if (NPC.IsABestiaryIconDummy)
+                {
+                    pos += Vector2.UnitX * 85 + Vector2.UnitY * 48;
+                }
+                spriteBatch.Draw(star, pos, new Rectangle?(rect), Color.HotPink, 0, origin, scale, SpriteEffects.None, 0);
+                DrawData starDraw = new(star, pos, new Rectangle?(rect), Color.HotPink, 0, origin, scale, SpriteEffects.None, 0);
                 GameShaders.Misc["LCWingShader"].UseColor(Color.HotPink).UseSecondaryColor(Color.HotPink);
                 GameShaders.Misc["LCWingShader"].Apply(new DrawData?());
                 starDraw.Draw(spriteBatch);
