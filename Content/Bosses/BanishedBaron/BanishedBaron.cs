@@ -345,7 +345,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
-            potionType = ItemID.HealingPotion;
+            potionType = ItemID.GreaterHealingPotion;
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
