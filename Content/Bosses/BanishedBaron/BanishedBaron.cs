@@ -508,6 +508,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         #region States
         void Opening()
         {
+            HitPlayer = false;
             Anim = 1;
             //NPC.rotation = (float)(Math.Sin(MathHelper.ToRadians(Timer) * 16) * MathHelper.Pi/24);
             if (LockVector1 == Vector2.Zero)
@@ -553,6 +554,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer > 90)
             {
+                HitPlayer = true;
                 Anim = 0;
                 StateReset();
             }
