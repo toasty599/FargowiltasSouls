@@ -646,6 +646,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         if (tile.LiquidType == LiquidID.Water)
                         {
                             tile.Clear(TileDataType.Liquid);
+                            CombatText.NewText(NPC.Hitbox, Color.Blue, "slurp");
                             if (Main.netMode == NetmodeID.Server)
                             {
                                 NetMessage.sendWater(x, y);
