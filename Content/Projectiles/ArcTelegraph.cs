@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             if(shader == null)
-                shader = ModContent.Request<Effect>("FargowiltasSouls/Assets/Effects/Vertex_ArcTelegraph", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                shader = ModContent.Request<Effect>("FargowiltasSouls/Assets/Effects/Shaders/Vertex_ArcTelegraph", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             SetEffectParameters(shader);
             shader.CurrentTechnique.Passes[0].Apply();
             VertexStrip vertexStrip = new();

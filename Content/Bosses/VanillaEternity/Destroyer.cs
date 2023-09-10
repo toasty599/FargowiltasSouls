@@ -980,8 +980,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 modifiers.FinalDamage /= 2;
             if (projectile.type == ProjectileID.SoulDrain)
                 modifiers.FinalDamage *= 0.75f;
-            if (projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNuke>())
-                modifiers.FinalDamage *= 0.75f;
+            if (projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNuke>() || projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNukeSplinter>())
+                modifiers.FinalDamage *= 0.7f;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)

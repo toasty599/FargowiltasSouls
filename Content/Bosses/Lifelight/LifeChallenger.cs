@@ -2642,7 +2642,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         {
             if (projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNuke>() || projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNukeSplinter>())
             {
-                modifiers.FinalDamage *= 0.7f;
+                modifiers.FinalDamage *= 0.75f;
             }
         }
 
