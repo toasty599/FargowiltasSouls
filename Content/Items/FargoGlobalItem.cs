@@ -131,8 +131,11 @@ namespace FargowiltasSouls.Content.Items
 
         public override bool? CanAutoReuseItem(Item item, Player player)
         {
-            if (item.ModItem.CanAutoReuseItem(player) != null)
-                return item.ModItem.CanAutoReuseItem(player);
+            if (item.ModItem != null)
+            {
+                if (item.ModItem.CanAutoReuseItem(player) != null)
+                    return item.ModItem.CanAutoReuseItem(player);
+            }
 
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
