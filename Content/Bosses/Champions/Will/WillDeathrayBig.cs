@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Systems;
@@ -169,7 +170,9 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             if (Projectile.velocity == Vector2.Zero)
                 return false;
 
-            LaserDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, GameShaders.Misc["FargowiltasSouls:WillBigDeathray"]);
+            Shader shader = ShaderManager.GetShaderIfExists("WillBigDeathray");
+
+			LaserDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, shader);
 
             // Get the laser end position.
             Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance;
@@ -187,10 +190,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
 
             // The laser should fade to this in the middle.
             Color brightColor = new(252, 252, 192, 100);
-            GameShaders.Misc["FargowiltasSouls:WillBigDeathray"].UseColor(brightColor);
+            shader.SetMainColor(brightColor);
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
-            Asset<Texture2D> fademap = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Trails/WillStreak");
-            GameShaders.Misc["FargowiltasSouls:WillBigDeathray"].SetShaderTexture(fademap);
+            Texture2D fademap = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Trails/WillStreak").Value;
+            FargoSoulsUtil.SetTexture1(fademap);
 
             LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 30);
             return false;

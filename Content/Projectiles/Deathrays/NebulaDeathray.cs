@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Common.Graphics.Shaders;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -142,7 +143,8 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             if (Projectile.hide)
                 return;
 
-            LaserDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, GameShaders.Misc["FargowiltasSouls:GenericDeathray"]);
+            Shader shader = ShaderManager.GetShaderIfExists("GenericDeathray");
+            LaserDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, shader);
 
             // Get the laser end position.
             Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance * 1.1f;
@@ -154,12 +156,12 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
                 baseDrawPoints[i] = Vector2.Lerp(initialDrawPoint, laserEnd, i / (float)(baseDrawPoints.Length - 1f));
 
             // Set shader parameters.
-            GameShaders.Misc["FargowiltasSouls:GenericDeathray"].UseColor(new Color(240, 220, 240, 0));
-            GameShaders.Misc["FargowiltasSouls:GenericDeathray"].SetShaderTexture(FargosTextureRegistry.GenericStreak);
-            GameShaders.Misc["FargowiltasSouls:GenericDeathray"].Shader.Parameters["stretchAmount"].SetValue(3);
-            GameShaders.Misc["FargowiltasSouls:GenericDeathray"].Shader.Parameters["scrollSpeed"].SetValue(1f);
-            GameShaders.Misc["FargowiltasSouls:GenericDeathray"].Shader.Parameters["uColorFadeScaler"].SetValue(0.8f);
-            GameShaders.Misc["FargowiltasSouls:GenericDeathray"].Shader.Parameters["useFadeIn"].SetValue(false);
+            shader.SetMainColor(new Color(240, 220, 240, 0));
+            FargoSoulsUtil.SetTexture1(FargosTextureRegistry.GenericStreak.Value);
+            shader.WrappedEffect.Parameters["stretchAmount"].SetValue(3);
+            shader.WrappedEffect.Parameters["scrollSpeed"].SetValue(1f);
+            shader.WrappedEffect.Parameters["uColorFadeScaler"].SetValue(0.8f);
+            shader.WrappedEffect.Parameters["useFadeIn"].SetValue(false);
             // I cannot gut this much more than this, so if its lagging im afraid im not sure what to tell you.
             LaserDrawer.DrawPixelPrims(baseDrawPoints.ToList(), -Main.screenPosition, 10);
         }

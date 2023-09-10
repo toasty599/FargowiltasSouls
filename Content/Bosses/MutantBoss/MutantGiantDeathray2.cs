@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Souls;
@@ -296,8 +297,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (Projectile.velocity == Vector2.Zero)
                 return false;
 
-            // If it isnt set, set the prim instance.
-            LaserDrawer ??= new(WidthFunction, ColorFunction, GameShaders.Misc["FargowiltasSouls:MutantDeathray"]);
+            Shader shader = ShaderManager.GetShaderIfExists("MutantDeathray");
+
+			// If it isnt set, set the prim instance.
+			LaserDrawer ??= new(WidthFunction, ColorFunction, shader);
 
             // Get the laser end position.
             Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance;
@@ -315,9 +318,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             // The laser should fade to white in the middle.
             Color brightColor = new(194, 255, 242, 100);
-            GameShaders.Misc["FargowiltasSouls:MutantDeathray"].UseColor(brightColor);
-            // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
-            GameShaders.Misc["FargowiltasSouls:MutantDeathray"].SetShaderTexture(FargosTextureRegistry.MutantStreak);
+			shader.SetMainColor(brightColor);
+			FargoSoulsUtil.SetTexture1(FargosTextureRegistry.MutantStreak.Value);
             // Draw a big glow above the start of the laser, to help mask the intial fade in due to the immense width.
 
             Texture2D glowTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/GlowRing").Value;
