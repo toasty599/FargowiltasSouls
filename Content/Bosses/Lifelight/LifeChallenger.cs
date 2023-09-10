@@ -24,6 +24,7 @@ using FargowiltasSouls.Core.Systems;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using FargowiltasSouls.Common.Graphics.Particles;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
@@ -2635,6 +2636,14 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 modifiers.FinalDamage /= 2.5f;
 
             
+        }
+
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
+        {
+            if (projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNuke>() || projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNukeSplinter>())
+            {
+                modifiers.FinalDamage *= 0.7f;
+            }
         }
 
         public override void UpdateLifeRegen(ref int damage)
