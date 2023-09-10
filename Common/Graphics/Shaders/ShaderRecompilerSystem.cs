@@ -173,20 +173,20 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 					// Replace any shaders that exist already.
 					if (ShaderManager.ShaderLookupTable.ContainsKey(compiledXnbPath))
 					{
-						ShaderManager.ShaderLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)].Dispose();
-						ShaderManager.ShaderLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)] = new(recompiledEffect);
+						//ShaderManager.ShaderLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)].Dispose();
+						ShaderManager.ShaderLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)] = new Shader(new Ref<Effect>(recompiledEffect));
 					}
 					// Replace any filters that exist already.
 					else if (ShaderManager.FilterLookupTable.ContainsKey(compiledXnbPath))
 					{
-						ShaderManager.FilterLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)].Dispose();
-						ShaderManager.FilterLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)] = new(recompiledEffect);
+						//ShaderManager.FilterLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)].Dispose();
+						ShaderManager.FilterLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)] = new ScreenFilter(new Ref<Effect>(recompiledEffect));
 					}
 					// If it is not already registered, check whether its a shader or filter and register it with the appropriate dictonary.
 					else if (originalXnbPath.Contains("\\Effects\\Shaders\\"))
-						ShaderManager.ShaderLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)] = new(recompiledEffect);
+						ShaderManager.ShaderLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)] = new Shader(new Ref<Effect>(recompiledEffect));
 					else if (originalXnbPath.Contains("\\Effects\\Filters\\"))
-						ShaderManager.FilterLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)] = new(recompiledEffect);
+						ShaderManager.FilterLookupTable[Path.GetFileNameWithoutExtension(compiledXnbPath)] = new ScreenFilter(new Ref<Effect>(recompiledEffect));
 					else
 					{
 						Main.NewText($"Shader failed to register, path is:{shaderPath}");

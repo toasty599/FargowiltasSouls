@@ -12,10 +12,12 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
     public class PrimDrawer
     {
         #region Fields/Properties
+        public static BasicEffect BaseEffect;
 
-        public BasicEffect BaseEffect;
         public Shader Shader;
+
         public WidthTrailFunction WidthFunc;
+
         public ColorTrailFunction ColorFunc;
 
         /// <summary>
@@ -52,7 +54,7 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
             if (drawPointsList.Count < 2 || drawPointsList.Any((drawPoint) => drawPoint.HasNaNs()) || drawPointsList.All(point => point == drawPointsList[0]))
                 return;
 
-            UpdateBaseEffect(out Matrix projection, out Matrix view);
+			UpdateBaseEffect(out Matrix projection, out Matrix view);
 
             // Get an array of primitive triangles to pass through. Color data etc is stored in the struct.
             BasePrimTriangle[] pointVertices = CreatePrimitiveVertices(drawPointsList);
@@ -98,7 +100,7 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
             if (drawPointsList.Count < 2 || drawPointsList.Any((drawPoint) => drawPoint.HasNaNs()) || drawPointsList.All(point => point == drawPointsList[0]))
                 return;
 
-            UpdateBaseEffectPixel(out var effectProjetion, out Matrix view);
+			UpdateBaseEffectPixel(out var effectProjetion, out Matrix view);
             // Get an array of primitive triangles to pass through. Color data etc is stored in the struct.
             BasePrimTriangle[] pointVertices = CreatePrimitiveVertices(drawPointsList);
             // Get an array of the indices for each primitive triangle.
@@ -137,16 +139,17 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
             WidthFunc = widthFunc;
             ColorFunc = colorFunc;
             Shader = shader;
+
             // Create a basic effect.
-            BaseEffect = new BasicEffect(Main.instance.GraphicsDevice)
+            BaseEffect ??= new BasicEffect(Main.instance.GraphicsDevice)
             {
                 VertexColorEnabled = true,
                 TextureEnabled = false
             };
-            UpdateBaseEffect(out _, out _);
+			UpdateBaseEffect(out _, out _);
         }
 
-        private void UpdateBaseEffect(out Matrix effectProjection, out Matrix effectView)
+        private static void UpdateBaseEffect(out Matrix effectProjection, out Matrix effectView)
         {
             // Get the screen bounds.
             int height = Main.instance.GraphicsDevice.Viewport.Height;
@@ -177,7 +180,7 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
             BaseEffect.Projection = effectProjection;
         }
 
-        private void UpdateBaseEffectPixel(out Matrix effectProjetion, out Matrix effectView)
+        private static void UpdateBaseEffectPixel(out Matrix effectProjetion, out Matrix effectView)
         {
             // Get the screen bounds.
             effectProjetion = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
@@ -203,60 +206,62 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
             if (newList.Count <= 1)
                 return newList;
 
-            List<Vector2> controlPoints = new();
-            for (int i = 0; i < basePoints.Count(); i++)
-            {
-                // Don't incorporate points that are zeroed out.
-                // They are almost certainly a result of incomplete oldPos arrays.
-                if (basePoints.ElementAt(i) == Vector2.Zero)
-                    continue;
+			List<Vector2> controlPoints = new();
+			for (int i = 0; i < basePoints.Count(); i++)
+			{
+				// Don't incorporate points that are zeroed out.
+				// They are almost certainly a result of incomplete oldPos arrays.
+				if (basePoints.ElementAt(i) == Vector2.Zero)
+					continue;
 
-                Vector2 offset = baseOffset;
-                controlPoints.Add(basePoints.ElementAt(i) + offset);
-            }
-            List<Vector2> points = new();
+				float completionRatio = i / (float)basePoints.Count();
+				Vector2 offset = baseOffset;
+				controlPoints.Add(basePoints.ElementAt(i) + offset);
+			}
+			List<Vector2> points = new();
 
-            // Avoid stupid index errors.
-            if (controlPoints.Count <= 4)
-                return controlPoints;
+			// Avoid stupid index errors.
+			if (controlPoints.Count <= 4)
+				return controlPoints;
 
-            for (int j = 0; j < totalPoints; j++)
-            {
-                float splineInterpolant = j / (float)totalPoints;
-                float localSplineInterpolant = splineInterpolant * (controlPoints.Count - 1f) % 1f;
-                int localSplineIndex = (int)(splineInterpolant * (controlPoints.Count - 1f));
+			for (int j = 0; j < totalPoints; j++)
+			{
+				float splineInterpolant = j / (float)totalPoints;
+				float localSplineInterpolant = splineInterpolant * (controlPoints.Count - 1f) % 1f;
+				int localSplineIndex = (int)(splineInterpolant * (controlPoints.Count - 1f));
 
-                Vector2 farLeft;
-                Vector2 left = controlPoints[localSplineIndex];
-                Vector2 right = controlPoints[localSplineIndex + 1];
-                Vector2 farRight;
+				Vector2 farLeft;
+				Vector2 left = controlPoints[localSplineIndex];
+				Vector2 right = controlPoints[localSplineIndex + 1];
+				Vector2 farRight;
 
-                // Special case: If the spline attempts to access the previous/next index but the index is already at the very beginning/end, simply
-                // cheat a little bit by creating a phantom point that's mirrored from the previous one.
-                if (localSplineIndex <= 0)
-                {
-                    Vector2 mirrored = left * 2f - right;
-                    farLeft = mirrored;
-                }
-                else
-                    farLeft = controlPoints[localSplineIndex - 1];
+				// Special case: If the spline attempts to access the previous/next index but the index is already at the very beginning/end, simply
+				// cheat a little bit by creating a phantom point that's mirrored from the previous one.
+				if (localSplineIndex <= 0)
+				{
+					Vector2 mirrored = left * 2f - right;
+					farLeft = mirrored;
+				}
+				else
+					farLeft = controlPoints[localSplineIndex - 1];
 
-                if (localSplineIndex >= controlPoints.Count - 2)
-                {
-                    Vector2 mirrored = right * 2f - left;
-                    farRight = mirrored;
-                }
-                else
-                    farRight = controlPoints[localSplineIndex + 2];
+				if (localSplineIndex >= controlPoints.Count - 2)
+				{
+					Vector2 mirrored = right * 2f - left;
+					farRight = mirrored;
+				}
+				else
+					farRight = controlPoints[localSplineIndex + 2];
 
-                points.Add(Vector2.CatmullRom(farLeft, left, right, farRight, localSplineInterpolant));
-            }
+				points.Add(Vector2.CatmullRom(farLeft, left, right, farRight, localSplineInterpolant));
+			}
 
-            // Manually insert the front and end points.
-            points.Insert(0, controlPoints.First());
-            points.Add(controlPoints.Last());
+			// Manually insert the front and end points.
+			points.Insert(0, controlPoints.First());
+			points.Add(controlPoints.Last());
 
-            return points;
+
+			return points;
         }
 
         private BasePrimTriangle[] CreatePrimitiveVertices(List<Vector2> points)

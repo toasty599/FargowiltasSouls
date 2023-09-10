@@ -9,6 +9,9 @@ using FargowiltasSouls.Content.Bosses.Lifelight;
 using Terraria.DataStructures;
 using System.IO;
 using System;
+using FargowiltasSouls.Common.Graphics.Shaders;
+using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Assets.ExtraTextures;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -17,11 +20,23 @@ namespace FargowiltasSouls.Content.Projectiles
     /// </summary>
     public class ArcTelegraph : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Extra_" + ExtrasID.MartianProbeScanWave;//this is unrelated actually
-        public override void SetStaticDefaults()
+        public PrimDrawer TelegraphDrawer
         {
-            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 99999999;
+            get;
+            private set;
         }
+
+        public ref float Timer => ref Projectile.ai[0];
+
+        public ref float ArcAngle => ref Projectile.ai[1];
+
+        public ref float Width => ref Projectile.ai[2];
+
+		// Can be anything.
+		public override string Texture => "Terraria/Images/Extra_" + ExtrasID.MartianProbeScanWave;
+
+        public override void SetStaticDefaults() => ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 10000;
+
         public override void SetDefaults()
         {
             Projectile.timeLeft = 60 * 5;
@@ -45,99 +60,73 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.localAI[1] = reader.ReadSingle();
             Projectile.localAI[2] = reader.ReadSingle();
         }
-        ref float Timer => ref Projectile.localAI[2];
         int npc;
         public override void OnSpawn(IEntitySource source)
         {
-            switch (Projectile.ai[0])
+            if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<LifeChallenger>())
             {
-                case 1:
-                    {
-                        if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<LifeChallenger>())
-                        {
-                            npc = parentNpc.whoAmI;
-                            float angleToMe = Projectile.velocity.ToRotation();
-                            float angleToPlayer = (Main.player[parentNpc.target].Center - parentNpc.Center).ToRotation();
-                            Projectile.localAI[1] = MathHelper.WrapAngle(angleToMe - angleToPlayer);
-                        }
-                        break;
-                    }
-            }
+                npc = parentNpc.whoAmI;
+                float angleToMe = Projectile.velocity.ToRotation();
+                float angleToPlayer = (Main.player[parentNpc.target].Center - parentNpc.Center).ToRotation();
+                Projectile.localAI[1] = MathHelper.WrapAngle(angleToMe - angleToPlayer);
+            }                      
         }
+
         public override void AI()
         {
-            
-
-            switch (Projectile.ai[0])
+            NPC parent = FargoSoulsUtil.NPCExists(npc);
+            if (parent != null)
             {
-                case 1:
-                    {
-                        NPC parent = FargoSoulsUtil.NPCExists(npc);
-                        if (parent != null)
-                        {
-                            Projectile.Center = parent.Center;
-                            Vector2 offset = Main.player[parent.target].Center - parent.Center;
-                            Projectile.rotation = offset.RotatedBy(Projectile.localAI[1]).ToRotation();
-                            telegraphColor = Color.Cyan;
-                        }
-                        break;
-                    }
-            }
-            Projectile.position -= Projectile.velocity;
+                Projectile.Center = parent.Center;
+                Vector2 offset = Main.player[parent.target].Center - parent.Center;
+                Projectile.rotation = offset.RotatedBy(Projectile.localAI[1]).ToRotation();
+            }                    
+            
             Timer++;
         }
-        public float WidthFunction(float progress)
-        {
-            return Projectile.ai[2];
-        }
+
+        public override bool ShouldUpdatePosition() => false;
+
+        public float WidthFunction(float progress) => Width;
+
         public Color ColorFunction(float progress)
         {
-            switch (Projectile.ai[0])
-            {
-                case 1:
-                    {
-                        //Color color = Color.Lerp(Color.Transparent, telegraphColor, (float)Math.Sqrt(Math.Sin(progress * MathHelper.Pi))) * 1f;
-                        Color color = Color.Lerp(Color.Transparent, telegraphColor, (float)Math.Sin(progress * MathHelper.Pi)) * 1f;
-                        return Color.Lerp(Color.Transparent, color, Math.Min(Timer / 10, 1));
-                    }
-                default:
-                    return telegraphColor;
-            }
+            //Color color = Color.Lerp(Color.Transparent, Color.Cyan, MathF.Sin(progress * MathHelper.Pi)) * 1f;
+            return Color.Lerp(Color.Transparent, Color.DeepSkyBlue, Math.Min(Timer / 10, 1));
         }
-        public void SetEffectParameters(Effect effect)
-        {
-            effect.Parameters["worldViewProjection"]?.SetValue(GetWorldViewProjectionMatrixIdioticVertexShaderBoilerplate());
-        }
+
+
         public static Matrix GetWorldViewProjectionMatrixIdioticVertexShaderBoilerplate()
         {
             Matrix view = Matrix.CreateLookAt(Vector3.Zero, Vector3.UnitZ, Vector3.Up) * Matrix.CreateTranslation(Main.graphics.GraphicsDevice.Viewport.Width / 2, Main.graphics.GraphicsDevice.Viewport.Height / -2, 0) * Matrix.CreateRotationZ(MathHelper.Pi) * Matrix.CreateScale(Main.GameViewMatrix.Zoom.X, Main.GameViewMatrix.Zoom.Y, 1f);
             Matrix projection = Matrix.CreateOrthographic(Main.graphics.GraphicsDevice.Viewport.Width, Main.graphics.GraphicsDevice.Viewport.Height, 0, 1000);
             return view * projection;
         }
-        Effect shader;
-        public Color telegraphColor;
+
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            if(shader == null)
-                shader = ModContent.Request<Effect>("FargowiltasSouls/Assets/Effects/Shaders/Vertex_ArcTelegraph", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            SetEffectParameters(shader);
-            shader.CurrentTechnique.Passes[0].Apply();
+            Shader shader = ShaderManager.GetShaderIfExists("Vertex_ArcTelegraph");
+
+            FargoSoulsUtil.SetTexture1(ModContent.Request<Texture2D>("Terraria/Images/Extra_193").Value);
+            shader.SetMainColor(Color.Lerp(Color.DeepSkyBlue, Color.SlateBlue, 0.7f));
+			shader.Apply();
+
             VertexStrip vertexStrip = new();
             List<Vector2> positions = new();
             List<float> rotations = new();
+            float initialRotation = Projectile.rotation - ArcAngle * 0.5f;
             for (float i = 0; i < 1; i += 0.005f)
             {
-                float rotation = Projectile.rotation - Projectile.ai[1] * 0.5f + Projectile.ai[1] * i;
-                positions.Add(rotation.ToRotationVector2() * Projectile.ai[2] + Projectile.Center);
+                float rotation = initialRotation + ArcAngle * i;
+                positions.Add(rotation.ToRotationVector2() * Width + Projectile.Center);
                 rotations.Add(rotation + MathHelper.PiOver2);
-            } 
+            }
             vertexStrip.PrepareStrip(positions.ToArray(), rotations.ToArray(), ColorFunction, WidthFunction, -Main.screenPosition, includeBacksides: true);
             vertexStrip.DrawTrail();
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);         
+            Main.spriteBatch.ExitShaderRegion();
             return false; 
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

@@ -2076,7 +2076,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 NPC.netUpdate = true;
             }
 
-            float arcWidth = MathHelper.Pi / 3;
+            float arcAngle = MathHelper.Pi / 3;
             float arcRotation = MathHelper.Pi / 6f;
 
             if (AI_Timer < RandomWindup)
@@ -2091,8 +2091,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                     for (int i = -1; i < 2; i += 2)
                     {
-                        float width = arcWidth * 1.1f;
-                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(i * arcRotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, width, 1000);
+                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(i * arcRotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcAngle * 1.1f, 1000);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = timeLeft;
                     }
@@ -2105,14 +2104,14 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             }
             if (AI_Timer == RandomWindup - 20 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                float width = arcWidth * 1.5f;
-                int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(RandomSide * arcRotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, width, 1000);
+                arcAngle *= 1.5f;
+				int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(RandomSide * arcRotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcAngle, 1000);
                 if (p1 != Main.maxProjectiles)
                     Main.projectile[p1].timeLeft = 20;
                 if (!PhaseOne)
                 {
-                    float width2 = width / 2;
-                    int p2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(-RandomSide * arcRotation * 2.5f), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, width2, 1000);
+					arcAngle /= 2;
+                    int p2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(-RandomSide * arcRotation * 2.5f), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcAngle, 1000);
                     if (p2 != Main.maxProjectiles)
                         Main.projectile[p2].timeLeft = 20;
                 }
@@ -2142,7 +2141,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 {
                     for (int i = -10; i <= 10; i++)
                     {
-                        Vector2 vel = LockVector2.RotatedBy(side * (arcWidth * 0.8f * i / 10 + arcRotation));
+                        Vector2 vel = LockVector2.RotatedBy(side * (arcAngle * 0.8f * i / 10 + arcRotation));
                         int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = 120;
@@ -2155,7 +2154,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 {
                     for (int i = -10; i <= 10; i++)
                     {
-                        Vector2 vel = LockVector2.RotatedBy(side * (arcWidth * 0.5f * 0.8f * i / 10 + arcRotation * 2.5f));
+                        Vector2 vel = LockVector2.RotatedBy(side * (arcAngle * 0.5f * 0.8f * i / 10 + arcRotation * 2.5f));
                         int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = 120;

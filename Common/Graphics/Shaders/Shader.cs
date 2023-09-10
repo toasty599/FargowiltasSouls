@@ -9,21 +9,22 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
     /// <summary>
     /// A wrapper class for <see cref="Effect"/> that is less restrictive than Terraria's <see cref="MiscShaderData"/>. Supports both pixel and vertex shaders.
     /// </summary>
-    public class Shader : IDisposable
+    public class Shader
     {
-        /// <summary>
-        /// The <see cref="Effect"/> that the wrapper contains.
-        /// </summary>
-        public Effect WrappedEffect
+        public Ref<Effect> Effect
         {
             get;
             internal set;
         }
+        /// <summary>
+        /// The <see cref="Effect"/> that the wrapper contains.
+        /// </summary>
+        public Effect WrappedEffect => Effect.Value;
 
         /// <summary>
         /// A wrapper class for <see cref="Effect"/> that is less restrictive than Terraria's <see cref="MiscShaderData"/>.
         /// </summary>
-        public Shader(Effect effect) => WrappedEffect = effect;
+        public Shader(Ref<Effect> effect) => Effect = effect;
 
         /// <summary>
         /// Sets "mainColor" to the provided value, if it exists.
@@ -105,19 +106,6 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 
             FargoSoulsUtil.CreatePerspectiveMatrixes(out var view, out var projection);
             vertexParam.SetValue(view * projection);
-        }
-
-        /// <summary>
-        /// Called during unloading to dispose of the effect the class contains. Do not manually call.
-        /// </summary>
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-
-            if (WrappedEffect != null && !WrappedEffect.IsDisposed)
-                WrappedEffect.Dispose();
-
-            WrappedEffect = null;
         }
     }
 }

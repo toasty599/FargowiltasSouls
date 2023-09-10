@@ -5,18 +5,20 @@ using Terraria;
 
 namespace FargowiltasSouls.Common.Graphics.Shaders
 {
-	public class ScreenFilter : IDisposable
+	public class ScreenFilter
 	{
-		public Effect WrappedEffect
+		public Ref<Effect> Effect
 		{
 			get;
-			private set;
+			internal set;
 		}
+
+		public Effect WrappedEffect => Effect.Value;
 
 		/// <summary>
 		/// A wrapper class for <see cref="Effect"/> that is focused around screen filter effects.
 		/// </summary>
-		public ScreenFilter(Effect effect) => WrappedEffect = effect;
+		public ScreenFilter(Ref<Effect> effect) => Effect = effect;
 
 		public bool IsActive
 		{
@@ -104,19 +106,6 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 			WrappedEffect.Parameters["focusPosition"]?.SetValue(FocusPosition);
 			WrappedEffect.Parameters["screenPosition"]?.SetValue(Main.screenPosition);
 			WrappedEffect.Parameters["screenSize"]?.SetValue(new Vector2(Main.screenWidth, Main.screenHeight));
-		}
-
-		/// <summary>
-		/// Called during unloading to dispose of the effect the class contains. Do not manually call.
-		/// </summary>
-		public void Dispose()
-		{
-			GC.SuppressFinalize(this);
-
-			if (WrappedEffect != null && !WrappedEffect.IsDisposed)
-				WrappedEffect.Dispose();
-
-			WrappedEffect = null;
 		}
 	}
 }

@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
                 Effect effect = Mod.Assets.Request<Effect>(formattedPath, AssetRequestMode.ImmediateLoad).Value;
 
                 if (!ShaderLookupTable.ContainsKey(name))
-                    ShaderLookupTable.Add(name, new Shader(effect));
+                    ShaderLookupTable.Add(name, new Shader(new(effect)));
                 else
                     Mod.Logger.Warn($"ShaderManager loading error: A shader with name {name} has already been registered!");
             }
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 				Effect effect = Mod.Assets.Request<Effect>(formattedPath, AssetRequestMode.ImmediateLoad).Value;
 
 				if (!FilterLookupTable.ContainsKey(name))
-					FilterLookupTable.Add(name, new ScreenFilter(effect));
+					FilterLookupTable.Add(name, new ScreenFilter(new Ref<Effect>(effect)));
 				else
 					Mod.Logger.Warn($"ShaderManager loading error: A filer with name {name} has already been registered!");
 			}
@@ -89,13 +89,13 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 				if (Main.netMode is NetmodeID.Server)
 					return;
 				
-                foreach (var keyValuePair in ShaderLookupTable)
-                    keyValuePair.Value.Dispose();
+                //foreach (var keyValuePair in ShaderLookupTable)
+                //    keyValuePair.Value.Dispose();
 
                 ShaderLookupTable = null;
 
-                foreach (var keyValuePair in FilterLookupTable)
-                    keyValuePair.Value.Dispose();
+                //foreach (var keyValuePair in FilterLookupTable)
+                //    keyValuePair.Value.Dispose();
 
                 FilterLookupTable = null;
             });
@@ -120,30 +120,37 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 
 			if (Main.player[Main.myPlayer].gravDir == -1f)
 			{
-				target1 = screenTarget2;
+				target1 = AuxilaryTarget;
 				Main.instance.GraphicsDevice.SetRenderTarget(target1);
 				Main.instance.GraphicsDevice.Clear(clearColor);
 				Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
 				Main.spriteBatch.Draw(target2, Vector2.Zero, Color.White);
 				Main.spriteBatch.End();
-				target2 = screenTarget2;
+				target2 = AuxilaryTarget;
 			}
 
 			foreach (var filter in FilterLookupTable.Values.Where(filter => filter.Opacity > 0))
             {
-				target1 = ((target2 != screenTarget1) ? screenTarget1 : screenTarget2);
+				target1 = ((target2 != MainTarget) ? MainTarget : AuxilaryTarget);
 				Main.instance.GraphicsDevice.SetRenderTarget(target1);
 				Main.instance.GraphicsDevice.Clear(clearColor);
 				Main.spriteBatch.Begin((SpriteSortMode)1, BlendState.AlphaBlend);
 				filter.Apply();
 				Main.spriteBatch.Draw(target2, Vector2.Zero, Main.ColorOfTheSkies);
 				Main.spriteBatch.End();
-				target2 = (target2 != screenTarget1) ? screenTarget1 : screenTarget2;
+				target2 = (target2 != MainTarget) ? MainTarget : AuxilaryTarget;
 			}
 
+            if (target1 != null)
+            {
+                Main.instance.GraphicsDevice.SetRenderTarget(screenTarget1);
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(target1, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+            }
 
 			// Apply vanilla ones.
-            orig(self, finalTexture, target1 ?? screenTarget1, target2 ?? screenTarget2, clearColor);
+            orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
 		}
 
 		public override void PostUpdateEverything()
