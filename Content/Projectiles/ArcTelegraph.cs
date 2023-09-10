@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Content.Projectiles
         }
         public void SetEffectParameters(Effect effect)
         {
-            effect.Parameters["WorldViewProjection"].SetValue(GetWorldViewProjectionMatrixIdioticVertexShaderBoilerplate());
+            effect.Parameters["worldViewProjection"]?.SetValue(GetWorldViewProjectionMatrixIdioticVertexShaderBoilerplate());
         }
         public static Matrix GetWorldViewProjectionMatrixIdioticVertexShaderBoilerplate()
         {

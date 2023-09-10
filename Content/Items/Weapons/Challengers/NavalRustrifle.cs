@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (modPlayer.RustRifleReloading)
             {
-                if (Math.Abs(modPlayer.RustRifleReloadProgress - modPlayer.RustRifleReloadZonePos) < 0.11f)
+                if (Math.Abs(modPlayer.RustRifleReloadProgress - modPlayer.RustRifleReloadZonePos) < 0.15f)
                 {
                     EmpoweredShot = true;
                     SoundEngine.PlaySound(SoundID.Unlock with { Pitch = 0.5f }, player.Center);
