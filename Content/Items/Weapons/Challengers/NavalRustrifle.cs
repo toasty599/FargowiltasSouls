@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 else
                 {
                     EmpoweredShot = false;
-                    SoundEngine.PlaySound(SoundID.Item149 with { Pitch = -0.5f }, player.Center);
+                    SoundEngine.PlaySound(SoundID.Item149 with { Pitch = 0f }, player.Center);
                     Item.UseSound = SoundID.Item40;
                 }
                 modPlayer.RustRifleReloading = false;
