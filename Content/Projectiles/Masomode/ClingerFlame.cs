@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Common.Graphics.Particles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -57,6 +58,15 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 int max = (int)(Projectile.width * Projectile.height * 0.0045f);
                 for (int i = 0; i < max; i++)
                 {
+                    Vector2 pos = Main.rand.NextVector2FromRectangle(Projectile.Hitbox);
+                    Particle p = new ExpandingBloomParticle(pos, new(Main.rand.NextFloat(-2, 2), Main.rand.NextFloat(-6, 6)), new(96, 248, 2), Vector2.One * 0.5f, Vector2.Zero, 10);
+                    p.Spawn();
+                    /*
+                    p.Velocity *= 0.5f;
+                    p.Velocity.Y -= 0.5f;
+                    p.Position.X += 6f;
+                    */
+                    /*
                     int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CursedTorch, 0.0f, 0.0f, 100, default, 1f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 0.5f;
@@ -64,6 +74,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     Main.dust[d].scale = 1.4f;
                     Main.dust[d].position.X += 6f;
                     Main.dust[d].position.Y -= 2f;
+                    */
                 }
             }
         }

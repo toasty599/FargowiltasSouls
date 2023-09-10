@@ -614,10 +614,22 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             const int Distance = 400;
             if (Timer == 1)
             {
-                LockVector1 = player.Center + player.DirectionTo(NPC.Center) * Distance;
+                
                 if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height)) //check if originated in collision, set AI3 to negative
                 {
                     AI3 = -2;
+                    for (int i = 0; i < 30; i++) //max of 30 checks
+                    {
+                        LockVector1 = player.Center + Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Distance;
+                        if (!Collision.SolidCollision(LockVector1 - NPC.Size / 2, NPC.width, NPC.height)) //if found valid spot, stop searching
+                        {
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    LockVector1 = player.Center + player.DirectionTo(NPC.Center) * Distance;
                 }
 
                 if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode

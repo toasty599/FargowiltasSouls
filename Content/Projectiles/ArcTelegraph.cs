@@ -66,8 +66,6 @@ namespace FargowiltasSouls.Content.Projectiles
         }
         public override void AI()
         {
-            
-
             switch (Projectile.ai[0])
             {
                 case 1:
