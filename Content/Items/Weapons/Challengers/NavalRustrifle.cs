@@ -87,13 +87,13 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 if (Math.Abs(modPlayer.RustRifleReloadProgress - modPlayer.RustRifleReloadZonePos) < 0.15f)
                 {
                     EmpoweredShot = true;
-                    SoundEngine.PlaySound(SoundID.Unlock with { Pitch = 0.5f }, player.Center);
+                    SoundEngine.PlaySound(SoundID.Item149 with { Pitch = 0.5f }, player.Center);
                     Item.UseSound = SoundID.Item68;
                 }
                 else
                 {
                     EmpoweredShot = false;
-                    SoundEngine.PlaySound(SoundID.Unlock with { Pitch = -0.5f }, player.Center);
+                    SoundEngine.PlaySound(SoundID.Item149 with { Pitch = -0.5f }, player.Center);
                     Item.UseSound = SoundID.Item40;
                 }
                 modPlayer.RustRifleReloading = false;

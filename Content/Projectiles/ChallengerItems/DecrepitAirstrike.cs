@@ -42,6 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 
             if (State == 0)
             {
+                Projectile.netUpdate = true;
                 Projectile.alpha -= 4;
                 if (Projectile.alpha < 0) //fade in
                     Projectile.alpha = 0;

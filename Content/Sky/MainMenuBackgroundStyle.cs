@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -52,10 +53,12 @@ namespace FargowiltasSouls.Content.Sky
             return base.ChooseCloseTexture(ref scale, ref parallax, ref a, ref b);
         }
         */
+        public int fadeIn = 0;
         private Color ColorToUse(ref float opacity)
         {
             Color color = new(51, 255, 191);
             opacity = intensity * 0.5f + lifeIntensity * 0.5f;
+            opacity *= Math.Min(fadeIn / 60f, 1);
 
             if (specialColorLerp > 0 && specialColor != null)
             {
@@ -68,6 +71,7 @@ namespace FargowiltasSouls.Content.Sky
         }
         public override bool PreDrawCloseBackground(SpriteBatch spriteBatch)
         {
+            fadeIn++;
             float opacity = 0f;
             Color color = ColorToUse(ref opacity);
 
