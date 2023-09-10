@@ -1659,7 +1659,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                 if (AI_Timer == 1f && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(TpPos.X + NPC.width / 2, TpPos.Y + NPC.height / 2), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -70);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(TpPos.X + NPC.width / 2, TpPos.Y + NPC.height / 2), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -70, NPC.whoAmI);
                 }
                 if (AI_Timer == StartTime - 5f) //tp
                 {
@@ -1738,7 +1738,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             if (AI_Timer == 5 && Main.netMode != NetmodeID.MultiplayerClient)
             {
 
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), TpPos, Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -40);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), TpPos, Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -40, NPC.whoAmI);
                 //below wall telegraph
                 for (int i = 0; i < 60; i++)
                 {
@@ -1969,7 +1969,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             if (AI_Timer == 1 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), RouletteTpPos, Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -40);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), RouletteTpPos, Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -40, NPC.whoAmI);
             }
 
             if (AI_Timer == 40)
@@ -2408,7 +2408,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             if (AI_Timer == 1 && Main.netMode != NetmodeID.MultiplayerClient) //telegraph teleport and first shots
             {
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1, Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -60);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1, Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -60, NPC.whoAmI);
                 for (int i = 0; i < 16; i++)
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), LockVector1, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, MathHelper.Pi / 8 * i);
