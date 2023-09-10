@@ -140,7 +140,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPC.aiStyle = -1;
             NPC.lifeMax = 30500;
             NPC.defense = 15;
-            NPC.damage = 80;
+            NPC.damage = 69;
             NPC.knockBackResist = 0f;
             NPC.width = 194;
             NPC.height = 132;
@@ -257,7 +257,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 return;
             }
             target.AddBuff(BuffID.Rabies, 60 * 10);
-            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 5);
+            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 20);
         }
         public override bool CheckDead()
         {
@@ -537,7 +537,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (LockVector1 != Vector2.Zero)
             {
                 RotateTowards(LockVector1, 1.5f);
-                NPC.velocity = (LockVector1 - NPC.Center) * 0.05f;
+                NPC.velocity = (LockVector1 - NPC.Center) * (Timer / 90f) * 0.4f;
             }
             
             if (Timer == 60)
@@ -566,6 +566,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (!Main.dedServ)
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 100;
 
+                HitPlayer = false;
+
             }
             if (Timer < 90)
             {
@@ -583,7 +585,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Phase = 2;
                 FargoSoulsUtil.ClearHostileProjectiles(2, NPC.whoAmI);
 
-                Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod) ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Baron") : MusicID.DukeFishron;
+                Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod) ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Baron") : MusicID.Boss2;
             }
             if (Timer > 90)
             {
@@ -592,6 +594,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     NPC.velocity *= 0.95f;
                     if (NPC.velocity.Length() < 0.1f)
                     {
+                        HitPlayer = true;
                         availablestates.Clear();
                         StateReset();
 
@@ -608,12 +611,37 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         #region Phase 1 Attacks
         void Swim()
         {
+            const int Distance = 400;
             if (Timer == 1)
             {
-                LockVector1 = player.Center;
+                LockVector1 = player.Center + player.DirectionTo(NPC.Center) * Distance;
                 if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height)) //check if originated in collision, set AI3 to negative
                 {
                     AI3 = -2;
+                }
+
+                if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
+                {
+                    int x = (int)NPC.Center.X / 16;
+                    int y = (int)NPC.Center.Y / 16;
+                    Tile tile = Main.tile[x, y];
+
+                    if (tile.LiquidAmount > 0)
+                    {
+                        if (tile.LiquidType == LiquidID.Water)
+                        {
+                            tile.Clear(TileDataType.Liquid);
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.sendWater(x, y);
+                                NetMessage.SendTileSquare(-1, x, y, 1);
+                            }
+                            else
+                            {
+                                WorldGen.SquareTileFrame(x, y, true);
+                            }
+                        }
+                    }
                 }
             }
 
