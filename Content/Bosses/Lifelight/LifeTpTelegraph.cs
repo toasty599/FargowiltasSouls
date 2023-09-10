@@ -56,6 +56,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             // Stick to a position set by lifelight.
             if (parent != null)
                 Projectile.Center = new Vector2(parent.localAI[0], parent.localAI[1]);
+
+            Timer++;
         }
 
         // Telegraphs should not deal damage.

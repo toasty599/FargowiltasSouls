@@ -91,8 +91,8 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public Color ColorFunction(float progress)
         {
-            //Color color = Color.Lerp(Color.Transparent, Color.Cyan, MathF.Sin(progress * MathHelper.Pi)) * 1f;
-            return Color.Lerp(Color.Transparent, Color.DeepSkyBlue, Math.Min(Timer / 10, 1));
+            float opacity = Math.Min(Timer / 30f, Math.Min(Projectile.timeLeft / 15f, 1));
+            return Color.Lerp(Color.Transparent, Color.DeepSkyBlue, opacity);
         }
 
 

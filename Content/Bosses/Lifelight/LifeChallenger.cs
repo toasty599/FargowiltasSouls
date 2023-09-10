@@ -2091,7 +2091,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                     for (int i = -1; i < 2; i += 2)
                     {
-                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(i * arcRotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcAngle * 1.1f, 1000);
+                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(i * arcRotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 0, arcAngle * 1.1f, 1000);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = timeLeft;
                     }
@@ -2104,14 +2104,14 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             }
             if (AI_Timer == RandomWindup - 20 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                arcAngle *= 1.5f;
-				int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(RandomSide * arcRotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcAngle, 1000);
+                arcAngle *= 2.3f;
+				int p1 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(RandomSide * arcRotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 0, arcAngle, 1000);
                 if (p1 != Main.maxProjectiles)
                     Main.projectile[p1].timeLeft = 20;
                 if (!PhaseOne)
                 {
 					arcAngle /= 2;
-                    int p2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(-RandomSide * arcRotation * 2.5f), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 1, arcAngle, 1000);
+                    int p2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(-RandomSide * arcRotation * 2.5f), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 0, arcAngle, 1000);
                     if (p2 != Main.maxProjectiles)
                         Main.projectile[p2].timeLeft = 20;
                 }
