@@ -35,11 +35,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             ObsidianEffect(player, Item);
-            AshWoodEnchant.AshwoodEffect(player, Item);
+            
         }
 
         public static void ObsidianEffect(Player player, Item item)
         {
+            AshWoodEnchant.AshwoodEffect(player, item);
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             player.lavaImmune = true;

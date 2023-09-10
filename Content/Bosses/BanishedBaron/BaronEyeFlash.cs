@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             Texture2D star = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
-            float scale = Projectile.scale * Main.rand.NextFloat(0.5f, 1.25f);
+            float scale = Projectile.scale * Main.rand.NextFloat(1.5f, 3f);
             Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);
 
             Main.spriteBatch.Draw(star, Projectile.Center - Main.screenPosition, new Rectangle?(rect), Color.HotPink * Projectile.Opacity, 0, origin, scale, SpriteEffects.None, 0);

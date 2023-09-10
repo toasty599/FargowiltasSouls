@@ -85,7 +85,7 @@ namespace FargowiltasSouls
                 AddBossSpawnInfo("CosmosChampion", $"在太空使用[i:{"SigilOfChampions"}]召唤。");
 
                 AddBossSpawnInfo("TrojanSquirrel", $"使用[i:{"SquirrelCoatofArms"}]召唤");
-                AddBossSpawnInfo("LifeChallenger", $"Spawn by using [i:{"FragilePixieLamp"}] in the Hallow at day.");
+                AddBossSpawnInfo("Lifelight", $"Spawn by using [i:{"FragilePixieLamp"}] in the Hallow at day.");
                 //JAVYZ TODO: Cursed Coffin and Banished Baron
                 //AddBossSpawnInfo("CursedCoffin", $"Spawn by using [i:{"CoffinSummon"}] in the Underground Desert.");
                 AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{"BaronSummon"}] underwater at the ocean.");
@@ -124,7 +124,7 @@ namespace FargowiltasSouls
                 AddBossSpawnInfo("CosmosChampion", $"Spawn by using [i:{"SigilOfChampions"}] in space.");
 
                 AddBossSpawnInfo("TrojanSquirrel", $"Spawn by using [i:{"SquirrelCoatofArms"}]");
-                AddBossSpawnInfo("LifeChallenger", $"Spawn by using [i:{"FragilePixieLamp"}] in the Hallow at day.");
+                AddBossSpawnInfo("Lifelight", $"Spawn by using [i:{"FragilePixieLamp"}] in the Hallow at day.");
                 //JAVYZ TODO: Cursed Coffin and Banished Baron
                 //AddBossSpawnInfo("CursedCoffin", $"Spawn by using [i:{"CoffinSummon"}] in the Underground Desert.");
                 AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{"BaronSummon"}] underwater at the ocean.");

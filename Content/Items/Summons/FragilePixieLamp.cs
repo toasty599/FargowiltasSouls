@@ -4,7 +4,7 @@ using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using FargowiltasSouls.Content.Bosses.Lieflight;
+using FargowiltasSouls.Content.Bosses.Lifelight;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {
@@ -75,8 +75,6 @@ namespace FargowiltasSouls.Content.Items.Summons
                     //shatter effect
                     for (int i = 0; i < 50; i++)
                         Dust.NewDust(ItemCenter - Item.Size / 2, Item.width, Item.height, DustID.Glass, player.velocity.X, player.velocity.Y, 100, new Color(), 1f);
-                    for (int i = 1; i < 4; i++)
-                        Gore.NewGore(Item.GetSource_FromThis(), ItemCenter, player.velocity, Find<ModGore>(Mod.Name, $"PixieLampGore{i}").Type, Item.scale);
                 }
                 else
                 {

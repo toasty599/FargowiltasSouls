@@ -184,7 +184,7 @@ Mods: {
 			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
 			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
 			TrojanSquirrelDespawn: Trojan Squirrel returns to its squirrel clan...
-			LifeChallengerDespawn: Lieflight fades away...
+			LifelightDespawn: Lifelight fades away...
 			CursedCoffinDespawn: The Cursed Coffin returns to its slumber...
 			BanishedBaronDespawn: The Banished Baron dives deeper into the ocean...
 			DeviBossSpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
@@ -200,7 +200,7 @@ Mods: {
 			WillChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
 			CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
 			TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
-			LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+			LifelightSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
 			BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		}
 
@@ -1038,6 +1038,7 @@ Mods: {
 			CobaltNaginataRework: Causes a small explosion on striking enemies
 			MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
 			OrichalcumHalberdRework: Releases flower petals at apex of swing
+			SuperStarCannon: Decreased maximum pierce to 7
 		}
 
 		EternityMode: {
@@ -2954,7 +2955,7 @@ Mods: {
 				Tooltip:
 					'''
 					100% increased weapon size but reduces melee speed
-					Once ever 2/3 of a second a projectile will be doubled in size
+					Once every 2/3 of a second a projectile will be doubled in size
 					Enlarged projectiles and non-projectile swords deal 10% more damage and have an additional chance to crit
 					'Bigger is always better'
 					'''
@@ -3242,10 +3243,11 @@ Mods: {
 					Allows flight, super fast running, and extra mobility on ice
 					The wearer can run even faster on sand
 					8% increased movement speed
-					Increases jump speed and allows auto-jump
+					Increases jump speed and height, allows double jump and auto-jump, and negates fall damage
+					Provides the ability to walk on water, honey and lava
+					Grants immunity to fire blocks and 7 seconds of immunity to lava
+					Reduces damage from touching lava
 					Flowers grow on the grass you walk on
-					Allows the holder to double jump
-					Increases jump height and negates fall damage
 					'Back and better than ever'
 					'''
 			}
@@ -3850,8 +3852,11 @@ Mods: {
 				DisplayName: Zephyr Boots
 				Tooltip:
 					'''
-					Allows flight and super fast running
+					Allows flight, super fast running, and extra mobility on ice
 					8% increased movement speed
+					Provides the ability to walk on water, honey and lava
+					Grants immunity to fire blocks and 7 seconds of immunity to lava
+					Reduces damage from touching lava
 					Allows the holder to double jump
 					Increases jump height and negates fall damage
 					'Run like the wind'
@@ -5195,7 +5200,7 @@ Mods: {
 
 			PinkEskimoEnchant.DisplayName: Mods.FargowiltasSouls.Items.PinkEskimoEnchant.DisplayName
 
-			LifeChallengerBag: {
+			LifelightBag: {
 				DisplayName: Treasure Bag
 				Tooltip: Right click to open
 			}
@@ -5244,13 +5249,13 @@ Mods: {
 				Tooltip: Xi vs Sakuzyo 'Storia'
 			}
 
-			LifeChallengerRelic: {
-				DisplayName: Lieflight Relic
+			LifelightRelic: {
+				DisplayName: Lifelight Relic
 				Tooltip: ""
 			}
 
-			LifeChallengerTrophy: {
-				DisplayName: Lieflight Trophy
+			LifelightTrophy: {
+				DisplayName: Lifelight Trophy
 				Tooltip: ""
 			}
 
@@ -5344,15 +5349,15 @@ Mods: {
 			}
 
 			BanishedBaronBag: {
-				Tooltip: ""
-				DisplayName: Banished Baron Bag
+				DisplayName: Treasure Bag
+				Tooltip: Right click to open
 			}
 
 			RustedOxygenTank: {
 				DisplayName: Rusted Oxygen Tank
 				Tooltip:
 					'''
-					Works in your inventory
+					Works in vanity slots, and in your inventory while favorited
 					You count as wet outside water
 					Grants floaty water movement
 					Increased movement speed while in any liquid
@@ -5543,13 +5548,13 @@ Mods: {
 
 			ShadowOrbNPC.DisplayName: Shadow Orb
 
-			LifeChallenger: {
-				DisplayName: Lieflight
+			Lifelight: {
+				DisplayName: Lifelight
 
 				BossChecklistIntegration: {
-					EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
-					SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChallengerSpawnInfo}"
-					DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChallengerDespawn
+					EntryName: "{$Mods.FargowiltasSouls.NPCs.Lifelight.DisplayName}"
+					SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifelightSpawnInfo}"
+					DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifelightDespawn
 				}
 			}
 
@@ -5565,6 +5570,7 @@ Mods: {
 
 			DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			StardustMinion.DisplayName: Stardust Minion
+			LifeChallenger.DisplayName: Lifelight
 		}
 
 		Tiles: {

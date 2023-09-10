@@ -13,7 +13,7 @@ using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.Bosses.Lieflight;
+using FargowiltasSouls.Content.Bosses.Lifelight;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
 using FargowiltasSouls.Content.Bosses.Champions.Will;
@@ -254,14 +254,14 @@ namespace FargowiltasSouls
                     "Content/Bosses/TrojanSquirrel/TrojanSquirrel_Still"
                 );
                 Add("Boss",
-                    "LifeChallenger",
+                    "Lifelight",
                     new List<int> { ModContent.NPCType<LifeChallenger>() },
                     11.49f,
-                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.LifeChallenger],
+                    () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.Lifelight],
                     () => true,
                     new List<int>(new int[]
                     {
-                        ModContent.ItemType<LifeChallengerTrophy>(),
+                        ModContent.ItemType<LifelightTrophy>(),
                         ModContent.ItemType<EnchantedLifeblade>(),
                         ModContent.ItemType<Lightslinger>(),
                         ModContent.ItemType<CrystallineCongregation>(),
@@ -270,7 +270,7 @@ namespace FargowiltasSouls
                     }),
                     new List<int> { ModContent.ItemType<FragilePixieLamp>() },
                     false,
-                    "Content/Bosses/Lieflight/LifeChallenger"
+                    "Content/Bosses/Lifelight/Lifelight"
                 );
                 
                 Add("Boss",
@@ -281,7 +281,11 @@ namespace FargowiltasSouls
                     () => true,
                     new List<int>(new int[]
                     {
-
+                        ModContent.ItemType<BaronTrophy>(),
+                        ModContent.ItemType<TheBaronsTusk>(),
+                        ModContent.ItemType<RoseTintedVisor>(),
+                        ModContent.ItemType<NavalRustrifle>(),
+                        ModContent.ItemType<DecrepitAirstrikeRemote>(),
                     }),
                     new List<int> { ModContent.ItemType<MechLure>() },
                     true

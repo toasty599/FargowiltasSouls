@@ -17,10 +17,14 @@
     <None Remove="Folders to Port\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\ExtraTextures\Vanilla\Background_7.png" />
     <None Remove="Assets\Gores\CosmosGore1.png" />
     <None Remove="Assets\UI\EnchantSlotIcon.png" />
+    <None Remove="Assets\UI\ForgorMenuLogo.png" />
+    <None Remove="Assets\UI\MenuLogo.png" />
     <None Remove="Content\Bosses\BanishedBaron\BaronWhirlpool.png" />
     <None Remove="Content\Bosses\Champions\Cosmos\CosmosChampion_Still.png" />
+    <None Remove="Content\Bosses\Lifelight\Lifelight.png" />
     <None Remove="Content\Buffs\Boss\BaronsBurdenBuff.png" />
     <None Remove="Content\Buffs\Souls\CorruptedBuff.png" />
     <None Remove="Content\Items\Accessories\Enchantments\AshWoodEnchant.png" />
@@ -48,7 +52,7 @@
     <None Remove="Content\Tiles\MutantStatueGift.png" />
     <None Remove="Content\Tiles\Trophies\BaronTrophy.png" />
     <None Remove="Content\Tiles\Trophies\EridanusTrophy.png" />
-    <None Remove="Content\Tiles\Trophies\LifeChallengerTrophy.png" />
+    <None Remove="Content\Tiles\Trophies\LifelightTrophy.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />

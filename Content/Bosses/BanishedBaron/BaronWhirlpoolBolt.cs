@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.Kill();
             }
             //a bit after spawning, become tangible when it finds an open space
-            if (!Projectile.tileCollide && Projectile.localAI[0] > 60 * Projectile.MaxUpdates)
+            if (!Projectile.tileCollide && Projectile.localAI[0] > 60 * Projectile.MaxUpdates && variant == 1)
             {
                 Tile tile = Framing.GetTileSafely(Projectile.Center);
                 if (!(tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]))
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     int maxSpeed2 = WorldSavingSystem.MasochistModeReal ? 14 : WorldSavingSystem.EternityMode ? 12 : 10;
                     if (Math.Abs(Projectile.velocity.X) < maxSpeed2)
                     {
-                        Projectile.velocity.X += sign2 * 0.5f;
+                        Projectile.velocity.X += sign2 * 0.12f;
                     }
                     break;
             }

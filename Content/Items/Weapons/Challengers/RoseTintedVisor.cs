@@ -23,7 +23,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 250;
+            Item.damage = 325;
+            Item.mana = 22;
             Item.DamageType = DamageClass.Magic;
             Item.width = 20;
             Item.height = 20;
@@ -55,7 +56,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                     Main.rand.NextFloat(MathHelper.TwoPi), Main.rand.NextFloat(-MathHelper.Pi / 24, MathHelper.Pi / 24));
                 p.Spawn();
             }
-            if (Main.mouseLeftRelease && Charges > 0 && player.whoAmI == Main.myPlayer)
+            if ((Main.mouseLeftRelease || player.dead) && Charges > 0 && player.whoAmI == Main.myPlayer)
             {
                 for (int i = 0; i < Charges; i++)
                 {

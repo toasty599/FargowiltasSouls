@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.Audio;
 using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -69,7 +70,7 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
 
         public static void CalcMythrilAttackSpeed(FargoSoulsPlayer modPlayer, Item item)
         {
-            if (item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+            if (item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0 && item.type != ModContent.ItemType<PrismaRegalia>())
             {
                 float ratio = Math.Max((float)modPlayer.MythrilTimer / modPlayer.MythrilMaxTime, 0);
                 modPlayer.AttackSpeed += modPlayer.MythrilMaxSpeedBonus * ratio;

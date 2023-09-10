@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Items.Summons
         public override bool CanUseItem(Player Player)
         {
             if (Player.ZoneBeach && Player.wet)
-                return !NPC.AnyNPCs(ModContent.NPCType<BanishedBaron>()); //not (x or y)
+                return !NPC.AnyNPCs(ModContent.NPCType<BanishedBaron>()) && Player.ownedProjectileCounts[Item.shoot] <= 0; //not (x or y)
             return false;
         }
 

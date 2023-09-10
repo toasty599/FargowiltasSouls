@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
 {
     public class RoseTintedVisorDrawLayer : PlayerDrawLayer
     {
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.HeldItem.type == ModContent.ItemType<RoseTintedVisor>();
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.HeldItem.type == ModContent.ItemType<RoseTintedVisor>() && !drawInfo.drawPlayer.dead;
         public override Position GetDefaultPosition() => new Between();
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {

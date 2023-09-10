@@ -21,6 +21,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         {
             // DisplayName.SetDefault("Banished Baron's Mine");
             Main.projFrames[Type] = 16;
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 99999999;
         }
         public override void SetDefaults()
         {
@@ -107,26 +108,32 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         {
             Texture2D texture = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new(0, y3, texture.Width, num156);
-            Vector2 origin2 = rectangle.Size() / 2f;
+            Rectangle textureSize = new(0, 0, texture.Width, num156);
 
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             
             for (int Side = -1; Side < 2; Side += 2)
             {
-                for (int i = -15; i <= 15; i++)
+                for (int i = -50; i <= 20; i++)
                 {
                     Vector2 pos = Projectile.Center.X * Vector2.UnitX + Main.LocalPlayer.Center.Y * Vector2.UnitY; //draw locally so you always see the wall on your screen
-                    Vector2 center = pos + Vector2.UnitX * Side * (WaterwallDistance + (rectangle.Width / 2)) + Vector2.UnitY * i * Projectile.height;
-                    center.Y = (float)Math.Floor(center.Y / rectangle.Height) * rectangle.Height; //makes them not smoothly move up and down, but jump one chunk at a time
+                    Vector2 center = pos + Vector2.UnitX * Side * (WaterwallDistance + (textureSize.Width / 2)) + Vector2.UnitY * i * Projectile.height;
+                    center.Y = (float)Math.Floor(center.Y / textureSize.Height) * textureSize.Height; //makes them not smoothly move up and down, but jump one chunk at a time
+
+                    int num = (int)(center.Y / textureSize.Height);
+                    int frame = (Projectile.frame + num) % Main.projFrames[Projectile.type];
+                    int y3 = num156 * frame; //ypos of upper left corner of sprite to draw
+                    Rectangle rectangle = new(0, y3, texture.Width, num156);
+                    Vector2 origin2 = rectangle.Size() / 2f;
+
+
                     if (Collision.SolidCollision(center - rectangle.Size() / 2, rectangle.Width, rectangle.Height))
                     {
                         continue;
                     }
                     
-                    Main.EntitySpriteDraw(texture, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+                    Main.EntitySpriteDraw(texture, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), lightColor, Projectile.rotation, origin2, Projectile.scale, effects, 0);
                 }
             }
             return false;
@@ -202,7 +209,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 const int speed = 7;
                 const float distancePos = 3.2f;
                 const float randomPos = 9;
-                const float maxRot = MathHelper.Pi / 17;
+                const float maxRot = MathHelper.Pi / 28;
                 float posX = Projectile.Center.X + (Side * (Projectile.width * 0.8f + WaterwallDistance));
                 float posY = player.Center.Y + (i * Projectile.height * distancePos) + Main.rand.NextFloat(-randomPos, randomPos);
                 Vector2 pos = posX * Vector2.UnitX + posY * Vector2.UnitY;

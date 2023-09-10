@@ -145,7 +145,7 @@ Mods: {
 			TrojanSquirrel: Construído por esquilos, para esquilos! Feito de madeiras coletadas de várias terras. Nele, cabe muito mais esquilos do que parece.
 			GuardianOfAncientTreasures: Espreitando nas profundezas do subterrâneo, ele guarda zelosamente sua horda de joias e metais preciosos. Suas escamas são duras como pedra.
 			CursedCoffin: Uma fusão irracional de mais de cem almas perversas. Ele se alimenta de corpos de viajantes perdidos e adiciona seus espíritos a si mesmo.
-			LifeChallenger: O brilho emitido de seu núcleo é calmante, mas hipnótico. Domina os organismos menores, que seguem alegremente seus comandos.
+			// LifeChallenger: The brilliance emitting from its core is soothing but hypnotic. Holds sway over lesser organisms. Its true form cannot be perceived.
 			Silhouette: Um ser elusivo que sempre viaja sob a cobertura de uma núvem de névoa preta na noite. Ele se sente sensível quando sua verdadeira forma é exposta.
 			FrigidHydrangaea: Esta fera dracônica hiberna nas cavernas congeladas, acordando apenas quando provocada. Ela deveria realmente estar vivendo no frio?
 			BanishedBaron: Expulso da hierarquia, ele escondeu-se enquanto tentava se reparar. O trabalho imperfeito deixou sua força e velocidade prejudicadas.
@@ -184,7 +184,7 @@ Mods: {
 			CosmosChampionDespawn: Eridanus, Campeão do Cosmos retorna às estrelas...
 			CosmosChampionKilledAll: Eridanus, Campeão do Cosmos matou todos os inimigos.
 			TrojanSquirrelDespawn: O Campeão de Madeira retorna a seu clã esquilo.
-			LifeChallengerDespawn: Lieflight desvanece...
+			LifelightDespawn: Lifelight desvanece...
 			// CursedCoffinDespawn: The Cursed Coffin returns to its slumber...
 			// BanishedBaronDespawn: The Banished Baron dives deeper into the ocean...
 			// DeviBossSpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
@@ -200,7 +200,7 @@ Mods: {
 			// WillChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
 			// CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
 			// TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
-			// LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+			// LifelightSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
 			// BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		}
 
@@ -1038,6 +1038,7 @@ Mods: {
 			// CobaltNaginataRework: Causes a small explosion on striking enemies
 			// MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
 			// OrichalcumHalberdRework: Releases flower petals at apex of swing
+			// SuperStarCannon: Decreased maximum pierce to 7
 		}
 
 		EternityMode: {
@@ -5181,7 +5182,7 @@ Mods: {
 
 			// PinkEskimoEnchant.DisplayName: Mods.FargowiltasSouls.Items.PinkEskimoEnchant.DisplayName
 
-			LifeChallengerBag: {
+			LifelightBag: {
 				// DisplayName: Treasure Bag
 				// Tooltip: Right click to open
 			}
@@ -5230,13 +5231,13 @@ Mods: {
 				// Tooltip: Xi vs Sakuzyo 'Storia'
 			}
 
-			LifeChallengerRelic: {
-				// DisplayName: Lieflight Relic
+			LifelightRelic: {
+				// DisplayName: Lifelight Relic
 				// Tooltip: ""
 			}
 
-			LifeChallengerTrophy: {
-				// DisplayName: Lieflight Trophy
+			LifelightTrophy: {
+				// DisplayName: Lifelight Trophy
 				// Tooltip: ""
 			}
 
@@ -5334,15 +5335,15 @@ Mods: {
 			}
 
 			BanishedBaronBag: {
-				// Tooltip: ""
-				// DisplayName: Banished Baron Bag
+				// DisplayName: Treasure Bag
+				// Tooltip: Right click to open
 			}
 
 			RustedOxygenTank: {
 				// DisplayName: Rusted Oxygen Tank
 				/* Tooltip:
 					'''
-					Works in your inventory
+					Works in vanity slots, and in your inventory while favorited
 					You count as wet outside water
 					Grants floaty water movement
 					Increased movement speed while in any liquid
@@ -5533,13 +5534,13 @@ Mods: {
 
 			// ShadowOrbNPC.DisplayName: Shadow Orb
 
-			LifeChallenger: {
-				// DisplayName: Lieflight
+			Lifelight: {
+				// DisplayName: Lifelight
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChallengerSpawnInfo}"
-					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChallengerDespawn
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.Lifelight.DisplayName}"
+					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifelightSpawnInfo}"
+					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifelightDespawn
 				}
 			}
 
@@ -5555,6 +5556,7 @@ Mods: {
 
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
+			// LifeChallenger.DisplayName: Lifelight
 		}
 
 		Tiles: {

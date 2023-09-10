@@ -25,7 +25,9 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
             Projectile.scale = 1f;
-            Projectile.timeLeft = 60 * 60;
+            Projectile.timeLeft = 60 * 40;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public NPC EmbeddedNPC = null;

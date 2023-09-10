@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Content.Projectiles;
 
 using Microsoft.Xna.Framework;
@@ -5,6 +6,7 @@ using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -47,7 +49,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             ItemID.TrueNightsEdge,
             ItemID.Excalibur,
             ItemID.TrueExcalibur,
-            ItemID.TerraBlade
+            ItemID.TerraBlade,
+            ModContent.ItemType<DecrepitAirstrikeRemote>()
         };
         public static void AdamantiteSplit(Projectile projectile, FargoSoulsPlayer modPlayer, int splitDegreeAngle)
         {
@@ -69,6 +72,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 projectile.type = ProjectileID.None;
                 projectile.timeLeft = 0;
                 projectile.active = false;
+            }
+            else
+            {
+                projectile.damage = (int)(projectile.damage / 3f);
             }
         }
 

@@ -30,14 +30,20 @@ namespace FargowiltasSouls.Content.Items.Summons
         }
         public override void AI()
         {
+            int baronType = ModContent.NPCType<BanishedBaron>();
             if (++Projectile.frameCounter >= 5)
             {
                 Projectile.frameCounter = 0;
                 Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
             }
-
+            int baronID = NPC.FindFirstNPC(baronType);
             if (Projectile.ai[0] == 120)
             {
+                if (baronID >= 0 && baronID < Main.maxNPCs)
+                {
+                    Projectile.Kill();
+                    return;
+                }
                 SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronSummon"), Projectile.Center);
 
                 int playerID = Player.FindClosest(Projectile.Center, 1, 1);
@@ -58,8 +64,8 @@ namespace FargowiltasSouls.Content.Items.Summons
                 Projectile.rotation = 0f + MathHelper.Pi * Projectile.velocity.X / 25;
             }
 
-            int baronType = ModContent.NPCType<BanishedBaron>();
-            int baronID = NPC.FindFirstNPC(baronType);
+            
+            
             if (baronID >= 0 && baronID < Main.maxNPCs)
             {
                 NPC baron = Main.npc[baronID];
@@ -67,6 +73,7 @@ namespace FargowiltasSouls.Content.Items.Summons
                 {
                     if (Projectile.Colliding(Projectile.Hitbox, baron.Hitbox))
                     {
+                        SoundEngine.PlaySound(SoundID.Item2, Projectile.Center); //crunch
                         Projectile.Kill();
                     }
                 }

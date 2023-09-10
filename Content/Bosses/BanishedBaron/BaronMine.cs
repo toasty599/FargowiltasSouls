@@ -51,6 +51,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             return false;
         }
+        private Vector2 drawOffset = Vector2.Zero;
         public override void AI()
         {
             if (Projectile.localAI[0] == 0)
@@ -67,10 +68,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             Projectile.frameCounter++;
 
-            if (++Projectile.localAI[0] > 120f)
+            const int endTime = 120;
+            if (++Projectile.localAI[0] > endTime)
             {
                 Projectile.Kill();
             }
+
+            float length = 2.5f * Projectile.localAI[0] / endTime;
+            drawOffset = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * length;
+
             if (!Projectile.tileCollide)
             {
                 if (!Collision.SolidCollision(Projectile.position, Projectile.height, Projectile.width)) //this check is inside to stop checking once tileCollide is on
@@ -125,21 +131,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Color color26 = lightColor;
-            color26 = Projectile.GetAlpha(color26);
-
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
-            {
-                Color color27 = color26 * 0.75f;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
-                Vector2 value4 = Projectile.oldPos[i];
-                float num165 = Projectile.oldRot[i];
-                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
-            }
 
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
 
 
             return false;

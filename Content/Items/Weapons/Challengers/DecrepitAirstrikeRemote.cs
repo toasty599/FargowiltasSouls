@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 300;
+            Item.damage = 350;
             Item.DamageType = DamageClass.Summon;
             Item.mana = 50;
             Item.width = 82;
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             {
                 Projectile.NewProjectile(source, mouse.X, mouse.Y, 0f, 0f, type, damage, knockback, player.whoAmI, i == 0 ? 0 : 1, ai2: player.maxTurrets - CurrentSentries); //ai0 sets the first spawned turret as the original
             }
-            Projectile.NewProjectile(source, mouse.X, mouse.Y, 0f, 0f, ModContent.ProjectileType<GlowRingHollow>(), damage, knockback, player.whoAmI, 14, 60 * 3 + 30);
+            Projectile.NewProjectile(source, mouse.X, mouse.Y, 0f, 0f, ModContent.ProjectileType<GlowRingHollow>(), damage, knockback, player.whoAmI, 14, 60 * 2 + 30);
             player.UpdateMaxTurrets();
             return false;
         }

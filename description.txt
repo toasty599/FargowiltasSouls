@@ -41,7 +41,7 @@ NEW UPDATE - V 1.5.1
 -Several bosses adjusted to reduce/remove heals and increased health to compensate
 -Several bosses health adjusted to compensate for vanilla 1.4.4 health buffs, and should now be equal to pre-1.4.4 Eternity Mode
 -Trojan Squirrel Theme added
--Lieflight Theme added
+-Lifelight Theme added
 -Masochist Skeletron has no reticle and uses Dungeon Guardian attacks while spinning
 -WoF Deathray inflicts Smite instead of Confused, deathray also inflicts Unstable
 -Retinazer's deathray is now comically large in Masochist Mode

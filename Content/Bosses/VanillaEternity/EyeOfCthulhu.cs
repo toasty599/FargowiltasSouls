@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     const float speedModifier = 0.3f;
 
-                    if (npc.HasValidTarget && !Main.dayTime)
+                    if (npc.HasValidTarget && (!Main.dayTime || Main.zenithWorld || Main.remixWorld))
                     {
                         if (npc.timeLeft < 300)
                             npc.timeLeft = 300;

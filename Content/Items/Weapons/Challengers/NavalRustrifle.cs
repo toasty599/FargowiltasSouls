@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         public override bool? UseItem(Player player)
         {
             player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloading = true;
-            player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloadZonePos = Main.rand.NextFloat(0.4f, 0.8f);
+            player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloadZonePos = 0.7f;
             return base.UseItem(player);
         }
     }

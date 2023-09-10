@@ -215,6 +215,9 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.PhantasmalSphere:
                     EModeCanHurt = false;
                     break;
+                case ProjectileID.SuperStar:
+                    projectile.penetrate = 7;
+                    break;
                 default:
                     break;
             }
