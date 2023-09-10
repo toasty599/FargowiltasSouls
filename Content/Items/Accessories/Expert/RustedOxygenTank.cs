@@ -28,11 +28,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 
         public static void PassiveEffect(Player player)
         {
+            player.ignoreWater = true;
             if (Collision.WetCollision(player.position - 20 * Vector2.UnitX - 20 * Vector2.UnitY, player.width + 10, player.height + 10)) //need some extra otherwise you get stuck near water
             {
                 player.moveSpeed += 0.2f;
                 return;
             }
+            
             //ripped from "effects while in water" vanilla code
             if (player.merman)
             {

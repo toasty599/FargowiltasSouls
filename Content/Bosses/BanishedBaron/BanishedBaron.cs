@@ -345,7 +345,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
-            potionType = ItemID.HealingPotion;
+            potionType = ItemID.GreaterHealingPotion;
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
@@ -508,6 +508,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         #region States
         void Opening()
         {
+            HitPlayer = false;
             Anim = 1;
             //NPC.rotation = (float)(Math.Sin(MathHelper.ToRadians(Timer) * 16) * MathHelper.Pi/24);
             if (LockVector1 == Vector2.Zero)
@@ -553,6 +554,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer > 90)
             {
+                HitPlayer = true;
                 Anim = 0;
                 StateReset();
             }
@@ -614,10 +616,22 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             const int Distance = 400;
             if (Timer == 1)
             {
-                LockVector1 = player.Center + player.DirectionTo(NPC.Center) * Distance;
+                
                 if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height)) //check if originated in collision, set AI3 to negative
                 {
                     AI3 = -2;
+                    for (int i = 0; i < 30; i++) //max of 30 checks
+                    {
+                        LockVector1 = player.Center + Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Distance;
+                        if (!Collision.SolidCollision(LockVector1 - NPC.Size / 2, NPC.width, NPC.height)) //if found valid spot, stop searching
+                        {
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    LockVector1 = player.Center + player.DirectionTo(NPC.Center) * Distance;
                 }
 
                 if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
