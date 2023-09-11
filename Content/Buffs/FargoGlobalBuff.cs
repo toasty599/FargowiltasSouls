@@ -68,29 +68,8 @@ namespace FargowiltasSouls.Content.Buffs
 
 
                 case BuffID.ThornWhipPlayerBuff:
-                    if (WorldSavingSystem.EternityMode)
-                    {
-                        player.GetAttackSpeed(DamageClass.Melee) -= 0.20f;
-                        player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.20f;
-                    }
-                    goto case BuffID.CoolWhipPlayerBuff;
-
                 case BuffID.SwordWhipPlayerBuff:
-                    if (WorldSavingSystem.EternityMode)
-                    {
-                        player.GetAttackSpeed(DamageClass.Melee) -= 0.35f;
-                        player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.35f;
-                    }
-                    goto case BuffID.CoolWhipPlayerBuff;
-
                 case BuffID.ScytheWhipPlayerBuff:
-                    if (WorldSavingSystem.EternityMode)
-                    {
-                        player.GetAttackSpeed(DamageClass.Melee) -= 0.50f;
-                        player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.50f;
-                    }
-                    goto case BuffID.CoolWhipPlayerBuff;
-
                 case BuffID.CoolWhipPlayerBuff:
                     if (WorldSavingSystem.EternityMode)
                     {

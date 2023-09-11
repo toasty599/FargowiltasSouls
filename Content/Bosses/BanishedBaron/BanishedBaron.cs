@@ -796,7 +796,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (AI3 != 22) //look for valid teleport spots while readying attack
                 {
                     bool collide = false;
-                    for (float i = 0; i < 1; i += 0.1f)
+                    for (float i = 0; i < 0.8f; i += 0.1f) //don't check the entire way, otherwise every spot is invalid if you're standing on ground
                     {
                         if (Collision.SolidCollision(LockVector1 - NPC.Size / 2 + ((player.Center - LockVector1) * i), NPC.width, NPC.height)) //if can dash to player at arrival spot
                         {
