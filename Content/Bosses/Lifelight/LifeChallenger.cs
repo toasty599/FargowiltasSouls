@@ -1103,6 +1103,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                             p.ai[0] = Math.Max(p.ai[0], 2400 - 30);
                             p.netUpdate = true;
                         }
+                        //kill deathray, just to be sure
+                        if (p.type == ModContent.ProjectileType<LifeChalDeathray>())
+                        {
+                            p.Kill();
+                        }
                     }
 
                     PyramidPhase = -1;

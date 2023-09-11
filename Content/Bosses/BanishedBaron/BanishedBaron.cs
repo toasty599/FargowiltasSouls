@@ -643,24 +643,30 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
                 if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
                 {
-                    int x = (int)NPC.Center.X / 16;
-                    int y = (int)NPC.Center.Y / 16;
-                    Tile tile = Main.tile[x, y];
-
-                    if (tile.LiquidAmount > 0)
+                    for (int i = 0; i < 10; i++)
                     {
-                        if (tile.LiquidType == LiquidID.Water)
+                        for (int j = 0; j < 10; j++)
                         {
-                            tile.LiquidAmount = 0;
-                            CombatText.NewText(NPC.Hitbox, Color.Blue, "slurp");
-                            if (Main.netMode == NetmodeID.Server)
+                            int x = (int)NPC.Center.X / 16;
+                            int y = (int)NPC.Center.Y / 16;
+                            Tile tile = Main.tile[x + i, y + j];
+
+                            if (tile.LiquidAmount > 0)
                             {
-                                NetMessage.sendWater(x, y);
-                                NetMessage.SendTileSquare(-1, x, y, 1);
-                            }
-                            else
-                            {
-                                WorldGen.SquareTileFrame(x, y, true);
+                                if (tile.LiquidType == LiquidID.Water)
+                                {
+                                    tile.LiquidAmount = 0;
+                                    CombatText.NewText(NPC.Hitbox, Color.Blue, "slurp");
+                                    if (Main.netMode == NetmodeID.Server)
+                                    {
+                                        NetMessage.sendWater(x, y);
+                                        NetMessage.SendTileSquare(-1, x, y, 1);
+                                    }
+                                    else
+                                    {
+                                        WorldGen.SquareTileFrame(x, y, true);
+                                    }
+                                }
                             }
                         }
                     }
