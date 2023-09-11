@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.Content.Bosses.Champions;
 using FargowiltasSouls.Content.Bosses.BanishedBaron;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Microsoft.VisualBasic;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {
@@ -39,6 +42,7 @@ namespace FargowiltasSouls.Content.Items.Summons
             Item.shoot = ModContent.ProjectileType<MechLureProjectile>();
             Item.shootSpeed = 10f;
             Item.UseSound  = SoundID.Item1;
+            Item.value = Item.sellPrice(0, 2);
         }
 
         public override void AddRecipes()
@@ -82,6 +86,12 @@ namespace FargowiltasSouls.Content.Items.Summons
             }
             */
             return true;
+        }
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string text = "Can be sold by the Travelling Merchant";
+            tooltips.Add(new TooltipLine(Mod, "TooltipTravelingMerchant",
+                $"[i:{ModContent.Find<ModItem>("Fargowiltas", "TravellingMerchant").Type}] [c/AAAAAA:{text}]"));
         }
     }
 }

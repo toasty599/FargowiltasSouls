@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
             {
-                modifiers.FinalDamage /= 2;
+                //modifiers.FinalDamage /= 2;
             }
             /*
             if (Hexed || (ReverseManaFlow && item.CountsAsClass(DamageClass.Magic)))

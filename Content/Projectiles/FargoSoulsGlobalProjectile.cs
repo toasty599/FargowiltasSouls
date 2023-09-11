@@ -26,6 +26,8 @@ using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using static Terraria.ModLoader.PlayerDrawLayer;
+using FargowiltasSouls.Core.ModPlayers;
+using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -198,6 +200,11 @@ namespace FargowiltasSouls.Content.Projectiles
                     tikiMinion = true;
                     tikiTimer = sourceProj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiTimer;
                 }
+            }
+
+            if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && projectile.type != ProjectileID.WireKite && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>())
+            {
+                NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
             }
 
             switch (projectile.type)
@@ -564,12 +571,12 @@ namespace FargowiltasSouls.Content.Projectiles
                 {
 
                 }
-
+                /*
                 if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && projectile.type != ProjectileID.WireKite && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>())
                 {
-                    NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
+                    projectile.velocity *= NinjaSpeedup;
                 }
-
+                */
                 if (projectile.type == ProjectileID.ShadowBeamHostile)
                 {
                     if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<DeviBoss>())
@@ -1163,6 +1170,13 @@ namespace FargowiltasSouls.Content.Projectiles
             if (stormTimer > 0)
                 modifiers.FinalDamage *= Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6f : 1.3f;
 
+            if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null)
+            {
+                float maxDamageIncrease = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().ShadowForce ? 0.3f : 0.2f;
+                modifiers.FinalDamage *= 1f + (maxDamageIncrease * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 40f, 1));
+                
+            }
+
             int AccountForDefenseShred(int modifier)
             {
                 int defenseIgnored = projectile.ArmorPenetration;
@@ -1184,13 +1198,6 @@ namespace FargowiltasSouls.Content.Projectiles
                 modifiers.FinalDamage.Flat -= AccountForDefenseShred(AdamModifier);
             }
 
-            if (NinjaSpeedup > 0)
-            {
-                modifiers.FinalDamage /= 2;
-                // TODO: maybe use defense here
-                modifiers.FinalDamage.Flat -= AccountForDefenseShred(2);
-            }
-
             if (noInteractionWithNPCImmunityFrames)
                 tempIframe = target.immune[projectile.owner];
 
@@ -1210,6 +1217,12 @@ namespace FargowiltasSouls.Content.Projectiles
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
 
+            if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null)
+            {
+                const float maxKnockbackMult = 2f;
+                hit.Knockback = hit.Knockback * (maxKnockbackMult * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 60, 1f));
+
+            }
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
             {
                 target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 360);
@@ -1246,8 +1259,6 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
             }
 
-            if (NinjaSpeedup > 0)
-                ReduceIFrames(projectile, target, 2);
 
             if (AdamModifier != 0)
                 ReduceIFrames(projectile, target, Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().EarthForce ? 3 : 2);

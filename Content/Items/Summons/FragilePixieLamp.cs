@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Content.Items.Summons
             Item.consumable = true;
             Item.maxStack = 20;
             Item.noUseGraphic = false;
+            Item.value = Item.sellPrice(0, 3);
         }
 
         public override void AddRecipes()
@@ -74,7 +75,7 @@ namespace FargowiltasSouls.Content.Items.Summons
                     SoundEngine.PlaySound(SoundID.Shatter, player.Center);
                     //shatter effect
                     for (int i = 0; i < 50; i++)
-                        Dust.NewDust(ItemCenter - Item.Size / 2, Item.width, Item.height, DustID.Glass, player.velocity.X, player.velocity.Y, 100, new Color(), 1f);
+                        Dust.NewDust(ItemCenter - Item.Size / 2, Item.width, Item.height, DustID.HallowedTorch, player.velocity.X, player.velocity.Y, 100, new Color(), 1f);
                 }
                 else
                 {

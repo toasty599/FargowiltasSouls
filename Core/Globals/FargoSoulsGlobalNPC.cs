@@ -24,6 +24,7 @@ using Terraria.Audio;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using FargowiltasSouls.Content.Items.Summons;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -1202,6 +1203,14 @@ namespace FargowiltasSouls.Core.Globals
             if (modPlayer.WoodEnchantDiscount)
             {
                 WoodEnchant.WoodDiscount(items);
+            }
+        }
+        public override void SetupTravelShop(int[] shop, ref int nextSlot)
+        {
+            if (Main.hardMode && Main.moonPhase == 0)
+            {
+                shop[nextSlot] = ModContent.ItemType<MechLure>();
+                nextSlot++;
             }
         }
 

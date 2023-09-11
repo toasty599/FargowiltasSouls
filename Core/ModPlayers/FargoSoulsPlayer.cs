@@ -622,7 +622,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
                 {
-                    AttackSpeed *= 2;
+                    //AttackSpeed *= 2;
                 }
 
                 //modify attack speed so it rounds up

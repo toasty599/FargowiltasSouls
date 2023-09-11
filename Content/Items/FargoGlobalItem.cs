@@ -37,8 +37,6 @@ namespace FargowiltasSouls.Content.Items
 
         public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
         {
-            if (player.GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null && player.GetToggleValue("NinjaSpeed"))
-                mult *= 0.5f;
         }
 
         public override void GrabRange(Item item, Player player, ref int grabRange)
