@@ -130,7 +130,15 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/BossWeapons/" + GetType().Name + Projectile.ai[1]).Value;
+            Texture2D tex;
+            if (Projectile.ai[1] != 0)
+            {
+                tex = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/BossWeapons/" + GetType().Name + Projectile.ai[1]).Value;
+            }
+            else
+            {
+                tex = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/BossWeapons/" + GetType().Name + 1).Value;
+            }
             FargoSoulsUtil.DrawTexture(Main.spriteBatch, tex, 0, Projectile, lightColor, true);
 
             return false;
