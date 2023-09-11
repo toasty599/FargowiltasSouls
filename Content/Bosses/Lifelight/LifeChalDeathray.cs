@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
     public class LifeChalDeathray : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/AbomDeathray";
-        public LifeChalDeathray() : base(3) { }
+        public LifeChalDeathray() : base(3600) { }
 
         public override void SetStaticDefaults()
         {
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 Projectile.velocity = -Vector2.UnitY;
             }
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<LifeChallenger>());
-            if (npc == null)
+            if (npc == null || !npc.active || npc.type != ModContent.NPCType<LifeChallenger>())
             {
                 Projectile.Kill();
                 return;
@@ -37,6 +37,10 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             else
             {
                 Projectile.Center = npc.Center;
+                LifeChallenger lifelight = ((LifeChallenger)npc.ModNPC);
+                Projectile.rotation = lifelight.LockVector1.RotatedBy(lifelight.rot).ToRotation();
+                Projectile.velocity = Projectile.rotation.ToRotationVector2();
+                maxTime = Projectile.ai[2];
             }
             if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)
             {

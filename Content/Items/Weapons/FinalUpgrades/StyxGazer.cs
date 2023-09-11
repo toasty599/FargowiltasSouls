@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+﻿using FargowiltasSouls.Common.Graphics.Shaders;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
@@ -79,8 +80,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
             {
                 Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
-                var lineshader = GameShaders.Misc["PulseDiagonal"].UseColor(new Color(255, 170, 12)).UseSecondaryColor(new Color(210, 69, 203));
-                lineshader.Apply(null);
+				ShaderManager.GetShaderIfExists("Text").SetMainColor(new Color(255, 170, 12)).SetMainColor(new Color(210, 69, 203)).Apply(true, "PulseDiagonal");
                 Utils.DrawBorderString(Main.spriteBatch, line.Text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
                 Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);

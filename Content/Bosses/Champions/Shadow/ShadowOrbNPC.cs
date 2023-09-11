@@ -154,6 +154,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
         {
             modifiers.Null();
             NPC.life++;
+            NPC.netUpdate = true;
         }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
@@ -165,6 +166,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             }
             modifiers.Null();
             NPC.life++;
+            NPC.netUpdate = true;
         }
 
         public override bool CheckActive()

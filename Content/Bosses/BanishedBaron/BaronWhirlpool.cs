@@ -37,7 +37,6 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public bool Fade;
         public bool Animate;
-        public int ChildID;
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
@@ -45,22 +44,16 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 return;
             }
-            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 4);
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
+            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 20);
             target.AddBuff(BuffID.Rabies, 60 * 10);
-        }
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write7BitEncodedInt(ChildID);
-        }
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            ChildID = reader.Read7BitEncodedInt();
         }
         public override void AI()
         {
             ref float ParentID = ref Projectile.ai[0];
             ref float Number = ref Projectile.ai[1];
             ref float Timer = ref Projectile.localAI[0];
+            ref float ChildID = ref Projectile.ai[2];
 
             Projectile.netUpdate = true; //it's choppy if this isn't done always
 
@@ -135,7 +128,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.alpha += 17;
                 if (Projectile.alpha >= 238)
                 {
-                    Projectile child = Main.projectile[ChildID];
+                    Projectile child = Main.projectile[(int)ChildID];
                     if (child != null)
                     {
                         if (child.active && child.type == Type)

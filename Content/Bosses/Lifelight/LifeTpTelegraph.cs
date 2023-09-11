@@ -5,76 +5,65 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
-
     public class LifeTpTelegraph : ModProjectile
     {
+        // Kills the projectile above 0, so set it to a negative value.
+        public ref float Timer => ref Projectile.ai[0];
+
+        // The .whoAmI of the parent npc.
+        public ref float ParentIndex => ref Projectile.ai[1];
+
         public override string Texture => "FargowiltasSouls/Assets/Effects/LifeStar";
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Teleport Telegraph");
-        }
+
         public override void SetDefaults()
         {
             Projectile.width = 150;
             Projectile.height = 150;
             Projectile.aiStyle = -1;
-            Projectile.hostile = false;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.alpha = 0;
         }
 
-        int npc = -1;
-
-        public override void OnSpawn(IEntitySource source)
-        {
-            if (source is EntitySource_Parent parent && parent.Entity is NPC parentNpc && parentNpc.type == ModContent.NPCType<LifeChallenger>())
-                npc = parentNpc.whoAmI;
-        }
-
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write7BitEncodedInt(npc);
-        }
-
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            npc = reader.Read7BitEncodedInt();
-        }
-
         public override void AI()
         {
             if (Projectile.localAI[0] == 0)
             {
-                Projectile.localAI[0] = Math.Abs(Projectile.ai[0]);
+                Projectile.localAI[0] = Math.Abs(Timer);
                 SoundEngine.PlaySound(SoundID.Item29 with { Volume = 1.5f }, Projectile.Center);
             }
 
-            if (++Projectile.ai[0] > 0f)
-            {
+            if (Timer > 0f)
                 Projectile.Kill();
-            }
 
-            float ratio = 1f - Math.Abs(Projectile.ai[0]) / Projectile.localAI[0];
+            // Ramp up the scale and rotation over time
+            float ratio = 1f - Math.Abs(Timer) / Projectile.localAI[0];
             float rampupVfx = (float)Math.Sin(MathHelper.PiOver2 * ratio);
             Projectile.scale = 0.1f + 1.4f * rampupVfx;
+            // Jav, this will likely cause mp desyncing? Won't matter too much as scale is for visuals only,
+            // but be careful to not do it with things that affect gameplay on all clients. - Toasty.
             Projectile.scale *= Main.rand.NextFloat(0.8f, 1.2f);
             Projectile.rotation = 2f * MathHelper.TwoPi * rampupVfx;
 
-            NPC parent = FargoSoulsUtil.NPCExists(npc);
+            NPC parent = FargoSoulsUtil.NPCExists(ParentIndex);
+            // Stick to a position set by lifelight.
             if (parent != null)
-            {
                 Projectile.Center = new Vector2(parent.localAI[0], parent.localAI[1]);
-            }
+
+            Timer++;
         }
 
-        public override Color? GetAlpha(Color lightColor)
+        // Telegraphs should not deal damage.
+        public override bool? CanDamage() => false;
+
+		public override Color? GetAlpha(Color lightColor)
         {
             Color color = Color.HotPink;
             color.A = 50;
@@ -83,14 +72,12 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture = TextureAssets.Projectile[Type].Value;
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
-            Vector2 origin2 = rectangle.Size() / 2f;
+            Vector2 origin = texture.Size() / 2f;
+
             for (int i = 0; i < 3; i++)
-                Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+                Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, Projectile.scale, effects, 0);
             return false;
         }
     }

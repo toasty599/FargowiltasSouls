@@ -41,7 +41,6 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 return;
             }
-            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 5);
             
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

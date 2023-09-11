@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
 {
@@ -185,8 +186,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
             {
                 Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
-                var lineshader = GameShaders.Misc["PulseUpwards"].UseColor(new Color(28, 222, 152)).UseSecondaryColor(new Color(168, 245, 228));
-                lineshader.Apply();
+				ShaderManager.GetShaderIfExists("Text").SetMainColor(new Color(28, 222, 152)).SetSecondaryColor(new Color(168, 245, 228)).Apply(true, "PulseUpwards");
                 Utils.DrawBorderString(Main.spriteBatch, line.Text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
                 Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);

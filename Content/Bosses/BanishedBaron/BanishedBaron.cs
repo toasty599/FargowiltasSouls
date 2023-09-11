@@ -140,7 +140,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPC.aiStyle = -1;
             NPC.lifeMax = 30500;
             NPC.defense = 15;
-            NPC.damage = 80;
+            NPC.damage = 69;
             NPC.knockBackResist = 0f;
             NPC.width = 194;
             NPC.height = 132;
@@ -257,7 +257,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 return;
             }
             target.AddBuff(BuffID.Rabies, 60 * 10);
-            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 5);
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
+            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 30);
         }
         public override bool CheckDead()
         {
@@ -345,7 +346,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
-            potionType = ItemID.HealingPotion;
+            potionType = ItemID.GreaterHealingPotion;
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
@@ -375,7 +376,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void AI()
         {
             //Defaults
-            NPC.noTileCollide = Phase == 2 || WorldSavingSystem.MasochistModeReal || Collision.SolidCollision(NPC.Center, 1, 1) || !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height); //no tile collide in p2, tile collide in p1 except if in tiles, or if obstructed
+            NPC.noTileCollide = 
+                Phase == 2 || 
+                WorldSavingSystem.MasochistModeReal || 
+                Collision.SolidCollision(NPC.position + NPC.Size / 10, (int)(NPC.width * 0.9f), (int)(NPC.height * 0.9f)) || 
+                !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height); 
+            //no tile collide in p2, tile collide in p1 except if in tiles, or if obstructed
+
             NPC.defense = NPC.defDefense;
             NPC.direction = NPC.spriteDirection = NPC.rotation.ToRotationVector2().X > 0 ? 1 : -1;
 
@@ -508,6 +515,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         #region States
         void Opening()
         {
+            HitPlayer = false;
             Anim = 1;
             //NPC.rotation = (float)(Math.Sin(MathHelper.ToRadians(Timer) * 16) * MathHelper.Pi/24);
             if (LockVector1 == Vector2.Zero)
@@ -537,7 +545,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (LockVector1 != Vector2.Zero)
             {
                 RotateTowards(LockVector1, 1.5f);
-                NPC.velocity = (LockVector1 - NPC.Center) * 0.05f;
+                NPC.velocity = (LockVector1 - NPC.Center) * (Timer / 90f) * 0.4f;
             }
             
             if (Timer == 60)
@@ -553,6 +561,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer > 90)
             {
+                HitPlayer = true;
                 Anim = 0;
                 StateReset();
             }
@@ -565,6 +574,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronHit"), NPC.Center);
                 if (!Main.dedServ)
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 100;
+
+                HitPlayer = false;
 
             }
             if (Timer < 90)
@@ -583,7 +594,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Phase = 2;
                 FargoSoulsUtil.ClearHostileProjectiles(2, NPC.whoAmI);
 
-                Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod) ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Baron") : MusicID.DukeFishron;
+                Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod) ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Baron") : MusicID.Boss2;
             }
             if (Timer > 90)
             {
@@ -592,6 +603,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     NPC.velocity *= 0.95f;
                     if (NPC.velocity.Length() < 0.1f)
                     {
+                        HitPlayer = true;
                         availablestates.Clear();
                         StateReset();
 
@@ -608,12 +620,54 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         #region Phase 1 Attacks
         void Swim()
         {
+            void Thirsty()
+            {
+                int x = (int)NPC.Center.X / 16;
+                int y = (int)NPC.Center.Y / 16;
+                Tile tile = Main.tile[x, y];
+
+                if (tile.LiquidAmount > 0)
+                {
+                    if (tile.LiquidType == LiquidID.Water)
+                    {
+                        tile.LiquidAmount = 0;
+                        CombatText.NewText(NPC.Hitbox, Color.Blue, "slurp");
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.sendWater(x, y);
+                            NetMessage.SendTileSquare(-1, x, y, 1);
+                        }
+                        else
+                        {
+                            WorldGen.SquareTileFrame(x, y, true);
+                        }
+                    }
+                }
+            }
+            const int Distance = 400;
             if (Timer == 1)
             {
-                LockVector1 = player.Center;
+                
                 if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height)) //check if originated in collision, set AI3 to negative
                 {
                     AI3 = -2;
+                    for (int i = 0; i < 30; i++) //max of 30 checks
+                    {
+                        LockVector1 = player.Center + Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Distance;
+                        if (!Collision.SolidCollision(LockVector1 - NPC.Size / 2, NPC.width, NPC.height)) //if found valid spot, stop searching
+                        {
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    LockVector1 = player.Center + player.DirectionTo(NPC.Center) * Distance;
+                }
+
+                if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
+                {
+                    Thirsty();
                 }
             }
 
@@ -626,6 +680,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 RotateTowards(player.Center, 3);
                 if (NPC.velocity.Length() < 0.1f)
                 {
+                    if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
+                    {
+                        Thirsty();
+                    }
                     NPC.velocity = Vector2.Zero;
                     StateReset();
                 }
@@ -752,7 +810,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (AI3 != 22) //look for valid teleport spots while readying attack
                 {
                     bool collide = false;
-                    for (float i = 0; i < 1; i += 0.1f)
+                    for (float i = 0; i < 0.8f; i += 0.1f) //don't check the entire way, otherwise every spot is invalid if you're standing on ground
                     {
                         if (Collision.SolidCollision(LockVector1 - NPC.Size / 2 + ((player.Center - LockVector1) * i), NPC.width, NPC.height)) //if can dash to player at arrival spot
                         {
@@ -836,10 +894,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 float baseSpeed = 45;
                 float extraSpeed = (float)Math.Sqrt((player.Center - NPC.Center).Length()) / 1.5f;
 
-                NPC.velocity = NPC.rotation.ToRotationVector2() * (baseSpeed + extraSpeed) * (WorldSavingSystem.MasochistModeReal ? 0.5f : 1); //it's WAY too fast in maso otherwise, because no water slowdown
+                NPC.velocity = NPC.rotation.ToRotationVector2() * (baseSpeed + extraSpeed);
+                
             }
             if (Timer > 90 + ReactionTime)
             {
+                if (NPC.noTileCollide) //dash same speed if collision is off
+                {
+                    NPC.position -= NPC.velocity / 2;
+                }
                 NPC.dontTakeDamage = false; //here too for safety
                 NPC.velocity *= 0.975f;
 

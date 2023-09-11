@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Content.Items.Pets
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.ShadowOrb);
+            Item.rare = ItemRarityID.Master;
             Item.width = 20;
             Item.height = 40;
             Item.shoot = ModContent.ProjectileType<BabyLifelight>();

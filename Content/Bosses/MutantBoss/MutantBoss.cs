@@ -26,6 +26,7 @@ using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
@@ -3333,10 +3334,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             else
             {
-                if (!Main.dedServ && !Terraria.Graphics.Effects.Filters.Scene["FargowiltasSouls:FinalSpark"].IsActive())
-                {
-                    Terraria.Graphics.Effects.Filters.Scene.Activate("FargowiltasSouls:FinalSpark");
-                }
+                if (!Main.dedServ)
+                    ShaderManager.GetFilterIfExists("FinalSpark").Activate();
 
                 if (NPC.ai[1] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                 {

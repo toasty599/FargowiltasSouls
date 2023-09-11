@@ -19,6 +19,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -979,6 +980,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 modifiers.FinalDamage /= 2;
             if (projectile.type == ProjectileID.SoulDrain)
                 modifiers.FinalDamage *= 0.75f;
+            if (projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNuke>() || projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNukeSplinter>())
+                modifiers.FinalDamage *= 0.7f;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)

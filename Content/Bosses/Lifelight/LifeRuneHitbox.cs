@@ -2,6 +2,7 @@
 using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -126,9 +127,9 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         }
         public void DrawPixelPrimitives(SpriteBatch spriteBatch)
         {
-            TrailDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, GameShaders.Misc["FargowiltasSouls:BlobTrail"]);
-            GameShaders.Misc["FargowiltasSouls:BlobTrail"].SetShaderTexture(FargosTextureRegistry.FadedStreak);
-            TrailDrawer.DrawPixelPrims(Projectile.oldPos, Projectile.Size * 0.5f - Main.screenPosition, 45);
+            TrailDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, ShaderManager.GetShaderIfExists("BlobTrail"));
+            FargoSoulsUtil.SetTexture1(FargosTextureRegistry.FadedStreak.Value);
+            TrailDrawer.DrawPixelPrims(Projectile.oldPos, Projectile.Size * 0.5f - Main.screenPosition, 44);
         }
     }
 }

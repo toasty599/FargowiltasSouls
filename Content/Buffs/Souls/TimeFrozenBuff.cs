@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
+﻿using FargowiltasSouls.Common.Graphics.Shaders;
+using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
@@ -48,24 +49,22 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
             if (!Main.dedServ && player.whoAmI == Main.myPlayer)
             {
-                if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                {
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<CosmosChampion>())
-                    && Main.npc[EModeGlobalNPC.championBoss].ai[0] == 15)
-                    {
-                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.championBoss].Center);
-                    }
+                ScreenFilter filter = ShaderManager.GetFilterIfExists("Invert");
 
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>())
-                        && WorldSavingSystem.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5)
-                    {
-                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
-                    }
-                }
-                else if (player.buffTime[buffIndex] > 60)
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<CosmosChampion>())
+                && Main.npc[EModeGlobalNPC.championBoss].ai[0] == 15)
                 {
-                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(player.Center);
+                    filter.SetFocusPosition(Main.npc[EModeGlobalNPC.championBoss].Center);
                 }
+
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>())
+                    && WorldSavingSystem.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5)
+                {
+                    filter.SetFocusPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
+                }
+
+                if (player.buffTime[buffIndex] > 60)
+                    filter.Activate();
 
                 if (player.buffTime[buffIndex] == 90)
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudoResume"), player.Center);

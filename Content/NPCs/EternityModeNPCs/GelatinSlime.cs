@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
@@ -5,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -25,9 +27,19 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             {
                 SpecificallyImmuneTo = NPCID.Sets.DebuffImmunitySets[NPCID.QueenSlimeBoss].SpecificallyImmuneTo
             });
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Hide = true
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(
+                   ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[NPCID.QueenSlimeBoss],
+                   quickUnlock: true
+               );
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+                new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
             });
         }
 

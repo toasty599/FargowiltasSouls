@@ -478,6 +478,18 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
                         }
                         break;
+                    case ProjectileID.CopperCoin:
+                        projectile.damage = (int)(projectile.damage * 1.6f);
+                        break;
+                    case ProjectileID.SilverCoin:
+                        projectile.damage = (int)(projectile.damage * 0.95f);
+                        break;
+                    case ProjectileID.GoldCoin:
+                        projectile.damage = (int)(projectile.damage * 0.55f);
+                        break;
+                    case ProjectileID.PlatinumCoin:
+                        projectile.damage = (int)(projectile.damage * 0.3f);
+                        break;
                     case var _ when ReworkedSpears.Contains(projectile.type):
                         {
                             projectile.damage = (int)(projectile.damage * 1.5f);

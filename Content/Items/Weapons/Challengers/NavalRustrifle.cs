@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 130;
+            Item.damage = 116;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 82;
             Item.height = 24;
@@ -84,16 +84,16 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (modPlayer.RustRifleReloading)
             {
-                if (Math.Abs(modPlayer.RustRifleReloadProgress - modPlayer.RustRifleReloadZonePos) < 0.11f)
+                if (Math.Abs(modPlayer.RustRifleReloadProgress - modPlayer.RustRifleReloadZonePos) < 0.15f)
                 {
                     EmpoweredShot = true;
-                    SoundEngine.PlaySound(SoundID.Unlock with { Pitch = 0.5f }, player.Center);
+                    SoundEngine.PlaySound(SoundID.Item149 with { Pitch = 0.5f }, player.Center);
                     Item.UseSound = SoundID.Item68;
                 }
                 else
                 {
                     EmpoweredShot = false;
-                    SoundEngine.PlaySound(SoundID.Unlock with { Pitch = -0.5f }, player.Center);
+                    SoundEngine.PlaySound(SoundID.Item149 with { Pitch = 0f }, player.Center);
                     Item.UseSound = SoundID.Item40;
                 }
                 modPlayer.RustRifleReloading = false;
@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         public override bool? UseItem(Player player)
         {
             player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloading = true;
-            player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloadZonePos = 0.7f;
+            player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloadZonePos = 0.725f;
             return base.UseItem(player);
         }
     }

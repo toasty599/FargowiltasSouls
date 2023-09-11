@@ -24,6 +24,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using Terraria.DataStructures;
+using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -1279,13 +1280,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = true;
 
                 if (Main.netMode != NetmodeID.Server)
-                {
-                    if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                        Filters.Scene.Activate("FargowiltasSouls:Invert");
-
-                    if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Player.Center);
-                }
+                    ShaderManager.GetFilterIfExists("Invert").SetFocusPosition(Player.Center);
 
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {

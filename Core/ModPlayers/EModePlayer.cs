@@ -402,7 +402,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             //whips no longer benefit from melee speed bonus
-            Player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) /= Player.GetAttackSpeed(DamageClass.Melee);
+            if (Player.HeldItem.shoot > ProjectileID.None && ProjectileID.Sets.IsAWhip[Player.HeldItem.shoot])
+            {
+                Player.GetAttackSpeed(DamageClass.Melee) = 1;
+            }
+            //Player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) /= Player.GetAttackSpeed(DamageClass.Melee);
 
             if (Player.happyFunTorchTime && ++TorchGodTimer > 60)
             {

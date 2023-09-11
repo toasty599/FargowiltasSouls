@@ -319,6 +319,21 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             NPC.frame.Y = NPC.dontTakeDamage ? frameHeight : 0;
         }
 
+        public override bool CheckActive()
+        {
+            return false;
+        }
+
+        public override bool PreKill()
+        {
+            return false;
+        }
+
+        public override bool? DrawHealthBar(byte hbPos, ref float scale, ref Vector2 Pos)
+        {
+            return false;
+        }
+
         void RotateTowards(Vector2 target, float speed)
         {
             Vector2 PV = NPC.DirectionTo(target);

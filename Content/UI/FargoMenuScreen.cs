@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Content.UI
 
         public override void OnSelected()
         {
+            ((MainMenuBackgroundStyle)MenuBackgroundStyle).fadeIn = 0;
             forgor = Main.rand.NextBool(100);
             //SoundEngine.PlaySound(SoundID.Roar);
         }

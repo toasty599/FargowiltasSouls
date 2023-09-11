@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Vortex
 {
@@ -24,7 +25,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
-
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
             npc.damage = (int)Math.Round(npc.damage * 0.9f);
         }
