@@ -342,7 +342,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
 
                 //AdamModifier = modPlayer.EarthForce ? 3 : 2;
-                AdamModifier = 1;
+                AdamModifier = modPlayer.EarthForce ? 3 : 2;
             }
 
             if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)
@@ -840,8 +840,10 @@ namespace FargowiltasSouls.Content.Projectiles
                     split = FargoSoulsUtil.NewProjectileDirectSafe(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, (int)(projectile.damage * damageRatio), projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
                     if (split != null)
                     {
+                        split.ai[2] = projectile.ai[2];
                         split.localAI[0] = projectile.localAI[0];
                         split.localAI[1] = projectile.localAI[1];
+                        split.localAI[2] = projectile.localAI[2];
 
                         split.friendly = projectile.friendly;
                         split.hostile = projectile.hostile;
@@ -1193,9 +1195,9 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (AdamModifier != 0)
             {
-                modifiers.FinalDamage /= AdamModifier;
+               //modifiers.FinalDamage /= AdamModifier;
                 // TODO: maybe use defense here
-                modifiers.FinalDamage.Flat -= AccountForDefenseShred(AdamModifier);
+                //modifiers.FinalDamage.Flat -= AccountForDefenseShred(AdamModifier);
             }
 
             if (noInteractionWithNPCImmunityFrames)
