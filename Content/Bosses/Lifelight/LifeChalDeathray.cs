@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 Projectile.velocity = -Vector2.UnitY;
             }
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<LifeChallenger>());
-            if (npc == null || npc.type != ModContent.NPCType<LifeChallenger>())
+            if (npc == null || !npc.active || npc.type != ModContent.NPCType<LifeChallenger>())
             {
                 Projectile.Kill();
                 return;

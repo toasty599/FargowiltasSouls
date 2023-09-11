@@ -182,6 +182,10 @@ namespace FargowiltasSouls.Core.Systems
             group = new RecipeGroup(() => ItemXOrY(ItemID.GoldBar, ItemID.PlatinumBar), ItemID.GoldBar, ItemID.PlatinumBar);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyGoldBar", group);
 
+            //mythril and ori bar
+            group = new RecipeGroup(() => ItemXOrY(ItemID.MythrilBar, ItemID.OrichalcumBar), ItemID.MythrilBar, ItemID.OrichalcumBar);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyMythrilBar", group);
+
         }
         public override void PostAddRecipes()
         {

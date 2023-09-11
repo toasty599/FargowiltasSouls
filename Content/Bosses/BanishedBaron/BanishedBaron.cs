@@ -620,6 +620,30 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         #region Phase 1 Attacks
         void Swim()
         {
+            void Thirsty()
+            {
+                int x = (int)NPC.Center.X / 16;
+                int y = (int)NPC.Center.Y / 16;
+                Tile tile = Main.tile[x, y];
+
+                if (tile.LiquidAmount > 0)
+                {
+                    if (tile.LiquidType == LiquidID.Water)
+                    {
+                        tile.LiquidAmount = 0;
+                        CombatText.NewText(NPC.Hitbox, Color.Blue, "slurp");
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.sendWater(x, y);
+                            NetMessage.SendTileSquare(-1, x, y, 1);
+                        }
+                        else
+                        {
+                            WorldGen.SquareTileFrame(x, y, true);
+                        }
+                    }
+                }
+            }
             const int Distance = 400;
             if (Timer == 1)
             {
@@ -643,33 +667,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
                 if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
                 {
-                    for (int i = 0; i < 10; i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            int x = (int)NPC.Center.X / 16;
-                            int y = (int)NPC.Center.Y / 16;
-                            Tile tile = Main.tile[x + i, y + j];
-
-                            if (tile.LiquidAmount > 0)
-                            {
-                                if (tile.LiquidType == LiquidID.Water)
-                                {
-                                    tile.LiquidAmount = 0;
-                                    CombatText.NewText(NPC.Hitbox, Color.Blue, "slurp");
-                                    if (Main.netMode == NetmodeID.Server)
-                                    {
-                                        NetMessage.sendWater(x, y);
-                                        NetMessage.SendTileSquare(-1, x, y, 1);
-                                    }
-                                    else
-                                    {
-                                        WorldGen.SquareTileFrame(x, y, true);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    Thirsty();
                 }
             }
 
@@ -682,6 +680,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 RotateTowards(player.Center, 3);
                 if (NPC.velocity.Length() < 0.1f)
                 {
+                    if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
+                    {
+                        Thirsty();
+                    }
                     NPC.velocity = Vector2.Zero;
                     StateReset();
                 }

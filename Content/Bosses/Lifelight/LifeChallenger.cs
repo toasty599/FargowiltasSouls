@@ -1033,7 +1033,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, LockVector1,
-                                        ModContent.ProjectileType<LifeChalDeathray>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI, endTime);
+                                        ModContent.ProjectileType<LifeChalDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, NPC.whoAmI, endTime);
                     }
                     NPC.velocity.X = 0;
                     NPC.velocity.Y = 0;
