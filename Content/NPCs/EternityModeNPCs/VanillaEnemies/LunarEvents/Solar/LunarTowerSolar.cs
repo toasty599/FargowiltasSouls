@@ -32,7 +32,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
-
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
             npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
             npc.damage = (int)Math.Round(npc.damage * 0.6f);
         }

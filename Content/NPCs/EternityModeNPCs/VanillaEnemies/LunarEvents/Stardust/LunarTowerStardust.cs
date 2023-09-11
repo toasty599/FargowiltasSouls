@@ -31,6 +31,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
 
         }
         List<int> DragonParts = new List<int>
