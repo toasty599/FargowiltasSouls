@@ -2731,14 +2731,14 @@ Mods: {
 					[i:FargowiltasSouls/ShadowEnchant] Four Shadow Orbs will orbit around you
 					[i:FargowiltasSouls/AncientShadowEnchant] Your attacks may inflict Darkness on enemies
 					[i:FargowiltasSouls/NecroEnchant] Slain enemies may drop a pile of bones
-					[i:FargowiltasSouls/NinjaEnchant] Drastically increases projectile and attack speed but reduces damage
+					[i:FargowiltasSouls/NinjaEnchant] Increases projectile damage based on projectile speed
+					[i:FargowiltasSouls/NinjaEnchant] Increases projectile speed while moving slowly
 					[i:FargowiltasSouls/CrystalAssassinEnchant] Throw a smoke bomb to teleport to it and gain the First Strike Buff
 					[i:FargowiltasSouls/SpookyEnchant] All of your minions gain an extra scythe attack
 					[i:FargowiltasSouls/MonkEnchant] Don't attack to gain a single use monk dash
 					[i:FargowiltasSouls/ShinobiEnchant] Dash into any walls, to teleport through them to the next opening
-					[i:FargowiltasSouls/ApprenticeEnchant] After attacking for 2 seconds you will be enveloped in flames
-					[i:FargowiltasSouls/ApprenticeEnchant] Switching weapons will increase the next attack's damage by 150%
-					[i:FargowiltasSouls/DarkArtistEnchant] Summons a Flameburst minion that will travel to your mouse after charging
+					[i:FargowiltasSouls/ApprenticeEnchant] The next 2 weapons in your hotbar fire their projectiles when you attack
+					[i:FargowiltasSouls/DarkArtistEnchant] Summons a Flameburst minion that attacks while you're attacking
 					'Dark, Darker, Yet Darker'
 					'''
 			}
