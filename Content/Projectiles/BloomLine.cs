@@ -72,6 +72,15 @@ namespace FargowiltasSouls.Content.Projectiles
 
             switch ((int)Projectile.ai[0])
             {
+                case -1: //lifelight line telegraphs, YELLOW
+                    {
+                        color = Color.Goldenrod; 
+                        alphaModifier = 1;
+                        Projectile.scale = 0.6f;
+                        maxTime = 60;
+                        Projectile.rotation = Projectile.ai[1];
+                    }
+                    break;
                 case 0: //lifelight line telegraphs, CYAN
                     {
                         color = Color.Cyan; //Color.Lerp(Color.DeepPink, Color.Magenta, 0.5f);

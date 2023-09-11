@@ -6035,7 +6035,7 @@ Mods: {
 		// MoonCharmConfig: "[i:FargowiltasSouls/BerserkerSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MoonCharmConfig}]"
 		// NeptuneShellConfig: "[i:FargowiltasSouls/BerserkerSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.NeptuneShellConfig}]"
 		// SniperConfig: "[i:FargowiltasSouls/SnipersSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.SniperConfig}]"
-		// ManaFlowerConfig: "[i:FargowiltasSouls/SnipersSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.ManaFlowerConfig}]"
+		// ManaFlowerConfig: "[i:FargowiltasSouls/ArchWizardsSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.ManaFlowerConfig}]"
 		// UniverseConfig: "[i:FargowiltasSouls/UniverseSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.UniverseConfig}]"
 		// WorldShaperHeader: "[i:FargowiltasSouls/WorldShaperSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WorldShaperHeader}]"
 		// MiningHuntConfig: "[i:FargowiltasSouls/MinerEnchant][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MiningHuntConfig}]"

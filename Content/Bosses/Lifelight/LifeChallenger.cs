@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
         private double rotspeed = 0;
 
-        private double rot = 0;
+        public double rot = 0;
 
         private bool HitPlayer = false;
 
@@ -914,7 +914,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         {
             ref float P1AI_Timer = ref NPC.ai[2];
             ref float SubAttack = ref NPC.localAI[1];
-            
+            Player player = Main.player[NPC.target];
+
 
             Charging = false;
             Flying = false;
@@ -975,7 +976,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     for (int i = 0; i < MineAmount; i++)
                     {
                         float rotation = (i / 64f) * MathHelper.TwoPi;
-                        float distance = Main.rand.Next(1200);
+                        float distance = Main.rand.NextFloat(NPC.width / 3f, 1200);
                         Vector2 pos = NPC.Center + (rotation.ToRotationVector2() * distance);
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<LifeTransitionBomb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, pos.X, pos.Y);
                     }
@@ -1002,7 +1003,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 if (AI_Timer == 240f)
                 {
                     
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, LockVector1.ToRotation());
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, -1, LockVector1.ToRotation());
                 }
             }
             
@@ -1010,37 +1011,45 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             {
                 ref float RandomDistance = ref NPC.ai[0];
                 ref float LaserTimer = ref NPC.localAI[2];
-                //ref float RotationDirection = ref NPC.localAI[0];
+                ref float RotationDirection = ref NPC.localAI[0];
 
                 Player Player = Main.player[NPC.target];
                 NPC.velocity *= 0.9f;
-
                 NPC.dontTakeDamage = true;
+                HitPlayer = true;
+
+                //for a starting time, make it fade in, then make it spin faster and faster up to a max speed
+                const int fadeintime = 10;
+                const int endTime = 850;
+
                 if (AttackF1)
                 {
                     AttackF1 = false;
+
                     
+
                     //SoundEngine.PlaySound(SoundID.Zombie104 with { Volume = 0.5f }, NPC.Center);
                     SoundEngine.PlaySound(SoundID.Zombie104 with { Volume = 0.5f}, NPC.Center);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, LockVector1,
+                                        ModContent.ProjectileType<LifeChalDeathray>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI, endTime);
+                    }
                     NPC.velocity.X = 0;
                     NPC.velocity.Y = 0;
                     Flying = false;
-                    
-                    //RotationDirection = Main.rand.NextBool() ? 1 : -1;
+
+                    float pyramidRot = LockVector1.RotatedBy(rot).ToRotation();
+                    Vector2 PV = NPC.DirectionTo(player.Center);
+                    Vector2 LV = pyramidRot.ToRotationVector2();
+                    float anglediff = (float)(Math.Atan2(PV.Y * LV.X - PV.X * LV.Y, LV.X * PV.X + LV.Y * PV.Y)); //real
+                    RotationDirection = Math.Sign(anglediff);
+
+
                     NPC.netUpdate = true;
                     rotspeed = 0;
                     rot = 0;
                 }
-
-                //for a starting time, make it fade in, then make it spin faster and faster up to a max speed
-                int fadeintime = 10;
-                if (Main.netMode != NetmodeID.MultiplayerClient && LaserTimer < fadeintime)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, LockVector1,
-                                    ModContent.ProjectileType<LifeChalDeathray>(), 0, 0f, Main.myPlayer, 0, NPC.whoAmI);
-                }
-
-                int endTime = 850;
 
                 if (Main.netMode != NetmodeID.MultiplayerClient && LaserTimer >= fadeintime)
                 {
@@ -1052,11 +1061,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     {
                         rotspeed = 0.82f;
                     }
-                    rot += MathHelper.Pi / 180 * rotspeed;
-                    Vector2 rotV = LockVector1.RotatedBy(rot);
-                    int rayDamage = FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, WorldSavingSystem.MasochistModeReal ? 4f : 1.5f);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, rotV,
-                        ModContent.ProjectileType<LifeChalDeathray>(), rayDamage, 0f, Main.myPlayer, 0, NPC.whoAmI);
+                    rot += RotationDirection * MathHelper.Pi / 180 * rotspeed;
                     //randomly make Scar obstacles at specific points, obstacles have Projectile.ai[1] = LaserTimer
                     /*
                     if (LaserTimer % 8 == 0 && Main.netMode != NetmodeID.MultiplayerClient && rotspeed > 0.82f)
@@ -1106,9 +1111,9 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     P1state = 0;
                     DoAura = WorldSavingSystem.MasochistModeReal;
                     PhaseOne = false;
+                    HitPlayer = false;
                     NPC.netUpdate = true;
                     NPC.TargetClosest(true);
-                    NPC.netUpdate = true;
                     AttackF1 = true;
                     AI_Timer = 0f;
                     NPC.ai[2] = 0f;
