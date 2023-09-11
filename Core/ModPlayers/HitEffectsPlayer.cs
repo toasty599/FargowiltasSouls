@@ -35,33 +35,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     modifiers.SetCrit();
             }
 
-            if (apprenticeBonusDamage)
-            {
-                if (ShadowForce)
-                {
-                    modifiers.FinalDamage *= 2.5f;
-                }
-                else
-                {
-                    modifiers.FinalDamage *= 1.5f;
-                }
-
-                apprenticeBonusDamage = false;
-                apprenticeSwitchReady = false;
-                ApprenticeCD = 0;
-
-                //dust
-                int dustId = Dust.NewDust(new Vector2(proj.position.X, proj.position.Y + 2f), proj.width, proj.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
-                Main.dust[dustId].noGravity = true;
-
-                modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
-                {
-                    var blastDamage = hitInfo.Damage;
-                    if (!TerrariaSoul)
-                        blastDamage = Math.Min(blastDamage, FargoSoulsUtil.HighestDamageTypeScaling(Player, 300));
-                    Projectile.NewProjectile(Player.GetSource_Misc(""), target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, blastDamage, 0, Player.whoAmI);
-                };
-            }
+            
             /*
             if (Hexed || (ReverseManaFlow && proj.CountsAsClass(DamageClass.Magic)))
             {

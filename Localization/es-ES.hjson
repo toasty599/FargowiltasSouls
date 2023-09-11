@@ -1931,8 +1931,10 @@ Mods: {
 				// DisplayName: Apprentice Enchantment
 				/* Tooltip:
 					'''
-					After attacking for 2 seconds you will be enveloped in flames
-					Switching weapons will increase the next attack's damage by 50% and spawn an inferno
+					While attacking, fire your next closest weapon's projectile as support
+					The support weapon will fire 1/4 as often as they would normally and deal 1/2 damage
+					Only works on hotbar weapons
+					Consumables are consumed, mana is spent, and ammo is selected
 					Flameburst field of view and range are dramatically increased
 					'A long way to perfection'
 					''' */
@@ -2049,10 +2051,8 @@ Mods: {
 				// DisplayName: Dark Artist Enchantment
 				/* Tooltip:
 					'''
-					Summons a Flameburst minion that will travel to your mouse after charging up
-					It will then act as a sentry
-					After attacking for 2 seconds you will be enveloped in flames
-					Switching weapons will increase the next attack's damage by 50% and spawn an inferno
+					While attacking, fire your next 2 closest weapon's projectiles as support
+					Summons a Flameburst minion that will also fire while you attack
 					Greatly enhances Flameburst effectiveness
 					'The shadows hold more than they seem'
 					''' */

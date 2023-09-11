@@ -23,6 +23,7 @@ using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
+using Terraria.DataStructures;
 using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Core.ModPlayers
@@ -250,46 +251,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public void DarkArtistEffect(bool hideVisual)
-        {
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] == 0)
-            {
-                DarkArtistSpawn = true;
-                //DarkSpawnCD = 60;
-            }
-
-            ApprenticeEnchantActive = true;
-            DarkArtistEnchantActive = true;
-
-            //int maxTowers = 3;
-
-            //if (TerrariaSoul)
-            //{
-            //    maxTowers = 5;
-            //}
-            //else if (ShadowForce)
-            //{
-            //    maxTowers = 4;
-            //}
-
-            //spawn tower boi
-            if (Player.whoAmI == Main.myPlayer && DarkArtistSpawn && DarkArtistSpawnCD <= 0 && Player.GetToggleValue("DarkArt"))
-            //&& Player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] < maxTowers)
-            {
-                Projectile proj = Projectile.NewProjectileDirect(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, Player.whoAmI);
-                proj.netUpdate = true; // TODO make this proj sync meme
-
-                DarkArtistSpawn = false;
-                DarkArtistSpawnCD = 60;
-            }
-
-            if (DarkArtistSpawnCD > 0)
-            {
-                DarkArtistSpawnCD--;
-            }
-
-
-        }
+        
 
         public void ForbiddenEffect()
         {
@@ -1483,72 +1445,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-
-
-
-
-
-
-        private int apprenticePrevItem = -1;
-        private bool apprenticeSwitchReady = false;
-        private bool apprenticeBonusDamage = false;
-
-        public void ApprenticeEffect()
-        {
-            //shadow shoot meme
-            if (Player.GetToggleValue("Apprentice") && Player.controlUseItem)
-            {
-                Item heldItem = Player.HeldItem;
-
-                //must hold for so long then switch bonus is active
-                if (heldItem.type == apprenticePrevItem)
-                {
-                    ApprenticeCD++;
-
-                    if (ApprenticeCD > 120)
-                    {
-                        apprenticeSwitchReady = true;
-
-                        //dust
-                        int dustId = Dust.NewDust(new Vector2(Player.position.X, Player.position.Y + 2f), Player.width, Player.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
-                        Main.dust[dustId].noGravity = true;
-                    }
-                }
-                else if (apprenticeSwitchReady && heldItem.type != apprenticePrevItem)
-                {
-                    apprenticeBonusDamage = true;
-                }
-
-                apprenticePrevItem = heldItem.type;
-
-                //if (apprenticeCD == 0 && heldItem.damage > 0 && Player.controlUseItem && Player.itemAnimation != 0 && prevPosition != null && heldItem.type != ItemID.ExplosiveBunny && heldItem.type != ItemID.Cannonball
-                //&& heldItem.createTile == -1 && heldItem.createWall == -1 && heldItem.ammo == AmmoID.None)
-                //{
-                //    if (prevPosition != null)
-                //    {
-                //        Vector2 vel = (Main.MouseWorld - prevPosition).SafeNormalize(-Vector2.UnitY) * 15;
-
-                //        Projectile.NewProjectile(prevPosition, vel, ProjectileID.DD2FlameBurstTowerT3Shot, HighestDamageTypeScaling(heldItem.damage / 2), 1, Player.whoAmI);
-
-                //        for (int i = 0; i < 5; i++)
-                //        {
-                //            int dustId = Dust.NewDust(new Vector2(prevPosition.X, prevPosition.Y + 2f), Player.width, Player.height + 5, DustID.Shadowflame, 0, 0, 100, Color.Black, 2f);
-                //            Main.dust[dustId].noGravity = true;
-                //        }
-                //    }
-
-                //    prevPosition = Player.position;
-                //    apprenticeCD = 20;
-                //}
-
-                //if (apprenticeCD > 0)
-                //{
-                //    apprenticeCD--;
-                //}
-            }
-        }
-
-
+        public int[] ApprenticeItemCDs = new int[10];
 
 
         public void MonkEffect()
