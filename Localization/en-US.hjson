@@ -2051,7 +2051,7 @@ Mods: {
 				DisplayName: Dark Artist Enchantment
 				Tooltip:
 					'''
-					While attacking, fire your next 2 closest weapon's projectiles as support
+					While attacking, fire your next 2 closest weapons' projectiles as support
 					Summons a Flameburst minion that will also fire while you attack
 					Greatly enhances Flameburst effectiveness
 					'The shadows hold more than they seem'
@@ -2737,8 +2737,8 @@ Mods: {
 					[i:FargowiltasSouls/SpookyEnchant] All of your minions gain an extra scythe attack
 					[i:FargowiltasSouls/MonkEnchant] Don't attack to gain a single use monk dash
 					[i:FargowiltasSouls/ShinobiEnchant] Dash into any walls, to teleport through them to the next opening
-					[i:FargowiltasSouls/ApprenticeEnchant] The next 2 weapons in your hotbar fire their projectiles when you attack
-					[i:FargowiltasSouls/DarkArtistEnchant] Summons a Flameburst minion that attacks while you're attacking
+					[i:FargowiltasSouls/ApprenticeEnchant] While attacking, fire your next 2 closest weapons' projectiles as support
+					[i:FargowiltasSouls/DarkArtistEnchant] Summons a Flameburst minion that will also fire when you attack
 					'Dark, Darker, Yet Darker'
 					'''
 			}
