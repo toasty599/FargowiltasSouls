@@ -376,7 +376,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void AI()
         {
             //Defaults
-            NPC.noTileCollide = Phase == 2 || WorldSavingSystem.MasochistModeReal || Collision.SolidCollision(NPC.Center, 1, 1) || !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height); //no tile collide in p2, tile collide in p1 except if in tiles, or if obstructed
+            NPC.noTileCollide = 
+                Phase == 2 || 
+                WorldSavingSystem.MasochistModeReal || 
+                Collision.SolidCollision(NPC.position + NPC.Size / 10, (int)(NPC.width * 0.9f), (int)(NPC.height * 0.9f)) || 
+                !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height); 
+            //no tile collide in p2, tile collide in p1 except if in tiles, or if obstructed
+
             NPC.defense = NPC.defDefense;
             NPC.direction = NPC.spriteDirection = NPC.rotation.ToRotationVector2().X > 0 ? 1 : -1;
 
@@ -645,7 +651,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     {
                         if (tile.LiquidType == LiquidID.Water)
                         {
-                            tile.Clear(TileDataType.Liquid);
+                            tile.LiquidAmount = 0;
                             CombatText.NewText(NPC.Hitbox, Color.Blue, "slurp");
                             if (Main.netMode == NetmodeID.Server)
                             {
@@ -880,10 +886,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 float baseSpeed = 45;
                 float extraSpeed = (float)Math.Sqrt((player.Center - NPC.Center).Length()) / 1.5f;
 
-                NPC.velocity = NPC.rotation.ToRotationVector2() * (baseSpeed + extraSpeed) * (WorldSavingSystem.MasochistModeReal ? 0.5f : 1); //it's WAY too fast in maso otherwise, because no water slowdown
+                NPC.velocity = NPC.rotation.ToRotationVector2() * (baseSpeed + extraSpeed);
+                
             }
             if (Timer > 90 + ReactionTime)
             {
+                if (NPC.noTileCollide) //dash same speed if collision is off
+                {
+                    NPC.position -= NPC.velocity / 2;
+                }
                 NPC.dontTakeDamage = false; //here too for safety
                 NPC.velocity *= 0.975f;
 
