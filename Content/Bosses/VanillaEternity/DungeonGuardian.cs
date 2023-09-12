@@ -5,10 +5,8 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.Champions.Shadow;
@@ -18,7 +16,7 @@ using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
-    public class DungeonGuardian : EModeNPCBehaviour
+	public class DungeonGuardian : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DungeonGuardian);
 

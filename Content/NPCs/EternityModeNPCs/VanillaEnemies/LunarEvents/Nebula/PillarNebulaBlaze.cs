@@ -1,17 +1,12 @@
 using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
-using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Nebula
 {
-    public class PillarNebulaBlaze : CosmosNebulaBlaze
+	public class PillarNebulaBlaze : CosmosNebulaBlaze
     {
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {

@@ -1,16 +1,13 @@
-﻿using FargowiltasSouls.Content.Bosses.DeviBoss;
-using FargowiltasSouls.Content.Bosses.Lifelight;
-using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Bosses.Lifelight;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
-using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.BossBags
 {
-    public class LifelightBag : BossBag
+	public class LifelightBag : BossBag
     {
         protected override bool IsPreHMBag => false;
 

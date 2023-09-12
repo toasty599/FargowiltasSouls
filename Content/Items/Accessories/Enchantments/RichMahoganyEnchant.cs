@@ -2,11 +2,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class RichMahoganyEnchant : BaseEnchant
+	public class RichMahoganyEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

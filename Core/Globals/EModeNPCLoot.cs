@@ -1,13 +1,10 @@
-﻿using FargowiltasSouls.Content.Bosses.AbomBoss;
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Pets;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -15,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Globals
 {
-    public partial class EModeNPCLoot : GlobalNPC
+	public partial class EModeNPCLoot : GlobalNPC
     {
         #region NPC Lists
         static List<int> EvilCritters = new List<int>

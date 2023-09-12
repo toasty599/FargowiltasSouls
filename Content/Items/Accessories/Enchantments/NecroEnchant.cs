@@ -3,12 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class NecroEnchant : BaseEnchant
+	public class NecroEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

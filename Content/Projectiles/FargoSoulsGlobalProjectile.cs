@@ -19,17 +19,14 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
-    public class FargoSoulsGlobalProjectile : GlobalProjectile
+	public class FargoSoulsGlobalProjectile : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
 
@@ -200,6 +197,15 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
             }
 
+            if (modPlayer.NinjaEnchantItem != null
+                && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true)
+                && projectile.type != ProjectileID.WireKite
+                && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>()
+                && !projectile.minion)
+            {
+                NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
+            }
+
             switch (projectile.type)
             {
                 case ProjectileID.SpiritHeal:
@@ -335,7 +341,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
 
                 //AdamModifier = modPlayer.EarthForce ? 3 : 2;
-                AdamModifier = 1;
+                AdamModifier = modPlayer.EarthForce ? 3 : 2;
             }
 
             if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)
@@ -564,12 +570,12 @@ namespace FargowiltasSouls.Content.Projectiles
                 {
 
                 }
-
+                /*
                 if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && projectile.type != ProjectileID.WireKite && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>())
                 {
-                    NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
+                    projectile.velocity *= NinjaSpeedup;
                 }
-
+                */
                 if (projectile.type == ProjectileID.ShadowBeamHostile)
                 {
                     if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<DeviBoss>())
@@ -833,8 +839,10 @@ namespace FargowiltasSouls.Content.Projectiles
                     split = FargoSoulsUtil.NewProjectileDirectSafe(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, (int)(projectile.damage * damageRatio), projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
                     if (split != null)
                     {
+                        split.ai[2] = projectile.ai[2];
                         split.localAI[0] = projectile.localAI[0];
                         split.localAI[1] = projectile.localAI[1];
+                        split.localAI[2] = projectile.localAI[2];
 
                         split.friendly = projectile.friendly;
                         split.hostile = projectile.hostile;
@@ -1163,6 +1171,13 @@ namespace FargowiltasSouls.Content.Projectiles
             if (stormTimer > 0)
                 modifiers.FinalDamage *= Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6f : 1.3f;
 
+            if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null)
+            {
+                float maxDamageIncrease = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().ShadowForce ? 0.3f : 0.2f;
+                modifiers.FinalDamage *= 1f + (maxDamageIncrease * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 40f, 1));
+                
+            }
+
             int AccountForDefenseShred(int modifier)
             {
                 int defenseIgnored = projectile.ArmorPenetration;
@@ -1179,16 +1194,9 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (AdamModifier != 0)
             {
-                modifiers.FinalDamage /= AdamModifier;
+               //modifiers.FinalDamage /= AdamModifier;
                 // TODO: maybe use defense here
-                modifiers.FinalDamage.Flat -= AccountForDefenseShred(AdamModifier);
-            }
-
-            if (NinjaSpeedup > 0)
-            {
-                modifiers.FinalDamage /= 2;
-                // TODO: maybe use defense here
-                modifiers.FinalDamage.Flat -= AccountForDefenseShred(2);
+                //modifiers.FinalDamage.Flat -= AccountForDefenseShred(AdamModifier);
             }
 
             if (noInteractionWithNPCImmunityFrames)
@@ -1210,6 +1218,12 @@ namespace FargowiltasSouls.Content.Projectiles
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
 
+            if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null)
+            {
+                const float maxKnockbackMult = 2f;
+                hit.Knockback = hit.Knockback * (maxKnockbackMult * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 60, 1f));
+
+            }
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
             {
                 target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 360);
@@ -1246,8 +1260,6 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
             }
 
-            if (NinjaSpeedup > 0)
-                ReduceIFrames(projectile, target, 2);
 
             if (AdamModifier != 0)
                 ReduceIFrames(projectile, target, Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().EarthForce ? 3 : 2);

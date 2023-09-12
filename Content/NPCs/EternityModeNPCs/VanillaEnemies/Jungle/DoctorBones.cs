@@ -1,13 +1,10 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
-using FargowiltasSouls.Core.NPCMatching;
+﻿using FargowiltasSouls.Core.NPCMatching;
 using Terraria;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
 {
-    public class DoctorBones : Shooters
+	public class DoctorBones : Shooters
     {
         public DoctorBones() : base(480, ProjectileID.Boulder, 14, 4) { }
 

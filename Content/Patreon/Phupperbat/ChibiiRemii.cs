@@ -57,8 +57,8 @@ namespace FargowiltasSouls.Content.Patreon.Phupperbat
             if (Projectile.tileCollide) //walking
             {
                 //wavedash away if too close but not if sitting
-                if (player.velocity.X == 0 && System.Math.Abs(player.Bottom.Y - Projectile.Bottom.Y) < 16 * 2
-                    && System.Math.Abs(player.Center.X - Projectile.Center.X) < 16 * (Projectile.velocity.X == 0 ? 1 : 3)
+                if (player.velocity.X == 0 && Math.Abs(player.Bottom.Y - Projectile.Bottom.Y) < 16 * 2
+                    && Math.Abs(player.Center.X - Projectile.Center.X) < 16 * (Projectile.velocity.X == 0 ? 1 : 3)
                     && sitTimer < sitTime)
                 {
                     Projectile.velocity.X += 0.1f * (Projectile.Center.X == player.Center.X ? -player.direction : Math.Sign(Projectile.Center.X - player.Center.X));
@@ -75,14 +75,14 @@ namespace FargowiltasSouls.Content.Patreon.Phupperbat
                 bool relativelyStillVertically = Projectile.velocity.Y >= 0 && Projectile.velocity.Y <= 0.8f;
                 if (relativelyStillVertically)
                 {
-                    if (System.Math.Abs(Projectile.velocity.X) < 1f)
+                    if (Math.Abs(Projectile.velocity.X) < 1f)
                     {
                         realFrameCounter = 0;
                         realFrame = 1;
                     }
                     else
                     {
-                        realFrameCounter += System.Math.Abs(Projectile.velocity.X);
+                        realFrameCounter += Math.Abs(Projectile.velocity.X);
 
                         if (++realFrameCounter > 8)
                         {

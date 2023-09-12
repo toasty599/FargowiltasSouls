@@ -1,6 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Vortex
 {
-    public class VortexVortex : ModProjectile
+	public class VortexVortex : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_578";
 

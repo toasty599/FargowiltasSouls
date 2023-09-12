@@ -960,8 +960,12 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 if (AI_Timer == 60f)
                 {
                     LockVector1 = -NPC.DirectionTo(Main.player[NPC.target].Center);
+                    if (PyramidPhase == 0)
+                    {
+                        PyramidTimer = 0;
+                    }
                     PyramidPhase = 1;
-                    PyramidTimer = 0;
+                    
                     for (int i = 0; i < 60; i++)
                     {
                         int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Gold, Scale: 1.5f);
@@ -1021,6 +1025,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 //for a starting time, make it fade in, then make it spin faster and faster up to a max speed
                 const int fadeintime = 10;
                 const int endTime = 850;
+
+                // WHY IS THIS SO HIGH.
+                //// Screenshake.
+                //if (LaserTimer > fadeintime)
+                //    player.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
 
                 if (AttackF1)
                 {
@@ -2481,9 +2490,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 AttackF1 = false;
                 NPC.netUpdate = true;
                 SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
-
+                if (PyramidPhase == 0)
+                {
+                    PyramidTimer = 0;
+                }
                 PyramidPhase = 1;
-                PyramidTimer = 0;
 
                 //invisible rune hitbox
                 for (int i = 0; i < RuneCount; i++)

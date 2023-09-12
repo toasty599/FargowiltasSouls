@@ -1,24 +1,16 @@
-using FargowiltasSouls.Content.Bosses.VanillaEternity;
-using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust;
-using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Golf;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
-using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PirateInvasion;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust
 {
-    public class StardustMinion : ModNPC
+	public class StardustMinion : ModNPC
     {
         public enum States 
         {

@@ -2,7 +2,6 @@ using System.IO;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
@@ -12,7 +11,7 @@ using System;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoon
 {
-    public class ZombieMerman : EModeNPCBehaviour
+	public class ZombieMerman : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.ZombieMerman);
 
@@ -105,7 +104,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
             {
                 if (npc.noTileCollide)
                 {
-                    npc.direction = System.Math.Sign(npc.velocity.X);
+                    npc.direction = Math.Sign(npc.velocity.X);
                     JumpTimer = 0;
                     npc.noTileCollide = Collision.SolidCollision(npc.position, npc.width, npc.height);
                     return false;

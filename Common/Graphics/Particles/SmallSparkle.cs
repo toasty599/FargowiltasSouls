@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 
 namespace FargowiltasSouls.Common.Graphics.Particles
@@ -12,8 +7,6 @@ namespace FargowiltasSouls.Common.Graphics.Particles
 	public class SmallSparkle : Particle
 	{
 		public readonly bool UseBloom;
-
-		public readonly Color BloomColor;
 
 		public static int FadeTime => 15;
 

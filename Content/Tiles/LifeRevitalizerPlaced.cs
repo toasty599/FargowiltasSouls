@@ -2,7 +2,6 @@ using FargowiltasSouls.Content.Items.Placables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -10,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace FargowiltasSouls.Content.Tiles
 {
-    public class LifeRevitalizerPlaced : ModTile
+	public class LifeRevitalizerPlaced : ModTile
     {
         public override void SetStaticDefaults()
         {

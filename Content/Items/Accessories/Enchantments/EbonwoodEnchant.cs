@@ -1,19 +1,15 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class EbonwoodEnchant : BaseEnchant
+	public class EbonwoodEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

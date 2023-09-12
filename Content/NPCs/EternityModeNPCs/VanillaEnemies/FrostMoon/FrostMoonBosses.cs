@@ -1,13 +1,11 @@
 ﻿using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 using Terraria;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoon
 {
-    public class FrostMoonBosses : EModeNPCBehaviour
+	public class FrostMoonBosses : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
             NPCID.Everscream,

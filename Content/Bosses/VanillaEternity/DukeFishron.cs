@@ -1,17 +1,13 @@
 using System.IO;
 using Terraria.ModLoader.IO;
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items.Consumables;
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Projectiles;
@@ -23,7 +19,7 @@ using FargowiltasSouls.Core.NPCMatching;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
-    public class DukeFishron : EModeNPCBehaviour
+	public class DukeFishron : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DukeFishron);
 

@@ -1,19 +1,14 @@
-﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Core.Systems;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using FargowiltasSouls.Core.Systems;
 using System;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
 
-    public class BaronWhirlpoolBolt : ModProjectile
+	public class BaronWhirlpoolBolt : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_385";
         public override void SetStaticDefaults()

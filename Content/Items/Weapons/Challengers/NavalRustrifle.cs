@@ -1,5 +1,3 @@
-using FargowiltasSouls.Content.Projectiles.ChallengerItems;
-using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -9,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 {
-    public class NavalRustrifle : SoulsItem
+	public class NavalRustrifle : SoulsItem
     {
 
         public override void SetStaticDefaults()

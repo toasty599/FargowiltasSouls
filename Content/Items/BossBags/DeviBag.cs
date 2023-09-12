@@ -1,12 +1,11 @@
 ﻿using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Items.Materials;
-using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.BossBags
 {
-    public class DeviBag : BossBag
+	public class DeviBag : BossBag
     {
         protected override bool IsPreHMBag => true;
 

@@ -2,13 +2,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 
 using FargowiltasSouls.Content.Buffs.Souls;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class CrystalAssassinEnchant : BaseEnchant
+	public class CrystalAssassinEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

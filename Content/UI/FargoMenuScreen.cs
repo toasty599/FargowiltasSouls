@@ -3,14 +3,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Graphics.Effects;
 using FargowiltasSouls.Content.Sky;
 
 namespace FargowiltasSouls.Content.UI
 {
-    public class FargoMenuScreen : ModMenu
+	public class FargoMenuScreen : ModMenu
     {
         bool forgor = false;
         public override Asset<Texture2D> Logo => forgor ? 

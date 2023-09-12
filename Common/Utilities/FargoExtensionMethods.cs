@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Common.Utilities
 {
-    public static class FargoExtensionMethods
+	public static class FargoExtensionMethods
     {
         /// <summary>
         /// Adjusts a TooltipLine to account for prefixes. <br />

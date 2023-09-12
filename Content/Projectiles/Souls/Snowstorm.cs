@@ -4,11 +4,10 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls
 {
-    public class Snowstorm : ModProjectile
+	public class Snowstorm : ModProjectile
     {
         public override void SetStaticDefaults()
         {

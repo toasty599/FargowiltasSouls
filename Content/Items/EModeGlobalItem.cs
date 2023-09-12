@@ -1,9 +1,7 @@
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
@@ -11,7 +9,7 @@ using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Content.Items
 {
-    public class EModeGlobalItem : GlobalItem
+	public class EModeGlobalItem : GlobalItem
     {
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {

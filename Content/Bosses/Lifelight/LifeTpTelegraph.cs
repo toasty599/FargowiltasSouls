@@ -1,17 +1,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
-    public class LifeTpTelegraph : ModProjectile
+	public class LifeTpTelegraph : ModProjectile
     {
         // Kills the projectile above 0, so set it to a negative value.
         public ref float Timer => ref Projectile.ai[0];

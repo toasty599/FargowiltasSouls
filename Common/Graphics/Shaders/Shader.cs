@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Graphics.Shaders;
 
 namespace FargowiltasSouls.Common.Graphics.Shaders
 {
-    /// <summary>
-    /// A wrapper class for <see cref="Effect"/> that is less restrictive than Terraria's <see cref="MiscShaderData"/>. Supports both pixel and vertex shaders.
-    /// </summary>
-    public class Shader
+	/// <summary>
+	/// A wrapper class for <see cref="Effect"/> that is less restrictive than Terraria's <see cref="MiscShaderData"/>. Supports both pixel and vertex shaders.
+	/// </summary>
+	public class Shader
     {
         public Ref<Effect> Effect
         {

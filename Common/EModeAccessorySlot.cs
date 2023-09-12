@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Patreon.ParadoxWolf;
@@ -11,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Common
 {
-    public abstract class EModeAccessorySlot : ModAccessorySlot
+	public abstract class EModeAccessorySlot : ModAccessorySlot
     {
         int[] AllowedItemExceptions = new int[] //technically these are souls so should legally go in the slot that allows souls
         {

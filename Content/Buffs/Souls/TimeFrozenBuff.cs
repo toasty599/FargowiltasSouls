@@ -5,13 +5,12 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
-    public class TimeFrozenBuff : ModBuff
+	public class TimeFrozenBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

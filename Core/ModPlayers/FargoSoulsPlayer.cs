@@ -22,11 +22,10 @@ using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
-    public partial class FargoSoulsPlayer : ModPlayer
+	public partial class FargoSoulsPlayer : ModPlayer
     {
         public ToggleBackend Toggler = new();
 
@@ -622,7 +621,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
                 {
-                    AttackSpeed *= 2;
+                    //AttackSpeed *= 2;
                 }
 
                 //modify attack speed so it rounds up

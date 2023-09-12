@@ -4,13 +4,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 using FargowiltasSouls.Content.Buffs.Souls;
-using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class ShadewoodEnchant : BaseEnchant
+	public class ShadewoodEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

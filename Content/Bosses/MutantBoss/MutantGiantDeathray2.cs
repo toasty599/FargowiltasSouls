@@ -13,13 +13,12 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantGiantDeathray2 : MutantSpecialDeathray
+	public class MutantGiantDeathray2 : MutantSpecialDeathray
     {
         public MutantGiantDeathray2() : base(600) { }
 

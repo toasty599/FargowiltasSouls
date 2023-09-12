@@ -16,18 +16,15 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
-using Terraria.ModLoader.IO;
-using FargowiltasSouls.Core.ModPlayers;
-using Terraria.Audio;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using FargowiltasSouls.Content.Items.Summons;
 
 namespace FargowiltasSouls.Core.Globals
 {
-    public class FargoSoulsGlobalNPC : GlobalNPC
+	public class FargoSoulsGlobalNPC : GlobalNPC
     {
         public override bool InstancePerEntity => true;
 
@@ -1202,6 +1199,14 @@ namespace FargowiltasSouls.Core.Globals
             if (modPlayer.WoodEnchantDiscount)
             {
                 WoodEnchant.WoodDiscount(items);
+            }
+        }
+        public override void SetupTravelShop(int[] shop, ref int nextSlot)
+        {
+            if (Main.hardMode && Main.moonPhase == 0)
+            {
+                shop[nextSlot] = ModContent.ItemType<MechLure>();
+                nextSlot++;
             }
         }
 

@@ -4,11 +4,10 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
-using FargowiltasSouls.Content.Items.Placables.MusicBoxes;
 
 namespace FargowiltasSouls.Content.Tiles.MusicBoxes
 {
-    public class StoriaMusicBoxSheet : ModTile
+	public class StoriaMusicBoxSheet : ModTile
     {
         public override void SetStaticDefaults()
         {

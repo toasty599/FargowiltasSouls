@@ -4,16 +4,13 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader.IO;
-using FargowiltasSouls.Content.Bosses.Champions;
 using FargowiltasSouls.Content.Bosses.BanishedBaron;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {
 
-    public class MechLure : SoulsItem
+	public class MechLure : SoulsItem
     {
         public override void SetStaticDefaults()
         {
@@ -36,9 +33,10 @@ namespace FargowiltasSouls.Content.Items.Summons
             Item.consumable = true;
             Item.maxStack = 20;
             Item.noUseGraphic = true;
-            Item.shoot = ModContent.ProjectileType<MechLureProjectile>();
+            Item.shoot = ProjectileType<MechLureProjectile>();
             Item.shootSpeed = 10f;
             Item.UseSound  = SoundID.Item1;
+            Item.value = Item.sellPrice(0, 2);
         }
 
         public override void AddRecipes()
@@ -55,7 +53,7 @@ namespace FargowiltasSouls.Content.Items.Summons
         public override bool CanUseItem(Player Player)
         {
             if (Player.ZoneBeach && Player.wet)
-                return !NPC.AnyNPCs(ModContent.NPCType<BanishedBaron>()) && Player.ownedProjectileCounts[Item.shoot] <= 0; //not (x or y)
+                return !NPC.AnyNPCs(NPCType<BanishedBaron>()) && Player.ownedProjectileCounts[Item.shoot] <= 0; //not (x or y)
             return false;
         }
 
@@ -82,6 +80,12 @@ namespace FargowiltasSouls.Content.Items.Summons
             }
             */
             return true;
+        }
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string text = "Can be sold by the Travelling Merchant";
+            tooltips.Add(new TooltipLine(Mod, "TooltipTravelingMerchant",
+                $"[i:{Find<ModItem>("Fargowiltas", "TravellingMerchant").Type}] [c/AAAAAA:{text}]"));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -11,7 +10,7 @@ using Terraria.ObjectData;
 
 namespace FargowiltasSouls.Content.Patreon.Sam
 {
-    public class SquidwardDoorOpen : ModTile
+	public class SquidwardDoorOpen : ModTile
     {
         public override void SetStaticDefaults()
         {

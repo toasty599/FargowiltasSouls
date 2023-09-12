@@ -3,13 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class CactusEnchant : BaseEnchant
+	public class CactusEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

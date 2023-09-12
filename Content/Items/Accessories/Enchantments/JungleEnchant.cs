@@ -1,11 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class JungleEnchant : BaseEnchant
+	public class JungleEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

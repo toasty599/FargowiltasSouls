@@ -1,13 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles;
-
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class NinjaEnchant : BaseEnchant
+	public class NinjaEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
@@ -44,16 +42,18 @@ Increases armor pen by 15
 
             if (player.GetToggleValue("NinjaSpeed"))
             {
-                const int speedIncrease = 1;
-                globalProj.NinjaSpeedup = projectile.extraUpdates + speedIncrease;
-
-                int armorPen = 15;
-                if (modPlayer.ShadowForce)
-                    armorPen *= 3;
-                if (modPlayer.TerrariaSoul)
-                    armorPen *= 2;
-
-                projectile.ArmorPenetration += armorPen;
+                /*
+                float maxSpeedIncrease = modPlayer.ShadowForce ? 0.75f : 0.5f;
+                float maxSpeedScaling = modPlayer.ShadowForce ? 20 : 15; //the highest velocity at which your projectile speed is increased
+                float speedIncrease = maxSpeedIncrease - Math.Min(player.velocity.Length() / maxSpeedScaling, maxSpeedIncrease);
+                globalProj.NinjaSpeedup = 1 + speedIncrease;
+                */
+                float maxSpeedRequired = modPlayer.ShadowForce ? 8 : 5; //the highest velocity at which your projectile speed is increased
+                if (player.velocity.Length() < maxSpeedRequired)
+                {
+                    const int speedIncrease = 1;
+                    globalProj.NinjaSpeedup = projectile.extraUpdates + speedIncrease;
+                }
             }
         }
 

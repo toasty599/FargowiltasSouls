@@ -1,9 +1,6 @@
-using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +8,7 @@ using FargowiltasSouls.Content.Items.Weapons.Challengers;
 
 namespace FargowiltasSouls.Content.PlayerDrawLayers
 {
-    public class RustrifleReload : PlayerDrawLayer
+	public class RustrifleReload : PlayerDrawLayer
     {
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().RustRifleReloading && drawInfo.drawPlayer.HeldItem.type == ModContent.ItemType<NavalRustrifle>();
         public override Position GetDefaultPosition() => new Between();

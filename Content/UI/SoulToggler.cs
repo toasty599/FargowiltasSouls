@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.UI.Elements;
-using FargowiltasSouls.Core.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ using Terraria.UI.Chat;
 
 namespace FargowiltasSouls.Content.UI
 {
-    public class SoulToggler : UIState
+	public class SoulToggler : UIState
     {
         public readonly static Regex RemoveItemTags = new(@"\[[^\[\]]*\]");
 

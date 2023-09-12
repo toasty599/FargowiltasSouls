@@ -2,11 +2,9 @@
 using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -18,12 +16,11 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Common.Graphics.Particles;
 
 namespace FargowiltasSouls
 {
-    public static partial class FargoSoulsUtil
+	public static partial class FargoSoulsUtil
     {
         public static bool WorldIsExpertOrHarder() => Main.expertMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 2);
 

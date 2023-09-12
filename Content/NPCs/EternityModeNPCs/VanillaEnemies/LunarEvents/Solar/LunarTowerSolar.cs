@@ -2,21 +2,16 @@
 using FargowiltasSouls.Core.NPCMatching;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
-using FargowiltasSouls.Content.Bosses.Lifelight;
-using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
 using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Solar
 {
-    public class LunarTowerSolar : LunarTowers
+	public class LunarTowerSolar : LunarTowers
     {
         public override int ShieldStrength
         {

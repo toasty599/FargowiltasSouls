@@ -6,12 +6,11 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 {
-    public class ShadowOrbNPC : ModNPC
+	public class ShadowOrbNPC : ModNPC
     {
         public override void SetStaticDefaults()
         {

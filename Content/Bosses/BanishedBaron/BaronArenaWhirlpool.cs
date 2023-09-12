@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +13,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
 
-    public class BaronArenaWhirlpool : ModProjectile
+	public class BaronArenaWhirlpool : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/BanishedBaron/BaronWhirlpool";
         public override void SetStaticDefaults()
@@ -214,7 +213,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 float posY = player.Center.Y + (i * Projectile.height * distancePos) + Main.rand.NextFloat(-randomPos, randomPos);
                 Vector2 pos = posX * Vector2.UnitX + posY * Vector2.UnitY;
                 Vector2 vel = (Vector2.UnitX * Side).RotatedBy(Main.rand.NextFloat(-maxRot, maxRot)) * speed;
-                Projectile.NewProjectile(Projectile.InheritSource(Projectile), pos, vel, ModContent.ProjectileType<BaronWhirlpoolBolt>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 2, -Side);
+                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), pos, vel, ModContent.ProjectileType<BaronWhirlpoolBolt>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 2, -Side);
             }
             SoundEngine.PlaySound(SoundID.Item21, Projectile.Center + (Vector2.UnitX * Side * (Projectile.width * 0.8f + WaterwallDistance)));
         }

@@ -10,7 +10,7 @@ Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
 			Adamantite: Projectiles now split into 3
-			Apprentice: No upgrade
+			Apprentice: The next 3 weapons are used instead of 1
 			AncientHallow: No upgrade
 			AncientShadow: Number of Shadow Orbs increased
 			AncientCobalt: No upgrade
@@ -24,7 +24,7 @@ Mods: {
 			Copper: Lightning damage increased, cooldown reduced
 			Crimson: No upgrade
 			CrystalAssassin: No upgrade
-			DarkArtist: No upgrade
+			DarkArtist: The next 3 weapons are used instead of 2
 			Ebonwood: Aura size increased, defense reduction increased to 30
 			Forbidden: Damage boost increased from 30 to 60%
 			Fossil: No upgrade
@@ -43,7 +43,7 @@ Mods: {
 			Mythril: Max attack speed bonus increased and lasts longer
 			Nebula: No upgrade
 			Necro: No upgrade
-			Ninja: Armor pen increased to 45
+			Ninja: Maximum damage bonus increased to 30%, maximum player speed where effect activates increased
 			Obsidian: You no longer need lava to spawn explosions or fireballs, cooldown reduced
 			Orichalcum: Increases multiplier to 4x
 			Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
@@ -2051,7 +2051,7 @@ Mods: {
 				DisplayName: Dark Artist Enchantment
 				Tooltip:
 					'''
-					While attacking, fire your next 2 closest weapon's projectiles as support
+					While attacking, fire your next 2 closest weapons' projectiles as support
 					Summons a Flameburst minion that will also fire while you attack
 					Greatly enhances Flameburst effectiveness
 					'The shadows hold more than they seem'
@@ -2263,9 +2263,8 @@ Mods: {
 				DisplayName: Ninja Enchantment
 				Tooltip:
 					'''
-					Drastically increases projectile and attack speed
-					Reduces damage to compensate for increased speed
-					Increases armor pen by 15
+					Your projectiles deal more damage the faster they're moving, up to 20%
+					Doubles projectile speed while you're moving slowly
 					'Attack faster than the eye can see'
 					'''
 			}
@@ -2732,14 +2731,14 @@ Mods: {
 					[i:FargowiltasSouls/ShadowEnchant] Four Shadow Orbs will orbit around you
 					[i:FargowiltasSouls/AncientShadowEnchant] Your attacks may inflict Darkness on enemies
 					[i:FargowiltasSouls/NecroEnchant] Slain enemies may drop a pile of bones
-					[i:FargowiltasSouls/NinjaEnchant] Drastically increases projectile and attack speed but reduces damage
+					[i:FargowiltasSouls/NinjaEnchant] Increases projectile damage based on projectile speed
+					[i:FargowiltasSouls/NinjaEnchant] Increases projectile speed while moving slowly
 					[i:FargowiltasSouls/CrystalAssassinEnchant] Throw a smoke bomb to teleport to it and gain the First Strike Buff
 					[i:FargowiltasSouls/SpookyEnchant] All of your minions gain an extra scythe attack
 					[i:FargowiltasSouls/MonkEnchant] Don't attack to gain a single use monk dash
 					[i:FargowiltasSouls/ShinobiEnchant] Dash into any walls, to teleport through them to the next opening
-					[i:FargowiltasSouls/ApprenticeEnchant] After attacking for 2 seconds you will be enveloped in flames
-					[i:FargowiltasSouls/ApprenticeEnchant] Switching weapons will increase the next attack's damage by 150%
-					[i:FargowiltasSouls/DarkArtistEnchant] Summons a Flameburst minion that will travel to your mouse after charging
+					[i:FargowiltasSouls/ApprenticeEnchant] While attacking, fire your next 2 closest weapons' projectiles as support
+					[i:FargowiltasSouls/DarkArtistEnchant] Summons a Flameburst minion that will also fire when you attack
 					'Dark, Darker, Yet Darker'
 					'''
 			}

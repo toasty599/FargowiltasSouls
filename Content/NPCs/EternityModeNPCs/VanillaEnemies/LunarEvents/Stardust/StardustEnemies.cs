@@ -1,14 +1,11 @@
-﻿using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PirateInvasion;
-using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
-using System;
-using System.Reflection;
 using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust
 {
-    public class StardustEnemies : EModeNPCBehaviour
+	public class StardustEnemies : EModeNPCBehaviour
     {
         public static int[] StardustEnemyIDs =
         {

@@ -2,7 +2,6 @@
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Misc;
-using System;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
@@ -11,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Systems
 {
-    public class RecipeSystem : ModSystem
+	public class RecipeSystem : ModSystem
     {
         public readonly static Recipe.ConsumeItemCallback IronBonusBars = (Recipe recipe, int type, ref int amount) =>
         {

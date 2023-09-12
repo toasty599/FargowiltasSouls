@@ -1,9 +1,5 @@
 using FargowiltasSouls.Common.Graphics.Particles;
-using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern;
-using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Drawing;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Solar
 {
-    public class SolarFlamePillar : ModProjectile
+	public class SolarFlamePillar : ModProjectile
     {
 
         public override void SetStaticDefaults()

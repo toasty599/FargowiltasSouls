@@ -3,11 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.BossBags
 {
-    public abstract class BossBag : SoulsItem
+	public abstract class BossBag : SoulsItem
     {
         protected abstract bool IsPreHMBag { get; }
 

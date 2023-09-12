@@ -9,31 +9,24 @@ using System.Collections.Generic;
 using Terraria.DataStructures;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
-using FargowiltasSouls.Content.Patreon.ManliestDove;
-using System.Reflection;
-using System.Linq;
 using Terraria.Audio;
 using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json.Linq;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
-using System.Diagnostics;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Projectiles;
-using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Items.Summons;
-using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
-    [AutoloadBossHead]
+	[AutoloadBossHead]
     public class BanishedBaron : ModNPC
     {
         Player player => Main.player[NPC.target];
@@ -799,36 +792,32 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             int ReactionTime = WorldSavingSystem.EternityMode ? 30 : 50;
             if (Timer == 1)
             {
-                LockVector1 = player.Center + (Vector2.UnitX * Main.rand.Next(600, 700)).RotatedByRandom(MathHelper.TwoPi);
+                LockVector1 = player.Center + (Vector2.UnitX * Main.rand.Next(500, 600)).RotatedByRandom(MathHelper.TwoPi);
                 NPC.netUpdate = true;
+            }
+            if (Timer < 90 && Timer % 5 == 0) //keep looking for valid spot every 5 ticks, even when spot is invalidated
+            {
+                bool collide = false;
+                for (float i = 0; i < 0.8f; i += 0.1f) //don't check the entire way, otherwise every spot is invalid if you're standing on ground
+                {
+                    if (Collision.SolidCollision(LockVector1 - NPC.Size / 2 + ((player.Center - LockVector1) * i), NPC.width, NPC.height)) //if can dash to player at arrival spot
+                    {
+                        collide = true;
+                        break;
+                    }
+
+                }
+                if (collide)
+                {
+                    LockVector1 = player.Center + (Vector2.UnitX * Main.rand.Next(600, 700)).RotatedByRandom(MathHelper.TwoPi); //find new spot
+                    NPC.netUpdate = true;
+                }
             }
             if (Timer < 60)
             {
                 if (NPC.buffType[0] != 0) //cleanse all buffs
                     NPC.DelBuff(0);
 
-                if (AI3 != 22) //look for valid teleport spots while readying attack
-                {
-                    bool collide = false;
-                    for (float i = 0; i < 0.8f; i += 0.1f) //don't check the entire way, otherwise every spot is invalid if you're standing on ground
-                    {
-                        if (Collision.SolidCollision(LockVector1 - NPC.Size / 2 + ((player.Center - LockVector1) * i), NPC.width, NPC.height)) //if can dash to player at arrival spot
-                        {
-                            collide = true;
-                            break;
-                        }
-                        
-                    }
-                    if (collide)
-                    {
-                        LockVector1 = player.Center + (Vector2.UnitX * Main.rand.Next(600, 700)).RotatedByRandom(MathHelper.TwoPi); //find new spot
-                        NPC.netUpdate = true;
-                    }
-                    else
-                    {
-                        AI3 = 22; //check over, valid spot located
-                    }
-                }
                 RotateTowards(player.Center, 2);
                 if (NPC.velocity.Length() < 1)
                 {
@@ -850,14 +839,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     NPC.rotation = NPC.DirectionTo(LockVector1).ToRotation();
                 }
             }
-            if (Timer > 60 && Timer < 90) //move Very Fast to "teleport" spot
+            if (Timer > 60 && Timer < 90) //gone
             {
                 if (NPC.buffType[0] != 0) //cleanse all buffs
                     NPC.DelBuff(0);
 
                 NPC.rotation = NPC.DirectionTo(LockVector1).ToRotation();
-                NPC.velocity = ((NPC.Distance(LockVector1) / 10) + 1) * NPC.rotation.ToRotationVector2();
                 NPC.noTileCollide = true;
+                NPC.Center = LockVector1;
+                NPC.netUpdate = true;
                 NPC.dontTakeDamage = true;
             }
             if (Timer == 90)
@@ -1624,10 +1614,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     AI2 = Math.Sign(arena.Center.X - player.Center.X);
                     HitPlayer = false;
                 }
-                LockVector1 = new Vector2(distance * AI2, -distance);
+                LockVector1 = new Vector2(distance * AI2, -distance * 0.7f);
 
             }
-            if (Timer < PositioningTime && NPC.Distance(player.Center + LockVector1) > 25) //don't progress time if too far away from start position
+            if (Timer < PositioningTime && NPC.Distance(player.Center + LockVector1) > 15) //don't progress time if too far away from start position
             {
                 Timer--;
             }
@@ -1664,7 +1654,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             else if (Timer < PositioningTime + WindupTime) //rotate with telegraph line
             {
-                NPC.velocity *= 0.9f;
+                NPC.velocity *= 0.8f;
                 if (Timer == PositioningTime)
                 {
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/LaserTelegraph") with { Volume = 1.25f }, NPC.Center);

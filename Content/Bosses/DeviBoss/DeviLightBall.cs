@@ -9,13 +9,12 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
-    public class DeviLightBall : LightBall, IPixelPrimitiveDrawer
+	public class DeviLightBall : LightBall, IPixelPrimitiveDrawer
     {
         public PrimDrawer TrailDrawer { get; private set; } = null;
 

@@ -9,11 +9,10 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
-using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Night
 {
-    public class DemonEyes : EModeNPCBehaviour
+	public class DemonEyes : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() =>
             new NPCMatcher().MatchTypeRange(

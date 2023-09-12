@@ -1,16 +1,14 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class AshWoodEnchant : BaseEnchant
+	public class AshWoodEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

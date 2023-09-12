@@ -1,13 +1,10 @@
-﻿using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using FargowiltasSouls.Content.Projectiles.Masomode;
+﻿using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
@@ -15,7 +12,7 @@ using FargowiltasSouls.Core.NPCMatching;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
-    public class KingSlime : EModeNPCBehaviour
+	public class KingSlime : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.KingSlime);
 

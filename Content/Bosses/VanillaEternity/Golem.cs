@@ -1,17 +1,14 @@
 using System.IO;
 using Terraria.ModLoader.IO;
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
@@ -20,7 +17,7 @@ using FargowiltasSouls.Core.NPCMatching;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
-    public abstract class GolemPart : EModeNPCBehaviour
+	public abstract class GolemPart : EModeNPCBehaviour
     {
         public int HealPerSecond;
         public int HealCounter;

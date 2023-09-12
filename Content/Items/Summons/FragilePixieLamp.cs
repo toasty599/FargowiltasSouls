@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Audio;
@@ -9,7 +8,7 @@ using FargowiltasSouls.Content.Bosses.Lifelight;
 namespace FargowiltasSouls.Content.Items.Summons
 {
 
-    public class FragilePixieLamp : SoulsItem
+	public class FragilePixieLamp : SoulsItem
     {
         public override void SetStaticDefaults()
         {
@@ -30,6 +29,7 @@ namespace FargowiltasSouls.Content.Items.Summons
             Item.consumable = true;
             Item.maxStack = 20;
             Item.noUseGraphic = false;
+            Item.value = Item.sellPrice(0, 3);
         }
 
         public override void AddRecipes()
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Items.Summons
                     SoundEngine.PlaySound(SoundID.Shatter, player.Center);
                     //shatter effect
                     for (int i = 0; i < 50; i++)
-                        Dust.NewDust(ItemCenter - Item.Size / 2, Item.width, Item.height, DustID.Glass, player.velocity.X, player.velocity.Y, 100, new Color(), 1f);
+                        Dust.NewDust(ItemCenter - Item.Size / 2, Item.width, Item.height, DustID.HallowedTorch, player.velocity.X, player.velocity.Y, 100, new Color(), 1f);
                 }
                 else
                 {

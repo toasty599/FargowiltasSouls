@@ -1,18 +1,13 @@
-﻿using FargowiltasSouls.Content.Bosses.DeviBoss;
-using FargowiltasSouls.Content.Bosses.Lifelight;
+﻿using FargowiltasSouls.Content.Bosses.Lifelight;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
-using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
-using System.Data;
-using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.BossBags
 {
-    public class BanishedBaronBag : BossBag
+	public class BanishedBaronBag : BossBag
     {
         protected override bool IsPreHMBag => false;
 

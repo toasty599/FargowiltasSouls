@@ -3,13 +3,11 @@ using FargowiltasSouls.Core.NPCMatching;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PirateInvasion
 {
-    public class PirateCaptain : EModeNPCBehaviour
+	public class PirateCaptain : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.PirateCaptain);
 
