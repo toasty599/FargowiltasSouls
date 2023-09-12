@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Core.Toggler;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls
 {
-    public class TitaniumShard : ModProjectile
+	public class TitaniumShard : ModProjectile
     {
         private readonly int shrinkTimer = 0;
         public override string Texture => "Terraria/Images/Projectile_908";

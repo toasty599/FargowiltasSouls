@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.ID;
 using FargowiltasSouls.Core.Systems;
@@ -16,7 +15,7 @@ using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantDeathray2 : MutantSpecialDeathray, IPixelPrimitiveDrawer
+	public class MutantDeathray2 : MutantSpecialDeathray, IPixelPrimitiveDrawer
     {
         public PrimDrawer LaserDrawer { get; private set; } = null;
 

@@ -2,12 +2,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class AncientCobaltEnchant : BaseEnchant
+	public class AncientCobaltEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

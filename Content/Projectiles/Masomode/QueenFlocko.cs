@@ -1,13 +1,12 @@
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class QueenFlocko : AbomFlocko
+	public class QueenFlocko : AbomFlocko
     {
         public override void SetDefaults()
         {

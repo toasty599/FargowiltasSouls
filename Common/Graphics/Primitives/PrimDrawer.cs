@@ -4,12 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
-using Terraria.Graphics.Shaders;
 
 // Lowest namespace for convenience. 
 namespace FargowiltasSouls.Common.Graphics.Primitives
 {
-    public class PrimDrawer
+	public class PrimDrawer
     {
         #region Fields/Properties
         public static BasicEffect BaseEffect;

@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Core.Toggler;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 using Terraria;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 {
-    public class CreeperGutted : ModNPC
+	public class CreeperGutted : ModNPC
     {
         public override void SetStaticDefaults()
         {

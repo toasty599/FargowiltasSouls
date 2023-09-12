@@ -5,7 +5,6 @@ using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Core.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ using Terraria.UI;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
-    public partial class FargoSoulsPlayer
+	public partial class FargoSoulsPlayer
     {
         public override void PreUpdate()
         {

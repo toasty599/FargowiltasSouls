@@ -42,18 +42,18 @@ namespace FargowiltasSouls.Core.Systems
 
             if (ShouldBeEternityMode)
             {
-                if (WorldSavingSystem.EternityMode && !FargoSoulsUtil.WorldIsExpertOrHarder())
+                if (EternityMode && !FargoSoulsUtil.WorldIsExpertOrHarder())
                 {
-                    WorldSavingSystem.EternityMode = false;
+					EternityMode = false;
                     FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.EternityWrongDifficulty", new Color(175, 75, 255));
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
                     if (!Main.dedServ)
                         SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center);
                 }
-                else if (!WorldSavingSystem.EternityMode && FargoSoulsUtil.WorldIsExpertOrHarder() && !FargoSoulsUtil.AnyBossAlive())
+                else if (!EternityMode && FargoSoulsUtil.WorldIsExpertOrHarder() && !FargoSoulsUtil.AnyBossAlive())
                 {
-                    WorldSavingSystem.EternityMode = true;
+					EternityMode = true;
                     FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.EternityOn", new Color(175, 75, 255));
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
@@ -61,9 +61,9 @@ namespace FargowiltasSouls.Core.Systems
                         SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center);
                 }
             }
-            else if (WorldSavingSystem.EternityMode)
+            else if (EternityMode)
             {
-                WorldSavingSystem.EternityMode = false;
+				EternityMode = false;
                 FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.EternityOff", new Color(175, 75, 255));
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Core.Systems
                     SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center);
             }
 
-            if (WorldSavingSystem.EternityMode)
+            if (EternityMode)
             {
                 //NPC.LunarShieldPowerMax = 25;
 
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Core.Systems
                     }
                 }
 
-                if (!MasochistModeReal && WorldSavingSystem.EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso && !FargoSoulsUtil.AnyBossAlive())
+                if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso && !FargoSoulsUtil.AnyBossAlive())
                 {
                     MasochistModeReal = true;
                     FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.MasochistOn", new Color(51, 255, 191, 0));
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Core.Systems
                 }
             }
 
-            if (MasochistModeReal && !(WorldSavingSystem.EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso))
+            if (MasochistModeReal && !(EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso))
             {
                 MasochistModeReal = false;
                 FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.MasochistOff", new Color(51, 255, 191, 0));

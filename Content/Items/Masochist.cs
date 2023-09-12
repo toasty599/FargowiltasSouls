@@ -6,14 +6,13 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Creative;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items
 {
-    public class Masochist : SoulsItem
+	public class Masochist : SoulsItem
     {
         public override string Texture => "FargowiltasSouls/Content/Items/Placeholder";
 

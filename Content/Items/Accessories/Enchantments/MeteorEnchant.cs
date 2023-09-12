@@ -3,12 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class MeteorEnchant : BaseEnchant
+	public class MeteorEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

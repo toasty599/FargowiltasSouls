@@ -1,12 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class MoltenEnchant : BaseEnchant
+	public class MoltenEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

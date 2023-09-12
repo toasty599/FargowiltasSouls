@@ -1,9 +1,6 @@
 using FargowiltasSouls.Common.Graphics.Particles;
-using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
-using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -12,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 {
-    public class RoseTintedVisor : SoulsItem
+	public class RoseTintedVisor : SoulsItem
     {
 
         public override void SetStaticDefaults()

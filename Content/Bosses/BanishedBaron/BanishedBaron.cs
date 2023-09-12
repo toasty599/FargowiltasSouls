@@ -9,31 +9,24 @@ using System.Collections.Generic;
 using Terraria.DataStructures;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
-using FargowiltasSouls.Content.Patreon.ManliestDove;
-using System.Reflection;
-using System.Linq;
 using Terraria.Audio;
 using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json.Linq;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
-using System.Diagnostics;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Projectiles;
-using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Items.Summons;
-using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
-    [AutoloadBossHead]
+	[AutoloadBossHead]
     public class BanishedBaron : ModNPC
     {
         Player player => Main.player[NPC.target];

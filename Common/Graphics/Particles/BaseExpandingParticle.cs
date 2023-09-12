@@ -12,8 +12,6 @@ namespace FargowiltasSouls.Common.Graphics.Particles
 
 		public readonly bool UseBloom;
 
-		public readonly Color BloomColor;
-
 		public override Texture2D MainTexture => CommonBloomTexture;
 
 		/// <summary>

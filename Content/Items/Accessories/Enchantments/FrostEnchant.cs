@@ -2,11 +2,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class FrostEnchant : BaseEnchant
+	public class FrostEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

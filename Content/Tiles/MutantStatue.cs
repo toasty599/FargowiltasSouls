@@ -1,13 +1,12 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
 namespace FargowiltasSouls.Content.Tiles
 {
-    public class MutantStatue : ModTile
+	public class MutantStatue : ModTile
     {
         public override void SetStaticDefaults()
         {

@@ -2,11 +2,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    [AutoloadEquip(EquipType.Shield)]
+	[AutoloadEquip(EquipType.Shield)]
     public class SilverEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()

@@ -2,15 +2,11 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
-    public class LifeTransitionBomb : LifeBomb
+	public class LifeTransitionBomb : LifeBomb
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/Lifelight/LifeBomb";
 

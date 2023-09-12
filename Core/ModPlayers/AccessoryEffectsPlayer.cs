@@ -11,7 +11,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
 using Terraria.Graphics.Capture;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
@@ -21,14 +20,12 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
-using Terraria.DataStructures;
 using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
-    public partial class FargoSoulsPlayer
+	public partial class FargoSoulsPlayer
     {
         public void BeeEffect(bool hideVisual)
         {

@@ -1,6 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
-    public class FlameburstMinion : ModProjectile
+	public class FlameburstMinion : ModProjectile
     {
         public override void SetStaticDefaults()
         {

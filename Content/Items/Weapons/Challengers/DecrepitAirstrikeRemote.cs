@@ -1,17 +1,14 @@
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
-using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 {
-    public class DecrepitAirstrikeRemote : SoulsItem
+	public class DecrepitAirstrikeRemote : SoulsItem
     {
 
         public override void SetStaticDefaults()

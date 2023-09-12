@@ -1,7 +1,6 @@
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
@@ -12,12 +11,10 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
-    public class EModePlayer : ModPlayer
+	public class EModePlayer : ModPlayer
     {
         public int MasomodeCrystalTimer;
         public int MasomodeFreezeTimer;

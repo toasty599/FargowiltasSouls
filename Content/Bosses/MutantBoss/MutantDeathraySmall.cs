@@ -7,12 +7,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantDeathraySmall : BaseDeathray, IPixelPrimitiveDrawer
+	public class MutantDeathraySmall : BaseDeathray, IPixelPrimitiveDrawer
     {
         public PrimDrawer LaserDrawer { get; private set; } = null;
 

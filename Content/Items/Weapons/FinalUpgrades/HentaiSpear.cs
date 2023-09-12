@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Materials;
@@ -13,7 +12,7 @@ using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
 {
-    public class HentaiSpear : SoulsItem
+	public class HentaiSpear : SoulsItem
     {
         public override void SetStaticDefaults()
         {

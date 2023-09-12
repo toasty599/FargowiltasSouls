@@ -11,14 +11,13 @@ using System.IO;
 using System;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Common.Graphics.Primitives;
-using FargowiltasSouls.Assets.ExtraTextures;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
-    /// <summary>
-    /// ai0 determines the rotation, ai1 the cone width, ai2 the length
-    /// </summary>
-    public class ArcTelegraph : ModProjectile
+	/// <summary>
+	/// ai0 determines the rotation, ai1 the cone width, ai2 the length
+	/// </summary>
+	public class ArcTelegraph : ModProjectile
     {
         public PrimDrawer TelegraphDrawer
         {

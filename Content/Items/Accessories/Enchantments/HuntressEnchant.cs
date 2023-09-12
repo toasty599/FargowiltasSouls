@@ -3,11 +3,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class HuntressEnchant : BaseEnchant
+	public class HuntressEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

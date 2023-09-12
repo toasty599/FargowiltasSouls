@@ -4,13 +4,12 @@ using FargowiltasSouls.Common.Graphics.Shaders;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
-    public class DeviLostSoul : ModProjectile, IPixelPrimitiveDrawer
+	public class DeviLostSoul : ModProjectile, IPixelPrimitiveDrawer
     {
         public PrimDrawer TrailDrawer { get; private set; } = null;
 

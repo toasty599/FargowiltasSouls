@@ -2,12 +2,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class CobaltEnchant : BaseEnchant
+	public class CobaltEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

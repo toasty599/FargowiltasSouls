@@ -1,20 +1,18 @@
 ﻿using System;
 using FargowiltasSouls.Assets.ExtraTextures;
-using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Common.Graphics.Primitives;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
-    public class LifeRuneHitbox : ModProjectile, IPixelPrimitiveDrawer
+	public class LifeRuneHitbox : ModProjectile, IPixelPrimitiveDrawer
     {
 
         public PrimDrawer TrailDrawer { get; private set; } = null;

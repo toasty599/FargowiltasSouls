@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
@@ -12,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 {
-    public class GelatinSlime : ModNPC
+	public class GelatinSlime : ModNPC
     {
         public override string Texture => "Terraria/Images/NPC_658";
 

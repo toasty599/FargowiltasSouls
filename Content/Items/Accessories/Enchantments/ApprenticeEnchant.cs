@@ -1,12 +1,10 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Forces;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class ApprenticeEnchant : BaseEnchant
+	public class ApprenticeEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

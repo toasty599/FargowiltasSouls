@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Color = Microsoft.Xna.Framework.Color;
@@ -9,7 +8,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 {
-    public class BaronTuskShrapnel : ModProjectile
+	public class BaronTuskShrapnel : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/BanishedBaron/BaronShrapnel";
         public override void SetStaticDefaults()

@@ -1,5 +1,3 @@
-
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -9,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
-    public class PrismaRegalia : SoulsItem
+	public class PrismaRegalia : SoulsItem
     {
 
         public override void SetStaticDefaults()

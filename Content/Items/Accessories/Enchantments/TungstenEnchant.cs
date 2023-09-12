@@ -3,14 +3,13 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles;
 
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class TungstenEnchant : BaseEnchant
+	public class TungstenEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

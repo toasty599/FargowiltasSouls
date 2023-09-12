@@ -1,15 +1,11 @@
-﻿using FargowiltasSouls.Core.ItemDropRules.Conditions;
-using Terraria;
-using Terraria.GameContent.ItemDropRules;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
 {
-    public class Tim : Teleporters
+	public class Tim : Teleporters
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Tim);
 

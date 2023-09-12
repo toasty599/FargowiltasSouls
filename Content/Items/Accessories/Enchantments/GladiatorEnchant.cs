@@ -4,12 +4,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class GladiatorEnchant : BaseEnchant
+	public class GladiatorEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

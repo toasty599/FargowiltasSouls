@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Core.Toggler;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls
 {
-    public class ShadowEnchantOrb : ModProjectile
+	public class ShadowEnchantOrb : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_18";
         readonly int invisTimer = 0;

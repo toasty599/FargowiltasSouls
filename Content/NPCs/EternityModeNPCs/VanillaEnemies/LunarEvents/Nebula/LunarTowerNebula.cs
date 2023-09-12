@@ -8,12 +8,11 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Linq;
 using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Nebula
 {
-    public class LunarTowerNebula : LunarTowers
+	public class LunarTowerNebula : LunarTowers
     {
         public override int ShieldStrength
         {
