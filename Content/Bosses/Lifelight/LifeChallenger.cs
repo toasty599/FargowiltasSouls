@@ -960,8 +960,12 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 if (AI_Timer == 60f)
                 {
                     LockVector1 = -NPC.DirectionTo(Main.player[NPC.target].Center);
+                    if (PyramidPhase == 0)
+                    {
+                        PyramidTimer = 0;
+                    }
                     PyramidPhase = 1;
-                    PyramidTimer = 0;
+                    
                     for (int i = 0; i < 60; i++)
                     {
                         int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Gold, Scale: 1.5f);
@@ -2481,9 +2485,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 AttackF1 = false;
                 NPC.netUpdate = true;
                 SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
-
+                if (PyramidPhase == 0)
+                {
+                    PyramidTimer = 0;
+                }
                 PyramidPhase = 1;
-                PyramidTimer = 0;
 
                 //invisible rune hitbox
                 for (int i = 0; i < RuneCount; i++)

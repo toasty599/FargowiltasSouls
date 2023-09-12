@@ -202,7 +202,11 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
             }
 
-            if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && projectile.type != ProjectileID.WireKite && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>())
+            if (modPlayer.NinjaEnchantItem != null
+                && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true)
+                && projectile.type != ProjectileID.WireKite
+                && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>()
+                && !projectile.minion)
             {
                 NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
             }
