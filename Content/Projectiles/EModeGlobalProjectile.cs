@@ -1274,7 +1274,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     modifiers.SourceDamage = modifiers.SourceDamage * 0.5f;
                     break;
                 case ProjectileID.PlatinumCoin:
-                    modifiers.SourceDamage = modifiers.SourceDamage * 0.2f;
+                    modifiers.SourceDamage = modifiers.SourceDamage * 0.275f;
                     break;
             }
             //if (projectile.arrow) //change archery and quiver to additive damage

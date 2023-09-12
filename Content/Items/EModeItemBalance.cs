@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Content.Items
                     return EModeChange.Nerf;
                 case ItemID.PlatinumCoin:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.2f;
+                    balanceNumber = 0.275f;
                     return EModeChange.Nerf;
 
                 //case ItemID.EmpressBlade:
