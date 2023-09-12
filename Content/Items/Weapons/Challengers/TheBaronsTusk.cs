@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Bosses.BanishedBaron;
-using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+﻿using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -7,11 +6,10 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static tModPorter.ProgressUpdate;
 
 namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 {
-    public class TheBaronsTusk : SoulsItem
+	public class TheBaronsTusk : SoulsItem
     {
         public override void SetStaticDefaults()
         {

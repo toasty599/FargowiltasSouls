@@ -19,19 +19,14 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using static Terraria.ModLoader.PlayerDrawLayer;
-using FargowiltasSouls.Core.ModPlayers;
-using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
-    public class FargoSoulsGlobalProjectile : GlobalProjectile
+	public class FargoSoulsGlobalProjectile : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
 

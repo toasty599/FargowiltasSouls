@@ -1,12 +1,11 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
-    public class CosmoForce : BaseForce
+	public class CosmoForce : BaseForce
     {
         public static int[] Enchants => new int[]
         {

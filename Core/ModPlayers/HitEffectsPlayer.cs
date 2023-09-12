@@ -12,17 +12,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using FargowiltasSouls.Content.Items.Armor;
-using Terraria.DataStructures;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
-using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
-    public partial class FargoSoulsPlayer
+	public partial class FargoSoulsPlayer
     {
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {

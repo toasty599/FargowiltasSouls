@@ -1,35 +1,9 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
-using FargowiltasSouls.Content.Items.Accessories.Forces;
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
-using FargowiltasSouls.Content.Items.Accessories.Souls;
-using FargowiltasSouls.Content.Items.Armor;
-using FargowiltasSouls.Content.Items.Consumables;
-using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Content.Items.Placables;
-using FargowiltasSouls.Content.Items.Summons;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.Localization;
-using Terraria.ModLoader;
-using FargowiltasSouls.Content.Patreon.DemonKing;
-using FargowiltasSouls.Content.Patreon.LaBonez;
-using FargowiltasSouls.Content.Patreon.DevAesthetic;
-using FargowiltasSouls.Content.Patreon.GreatestKraken;
-using FargowiltasSouls.Content.Patreon.Purified;
-using FargowiltasSouls.Content.Patreon.Volknet;
-using FargowiltasSouls.Content.Patreon.Shucks;
-using FargowiltasSouls.Content.Patreon.Sam;
-using FargowiltasSouls.Content.Patreon.Daawnz;
-using FargowiltasSouls.Content.Patreon.Catsounds;
-using FargowiltasSouls.Content.Patreon.ParadoxWolf;
-using FargowiltasSouls.Content.Patreon.Sasha;
-using FargowiltasSouls.Content.Patreon.ManliestDove;
-using FargowiltasSouls.Content.Patreon.Gittle;
-using Terraria;
 
 namespace FargowiltasSouls
 {
-    public partial class FargowiltasSouls
+	public partial class FargowiltasSouls
     {
         /// <summary>
         /// Input item as string (item class name) for FargoSouls items, and as int for vanilla items.

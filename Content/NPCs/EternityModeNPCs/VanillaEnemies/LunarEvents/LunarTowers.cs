@@ -1,27 +1,19 @@
 using System.IO;
 using Terraria.ModLoader.IO;
-using Microsoft.Xna.Framework;
 using System;
 using FargowiltasSouls.Common.Utilities;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.NPCMatching;
 using System.Linq;
-using static Terraria.ModLoader.PlayerDrawLayer;
-using static Terraria.GameContent.Animations.Actions.NPCs;
 using System.Collections.Generic;
-using System.Reflection;
-using Terraria.GameContent.Golf;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents
 {
-    public abstract class LunarTowers : PillarBehaviour
+	public abstract class LunarTowers : PillarBehaviour
     {
         public abstract int ShieldStrength { get; set; }
 

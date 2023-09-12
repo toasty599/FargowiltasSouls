@@ -2,12 +2,10 @@
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
-using FargowiltasSouls.Content.Patreon.DemonKing;
-using FargowiltasSouls.Core.ItemDropRules.Conditions;
 
 namespace FargowiltasSouls.Content.Items.BossBags
 {
-    public class AbomBag : BossBag
+	public class AbomBag : BossBag
     {
         protected override bool IsPreHMBag => false;
 

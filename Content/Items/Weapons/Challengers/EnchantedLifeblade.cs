@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
-using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 {
-    public class EnchantedLifeblade : SoulsItem
+	public class EnchantedLifeblade : SoulsItem
     {
         public override void SetStaticDefaults()
         {

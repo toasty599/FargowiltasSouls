@@ -3,14 +3,12 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 using Terraria.Audio;
-using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class MythrilEnchant : BaseEnchant
+	public class MythrilEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

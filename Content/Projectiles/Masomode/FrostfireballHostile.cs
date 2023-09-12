@@ -5,13 +5,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class FrostfireballHostile : ModProjectile, IPixelPrimitiveDrawer
+	public class FrostfireballHostile : ModProjectile, IPixelPrimitiveDrawer
     {
         public PrimDrawer TrailDrawer { get; private set; } = null;
 

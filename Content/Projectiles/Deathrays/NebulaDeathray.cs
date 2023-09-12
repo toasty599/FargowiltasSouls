@@ -7,13 +7,11 @@ using System;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Deathrays
 {
-    public class NebulaDeathray : BaseDeathray, IPixelPrimitiveDrawer
+	public class NebulaDeathray : BaseDeathray, IPixelPrimitiveDrawer
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/DeviDeathray";
 

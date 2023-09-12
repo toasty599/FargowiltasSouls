@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Common.Graphics.Shaders
 {
-    public class ShaderRecompilerSystem : ModSystem
+	public class ShaderRecompilerSystem : ModSystem
     {
 		public static Queue<string> CompilingFiles
 		{
@@ -160,6 +158,7 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 				// Finally, load the new XNB's shader data into the game's managed wrappers that reference it.
 				string shaderPathInCompilerDirectory = compilerDirectory + Path.GetFileName(shaderPath);
 				File.Delete(shaderPathInCompilerDirectory);
+
 				Main.QueueMainThreadAction(() =>
 				{
 					ContentManager tempManager = new(Main.instance.Content.ServiceProvider, EffectsPath);

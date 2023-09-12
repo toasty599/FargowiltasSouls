@@ -3,11 +3,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class PumpkinEnchant : BaseEnchant
+	public class PumpkinEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

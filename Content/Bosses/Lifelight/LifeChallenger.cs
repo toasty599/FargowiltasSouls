@@ -1026,6 +1026,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 const int fadeintime = 10;
                 const int endTime = 850;
 
+                // WHY IS THIS SO HIGH.
+                //// Screenshake.
+                //if (LaserTimer > fadeintime)
+                //    player.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+
                 if (AttackF1)
                 {
                     AttackF1 = false;

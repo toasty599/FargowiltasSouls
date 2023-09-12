@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -13,7 +12,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
 
-    public class BaronEyeFlash : ModProjectile
+	public class BaronEyeFlash : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Explosion";
         public override void SetStaticDefaults()

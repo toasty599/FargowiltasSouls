@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class IronEnchant : BaseEnchant
+	public class IronEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

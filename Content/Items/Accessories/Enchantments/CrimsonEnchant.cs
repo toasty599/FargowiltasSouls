@@ -2,13 +2,12 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 using FargowiltasSouls.Content.Buffs.Souls;
 
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class CrimsonEnchant : BaseEnchant
+	public class CrimsonEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

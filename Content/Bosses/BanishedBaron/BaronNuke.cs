@@ -1,6 +1,5 @@
 ﻿using System;
 using FargowiltasSouls.Common.Graphics.Particles;
-using System.Drawing;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -15,7 +14,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
 
-    public class BaronNuke : ModProjectile
+	public class BaronNuke : ModProjectile
     {
 
         private readonly int ExplosionDiameter = WorldSavingSystem.MasochistModeReal ? 400 : 350;

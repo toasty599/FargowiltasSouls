@@ -1,6 +1,5 @@
 ﻿using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
-using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.BossBars
 {
-    public class CompositeBossBar : ModBossBar
+	public class CompositeBossBar : ModBossBar
     {
         private int bossHeadIndex = -1;
 

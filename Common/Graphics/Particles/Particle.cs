@@ -177,12 +177,17 @@ namespace FargowiltasSouls.Common.Graphics.Particles
 		public Color DrawColor;
 
 		/// <summary>
+		/// The color to draw the particle's bloom with.
+		/// </summary>
+		public Color BloomColor;
+
+		/// <summary>
 		/// The draw layer for the particle. Is the dust layer by default.
 		/// </summary>
 		public ParticleLayers Layer = ParticleLayers.Dust;
 
 		/// <summary>
-		/// The texture of the particle. By default, this is the file path of the particle plus the type name.
+		/// The texture of the particle. By default, this is the particle texture folder plus the type name.
 		/// </summary>
 		public virtual Texture2D MainTexture => ModContent.Request<Texture2D>(ParticleTexturePath + GetType().Name).Value;
 

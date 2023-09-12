@@ -10,13 +10,12 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantHeal : ModProjectile, IPixelPrimitiveDrawer
+	public class MutantHeal : ModProjectile, IPixelPrimitiveDrawer
     {
         public PrimDrawer TrailDrawer { get; private set; } = null;
 

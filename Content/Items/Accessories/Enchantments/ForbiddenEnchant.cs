@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class ForbiddenEnchant : BaseEnchant
+	public class ForbiddenEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

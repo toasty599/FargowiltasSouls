@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Core.Toggler;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
@@ -9,7 +8,7 @@ using Terraria.UI;
 
 namespace FargowiltasSouls.Content.UI.Elements
 {
-    public class UIToggle : UIElement
+	public class UIToggle : UIElement
     {
         public const int CheckboxTextSpace = 4;
 

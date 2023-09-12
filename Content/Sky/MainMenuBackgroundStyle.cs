@@ -2,12 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Sky
 {
-    public class MainMenuBackgroundStyle : ModSurfaceBackgroundStyle
+	public class MainMenuBackgroundStyle : ModSurfaceBackgroundStyle
     {
         //theres some unnecessary clutter in here but oh well
 
@@ -64,7 +63,7 @@ namespace FargowiltasSouls.Content.Sky
             {
                 color = Color.Lerp(color, (Color)specialColor, specialColorLerp);
                 if (specialColor == Color.Black)
-                    opacity = System.Math.Min(1f, opacity + System.Math.Min(intensity, lifeIntensity) * 0.5f);
+                    opacity = Math.Min(1f, opacity + Math.Min(intensity, lifeIntensity) * 0.5f);
             }
 
             return color;

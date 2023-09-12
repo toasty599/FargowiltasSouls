@@ -1,11 +1,10 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
-    public class SpiritForce : BaseForce
+	public class SpiritForce : BaseForce
     {
         public static int[] Enchants => new int[]
         {

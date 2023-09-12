@@ -8,11 +8,10 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
-using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Solar
 {
-    public class SolarEnemies : EModeNPCBehaviour
+	public class SolarEnemies : EModeNPCBehaviour
     {
         public static int[] SolarEnemyIDs =
         {

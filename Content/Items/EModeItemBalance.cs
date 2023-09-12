@@ -1,19 +1,15 @@
 ﻿using FargowiltasSouls.Core.Systems;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static FargowiltasSouls.Content.Items.EmodeItemBalance;
 using static FargowiltasSouls.Content.Items.EmodeItemBalance.EmodeItemBalanceTooltip;
 
 namespace FargowiltasSouls.Content.Items
 {
-    public class EmodeItemBalance : EModePlayer
+	public class EmodeItemBalance : EModePlayer
     {
         /// <summary>
         /// Applies an Eternity-exclusive balance change to chosen item type. <br />

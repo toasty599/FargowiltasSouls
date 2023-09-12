@@ -1,21 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
-using FargowiltasSouls.Assets.ExtraTextures;
 
 namespace FargowiltasSouls.Common.Graphics.Particles
 {
 	public class BigSparkle : Particle
 	{
 		public readonly bool UseBloom;
-
-		public readonly Color BloomColor;
 
 		public BigSparkle(Vector2 worldPosition, Vector2 velocity, Color drawColor, float scale, int lifetime, float rotation = 0f, float rotationSpeed = 0f, bool useBloom = true, Color? bloomColor = null)
 		{

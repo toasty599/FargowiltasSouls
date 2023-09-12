@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Diagnostics.Contracts;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Expert
 {
-    public class RustedOxygenTank : SoulsItem
+	public class RustedOxygenTank : SoulsItem
     {
         public override void SetStaticDefaults()
         {

@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Bosses.BanishedBaron;
-using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {
-    public class MechLureProjectile : ModProjectile
+	public class MechLureProjectile : ModProjectile
     {
 
         public override void SetStaticDefaults()

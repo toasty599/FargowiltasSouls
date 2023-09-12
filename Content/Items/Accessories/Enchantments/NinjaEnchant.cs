@@ -1,13 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles;
-using System;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class NinjaEnchant : BaseEnchant
+	public class NinjaEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
