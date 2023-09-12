@@ -34,11 +34,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             {
                 int numExtraSlotsToUse = 1;
 
-                if (modPlayer.DarkArtistEnchantActive)
+                if (modPlayer.DarkArtistEnchantActive || modPlayer.ShadowForce)
                 {
                     numExtraSlotsToUse = 2;
                 }
-                else if (modPlayer.ShadowForce)
+                else if (modPlayer.DarkArtistEnchantActive && modPlayer.ShadowForce)
                 {
                     numExtraSlotsToUse = 3;
                 }
