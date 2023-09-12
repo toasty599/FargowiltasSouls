@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Terraria.DataStructures;
+using Microsoft.CodeAnalysis;
 
 namespace FargowiltasSouls.Content.Items
 {
@@ -15,7 +16,6 @@ namespace FargowiltasSouls.Content.Items
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
-
             //ammo nerf
             //if (ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet || ammo.ammo == AmmoID.Dart)
             //{
@@ -24,6 +24,11 @@ namespace FargowiltasSouls.Content.Items
         }
         public override void HoldItem(Item item, Player player)
         {
+            if (!WorldSavingSystem.EternityMode)
+            {
+                base.HoldItem(item, player);
+                return;
+            }
             EModePlayer ePlayer = player.GetModPlayer<EModePlayer>();
             if (item.type == ItemID.MythrilHalberd)
             {
@@ -61,6 +66,12 @@ namespace FargowiltasSouls.Content.Items
                 player.chaosState = true;
             }
 
+            if (item.type == ItemID.OrichalcumSword)
+            {
+                item.shoot = ProjectileID.FlowerPetal;
+                item.shootSpeed = 5;
+            }
+
             if (item.type == ItemID.RodOfHarmony && FargoSoulsUtil.AnyBossAlive())
             {
                 player.hurtCooldowns[0] = 0;
@@ -87,17 +98,41 @@ namespace FargowiltasSouls.Content.Items
             }
             return base.UseItem(item, player);
         }
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (!WorldSavingSystem.EternityMode)
+                return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
+            switch (item.type)
+            {
+                case ItemID.OrichalcumSword:
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Projectile.NewProjectile(item.GetSource_FromThis(), position, velocity.RotatedByRandom(MathHelper.Pi / 24), type, damage / 3, knockback / 3, Main.myPlayer);
+                        }
+                        return false;
+                    }
+            }
+            return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
+        }
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!WorldSavingSystem.EternityMode)
+                return;
+            switch (item.type)
+            {
+
+            }
+        }
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
-            
             if (!NPC.downedBoss3 && item.type == ItemID.WaterBolt)
             {
                 type = ProjectileID.WaterGun;
                 damage = 0;
             }
-
             if (!NPC.downedBoss2 && item.type == ItemID.SpaceGun)
             {
                 type = ProjectileID.ConfettiGun;

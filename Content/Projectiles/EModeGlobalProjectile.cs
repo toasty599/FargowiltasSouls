@@ -478,18 +478,6 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
                         }
                         break;
-                    case ProjectileID.CopperCoin:
-                        projectile.damage = (int)(projectile.damage * 1.6f);
-                        break;
-                    case ProjectileID.SilverCoin:
-                        projectile.damage = (int)(projectile.damage * 0.95f);
-                        break;
-                    case ProjectileID.GoldCoin:
-                        projectile.damage = (int)(projectile.damage * 0.55f);
-                        break;
-                    case ProjectileID.PlatinumCoin:
-                        projectile.damage = (int)(projectile.damage * 0.3f);
-                        break;
                     case var _ when ReworkedSpears.Contains(projectile.type):
                         {
                             projectile.damage = (int)(projectile.damage * 1.5f);
@@ -1274,7 +1262,21 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
-
+            switch (projectile.type)
+            {
+                case ProjectileID.CopperCoin:
+                    modifiers.SourceDamage = modifiers.SourceDamage * 1.6f;
+                    break;
+                case ProjectileID.SilverCoin:
+                    modifiers.SourceDamage = modifiers.SourceDamage * 0.9f;
+                    break;
+                case ProjectileID.GoldCoin:
+                    modifiers.SourceDamage = modifiers.SourceDamage * 0.5f;
+                    break;
+                case ProjectileID.PlatinumCoin:
+                    modifiers.SourceDamage = modifiers.SourceDamage * 0.2f;
+                    break;
+            }
             //if (projectile.arrow) //change archery and quiver to additive damage
             //{
             //    if (Main.player[projectile.owner].archery)
