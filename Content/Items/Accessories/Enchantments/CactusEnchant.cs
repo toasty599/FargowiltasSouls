@@ -63,7 +63,7 @@ Enemies will explode into needles on death if they are struck with your needles
             int dmg = 20;
             int numNeedles = 8;
 
-            if (modPlayer.LifeForce || modPlayer.WizardEnchantActive)
+            if (modPlayer.ForceEffect(ModContent.ItemType<CactusEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<TurtleEnchant>()))
             {
                 dmg = 75;
                 numNeedles = 16;
@@ -91,7 +91,7 @@ Enemies will explode into needles on death if they are struck with your needles
                 int dmg = 20;
                 int numNeedles = 8;
 
-                if (modPlayer.LifeForce || modPlayer.WizardEnchantActive)
+                if (modPlayer.ForceEffect(ModContent.ItemType<CactusEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<TurtleEnchant>()))
                 {
                     dmg = 75;
                     numNeedles = 16;

@@ -73,7 +73,7 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.NatureForce = true;
+            modPlayer.natureForce = true;
             //regen
             CrimsonEnchant.CrimsonEffect(player);
             //inferno and explode

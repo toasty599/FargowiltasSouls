@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             {
                 return;
             }
-            foreach (Projectile p in FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(splitDegreeAngle), modPlayer.EarthForce ? 1f / 3 : 1f / 2))
+            foreach (Projectile p in FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(splitDegreeAngle), modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 1f / 3 : 1f / 2))
             {
                 if (p != null && p.active)
                 {
@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 }
             }
 
-            if (!modPlayer.EarthForce)
+            if (!modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type))
             {
                 projectile.type = ProjectileID.None;
                 projectile.timeLeft = 0;

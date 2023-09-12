@@ -45,10 +45,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
             int snowballDamage = damage / 2;
             if (!modPlayer.TerrariaSoul)
-                snowballDamage = Math.Min(snowballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.WoodForce ? 300 : 30));
+                snowballDamage = Math.Min(snowballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.ForceEffect(modPlayer.BorealEnchantItem.type) ? 300 : 30));
             int p = Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.BorealEnchantItem), player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
 
-            int numSnowballs = modPlayer.WoodForce ? 7 : 3;
+            int numSnowballs = modPlayer.ForceEffect(modPlayer.BorealEnchantItem.type) ? 7 : 3;
             if (p != Main.maxProjectiles)
                 FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
         }

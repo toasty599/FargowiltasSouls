@@ -45,9 +45,10 @@ You spawn an orb of damaging life energy every 80 life regenerated
 
             if (player.GetToggleValue("Palladium"))
             {
-                if (modPlayer.EarthForce || modPlayer.TerrariaSoul)
-                    player.onHitRegen = true;
                 modPlayer.PalladEnchantItem = item;
+                if (modPlayer.ForceEffect(modPlayer.PalladEnchantItem.type) || modPlayer.TerrariaSoul)
+                    player.onHitRegen = true;
+                
 
                 /*if (palladiumCD > 0)
                     palladiumCD--;*/
@@ -66,7 +67,7 @@ You spawn an orb of damaging life energy every 80 life regenerated
                     modPlayer.PalladCounter = 0;
                     if (player.whoAmI == Main.myPlayer && player.statLife < player.statLifeMax2 && player.GetToggleValue("PalladiumOrb"))
                     {
-                        int damage = modPlayer.EarthForce ? 100 : 50;
+                        int damage = modPlayer.ForceEffect(modPlayer.PalladEnchantItem.type) ? 100 : 50;
                         Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.PalladEnchantItem), player.Center, -Vector2.UnitY, ModContent.ProjectileType<PalladOrb>(),
                             FargoSoulsUtil.HighestDamageTypeScaling(player, damage), 10f, player.whoAmI, -1);
                     }

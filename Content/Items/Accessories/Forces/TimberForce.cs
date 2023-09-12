@@ -59,7 +59,7 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.WoodForce = true;
+            modPlayer.timberForce = true;
             WoodEnchant.WoodEffect(player, Item);
             BorealWoodEnchant.BorealEffect(player, Item);
             modPlayer.MahoganyEnchantItem = Item;

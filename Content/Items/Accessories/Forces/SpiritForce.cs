@@ -71,7 +71,7 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //spectre works for all, spirit trapper works for all
-            modPlayer.SpiritForce = true;
+            modPlayer.spiritForce = true;
             FossilEnchant.FossilEffect(player, Item);
             modPlayer.ForbiddenEffect();
             HallowEnchant.HallowEffect(player);

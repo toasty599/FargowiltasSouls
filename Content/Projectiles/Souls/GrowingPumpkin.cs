@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -38,7 +39,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             //falls to the ground
-            if (!modPlayer.WizardEnchantActive && !modPlayer.LifeForce)
+            if (!modPlayer.ForceEffect(ModContent.ItemType<PumpkinEnchant>()))
             {
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
                 if (Projectile.velocity.Y > 16f)
@@ -80,7 +81,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 {
                     int heal = 25;
 
-                    if (modPlayer.LifeForce || modPlayer.WizardEnchantActive)
+                    if (modPlayer.ForceEffect(ModContent.ItemType<PumpkinEnchant>()))
                     {
                         heal *= 2;
                     }

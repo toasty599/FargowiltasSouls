@@ -10,7 +10,7 @@ Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
 			Adamantite: Projectiles now split into 3
-			Apprentice: The next 3 weapons are used instead of 1
+			Apprentice: The next 2 weapons are used instead of 1
 			AncientHallow: No upgrade
 			AncientShadow: Number of Shadow Orbs increased
 			AncientCobalt: No upgrade
@@ -2583,7 +2583,7 @@ Mods: {
 				DisplayName: Wizard Enchantment
 				Tooltip:
 					'''
-					Enhances the power of most other Enchantments to their Force effects
+					If the accessory in the slot below this is an Enchantment, enhance it to its Force effect
 					'I'm a what?'
 					'''
 			}

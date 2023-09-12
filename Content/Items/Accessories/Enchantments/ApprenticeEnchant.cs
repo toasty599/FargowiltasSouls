@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -29,16 +30,16 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void ApprenticeEffect(Player player)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
+            bool forceEffect = modPlayer.ForceEffect(ModContent.ItemType<ApprenticeEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<DarkArtistEnchant>());
             if (player.GetToggleValue("Apprentice") && player.controlUseItem)
             {
                 int numExtraSlotsToUse = 1;
-
-                if (modPlayer.DarkArtistEnchantActive || modPlayer.ShadowForce)
+                
+                if (modPlayer.DarkArtistEnchantActive || forceEffect)
                 {
                     numExtraSlotsToUse = 2;
                 }
-                else if (modPlayer.DarkArtistEnchantActive && modPlayer.ShadowForce)
+                else if (modPlayer.DarkArtistEnchantActive && forceEffect)
                 {
                     numExtraSlotsToUse = 3;
                 }

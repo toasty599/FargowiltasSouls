@@ -46,8 +46,8 @@ Any projectiles that would deal less than 10 damage to you are destroyed
 
             if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)
                 return;
-
-            int dist = modPlayer.WoodForce ? 400 : 200;
+            bool forceEffect = modPlayer.ForceEffect(modPlayer.EbonwoodEnchantItem.type);
+            int dist = forceEffect ? 400 : 200;
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -55,7 +55,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                 if (npc.active && !npc.friendly && npc.lifeMax > 5 && !npc.dontTakeDamage)
                 {
                     Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
-                    if (player.Distance(npcComparePoint) < dist && (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
+                    if (player.Distance(npcComparePoint) < dist && (forceEffect || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
                     {
                         if (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>()))
                         {
@@ -64,7 +64,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                     }
                     if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().EbonCorruptionTimer > 60 * 4 && (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>())))
                     {
-                        EbonwoodProc(player, npc, dist, modPlayer.WoodForce, 5);
+                        EbonwoodProc(player, npc, dist, forceEffect, 5);
                     }
 
                 }
@@ -77,7 +77,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
                 Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-                if (modPlayer.WoodForce || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
+                if (forceEffect || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
                         spawnPos, 0, 0,

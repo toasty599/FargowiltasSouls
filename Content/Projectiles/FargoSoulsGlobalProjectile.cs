@@ -341,7 +341,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
 
                 //AdamModifier = modPlayer.EarthForce ? 3 : 2;
-                AdamModifier = modPlayer.EarthForce ? 3 : 2;
+                AdamModifier = modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2;
             }
 
             if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)
@@ -440,7 +440,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         {
                             shroomiteMushroomCD = 0;
 
-                            if (modPlayer.NatureForce || modPlayer.WizardEnchantActive)
+                            if (modPlayer.ForceEffect(ModContent.ItemType<ShroomiteEnchant>()))
                             {
                                 shroomiteMushroomCD = 5;
                             }
@@ -489,7 +489,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                                 spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
 
-                                if (modPlayer.ShadowForce || modPlayer.WizardEnchantActive)
+                                if (modPlayer.ForceEffect(ModContent.ItemType<SpookyEnchant>()))
                                 {
                                     spookyCD -= 10;
                                 }
@@ -1167,13 +1167,14 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
             NPC sourceNPC = projectile.GetSourceNPC();
+            FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
 
             if (stormTimer > 0)
-                modifiers.FinalDamage *= Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6f : 1.3f;
+                modifiers.FinalDamage *= modPlayer.ForceEffect(ModContent.ItemType<ForbiddenEnchant>()) ? 1.6f : 1.3f;
 
             if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null)
             {
-                float maxDamageIncrease = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().ShadowForce ? 0.3f : 0.2f;
+                float maxDamageIncrease = modPlayer.ForceEffect(modPlayer.NinjaEnchantItem.type) ? 0.3f : 0.2f;
                 modifiers.FinalDamage *= 1f + (maxDamageIncrease * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 40f, 1));
                 
             }
@@ -1260,9 +1261,9 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
             }
 
-
+            FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
             if (AdamModifier != 0)
-                ReduceIFrames(projectile, target, Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().EarthForce ? 3 : 2);
+                ReduceIFrames(projectile, target, modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2);
 
             if (projectile.type == ProjectileID.IceBlock && Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().FrigidGemstoneItem != null)
             {
@@ -1342,7 +1343,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 float multiplier = 1.5f;
 
-                if (modPlayer.WoodForce || modPlayer.WizardEnchantActive)
+                if (modPlayer.ForceEffect(modPlayer.MahoganyEnchantItem.type))
                 {
                     multiplier = 2.5f;
                 }

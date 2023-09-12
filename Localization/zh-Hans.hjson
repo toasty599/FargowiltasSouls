@@ -10,7 +10,7 @@ Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
 			// Adamantite: Projectiles now split into 3
-			// Apprentice: The next 3 weapons are used instead of 1
+			// Apprentice: The next 2 weapons are used instead of 1
 			// AncientHallow: No upgrade
 			// AncientShadow: Number of Shadow Orbs increased
 			// AncientCobalt: No upgrade

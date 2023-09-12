@@ -56,7 +56,7 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defens
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.LifeForce = true;
+            modPlayer.lifeForce = true;
             modPlayer.BeeEffect(hideVisual);
             modPlayer.SpiderEffect(hideVisual);
             modPlayer.BeetleEffect();

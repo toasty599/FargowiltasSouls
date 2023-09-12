@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls
 {
@@ -47,7 +48,8 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             //dust
             int dist = 50;
 
-            if (modPlayer.NatureForce)
+            bool forceEffect = modPlayer.ForceEffect(ModContent.ItemType<SnowEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<FrostEnchant>());
+            if (forceEffect)
             {
                 dist = 100;
             }

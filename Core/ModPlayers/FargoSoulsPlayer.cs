@@ -18,10 +18,12 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -258,15 +260,15 @@ namespace FargowiltasSouls.Core.ModPlayers
             TitaniumDRBuff = false;
             TitaniumCD = false;
 
-            CosmoForce = false;
-            EarthForce = false;
-            LifeForce = false;
-            NatureForce = false;
-            SpiritForce = false;
-            TerraForce = false;
-            ShadowForce = false;
-            WillForce = false;
-            WoodForce = false;
+            cosmoForce = false;
+            earthForce = false;
+            lifeForce = false;
+            natureForce = false;
+            spiritForce = false;
+            terraForce = false;
+            shadowForce = false;
+            willForce = false;
+            timberForce = false;
 
             //            #endregion
 
@@ -408,6 +410,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             //IronEnchantShield = false;
             SilverEnchantItem = null;
             DreadShellItem = null;
+            WizardedItem = null;
 
             EquippedEnchants.Clear();
 
@@ -419,15 +422,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                     if (!Player.armor[i].IsAir && (Player.armor[i].type == ModContent.ItemType<WizardEnchant>() || Player.armor[i].type == ModContent.ItemType<CosmoForce>()))
                     {
                         WizardEnchantActive = true;
-                        CosmoForce = true;
-                        EarthForce = true;
-                        LifeForce = true;
-                        NatureForce = true;
-                        ShadowForce = true;
-                        SpiritForce = true;
-                        TerraForce = true;
-                        WillForce = true;
-                        WoodForce = true;
+                        Item ench = Player.armor[i + 1];
+                        if (ench != null && !ench.IsAir && ench.ModItem != null && ench.ModItem is BaseEnchant)
+                        {
+                            WizardedItem = ench;
+                        }
                         break;
                     }
                 }
@@ -438,7 +437,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             Mash = false;
 
         }
-
         public override void OnRespawn()
         {
             if (NymphsPerfumeRespawn)
@@ -1307,11 +1305,12 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if ((SquireEnchantActive || ValhallaEnchantActive) && Player.GetToggleValue("Valhalla", false))
             {
+                bool forceEffect = ForceEffect(ModContent.ItemType<SquireEnchant>()) || ForceEffect(ModContent.ItemType<ValhallaKnightEnchant>());
                 if (Eternity)
                     bonus = 4f;
-                else if (WillForce && ValhallaEnchantActive)
+                else if (forceEffect && ValhallaEnchantActive)
                     bonus = 1f / 2f;
-                else if (ValhallaEnchantActive || (WillForce && SquireEnchantActive))
+                else if (ValhallaEnchantActive || (forceEffect && SquireEnchantActive))
                     bonus = 1f / 3f;
                 else if (SquireEnchantActive)
                     bonus = 1f / 4f;
@@ -1412,7 +1411,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
             if (BorealEnchantItem != null && Player.GetToggleValue("Boreal") && BorealCD <= 0)
             {
-                BorealCD = WoodForce ? 30 : 60;
+                BorealCD = ForceEffect(BorealEnchantItem.type) ? 30 : 60;
 
 
                 BorealWoodEnchant.BorealSnowballs(this, damage);
@@ -1421,7 +1420,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             bool ashBurning = AshWoodEnchantItem != null && (Player.onFire || Player.onFire2 || Player.onFire3);
             if ((ashBurning || ObsidianEnchantItem != null) && Player.GetToggleValue("AshWood") && AshwoodCD <= 0)
             {
-                AshwoodCD = TerraForce ? 15 : ObsidianEnchantItem != null ? 20 : 30;
+                AshwoodCD = ForceEffect(AshWoodEnchantItem.type) ? 15 : ObsidianEnchantItem != null ? 20 : 30;
                 AshWoodEnchant.AshwoodFireball(this, damage);
             }
 
@@ -1448,6 +1447,68 @@ namespace FargowiltasSouls.Core.ModPlayers
             return hurtbox;
         }
 
-        
+        public bool ForceEffect(int? enchType)
+        {
+            if (enchType == null)
+            {
+                Main.NewText("you shouldn't be seeing this. tall javyz");
+                return false;
+            }
+            int type = (int)enchType;
+            ModItem item = ModContent.GetModItem(type);
+            if (item == null || item.Item.IsAir)
+            {
+                Main.NewText("you shouldn't be seeing this. tall javyz");
+                return false;
+            }
+            if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == item.Item.type)
+            {
+                return true;
+            }
+            if (item != null && item is BaseSoul || item is BaseForce)
+            {
+                return true;
+            }
+            if (item != null && item is BaseEnchant)
+            {
+                if (CosmoForce.Enchants.Contains(type) && cosmoForce)
+                {
+                    return true;
+                }
+                if (EarthForce.Enchants.Contains(type) && earthForce)
+                {
+                    return true;
+                }
+                if (LifeForce.Enchants.Contains(type) && lifeForce)
+                {
+                    return true;
+                }
+                if (NatureForce.Enchants.Contains(type) && natureForce)
+                {
+                    return true;
+                }
+                if (ShadowForce.Enchants.Contains(type) && shadowForce)
+                {
+                    return true;
+                }
+                if (SpiritForce.Enchants.Contains(type) && spiritForce)
+                {
+                    return true;
+                }
+                if (TerraForce.Enchants.Contains(type) && terraForce)
+                {
+                    return true;
+                }
+                if (TimberForce.Enchants.Contains(type) && timberForce) 
+                {
+                    return true;
+                }
+                if (WillForce.Enchants.Contains(type) && willForce)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

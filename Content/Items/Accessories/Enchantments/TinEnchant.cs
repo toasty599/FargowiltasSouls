@@ -66,7 +66,7 @@ Getting hit resets your crit to 5%
         //set max crit and current crit with no interference from accessory order
         public static void TinPostUpdate(FargoSoulsPlayer modPlayer)
         {
-            modPlayer.TinCritMax = Math.Max(FargoSoulsUtil.HighestCritChance(modPlayer.Player) * 2, modPlayer.TerraForce ? 50 : 15);
+            modPlayer.TinCritMax = Math.Max(FargoSoulsUtil.HighestCritChance(modPlayer.Player) * 2, modPlayer.ForceEffect(modPlayer.TinEnchantItem.type) ? 50 : 15);
 
             if (modPlayer.TinCritMax > 100)
                 modPlayer.TinCritMax = 100;
@@ -112,7 +112,7 @@ Getting hit resets your crit to 5%
                     modPlayer.TinProcCD = 15;
                     TryHeal(25, 10);
                 }
-                else if (modPlayer.TerraForce)
+                else if (modPlayer.ForceEffect(modPlayer.TinEnchantItem.type))
                 {
                     modPlayer.TinProcCD = 30;
                 }
@@ -136,7 +136,7 @@ Getting hit resets your crit to 5%
             {
                 modPlayer.TinCrit = 20;
             }
-            else if (modPlayer.TerraForce)
+            else if (modPlayer.ForceEffect(modPlayer.TinEnchantItem.type))
             {
                 modPlayer.TinCrit = 10;
             }

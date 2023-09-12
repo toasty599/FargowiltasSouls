@@ -84,8 +84,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int CobaltImmuneTimer;
         public Item MythrilEnchantItem;
         public int MythrilTimer;
-        public int MythrilMaxTime => EarthForce ? 300 : 180;
-        public float MythrilMaxSpeedBonus => EarthForce ? 1.75f : 1.5f;
+        public int MythrilMaxTime => ForceEffect(MythrilEnchantItem.type) ? 300 : 180;
+        public float MythrilMaxSpeedBonus => ForceEffect(MythrilEnchantItem.type) ? 1.75f : 1.5f;
         public Item OriEnchantItem;
         public Item PalladEnchantItem;
         public int PalladCounter;
@@ -220,6 +220,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool VortexEnchantActive;
         public bool VortexStealth;
         public bool WizardEnchantActive;
+        public Item WizardedItem;
 
         public bool NebulaEnchantActive;
         public bool BeetleEnchantActive;
@@ -227,15 +228,15 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int CritterAttackTimer;
 
-        public bool CosmoForce;
-        public bool EarthForce;
-        public bool LifeForce;
-        public bool NatureForce;
-        public bool SpiritForce;
-        public bool ShadowForce;
-        public bool TerraForce;
-        public bool WillForce;
-        public bool WoodForce;
+        public bool cosmoForce;
+        public bool earthForce;
+        public bool lifeForce;
+        public bool natureForce;
+        public bool spiritForce;
+        public bool shadowForce;
+        public bool terraForce;
+        public bool willForce;
+        public bool timberForce;
 
         #endregion
 
