@@ -7,6 +7,8 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Terraria.DataStructures;
 using Microsoft.CodeAnalysis;
+using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Content.Items
 {
@@ -30,13 +32,17 @@ namespace FargowiltasSouls.Content.Items
                 return;
             }
             EModePlayer ePlayer = player.GetModPlayer<EModePlayer>();
-            if (item.type == ItemID.MythrilHalberd)
+            if (item.type == ItemID.MythrilHalberd || item.type == ItemID.MythrilSword)
             {
                 if (!player.ItemAnimationActive)
-                    ePlayer.MythrilHalberdTimer++;
-
-                if (ePlayer.MythrilHalberdTimer > 121)
-                    ePlayer.MythrilHalberdTimer = 121;
+                {
+                    if (ePlayer.MythrilHalberdTimer < 121)
+                        ePlayer.MythrilHalberdTimer++;
+                }
+                if (player.itemAnimation == 1) //reset on last frame
+                {
+                    ePlayer.MythrilHalberdTimer = 0;
+                }
 
                 if (ePlayer.MythrilHalberdTimer == 120 && player.whoAmI == Main.myPlayer)
                 {
@@ -52,7 +58,20 @@ namespace FargowiltasSouls.Content.Items
         public override bool CanUseItem(Item item, Player player)
         {
             if (!WorldSavingSystem.EternityMode)
+            {
+                if (item.type == ItemID.OrichalcumSword) //reset stats to default
+                {
+                    Item dummy = new Item(ItemID.OrichalcumSword);
+                    item.shoot = dummy.shoot;
+                    item.shootSpeed = dummy.shootSpeed;
+                    dummy.active = false;
+                    dummy = null;
+                }
                 return base.CanUseItem(item, player);
+            }
+                
+
+            EModePlayer ePlayer = player.GetModPlayer<EModePlayer>();
 
             if (item.damage <= 0 && (item.type == ItemID.RodofDiscord || item.type == ItemID.ActuationRod || item.type == ItemID.WireKite || item.type == ItemID.WireCutter || item.type == ItemID.Wrench || item.type == ItemID.BlueWrench || item.type == ItemID.GreenWrench || item.type == ItemID.MulticolorWrench || item.type == ItemID.YellowWrench || item.type == ItemID.Actuator))
             {
@@ -70,6 +89,10 @@ namespace FargowiltasSouls.Content.Items
             {
                 item.shoot = ProjectileID.FlowerPetal;
                 item.shootSpeed = 5;
+            }
+            if (item.type == ItemID.CobaltSword)
+            {
+                ePlayer.CobaltHitCounter = 0;
             }
 
             if (item.type == ItemID.RodOfHarmony && FargoSoulsUtil.AnyBossAlive())
@@ -91,12 +114,21 @@ namespace FargowiltasSouls.Content.Items
         {
             if (!WorldSavingSystem.EternityMode)
                 return base.UseItem(item, player);
+            EModePlayer ePlayer = player.GetModPlayer<EModePlayer>();
 
             if (item.type == ItemID.MechdusaSummon && Main.zenithWorld)
             {
                 Main.time = 18000;
             }
+            
             return base.UseItem(item, player);
+        }
+        public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
+        {
+            if (player.GetModPlayer<EModePlayer>().MythrilHalberdTimer >= 120 && (item.type == ItemID.MythrilSword))
+            {
+                damage *= 3;
+            }
         }
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -108,7 +140,7 @@ namespace FargowiltasSouls.Content.Items
                     {
                         for (int i = 0; i < 2; i++)
                         {
-                            Projectile.NewProjectile(item.GetSource_FromThis(), position, velocity.RotatedByRandom(MathHelper.Pi / 24), type, damage / 3, knockback / 3, Main.myPlayer);
+                            Projectile.NewProjectile(item.GetSource_FromThis(), position, velocity.RotatedByRandom(MathHelper.Pi / 14), type, damage / 2, knockback / 2, Main.myPlayer);
                         }
                         return false;
                     }
@@ -119,9 +151,24 @@ namespace FargowiltasSouls.Content.Items
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
+            EModePlayer ePlayer = player.GetModPlayer<EModePlayer>();
             switch (item.type)
             {
-
+                case ItemID.CobaltSword:
+                    if (ePlayer.CobaltHitCounter < 2) //only twice per swing
+                    {
+                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
+                        if (p != null)
+                            p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                        ePlayer.CobaltHitCounter++;
+                    }
+                    break;
+                case ItemID.PalladiumSword:
+                    {
+                        if (target.type != NPCID.TargetDummy && !target.friendly) //may add more checks here idk
+                            player.AddBuff(BuffID.RapidHealing, 60 * 5);
+                        break;
+                    }
             }
         }
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -139,7 +186,7 @@ namespace FargowiltasSouls.Content.Items
                 damage = 0;
             }
 
-            if (player.GetModPlayer<EModePlayer>().MythrilHalberdTimer >= 120 && item.type == ItemID.MythrilHalberd)
+            if (player.GetModPlayer<EModePlayer>().MythrilHalberdTimer >= 120 && (item.type == ItemID.MythrilHalberd))
             {
                 damage *= 3;
                 player.GetModPlayer<EModePlayer>().MythrilHalberdTimer = 0;

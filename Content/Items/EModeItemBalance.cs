@@ -304,33 +304,40 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "SpearRework", "CobaltNaginataRework" };
                     return EModeChange.Buff;
                 case ItemID.CobaltSword:
-                    balanceNumber = -1;
-                    balanceTextKeys = new string[] { "CobaltNaginataRework" };
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed", "CobaltNaginataRework" };
                     return EModeChange.Buff;
                 case ItemID.MythrilHalberd:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "MythrilHalberdRework" };
                     return EModeChange.Buff;
                 case ItemID.MythrilSword:
-                    balanceNumber = -1;
-                    balanceTextKeys = new string[] { "MythrilHalberdRework" };
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed", "MythrilHalberdRework" };
                     return EModeChange.Buff;
                 case ItemID.OrichalcumHalberd:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "OrichalcumHalberdRework" };
                     return EModeChange.Buff;
                 case ItemID.OrichalcumSword:
-                    balanceNumber = -1;
-                    balanceTextKeys = new string[] { "OrichalcumHalberdRework" };
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed", "OrichalcumHalberdRework" };
                     return EModeChange.Buff;
                 case ItemID.PalladiumPike:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "PalladiumPikeRework" };
                     return EModeChange.Buff;
                 case ItemID.PalladiumSword:
-                    balanceNumber = -1;
-                    balanceTextKeys = new string[] { "PalladiumPikeRework" };
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed", "PalladiumPikeRework" };
                     return EModeChange.Buff;
+
+                case ItemID.TitaniumSword:
+                case ItemID.AdamantiteSword:
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed" };
+                    return EModeChange.Buff;
+
                 case ItemID.Spear:
                 case ItemID.AdamantiteGlaive:
                 case ItemID.TheRottedFork:

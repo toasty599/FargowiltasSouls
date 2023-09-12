@@ -1011,7 +1011,7 @@ Mods: {
 			Damage: 伤害降低{0}%
 			// DamagePositive: Increased damage by {0}%
 			Speed: 攻击速度降低{0}%
-			// SpeedPositive: Reduced speed by {0}%
+			// SpeedPositive: Increased speed by {0}%
 			RodofDiscord: 在Boss战中，每次使用都会消耗生命
 			Split: 降低分裂频率
 			ChlorophyteBullet: 速度减慢，存在时间降低
