@@ -10,7 +10,7 @@ Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
 			// Adamantite: Projectiles now split into 3
-			// Apprentice: No upgrade
+			// Apprentice: The next 3 weapons are used instead of 1
 			// AncientHallow: No upgrade
 			// AncientShadow: Number of Shadow Orbs increased
 			// AncientCobalt: No upgrade
@@ -24,7 +24,7 @@ Mods: {
 			// Copper: Lightning damage increased, cooldown reduced
 			// Crimson: No upgrade
 			// CrystalAssassin: No upgrade
-			// DarkArtist: No upgrade
+			// DarkArtist: The next 3 weapons are used instead of 2
 			// Ebonwood: Aura size increased, defense reduction increased to 30
 			// Forbidden: Damage boost increased from 30 to 60%
 			// Fossil: No upgrade
