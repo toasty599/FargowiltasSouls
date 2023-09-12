@@ -1265,16 +1265,16 @@ namespace FargowiltasSouls.Content.Projectiles
             switch (projectile.type)
             {
                 case ProjectileID.CopperCoin:
-                    //modifiers.FinalDamage = modifiers.FinalDamage * 1.6f;
+                    modifiers.FinalDamage *= 1.6f;
                     break;
                 case ProjectileID.SilverCoin:
-                    modifiers.FinalDamage = modifiers.FinalDamage * 0.9f;
+                    modifiers.FinalDamage *= 0.9f;
                     break;
                 case ProjectileID.GoldCoin:
-                    modifiers.FinalDamage = modifiers.FinalDamage * 0.25f;
+                    modifiers.FinalDamage *= 0.5f;
                     break;
                 case ProjectileID.PlatinumCoin:
-                    modifiers.FinalDamage = modifiers.FinalDamage * 0.15f;
+                    modifiers.FinalDamage *= 0.275f;
                     break;
             }
             //if (projectile.arrow) //change archery and quiver to additive damage
