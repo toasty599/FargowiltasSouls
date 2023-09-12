@@ -2583,7 +2583,7 @@ Mods: {
 				// DisplayName: Wizard Enchantment
 				/* Tooltip:
 					'''
-					If the accessory in the slot below this is an Enchantment, enhance it to its Force effect
+					The enchantment directly below this accessory gains its Force effect instead
 					'I'm a what?'
 					''' */
 			}

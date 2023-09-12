@@ -65,6 +65,27 @@ namespace FargowiltasSouls.Content.Items
         {
             if (weapon.CountsAsClass(DamageClass.Ranged) && player.GetModPlayer<FargoSoulsPlayer>().Jammed)
                 type = ProjectileID.ConfettiGun;
+
+            //coin gun is broken as fucking shit codingwise so i'm fixing it
+            if (weapon.type == ItemID.CoinGun)
+            {
+                if (ammo.type == ItemID.CopperCoin || ammo.type == ModContent.Find<ModItem>("Fargowiltas", "CopperCoinBag").Type)
+                {
+                    type = ProjectileID.CopperCoin;
+                }
+                if (ammo.type == ItemID.SilverCoin || ammo.type == ModContent.Find<ModItem>("Fargowiltas", "SilverCoinBag").Type)
+                {
+                    type = ProjectileID.SilverCoin;
+                }
+                if (ammo.type == ItemID.GoldCoin || ammo.type == ModContent.Find<ModItem>("Fargowiltas", "GoldCoinBag").Type)
+                {
+                    type = ProjectileID.GoldCoin;
+                }
+                if (ammo.type == ItemID.PlatinumCoin || ammo.type == ModContent.Find<ModItem>("Fargowiltas", "PlatinumCoinBag").Type)
+                {
+                    type = ProjectileID.PlatinumCoin;
+                }
+            }
         }
 
         public override void OnConsumeItem(Item item, Player player)

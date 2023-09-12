@@ -112,6 +112,7 @@ namespace FargowiltasSouls.Content.Items
                 case ItemID.CoinGun:
                     balanceTextKeys = new string[] { "CoinGun" };
                     return EModeChange.Nerf;
+                    /*
                 case ItemID.CopperCoin:
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 1.6f;
@@ -128,7 +129,7 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 0.275f;
                     return EModeChange.Nerf;
-
+                */
                 //case ItemID.EmpressBlade:
                 //    tooltips.Add(new TooltipLine(Mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
                 //    goto case ItemID.StardustCellStaff;
