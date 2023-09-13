@@ -155,10 +155,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 AttackTimer++;
                 npc.defense = npc.defDefense;
             }
-            else
-            {
-                npc.defense = 99999;
-            }
             if (npc.dontTakeDamage)
             {
                 AuraSize = 5000;

@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
+using FargowiltasSouls.Common.Utilities;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust
 {
@@ -90,6 +91,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             if (!parent.active || parent.type != NPCID.LunarTowerStardust)
             {
                 NPC.active = false;
+                return;
             }
             LunarTowerStardust parentModNPC = parent.GetGlobalNPC<LunarTowerStardust>();
             float NearParent = parent.height * 0.8f;
@@ -333,6 +335,21 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             float anglediff = (float)(Math.Atan2(PV.Y * LV.X - PV.X * LV.Y, LV.X * PV.X + LV.Y * PV.Y)); //real
             //change rotation towards target
             NPC.velocity = NPC.velocity.RotatedBy(Math.Sign(anglediff) * Math.Min(Math.Abs(anglediff), speed * MathHelper.Pi / 180));
+        }
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
+        {
+            ref float parentIndex = ref NPC.ai[2];
+            NPC parent = Main.npc[(int)parentIndex];
+            if (!parent.active || parent.type != NPCID.LunarTowerStardust)
+            {
+                return;
+            }
+            LunarTowerStardust parentModNPC = parent.GetGlobalNPC<LunarTowerStardust>();
+            bool anyPlayersClose = parentModNPC.AnyPlayerWithin(parent, parentModNPC.AuraSize);
+            if (!anyPlayersClose)
+            {
+                modifiers.Null();
+            }
         }
     }
 }
