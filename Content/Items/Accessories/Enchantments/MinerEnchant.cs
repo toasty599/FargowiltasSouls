@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -37,7 +38,9 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            MinerEffect(player, .5f);
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            float speed = modPlayer.ForceEffect(ModContent.ItemType<MinerEnchant>()) ? .75f : .5f;
+            MinerEffect(player, speed);
         }
 
         public static void MinerEffect(Player player, float pickSpeed)

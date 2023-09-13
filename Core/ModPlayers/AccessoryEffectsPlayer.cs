@@ -237,7 +237,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Chlorophyte") && Player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
             {
-                int dmg = ForceEffect(ChloroEnchantItem.type) ? 150 : 75;
+                int dmg = ForceEffect(ChloroEnchantItem.type) ? 65 : 35;
                 const int max = 5;
                 float rotation = 2f * (float)Math.PI / max;
                 for (int i = 0; i < max; i++)
@@ -831,17 +831,13 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     max = 5;
                 }
-                else if (forceEffect)
+                else if (forceEffect && AncientShadowEnchantActive) //ancient shadow force
                 {
                     max = 4;
                 }
-                else if (AncientShadowEnchantActive)
+                else if (AncientShadowEnchantActive || (forceEffect)) //ancient shadow or normal shadow force
                 {
                     max = 3;
-                }
-                if (!AncientShadowEnchantActive) //if you have normal shadow enchant, only 2 orbs. this is to prevent wizard ench from giving you 4, by enabling ShadowForce bool
-                {
-                    max = 2;
                 }
 
                 //spawn for first time
