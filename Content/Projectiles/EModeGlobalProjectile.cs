@@ -1271,7 +1271,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     modifiers.FinalDamage *= 0.9f;
                     break;
                 case ProjectileID.GoldCoin:
-                    modifiers.FinalDamage *= 0.5f;
+                    modifiers.FinalDamage *= 0.47f;
                     break;
                 case ProjectileID.PlatinumCoin:
                     modifiers.FinalDamage *= 0.275f;
