@@ -140,9 +140,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 HealCounter = 0;
                 npc.TargetClosest(false);
-                if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > AuraSize * 1.05f)
+                if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > AuraSize)
                 {
-                    const int heal = 10000;
+                    const int heal = 5000;
                     npc.life += heal;
                     if (npc.life > npc.lifeMax)
                         npc.life = npc.lifeMax;
@@ -153,13 +153,18 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             if (anyPlayersClose)
             {
                 AttackTimer++;
+                npc.defense = npc.defDefense;
+            }
+            else
+            {
+                npc.defense = 99999;
             }
             if (npc.dontTakeDamage)
             {
                 AuraSize = 5000;
                 if (anyPlayersClose)
                 {
-                    if (ShieldStrength <= 70) //at 20 shield, kill all shield and pillar enemies and go to attack phase
+                    if (ShieldStrength <= 70) //at 70 shield, kill all shield and pillar enemies and go to attack phase
                     {
                         foreach (NPC n in Main.npc)
                         {
