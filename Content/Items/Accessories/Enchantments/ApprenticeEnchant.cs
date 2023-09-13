@@ -34,14 +34,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             if (player.GetToggleValue("Apprentice") && player.controlUseItem)
             {
                 int numExtraSlotsToUse = 1;
-                
-                if (modPlayer.DarkArtistEnchantActive || forceEffect)
-                {
-                    numExtraSlotsToUse = 2;
-                }
-                else if (modPlayer.DarkArtistEnchantActive && forceEffect)
+
+                if (modPlayer.DarkArtistEnchantActive && forceEffect)
                 {
                     numExtraSlotsToUse = 3;
+                }
+                else if (modPlayer.DarkArtistEnchantActive || forceEffect)
+                {
+                    numExtraSlotsToUse = 2;
                 }
 
                 //update item cds
