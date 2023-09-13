@@ -140,9 +140,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 HealCounter = 0;
                 npc.TargetClosest(false);
-                if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > AuraSize * 1.5f)
+                if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > AuraSize * 1.05f)
                 {
-                    const int heal = 2000;
+                    const int heal = 100;
                     npc.life += heal;
                     if (npc.life > npc.lifeMax)
                         npc.life = npc.lifeMax;
