@@ -15,11 +15,11 @@ Mods: {
 			// AncientShadow: Number of Shadow Orbs increased
 			// AncientCobalt: No upgrade
 			// Angler: No upgrade
-			// Bee: No upgrade
+			// Bee: On-hit effect is guaranteed to trigger, and always summons a Giant Bee
 			// Beetle: No upgrade
 			// BorealWood: Fires more snowballs more often
 			// Cactus: Number of needles and damage increased
-			// Chlorophyte: No upgrade
+			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			Cobalt: 增加爆炸伤害
 			Copper: 增加闪电伤害，冷却时间减少
 			// Crimson: No upgrade
@@ -27,22 +27,22 @@ Mods: {
 			DarkArtist: ""
 			Ebonwood: 伤害判定门槛从10提高至25，并且会杀死光环内任何小于200血量的生物
 			// Forbidden: Damage boost increased from 30 to 60%
-			// Fossil: No upgrade
-			// Frost: No upgrade
+			// Fossil: Revive heal increased to 200 and revive bone count doubled
+			// Frost: Icicle damage doubled
 			// Gladiator: No upgrade
 			// Gold: No upgrade
 			// Hallow: No upgrade
 			// Huntress: No upgrade
 			Iron: 物品拾取距离提升到四倍，合成加成现在也对任何秘银砧生效
-			// Jungle: No upgrade
+			// Jungle: Spore damage increased, cooldown decreased
 			Lead: 增加铅中毒伤害，持续伤害减免提升到60%
-			// Meteor: No upgrade
-			// Miner: No upgrade
+			// Meteor: Cooldown decreased, more meteors, increased damage of meteors
+			// Miner: Increased mining speed
 			Molten: ""
 			// Monk: No upgrade
 			Mythril: 增加最大攻速加成，持续时间更长
 			// Nebula: No upgrade
-			// Necro: No upgrade
+			// Necro: Graves float
 			Ninja: 弹幕速度增加3倍而非2倍，护甲穿透再增加20点
 			Obsidian: 你不再需要岩浆来引发爆炸，冷却时间减少
 			Orichalcum: 倍数提高到4
@@ -59,18 +59,18 @@ Mods: {
 			// Shroomite: Mushrooms are spawned more often
 			Silver: 格挡会给予惊人一刻增益
 			// Solar: No upgrade
-			// Spectre: No upgrade
+			// Spectre: Decreased cooldown and always spawns healing orb
 			// Spider: No upgrade
-			// Spooky: No upgrade
-			// Stardust: No upgrade
+			// Spooky: Decreased cooldown
+			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
-			// Shadow: No upgrade
+			// Shadow: Number of Shadow Orbs increased
 			// Squire: No upgrade
 			// Tiki: Increases whip range by 20%
 			Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
 			Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
 			Tungsten: 将武器大小提升到300%，伤害加成提升到20%，冷却时间减少
-			// Turtle: No upgrade
+			// Turtle: Occasionaly recover a projectile block point, number of needles and damage increased
 			// ValhallaKnight: No upgrade
 			// Vortex: No upgrade
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
