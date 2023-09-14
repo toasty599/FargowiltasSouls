@@ -1398,10 +1398,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ValhallaEffect(bool hideVisual)
         {
-            if (!Player.GetToggleValue("SquirePanic"))
-                Player.buffImmune[BuffID.BallistaPanic] = true;
-
-            SquireEnchantActive = true;
             ValhallaEnchantActive = true;
         }
 

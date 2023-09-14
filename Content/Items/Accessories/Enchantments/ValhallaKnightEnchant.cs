@@ -9,22 +9,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-
-            // DisplayName.SetDefault("Valhalla Knight Enchantment");
-            /* Tooltip.SetDefault(
-@"Increases the effectiveness of healing sources by 33%
-Greatly enhances Ballista effectiveness
-'Valhalla calls'"); */
-            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "英灵殿骑士魔石");
-            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-            // @"增加33%受治疗量
-            // 大幅强化弩车的效果
-            // '瓦尔哈拉的呼唤'");
         }
 
         protected override Color nameColor => new(147, 101, 30);
         
-
         public override void SetDefaults()
         {
             base.SetDefaults();

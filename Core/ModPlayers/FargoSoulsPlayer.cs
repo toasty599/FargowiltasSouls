@@ -231,7 +231,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             SolarEnchantActive = false;
             ShinobiEnchantActive = false;
             ValhallaEnchantActive = false;
-            DarkArtistEnchantActive = false;
+            DarkArtistEnchantItem = null;
             RedRidingEnchantItem = null;
             TungstenEnchantItem = null;
 
@@ -248,8 +248,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             RainEnchantActive = false;
             AncientShadowEnchantActive = false;
-            SquireEnchantActive = false;
-            ApprenticeEnchantActive = false;
+            SquireEnchantItem = null;
+            ApprenticeEnchantItem = null;
             HuntressEnchantActive = false;
             MonkEnchantActive = false;
             SnowEnchantActive = false;
@@ -1310,15 +1310,15 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             float bonus = 0f;
 
-            if ((SquireEnchantActive || ValhallaEnchantActive) && Player.GetToggleValue("Valhalla", false))
+            if ((SquireEnchantItem != null || ValhallaEnchantActive) && Player.GetToggleValue("Valhalla", false))
             {
                 if (Eternity)
                     bonus = 4f;
                 else if (WillForce && ValhallaEnchantActive)
                     bonus = 1f / 2f;
-                else if (ValhallaEnchantActive || (WillForce && SquireEnchantActive))
+                else if (ValhallaEnchantActive || (WillForce && SquireEnchantItem != null))
                     bonus = 1f / 3f;
-                else if (SquireEnchantActive)
+                else if (SquireEnchantItem != null)
                     bonus = 1f / 4f;
             }
 

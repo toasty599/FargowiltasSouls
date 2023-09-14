@@ -23,21 +23,20 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            SquireEffect(player);
-
-            player.GetModPlayer<FargoSoulsPlayer>().SquireEnchantActive = true;
-            if (!player.GetToggleValue("SquirePanic"))
-                player.buffImmune[BuffID.BallistaPanic] = true;
+            SquireEffect(player, Item);
         }
 
-        public static void SquireEffect(Player player)
+        public static void SquireEffect(Player player, Item item)
         {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            modPlayer.SquireEnchantItem = item;
+            if (!player.GetToggleValue("SquirePanic"))
+                player.buffImmune[BuffID.BallistaPanic] = true;
+
             Mount mount = player.mount;
 
             if (mount.Active )
             {
-                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
                 if (modPlayer.BaseMountType != mount.Type)
                 {
                     Mount.MountData original = Mount.mounts[mount.Type];

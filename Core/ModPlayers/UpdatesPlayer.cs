@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 //regular OnRespawn() doesnt account for lifeforce, and is lowered by dying with oceanic maul
             }
 
-            if (!SquireEnchantActive && BaseMountType != -1)
+            if (SquireEnchantItem == null && BaseMountType != -1)
             {
                 Mount.mounts[BaseMountType].acceleration = BaseSquireMountData.acceleration;
                 Mount.mounts[BaseMountType].dashSpeed = BaseSquireMountData.dashSpeed;
@@ -496,16 +496,16 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void PostUpdateMiscEffects()
         {
             //these are here so that emode minion nerf can properly detect the real set bonuses over in EModePlayer postupdateequips
-            if (SquireEnchantActive)
+            if (SquireEnchantItem != null)
                 Player.setSquireT2 = true;
 
             if (ValhallaEnchantActive)
                 Player.setSquireT3 = true;
 
-            if (ApprenticeEnchantActive)
+            if (ApprenticeEnchantItem != null)
                 Player.setApprenticeT2 = true;
 
-            if (DarkArtistEnchantActive)
+            if (DarkArtistEnchantItem != null)
                 Player.setApprenticeT3 = true;
 
             if (MonkEnchantActive)
