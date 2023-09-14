@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             int starDamage = damage / 2;
             if (!modPlayer.TerrariaSoul)
-                starDamage = Math.Min(starDamage, FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, modPlayer.WoodForce ? 250 : 100));
+                starDamage = Math.Min(starDamage, FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type) ? 250 : 100));
 
             Player player = modPlayer.Player;
             //holy star spawn code funny
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //if you change this source, make sure the check for this proj type in OnSpawn fargosoulsglobalproj matches!
             Projectile.NewProjectile(player.GetSource_Misc("Pearlwood"), x, y, num483, num484, ProjectileID.FairyQueenMagicItemShot, starDamage, 0, player.whoAmI, 0f, 0);
 
-            modPlayer.PearlwoodCD = modPlayer.WoodForce ? 15 : 30;
+            modPlayer.PearlwoodCD = modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type) ? 15 : 30;
         }
 
         public override void AddRecipes()

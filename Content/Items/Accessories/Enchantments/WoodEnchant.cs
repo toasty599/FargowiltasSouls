@@ -75,7 +75,7 @@ Discount effect works in vanity slots"); */
 
             //register extra kill per kill
             int addedKillBonus = 1;
-            if (modPlayer.WoodForce)
+            if (modPlayer.ForceEffect(modPlayer.WoodEnchantItem.type))
                 addedKillBonus = 4;
 
             //for nonstandard banner thresholds, e.g. some ooa npcs at 100 or 200

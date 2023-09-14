@@ -107,8 +107,9 @@ Collect the bones to heal for 20 HP each
             }
             else
             {
-                Revive(modPlayer.SpiritForce ? 200 : 50, 18000);
-                FargoSoulsUtil.XWay(modPlayer.SpiritForce ? 20 : 10, player.GetSource_Accessory(modPlayer.FossilEnchantItem), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                bool forceEffect = modPlayer.ForceEffect(modPlayer.FossilEnchantItem.type);
+                Revive(forceEffect ? 200 : 50, 18000);
+                FargoSoulsUtil.XWay(forceEffect ? 20 : 10, player.GetSource_Accessory(modPlayer.FossilEnchantItem), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
             }
         }
 

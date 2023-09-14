@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Items
                 item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart)
             {
                 int rangeBonus = 160;
-                if (p.TerraForce)
+                if (p.ForceEffect(p.IronEnchantItem.type))
                     rangeBonus = 320;
                 if (p.TerrariaSoul)
                     rangeBonus = 640;
@@ -65,6 +65,27 @@ namespace FargowiltasSouls.Content.Items
         {
             if (weapon.CountsAsClass(DamageClass.Ranged) && player.GetModPlayer<FargoSoulsPlayer>().Jammed)
                 type = ProjectileID.ConfettiGun;
+
+            //coin gun is broken as fucking shit codingwise so i'm fixing it
+            if (weapon.type == ItemID.CoinGun)
+            {
+                if (ammo.type == ItemID.CopperCoin || ammo.type == ModContent.Find<ModItem>("Fargowiltas", "CopperCoinBag").Type)
+                {
+                    type = ProjectileID.CopperCoin;
+                }
+                if (ammo.type == ItemID.SilverCoin || ammo.type == ModContent.Find<ModItem>("Fargowiltas", "SilverCoinBag").Type)
+                {
+                    type = ProjectileID.SilverCoin;
+                }
+                if (ammo.type == ItemID.GoldCoin || ammo.type == ModContent.Find<ModItem>("Fargowiltas", "GoldCoinBag").Type)
+                {
+                    type = ProjectileID.GoldCoin;
+                }
+                if (ammo.type == ItemID.PlatinumCoin || ammo.type == ModContent.Find<ModItem>("Fargowiltas", "PlatinumCoinBag").Type)
+                {
+                    type = ProjectileID.PlatinumCoin;
+                }
+            }
         }
 
         public override void OnConsumeItem(Item item, Player player)
@@ -404,7 +425,6 @@ namespace FargowiltasSouls.Content.Items
         public override bool WingUpdate(int wings, Player player, bool inUse)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
             if (modPlayer.ChloroEnchantActive && player.GetToggleValue("Jungle") && inUse)
             {
                 modPlayer.CanJungleJump = false;
@@ -412,7 +432,8 @@ namespace FargowiltasSouls.Content.Items
                 //spwn cloud
                 if (modPlayer.JungleCD == 0)
                 {
-                    int dmg = modPlayer.NatureForce || modPlayer.WizardEnchantActive ? 150 : 75;
+                    bool jungleForceEffect = modPlayer.ForceEffect(modPlayer.ChloroEnchantItem.type) || modPlayer.ForceEffect(ModContent.ItemType<JungleEnchant>());
+                    int dmg = jungleForceEffect ? 150 : 75;
                     SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, player.Center);
                     FargoSoulsUtil.XWay(10, player.GetSource_Accessory(modPlayer.ChloroEnchantItem), new Vector2(player.Center.X, player.Center.Y + player.height / 2), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
 

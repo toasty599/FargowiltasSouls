@@ -62,7 +62,7 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //meme speed, solar flare,
-            modPlayer.CosmoForce = true;
+            modPlayer.cosmoForce = true;
             modPlayer.WizardEnchantActive = true;
             //meteor shower
             modPlayer.MeteorEffect(Item);

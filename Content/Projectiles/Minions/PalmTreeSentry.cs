@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             int attackRate = 45;
 
-            if (modPlayer.WoodForce)
+            if (modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type))
             {
                 attackRate = 35;
             }

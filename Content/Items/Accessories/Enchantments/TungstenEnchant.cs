@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.ModPlayers;
 
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
@@ -55,7 +56,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
         public static float TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
         {
-            return 1f + (modPlayer.TerraForce ? 2f : 1f);
+            return 1f + (modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type) ? 2f : 1f);
         }
 
         public static bool TungstenAlwaysAffectProj(Projectile projectile)
@@ -115,7 +116,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
             if (canAffect)
             {
-                float scale = modPlayer.TerraForce ? 3f : 2f;
+                float scale = modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type) ? 3f : 2f;
 
                 projectile.position = projectile.Center;
                 projectile.scale *= scale;
@@ -134,7 +135,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
                     if (modPlayer.Eternity)
                         modPlayer.TungstenCD = 0;
-                    else if (modPlayer.TerraForce)
+                    else if (modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type))
                         modPlayer.TungstenCD /= 2;
                 }
             }
@@ -142,7 +143,9 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
         public static void TungstenModifyDamage(Player player, ref NPC.HitModifiers modifiers, DamageClass damageClass)
         {
-            bool forceBuff = player.GetModPlayer<FargoSoulsPlayer>().TerraForce;
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            bool forceBuff = modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type);
 
             modifiers.FinalDamage *= forceBuff ? 1.15f : 1.1f;
 

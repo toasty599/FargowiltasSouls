@@ -66,7 +66,7 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}] Grants immunity to fire and lava\
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.TerraForce = true;
+            modPlayer.terraForce = true;
             CopperEnchant.CopperEffect(player, Item);
             TinEnchant.TinEffect(player, Item);
             modPlayer.IronEnchantItem = Item;

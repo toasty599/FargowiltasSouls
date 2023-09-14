@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
             if (TungstenEnchantItem != null && Toggler != null && Player.GetToggleValue("Tungsten")
-                && (TerraForce || item.shoot == ProjectileID.None))
+                && (ForceEffect(TungstenEnchantItem.type) || item.shoot == ProjectileID.None))
             {
                 TungstenEnchant.TungstenModifyDamage(Player, ref modifiers, item.DamageType);
             }
@@ -228,7 +228,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (BeeEnchantActive && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
                 && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && !projectile.usesLocalNPCImmunity && !projectile.usesIDStaticNPCImmunity && projectile.owner == Main.myPlayer)))
             {
-                bool force = LifeForce;
+                bool force = ForceEffect(ModContent.ItemType<BeeEnchant>());
                 if (force || Main.rand.NextBool())
                 {
                     int beeDamage = GetBaseDamage();
@@ -422,6 +422,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (SpectreEnchantActive && Player.GetToggleValue("Spectre") && !target.immortal && SpectreCD <= 0 && Main.rand.NextBool())
             {
+                bool spectreForceEffect = ForceEffect(ModContent.ItemType<SpectreEnchant>());
                 if (projectile == null)
                 {
                     //forced orb spawn reeeee
@@ -434,20 +435,20 @@ namespace FargowiltasSouls.Core.ModPlayers
                     speedY *= num2;
                     Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(Player.GetSource_Misc(""), target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, hitInfo.Damage / 2, 0, Player.whoAmI, target.whoAmI);
 
-                    if ((SpiritForce || (hitInfo.Crit && Main.rand.NextBool(5))) && p != null)
+                    if ((spectreForceEffect || (hitInfo.Crit && Main.rand.NextBool(5))) && p != null)
                     {
                         SpectreHeal(target, p);
-                        SpectreCD = SpiritForce ? 5 : 20;
+                        SpectreCD = spectreForceEffect ? 5 : 20;
                     }
                 }
                 else if (projectile.type != ProjectileID.SpectreWrath)
                 {
                     SpectreHurt(projectile);
 
-                    if (SpiritForce || (hitInfo.Crit && Main.rand.NextBool(5)))
+                    if (spectreForceEffect || (hitInfo.Crit && Main.rand.NextBool(5)))
                         SpectreHeal(target, projectile);
 
-                    SpectreCD = SpiritForce ? 5 : 20;
+                    SpectreCD = spectreForceEffect ? 5 : 20;
                 }
             }
 

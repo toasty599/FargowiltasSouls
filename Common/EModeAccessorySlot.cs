@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Common
         {
             if ((context == AccessorySlotType.FunctionalSlot || context == AccessorySlotType.VanitySlot) && (base.CanAcceptItem(checkItem, context) || AllowedItemExceptions.Contains(checkItem.type)))
             {
-                if (checkItem.ModItem is BaseEnchant || checkItem.ModItem is BaseForce || checkItem.ModItem is BaseSoul || AllowedItemExceptions.Contains(checkItem.type))
+                if ((checkItem.ModItem != null && (checkItem.ModItem is BaseEnchant || checkItem.ModItem is BaseForce || checkItem.ModItem is BaseSoul)) || AllowedItemExceptions.Contains(checkItem.type))
                 {
                     
                     return true;
@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Common
         }
         public override bool ModifyDefaultSwapSlot(Item item, int accSlotToSwapTo)
         {
-            if (item.ModItem is BaseEnchant || item.ModItem is BaseForce || item.ModItem is BaseSoul || AllowedItemExceptions.Contains(item.type))
+            if ((item.ModItem != null && (item.ModItem is BaseEnchant || item.ModItem is BaseForce || item.ModItem is BaseSoul)) || AllowedItemExceptions.Contains(item.type))
             {
                 return true;
             }
@@ -54,7 +54,16 @@ namespace FargowiltasSouls.Common
         //public override string FunctionalBackgroundTexture => "FargowiltasSouls/Assets/UI/EnchantSlotBackground";
         //public override string VanityBackgroundTexture => "FargowiltasSouls/Assets/UI/EnchantSlotBackground";
         //public override string DyeBackgroundTexture => "FargowiltasSouls/Assets/UI/EnchantSlotBackground";
-
+        public override void ApplyEquipEffects()
+        {
+            int lastAccIndex = 7 + Player.GetAmountOfExtraAccessorySlotsToShow();
+            if (Player.armor[lastAccIndex].type == ModContent.ItemType<WizardEnchant>() || Player.armor[lastAccIndex].type == ModContent.ItemType<CosmoForce>())
+            {
+                Player.GetModPlayer<FargoSoulsPlayer>().WizardedItem = FunctionalItem;
+            }
+            
+            base.ApplyEquipEffects();
+        }
         public override void OnMouseHover(AccessorySlotType context)
         {
             switch (context)

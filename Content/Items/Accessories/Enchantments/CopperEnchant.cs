@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 int maxTargets = 1;
                 int cdLength = 300;
 
-                if (modPlayer.TerraForce)
+                if (modPlayer.ForceEffect(modPlayer.CopperEnchantItem.type))
                 {
                     dmg = 150;
                     maxTargets = 5;

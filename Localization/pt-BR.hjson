@@ -10,16 +10,16 @@ Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
 			// Adamantite: Projectiles now split into 3
-			// Apprentice: The next 3 weapons are used instead of 1
+			// Apprentice: The next 2 weapons are used instead of 1
 			// AncientHallow: No upgrade
 			// AncientShadow: Number of Shadow Orbs increased
 			// AncientCobalt: No upgrade
 			// Angler: No upgrade
-			// Bee: No upgrade
+			// Bee: On-hit effect is guaranteed to trigger, and always summons a Giant Bee
 			// Beetle: No upgrade
 			// BorealWood: Fires more snowballs more often
 			// Cactus: Number of needles and damage increased
-			// Chlorophyte: No upgrade
+			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			// Cobalt: Explosion damage increased
 			// Copper: Lightning damage increased, cooldown reduced
 			// Crimson: No upgrade
@@ -27,27 +27,27 @@ Mods: {
 			// DarkArtist: The next 3 weapons are used instead of 2
 			// Ebonwood: Aura size increased, defense reduction increased to 30
 			// Forbidden: Damage boost increased from 30 to 60%
-			// Fossil: No upgrade
-			// Frost: No upgrade
+			// Fossil: Revive heal increased to 200 and revive bone count doubled
+			// Frost: Icicle damage doubled
 			// Gladiator: No upgrade
 			// Gold: No upgrade
 			// Hallow: No upgrade
 			// Huntress: No upgrade
 			// Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
-			// Jungle: No upgrade
+			// Jungle: Spore damage increased, cooldown decreased
 			// Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
-			// Meteor: No upgrade
-			// Miner: No upgrade
+			// Meteor: Cooldown decreased, more meteors, increased damage of meteors
+			// Miner: Increased mining speed
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
 			// Monk: No upgrade
 			// Mythril: Max attack speed bonus increased and lasts longer
 			// Nebula: No upgrade
-			// Necro: No upgrade
+			// Necro: Graves float
 			// Ninja: Maximum damage bonus increased to 30%, maximum player speed where effect activates increased
 			// Obsidian: You no longer need lava to spawn explosions or fireballs, cooldown reduced
 			// Orichalcum: Increases multiplier to 4x
 			// Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
-			// PalmWood: Attack speed and damage increased, 2 more trees can be spawned
+			// PalmWood: Attack speed and damage increased, another tree can be spawned
 			// Pearlwood: Damage increased and cooldown reduced
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
@@ -59,18 +59,18 @@ Mods: {
 			// Shroomite: Mushrooms are spawned more often
 			// Silver: Parrying blocks up to 200 damage and grants the Striking Moment buff
 			// Solar: No upgrade
-			// Spectre: No upgrade
+			// Spectre: Decreased cooldown and always spawns healing orb
 			// Spider: No upgrade
-			// Spooky: No upgrade
-			// Stardust: No upgrade
+			// Spooky: Decreased cooldown
+			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
-			// Shadow: No upgrade
+			// Shadow: Number of Shadow Orbs increased
 			// Squire: No upgrade
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
 			// Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
-			// Turtle: No upgrade
+			// Turtle: Occasionaly recover a projectile block point, number of needles and damage increased
 			// ValhallaKnight: No upgrade
 			// Vortex: No upgrade
 			// Wood: Bestiary and banner multiplier increased to 5
@@ -1011,7 +1011,7 @@ Mods: {
 			Damage: Dano reduzido em {0}%
 			// DamagePositive: Increased damage by {0}%
 			Speed: Velocidade reduzida em {0}%
-			// SpeedPositive: Reduced speed by {0}%
+			// SpeedPositive: Increased speed by {0}%
 			RodofDiscord: Durante batalhas contra chefes, cada uso leva vida
 			Split: Frequência de divisão reduzida
 			ChlorophyteBullet: Velocidade e duração reduzidos
@@ -1038,7 +1038,7 @@ Mods: {
 			// PalladiumPikeRework: Greatly increases life regeneration after striking an enemy
 			// CobaltNaginataRework: Causes a small explosion on striking enemies
 			// MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
-			// OrichalcumHalberdRework: Releases flower petals at apex of swing
+			// OrichalcumHalberdRework: Releases flower petals on swing
 			// SuperStarCannon: Decreased maximum pierce to 7
 		}
 

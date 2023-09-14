@@ -6,20 +6,27 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Assets.ExtraTextures;
+using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
-    public class LifeBomb : ModProjectile
+    public class LifeBomb : ModProjectile, IPixelPrimitiveDrawer
     {
+
+        public PrimDrawer TrailDrawer { get; private set; } = null;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Life Mine");
+            ProjectileID.Sets.TrailingMode[Type] = 1;
+            ProjectileID.Sets.TrailCacheLength[Type] = 20;
         }
         public override void SetDefaults()
         {
-            Projectile.width = 25;
-            Projectile.height = 25;
+            Projectile.width = 22;
+            Projectile.height = 22;
             Projectile.aiStyle = 0;
             Projectile.hostile = true;
             AIType = 14;
@@ -79,6 +86,23 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             Main.EntitySpriteDraw(texture2D13, drawPos, new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
+        }
+
+        public float WidthFunction(float completionRatio)
+        {
+            float baseWidth = Projectile.scale * Projectile.width * 1.6f;
+            return MathHelper.SmoothStep(baseWidth, 3.5f, completionRatio);
+        }
+
+        public Color ColorFunction(float completionRatio)
+        {
+            return Color.Lerp(Color.Gold, Color.Transparent, completionRatio) * 0.7f;
+        }
+        public void DrawPixelPrimitives(SpriteBatch spriteBatch)
+        {
+            TrailDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, ShaderManager.GetShaderIfExists("BlobTrail"));
+            FargoSoulsUtil.SetTexture1(FargosTextureRegistry.FadedStreak.Value);
+            TrailDrawer.DrawPixelPrims(Projectile.oldPos, Projectile.Size * 0.5f - Main.screenPosition, 44);
         }
     }
 }

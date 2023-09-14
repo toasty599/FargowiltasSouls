@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -52,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
 
             //always max size in force
-            if (modPlayer.NatureForce)
+            if (modPlayer.ForceEffect(ModContent.ItemType<RainEnchant>()))
             {
                 Projectile.scale = 3f;
                 shrinkTimer = 1;

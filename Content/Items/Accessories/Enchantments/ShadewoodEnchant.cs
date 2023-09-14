@@ -46,7 +46,7 @@ Enemies struck while Bleeding spew damaging blood
 
             modPlayer.ShadewoodEnchantItem = item;
 
-            int dist = modPlayer.WoodForce ? 400 : 200;
+            int dist = modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) ? 400 : 200;
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -54,7 +54,7 @@ Enemies struck while Bleeding spew damaging blood
                 if (npc.active && !npc.friendly && npc.lifeMax > 5 && !npc.dontTakeDamage)
                 {
                     Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
-                    if (player.Distance(npcComparePoint) < dist && (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
+                    if (player.Distance(npcComparePoint) < dist && (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
                         npc.AddBuff(ModContent.BuffType<SuperBleedBuff>(), 120);
                 }
             }
@@ -66,7 +66,7 @@ Enemies struck while Bleeding spew damaging blood
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
                 Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-                if (modPlayer.WoodForce || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
+                if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
                         spawnPos, 0, 0,
@@ -91,7 +91,7 @@ Enemies struck while Bleeding spew damaging blood
             bool trueMelee = projectile == null || projectile.aiStyle == 19;
             int dmg = 20;
 
-            if (modPlayer.WoodForce)
+            if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type))
             {
                 dmg *= 3;
             }
@@ -103,7 +103,7 @@ Enemies struck while Bleeding spew damaging blood
                     Projectile.NewProjectile(player.GetSource_Misc(""), target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0f, Main.myPlayer);
                 }
 
-                if (modPlayer.WoodForce)
+                if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type))
                 {
                     target.AddBuff(BuffID.Ichor, 30);
                 }

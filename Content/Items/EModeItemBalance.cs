@@ -112,23 +112,24 @@ namespace FargowiltasSouls.Content.Items
                 case ItemID.CoinGun:
                     balanceTextKeys = new string[] { "CoinGun" };
                     return EModeChange.Nerf;
+                    /*
                 case ItemID.CopperCoin:
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 1.6f;
                     return EModeChange.Buff;
                 case ItemID.SilverCoin:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.95f;
+                    balanceNumber = 0.9f;
                     return EModeChange.Nerf;
                 case ItemID.GoldCoin:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.55f;
+                    balanceNumber = 0.5f;
                     return EModeChange.Nerf;
                 case ItemID.PlatinumCoin:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.3f;
+                    balanceNumber = 0.275f;
                     return EModeChange.Nerf;
-
+                */
                 //case ItemID.EmpressBlade:
                 //    tooltips.Add(new TooltipLine(Mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
                 //    goto case ItemID.StardustCellStaff;
@@ -303,18 +304,41 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "CobaltNaginataRework" };
                     return EModeChange.Buff;
+                case ItemID.CobaltSword:
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed", "CobaltNaginataRework" };
+                    return EModeChange.Buff;
                 case ItemID.MythrilHalberd:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "MythrilHalberdRework" };
+                    return EModeChange.Buff;
+                case ItemID.MythrilSword:
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed", "MythrilHalberdRework" };
                     return EModeChange.Buff;
                 case ItemID.OrichalcumHalberd:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "OrichalcumHalberdRework" };
                     return EModeChange.Buff;
+                case ItemID.OrichalcumSword:
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed", "OrichalcumHalberdRework" };
+                    return EModeChange.Buff;
                 case ItemID.PalladiumPike:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "PalladiumPikeRework" };
                     return EModeChange.Buff;
+                case ItemID.PalladiumSword:
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed", "PalladiumPikeRework" };
+                    return EModeChange.Buff;
+
+                case ItemID.TitaniumSword:
+                case ItemID.AdamantiteSword:
+                    balanceNumber = 1.5f;
+                    balanceTextKeys = new string[] { "Speed" };
+                    return EModeChange.Buff;
+
                 case ItemID.Spear:
                 case ItemID.AdamantiteGlaive:
                 case ItemID.TheRottedFork:

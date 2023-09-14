@@ -363,7 +363,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     if (NPC.localAI[2] == 0) //store rotation offset
                     {
                         NPC.localAI[2] = player.DirectionTo(NPC.Center).ToRotation()
-                            + MathHelper.ToRadians(WorldSavingSystem.EternityMode ? 135 : 90) * Main.rand.NextFloat(-1, 1);
+                            + MathHelper.ToRadians(WorldSavingSystem.EternityMode ? 100 : 80) * Main.rand.NextFloat(-1, 1);
                         NPC.netUpdate = true;
                     }
 

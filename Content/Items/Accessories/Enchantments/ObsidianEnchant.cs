@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             if (modPlayer.ObsidianCD > 0)
                 modPlayer.ObsidianCD--;
 
-            if (modPlayer.TerraForce || player.lavaWet || modPlayer.LavaWet)
+            if (modPlayer.ForceEffect(ModContent.ItemType<ObsidianEnchant>()) || player.lavaWet || modPlayer.LavaWet)
             {
                 modPlayer.ObsidianEnchantItem = item;
             }
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Player player = modPlayer.Player;
             Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.ObsidianEnchantItem), target.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), damage, 0, player.whoAmI);
 
-            if (modPlayer.TerraForce)
+            if (modPlayer.ForceEffect(modPlayer.ObsidianEnchantItem.type))
             {
                 modPlayer.ObsidianCD = 20;
             }

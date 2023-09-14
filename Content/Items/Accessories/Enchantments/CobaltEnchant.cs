@@ -45,7 +45,7 @@ When you are hurt, you violently explode to damage nearby enemies
                 int multiplier = 2;
                 int cap = 150;
 
-                if (modPlayer.EarthForce)
+                if (modPlayer.ForceEffect(modPlayer.CobaltEnchantItem.type))
                 {
                     baseDamage = 150;
                     multiplier = 4;

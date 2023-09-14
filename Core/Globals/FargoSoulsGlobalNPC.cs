@@ -626,7 +626,7 @@ namespace FargowiltasSouls.Core.Globals
 
                 int dot = npc.type == NPCID.EaterofWorldsBody ? 4 : 20;
 
-                if (modPlayer.TerraForce)
+                if (modPlayer.ForceEffect(modPlayer.LeadEnchantItem.type))
                 {
                     dot *= 3;
                 }

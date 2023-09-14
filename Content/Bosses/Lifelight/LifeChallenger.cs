@@ -976,7 +976,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 if (AI_Timer == 180f)
                 {
                     //mine explosion
-                    const int MineAmount = 100;
+                    const int MineAmount = 90;
                     for (int i = 0; i < MineAmount; i++)
                     {
                         float rotation = (i / 64f) * MathHelper.TwoPi;
@@ -1024,7 +1024,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                 //for a starting time, make it fade in, then make it spin faster and faster up to a max speed
                 const int fadeintime = 10;
-                const int endTime = 850;
+                const int endTime = 950;
 
                 // WHY IS THIS SO HIGH.
                 //// Screenshake.
@@ -1064,7 +1064,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 {
                     if (rotspeed < 0.82f)
                     {
-                        rotspeed += 2f / 60 / 4;
+                        rotspeed += 1.2f / 60 / 4;
                     }
                     else
                     {

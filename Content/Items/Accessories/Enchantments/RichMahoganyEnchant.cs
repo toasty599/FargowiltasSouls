@@ -42,10 +42,10 @@ While grappling you gain 10% damage resistance for one hit and a 50% thorns effe
 
             if (player.grapCount > 0)
             {
-                modPlayer.Player.thorns += modPlayer.WoodForce ? 5.0f : 0.5f;
+                modPlayer.Player.thorns += modPlayer.ForceEffect(modPlayer.MahoganyEnchantItem.type) ? 5.0f : 0.5f;
 
                 if (modPlayer.MahoganyCanUseDR)
-                    modPlayer.Player.endurance += modPlayer.WoodForce ? 0.3f : 0.1f;
+                    modPlayer.Player.endurance += modPlayer.ForceEffect(modPlayer.MahoganyEnchantItem.type) ? 0.3f : 0.1f;
             }
             else //when not grapple, refresh DR
             {

@@ -31,6 +31,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public const int MaxShorterDebuffsTimer = 60;
 
         public int MythrilHalberdTimer;
+        public int CobaltHitCounter;
         private int WeaponUseTimer => Player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer;
 
         public override void ResetEffects()

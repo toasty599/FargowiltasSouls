@@ -36,14 +36,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))
                 itemNameLine.OverrideColor = nameColor;
 
-            foreach (BaseEnchant enchant in Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().EquippedEnchants)
+            FargoSoulsPlayer localSoulsPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
+            foreach (BaseEnchant enchant in localSoulsPlayer.EquippedEnchants)
             {
                 if (enchant.Type == Type)
                 {
                     continue;
                 }
-                if (enchant.wizardEffect().Length != 0)
-                    tooltips.Add(new TooltipLine(Mod, "wizard", $"[i:{enchant.Item.type}] " + enchant.wizardEffect()));
+                if (localSoulsPlayer.ForceEffect(enchant.Type))
+                {
+                    if (enchant.wizardEffect().Length != 0)
+                        tooltips.Add(new TooltipLine(Mod, "wizard", $"[i:{enchant.Item.type}] " + enchant.wizardEffect()));
+                }
             }
         }
 

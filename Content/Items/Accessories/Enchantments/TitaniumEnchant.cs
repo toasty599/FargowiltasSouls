@@ -59,7 +59,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
             if (canUseDR)
             {
                 float diff = 1f - player.endurance;
-                diff *= modPlayer.EarthForce ? 0.75f : 0.5f;
+                diff *= modPlayer.ForceEffect(modPlayer.TitaniumEnchantItem.type) ? 0.75f : 0.5f;
                 player.endurance += diff;
             }
         }
@@ -73,7 +73,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
             if (player.ownedProjectileCounts[ProjectileID.TitaniumStormShard] < 20)
             {
                 int damage = 50;
-                if (modPlayer.EarthForce)
+                if (modPlayer.ForceEffect(modPlayer.TitaniumEnchantItem.type))
                 {
                     damage = FargoSoulsUtil.HighestDamageTypeScaling(player, damage);
                 }

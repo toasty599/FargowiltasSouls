@@ -194,7 +194,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             if (Projectile.hide)
                 return;
 
-            Shader laser = ShaderManager.GetShaderIfExists("DeviBigDeathray");
+            Shader laser = ShaderManager.GetShaderIfExists("DeviTouhouDeathray");
             Shader ring = ShaderManager.GetShaderIfExists("DeviRing");
 
 			// Initialize the drawers.
@@ -295,11 +295,11 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
                 ring.SetMainColor(new Color(216, 108, 224, 100));
                 FargoSoulsUtil.SetTexture1(RingTextures[iterator].Value);
-                ring.WrappedEffect.Parameters["stretchAmount"].SetValue(0.2f);
+                ring.WrappedEffect.Parameters["stretchAmount"]?.SetValue(0.2f);
 
                 float scrollSpeed = MathHelper.Lerp(1f, 1.3f, 1 - i / (baseDrawPoints.Length / 2 - 1));
-                ring.WrappedEffect.Parameters["scrollSpeed"].SetValue(scrollSpeed);
-                ring.WrappedEffect.Parameters["reverseDirection"].SetValue(inBackground);
+                ring.WrappedEffect.Parameters["scrollSpeed"]?.SetValue(scrollSpeed);
+                ring.WrappedEffect.Parameters["reverseDirection"]?.SetValue(inBackground);
                 float opacity = 1f;
                 if (inBackground)
                     opacity = 0.5f;

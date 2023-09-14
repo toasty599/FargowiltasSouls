@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -29,18 +30,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void ApprenticeEffect(Player player)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
+            bool forceEffect = modPlayer.ForceEffect(ModContent.ItemType<ApprenticeEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<DarkArtistEnchant>());
             if (player.GetToggleValue("Apprentice") && player.controlUseItem)
             {
                 int numExtraSlotsToUse = 1;
 
-                if (modPlayer.DarkArtistEnchantActive || modPlayer.ShadowForce)
-                {
-                    numExtraSlotsToUse = 2;
-                }
-                else if (modPlayer.DarkArtistEnchantActive && modPlayer.ShadowForce)
+                if (modPlayer.DarkArtistEnchantActive && forceEffect)
                 {
                     numExtraSlotsToUse = 3;
+                }
+                else if (modPlayer.DarkArtistEnchantActive || forceEffect)
+                {
+                    numExtraSlotsToUse = 2;
                 }
 
                 //update item cds
@@ -86,7 +87,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                         if (item2 != null && item2.damage > 0 && item2.shoot > 0 && item2.ammo <= 0 && item.type != item2.type && !item2.channel)
                         {
-                            if (!player.HasAmmo(item2) || (item2.mana > 0 && player.statMana < item2.mana) || item2.sentry)
+                            if (!player.HasAmmo(item2) || (item2.mana > 0 && player.statMana < item2.mana) || item2.sentry || ContentSamples.ProjectilesByType[item2.shoot].minion)
                             {
                                 continue;
                             }

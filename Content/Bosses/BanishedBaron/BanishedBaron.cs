@@ -1600,6 +1600,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             const int Endlag = 10;
             const int distance = 500;
             const float MaxRot = MathHelper.Pi / 5;
+
             if (Timer == 1)
             {
                 //go towards center of arena so you don't get fucked by arena border and can't go around

@@ -478,18 +478,6 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
                         }
                         break;
-                    case ProjectileID.CopperCoin:
-                        projectile.damage = (int)(projectile.damage * 1.6f);
-                        break;
-                    case ProjectileID.SilverCoin:
-                        projectile.damage = (int)(projectile.damage * 0.95f);
-                        break;
-                    case ProjectileID.GoldCoin:
-                        projectile.damage = (int)(projectile.damage * 0.55f);
-                        break;
-                    case ProjectileID.PlatinumCoin:
-                        projectile.damage = (int)(projectile.damage * 0.3f);
-                        break;
                     case var _ when ReworkedSpears.Contains(projectile.type):
                         {
                             projectile.damage = (int)(projectile.damage * 1.5f);
@@ -1252,7 +1240,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             {
                                 if (projectile.ai[1] == duration / 2 || projectile.ai[1] == duration / 2 + WaitTime && Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Normalize(projectile.velocity) * 5, ProjectileID.FlowerPetal, projectile.damage / 3, projectile.knockBack / 3, Main.myPlayer);
+                                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Normalize(projectile.velocity) * 5, ProjectileID.FlowerPetal, projectile.damage / 2, projectile.knockBack / 2, Main.myPlayer);
                                 }
                                 break;
                             }
@@ -1274,7 +1262,21 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
-
+            switch (projectile.type)
+            {
+                case ProjectileID.CopperCoin:
+                    modifiers.FinalDamage *= 1.6f;
+                    break;
+                case ProjectileID.SilverCoin:
+                    modifiers.FinalDamage *= 0.9f;
+                    break;
+                case ProjectileID.GoldCoin:
+                    modifiers.FinalDamage *= 0.47f;
+                    break;
+                case ProjectileID.PlatinumCoin:
+                    modifiers.FinalDamage *= 0.275f;
+                    break;
+            }
             //if (projectile.arrow) //change archery and quiver to additive damage
             //{
             //    if (Main.player[projectile.owner].archery)
@@ -1399,7 +1401,6 @@ namespace FargowiltasSouls.Content.Projectiles
                             p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                         projectile.ai[2]++;
                     }
-                    
                     break;
                 default:
                     break;

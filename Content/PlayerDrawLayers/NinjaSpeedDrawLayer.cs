@@ -10,15 +10,26 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
     {
         public override bool IsHeadLayer => false;
 
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) =>
-            drawInfo.drawPlayer.whoAmI == Main.myPlayer
-            && drawInfo.drawPlayer.active
-            && !drawInfo.drawPlayer.dead
-            && !drawInfo.drawPlayer.ghost
-            && drawInfo.shadow == 0
-            && drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null
-            && drawInfo.drawPlayer.GetToggleValue("NinjaSpeed")
-            && drawInfo.drawPlayer.velocity.Length() < (drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().ShadowForce ? 8f : 5f);
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            Player player = drawInfo.drawPlayer;
+            if (player == null || !player.active || player.dead || player.ghost || player.whoAmI != Main.myPlayer || player.GetToggleValue("NinjaSpeed") || drawInfo.shadow != 0)
+            {
+                return false;
+            }
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            if (modPlayer == null)
+            {
+                return false;
+            }
+            if (modPlayer.NinjaEnchantItem == null)
+            {
+                return false;
+            }
+            float maxSpeed = modPlayer.ForceEffect(modPlayer.NinjaEnchantItem.type) ? 8f : 5f;
+
+            return player.velocity.Length() < maxSpeed;
+        }
 
         public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayerLoader.Layers[0]);
 

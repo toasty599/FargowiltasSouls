@@ -47,7 +47,7 @@ Damaging debuffs deal 2.5x damage
         {
             float multiplier = 2.5f;
 
-            if (modPlayer.EarthForce)
+            if (modPlayer.ForceEffect(modPlayer.OriEnchantItem.type))
             {
                 multiplier = 4f;
             }
