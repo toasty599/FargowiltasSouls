@@ -437,6 +437,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 MashCounter--;
             Mash = false;
 
+
+
+
+
+
         }
 
         public override void OnRespawn()

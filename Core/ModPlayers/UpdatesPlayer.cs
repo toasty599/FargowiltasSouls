@@ -128,6 +128,14 @@ namespace FargowiltasSouls.Core.ModPlayers
                 //regular OnRespawn() doesnt account for lifeforce, and is lowered by dying with oceanic maul
             }
 
+            if (!SquireEnchantActive && BaseMountType != -1)
+            {
+                Mount.mounts[BaseMountType].acceleration = BaseSquireMountData.acceleration;
+                Mount.mounts[BaseMountType].dashSpeed = BaseSquireMountData.dashSpeed;
+                Mount.mounts[BaseMountType].fallDamage = BaseSquireMountData.fallDamage;
+                BaseMountType = -1;
+            }
+
             ConcentratedRainbowMatterTryAutoHeal();
         }
 

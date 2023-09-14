@@ -6,7 +6,10 @@ NEW UPDATE - V 1.6
 -Reworked Dark Artist Enchantment: While attacking, fire your next 2 closest weapon's projectiles as support
 and Summons a Flameburst minion that will also fire while you attack
 
--Reworked Squire Enchantment:
+-Reworked Squire Enchantment: Increases mount acceleration and top speed. While mounted, grants 10 defense, a fart jump, and fall damage immunity
+-Updated recipe
+
+-Removed most of the extra loot Wall of Flesh dropped in emode
 
 -See the wiki for full details!
 

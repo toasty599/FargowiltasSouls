@@ -1444,6 +1444,17 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int[] ApprenticeItemCDs = new int[10];
 
+        //saved mount stats for squire
+        //public Mount.MountData OriginalSquireMountData;
+        public Mount.MountData BaseSquireMountData;
+
+        public int BaseMountType = -1;
+
+
+        //public float baseMountAccel;
+        //public float baseMountRunSpeed;
+        //public int baseMountJumpHeight;
+
 
         public void MonkEffect()
         {
@@ -3169,5 +3180,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //Main.NewText($"{ironShieldCD}, {ironShieldTimer}");
         }
+
+        
     }
 }

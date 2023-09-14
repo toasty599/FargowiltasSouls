@@ -2484,6 +2484,8 @@ Mods: {
 				DisplayName: Squire Enchantment
 				Tooltip:
 					'''
+					Increases mount acceleration and top speed
+					While mounted, grants 10 defense, a fart jump, and fall damage immunity
 					Increases the effectiveness of healing sources by 25%
 					Ballista pierces more targets and panics when you take damage
 					'Squire, will you hurry?'
