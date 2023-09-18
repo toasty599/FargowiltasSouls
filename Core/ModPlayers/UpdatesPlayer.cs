@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -526,6 +527,11 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (SpectreCD > 0)
                 SpectreCD--;
+
+            if (RustRifleReloading && Player.HeldItem.type == ModContent.ItemType<NavalRustrifle>())
+            {
+                RustRifleTimer++;
+            }
 
             if (ParryDebuffImmuneTime > 0)
             {

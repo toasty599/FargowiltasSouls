@@ -66,23 +66,13 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 knockback *= 3f;
             }
         }
-
-        int Timer = 0;
-        public override void HoldItem(Player player)
-        {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            if (modPlayer.RustRifleReloading)
-            {
-                modPlayer.RustRifleReloadProgress = (1 + (float)Math.Sin(MathHelper.Pi * (Timer-30) / 60f)) / 2f;
-                Timer++;
-            }
-        }
         public override bool CanUseItem(Player player)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (modPlayer.RustRifleReloading)
             {
-                if (Math.Abs(modPlayer.RustRifleReloadProgress - modPlayer.RustRifleReloadZonePos) < 0.15f)
+                float reloadProgress = ReloadProgress(modPlayer.RustRifleTimer);
+                if (Math.Abs(reloadProgress - modPlayer.RustRifleReloadZonePos) < 0.15f)
                 {
                     EmpoweredShot = true;
                     SoundEngine.PlaySound(SoundID.Item149 with { Pitch = 0.5f }, player.Center);
@@ -95,10 +85,12 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                     Item.UseSound = SoundID.Item40;
                 }
                 modPlayer.RustRifleReloading = false;
-                modPlayer.RustRifleReloadProgress = 0;
+                modPlayer.RustRifleTimer = 0;
+
                 modPlayer.RustRifleReloadZonePos = 0;
                 player.reuseDelay = 20;
-                Timer = 0;
+                player.GetModPlayer<FargoSoulsPlayer>().RustRifleTimer = 0;
+                //Timer = 0;
                 return false;
             }
             return base.CanUseItem(player);
@@ -107,7 +99,14 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         {
             player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloading = true;
             player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloadZonePos = 0.725f;
+            player.GetModPlayer<FargoSoulsPlayer>().RustRifleTimer = 0;
+            //Timer = 0;
             return base.UseItem(player);
+        }
+
+        public static float ReloadProgress(float timer)
+        {
+            return (1 + (float)Math.Sin(MathHelper.Pi * (timer - 30) / 60f)) / 2f;
         }
     }
 }

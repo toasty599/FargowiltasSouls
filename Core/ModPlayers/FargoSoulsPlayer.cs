@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool RustRifleReloading = false;
         public float RustRifleReloadZonePos = 0;
-        public float RustRifleReloadProgress = 0;
+        public float RustRifleTimer = 0;
 
         public bool fireNoDamage = false;
 
