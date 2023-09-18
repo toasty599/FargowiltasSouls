@@ -1,5 +1,7 @@
 using FargowiltasSouls.Common.Utilities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -45,7 +47,28 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Item.height = 20;
             Item.accessory = true;
         }
+        int drawTimer = 0;
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            //draw glow if wizard effect
+            Player player = Main.LocalPlayer;
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
+            if (modPlayer.ForceEffect(Item.type))
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f;
+                    float modifier = 0.5f + ((float)Math.Sin(drawTimer / 30f) / 6);
+                    Color glowColor = Color.Lerp(Color.Blue with { A = 0 }, Color.Silver with { A = 0}, modifier) * 0.5f;
+
+                    Texture2D texture = Terraria.GameContent.TextureAssets.Item[Item.type].Value;
+                    Main.EntitySpriteDraw(texture, position + afterimageOffset, null, glowColor, 0, texture.Size() * 0.5f, Item.scale, SpriteEffects.None, 0f);
+                }
+            }
+            drawTimer++;
+            return base.PreDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
+        }
         public sealed override void UpdateEquip(Player player)
         {
             //todo, change this to sealed UpdateAccessory and refactor every single enchantment file to accommodate
