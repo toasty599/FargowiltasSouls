@@ -237,6 +237,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Chlorophyte") && Player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
             {
+                
                 int dmg = ForceEffect(ChloroEnchantItem.type) ? 65 : 35;
                 const int max = 5;
                 float rotation = 2f * (float)Math.PI / max;
@@ -451,6 +452,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (IcicleCount >= 1 && Player.controlUseItem && Player.HeldItem.damage > 0 && Player.HeldItem.createTile == -1 && Player.HeldItem.createWall == -1 && Player.HeldItem.ammo == AmmoID.None && Player.HeldItem.hammer == 0 && Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0)
                 {
+                    
                     int dmg = ForceEffect(ModContent.ItemType<FrostEnchant>()) ? 100 : 50;
 
                     for (int i = 0; i < Main.maxProjectiles; i++)
@@ -655,7 +657,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     int tier = 1;
                     if (ChloroEnchantActive)
                         tier++;
-                    bool jungleForceEffect = ForceEffect(ModContent.ItemType<JungleEnchant>()) || ForceEffect(ChloroEnchantItem.type);
+                    bool jungleForceEffect = ForceEffect(ModContent.ItemType<JungleEnchant>()) || ForceEffect(ModContent.ItemType<ChlorophyteEnchant>());
                     if (jungleForceEffect)
                         tier++;
 
@@ -697,6 +699,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Meteor"))
             {
+                
                 bool forceEffect = ForceEffect(MeteorEnchantItem.type);
                 int damage = forceEffect ? 50 : 20;
 
@@ -824,7 +827,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 int currentOrbs = Player.ownedProjectileCounts[ModContent.ProjectileType<ShadowEnchantOrb>()];
 
                 int max = 2;
-
+                
                 bool forceEffect = ForceEffect(ModContent.ItemType<ShadowEnchant>()) || ForceEffect(ModContent.ItemType<AncientShadowEnchant>());
 
                 if (TerrariaSoul)
@@ -1381,7 +1384,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 TurtleCounter = 0;
             }
-
+            
             if (TurtleShellHP < 20 && !Player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && !ShellHide && ForceEffect(ModContent.ItemType<TurtleEnchant>()))
             {
                 turtleRecoverCD--;

@@ -1449,27 +1449,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool ForceEffect(int? enchType)
         {
-            if (enchType == null)
-            {
-                Main.NewText("you shouldn't be seeing this. tall javyz");
-                return false;
-            }
-            int type = (int)enchType;
-            ModItem item = ModContent.GetModItem(type);
-            if (item == null || item.Item.IsAir)
-            {
-                Main.NewText("you shouldn't be seeing this. tall javyz");
-                return false;
-            }
-            if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == item.Item.type)
-            {
-                return true;
-            }
-            if (item != null && item is BaseSoul || item is BaseForce)
-            {
-                return true;
-            }
-            if (item != null && item is BaseEnchant)
+            bool CheckForces(int type)
             {
                 if (CosmoForce.Enchants.Contains(type) && cosmoForce)
                 {
@@ -1499,7 +1479,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     return true;
                 }
-                if (TimberForce.Enchants.Contains(type) && timberForce) 
+                if (TimberForce.Enchants.Contains(type) && timberForce)
                 {
                     return true;
                 }
@@ -1507,6 +1487,45 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     return true;
                 }
+                return false;
+            }
+            if (enchType == null)
+            {
+                Main.NewText("you shouldn't be seeing this. tall javyz");
+                return false;
+            }
+            int type = (int)enchType;
+            ModItem item = ModContent.GetModItem(type);
+            if (item == null || item.Item.IsAir)
+            {
+                Main.NewText("you shouldn't be seeing this. tall javyz");
+                return false;
+            }
+            if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == item.Item.type)
+            {
+                return true;
+            }
+            if (item != null && item is BaseSoul || item is BaseForce)
+            {
+                return true;
+            }
+            if (item != null && item is BaseEnchant)
+            {
+                if (CheckForces(type))
+                {
+                    return true;
+                }
+                else //check force of enchant it crafts into
+                {
+                    foreach (Recipe recipe in Main.recipe.Where(r => r.ContainsIngredient(type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant && CheckForces(r.createItem.type)))
+                    {
+                        if (CheckForces(recipe.createItem.type))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                
             }
             return false;
         }
