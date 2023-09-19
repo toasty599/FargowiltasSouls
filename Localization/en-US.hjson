@@ -2025,6 +2025,7 @@ Mods: {
 				Tooltip:
 					'''
 					Crits have a chance to shock enemies with chain lightning
+					Wet enemies have a chance to be shocked without a crit
 					'Behold'
 					'''
 			}

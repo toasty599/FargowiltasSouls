@@ -254,7 +254,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
             }
 
-            if (CopperEnchantItem != null && hitInfo.Crit)
+            bool wetCheck = target.HasBuff(BuffID.Wet) && Main.rand.NextBool(4);
+            if (CopperEnchantItem != null && hitInfo.Crit || wetCheck)
             {
                 CopperEnchant.CopperProc(this, target);
             }
