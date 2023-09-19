@@ -27,10 +27,14 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 60 * 15;
         }
-
+        ref float hits => ref Projectile.ai[2];
         public override bool? CanDamage()
         {
-            return Projectile.velocity != Vector2.Zero; //only while travelling
+            return Projectile.velocity != Vector2.Zero && hits < 5; //only while travelling and hasn't hit more than 5 times
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            hits++;
         }
 
         public override void AI()

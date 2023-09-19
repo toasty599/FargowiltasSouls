@@ -29,7 +29,7 @@ Mods: {
 			// Forbidden: Damage boost increased from 30 to 60%
 			// Fossil: Revive heal increased to 200 and revive bone count doubled
 			// Frost: Icicle damage doubled
-			// Gladiator: No upgrade
+			// Gladiator: Increased banner aura size, decreased spear rain cooldown
 			// Gold: No upgrade
 			// Hallow: No upgrade
 			// Huntress: No upgrade
@@ -1881,7 +1881,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: Spears rain down on hit enemies, +10 defense, +10% damage, knockback immunity
+				// Description: +10 defense, +15% damage, knockback immunity, improved spear rain
 			}
 		}
 

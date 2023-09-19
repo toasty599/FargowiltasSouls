@@ -827,7 +827,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             if (Main.zenithWorld) //edgy boss text
             {
-                Color color = Color.LimeGreen;
+                Color color = Color.Cyan;
                 FargoSoulsUtil.PrintText(text, color);
                 CombatText.NewText(NPC.Hitbox, color, text, true);
                 /*
@@ -1491,7 +1491,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 9f;
                 }
-                if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul && !WorldSavingSystem.MasochistModeReal) 
+                if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul) 
                     EdgyBossText("Hand it over. That thing, your soul toggles.");
             }
             else if (NPC.ai[1] > 150)
