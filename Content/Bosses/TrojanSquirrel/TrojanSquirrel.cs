@@ -856,7 +856,6 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TrojanSquirrelTrophy>(), 10));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<TrojanSquirrelRelic>()));
-
             LeadingConditionRule rule = new(new Conditions.NotExpert());
             rule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<TreeSword>(), ModContent.ItemType<MountedAcornGun>(), ModContent.ItemType<SnowballStaff>(), ModContent.ItemType<KamikazeSquirrelStaff>()));
             rule.OnSuccess(ItemDropRule.OneFromOptions(1,
@@ -871,6 +870,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             //ItemID.GemSquirrelSapphire,
             //ItemID.GemSquirrelTopaz
             ));
+            rule.OnSuccess(ItemDropRule.Common(ItemID.SquirrelHook));
             rule.OnSuccess(ItemDropRule.Common(ItemID.WoodenCrate, 1, 1, 5));
             rule.OnSuccess(ItemDropRule.Common(ItemID.HerbBag, 1, 1, 5));
             rule.OnSuccess(ItemDropRule.Common(ItemID.Acorn, 1, 100, 100));

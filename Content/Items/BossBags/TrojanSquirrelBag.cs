@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoxofGizmos>()));
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<TrojanSquirrel>()));
             itemLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "LumberJaxe").Type, 5));
+            itemLoot.Add(ItemDropRule.Common(ItemID.SquirrelHook));
             itemLoot.Add(ItemDropRule.Common(ItemID.WoodenCrate, 1, 5, 5));
             itemLoot.Add(ItemDropRule.Common(ItemID.HerbBag, 1, 5, 5));
             itemLoot.Add(ItemDropRule.Common(ItemID.Acorn, 1, 100, 100));
