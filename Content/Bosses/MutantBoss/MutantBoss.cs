@@ -336,7 +336,6 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (player.immune || player.hurtCooldowns[0] != 0 || player.hurtCooldowns[1] != 0)
                 playerInvulTriggered = true;
-
             //drop summon
             if (WorldSavingSystem.EternityMode && WorldSavingSystem.DownedAbom && !WorldSavingSystem.DownedMutant && Main.netMode != NetmodeID.MultiplayerClient && NPC.HasPlayerTarget && !droppedSummon)
             {
@@ -362,6 +361,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         NPC.lifeMax = int.MaxValue;
                 }
                 NPC.life = NPC.lifeMax;
+
+                if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul && WorldSavingSystem.MasochistModeReal)
+                    EdgyBossText("Hand it over. That thing, your soul toggles.");
             }
 
             if (WorldSavingSystem.MasochistModeReal && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
@@ -823,7 +825,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         private void EdgyBossText(string text)
         {
-            if (Main.zenithWorld && WorldSavingSystem.masochistModeReal) //edgy boss text
+            if (Main.zenithWorld) //edgy boss text
             {
                 Color color = Color.LimeGreen;
                 FargoSoulsUtil.PrintText(text, color);
@@ -1489,7 +1491,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 9f;
                 }
-                if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul) EdgyBossText("Hand it over. That thing, your soul toggles.");
+                if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul && !WorldSavingSystem.MasochistModeReal) 
+                    EdgyBossText("Hand it over. That thing, your soul toggles.");
             }
             else if (NPC.ai[1] > 150)
             {
