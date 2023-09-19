@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override void SetDefaults()
         {
-            Projectile.width = 42;
+            Projectile.width = 32;
             Projectile.height = 74;
             Projectile.aiStyle = -1;
             Projectile.tileCollide = true;
