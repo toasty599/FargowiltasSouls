@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            Main.projFrames[Projectile.type] = 13;
         }
 
         public override void SetDefaults()
@@ -48,6 +48,13 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             if (FargoSoulsUtil.ClosestPointInHitbox(Main.LocalPlayer.Hitbox, Projectile.Center).Distance(Projectile.Center) < AuraSize)
             {
                 player.AddBuff(ModContent.BuffType<GladiatorBuff>(), 2);
+            }
+
+            if (++Projectile.frameCounter > 2)
+            {
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.frame = 0;
             }
         }
 

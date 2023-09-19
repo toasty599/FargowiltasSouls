@@ -415,7 +415,7 @@ Mods: {
 			// ObsidianConfig: Obsidian Explosions
 			// AshWoodConfig: Ash Fireballs
 			// WillHeader: "{$Mods.FargowiltasSouls.Items.WillForce.DisplayName}"
-			// GladiatorConfig: Gladiator Rain and Banner
+			// GladiatorConfig: Gladiator Rain
 			// GoldConfig: Gold Lucky Coin
 			// GoldToPiggyConfig: Gold To Piggy Bank
 			// HuntressConfig: Huntress Ability
