@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using FargowiltasSouls.Core;
+using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -59,9 +60,10 @@ namespace FargowiltasSouls.Content.UI.Elements
         {
             //disable toggles that should be disabled
             //relevant toggles will be reenabled by equipped accessories next frame
-            foreach (Toggle toggle in Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles.Values.Where(t => t.Category == "Enchantments" && t.DisplayToggle))
+            foreach (Toggle toggle in Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles.Values.Where(t => t.Category == "Enchantments"))
             {
-                toggle.DisplayToggle = false;
+                //force them enabled if the toggle is on, otherwise force them disabled
+                toggle.DisplayToggle = SoulConfig.Instance.DisplayTogglesRegardless;
             }
         }
 

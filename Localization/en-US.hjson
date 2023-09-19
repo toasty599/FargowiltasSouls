@@ -6291,6 +6291,11 @@ Mods: {
 					Label: "{$Mods.FargowiltasSouls.PatreonNanoCore}"
 					Tooltip: ""
 				}
+
+				DisplayTogglesRegardless: {
+					Label: Display Toggles Always
+					Tooltip: Disable to only show toggles when you have the effect's accessory equipped. Enable to always show them.
+				}
 			}
 		}
 
