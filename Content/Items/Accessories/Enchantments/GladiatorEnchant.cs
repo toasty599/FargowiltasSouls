@@ -48,7 +48,7 @@ Grants knockback immunity when you are facing the attack
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.GladiatorEnchantActive = true;
             
-            if (player.GetToggleValue("Gladiator") && player.whoAmI == Main.myPlayer && modPlayer.DoubleTap)
+            if (player.whoAmI == Main.myPlayer && modPlayer.DoubleTap)
             {
                 int GladiatorStandard = ModContent.ProjectileType<GladiatorStandard>();
                 if (player.ownedProjectileCounts[GladiatorStandard] < 1)

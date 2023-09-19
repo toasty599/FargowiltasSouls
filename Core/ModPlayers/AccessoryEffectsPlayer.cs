@@ -2167,7 +2167,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             Player.GetDamage(DamageClass.Generic) += 1.20f;
             Player.endurance -= 0.20f;
-
             Player.velocity *= 0.875f;
 
             if (--WretchedPouchCD <= 0)
