@@ -1878,6 +1878,11 @@ Mods: {
 				DisplayName: 丛林宝箱怪
 				Description: 丛林宝箱怪将为你而战
 			}
+
+			GladiatorBuff: {
+				// DisplayName: Gladiator Strength
+				// Description: Spears rain down on hit enemies, +10 defense, +10% damage, knockback immunity
+			}
 		}
 
 		Items: {
@@ -5829,6 +5834,7 @@ Mods: {
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
 			// MechLureProjectile.DisplayName: Mech Lure Projectile
 			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// GladiatorStandard.DisplayName: Gladiator Standard
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

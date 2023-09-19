@@ -1878,6 +1878,11 @@ Mods: {
 				// DisplayName: Jungle Mimic Summon Buff
 				// Description: Mods.FargowiltasSouls.Buffs.JungleMimicSummonBuff.Description
 			}
+
+			GladiatorBuff: {
+				// DisplayName: Gladiator Strength
+				// Description: Spears rain down on hit enemies, +10 defense, +10% damage, knockback immunity
+			}
 		}
 
 		Items: {
@@ -2109,8 +2114,10 @@ Mods: {
 				// DisplayName: Gladiator Enchantment
 				/* Tooltip:
 					'''
-					Spears will rain down on struck enemies
-					Grants knockback immunity when you are facing the attack
+					Double tap down to place a banner that lasts 15 seconds
+					While close to the banner, spears will rain down on struck enemies
+					Being close to the banner also grants knockback immunity, 10% increased damage and 10 increased defense
+					Banner can only be resummoned after it runs out
 					'Are you not entertained?'
 					''' */
 			}
@@ -2797,8 +2804,8 @@ Mods: {
 					[i:FargowiltasSouls/GoldEnchant] Press the Gold hotkey to be encased in a Golden Shell
 					[i:FargowiltasSouls/GoldEnchant] Automatically sends coins to your piggy bank when picked up
 					[i:FargowiltasSouls/PlatinumEnchant] 20% chance for enemies to drop 5x loot
-					[i:FargowiltasSouls/GladiatorEnchant] Spears will rain down on struck enemies
-					[i:FargowiltasSouls/GladiatorEnchant] Grants knockback immunity when you are facing the attack
+					[i:FargowiltasSouls/GladiatorEnchant] Double tap down to place a banner that buffs you while close
+					[i:FargowiltasSouls/GladiatorEnchant] Spears will rain down on struck enemies while close to the banner
 					[i:FargowiltasSouls/RedRidingEnchant] Successive attack gain bonus damage 
 					[i:FargowiltasSouls/ValhallaKnightEnchant] Increases the effectiveness of healing sources by 50%
 					'A mind of unbreakable determination'
@@ -5881,6 +5888,7 @@ Mods: {
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
 			// MechLureProjectile.DisplayName: Mech Lure Projectile
 			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// GladiatorStandard.DisplayName: Gladiator Standard
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

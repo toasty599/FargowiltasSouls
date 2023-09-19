@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.Buffs;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -515,8 +516,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             TitaniumEnchant.TryTitaniumDR(this, npc);
 
-            if (GladiatorEnchantActive && Player.direction == Math.Sign(npc.Center.X - Player.Center.X))
-                Player.noKnockback = true;
 
             if (Smite)
                 modifiers.FinalDamage *= 1.2f;
@@ -537,8 +536,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             TitaniumEnchant.TryTitaniumDR(this, proj);
 
-            if (GladiatorEnchantActive && Player.direction == Math.Sign(proj.Center.X - Player.Center.X))
-                Player.noKnockback = true;
 
             if (Smite)
                 modifiers.FinalDamage *= 1.2f;
