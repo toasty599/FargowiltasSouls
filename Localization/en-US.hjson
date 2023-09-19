@@ -4973,7 +4973,12 @@ Mods: {
 
 			BaronRelic: {
 				Tooltip: ""
-				DisplayName: Baron Relic
+				DisplayName: Banished Baron Relic
+			}
+
+			HiveStaff: {
+				DisplayName: Hive Staff
+				Tooltip: "'The enslaved minions of a defeated foe..'"
 			}
 		}
 
@@ -5876,6 +5881,7 @@ Mods: {
 			MechLureProjectile.DisplayName: Mech Lure Projectile
 			RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
 			GladiatorStandard.DisplayName: Gladiator Standard
+			HiveSentry.DisplayName: Hive
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

@@ -1881,7 +1881,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: +10 defense, +15% damage, knockback immunity, improved spear rain
+				// Description: +10 defense, +10% damage, knockback immunity, improved spear rain
 			}
 		}
 
@@ -4956,7 +4956,12 @@ Mods: {
 
 			BaronRelic: {
 				// Tooltip: ""
-				// DisplayName: Baron Relic
+				// DisplayName: Banished Baron Relic
+			}
+
+			HiveStaff: {
+				// DisplayName: Hive Staff
+				// Tooltip: "'The enslaved minions of a defeated foe..'"
 			}
 		}
 
@@ -5859,6 +5864,7 @@ Mods: {
 			// MechLureProjectile.DisplayName: Mech Lure Projectile
 			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
 			// GladiatorStandard.DisplayName: Gladiator Standard
+			// HiveSentry.DisplayName: Hive
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
