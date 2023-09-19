@@ -1881,7 +1881,7 @@ Mods: {
 
 			GladiatorBuff: {
 				DisplayName: Gladiator Strength
-				Description: +10 defense, +15% damage, knockback immunity, improved spear rain
+				Description: +10 defense, +10% damage, knockback immunity, improved spear rain
 			}
 		}
 
@@ -2117,7 +2117,7 @@ Mods: {
 					Spears will rain down on struck enemies
 					Double tap down to place a banner that lasts 15 seconds
 					While close to the banner, spear rain is stronger
-					Being close to the banner also grants knockback immunity, 15% increased damage and 10 increased defense
+					Being close to the banner also grants knockback immunity, 10% increased damage and 10 increased defense
 					Banner can only be resummoned after it runs out
 					'Are you not entertained?'
 					'''
@@ -4968,6 +4968,11 @@ Mods: {
 			BaronTrophy: {
 				DisplayName: Banished Baron Trophy
 				Tooltip: ""
+			}
+
+			BaronRelic: {
+				Tooltip: ""
+				DisplayName: Baron Relic
 			}
 		}
 

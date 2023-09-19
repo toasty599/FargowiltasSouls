@@ -67,7 +67,7 @@ Grants knockback immunity when you are facing the attack
         {
             Player player = modPlayer.Player;
             bool buff = player.HasBuff<GladiatorBuff>();
-            int spearDamage = damage / (buff ? 3 : 4);
+            int spearDamage = damage / (buff ? 3 : 5);
 
             if (spearDamage > 0)
             {
@@ -85,8 +85,8 @@ Grants knockback immunity when you are facing the attack
                     Projectile.NewProjectile(player.GetSource_Misc(""), spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
                 }
 
-                modPlayer.GladiatorCD = modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 16 : 32;
-                modPlayer.GladiatorCD /= buff ? 2 : 1;
+                modPlayer.GladiatorCD = modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 10 : 30;
+                modPlayer.GladiatorCD = buff ? modPlayer.GladiatorCD : (int)Math.Round(modPlayer.GladiatorCD * 1.5f);
             }
         }
 

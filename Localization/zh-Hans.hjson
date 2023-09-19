@@ -4934,6 +4934,11 @@ Mods: {
 				// DisplayName: Banished Baron Trophy
 				// Tooltip: ""
 			}
+
+			BaronRelic: {
+				// Tooltip: ""
+				// DisplayName: Baron Relic
+			}
 		}
 
 		NPCs: {

@@ -18,6 +18,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\ExtraTextures\Vanilla\Background_7.png" />
+    <None Remove="Assets\Gores\BaronGore1.png" />
+    <None Remove="Assets\Gores\BaronGore2.png" />
+    <None Remove="Assets\Gores\BaronGore3.png" />
+    <None Remove="Assets\Gores\BaronGore4.png" />
     <None Remove="Assets\Gores\CosmosGore1.png" />
     <None Remove="Assets\UI\EnchantSlotIcon.png" />
     <None Remove="Assets\UI\ForgorMenuLogo.png" />

@@ -341,6 +341,18 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         {
             potionType = ItemID.GreaterHealingPotion;
         }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
+                    if (!Main.dedServ)
+                        Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"BaronGore{i}").Type, NPC.scale);
+                }
+            }
+        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             //TODO: Add loot
