@@ -1059,7 +1059,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Vector2 target = player.Center + (Vector2.Normalize(NPC.Center - player.Center) * 500);
                 if ((NPC.Distance(target) < 25 && AI3 == 0) || (Timer % 60 == 0 && AI3 != 0))
                 {
-                    AI3 = Main.rand.NextFloat(-1, 1);
+                    AI3 = -1;
                     NPC.netUpdate = true;
                 }
 
@@ -1082,6 +1082,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
 
                 LockVector1 = NPC.DirectionTo(player.Center + (player.velocity * PredictStr)) * PredictStr;
+
                 RotateTowards(NPC.Center + LockVector1, 4);
             }
             if (Timer == ReactTime)
@@ -1094,12 +1095,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Vector2 lp = player.Center - NPC.Center;
                 float lambda = Vector2.Dot(uv, lp);
                 LockVector2 = NPC.Center + (uv * lambda);
-            }
-            if (Timer >= ReactTime && NPC.velocity.Length() < 20)
-            {
-                if (NPC.Distance(player.Center) > 600) //he kept despawning otherwise??
+
+                //below: instantly decelerate if dash is at large angle from player
+                Vector2 PV = NPC.DirectionTo(player.Center);
+                Vector2 LV = LockVector1;
+                float anglediff = (float)(Math.Atan2(PV.Y * LV.X - PV.X * LV.Y, LV.X * PV.X + LV.Y * PV.Y)); //real
+                if (Math.Abs(anglediff) > MathHelper.PiOver2)
                 {
-                    NPC.Center -= NPC.velocity;
+                    AI3 = 1;
                 }
             }
             if (Timer >= ReactTime && NPC.velocity.Length() > 5)
