@@ -376,7 +376,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     NPC.localAI[3] = 1;
                     SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
-                    //EdgyBossText("I hope you're ready to embrace suffering.");
+                    EdgyBossText("I hope you're ready to embrace suffering.");
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         //if (FargowiltasSouls.Instance.MasomodeEXLoaded) Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModLoader.GetMod("MasomodeEX").ProjectileType("MutantText"), 0, 0f, Main.myPlayer, NPC.whoAmI);
@@ -682,7 +682,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.ai[3] = 0;
                     NPC.netUpdate = true;
                     FargoSoulsUtil.ClearHostileProjectiles(1, NPC.whoAmI);
-                    //EdgyBossText("Time to stop playing around.");
+                    EdgyBossText("Time to stop playing around.");
                 }
                 return true;
             }
@@ -821,16 +821,21 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
 
-        /*private void EdgyBossText(string text)
+        private void EdgyBossText(string text)
         {
-            if (Fargowiltas.Instance.CalamityLoaded) //edgy boss text
+            if (Main.zenithWorld && WorldSavingSystem.masochistModeReal) //edgy boss text
             {
+                Color color = Color.LimeGreen;
+                FargoSoulsUtil.PrintText(text, color);
+                CombatText.NewText(NPC.Hitbox, color, text, true);
+                /*
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     Main.NewText(text, Color.LimeGreen);
                 else if (Main.netMode == NetmodeID.Server)
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
+                */
             }
-        }*/
+        }
 
         #endregion
 
@@ -1484,7 +1489,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 9f;
                 }
-                //if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul) EdgyBossText("Hand it over. That thing, your soul toggles.");
+                if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul) EdgyBossText("Hand it over. That thing, your soul toggles.");
             }
             else if (NPC.ai[1] > 150)
             {
@@ -3042,7 +3047,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
                     if (player.Center.X < NPC.Center.X)
                         NPC.ai[3] *= -1;
-                    //EdgyBossText("But we're not done yet!");
+                    EdgyBossText("But we're not done yet!");
                 }
             }
             else
@@ -3420,7 +3425,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.netUpdate = true;
                 if (Main.netMode != NetmodeID.MultiplayerClient) //shoot harmless mega ray
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -1, ModContent.ProjectileType<MutantGiantDeathray2>(), 0, 0f, Main.myPlayer, 1, NPC.whoAmI);
-                //EdgyBossText("I have not a single regret in my existence!");
+                EdgyBossText("I have not a single regret in my existence!");
             }
             if (--NPC.localAI[0] < 0)
             {
@@ -3482,7 +3487,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
                 }
-                //EdgyBossText("Oh, right... my revive...");
+                EdgyBossText("Oh, right... my revive...");
             }
         }
 
@@ -3536,7 +3541,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.dontTakeDamage = true;
                 NPC.netUpdate = true;
                 FargoSoulsUtil.ClearAllProjectiles(2, NPC.whoAmI, NPC.ai[0] < 0);
-                //EdgyBossText("You're pretty good...");
+                EdgyBossText("You're pretty good...");
             }
             return false;
         }
