@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
     public class EnchantToggles : ToggleCollection
     {
         public override string Mod => "Terraria";
-        public override string SortCatagory => "Enchantments";
+        public override string SortCategory => "Enchantments";
         public override int Priority => 0;
         public override bool Active => true;
 

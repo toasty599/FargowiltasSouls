@@ -66,7 +66,7 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
             .AddIngredient(ItemID.SweetheartNecklace)
             .AddIngredient(ItemID.Magiluminescence)
             .AddIngredient(ItemID.BalloonHorseshoeHoney)
-            .AddIngredient(ItemID.BundleofBalloons) //(change recipe to use horsehoe varaints ??)
+            .AddIngredient(ItemID.HorseshoeBundle)
             .AddIngredient(ItemID.EoCShield)
             .AddIngredient(ItemID.MasterNinjaGear)
 

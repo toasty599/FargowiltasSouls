@@ -42,6 +42,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
 
         public static void EbonwoodEffect(Player player)
         {
+            player.DisplayToggle("Ebon");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)

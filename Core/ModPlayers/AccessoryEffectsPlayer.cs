@@ -29,6 +29,7 @@ namespace FargowiltasSouls.Core.ModPlayers
     {
         public void BeeEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Bee");
             Player.strongBees = true;
             //bees ignore defense
             BeeEnchantActive = true;
@@ -36,6 +37,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void BeetleEffect()
         {
+            Player.DisplayToggle("Beetle");
+
             if (!Player.GetToggleValue("Beetle"))
                 return;
 
@@ -231,6 +234,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ChloroEffect(Item item, bool hideVisual)
         {
+            Player.DisplayToggle("Chlorophyte");
             ChloroEnchantActive = true;
 
             ChloroEnchantItem = item;
@@ -253,6 +257,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ForbiddenEffect()
         {
+            Player.DisplayToggle("Forbidden");
+
             if (!Player.GetToggleValue("Forbidden"))
                 return;
             ForbiddenEnchantActive = true;
@@ -392,6 +398,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void FrostEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Frost");
             FrostEnchantActive = true;
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Frost"))
@@ -485,6 +492,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void GoldEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Gold");
+            Player.DisplayToggle("GoldToPiggy");
+
             //gold ring
             Player.goldRing = true;
             //lucky coin
@@ -607,6 +617,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void JungleEffect()
         {
+            Player.DisplayToggle("JungleDash");
+            Player.DisplayToggle("Jungle");
             if (Player.whoAmI != Main.myPlayer)
                 return;
 
@@ -695,6 +707,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void MeteorEffect(Item item)
         {
+            Player.DisplayToggle("Meteor");
             MeteorEnchantItem = item;
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Meteor"))
@@ -759,6 +772,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void NebulaEffect()
         {
+            Player.DisplayToggle("Nebula");
             if (!Player.GetToggleValue("Nebula", false))
                 return;
 
@@ -822,6 +836,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         private int ShadowOrbRespawnTimer;
         public void ShadowEffectPostEquips()
         {
+            Player.DisplayToggle("Shadow");
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Shadow"))
             {
                 int currentOrbs = Player.ownedProjectileCounts[ModContent.ProjectileType<ShadowEnchantOrb>()];
@@ -971,6 +986,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ShinobiEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Shinobi");
+            Player.DisplayToggle("ShinobiDash");
             //tele through wall until open space on dash into wall
             /*if (Player.GetToggleValue("Shinobi") && Player.whoAmI == Main.myPlayer && Player.dashDelay == -1 && Player.mount.Type == -1 && Player.velocity.X == 0)
             {
@@ -1004,6 +1021,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ShroomiteEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Shroomite");
             if (!TerrariaSoul && Player.GetToggleValue("Shroomite"))
                 Player.shroomiteStealth = true;
 
@@ -1076,6 +1094,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SolarEffect()
         {
+            Player.DisplayToggle("Solar");
+            Player.DisplayToggle("SolarFlare");
+
             if (!Player.GetToggleValue("Solar"))
                 return;
 
@@ -1144,6 +1165,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SpectreEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Spectre");
             SpectreEnchantActive = true;
 
         }
@@ -1248,6 +1270,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SpiderEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Spider");
             //minion crits
             SpiderEnchantActive = true;
 
@@ -1256,6 +1279,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SpookyEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Spooky");
             //scythe doom
             SpookyEnchantActive = true;
 
@@ -1263,6 +1287,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void StardustEffect(Item item)
         {
+            Player.DisplayToggle("Stardust");
             StardustEnchantActive = true;
 
             if (Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[ProjectileID.StardustGuardian] < 1 && Player.GetToggleValue("Stardust"))
@@ -1335,6 +1360,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void TikiEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Tiki");
+
             if (ForceEffect(ModContent.ItemType<TikiEnchant>()))
                 Player.whipRangeMultiplier += 0.2f;
 
@@ -1364,6 +1391,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void TurtleEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Turtle");
+
             Player.turtleThorns = true;
             Player.thorns = 1f;
 
@@ -1401,6 +1430,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ValhallaEffect(bool hideVisual)
         {
+            Player.DisplayToggle("SquirePanic");
+            Player.DisplayToggle("Valhalla");
             if (!Player.GetToggleValue("SquirePanic"))
                 Player.buffImmune[BuffID.BallistaPanic] = true;
 
@@ -1410,6 +1441,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void VortexEffect(bool hideVisual)
         {
+            Player.DisplayToggle("VortexS");
+            Player.DisplayToggle("VortexV");
+
             //portal spawn
             VortexEnchantActive = true;
             //stealth memes
@@ -1450,6 +1484,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void MonkEffect()
         {
+            Player.DisplayToggle("Monk");
             MonkEnchantActive = true;
 
             if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuffBuff>()))
@@ -1530,6 +1565,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void AncientShadowEffect()
         {
+            Player.DisplayToggle("AncientShadow");
             //darkness
             AncientShadowEnchantActive = true;
         }

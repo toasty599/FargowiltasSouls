@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
     {
         public override string Mod => "Terraria";
 
-        public override string SortCatagory => "Pets";
+        public override string SortCategory => "Pets";
 
         public override int Priority => 3;
 

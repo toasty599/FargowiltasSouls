@@ -36,6 +36,8 @@ Enemies take 25% increased damage while inside the inferno ring
 
         public static void MoltenEffect(Player player)
         {
+            player.DisplayToggle("Molten");
+
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.MoltenEnchantActive = true;
 

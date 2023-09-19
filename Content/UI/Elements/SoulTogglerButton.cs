@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
@@ -31,6 +32,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             IconHighlight.Left.Set(0, 0);
             IconHighlight.Top.Set(0, 0);
             IconHighlight.SetVisibility(1f, 0);
+            IconHighlight.OnMouseOver += IconHighlight_OnMouseOver;
             IconHighlight.OnLeftClick += IconHighlight_OnClick;
             Icon.Append(IconHighlight);
 
@@ -48,9 +50,19 @@ namespace FargowiltasSouls.Content.UI.Elements
             {
                 return;
             }
-
+            
             FargoUIManager.ToggleSoulToggler();
             Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HasClickedWrench = true;
+        }
+        
+        private void IconHighlight_OnMouseOver(UIMouseEvent evt, UIElement listeningElement)
+        {
+            //disable toggles that should be disabled
+            //relevant toggles will be reenabled by equipped accessories next frame
+            foreach (Toggle toggle in Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles.Values.Where(t => t.Category == "Enchantments" && t.DisplayToggle))
+            {
+                toggle.DisplayToggle = false;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)

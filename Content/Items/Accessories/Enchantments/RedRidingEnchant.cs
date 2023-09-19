@@ -42,6 +42,7 @@ Missing any attack will reset these bonuses
 
         public static void RedRidingEffect(Player player, Item item)
         {
+            player.DisplayToggle("RedRidingRain");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (modPlayer.RedRidingEnchantItem != null || !player.GetToggleValue("RedRidingRain"))
                 return;

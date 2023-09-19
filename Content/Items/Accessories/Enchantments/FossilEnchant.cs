@@ -46,6 +46,7 @@ Collect the bones to heal for 20 HP each
 
         public static void FossilEffect(Player player, Item item)
         {
+            player.DisplayToggle("Fossil");
             //bone zone
             player.GetModPlayer<FargoSoulsPlayer>().FossilEnchantItem = item;
         }

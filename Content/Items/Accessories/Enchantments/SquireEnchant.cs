@@ -25,6 +25,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.DisplayToggle("SquirePanic");
             player.GetModPlayer<FargoSoulsPlayer>().SquireEnchantActive = true;
             if (!player.GetToggleValue("SquirePanic"))
                 player.buffImmune[BuffID.BallistaPanic] = true;

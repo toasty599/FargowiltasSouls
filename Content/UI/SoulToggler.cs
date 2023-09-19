@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.UI
 
         public bool NeedsToggleListBuilding;
         public string DisplayMod;
-        public string SortCatagory;
+        public string SortCategory;
 
         public const int BackWidth = 400;
         public const int BackHeight = 658;
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.UI
 
             NeedsToggleListBuilding = true;
             DisplayMod = "";
-            SortCatagory = "";
+            SortCategory = "";
 
             // This entire layout is cancerous and dangerous to your health because red protected UIElements children
             // If I want to give extra non-children to BackPanel to count as children when seeing if it should drag, I have to abandon
@@ -163,6 +163,7 @@ namespace FargowiltasSouls.Content.UI
                 BuildList();
                 NeedsToggleListBuilding = false;
             }
+            
         }
 
         public void BuildList()
@@ -171,19 +172,23 @@ namespace FargowiltasSouls.Content.UI
             Player player = Main.LocalPlayer;
             ToggleBackend toggler = player.GetModPlayer<FargoSoulsPlayer>().Toggler;
 
-            IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) =>
+            IEnumerable<Toggle> DisplayToggles = toggler.Toggles.Values.Where((toggle) =>
             {
                 string[] words = GetRawToggleName(toggle.InternalName).Split(' ');
                 return
+                toggle.DisplayToggle &&
                 (string.IsNullOrEmpty(DisplayMod) || toggle.Mod == DisplayMod) &&
-                (string.IsNullOrEmpty(SortCatagory) || toggle.Catagory == SortCatagory) &&
+                (string.IsNullOrEmpty(SortCategory) || toggle.Category == SortCategory) &&
                 (string.IsNullOrEmpty(SearchBar.Input) || words.Any(s => s.StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase)));
             });
+
+            
+            
 
             HashSet<string> usedHeaders = new();
             List<Toggle> togglesAsLists = ToggleLoader.LoadedToggles.Values.ToList();
 
-            foreach (Toggle toggle in displayToggles)
+            foreach (Toggle toggle in DisplayToggles)
             {
                 if (ToggleLoader.LoadedHeaders.ContainsKey(toggle.InternalName) && SearchBar.IsEmpty)
                 {

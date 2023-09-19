@@ -34,6 +34,7 @@ Increases armor pen by 15
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.NinjaEnchantItem = Item;
+            player.DisplayToggle("NinjaSpeed");
         }
 
         public static void NinjaSpeedSetup(FargoSoulsPlayer modPlayer, Projectile projectile, FargoSoulsGlobalProjectile globalProj)

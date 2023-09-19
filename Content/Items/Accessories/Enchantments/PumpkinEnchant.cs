@@ -45,6 +45,7 @@ Enemies that touch them will destroy them and take damage
 
         public static void PumpkinEffect(Player player, Item accessorySource)
         {
+            player.DisplayToggle("Pumpkin");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (player.GetToggleValue("Pumpkin") && (player.controlLeft || player.controlRight) && !modPlayer.IsStandingStill && player.whoAmI == Main.myPlayer)

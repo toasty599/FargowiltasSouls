@@ -41,6 +41,8 @@ Getting hit resets your crit to 5%
 
         public static void TinEffect(Player player, Item item)
         {
+            player.DisplayToggle("Tin");
+
             if (!player.GetToggleValue("Tin", false)) 
                 return;
 

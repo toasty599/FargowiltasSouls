@@ -28,6 +28,13 @@ namespace FargowiltasSouls.Core.Toggler
             else
                 FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {name}");
         }
+        public static void DisplayToggle(this Player player, string name)
+        {
+            if (player.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles.ContainsKey(name))
+                player.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles[name].DisplayToggle = true;
+            else
+                FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {name}");
+        }
 
         /*public static void SetPlayerBoolValue(this Player player, string name, bool value)
         {

@@ -435,14 +435,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!Mash && MashCounter > 0)
                 MashCounter--;
             Mash = false;
-
         }
         public override void OnRespawn()
         {
             if (NymphsPerfumeRespawn)
                 NymphsPerfumeRestoreLife = 6;
         }
-
         public override void UpdateDead()
         {
             bool wasSandsOfTime = SandsofTime;
@@ -469,7 +467,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             ReallyAwfulDebuffCooldown = 0;
             ParryDebuffImmuneTime = 0;
-
             WingTimeModifier = 1f;
             FreeEaterSummon = true;
 

@@ -34,6 +34,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.IronEnchantItem = Item;
+            player.DisplayToggle("IronM");
         }
 
         public override void AddRecipes()

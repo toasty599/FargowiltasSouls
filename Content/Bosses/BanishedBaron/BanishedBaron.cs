@@ -885,12 +885,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 NPC.velocity = NPC.rotation.ToRotationVector2() * NPC.velocity.Length();
                 NPC.Opacity += 1f / ReactionTime;
-                if (NPC.Opacity < 0)
-                    NPC.Opacity = 0;
+                if (NPC.Opacity > 1)
+                    NPC.Opacity = 1;
                 HitPlayer = true;
             }
             if (Timer == 90 + ReactionTime)
             {
+                NPC.Opacity = 1;
                 NPC.dontTakeDamage = false;
                 SoundEngine.PlaySound(BaronRoar, NPC.Center);
                 float baseSpeed = 45;

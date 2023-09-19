@@ -39,6 +39,7 @@ Missing any attack will reset these bonuses
 
         public static void HuntressEffect(Player player)
         {
+            player.DisplayToggle("Huntress");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.HuntressEnchantActive = true;
 
