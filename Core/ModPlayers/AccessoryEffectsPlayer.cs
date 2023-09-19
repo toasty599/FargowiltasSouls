@@ -2153,7 +2153,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!Player.GetToggleValue("MasoPouch"))
                 return;
 
-            if (!(Player.controlUseItem || Player.controlUseTile || WeaponUseTimer > 0))
+            if (!Player.controlUseItem && !Player.controlUseTile && WeaponUseTimer <= 6) //remove extra 6 added to the timer, makes it a lot less awkward
                 return;
 
             if (Player.HeldItem.IsAir || Player.HeldItem.damage <= 0 || Player.HeldItem.pick > 0 || Player.HeldItem.axe > 0 || Player.HeldItem.hammer > 0)
@@ -2168,8 +2168,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.GetDamage(DamageClass.Generic) += 1.20f;
             Player.endurance -= 0.20f;
 
-            Player.velocity.X *= 0.85f;
-            Player.velocity.Y *= 0.85f;
+            Player.velocity *= 0.875f;
 
             if (--WretchedPouchCD <= 0)
             {
