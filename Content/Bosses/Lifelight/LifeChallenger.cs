@@ -2748,16 +2748,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         #endregion
         public override void HitEffect(NPC.HitInfo hit)
         {
-            if (NPC.GetLifePercent() < (float)chunklist.Count / (float)ChunkCount && P1state != -2 && PyramidPhase == 0) //not during opening or pyramid attacks
-            {
-                int i = Main.rand.Next(chunklist.Count);
-                Vector4 chunk = chunklist[i];
-                Vector2 pos = chunk.X * Vector2.UnitX * ChunkDistance + chunk.Y * Vector2.UnitY * ChunkDistance;// + chunk.Z * Vector3.UnitZ;
-                if (!Main.dedServ)
-                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"ShardGold{chunk.W}").Type, NPC.scale);
-                chunklist.RemoveAt(i);
-                SoundEngine.PlaySound(SoundID.Tink, NPC.Center);
-            }
             if (NPC.life <= 0)
             {
                 for (int i = 0; i < 400; i++)
@@ -2776,6 +2766,23 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     p.Position -= p.Velocity * 4; //implosion
                 }
                 return;
+            }
+            else
+            {
+                if (NPC.GetLifePercent() < (float)chunklist.Count / (float)ChunkCount && P1state != -2 && PyramidPhase == 0) //not during opening or pyramid attacks
+                {
+                    if (chunklist.Count <= 0)
+                    {
+                        return;
+                    }
+                    int i = Main.rand.Next(chunklist.Count);
+                    Vector4 chunk = chunklist[i];
+                    Vector2 pos = chunk.X * Vector2.UnitX * ChunkDistance + chunk.Y * Vector2.UnitY * ChunkDistance;// + chunk.Z * Vector3.UnitZ;
+                    if (!Main.dedServ)
+                        Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"ShardGold{chunk.W}").Type, NPC.scale);
+                    chunklist.RemoveAt(i);
+                    SoundEngine.PlaySound(SoundID.Tink, NPC.Center);
+                }
             }
         }
 
