@@ -667,6 +667,7 @@ Mods: {
 			PatreonPrime: 机械骷髅王法杖
 			PatreonCrimetroid: 血水母的蛋
 			PatreonNanoCore: 纳米核心
+			// PatreonROB: R.O.B
 			// SilverS: Mods.FargowiltasSouls.Toggler.SilverS
 			CrystalGelatinConfig: 挥发明胶效果
 			// SilverConfig: Mods.FargowiltasSouls.Toggler.SilverConfig
@@ -684,6 +685,8 @@ Mods: {
 			WoodenTooltip: “卑微的开始……”
 			TinCritUp: +5%暴击率
 			TinCritReset: -{0}%暴击率
+			// ROBPatreon: The friend you've never left since Brawl
+			// ROBNonPatreon: He's finally a top tier!
 
 			EternitySoul: {
 				Additional: 额外加成：
@@ -1883,6 +1886,11 @@ Mods: {
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
 				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
+			}
+
+			ROBBuff: {
+				// Description: ""
+				// DisplayName: R.O.B
 			}
 		}
 
@@ -4945,6 +4953,15 @@ Mods: {
 				// DisplayName: Hive Staff
 				// Tooltip: "'The enslaved minions of a defeated foe..'"
 			}
+
+			ROBGyro: {
+				// DisplayName: Sentient Gyro
+				/* Tooltip:
+					'''
+					'Has a mind of its own'
+					Summons a powerful robot that doesn't fight
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -5847,6 +5864,7 @@ Mods: {
 			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
 			// GladiatorStandard.DisplayName: Gladiator Standard
 			// HiveSentry.DisplayName: Hive
+			// ROB.DisplayName: R.O.B
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
@@ -6128,6 +6146,7 @@ Mods: {
 		// PatreonPrime: "[i:FargowiltasSouls/PrimeStaff][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonPrime}]"
 		// PatreonCrimetroid: "[i:FargowiltasSouls/CrimetroidEgg][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonCrimetroid}]"
 		// PatreonNanoCore: "[i:FargowiltasSouls/NanoCore][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonNanoCore}]"
+		// PatreonROB: "[i:FargowiltasSouls/ROBGyro][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonROB}]"
 
 		Keybinds: {
 			// Freeze.DisplayName: Freeze
@@ -6254,6 +6273,11 @@ Mods: {
 
 				PatreonNanoCore: {
 					// Label: "{$Mods.FargowiltasSouls.PatreonNanoCore}"
+					// Tooltip: ""
+				}
+
+				PatreonROB: {
+					// Label: "{$Mods.FargowiltasSouls.PatreonROB}"
 					// Tooltip: ""
 				}
 

@@ -16,6 +16,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Patreon.DemonKing;
+using FargowiltasSouls.Content.Patreon.DanielTheRobot;
 
 namespace FargowiltasSouls.Content.Patreon
 {

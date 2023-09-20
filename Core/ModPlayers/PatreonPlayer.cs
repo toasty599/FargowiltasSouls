@@ -35,6 +35,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool PrimeMinion;
 
         public bool Crimetroid;
+        public bool ROB;
 
         public bool ChibiiRemii;
 
@@ -74,6 +75,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             WolfDashing = false;
             JojoTheGamer = false;
             Crimetroid = false;
+            ROB = false;
             PrimeMinion = false;
             ChibiiRemii = false;
         }

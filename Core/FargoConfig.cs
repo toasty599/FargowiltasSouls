@@ -136,6 +136,11 @@ namespace FargowiltasSouls.Core
         [ReloadRequired]
         public bool PatreonNanoCore;
 
+        [Label($"$Mods.{ModName}.PatreonROB")]
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool PatreonROB;
+
         #endregion
 
         [OnDeserialized]

@@ -667,6 +667,7 @@ Mods: {
 			PatreonPrime: Cajado Alfa
 			// PatreonCrimetroid: Crimetroid
 			// PatreonNanoCore: Nano Core
+			// PatreonROB: R.O.B
 			SilverS: Prata: Bloqueio
 			CrystalGelatinConfig: Assassino Cristal: Gelatina Volátil
 			SilverConfig: Prata: Familiar da Espada de Prata
@@ -684,6 +685,8 @@ Mods: {
 			WoodenTooltip: "'Origens humildes…'"
 			TinCritUp: +5% crítico
 			TinCritReset: -{0}% crítico
+			// ROBPatreon: The friend you've never left since Brawl
+			// ROBNonPatreon: He's finally a top tier!
 
 			EternitySoul: {
 				Additional: Além disso, concede:
@@ -1883,6 +1886,11 @@ Mods: {
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
 				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
+			}
+
+			ROBBuff: {
+				// Description: ""
+				// DisplayName: R.O.B
 			}
 		}
 
@@ -4964,6 +4972,15 @@ Mods: {
 				// DisplayName: Hive Staff
 				// Tooltip: "'The enslaved minions of a defeated foe..'"
 			}
+
+			ROBGyro: {
+				// DisplayName: Sentient Gyro
+				/* Tooltip:
+					'''
+					'Has a mind of its own'
+					Summons a powerful robot that doesn't fight
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -5866,6 +5883,7 @@ Mods: {
 			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
 			// GladiatorStandard.DisplayName: Gladiator Standard
 			// HiveSentry.DisplayName: Hive
+			// ROB.DisplayName: R.O.B
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
@@ -6147,6 +6165,7 @@ Mods: {
 		// PatreonPrime: "[i:FargowiltasSouls/PrimeStaff][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonPrime}]"
 		// PatreonCrimetroid: "[i:FargowiltasSouls/CrimetroidEgg][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonCrimetroid}]"
 		// PatreonNanoCore: "[i:FargowiltasSouls/NanoCore][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonNanoCore}]"
+		// PatreonROB: "[i:FargowiltasSouls/ROBGyro][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonROB}]"
 
 		Keybinds: {
 			// Freeze.DisplayName: Freeze
@@ -6273,6 +6292,11 @@ Mods: {
 
 				PatreonNanoCore: {
 					// Label: "{$Mods.FargowiltasSouls.PatreonNanoCore}"
+					// Tooltip: ""
+				}
+
+				PatreonROB: {
+					// Label: "{$Mods.FargowiltasSouls.PatreonROB}"
 					// Tooltip: ""
 				}
 

@@ -54,6 +54,10 @@
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinionOld.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\LightningTelegraph.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\VortexVortexProjectile.png" />
+    <None Remove="Content\Patreon\DanielTheRobot\ROB.png" />
+    <None Remove="Content\Patreon\DanielTheRobot\ROBBuff.png" />
+    <None Remove="Content\Patreon\DanielTheRobot\ROBGyro.png" />
+    <None Remove="Content\Patreon\DanielTheRobot\ROB_Eyebrows.png" />
     <None Remove="Content\PlayerDrawLayers\RoseTintedVisorDrawLayer.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadBar.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadSlider.png" />
