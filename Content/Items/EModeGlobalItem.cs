@@ -108,6 +108,7 @@ namespace FargowiltasSouls.Content.Items
                 
             }
 
+                item.healMana = (int)Math.Round(item.healMana *= 1.5d);
             return base.CanUseItem(item, player);
         }
         public override bool? UseItem(Item item, Player player)
