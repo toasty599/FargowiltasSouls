@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.fallStart = (int)(Player.position.Y / 16f);
                 }*/
 
-                if (!NPC.downedBoss3 && Player.ZoneDungeon && !NPC.AnyNPCs(NPCID.DungeonGuardian))
+                if (!NPC.downedBoss3 && Player.ZoneDungeon && !NPC.AnyNPCs(NPCID.DungeonGuardian) && !Main.drunkWorld && !Main.remixWorld)
                 {
                     NPC.SpawnOnPlayer(Player.whoAmI, NPCID.DungeonGuardian);
                 }
