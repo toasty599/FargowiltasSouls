@@ -84,6 +84,19 @@ Summons the aid of all Eternity Mode bosses to your side
         public override void UpdateVanity(Player player) => PassiveEffect(player, Item);
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.DisplayToggle("MasoIcon");
+            player.DisplayToggle("MasoIconDrops");
+            player.DisplayToggle("SlimeFalling");
+            player.DisplayToggle("MasoSlime");
+            player.DisplayToggle("MasoClipped");
+            player.DisplayToggle("ManaFlower");
+            player.DisplayToggle("MasoCarrot");
+            player.DisplayToggle("MasoNymph");
+            player.DisplayToggle("MasoConcoction");
+            player.DisplayToggle("MasoPump");
+            player.DisplayToggle("MasoGrav");
+            player.DisplayToggle("PrecisionSealHurtbox");
+
             BionomicCluster.PassiveEffect(player, Item);
 
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
@@ -181,6 +194,7 @@ Summons the aid of all Eternity Mode bosses to your side
                 player.npcTypeNoAggro[NPCID.RaggedCaster] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCasterOpenCoat] = true;
             }*/
+
 
             //sinister icon
             if (player.GetToggleValue("MasoIcon"))

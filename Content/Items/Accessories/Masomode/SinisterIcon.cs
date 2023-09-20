@@ -36,6 +36,9 @@ Non-boss enemies will drop doubled loot
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.DisplayToggle("MasoIcon");
+            player.DisplayToggle("MasoIconDrops");
+
             player.buffImmune[ModContent.BuffType<UnluckyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<StunnedBuff>()] = true;
 

@@ -1648,6 +1648,21 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SupersonicSoul(Item item, bool hideVisual)
         {
+            Player.DisplayToggle("Supersonic");
+            Player.DisplayToggle("RunSpeed");
+            Player.DisplayToggle("Momentum");
+            Player.DisplayToggle("SupersonicRocketBoots");
+            Player.DisplayToggle("SupersonicJumps");
+            Player.DisplayToggle("SupersonicCarpet");
+            Player.DisplayToggle("CthulhuShield");
+            Player.DisplayToggle("SupersonicTabi");
+            Player.DisplayToggle("BlackBelt");
+            Player.DisplayToggle("SupersonicClimbing");
+            Player.DisplayToggle("DefenseBee");
+            Player.DisplayToggle("DefensePanic");
+            Player.DisplayToggle("MasoAeolusFlower");
+
+
             Player.hasMagiluminescence = true;
 
             //amph boot
@@ -2893,6 +2908,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void DeerSinewEffect()
         {
+            Player.DisplayToggle("DeerSinewDash");
             if (DeerSinewFreezeCD > 0)
                 DeerSinewFreezeCD--;
 

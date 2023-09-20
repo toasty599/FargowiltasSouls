@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
             Player player = drawInfo.drawPlayer;
-            if (player == null || !player.active || player.dead || player.ghost || player.whoAmI != Main.myPlayer || !player.GetToggleValue("NinjaSpeed") || drawInfo.shadow != 0)
+            if (player == null || !player.active || player.dead || player.ghost || player.whoAmI != Main.myPlayer || drawInfo.shadow != 0)
             {
                 return false;
             }
@@ -23,6 +23,10 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
                 return false;
             }
             if (modPlayer.NinjaEnchantItem == null)
+            {
+                return false;
+            }
+            if (!player.GetToggleValue("NinjaSpeed"))
             {
                 return false;
             }

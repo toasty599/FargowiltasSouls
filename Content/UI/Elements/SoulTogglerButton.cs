@@ -33,7 +33,6 @@ namespace FargowiltasSouls.Content.UI.Elements
             IconHighlight.Left.Set(0, 0);
             IconHighlight.Top.Set(0, 0);
             IconHighlight.SetVisibility(1f, 0);
-            IconHighlight.OnMouseOver += IconHighlight_OnMouseOver;
             IconHighlight.OnLeftClick += IconHighlight_OnClick;
             Icon.Append(IconHighlight);
 
@@ -56,16 +55,6 @@ namespace FargowiltasSouls.Content.UI.Elements
             Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HasClickedWrench = true;
         }
         
-        private void IconHighlight_OnMouseOver(UIMouseEvent evt, UIElement listeningElement)
-        {
-            //disable toggles that should be disabled
-            //relevant toggles will be reenabled by equipped accessories next frame
-            foreach (Toggle toggle in Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles.Values.Where(t => t.Category == "Enchantments"))
-            {
-                //force them enabled if the toggle is on, otherwise force them disabled
-                toggle.DisplayToggle = SoulConfig.Instance.DisplayTogglesRegardless;
-            }
-        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

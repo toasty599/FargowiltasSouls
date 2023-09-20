@@ -271,7 +271,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
 
-            if (Player.GetToggleValue("Obsidian") && ObsidianEnchantItem != null && ObsidianCD == 0)
+            if (ObsidianEnchantItem != null && Player.GetToggleValue("Obsidian") && ObsidianCD == 0)
             {
                 ObsidianEnchant.ObsidianProc(this, target, GetBaseDamage());
             }

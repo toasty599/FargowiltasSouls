@@ -31,6 +31,7 @@ Increases jump height and negates fall damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.DisplayToggle("MasoAeolus");
             //terraspark
             player.accRunSpeed = 6.75f;
             player.rocketBoots = player.vanityRocketBoots = ArmorIDs.RocketBoots.TerrasparkBoots;

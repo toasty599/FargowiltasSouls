@@ -36,6 +36,7 @@ namespace FargowiltasSouls.Content.UI
         public FargoUIPresetButton MinimalButton;
         public FargoUIPresetButton SomeEffectsButton;
         public FargoUIPresetButton[] CustomButton = new FargoUIPresetButton[3];
+        public FargoUIReloadButton ReloadButton;
 
         public override void OnInitialize()
         {
@@ -145,6 +146,18 @@ namespace FargowiltasSouls.Content.UI
                 CustomButton[i].Top.Set(6, 0);
                 CustomButton[i].Left.Set(xOffset + 22 * slot, 0);
                 PresetPanel.Append(CustomButton[i]);
+
+                if (slot == ToggleBackend.CustomPresetCount) //after last panel is loaded, load reload button
+                {
+                    slot++;
+                    ReloadButton = new FargoUIReloadButton(FargoUIManager.ReloadButtonTexture.Value,
+                    $"Reload Toggles");
+                    ReloadButton.OnLeftClick += ReloadButton_OnLeftClick;
+                    ReloadButton.OnRightClick += ReloadButton_OnRightClick;
+                    ReloadButton.Top.Set(6, 0);
+                    ReloadButton.Left.Set(xOffset + 22 * slot, 0);
+                    PresetPanel.Append(ReloadButton);
+                }
             }
 
             base.OnInitialize();
@@ -157,13 +170,21 @@ namespace FargowiltasSouls.Content.UI
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
             if (NeedsToggleListBuilding)
             {
                 BuildList();
                 NeedsToggleListBuilding = false;
             }
             
+        }
+
+        private void ReloadButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)
+        {
+            NeedsToggleListBuilding = true;
+        }
+        private void ReloadButton_OnRightClick(UIMouseEvent evt, UIElement listeningElement)
+        {
+            Main.LocalPlayer.ReloadToggles();
         }
 
         public void BuildList()

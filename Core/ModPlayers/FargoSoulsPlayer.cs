@@ -140,6 +140,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                     packet.Send();
                 }
             }
+
+            Main.LocalPlayer.ReloadToggles();
         }
         
         public override void ResetEffects()
@@ -1526,5 +1528,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
             return false;
         }
+
     }
 }
