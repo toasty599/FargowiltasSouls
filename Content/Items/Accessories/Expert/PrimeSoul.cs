@@ -1,4 +1,7 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Content.Items.Placables;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -37,5 +40,25 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
         public override void UpdateInventory(Player player) => PrimeSoulEffect(player);
         public override void UpdateVanity(Player player) => PrimeSoulEffect(player);
         public override void UpdateAccessory(Player player, bool hideVisual) => PrimeSoulEffect(player);
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+
+            .AddIngredient(ModContent.ItemType<BoxofGizmos>())
+            .AddIngredient(ModContent.ItemType<RustedOxygenTank>())
+            .AddIngredient(ModContent.ItemType<LifeRevitalizer>())
+            .AddIngredient(ItemID.SoulofFlight, 3)
+            .AddIngredient(ItemID.SoulofLight, 3)
+            .AddIngredient(ItemID.SoulofNight, 3)
+            .AddIngredient(ItemID.SoulofMight, 3)
+            .AddIngredient(ItemID.SoulofFright, 3)
+            .AddIngredient(ItemID.SoulofSight, 3)
+            //add each other challenger expert drop when they're made
+
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+
+            .Register();
+        }
     }
 }
