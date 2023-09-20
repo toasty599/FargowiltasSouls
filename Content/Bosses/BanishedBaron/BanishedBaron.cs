@@ -452,7 +452,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         P1BigNuke();
                         break;
                     case (float)StateEnum.P1RocketStorm:
-                        P1RocketStorm();
+                        if (!Main.expertMode)
+                        {
+                            goto default;
+                        }
+                        else
+                        {
+                            P1RocketStorm();
+                        }
                         break;
                     case (float)StateEnum.P1SurfaceMines:
                         P1SurfaceMines();
@@ -480,10 +487,24 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         P2CarpetBomb();
                         break;
                     case (float)StateEnum.P2RocketStorm:
-                        P2RocketStorm();
+                        if (!Main.expertMode)
+                        {
+                            goto default;
+                        }
+                        else
+                        {
+                            P2RocketStorm();
+                        }
                         break;
                     case (float)StateEnum.P2SpinDash:
-                        P2SpinDash();
+                        if (!Main.expertMode)
+                        {
+                            goto default;
+                        }
+                        else
+                        {
+                            P2SpinDash();
+                        }
                         break;
                     case (float)StateEnum.P2MineFlurry:
                         P2MineFlurry();
@@ -1739,8 +1760,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 RandomizeState();
             else
                 State = (int)StateEnum.Swim;
-
-            if (NPC.life < NPC.lifeMax / 2 && Phase == 1)
+            bool expertP2 = NPC.life < NPC.lifeMax / 2 && Phase == 1 && Main.expertMode;
+            bool nonexpertP2 = NPC.life < NPC.lifeMax / 3 && Phase == 1 && Main.expertMode;
+            if (expertP2 || nonexpertP2)
             {
                 State = (float)StateEnum.Phase2Transition;
             }

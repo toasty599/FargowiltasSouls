@@ -468,6 +468,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
+            modifiers.FinalDamage
             ShorterDebuffsTimer = MaxShorterDebuffsTimer;
 
             if (!WorldSavingSystem.EternityMode)
