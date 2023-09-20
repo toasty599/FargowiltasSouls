@@ -1030,6 +1030,7 @@ Mods: {
 			MoonsWaves: Morrer diminui o progresso da onda
 			WhipSpeed: Não se beneficia de bônus de velocidade do ataque físico
 			WhipStack: Efeitos e efeitos negativos de chicote não podem acumular
+			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			MinionStack: O dano dos lacaios diminui ao invocar mais de 3 cópias (o limite do efeito é 12)
 			SummonMulticlass: O dano por lacaios diminui quando você ataca usando outras classes (exceto no EdA)
 			ShadowDodge: Modo Eternidade: Esquivar reduzirá sua velocidade de ataque
@@ -1881,7 +1882,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: +10 defense, +10% damage, knockback immunity, improved spear rain
+				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
 			}
 		}
 

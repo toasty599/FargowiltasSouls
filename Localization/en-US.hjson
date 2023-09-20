@@ -1030,6 +1030,7 @@ Mods: {
 			MoonsWaves: Dying decreases wave progress
 			WhipSpeed: Does not benefit from melee speed bonuses
 			WhipStack: Whip buffs/debuffs can't stack
+			ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			MinionStack: Damage of minions diminishes when summoning over 3 copies (effect caps at 12)
 			SummonMulticlass: Summon damage decreases when you attack using other classes (except in OOA)
 			ShadowDodge: Eternity Mode: Dodging will reduce your attack speed

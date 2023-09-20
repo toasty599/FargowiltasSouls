@@ -1030,6 +1030,7 @@ Mods: {
 			// MoonsWaves: Dying decreases wave progress
 			// WhipSpeed: Does not benefit from melee speed bonuses
 			// WhipStack: Whip buffs/debuffs can't stack
+			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			// MinionStack: Damage of minions diminishes when summoning over 3 copies (effect caps at 12)
 			// SummonMulticlass: Summon damage decreases when you attack using other classes (except in OOA)
 			// ShadowDodge: Eternity Mode: Dodging will reduce your attack speed
@@ -1881,7 +1882,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: +10 defense, +10% damage, knockback immunity, improved spear rain
+				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
 			}
 		}
 
@@ -2118,7 +2119,7 @@ Mods: {
 					Spears will rain down on struck enemies
 					Double tap down to place a banner that lasts 15 seconds
 					While close to the banner, spear rain is stronger
-					Being close to the banner also grants knockback immunity, 10% increased damage and 10 increased defense
+					Being close to the banner also grants knockback immunity, 5% increased damage and 10 increased defense
 					Banner can only be resummoned after it runs out
 					'Are you not entertained?'
 					''' */

@@ -32,7 +32,6 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.scale = 1f;
-            Projectile.light = 1;
             Projectile.alpha = 255;
             Projectile.timeLeft = 60 * 60 * 60;
         }

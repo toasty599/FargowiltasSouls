@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using Microsoft.CodeAnalysis;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Content.Projectiles;
+using System;
 
 namespace FargowiltasSouls.Content.Items
 {
@@ -108,8 +109,20 @@ namespace FargowiltasSouls.Content.Items
                 
             }
 
-                item.healMana = (int)Math.Round(item.healMana *= 1.5d);
+            if (item.healMana > 0)
+            {
+                return !player.HasBuff(BuffID.ManaSickness);
+            }
+
             return base.CanUseItem(item, player);
+        }
+        public override void GetHealMana(Item item, Player player, bool quickHeal, ref int healValue)
+        {
+            if (WorldSavingSystem.EternityMode)
+            {
+                healValue = (int)(healValue * 1.5f);
+            }
+            base.GetHealMana(item, player, quickHeal, ref healValue);
         }
         public override bool? UseItem(Item item, Player player)
         {

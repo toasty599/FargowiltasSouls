@@ -1030,6 +1030,7 @@ Mods: {
 			MoonsWaves: 死亡会降低当前波数
 			WhipSpeed: 不接受近战攻速加成
 			WhipStack: 鞭子的增益/减益不能堆叠
+			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			MinionStack: 同时召唤超过3个相同召唤物时，它们的伤害会降低（超过12个后不再降低）
 			SummonMulticlass: 当你使用其他职业的武器攻击时，召唤伤害降低（在撒旦军队中除外）
 			ShadowDodge: 永恒模式：闪避会降低你的攻击速度
@@ -1881,7 +1882,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: +10 defense, +10% damage, knockback immunity, improved spear rain
+				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
 			}
 		}
 
