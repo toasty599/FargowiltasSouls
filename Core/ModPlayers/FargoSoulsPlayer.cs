@@ -437,6 +437,9 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!Mash && MashCounter > 0)
                 MashCounter--;
             Mash = false;
+
+            PrimeSoulItem = null;
+            PrimeSoulEffects = 0;
         }
         public override void OnRespawn()
         {

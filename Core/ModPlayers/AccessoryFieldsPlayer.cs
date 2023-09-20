@@ -446,5 +446,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool HasDash;
 
         public int WeaponUseTimer;
+
+        public Item PrimeSoulItem;
+        public int PrimeSoulEffects;
     }
 }

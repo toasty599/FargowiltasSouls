@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.UI
                 {
                     slot++;
                     ReloadButton = new FargoUIReloadButton(FargoUIManager.ReloadButtonTexture.Value,
-                    $"Reload Toggles");
+                    $"Reload Toggles (right click to reset)");
                     ReloadButton.OnLeftClick += ReloadButton_OnLeftClick;
                     ReloadButton.OnRightClick += ReloadButton_OnRightClick;
                     ReloadButton.Top.Set(6, 0);
