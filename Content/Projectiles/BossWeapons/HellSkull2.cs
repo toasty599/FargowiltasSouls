@@ -194,7 +194,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                     color27, num165, origin2, scale, effects, 0);
             }
 
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, Projectile.rotation, origin2, Projectile.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), (Color)GetAlpha(Color.White), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }
