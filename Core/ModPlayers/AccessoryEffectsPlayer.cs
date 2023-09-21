@@ -248,7 +248,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 for (int i = 0; i < max; i++)
                 {
                     Vector2 spawnPos = Player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
-                    FargoSoulsUtil.NewSummonProjectile(Player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<Chlorofuck>(), dmg, 10f, Player.whoAmI, 0, rotation * i);
+                    FargoSoulsUtil.NewSummonProjectile(Player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<Chlorofuck>(), dmg, 10f, Player.whoAmI, Chlorofuck.Cooldown, rotation * i);
                 }
             }
         }

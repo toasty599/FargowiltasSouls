@@ -8,6 +8,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 {
     public class Chlorofuck : ModProjectile
     {
+        public const float Cooldown = 50f;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Chlorofuck");
@@ -46,7 +47,6 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             Projectile.netUpdate = true;
 
-            float cooldown = 50f;
 
             float num395 = Main.mouseTextColor / 200f - 0.35f;
             num395 *= 0.2f;
@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                     num405 *= num406;
                     if (Projectile.owner == Main.myPlayer)
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(num404, num405), ProjectileID.CrystalLeafShot, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    Projectile.ai[0] = cooldown;
+                    Projectile.ai[0] = Cooldown;
                 }
             }
 
