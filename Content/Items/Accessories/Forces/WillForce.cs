@@ -70,7 +70,9 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
             GladiatorEnchant.GladiatorEffect(player);
             RedRidingEnchant.RedRidingEffect(player, Item);
             HuntressEnchant.HuntressEffect(player);
-            modPlayer.ValhallaEffect(hideVisual);
+            modPlayer.ValhallaEnchantActive = true;
+            SquireEnchant.SquireEffect(player, Item);
+            
         }
 
         public override void AddRecipes()

@@ -81,7 +81,7 @@ $"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion tha
             modPlayer.NinjaEnchantItem = Item;
 
 
-            DarkArtistEnchant.DarkArtistEffect(player);
+            DarkArtistEnchant.DarkArtistEffect(player, Item);
             ApprenticeEnchant.ApprenticeEffect(player);
 
             NecroEnchant.NecroEffect(player, Item);

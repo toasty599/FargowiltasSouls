@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             }
         }
 
-        private static void MonkDash(Player player, bool vertical, int direction)
+        public static void MonkDash(Player player, bool vertical, int direction)
         {
             //horizontal
             if (!vertical)

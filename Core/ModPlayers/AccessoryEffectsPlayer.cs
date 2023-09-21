@@ -1396,11 +1396,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             //Main.NewText($"shell HP: {TurtleShellHP}, counter: {TurtleCounter}, recovery: {turtleRecoverCD}");
         }
 
-        public void ValhallaEffect(bool hideVisual)
-        {
-            ValhallaEnchantActive = true;
-        }
-
         public void VortexEffect(bool hideVisual)
         {
             //portal spawn

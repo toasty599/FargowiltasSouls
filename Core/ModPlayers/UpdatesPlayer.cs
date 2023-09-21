@@ -90,26 +90,26 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 //Main.NewText(MonkDashing);
 
-                /*if (MonkDashing == 0)
+                if (MonkDashing == 0 && Player.mount.Active)
                 {
-                    Player.velocity *= 0f;
+                    Player.velocity *= 0.5f;
                     Player.dashDelay = 0;
-                }*/
+                }
             }
             //vertical dash
             else if (MonkDashing < 0)
             {
                 MonkDashing++;
 
-                Player.immune = true;
-                Player.maxFallSpeed *= 30f;
+                //Player.immune = true;
+                Player.maxFallSpeed *= 300f;
                 Player.gravity = 1.5f;
 
-                /*if (MonkDashing == 0)
+                if (MonkDashing == 0 && Player.mount.Active)
                 {
                     Player.velocity *= 0.5f;
                     Player.dashDelay = 0;
-                }*/
+                }
             }
         }
 

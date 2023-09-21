@@ -23,7 +23,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().ValhallaEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().ValhallaEnchantActive = true;
+            SquireEnchant.SquireEffect(player, Item);
         }
 
         public override void AddRecipes()
@@ -34,10 +35,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddIngredient(ItemID.SquireAltPants)
             .AddIngredient(ItemID.VikingHelmet)
             .AddIngredient(null, "SquireEnchant")
-            //.AddIngredient(ItemID.ShinyStone);
-            //starlight
-            //shadow lance
-            .AddIngredient(ItemID.DD2SquireBetsySword)
+            .AddIngredient(ItemID.ShadowJoustingLance)
 
             .AddTile(TileID.CrystalBall)
             .Register();
