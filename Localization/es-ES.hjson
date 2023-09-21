@@ -36,7 +36,7 @@ Mods: {
 			// Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
 			// Jungle: Spore damage increased, cooldown decreased
 			// Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
-			// Meteor: Cooldown decreased, more meteors, increased damage of meteors
+			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
 			// Monk: No upgrade
@@ -463,6 +463,7 @@ Mods: {
 			// SpectreConfig: Spectre Orbs
 			// TikiConfig: Tiki Minions
 			// CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
+			// MeteorMomentumConfig: Meteor Speed
 			// MeteorConfig: Meteor Shower
 			// NebulaConfig: Nebula Boosters
 			// SolarConfig: Solar Shield
@@ -2205,7 +2206,8 @@ Mods: {
 				// DisplayName: Meteor Enchantment
 				/* Tooltip:
 					'''
-					A meteor shower initiates every few seconds while attacking
+					Drastically increases your run acceleration, and decreases your momentum
+					Moving creates a fire trail
 					'Drop a draco on 'em'
 					''' */
 			}
@@ -2685,6 +2687,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					[i:FargowiltasSouls/MeteorEnchant] A meteor shower initiates every few seconds while attacking
+					[i:FargowiltasSouls/MeteorEnchant] Running acceleration increased and momentum decreased
 					[i:FargowiltasSouls/SolarEnchant] Solar shield allows you to dash through enemies
 					[i:FargowiltasSouls/SolarEnchant] Attacks may inflict the Solar Flare debuff
 					[i:FargowiltasSouls/VortexEnchant] Double tap down to toggle stealth and spawn a vortex
@@ -3646,7 +3649,7 @@ Mods: {
 					'''
 					Summons fireballs, shadow orbs, icicles, leaf crystals, flameburst minion, hallowed sword and shield, and beetles
 					Right Click to Guard
-					Double tap down to spawn a sentry and portal, call a storm and arrow rain, toggle stealth, and direct your empowered guardian
+					Double tap down to spawn a sentry, a banner, and a portal, call a storm and arrow rain, toggle stealth, and direct your empowered guardian
 					Gold Key encases you in gold, Freeze Key freezes time for 5 seconds, minions spew scythes
 					Solar shield allows you to dash, Dash into any walls, to teleport through them
 					Throw a smoke bomb to teleport to it and gain the First Strike Buff
@@ -5921,6 +5924,7 @@ Mods: {
 			// GladiatorStandard.DisplayName: Gladiator Standard
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
+			// MeteorFlame.DisplayName: Meteor Flame
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
@@ -5998,6 +6002,7 @@ Mods: {
 		// SpectreConfig: "[i:FargowiltasSouls/SpectreEnchant][c/accdfc:{$Mods.FargowiltasSouls.Toggler.SpectreConfig}]"
 		// TikiConfig: "[i:FargowiltasSouls/TikiEnchant][c/56A52B:{$Mods.FargowiltasSouls.Toggler.TikiConfig}]"
 		// CosmoHeader: "[i:FargowiltasSouls/CosmoForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.CosmoHeader}]"
+		// MeteorMomentumConfig: "[i:FargowiltasSouls/MeteorEnchant][c/5f4752:{$Mods.FargowiltasSouls.Toggler.MeteorMomentumConfig}]"
 		// MeteorConfig: "[i:FargowiltasSouls/MeteorEnchant][c/5f4752:{$Mods.FargowiltasSouls.Toggler.MeteorConfig}]"
 		// NebulaConfig: "[i:FargowiltasSouls/NebulaEnchant][c/fe7ee5:{$Mods.FargowiltasSouls.Toggler.NebulaConfig}]"
 		// SolarConfig: "[i:FargowiltasSouls/SolarEnchant][c/fe9e23:{$Mods.FargowiltasSouls.Toggler.SolarConfig}]"

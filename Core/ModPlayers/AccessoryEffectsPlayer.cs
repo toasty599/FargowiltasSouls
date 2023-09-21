@@ -710,12 +710,44 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.DisplayToggle("Meteor");
             MeteorEnchantItem = item;
 
-            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Meteor"))
+            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MeteorMomentum"))
             {
-                
+                MeteorMomentum = true;
+
+                const int SparkDelay = 2;
+                int Timer = (int)(Main.GlobalTimeWrappedHourly * 60) % 60;
+                if (Player.velocity != Vector2.Zero && Timer % SparkDelay == 0) 
+                {
+                    for (int i = -1; i < 2; i+= 2)
+                    {
+                        Vector2 vel = (-Player.velocity).RotatedBy(i * MathHelper.Pi / 7).RotatedByRandom(MathHelper.Pi/12);
+                        int damage = 30;
+                        Vector2 pos = Player.Center;
+                        Vector2 offset = Vector2.Normalize(Player.velocity).RotatedBy(MathHelper.PiOver2 * -i) * (Player.width / 2);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(item), pos + offset, vel, ModContent.ProjectileType<MeteorFlame>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0.5f, Player.whoAmI);
+                    }
+                    
+                    /*
+                    int p = Projectile.NewProjectile(Player.GetSource_Accessory(item), pos, vel, ProjectileID.Flames, FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0.5f, Player.whoAmI);
+                    if (p != Main.maxProjectiles)
+                    {
+                        Main.projectile[p].DamageType = DamageClass.Generic;
+                        Main.projectile[p].friendly = true;
+                        Main.projectile[p].hostile = false; //just making sure
+                        Main.projectile[p].scale = 0.05f;
+                    }
+                    */
+                }
+            }
+            if (Player.whoAmI == Main.myPlayer && ForceEffect(MeteorEnchantItem.type) && Player.GetToggleValue("Meteor"))
+            {
+
                 bool forceEffect = ForceEffect(MeteorEnchantItem.type);
                 int damage = forceEffect ? 50 : 20;
-
+                if (!forceEffect)
+                {
+                    return;
+                }
                 if (MeteorShower)
                 {
                     if (MeteorTimer % (forceEffect ? 2 : 4) == 0)

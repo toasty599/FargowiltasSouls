@@ -153,6 +153,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (MahoganyEnchantItem != null)
                 RichMahoganyEnchant.PostUpdate(Player);
 
+            if (MeteorMomentum && !NoMomentum && !Player.mount.Active) //overriden by nomomentum
+            {
+                Player.runAcceleration *= 3f;
+                Player.runSlowdown *= 3f;
+
+            }
             if (NoMomentum && !Player.mount.Active)
             {
                 if (Player.vortexStealthActive && Math.Abs(Player.velocity.X) > 6)

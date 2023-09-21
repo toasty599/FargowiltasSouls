@@ -84,8 +84,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int CobaltImmuneTimer;
         public Item MythrilEnchantItem;
         public int MythrilTimer;
-        public int MythrilMaxTime => ForceEffect(MythrilEnchantItem.type) ? 300 : 180;
-        public float MythrilMaxSpeedBonus => ForceEffect(MythrilEnchantItem.type) ? 1.75f : 1.5f;
+        public int MythrilMaxTime => MythrilEnchantItem != null ? ForceEffect(MythrilEnchantItem.type) ? 300 : 180 : 180;
+        public float MythrilMaxSpeedBonus => MythrilEnchantItem != null ? ForceEffect(MythrilEnchantItem.type) ? 1.75f : 1.5f : 1.5f;
         public Item OriEnchantItem;
         public Item PalladEnchantItem;
         public int PalladCounter;
@@ -371,6 +371,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool noDodge;
         public bool noSupersonic;
         public bool NoMomentum;
+        public bool MeteorMomentum;
         public bool Bloodthirsty;
         public bool Unlucky;
         public bool DisruptedFocus;

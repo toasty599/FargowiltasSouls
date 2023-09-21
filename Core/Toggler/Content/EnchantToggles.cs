@@ -94,6 +94,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public string Tiki;
 
         public int CosmoHeader = ModContent.ItemType<CosmoForce>();
+        public string MeteorMomentum;
         public string Meteor;
         public string Nebula;
         public string Solar;
