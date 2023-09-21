@@ -38,6 +38,7 @@ You spawn an orb of damaging life energy every 80 life regenerated
 
         public static void PalladiumEffect(Player player, Item item)
         {
+            player.DisplayToggle("Palladium");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             //no lifesteal needed here for SoE

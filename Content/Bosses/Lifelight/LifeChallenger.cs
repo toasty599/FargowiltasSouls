@@ -786,7 +786,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     float ProjectileSpeed3 = 12f;
                     Vector2 shootatPlayer3 = NPC.DirectionTo(Player.Center) * ProjectileSpeed3;
                     float ai1 = WorldSavingSystem.EternityMode ? 1 : 0;
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootatPlayer3, ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 300f, Main.myPlayer, 32f, ai1);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootatPlayer3, ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 32f, ai1);
                 }
             }
             if (AI_Timer >= 120f)
@@ -903,7 +903,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     float knockBack = 300f;
                     Vector2 shootatPlayer = NPC.DirectionTo(Player.Center) * ProjectileSpeed;
                     float ai1 = WorldSavingSystem.EternityMode ? 1 : 0;
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero - shootatPlayer, ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), knockBack, Main.myPlayer, 32f, ai1);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero - shootatPlayer, ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack, Main.myPlayer, 32f, ai1);
                     PeriodicNukeTimer = 0f;
                 }
                 NPC.netUpdate = true;
@@ -947,18 +947,28 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 if (AI_Timer == 5)
                 {
                     SoundEngine.PlaySound(SoundID.Item29 with { Volume = 1.5f, Pitch = -0.5f }, NPC.Center);
-                    SoundEngine.PlaySound(SoundID.ScaryScream with { Pitch = -0.5f }, NPC.Center);
                 }
                 if (AI_Timer < 60)
                 {
                     //if (AI_Timer % 5 == 0)
-                        //SoundEngine.PlaySound(SoundID.Tink, Main.LocalPlayer.Center);
+                    //SoundEngine.PlaySound(SoundID.Tink, Main.LocalPlayer.Center);
 
-                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Gold, Scale: 1.5f);
-                    Main.dust[dust].velocity = (Main.dust[dust].position - NPC.Center) / 10;
+                    Color color = Main.rand.NextFromList(Color.Goldenrod, Color.Pink, Color.Cyan);
+                    Particle p = new SmallSparkle(
+                        worldPosition: NPC.Center,
+                        velocity: (Main.rand.NextFloat(5, 50) * Vector2.UnitX).RotatedByRandom(MathHelper.TwoPi),
+                        drawColor: color,
+                        scale: 1f,
+                        lifetime: Main.rand.Next(20, 80),
+                        rotation: 0,
+                        rotationSpeed: Main.rand.NextFloat(-MathHelper.Pi / 8, MathHelper.Pi / 8)
+                        );
+                    p.Spawn();
+                    p.Position -= p.Velocity * 4; //implosion
                 }
                 if (AI_Timer == 60f)
                 {
+                    SoundEngine.PlaySound(SoundID.Item82 with { Pitch = -0.2f }, Main.LocalPlayer.Center);
                     LockVector1 = -NPC.DirectionTo(Main.player[NPC.target].Center);
                     if (PyramidPhase == 0)
                     {
@@ -966,10 +976,20 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     }
                     PyramidPhase = 1;
                     
-                    for (int i = 0; i < 60; i++)
+                    for (int i = 0; i < 100; i++)
                     {
-                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Gold, Scale: 1.5f);
-                        Main.dust[dust].velocity = (Main.dust[dust].position - NPC.Center) / 5;
+                        Color color = Main.rand.NextFromList(Color.Goldenrod, Color.Pink, Color.Cyan);
+                        Particle p = new SmallSparkle(
+                            worldPosition: NPC.Center,
+                            velocity: (Main.rand.NextFloat(5, 50) * Vector2.UnitX).RotatedByRandom(MathHelper.TwoPi),
+                            drawColor: color,
+                            scale: 1f,
+                            lifetime: Main.rand.Next(20, 80),
+                            rotation: 0,
+                            rotationSpeed: Main.rand.NextFloat(-MathHelper.Pi / 8, MathHelper.Pi / 8)
+                            );
+                        p.Spawn();
+                        //p.Position -= p.Velocity * 4; //implosion
                     }
                 }
 
@@ -984,7 +1004,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         Vector2 pos = NPC.Center + (rotation.ToRotationVector2() * distance);
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<LifeTransitionBomb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, pos.X, pos.Y);
                     }
-                    SoundEngine.PlaySound(SoundID.Item82, Main.LocalPlayer.Center);
+                    SoundEngine.PlaySound(SoundID.Item92 with { Pitch = -0.5f }, NPC.Center);
 
                     if (!Main.dedServ)
                         Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
@@ -1042,7 +1062,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, LockVector1,
-                                        ModContent.ProjectileType<LifeChalDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, NPC.whoAmI, endTime);
+                                        ModContent.ProjectileType<LifeChalDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.2f), 3f, Main.myPlayer, 0, NPC.whoAmI, endTime);
                     }
                     NPC.velocity.X = 0;
                     NPC.velocity.Y = 0;
@@ -1303,7 +1323,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     for (int i = 0; i < 2; i++)
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(-4 + 8 * i, -2f), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 3f, Main.myPlayer, 24f);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(-4 + 8 * i, -2f), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 24f);
             }
             if (AI_Timer > Attack2Start && time2 % (Attack2Time * 2) + 1 == 1 && AI_Timer < Attack2End) //fire shots down
             {
@@ -2458,7 +2478,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     float ai0 = WorldSavingSystem.MasochistModeReal ? 32 : 24;
                     float ai1 = 0;
                     float speed = 16;
-                    int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(speed, 0f).RotatedBy(MathHelper.Pi / 3 * ShotCount), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 300f, Main.myPlayer, ai0, ai1);
+                    int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(speed, 0f).RotatedBy(MathHelper.Pi / 3 * ShotCount), ModContent.ProjectileType<LifeNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, ai0, ai1);
                     if (p != Main.maxProjectiles)
                         Main.projectile[p].timeLeft = 60;
                 }
@@ -2657,7 +2677,10 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             
         }
-
+        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
+        {
+            boundingBox = NPC.Hitbox;
+        }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             if (projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNuke>() || projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNukeSplinter>())
@@ -2744,6 +2767,23 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 return;
             }
+            else
+            {
+                if (NPC.GetLifePercent() < (float)chunklist.Count / (float)ChunkCount && P1state != -2 && PyramidPhase == 0) //not during opening or pyramid attacks
+                {
+                    if (chunklist.Count <= 0)
+                    {
+                        return;
+                    }
+                    int i = Main.rand.Next(chunklist.Count);
+                    Vector4 chunk = chunklist[i];
+                    Vector2 pos = chunk.X * Vector2.UnitX * ChunkDistance + chunk.Y * Vector2.UnitY * ChunkDistance;// + chunk.Z * Vector3.UnitZ;
+                    if (!Main.dedServ)
+                        Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"ShardGold{chunk.W}").Type, NPC.scale);
+                    chunklist.RemoveAt(i);
+                    SoundEngine.PlaySound(SoundID.Tink, NPC.Center);
+                }
+            }
         }
 
         public override bool CheckDead()
@@ -2766,11 +2806,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             const float ChunkRotationSpeed = MathHelper.TwoPi * (1f / 360);
 
 
-            if (NPC.GetLifePercent() < (float)chunklist.Count / (float)ChunkCount && P1state != -2) //not during opening
-            {
-                chunklist.RemoveAt(Main.rand.Next(chunklist.Count));
-                SoundEngine.PlaySound(SoundID.Tink, NPC.Center);
-            }
+            
+
             for (int i = 0; i < chunklist.Count; i++)
             {
                 chunklist[i] = RotateByMatrix(chunklist[i], ChunkRotationSpeed, Vector3.UnitX);

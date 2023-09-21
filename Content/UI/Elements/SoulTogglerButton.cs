@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using FargowiltasSouls.Core;
+using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
@@ -48,10 +50,11 @@ namespace FargowiltasSouls.Content.UI.Elements
             {
                 return;
             }
-
+            
             FargoUIManager.ToggleSoulToggler();
             Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HasClickedWrench = true;
         }
+        
 
         public override void Draw(SpriteBatch spriteBatch)
         {

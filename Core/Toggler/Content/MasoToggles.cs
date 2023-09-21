@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
     public class MasoToggles : ToggleCollection
     {
         public override string Mod => "Terraria";
-        public override string SortCatagory => "Maso";
+        public override string SortCategory => "Maso";
         public override int Priority => 2;
         public override bool Active => true;
 

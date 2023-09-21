@@ -18,6 +18,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\ExtraTextures\Vanilla\Background_7.png" />
+    <None Remove="Assets\Gores\BaronGore1.png" />
+    <None Remove="Assets\Gores\BaronGore2.png" />
+    <None Remove="Assets\Gores\BaronGore3.png" />
+    <None Remove="Assets\Gores\BaronGore4.png" />
     <None Remove="Assets\Gores\CosmosGore1.png" />
     <None Remove="Assets\UI\EnchantSlotIcon.png" />
     <None Remove="Assets\UI\ForgorMenuLogo.png" />
@@ -28,11 +32,14 @@
     <None Remove="Content\Bosses\Lifelight\LifeBombExplosion.png" />
     <None Remove="Content\Bosses\Lifelight\Lifelight.png" />
     <None Remove="Content\Buffs\Boss\BaronsBurdenBuff.png" />
+    <None Remove="Content\Buffs\GladiatorBuff.png" />
     <None Remove="Content\Buffs\Souls\CorruptedBuff.png" />
     <None Remove="Content\Items\Accessories\Enchantments\AshWoodEnchant.png" />
     <None Remove="Content\Items\Accessories\Expert\RustedOxygenTank.png" />
+    <None Remove="Content\Items\Accessories\Masomode\FusedLens.png" />
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
     <None Remove="Content\Items\BossBags\BanishedBaronBag.png" />
+    <None Remove="Content\Items\Placables\Relics\BaronRelic.png" />
     <None Remove="Content\Items\Placables\Trophies\BaronTrophy.png" />
     <None Remove="Content\Items\Placables\WiresPainting.png" />
     <None Remove="Content\Items\Placables\WiresPaintingSheet.png" />
@@ -47,11 +54,17 @@
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinionOld.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\LightningTelegraph.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\VortexVortexProjectile.png" />
+    <None Remove="Content\Patreon\DanielTheRobot\ROB.png" />
+    <None Remove="Content\Patreon\DanielTheRobot\ROBBuff.png" />
+    <None Remove="Content\Patreon\DanielTheRobot\ROBGyro.png" />
+    <None Remove="Content\Patreon\DanielTheRobot\ROB_Eyebrows.png" />
     <None Remove="Content\PlayerDrawLayers\RoseTintedVisorDrawLayer.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadBar.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadSlider.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadZone.png" />
+    <None Remove="Content\Projectiles\Minions\GladiatorStandard.png" />
     <None Remove="Content\Tiles\MutantStatueGift.png" />
+    <None Remove="Content\Tiles\Relics\BaronRelic.png" />
     <None Remove="Content\Tiles\Trophies\BaronTrophy.png" />
     <None Remove="Content\Tiles\Trophies\EridanusTrophy.png" />
     <None Remove="Content\Tiles\Trophies\LifelightTrophy.png" />

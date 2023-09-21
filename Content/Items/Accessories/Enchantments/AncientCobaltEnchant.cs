@@ -35,8 +35,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void AncientCobaltEffect(Player player, Item item, int damage)
         {
+            player.DisplayToggle("AncientCobalt");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
+            if (modPlayer.CobaltEnchantItem != null)
+            {
+                player.DisplayToggle("Cobalt");
+            }
             if (modPlayer.CobaltImmuneTimer > 0)
             {
                 player.immune = true;

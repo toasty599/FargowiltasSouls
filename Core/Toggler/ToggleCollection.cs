@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Core.Toggler
     public abstract class ToggleCollection
     {
         public abstract string Mod { get; }
-        public abstract string SortCatagory { get; }
+        public abstract string SortCategory { get; }
         public abstract int Priority { get; }
 
         public abstract bool Active
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Core.Toggler
             for (int i = 0; i < fields.Length; i++)
             {
                 if (fields[i].FieldType != typeof(int)) // Register as toggle if it's a string
-                    ret.Add(new Toggle(fields[i].Name, Mod, SortCatagory));
+                    ret.Add(new Toggle(fields[i].Name, Mod, SortCategory));
                 else // ...or as a header if it's an int
                 {
                     ToggleLoader.LoadedHeaders.Add(fields[i + 1].Name, (fields[i].Name, (int)fields[i].GetValue(this)));

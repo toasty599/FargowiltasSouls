@@ -36,6 +36,7 @@ Parry blocks up to 100 damage
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            player.DisplayToggle("SilverS");
             if (player.GetToggleValue("SilverS"))
             {
                 //shield

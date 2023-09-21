@@ -70,7 +70,9 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}] Grants immunity to fire and lava\
             CopperEnchant.CopperEffect(player, Item);
             TinEnchant.TinEffect(player, Item);
             modPlayer.IronEnchantItem = Item;
+            player.DisplayToggle("IronM");
             LeadEnchant.LeadEffect(player, Item);
+            player.DisplayToggle("SilverS");
             if (player.GetToggleValue("SilverS"))
             {
                 //shield

@@ -29,6 +29,7 @@ namespace FargowiltasSouls.Core.ModPlayers
     {
         public void BeeEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Bee");
             Player.strongBees = true;
             //bees ignore defense
             BeeEnchantActive = true;
@@ -36,6 +37,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void BeetleEffect()
         {
+            Player.DisplayToggle("Beetle");
+
             if (!Player.GetToggleValue("Beetle"))
                 return;
 
@@ -231,12 +234,14 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ChloroEffect(Item item, bool hideVisual)
         {
+            Player.DisplayToggle("Chlorophyte");
             ChloroEnchantActive = true;
 
             ChloroEnchantItem = item;
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Chlorophyte") && Player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
             {
+                
                 int dmg = ForceEffect(ChloroEnchantItem.type) ? 65 : 35;
                 const int max = 5;
                 float rotation = 2f * (float)Math.PI / max;
@@ -252,6 +257,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ForbiddenEffect()
         {
+            Player.DisplayToggle("Forbidden");
+
             if (!Player.GetToggleValue("Forbidden"))
                 return;
             ForbiddenEnchantActive = true;
@@ -391,6 +398,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void FrostEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Frost");
             FrostEnchantActive = true;
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Frost"))
@@ -451,6 +459,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (IcicleCount >= 1 && Player.controlUseItem && Player.HeldItem.damage > 0 && Player.HeldItem.createTile == -1 && Player.HeldItem.createWall == -1 && Player.HeldItem.ammo == AmmoID.None && Player.HeldItem.hammer == 0 && Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0)
                 {
+                    
                     int dmg = ForceEffect(ModContent.ItemType<FrostEnchant>()) ? 100 : 50;
 
                     for (int i = 0; i < Main.maxProjectiles; i++)
@@ -483,6 +492,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void GoldEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Gold");
+            Player.DisplayToggle("GoldToPiggy");
+
             //gold ring
             Player.goldRing = true;
             //lucky coin
@@ -605,6 +617,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void JungleEffect()
         {
+            Player.DisplayToggle("JungleDash");
+            Player.DisplayToggle("Jungle");
             if (Player.whoAmI != Main.myPlayer)
                 return;
 
@@ -655,7 +669,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     int tier = 1;
                     if (ChloroEnchantActive)
                         tier++;
-                    bool jungleForceEffect = ForceEffect(ModContent.ItemType<JungleEnchant>()) || ForceEffect(ChloroEnchantItem.type);
+                    bool jungleForceEffect = ForceEffect(ModContent.ItemType<JungleEnchant>()) || ForceEffect(ModContent.ItemType<ChlorophyteEnchant>());
                     if (jungleForceEffect)
                         tier++;
 
@@ -693,13 +707,47 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void MeteorEffect(Item item)
         {
+            Player.DisplayToggle("Meteor");
             MeteorEnchantItem = item;
 
-            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Meteor"))
+            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MeteorMomentum"))
             {
+                MeteorMomentum = true;
+
+                const int SparkDelay = 2;
+                int Timer = (int)(Main.GlobalTimeWrappedHourly * 60) % 60;
+                if (Player.velocity != Vector2.Zero && Timer % SparkDelay == 0) 
+                {
+                    for (int i = -1; i < 2; i+= 2)
+                    {
+                        Vector2 vel = (-Player.velocity).RotatedBy(i * MathHelper.Pi / 7).RotatedByRandom(MathHelper.Pi/12);
+                        int damage = 30;
+                        Vector2 pos = Player.Center;
+                        Vector2 offset = Vector2.Normalize(Player.velocity).RotatedBy(MathHelper.PiOver2 * -i) * (Player.width / 2);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(item), pos + offset, vel, ModContent.ProjectileType<MeteorFlame>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0.5f, Player.whoAmI);
+                    }
+                    
+                    /*
+                    int p = Projectile.NewProjectile(Player.GetSource_Accessory(item), pos, vel, ProjectileID.Flames, FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0.5f, Player.whoAmI);
+                    if (p != Main.maxProjectiles)
+                    {
+                        Main.projectile[p].DamageType = DamageClass.Generic;
+                        Main.projectile[p].friendly = true;
+                        Main.projectile[p].hostile = false; //just making sure
+                        Main.projectile[p].scale = 0.05f;
+                    }
+                    */
+                }
+            }
+            if (Player.whoAmI == Main.myPlayer && ForceEffect(MeteorEnchantItem.type) && Player.GetToggleValue("Meteor"))
+            {
+
                 bool forceEffect = ForceEffect(MeteorEnchantItem.type);
                 int damage = forceEffect ? 50 : 20;
-
+                if (!forceEffect)
+                {
+                    return;
+                }
                 if (MeteorShower)
                 {
                     if (MeteorTimer % (forceEffect ? 2 : 4) == 0)
@@ -756,6 +804,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void NebulaEffect()
         {
+            Player.DisplayToggle("Nebula");
             if (!Player.GetToggleValue("Nebula", false))
                 return;
 
@@ -819,12 +868,13 @@ namespace FargowiltasSouls.Core.ModPlayers
         private int ShadowOrbRespawnTimer;
         public void ShadowEffectPostEquips()
         {
+            Player.DisplayToggle("Shadow");
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Shadow"))
             {
                 int currentOrbs = Player.ownedProjectileCounts[ModContent.ProjectileType<ShadowEnchantOrb>()];
 
                 int max = 2;
-
+                
                 bool forceEffect = ForceEffect(ModContent.ItemType<ShadowEnchant>()) || ForceEffect(ModContent.ItemType<AncientShadowEnchant>());
 
                 if (TerrariaSoul)
@@ -968,6 +1018,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ShinobiEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Shinobi");
+            Player.DisplayToggle("ShinobiDash");
             //tele through wall until open space on dash into wall
             /*if (Player.GetToggleValue("Shinobi") && Player.whoAmI == Main.myPlayer && Player.dashDelay == -1 && Player.mount.Type == -1 && Player.velocity.X == 0)
             {
@@ -1001,6 +1053,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ShroomiteEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Shroomite");
             if (!TerrariaSoul && Player.GetToggleValue("Shroomite"))
                 Player.shroomiteStealth = true;
 
@@ -1073,6 +1126,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SolarEffect()
         {
+            Player.DisplayToggle("Solar");
+            Player.DisplayToggle("SolarFlare");
+
             if (!Player.GetToggleValue("Solar"))
                 return;
 
@@ -1141,6 +1197,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SpectreEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Spectre");
             SpectreEnchantActive = true;
 
         }
@@ -1245,6 +1302,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SpiderEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Spider");
             //minion crits
             SpiderEnchantActive = true;
 
@@ -1253,6 +1311,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SpookyEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Spooky");
             //scythe doom
             SpookyEnchantActive = true;
 
@@ -1260,6 +1319,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void StardustEffect(Item item)
         {
+            Player.DisplayToggle("Stardust");
             StardustEnchantActive = true;
 
             if (Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[ProjectileID.StardustGuardian] < 1 && Player.GetToggleValue("Stardust"))
@@ -1332,6 +1392,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void TikiEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Tiki");
+
             if (ForceEffect(ModContent.ItemType<TikiEnchant>()))
                 Player.whipRangeMultiplier += 0.2f;
 
@@ -1361,6 +1423,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void TurtleEffect(bool hideVisual)
         {
+            Player.DisplayToggle("Turtle");
+
             Player.turtleThorns = true;
             Player.thorns = 1f;
 
@@ -1381,7 +1445,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 TurtleCounter = 0;
             }
-
+            
             if (TurtleShellHP < 20 && !Player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && !ShellHide && ForceEffect(ModContent.ItemType<TurtleEnchant>()))
             {
                 turtleRecoverCD--;
@@ -1398,6 +1462,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void VortexEffect(bool hideVisual)
         {
+            Player.DisplayToggle("VortexS");
+            Player.DisplayToggle("VortexV");
+
             //portal spawn
             VortexEnchantActive = true;
             //stealth memes
@@ -1449,6 +1516,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void MonkEffect()
         {
+            Player.DisplayToggle("Monk");
             MonkEnchantActive = true;
 
             if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuffBuff>()))
@@ -1529,6 +1597,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void AncientShadowEffect()
         {
+            Player.DisplayToggle("AncientShadow");
             //darkness
             AncientShadowEnchantActive = true;
         }
@@ -1611,6 +1680,21 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void SupersonicSoul(Item item, bool hideVisual)
         {
+            Player.DisplayToggle("Supersonic");
+            Player.DisplayToggle("RunSpeed");
+            Player.DisplayToggle("Momentum");
+            Player.DisplayToggle("SupersonicRocketBoots");
+            Player.DisplayToggle("SupersonicJumps");
+            Player.DisplayToggle("SupersonicCarpet");
+            Player.DisplayToggle("CthulhuShield");
+            Player.DisplayToggle("SupersonicTabi");
+            Player.DisplayToggle("BlackBelt");
+            Player.DisplayToggle("SupersonicClimbing");
+            Player.DisplayToggle("DefenseBee");
+            Player.DisplayToggle("DefensePanic");
+            Player.DisplayToggle("MasoAeolusFlower");
+
+
             Player.hasMagiluminescence = true;
 
             //amph boot
@@ -2152,7 +2236,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!Player.GetToggleValue("MasoPouch"))
                 return;
 
-            if (!(Player.controlUseItem || Player.controlUseTile || WeaponUseTimer > 0))
+            if (!Player.controlUseItem && !Player.controlUseTile && WeaponUseTimer <= 6) //remove extra 6 added to the timer, makes it a lot less awkward
                 return;
 
             if (Player.HeldItem.IsAir || Player.HeldItem.damage <= 0 || Player.HeldItem.pick > 0 || Player.HeldItem.axe > 0 || Player.HeldItem.hammer > 0)
@@ -2166,9 +2250,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             Player.GetDamage(DamageClass.Generic) += 1.20f;
             Player.endurance -= 0.20f;
-
-            Player.velocity.X *= 0.85f;
-            Player.velocity.Y *= 0.85f;
+            Player.velocity *= 0.875f;
 
             if (--WretchedPouchCD <= 0)
             {
@@ -2858,6 +2940,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void DeerSinewEffect()
         {
+            Player.DisplayToggle("DeerSinewDash");
             if (DeerSinewFreezeCD > 0)
                 DeerSinewFreezeCD--;
 

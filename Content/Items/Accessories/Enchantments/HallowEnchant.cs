@@ -40,6 +40,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void HallowEffect(Player player)
         {
+            player.DisplayToggle("HallowDodge");
+
             if (player.GetToggleValue("HallowDodge"))
                 player.onHitDodge = true;
         }

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -42,6 +43,8 @@ namespace FargowiltasSouls.Content.UI
 
         public static Asset<Texture2D> PresetCustomButton { get; private set; }
 
+        public static Asset<Texture2D> ReloadButtonTexture { get; private set; }
+
         public static Asset<Texture2D> OncomingMutantTexture { get; private set; }
 
         public static Asset<Texture2D> OncomingMutantAuraTexture { get; private set; }
@@ -60,6 +63,7 @@ namespace FargowiltasSouls.Content.UI
                 PresetOnButton = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/PresetOn", AssetRequestMode.ImmediateLoad);
                 PresetMinimalButton = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/PresetMinimal", AssetRequestMode.ImmediateLoad);
                 PresetCustomButton = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/PresetCustom", AssetRequestMode.ImmediateLoad);
+                ReloadButtonTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/ReloadButton", AssetRequestMode.ImmediateLoad);
                 OncomingMutantTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/OncomingMutant", AssetRequestMode.ImmediateLoad);
                 OncomingMutantAuraTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/UI/OncomingMutantAura", AssetRequestMode.ImmediateLoad);
 
@@ -106,8 +110,9 @@ namespace FargowiltasSouls.Content.UI
             if (SoulConfig.Instance.ToggleSearchReset)
             {
                 SoulToggler.SearchBar.Input = "";
-                SoulToggler.NeedsToggleListBuilding = true;
+                
             }
+            SoulToggler.NeedsToggleListBuilding = true;
         }
 
         public static bool IsTogglerOpen() => TogglerUserInterface.CurrentState == SoulToggler;

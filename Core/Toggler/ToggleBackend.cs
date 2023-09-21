@@ -248,6 +248,7 @@ namespace FargowiltasSouls.Core.Toggler
             player.SetToggleValue("RunSpeed", true);
             player.SetToggleValue("SupersonicRocketBoots", true);
             player.SetToggleValue("Momentum", true);
+            player.SetToggleValue("MeteorMomentum", true);
             player.SetToggleValue("FlightMasteryInsignia", true);
             player.SetToggleValue("FlightMasteryGravity", true);
             player.SetToggleValue("Universe", true);

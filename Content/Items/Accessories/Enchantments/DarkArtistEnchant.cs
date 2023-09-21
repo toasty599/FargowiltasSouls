@@ -33,6 +33,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void DarkArtistEffect(Player player, Item item)
         {
+            player.DisplayToggle("DarkArt");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] == 0)

@@ -196,6 +196,7 @@ namespace FargowiltasSouls
             AddToggle("TikiConfig", "TikiEnchant", "56A52B");
 
             AddToggle("CosmoHeader", "CosmoForce");
+            AddToggle("MeteorMomentumConfig", "MeteorEnchant", "5f4752");
             AddToggle("MeteorConfig", "MeteorEnchant", "5f4752");
             AddToggle("NebulaConfig", "NebulaEnchant", "fe7ee5");
             AddToggle("SolarConfig", "SolarEnchant", "fe9e23");

@@ -39,6 +39,8 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
         public static void TitaniumEffect(Player player, Item item)
         {
+            player.DisplayToggle("Titanium");
+
             if (player.GetToggleValue("Titanium"))
             {
                 player.GetModPlayer<FargoSoulsPlayer>().TitaniumEnchantItem = item;

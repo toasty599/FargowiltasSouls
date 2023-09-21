@@ -39,6 +39,8 @@ Effects of Inner Tube
 
         public static void RainEffect(Player player, Item item)
         {
+            player.DisplayToggle("Rain");
+            player.DisplayToggle("RainInnerTube");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             player.buffImmune[BuffID.Wet] = true;
             modPlayer.RainEnchantActive = true;

@@ -44,6 +44,8 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
         public static void TungstenEffect(Player player, Item item)
         {
+            player.DisplayToggle("Tungsten");
+            player.DisplayToggle("TungstenProj");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             modPlayer.TungstenEnchantItem = item;

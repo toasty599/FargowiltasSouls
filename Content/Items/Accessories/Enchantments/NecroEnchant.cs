@@ -48,6 +48,7 @@ Effects of Bone Glove
 
         public static void NecroEffect(Player player, Item item)
         {
+            player.DisplayToggle("NecroGlove");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             modPlayer.NecroEnchantActive = true;

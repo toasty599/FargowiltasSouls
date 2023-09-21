@@ -341,6 +341,18 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         {
             potionType = ItemID.GreaterHealingPotion;
         }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
+                    if (!Main.dedServ)
+                        Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"BaronGore{i}").Type, NPC.scale);
+                }
+            }
+        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             //TODO: Add loot
@@ -440,7 +452,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         P1BigNuke();
                         break;
                     case (float)StateEnum.P1RocketStorm:
-                        P1RocketStorm();
+                        if (!Main.expertMode)
+                        {
+                            goto default;
+                        }
+                        else
+                        {
+                            P1RocketStorm();
+                        }
                         break;
                     case (float)StateEnum.P1SurfaceMines:
                         P1SurfaceMines();
@@ -468,10 +487,24 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         P2CarpetBomb();
                         break;
                     case (float)StateEnum.P2RocketStorm:
-                        P2RocketStorm();
+                        if (!Main.expertMode)
+                        {
+                            goto default;
+                        }
+                        else
+                        {
+                            P2RocketStorm();
+                        }
                         break;
                     case (float)StateEnum.P2SpinDash:
-                        P2SpinDash();
+                        if (!Main.expertMode)
+                        {
+                            goto default;
+                        }
+                        else
+                        {
+                            P2SpinDash();
+                        }
                         break;
                     case (float)StateEnum.P2MineFlurry:
                         P2MineFlurry();
@@ -873,12 +906,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 NPC.velocity = NPC.rotation.ToRotationVector2() * NPC.velocity.Length();
                 NPC.Opacity += 1f / ReactionTime;
-                if (NPC.Opacity < 0)
-                    NPC.Opacity = 0;
+                if (NPC.Opacity > 1)
+                    NPC.Opacity = 1;
                 HitPlayer = true;
             }
             if (Timer == 90 + ReactionTime)
             {
+                NPC.Opacity = 1;
                 NPC.dontTakeDamage = false;
                 SoundEngine.PlaySound(BaronRoar, NPC.Center);
                 float baseSpeed = 45;
@@ -1059,7 +1093,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Vector2 target = player.Center + (Vector2.Normalize(NPC.Center - player.Center) * 500);
                 if ((NPC.Distance(target) < 25 && AI3 == 0) || (Timer % 60 == 0 && AI3 != 0))
                 {
-                    AI3 = Main.rand.NextFloat(-1, 1);
+                    AI3 = -1;
                     NPC.netUpdate = true;
                 }
 
@@ -1082,6 +1116,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
 
                 LockVector1 = NPC.DirectionTo(player.Center + (player.velocity * PredictStr)) * PredictStr;
+
                 RotateTowards(NPC.Center + LockVector1, 4);
             }
             if (Timer == ReactTime)
@@ -1094,12 +1129,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Vector2 lp = player.Center - NPC.Center;
                 float lambda = Vector2.Dot(uv, lp);
                 LockVector2 = NPC.Center + (uv * lambda);
-            }
-            if (Timer >= ReactTime && NPC.velocity.Length() < 20)
-            {
-                if (NPC.Distance(player.Center) > 600) //he kept despawning otherwise??
+
+                //below: instantly decelerate if dash is at large angle from player
+                Vector2 PV = NPC.DirectionTo(player.Center);
+                Vector2 LV = LockVector1;
+                float anglediff = (float)(Math.Atan2(PV.Y * LV.X - PV.X * LV.Y, LV.X * PV.X + LV.Y * PV.Y)); //real
+                if (Math.Abs(anglediff) > MathHelper.PiOver2)
                 {
-                    NPC.Center -= NPC.velocity;
+                    AI3 = 1;
                 }
             }
             if (Timer >= ReactTime && NPC.velocity.Length() > 5)
@@ -1723,8 +1760,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 RandomizeState();
             else
                 State = (int)StateEnum.Swim;
-
-            if (NPC.life < NPC.lifeMax / 2 && Phase == 1)
+            bool expertP2 = NPC.life < NPC.lifeMax / 2 && Phase == 1 && Main.expertMode;
+            bool nonexpertP2 = NPC.life < NPC.lifeMax / 3 && Phase == 1 && Main.expertMode;
+            if (expertP2 || nonexpertP2)
             {
                 State = (float)StateEnum.Phase2Transition;
             }

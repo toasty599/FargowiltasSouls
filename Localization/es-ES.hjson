@@ -29,14 +29,14 @@ Mods: {
 			// Forbidden: Damage boost increased from 30 to 60%
 			// Fossil: Revive heal increased to 200 and revive bone count doubled
 			// Frost: Icicle damage doubled
-			// Gladiator: No upgrade
+			// Gladiator: Increased banner aura size, decreased spear rain cooldown
 			// Gold: No upgrade
 			// Hallow: No upgrade
 			// Huntress: No upgrade
 			// Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
 			// Jungle: Spore damage increased, cooldown decreased
 			// Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
-			// Meteor: Cooldown decreased, more meteors, increased damage of meteors
+			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
 			// Monk: No upgrade
@@ -463,6 +463,7 @@ Mods: {
 			// SpectreConfig: Spectre Orbs
 			// TikiConfig: Tiki Minions
 			// CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
+			// MeteorMomentumConfig: Meteor Speed
 			// MeteorConfig: Meteor Shower
 			// NebulaConfig: Nebula Boosters
 			// SolarConfig: Solar Shield
@@ -667,6 +668,7 @@ Mods: {
 			// PatreonPrime: Prime Staff
 			// PatreonCrimetroid: Crimetroid
 			// PatreonNanoCore: Nano Core
+			// PatreonROB: R.O.B
 			// SilverS: Mods.FargowiltasSouls.Toggler.SilverS
 			// CrystalGelatinConfig: Mods.FargowiltasSouls.Toggler.CrystalGelatinConfig
 			// SilverConfig: Mods.FargowiltasSouls.Toggler.SilverConfig
@@ -684,6 +686,8 @@ Mods: {
 			// WoodenTooltip: Humble beginnings…
 			// TinCritUp: +5% crit
 			// TinCritReset: -{0}% crit
+			// ROBPatreon: The friend you've never left since Brawl
+			// ROBNonPatreon: He's finally a top tier!
 
 			EternitySoul: {
 				// Additional: Additionally grants:
@@ -1030,6 +1034,7 @@ Mods: {
 			// MoonsWaves: Dying decreases wave progress
 			// WhipSpeed: Does not benefit from melee speed bonuses
 			// WhipStack: Whip buffs/debuffs can't stack
+			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			// MinionStack: Damage of minions diminishes when summoning over 3 copies (effect caps at 12)
 			// SummonMulticlass: Summon damage decreases when you attack using other classes (except in OOA)
 			// ShadowDodge: Eternity Mode: Dodging will reduce your attack speed
@@ -1876,7 +1881,17 @@ Mods: {
 
 			JungleMimicSummonBuff: {
 				// DisplayName: Jungle Mimic Summon Buff
-				// Description: Mods.FargowiltasSouls.Buffs.JungleMimicSummonBuff.Description
+				// Description: The Jungle Mimic will fight for you
+			}
+
+			GladiatorBuff: {
+				// DisplayName: Gladiator Strength
+				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
+			}
+
+			ROBBuff: {
+				// Description: ""
+				// DisplayName: R.O.B
 			}
 		}
 
@@ -2020,6 +2035,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Crits have a chance to shock enemies with chain lightning
+					Wet enemies have a chance to be shocked without a crit
 					'Behold'
 					''' */
 			}
@@ -2110,7 +2126,10 @@ Mods: {
 				/* Tooltip:
 					'''
 					Spears will rain down on struck enemies
-					Grants knockback immunity when you are facing the attack
+					Double tap down to place a banner that lasts 15 seconds
+					While close to the banner, spear rain is stronger
+					Being close to the banner also grants knockback immunity, 5% increased damage and 10 increased defense
+					Banner can only be resummoned after it runs out
 					'Are you not entertained?'
 					''' */
 			}
@@ -2187,7 +2206,8 @@ Mods: {
 				// DisplayName: Meteor Enchantment
 				/* Tooltip:
 					'''
-					A meteor shower initiates every few seconds while attacking
+					Drastically increases your run acceleration, and decreases your momentum
+					Moving creates a fire trail
 					'Drop a draco on 'em'
 					''' */
 			}
@@ -2671,6 +2691,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					[i:FargowiltasSouls/MeteorEnchant] A meteor shower initiates every few seconds while attacking
+					[i:FargowiltasSouls/MeteorEnchant] Running acceleration increased and momentum decreased
 					[i:FargowiltasSouls/SolarEnchant] Solar shield allows you to dash through enemies
 					[i:FargowiltasSouls/SolarEnchant] Attacks may inflict the Solar Flare debuff
 					[i:FargowiltasSouls/VortexEnchant] Double tap down to toggle stealth and spawn a vortex
@@ -2801,8 +2822,8 @@ Mods: {
 					[i:FargowiltasSouls/GoldEnchant] Press the Gold hotkey to be encased in a Golden Shell
 					[i:FargowiltasSouls/GoldEnchant] Automatically sends coins to your piggy bank when picked up
 					[i:FargowiltasSouls/PlatinumEnchant] 20% chance for enemies to drop 5x loot
+					[i:FargowiltasSouls/GladiatorEnchant] Double tap down to place a banner that buffs you while close
 					[i:FargowiltasSouls/GladiatorEnchant] Spears will rain down on struck enemies
-					[i:FargowiltasSouls/GladiatorEnchant] Grants knockback immunity when you are facing the attack
 					[i:FargowiltasSouls/RedRidingEnchant] Successive attack gain bonus damage 
 					[i:FargowiltasSouls/ValhallaKnightEnchant] Increases the effectiveness of healing sources by 50%
 					'A mind of unbreakable determination'
@@ -3632,7 +3653,7 @@ Mods: {
 					'''
 					Summons fireballs, shadow orbs, icicles, leaf crystals, flameburst minion, hallowed sword and shield, and beetles
 					Right Click to Guard
-					Double tap down to spawn a sentry and portal, call a storm and arrow rain, toggle stealth, and direct your empowered guardian
+					Double tap down to spawn a sentry, a banner, and a portal, call a storm and arrow rain, toggle stealth, and direct your empowered guardian
 					Gold Key encases you in gold, Freeze Key freezes time for 5 seconds, minions spew scythes
 					Solar shield allows you to dash, Dash into any walls, to teleport through them
 					Throw a smoke bomb to teleport to it and gain the First Strike Buff
@@ -4985,6 +5006,25 @@ Mods: {
 				// DisplayName: Banished Baron Trophy
 				// Tooltip: ""
 			}
+
+			BaronRelic: {
+				// Tooltip: ""
+				// DisplayName: Banished Baron Relic
+			}
+
+			HiveStaff: {
+				// DisplayName: Hive Staff
+				// Tooltip: "'The enslaved minions of a defeated foe..'"
+			}
+
+			ROBGyro: {
+				// DisplayName: Sentient Gyro
+				/* Tooltip:
+					'''
+					'Has a mind of its own'
+					Summons a powerful robot that doesn't fight
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -5885,6 +5925,10 @@ Mods: {
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
 			// MechLureProjectile.DisplayName: Mech Lure Projectile
 			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// GladiatorStandard.DisplayName: Gladiator Standard
+			// HiveSentry.DisplayName: Hive
+			// ROB.DisplayName: R.O.B
+			// MeteorFlame.DisplayName: Meteor Flame
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
@@ -5962,6 +6006,7 @@ Mods: {
 		// SpectreConfig: "[i:FargowiltasSouls/SpectreEnchant][c/accdfc:{$Mods.FargowiltasSouls.Toggler.SpectreConfig}]"
 		// TikiConfig: "[i:FargowiltasSouls/TikiEnchant][c/56A52B:{$Mods.FargowiltasSouls.Toggler.TikiConfig}]"
 		// CosmoHeader: "[i:FargowiltasSouls/CosmoForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.CosmoHeader}]"
+		// MeteorMomentumConfig: "[i:FargowiltasSouls/MeteorEnchant][c/5f4752:{$Mods.FargowiltasSouls.Toggler.MeteorMomentumConfig}]"
 		// MeteorConfig: "[i:FargowiltasSouls/MeteorEnchant][c/5f4752:{$Mods.FargowiltasSouls.Toggler.MeteorConfig}]"
 		// NebulaConfig: "[i:FargowiltasSouls/NebulaEnchant][c/fe7ee5:{$Mods.FargowiltasSouls.Toggler.NebulaConfig}]"
 		// SolarConfig: "[i:FargowiltasSouls/SolarEnchant][c/fe9e23:{$Mods.FargowiltasSouls.Toggler.SolarConfig}]"
@@ -6166,6 +6211,7 @@ Mods: {
 		// PatreonPrime: "[i:FargowiltasSouls/PrimeStaff][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonPrime}]"
 		// PatreonCrimetroid: "[i:FargowiltasSouls/CrimetroidEgg][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonCrimetroid}]"
 		// PatreonNanoCore: "[i:FargowiltasSouls/NanoCore][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonNanoCore}]"
+		// PatreonROB: "[i:FargowiltasSouls/ROBGyro][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonROB}]"
 
 		Keybinds: {
 			// Freeze.DisplayName: Freeze
@@ -6293,6 +6339,16 @@ Mods: {
 				PatreonNanoCore: {
 					// Label: "{$Mods.FargowiltasSouls.PatreonNanoCore}"
 					// Tooltip: ""
+				}
+
+				PatreonROB: {
+					// Label: "{$Mods.FargowiltasSouls.PatreonROB}"
+					// Tooltip: ""
+				}
+
+				DisplayTogglesRegardless: {
+					// Label: Display Toggles Always
+					// Tooltip: Disable to only show toggles when you have the effect's accessory equipped. Enable to always show them.
 				}
 			}
 		}

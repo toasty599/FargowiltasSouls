@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -36,6 +37,15 @@ Attacks have a chance to squeak and deal 1 damage to you
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.GuiltyBuff>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().SqueakyAcc = true;
+        }
+        private bool lastLMouse = false;
+        public override void HoldItem(Player player) //doing this instead of making an item use animation lo
+        {
+            if (!lastLMouse && Main.mouseLeft)
+            {
+                FargoSoulsPlayer.Squeak(player.Center);
+            }
+            lastLMouse = Main.mouseLeft;
         }
     }
 }

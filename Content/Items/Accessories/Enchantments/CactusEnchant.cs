@@ -43,6 +43,7 @@ Enemies will explode into needles on death if they are struck with your needles
 
         public static void CactusEffect(Player player)
         {
+            player.DisplayToggle("Cactus");
             //player.thorns = .25f;
 
             if (player.GetToggleValue("Cactus"))

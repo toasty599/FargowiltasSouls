@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Content.Projectiles.Souls;
+﻿using FargowiltasSouls.Content.Buffs;
+using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -43,8 +45,18 @@ Grants knockback immunity when you are facing the attack
 
         public static void GladiatorEffect(Player player)
         {
+            player.DisplayToggle("Gladiator");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.GladiatorEnchantActive = true;
+            
+            if (player.whoAmI == Main.myPlayer && modPlayer.DoubleTap)
+            {
+                int GladiatorStandard = ModContent.ProjectileType<GladiatorStandard>();
+                if (player.ownedProjectileCounts[GladiatorStandard] < 1)
+                {
+                    Projectile.NewProjectile(player.GetSource_Misc(""), player.Top, Vector2.UnitY * 25, GladiatorStandard, modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 300 : 100, 3f, player.whoAmI);
+                }
+            }
 
             if (modPlayer.GladiatorCD > 0)
             {
@@ -55,14 +67,15 @@ Grants knockback immunity when you are facing the attack
         public static void GladiatorSpearDrop(FargoSoulsPlayer modPlayer, NPC target, int damage)
         {
             Player player = modPlayer.Player;
-            int spearDamage = damage / 4;
+            bool buff = player.HasBuff<GladiatorBuff>();
+            int spearDamage = damage / (buff ? 3 : 5);
 
             if (spearDamage > 0)
             {
                 if (!modPlayer.TerrariaSoul)
                     spearDamage = Math.Min(spearDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, 300));
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     Vector2 spawn = new(target.Center.X + Main.rand.NextFloat(-300, 300), target.Center.Y - Main.rand.Next(600, 801));
 
@@ -74,6 +87,7 @@ Grants knockback immunity when you are facing the attack
                 }
 
                 modPlayer.GladiatorCD = modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 10 : 30;
+                modPlayer.GladiatorCD = buff ? modPlayer.GladiatorCD : (int)Math.Round(modPlayer.GladiatorCD * 1.5f);
             }
         }
 

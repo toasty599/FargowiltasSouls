@@ -49,8 +49,8 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
                 Texture2D sliderTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/RustrifleReloadSlider", AssetRequestMode.ImmediateLoad).Value;
                 Rectangle sliderRectangle = sliderTexture.Bounds;
 
-
-                Vector2 sliderPos = barPos0 + (Vector2.UnitX * barWidth * modPlayer.RustRifleReloadProgress).RotatedBy(-drawInfo.rotation);
+                float ReloadProgress = NavalRustrifle.ReloadProgress(modPlayer.RustRifleTimer);
+                Vector2 sliderPos = barPos0 + (Vector2.UnitX * barWidth * ReloadProgress).RotatedBy(-drawInfo.rotation);
                 DrawData slider = new(sliderTexture, sliderPos, sliderRectangle, Color.White, player.gravDir < 0 ? MathHelper.Pi - drawInfo.rotation : 0f - drawInfo.rotation, sliderRectangle.Size() / 2, scale, SpriteEffects.None, 0);
                 drawInfo.DrawDataCache.Add(slider);
             }

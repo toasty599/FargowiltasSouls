@@ -34,6 +34,7 @@ Increases armor pen by 15
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.NinjaEnchantItem = Item;
+            player.DisplayToggle("NinjaSpeed");
         }
 
         public static void NinjaSpeedSetup(FargoSoulsPlayer modPlayer, Projectile projectile, FargoSoulsGlobalProjectile globalProj)
@@ -48,7 +49,7 @@ Increases armor pen by 15
                 float speedIncrease = maxSpeedIncrease - Math.Min(player.velocity.Length() / maxSpeedScaling, maxSpeedIncrease);
                 globalProj.NinjaSpeedup = 1 + speedIncrease;
                 */
-                float maxSpeedRequired = modPlayer.ForceEffect(modPlayer.NinjaEnchantItem.type) ? 8 : 5; //the highest velocity at which your projectile speed is increased
+                float maxSpeedRequired = modPlayer.ForceEffect(modPlayer.NinjaEnchantItem.type) ? 7 : 4; //the highest velocity at which your projectile speed is increased
                 if (player.velocity.Length() < maxSpeedRequired)
                 {
                     const int speedIncrease = 1;

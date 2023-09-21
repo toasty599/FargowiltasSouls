@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             for (int i = 0; i < max; i++)
             {
                 float rad = MathHelper.TwoPi / max * i;
-                int damage = Projectile.damage / 2;
+                int damage = Projectile.damage;
                 int knockBack = 3;
                 float speed = 0.8f;
                 Vector2 vector = Projectile.velocity.RotatedBy(rad) * speed;

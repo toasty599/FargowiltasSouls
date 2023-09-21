@@ -63,6 +63,7 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
             WoodEnchant.WoodEffect(player, Item);
             BorealWoodEnchant.BorealEffect(player, Item);
             modPlayer.MahoganyEnchantItem = Item;
+            player.DisplayToggle("Mahogany");
             modPlayer.EbonwoodEnchantItem = Item;
             EbonwoodEnchant.EbonwoodEffect(player);
             ShadewoodEnchant.ShadewoodEffect(player, Item);

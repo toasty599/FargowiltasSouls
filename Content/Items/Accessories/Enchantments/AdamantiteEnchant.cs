@@ -39,6 +39,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void AdamantiteEffect(Player player, Item item)
         {
+            player.DisplayToggle("Adamantite");
             FargoSoulsPlayer modplayer = player.GetModPlayer<FargoSoulsPlayer>();
             modplayer.AdamantiteEnchantItem = item;
         }

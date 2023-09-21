@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -160,6 +161,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (MahoganyEnchantItem != null)
                 RichMahoganyEnchant.PostUpdate(Player);
 
+            if (MeteorMomentum && !NoMomentum && !Player.mount.Active) //overriden by nomomentum
+            {
+                Player.runAcceleration *= 3f;
+                Player.runSlowdown *= 3f;
+
+            }
             if (NoMomentum && !Player.mount.Active)
             {
                 if (Player.vortexStealthActive && Math.Abs(Player.velocity.X) > 6)
@@ -534,6 +541,11 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (SpectreCD > 0)
                 SpectreCD--;
+
+            if (RustRifleReloading && Player.HeldItem.type == ModContent.ItemType<NavalRustrifle>())
+            {
+                RustRifleTimer++;
+            }
 
             if (ParryDebuffImmuneTime > 0)
             {

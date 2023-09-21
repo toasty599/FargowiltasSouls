@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Content.Buffs;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -253,7 +254,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
             }
 
-            if (CopperEnchantItem != null && hitInfo.Crit)
+            bool wetCheck = target.HasBuff(BuffID.Wet) && Main.rand.NextBool(4);
+            if (CopperEnchantItem != null && hitInfo.Crit || wetCheck)
             {
                 CopperEnchant.CopperProc(this, target);
             }
@@ -269,7 +271,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
 
-            if (Player.GetToggleValue("Obsidian") && ObsidianEnchantItem != null && ObsidianCD == 0)
+            if (ObsidianEnchantItem != null && Player.GetToggleValue("Obsidian") && ObsidianCD == 0)
             {
                 ObsidianEnchant.ObsidianProc(this, target, GetBaseDamage());
             }
@@ -515,8 +517,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             TitaniumEnchant.TryTitaniumDR(this, npc);
 
-            if (GladiatorEnchantActive && Player.direction == Math.Sign(npc.Center.X - Player.Center.X))
-                Player.noKnockback = true;
 
             if (Smite)
                 modifiers.FinalDamage *= 1.2f;
@@ -537,8 +537,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             TitaniumEnchant.TryTitaniumDR(this, proj);
 
-            if (GladiatorEnchantActive && Player.direction == Math.Sign(proj.Center.X - Player.Center.X))
-                Player.noKnockback = true;
 
             if (Smite)
                 modifiers.FinalDamage *= 1.2f;

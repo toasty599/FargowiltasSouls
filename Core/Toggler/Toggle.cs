@@ -3,19 +3,21 @@
     public class Toggle
     {
         public string Mod;
-        public string Catagory;
+        public string Category;
         public string InternalName;
         public bool ToggleBool;
+        public bool DisplayToggle;
 
-        public Toggle(string internalName, string mod, string catagory)
+        public Toggle(string internalName, string mod, string category)
         {
             InternalName = internalName;
             Mod = mod;
-            Catagory = catagory;
+            Category = category;
 
             ToggleBool = true;
+            DisplayToggle = true;
         }
 
-        public override string ToString() => $"Mod: {Mod}, Catagory: {Catagory}, InternalName: {InternalName}, Toggled: {ToggleBool}";
+        public override string ToString() => $"Mod: {Mod}, Category: {Category}, InternalName: {InternalName}, Toggled: {ToggleBool}";
     }
 }

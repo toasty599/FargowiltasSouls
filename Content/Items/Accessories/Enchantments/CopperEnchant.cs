@@ -37,6 +37,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void CopperEffect(Player player, Item item)
         {
+            player.DisplayToggle("Copper");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.CopperEnchantItem = item;
 

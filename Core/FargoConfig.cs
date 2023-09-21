@@ -18,6 +18,9 @@ namespace FargowiltasSouls.Core
         [DefaultValue(true)]
         public bool HideTogglerWhenInventoryIsClosed;
 
+        [DefaultValue(true)]
+        public bool DisplayTogglesRegardless;
+
         [Label($"$Mods.{ModName}.Config.DeviChatter")]
         [DefaultValue(true)]
         public bool DeviChatter;
@@ -132,6 +135,11 @@ namespace FargowiltasSouls.Core
         [DefaultValue(true)]
         [ReloadRequired]
         public bool PatreonNanoCore;
+
+        [Label($"$Mods.{ModName}.PatreonROB")]
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool PatreonROB;
 
         #endregion
 

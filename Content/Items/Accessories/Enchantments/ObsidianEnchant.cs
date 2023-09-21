@@ -38,6 +38,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void ObsidianEffect(Player player, Item item)
         {
+            player.DisplayToggle("Obsidian");
             AshWoodEnchant.AshwoodEffect(player, item);
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 

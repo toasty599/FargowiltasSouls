@@ -29,14 +29,14 @@ Mods: {
 			// Forbidden: Damage boost increased from 30 to 60%
 			// Fossil: Revive heal increased to 200 and revive bone count doubled
 			// Frost: Icicle damage doubled
-			// Gladiator: No upgrade
+			// Gladiator: Increased banner aura size, decreased spear rain cooldown
 			// Gold: No upgrade
 			// Hallow: No upgrade
 			// Huntress: No upgrade
 			Iron: 物品拾取距离提升到四倍，合成加成现在也对任何秘银砧生效
 			// Jungle: Spore damage increased, cooldown decreased
 			Lead: 增加铅中毒伤害，持续伤害减免提升到60%
-			// Meteor: Cooldown decreased, more meteors, increased damage of meteors
+			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			Molten: ""
 			// Monk: No upgrade
@@ -463,6 +463,7 @@ Mods: {
 			SpectreConfig: 幽魂 幽魂珠
 			TikiConfig: 提基 额外仆从
 			// CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
+			// MeteorMomentumConfig: Meteor Speed
 			MeteorConfig: 流星 流星雨
 			NebulaConfig: 星云 强化焰
 			SolarConfig: 耀斑 护盾
@@ -667,6 +668,7 @@ Mods: {
 			PatreonPrime: 机械骷髅王法杖
 			PatreonCrimetroid: 血水母的蛋
 			PatreonNanoCore: 纳米核心
+			// PatreonROB: R.O.B
 			// SilverS: Mods.FargowiltasSouls.Toggler.SilverS
 			CrystalGelatinConfig: 挥发明胶效果
 			// SilverConfig: Mods.FargowiltasSouls.Toggler.SilverConfig
@@ -684,6 +686,8 @@ Mods: {
 			WoodenTooltip: “卑微的开始……”
 			TinCritUp: +5%暴击率
 			TinCritReset: -{0}%暴击率
+			// ROBPatreon: The friend you've never left since Brawl
+			// ROBNonPatreon: He's finally a top tier!
 
 			EternitySoul: {
 				Additional: 额外加成：
@@ -1030,6 +1034,7 @@ Mods: {
 			MoonsWaves: 死亡会降低当前波数
 			WhipSpeed: 不接受近战攻速加成
 			WhipStack: 鞭子的增益/减益不能堆叠
+			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			MinionStack: 同时召唤超过3个相同召唤物时，它们的伤害会降低（超过12个后不再降低）
 			SummonMulticlass: 当你使用其他职业的武器攻击时，召唤伤害降低（在撒旦军队中除外）
 			ShadowDodge: 永恒模式：闪避会降低你的攻击速度
@@ -1877,6 +1882,16 @@ Mods: {
 			JungleMimicSummonBuff: {
 				DisplayName: 丛林宝箱怪
 				Description: 丛林宝箱怪将为你而战
+			}
+
+			GladiatorBuff: {
+				// DisplayName: Gladiator Strength
+				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
+			}
+
+			ROBBuff: {
+				// Description: ""
+				// DisplayName: R.O.B
 			}
 		}
 
@@ -4929,6 +4944,25 @@ Mods: {
 				// DisplayName: Banished Baron Trophy
 				// Tooltip: ""
 			}
+
+			BaronRelic: {
+				// Tooltip: ""
+				// DisplayName: Banished Baron Relic
+			}
+
+			HiveStaff: {
+				// DisplayName: Hive Staff
+				// Tooltip: "'The enslaved minions of a defeated foe..'"
+			}
+
+			ROBGyro: {
+				// DisplayName: Sentient Gyro
+				/* Tooltip:
+					'''
+					'Has a mind of its own'
+					Summons a powerful robot that doesn't fight
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -5829,6 +5863,10 @@ Mods: {
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
 			// MechLureProjectile.DisplayName: Mech Lure Projectile
 			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// GladiatorStandard.DisplayName: Gladiator Standard
+			// HiveSentry.DisplayName: Hive
+			// ROB.DisplayName: R.O.B
+			// MeteorFlame.DisplayName: Meteor Flame
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
@@ -5906,6 +5944,7 @@ Mods: {
 		// SpectreConfig: "[i:FargowiltasSouls/SpectreEnchant][c/accdfc:{$Mods.FargowiltasSouls.Toggler.SpectreConfig}]"
 		// TikiConfig: "[i:FargowiltasSouls/TikiEnchant][c/56A52B:{$Mods.FargowiltasSouls.Toggler.TikiConfig}]"
 		// CosmoHeader: "[i:FargowiltasSouls/CosmoForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.CosmoHeader}]"
+		// MeteorMomentumConfig: "[i:FargowiltasSouls/MeteorEnchant][c/5f4752:{$Mods.FargowiltasSouls.Toggler.MeteorMomentumConfig}]"
 		// MeteorConfig: "[i:FargowiltasSouls/MeteorEnchant][c/5f4752:{$Mods.FargowiltasSouls.Toggler.MeteorConfig}]"
 		// NebulaConfig: "[i:FargowiltasSouls/NebulaEnchant][c/fe7ee5:{$Mods.FargowiltasSouls.Toggler.NebulaConfig}]"
 		// SolarConfig: "[i:FargowiltasSouls/SolarEnchant][c/fe9e23:{$Mods.FargowiltasSouls.Toggler.SolarConfig}]"
@@ -6110,6 +6149,7 @@ Mods: {
 		// PatreonPrime: "[i:FargowiltasSouls/PrimeStaff][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonPrime}]"
 		// PatreonCrimetroid: "[i:FargowiltasSouls/CrimetroidEgg][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonCrimetroid}]"
 		// PatreonNanoCore: "[i:FargowiltasSouls/NanoCore][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonNanoCore}]"
+		// PatreonROB: "[i:FargowiltasSouls/ROBGyro][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonROB}]"
 
 		Keybinds: {
 			// Freeze.DisplayName: Freeze
@@ -6237,6 +6277,16 @@ Mods: {
 				PatreonNanoCore: {
 					// Label: "{$Mods.FargowiltasSouls.PatreonNanoCore}"
 					// Tooltip: ""
+				}
+
+				PatreonROB: {
+					// Label: "{$Mods.FargowiltasSouls.PatreonROB}"
+					// Tooltip: ""
+				}
+
+				DisplayTogglesRegardless: {
+					// Label: Display Toggles Always
+					// Tooltip: Disable to only show toggles when you have the effect's accessory equipped. Enable to always show them.
 				}
 			}
 		}

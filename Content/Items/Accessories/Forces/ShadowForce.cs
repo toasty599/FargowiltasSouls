@@ -79,6 +79,7 @@ $"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion tha
             modPlayer.shadowForce = true;
 
             modPlayer.NinjaEnchantItem = Item;
+            player.DisplayToggle("NinjaSpeed");
 
 
             DarkArtistEnchant.DarkArtistEffect(player, Item);

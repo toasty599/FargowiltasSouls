@@ -38,9 +38,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void PalmEffect(Player player, Item item)
         {
+            player.DisplayToggle("Palm");
+
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.PalmEnchantItem = item;
-
+            
             if (player.GetToggleValue("Palm") && player.whoAmI == Main.myPlayer && modPlayer.DoubleTap)
             {
                 Vector2 mouse = Main.MouseWorld;

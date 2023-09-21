@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<HiveStaff>();
             // DisplayName.SetDefault("The Small Sting");
             /* Tooltip.SetDefault("Uses darts for ammo" +
                 "\n50% chance to not consume ammo" +
@@ -53,5 +54,6 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         public override Vector2? HoldoutOffset() => new Vector2(-10, 0);
 
         public override bool CanConsumeAmmo(Item ammo, Player player) => Main.rand.NextBool();
+
     }
 }

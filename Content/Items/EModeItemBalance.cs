@@ -475,7 +475,10 @@ namespace FargowiltasSouls.Content.Items
                     }
                 }
 
-
+                if (item.healMana > 0)
+                {
+                    ItemBalance(tooltips, EModeChange.Neutral, "ManaPots");
+                }
 
                 if (item.shoot > ProjectileID.None && ProjectileID.Sets.IsAWhip[item.shoot])
                 {

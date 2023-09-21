@@ -32,6 +32,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.SquireEnchantItem = item;
+
+            player.DisplayToggle("SquirePanic");
+
             if (!player.GetToggleValue("SquirePanic"))
                 player.buffImmune[BuffID.BallistaPanic] = true;
 
@@ -53,6 +56,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                 if (modPlayer.ValhallaEnchantActive)
                 {
+                    player.DisplayToggle("Valhalla");
                     player.statDefense += 15;
 
                     if (modPlayer.IsDashingTimer == 0)
@@ -110,12 +114,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             {
                 player.GetModPlayer<FargoSoulsPlayer>().MonkDashing = 15;
                 player.velocity.X = 50 * (float)direction;
-
-                //player.immune = true;
-                //int invul = 30;
-                //player.immuneTime = Math.Max(player.immuneTime, invul);
-                //player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);
-                //player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], invul);
             }
             else
             {
