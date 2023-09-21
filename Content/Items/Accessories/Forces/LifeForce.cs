@@ -57,7 +57,7 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defens
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.lifeForce = true;
-            modPlayer.BeeEffect(hideVisual);
+            modPlayer.BeeEffect(hideVisual, Item);
             modPlayer.SpiderEffect(hideVisual);
             modPlayer.BeetleEffect();
             PumpkinEnchant.PumpkinEffect(player, Item);

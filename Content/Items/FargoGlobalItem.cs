@@ -2,6 +2,7 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
+using FargowiltasSouls.Content.Projectiles.Souls;
 //using FargowiltasSouls.Content.Buffs.Souls;
 //using FargowiltasSouls.Content.Projectiles.Critters;
 using Microsoft.Xna.Framework;
@@ -439,6 +440,17 @@ namespace FargowiltasSouls.Content.Items
 
                     modPlayer.JungleCD = 8;
                 }
+            }
+
+            if (modPlayer.BeeEnchantItem != null && player.GetToggleValue("Bee") && inUse)
+            {
+                if (modPlayer.BeeCD == 0)
+                {
+                    Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.BeeEnchantItem), player.Center, Vector2.Zero, ModContent.ProjectileType<BeeFlower>(), 0, 0, player.whoAmI);
+                    modPlayer.BeeCD = 50;
+                }
+                if (modPlayer.BeeCD > 0)
+                    modPlayer.BeeCD--;
             }
 
             return base.WingUpdate(wings, player, inUse);

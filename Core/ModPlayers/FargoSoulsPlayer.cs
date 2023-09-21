@@ -192,7 +192,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             CrimsonEnchantActive = false;
             //CrimsonRegen = false;
             SpectreEnchantActive = false;
-            BeeEnchantActive = false;
+            BeeEnchantItem = null;
             SpiderEnchantActive = false;
             StardustEnchantActive = false;
             MythrilEnchantItem = null;

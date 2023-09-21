@@ -71,8 +71,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 RustedOxygenTank.PassiveEffect(Player);
             }
 
-            if (BeeEnchantActive && BeeCD > 0)
-                BeeCD--;
 
             if (GoldShell)
                 GoldUpdate();
@@ -409,7 +407,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 NecromanticBrewRotation = 0f;
             }
         }
-
         public override void UpdateBadLifeRegen()
         {
             if (Player.electrified && Player.wet)

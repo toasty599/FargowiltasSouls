@@ -15,7 +15,7 @@ Mods: {
 			// AncientShadow: Number of Shadow Orbs increased
 			// AncientCobalt: No upgrade
 			// Angler: No upgrade
-			// Bee: On-hit effect is guaranteed to trigger, and always summons a Giant Bee
+			// Bee: Increased wing strength and bee swarm damage
 			// Beetle: No upgrade
 			// BorealWood: Fires more snowballs more often
 			// Cactus: Number of needles and damage increased
@@ -5886,6 +5886,7 @@ Mods: {
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
 			// MeteorFlame.DisplayName: Meteor Flame
+			// BeeFlower.DisplayName: Bee Flower
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

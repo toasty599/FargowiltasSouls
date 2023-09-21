@@ -27,14 +27,13 @@ namespace FargowiltasSouls.Core.ModPlayers
 {
 	public partial class FargoSoulsPlayer
     {
-        public void BeeEffect(bool hideVisual)
+        public void BeeEffect(bool hideVisual, Item item)
         {
             Player.DisplayToggle("Bee");
             Player.strongBees = true;
             //bees ignore defense
-            BeeEnchantActive = true;
+            BeeEnchantItem = item;
         }
-
         public void BeetleEffect()
         {
             Player.DisplayToggle("Beetle");

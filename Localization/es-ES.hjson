@@ -15,7 +15,7 @@ Mods: {
 			// AncientShadow: Number of Shadow Orbs increased
 			// AncientCobalt: No upgrade
 			// Angler: No upgrade
-			// Bee: On-hit effect is guaranteed to trigger, and always summons a Giant Bee
+			// Bee: Increased wing strength and bee swarm damage
 			// Beetle: No upgrade
 			// BorealWood: Fires more snowballs more often
 			// Cactus: Number of needles and damage increased
@@ -423,7 +423,7 @@ Mods: {
 			// ValhallaConfig: Squire/Valhalla Healing
 			// SquirePanicConfig: Ballista Panic On Hit
 			// LifeHeader: "{$Mods.FargowiltasSouls.Items.LifeForce.DisplayName}"
-			// BeeConfig: Bees
+			// BeeConfig: Bee Flowers
 			// BeetleConfig: Beetles
 			// CactusConfig: Cactus Needles
 			// PumpkinConfig: Grow Pumpkins
@@ -1971,7 +1971,9 @@ Mods: {
 				// DisplayName: Bee Enchantment
 				/* Tooltip:
 					'''
-					Melee hits and most piercing attacks spawn bees
+					Allows flight and slow fall
+					While flying, leave behind flowers that take 4 seconds to form petals
+					Touching fully formed flowers gives you the Honey buff and creates a swarm of bees
 					Effects of Hive Pack
 					'According to all known laws of aviation, there is no way a bee should be able to fly'
 					''' */
@@ -2722,7 +2724,7 @@ Mods: {
 					'''
 					[i:FargowiltasSouls/PumpkinEnchant] You will grow pumpkins while walking on the ground
 					[i:FargowiltasSouls/CactusEnchant] Enemies may explode into needles on death
-					[i:FargowiltasSouls/BeeEnchant] Melee hits and most piercing attacks spawn bees
+					[i:FargowiltasSouls/BeeEnchant] Leave behind flowers while flying
 					[i:FargowiltasSouls/BeeEnchant] Effects of Hive Pack
 					[i:FargowiltasSouls/SpiderEnchant] 30% chance for minions and sentries to crit for x1.5 damage instead of x2
 					[i:FargowiltasSouls/TurtleEnchant] When standing still and not attacking, you will enter your shell
@@ -5929,6 +5931,7 @@ Mods: {
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
 			// MeteorFlame.DisplayName: Meteor Flame
+			// BeeFlower.DisplayName: Bee Flower
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
