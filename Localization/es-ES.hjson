@@ -2585,7 +2585,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Increases mount acceleration and top speed
-					While mounted, grants 25 defense, a fart jump, fall damage immunity, and a permanent lance
+					While mounted, grants 25 defense, a fart jump, fall damage immunity, and dash
 					Increases the effectiveness of healing sources by 33%
 					Greatly enhances Ballista effectiveness
 					'Valhalla calls'
@@ -2691,7 +2691,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					[i:FargowiltasSouls/MeteorEnchant] A meteor shower initiates every few seconds while attacking
-					[i:FargowiltasSouls/MeteorEnchant] Running acceleration increased and momentum decreased
+					[i:FargowiltasSouls/MeteorEnchant] Running acceleration increased, you have a fire trail
 					[i:FargowiltasSouls/SolarEnchant] Solar shield allows you to dash through enemies
 					[i:FargowiltasSouls/SolarEnchant] Attacks may inflict the Solar Flare debuff
 					[i:FargowiltasSouls/VortexEnchant] Double tap down to toggle stealth and spawn a vortex

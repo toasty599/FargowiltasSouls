@@ -37,10 +37,10 @@ Effects of Shield of Cthulhu and Master Ninja Gear
             // Tooltip.SetDefault(tooltip);
 
 
-            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 18));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 30));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
-        public override int NumFrames => 18;
+        public override int NumFrames => 30;
 
         public override void SetDefaults()
         {

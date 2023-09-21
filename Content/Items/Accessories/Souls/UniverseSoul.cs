@@ -30,10 +30,10 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             // Tooltip.SetDefault(tooltip);
 
 
-            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 7));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
-        public override int NumFrames => 10;
+        public override int NumFrames => 7;
 
         public override void SetDefaults()
         {
@@ -43,6 +43,9 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             Item.rare = -12;
             Item.expert = true;
             Item.defense = 4;
+
+            Item.width = 5;
+            Item.height = 5;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
