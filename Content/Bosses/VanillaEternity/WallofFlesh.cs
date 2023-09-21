@@ -363,17 +363,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 WorldSavingSystem.WOFDroppedDeviGift2 = true;
 
-                npc.DropItemInstanced(npc.position, npc.Size, ItemID.AdamantitePickaxe);
-                npc.DropItemInstanced(npc.position, npc.Size, ItemID.AngelWings);
                 npc.DropItemInstanced(npc.position, npc.Size, ItemID.GreaterHealingPotion, 15);
-
                 Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.Find<ModItem>("Fargowiltas", "PylonCleaner").Type);
-                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.Find<ModItem>("Fargowiltas", "AltarExterminator").Type);
-
-                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, Main.rand.NextBool() ? ItemID.AdamantiteForge : ItemID.TitaniumForge);
-                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, Main.rand.NextBool() ? ItemID.MythrilAnvil : ItemID.OrichalcumAnvil);
-                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ItemID.CrystalBall, 3);
-
                 Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ItemID.HallowedSeeds, 30);
             }
         }

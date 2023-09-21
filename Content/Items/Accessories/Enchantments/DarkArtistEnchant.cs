@@ -27,11 +27,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            DarkArtistEffect(player);
+            DarkArtistEffect(player, Item);
             ApprenticeEnchant.ApprenticeEffect(player);
         }
 
-        public static void DarkArtistEffect(Player player)
+        public static void DarkArtistEffect(Player player, Item item)
         {
             player.DisplayToggle("DarkArt");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 }
             }
 
-            modPlayer.DarkArtistEnchantActive = true;
+            modPlayer.DarkArtistEnchantItem = item;
         }
 
         public override void AddRecipes()

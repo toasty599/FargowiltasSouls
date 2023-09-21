@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool AncientHallowEnchantActive;
         public bool AncientShadowEnchantActive;
-        public bool ApprenticeEnchantActive;
+        public Item ApprenticeEnchantItem;
         public int ApprenticeCD;
         public bool BeeEnchantActive;
         public int BeeCD;
@@ -138,9 +138,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool CrimsonEnchantActive;
         public int CrimsonRegenAmount;
 
-        public bool DarkArtistEnchantActive;
-        public bool DarkArtistSpawn;
-        public int DarkArtistSpawnCD;
+        public Item DarkArtistEnchantItem;
         public bool ForbiddenEnchantActive;
         public bool CanSummonForbiddenStorm = false;
         public Item FossilEnchantItem;
@@ -200,8 +198,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int SpectreCD;
         public bool SpiderEnchantActive;
         public bool SpookyEnchantActive;
-        public bool SquireEnchantActive;
-        public bool squireReduceIframes;
+        public Item SquireEnchantItem;
+        //public bool squireReduceIframes;
         public bool StardustEnchantActive;
         public bool FreezeTime;
         public int freezeLength;

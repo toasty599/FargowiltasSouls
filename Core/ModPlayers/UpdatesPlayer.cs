@@ -91,26 +91,26 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 //Main.NewText(MonkDashing);
 
-                /*if (MonkDashing == 0)
+                if (MonkDashing == 0 && Player.mount.Active)
                 {
-                    Player.velocity *= 0f;
+                    Player.velocity *= 0.5f;
                     Player.dashDelay = 0;
-                }*/
+                }
             }
             //vertical dash
             else if (MonkDashing < 0)
             {
                 MonkDashing++;
 
-                Player.immune = true;
-                Player.maxFallSpeed *= 30f;
+                //Player.immune = true;
+                Player.maxFallSpeed *= 300f;
                 Player.gravity = 1.5f;
 
-                /*if (MonkDashing == 0)
+                if (MonkDashing == 0 && Player.mount.Active)
                 {
                     Player.velocity *= 0.5f;
                     Player.dashDelay = 0;
-                }*/
+                }
             }
         }
 
@@ -127,6 +127,14 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.statLife = Player.statLifeMax2;
                 //doing it like this so it accounts for your lifeMax after respawn
                 //regular OnRespawn() doesnt account for lifeforce, and is lowered by dying with oceanic maul
+            }
+
+            if (SquireEnchantItem == null && BaseMountType != -1)
+            {
+                Mount.mounts[BaseMountType].acceleration = BaseSquireMountData.acceleration;
+                Mount.mounts[BaseMountType].dashSpeed = BaseSquireMountData.dashSpeed;
+                Mount.mounts[BaseMountType].fallDamage = BaseSquireMountData.fallDamage;
+                BaseMountType = -1;
             }
 
             ConcentratedRainbowMatterTryAutoHeal();
@@ -495,16 +503,16 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void PostUpdateMiscEffects()
         {
             //these are here so that emode minion nerf can properly detect the real set bonuses over in EModePlayer postupdateequips
-            if (SquireEnchantActive)
+            if (SquireEnchantItem != null)
                 Player.setSquireT2 = true;
 
             if (ValhallaEnchantActive)
                 Player.setSquireT3 = true;
 
-            if (ApprenticeEnchantActive)
+            if (ApprenticeEnchantItem != null)
                 Player.setApprenticeT2 = true;
 
-            if (DarkArtistEnchantActive)
+            if (DarkArtistEnchantItem != null)
                 Player.setApprenticeT3 = true;
 
             if (MonkEnchantActive)

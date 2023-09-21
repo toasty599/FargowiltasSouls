@@ -1460,17 +1460,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             //Main.NewText($"shell HP: {TurtleShellHP}, counter: {TurtleCounter}, recovery: {turtleRecoverCD}");
         }
 
-        public void ValhallaEffect(bool hideVisual)
-        {
-            Player.DisplayToggle("SquirePanic");
-            Player.DisplayToggle("Valhalla");
-            if (!Player.GetToggleValue("SquirePanic"))
-                Player.buffImmune[BuffID.BallistaPanic] = true;
-
-            SquireEnchantActive = true;
-            ValhallaEnchantActive = true;
-        }
-
         public void VortexEffect(bool hideVisual)
         {
             Player.DisplayToggle("VortexS");
@@ -1512,6 +1501,17 @@ namespace FargowiltasSouls.Core.ModPlayers
         }
 
         public int[] ApprenticeItemCDs = new int[10];
+
+        //saved mount stats for squire
+        //public Mount.MountData OriginalSquireMountData;
+        public Mount.MountData BaseSquireMountData;
+
+        public int BaseMountType = -1;
+
+
+        //public float baseMountAccel;
+        //public float baseMountRunSpeed;
+        //public int baseMountJumpHeight;
 
 
         public void MonkEffect()
@@ -3254,5 +3254,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //Main.NewText($"{ironShieldCD}, {ironShieldTimer}");
         }
+
+        
     }
 }
