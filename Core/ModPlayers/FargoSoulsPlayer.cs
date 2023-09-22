@@ -203,7 +203,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             SpookyEnchantActive = false;
             NebulaEnchantActive = false;
             BeetleEnchantActive = false;
-            HallowEnchantActive = false;
+            HallowEnchantItem = null;
             AncientHallowEnchantActive = false;
             ChloroEnchantActive = false;
             ChloroEnchantItem = null;
@@ -1123,7 +1123,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 p.netUpdate = true;
             }
         }
-
         public void AddMinion(Item item, bool toggle, int proj, int damage, float knockback)
         {
             if (Player.whoAmI != Main.myPlayer) return;
@@ -1327,12 +1326,15 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
         {
             healValue = GetHealMultiplier(healValue);
+            if (HallowEnchantItem != null)
+            {
+                healValue = 0;
+            }
         }
 
         public void HealPlayer(int amount)
         {
             amount = GetHealMultiplier(amount);
-
             Player.statLife += amount;
             if (Player.statLife > Player.statLifeMax2)
                 Player.statLife = Player.statLifeMax2;

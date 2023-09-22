@@ -151,7 +151,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool GoldEnchMoveCoins;
         public bool GoldShell;
         private int goldHP;
-        public bool HallowEnchantActive;
+        public Item HallowEnchantItem;
+        public int HallowHealTime;
         public bool HuntressEnchantActive;
         public int HuntressStage;
         public int HuntressCD;

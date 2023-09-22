@@ -95,6 +95,11 @@ namespace FargowiltasSouls.Content.Items
 
             if (item.healLife > 0)
             {
+                if (modPlayer.HallowEnchantItem != null)
+                {
+                    modPlayer.HallowHealTime = 6 * modPlayer.GetHealMultiplier(item.healLife);
+                    HallowEnchant.HealRepel(player, modPlayer.HallowEnchantItem);
+                }
                 modPlayer.StatLifePrevious += modPlayer.GetHealMultiplier(item.healLife);
             }
         }
@@ -267,7 +272,6 @@ namespace FargowiltasSouls.Content.Items
             {
                 player.GetModPlayer<FargoSoulsPlayer>().WasHurtBySomething = true; //with abom rebirth, die to chaos state
             }
-
             /*
             if (item.type == ItemID.PotionOfReturn && FargoSoulsUtil.AnyBossAlive() && WorldSavingSystem.EternityMode)
             {
@@ -280,7 +284,6 @@ namespace FargowiltasSouls.Content.Items
             }
             return true;
         }
-
         public override bool? UseItem(Item item, Player player)
         {
             if (item.type == ItemID.RodofDiscord)
@@ -446,7 +449,7 @@ namespace FargowiltasSouls.Content.Items
             {
                 if (modPlayer.BeeCD == 0)
                 {
-                    int damage = modPlayer.ForceEffect(modPlayer.BeeEnchantItem.type) ? 60 : 12;
+                    int damage = modPlayer.ForceEffect(modPlayer.BeeEnchantItem.type) ? 100 : 12;
                     Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.BeeEnchantItem), player.Center, Vector2.Zero, ModContent.ProjectileType<BeeFlower>(), damage, 0.5f, player.whoAmI);
                     modPlayer.BeeCD = 50;
                 }

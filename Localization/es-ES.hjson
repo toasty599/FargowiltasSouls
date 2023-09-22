@@ -31,7 +31,7 @@ Mods: {
 			// Frost: Icicle damage doubled
 			// Gladiator: Increased banner aura size, decreased spear rain cooldown
 			// Gold: No upgrade
-			// Hallow: No upgrade
+			// Hallow: Potion heal bonus increased from 20 to 40%
 			// Huntress: Armor penetration and flat damage increased to 10 and 5 respectively
 			// Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
 			// Jungle: Spore damage increased, cooldown decreased
@@ -2155,7 +2155,8 @@ Mods: {
 				// DisplayName: Hallowed Enchantment
 				/* Tooltip:
 					'''
-					Become immune after striking an enemy
+					Healing potions restore 20% more, but take effect over time
+					Using a healing potion creates a shockwave that repels nearby enemy projectiles
 					'Hit me with your best shot'
 					''' */
 			}
@@ -2781,7 +2782,7 @@ Mods: {
 					[i:FargowiltasSouls/ForbiddenEnchant] Any projectiles shot through your storm gain 60% damage
 					[i:FargowiltasSouls/AncientHallowEnchant] You gain a shield that can reflect projectiles
 					[i:FargowiltasSouls/AncientHallowEnchant] Summons a Terraprisma familiar
-					[i:FargowiltasSouls/HallowEnchant] Become immune after striking an enemy
+					[i:FargowiltasSouls/HallowEnchant] Healing potions take effect over time and create a projectile-repelling shockwave
 					[i:FargowiltasSouls/TikiEnchant] Whip your summons to make them work harder
 					[i:FargowiltasSouls/SpectreEnchant] Damage has a chance to spawn damaging and healing orbs
 					'Ascend from this mortal realm'

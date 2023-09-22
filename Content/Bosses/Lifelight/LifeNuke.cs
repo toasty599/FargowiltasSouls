@@ -68,7 +68,12 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     int type = useSplitProj ? ModContent.ProjectileType<LifeSplittingProjSmall>() : ModContent.ProjectileType<LifeProjSmall>();
                     float ai0 = useSplitProj ? -180 : 0;
                     float ai1 = useSplitProj ? 2 : 0;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, type, damage, knockBack, Main.myPlayer, ai0, ai1);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, type, damage, knockBack, Main.myPlayer, ai0, ai1);
+                    if (p != Main.maxProjectiles)
+                    {
+                        Main.projectile[p].hostile = Projectile.hostile;
+                        Main.projectile[p].friendly = Projectile.friendly;
+                    }
                 }
             }
 

@@ -26,10 +26,16 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
+                    int p = -1;
                     if (Projectile.ai[1] != 11 && Projectile.ai[1] != 9)
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootoffset1, ModContent.ProjectileType<LifeProjSmall>(), damage, knockBack, Main.myPlayer);
+                        p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootoffset1, ModContent.ProjectileType<LifeProjSmall>(), damage, knockBack, Main.myPlayer);
                     if (Projectile.ai[1] != 10 && Projectile.ai[1] != 8)
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootoffset2, ModContent.ProjectileType<LifeProjSmall>(), damage, knockBack, Main.myPlayer);
+                        p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootoffset2, ModContent.ProjectileType<LifeProjSmall>(), damage, knockBack, Main.myPlayer);
+                    if (p != -1 && p != Main.maxProjectiles)
+                    {
+                        Main.projectile[p].hostile = Projectile.hostile;
+                        Main.projectile[p].friendly = Projectile.friendly;
+                    }
                 }
             }
 
