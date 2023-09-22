@@ -27,6 +27,7 @@ namespace FargowiltasSouls.Content.Patreon.DanielTheRobot
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
+            base.UseStyle(player, heldItemFrame);
             if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
             {
                 player.AddBuff(Item.buffType, 3600, true);

@@ -19,8 +19,8 @@ namespace FargowiltasSouls.Content.Patreon.DanielTheRobot
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
-            Projectile.width = 36;
-            Projectile.height = 48;
+            Projectile.width = 40;
+            Projectile.height = 60;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -61,21 +61,20 @@ namespace FargowiltasSouls.Content.Patreon.DanielTheRobot
                     break;
                 default: //not flying to player
                     {
-                        if (Projectile.velocity.Y != 0) //in air
+                        if (Projectile.velocity.Y > 0) //falling
                         {
                             startFrame = endFrame = 1;
                         }
+                        else if (Projectile.velocity.Y < 0) //going upwards
+                        {
+                            goto case 1;
+                        }
                         else //not in air
                         {
-                            if (Projectile.velocity.X < 0) //falling
+                            if (Projectile.velocity.X != 0) //walking
                             {
                                 startFrame = 2;
                                 endFrame = 3;
-                            }
-                            else if (Projectile.velocity.X > 0)
-                            {
-                                startFrame = 4;
-                                endFrame = 6;
                             }
                             //if not moving, frame is 0 as default
                         }
@@ -94,9 +93,13 @@ namespace FargowiltasSouls.Content.Patreon.DanielTheRobot
             }
         }
         private Asset<Texture2D> EyebrowAsset => ModContent.Request<Texture2D>(Texture + "_Eyebrows");
+        private Asset<Texture2D> GlowAsset => ModContent.Request<Texture2D>(Texture + "Glow");
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+
+            
+
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
@@ -111,7 +114,7 @@ namespace FargowiltasSouls.Content.Patreon.DanielTheRobot
             {
                 Main.EntitySpriteDraw((Texture2D)EyebrowAsset, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             }
-
+            Main.EntitySpriteDraw((Texture2D)GlowAsset, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), Color.White, Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }
