@@ -446,7 +446,8 @@ namespace FargowiltasSouls.Content.Items
             {
                 if (modPlayer.BeeCD == 0)
                 {
-                    Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.BeeEnchantItem), player.Center, Vector2.Zero, ModContent.ProjectileType<BeeFlower>(), 0, 0, player.whoAmI);
+                    int damage = modPlayer.ForceEffect(modPlayer.BeeEnchantItem.type) ? 60 : 12;
+                    Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.BeeEnchantItem), player.Center, Vector2.Zero, ModContent.ProjectileType<BeeFlower>(), damage, 0.5f, player.whoAmI);
                     modPlayer.BeeCD = 50;
                 }
                 if (modPlayer.BeeCD > 0)

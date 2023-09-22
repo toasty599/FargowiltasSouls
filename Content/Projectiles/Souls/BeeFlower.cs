@@ -31,10 +31,10 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 60 * 15;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 1;
             Projectile.light = 1;
         }
-        public override bool? CanDamage() => false;
+        public override bool? CanDamage() => Projectile.frame == Main.projFrames[Projectile.type] - 1; //only damage when fully grown
         public override void AI()
         {
             if (Projectile.frame < Main.projFrames[Projectile.type] - 1) //petalinate
@@ -49,25 +49,32 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && Main.LocalPlayer.Hitbox.Intersects(Projectile.Hitbox))
                 {
                     Main.LocalPlayer.AddBuff(BuffID.Honey, 60 * 15);
-                    int damage = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().ForceEffect(ModContent.ItemType<BeeEnchant>()) ? 60 : 12;
-                    float kb = 0.5f;
-                    for (int i = 0; i < 7; i++)
-                    {
-                        Vector2 pos = Main.rand.NextVector2FromRectangle(Projectile.Hitbox);
-                        int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (pos - Projectile.Center) / 12,
-                            Main.LocalPlayer.beeType(), Main.LocalPlayer.beeDamage(damage), Main.LocalPlayer.beeKB(kb), Main.LocalPlayer.whoAmI);
-                        if (p != Main.maxProjectiles)
-                            Main.projectile[p].DamageType = Projectile.DamageType;
-                    }
+                    BeeSwarm();
+                    
                     Projectile.Kill();
                 }
             }
 
         }
-
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            BeeSwarm();
+        }
         public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.LiquidsHoneyWater, Projectile.Center);
+        }
+
+        public void BeeSwarm()
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                Vector2 pos = Main.rand.NextVector2FromRectangle(Projectile.Hitbox);
+                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (pos - Projectile.Center) / 12,
+                    Main.LocalPlayer.beeType(), Main.LocalPlayer.beeDamage(Projectile.damage), Main.LocalPlayer.beeKB(Projectile.knockBack), Main.LocalPlayer.whoAmI);
+                if (p != Main.maxProjectiles)
+                    Main.projectile[p].DamageType = Projectile.DamageType;
+            }
         }
     }
 }

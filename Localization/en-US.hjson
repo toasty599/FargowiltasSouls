@@ -1974,6 +1974,7 @@ Mods: {
 					Allows flight and slow fall
 					While flying, leave behind flowers that take 4 seconds to form petals
 					Touching fully formed flowers gives you the Honey buff and creates a swarm of bees
+					Enemies touching the flowers also trigger the bee swarm
 					Effects of Hive Pack
 					'According to all known laws of aviation, there is no way a bee should be able to fly'
 					'''
