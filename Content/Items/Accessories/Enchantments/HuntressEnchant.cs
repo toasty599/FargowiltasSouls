@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -69,9 +70,9 @@ Missing any attack will reset these bonuses
 
                 modPlayer.HuntressCD = 30;
             }
-
-            proj.ArmorPenetration = 10 * modPlayer.HuntressStage;
-            modifiers.SourceDamage.Flat += 5 * modPlayer.HuntressStage;
+            int bonus = modPlayer.ForceEffect(ModContent.ItemType<HuntressEnchant>()) || modPlayer.RedRidingEnchantItem != null ? 5 : 3;
+            proj.ArmorPenetration = bonus * 2 * modPlayer.HuntressStage;
+            modifiers.SourceDamage.Flat += bonus * modPlayer.HuntressStage;
         }
 
         public override void AddRecipes()

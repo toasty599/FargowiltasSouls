@@ -61,13 +61,14 @@ Missing any attack will reset these bonuses
 
             Item firstAmmo = PickAmmo(player);
             int arrowType = firstAmmo.shoot;
+            int damage = firstAmmo.damage * (modPlayer.ForceEffect(modPlayer.RedRidingEnchantItem.type) ? 7 : 5);
             //int damage = FargoSoulsUtil.HighestDamageTypeScaling(player, (int)(firstAmmo.damage * 5f));
             int heatray = Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.RedRidingEnchantItem), player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
             Main.projectile[heatray].tileCollide = false;
             //proj spawns arrows all around it until it dies
-            Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.RedRidingEnchantItem), target.Center.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(player, (int)(firstAmmo.damage * 5f)), 0f, player.whoAmI, arrowType, target.whoAmI);
+            Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.RedRidingEnchantItem), target.Center.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(player, damage), 0f, player.whoAmI, arrowType, target.whoAmI);
 
-            modPlayer.RedRidingArrowCD = 360;
+            modPlayer.RedRidingArrowCD = modPlayer.ForceEffect(modPlayer.RedRidingEnchantItem.type) ? 240 : 360;
         }
 
         private static Item PickAmmo(Player player)
