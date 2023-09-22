@@ -108,14 +108,17 @@ namespace FargowiltasSouls.Content.Items
                 player.endurance = endurance;
                 
             }
-
+            //TODO: mana pot rework
+            /*
             if (item.healMana > 0)
             {
                 return !player.HasBuff(BuffID.ManaSickness);
             }
-
+            */
             return base.CanUseItem(item, player);
         }
+        //TODO: mana pot rework
+        /*
         public override void GetHealMana(Item item, Player player, bool quickHeal, ref int healValue)
         {
             if (WorldSavingSystem.EternityMode)
@@ -124,6 +127,7 @@ namespace FargowiltasSouls.Content.Items
             }
             base.GetHealMana(item, player, quickHeal, ref healValue);
         }
+        */
         public override bool? UseItem(Item item, Player player)
         {
             if (!WorldSavingSystem.EternityMode)

@@ -76,7 +76,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 HuntressEnchant.HuntressBonus(this, proj, target, ref modifiers);
             }
-
             ModifyHitNPCBoth(target, ref modifiers, proj.DamageType);
         }
 
