@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void SetDefaults()
         {
             Projectile.width = 34;
-            Projectile.height = 43;
+            Projectile.height = 34;
             Projectile.scale = 1f;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Generic;
