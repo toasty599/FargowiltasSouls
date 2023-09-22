@@ -32,7 +32,7 @@ Mods: {
 			// Gladiator: Increased banner aura size, decreased spear rain cooldown
 			// Gold: No upgrade
 			// Hallow: No upgrade
-			// Huntress: No upgrade
+			// Huntress: Armor penetration and flat damage increased to 10 and 5 respectively
 			Iron: 物品拾取距离提升到四倍，合成加成现在也对任何秘银砧生效
 			// Jungle: Spore damage increased, cooldown decreased
 			Lead: 增加铅中毒伤害，持续伤害减免提升到60%
@@ -52,7 +52,7 @@ Mods: {
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
 			// Rain: No upgrade
-			// RedRiding: No upgrade
+			// RedRiding: Arrow rain has less cooldown and deals more damage
 			RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升
 			Shadewood: 增加光环大小和血液伤害，并且会附加灵液效果
 			// Shinobi: No upgrade

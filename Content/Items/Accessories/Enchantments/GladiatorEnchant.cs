@@ -77,13 +77,15 @@ Grants knockback immunity when you are facing the attack
 
                 for (int i = 0; i < 3; i++)
                 {
+                    const int arrivalTime = 15;
                     Vector2 spawn = new(target.Center.X + Main.rand.NextFloat(-300, 300), target.Center.Y - Main.rand.Next(600, 801));
+                    Vector2 aim = target.Center + (target.velocity * arrivalTime * Main.rand.NextFloat(0.7f, 1.3f));
+                    float speed = (aim - spawn).Length() / arrivalTime * Main.rand.NextFloat(0.8f, 1.2f);
+                    //Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
+                    //speed.Normalize();
+                    //speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
 
-                    Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
-                    speed.Normalize();
-                    speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
-
-                    Projectile.NewProjectile(player.GetSource_Misc(""), spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
+                    Projectile.NewProjectile(player.GetSource_Misc(""), spawn, Vector2.Normalize(aim - spawn).RotatedByRandom(MathHelper.Pi / 20) * speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
                 }
 
                 modPlayer.GladiatorCD = modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 10 : 30;

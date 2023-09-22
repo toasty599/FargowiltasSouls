@@ -32,7 +32,7 @@ Mods: {
 			// Gladiator: Increased banner aura size, decreased spear rain cooldown
 			// Gold: No upgrade
 			// Hallow: No upgrade
-			// Huntress: No upgrade
+			// Huntress: Armor penetration and flat damage increased to 10 and 5 respectively
 			// Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
 			// Jungle: Spore damage increased, cooldown decreased
 			// Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
@@ -52,7 +52,7 @@ Mods: {
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
 			// Rain: No upgrade
-			// RedRiding: No upgrade
+			// RedRiding: Arrow rain has less cooldown and deals more damage
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
 			// Shadewood: Aura size and blood damage increased, additionally applies Ichor
 			// Shinobi: No upgrade
@@ -398,8 +398,8 @@ Mods: {
 			// PearlConfig: Pearlwood Rain
 			// EarthHeader: "{$Mods.FargowiltasSouls.Items.EarthForce.DisplayName}"
 			// AdamantiteConfig: Adamantite Projectile Splitting
-			// CobaltConfig: Cobalt Shards
-			// AncientCobaltConfig: Ancient Cobalt Stingers
+			// CobaltConfig: Cobalt Hit Explosion
+			// AncientCobaltConfig: Ancient Cobalt Explosion Jump
 			// MythrilConfig: Mythril Weapon Speed
 			// OrichalcumConfig: Orichalcum Petals
 			// PalladiumConfig: Palladium Healing
@@ -1974,6 +1974,7 @@ Mods: {
 					Allows flight and slow fall
 					While flying, leave behind flowers that take 4 seconds to form petals
 					Touching fully formed flowers gives you the Honey buff and creates a swarm of bees
+					Enemies touching the flowers also trigger the bee swarm
 					Effects of Hive Pack
 					'According to all known laws of aviation, there is no way a bee should be able to fly'
 					''' */
@@ -2163,8 +2164,8 @@ Mods: {
 				// DisplayName: Huntress Enchantment
 				/* Tooltip:
 					'''
-					Attacks ignore 10 enemy defense and deal 5 flat extra damage
-					Each successive attack ignores an additional 10 defense and deals 5 more damage
+					Attacks ignore 6 enemy defense and deal 3 flat extra damage
+					Each successive attack ignores an additional 6 defense and deals 3 more damage
 					This stacks up to 10 times
 					Homing and minion attacks do not increase these bonuses
 					Missing any attack will reset these bonuses
