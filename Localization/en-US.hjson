@@ -398,8 +398,8 @@ Mods: {
 			PearlConfig: Pearlwood Rain
 			EarthHeader: "{$Mods.FargowiltasSouls.Items.EarthForce.DisplayName}"
 			AdamantiteConfig: Adamantite Projectile Splitting
-			CobaltConfig: Cobalt Shards
-			AncientCobaltConfig: Ancient Cobalt Stingers
+			CobaltConfig: Cobalt Hit Explosion
+			AncientCobaltConfig: Ancient Cobalt Explosion Jump
 			MythrilConfig: Mythril Weapon Speed
 			OrichalcumConfig: Orichalcum Petals
 			PalladiumConfig: Palladium Healing
