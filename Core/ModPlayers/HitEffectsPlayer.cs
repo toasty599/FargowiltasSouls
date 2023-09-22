@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 TungstenEnchant.TungstenModifyDamage(Player, ref modifiers, proj.DamageType);
             }
 
-            if (HuntressEnchantActive && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().HuntressProj == 1)
+            if (HuntressEnchantActive && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().HuntressProj == 1 && target.type != NPCID.TargetDummy)
             {
                 HuntressEnchant.HuntressBonus(this, proj, target, ref modifiers);
             }
