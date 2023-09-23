@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            FargoSoulsPlayer localModPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer localModPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
 
             int AuraSize = modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 800 : 400;
 
