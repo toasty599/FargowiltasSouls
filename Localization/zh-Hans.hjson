@@ -11,7 +11,7 @@ Mods: {
 		WizardEffect: {
 			// Adamantite: Projectiles now split into 3
 			// Apprentice: The next 2 weapons are used instead of 1
-			// AncientHallow: No upgrade
+			// AncientHallow: Sword damage increased, projectile damage cap increased to 200
 			// AncientShadow: Number of Shadow Orbs increased
 			// AncientCobalt: No upgrade
 			// Angler: No upgrade
@@ -458,7 +458,6 @@ Mods: {
 			ForbiddenConfig: 禁戒 远古风暴
 			HallowDodgeConfig: 神圣 神圣防护
 			HallowedConfig: 远古神圣 泰拉棱镜
-			HallowSConfig: 远古神圣 护盾
 			NinjaSpeedConfig: 忍者 弹幕速度加成
 			SpectreConfig: 幽魂 幽魂珠
 			TikiConfig: 提基 额外仆从

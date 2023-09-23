@@ -11,7 +11,7 @@ Mods: {
 		WizardEffect: {
 			// Adamantite: Projectiles now split into 3
 			// Apprentice: The next 2 weapons are used instead of 1
-			// AncientHallow: No upgrade
+			// AncientHallow: Sword damage increased, projectile damage cap increased to 200
 			// AncientShadow: Number of Shadow Orbs increased
 			// AncientCobalt: No upgrade
 			// Angler: No upgrade
@@ -458,7 +458,6 @@ Mods: {
 			ForbiddenConfig: Proibido: Tempestade
 			HallowDodgeConfig: Consagrado: Esquiva
 			HallowedConfig: Consagrado Antigo: Familiar da Terraprisma
-			HallowSConfig: Consagrado Antigo: Escudo
 			NinjaSpeedConfig: Ninja: Velocidade dos Projéteis
 			SpectreConfig: Espectro: Esferas
 			TikiConfig: Tiki: Lacaios

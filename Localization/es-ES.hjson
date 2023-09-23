@@ -11,7 +11,7 @@ Mods: {
 		WizardEffect: {
 			// Adamantite: Projectiles now split into 3
 			// Apprentice: The next 2 weapons are used instead of 1
-			// AncientHallow: No upgrade
+			// AncientHallow: Sword damage increased, projectile damage cap increased to 200
 			// AncientShadow: Number of Shadow Orbs increased
 			// AncientCobalt: No upgrade
 			// Angler: No upgrade
@@ -458,7 +458,6 @@ Mods: {
 			// ForbiddenConfig: Forbidden Storm
 			// HallowDodgeConfig: Hallowed Healing Potions
 			// HallowedConfig: Ancient Hallowed Terraprisma familiar
-			// HallowSConfig: Ancient Hallowed Shield
 			// NinjaSpeedConfig: Ninja Speed
 			// SpectreConfig: Spectre Orbs
 			// TikiConfig: Tiki Minions
@@ -1920,8 +1919,11 @@ Mods: {
 				// DisplayName: Ancient Hallowed Enchantment
 				/* Tooltip:
 					'''
-					You gain a shield that can reflect projectiles
 					Summons a Terraprisma familiar that scales with minion damage
+					The sword follows the direction of your mouse
+					Press Right Click to slash with the sword
+					Slashing enemy projectiles reflects them back at the enemy
+					Reflects has a 15 second cooldown and can only affect projectiles that deal less than 150 damage
 					'Have you power enough to wield me?'
 					''' */
 			}
@@ -2780,8 +2782,7 @@ Mods: {
 					[i:FargowiltasSouls/FossilEnchant] Collect the bones once they stop moving to heal for 15 HP each
 					[i:FargowiltasSouls/ForbiddenEnchant] Double tap down to call an ancient storm to the cursor location
 					[i:FargowiltasSouls/ForbiddenEnchant] Any projectiles shot through your storm gain 60% damage
-					[i:FargowiltasSouls/AncientHallowEnchant] You gain a shield that can reflect projectiles
-					[i:FargowiltasSouls/AncientHallowEnchant] Summons a Terraprisma familiar
+					[i:FargowiltasSouls/AncientHallowEnchant] You gain a Terraprisma familiar that can reflect projectiles
 					[i:FargowiltasSouls/HallowEnchant] Healing potions take effect over time and create a projectile-repelling shockwave
 					[i:FargowiltasSouls/TikiEnchant] Whip your summons to make them work harder
 					[i:FargowiltasSouls/SpectreEnchant] Damage has a chance to spawn damaging and healing orbs
