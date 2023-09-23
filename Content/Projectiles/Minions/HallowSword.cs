@@ -103,6 +103,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             Vector2 desiredCenter = handlePos + (Projectile.rotation - MathHelper.PiOver2).ToRotationVector2() * TextureAssets.Projectile[Projectile.type].Value.Width * Projectile.scale / 2;
             Projectile.velocity = desiredCenter - Projectile.Center;
+            Main.NewText(Projectile.rotation);
         }
         private void Slash(Player player)
         {
