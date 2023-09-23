@@ -221,7 +221,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 {
                     continue;
                 }
-                SoundEngine.PlaySound(SoundID.Item68, p.Center);
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/parrynmuse"), p.Center);
                 p.hostile = false;
                 p.friendly = true;
                 player.AddBuff(ModContent.BuffType<HallowCooldownBuff>(), 60 * 15);
