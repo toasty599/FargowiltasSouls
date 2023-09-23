@@ -2611,7 +2611,7 @@ Mods: {
 				DisplayName: Wizard Enchantment
 				Tooltip:
 					'''
-					The enchantment directly below this accessory gains its Force effect instead
+					Upgrades the enchantment directly below this accessory to its Force effect
 					'I'm a what?'
 					'''
 			}
