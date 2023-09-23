@@ -456,7 +456,7 @@ Mods: {
 			// SpiritHeader: "{$Mods.FargowiltasSouls.Items.SpiritForce.DisplayName}"
 			// FossilConfig: Fossil Bones On Hit
 			// ForbiddenConfig: Forbidden Storm
-			// HallowDodgeConfig: Hallowed Dodge
+			// HallowDodgeConfig: Hallowed Healing Potions
 			// HallowedConfig: Ancient Hallowed Terraprisma familiar
 			// HallowSConfig: Ancient Hallowed Shield
 			// NinjaSpeedConfig: Ninja Speed

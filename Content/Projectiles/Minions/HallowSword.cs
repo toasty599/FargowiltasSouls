@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.Graphics;
 using Terraria.ID;
@@ -16,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             // DisplayName.SetDefault("HallowSword");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
+            //ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -31,10 +32,30 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.timeLeft = 18000;
             Projectile.minionSlots = 0;
             Projectile.hide = false;
+
+            Projectile.scale = 1;
         }
 
+        private Vector2 handlePos = Vector2.Zero;
+        private Vector2 SlashPosition;
+
+        const int SlashCDMax = 60 * 2;
+        ref float SlashCD => ref Projectile.ai[1];
+        ref float Action => ref Projectile.ai[0];
+
+        ref float SlashRotation => ref Projectile.localAI[0];
+        ref float SlashArc => ref Projectile.localAI[1];
+
+        //actions:
+        //0: idle
+        //1: slashing
+        //2: recovering
         public override void AI()
         {
+            if (handlePos == Vector2.Zero)
+            {
+                handlePos = Projectile.position + Vector2.UnitY * Projectile.height;
+            }
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
@@ -44,14 +65,75 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 return;
             }
 
-            List<int> ai156_blacklistedTargets = new();
+            //why does this exist if it's instantly cleared?????
+            //List<int> ai156_blacklistedTargets = new();
 
             DelegateMethods.v3_1 = Color.Transparent.ToVector3();
             Point point2 = Projectile.Center.ToTileCoordinates();
             DelegateMethods.CastLightOpen(point2.X, point2.Y);
 
-            ai156_blacklistedTargets.Clear();
+            Position(player);
 
+            if (Action == 1)
+            {
+                Action = 2;
+            }
+            if (Action == 2)
+            {
+                Recover(player);
+            }
+
+            if (Main.mouseRight && SlashCD <= 0)
+            {
+                Slash(player);
+            }
+            if (SlashCD > 0)
+            {
+                SlashCD--;
+            }
+            //ai156_blacklistedTargets.Clear();
+
+        }
+        private void Position(Player player)
+        {
+            const int offsetX = 50;
+            Vector2 offset = Vector2.UnitX * offsetX * Projectile.scale * GetSide(player) + Vector2.UnitY * 0;
+            Vector2 desiredPos = Main.MouseWorld + offset;
+            handlePos = Vector2.Lerp(handlePos, desiredPos, 0.5f);
+
+            Vector2 desiredCenter = handlePos + (Projectile.rotation - MathHelper.PiOver2).ToRotationVector2() * TextureAssets.Projectile[Projectile.type].Value.Width * Projectile.scale / 2;
+            Projectile.velocity = desiredCenter - Projectile.Center;
+        }
+        private void Slash(Player player)
+        {
+            Action = 1;
+            SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
+            SlashRotation = Projectile.rotation;
+            Projectile.rotation -= GetSide(player) * MathHelper.Pi * 0.9f;
+            SlashArc = Projectile.rotation - SlashRotation;
+            SlashCD = SlashCDMax;
+        }
+        private void Recover(Player player)
+        {
+            if (SlashCD <= SlashCDMax - 10)
+            {
+                RotateTowards(SlashRotation, 2f / ((float)SlashCD / SlashCDMax));
+            }
+        }
+        public void RotateTowards(float rotToAlignWith, float speed)
+        {
+            Vector2 PV = rotToAlignWith.ToRotationVector2();
+            Vector2 LV = Projectile.rotation.ToRotationVector2();
+            float anglediff = (float)(Math.Atan2(PV.Y * LV.X - PV.X * LV.Y, LV.X * PV.X + LV.Y * PV.Y)); //real
+                                                                                                         //change rotation towards target
+            Projectile.rotation = Projectile.rotation.ToRotationVector2().RotatedBy(Math.Sign(anglediff) * Math.Min(Math.Abs(anglediff), speed * MathHelper.Pi / 180)).ToRotation();
+        }
+        private int GetSide(Player player)
+        {
+            return -Math.Sign(Main.MouseWorld.X - player.Center.X);
+        }
+            //this entire thing is completely fucking incomprehensible and now it's gone forever
+            /*
             //AI_156_Think
             int num;// = 60;
             int num2;// = num - 1;
@@ -342,7 +424,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
             return result;
         }
-
+        */
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = oldVelocity.X;
@@ -376,6 +458,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Color fairyQueenWeaponsColor = proj.GetFairyQueenWeaponsColor(0.5f, 0f, new float?(hueOverride));
             Texture2D value = TextureAssets.Projectile[proj.type].Value;
             Vector2 origin = value.Frame(1, 1, 0, 0, 0, 0).Size() / 2f;
+            //Vector2 origin = Vector2.UnitY * value.Height;
             Color color = Color.White * proj.Opacity;
             color.A = (byte)(color.A * 0.7f);
             fairyQueenWeaponsColor.A /= 2;

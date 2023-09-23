@@ -46,6 +46,7 @@ Summons a Terraprisma familiar that scales with minion damage
 
             modPlayer.AddMinion(item, player.GetToggleValue("Hallowed"), ModContent.ProjectileType<HallowSword>(), 50, 2);
 
+            /*
             //reflect proj
             if (player.GetToggleValue("HallowS") && !modPlayer.noDodge && !player.HasBuff(ModContent.BuffType<HallowCooldownBuff>()))
             {
@@ -105,6 +106,7 @@ Summons a Terraprisma familiar that scales with minion damage
                     player.AddBuff(ModContent.BuffType<HallowCooldownBuff>(), 600);
                 });
             }
+            */
         }
 
         public static Color GetFairyQueenWeaponsColor(float alphaChannelMultiplier, float lerpToWhite, float rawHueOverride)
