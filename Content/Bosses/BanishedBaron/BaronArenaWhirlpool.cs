@@ -1,4 +1,5 @@
 ﻿using System;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,6 +35,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.scale = 1f;
             Projectile.alpha = 255;
             Projectile.timeLeft = 60 * 60 * 60;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
         const int MaxDistance = 1000;
         int WaterwallDistance = 0;

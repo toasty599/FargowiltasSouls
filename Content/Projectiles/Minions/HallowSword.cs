@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Common.Graphics.Particles;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +11,9 @@ using System.Reflection.Metadata;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameInput;
 using Terraria.Graphics;
+using Terraria.Graphics.Capture;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -41,9 +45,9 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         }
 
         public Vector2 handlePos = Vector2.Zero;
-        private Vector2 SlashPosition;
-
-        const int SlashCDMax = 60 * 2;
+        private int HitsLeft = 0;
+        public const int SlashCDMax = 60 * 2;
+        public const int MaxDistance = 300;
         ref float SlashCD => ref Projectile.ai[1];
         ref float Action => ref Projectile.ai[0];
 
@@ -87,8 +91,9 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Recover(player);
             }
 
-            if (Main.mouseRight && SlashCD <= 0)
+            if (CheckRightClick(player) && SlashCD <= 0)
             {
+                HitsLeft = 10;
                 Slash(player);
             }
             //ai156_blacklistedTargets.Clear();
@@ -98,7 +103,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             const int offsetX = 50;
             Vector2 offset = Vector2.UnitX * offsetX * Projectile.scale * GetSide(player) + Vector2.UnitY * 0;
-            Vector2 desiredPos = Main.MouseWorld + offset;
+            Vector2 desiredPos = MousePos(player) + offset;
             handlePos = Vector2.Lerp(handlePos, desiredPos, 0.5f);
 
             Vector2 desiredCenter = handlePos;// + (Projectile.rotation - MathHelper.PiOver2).ToRotationVector2() * TextureAssets.Projectile[Projectile.type].Value.Width * Projectile.scale / 2;
@@ -135,7 +140,10 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 Projectile.localNPCImmunity[i] = 0;
             }
-            //HitCheck((HallowSword)Projectile.ModProjectile);
+            if (!player.HasBuff<HallowCooldownBuff>())
+            {
+                Reflect(Projectile);
+            }
         }
         private void Recover(Player player)
         {
@@ -163,12 +171,12 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         }
         private int GetSide(Player player)
         {
-            return -Math.Sign(Main.MouseWorld.X - player.Center.X);
+            return -Math.Sign(MousePos(player).X - player.Center.X);
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
-            if (player == null || !player.active || player.dead)
+            if (player == null || !player.active || player.dead || HitsLeft <= 0)
             {
                 return false;
             }
@@ -192,20 +200,61 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 float num6 = 0f;
                 if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), handlePos, handlePos + angle.ToRotationVector2() * width * Projectile.scale, height * Projectile.scale, ref num6))
                 {
+                    HitsLeft--;
                     return true;
                 }
             }
             return false;
         }
-        private static void HitCheck(HallowSword proj)
+        private static void Reflect(Projectile sword)
         {
-            int width = TextureAssets.Projectile[proj.Type].Value.Width;
-            /*
-            foreach (NPC npc in Main.npc.Where(n => !n.townNPC && n.Hitbox.ClosestPointInRect(proj.handlePos).Distance(proj.handlePos) < width))
+
+            foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(p) && sword.Colliding(sword.Hitbox, p.Hitbox)))
             {
-                proj.CanHitNPC
+                Player player = Main.player[sword.owner];
+                if (player == null || !player.active)
+                {
+                    break;
+                }
+                int damageCap = player.GetModPlayer<FargoSoulsPlayer>().ForceEffect(ModContent.ItemType<AncientHallowEnchant>()) ? 200 : 150;
+                if (p.damage > damageCap)
+                {
+                    continue;
+                }
+                SoundEngine.PlaySound(SoundID.Item68, p.Center);
+                p.hostile = false;
+                p.friendly = true;
+                player.AddBuff(ModContent.BuffType<HallowCooldownBuff>(), 60 * 15);
+                p.owner = sword.owner;
+                p.damage = sword.damage;
+                p.DamageType = sword.DamageType;
+                const int speed = 30;
+                Vector2 targetVel = Vector2.Normalize(-p.velocity) * speed; //by default, reverse velocity
+                NPC targetNPC = p.GetSourceNPC();
+                if (!(targetNPC != null && targetNPC.active && !targetNPC.townNPC)) //if cannot find source npc, send towards closest npc instead
+                {
+                    int target = p.FindTargetWithLineOfSight(800);
+                    targetNPC = Main.npc[target];
+                }
+                if (targetNPC != null && targetNPC.active && !targetNPC.townNPC) //check if found any of the above npc checks, if so, send towards the npc
+                {
+                    targetVel = Vector2.Normalize(targetNPC.Center - p.Center) * speed;
+                }
+                p.velocity = targetVel;
+                // Don't know if this will help but here it is
+                p.netUpdate = true;
+                
             }
-            */
+
+        }
+        private Vector2 MousePos(Player player)
+        {
+            return player.Center + (player.Center.DirectionTo(Main.MouseWorld) * Math.Min((Main.MouseWorld - player.Center).Length(), MaxDistance));
+        }
+        private bool CheckRightClick(Player player)
+        {
+            return player.controlUseTile && !player.tileInteractionHappened && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC
+                && !Main.SmartInteractShowingGenuine && PlayerInput.Triggers.Current.MouseRight;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -260,17 +309,21 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 }
             }
             HallowSword sword = proj.ModProjectile != null && proj.ModProjectile is HallowSword ? proj.ModProjectile as HallowSword : null;
-            if (sword != null && sword.Action == 2)
+            const float slashTime = 5;
+            float fade = (float)(sword.SlashCD + slashTime - SlashCDMax) / slashTime;
+            Color fadeColor = Color.Lerp(Color.Transparent, Color.LightGoldenrodYellow with { A = 0 }, fade);
+            if (sword != null && sword.Action == 2 && sword.SlashCD >= SlashCDMax - slashTime)
             {
-                const int SlashImages = 25; //maybe excessive
+                const int SlashImages = 100; //lol
                 for (int i = 0; i < SlashImages; i++)
                 {
-                    float frac = (float)i / SlashImages;
-                    float angle = sword.SlashRotation + (sword.SlashArc * frac) - (MathHelper.PiOver2);
+                    float frac = 1-((float)i / SlashImages);
+                    float angle = sword.SlashRotation + (sword.SlashArc * frac);
                     Vector2 imagePos = proj.Center - Main.screenPosition + (angle - MathHelper.PiOver2).ToRotationVector2() * value.Width * proj.scale / 2;
                     float imageRot = angle - MathHelper.PiOver2;
-                    Main.EntitySpriteDraw(value, imagePos, null, color * (1f-frac), imageRot, origin, scale, SpriteEffects.None, 0);
-                    Main.EntitySpriteDraw(value, imagePos, null, fairyQueenWeaponsColor * num2 * 0.5f * (1f - frac), imageRot, origin, scale, SpriteEffects.None, 0);
+                    Color imageColor = Color.Lerp(Color.Transparent, fadeColor, frac);
+                    Main.EntitySpriteDraw(value, imagePos, null, imageColor, imageRot, origin, scale, SpriteEffects.None, 0);
+                    //Main.EntitySpriteDraw(value, imagePos, null, fairyQueenWeaponsColor * num2 * 0.5f * (1f - frac), imageRot, origin, scale, SpriteEffects.None, 0);
                 }
             }
             Main.EntitySpriteDraw(value, vector, null, color, num, origin, scale, SpriteEffects.None, 0);

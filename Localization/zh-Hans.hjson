@@ -1767,8 +1767,8 @@ Mods: {
 			}
 
 			HallowCooldownBuff: {
-				// DisplayName: Hallowed Shield Cooldown
-				// Description: Your shield cannot reflect projectiles yet
+				// DisplayName: Hallowed Sword Cooldown
+				// Description: Your sword cannot reflect projectiles yet
 			}
 
 			HuntressBleedBuff: {
