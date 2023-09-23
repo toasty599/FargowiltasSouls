@@ -497,6 +497,7 @@ namespace FargowiltasSouls
             Item.NewItem(null, player.Center, ModContent.ItemType<PuffInABottle>());
             //int bugnet = (Main.zenithWorld || Main.remixWorld) ? ItemID.FireproofBugNet : ItemID.BugNet;
             Item.NewItem(null, player.Center, ItemID.BugNet);
+            Item.NewItem(null, player.Center, ItemID.Squirrel);
             //Item.NewItem(null, player.Center, ItemID.GrapplingHook);
 
             if (Main.zenithWorld || Main.remixWorld)
