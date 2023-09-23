@@ -626,6 +626,14 @@ namespace FargowiltasSouls.Core.Globals
 
                 int dot = npc.type == NPCID.EaterofWorldsBody ? 4 : 20;
 
+                //calamity worms mod compat
+                if (ModLoader.HasMod("CalamityMod"))
+                {
+                    if (ModContent.TryFind("CalamityMod", "DesertScourgeBody", out ModNPC scourgeBody) && npc.type == scourgeBody.Type)
+                    {
+                        dot = 4;
+                    }
+                }
                 if (modPlayer.ForceEffect(modPlayer.LeadEnchantItem.type))
                 {
                     dot *= 3;
