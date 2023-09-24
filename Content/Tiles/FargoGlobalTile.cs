@@ -208,7 +208,7 @@ namespace FargowiltasSouls.Content.Tiles
             return tile.HasTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType] && !tile.IsHalfBlock
                 && tile.Slope == 0 && !tile.HasUnactuatedTile;
         }
-
+        /*
         public override void NearbyEffects(int i, int j, int type, bool closer)
         {
             if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().LowGround && Framing.GetTileSafely(i, j).IsActuated)
@@ -223,5 +223,6 @@ namespace FargowiltasSouls.Content.Tiles
                 }
             }
         }
+        */
     }
 }

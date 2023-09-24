@@ -44,8 +44,8 @@ namespace FargowiltasSouls.Content.Items.Summons
             CreateRecipe() //change
                 .AddRecipeGroup("FargowiltasSouls:AnyMythrilBar", 4)
                 .AddIngredient(ItemID.EnchantedNightcrawler, 3)
-                .AddIngredient(ItemID.SoulofFlight, 6)
-                .AddIngredient(ModLoader.GetMod("Fargowiltas"), "Angler")
+                .AddIngredient(ItemID.SoulofFlight, 5)
+                .AddIngredient(ItemID.ArmoredCavefish, 1)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

@@ -23,13 +23,17 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<FargoSoulsPlayer>().LowGround = true;
-
             if (player.grapCount > 0)
                 player.RemoveAllGrapplingHooks();
 
             if (player.mount.Active)
                 player.mount.Dismount(player);
-
+            Tile bottomTile = Framing.GetTileSafely(player.Bottom + Vector2.UnitY * 8);
+            if (player.velocity.Y >= 0 && bottomTile.TileType == TileID.Platforms || bottomTile.TileType == TileID.PlanterBox)
+            {
+                player.position.Y += 2;
+            }
+            /*
             for (int i = -2; i <= 2; i++)
             {
                 Vector2 pos = player.Center;
@@ -49,6 +53,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
                     //    NetMessage.SendTileSquare(-1, x, y, 1);
                 }
             }
+            */
         }
     }
 }

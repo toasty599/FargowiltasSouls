@@ -127,7 +127,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool AncientShadowEnchantActive;
         public Item ApprenticeEnchantItem;
         public int ApprenticeCD;
-        public bool BeeEnchantActive;
+        public Item BeeEnchantItem;
         public int BeeCD;
 
         public bool CactusEnchantActive;
@@ -151,7 +151,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool GoldEnchMoveCoins;
         public bool GoldShell;
         private int goldHP;
-        public bool HallowEnchantActive;
+        public Item HallowEnchantItem;
+        public int HallowHealTime;
         public bool HuntressEnchantActive;
         public int HuntressStage;
         public int HuntressCD;

@@ -1,30 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-	public class BeeEnchant : BaseEnchant
+    [AutoloadEquip(EquipType.Wings)]
+    public class BeeEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.CreativeWings];
             base.SetStaticDefaults();
-
-            // DisplayName.SetDefault("Bee Enchantment");
-
-            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蜜蜂魔石");
-
-            string tooltip =
-@"Increases the strength of friendly bees
-Melee hits and most piercing attacks spawn bees
-'According to all known laws of aviation, there is no way a bee should be able to fly'";
-            // Tooltip.SetDefault(tooltip);
-
-            //             string tooltip_ch =
-            // @"增加友好蜜蜂的力量
-            // 穿透类弹幕在击中敌人时会生成蜜蜂
-            // '根据目前所知的所有航空原理, 蜜蜂应该根本不可能会飞'";
-            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         protected override Color nameColor => new(254, 246, 37);
@@ -39,9 +26,10 @@ Melee hits and most piercing attacks spawn bees
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().BeeEffect(hideVisual); //add effect
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = modPlayer.ForceEffect(Item.type) ? ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.BeeWings] : ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.CreativeWings];
+            modPlayer.BeeEffect(hideVisual, Item); //add effect
         }
-
         public override void AddRecipes()
         {
             CreateRecipe()

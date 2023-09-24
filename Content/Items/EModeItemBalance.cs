@@ -474,12 +474,13 @@ namespace FargowiltasSouls.Content.Items
                         }
                     }
                 }
-
+                //TODO: mana pot rework
+                /*
                 if (item.healMana > 0)
                 {
                     ItemBalance(tooltips, EModeChange.Neutral, "ManaPots");
                 }
-
+                */
                 if (item.shoot > ProjectileID.None && ProjectileID.Sets.IsAWhip[item.shoot])
                 {
                     ItemBalance(tooltips, EModeChange.Nerf, "WhipSpeed");

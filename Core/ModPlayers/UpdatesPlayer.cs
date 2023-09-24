@@ -71,8 +71,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 RustedOxygenTank.PassiveEffect(Player);
             }
 
-            if (BeeEnchantActive && BeeCD > 0)
-                BeeCD--;
 
             if (GoldShell)
                 GoldUpdate();
@@ -419,7 +417,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 NecromanticBrewRotation = 0f;
             }
         }
-
         public override void UpdateBadLifeRegen()
         {
             if (Player.electrified && Player.wet)
@@ -512,6 +509,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateMiscEffects()
         {
+            FargoSoulsPlayer modPlayer = Player.GetModPlayer<FargoSoulsPlayer>();
+
             //these are here so that emode minion nerf can properly detect the real set bonuses over in EModePlayer postupdateequips
             if (SquireEnchantItem != null)
                 Player.setSquireT2 = true;
@@ -570,6 +569,17 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.endurance -= 0.3f;
             }
 
+            if (HallowHealTime > 0)
+            {
+                bool hallowForce = HallowEnchantItem != null ? modPlayer.ForceEffect(HallowEnchantItem.type) : false;
+                int healDelay = 60;
+                int heal = hallowForce ? 14 : 12;
+                if (HallowEnchantItem != null && HallowHealTime % healDelay == 0)
+                {
+                    Player.Heal(heal);
+                }
+                HallowHealTime--;
+            }
             if (++frameCounter >= 60)
                 frameCounter = 0;
 

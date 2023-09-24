@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -48,6 +49,26 @@ namespace FargowiltasSouls.Content.Projectiles
 
             switch ((int)Projectile.ai[1])
             {
+                case -25: //hallow enchant heal shockwave
+                    {
+                        Player player = Main.player[(int)Projectile.ai[2]];
+                        if (player != null && player.active && !player.dead && !player.ghost)
+                        {
+                            customScaleAlpha = true;
+                            Projectile.Center = player.Center;
+                            maxTime = 40;
+                            color = Color.LightGoldenrodYellow;
+                            Projectile.scale = 2.5f * HallowEnchant.RepelRadius / Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height;
+                            Projectile.alpha = 100 + (int)(155f * Projectile.localAI[0] / maxTime);
+                            color.A = 0;
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                        }
+                        
+                    }
+                    break;
                 case -24: //baron debuff apply at opening
                     {
                         //customScaleAlpha = true;

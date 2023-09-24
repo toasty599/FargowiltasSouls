@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.tileCollide = true;
             Projectile.DamageType = DamageClass.Generic;
         }
-
+        public override bool? CanDamage() => Projectile.frame == 4; //only hit enemies when fully grown
         public override void AI()
         {
             Lighting.AddLight(Projectile.Center, 0.5f, 0.5f, 0.5f);

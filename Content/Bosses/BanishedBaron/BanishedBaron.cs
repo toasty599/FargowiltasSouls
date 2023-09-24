@@ -1761,7 +1761,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             else
                 State = (int)StateEnum.Swim;
             bool expertP2 = NPC.life < NPC.lifeMax / 2 && Phase == 1 && Main.expertMode;
-            bool nonexpertP2 = NPC.life < NPC.lifeMax / 3 && Phase == 1 && Main.expertMode;
+            bool nonexpertP2 = NPC.life < NPC.lifeMax / 3 && Phase == 1 && !Main.expertMode;
             if (expertP2 || nonexpertP2)
             {
                 State = (float)StateEnum.Phase2Transition;

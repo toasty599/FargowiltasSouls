@@ -72,11 +72,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                 TungstenEnchant.TungstenModifyDamage(Player, ref modifiers, proj.DamageType);
             }
 
-            if (HuntressEnchantActive && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().HuntressProj == 1)
+            if (HuntressEnchantActive && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().HuntressProj == 1 && target.type != NPCID.TargetDummy)
             {
                 HuntressEnchant.HuntressBonus(this, proj, target, ref modifiers);
             }
-
             ModifyHitNPCBoth(target, ref modifiers, proj.DamageType);
         }
 
@@ -225,8 +224,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 PearlwoodEnchant.PearlwoodStarDrop(this, target, GetBaseDamage());
             }
-
-            if (BeeEnchantActive && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
+            /*
+            if (BeeEnchantItem != null && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
                 && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && !projectile.usesLocalNPCImmunity && !projectile.usesIDStaticNPCImmunity && projectile.owner == Main.myPlayer)))
             {
                 bool force = ForceEffect(ModContent.ItemType<BeeEnchant>());
@@ -248,6 +247,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     BeeCD = 15;
                 }
             }
+            */
 
             if (PalladEnchantItem != null && !Player.onHitRegen)
             {

@@ -1,10 +1,19 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Common.Graphics.Particles;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.ModPlayers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameInput;
 using Terraria.Graphics;
+using Terraria.Graphics.Capture;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,7 +25,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             // DisplayName.SetDefault("HallowSword");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
+            //ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -31,10 +40,30 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.timeLeft = 18000;
             Projectile.minionSlots = 0;
             Projectile.hide = false;
+
+            Projectile.scale = 1;
         }
 
+        public Vector2 handlePos = Vector2.Zero;
+        private int HitsLeft = 0;
+        public const int SlashCDMax = 60 * 2;
+        public const int MaxDistance = 300;
+        ref float SlashCD => ref Projectile.ai[1];
+        ref float Action => ref Projectile.ai[0];
+
+        ref float SlashRotation => ref Projectile.localAI[0];
+        ref float SlashArc => ref Projectile.localAI[1];
+
+        //actions:
+        //0: idle
+        //1: slashing
+        //2: recovering
         public override void AI()
         {
+            if (handlePos == Vector2.Zero)
+            {
+                handlePos = Projectile.position + Vector2.UnitY * Projectile.height;
+            }
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
@@ -44,310 +73,188 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 return;
             }
 
-            List<int> ai156_blacklistedTargets = new();
+            //why does this exist if it's instantly cleared?????
+            //List<int> ai156_blacklistedTargets = new();
 
             DelegateMethods.v3_1 = Color.Transparent.ToVector3();
             Point point2 = Projectile.Center.ToTileCoordinates();
             DelegateMethods.CastLightOpen(point2.X, point2.Y);
 
-            ai156_blacklistedTargets.Clear();
+            Position(player);
 
-            //AI_156_Think
-            int num;// = 60;
-            int num2;// = num - 1;
-            int num3;// = num + 60;
-            int num4;// = num3 - 1;
-            int num5;// = num + 1;
-
-            num = 40;
-            num2 = num - 1;
-            num3 = num + 40;
-            num4 = num3 - 1;
-            num5 = num + 1;
-
-            if (player.active && Vector2.Distance(player.Center, Projectile.Center) > 1000f)
+            if (Action == 1)
             {
-                Projectile.ai[0] = 0f;
-                Projectile.ai[1] = 0f;
-                Projectile.netUpdate = true;
+                Action = 2;
             }
-            if (Projectile.ai[0] == -1f)
+            if (Action == 2)
             {
-                //int stackedIndex;
-                //int totalIndexes;
-                //AI_GetMyGroupIndexAndFillBlackList(ai156_blacklistedTargets, out stackedIndex, out totalIndexes);
-                AI_156_GetIdlePosition(1, 1, out Vector2 vector, out float targetAngle);
-                Projectile.velocity = Vector2.Zero;
-
-                if (player.Center.X > Projectile.Center.X)
-                {
-                    Projectile.Center = Projectile.Center.MoveTowards(vector, 15f);
-                }
-                else
-                {
-                    Projectile.Center = Projectile.Center.MoveTowards(vector, 32f);
-                }
-
-                Projectile.rotation = Projectile.rotation.AngleLerp(targetAngle, 0.2f);
-                if (Projectile.Distance(vector) < 2f)
-                {
-                    Projectile.ai[0] = 0f;
-                    Projectile.netUpdate = true;
-                    return;
-                }
+                Recover(player);
             }
-            else if (Projectile.ai[0] == 0f)
+
+            if (CheckRightClick(player) && SlashCD <= 0)
             {
-                int stackedIndex3;
-                int totalIndexes3;
-                //AI_GetMyGroupIndexAndFillBlackList(ai156_blacklistedTargets, out stackedIndex3, out totalIndexes3);
-                AI_156_GetIdlePosition(1, 1, out Vector2 value2, out float targetAngle2);
-                Projectile.velocity = Vector2.Zero;
-                Projectile.Center = Vector2.SmoothStep(Projectile.Center, value2, 0.45f);
-                Projectile.rotation = Projectile.rotation.AngleLerp(targetAngle2, 0.45f);
-                if (Main.rand.NextBool(20))
-                {
-                    int num8 = AI_156_TryAttackingNPCs(ai156_blacklistedTargets, false);
-                    if (num8 != -1)
-                    {
-                        AI_156_StartAttack();
-                        Projectile.ai[0] = Main.rand.NextFromList(num, num3);
-                        Projectile.ai[0] = num3;
-                        Projectile.ai[1] = num8;
-                        Projectile.netUpdate = true;
-                    }
-                }
+                HitsLeft = 10;
+                Slash(player);
+            }
+            //ai156_blacklistedTargets.Clear();
+
+        }
+        private void Position(Player player)
+        {
+            const int offsetX = 50;
+            Vector2 offset = Vector2.UnitX * offsetX * Projectile.scale * GetSide(player) + Vector2.UnitY * 0;
+            Vector2 desiredPos = MousePos(player) + offset;
+            handlePos = Vector2.Lerp(handlePos, desiredPos, 0.5f);
+
+            Vector2 desiredCenter = handlePos;// + (Projectile.rotation - MathHelper.PiOver2).ToRotationVector2() * TextureAssets.Projectile[Projectile.type].Value.Width * Projectile.scale / 2;
+            Projectile.velocity = (desiredCenter - Projectile.Center) / 3;
+
+            
+            if (Action == 0)
+            {
+                Projectile.rotation = Wobble();
+            }
+        }
+        private float Wobble()
+        {
+            const int resist = 200;
+            if (Projectile.velocity.ToRotation() > MathHelper.Pi)
+            {
+                return 0f - MathHelper.Pi * Projectile.velocity.X / resist;
             }
             else
             {
-                bool skipBodyCheck = true;
-                int num14 = 0;
-                int num15 = num2;
-                int num16 = 0;
-                if (Projectile.ai[0] >= num5)
-                {
-                    num14 = 1;
-                    num15 = num4;
-                    num16 = num5;
-                }
-                int num17 = (int)Projectile.ai[1];
-                if (!Main.npc.IndexInRange(num17))
-                {
-                    int num18 = AI_156_TryAttackingNPCs(ai156_blacklistedTargets, skipBodyCheck);
-                    if (num18 != -1)
-                    {
-                        Projectile.ai[0] = Main.rand.NextFromList(new int[]
-                        {
-                                                 num,
-                                                 num3
-                        });
-                        Projectile.ai[1] = num18;
-                        AI_156_StartAttack();
-                        Projectile.netUpdate = true;
-                        return;
-                    }
-                    Projectile.ai[0] = -1f;
-                    Projectile.ai[1] = 0f;
-                    Projectile.netUpdate = true;
-                    return;
-                }
-                else
-                {
-                    NPC npc2 = Main.npc[num17];
-                    if (!npc2.CanBeChasedBy(Projectile, false))
-                    {
-                        int num19 = AI_156_TryAttackingNPCs(ai156_blacklistedTargets, skipBodyCheck);
-                        if (num19 != -1)
-                        {
-                            Projectile.ai[0] = Main.rand.NextFromList(new int[]
-                            {
-                                                     num,
-                                                     num3
-                            });
-                            Projectile.ai[1] = num19;
-                            AI_156_StartAttack();
-                            Projectile.netUpdate = true;
-                            return;
-                        }
-                        Projectile.ai[0] = -1f;
-                        Projectile.ai[1] = 0f;
-                        Projectile.netUpdate = true;
-                        return;
-                    }
-                    else
-                    {
-                        //actual attacking is here
-                        Projectile.ai[0] -= 1f;
-                        if (Projectile.ai[0] >= num15)
-                        {
-                            Projectile.direction = Projectile.Center.X < npc2.Center.X ? 1 : -1;
-                            if (Projectile.ai[0] == num15)
-                            {
-                                Projectile.localAI[0] = Projectile.Center.X;
-                                Projectile.localAI[1] = Projectile.Center.Y;
-                            }
-                        }
-                        float lerpValue2 = Utils.GetLerpValue(num15, num16, Projectile.ai[0], true);
-
-                        //spinning attack
-                        if (num14 == 0)
-                        {
-                            Vector2 vector3 = new(Projectile.localAI[0], Projectile.localAI[1]);
-                            if (lerpValue2 >= 0.5f)
-                            {
-                                vector3 = Vector2.Lerp(npc2.Center, Main.player[Projectile.owner].Center, 0.5f);
-                            }
-                            Vector2 center4 = npc2.Center;
-                            float num20 = (center4 - vector3).ToRotation();
-                            float num21 = Projectile.direction == 1 ? -3.14159274f : 3.14159274f;
-                            float num22 = num21 + -num21 * lerpValue2 * 2f;
-                            Vector2 vector4 = num22.ToRotationVector2();
-                            vector4.Y *= 0.5f;
-                            vector4.Y *= 0.8f + (float)Math.Sin((double)(Projectile.identity * 2.3f)) * 0.2f;
-                            vector4 = vector4.RotatedBy((double)num20, default);
-                            float scaleFactor2 = (center4 - vector3).Length() / 2f;
-                            Vector2 center5 = Vector2.Lerp(vector3, center4, 0.5f) + vector4 * scaleFactor2;
-                            Projectile.Center = center5;
-                            float num23 = MathHelper.WrapAngle(num20 + num22 + 0f);
-                            Projectile.rotation = num23 + 1.57079637f;
-                            Vector2 velocity2 = num23.ToRotationVector2() * 10f;
-                            Projectile.velocity = velocity2;
-                            Projectile.position -= Projectile.velocity;
-                        }
-                        //stab attack
-                        if (num14 == 1)
-                        {
-                            Vector2 vector5 = new(Projectile.localAI[0], Projectile.localAI[1]);
-                            vector5 += new Vector2(0f, Utils.GetLerpValue(0f, 0.4f, lerpValue2, true) * -100f);
-                            Vector2 v = npc2.Center - vector5;
-                            Vector2 value3 = v.SafeNormalize(Vector2.Zero) * MathHelper.Clamp(v.Length(), 60f, 150f);
-                            Vector2 value4 = npc2.Center + value3;
-                            float lerpValue3 = Utils.GetLerpValue(0.4f, 0.6f, lerpValue2, true);
-                            float lerpValue4 = Utils.GetLerpValue(0.6f, 1f, lerpValue2, true);
-                            float targetAngle3 = v.SafeNormalize(Vector2.Zero).ToRotation() + 1.57079637f;
-                            Projectile.rotation = Projectile.rotation.AngleTowards(targetAngle3, 0.628318548f);
-                            Projectile.Center = Vector2.Lerp(vector5, npc2.Center, lerpValue3);
-                            if (lerpValue4 > 0f)
-                            {
-                                Projectile.Center = Vector2.Lerp(npc2.Center, value4, lerpValue4);
-                            }
-                        }
-                        if (Projectile.ai[0] == num16)
-                        {
-                            int num24 = AI_156_TryAttackingNPCs(ai156_blacklistedTargets, skipBodyCheck);
-                            if (num24 != -1)
-                            {
-                                Projectile.ai[0] = Main.rand.NextFromList(new int[]
-                                {
-                                                             num,
-                                                             num3
-                                });
-                                Projectile.ai[1] = num24;
-                                AI_156_StartAttack();
-                                Projectile.netUpdate = true;
-                                return;
-                            }
-                            Projectile.ai[0] = -1f;
-                            Projectile.ai[1] = 0f;
-                            Projectile.netUpdate = true;
-                        }
-                    }
-                }
+                return 0f + MathHelper.Pi * Projectile.velocity.X / resist;
             }
-
         }
-        
-        private void AI_156_StartAttack()
+        private void Slash(Player player)
         {
+            Action = 1;
+            Projectile.knockBack = 3;
+            SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
+            SlashRotation = Projectile.rotation;
+            Projectile.rotation -= GetSide(player) * MathHelper.Pi * 0.9f;
+            SlashArc = (Projectile.rotation - SlashRotation + MathHelper.Pi + MathHelper.TwoPi) % MathHelper.TwoPi - MathHelper.Pi;
+            SlashCD = SlashCDMax;
             for (int i = 0; i < Projectile.localNPCImmunity.Length; i++)
             {
                 Projectile.localNPCImmunity[i] = 0;
             }
+            if (!player.HasBuff<HallowCooldownBuff>())
+            {
+                Reflect(Projectile);
+            }
         }
-
-        //private void AI_GetMyGroupIndexAndFillBlackList(List<int> blackListedTargets, out int index, out int totalIndexesInGroup)
-        //{
-        //    index = 0;
-        //    totalIndexesInGroup = 0;
-        //    for (int i = 0; i < 1000; i++)
-        //    {
-        //        Projectile projectile = Main.projectile[i];
-        //        if (projectile.active && projectile.owner == Projectile.owner && projectile.type == Projectile.type && (projectile.type != 759 || projectile.frame == Main.projFrames[projectile.type] - 1))
-        //        {
-        //            if (Projectile.whoAmI > i)
-        //            {
-        //                index++;
-        //            }
-        //            totalIndexesInGroup++;
-        //        }
-        //    }
-        //}
-
-        private void AI_156_GetIdlePosition(int stackedIndex, int totalIndexes, out Vector2 idleSpot, out float idleRotation)
+        private void Recover(Player player)
+        {
+            if (SlashCD <= SlashCDMax - 10)
+            {
+                float desiredRot = Wobble();
+                RotateTowards(desiredRot, 2f / ((float)SlashCD / SlashCDMax));
+            }
+            if (SlashCD > 0)
+            {
+                SlashCD--;
+                if (SlashCD <= 0)
+                {
+                    Action = 0;
+                }
+            }
+        }
+        private void RotateTowards(float rotToAlignWith, float speed)
+        {
+            Vector2 PV = rotToAlignWith.ToRotationVector2();
+            Vector2 LV = Projectile.rotation.ToRotationVector2();
+            float anglediff = (float)(Math.Atan2(PV.Y * LV.X - PV.X * LV.Y, LV.X * PV.X + LV.Y * PV.Y)); //real
+                                                                                                         //change rotation towards target
+            Projectile.rotation = Projectile.rotation.ToRotationVector2().RotatedBy(Math.Sign(anglediff) * Math.Min(Math.Abs(anglediff), speed * MathHelper.Pi / 180)).ToRotation();
+        }
+        private int GetSide(Player player)
+        {
+            return -Math.Sign(MousePos(player).X - player.Center.X);
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Player player = Main.player[Projectile.owner];
-            //idleRotation = 0f;
-            //idleSpot = Vector2.Zero;
-
-            int num2 = stackedIndex + 1;
-            idleRotation = num2 * 6.28318548f * 0.0166666675f * player.direction + 1.57079637f;
-            idleRotation = MathHelper.WrapAngle(idleRotation);
-            int num3 = num2 % totalIndexes;
-            Vector2 value = new Vector2(0f, 0.5f).RotatedBy((double)((player.miscCounterNormalized * (2f + num3) + num3 * 0.5f + player.direction * 1.3f) * 6.28318548f), default) * 4f;
-            idleSpot = idleRotation.ToRotationVector2() * 10f + player.MountedCenter + new Vector2(player.direction * (num2 * -6 - 16), player.gravDir * -15f);
-            idleSpot += value;
-            idleRotation += 1.57079637f;
-        }
-
-        private int AI_156_TryAttackingNPCs(List<int> blackListedTargets, bool skipBodyCheck = false)
-        {
-            float attackDistance = 750;
-
-            Vector2 center = Main.player[Projectile.owner].Center;
-            int result = -1;
-            float num = -1f;
-            NPC ownerMinionAttackTargetNPC = Projectile.OwnerMinionAttackTargetNPC;
-            if (ownerMinionAttackTargetNPC != null && ownerMinionAttackTargetNPC.CanBeChasedBy(this, false))
+            if (player == null || !player.active || player.dead || HitsLeft <= 0)
             {
-                bool flag = true;
-                if (!ownerMinionAttackTargetNPC.boss && blackListedTargets.Contains(ownerMinionAttackTargetNPC.whoAmI))
+                return false;
+            }
+            int width = TextureAssets.Projectile[Type].Value.Width;
+            int height = TextureAssets.Projectile[Type].Value.Height;
+            if (Action != 1)
+            {
+                return false;
+            }
+            if (projHitbox.ClosestPointInRect(handlePos).Distance(handlePos) > width) //optimization, don't do any laser checks if too far away
+            {
+                return false;
+            }
+            const int CollisionChecks = 25; //maybe excessive
+            for (int i = 0; i < CollisionChecks; i++)
+            {
+                float frac = (float)i / CollisionChecks;
+                float angle = SlashRotation + (SlashArc * frac) - (MathHelper.PiOver2);
+                //Particle p = new SmallSparkle(handlePos + angle.ToRotationVector2() * Main.rand.NextFloat(width) * Projectile.scale, Vector2.Zero, Color.LightGoldenrodYellow, 1f, 10, Main.rand.NextFloat(MathHelper.Pi), -Math.Abs(SlashArc));
+                //p.Spawn();
+                float num6 = 0f;
+                if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), handlePos, handlePos + angle.ToRotationVector2() * width * Projectile.scale, height * Projectile.scale, ref num6))
                 {
-                    flag = false;
-                }
-                if (ownerMinionAttackTargetNPC.Distance(center) > attackDistance)
-                {
-                    flag = false;
-                }
-                if (!skipBodyCheck && !Projectile.CanHitWithOwnBody(ownerMinionAttackTargetNPC))
-                {
-                    flag = false;
-                }
-                if (flag)
-                {
-                    return ownerMinionAttackTargetNPC.whoAmI;
+                    HitsLeft--;
+                    return true;
                 }
             }
-            for (int i = 0; i < 200; i++)
-            {
-                NPC npc = Main.npc[i];
-                if (npc.CanBeChasedBy(this, false) && (npc.boss || !blackListedTargets.Contains(i)))
-                {
-                    float num2 = npc.Distance(center);
-                    if (num2 <= attackDistance && (num2 <= num || num == -1f) && (skipBodyCheck || Projectile.CanHitWithOwnBody(npc)))
-                    {
-                        num = num2;
-                        result = i;
-                    }
-                }
-            }
-            return result;
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = oldVelocity.X;
-            if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = oldVelocity.Y;
             return false;
+        }
+        private static void Reflect(Projectile sword)
+        {
+
+            foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(p) && sword.Colliding(sword.Hitbox, p.Hitbox)))
+            {
+                Player player = Main.player[sword.owner];
+                if (player == null || !player.active)
+                {
+                    break;
+                }
+                int damageCap = player.GetModPlayer<FargoSoulsPlayer>().ForceEffect(ModContent.ItemType<AncientHallowEnchant>()) ? 200 : 150;
+                if (p.damage > damageCap)
+                {
+                    continue;
+                }
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/parrynmuse"), p.Center);
+                p.hostile = false;
+                p.friendly = true;
+                player.AddBuff(ModContent.BuffType<HallowCooldownBuff>(), 60 * 15);
+                p.owner = sword.owner;
+                p.damage = sword.damage;
+                p.DamageType = sword.DamageType;
+                const int speed = 30;
+                Vector2 targetVel = Vector2.Normalize(-p.velocity) * speed; //by default, reverse velocity
+                NPC targetNPC = p.GetSourceNPC();
+                if (!(targetNPC != null && targetNPC.active && !targetNPC.townNPC)) //if cannot find source npc, send towards closest npc instead
+                {
+                    int target = p.FindTargetWithLineOfSight(800);
+                    targetNPC = Main.npc[target];
+                }
+                if (targetNPC != null && targetNPC.active && !targetNPC.townNPC) //check if found any of the above npc checks, if so, send towards the npc
+                {
+                    targetVel = Vector2.Normalize(targetNPC.Center - p.Center) * speed;
+                }
+                p.velocity = targetVel;
+                // Don't know if this will help but here it is
+                p.netUpdate = true;
+                
+            }
+
+        }
+        private Vector2 MousePos(Player player)
+        {
+            return player.Center + (player.Center.DirectionTo(Main.MouseWorld) * Math.Min((Main.MouseWorld - player.Center).Length(), MaxDistance));
+        }
+        private bool CheckRightClick(Player player)
+        {
+            return player.controlUseTile && !player.tileInteractionHappened && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC
+                && !Main.SmartInteractShowingGenuine && PlayerInput.Triggers.Current.MouseRight;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -375,17 +282,21 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             proj.GetFairyQueenWeaponsColor(0f, 0f, new float?(hueOverride));
             Color fairyQueenWeaponsColor = proj.GetFairyQueenWeaponsColor(0.5f, 0f, new float?(hueOverride));
             Texture2D value = TextureAssets.Projectile[proj.type].Value;
+            vector += (proj.rotation - MathHelper.PiOver2).ToRotationVector2() * value.Width * proj.scale / 2;
             Vector2 origin = value.Frame(1, 1, 0, 0, 0, 0).Size() / 2f;
+            //Vector2 origin = Vector2.UnitY * value.Height;
             Color color = Color.White * proj.Opacity;
             color.A = (byte)(color.A * 0.7f);
             fairyQueenWeaponsColor.A /= 2;
             float scale = proj.scale;
             float num = proj.rotation - 1.57079637f;
             float num2 = proj.Opacity * 0.3f;
+
+            float ai0 = 0; //i have no fucking clue what this number does
             if (num2 > 0f)
             {
-                float lerpValue = Utils.GetLerpValue(60f, 50f, proj.ai[0], true);
-                float scale2 = Utils.GetLerpValue(70f, 50f, proj.ai[0], true) * Utils.GetLerpValue(40f, 45f, proj.ai[0], true);
+                float lerpValue = Utils.GetLerpValue(60f, 50f, ai0, true);
+                float scale2 = Utils.GetLerpValue(70f, 50f, ai0, true) * Utils.GetLerpValue(40f, 45f, ai0, true);
                 for (float num3 = 0f; num3 < 1f; num3 += 0.166666672f)
                 {
                     Vector2 value2 = num.ToRotationVector2() * -120f * num3 * lerpValue;
@@ -395,6 +306,24 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 {
                     Vector2 value3 = (num4 * 6.28318548f + num).ToRotationVector2() * 4f * scale;
                     Main.EntitySpriteDraw(value, vector + value3, null, fairyQueenWeaponsColor * num2, num, origin, scale, SpriteEffects.None, 0);
+                }
+            }
+            HallowSword sword = proj.ModProjectile != null && proj.ModProjectile is HallowSword ? proj.ModProjectile as HallowSword : null;
+            const float slashTime = 5;
+            float fade = (float)(sword.SlashCD + slashTime - SlashCDMax) / slashTime;
+            Color fadeColor = Color.Lerp(Color.Transparent, Color.LightGoldenrodYellow with { A = 0 }, fade);
+            if (sword != null && sword.Action == 2 && sword.SlashCD >= SlashCDMax - slashTime)
+            {
+                const int SlashImages = 100; //lol
+                for (int i = 0; i < SlashImages; i++)
+                {
+                    float frac = 1-((float)i / SlashImages);
+                    float angle = sword.SlashRotation + (sword.SlashArc * frac);
+                    Vector2 imagePos = proj.Center - Main.screenPosition + (angle - MathHelper.PiOver2).ToRotationVector2() * value.Width * proj.scale / 2;
+                    float imageRot = angle - MathHelper.PiOver2;
+                    Color imageColor = Color.Lerp(Color.Transparent, fadeColor, frac);
+                    Main.EntitySpriteDraw(value, imagePos, null, imageColor, imageRot, origin, scale, SpriteEffects.None, 0);
+                    //Main.EntitySpriteDraw(value, imagePos, null, fairyQueenWeaponsColor * num2 * 0.5f * (1f - frac), imageRot, origin, scale, SpriteEffects.None, 0);
                 }
             }
             Main.EntitySpriteDraw(value, vector, null, color, num, origin, scale, SpriteEffects.None, 0);

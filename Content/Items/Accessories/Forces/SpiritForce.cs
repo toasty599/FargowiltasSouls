@@ -74,7 +74,7 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
             modPlayer.spiritForce = true;
             FossilEnchant.FossilEffect(player, Item);
             modPlayer.ForbiddenEffect();
-            HallowEnchant.HallowEffect(player);
+            HallowEnchant.HallowEffect(player, Item);
             AncientHallowEnchant.AncientHallowEffect(player, Item);
             modPlayer.TikiEffect(hideVisual);
             modPlayer.SpectreEffect(hideVisual);

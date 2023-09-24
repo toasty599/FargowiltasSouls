@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -28,6 +29,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.scale = 1f;
             Projectile.light = 1;
             Projectile.alpha = 255;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
         public bool Fade;
         public bool Animate;
