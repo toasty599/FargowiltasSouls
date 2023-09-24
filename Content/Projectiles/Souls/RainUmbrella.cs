@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             int hp = 200;
 
-            if (modPlayer.natureForce)
+            if (modPlayer.ForceEffect(modPlayer.RainEnchantItem.type))
             {
                 hp = 500;
             }
@@ -49,8 +50,9 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || player.GetModPlayer<FargoSoulsPlayer>().RainEnchantItem == null || !player.GetToggleValue("Rain")))
+            if (player.whoAmI == Main.myPlayer && (player.dead || modPlayer.RainEnchantItem == null || !player.GetToggleValue("Rain")))
             {
                 Projectile.Kill();
                 return;
@@ -62,6 +64,16 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             if (firstTick)
             {
+                const int num226 = 12;
+                for (int i = 0; i < num226; i++)
+                {
+                    Vector2 vector6 = Vector2.UnitX.RotatedBy(Projectile.rotation) * 6f;
+                    vector6 = vector6.RotatedBy((i - (num226 / 2 - 1)) * 6.28318548f / num226, default) + Projectile.Center;
+                    Vector2 vector7 = vector6 - Projectile.Center;
+                    int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Water, 0f, 0f, 0, default, 1.5f);
+                    Main.dust[num228].noGravity = true;
+                    Main.dust[num228].velocity = vector7;
+                }
 
                 reflectHP = getReflectHP(player);
                 firstTick = false;
@@ -139,6 +151,11 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                     x.netUpdate = true;
 
                     reflectHP -= x.damage;
+
+                    if (modPlayer.ForceEffect(modPlayer.RainEnchantItem.type))
+                    {
+                        x.damage *= 2;
+                    }
 
                     if (reflectHP <= 0)
                     {

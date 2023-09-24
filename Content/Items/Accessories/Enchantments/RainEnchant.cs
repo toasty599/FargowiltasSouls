@@ -48,7 +48,7 @@ Effects of Inner Tube
             //modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainCloud>(), 24, 0);
             if (modPlayer.RainCD == 0)
             {
-                modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainUmbrella>(), 24, 0);
+                modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainUmbrella>(), 0, 0);
 
                 if (!player.controlDown)
                 {
