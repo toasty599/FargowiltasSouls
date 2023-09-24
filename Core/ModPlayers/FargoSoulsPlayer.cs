@@ -234,7 +234,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             TikiEnchantActive = false;
             SolarEnchantActive = false;
             ShinobiEnchantActive = false;
-            ValhallaEnchantActive = false;
+            ValhallaEnchantActive = null;
             DarkArtistEnchantItem = null;
             RedRidingEnchantItem = null;
             TungstenEnchantItem = null;
@@ -1305,14 +1305,14 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             float bonus = 0f;
 
-            if ((SquireEnchantItem != null || ValhallaEnchantActive) && Player.GetToggleValue("Valhalla", false))
+            if ((SquireEnchantItem != null || ValhallaEnchantItem != null) && Player.GetToggleValue("Valhalla", false))
             {
                 bool forceEffect = ForceEffect(ModContent.ItemType<SquireEnchant>()) || ForceEffect(ModContent.ItemType<ValhallaKnightEnchant>());
                 if (Eternity)
                     bonus = 4f;
-                else if (forceEffect && ValhallaEnchantActive)
+                else if (forceEffect && ValhallaEnchantItem != null)
                     bonus = 1f / 2f;
-                else if (ValhallaEnchantActive || (forceEffect && SquireEnchantItem != null))
+                else if (ValhallaEnchantItem != null || (forceEffect && SquireEnchantItem != null))
                     bonus = 1f / 3f;
                 else if (SquireEnchantItem != null)
                     bonus = 1f / 4f;

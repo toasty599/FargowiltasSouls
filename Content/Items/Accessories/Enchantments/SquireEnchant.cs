@@ -70,10 +70,32 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     modPlayer.BaseMountType = mount.Type;
                 }
 
-                if (modPlayer.ValhallaEnchantActive)
+                int defenseBoost;
+                float accelBoost;
+                float speedBoost;
+
+                if (modPlayer.ValhallaEnchantItem != null && modPlayer.ForceEffect(modPlayer.ValhallaEnchantItem.type))
+                {
+                    defenseBoost = 30;
+                    accelBoost = 3f;
+                    speedBoost = 2f;
+                }
+                else if (modPlayer.ValhallaEnchantItem != null || modPlayer.ForceEffect(modPlayer.SquireEnchantItem.type))
+                {
+                    defenseBoost = 20;
+                    accelBoost = 2f;
+                    speedBoost = 2f;
+                }
+                else
+                {
+                    defenseBoost = 10;
+                    accelBoost = 1.5f;
+                    speedBoost = 1.5f;
+                }
+
+                if (modPlayer.ValhallaEnchantItem != null)
                 {
                     player.DisplayToggle("Valhalla");
-                    player.statDefense += 15;
 
                     if (modPlayer.IsDashingTimer == 0)
                     {
@@ -108,18 +130,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                             }
                         }
                     }
-
-                    //spawn lance..... eh
-                    //Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, player.velocity, ProjectileID.ShadowJoustingLance, 10, 0, player.whoAmI);
                 }
 
-                player.statDefense += 10;
                 player.hasJumpOption_Fart = true;
-
-                mount._data.acceleration = modPlayer.BaseSquireMountData.acceleration * 3f;
-                mount._data.dashSpeed = modPlayer.BaseSquireMountData.dashSpeed * 2f;
-                //mount._data.jumpHeight = modPlayer.BaseSquireMountData.jumpHeight * 3;
+                player.statDefense += defenseBoost;
+                
+                mount._data.acceleration = modPlayer.BaseSquireMountData.acceleration * accelBoost;
+                mount._data.dashSpeed = modPlayer.BaseSquireMountData.dashSpeed * speedBoost;
                 mount._data.fallDamage = 0;
+
+                mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * speedBoost;
+                mount._data.swimSpeed = modPlayer.BaseSquireMountData.swimSpeed * speedBoost;
+                mount._data.runSpeed = modPlayer.BaseSquireMountData.runSpeed * speedBoost;
             }
         }
 
