@@ -234,7 +234,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             TikiEnchantActive = false;
             SolarEnchantActive = false;
             ShinobiEnchantActive = false;
-            ValhallaEnchantActive = null;
+            ValhallaEnchantItem = null;
             DarkArtistEnchantItem = null;
             RedRidingEnchantItem = null;
             TungstenEnchantItem = null;

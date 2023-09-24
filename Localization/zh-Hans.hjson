@@ -51,7 +51,7 @@ Mods: {
 			Pearlwood: 增加伤害，冷却时间减少
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
-			// Rain: No upgrade
+			// Rain: Umbrella can block up to 500 damage and reflected damage is doubled
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升
 			Shadewood: 增加光环大小和血液伤害，并且会附加灵液效果
@@ -65,13 +65,13 @@ Mods: {
 			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
 			// Shadow: Number of Shadow Orbs increased
-			// Squire: No upgrade
+			// Squire: Increases mount defense by 10, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
 			// Tiki: Increases whip range by 20%
 			Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
 			Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
 			Tungsten: 将武器大小提升到300%，伤害加成提升到20%，冷却时间减少
 			// Turtle: Occasionaly recover a projectile block point, number of needles and damage increased
-			// ValhallaKnight: No upgrade
+			// ValhallaKnight: Increases mount defense by 10, acceleration from 2x to 3x, and heal bonus from 33% to 50%
 			// Vortex: No upgrade
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
 			// AshWood: Fires balls of fire more often

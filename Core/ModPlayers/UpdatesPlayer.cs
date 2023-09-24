@@ -515,7 +515,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (SquireEnchantItem != null)
                 Player.setSquireT2 = true;
 
-            if (ValhallaEnchantActive)
+            if (ValhallaEnchantItem != null)
                 Player.setSquireT3 = true;
 
             if (ApprenticeEnchantItem != null)

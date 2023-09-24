@@ -70,7 +70,7 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
             GladiatorEnchant.GladiatorEffect(player);
             RedRidingEnchant.RedRidingEffect(player, Item);
             HuntressEnchant.HuntressEffect(player);
-            modPlayer.ValhallaEnchantActive = true;
+            modPlayer.ValhallaEnchantItem = Item;
             SquireEnchant.SquireEffect(player, Item);
             
         }

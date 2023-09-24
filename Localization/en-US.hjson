@@ -65,7 +65,7 @@ Mods: {
 			Stardust: Timestop cooldown decreased from 60 to 50
 			Snow: No upgrade
 			Shadow: Number of Shadow Orbs increased
-			Squire: Increases mount defense by 10, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33% AND grants mount dash
+			Squire: Increases mount defense by 10, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
 			Tiki: Increases whip range by 20%
 			Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
@@ -2511,7 +2511,7 @@ Mods: {
 				DisplayName: Squire Enchantment
 				Tooltip:
 					'''
-					Increases mount acceleration and top speed
+					Increases mount acceleration, top speed, and jump height
 					While mounted, grants 10 defense, a fart jump, and fall damage immunity
 					Increases the effectiveness of healing sources by 25%
 					Ballista pierces more targets and panics when you take damage
@@ -2591,7 +2591,7 @@ Mods: {
 				DisplayName: Valhalla Knight Enchantment
 				Tooltip:
 					'''
-					Increases mount acceleration and top speed
+					Increases mount acceleration, top speed, and jump height
 					While mounted, grants 25 defense, a fart jump, fall damage immunity, and dash
 					Increases the effectiveness of healing sources by 33%
 					Greatly enhances Ballista effectiveness

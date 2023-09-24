@@ -63,9 +63,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     modPlayer.BaseSquireMountData.dashSpeed = original.dashSpeed;
                     modPlayer.BaseSquireMountData.fallDamage = original.fallDamage;
 
-                    //modPlayer.BaseSquireMountData.jumpSpeed = original.jumpSpeed;
-                    //modPlayer.BaseSquireMountData.swimSpeed = original.swimSpeed;
-                    //modPlayer.BaseSquireMountData.runSpeed = original.runSpeed;
+                    modPlayer.BaseSquireMountData.jumpSpeed = original.jumpSpeed;
+                    modPlayer.BaseSquireMountData.swimSpeed = original.swimSpeed;
+                    modPlayer.BaseSquireMountData.runSpeed = original.runSpeed;
 
                     modPlayer.BaseMountType = mount.Type;
                 }
@@ -140,8 +140,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 mount._data.fallDamage = 0;
 
                 mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * speedBoost;
-                mount._data.swimSpeed = modPlayer.BaseSquireMountData.swimSpeed * speedBoost;
-                mount._data.runSpeed = modPlayer.BaseSquireMountData.runSpeed * speedBoost;
+                //mount._data.swimSpeed = modPlayer.BaseSquireMountData.swimSpeed * speedBoost;
+                //mount._data.runSpeed = modPlayer.BaseSquireMountData.runSpeed * speedBoost;
             }
         }
 
