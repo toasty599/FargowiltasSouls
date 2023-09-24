@@ -46,8 +46,9 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public Vector2 handlePos = Vector2.Zero;
         private int HitsLeft = 0;
-        public const int SlashCDMax = 60 * 2;
+        public int SlashCDMax = 60 * 2;
         public const int MaxDistance = 300;
+        public bool Reflected = false;
         ref float SlashCD => ref Projectile.ai[1];
         ref float Action => ref Projectile.ai[0];
 
@@ -135,7 +136,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             SlashRotation = Projectile.rotation;
             Projectile.rotation -= GetSide(player) * MathHelper.Pi * 0.9f;
             SlashArc = (Projectile.rotation - SlashRotation + MathHelper.Pi + MathHelper.TwoPi) % MathHelper.TwoPi - MathHelper.Pi;
-            SlashCD = SlashCDMax;
+            
             for (int i = 0; i < Projectile.localNPCImmunity.Length; i++)
             {
                 Projectile.localNPCImmunity[i] = 0;
@@ -144,10 +145,12 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 Reflect(Projectile);
             }
+            SlashCDMax = Reflected ? 60 * 2 : 60;
+            SlashCD = SlashCDMax;
         }
         private void Recover(Player player)
         {
-            if (SlashCD <= SlashCDMax - 10)
+            if (SlashCD <= (SlashCDMax) - 10)
             {
                 float desiredRot = Wobble();
                 RotateTowards(desiredRot, 2f / ((float)SlashCD / SlashCDMax));
@@ -206,27 +209,25 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
             return false;
         }
-        private static void Reflect(Projectile sword)
+        private void Reflect(Projectile sword)
         {
-
-            foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(p) && sword.Colliding(sword.Hitbox, p.Hitbox)))
+            Reflected = false;
+            Player player = Main.player[sword.owner];
+            if (player == null || !player.active)
             {
-                Player player = Main.player[sword.owner];
-                if (player == null || !player.active)
-                {
-                    break;
-                }
-                int damageCap = player.GetModPlayer<FargoSoulsPlayer>().ForceEffect(ModContent.ItemType<AncientHallowEnchant>()) ? 200 : 150;
-                if (p.damage > damageCap)
-                {
-                    continue;
-                }
+                return;
+            }
+            int damageCap = player.GetModPlayer<FargoSoulsPlayer>().ForceEffect(ModContent.ItemType<AncientHallowEnchant>()) ? 200 : 150;
+
+            foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(p) && p.damage <= damageCap && sword.Colliding(sword.Hitbox, p.Hitbox)))
+            {
                 SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/parrynmuse"), p.Center);
+                Reflected = true;
                 p.hostile = false;
                 p.friendly = true;
                 player.AddBuff(ModContent.BuffType<HallowCooldownBuff>(), 60 * 15);
                 p.owner = sword.owner;
-                p.damage = sword.damage;
+                p.damage = (int)(sword.damage * 1.5f);
                 p.DamageType = sword.DamageType;
                 const int speed = 30;
                 Vector2 targetVel = Vector2.Normalize(-p.velocity) * speed; //by default, reverse velocity
@@ -310,9 +311,9 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
             HallowSword sword = proj.ModProjectile != null && proj.ModProjectile is HallowSword ? proj.ModProjectile as HallowSword : null;
             const float slashTime = 5;
-            float fade = (float)(sword.SlashCD + slashTime - SlashCDMax) / slashTime;
+            float fade = (float)(sword.SlashCD + slashTime - sword.SlashCDMax) / slashTime;
             Color fadeColor = Color.Lerp(Color.Transparent, Color.LightGoldenrodYellow with { A = 0 }, fade);
-            if (sword != null && sword.Action == 2 && sword.SlashCD >= SlashCDMax - slashTime)
+            if (sword != null && sword.Action == 2 && sword.SlashCD >= sword.SlashCDMax - slashTime)
             {
                 const int SlashImages = 100; //lol
                 for (int i = 0; i < SlashImages; i++)
