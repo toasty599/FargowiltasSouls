@@ -16,6 +16,8 @@ namespace FargowiltasSouls.Core.Globals
 
         public override bool InstancePerEntity => true;
 
+        public bool RunEmodeAI = true;
+
         public sealed override bool AppliesToEntity(NPC entity, bool lateInstantiation)
         {
             return lateInstantiation && Matcher.Satisfies(entity.type);
@@ -55,7 +57,10 @@ namespace FargowiltasSouls.Core.Globals
 
                 OnFirstTick(npc);
             }
-
+            if (!RunEmodeAI)
+            {
+                return false;
+            }
             return SafePreAI(npc);
         }
 
