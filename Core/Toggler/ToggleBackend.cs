@@ -255,6 +255,7 @@ namespace FargowiltasSouls.Core.Toggler
             player.SetToggleValue("DefensePaladin", true);
             player.SetToggleValue("ShimmerImmunity", true);
             player.SetToggleValue("MasoAeolus", true);
+            player.SetToggleValue("MasoAeolusFrog", true);
             player.SetToggleValue("MasoConcoction", true);
             player.SetToggleValue("ManaFlower", true);
         }

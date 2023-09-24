@@ -1698,7 +1698,10 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //amph boot
             Player.autoJump = true;
-            Player.frogLegJumpBoost = true;
+            if (Player.GetToggleValue("MasoAeolusFrog"))
+            {
+                Player.frogLegJumpBoost = true;
+            }
 
             if (Player.GetToggleValue("Supersonic") && !Player.GetModPlayer<FargoSoulsPlayer>().noSupersonic && !FargoSoulsUtil.AnyBossAlive())
             {

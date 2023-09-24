@@ -477,6 +477,7 @@ Mods: {
 			DeerSinewDashConfig: Deer Sinew Dash
 			MasoAeolusConfig: Aeolus Jump
 			MasoAeolusFlowerConfig: Flower Boots
+			MasoAeolusFrogConfig: Frog Jump
 			MasoIconConfig: Sinister Icon Spawn Rates
 			MasoIconDropsConfig: Sinister Icon Drops
 			MasoGrazeConfig: Graze
@@ -6007,6 +6008,7 @@ Mods: {
 		DeerSinewDashConfig: "[i:FargowiltasSouls/DeerSinew][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DeerSinewDashConfig}]"
 		MasoAeolusConfig: "[i:FargowiltasSouls/AeolusBoots][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoAeolusConfig}]"
 		MasoAeolusFlowerConfig: "[i:FargowiltasSouls/AeolusBoots][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoAeolusFlowerConfig}]"
+		MasoAeolusFrogConfig: "[i:FargowiltasSouls/AeolusBoots][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoAeolusFrogConfig}]"
 		MasoIconConfig: "[i:FargowiltasSouls/SinisterIcon][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoIconConfig}]"
 		MasoIconDropsConfig: "[i:FargowiltasSouls/SinisterIcon][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoIconDropsConfig}]"
 		MasoGrazeConfig: "[i:FargowiltasSouls/SparklingAdoration][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoGrazeConfig}]"
