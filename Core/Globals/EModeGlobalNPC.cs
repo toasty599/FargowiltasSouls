@@ -82,6 +82,10 @@ namespace FargowiltasSouls.Core.Globals
             if (!WorldSavingSystem.EternityMode) return;
 
             npc.value = (int)(npc.value * 1.3);
+            if (!npc.boss && !npc.townNPC)
+            {
+                npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.1f);
+            }
 
             //VERY old masomode boss scaling numbers, leaving here in case we ever want to do the funny again
             // +2.5% hp each kill 
