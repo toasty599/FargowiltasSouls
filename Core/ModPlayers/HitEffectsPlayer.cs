@@ -255,7 +255,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
             bool wetCheck = target.HasBuff(BuffID.Wet) && Main.rand.NextBool(4);
-            if (CopperEnchantItem != null && hitInfo.Crit || wetCheck)
+            if (CopperEnchantItem != null && (hitInfo.Crit || wetCheck))
             {
                 CopperEnchant.CopperProc(this, target);
             }
@@ -307,6 +307,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (SnowEnchantActive)
             {
                 target.AddBuff(BuffID.Frostburn, 120);
+            }
+
+            if (RainEnchantItem != null)
+            {
+                target.AddBuff(BuffID.Wet, 180);
             }
 
             if (GodEaterImbue)

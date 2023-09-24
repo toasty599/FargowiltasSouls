@@ -56,6 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public bool ChilledProj;
         public int ChilledTimer;
         public int NinjaSpeedup;
+        public bool canUmbrellaReflect = true;
 
         public int HuntressProj = -1; // -1 = non weapon proj, doesnt matter if it hits
         //1 = marked as weapon proj

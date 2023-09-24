@@ -51,7 +51,7 @@ Mods: {
 			Pearlwood: Damage increased and cooldown reduced
 			Platinum: No upgrade
 			Pumpkin: Pumpkins can grow while flying, and heal for twice as much
-			Rain: No upgrade
+			Rain: Umbrella can block up to 500 damage and reflected damage is doubled
 			RedRiding: Arrow rain has less cooldown and deals more damage
 			RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
 			Shadewood: Aura size and blood damage increased, additionally applies Ichor
@@ -65,13 +65,13 @@ Mods: {
 			Stardust: Timestop cooldown decreased from 60 to 50
 			Snow: No upgrade
 			Shadow: Number of Shadow Orbs increased
-			Squire: No upgrade
+			Squire: Increases mount defense by 10, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
 			Tiki: Increases whip range by 20%
 			Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
 			Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
 			Turtle: Occasionaly recover a projectile block point, number of needles and damage increased
-			ValhallaKnight: No upgrade
+			ValhallaKnight: Increases mount defense by 10, acceleration from 2x to 3x, and heal bonus from 33% to 50%
 			Vortex: No upgrade
 			Wood: Bestiary and banner multiplier increased to 5
 			AshWood: Fires balls of fire more often
@@ -2370,9 +2370,10 @@ Mods: {
 				DisplayName: Rain Enchantment
 				Tooltip:
 					'''
-					Grants immunity to Wet
-					Spawns a miniature storm that follows your cursor
-					It only attacks if there is a clear line of sight between you
+					Spawns an umbrella that reflects projectiles from above
+					It will break after blocking 200 damage
+					While active you have featherfall
+					Grants immunity to Wet and all attacks inflict Wet
 					Effects of Inner Tube
 					'Come again some other day'
 					'''
@@ -2511,7 +2512,7 @@ Mods: {
 				DisplayName: Squire Enchantment
 				Tooltip:
 					'''
-					Increases mount acceleration and top speed
+					Increases mount acceleration, top speed, and jump height
 					While mounted, grants 10 defense, a fart jump, and fall damage immunity
 					Increases the effectiveness of healing sources by 25%
 					Ballista pierces more targets and panics when you take damage
@@ -2591,7 +2592,7 @@ Mods: {
 				DisplayName: Valhalla Knight Enchantment
 				Tooltip:
 					'''
-					Increases mount acceleration and top speed
+					Increases mount acceleration, top speed, and jump height
 					While mounted, grants 25 defense, a fart jump, fall damage immunity, and dash
 					Increases the effectiveness of healing sources by 33%
 					Greatly enhances Ballista effectiveness
@@ -2745,7 +2746,7 @@ Mods: {
 					[i:FargowiltasSouls/CrimsonEnchant] After taking a hit, regen is greatly increased until the hit is healed off
 					[i:FargowiltasSouls/MoltenEnchant] Nearby enemies are ignited in a greater radius
 					[i:FargowiltasSouls/MoltenEnchant] When you are hurt, you violently explode to damage nearby enemies
-					[i:FargowiltasSouls/RainEnchant] Spawns a miniature storm to follow you around
+					[i:FargowiltasSouls/RainEnchant] Spawns an umbrella that blocks projectiles from above
 					[i:FargowiltasSouls/FrostEnchant] Icicles will start to appear around you
 					[i:FargowiltasSouls/SnowEnchant] Press the Freeze Key to temporarily chill everything
 					[i:FargowiltasSouls/ChlorophyteEnchant] Summons a ring of leaf crystals to shoot at nearby enemies
@@ -5915,6 +5916,7 @@ Mods: {
 			HiveSentry.DisplayName: Hive
 			ROB.DisplayName: R.O.B
 			MeteorFlame.DisplayName: Meteor Flame
+			RainUmbrella.DisplayName: Rain Umbrella
 			BeeFlower.DisplayName: Bee Flower
 		}
 

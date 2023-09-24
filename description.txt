@@ -11,6 +11,10 @@ and Summons a Flameburst minion that will also fire while you attack
 -Reworked Valhalla Knight Enchantment: Squire effect but mounts grant 15 more defense and have a dash
 -Updated recipe
 
+-Reworked Rain Enchantment: Spawns an umbrella that reflects projectiles from above and grants featherfall. It will break for awhile after taking so much damage. All attacks inflict Wet
+
+-Resprited souls
+
 -Removed most of the extra loot Wall of Flesh dropped in emode
 
 -See the wiki for full details!

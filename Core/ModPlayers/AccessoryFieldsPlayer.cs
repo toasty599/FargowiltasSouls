@@ -182,7 +182,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
         public int PumpkinSpawnCD;
-        public bool RainEnchantActive;
+        public Item RainEnchantItem;
+        public int RainCD;
+
         public Item RedRidingEnchantItem;
         public int RedRidingArrowCD;
 
@@ -215,7 +217,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int TurtleShellHP = 25;
         private int turtleRecoverCD = 240;
         public bool ShellHide;
-        public bool ValhallaEnchantActive;
+        public Item ValhallaEnchantItem;
         public bool VortexEnchantActive;
         public bool VortexStealth;
         public bool WizardEnchantActive;

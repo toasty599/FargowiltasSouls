@@ -3148,7 +3148,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             Player.shieldRaised = Player.selectedItem != 58 && Player.controlUseTile && !Player.tileInteractionHappened && Player.releaseUseItem
                 && !Player.controlUseItem && !Player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC
-                && !Main.SmartInteractShowingGenuine && !Player.mount.Active &&
+                && !Main.SmartInteractShowingGenuine &&
                 Player.itemAnimation == 0 && Player.itemTime == 0 && Player.reuseDelay == 0 && PlayerInput.Triggers.Current.MouseRight;
 
             if (Player.shieldRaised)

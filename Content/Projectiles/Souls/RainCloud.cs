@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             //destroy duplicates if they somehow spawn
             if (player.ownedProjectileCounts[Projectile.type] > 1
-                || Projectile.owner == Main.myPlayer && (!player.GetToggleValue("Rain") || !modPlayer.RainEnchantActive))
+                || Projectile.owner == Main.myPlayer && (!player.GetToggleValue("Rain") || modPlayer.RainEnchantItem == null))
             {
                 Projectile.Kill();
             }
