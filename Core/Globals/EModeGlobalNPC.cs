@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Core.Globals
             if (!WorldSavingSystem.EternityMode) return;
 
             npc.value = (int)(npc.value * 1.3);
-            if (!npc.boss && !npc.townNPC && !Main.masterMode)
+            if (!npc.boss && !npc.townNPC && !Main.masterMode && !FargoSoulsUtil.AnyBossAlive())
             {
                 npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.1f);
             }
