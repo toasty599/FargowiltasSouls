@@ -309,6 +309,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 target.AddBuff(BuffID.Frostburn, 120);
             }
 
+            if (RainEnchantItem != null)
+            {
+                target.AddBuff(BuffID.Wet, 180);
+            }
+
             if (GodEaterImbue)
             {
                 /*if (target.FindBuffIndex(ModContent.BuffType<GodEater>()) < 0 && target.aiStyle != 37)

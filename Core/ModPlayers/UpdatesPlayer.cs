@@ -93,7 +93,13 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (MonkDashing == 0 && Player.mount.Active)
                 {
-                    Player.velocity *= 0.5f;
+                    if (Player.velocity.Length() > Player.mount._data.dashSpeed)
+                    {
+                        float difference = Player.velocity.Length() / Player.mount._data.dashSpeed;
+
+                        Player.velocity *= 1 / difference;
+                    }
+                    
                     Player.dashDelay = 0;
                 }
             }
@@ -134,6 +140,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Mount.mounts[BaseMountType].acceleration = BaseSquireMountData.acceleration;
                 Mount.mounts[BaseMountType].dashSpeed = BaseSquireMountData.dashSpeed;
                 Mount.mounts[BaseMountType].fallDamage = BaseSquireMountData.fallDamage;
+
+                Mount.mounts[BaseMountType].jumpSpeed = BaseSquireMountData.jumpSpeed;
+                Mount.mounts[BaseMountType].swimSpeed = BaseSquireMountData.swimSpeed;
+                Mount.mounts[BaseMountType].runSpeed = BaseSquireMountData.runSpeed;
                 BaseMountType = -1;
             }
 

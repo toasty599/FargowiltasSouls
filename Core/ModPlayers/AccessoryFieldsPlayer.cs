@@ -181,7 +181,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
         public int PumpkinSpawnCD;
-        public bool RainEnchantActive;
+        public Item RainEnchantItem;
+        public int RainCD;
+
         public Item RedRidingEnchantItem;
         public int RedRidingArrowCD;
 

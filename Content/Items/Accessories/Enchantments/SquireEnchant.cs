@@ -44,12 +44,28 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             {
                 if (modPlayer.BaseMountType != mount.Type)
                 {
+                    //we want to reset the orev mount first or all hell breaks loose
+                    if (modPlayer.BaseMountType != -1)
+                    {
+                        Mount.mounts[modPlayer.BaseMountType].acceleration = modPlayer.BaseSquireMountData.acceleration;
+                        Mount.mounts[modPlayer.BaseMountType].dashSpeed = modPlayer.BaseSquireMountData.dashSpeed;
+                        Mount.mounts[modPlayer.BaseMountType].fallDamage = modPlayer.BaseSquireMountData.fallDamage;
+
+                        Mount.mounts[modPlayer.BaseMountType].jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed;
+                        Mount.mounts[modPlayer.BaseMountType].swimSpeed = modPlayer.BaseSquireMountData.swimSpeed;
+                        Mount.mounts[modPlayer.BaseMountType].runSpeed = modPlayer.BaseSquireMountData.runSpeed;
+                    }
+
                     Mount.MountData original = Mount.mounts[mount.Type];
                     //copy over ANYTHING that will be changed
                     modPlayer.BaseSquireMountData = new Mount.MountData();
                     modPlayer.BaseSquireMountData.acceleration = original.acceleration;
                     modPlayer.BaseSquireMountData.dashSpeed = original.dashSpeed;
                     modPlayer.BaseSquireMountData.fallDamage = original.fallDamage;
+
+                    //modPlayer.BaseSquireMountData.jumpSpeed = original.jumpSpeed;
+                    //modPlayer.BaseSquireMountData.swimSpeed = original.swimSpeed;
+                    //modPlayer.BaseSquireMountData.runSpeed = original.runSpeed;
 
                     modPlayer.BaseMountType = mount.Type;
                 }
@@ -121,7 +137,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 player.velocity.Y = 30 * (float)direction;
             }
 
-            player.dashDelay = 20;
+            player.dashDelay = 30;
             if (player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer < 20)
                 player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer = 20;
 

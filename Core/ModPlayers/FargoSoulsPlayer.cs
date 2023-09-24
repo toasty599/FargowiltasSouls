@@ -250,7 +250,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             AshWoodEnchantItem = null;
             fireNoDamage = false;
 
-            RainEnchantActive = false;
+            RainEnchantItem = null;
             AncientShadowEnchantActive = false;
             SquireEnchantItem = null;
             ApprenticeEnchantItem = null;

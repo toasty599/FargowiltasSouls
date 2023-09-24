@@ -2363,9 +2363,10 @@ Mods: {
 				DisplayName: Rain Enchantment
 				Tooltip:
 					'''
-					Grants immunity to Wet
-					Spawns a miniature storm that follows your cursor
-					It only attacks if there is a clear line of sight between you
+					Spawns an umbrella that reflects projectiles from above
+					It will break after blocking 200 damage
+					While active you fall slowly
+					Grants immunity to Wet and all attacks inflict Wet
 					Effects of Inner Tube
 					'Come again some other day'
 					'''
@@ -5909,6 +5910,7 @@ Mods: {
 			HiveSentry.DisplayName: Hive
 			ROB.DisplayName: R.O.B
 			MeteorFlame.DisplayName: Meteor Flame
+			RainUmbrella.DisplayName: Rain Umbrella
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

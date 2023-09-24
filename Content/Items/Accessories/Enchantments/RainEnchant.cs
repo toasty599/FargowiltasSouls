@@ -43,8 +43,24 @@ Effects of Inner Tube
             player.DisplayToggle("RainInnerTube");
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             player.buffImmune[BuffID.Wet] = true;
-            modPlayer.RainEnchantActive = true;
-            modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainCloud>(), 24, 0);
+            
+            modPlayer.RainEnchantItem = item;
+            //modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainCloud>(), 24, 0);
+            if (modPlayer.RainCD == 0)
+            {
+                modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainUmbrella>(), 24, 0);
+
+                if (!player.controlDown)
+                {
+                    player.slowFall = true;
+                }
+            }
+            
+            if (modPlayer.RainCD > 0)
+            {
+                modPlayer.RainCD--;
+            }
+
             if (player.GetToggleValue("RainInnerTube"))
             {
                 player.hasFloatingTube = true;

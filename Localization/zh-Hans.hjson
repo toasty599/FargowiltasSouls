@@ -5867,6 +5867,7 @@ Mods: {
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
 			// MeteorFlame.DisplayName: Meteor Flame
+			// RainUmbrella.DisplayName: Rain Umbrella
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
