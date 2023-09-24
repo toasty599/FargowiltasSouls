@@ -307,7 +307,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.LoadSprites(npc, recolor);
 
-            LoadNPCSprite(recolor, npc.type);
+            LoadNPCSprite(recolor, NPCID.DD2Betsy);
             LoadBossHeadSprite(recolor, 34);
             LoadGoreRange(recolor, 1079, 1086);
             LoadExtra(recolor, 81);
