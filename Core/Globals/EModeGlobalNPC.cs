@@ -1326,7 +1326,10 @@ namespace FargowiltasSouls.Core.Globals
                         if (newNPC != null && newNPC.active && newNPC.type == npc.type) //super mega safeguard check
                         {
                             newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;
-                            newNPC.GetGlobalNPC<EModeNPCBehaviour>().FirstTick = false;
+                            if (newNPC.TryGetGlobalNPC(out EModeNPCBehaviour globalNPC))
+                            {
+                                globalNPC.FirstTick = false;
+                            }
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, j);
                         }
