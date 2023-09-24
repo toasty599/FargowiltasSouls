@@ -56,10 +56,10 @@ Increases jump height and negates fall damage
             player.lavaRose = true;
 
             //amph boot
-            player.autoJump = true;
             if (player.GetToggleValue("MasoAeolusFrog"))
             {
                 player.frogLegJumpBoost = true;
+                player.autoJump = true;
             }
 
             //fairy boot

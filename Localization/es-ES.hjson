@@ -185,7 +185,7 @@ Mods: {
 			// CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
 			// CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
 			// TrojanSquirrelDespawn: Trojan Squirrel returns to its squirrel clan...
-			// LifelightDespawn: Lifelight fades away...
+			// LifeChallengerDespawn: Lifelight fades away...
 			// CursedCoffinDespawn: The Cursed Coffin returns to its slumber...
 			// BanishedBaronDespawn: The Banished Baron dives deeper into the ocean...
 			// DeviBossSpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
@@ -201,7 +201,7 @@ Mods: {
 			// WillChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
 			// CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
 			// TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
-			// LifelightSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+			// LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
 			// BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		}
 
@@ -477,6 +477,7 @@ Mods: {
 			// DeerSinewDashConfig: Deer Sinew Dash
 			// MasoAeolusConfig: Aeolus Jump
 			// MasoAeolusFlowerConfig: Flower Boots
+			// MasoAeolusFrogConfig: Frog Jump
 			// MasoIconConfig: Sinister Icon Spawn Rates
 			// MasoIconDropsConfig: Sinister Icon Drops
 			// MasoGrazeConfig: Graze
@@ -5201,13 +5202,13 @@ Mods: {
 
 			// ShadowOrbNPC.DisplayName: Shadow Orb
 
-			Lifelight: {
+			LifeChallenger: {
 				// DisplayName: Lifelight
 
 				BossChecklistIntegration: {
-					// EntryName: "{$Mods.FargowiltasSouls.NPCs.Lifelight.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifelightSpawnInfo}"
-					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifelightDespawn
+					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
+					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChallengerSpawnInfo}"
+					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChallengerDespawn
 				}
 			}
 
@@ -5223,7 +5224,6 @@ Mods: {
 
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
-			// LifeChallenger.DisplayName: Lifelight
 		}
 
 		Tiles: {
@@ -6029,6 +6029,7 @@ Mods: {
 		// DeerSinewDashConfig: "[i:FargowiltasSouls/DeerSinew][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DeerSinewDashConfig}]"
 		// MasoAeolusConfig: "[i:FargowiltasSouls/AeolusBoots][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoAeolusConfig}]"
 		// MasoAeolusFlowerConfig: "[i:FargowiltasSouls/AeolusBoots][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoAeolusFlowerConfig}]"
+		// MasoAeolusFrogConfig: "[i:FargowiltasSouls/AeolusBoots][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoAeolusFrogConfig}]"
 		// MasoIconConfig: "[i:FargowiltasSouls/SinisterIcon][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoIconConfig}]"
 		// MasoIconDropsConfig: "[i:FargowiltasSouls/SinisterIcon][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoIconDropsConfig}]"
 		// MasoGrazeConfig: "[i:FargowiltasSouls/SparklingAdoration][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoGrazeConfig}]"

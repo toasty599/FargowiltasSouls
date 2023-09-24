@@ -141,6 +141,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 Projectile.localNPCImmunity[i] = 0;
             }
+            Reflected = false;
             if (!player.HasBuff<HallowCooldownBuff>())
             {
                 Reflect(Projectile);
@@ -211,7 +212,6 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         }
         private void Reflect(Projectile sword)
         {
-            Reflected = false;
             Player player = Main.player[sword.owner];
             if (player == null || !player.active)
             {
