@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public int AdamModifier;
         public bool tikiMinion;
         public int tikiTimer;
-        public int shroomiteMushroomCD;
+        public float shroomiteMushroomCD;
         private int spookyCD;
         public bool FrostFreeze;
         //        public bool SuperBee;
@@ -437,17 +437,17 @@ namespace FargowiltasSouls.Content.Projectiles
 
                     if (modPlayer.ShroomEnchantActive && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 /*&& !townNPCProj*/ && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 75)
                     {
-                        if (shroomiteMushroomCD >= 20)
+                        const float maxCD = 100f;
+                        if (shroomiteMushroomCD >= maxCD)
                         {
                             shroomiteMushroomCD = 0;
-
                             if (modPlayer.ForceEffect(ModContent.ItemType<ShroomiteEnchant>()))
                             {
-                                shroomiteMushroomCD = 5;
+                                shroomiteMushroomCD += maxCD / 4f;
                             }
                             if (player.stealth == 0)
                             {
-                                shroomiteMushroomCD = 10;
+                                shroomiteMushroomCD += maxCD / 4f;
                             }
 
                             int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
@@ -457,7 +457,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
 
                         }
-                        shroomiteMushroomCD++;
+                        shroomiteMushroomCD += projectile.velocity.Length();
                     }
 
                     if (modPlayer.SpookyEnchantActive && player.GetToggleValue("Spooky")
