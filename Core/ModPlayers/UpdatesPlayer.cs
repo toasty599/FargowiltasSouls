@@ -486,7 +486,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.lifeRegen < 0)
             {
-                if (ForceEffect(LeadEnchantItem.type))
+                if (LeadEnchantItem != null && ForceEffect(LeadEnchantItem.type))
                 {
                     Player.lifeRegen = (int)(Player.lifeRegen * 0.4f);
                 }
