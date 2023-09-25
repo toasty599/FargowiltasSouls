@@ -43,6 +43,11 @@ namespace FargowiltasSouls.Content.Projectiles
         /// <br/>When checking it, bear in mind that OnSpawn comes before a Projectile.NewProjectile() returns! High danger of infinite recursion
         /// </summary>
         public bool CanSplit = true;
+        /// <summary>
+        /// Whether Ninja Enchant can speed this up.
+        /// <br/>When trying to disable it, do so in SetDefaults!
+        /// </summary>
+        public bool NinjaCanSpeedup = true;
         // private int numSplits = 1;
         public int stormTimer;
         public float TungstenScale = 1;
@@ -208,7 +213,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true)
                 && projectile.type != ProjectileID.WireKite
                 && projectile.whoAmI != player.heldProj
-                && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>()
+                && NinjaCanSpeedup
                 && projectile.aiStyle != 190 //fancy sword swings like excalibur
                 && !projectile.minion)
             {
