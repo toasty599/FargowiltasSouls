@@ -205,7 +205,6 @@ This stacks up to 950 times until you get hit"); */
             ModContent.Find<ModItem>(Mod.Name, "MasochistSoul").UpdateAccessory(player, hideVisual);
 
         }
-
         public override void AddRecipes()
         {
             CreateRecipe()

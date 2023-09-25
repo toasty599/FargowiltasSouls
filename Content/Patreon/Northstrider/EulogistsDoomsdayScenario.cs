@@ -3,34 +3,29 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.Northstrider
 {
-    public class Nights1001 : PatreonModItem
+    public class EulogistsDoomsdayScenario : PatreonModItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            // DisplayName.SetDefault("1001 Nights");
-            /* Tooltip.SetDefault(
-@"Destroys an area around you including yourself
-''"); */
         }
 
         public override void SetDefaults()
         {
             Item.width = 20;
             Item.height = 20;
-            Item.accessory = true;
             Item.rare = ItemRarityID.Blue;
             Item.value = 100;
+
+            Item.useStyle = ItemHoldStyleID.HoldUp;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
         }
 
         public override bool? UseItem(Player player)
@@ -38,9 +33,8 @@ namespace FargowiltasSouls.Content.Patreon.Northstrider
             //spawn proj
             Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0, 0, ModContent.ProjectileType<Explosion>(), 0, 5, player.whoAmI);
 
-
             //destroy blocks
-            int radius = 50;
+            int radius = 15;
             Vector2 position = player.Center;
 
             for (int x = -radius; x <= radius; x++)
@@ -75,7 +69,27 @@ namespace FargowiltasSouls.Content.Patreon.Northstrider
                 SoundEngine.PlaySound(SoundID.Item14, position);
             }
 
-            return base.UseItem(player);
+            //kill all friendly npc nearby
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
+
+                if (npc.active && npc.townNPC)
+                {
+                    float dist = Vector2.Distance(player.Center, npc.Center);
+
+                    Main.NewText(dist);
+
+                    if (dist <= (radius * 14))
+                    {
+                        npc.StrikeInstantKill();
+                    }
+                }
+            }
+
+            player.KillMe(PlayerDeathReason.ByPlayerItem(player.whoAmI, Item), 9999, 0);
+
+            return true;
         }
 
 

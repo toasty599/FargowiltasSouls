@@ -720,7 +720,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     for (int i = -1; i < 2; i+= 2)
                     {
                         Vector2 vel = (-Player.velocity).RotatedBy(i * MathHelper.Pi / 7).RotatedByRandom(MathHelper.Pi/12);
-                        int damage = 30;
+                        int damage = 22;
                         Vector2 pos = Player.Center;
                         Vector2 offset = Vector2.Normalize(Player.velocity).RotatedBy(MathHelper.PiOver2 * -i) * (Player.width / 2);
                         Projectile.NewProjectile(Player.GetSource_Accessory(item), pos + offset, vel, ModContent.ProjectileType<MeteorFlame>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0.5f, Player.whoAmI);

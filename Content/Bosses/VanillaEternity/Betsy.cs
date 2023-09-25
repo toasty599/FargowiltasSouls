@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
+using System.Linq;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -66,7 +67,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (WorldSavingSystem.SwarmActive)
                 return true;
 
-            npc.boss = npc.HasValidTarget || !DD2Event.Ongoing; //allow players to respawn in mp if everyone is dead during event
+            //npc.boss = npc.HasPlayerTarget || !DD2Event.Ongoing; //allow players to respawn in mp if everyone is dead during event
 
             if (EntranceTimer == 0)
             {
@@ -84,7 +85,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.rotation += MathHelper.Pi;
                 }
                 return false;
-                
             }
             if (EntranceTimer == 60 * 2)
             {
@@ -281,7 +281,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             return true;
         }
-
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.WitheredArmor, 600);
@@ -302,7 +301,15 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             WorldSavingSystem.DownedBetsy = true;
         }
-
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+        {
+            if (npc.HasNPCTarget)
+            {
+                modifiers.Null();
+                SoundEngine.PlaySound(SoundID.NPCHit4, npc.Center);
+            }
+            base.ModifyIncomingHit(npc, ref modifiers);
+        }
         public override void LoadSprites(NPC npc, bool recolor)
         {
             base.LoadSprites(npc, recolor);
