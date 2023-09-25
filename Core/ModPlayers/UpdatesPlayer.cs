@@ -135,14 +135,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (SquireEnchantItem == null && BaseMountType != -1)
             {
-                Mount.mounts[BaseMountType].acceleration = BaseSquireMountData.acceleration;
-                Mount.mounts[BaseMountType].dashSpeed = BaseSquireMountData.dashSpeed;
-                Mount.mounts[BaseMountType].fallDamage = BaseSquireMountData.fallDamage;
-
-                Mount.mounts[BaseMountType].jumpSpeed = BaseSquireMountData.jumpSpeed;
-                Mount.mounts[BaseMountType].swimSpeed = BaseSquireMountData.swimSpeed;
-                Mount.mounts[BaseMountType].runSpeed = BaseSquireMountData.runSpeed;
-                BaseMountType = -1;
+                SquireEnchant.ResetMountStats(this);
             }
 
             ConcentratedRainbowMatterTryAutoHeal();

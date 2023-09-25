@@ -1535,5 +1535,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             return false;
         }
 
+        public override void PreSavePlayer()
+        {
+            SquireEnchant.ResetMountStats(this);
+        }
+
     }
 }
