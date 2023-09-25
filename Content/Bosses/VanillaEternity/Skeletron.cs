@@ -190,6 +190,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                 if (npc.life < npc.lifeMax * .75) //phase 2
                 {
+                    /*
                     //vomit skeletons
                     if (npc.ai[2] <= 60 && npc.ai[2] % 15 == 0 && !NPC.AnyNPCs(NPCID.SkeletronHand))
                     {
@@ -217,7 +218,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             SoundEngine.PlaySound(SoundID.NPCDeath13, npc.Center);
                         }
                     }
-
+                    */
                     if (--BabyGuardianTimer < 0)
                     {
                         BabyGuardianTimer = BabyGuardianTimerRefresh(npc);
@@ -532,7 +533,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         }
                         else if (AttackTimer % 10 == 0 && Main.netMode != NetmodeID.MultiplayerClient) //periodic below 50%
                         {
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<SkeletronGuardian2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                            Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center);
+                            if (AttackTimer < GuardianTime / 2) //first half of projectiles are shot towards player, second half are shot straight out
+                            {
+                                vel = head.DirectionTo(npc.Center);
+                            }
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<SkeletronGuardian2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                         }
                     }
                 }
