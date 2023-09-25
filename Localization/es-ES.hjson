@@ -5032,6 +5032,11 @@ Mods: {
 					Summons a powerful robot that doesn't fight
 					''' */
 			}
+
+			EulogistsDoomsdayScenario: {
+				// DisplayName: Eulogists Doomsday Scenario
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

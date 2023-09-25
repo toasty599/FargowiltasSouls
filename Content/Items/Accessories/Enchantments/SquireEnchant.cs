@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 {
                     player.DisplayToggle("Valhalla");
 
-                    if (modPlayer.IsDashingTimer == 0)
+                    if (player.dashDelay == 0)
                     {
                         //mount dash
                         //if ((player.controlDown && player.releaseDown))
@@ -181,6 +181,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void ResetMountStats(FargoSoulsPlayer modPlayer)
         {
+            if (modPlayer.BaseSquireMountData == null)
+            {
+                return;
+            }
+
             Mount.mounts[modPlayer.BaseMountType].acceleration = modPlayer.BaseSquireMountData.acceleration;
             Mount.mounts[modPlayer.BaseMountType].dashSpeed = modPlayer.BaseSquireMountData.dashSpeed;
             Mount.mounts[modPlayer.BaseMountType].fallDamage = modPlayer.BaseSquireMountData.fallDamage;

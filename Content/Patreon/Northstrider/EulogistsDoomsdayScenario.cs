@@ -8,17 +8,12 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.Northstrider
 {
-    public class Nights1001 : PatreonModItem
+    public class EulogistsDoomsdayScenario : PatreonModItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            // DisplayName.SetDefault("1001 Nights");
+            // DisplayName.SetDefault("Eulogists Doomsday Scenario");
             /* Tooltip.SetDefault(
 @"Destroys an area around you including yourself
 ''"); */
@@ -28,9 +23,18 @@ namespace FargowiltasSouls.Content.Patreon.Northstrider
         {
             Item.width = 20;
             Item.height = 20;
-            Item.accessory = true;
+            //Item.accessory = true;
             Item.rare = ItemRarityID.Blue;
             Item.value = 100;
+
+            Item.useAnimation = ItemHoldStyleID.HoldUp;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return true;
         }
 
         public override bool? UseItem(Player player)
@@ -75,7 +79,7 @@ namespace FargowiltasSouls.Content.Patreon.Northstrider
                 SoundEngine.PlaySound(SoundID.Item14, position);
             }
 
-            return base.UseItem(player);
+            return true;
         }
 
 
