@@ -171,8 +171,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (MeteorMomentum && !NoMomentum && !Player.mount.Active) //overriden by nomomentum
             {
-                Player.runAcceleration *= 3f;
-                Player.runSlowdown *= 3f;
+                Player.runAcceleration *= 2f;
+                Player.runSlowdown *= 2f;
 
             }
             if (NoMomentum && !Player.mount.Active)

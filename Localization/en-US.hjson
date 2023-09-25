@@ -2291,7 +2291,7 @@ Mods: {
 				Tooltip:
 					'''
 					Your projectiles deal more damage the faster they're moving, up to 20%
-					Doubles projectile speed while you're moving slowly
+					Drastically increases projectile speed while you're moving slowly
 					'Attack faster than the eye can see'
 					'''
 			}
