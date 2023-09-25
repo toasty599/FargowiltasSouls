@@ -197,7 +197,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void ResetMountStats(FargoSoulsPlayer modPlayer)
         {
-            if (modPlayer.BaseSquireMountData == null)
+            if (modPlayer.BaseSquireMountData == null || modPlayer.BaseMountType < 0 || modPlayer.BaseMountType >= Mount.mounts.Length)
             {
                 return;
             }
