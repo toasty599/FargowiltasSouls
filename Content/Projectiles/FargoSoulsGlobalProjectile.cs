@@ -202,6 +202,7 @@ namespace FargowiltasSouls.Content.Projectiles
             if (modPlayer.NinjaEnchantItem != null
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true)
                 && projectile.type != ProjectileID.WireKite
+                && projectile.whoAmI != player.heldProj
                 && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>()
                 && !projectile.minion)
             {
