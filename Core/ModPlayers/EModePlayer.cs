@@ -482,8 +482,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            /*
-            if (Main.snowMoon && NPC.waveNumber < 20 || Main.pumpkinMoon && NPC.waveNumber < 15)
+            
+            if ((Main.snowMoon && NPC.waveNumber < 20 || Main.pumpkinMoon && NPC.waveNumber < 15) && WorldSavingSystem.MasochistModeReal)
             {
                 if (NPC.waveNumber > 1)
                     NPC.waveNumber--;
@@ -491,7 +491,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 FargoSoulsUtil.PrintLocalization($"Mods.FargowiltasSouls.Message.MoonsDeathPenalty", new Color(175, 75, 255));
             }
-            */
+            
         }
 
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
