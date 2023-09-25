@@ -44,16 +44,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             {
                 if (modPlayer.BaseMountType != mount.Type)
                 {
-                    //we want to reset the orev mount first or all hell breaks loose
+                    //we want to reset the prev mount first or all hell breaks loose
                     if (modPlayer.BaseMountType != -1)
                     {
-                        Mount.mounts[modPlayer.BaseMountType].acceleration = modPlayer.BaseSquireMountData.acceleration;
-                        Mount.mounts[modPlayer.BaseMountType].dashSpeed = modPlayer.BaseSquireMountData.dashSpeed;
-                        Mount.mounts[modPlayer.BaseMountType].fallDamage = modPlayer.BaseSquireMountData.fallDamage;
-
-                        Mount.mounts[modPlayer.BaseMountType].jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed;
-                        Mount.mounts[modPlayer.BaseMountType].swimSpeed = modPlayer.BaseSquireMountData.swimSpeed;
-                        Mount.mounts[modPlayer.BaseMountType].runSpeed = modPlayer.BaseSquireMountData.runSpeed;
+                        ResetMountStats(modPlayer);
                     }
 
                     Mount.MountData original = Mount.mounts[mount.Type];
@@ -64,8 +58,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     modPlayer.BaseSquireMountData.fallDamage = original.fallDamage;
 
                     modPlayer.BaseSquireMountData.jumpSpeed = original.jumpSpeed;
-                    modPlayer.BaseSquireMountData.swimSpeed = original.swimSpeed;
-                    modPlayer.BaseSquireMountData.runSpeed = original.runSpeed;
 
                     modPlayer.BaseMountType = mount.Type;
                 }
@@ -108,13 +100,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                         //    }
                         //}
                         ////up
-                        //else if ((player.controlUp && player.releaseUp))
-                        //{
-                        //    if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
-                        //    {
-                        //        ValhallaDash(player, true, -1);
-                        //    }
-                        //}
+                        if ((player.controlUp && player.releaseUp))
+                        {
+                            if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
+                            {
+                                ValhallaDash(player, true, -1);
+                            }
+                        }
                         if (player.controlRight && player.releaseRight)
                         {
                             if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
@@ -137,11 +129,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 
                 mount._data.acceleration = modPlayer.BaseSquireMountData.acceleration * accelBoost;
                 mount._data.dashSpeed = modPlayer.BaseSquireMountData.dashSpeed * speedBoost;
+                mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * speedBoost;
                 mount._data.fallDamage = 0;
 
-                mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * speedBoost;
-                //mount._data.swimSpeed = modPlayer.BaseSquireMountData.swimSpeed * speedBoost;
-                //mount._data.runSpeed = modPlayer.BaseSquireMountData.runSpeed * speedBoost;
+                //Main.NewText(mount.DashSpeed);
             }
         }
 
@@ -150,18 +141,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //horizontal
             if (!vertical)
             {
-                player.FargoSouls().MonkDashing = 15;
+                player.FargoSouls().MonkDashing = 10;
                 player.velocity.X = 50 * (float)direction;
             }
             else
             {
-                player.FargoSouls().MonkDashing = -15;
-                player.velocity.Y = 30 * (float)direction;
+                player.FargoSouls().MonkDashing = -10;
+                player.velocity.Y = 40 * (float)direction;
             }
 
             player.dashDelay = 30;
-            if (player.FargoSouls().IsDashingTimer < 20)
-                player.FargoSouls().IsDashingTimer = 20;
+            if (player.FargoSouls().IsDashingTimer < 10)
+                player.FargoSouls().IsDashingTimer = 10;
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
@@ -186,6 +177,16 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Main.gore[num19].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[num19].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[num19].velocity *= 0.4f;
+        }
+
+        public static void ResetMountStats(FargoSoulsPlayer modPlayer)
+        {
+            Mount.mounts[modPlayer.BaseMountType].acceleration = modPlayer.BaseSquireMountData.acceleration;
+            Mount.mounts[modPlayer.BaseMountType].dashSpeed = modPlayer.BaseSquireMountData.dashSpeed;
+            Mount.mounts[modPlayer.BaseMountType].fallDamage = modPlayer.BaseSquireMountData.fallDamage;
+
+            Mount.mounts[modPlayer.BaseMountType].jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed;
+            modPlayer.BaseMountType = -1;
         }
 
         public override void AddRecipes()
