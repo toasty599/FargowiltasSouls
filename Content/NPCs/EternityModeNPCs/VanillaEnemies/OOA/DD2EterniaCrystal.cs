@@ -4,6 +4,7 @@ using Terraria.GameContent.Events;
 using Terraria.ID;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
+using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.OOA
 {
@@ -20,22 +21,27 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.OOA
             if (DD2Event.Ongoing && DD2Event.TimeLeftBetweenWaves > 600)
                 DD2Event.TimeLeftBetweenWaves = 600;
 
-            //cant use HasValidTarget for this because that returns true even if betsy is targeting the crystal (npc.target seems to become -1)
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy) && EModeGlobalNPC.betsyBoss >= 0 && EModeGlobalNPC.betsyBoss != Main.maxNPCs)
             {
-                int p = npc.FindClosestPlayer(out float distanceToPlayer);
-                if (p != -1 && distanceToPlayer < 3000)
+                if (Main.player.Any(p => p.active && !p.dead)) //if any alive players
                 {
-                    InvulTimer = 30; //wait before becoming fully vulnerable
+                    InvulTimer = 15; //wait before becoming fully vulnerable
                     if (npc.life < npc.lifeMax && npc.life < 500)
                         npc.life++;
                 }
             }
 
             if (InvulTimer > 0)
+            {
+                npc.chaseable = false; //this doesn't fucking work thank you redigit
                 InvulTimer--;
+            }
+            else
+            {
+                npc.chaseable = true;
+            }
+                
         }
-
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (InvulTimer > 0)
