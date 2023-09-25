@@ -31,8 +31,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.penetrate = -1;
             Projectile.scale = 1.5f;
             Projectile.alpha = 0;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
 
             Projectile.hide = true;
         }
@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Projectile.position.Y -= 144 * Projectile.scale;
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                 if (!Main.dedServ)
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Thunder") { Volume = 0.8f, Pitch = 0.5f }, Projectile.Center);

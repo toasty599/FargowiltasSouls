@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Items
                 base.HoldItem(item, player);
                 return;
             }
-            EModePlayer ePlayer = player.GetModPlayer<EModePlayer>();
+            EModePlayer ePlayer = player.Eternity();
             if (item.type == ItemID.MythrilHalberd || item.type == ItemID.MythrilSword)
             {
                 if (!player.ItemAnimationActive)
@@ -72,12 +72,12 @@ namespace FargowiltasSouls.Content.Items
             }
                 
 
-            EModePlayer ePlayer = player.GetModPlayer<EModePlayer>();
+            EModePlayer ePlayer = player.Eternity();
 
             if (item.damage <= 0 && (item.type == ItemID.RodofDiscord || item.type == ItemID.ActuationRod || item.type == ItemID.WireKite || item.type == ItemID.WireCutter || item.type == ItemID.Wrench || item.type == ItemID.BlueWrench || item.type == ItemID.GreenWrench || item.type == ItemID.MulticolorWrench || item.type == ItemID.YellowWrench || item.type == ItemID.Actuator))
             {
                 //either player is affected by lihzahrd curse, or cursor is targeting a place in temple (player standing outside)
-                if (player.GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse || Framing.GetTileSafely(Main.MouseWorld).WallType == WallID.LihzahrdBrickUnsafe && !player.buffImmune[ModContent.BuffType<LihzahrdCurseBuff>()])
+                if (player.FargoSouls().LihzahrdCurse || Framing.GetTileSafely(Main.MouseWorld).WallType == WallID.LihzahrdBrickUnsafe && !player.buffImmune[ModContent.BuffType<LihzahrdCurseBuff>()])
                     return false;
             }
 
@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Content.Items
         {
             if (!WorldSavingSystem.EternityMode)
                 return base.UseItem(item, player);
-            EModePlayer ePlayer = player.GetModPlayer<EModePlayer>();
+            EModePlayer ePlayer = player.Eternity();
 
             if (item.type == ItemID.MechdusaSummon && Main.zenithWorld)
             {
@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Items
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            if (player.GetModPlayer<EModePlayer>().MythrilHalberdTimer >= 120 && (item.type == ItemID.MythrilSword))
+            if (player.Eternity().MythrilHalberdTimer >= 120 && (item.type == ItemID.MythrilSword))
             {
                 damage *= 3;
             }
@@ -169,7 +169,7 @@ namespace FargowiltasSouls.Content.Items
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
-            EModePlayer ePlayer = player.GetModPlayer<EModePlayer>();
+            EModePlayer ePlayer = player.Eternity();
             switch (item.type)
             {
                 case ItemID.CobaltSword:
@@ -177,7 +177,7 @@ namespace FargowiltasSouls.Content.Items
                     {
                         Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
                         if (p != null)
-                            p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                            p.FargoSouls().CanSplit = false;
                         ePlayer.CobaltHitCounter++;
                     }
                     break;
@@ -204,10 +204,10 @@ namespace FargowiltasSouls.Content.Items
                 damage = 0;
             }
 
-            if (player.GetModPlayer<EModePlayer>().MythrilHalberdTimer >= 120 && (item.type == ItemID.MythrilHalberd))
+            if (player.Eternity().MythrilHalberdTimer >= 120 && (item.type == ItemID.MythrilHalberd))
             {
                 damage *= 3;
-                player.GetModPlayer<EModePlayer>().MythrilHalberdTimer = 0;
+                player.Eternity().MythrilHalberdTimer = 0;
             }
         }
     }

@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
 {
 	public class RustrifleReload : PlayerDrawLayer
     {
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().RustRifleReloading && drawInfo.drawPlayer.HeldItem.type == ModContent.ItemType<NavalRustrifle>();
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.FargoSouls().RustRifleReloading && drawInfo.drawPlayer.HeldItem.type == ModContent.ItemType<NavalRustrifle>();
         public override Position GetDefaultPosition() => new Between();
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
                 float scale = 2f;
 
                 Player player = drawInfo.drawPlayer;
-                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
 
                 Vector2 pos = player.Center - Main.screenPosition;
 

@@ -28,8 +28,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            //Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().CanSplit = false;
+            //Projectile.FargoSouls().TimeFreezeImmune = true;
 
             Projectile.hide = true;
         }

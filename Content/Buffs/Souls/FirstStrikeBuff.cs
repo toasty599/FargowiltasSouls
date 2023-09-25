@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
         public override void Update(Player player, ref int buffIndex)
         {
             player.buffTime[buffIndex]++;
-            player.GetModPlayer<FargoSoulsPlayer>().FirstStrike = true;
+            player.FargoSouls().FirstStrike = true;
 
             player.shroomiteStealth = true;
             player.stealth = .2f;

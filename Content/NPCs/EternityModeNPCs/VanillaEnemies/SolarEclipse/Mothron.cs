@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SolarEcl
             base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Rabies, 3600);
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
+            target.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
         }
     }
 }

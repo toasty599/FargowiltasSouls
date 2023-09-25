@@ -18,12 +18,12 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().Smite = true;
+            player.FargoSouls().Smite = true;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Smite = true;
+            npc.FargoSouls().Smite = true;
         }
     }
 }

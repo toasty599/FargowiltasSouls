@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 {
     public class RainCloud : ModProjectile
     {
-        private int shrinkTimer = 0;
+        //private int shrinkTimer = 0;
         public override string Texture => "Terraria/Images/Projectile_238";
 
         public override void SetStaticDefaults()
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         {
             Projectile.CloneDefaults(ProjectileID.RainCloudRaining);
             AIType = ProjectileID.RainCloudRaining;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
 
             Projectile.timeLeft = 300;
 
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             //destroy duplicates if they somehow spawn
             if (player.ownedProjectileCounts[Projectile.type] > 1
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             if (modPlayer.ForceEffect(ModContent.ItemType<RainEnchant>()))
             {
                 Projectile.scale = 3f;
-                shrinkTimer = 1;
+                //shrinkTimer = 1;
             }
 
             ////absorb Projectiles
@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             //                    Main.projectile[p].DamageType = DamageClass.Magic;
             //                    Main.projectile[p].usesIDStaticNPCImmunity = false;
             //                    Main.projectile[p].idStaticNPCHitCooldown = 0;
-            //                    Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+            //                    Main.projectile[p].FargoSouls().noInteractionWithNPCImmunityFrames = false;
             //                    if (proj.maxPenetrate == 1)
             //                        Main.projectile[p].penetrate = Main.projectile[p].maxPenetrate = 3;
             //                }
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                                 Main.projectile[p].DamageType = DamageClass.Magic;
                                 Main.projectile[p].usesIDStaticNPCImmunity = false;
                                 Main.projectile[p].idStaticNPCHitCooldown = 0;
-                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+                                Main.projectile[p].FargoSouls().noInteractionWithNPCImmunityFrames = false;
                                 //if (proj.maxPenetrate == 1)
                                 //    Main.projectile[p].penetrate = Main.projectile[p].maxPenetrate = 3;
                             }

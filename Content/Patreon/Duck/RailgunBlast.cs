@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Patreon.Duck
             Projectile.hide = true;
             Projectile.penetrate = -1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.Patreon.Duck
             Player player = Main.player[Projectile.owner];
 
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 20;
+                Main.LocalPlayer.FargoSouls().Screenshake = 20;
 
             Projectile.velocity = Projectile.velocity.SafeNormalize(-Vector2.UnitY);
 

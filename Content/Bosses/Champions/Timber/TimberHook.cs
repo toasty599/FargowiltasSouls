@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
             Projectile.extraUpdates = 2;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? CanDamage() => false;

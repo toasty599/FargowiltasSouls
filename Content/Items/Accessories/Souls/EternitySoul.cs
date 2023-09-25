@@ -129,9 +129,9 @@ This stacks up to 950 times until you get hit"); */
             BionomicCluster.PassiveEffect(player, Item);
             AshWoodEnchant.PassiveEffect(player);
 
-            player.GetModPlayer<FargoSoulsPlayer>().CanAmmoCycle = true;
+            player.FargoSouls().CanAmmoCycle = true;
 
-            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantDiscount = true;
+            player.FargoSouls().WoodEnchantDiscount = true;
 
             //cell phone
             player.accWatch = 3;
@@ -154,7 +154,7 @@ This stacks up to 950 times until you get hit"); */
         {
             PassiveEffect(player);
 
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             //auto use, debuffs, mana up
             modPlayer.Eternity = true;
 

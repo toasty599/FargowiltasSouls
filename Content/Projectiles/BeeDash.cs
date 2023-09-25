@@ -29,9 +29,9 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 15;
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override void AI()
@@ -49,8 +49,8 @@ namespace FargowiltasSouls.Content.Projectiles
                 return;
             }
 
-            player.GetModPlayer<FargoSoulsPlayer>().dashCD = 5;
-            player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer = 0;
+            player.FargoSouls().dashCD = 5;
+            player.FargoSouls().IsDashingTimer = 0;
 
             player.Center = Projectile.Center;
             if (Projectile.timeLeft > 1) //trying to avoid wallclipping

@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             Projectile.extraUpdates = 0;
             CooldownSlot = 0;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
             Projectile.penetrate = -1;
 
             //Projectile.scale = 0.5f;
@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             SoundEngine.PlaySound(SoundID.Item89, Projectile.position);
 
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

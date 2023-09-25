@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.minion = true;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.tileCollide = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? CanDamage() => false;
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (player.dead) modPlayer.BrainMinion = false;
             if (modPlayer.BrainMinion) Projectile.timeLeft = 2;
 

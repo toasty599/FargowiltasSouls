@@ -37,7 +37,7 @@ Damaging debuffs deal 2.5x damage
         {
             player.DisplayToggle("Orichalcum");
 
-            player.GetModPlayer<FargoSoulsPlayer>().OriEnchantItem = item;
+            player.FargoSouls().OriEnchantItem = item;
 
             if (!player.GetToggleValue("Orichalcum"))
                 return;

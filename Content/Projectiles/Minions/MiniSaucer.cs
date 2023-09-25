@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().MiniSaucer)
+            if (player.active && !player.dead && player.FargoSouls().MiniSaucer)
                 Projectile.timeLeft = 2;
 
             /*NPC minionAttackTargetNpc = Projectile.OwnerMinionAttackTargetNPC;

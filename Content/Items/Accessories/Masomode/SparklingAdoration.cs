@@ -39,7 +39,7 @@ Your attacks periodically summon life-draining hearts
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
             player.buffImmune[BuffID.Lovestruck] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.LovestruckBuff>()] = true;

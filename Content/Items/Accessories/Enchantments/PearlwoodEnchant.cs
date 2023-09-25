@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void PearlwoodEffect(Player player, Item item)
         {
             player.DisplayToggle("Pearl");
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.PearlwoodEnchantItem = item;
 
             if (modPlayer.PearlwoodCD > 0)

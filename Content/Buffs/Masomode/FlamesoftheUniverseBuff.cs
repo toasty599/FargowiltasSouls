@@ -19,10 +19,10 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             //activates various vanilla debuffs
-            player.GetModPlayer<FargoSoulsPlayer>().FlamesoftheUniverse = true;
+            player.FargoSouls().FlamesoftheUniverse = true;
             player.ichor = true;
 
-            /*player.GetModPlayer<FargoSoulsPlayer>().Shadowflame = true;
+            /*player.FargoSouls().Shadowflame = true;
             player.onFire = true;
             player.onFire2 = true;
             player.onFrostBurn = true;
@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().FlamesoftheUniverse = true;
+            npc.FargoSouls().FlamesoftheUniverse = true;
             npc.ichor = true;
 
             /*bool beImmune = npc.buffTime[buffIndex] > 2;

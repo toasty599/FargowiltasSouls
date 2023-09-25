@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                             Movement(targetPos, 0.15f, 7f);
 
                         if (NPC.Hitbox.Intersects(player.Hitbox) && !player.HasBuff(ModContent.BuffType<Buffs.Boss.GrabbedBuff>())
-                            && player.GetModPlayer<FargoSoulsPlayer>().MashCounter <= 0) //GOTCHA
+                            && player.FargoSouls().MashCounter <= 0) //GOTCHA
                         {
                             SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
 
@@ -167,11 +167,11 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                     break;
 
                 case 2: //successful grab
-                    if (head.ai[0] != -1 && head.ai[0] != -3 || !player.active || player.dead || player.GetModPlayer<FargoSoulsPlayer>().MashCounter > 30)
+                    if (head.ai[0] != -1 && head.ai[0] != -3 || !player.active || player.dead || player.FargoSouls().MashCounter > 30)
                     {
                         if (NPC.Hitbox.Intersects(player.Hitbox)) //throw aside
                         {
-                            player.GetModPlayer<FargoSoulsPlayer>().MashCounter += 30;
+                            player.FargoSouls().MashCounter += 30;
                             player.velocity.X = player.Center.X < head.Center.X ? -15f : 15f;
                             player.velocity.Y = -10f;
                             SoundEngine.PlaySound(SoundID.Roar, NPC.Center);

@@ -25,9 +25,9 @@ namespace FargowiltasSouls.Content.Buffs
         {
             DebuffPlayerStats(player);
 
-            player.GetModPlayer<FargoSoulsPlayer>().Berserked = true;
+            player.FargoSouls().Berserked = true;
 
-            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 0.50f;
+            player.FargoSouls().AttackSpeed += 0.50f;
             player.GetDamage(DamageClass.Generic) += 0.20f;
             player.GetCritChance(DamageClass.Generic) += 20;
             player.moveSpeed += 0.20f;
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Buffs
             }
 
             if (player.buffTime[buffIndex] > 2)
-                player.GetModPlayer<FargoSoulsPlayer>().NoMomentum = true;
+                player.FargoSouls().NoMomentum = true;
 
             if (player.buffTime[buffIndex] == 2)
             {

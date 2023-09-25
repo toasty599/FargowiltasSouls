@@ -38,7 +38,7 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             float speed = modPlayer.ForceEffect(ModContent.ItemType<MinerEnchant>()) ? .75f : .5f;
             MinerEffect(player, speed);
         }

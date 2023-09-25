@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             //disables potions, moon bite effect, feral bite effect, disables lifesteal
-            player.GetModPlayer<FargoSoulsPlayer>().MutantNibble = true;
+            player.FargoSouls().MutantNibble = true;
 
             //player.potionDelay = player.buffTime[buffIndex];
             player.moonLeech = true;
@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().MutantNibble = true;
+            npc.FargoSouls().MutantNibble = true;
         }
     }
 }

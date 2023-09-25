@@ -37,7 +37,7 @@ Effect intensifies the longer you track them
         {
             player.buffImmune[BuffID.Blackout] = true;
             player.buffImmune[BuffID.Obstructed] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().PungentEyeball = true;
+            player.FargoSouls().PungentEyeball = true;
         }
     }
 }

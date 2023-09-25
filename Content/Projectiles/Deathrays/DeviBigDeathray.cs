@@ -44,13 +44,13 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override void AI()
         {
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                Main.LocalPlayer.FargoSouls().Screenshake = 2;
 
             Vector2? vector78 = null;
             if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)

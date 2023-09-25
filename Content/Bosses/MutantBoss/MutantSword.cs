@@ -33,8 +33,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.timeLeft = 110;
             Projectile.alpha = 255;
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override void AI()
@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             target.velocity.Y = -10f;
             if (WorldSavingSystem.EternityMode)
             {
-                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.FargoSouls().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }

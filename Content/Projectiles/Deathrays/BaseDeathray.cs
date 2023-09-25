@@ -54,12 +54,12 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
             CooldownSlot = 1; //not in warning line, test?
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
+            Projectile.FargoSouls().GrazeCheck =
                 Projectile =>
                 {
                     float num6 = 0f;
                     if (CanDamage() != false && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(), Projectile.Center,
-                        Projectile.Center + Projectile.velocity * Projectile.localAI[1], 22f * Projectile.scale + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius * 2f + Player.defaultHeight, ref num6))
+                        Projectile.Center + Projectile.velocity * Projectile.localAI[1], 22f * Projectile.scale + Main.LocalPlayer.FargoSouls().GrazeRadius * 2f + Player.defaultHeight, ref num6))
                     {
                         return true;
                     }
@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
                 };
 
             Projectile.hide = true; //fixes weird issues on spawn with scaling
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override void PostAI()
@@ -76,11 +76,11 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             {
                 Projectile.hide = false;
                 if (Projectile.friendly)
-                    Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+                    Projectile.FargoSouls().DeletionImmuneRank = 2;
             }
 
-            if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD > grazeCD)
-                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = grazeCD;
+            if (Projectile.FargoSouls().GrazeCD > grazeCD)
+                Projectile.FargoSouls().GrazeCD = grazeCD;
         }
 
         public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 50) * 0.95f;

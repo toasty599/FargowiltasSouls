@@ -19,9 +19,9 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
             Projectile.hide = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
 
             Projectile.extraUpdates = 5; //more granular movement, less likely to clip through surfaces
             Projectile.timeLeft = 15 * (Projectile.extraUpdates + 1);
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 return;
             }
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoSoulsPlayer>().StardustEnchantActive;
+            Projectile.FargoSouls().TimeFreezeImmune = player.FargoSouls().StardustEnchantActive;
 
             if (player.mount.Active)
                 player.mount.Dismount(player);
@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             player.itemTime = 2;
             player.itemAnimation = 2;
 
-            player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer = 0;
+            player.FargoSouls().IsDashingTimer = 0;
 
             if (baseSpeed == 0 && Projectile.velocity != Vector2.Zero)
             {

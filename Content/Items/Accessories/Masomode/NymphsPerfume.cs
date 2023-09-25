@@ -35,7 +35,7 @@ Your attacks occasionally produce hearts
 
         public override void UpdateInventory(Player player)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.NymphsPerfumeRespawn = true;
         }
 
@@ -45,7 +45,7 @@ Your attacks occasionally produce hearts
             player.buffImmune[ModContent.BuffType<LovestruckBuff>()] = true;
             player.buffImmune[ModContent.BuffType<HexedBuff>()] = true;
             player.buffImmune[BuffID.Stinky] = true;
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.NymphsPerfumeRespawn = true;
             fargoPlayer.NymphsPerfume = true;
             if (fargoPlayer.NymphsPerfumeCD > 0)

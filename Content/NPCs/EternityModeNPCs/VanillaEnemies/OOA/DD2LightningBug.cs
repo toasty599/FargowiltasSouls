@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.OOA
             base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Electrified, 300);
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Webbed, 60);
+            target.FargoSouls().AddBuffNoStack(BuffID.Webbed, 60);
         }
     }
 }

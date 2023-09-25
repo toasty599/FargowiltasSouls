@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.friendly = true;
             color = Color.Cyan;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override void AI()
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Projectiles
             }
 
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
             if (!player.active || player.dead || player.ghost || Projectile.owner == Main.myPlayer && (!fargoPlayer.CirnoGraze || fargoPlayer.CirnoGrazeCounter < IceQueensCrown.CIRNO_GRAZE_THRESHOLD))
             {
@@ -96,16 +96,16 @@ namespace FargowiltasSouls.Content.Projectiles
                 foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, player.Center)) < freezeRange && !n.dontTakeDamage && !n.buffImmune[ModContent.BuffType<TimeFrozenBuff>()]))
                 {
                     n.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), freezeDuration);
-                    n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
-                    n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = slowDuration;
+                    n.FargoSouls().SnowChilled = true;
+                    n.FargoSouls().SnowChilledTimer = slowDuration;
                     //n.netUpdate = true;
                 }
 
-                foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p) && !p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune && p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFrozen == 0))
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p) && !p.FargoSouls().TimeFreezeImmune && p.FargoSouls().TimeFrozen == 0))
                 {
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFrozen = freezeDuration;
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledProj = true;
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledTimer = slowDuration;
+                    p.FargoSouls().TimeFrozen = freezeDuration;
+                    p.FargoSouls().ChilledProj = true;
+                    p.FargoSouls().ChilledTimer = slowDuration;
                     //p.netUpdate = true;
                 }
 

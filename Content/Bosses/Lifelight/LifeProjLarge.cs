@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             Projectile.scale = 1f;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 40;
+            Projectile.FargoSouls().GrazeCD = 40;
         }
 
         public override void AI()

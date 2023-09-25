@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.OOA
             EModeGlobalNPC.Aura(npc, radius, ModContent.BuffType<LethargicBuff>(), false, 254);
             foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != npc.type && n.Distance(npc.Center) < radius))
             {
-                n.GetGlobalNPC<EModeGlobalNPC>().PaladinsShield = true;
+                n.Eternity().PaladinsShield = true;
                 if (Main.rand.NextBool())
                 {
                     int d = Dust.NewDust(n.position, n.width, n.height, DustID.CrystalPulse, 0f, -3f, 0, new Color(), 1.5f);

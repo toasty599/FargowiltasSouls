@@ -27,15 +27,15 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 600;
             CooldownSlot = 1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage()
         {
             return false;
         }
-        private int Timer = 0;
+        //private int Timer = 0;
         public override void AI()
         {
             ref float MaxTime = ref Projectile.ai[0];

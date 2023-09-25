@@ -48,7 +48,7 @@ Beetle buffs capped at level two
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             //beetle bois
             modPlayer.BeetleEffect();
         }

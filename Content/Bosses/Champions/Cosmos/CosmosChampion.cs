@@ -323,7 +323,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         NPC.ai[1] = 1;
 
                         if (!Main.dedServ && Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                            Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                         SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
 
@@ -442,7 +442,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         SoundEngine.PlaySound(SoundID.Item92, NPC.Center);
 
                         if (!Main.dedServ && Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                            Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                         //int type; //for dust
 
@@ -926,7 +926,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                                 if (WorldSavingSystem.EternityMode && NPC.localAI[2] != 0f) //emode p2, do chain blasts
                                 {
                                     if (!Main.dedServ && Main.LocalPlayer.active)
-                                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                                        Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient) //chain explosions
                                     {
@@ -1510,8 +1510,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            if (Main.projectile[i].active && !Main.projectile[i].GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune)
-                                Main.projectile[i].GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFrozen = duration;
+                            if (Main.projectile[i].active && !Main.projectile[i].FargoSouls().TimeFreezeImmune)
+                                Main.projectile[i].FargoSouls().TimeFrozen = duration;
                         }
 
 

@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
 
             CooldownSlot = 1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage()
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
             if (Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

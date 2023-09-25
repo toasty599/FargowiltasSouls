@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             Projectile.aiStyle = -1;
             CooldownSlot = 1;
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override void AI()

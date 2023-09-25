@@ -27,14 +27,14 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.penetrate = 2;
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.ShadowFlame, 300);
             if (Projectile.owner == Main.myPlayer)
-                Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().WretchedPouchCD += 8;
+                Main.player[Projectile.owner].FargoSouls().WretchedPouchCD += 8;
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.penetrate = -1;
             CooldownSlot = 1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool CanHitPlayer(Player target)
@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             if (WorldSavingSystem.EternityMode)
             {
-                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.FargoSouls().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }

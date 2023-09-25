@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         }
         public override bool CanUseItem(Player player)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.RustRifleReloading)
             {
                 float reloadProgress = ReloadProgress(modPlayer.RustRifleTimer);
@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
                 modPlayer.RustRifleReloadZonePos = 0;
                 player.reuseDelay = 20;
-                player.GetModPlayer<FargoSoulsPlayer>().RustRifleTimer = 0;
+                player.FargoSouls().RustRifleTimer = 0;
                 //Timer = 0;
                 return false;
             }
@@ -97,9 +97,9 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         }
         public override bool? UseItem(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloading = true;
-            player.GetModPlayer<FargoSoulsPlayer>().RustRifleReloadZonePos = 0.725f;
-            player.GetModPlayer<FargoSoulsPlayer>().RustRifleTimer = 0;
+            player.FargoSouls().RustRifleReloading = true;
+            player.FargoSouls().RustRifleReloadZonePos = 0.725f;
+            player.FargoSouls().RustRifleTimer = 0;
             //Timer = 0;
             return base.UseItem(player);
         }

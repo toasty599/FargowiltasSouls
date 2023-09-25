@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (player.dead || player.ghost)
             {
                 modPlayer.ChibiDevi = false;
@@ -439,7 +439,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
     {
         public override void OnKill(NPC npc)
         {
-            if (npc.boss && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().ChibiDevi)
+            if (npc.boss && Main.LocalPlayer.FargoSouls().ChibiDevi)
             {
                 Projectile p = Main.projectile.FirstOrDefault(p => p.active && p.owner == Main.myPlayer && p.type == ModContent.ProjectileType<ChibiDevi>());
                 if (p != null && p.ModProjectile is ChibiDevi devi)

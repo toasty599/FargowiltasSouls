@@ -135,14 +135,14 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            //if (Projectile.localAI[0] == maxTime - 1) Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 0;
+            //if (Projectile.localAI[0] == maxTime - 1) Projectile.FargoSouls().GrazeCD = 0;
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {
-                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.FargoSouls().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
                 target.AddBuff(BuffID.Burning, 300);

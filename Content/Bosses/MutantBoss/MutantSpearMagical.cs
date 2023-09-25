@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             base.SetDefaults();
             Projectile.timeLeft = attackTime + 600 / flySpeed;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         const int attackTime = 120;

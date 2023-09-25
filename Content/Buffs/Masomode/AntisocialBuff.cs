@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             //disables minions, disables pets
-            player.GetModPlayer<FargoSoulsPlayer>().Asocial = true;
+            player.FargoSouls().Asocial = true;
 
             player.GetDamage(DamageClass.Summon) *= 0.1f;
         }

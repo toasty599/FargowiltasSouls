@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Buffs
                 case BuffID.Slimed:
                     Main.buffNoTimeDisplay[type] = false;
                     if (WorldSavingSystem.EternityMode)
-                        player.GetModPlayer<FargoSoulsPlayer>().Slimed = true;
+                        player.FargoSouls().Slimed = true;
                     break;
 
                 case BuffID.BrainOfConfusionBuff:
@@ -73,9 +73,9 @@ namespace FargowiltasSouls.Content.Buffs
                 case BuffID.CoolWhipPlayerBuff:
                     if (WorldSavingSystem.EternityMode)
                     {
-                        if (player.GetModPlayer<EModePlayer>().HasWhipBuff)
+                        if (player.Eternity().HasWhipBuff)
                             player.buffTime[buffIndex] = Math.Min(player.buffTime[buffIndex], 1);
-                        player.GetModPlayer<EModePlayer>().HasWhipBuff = true;
+                        player.Eternity().HasWhipBuff = true;
                     }
                     break;
 
@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Content.Buffs
                     break;
             }
 
-            if (WorldSavingSystem.EternityMode && player.buffTime[buffIndex] > 5 && Main.debuff[type] && player.GetModPlayer<EModePlayer>().ShorterDebuffsTimer <= 0
+            if (WorldSavingSystem.EternityMode && player.buffTime[buffIndex] > 5 && Main.debuff[type] && player.Eternity().ShorterDebuffsTimer <= 0
                 && !Main.buffNoTimeDisplay[type]
                 && type != BuffID.Tipsy && (!BuffID.Sets.NurseCannotRemoveDebuff[type] || type == BuffID.ManaSickness || type == BuffID.PotionSickness)
                 && !DebuffsToLetDecreaseNormally.Contains(type)
@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Content.Buffs
             switch (type)
             {
                 case BuffID.BrokenArmor:
-                    npc.GetGlobalNPC<FargoSoulsGlobalNPC>().BrokenArmor = true;
+                    npc.FargoSouls().BrokenArmor = true;
                     break;
 
                 //                //case BuffID.Chilled: npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Chilled = true; break;
@@ -125,11 +125,11 @@ namespace FargowiltasSouls.Content.Buffs
                     break;
 
                 case BuffID.Electrified:
-                    npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Electrified = true;
+                    npc.FargoSouls().Electrified = true;
                     break;
 
                 case BuffID.Suffocation:
-                    npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Suffocation = true;
+                    npc.FargoSouls().Suffocation = true;
                     break;
 
                 case BuffID.OnFire:
@@ -143,9 +143,9 @@ namespace FargowiltasSouls.Content.Buffs
                 case BuffID.RainbowWhipNPCDebuff:
                 case BuffID.SwordWhipNPCDebuff:
                 case BuffID.ThornWhipNPCDebuff:
-                    if (WorldSavingSystem.EternityMode && npc.GetGlobalNPC<EModeGlobalNPC>().HasWhipDebuff)
+                    if (WorldSavingSystem.EternityMode && npc.Eternity().HasWhipDebuff)
                         npc.buffTime[buffIndex] = Math.Min(npc.buffTime[buffIndex], 1);
-                    npc.GetGlobalNPC<EModeGlobalNPC>().HasWhipDebuff = true;
+                    npc.Eternity().HasWhipDebuff = true;
                     break;
 
                 default:

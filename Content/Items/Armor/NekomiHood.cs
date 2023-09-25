@@ -62,7 +62,7 @@ Increases max number of minions by 2"); */
             player.GetDamage(DamageClass.Generic) += 0.07f;
             player.GetCritChance(DamageClass.Generic) += 7;
 
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.NekomiSet = true;
             fargoPlayer.GrazeRadius *= 1.5f;
 

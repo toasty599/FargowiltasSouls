@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().TimeFrozen = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Chilled = true;
+            npc.FargoSouls().TimeFrozen = true;
+            npc.FargoSouls().Chilled = true;
         }
 
         public override bool ReApply(NPC npc, int time, int buffIndex)

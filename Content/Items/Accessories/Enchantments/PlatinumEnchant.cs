@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().PlatinumEnchantActive = true;
+            player.FargoSouls().PlatinumEnchantActive = true;
         }
 
         public override void AddRecipes()

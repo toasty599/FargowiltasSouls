@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             }
             
             FargoUIManager.ToggleSoulToggler();
-            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HasClickedWrench = true;
+            Main.LocalPlayer.FargoSouls().HasClickedWrench = true;
         }
         
 
@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Content.UI.Elements
                 Icon.Draw(spriteBatch);
                 IconHighlight.Draw(spriteBatch);
                 OncomingMutant.Draw(spriteBatch);
-                if (!Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HasClickedWrench && Main.GlobalTimeWrappedHourly % 1f < 0.5f)
+                if (!Main.LocalPlayer.FargoSouls().HasClickedWrench && Main.GlobalTimeWrappedHourly % 1f < 0.5f)
                     IconFlash.Draw(spriteBatch);
             }
         }

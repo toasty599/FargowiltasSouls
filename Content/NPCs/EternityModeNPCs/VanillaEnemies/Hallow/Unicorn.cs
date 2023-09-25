@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
                     {
                         Main.projectile[p].friendly = false;
                         Main.projectile[p].hostile = true;
-                        Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().Rainbow = true;
+                        Main.projectile[p].FargoSouls().Rainbow = true;
                     }
                 }
             }
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
                      {
                          Main.projectile[p].friendly = false;
                          Main.projectile[p].hostile = true;
-                         Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().Rainbow = true;
+                         Main.projectile[p].FargoSouls().Rainbow = true;
                      }
                  }
 

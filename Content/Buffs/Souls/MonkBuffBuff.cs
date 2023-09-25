@@ -26,10 +26,10 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 return;
             }
 
-            if (player.GetModPlayer<FargoSoulsPlayer>().HasDash)
+            if (player.FargoSouls().HasDash)
                 return;
 
-            player.GetModPlayer<FargoSoulsPlayer>().HasDash = true;
+            player.FargoSouls().HasDash = true;
 
             int direction = 0;
             bool vertical = false;
@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             //horizontal
             if (!vertical)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().MonkDashing = 30;
+                player.FargoSouls().MonkDashing = 30;
                 player.velocity.X = 14 * (float)direction;
 
                 player.immune = true;
@@ -95,13 +95,13 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             }
             else
             {
-                player.GetModPlayer<FargoSoulsPlayer>().MonkDashing = -20;
+                player.FargoSouls().MonkDashing = -20;
                 player.velocity.Y = 35 * (float)direction;
             }
 
             player.dashDelay = 20;
-            if (player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer < 20)
-                player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer = 20;
+            if (player.FargoSouls().IsDashingTimer < 20)
+                player.FargoSouls().IsDashingTimer = 20;
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);

@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
 
                     if (npc.netID == NPCID.Pinky)
                     {
-                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
+                        target.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
                         target.velocity = Vector2.Normalize(target.Center - npc.Center) * 30;
                     }
                     break;

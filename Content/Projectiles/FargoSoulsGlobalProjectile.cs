@@ -49,7 +49,8 @@ namespace FargowiltasSouls.Content.Projectiles
         public int AdamModifier;
         public bool tikiMinion;
         public int tikiTimer;
-        public int shroomiteMushroomCD;
+        public float shroomiteMushroomCD;
+        public Vector2 shroomiteStorePosition;
         private int spookyCD;
         public bool FrostFreeze;
         //        public bool SuperBee;
@@ -63,7 +64,7 @@ namespace FargowiltasSouls.Content.Projectiles
         //2 = has successfully hit an enemy
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
-            projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius
+            projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.FargoSouls().GrazeRadius
             && (projectile.ModProjectile == null || projectile.ModProjectile.CanDamage() != false)
             && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
@@ -78,6 +79,11 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public bool noInteractionWithNPCImmunityFrames;
         private int tempIframe;
+
+        public static List<int> FancySwordSwings = new()
+        {
+                190
+            };
 
         public override void SetStaticDefaults()
         {
@@ -184,28 +190,32 @@ namespace FargowiltasSouls.Content.Projectiles
                 return;
 
             Player player = Main.player[projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (projectile.friendly && FargoSoulsUtil.IsSummonDamage(projectile, true, false))
             {
                 //projs shot by tiki-buffed minions will also inherit the tiki buff
                 if (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj
                     && FargoSoulsUtil.IsSummonDamage(sourceProj, true, false)
-                    && sourceProj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiMinion)
+                    && sourceProj.FargoSouls().tikiMinion)
                 {
                     tikiMinion = true;
-                    tikiTimer = sourceProj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiTimer;
+                    tikiTimer = sourceProj.FargoSouls().tikiTimer;
                 }
             }
 
             if (modPlayer.NinjaEnchantItem != null
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true)
                 && projectile.type != ProjectileID.WireKite
+                && projectile.whoAmI != player.heldProj
                 && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>()
+                && projectile.aiStyle != 190 //fancy sword swings like excalibur
                 && !projectile.minion)
             {
                 NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
             }
+
+            shroomiteStorePosition = projectile.Center;
 
             switch (projectile.type)
             {
@@ -271,8 +281,8 @@ namespace FargowiltasSouls.Content.Projectiles
                             projectile.usesIDStaticNPCImmunity = true;
                             projectile.idStaticNPCHitCooldown = 10;
 
-                            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-                            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+                            projectile.FargoSouls().CanSplit = false;
+                            projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
 
                             if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
                                 fargo.Call("LowRenderProj", projectile);
@@ -371,9 +381,9 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             bool retVal = true;
             Player player = Main.player[projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             counter++;
-
+            
             if (spookyCD > 0)
             {
                 spookyCD--;
@@ -437,27 +447,28 @@ namespace FargowiltasSouls.Content.Projectiles
 
                     if (modPlayer.ShroomEnchantActive && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 /*&& !townNPCProj*/ && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 75)
                     {
-                        if (shroomiteMushroomCD >= 20)
+                        const float maxCD = 100f;
+                        if (shroomiteMushroomCD >= maxCD)
                         {
                             shroomiteMushroomCD = 0;
-
                             if (modPlayer.ForceEffect(ModContent.ItemType<ShroomiteEnchant>()))
                             {
-                                shroomiteMushroomCD = 5;
+                                shroomiteMushroomCD += maxCD / 4f;
                             }
                             if (player.stealth == 0)
                             {
-                                shroomiteMushroomCD = 10;
+                                shroomiteMushroomCD += maxCD / 4f;
                             }
 
                             int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
                             if (p != Main.maxProjectiles)
                             {
-                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().AdamModifier = AdamModifier;
+                                Main.projectile[p].FargoSouls().AdamModifier = AdamModifier;
                             }
 
                         }
-                        shroomiteMushroomCD++;
+                        shroomiteMushroomCD += Vector2.Distance(projectile.Center, shroomiteStorePosition);
+                        shroomiteStorePosition = projectile.Center;
                     }
 
                     if (modPlayer.SpookyEnchantActive && player.GetToggleValue("Spooky")
@@ -567,16 +578,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (firstTick)
             {
-                if (projectile.aiStyle == ProjAIStyleID.Spear)
-                {
 
-                }
-                /*
-                if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && projectile.type != ProjectileID.WireKite && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>())
-                {
-                    projectile.velocity *= NinjaSpeedup;
-                }
-                */
                 if (projectile.type == ProjectileID.ShadowBeamHostile)
                 {
                     if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<DeviBoss>())
@@ -850,10 +852,10 @@ namespace FargowiltasSouls.Content.Projectiles
                         split.timeLeft = projectile.timeLeft;
                         split.DamageType = projectile.DamageType;
 
-                        //split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().numSplits = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().numSplits;
+                        //split.FargoSouls().numSplits = projectile.FargoSouls().numSplits;
                         if (!allowMoreSplit)
-                            split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-                        split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale;
+                            split.FargoSouls().CanSplit = false;
+                        split.FargoSouls().TungstenScale = projectile.FargoSouls().TungstenScale;
 
                         projList.Add(split);
                     }
@@ -865,7 +867,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         private static void KillPet(Projectile projectile, Player player, int buff, bool toggle, bool minion = false)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (player.FindBuffIndex(buff) == -1)
             {
@@ -881,7 +883,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             switch (projectile.type)
             {
@@ -1008,7 +1010,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 projectile.position -= projectile.velocity * 0.5f;
             }
 
-            if (NinjaSpeedup > 0)
+            if (NinjaSpeedup > 0 && player.heldProj != projectile.whoAmI)
             {
                 projectile.extraUpdates = Math.Max(projectile.extraUpdates, NinjaSpeedup);
 
@@ -1024,15 +1026,15 @@ namespace FargowiltasSouls.Content.Projectiles
             }
 
             if (ProjectileID.Sets.IsAWhip[projectile.type] && projectile.owner == Main.myPlayer
-                && Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().TikiEnchantActive)
+                && Main.player[projectile.owner].FargoSouls().TikiEnchantActive)
             {
                 foreach (Projectile p in Main.projectile.Where(p => p.active && !p.hostile && p.owner == Main.myPlayer
                     && FargoSoulsUtil.IsSummonDamage(p, true, false)
                     && !ProjectileID.Sets.IsAWhip[p.type]
                     && projectile.Colliding(projectile.Hitbox, p.Hitbox)))
                 {
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiMinion = true;
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().tikiTimer = MAX_TIKI_TIMER * p.MaxUpdates;
+                    p.FargoSouls().tikiMinion = true;
+                    p.FargoSouls().tikiTimer = MAX_TIKI_TIMER * p.MaxUpdates;
                 }
             }
 
@@ -1071,7 +1073,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void PostAI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (projectile.whoAmI == player.heldProj
                 || projectile.aiStyle == ProjAIStyleID.HeldProjectile
@@ -1108,7 +1110,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.dead)
                 {
-                    FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
+                    FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.FargoSouls();
                     if (fargoPlayer.Graze && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                     {
                         if (ProjectileLoader.CanDamage(projectile) != false && ProjectileLoader.CanHitPlayer(projectile, Main.LocalPlayer) && GrazeCheck(projectile))
@@ -1168,12 +1170,12 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
             NPC sourceNPC = projectile.GetSourceNPC();
-            FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = Main.player[projectile.owner].FargoSouls();
 
             if (stormTimer > 0)
                 modifiers.FinalDamage *= modPlayer.ForceEffect(ModContent.ItemType<ForbiddenEnchant>()) ? 1.6f : 1.3f;
 
-            if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null)
+            if (Main.player[projectile.owner].FargoSouls().NinjaEnchantItem != null)
             {
                 float maxDamageIncrease = modPlayer.ForceEffect(modPlayer.NinjaEnchantItem.type) ? 0.3f : 0.2f;
                 modifiers.FinalDamage *= 1f + (maxDamageIncrease * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 40f, 1));
@@ -1220,7 +1222,7 @@ namespace FargowiltasSouls.Content.Projectiles
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
 
-            if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().NinjaEnchantItem != null)
+            if (Main.player[projectile.owner].FargoSouls().NinjaEnchantItem != null)
             {
                 const float maxKnockbackMult = 2f;
                 hit.Knockback = hit.Knockback * (maxKnockbackMult * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 60, 1f));
@@ -1243,7 +1245,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 target.AddBuff(BuffID.Frostburn2, 360);
 
-                FargoSoulsGlobalNPC globalNPC = target.GetGlobalNPC<FargoSoulsGlobalNPC>();
+                FargoSoulsGlobalNPC globalNPC = target.FargoSouls();
 
                 int debuff = ModContent.BuffType<FrozenBuff>();
                 int duration = target.HasBuff(debuff) ? 5 : 15;
@@ -1262,11 +1264,11 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
             }
 
-            FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = Main.player[projectile.owner].FargoSouls();
             if (AdamModifier != 0)
                 ReduceIFrames(projectile, target, modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2);
 
-            if (projectile.type == ProjectileID.IceBlock && Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().FrigidGemstoneItem != null)
+            if (projectile.type == ProjectileID.IceBlock && Main.player[projectile.owner].FargoSouls().FrigidGemstoneItem != null)
             {
                 target.AddBuff(BuffID.Frostburn, 360);
             }
@@ -1300,7 +1302,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
         {
             NPC sourceNPC = projectile.GetSourceNPC();
-            if (sourceNPC is not null && sourceNPC.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)
+            if (sourceNPC is not null && sourceNPC.FargoSouls().BloodDrinker)
             {
                 modifiers.FinalDamage *= 1.3f;
                 // damage = (int)Math.Round(damage * 1.3);
@@ -1316,7 +1318,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void Kill(Projectile projectile, int timeLeft)
         {
             Player player = Main.player[projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (HuntressProj == 1) //dying without hitting anything
             {
@@ -1328,7 +1330,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         //        public override void UseGrapple(Player player, ref int type)
         //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        //            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
         //            if (modPlayer.JungleEnchant)
         //            {
@@ -1338,7 +1340,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void GrapplePullSpeed(Projectile projectile, Player player, ref float speed)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.MahoganyEnchantItem != null && player.GetToggleValue("Mahogany", false))
             {
@@ -1355,7 +1357,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void GrappleRetreatSpeed(Projectile projectile, Player player, ref float speed)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.MahoganyEnchantItem != null && player.GetToggleValue("Mahogany", false))
             {

@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             CooldownSlot = 1;
 
             Projectile.hide = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage()

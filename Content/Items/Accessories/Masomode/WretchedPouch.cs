@@ -40,7 +40,7 @@ Attack speed bonuses are half as effective
         {
             player.buffImmune[BuffID.ShadowFlame] = true;
             player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().WretchedPouchItem = Item;
+            player.FargoSouls().WretchedPouchItem = Item;
         }
     }
 }

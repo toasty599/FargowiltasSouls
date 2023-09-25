@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 SoundEngine.PlaySound(SoundID.Item89, Projectile.position);
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                 for (int num615 = 0; num615 < 20; num615++)
                 {

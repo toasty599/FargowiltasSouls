@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             //Projectile.hostile = true;
             Projectile.scale = 0.8f;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override bool? CanDamage()

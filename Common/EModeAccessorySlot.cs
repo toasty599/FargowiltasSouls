@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Common
         public override bool IsVisibleWhenNotEnabled() => false;
         public override bool IsEnabled()
         {
-            return WorldSavingSystem.EternityMode && Player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot && Player.CurrentLoadoutIndex == Loadout;
+            return WorldSavingSystem.EternityMode && Player.FargoSouls().MutantsPactSlot && Player.CurrentLoadoutIndex == Loadout;
         }
         public override string FunctionalTexture => "FargowiltasSouls/Assets/UI/EnchantSlotIcon";
         //public override string FunctionalBackgroundTexture => "FargowiltasSouls/Assets/UI/EnchantSlotBackground";
@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Common
             int lastAccIndex = 7 + Player.GetAmountOfExtraAccessorySlotsToShow();
             if (Player.armor[lastAccIndex].type == ModContent.ItemType<WizardEnchant>() || Player.armor[lastAccIndex].type == ModContent.ItemType<CosmoForce>())
             {
-                Player.GetModPlayer<FargoSoulsPlayer>().WizardedItem = FunctionalItem;
+                Player.FargoSouls().WizardedItem = FunctionalItem;
             }
             
             base.ApplyEquipEffects();

@@ -255,6 +255,7 @@ namespace FargowiltasSouls.Core.Toggler
             player.SetToggleValue("DefensePaladin", true);
             player.SetToggleValue("ShimmerImmunity", true);
             player.SetToggleValue("MasoAeolus", true);
+            player.SetToggleValue("MasoAeolusFrog", true);
             player.SetToggleValue("MasoConcoction", true);
             player.SetToggleValue("ManaFlower", true);
         }
@@ -285,7 +286,7 @@ namespace FargowiltasSouls.Core.Toggler
                 return;
             }
 
-            FargoSoulsPlayer modPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = Main.LocalPlayer.FargoSouls();
             modPlayer.disabledToggles = new List<string>(togglesOff);
 
             LoadPlayerToggles(modPlayer);

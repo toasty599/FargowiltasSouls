@@ -39,8 +39,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 600;
             CooldownSlot = 1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -169,7 +169,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public override void Kill(int timeLeft)
         {
             if (Main.LocalPlayer.active && !Main.dedServ)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
             SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
             var type = (int)Projectile.ai[0] switch

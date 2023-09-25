@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             DarkArtistEffect(player, Item);
             ApprenticeEnchant.ApprenticeEffect(player);
         }
@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void DarkArtistEffect(Player player, Item item)
         {
             player.DisplayToggle("DarkArt");
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] == 0)
             {

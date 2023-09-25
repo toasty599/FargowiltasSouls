@@ -38,7 +38,7 @@ Lead Poisoning deals damage over time and spreads to nearby enemies
 
         public static void LeadEffect(Player player, Item item)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().LeadEnchantItem = item;
+            player.FargoSouls().LeadEnchantItem = item;
         }
 
         public override void AddRecipes()

@@ -29,9 +29,9 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.hide = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.alpha = 0;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

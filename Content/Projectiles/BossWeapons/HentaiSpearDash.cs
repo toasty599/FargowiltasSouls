@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             Projectile.localNPCHitCooldown = 0;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

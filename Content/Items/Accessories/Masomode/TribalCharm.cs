@@ -38,20 +38,20 @@ Grants autofire to all weapons (this effect also works in your inventory)
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().TribalCharm = true;
+            player.FargoSouls().TribalCharm = true;
         }
 
         public override void UpdateVanity(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().TribalCharm = true;
+            player.FargoSouls().TribalCharm = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Webbed] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.PurifiedBuff>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().TribalCharm = true;
-            player.GetModPlayer<FargoSoulsPlayer>().TribalCharmEquipped = true;
+            player.FargoSouls().TribalCharm = true;
+            player.FargoSouls().TribalCharmEquipped = true;
         }
 
         public static void Effects(FargoSoulsPlayer modPlayer)

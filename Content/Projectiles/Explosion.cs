@@ -31,9 +31,9 @@ namespace FargowiltasSouls.Content.Projectiles
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override void Kill(int timeLeft)

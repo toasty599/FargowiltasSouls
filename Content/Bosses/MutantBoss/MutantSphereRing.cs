@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 DieOutsideArena = true;
 
-                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune =
+                Projectile.FargoSouls().TimeFreezeImmune =
                     WorldSavingSystem.MasochistModeReal
                     && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>())
                     && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5;
@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 //final spark spheres
                 if (WorldSavingSystem.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5
-                    && Projectile.Colliding(Projectile.Hitbox, Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GetPrecisionHurtbox()))
+                    && Projectile.Colliding(Projectile.Hitbox, Main.LocalPlayer.FargoSouls().GetPrecisionHurtbox()))
                 {
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<TimeFrozenBuff>()))
                         SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Main.LocalPlayer.Center);
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 if (WorldSavingSystem.EternityMode)
                 {
-                    target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                    target.FargoSouls().MaxLifeReduction += 100;
                     target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                     target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
                 }

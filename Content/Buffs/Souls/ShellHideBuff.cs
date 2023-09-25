@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             player.noKnockback = true;
             player.endurance = .9f;

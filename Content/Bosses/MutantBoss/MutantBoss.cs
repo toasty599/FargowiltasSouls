@@ -362,7 +362,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
                 NPC.life = NPC.lifeMax;
 
-                if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul && WorldSavingSystem.MasochistModeReal)
+                if (player.FargoSouls().TerrariaSoul && WorldSavingSystem.MasochistModeReal)
                     EdgyBossText("Hand it over. That thing, your soul toggles.");
             }
 
@@ -1359,7 +1359,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (NPC.ai[1] == 20)
             {
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                 //moon chain explosions
                 if (WorldSavingSystem.EternityMode && NPC.ai[0] != 9 || WorldSavingSystem.MasochistModeReal)
@@ -1428,7 +1428,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (NPC.ai[2] == 0)
             {
                 if (NPC.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 2;
             }
             else
             {
@@ -1442,7 +1442,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     Main.LocalPlayer.controlUseItem = false;
                     Main.LocalPlayer.controlUseTile = false;
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
+                    Main.LocalPlayer.FargoSouls().NoUsingItems = 2;
                 }
             }
 
@@ -1491,7 +1491,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 9f;
                 }
-                if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul) 
+                if (player.FargoSouls().TerrariaSoul) 
                     EdgyBossText("Hand it over. That thing, your soul toggles.");
             }
             else if (NPC.ai[1] > 150)
@@ -2385,7 +2385,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (NPC.ai[1] > (WorldSavingSystem.MasochistModeReal ? 120 : 180))
             {
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 2;
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -3022,7 +3022,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
 
             if (NPC.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                Main.LocalPlayer.FargoSouls().Screenshake = 2;
 
             if (NPC.ai[1] == 360)
             {
@@ -3062,7 +3062,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     Main.LocalPlayer.controlUseItem = false;
                     Main.LocalPlayer.controlUseTile = false;
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
+                    Main.LocalPlayer.FargoSouls().NoUsingItems = 2;
                 }
 
                 if (--NPC.localAI[0] < 0)
@@ -3501,7 +3501,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             if (WorldSavingSystem.EternityMode)
             {
-                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.FargoSouls().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }
@@ -3562,9 +3562,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 if (Main.LocalPlayer.active)
                 {
-                    if (!Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso && Main.netMode != NetmodeID.Server)
+                    if (!Main.LocalPlayer.FargoSouls().Toggler.CanPlayMaso && Main.netMode != NetmodeID.Server)
                         Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.MasochistModeUnlocked"), new Color(51, 255, 191, 0));
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso = true;
+                    Main.LocalPlayer.FargoSouls().Toggler.CanPlayMaso = true;
                 }
                 WorldSavingSystem.CanPlayMaso = true;
             }

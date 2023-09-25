@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Core.Systems
         {
 
             Player player = Main.LocalPlayer;
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.IronEnchantItem == null)
                 return;

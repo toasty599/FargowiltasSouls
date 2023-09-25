@@ -116,8 +116,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             //while fishron is first spawning, has made the noise, and every 6 ticks
             if (fishron.ai[0] < 4f && Projectile.timeLeft <= 240 && Projectile.timeLeft >= 180)// && Projectile.timeLeft % 6 == 0)
             {
-                fishron.GetGlobalNPC<FargoSoulsGlobalNPC>().MutantNibble = false;
-                fishron.GetGlobalNPC<FargoSoulsGlobalNPC>().LifePrevious = int.MaxValue;
+                fishron.FargoSouls().MutantNibble = false;
+                fishron.FargoSouls().LifePrevious = int.MaxValue;
                 while (fishron.buffType[0] != 0)
                     fishron.DelBuff(0);
 

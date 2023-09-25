@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             Projectile.scale = 0.1f;
             CooldownSlot = 1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? CanDamage() => Projectile.alpha == 0;

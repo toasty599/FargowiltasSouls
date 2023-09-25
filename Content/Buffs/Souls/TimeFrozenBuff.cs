@@ -41,8 +41,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             player.velocity = player.oldVelocity;
             player.position = player.oldPosition;
 
-            player.GetModPlayer<FargoSoulsPlayer>().MutantNibble = true; //no heal
-            player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
+            player.FargoSouls().MutantNibble = true; //no heal
+            player.FargoSouls().NoUsingItems = 2;
 
             FargowiltasSouls.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
 
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().TimeFrozen = true;
+            npc.FargoSouls().TimeFrozen = true;
         }
     }
 }

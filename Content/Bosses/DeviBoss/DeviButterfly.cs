@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             //Projectile.scale = 2f;
             Projectile.hide = true;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override void AI()

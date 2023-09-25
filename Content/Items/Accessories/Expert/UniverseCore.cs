@@ -39,7 +39,7 @@ All attacks inflict Flames of the Universe
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().UniverseCore = true;
+            player.FargoSouls().UniverseCore = true;
         }
     }
 }

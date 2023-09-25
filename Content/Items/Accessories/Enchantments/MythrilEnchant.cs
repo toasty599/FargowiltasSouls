@@ -41,7 +41,7 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
         {
             player.DisplayToggle("Mythril");
 
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
             if (!player.GetToggleValue("Mythril"))
                 return;

@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().DeathMarked = true;
+            player.FargoSouls().DeathMarked = true;
 
             if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<DeathSkull>()] < 1)
                 Projectile.NewProjectile(player.GetSource_Buff(buffIndex),

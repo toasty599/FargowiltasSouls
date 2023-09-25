@@ -43,7 +43,7 @@ Missing any attack will reset these bonuses
         public static void RedRidingEffect(Player player, Item item)
         {
             player.DisplayToggle("RedRidingRain");
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.RedRidingEnchantItem != null || !player.GetToggleValue("RedRidingRain"))
                 return;
 
@@ -57,7 +57,7 @@ Missing any attack will reset these bonuses
 
         public static void SpawnArrowRain(Player player, NPC target)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             Item firstAmmo = PickAmmo(player);
             int arrowType = firstAmmo.shoot;

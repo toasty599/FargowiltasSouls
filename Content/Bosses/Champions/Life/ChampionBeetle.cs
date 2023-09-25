@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 40; //dont check for this long
+            Projectile.FargoSouls().GrazeCD = 40; //dont check for this long
         }
 
         public override bool? CanDamage()

@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             Projectile.timeLeft = 2;
 
-            if (player.whoAmI == Main.myPlayer && (!player.active || player.dead || player.ghost || !player.GetModPlayer<FargoSoulsPlayer>().RainbowSlime))
+            if (player.whoAmI == Main.myPlayer && (!player.active || player.dead || player.ghost || !player.FargoSouls().RainbowSlime))
             {
                 Projectile.Kill();
                 return;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             /*if (Projectile.damage == 0)
             {
                 Projectile.damage = (int)(35 * player.GetDamage(DamageClass.Summon));
-                if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
+                if (player.FargoSouls().MasochistSoul)
                     Projectile.damage *= 2;
             }*/
 

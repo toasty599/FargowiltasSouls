@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.alpha = 255;
 
             Projectile.hide = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles
             switch ((int)Projectile.ai[0])
             {
                 case 1: //mutant reti glaive
-                    Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+                    Projectile.FargoSouls().TimeFreezeImmune = true;
                     color = Color.Red;
                     radius = 525;
                     maxTime = 90;
@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case 2: //mutant spaz glaive
-                    Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+                    Projectile.FargoSouls().TimeFreezeImmune = true;
                     color = Color.Green;
                     radius = 350;
                     maxTime = 90;
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case 5: //mutant subphase transition
-                    Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+                    Projectile.FargoSouls().TimeFreezeImmune = true;
                     color = new Color(51, 255, 191);
                     maxTime = 120;
                     radius = 1200 * (float)Math.Cos(Math.PI / 2 * Projectile.localAI[0] / maxTime);

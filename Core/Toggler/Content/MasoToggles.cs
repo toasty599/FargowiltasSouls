@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public string DeerSinewDash;
         public string MasoAeolus;
         public string MasoAeolusFlower;
+        public string MasoAeolusFrog;
         public string MasoIcon;
         public string MasoIconDrops;
         public string MasoGraze;

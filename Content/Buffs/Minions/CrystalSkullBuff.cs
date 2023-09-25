@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CrystalSkullMinion = true;
+            player.FargoSouls().CrystalSkullMinion = true;
             if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.CrystalSkull>()] < 1)
                 FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.CrystalSkull>(), 30, 4f, player.whoAmI);
         }

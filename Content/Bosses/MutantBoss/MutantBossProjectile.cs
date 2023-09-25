@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.height = 50;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)

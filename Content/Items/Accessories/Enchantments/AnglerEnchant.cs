@@ -36,7 +36,7 @@ Effects of Lavaproof Tackle Bag
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().FishSoul1 = true;
+            player.FargoSouls().FishSoul1 = true;
             player.fishingSkill += 10;
 
             //tackle bag

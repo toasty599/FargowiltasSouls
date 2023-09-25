@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
 
             Player player = Main.player[Projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().TwinsEX)
+            if (player.active && !player.dead && player.FargoSouls().TwinsEX)
                 Projectile.timeLeft = 2;
 
             if (Projectile.ai[0] >= 0 && Projectile.ai[0] < Main.maxNPCs) //has target

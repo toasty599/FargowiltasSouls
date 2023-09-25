@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 25;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if ((int)Main.time % 120 == 0) Projectile.netUpdate = true;
             if (!player.active)

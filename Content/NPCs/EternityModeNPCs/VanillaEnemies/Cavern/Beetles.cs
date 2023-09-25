@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != NPCID.CochinealBeetle && n.Distance(npc.Center) < 400))
             {
                 BeetleEffect(n);
-                n.GetGlobalNPC<EModeGlobalNPC>().BeetleTimer = 60;
+                n.Eternity().BeetleTimer = 60;
                 if (Main.rand.NextBool())
                 {
                     int d = Dust.NewDust(n.position, n.width, n.height, DustID.RedTorch, 0f, -1.5f, 0, new Color());
@@ -54,20 +54,20 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.CochinealBeetle);
         protected override int DustType => DustID.RedTorch;
-        protected override void BeetleEffect(NPC affectedNPC) => affectedNPC.GetGlobalNPC<EModeGlobalNPC>().BeetleOffenseAura = true;
+        protected override void BeetleEffect(NPC affectedNPC) => affectedNPC.Eternity().BeetleOffenseAura = true;
     }
 
     public class CyanBeetle : Beetles
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.CyanBeetle);
         protected override int DustType => 187;
-        protected override void BeetleEffect(NPC affectedNPC) => affectedNPC.GetGlobalNPC<EModeGlobalNPC>().BeetleUtilAura = true;
+        protected override void BeetleEffect(NPC affectedNPC) => affectedNPC.Eternity().BeetleUtilAura = true;
     }
 
     public class LacBeetle : Beetles
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.LacBeetle);
         protected override int DustType => 21;
-        protected override void BeetleEffect(NPC affectedNPC) => affectedNPC.GetGlobalNPC<EModeGlobalNPC>().BeetleDefenseAura = true;
+        protected override void BeetleEffect(NPC affectedNPC) => affectedNPC.Eternity().BeetleDefenseAura = true;
     }
 }

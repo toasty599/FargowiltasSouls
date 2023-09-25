@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().TerrariaSoul)
+            if (Main.player[Projectile.owner].FargoSouls().TerrariaSoul)
             {
                 modifiers.SetCrit();
             }

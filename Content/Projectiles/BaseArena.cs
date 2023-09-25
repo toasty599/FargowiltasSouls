@@ -46,18 +46,18 @@ namespace FargowiltasSouls.Content.Projectiles
 
             CooldownSlot = 0;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
+            Projectile.FargoSouls().GrazeCheck =
                 projectile =>
                 {
-                    return CanDamage() == true && targetPlayer == Main.myPlayer && Math.Abs((Main.LocalPlayer.Center - Projectile.Center).Length() - threshold) < Projectile.width / 2 * Projectile.scale + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius;
+                    return CanDamage() == true && targetPlayer == Main.myPlayer && Math.Abs((Main.LocalPlayer.Center - Projectile.Center).Length() - threshold) < Projectile.width / 2 * Projectile.scale + Player.defaultHeight + Main.LocalPlayer.FargoSouls().GrazeRadius;
                 };
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
             Projectile.hide = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 3;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 3;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override bool? CanDamage()
@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 player.mount.Dismount(player);
                             player.velocity.X = 0f;
                             player.velocity.Y = -0.4f;
-                            player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
+                            player.FargoSouls().NoUsingItems = 2;
                         }
 
                         Vector2 movement = Projectile.Center - player.Center;

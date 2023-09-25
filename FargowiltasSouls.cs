@@ -204,7 +204,7 @@ namespace FargowiltasSouls
             Terraria.On_Player.orig_AddBuff orig,
             Player self, int type, int timeToAdd, bool quiet, bool foodHack)
         {
-            FargoSoulsPlayer modPlayer = self.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = self.FargoSouls();
             if (Main.debuff[type]
                 && timeToAdd > 3 //dont affect auras
                 && !Main.buffNoTimeDisplay[type] //dont affect hidden time debuffs
@@ -376,13 +376,13 @@ namespace FargowiltasSouls
                         return WorldSavingSystem.DownedFishronEX;
 
                     case "PureHeart":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().PureHeart;
+                        return Main.LocalPlayer.FargoSouls().PureHeart;
 
                     case "MutantAntibodies":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantAntibodies;
+                        return Main.LocalPlayer.FargoSouls().MutantAntibodies;
 
                     case "SinisterIcon":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SinisterIcon;
+                        return Main.LocalPlayer.FargoSouls().SinisterIcon;
 
                     case "AbomAlive":
                         return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
@@ -400,33 +400,33 @@ namespace FargowiltasSouls
                     case "MutantsPact":
                     case "MutantCreditCard":
                     case "MutantsCreditCard":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsCreditCard;
+                        return Main.LocalPlayer.FargoSouls().MutantsCreditCard;
 
                     case "MutantDiscountCard":
                     case "MutantsDiscountCard":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard;
+                        return Main.LocalPlayer.FargoSouls().MutantsDiscountCard;
 
                     case "NekomiArmor":
                     case "NekomiArmour":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NekomiSet;
+                        return Main.LocalPlayer.FargoSouls().NekomiSet;
 
                     case "EridanusArmor":
                     case "EridanusArmour":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().EridanusSet;
+                        return Main.LocalPlayer.FargoSouls().EridanusSet;
 
                     case "StyxArmor":
                     case "StyxArmour":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().StyxSet;
+                        return Main.LocalPlayer.FargoSouls().StyxSet;
 
                     case "MutantArmor":
                     case "MutantArmour":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantSetBonusItem != null;
+                        return Main.LocalPlayer.FargoSouls().MutantSetBonusItem != null;
 
                     case "GiftsReceived":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().ReceivedMasoGift;
+                        return Main.LocalPlayer.FargoSouls().ReceivedMasoGift;
 
                     case "GiveDevianttGifts":
-                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().ReceivedMasoGift = true;
+                        Main.LocalPlayer.FargoSouls().ReceivedMasoGift = true;
                         if (Main.netMode == NetmodeID.SinglePlayer)
                         {
                             DropDevianttsGift(Main.LocalPlayer);
@@ -872,7 +872,7 @@ namespace FargowiltasSouls
                     case PacketID.SyncTogglesOnJoin: //sync toggles on join
                         {
                             Player player = Main.player[reader.ReadByte()];
-                            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                            FargoSoulsPlayer modPlayer = player.FargoSouls();
                             byte count = reader.ReadByte();
                             List<string> keys = ToggleLoader.LoadedToggles.Keys.ToList();
 

@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 {
 	public class TitaniumShard : ModProjectile
     {
-        private readonly int shrinkTimer = 0;
+        //private readonly int shrinkTimer = 0;
         public override string Texture => "Terraria/Images/Projectile_908";
 
         public override void SetStaticDefaults()
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (Projectile.owner == Main.myPlayer && (!player.GetToggleValue("Titanium") || modPlayer.TitaniumEnchantItem == null))
             {

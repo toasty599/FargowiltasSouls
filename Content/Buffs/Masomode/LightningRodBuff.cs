@@ -37,10 +37,10 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             //spawns lightning once per second
-            player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer++;
-            if (player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer >= 60)
+            player.FargoSouls().lightningRodTimer++;
+            if (player.FargoSouls().lightningRodTimer >= 60)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer = 0;
+                player.FargoSouls().lightningRodTimer = 0;
                 SpawnLightning(player, ModContent.ProjectileType<LightningVortexHostile>(), 60 / 4, player.GetSource_Buff(buffIndex));
             }
 
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
 
-            FargoSoulsGlobalNPC fargoNPC = npc.GetGlobalNPC<FargoSoulsGlobalNPC>();
+            FargoSoulsGlobalNPC fargoNPC = npc.FargoSouls();
             fargoNPC.lightningRodTimer++;
             if (fargoNPC.lightningRodTimer >= 60)
             {

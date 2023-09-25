@@ -234,7 +234,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override bool CheckDead()
         {
-            NPC.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = false;
+            NPC.FargoSouls().Needled = false;
 
             NPC brain = FargoSoulsUtil.NPCExists(EModeGlobalNPC.brainBoss, NPCID.BrainofCthulhu);
             if (brain != null)

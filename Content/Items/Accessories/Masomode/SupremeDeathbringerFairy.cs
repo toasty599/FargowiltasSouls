@@ -54,7 +54,7 @@ Summons 2 Skeletron arms to whack enemies
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.SupremeDeathbringerFairy = true;
 
             //slimy shield
@@ -67,7 +67,7 @@ Summons 2 Skeletron arms to whack enemies
 
             if (player.GetToggleValue("MasoSlime"))
             {
-                player.GetModPlayer<FargoSoulsPlayer>().SlimyShieldItem = Item;
+                player.FargoSouls().SlimyShieldItem = Item;
             }
 
             //agitating lens

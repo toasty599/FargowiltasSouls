@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
                 if (player.GetToggleValue("MasoAbom"))
                 {

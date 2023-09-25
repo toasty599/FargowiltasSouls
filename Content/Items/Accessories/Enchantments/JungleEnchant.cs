@@ -38,7 +38,7 @@ Double tap a direction
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().JungleEnchantActive = true;
+            player.FargoSouls().JungleEnchantActive = true;
         }
 
         public override void AddRecipes()

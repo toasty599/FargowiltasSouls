@@ -59,7 +59,7 @@ Increases your max number of sentries by 4"); */
 
         public static string getSetBonusString(Player player)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
             string key = Language.GetTextValue(Main.ReversedUpDownArmorSetBonuses ? "Key.UP" : "Key.DOWN");
             return Language.GetTextValue($"Mods.FargowiltasSouls.SetBonus.Eridanus{(fargoPlayer.EridanusEmpower ? "On" : "Off")}", key);
@@ -67,7 +67,7 @@ Increases your max number of sentries by 4"); */
 
         public static void EridanusSetBonus(Player player, Item item)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.EridanusSet = true;
 
             if (player.whoAmI == Main.myPlayer && fargoPlayer.DoubleTap)
@@ -87,7 +87,7 @@ Increases your max number of sentries by 4"); */
                         case 2: type = 242; break; //nebula
                         default: //stardust
                             type = 135;
-                            player.GetModPlayer<EModePlayer>().MasomodeMinionNerfTimer = 0; //so that player isn't punished for using weapons during prior phase
+                            player.Eternity().MasomodeMinionNerfTimer = 0; //so that player isn't punished for using weapons during prior phase
                             break;
                     }
 

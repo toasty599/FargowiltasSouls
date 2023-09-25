@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         int SansThreshold => WorldSavingSystem.MasochistModeReal && UseTrueOriginAI ? NPC.lifeMax / 10 : 0;
 
         private List<Vector4> chunklist = new(0);
-        private float ChunkRotation = 0;
+        //private float ChunkRotation = 0;
 
 
         public const float DefaultRuneDistance = 100;
@@ -357,7 +357,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                                     player.mount.Dismount(player);
                                 player.velocity.X = 0f;
                                 player.velocity.Y = -0.4f;
-                                player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
+                                player.FargoSouls().NoUsingItems = 2;
                             }
 
                             Vector2 movement = AuraCenter - player.Center;
@@ -635,7 +635,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
 
                 if (!Main.dedServ)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 60;
 
                 if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.Lifelight] && Main.netMode != NetmodeID.MultiplayerClient)
                     Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<FragilePixieLamp>());
@@ -709,26 +709,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 //Rampup = 1;
             }
 
-            //if (P1AI_Timer >= (60 - (11 * Rampup)))
-            //{
-            //    SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
-
-            //    if (Main.netMode != NetmodeID.MultiplayerClient)
-            //    {
-            //        Vector2 shootatPlayer2 = NPC.DirectionTo(Player.Center) * Rampup * 3.2f;
-            //        for (int i = -1; i < 2; i++)
-            //        {
-            //            int type = Rampup == 5 ? ModContent.ProjectileType<LifeSplittingProjSmall>() : ModContent.ProjectileType<LifeProjSmall>();
-            //            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootatPlayer2.RotatedBy(i * MathHelper.Pi / 5), type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
-            //        }
-            //    }
-            //    if (Rampup < 5)
-            //    {
-            //        Rampup++;
-            //    }
-            //    P1AI_Timer = 0f;
-            //}
-            //P1AI_Timer++;
 
             if (P1AI_Timer > 60)
             {
@@ -936,14 +916,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     RPS = 0.2f;
                 }
 
-                //if (WorldSavingSystem.MasochistModeReal)
-                //{
-                //    int heal = (int)(NPC.lifeMax / 100f * Main.rand.NextFloat(1f, 1.5f));
-                //    NPC.life += heal;
-                //    if (NPC.life > NPC.lifeMax)
-                //        NPC.life = NPC.lifeMax;
-                //    CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
-                //}
                 if (AI_Timer == 5)
                 {
                     SoundEngine.PlaySound(SoundID.Item29 with { Volume = 1.5f, Pitch = -0.5f }, NPC.Center);
@@ -1007,7 +979,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     SoundEngine.PlaySound(SoundID.Item92 with { Pitch = -0.5f }, NPC.Center);
 
                     if (!Main.dedServ)
-                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+                        Main.LocalPlayer.FargoSouls().Screenshake = 60;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -1049,7 +1021,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 // WHY IS THIS SO HIGH.
                 //// Screenshake.
                 //if (LaserTimer > fadeintime)
-                //    player.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                //    player.FargoSouls().Screenshake = 2;
 
                 if (AttackF1)
                 {
@@ -1091,33 +1063,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         rotspeed = 0.82f;
                     }
                     rot += RotationDirection * MathHelper.Pi / 180 * rotspeed;
-                    //randomly make Scar obstacles at specific points, obstacles have Projectile.ai[1] = LaserTimer
-                    /*
-                    if (LaserTimer % 8 == 0 && Main.netMode != NetmodeID.MultiplayerClient && rotspeed > 0.82f)
-                    {
-                        if (intervalist.Count < 1)
-                        {
-                            intervalist.Clear();
-                            for (int i = 0; i < 6; i++)
-                            {
-                                intervalist.Add(i);
-                            }
-                        }
-                        index2 = Main.rand.Next(intervalist.Count);
-                        NPC.netUpdate = true;
-                        interval = intervalist[index2];
-                        intervalist.RemoveAt(index2);
-
-
-                        RandomDistance = Main.rand.Next(200);
-                        int dist = 200 * interval + (int)RandomDistance;
-
-                        Vector2 distV = NPC.Center - new Vector2(0f, dist).RotatedBy(rot);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), distV, Vector2.Zero, ModContent.ProjectileType<LifeScar>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, AI_Timer, endTime);
-
-                        NPC.netUpdate = true;
-                    }
-                    */
                     
                 }
 
@@ -1258,7 +1203,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                     //Main.LocalPlayer.controlUseItem = false;
                     //Main.LocalPlayer.controlUseTile = false;
-                    //Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                    //Main.LocalPlayer.FargoSouls().NoUsingItems = true;
                 }
             }
 
@@ -1436,22 +1381,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                 AttackF1 = false;
                 NPC.netUpdate = true;
-                /*
-                if (true)
-                {
-                    AttackF1 = false;
-                    NPC.netUpdate = true;
-                }
-                else
-                {
-                    FlyingState();
-                    NPC.velocity = NPC.DirectionTo(targetPos) * NPC.velocity.Length();
-                    AI_Timer = 0; //negate the usual increment
-                    NPC.ai[2] = 0;
-                    NPC.ai[3] = 0;
-                    return;
-                }
-                */
             }
 
             if (NPC.Distance(Player.Center) > 2000)
@@ -1887,99 +1816,62 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 AttackF1 = false;
                 NPC.netUpdate = true;
                 RandomOffset = 0;
-                /*
-                if (PhaseThree)
-                {
-                */
                 SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center);
                 LockVector3 = NPC.Center;
-                //}
             }
-            /*
-            if (!PhaseThree) //unused, previously p2 version
+            AuraCenter = LockVector3;
+            Flying = false;
+            Charging = true;
+            if (AI_Timer == StartTime)
             {
-                if (NPC.ai[2] > 60f && (NPC.ai[2] % 5) == 0 && AI_Timer < 280)
+                LockVector1 = Player.Center;
+                NPC.netUpdate = true;
+            }
+            const int ChargeCD = 60;
+            if (ChargeTimer == ChargeCD) //charge
+            {
+                SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
+                float chargeSpeed = 22f;
+                Vector2 chargeatPlayer = NPC.DirectionTo(Player.Center) * chargeSpeed;
+                NPC.velocity = chargeatPlayer;
+                NPC.netUpdate = true;
+            }
+            if (AI_Timer % 5 == 0 && ChargeTimer > ChargeCD && ChargeTimer < ChargeCD + 40) //fire pixies during charges
+            {
+                SoundEngine.PlaySound(SoundID.Item25, NPC.Center);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    SoundEngine.PlaySound(SoundID.Item25, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    float knockBack10 = 3f;
+                    Vector2 shootoffset4 = Vector2.Normalize(NPC.velocity).RotatedBy(RandomOffset) * 5f;
+                    RandomOffset = (float)(Main.rand.Next(-30, 30) * (MathHelper.Pi / 180.0)); //change random offset after so game has time to sync
+                    float ai0 = 0;
+                    if (!WorldSavingSystem.MasochistModeReal)
                     {
-                        float knockBack10 = 3f;
-                        Vector2 shootoffset4 = new Vector2(0f, -5f).RotatedBy(NPC.ai[3]);
-                        NPC.ai[3] = (float)(Main.rand.Next(-30, 30) * (MathHelper.Pi / 180.0)); //change random offset after so game has time to sync
-                        float ai0 = 0;
-                        if (!WorldSavingSystem.MasochistModeReal)
-                        {
-                            ai0 = -30;
-                            shootoffset4 /= 2;
-                        }
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset4, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer, ai0, NPC.whoAmI);
+                        ai0 = -30;
+                        shootoffset4 /= 2;
                     }
-                }
-                NPC.ai[2] += 1f;
-                int endtime = WorldSavingSystem.MasochistModeReal ? 280 : 390;
-                if (AI_Timer > endtime)
-                {
-                    oldstate = state;
-                    StateReset();
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset4, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer, ai0, NPC.whoAmI);
                 }
             }
-            */
-            if (true) //previously phase 3 exclusive
+            if (ChargeTimer >= ChargeCD + 60)
             {
-                AuraCenter = LockVector3;
-                Flying = false;
-                Charging = true;
-                if (AI_Timer == StartTime)
+                ChargeTimer = ChargeCD - 1;
+            }
+            ChargeTimer++;
+            NPC.velocity *= 0.99f;
+            if (AI_Timer >= ChargeCD * 5)
+            {
+                foreach (Projectile p in Main.projectile)
                 {
-                    LockVector1 = Player.Center;
-                    NPC.netUpdate = true;
-                }
-                const int ChargeCD = 60;
-                if (ChargeTimer == ChargeCD) //charge
-                {
-                    SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
-                    float chargeSpeed = 22f;
-                    Vector2 chargeatPlayer = NPC.DirectionTo(Player.Center) * chargeSpeed;
-                    NPC.velocity = chargeatPlayer;
-                    NPC.netUpdate = true;
-                }
-                if (AI_Timer % 5 == 0 && ChargeTimer > ChargeCD && ChargeTimer < ChargeCD + 40) //fire pixies during charges
-                {
-                    SoundEngine.PlaySound(SoundID.Item25, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (p.type == ModContent.ProjectileType<LifeHomingProj>())
                     {
-                        float knockBack10 = 3f;
-                        Vector2 shootoffset4 = Vector2.Normalize(NPC.velocity).RotatedBy(RandomOffset) * 5f;
-                        RandomOffset = (float)(Main.rand.Next(-30, 30) * (MathHelper.Pi / 180.0)); //change random offset after so game has time to sync
-                        float ai0 = 0;
-                        if (!WorldSavingSystem.MasochistModeReal)
-                        {
-                            ai0 = -30;
-                            shootoffset4 /= 2;
-                        }
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset4, ModContent.ProjectileType<LifeHomingProj>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack10, Main.myPlayer, ai0, NPC.whoAmI);
+                        p.ai[2] = 1;
                     }
                 }
-                if (ChargeTimer >= ChargeCD + 60)
-                {
-                    ChargeTimer = ChargeCD - 1;
-                }
-                ChargeTimer++;
-                NPC.velocity *= 0.99f;
-                if (AI_Timer >= ChargeCD * 5)
-                {
-                    foreach (Projectile p in Main.projectile)
-                    {
-                        if (p.type == ModContent.ProjectileType<LifeHomingProj>())
-                        {
-                            p.ai[2] = 1;
-                        }
-                    }
-                    Flying = true;
-                    Charging = false;
-                    oldstate = state;
-                    StateReset();
-                }
+                Flying = true;
+                Charging = false;
+                oldstate = state;
+                StateReset();
             }
 
 
@@ -2046,16 +1938,9 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 */
 
-                //const int timeleft = 180;
-                 TeleportY++;
-                //int p =
+                TeleportY++;
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, offset1, ModContent.ProjectileType<LifeProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer, 0, 3);
-                //if (p != Main.maxProjectiles)
-                //    Main.projectile[p].timeLeft = timeleft;
-                //p = 
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, offset2, ModContent.ProjectileType<LifeProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer, 0, 4);
-                //if (p != Main.maxProjectiles)
-                //    Main.projectile[p].timeLeft = timeleft;
             }
 
 
@@ -2121,9 +2006,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             if (AI_Timer < RandomWindup)
             { //wait for blast
                 Flying = false;
-                //float inertia2 = 1f;
-                //Vector2 flyonPlayer = NPC.DirectionTo(OnPlayer) * flySpeed2;
-                // NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
                 if (AI_Timer == 1 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int timeLeft = ((int)RandomWindup - 30);
@@ -2233,9 +2115,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             if (AI_Timer == RandomWindup + 90 && PhaseOne || AI_Timer == RandomWindup + 300 && !PhaseOne)
             {
-                //NPC.position.X = Player.position.X - (NPC.width / 2);
-                //NPC.position.Y = Player.position.Y - 450f - (NPC.height / 2);
-                //SoundEngine.PlaySound(SoundID.Item8, NPC.Center); //PLACEHOLDER
                 HitPlayer = false;
                 Flying = true;
                 NPC.netUpdate = true;
@@ -2289,18 +2168,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             float rampRatio = AI_Timer / endtime;
             rampRatio *= 0.2f;
             NPC.position += NPC.velocity * rampRatio;
-            /*
-            if (false)
-            {
-                endtime = (endtime - startup) / 2 + startup;
-            }
-            if (true)
-            {
-                float rampRatio = AI_Timer / endtime;
-                rampRatio *= 0.2f;
-                NPC.position += NPC.velocity * rampRatio;
-            }
-            */
 
             //rotation
             if (NPC.velocity.ToRotation() > MathHelper.Pi)
@@ -2337,35 +2204,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, ShootPlayer, ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                 }
             }
-            /*
-            //firing machinegun
-            if (AI_Timer > 15 && NPC.ai[2] >= (72 - (11 * Rampup)) && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact, NPC.Center);
-                for (int i = -1; i < 2; i++)
-                {
-                    Vector2 ShootPlayer = (NPC.DirectionTo(Player.Center) * 5f*Rampup).RotatedBy(i * MathHelper.Pi / 7f);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, ShootPlayer, ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
-                }
-                if (Rampup < 6)
-                    Rampup++;
-                NPC.ai[2] = 0;
-            }
-            NPC.ai[2]++;
-
-            //firing circle in p3
-            if (WorldSavingSystem.MasochistModeReal && AI_Timer > 90 && AI_Timer % 45 == 0 && Main.netMode != NetmodeID.MultiplayerClient && PhaseThree)
-            {
-                float ProjectileSpeed = 10f;
-                Vector2 shootatPlayer3 = NPC.DirectionTo(Player.Center) * ProjectileSpeed;
-                int amount2 = 14;
-                for (int i = 0; i < amount2; i++)
-                {
-                    Vector2 shootoffset = shootatPlayer3.RotatedBy(i * (MathHelper.Pi / (amount2 / 2)));
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset, ModContent.ProjectileType<LifeWave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
-                }
-            }
-            */
             if (AI_Timer >= endtime)
             {
                 Flying = true;
@@ -2373,54 +2211,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 StateReset();
             }
         }
-        //unused
-        /*
-        public void AttackRain()
-        {
-            Player Player = Main.player[NPC.target];
-
-            NPC.localAI[0] = Player.Center.X; //expose for proj to access
-            NPC.localAI[1] = Player.Center.Y - 300;
-
-            if (AttackF1)
-            {
-                AttackF1 = false;
-                NPC.netUpdate = true;
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(NPC.localAI[0], NPC.localAI[1]), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -60);
-            }
-
-            if (AI_Timer > 60f && AI_Timer < 360f)
-            {
-                Flying = true;
-                NPC.Center = new Vector2(NPC.localAI[0], NPC.localAI[1]);
-
-                if (NPC.ai[2] > 1)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NPC.ai[0]++;
-                        float knockBack6 = 3f;
-                        NPC.ai[3] = Main.rand.Next(-750, 750);
-                        Vector2 spawnPos = new Vector2(Player.Center.X - NPC.ai[3], Player.Center.Y - 750f);
-                        if (!WorldSavingSystem.MasochistModeReal)
-                            spawnPos.X += Player.velocity.X * 30; //malice
-                        float ai1 = -1;
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, new Vector2(0f, 7f), ModContent.ProjectileType<LifeProjSmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), knockBack6, Main.myPlayer, NPC.ai[0] * 1000, ai1);
-                    }
-                    NPC.ai[2] = 0f;
-                }
-                NPC.ai[2] += 1f;
-            }
-            if (AI_Timer > 420f)
-            {
-                Flying = true;
-                oldstate = state;
-                StateReset();
-            }
-        }
-        */
         public void AttackTeleportNukes()
         {
             ref float TeleportX = ref NPC.localAI[0];
@@ -2463,7 +2253,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(24f, 0f).RotatedBy(MathHelper.Pi / 8 * i), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                 }
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 90;
+                Main.LocalPlayer.FargoSouls().Screenshake = 90;
 
                 //telegraph nukes
                 for (int i = 0; i < 6; i++)
@@ -2785,17 +2575,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
             }
         }
-
-        public override bool CheckDead()
-        {
-            //if (!resigned) //no dying before final phase
-            //{
-            //    NPC.life = 1;
-            //    return false;
-            //}
-            return base.CheckDead();
-        }
-
         public const int ChunkCount = 10 * 5;
         public const int RuneCount = 12;
         const int ChunkSpriteCount = 12;
@@ -2959,7 +2738,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     Texture2D pyramid = ModContent.Request<Texture2D>(PartsPath + "PyramidFull", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Rectangle pyramidRect = new(0, 0, pyramid.Width, pyramid.Height);
                     Vector2 pyramidOrigin = pyramidRect.Size() / 2;
-                    //Vector2 wobble = new Vector2((float)Math.Sin(MathHelper.ToRadians(5.632167f * DrawTime)), (float)Math.Sin(MathHelper.ToRadians(3 * DrawTime))) * PyramidWobble;
                     spriteBatch.Draw(origin: pyramidOrigin, texture: pyramid, position: NPC.Center - screenPos, sourceRectangle: pyramidRect, color: drawColor, rotation: pyramidRot, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
                 }
                 else
@@ -3005,19 +2783,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 PyramidTimer++;
             }
-            /*
-            float PyramidRot = 0;
-            if (NPC.velocity.ToRotation() !> MathHelper.Pi)
-            {
-                PyramidRot = 0f + MathHelper.Pi * NPC.velocity.X / 300;
-            }
-            */
 
         }
 
         public override void FindFrame(int frameHeight)
         {
-            //Texture2D wingUtexture = ModContent.Request<Texture2D>(PartsPath + "Lifelight_WingUpper", ReLogic.Content.AssetRequestMode.DoNotLoad).Value;
             double fpf = 60 / 10; //  60/fps
             NPC.spriteDirection = NPC.direction;
             NPC.frameCounter += 1;
@@ -3128,28 +2898,12 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             }
 
             Variant = Main.rand.NextBool();
-            /*
-            if (!PhaseThree && NPC.life < P3Threshold)
-			{
-				state = 100;
-			}
-            */
-
             if (!PhaseOne && NPC.life < SansThreshold)
             {
                 state = 101;
                 oldstate = -665;
             }
 
-            /*
-            if (first)
-            {
-                state = 0;
-                availablestates.Remove(0);
-                first = false;
-                oldstate = -666;
-            }
-            */
             NPC.netUpdate = true;
         }
 
@@ -3171,35 +2925,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             Vector2 drawPos = NPC.Center + pos.X * Vector2.UnitX * ChunkDistance + pos.Y * Vector2.UnitY * ChunkDistance - screenPos;
             Texture2D ChunkTexture = ModContent.Request<Texture2D>(PartsPath + textureString, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             spriteBatch.Draw(origin: new Vector2(ChunkTexture.Width / 2, ChunkTexture.Height / 2), texture: ChunkTexture, position: drawPos, sourceRectangle: null, color: color, rotation: 0, scale: NPC.scale + scale, effects: SpriteEffects.None, layerDepth: 0f);
-        }
-
-        private static List<int> InitializeSpriteList(int countSprites, int count)
-        {
-            List<int> lst = new();
-
-            for (int j = 1; j <= countSprites; j++)
-            {
-                lst.Add(j);
-            }
-
-            //shuffle
-            int n = lst.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = Main.rand.Next(n + 1);
-                (lst[n], lst[k]) = (lst[k], lst[n]);
-            }
-
-            //delete so we have correct amount
-            if (countSprites - count > 0)
-            {
-                for (int k = 0; k < countSprites - count; k++)
-                {
-                    lst.RemoveAt(k);
-                }
-            }
-            return lst;
         }
         private Vector4 RotateByMatrix(Vector4 obj, float radians, Vector3 axis)
         {
@@ -3223,36 +2948,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             obj.Z = vector.Z;
             return obj;
         }
-        /*
-        private Vector2 Trianglinator(int chunk, Vector2 screenPos)
-        {
-            //determine positions for each chunk, depending on their rotation (evenly spread), to form a triangle
-            //orth are lines with angles orthogonal to triangle sides, used with sec (1/cos) to find length from center to place on triangle side
-            float OrthLineLength = (NPC.width / 2) * 0.9f * 0.5f; //triangle vertex distance from center * cos(60deg)
-            float drawRot = (float)(ChunkTriangleInnerRotation + (Math.PI * 2 / ChunkCount * chunk));
-            float RotDif;
-            float RotDeg = MathHelper.ToDegrees(drawRot);
-
-            float Orth1 = 60;
-            float Orth2 = 180;
-            //orth3 is the "else"
-
-            if (RotDeg % 360 >= Orth1 - 60 && RotDeg % 360 < Orth1 + 60)
-            {
-                RotDif = MathHelper.ToRadians(RotDeg - 60);
-            }
-            else if (RotDeg % 360 >= Orth2 - 60 && RotDeg % 360 < Orth2 + 60)
-            {
-                RotDif = MathHelper.ToRadians(RotDeg - 180);
-            }
-            else
-            {
-                RotDif = MathHelper.ToRadians(RotDeg - 300);
-            }
-            //pos = center + rot * (r / 2) * sec(rotdif)
-            return NPC.Center + (drawRot + ChunkTriangleOuterRotation).ToRotationVector2() * (float)(OrthLineLength / Math.Cos(RotDif)) - screenPos; //the trianglinator
-        }
-        */
         #endregion
     }
 }

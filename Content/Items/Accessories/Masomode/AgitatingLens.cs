@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
         {
             player.buffImmune[ModContent.BuffType<BerserkedBuff>()] = true;
 
-            player.GetModPlayer<FargoSoulsPlayer>().AgitatingLensItem = Item;
+            player.FargoSouls().AgitatingLensItem = Item;
         }
     }
 }

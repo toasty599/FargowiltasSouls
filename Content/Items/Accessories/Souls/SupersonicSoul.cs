@@ -53,7 +53,7 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.SupersonicSoul(Item, hideVisual);
         }
 

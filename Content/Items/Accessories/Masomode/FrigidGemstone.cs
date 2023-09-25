@@ -36,7 +36,7 @@ Your ice blocks inflict Frostburn
         {
             player.buffImmune[BuffID.Frostburn] = true;
             player.buffImmune[BuffID.Chilled] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().FrigidGemstoneItem = Item;
+            player.FargoSouls().FrigidGemstoneItem = Item;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual) => Effects(player);

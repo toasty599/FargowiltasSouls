@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.timeLeft = 120;
             Projectile.tileCollide = false;
             Projectile.alpha = 200;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
 
             Projectile.penetrate = 2;
             Projectile.hide = true;

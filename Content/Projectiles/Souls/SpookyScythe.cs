@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 float y = -Projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
                 int p = Projectile.NewProjectile(Projectile.position.X + x, Projectile.position.Y + y, x, y, 45, (int) (Projectile.damage * 0.5), 0f, Projectile.owner);
 
-                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                Main.projectile[p].FargoSouls().CanSplit = false;
             } */
         }
 

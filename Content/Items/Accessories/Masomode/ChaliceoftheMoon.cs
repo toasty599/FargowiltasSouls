@@ -50,7 +50,7 @@ Summons a friendly Cultist and plant to fight at your side
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
             //magical bulb
             MagicalBulb.Effects(player);

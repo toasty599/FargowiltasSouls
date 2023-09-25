@@ -42,8 +42,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             Projectile.netImportant = true;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
 
             if (WorldSavingSystem.MasochistModeReal)
                 maxTime += 180;
@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             base.AI();
 
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                Main.LocalPlayer.FargoSouls().Screenshake = 2;
 
             Projectile.timeLeft = 2;
 
@@ -259,7 +259,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (WorldSavingSystem.EternityMode)
             {
-                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.FargoSouls().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }
@@ -274,7 +274,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             target.velocity = -0.4f * Vector2.UnitY;
 
-            target.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
+            target.FargoSouls().NoUsingItems = 2;
         }
 
         public float WidthFunction(float trailInterpolant)

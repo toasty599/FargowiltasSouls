@@ -70,7 +70,7 @@ Increases max number of minions and sentries by 3"); */
         {
             player.GetDamage(player.ProcessDamageTypeFromHeldItem()) += 0.20f;
 
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.StyxSet = true;
 
             int scytheType = ModContent.ProjectileType<StyxArmorScythe>();

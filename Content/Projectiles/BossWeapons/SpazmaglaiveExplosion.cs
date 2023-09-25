@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             //Projectile.localNPCHitCooldown = 8;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public int timer;

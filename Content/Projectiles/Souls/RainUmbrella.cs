@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         private int getReflectHP(Player player)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             int hp = 200;
 
             if (modPlayer.ForceEffect(modPlayer.RainEnchantItem.type))
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (player.whoAmI == Main.myPlayer && (player.dead || modPlayer.RainEnchantItem == null || !player.GetToggleValue("Rain")))
             {
@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
                 //Main.NewText(angleTo + " " + angleFrom + " " + above);
 
-                if (above && x.GetGlobalProjectile<FargoSoulsGlobalProjectile>().canUmbrellaReflect)
+                if (above && x.FargoSouls().canUmbrellaReflect)
                 {
                     for (int i = 0; i < 5; i++)
                     {
@@ -164,7 +164,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 }
                 else
                 {
-                    x.GetGlobalProjectile<FargoSoulsGlobalProjectile>().canUmbrellaReflect= false;
+                    x.FargoSouls().canUmbrellaReflect= false;
                 }
             });
         }
@@ -197,7 +197,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Main.dust[num228].velocity = vector7;
             }
 
-            Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().RainCD = 900;
+            Main.player[Projectile.owner].FargoSouls().RainCD = 900;
         }
     }
 }

@@ -16,6 +16,8 @@ namespace FargowiltasSouls.Core.Globals
 
         public override bool InstancePerEntity => true;
 
+        public bool RunEmodeAI = true;
+
         public sealed override bool AppliesToEntity(NPC entity, bool lateInstantiation)
         {
             return lateInstantiation && Matcher.Satisfies(entity.type);
@@ -55,10 +57,22 @@ namespace FargowiltasSouls.Core.Globals
 
                 OnFirstTick(npc);
             }
-
+            if (!RunEmodeAI)
+            {
+                return false;
+            }
             return SafePreAI(npc);
         }
-
+        public virtual void SafePostAI(NPC npc) => base.PostAI(npc);
+        public sealed override void PostAI(NPC npc)
+        {
+            if (!RunEmodeAI)
+            {
+                return;
+            }
+            SafePostAI(npc);
+            return;
+        }
 
         public virtual void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers) { }
 
@@ -144,7 +158,13 @@ namespace FargowiltasSouls.Core.Globals
 
         #region Sprite Loading
         protected static Asset<Texture2D> LoadSprite(bool recolor, string texture)
-            => ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/" + (recolor ? "Resprites/" : "Vanilla/") + texture, AssetRequestMode.ImmediateLoad);
+        {
+            if (ModContent.RequestIfExists("FargowiltasSouls/Assets/ExtraTextures/" + (recolor ? "Resprites/" : "Vanilla/") + texture, out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
+            {
+                return asset;
+            }
+            return null;
+        }
 
         protected static void LoadSpriteBuffered(bool recolor, int type, Asset<Texture2D>[] vanillaTexture, Dictionary<int, Asset<Texture2D>> fargoBuffer, string texturePrefix)
         {
@@ -153,7 +173,7 @@ namespace FargowiltasSouls.Core.Globals
                 if (!fargoBuffer.ContainsKey(type))
                 {
                     fargoBuffer[type] = vanillaTexture[type];
-                    vanillaTexture[type] = LoadSprite(recolor, $"{texturePrefix}{type}");
+                    vanillaTexture[type] = LoadSprite(recolor, $"{texturePrefix}{type}") ?? vanillaTexture[type];
                 }
             }
             else
@@ -173,7 +193,7 @@ namespace FargowiltasSouls.Core.Globals
                 if (fargoSoulsBuffer == null)
                 {
                     fargoSoulsBuffer = vanillaResource;
-                    vanillaResource = LoadSprite(recolor, name);
+                    vanillaResource = LoadSprite(recolor, name) ?? vanillaResource;
                 }
             }
             else

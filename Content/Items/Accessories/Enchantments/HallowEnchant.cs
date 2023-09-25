@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             if (player.GetToggleValue("HallowDodge"))
             {
-                player.GetModPlayer<FargoSoulsPlayer>().HallowEnchantItem = item;
+                player.FargoSouls().HallowEnchantItem = item;
             }
                 //player.onHitDodge = true;
         }

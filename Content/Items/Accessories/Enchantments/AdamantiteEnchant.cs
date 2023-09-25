@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void AdamantiteEffect(Player player, Item item)
         {
             player.DisplayToggle("Adamantite");
-            FargoSoulsPlayer modplayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modplayer = player.FargoSouls();
             modplayer.AdamantiteEnchantItem = item;
         }
         static int[] AdamIgnoreItems = new int[]
@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             {
                 if (p != null && p.active)
                 {
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().HuntressProj = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().HuntressProj;
+                    p.FargoSouls().HuntressProj = projectile.FargoSouls().HuntressProj;
                 }
             }
 

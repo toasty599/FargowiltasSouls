@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Projectile.localAI[0] = 1;
                 SoundEngine.PlaySound(SoundID.Item2, Projectile.Center);
             }
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.ForceEffect(ModContent.ItemType<NecroEnchant>()))
             {
                 Projectile.velocity.Y = 0;
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
 
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && Main.LocalPlayer.Hitbox.Intersects(Projectile.Hitbox)
-                && player.GetModPlayer<FargoSoulsPlayer>().NecroEnchantActive && player.GetToggleValue("Necro"))
+                && player.FargoSouls().NecroEnchantActive && player.GetToggleValue("Necro"))
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, -12), ModContent.ProjectileType<DungeonGuardianNecro>(), (int)Projectile.ai[0], 1, Projectile.owner);
 

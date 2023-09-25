@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker = true;
+            npc.FargoSouls().BloodDrinker = true;
         }
     }
 }

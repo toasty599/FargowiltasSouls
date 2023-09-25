@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             if (player.GetToggleValue("MasoConcoction"))
-                player.GetModPlayer<FargoSoulsPlayer>().TimsConcoction = true;
+                player.FargoSouls().TimsConcoction = true;
         }
     }
 }

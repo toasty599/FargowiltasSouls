@@ -36,7 +36,7 @@ Drastically improves reforges
         {
             player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.MidasBuff>()] = true;
             player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.LoosePocketsBuff>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().SecurityWallet = true;
+            player.FargoSouls().SecurityWallet = true;
         }
     }
 }

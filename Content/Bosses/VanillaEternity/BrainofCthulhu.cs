@@ -77,8 +77,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (WorldSavingSystem.SwarmActive)
                 return base.SafePreAI(npc);
 
-            if (Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<EModePlayer>().ShorterDebuffsTimer < 2)
-                Main.LocalPlayer.GetModPlayer<EModePlayer>().ShorterDebuffsTimer = 2;
+            if (Main.LocalPlayer.active && Main.LocalPlayer.Eternity().ShorterDebuffsTimer < 2)
+                Main.LocalPlayer.Eternity().ShorterDebuffsTimer = 2;
 
             if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 3000)
             {

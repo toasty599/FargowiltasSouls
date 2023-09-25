@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.alpha = 255;
 
             Projectile.hide = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -188,7 +188,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case 6: //eridanus vortex lightning starting angles
                     {
-                        Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+                        Projectile.FargoSouls().TimeFreezeImmune = true;
 
                         color = new Color(51, 255, 191);
                         maxTime = 90;
@@ -210,7 +210,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case 7: //celestial pillar explode
                     {
-                        Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+                        Projectile.FargoSouls().TimeFreezeImmune = true;
 
                         color = (int)Projectile.ai[1] switch
                         {
@@ -228,7 +228,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         Projectile.rotation = Projectile.velocity.ToRotation();
 
                         if (Main.LocalPlayer.active && !Main.dedServ)
-                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                            Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                         if (counter == maxTime)
                         {

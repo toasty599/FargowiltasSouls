@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             player.DisplayToggle("Palm");
 
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.PalmEnchantItem = item;
             
             if (player.GetToggleValue("Palm") && player.whoAmI == Main.myPlayer && modPlayer.DoubleTap)

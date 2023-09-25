@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             player.DisplayToggle("Apprentice");
 
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             bool forceEffect = modPlayer.ForceEffect(ModContent.ItemType<ApprenticeEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<DarkArtistEnchant>());
             if (player.GetToggleValue("Apprentice") && player.controlUseItem)
             {

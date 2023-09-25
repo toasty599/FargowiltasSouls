@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             base.SetDefaults();
             Projectile.timeLeft = 300;
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override void AI()

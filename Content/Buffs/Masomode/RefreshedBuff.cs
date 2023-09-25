@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().WingTimeModifier += 0.5f;
+            player.FargoSouls().WingTimeModifier += 0.5f;
             player.hasMagiluminescence = true;
             player.frogLegJumpBoost = true;
         }

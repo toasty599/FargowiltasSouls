@@ -33,7 +33,7 @@ Touch it yourself to add back missing wing time
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().ForbiddenEffect();
+            player.FargoSouls().ForbiddenEffect();
         }
 
         public override void AddRecipes()

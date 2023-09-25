@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
             EModeGlobalNPC.Aura(npc, 800f, BuffID.BrokenArmor, false, 246);
             foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != NPCID.Paladin && n.Distance(npc.Center) < 800f))
             {
-                n.GetGlobalNPC<EModeGlobalNPC>().PaladinsShield = true;
+                n.Eternity().PaladinsShield = true;
                 if (Main.rand.NextBool())
                 {
                     int d = Dust.NewDust(n.position, n.width, n.height, DustID.GoldCoin, 0f, -1.5f, 0, new Color());

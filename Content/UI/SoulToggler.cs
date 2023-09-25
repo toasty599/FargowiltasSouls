@@ -191,7 +191,7 @@ namespace FargowiltasSouls.Content.UI
         {
             ToggleList.Clear();
             Player player = Main.LocalPlayer;
-            ToggleBackend toggler = player.GetModPlayer<FargoSoulsPlayer>().Toggler;
+            ToggleBackend toggler = player.FargoSouls().Toggler;
 
             IEnumerable<Toggle> DisplayToggles = toggler.Toggles.Values.Where((toggle) =>
             {

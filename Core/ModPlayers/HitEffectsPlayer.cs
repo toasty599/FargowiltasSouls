@@ -67,12 +67,12 @@ namespace FargowiltasSouls.Core.ModPlayers
                 modifiers.Null();
             }
 
-            if (TungstenEnchantItem != null && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale != 1)
+            if (TungstenEnchantItem != null && proj.FargoSouls().TungstenScale != 1)
             {
                 TungstenEnchant.TungstenModifyDamage(Player, ref modifiers, proj.DamageType);
             }
 
-            if (HuntressEnchantActive && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().HuntressProj == 1 && target.type != NPCID.TargetDummy)
+            if (HuntressEnchantActive && proj.FargoSouls().HuntressProj == 1 && target.type != NPCID.TargetDummy)
             {
                 HuntressEnchant.HuntressBonus(this, proj, target, ref modifiers);
             }
@@ -220,7 +220,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.beetleCounter += hitInfo.Damage;
             }
 
-            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames))
+            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.FargoSouls().noInteractionWithNPCImmunityFrames))
             {
                 PearlwoodEnchant.PearlwoodStarDrop(this, target, GetBaseDamage());
             }
@@ -529,7 +529,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (npc.coldDamage && Hypothermia)
                 modifiers.FinalDamage *= 1.2f;
 
-            if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
+            if (npc.FargoSouls().CurseoftheMoon)
                 modifiers.FinalDamage *= 0.8f;
         }
 
@@ -549,7 +549,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (proj.coldDamage && Hypothermia)
                 modifiers.FinalDamage *= 1.2f;
 
-            //if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
+            //if (npc.FargoSouls().CurseoftheMoon)
             //damage = (int)(damage * 0.8);
         }
 

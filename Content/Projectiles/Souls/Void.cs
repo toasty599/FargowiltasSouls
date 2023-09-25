@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                         
                         float distance = Projectile.Distance(Main.projectile[i].Center);
                         Projectile proj = Main.projectile[i];
-                        if (!FargoSoulsUtil.CanDeleteProjectile(proj, 0) || distance > minDist || proj.type == Projectile.type || (proj.friendly && player.GetModPlayer<FargoSoulsPlayer>().VortexStealth))
+                        if (!FargoSoulsUtil.CanDeleteProjectile(proj, 0) || distance > minDist || proj.type == Projectile.type || (proj.friendly && player.FargoSouls().VortexStealth))
                         {
                             continue;
                         }

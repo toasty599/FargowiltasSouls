@@ -171,8 +171,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (MeteorMomentum && !NoMomentum && !Player.mount.Active) //overriden by nomomentum
             {
-                Player.runAcceleration *= 3f;
-                Player.runSlowdown *= 3f;
+                Player.runAcceleration *= 2f;
+                Player.runSlowdown *= 2f;
 
             }
             if (NoMomentum && !Player.mount.Active)
@@ -479,14 +479,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Anticoagulation)
                 DamageOverTime(4, true);
 
-            if (Player.onFire && Player.GetModPlayer<FargoSoulsPlayer>().AshWoodEnchantItem != null)
+            if (Player.onFire && Player.FargoSouls().AshWoodEnchantItem != null)
             {
                 Player.lifeRegen += 8;
             }
 
             if (Player.lifeRegen < 0)
             {
-                if (ForceEffect(LeadEnchantItem.type))
+                if (LeadEnchantItem != null && ForceEffect(LeadEnchantItem.type))
                 {
                     Player.lifeRegen = (int)(Player.lifeRegen * 0.4f);
                 }
@@ -509,7 +509,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateMiscEffects()
         {
-            FargoSoulsPlayer modPlayer = Player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = Player.FargoSouls();
 
             //these are here so that emode minion nerf can properly detect the real set bonuses over in EModePlayer postupdateequips
             if (SquireEnchantItem != null)

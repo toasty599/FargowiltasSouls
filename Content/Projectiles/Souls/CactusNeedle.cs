@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.penetrate = 2;
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             if (Projectile.ai[0] == 1)
             {
-                target.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = true;
+                target.FargoSouls().Needled = true;
             }
         }
 

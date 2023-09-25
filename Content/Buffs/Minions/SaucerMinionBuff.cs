@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().MiniSaucer = true;
+            player.FargoSouls().MiniSaucer = true;
             if (player.whoAmI == Main.myPlayer)
             {
                 const int damage = 50;

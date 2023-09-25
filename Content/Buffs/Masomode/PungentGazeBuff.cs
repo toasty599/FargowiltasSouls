@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            FargoSoulsGlobalNPC globalNPC = npc.GetGlobalNPC<FargoSoulsGlobalNPC>();
+            FargoSoulsGlobalNPC globalNPC = npc.FargoSouls();
 
             int cap = globalNPC.PungentGazeWasApplied ? MAX_TIME : 2;
 
@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         public override bool ReApply(NPC npc, int time, int buffIndex)
         {
             npc.buffTime[buffIndex] += time;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().PungentGazeWasApplied = true;
+            npc.FargoSouls().PungentGazeWasApplied = true;
             return base.ReApply(npc, time, buffIndex);
         }
     }

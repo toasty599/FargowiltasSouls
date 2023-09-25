@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             Projectile.hide = true;
             Projectile.light = 0.5f;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override void AI()

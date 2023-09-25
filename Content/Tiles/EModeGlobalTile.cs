@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.Tiles
                 {
                     //if player INSIDE TEMPLE, but not cursed, its ok to break
                     Tile tile = Framing.GetTileSafely(Main.player[p].Center);
-                    if (tile.WallType == WallID.LihzahrdBrickUnsafe && !Main.player[p].GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse)
+                    if (tile.WallType == WallID.LihzahrdBrickUnsafe && !Main.player[p].FargoSouls().LihzahrdCurse)
                         return true;
                 }
                 //if player outside temple, or player in temple but is cursed, dont break

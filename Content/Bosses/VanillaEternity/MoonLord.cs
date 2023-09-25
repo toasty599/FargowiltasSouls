@@ -53,10 +53,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             if (!Main.player[projectile.owner].buffImmune[ModContent.BuffType<NullificationCurseBuff>()] && !WorldSavingSystem.SwarmActive)
             {
+                bool RogueProjectile = false;
+                if (ModContent.TryFind("CalamityMod", "RogueDamageClass", out DamageClass rogueDamageClass))
+                {
+                    RogueProjectile = projectile.CountsAsClass(rogueDamageClass);
+                }
+
                 switch (GetVulnerabilityState(npc))
                 {
                     case 0: if (!projectile.CountsAsClass(DamageClass.Melee)) return false; break;
-                    case 1: if (!projectile.CountsAsClass(DamageClass.Ranged)) return false; break;
+                    case 1: if (!(projectile.CountsAsClass(DamageClass.Ranged) || RogueProjectile)) return false; break;
                     case 2: if (!projectile.CountsAsClass(DamageClass.Magic)) return false; break;
                     case 3: if (!FargoSoulsUtil.IsSummonDamage(projectile)) return false; break;
                     default: break;
@@ -568,7 +574,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     case 3:
                         HandleScene("Stardust");
                         if (VulnerabilityTimer < 120) //so that player isn't punished for using weapons during prior phase
-                            Main.LocalPlayer.GetModPlayer<EModePlayer>().MasomodeMinionNerfTimer = 0;
+                            Main.LocalPlayer.Eternity().MasomodeMinionNerfTimer = 0;
                         break;
                     default: break;
                 }

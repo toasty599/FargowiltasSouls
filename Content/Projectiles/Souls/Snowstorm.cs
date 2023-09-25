@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             Projectile.timeLeft++;
 
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
                 if (proj.active && proj.hostile && proj.damage > 0 && Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(proj, Projectile.Center)) < dist && FargoSoulsUtil.CanDeleteProjectile(proj))
                 {
-                    FargoSoulsGlobalProjectile globalProj = proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
+                    FargoSoulsGlobalProjectile globalProj = proj.FargoSouls();
                     globalProj.ChilledProj = true;
                     globalProj.ChilledTimer = 15;
                     Projectile.netUpdate = true;
@@ -108,8 +108,8 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
                 if (npc.active && !npc.friendly && npc.damage > 0 && Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(npc, Projectile.Center)) < dist && !npc.dontTakeDamage)
                 {
-                    npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
-                    npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = 15;
+                    npc.FargoSouls().SnowChilled = true;
+                    npc.FargoSouls().SnowChilledTimer = 15;
                     npc.netUpdate = true;
                 }
             }

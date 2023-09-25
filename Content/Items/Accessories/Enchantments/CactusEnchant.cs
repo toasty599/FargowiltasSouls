@@ -48,7 +48,7 @@ Enemies will explode into needles on death if they are struck with your needles
 
             if (player.GetToggleValue("Cactus"))
             {
-                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
                 modPlayer.CactusEnchantActive = true;
 
                 if (modPlayer.CactusProcCD > 0)
@@ -60,7 +60,7 @@ Enemies will explode into needles on death if they are struck with your needles
 
         public static void CactusProc(NPC npc, Player player)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             int dmg = 20;
             int numNeedles = 8;
 
@@ -78,7 +78,7 @@ Enemies will explode into needles on death if they are struck with your needles
             {
                 if (projs[i] == null) continue;
                 Projectile p = projs[i];
-                p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                p.FargoSouls().CanSplit = false;
 
                 p.velocity = p.velocity.RotatedBy(randomRotation);
             }
@@ -106,7 +106,7 @@ Enemies will explode into needles on death if they are struck with your needles
                 {
                     if (projs[i] == null) continue;
                     Projectile p = projs[i];
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                    p.FargoSouls().CanSplit = false;
 
                     p.ai[0] = 1; //these needles can inflict enemies with needled
                     p.velocity = p.velocity.RotatedBy(randomRotation);

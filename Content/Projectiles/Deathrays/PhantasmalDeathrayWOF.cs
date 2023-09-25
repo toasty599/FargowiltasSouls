@@ -50,8 +50,8 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             if (WorldSavingSystem.MasochistModeReal)
             {
                 maxScale = Main.rand.NextFloat(2.5f, 5f);
-                if (!Main.dedServ && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake < 2)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                if (!Main.dedServ && Main.LocalPlayer.FargoSouls().Screenshake < 2)
+                    Main.LocalPlayer.FargoSouls().Screenshake = 2;
             }
             Projectile.localAI[0] += 1f;
             if (Projectile.localAI[0] >= maxTime)

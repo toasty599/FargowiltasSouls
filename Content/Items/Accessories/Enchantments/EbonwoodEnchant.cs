@@ -36,14 +36,14 @@ Any projectiles that would deal less than 10 damage to you are destroyed
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().EbonwoodEnchantItem = Item;
+            player.FargoSouls().EbonwoodEnchantItem = Item;
             EbonwoodEffect(player);
         }
 
         public static void EbonwoodEffect(Player player)
         {
             player.DisplayToggle("Ebon");
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)
                 return;
@@ -63,7 +63,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                             npc.AddBuff(ModContent.BuffType<CorruptingBuff>(), 2);
                         }
                     }
-                    if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().EbonCorruptionTimer > 60 * 4 && (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>())))
+                    if (npc.FargoSouls().EbonCorruptionTimer > 60 * 4 && (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>())))
                     {
                         EbonwoodProc(player, npc, dist, forceEffect, 5);
                     }
@@ -111,7 +111,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
 
             Corrupt(npc, force);
             SoundEngine.PlaySound(SoundID.NPCDeath55, npc.Center);
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().EbonCorruptionTimer = 0;
+            npc.FargoSouls().EbonCorruptionTimer = 0;
 
             //dust
             for (int i = 0; i < 60; i++)

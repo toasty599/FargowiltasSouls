@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Projectile.localNPCHitCooldown = 20;
             Projectile.penetrate = -1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
         private Vector2 Aim = Vector2.Zero;
         private Vector2 AimDir = Vector2.Zero;

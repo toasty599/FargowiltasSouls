@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
 
-            player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
+            player.FargoSouls().DeerclawpsItem = Item;
         }
     }
 }

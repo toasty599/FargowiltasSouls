@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Mounts
             player.mount.SetMount(ModContent.MountType<TrojanSquirrelMount>(), player);
             player.buffTime[buffIndex] = 10;
 
-            player.GetModPlayer<FargoSoulsPlayer>().SquirrelMount = true;
+            player.FargoSouls().SquirrelMount = true;
         }
     }
 }

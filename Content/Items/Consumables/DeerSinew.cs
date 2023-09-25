@@ -37,14 +37,14 @@ All effects negated if toggled off or another dash is already in use
 
         public override bool CanUseItem(Player player)
         {
-            return !player.GetModPlayer<FargoSoulsPlayer>().DeerSinew;
+            return !player.FargoSouls().DeerSinew;
         }
 
         public override bool? UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().DeerSinew = true;
+                player.FargoSouls().DeerSinew = true;
             }
             return true;
         }

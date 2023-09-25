@@ -70,7 +70,7 @@ Effects of Flower Boots and Greedy Ring
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             //includes revive, both spectres, adamantite, and star heal
             modPlayer.TerrariaSoul = true;
 
@@ -96,12 +96,12 @@ Effects of Flower Boots and Greedy Ring
 
         public override void UpdateVanity(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantDiscount = true;
+            player.FargoSouls().WoodEnchantDiscount = true;
         }
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantDiscount = true;
+            player.FargoSouls().WoodEnchantDiscount = true;
             AshWoodEnchant.PassiveEffect(player);
         }
 

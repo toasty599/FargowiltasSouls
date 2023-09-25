@@ -37,8 +37,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
             Projectile.extraUpdates = 1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()

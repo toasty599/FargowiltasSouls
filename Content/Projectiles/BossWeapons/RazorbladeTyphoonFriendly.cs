@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.alpha = 100;
             Projectile.penetrate = -1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
             Projectile.DamageType = DamageClass.Ranged;
 
             Projectile.hide = true;

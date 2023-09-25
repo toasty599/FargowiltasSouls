@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override bool CheckDead()
         {
-            NPC.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = false;
+            NPC.FargoSouls().Needled = false;
             return true;
         }
 
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             if (WorldSavingSystem.MasochistModeReal)
                 target.AddBuff(ModContent.BuffType<SqueakyToyBuff>(), 120);
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);
-            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+            target.FargoSouls().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
         }
 
         public override void FindFrame(int frameHeight)

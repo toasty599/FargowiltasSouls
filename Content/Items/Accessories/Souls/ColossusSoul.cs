@@ -51,7 +51,7 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             //any new effects, brain of confusion
             modPlayer.ColossusSoul(Item, 100, 0.15f, 5, hideVisual);
         }

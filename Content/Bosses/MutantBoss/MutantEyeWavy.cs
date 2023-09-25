@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             base.SetDefaults();
             Projectile.timeLeft = 180;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
             CooldownSlot = 0;
         }
 

@@ -45,7 +45,7 @@ Increases max number of minions and sentries by 1"); */
 
         public override void ArmorSetShadows(Player player)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             if (fargoPlayer.GaiaOffense)
             {
                 player.armorEffectDrawOutlinesForbidden = true;
@@ -67,7 +67,7 @@ Increases max number of minions and sentries by 1"); */
 
         public static void GaiaSetBonus(Player player)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.GaiaSet = true;
 
             player.GetAttackSpeed(DamageClass.Melee) += 0.1f;

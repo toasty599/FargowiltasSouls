@@ -35,7 +35,7 @@ Buff booster stacking capped at 2
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().NebulaEnchantActive = true;
+            player.FargoSouls().NebulaEnchantActive = true;
         }
 
         public override void AddRecipes()

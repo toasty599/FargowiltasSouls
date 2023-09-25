@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoo
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
+            target.FargoSouls().AddBuffNoStack(BuffID.Frozen, 30);
         }
     }
 }

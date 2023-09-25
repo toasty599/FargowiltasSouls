@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             //all item speed reduced to 75%
-            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= .25f;
+            player.FargoSouls().AttackSpeed -= .25f;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
             if (realNPC != null && realNPC.boss)
                 return;
 
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Lethargic = true;
+            npc.FargoSouls().Lethargic = true;
         }
     }
 }

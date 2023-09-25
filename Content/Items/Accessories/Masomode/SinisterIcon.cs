@@ -43,12 +43,12 @@ Non-boss enemies will drop doubled loot
             player.buffImmune[ModContent.BuffType<StunnedBuff>()] = true;
 
             if (player.GetToggleValue("MasoIcon"))
-                player.GetModPlayer<FargoSoulsPlayer>().SinisterIcon = true;
+                player.FargoSouls().SinisterIcon = true;
 
             if (player.GetToggleValue("MasoIconDrops"))
-                player.GetModPlayer<FargoSoulsPlayer>().SinisterIconDrops = true;
+                player.FargoSouls().SinisterIconDrops = true;
 
-            //player.GetModPlayer<FargoSoulsPlayer>().Graze = true;
+            //player.FargoSouls().Graze = true;
         }
     }
 }

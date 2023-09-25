@@ -208,7 +208,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
-                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 90;
+                        Main.LocalPlayer.FargoSouls().Screenshake = 90;
                 }
             }
 
@@ -266,7 +266,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
-                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 90;
+                        Main.LocalPlayer.FargoSouls().Screenshake = 90;
                 }
             }
 
@@ -296,7 +296,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                         if (Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 180;
+                            Main.LocalPlayer.FargoSouls().Screenshake = 180;
                     }
                 }
             }

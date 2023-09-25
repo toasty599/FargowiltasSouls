@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             Projectile.DamageType = DamageClass.Magic;
             Projectile.hide = true;
             Projectile.light = 1.1f;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -48,8 +48,8 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
         {
             CastLights();
 
-            if (!Main.dedServ && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake < 30)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+            if (!Main.dedServ && Main.LocalPlayer.FargoSouls().Screenshake < 30)
+                Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
             if (Projectile.ai[1] < LaserWidth / 2)       //20
             {

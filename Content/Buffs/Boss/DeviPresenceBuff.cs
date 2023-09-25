@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Boss
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().DevianttPresence = true;
+            player.FargoSouls().DevianttPresence = true;
         }
     }
 }

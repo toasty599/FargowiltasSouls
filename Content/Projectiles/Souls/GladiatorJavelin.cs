@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.penetrate = 1;
             //Projectile.usesIDStaticNPCImmunity = true;
             //Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
             if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
                 fargo.Call("LowRenderProj", Projectile);
         }

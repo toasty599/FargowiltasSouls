@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             {
                 return false;
             }
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer == null)
             {
                 return false;
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             Rectangle rectangle = new(0, 0, texture.Width, texture.Height);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            //float opacity = 0.4f + (-0.4f * drawInfo.drawPlayer.velocity.Length() / (drawPlayer.GetModPlayer<FargoSoulsPlayer>().ShadowForce ? 8f : 5f));
+            //float opacity = 0.4f + (-0.4f * drawInfo.drawPlayer.velocity.Length() / (drawPlayer.FargoSouls().ShadowForce ? 8f : 5f));
             float opacity = 0.4f;
             DrawData data = new(texture, drawPos, rectangle, Color.Black * opacity, 0f, origin2, scale, SpriteEffects.None, 0);
             drawInfo.DrawDataCache.Add(data);

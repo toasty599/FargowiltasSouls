@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             if (player.GetToggleValue("MasoCarrot", false))
                 player.scope = true;
 
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.SandsofTime = true;
             fargoPlayer.SecurityWallet = true;
             fargoPlayer.TribalCharm = true;
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
         {
             PassiveEffect(player, Item);
 
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
             // Concentrated rainbow matter
             player.buffImmune[ModContent.BuffType<FlamesoftheUniverseBuff>()] = true;
@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             // Wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
             player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().WretchedPouchItem = Item;
+            player.FargoSouls().WretchedPouchItem = Item;
 
             // Sands of time
             player.buffImmune[BuffID.WindPushed] = true;
@@ -165,7 +165,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             // Tim's concoction
             if (player.GetToggleValue("MasoConcoction"))
-                player.GetModPlayer<FargoSoulsPlayer>().TimsConcoction = true;
+                player.FargoSouls().TimsConcoction = true;
         }
 
         public override void UseItemFrame(Player player) => SandsofTime.Use(player);

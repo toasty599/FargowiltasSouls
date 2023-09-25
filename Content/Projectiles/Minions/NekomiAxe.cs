@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.aiStyle = -1;
             Projectile.scale = 4f;
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 1;
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
         public override bool PreAI()
         {
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().NinjaSpeedup = 0;
+            Projectile.FargoSouls().NinjaSpeedup = 0;
             return base.PreAI();
         }
 
@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void Kill(int timeleft)
         {
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+                Main.LocalPlayer.FargoSouls().Screenshake = 60;
 
             MakeDust();
 

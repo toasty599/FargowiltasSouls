@@ -36,8 +36,8 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             Projectile.light = 1.1f;
             Projectile.scale = 1.75f;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)

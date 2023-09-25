@@ -39,10 +39,10 @@ Press the Debuff Install key to inflict yourself with Cursed Inferno and Ichor f
             player.buffImmune[BuffID.CursedInferno] = true;
             player.buffImmune[BuffID.Ichor] = true;
 
-            player.GetModPlayer<FargoSoulsPlayer>().FusedLens = true;
+            player.FargoSouls().FusedLens = true;
 
             if (player.onFire2)
-                player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 0.15f;
+                player.FargoSouls().AttackSpeed += 0.15f;
             if (player.ichor)
                 player.GetCritChance(DamageClass.Generic) += 15;
         }

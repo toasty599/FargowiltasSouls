@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Patreon.ParadoxWolf
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 20; //
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override void AI()
@@ -39,9 +39,9 @@ namespace FargowiltasSouls.Content.Patreon.ParadoxWolf
             }
 
             player.GetModPlayer<PatreonPlayer>().WolfDashing = true;
-            if (player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer < 2)
-                player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer = 2;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoSoulsPlayer>().StardustEnchantActive;
+            if (player.FargoSouls().IsDashingTimer < 2)
+                player.FargoSouls().IsDashingTimer = 2;
+            Projectile.FargoSouls().TimeFreezeImmune = player.FargoSouls().StardustEnchantActive;
 
             player.Center = Projectile.Center;
             Projectile.spriteDirection = -Projectile.direction;

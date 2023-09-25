@@ -254,7 +254,7 @@ namespace FargowiltasSouls
                     "Content/Bosses/TrojanSquirrel/TrojanSquirrel_Still"
                 );
                 Add("Boss",
-                    "Lifelight",
+                    "LifeChallenger",
                     new List<int> { ModContent.NPCType<LifeChallenger>() },
                     11.49f,
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.Lifelight],
@@ -270,7 +270,7 @@ namespace FargowiltasSouls
                     }),
                     new List<int> { ModContent.ItemType<FragilePixieLamp>() },
                     false,
-                    "Content/Bosses/Lifelight/Lifelight"
+                    "Content/Bosses/Lifelight/LifeChallenger"
                 );
                 
                 Add("Boss",

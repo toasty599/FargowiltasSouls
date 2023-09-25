@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Projectile.DamageType = DamageClass.Melee;
             Projectile.alpha = 0;
             Projectile.timeLeft = 45;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

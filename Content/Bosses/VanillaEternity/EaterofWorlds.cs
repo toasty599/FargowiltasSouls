@@ -483,9 +483,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 Player player = Main.player[npc.target];
 
                 //eater meme
-                if (!player.dead && player.GetModPlayer<FargoSoulsPlayer>().FreeEaterSummon)
+                if (!player.dead && player.FargoSouls().FreeEaterSummon)
                 {
-                    player.GetModPlayer<FargoSoulsPlayer>().FreeEaterSummon = false;
+                    player.FargoSouls().FreeEaterSummon = false;
 
                     if (!NPC.downedBoss2 && Main.netMode != NetmodeID.MultiplayerClient && ModContent.TryFind("Fargowiltas", "WormyFood", out ModItem modItem))
                         Item.NewItem(npc.GetSource_Loot(), player.Hitbox, modItem.Type);

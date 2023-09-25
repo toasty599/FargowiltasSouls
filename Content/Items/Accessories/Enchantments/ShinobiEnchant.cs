@@ -34,7 +34,7 @@ Greatly enhances Lightning Aura effectiveness
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             //tele thru wall
             modPlayer.ShinobiEffect(hideVisual);
             //monk dash mayhem

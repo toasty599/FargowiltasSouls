@@ -40,7 +40,7 @@ This does not affect hits dealing less than 10 damage
         public static void CrimsonEffect(Player player)
         {
             player.DisplayToggle("Crimson");
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.CrimsonEnchantActive = true;
         }
 

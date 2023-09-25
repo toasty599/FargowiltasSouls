@@ -36,7 +36,7 @@ Attacks have a chance to squeak and deal 1 damage to you
         {
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.GuiltyBuff>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().SqueakyAcc = true;
+            player.FargoSouls().SqueakyAcc = true;
         }
         private bool lastLMouse = false;
         public override void HoldItem(Player player) //doing this instead of making an item use animation lo

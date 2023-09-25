@@ -43,7 +43,7 @@ While in stealth, more mushrooms will spawn
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().ShroomiteEffect(hideVisual);
+            player.FargoSouls().ShroomiteEffect(hideVisual);
         }
 
         public override void AddRecipes()

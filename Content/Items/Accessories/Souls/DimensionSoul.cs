@@ -89,7 +89,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.ColossusSoul(Item, 300, 0.2f, 8, hideVisual);
             modPlayer.SupersonicSoul(Item, hideVisual);
             modPlayer.FlightMasterySoul();

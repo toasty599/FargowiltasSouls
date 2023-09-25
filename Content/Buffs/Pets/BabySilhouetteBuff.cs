@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Buffs.Pets
         public override void Update(Player player, ref int buffIndex)
         {
             player.buffTime[buffIndex] = 18000;
-            player.GetModPlayer<FargoSoulsPlayer>().BabySilhouette = true;
+            player.FargoSouls().BabySilhouette = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<BabySilhouette>()] <= 0 && player.whoAmI == Main.myPlayer)
             {
                 Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<BabySilhouette>(), 0, 0f, player.whoAmI);

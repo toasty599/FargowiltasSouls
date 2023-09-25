@@ -37,7 +37,7 @@ While in stealth, your own projectiles will not be sucked in
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().VortexEffect(hideVisual);
+            player.FargoSouls().VortexEffect(hideVisual);
         }
 
         public override void AddRecipes()

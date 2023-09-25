@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         }
         public static void PassiveEffect(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().fireNoDamage = true;
+            player.FargoSouls().fireNoDamage = true;
         }
         public override void UpdateInventory(Player player) => PassiveEffect(player);
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             player.DisplayToggle("AshWood");
             PassiveEffect(player);
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.AshWoodEnchantItem = item;
             player.buffImmune[ModContent.BuffType<OiledBuff>()] = true;
             player.ashWoodBonus = true;

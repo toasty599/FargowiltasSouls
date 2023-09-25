@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 5;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
 
             CooldownSlot = -1;
         }

@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 
             Projectile.netImportant = true;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

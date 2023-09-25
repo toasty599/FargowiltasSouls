@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.extraUpdates = 1;
             Projectile.alpha = 0;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

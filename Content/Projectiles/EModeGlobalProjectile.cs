@@ -140,7 +140,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         else
                             projectile.idStaticNPCHitCooldown = 5;
 
-                        projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+                        projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
                     }
                     break;
 
@@ -246,7 +246,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 if (projectile.minion && !(IgnoreMinionNerf.TryGetValue(projectile.type, out bool ignoreNerf1) && ignoreNerf1))
                     NerfDamageBasedOnProjTypeCount = projectile.type;
                 else if (sourceProj is Projectile && !(IgnoreMinionNerf.TryGetValue(sourceProj.type, out bool ignoreNerf2) && ignoreNerf2))
-                    NerfDamageBasedOnProjTypeCount = sourceProj.GetGlobalProjectile<EModeGlobalProjectile>().NerfDamageBasedOnProjTypeCount;
+                    NerfDamageBasedOnProjTypeCount = sourceProj.Eternity().NerfDamageBasedOnProjTypeCount;
             }
 
             switch (projectile.type)
@@ -273,7 +273,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.Cthulunado:
                     if (NonSwarmFight(projectile, NPCID.DukeFishron) && WorldSavingSystem.MasochistModeReal)
                     {
-                        if (projectile.ai[1] == 25 || sourceProj is Projectile && sourceProj.GetGlobalProjectile<EModeGlobalProjectile>().altBehaviour)
+                        if (projectile.ai[1] == 25 || sourceProj is Projectile && sourceProj.Eternity().altBehaviour)
                             altBehaviour = true;
                     }
                     break;
@@ -746,7 +746,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.WireKite:
-                    if (projectile.owner == Main.myPlayer && Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse)
+                    if (projectile.owner == Main.myPlayer && Main.player[projectile.owner].FargoSouls().LihzahrdCurse)
                     {
                         projectile.Kill();
                     }
@@ -1024,7 +1024,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             : Main.rand.NextFloat(4f, 6f);
 
                         if (!Main.dedServ && Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                            Main.LocalPlayer.FargoSouls().Screenshake = 2;
                     }
                     break;
 
@@ -1398,7 +1398,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
                         if (p != null)
-                            p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                            p.FargoSouls().CanSplit = false;
                         projectile.ai[2]++;
                     }
                     break;
@@ -1449,7 +1449,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.FairyQueenLance:
                     if (WorldSavingSystem.EternityMode && sourceNPC is NPC && sourceNPC.type == ModContent.NPCType<MutantBoss>())
                     {
-                        target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                        target.FargoSouls().MaxLifeReduction += 100;
                         target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                         target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
                     }
@@ -1485,7 +1485,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case ProjectileID.JavelinHostile:
                     target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
-                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
+                    target.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
                     break;
 
                 case ProjectileID.DemonSickle:
@@ -1499,7 +1499,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.SandBallFalling:
                     if (projectile.velocity.X != 0) //so only antlion sand and not falling sand 
                     {
-                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
+                        target.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
                     }
                     break;
 
@@ -1509,7 +1509,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.Skull:
-                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
+                    target.FargoSouls().AddBuffNoStack(BuffID.Cursed, 30);
                     if (sourceNPC is NPC && sourceNPC.type == NPCID.DungeonGuardian)
                         target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
                     break;
@@ -1569,7 +1569,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.CultistBossIceMist:
-                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 45);
+                    target.FargoSouls().AddBuffNoStack(BuffID.Frozen, 45);
                     target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
                     break;
 
@@ -1592,7 +1592,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.PaladinsHammerHostile:
-                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
+                    target.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
                     break;
 
                 case ProjectileID.RuneBlast:
@@ -1696,7 +1696,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
                     if (WorldSavingSystem.EternityMode && sourceNPC is NPC && sourceNPC.type == ModContent.NPCType<MutantBoss>())
                     {
-                        target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                        target.FargoSouls().MaxLifeReduction += 100;
                         target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                         target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
                     }
@@ -1768,7 +1768,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.Cthulunado:
                     target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
                     target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);
-                    target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+                    target.FargoSouls().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
                     break;
 
                 case ProjectileID.FlamingScythe:
@@ -1782,7 +1782,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.SnowBallHostile:
-                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 45);
+                    target.FargoSouls().AddBuffNoStack(BuffID.Frozen, 45);
                     break;
 
                 case ProjectileID.BulletSnowman:
@@ -1899,10 +1899,10 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (projectile.owner == Main.myPlayer && HasKillCooldown)
             {
-                if (Main.player[projectile.owner].GetModPlayer<EModePlayer>().MasomodeCrystalTimer > 60)
+                if (Main.player[projectile.owner].Eternity().MasomodeCrystalTimer > 60)
                     return false;
 
-                Main.player[projectile.owner].GetModPlayer<EModePlayer>().MasomodeCrystalTimer += 12;
+                Main.player[projectile.owner].Eternity().MasomodeCrystalTimer += 12;
                 return true;
             }
 

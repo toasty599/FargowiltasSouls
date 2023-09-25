@@ -42,7 +42,7 @@ Fastfall will create a fiery eruption on impact after falling a certain distance
             player.buffImmune[ModContent.BuffType<FusedBuff>()] = true;
             player.buffImmune[ModContent.BuffType<LihzahrdCurseBuff>()] = true;
             player.buffImmune[ModContent.BuffType<LowGroundBuff>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().LihzahrdTreasureBoxItem = Item;
+            player.FargoSouls().LihzahrdTreasureBoxItem = Item;
         }
     }
 }

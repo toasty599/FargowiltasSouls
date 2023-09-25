@@ -29,13 +29,13 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.timeLeft = 18000;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.ChloroEnchantActive || modPlayer.TerrariaSoul) || !player.GetToggleValue("Chlorophyte")))
             {

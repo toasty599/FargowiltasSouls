@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Snow
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 60);
+            target.FargoSouls().AddBuffNoStack(BuffID.Frozen, 60);
         }
     }
 }

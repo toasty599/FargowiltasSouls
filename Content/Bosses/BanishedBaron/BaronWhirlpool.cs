@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.scale = 1f;
             Projectile.light = 1;
             Projectile.alpha = 255;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
         public bool Fade;
         public bool Animate;
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 return;
             }
-            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
+            target.FargoSouls().MaxLifeReduction += 50;
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 20);
             target.AddBuff(BuffID.Rabies, 60 * 10);
         }

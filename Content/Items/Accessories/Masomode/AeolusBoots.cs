@@ -42,6 +42,7 @@ Increases jump height and negates fall damage
         {
             player.DisplayToggle("MasoAeolusFlower");
             player.DisplayToggle("MasoAeolus");
+            player.DisplayToggle("MasoAeolusFrog");
             //terraspark
             player.accRunSpeed = 6.75f;
             player.rocketBoots = player.vanityRocketBoots = ArmorIDs.RocketBoots.TerrasparkBoots;
@@ -55,8 +56,11 @@ Increases jump height and negates fall damage
             player.lavaRose = true;
 
             //amph boot
-            player.autoJump = true;
-            player.frogLegJumpBoost = true;
+            if (player.GetToggleValue("MasoAeolusFrog"))
+            {
+                player.frogLegJumpBoost = true;
+                player.autoJump = true;
+            }
 
             //fairy boot
             if (!player.flowerBoots && player.GetToggleValue("MasoAeolusFlower"))

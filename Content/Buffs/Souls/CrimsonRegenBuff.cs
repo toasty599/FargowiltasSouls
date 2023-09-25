@@ -17,9 +17,9 @@ namespace FargowiltasSouls.Content.Buffs.Souls
         public override void Update(Player player, ref int buffIndex)
         {
             //player.buffTime[buffIndex] = 2;
-            //player.GetModPlayer<FargoSoulsPlayer>().CrimsonRegen = true;
+            //player.FargoSouls().CrimsonRegen = true;
             player.lifeRegenTime++;
-            player.lifeRegen += player.GetModPlayer<FargoSoulsPlayer>().CrimsonRegenAmount;
+            player.lifeRegen += player.FargoSouls().CrimsonRegenAmount;
 
             for (int i = 0; i < 10; i++)
             {

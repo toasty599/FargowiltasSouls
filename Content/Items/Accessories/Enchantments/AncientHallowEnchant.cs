@@ -41,7 +41,7 @@ Summons a Terraprisma familiar that scales with minion damage
         {
             player.DisplayToggle("Hallowed");
             player.DisplayToggle("HallowS");
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.AncientHallowEnchantActive = true;
 
             int damage = modPlayer.ForceEffect(ModContent.ItemType<AncientHallowEnchant>()) ? 600 : 350;

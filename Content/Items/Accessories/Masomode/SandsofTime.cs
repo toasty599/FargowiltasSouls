@@ -44,7 +44,7 @@ Use to teleport to your last death point
         static void PassiveEffect(Player player)
         {
             player.buffImmune[BuffID.WindPushed] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().SandsofTime = true;
+            player.FargoSouls().SandsofTime = true;
         }
 
         public override void UpdateInventory(Player player) => PassiveEffect(player);

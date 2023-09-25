@@ -30,8 +30,8 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.hostile = true;
             Projectile.alpha = 0;
             //Projectile.timeLeft = 1200;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public Color color = new(255, 255, 255, 0);

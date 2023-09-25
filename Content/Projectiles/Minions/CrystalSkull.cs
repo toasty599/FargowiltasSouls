@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().CrystalSkullMinion)
+            if (player.active && !player.dead && player.FargoSouls().CrystalSkullMinion)
                 Projectile.timeLeft = 2;
 
             if (Projectile.originalDamage == 0)

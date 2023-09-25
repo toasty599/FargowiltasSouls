@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Desert
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Webbed, 60);
+            target.FargoSouls().AddBuffNoStack(BuffID.Webbed, 60);
         }
 
         public override void OnKill(NPC npc)

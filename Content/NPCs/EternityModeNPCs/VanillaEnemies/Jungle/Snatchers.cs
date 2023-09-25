@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
                 Player victim = Main.player[BittenPlayer];
                 if (BiteTimer > 0 && victim.active && !victim.ghost && !victim.dead
                     && (npc.Distance(victim.Center) < 160 || victim.whoAmI != Main.myPlayer)
-                    && victim.GetModPlayer<FargoSoulsPlayer>().MashCounter < 20)
+                    && victim.FargoSouls().MashCounter < 20)
                 {
                     victim.AddBuff(ModContent.BuffType<GrabbedBuff>(), 2);
                     victim.velocity = Vector2.Zero;

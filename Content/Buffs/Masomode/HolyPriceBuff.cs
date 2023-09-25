@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= 0.30f;
+            player.FargoSouls().AttackSpeed -= 0.30f;
         }
     }
 }

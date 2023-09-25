@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
 
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 300);
 
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
+            target.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
             target.velocity = Vector2.Normalize(target.Center - npc.Center) * 30;
         }
     }

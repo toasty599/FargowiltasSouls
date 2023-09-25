@@ -54,7 +54,7 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             player.GetDamage(damageClass) += .66f;
             player.GetCritChance(damageClass) += 25;
 
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             //use speed, velocity, debuffs, crit dmg, mana up, double knockback
             modPlayer.UniverseSoul = true;
             modPlayer.UniverseCore = true;
