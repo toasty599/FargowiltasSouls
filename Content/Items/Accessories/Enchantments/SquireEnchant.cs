@@ -58,6 +58,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     modPlayer.BaseSquireMountData.fallDamage = original.fallDamage;
 
                     modPlayer.BaseSquireMountData.jumpSpeed = original.jumpSpeed;
+                    modPlayer.BaseSquireMountData.usesHover = original.usesHover;
 
                     modPlayer.BaseMountType = mount.Type;
                 }
@@ -92,15 +93,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     if (player.dashDelay == 0)
                     {
                         //mount dash
-                        //if ((player.controlDown && player.releaseDown))
-                        //{
-                        //    if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
-                        //    {
-                        //        ValhallaDash(player, true, 1);
-                        //    }
-                        //}
-                        ////up
-                        if ((player.controlUp && player.releaseUp))
+                        if ((player.controlDown && player.releaseDown))
+                        {
+                            if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+                            {
+                                ValhallaDash(player, true, 1);
+                            }
+                        }
+                        //up
+                        else if ((player.controlUp && player.releaseUp))
                         {
                             if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
                             {
@@ -132,6 +133,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * speedBoost;
                 mount._data.fallDamage = 0;
 
+                
+
                 //Main.NewText(mount.DashSpeed);
             }
         }
@@ -146,8 +149,21 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             }
             else
             {
+                float multi;
+
+                //down
+                if (direction == 1)
+                {
+                    multi = 80;
+                }
+                //up
+                else
+                {
+                    multi = 40;
+                }
+
                 player.FargoSouls().MonkDashing = -10;
-                player.velocity.Y = 40 * (float)direction;
+                player.velocity.Y = multi * (float)direction;
             }
 
             player.dashDelay = 30;

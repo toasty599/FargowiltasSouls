@@ -39,6 +39,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool ChibiiRemii;
 
+        public bool Northstrider;
+
         public override void SaveData(TagCompound tag)
         {
             base.SaveData(tag);
@@ -78,11 +80,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             ROB = false;
             PrimeMinion = false;
             ChibiiRemii = false;
+            Northstrider = false;
         }
 
         public override void OnEnterWorld()
         {
-            if (Gittle || Sasha || ManliestDove || Cat || JojoTheGamer)
+            if (Gittle || Sasha || ManliestDove || Cat || JojoTheGamer || Northstrider)
             {
                 string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.PatreonNameEffect");
                 Main.NewText($"{text}, {Player.name}!");
@@ -138,7 +141,20 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 JojoTheGamer = true;
             }
+
+            if (Player.name == "Northstrider")
+            {
+                Northstrider = true;
+
+                Player.wingsLogic = 3;
+                Player.wings = 3;
+
+                Player.wingTimeMax = 100;
+                Player.wingAccRunSpeed = 9f;
+                Player.wingRunAccelerationMult = 9f;
+            }
         }
+
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

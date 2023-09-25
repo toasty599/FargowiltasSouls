@@ -86,9 +86,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 //Player.gravity = 0f;
                 //Player.position.Y = Player.oldPosition.Y;
 
-
-                //Main.NewText(MonkDashing);
-
                 if (MonkDashing == 0 && Player.mount.Active)
                 {
                     if (Player.velocity.Length() > Player.mount._data.dashSpeed)
@@ -97,8 +94,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                         Player.velocity *= 1 / difference;
                     }
-                    
-                    Player.dashDelay = 0;
                 }
             }
             //vertical dash
@@ -106,14 +101,20 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 MonkDashing++;
 
-                //Player.immune = true;
-                Player.maxFallSpeed *= 300f;
-                Player.gravity = 1.5f;
+                if (Player.velocity.Y > 0)
+                {
+                    Player.maxFallSpeed *= 10;
+                    Player.gravity = 8;
+                    //deactivate hover or those mounts refuse to dash down
+                    Player.mount._data.usesHover = false;
+                }
 
                 if (MonkDashing == 0 && Player.mount.Active)
                 {
                     Player.velocity *= 0.5f;
-                    Player.dashDelay = 0;
+
+                    //add hover back
+                    Player.mount._data.usesHover = BaseSquireMountData.usesHover;
                 }
             }
         }
