@@ -20,10 +20,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
         public override bool Eternity => true;
         public override int NumFrames => 10;
+
+        public static int WingSlotID
+        {
+            get;
+            private set;
+        }
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
 
+            WingSlotID = Item.wingSlot;
             // DisplayName.SetDefault("Soul of Eternity");
 
             //oh no idk even for translate
@@ -193,7 +201,6 @@ This stacks up to 950 times until you get hit"); */
 
             //TERRARIA
             ModContent.Find<ModItem>(Mod.Name, "TerrariaSoul").UpdateAccessory(player, hideVisual);
-
             //MASOCHIST
             ModContent.Find<ModItem>(Mod.Name, "MasochistSoul").UpdateAccessory(player, hideVisual);
 

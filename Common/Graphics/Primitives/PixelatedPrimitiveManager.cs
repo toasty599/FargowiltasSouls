@@ -9,21 +9,29 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
 {
     public class PixelatedPrimitiveManager : ModSystem
     {
-        #region Fields And Properities
-        private static RenderTarget2D PixelRenderTargetBeforeNPCs;
+		#region Fields And Properities
+		public static ManagedRenderTarget PixelRenderTargetAfterProjectiles
+        {
+            get;
+            private set;
+        }
 
-		private static RenderTarget2D PixelRenderTargetAfterProjectiles;
-
-        private Vector2 PreviousScreenSize;
+		public static ManagedRenderTarget PixelRenderTargetBeforeNPCs
+        {
+            get;
+            private set;
+        }
         #endregion
 
         #region Overrides
         public override void Load()
         {
+			PixelRenderTargetAfterProjectiles = new(true, PixelCreationContext, true);
+			PixelRenderTargetBeforeNPCs = new(true, PixelCreationContext, true);
+
 			On_Main.CheckMonoliths += DrawToCustomRenderTargets;
 			On_Main.DoDraw_DrawNPCsOverTiles += DrawPixelRenderTargetNPCs;
 			On_Main.DrawDust += DrawPixelRenderTargetProjectiles;
-			ResizeRenderTarget(true);
         }
 
         public override void Unload()
@@ -31,20 +39,12 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
 			On_Main.CheckMonoliths -= DrawToCustomRenderTargets;
 			On_Main.DoDraw_DrawNPCsOverTiles -= DrawPixelRenderTargetNPCs;
 			On_Main.DrawDust -= DrawPixelRenderTargetProjectiles;
-
-            Main.QueueMainThreadAction(() =>
-            {
-                PixelRenderTargetBeforeNPCs?.Dispose();
-                PixelRenderTargetBeforeNPCs = null;
-				PixelRenderTargetAfterProjectiles?.Dispose();
-                PixelRenderTargetAfterProjectiles = null;
-            });
         }
-
-		public override void PostUpdateEverything() => ResizeRenderTarget();
         #endregion
 
         #region Methods
+        private static RenderTarget2D PixelCreationContext(int width, int height) => new(Main.instance.GraphicsDevice, width / 2, height / 2);
+
         private void DrawPixelRenderTargetNPCs(On_Main.orig_DoDraw_DrawNPCsOverTiles orig, Main self)
         {
             orig(self);
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
         private static void DrawPrimsToRenderTarget(RenderTarget2D renderTarget, List<IPixelPrimitiveDrawer> pixelPrimitives)
         {
 			// Swap to our custom render target.
-			SwapToRenderTarget(renderTarget);
+			renderTarget.SwapTo();
 
             // If the list has any entries.
 			if (pixelPrimitives.Any())
@@ -111,57 +111,6 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
 
                 // End the spritebatch we started.
                 Main.spriteBatch.End();
-            }
-        }
-
-        private static void SwapToRenderTarget(RenderTarget2D renderTarget)
-        {
-            GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-            SpriteBatch spriteBatch = Main.spriteBatch;
-
-            // If we are in the menu, a server, or any of these are null, return.
-            if (Main.gameMenu || Main.dedServ || renderTarget is null || graphicsDevice is null || spriteBatch is null)
-                return;
-
-            // Else, set the render target.
-            graphicsDevice.SetRenderTarget(renderTarget);
-            // "Flush" the screen, removing any previous things drawn to it.
-            graphicsDevice.Clear(Color.Transparent);
-        }
-
-        private void ResizeRenderTarget(bool load = false)
-        {
-            // If not in the game menu, and we arent a dedicated server,
-            if (!Main.gameMenu && !Main.dedServ || load && !Main.dedServ)
-            {
-                // Get the current screen size.
-                Vector2 currentScreenSize = new(Main.screenWidth, Main.screenHeight);
-                // If it does not match the previous one, we need to update it.
-                if (currentScreenSize != PreviousScreenSize)
-                {
-                    // Render target stuff should be done on the main thread only.
-                    Main.QueueMainThreadAction(() =>
-                    {
-                        // If it is not null, or already disposed, dispose it.
-                        if (PixelRenderTargetBeforeNPCs != null && !PixelRenderTargetBeforeNPCs.IsDisposed)
-							PixelRenderTargetBeforeNPCs.Dispose();
-
-						// Recreate the render target with the current, accurate screen dimensions.
-						// In our case, we want to half them to downscale it, pixelating it.
-						PixelRenderTargetBeforeNPCs = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth / 2, Main.screenHeight / 2);
-
-						// If it is not null, or already disposed, dispose it.
-						if (PixelRenderTargetAfterProjectiles != null && !PixelRenderTargetAfterProjectiles.IsDisposed)
-							PixelRenderTargetAfterProjectiles.Dispose();
-
-						// Recreate the render target with the current, accurate screen dimensions.
-						// In our case, we want to half them to downscale it, pixelating it.
-						PixelRenderTargetAfterProjectiles = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth / 2, Main.screenHeight / 2);
-					});
-
-                }
-                // Set the current one to the previous one for next frame.
-                PreviousScreenSize = currentScreenSize;
             }
         }
         #endregion
