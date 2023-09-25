@@ -80,6 +80,11 @@ namespace FargowiltasSouls.Content.Projectiles
         public bool noInteractionWithNPCImmunityFrames;
         private int tempIframe;
 
+        public static List<int> FancySwordSwings = new()
+        {
+                190
+            };
+
         public override void SetStaticDefaults()
         {
             A_SourceNPCGlobalProjectile.SourceNPCSync[ProjectileID.DD2ExplosiveTrapT3Explosion] = true;
@@ -204,6 +209,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 && projectile.type != ProjectileID.WireKite
                 && projectile.whoAmI != player.heldProj
                 && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>()
+                && projectile.aiStyle != 190 //fancy sword swings like excalibur
                 && !projectile.minion)
             {
                 NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
