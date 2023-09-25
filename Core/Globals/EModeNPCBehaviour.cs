@@ -63,7 +63,16 @@ namespace FargowiltasSouls.Core.Globals
             }
             return SafePreAI(npc);
         }
-
+        public virtual void SafePostAI(NPC npc) => base.PostAI(npc);
+        public sealed override void PostAI(NPC npc)
+        {
+            if (!RunEmodeAI)
+            {
+                return;
+            }
+            SafePostAI(npc);
+            return;
+        }
 
         public virtual void ModifyHitByAnything(NPC npc, Player player, ref NPC.HitModifiers modifiers) { }
 

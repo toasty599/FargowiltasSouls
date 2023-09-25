@@ -367,9 +367,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return result;
         }
 
-        public override void PostAI(NPC npc)
+        public override void SafePostAI(NPC npc)
         {
-            base.PostAI(npc);
+            base.SafePostAI(npc);
 
             if (!npc.HasValidTarget || npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) > 3000)
             {

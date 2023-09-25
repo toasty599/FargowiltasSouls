@@ -16,6 +16,8 @@ using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
+using FargowiltasSouls.Content.Patreon.DanielTheRobot;
+using FargowiltasSouls.Common.Graphics.Particles;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -126,7 +128,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (++npc.localAI[2] >= cooldown) //spray bones
                 {
                     npc.localAI[2] = 0f;
-                    if (cooldown > 0 && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (cooldown > 0 && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient && !NPC.AnyNPCs(NPCID.SkeletronHand))
                     {
                         Vector2 speed = Vector2.Normalize(Main.player[npc.target].Center - npc.Center) * 6f;
                         for (int i = 0; i < 8; i++)
@@ -156,11 +158,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
             else
             {
+                /*
                 if (SpawnedArms && WorldSavingSystem.MasochistModeReal && ++MasoArmsTimer == 120)
                 {
                     GrowHands(npc);
                 }
-
+                */
                 if (npc.ai[2] == 0)
                 {
                     //compensate for not changing targets when beginning spin
@@ -368,7 +371,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
-            if (!WorldSavingSystem.SwarmActive && Main.npc.Any(n => n.active && n.type == NPCID.SkeletronHand && n.ai[0] == npc.whoAmI))
+            if (!WorldSavingSystem.SwarmActive && !SpawnedArms && Main.npc.Any(n => n.active && n.type == NPCID.SkeletronHand && n.ai[0] == npc.whoAmI))
                 modifiers.FinalDamage /= 2;
 
             base.ModifyIncomingHit(npc, ref modifiers);
@@ -427,12 +430,19 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.SkeletronHand);
 
         public int AttackTimer;
+        public int AI_Timer;
+        public Vector2 storedVel; //needed because vanilla ai fucks with velocity and we want to override it entirely
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             base.SendExtraAI(npc, bitWriter, binaryWriter);
 
             binaryWriter.Write7BitEncodedInt(AttackTimer);
+            binaryWriter.Write7BitEncodedInt(AI_Timer);
+            binaryWriter.Write(npc.localAI[0]);
+            binaryWriter.Write(npc.localAI[1]);
+            binaryWriter.Write(npc.localAI[2]);
+            binaryWriter.WriteVector2(storedVel);
         }
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
@@ -440,11 +450,19 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.ReceiveExtraAI(npc, bitReader, binaryReader);
 
             AttackTimer = binaryReader.Read7BitEncodedInt();
+            AI_Timer = binaryReader.Read7BitEncodedInt();
+            npc.localAI[0] = binaryReader.ReadSingle();
+            npc.localAI[1] = binaryReader.ReadSingle();
+            npc.localAI[2] = binaryReader.ReadSingle();
+            storedVel = binaryReader.ReadVector2();
         }
-
+        //arm ai notes: ai3 is attack timer, when 300 the arm attacks and it stays at 300
+        const int GuardianTime = 65;
+        const int GuardianDelay = 150;
         public override bool SafePreAI(NPC npc)
         {
             bool result = base.SafePreAI(npc);
+            
 
             if (WorldSavingSystem.SwarmActive)
                 return result;
@@ -470,14 +488,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 npc.netUpdate = true;
             }
 
+
             if (head.ai[1] == 1f || head.ai[1] == 2f) //spinning or DG mode
             {
-                if (AttackTimer > 0 && head.life >= head.lifeMax * .75) //for a short period
+                if (--AttackTimer >= 0 && head.life >= head.lifeMax * .75) //for a short period
                 {
-                    if (--AttackTimer < 65)
+                    if (AttackTimer < GuardianTime)
                     {
-                        Vector2 centerPoint = head.Center - 10 * 16 * Vector2.UnitY;
-                        if (!npc.HasValidTarget || npc.Distance(centerPoint) > 15 * 16)
+                        //Vector2 centerPoint = head.Center - 10 * 16 * Vector2.UnitY;
+                        //if (!npc.HasValidTarget || npc.Distance(centerPoint) > 15 * 16)
+                        if (!npc.HasValidTarget)
                         {
                             AttackTimer++; //pause here, dont begin guardians attack until in range
                         }
@@ -490,9 +510,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
             else
             {
-                if (AttackTimer != 65 + 150)
+                if (AttackTimer != GuardianTime + GuardianDelay)
                 {
-                    AttackTimer = 65 + 150;
+                    AttackTimer = GuardianTime + GuardianDelay;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget) //throw undead miner
                     {
@@ -502,6 +522,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         distance.X /= time;
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
 
+                        SoundEngine.PlaySound(SoundID.NPCDeath13, npc.Center);
                         FargoSoulsUtil.NewNPCEasy(
                             npc.GetSource_FromAI(),
                             npc.Center,
@@ -518,7 +539,111 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             return result;
         }
+        public override void SafePostAI(NPC npc)
+        {
+            if (WorldSavingSystem.SwarmActive)
+                return;
 
+            NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);
+            if (head == null)
+                return;
+            Player player = Main.player[head.target];
+            if (player == null || !player.active || player.dead)
+                return;
+
+            npc.ai[3] = 0; //no vanilla attacking
+
+            ref float HandSide = ref npc.ai[0];
+            ref float lockedRotation = ref npc.localAI[0];
+            ref float LungeTimer = ref npc.localAI[1];
+            ref float lockedDistance = ref npc.localAI[2];
+            int restDistance = (head.width / 2) + (npc.width / 2) + 30;
+            int rotwaveTime = 60 * 5;
+            const int extraDistMult = 50;
+            float restrot = (float)Math.Sin(HandSide * ((float)AI_Timer / rotwaveTime) * MathHelper.Pi) * MathHelper.Pi / 3;
+            Vector2 restPos = head.Center - (Vector2.UnitX * (restDistance + extraDistMult * Math.Abs(restrot)) * HandSide).RotatedBy(restrot);
+
+            if (head.ai[1] == 1f || head.ai[1] == 2f) //during spin
+            {
+                if (AttackTimer == GuardianTime + 10) //lock rotation to player
+                {
+                    lockedRotation = head.DirectionTo(player.Center).ToRotation();
+                    lockedDistance = head.Distance(player.Center);
+                    AI_Timer = 0; //no desyncing
+                }
+                if (AttackTimer > GuardianTime + 10 || (AttackTimer < -30 && !WorldSavingSystem.MasochistModeReal))
+                {
+                    Neutral();
+                }
+                else
+                {
+                    int desiredDistance = restDistance * 3;
+                    if (head.life < head.lifeMax / 2)
+                    {
+                        desiredDistance = (int)lockedDistance + 10;
+                    }
+                    float rot = (float)AttackTimer / (GuardianTime + 10f) * MathHelper.Pi * HandSide;
+                    Vector2 desiredPos = head.Center + (lockedRotation.ToRotationVector2() * desiredDistance).RotatedBy(rot);
+                    npc.velocity = (desiredPos - npc.Center) * 0.05f;
+                    npc.velocity += head.velocity;
+                }
+            }
+            else //outside of spin
+            {
+                if (AI_Timer % rotwaveTime == 0 && AI_Timer >= rotwaveTime) //don't do it instantly on first round
+                {
+                    int sideToLunge = AI_Timer % (rotwaveTime * 2) == 0 ? 1 : -1;
+                    if (HandSide == sideToLunge || WorldSavingSystem.MasochistModeReal)
+                    {
+                        LungeTimer = 0;
+                        const int sparks = 10;
+                        for (int i = 0; i < sparks; i++)
+                        {
+                            Vector2 vel = Vector2.UnitX.RotatedBy(MathHelper.TwoPi * (float)i / sparks).RotatedByRandom(MathHelper.Pi / sparks);
+                            vel *= Main.rand.NextFloat(3, 8);
+                            Particle p = new SparkParticle(npc.Center, vel, Color.Red, 1, 30);
+                            p.Spawn();
+                            LungeTimer = 1;
+                        }
+                        NetSync(npc);
+                    }
+                }
+                if (LungeTimer <= 0)
+                {
+                    Neutral();
+                }
+                else
+                {
+                    const int Windup = 30;
+                    if (LungeTimer < Windup)
+                    {
+                        float modifier = 1 - (float)(LungeTimer / Windup);
+                        storedVel = -npc.DirectionTo(player.Center) * modifier * 3;
+                    }
+                    if (LungeTimer == Windup)
+                    {
+                        storedVel = npc.DirectionTo(player.Center) * 30;
+                    }
+                    if (LungeTimer > Windup + 10)
+                    {
+                        storedVel *= 0.95f;
+                    }
+                    if (LungeTimer > Windup + 100)
+                    {
+                        LungeTimer = -10;
+                        NetSync(npc);
+                    }
+                    npc.velocity = storedVel + head.velocity;
+                    LungeTimer++;
+                }
+            }
+            void Neutral()
+            {
+                npc.velocity = (restPos - npc.Center) * 0.02f;
+                npc.velocity += head.velocity;
+            }
+            AI_Timer++;
+        }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, hurtInfo);

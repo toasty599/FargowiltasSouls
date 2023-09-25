@@ -373,7 +373,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.manaRegenDelay = (int)Player.maxRegenDelay;
                 }
 
-                Player.wingTime = Player.wingTimeMax;
+                //Player.wingTime = Player.wingTimeMax;
             }
             if (!flag)
             {

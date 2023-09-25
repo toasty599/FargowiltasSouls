@@ -363,9 +363,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             return result;
         }
 
-        public override void PostAI(NPC npc)
+        public override void SafePostAI(NPC npc)
         {
-            base.PostAI(npc);
+            base.SafePostAI(npc);
 
             npc.defense = Math.Max(npc.defense, npc.defDefense);
         }
