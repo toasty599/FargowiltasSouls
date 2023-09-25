@@ -377,7 +377,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             counter++;
-
+            
             if (spookyCD > 0)
             {
                 spookyCD--;
@@ -572,16 +572,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (firstTick)
             {
-                if (projectile.aiStyle == ProjAIStyleID.Spear)
-                {
 
-                }
-                /*
-                if (modPlayer.NinjaEnchantItem != null && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true) && projectile.type != ProjectileID.WireKite && projectile.type != ModContent.ProjectileType<PrismaRegaliaProj>())
-                {
-                    projectile.velocity *= NinjaSpeedup;
-                }
-                */
                 if (projectile.type == ProjectileID.ShadowBeamHostile)
                 {
                     if (projectile.GetSourceNPC() is NPC sourceNPC && sourceNPC.type == ModContent.NPCType<DeviBoss>())
@@ -1013,7 +1004,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 projectile.position -= projectile.velocity * 0.5f;
             }
 
-            if (NinjaSpeedup > 0)
+            if (NinjaSpeedup > 0 && player.heldProj != projectile.whoAmI)
             {
                 projectile.extraUpdates = Math.Max(projectile.extraUpdates, NinjaSpeedup);
 
