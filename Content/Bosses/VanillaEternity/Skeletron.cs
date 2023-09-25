@@ -59,10 +59,15 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         static int BabyGuardianTimerRefresh(NPC npc) => !WorldSavingSystem.MasochistModeReal && NPC.AnyNPCs(NPCID.SkeletronHand) && npc.life > npc.lifeMax * 0.25 ? 240 : 180;
 
-        void GrowHands(NPC npc)
+        void GrowHands(NPC npc, bool secondSet = false)
         {
-            FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
-            FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
+            int n1 = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
+            int n2 = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
+            if (secondSet && n1 != Main.maxNPCs && n2 != Main.maxNPCs)
+            {
+                Main.npc[n1].GetGlobalNPC<SkeletronHand>().secondSet = true;
+                Main.npc[n2].GetGlobalNPC<SkeletronHand>().secondSet = true;
+            }
 
             FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronRegrow", new Color(175, 75, 255));
         }
@@ -89,6 +94,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 SpawnedArms = true;
                 GrowHands(npc);
+                if (WorldSavingSystem.MasochistModeReal)
+                {
+                    GrowHands(npc, true);
+                }
             }
 
             if (npc.ai[1] == 0f)
@@ -160,19 +169,15 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         SprayHomingBabies(npc);
 
-                        if (WorldSavingSystem.MasochistModeReal)
+                        if (WorldSavingSystem.MasochistModeReal && !NPC.AnyNPCs(NPCID.SkeletronHand))
                             DungeonGuardianAttack(npc);
                     }
                 }
             }
             else
             {
-                /*
-                if (SpawnedArms && WorldSavingSystem.MasochistModeReal && ++MasoArmsTimer == 120)
-                {
-                    GrowHands(npc);
-                }
-                */
+               
+                
                 if (npc.ai[2] == 0)
                 {
                     //compensate for not changing targets when beginning spin
@@ -316,7 +321,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             const int max = 30;
             float modifier = 1f - (float)npc.life / npc.lifeMax;
             modifier *= 4f / 3f; //scaling maxes at 25% life
-            if (modifier > 1f || WorldSavingSystem.MasochistModeReal) //cap it, or force it to cap in emode
+            if (modifier > 1f || WorldSavingSystem.MasochistModeReal) //cap it, or force it to cap in maso
                 modifier = 1f;
             int actualNumberToSpawn = (int)(max * modifier);
             for (int i = 0; i < actualNumberToSpawn; i++)
@@ -448,6 +453,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public int AI_Timer;
         public Vector2 storedVel; //needed because vanilla ai fucks with velocity and we want to override it entirely
         public int collisionCooldown = 60;
+        public bool secondSet = false;
+        public bool HitPlayer = true;
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -461,6 +468,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             binaryWriter.Write(npc.localAI[2]);
             binaryWriter.Write(npc.localAI[3]);
             binaryWriter.WriteVector2(storedVel);
+            binaryWriter.Write(secondSet);
         }
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
@@ -475,6 +483,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             npc.localAI[2] = binaryReader.ReadSingle();
             npc.localAI[3] = binaryReader.ReadSingle();
             storedVel = binaryReader.ReadVector2();
+            secondSet = binaryReader.ReadBoolean();
         }
         //arm ai notes: ai3 is attack timer, when 300 the arm attacks and it stays at 300
         const int GuardianTime = 65;
@@ -574,33 +583,53 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             npc.ai[3] = 0; //no vanilla attacking
 
             ref float HandSide = ref npc.ai[0];
-            ref float lockedRotation = ref npc.localAI[0];
-            ref float LungeTimer = ref npc.localAI[1];
-            ref float lockedDistance = ref npc.localAI[2];
-            ref float rotDir = ref npc.localAI[3];
+
             int restDistance = (head.width / 2) + (npc.width / 2) + 30;
             int rotwaveTime = 60 * 5;
             const int extraDistMult = 50;
+
             float restrot = (float)Math.Sin(HandSide * ((float)AI_Timer / rotwaveTime) * MathHelper.Pi) * MathHelper.Pi / 3;
-            Vector2 restPos = head.Center - (Vector2.UnitX * (restDistance + extraDistMult * Math.Abs(restrot)) * HandSide).RotatedBy(restrot);
-            if (head.ai[1] == 1f || head.ai[1] == 2f) //during spin
+            if (secondSet)
             {
+                restrot += HandSide * MathHelper.PiOver2;
+            }
+            Vector2 restPos = head.Center - (Vector2.UnitX * (restDistance + extraDistMult * Math.Abs(restrot)) * HandSide).RotatedBy(restrot);
+
+            if (HeadSpinning(npc)) //during spin
+            {
+                SpinAttack();
+            }
+            else //outside of spin
+            {
+                LungeAttack();
+            }
+            void SpinAttack()
+            {
+                ref float lockedRotation = ref npc.localAI[0];
+                ref float lockedDistance = ref npc.localAI[2];
+                ref float rotDir = ref npc.localAI[3];
+                ref float HandSide = ref npc.ai[0];
                 if (AttackTimer == GuardianTime + 15) //lock rotation to player
                 {
                     lockedRotation = (-head.DirectionTo(player.Center)).ToRotation();
+                    if (secondSet)
+                    {
+                        lockedRotation += HandSide * MathHelper.Pi;
+                    }
                     lockedDistance = head.Distance(player.Center);
                     rotDir = HandSide;
                     AI_Timer = 0; //no desyncing
-                    collisionCooldown = 60;
+                    collisionCooldown = 20;
                     NetSync(npc);
                 }
+                HitPlayer = (AttackTimer < GuardianTime); //don't hit player while positioning
                 if (AttackTimer > GuardianTime + 10 || (AttackTimer < -30 && !WorldSavingSystem.MasochistModeReal))
                 {
                     Neutral();
                 }
                 else
                 {
-                    
+
                     if (collisionCooldown <= 0)
                     {
                         if (Main.npc.Any(n =>
@@ -613,7 +642,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         {
                             rotDir = -rotDir;
                             SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, npc.Center);
-                            collisionCooldown = 60;
+                            collisionCooldown = 20;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, head.DirectionTo(npc.Center), ModContent.ProjectileType<SkeletronGuardian2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
@@ -643,8 +672,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.velocity += head.velocity;
                 }
             }
-            else //outside of spin
+            void LungeAttack()
             {
+                ref float LungeTimer = ref npc.localAI[1];
+                ref float HandSide = ref npc.ai[0];
                 if (AI_Timer % rotwaveTime == 0 && AI_Timer >= rotwaveTime) //don't do it instantly on first round
                 {
                     int sideToLunge = AI_Timer % (rotwaveTime * 2) == 0 ? 1 : -1;
@@ -700,14 +731,32 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
             AI_Timer++;
         }
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            return HitPlayer;
+        }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<LethargicBuff>(), 300);
-            target.AddBuff(BuffID.Dazed, 60);
+            
+            //not while spinning outside maso
+            if (!HeadSpinning(npc) || WorldSavingSystem.MasochistModeReal)
+            {
+                target.AddBuff(BuffID.Dazed, 60);
+            }
+            
         }
-
+        public static bool HeadSpinning(NPC npc)
+        {
+            NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);
+            if (head == null || !head.active)
+            {
+                return false;
+            }
+            return (head.ai[1] == 1f || head.ai[1] == 2f);
+        }
         public override void LoadSprites(NPC npc, bool recolor)
         {
             base.LoadSprites(npc, recolor);
