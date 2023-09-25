@@ -5035,7 +5035,7 @@ Mods: {
 
 			EulogistsDoomsdayScenario: {
 				// DisplayName: Eulogists Doomsday Scenario
-				// Tooltip: ""
+				// Tooltip: Blow up a small area around you killing all town npcs and yourself
 			}
 		}
 

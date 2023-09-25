@@ -15,6 +15,8 @@ and Summons a Flameburst minion that will also fire while you attack
 
 -Resprited souls
 
+-Added Eulogists Doomsday Scenario (Patreon)
+
 -Removed most of the extra loot Wall of Flesh dropped in emode
 
 -See the wiki for full details!
