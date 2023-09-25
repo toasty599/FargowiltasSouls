@@ -616,13 +616,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         lockedRotation += HandSide * MathHelper.Pi;
                     }
-                    lockedDistance = head.Distance(player.Center);
+                    lockedDistance = Math.Max(head.Distance(player.Center), head.width + (npc.width / 2));
                     rotDir = HandSide;
                     AI_Timer = 0; //no desyncing
                     collisionCooldown = 20;
                     NetSync(npc);
                 }
-                HitPlayer = (AttackTimer < GuardianTime); //don't hit player while positioning
+                HitPlayer = (AttackTimer < GuardianTime - 15); //don't hit player until 15 ticks after attack starts
                 if (AttackTimer > GuardianTime + 10 || (AttackTimer < -30 && !WorldSavingSystem.MasochistModeReal))
                 {
                     Neutral();

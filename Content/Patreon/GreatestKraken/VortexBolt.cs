@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Patreon.GreatestKraken
 
             Projectile.usesIDStaticNPCImmunity = false;
             Projectile.idStaticNPCHitCooldown = 0;
-            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = false;
 
             Projectile.timeLeft = 30 * (Projectile.extraUpdates + 1);
         }
