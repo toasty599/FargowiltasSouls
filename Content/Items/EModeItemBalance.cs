@@ -294,12 +294,13 @@ namespace FargowiltasSouls.Content.Items
                 //    ItemBalance(tooltips, EModeChange.Buff, "OOASet");
                 //    break;
 
+                /*
                 case ItemID.PumpkinMoonMedallion:
                 case ItemID.NaughtyPresent:
                     balanceNumber = 15;
                     balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
                     return EModeChange.Nerf;
-
+                */
                 case ItemID.CobaltNaginata:
                     balanceNumber = -1;
                     balanceTextKeys = new string[] { "SpearRework", "CobaltNaginataRework" };
