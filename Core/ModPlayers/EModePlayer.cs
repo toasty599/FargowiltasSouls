@@ -474,7 +474,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 base.ModifyHurt(ref modifiers);
 
             //because NO MODIFY/ONHITPLAYER HOOK WORKS
-            if (modifiers.DamageSource.SourceProjectileType is int && modifiers.DamageSource.SourceProjectileType == ProjectileID.Explosives)
+            if (modifiers.DamageSource.SourceProjectileType == ProjectileID.Explosives)
                 Player.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
 
             base.ModifyHurt(ref modifiers);

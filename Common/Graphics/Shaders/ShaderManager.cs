@@ -30,13 +30,19 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
             set;
         } = null;
 
-        public static RenderTarget2D MainTarget
+        public static ManagedRenderTarget MainTarget
         {
             get;
             private set;
         }
 
-        public static RenderTarget2D AuxilaryTarget
+        public static ManagedRenderTarget AuxilaryTarget
+        {
+            get;
+            private set;
+        }
+
+        public static bool HasLoaded
         {
             get;
             private set;
@@ -44,8 +50,11 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 
         public override void Load()
         {
+            HasLoaded = false;
+            MainTarget = new ManagedRenderTarget(true, RenderTargetManager.CreateScreenSizedTarget, true);
+			AuxilaryTarget = new ManagedRenderTarget(true, RenderTargetManager.CreateScreenSizedTarget, true);
+
 			On_FilterManager.EndCapture += ApplyScreenFilters;
-			Main.OnResolutionChanged += ResizeTargets;
 
             if (Main.netMode is NetmodeID.Server)
                 return;
@@ -80,6 +89,8 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 				else
 					Mod.Logger.Warn($"ShaderManager loading error: A filer with name {name} has already been registered!");
 			}
+
+            HasLoaded = true;
 		}
 
 		public override void Unload()
@@ -88,33 +99,16 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
             {
 				if (Main.netMode is NetmodeID.Server)
 					return;
-				
-                //foreach (var keyValuePair in ShaderLookupTable)
-                //    keyValuePair.Value.Dispose();
 
                 ShaderLookupTable = null;
 
-                //foreach (var keyValuePair in FilterLookupTable)
-                //    keyValuePair.Value.Dispose();
 
                 FilterLookupTable = null;
             });
         }
 
-		private void ResizeTargets(Vector2 _)
-		{
-			MainTarget?.Dispose();
-            MainTarget = new(Main.instance.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-
-            AuxilaryTarget?.Dispose();
-            AuxilaryTarget = new(Main.instance.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-		}
-
 		private void ApplyScreenFilters(On_FilterManager.orig_EndCapture orig, FilterManager self, RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
 		{
-            if (MainTarget == null || AuxilaryTarget == null)
-                ResizeTargets(default);
-
             RenderTarget2D target1 = null;
             RenderTarget2D target2 = screenTarget1;
 
@@ -131,14 +125,14 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 
 			foreach (var filter in FilterLookupTable.Values.Where(filter => filter.Opacity > 0))
             {
-				target1 = ((target2 != MainTarget) ? MainTarget : AuxilaryTarget);
+				target1 = ((target2 != MainTarget.Target) ? MainTarget : AuxilaryTarget);
 				Main.instance.GraphicsDevice.SetRenderTarget(target1);
 				Main.instance.GraphicsDevice.Clear(clearColor);
 				Main.spriteBatch.Begin((SpriteSortMode)1, BlendState.AlphaBlend);
 				filter.Apply();
 				Main.spriteBatch.Draw(target2, Vector2.Zero, Main.ColorOfTheSkies);
 				Main.spriteBatch.End();
-				target2 = (target2 != MainTarget) ? MainTarget : AuxilaryTarget;
+				target2 = (target2 != MainTarget.Target) ? MainTarget : AuxilaryTarget;
 			}
 
             if (target1 != null)

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Common.Graphics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Reflection;
@@ -32,6 +33,23 @@ namespace FargowiltasSouls
 			view *= zoomScaleMatrix;
 
 			projection = Matrix.CreateOrthographicOffCenter(0f, Main.screenWidth * zoom.X, 0f, Main.screenHeight * zoom.Y, 0f, 1f) * zoomScaleMatrix;
+		}
+
+		public static void SwapTo(this ManagedRenderTarget renderTarget) => SwapTo(renderTarget.Target);
+
+		public static void SwapTo(this RenderTarget2D renderTarget)
+		{
+			GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+
+			// If we are in the menu, a server, or any of these are null, return.
+			if (Main.gameMenu || Main.dedServ || renderTarget is null || graphicsDevice is null || spriteBatch is null)
+				return;
+
+			// Else, set the render target.
+			graphicsDevice.SetRenderTarget(renderTarget);
+			// "Flush" the screen, removing any previous things drawn to it.
+			graphicsDevice.Clear(Color.Transparent);
 		}
 
 		private static readonly FieldInfo shaderTextureField = typeof(MiscShaderData).GetField("_uImage1", BindingFlags.NonPublic | BindingFlags.Instance);

@@ -12,7 +12,7 @@ namespace FargowiltasSouls
         {
             if (item.GetType() == typeof(int))
             {
-                Language.GetOrRegister(toggle, () => $"[i:{item.ToString()}] [c/{color}:{{$Mods.{Name}.Toggler.{toggle}}}]");
+                Language.GetOrRegister(toggle, () => $"[i:{item}] [c/{color}:{{$Mods.{Name}.Toggler.{toggle}}}]");
             }
             else if (item.GetType() == typeof(string))
             {
