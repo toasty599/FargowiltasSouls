@@ -50,6 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public bool tikiMinion;
         public int tikiTimer;
         public float shroomiteMushroomCD;
+        public Vector2 shroomiteStorePosition;
         private int spookyCD;
         public bool FrostFreeze;
         //        public bool SuperBee;
@@ -206,6 +207,8 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 NinjaEnchant.NinjaSpeedSetup(modPlayer, projectile, this);
             }
+
+            shroomiteStorePosition = projectile.Center;
 
             switch (projectile.type)
             {
@@ -457,7 +460,8 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
 
                         }
-                        shroomiteMushroomCD += projectile.velocity.Length();
+                        shroomiteMushroomCD += Vector2.Distance(projectile.Center, shroomiteStorePosition);
+                        shroomiteStorePosition = projectile.Center;
                     }
 
                     if (modPlayer.SpookyEnchantActive && player.GetToggleValue("Spooky")
