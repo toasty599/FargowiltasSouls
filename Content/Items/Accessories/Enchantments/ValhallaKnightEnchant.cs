@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().ValhallaEnchantItem = Item;
+            player.FargoSouls().ValhallaEnchantItem = Item;
             SquireEnchant.SquireEffect(player, Item);
         }
 

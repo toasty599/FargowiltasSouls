@@ -17,12 +17,12 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         {
             Projectile.CloneDefaults(ProjectileID.Mushroom);
             AIType = ProjectileID.Mushroom;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
 
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 20;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()

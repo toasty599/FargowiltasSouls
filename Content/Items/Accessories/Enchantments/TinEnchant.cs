@@ -46,7 +46,7 @@ Getting hit resets your crit to 5%
             if (!player.GetToggleValue("Tin", false)) 
                 return;
 
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.TinEnchantItem = item;
 
             if (modPlayer.Eternity)

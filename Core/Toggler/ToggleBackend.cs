@@ -286,7 +286,7 @@ namespace FargowiltasSouls.Core.Toggler
                 return;
             }
 
-            FargoSoulsPlayer modPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = Main.LocalPlayer.FargoSouls();
             modPlayer.disabledToggles = new List<string>(togglesOff);
 
             LoadPlayerToggles(modPlayer);

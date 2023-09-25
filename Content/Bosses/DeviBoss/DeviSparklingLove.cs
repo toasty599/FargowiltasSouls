@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             Projectile.alpha = 250;
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? CanDamage()
@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

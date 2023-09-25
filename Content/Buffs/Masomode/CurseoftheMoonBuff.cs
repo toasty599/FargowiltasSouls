@@ -22,12 +22,12 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
             player.endurance -= 0.20f;
             player.GetDamage(DamageClass.Generic) -= 0.2f;
             player.GetCritChance(DamageClass.Generic) -= 20;
-            player.GetModPlayer<FargoSoulsPlayer>().CurseoftheMoon = true;
+            player.FargoSouls().CurseoftheMoon = true;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon = true;
+            npc.FargoSouls().CurseoftheMoon = true;
         }
     }
 }

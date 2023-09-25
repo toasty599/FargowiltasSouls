@@ -99,10 +99,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void PostAI()
         {
-            /*if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD == 6)
-                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 60;
-            else if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD == 7)
-                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 5;*/
+            /*if (Projectile.FargoSouls().GrazeCD == 6)
+                Projectile.FargoSouls().GrazeCD = 60;
+            else if (Projectile.FargoSouls().GrazeCD == 7)
+                Projectile.FargoSouls().GrazeCD = 5;*/
         }
 
         public override Color? GetAlpha(Color lightColor)

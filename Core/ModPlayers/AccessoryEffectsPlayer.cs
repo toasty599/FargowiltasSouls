@@ -472,8 +472,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                             int p = Projectile.NewProjectile(Player.GetSource_Misc(""), proj.Center, vel, ProjectileID.Blizzard, FargoSoulsUtil.HighestDamageTypeScaling(Player, dmg), 1f, Player.whoAmI);
                             if (p != Main.maxProjectiles)
                             {
-                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().FrostFreeze = true;
+                                Main.projectile[p].FargoSouls().CanSplit = false;
+                                Main.projectile[p].FargoSouls().FrostFreeze = true;
                             }
 
                             proj.Kill();
@@ -683,7 +683,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                             continue;
                         p.usesIDStaticNPCImmunity = true;
                         p.idStaticNPCHitCooldown = 10;
-                        p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+                        p.FargoSouls().noInteractionWithNPCImmunityFrames = true;
                     }
                 }
 
@@ -898,7 +898,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     {
                         Vector2 spawnPos = Player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
                         int p = Projectile.NewProjectile(Player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, Player.whoAmI, 0, rotation * i);
-                        Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                        Main.projectile[p].FargoSouls().CanSplit = false;
                     }
                 }
                 //equipped somwthing that allows for more or less, respawn, only once every 10 seconds to prevent exploit
@@ -922,7 +922,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     {
                         Vector2 spawnPos = Player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
                         int p = Projectile.NewProjectile(Player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, Player.whoAmI, 0, rotation * i);
-                        Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                        Main.projectile[p].FargoSouls().CanSplit = false;
                     }
                 }
                 ShadowOrbRespawnTimer--;
@@ -1348,9 +1348,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile p = Main.projectile[i];
-                    if (p.active && !(p.minion && !ProjectileID.Sets.MinionShot[p.type]) && !p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune && p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFrozen == 0)
+                    if (p.active && !(p.minion && !ProjectileID.Sets.MinionShot[p.type]) && !p.FargoSouls().TimeFreezeImmune && p.FargoSouls().TimeFrozen == 0)
                     {
-                        p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFrozen = freezeLength;
+                        p.FargoSouls().TimeFrozen = freezeLength;
 
                         /*if (p.owner == Player.whoAmI && p.friendly && !p.hostile)
                         {
@@ -1480,7 +1480,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (VortexStealth && Player.GetToggleValue("VortexV") && !Player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
                 {
                     int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
-                    Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                    Main.projectile[p].FargoSouls().CanSplit = false;
                     Main.projectile[p].netUpdate = true;
 
                     Player.AddBuff(ModContent.BuffType<VortexCDBuff>(), 3600);
@@ -1553,9 +1553,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     Projectile proj = Main.projectile[i];
 
-                    if (proj.active && proj.hostile && proj.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(proj) && !proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune)
+                    if (proj.active && proj.hostile && proj.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(proj) && !proj.FargoSouls().TimeFreezeImmune)
                     {
-                        FargoSoulsGlobalProjectile globalProj = proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
+                        FargoSoulsGlobalProjectile globalProj = proj.FargoSouls();
                         globalProj.ChilledProj = true;
                         globalProj.ChilledTimer = 6;
                         proj.netUpdate = true;
@@ -1568,8 +1568,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                     if (npc.active && !npc.friendly && npc.damage > 0 && !npc.dontTakeDamage && !npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()])
                     {
-                        npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
-                        npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = 6;
+                        npc.FargoSouls().SnowChilled = true;
+                        npc.FargoSouls().SnowChilledTimer = 6;
                         npc.netUpdate = true;
                     }
                 }
@@ -1703,7 +1703,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.autoJump = true;
             }
 
-            if (Player.GetToggleValue("Supersonic") && !Player.GetModPlayer<FargoSoulsPlayer>().noSupersonic && !FargoSoulsUtil.AnyBossAlive())
+            if (Player.GetToggleValue("Supersonic") && !Player.FargoSouls().noSupersonic && !FargoSoulsUtil.AnyBossAlive())
             {
                 // 5 is the default value, I removed the config for it because the new toggler doesn't have sliders
                 Player.runAcceleration += 5f * .1f;
@@ -2586,7 +2586,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 MutantEyeCD = 3600;
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                 const int invulTime = 90;
                 Player.immune = true;
@@ -2758,7 +2758,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                             if (Player.GetToggleValue("MasoBoulder"))
                             {
                                 if (!Main.dedServ)
-                                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+                                    Main.LocalPlayer.FargoSouls().Screenshake = 60;
 
                                 if (Player.whoAmI == Main.myPlayer)
                                 {
@@ -2872,8 +2872,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                             Main.projectile[p].usesLocalNPCImmunity = false;
                             Main.projectile[p].usesIDStaticNPCImmunity = true;
                             Main.projectile[p].idStaticNPCHitCooldown = 60;
-                            Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
-                            Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+                            Main.projectile[p].FargoSouls().noInteractionWithNPCImmunityFrames = true;
+                            Main.projectile[p].FargoSouls().DeletionImmuneRank = 1;
                         }
                     }
 

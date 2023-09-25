@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().LunarCultist)
+            if (player.active && !player.dead && player.FargoSouls().LunarCultist)
                 Projectile.timeLeft = 2;
 
             if (Projectile.ai[0] >= 0 && Projectile.ai[0] < Main.maxNPCs) //has target

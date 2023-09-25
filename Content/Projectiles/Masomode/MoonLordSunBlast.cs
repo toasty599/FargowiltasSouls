@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     return;
                 }
                 if (Projectile.frame == 3)
-                    Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 0;
+                    Projectile.FargoSouls().GrazeCD = 0;
             }
             //if (++Projectile.ai[0] > Main.projFrames[Projectile.type] * 3) Projectile.Kill();
 

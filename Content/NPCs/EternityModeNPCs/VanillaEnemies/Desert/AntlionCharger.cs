@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Desert
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Dazed, 60);
+            target.FargoSouls().AddBuffNoStack(BuffID.Dazed, 60);
             target.AddBuff(BuffID.Slow, 120);
         }
 

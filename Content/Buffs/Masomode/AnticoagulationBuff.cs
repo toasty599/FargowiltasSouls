@@ -20,12 +20,12 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             player.bleed = true;
-            player.GetModPlayer<FargoSoulsPlayer>().Anticoagulation = true;
+            player.FargoSouls().Anticoagulation = true;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Anticoagulation = true;
+            npc.FargoSouls().Anticoagulation = true;
         }
     }
 }

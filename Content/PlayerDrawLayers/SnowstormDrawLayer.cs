@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             && !drawInfo.drawPlayer.dead
             && !drawInfo.drawPlayer.ghost
             && drawInfo.shadow == 0
-            && drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().SnowVisual;
+            && drawInfo.drawPlayer.FargoSouls().SnowVisual;
 
         public override Position GetDefaultPosition() => new Between();
 
@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
 
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("FargowiltasSouls");
-            FargoSoulsPlayer modPlayer = drawPlayer.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = drawPlayer.FargoSouls();
 
             if (modPlayer.SnowVisual)
             {

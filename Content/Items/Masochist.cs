@@ -34,7 +34,7 @@ Cannot be used while a boss is alive
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public static bool CanPlayMaso => WorldSavingSystem.CanPlayMaso || Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso;
+        public static bool CanPlayMaso => WorldSavingSystem.CanPlayMaso || Main.LocalPlayer.active && Main.LocalPlayer.FargoSouls().Toggler.CanPlayMaso;
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {

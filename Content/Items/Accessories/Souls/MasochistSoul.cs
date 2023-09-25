@@ -77,7 +77,7 @@ Summons the aid of all Eternity Mode bosses to your side
         {
             BionomicCluster.PassiveEffect(player, Item);
 
-            player.GetModPlayer<FargoSoulsPlayer>().CanAmmoCycle = true;
+            player.FargoSouls().CanAmmoCycle = true;
         }
 
         public override void UpdateInventory(Player player) => PassiveEffect(player, Item);
@@ -99,7 +99,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             BionomicCluster.PassiveEffect(player, Item);
 
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.MasochistSoul = true;
 
             player.AddBuff(ModContent.BuffType<SouloftheMasochistBuff>(), 2);
@@ -204,10 +204,10 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //sparkling adoration
             /*if (SoulConfig.Instance.GetValue(SoulConfig.Instance.Graze, false))
-                player.GetModPlayer<FargoSoulsPlayer>().Graze = true;
+                player.FargoSouls().Graze = true;
 
             if (SoulConfig.Instance.GetValue(SoulConfig.Instance.DevianttHearts))
-                player.GetModPlayer<FargoSoulsPlayer>().DevianttHearts = true;*/
+                player.FargoSouls().DevianttHearts = true;*/
 
             //dragon fang
             if (player.GetToggleValue("MasoClipped"))
@@ -219,7 +219,7 @@ Summons the aid of all Eternity Mode bosses to your side
             //wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
             player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().WretchedPouchItem = Item;
+            player.FargoSouls().WretchedPouchItem = Item;
 
             //sands of time
             player.buffImmune[BuffID.WindPushed] = true;
@@ -259,7 +259,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //tim's concoction
             if (player.GetToggleValue("MasoConcoction"))
-                player.GetModPlayer<FargoSoulsPlayer>().TimsConcoction = true;
+                player.FargoSouls().TimsConcoction = true;
 
             //dubious circuitry
             player.buffImmune[BuffID.CursedInferno] = true;
@@ -268,7 +268,7 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.GroundStick = true;
             player.noKnockback = true;
             if (player.onFire2)
-                player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 0.15f;
+                player.FargoSouls().AttackSpeed += 0.15f;
             if (player.ichor)
                 player.GetCritChance(DamageClass.Generic) += 15;
 
@@ -323,12 +323,12 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //dread shell
             if (player.GetToggleValue("DreadShellParry"))
-                player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
+                player.FargoSouls().DreadShellItem = Item;
 
             //deerclaws
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
+            player.FargoSouls().DeerclawpsItem = Item;
 
             //sadism
             player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;

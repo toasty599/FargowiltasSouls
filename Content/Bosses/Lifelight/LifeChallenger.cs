@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         int SansThreshold => WorldSavingSystem.MasochistModeReal && UseTrueOriginAI ? NPC.lifeMax / 10 : 0;
 
         private List<Vector4> chunklist = new(0);
-        private float ChunkRotation = 0;
+        //private float ChunkRotation = 0;
 
 
         public const float DefaultRuneDistance = 100;
@@ -357,7 +357,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                                     player.mount.Dismount(player);
                                 player.velocity.X = 0f;
                                 player.velocity.Y = -0.4f;
-                                player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
+                                player.FargoSouls().NoUsingItems = 2;
                             }
 
                             Vector2 movement = AuraCenter - player.Center;
@@ -635,7 +635,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
 
                 if (!Main.dedServ)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 60;
 
                 if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.Lifelight] && Main.netMode != NetmodeID.MultiplayerClient)
                     Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<FragilePixieLamp>());
@@ -979,7 +979,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     SoundEngine.PlaySound(SoundID.Item92 with { Pitch = -0.5f }, NPC.Center);
 
                     if (!Main.dedServ)
-                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+                        Main.LocalPlayer.FargoSouls().Screenshake = 60;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -1021,7 +1021,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 // WHY IS THIS SO HIGH.
                 //// Screenshake.
                 //if (LaserTimer > fadeintime)
-                //    player.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                //    player.FargoSouls().Screenshake = 2;
 
                 if (AttackF1)
                 {
@@ -1203,7 +1203,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                     //Main.LocalPlayer.controlUseItem = false;
                     //Main.LocalPlayer.controlUseTile = false;
-                    //Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
+                    //Main.LocalPlayer.FargoSouls().NoUsingItems = true;
                 }
             }
 
@@ -2253,7 +2253,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(24f, 0f).RotatedBy(MathHelper.Pi / 8 * i), ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
                 }
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 90;
+                Main.LocalPlayer.FargoSouls().Screenshake = 90;
 
                 //telegraph nukes
                 for (int i = 0; i < 6; i++)

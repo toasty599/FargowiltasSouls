@@ -34,17 +34,17 @@ The saucer's tractor beam slows enemies hit by it
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CanAmmoCycle = true;
+            player.FargoSouls().CanAmmoCycle = true;
         }
 
         public override void UpdateVanity(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CanAmmoCycle = true;
+            player.FargoSouls().CanAmmoCycle = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CanAmmoCycle = true;
+            player.FargoSouls().CanAmmoCycle = true;
 
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.VortexDebuff] = true;

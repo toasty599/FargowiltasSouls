@@ -250,7 +250,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 return;
             }
             target.AddBuff(BuffID.Rabies, 60 * 10);
-            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
+            target.FargoSouls().MaxLifeReduction += 50;
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 30);
         }
         public override bool CheckDead()
@@ -599,7 +599,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronHit"), NPC.Center);
                 if (!Main.dedServ)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 100;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 100;
 
                 HitPlayer = false;
 

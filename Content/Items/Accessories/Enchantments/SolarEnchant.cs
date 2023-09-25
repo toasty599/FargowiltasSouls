@@ -37,7 +37,7 @@ Attacks may inflict the Solar Flare debuff
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             //solar shields and flare debuff
             //flare debuff
             modPlayer.SolarEnchantActive = true;

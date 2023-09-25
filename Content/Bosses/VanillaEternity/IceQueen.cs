@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 600);
             target.AddBuff(BuffID.Frostburn, 180);
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
+            target.FargoSouls().AddBuffNoStack(BuffID.Frozen, 30);
         }
     }
 }

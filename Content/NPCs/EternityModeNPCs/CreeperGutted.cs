@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.defense = NPC.defDefense;
 
             Player player = Main.player[(int)NPC.ai[0]];
-            if (!player.active || player.dead || !player.GetModPlayer<FargoSoulsPlayer>().GuttedHeart)
+            if (!player.active || player.dead || !player.FargoSouls().GuttedHeart)
             {
                 NPC.SimpleStrikeNPC(NPC.lifeMax * 2, 0);
                 return;
@@ -168,7 +168,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))
             {
                 projectile.timeLeft = 0;
-                projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().canHurt = false; //so ml projs, etc. splash damage wont hrut
+                projectile.FargoSouls().canHurt = false; //so ml projs, etc. splash damage wont hrut
             }
         }
 

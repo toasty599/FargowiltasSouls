@@ -40,7 +40,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
         public static void CrystalAssassinEffect(Player player, Item item)
         {
             player.DisplayToggle("CrystalDash");
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.CrystalEnchantActive = true;
 
             //cooldown

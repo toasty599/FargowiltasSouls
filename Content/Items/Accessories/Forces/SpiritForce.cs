@@ -69,7 +69,7 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             //spectre works for all, spirit trapper works for all
             modPlayer.spiritForce = true;
             FossilEnchant.FossilEffect(player, Item);

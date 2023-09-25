@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (player.whoAmI == Main.myPlayer && (modPlayer.SilverEnchantItem == null || !player.GetToggleValue("Silver")))
             {

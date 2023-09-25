@@ -43,7 +43,7 @@ Submerging in water refreshes flight time and gives you improved speed and incre
             player.buffImmune[BuffID.Rabies] = true;
             player.buffImmune[ModContent.BuffType<MutantNibbleBuff>()] = true;
             player.buffImmune[ModContent.BuffType<OceanicMaulBuff>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().MutantAntibodies = true;
+            player.FargoSouls().MutantAntibodies = true;
 
             DamageClass damageClass = player.ProcessDamageTypeFromHeldItem();
             player.GetDamage(damageClass) += 0.2f;

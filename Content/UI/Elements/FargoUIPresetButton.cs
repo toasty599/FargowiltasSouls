@@ -51,11 +51,11 @@ namespace FargowiltasSouls.Content.UI.Elements
 
                 if (Main.mouseLeft && Main.mouseLeftRelease)
                 {
-                    ApplyPreset(Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler);
+                    ApplyPreset(Main.LocalPlayer.FargoSouls().Toggler);
                 }
                 if (SavePreset != null && Main.mouseRight && Main.mouseRightRelease)
                 {
-                    SavePreset(Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler);
+                    SavePreset(Main.LocalPlayer.FargoSouls().Toggler);
                 }
             }
 

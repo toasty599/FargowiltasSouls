@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().MoltenAmplify = true;
+            npc.FargoSouls().MoltenAmplify = true;
         }
     }
 }

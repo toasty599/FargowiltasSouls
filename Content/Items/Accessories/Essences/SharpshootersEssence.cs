@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Essences
         {
             player.GetDamage(DamageClass.Ranged) += 0.18f;
             player.GetCritChance(DamageClass.Ranged) += 5;
-            player.GetModPlayer<FargoSoulsPlayer>().RangedEssence = true;
+            player.FargoSouls().RangedEssence = true;
         }
 
         public override void AddRecipes()

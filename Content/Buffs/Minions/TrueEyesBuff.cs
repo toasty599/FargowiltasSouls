@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().TrueEyes = true;
+            player.FargoSouls().TrueEyes = true;
 
             if (player.whoAmI == Main.myPlayer)
             {

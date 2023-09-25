@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.DamageType = DamageClass.Throwing;
             Projectile.hide = true;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

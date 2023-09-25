@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
         {
             base.OnFirstTick(npc);
 
-            npc.GetGlobalNPC<EModeGlobalNPC>().isWaterEnemy = true;
+            npc.Eternity().isWaterEnemy = true;
         }
     }
 }

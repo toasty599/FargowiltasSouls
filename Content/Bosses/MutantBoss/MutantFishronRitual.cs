@@ -32,14 +32,14 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.penetrate = -1;
             CooldownSlot = -1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
+            Projectile.FargoSouls().GrazeCheck =
                 projectile =>
                 {
-                    return CanDamage() == true && Math.Abs((Main.LocalPlayer.Center - Projectile.Center).Length() - safeRange) < Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius;
+                    return CanDamage() == true && Math.Abs((Main.LocalPlayer.Center - Projectile.Center).Length() - safeRange) < Player.defaultHeight + Main.LocalPlayer.FargoSouls().GrazeRadius;
                 };
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? CanDamage()
@@ -110,15 +110,15 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             Lighting.AddLight(Projectile.Center, 0.4f, 0.9f, 1.1f);
 
-            if (Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD > 10)
-                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 10;
+            if (Projectile.FargoSouls().GrazeCD > 10)
+                Projectile.FargoSouls().GrazeCD = 10;
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (WorldSavingSystem.EternityMode)
             {
-                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.FargoSouls().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }

@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
             Projectile.extraUpdates = 1;
             Projectile.netImportant = true;
         }

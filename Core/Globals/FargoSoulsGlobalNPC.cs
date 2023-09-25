@@ -194,7 +194,7 @@ namespace FargowiltasSouls.Core.Globals
                 //                {
                 //                    Player player = Main.player[Main.myPlayer];
 
-                //                    /*if ( npc.releaseOwner == player.whoAmI && player.GetModPlayer<FargoSoulsPlayer>().WoodEnchant)
+                //                    /*if ( npc.releaseOwner == player.whoAmI && player.FargoSouls().WoodEnchant)
                 //                    {
                 //                        switch (npc.type)
                 //                        {
@@ -227,7 +227,7 @@ namespace FargowiltasSouls.Core.Globals
             //                if (critterCounter <= 0)
             //                {
             //                    Player player = Main.player[npc.releaseOwner];
-            //                    FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //                    FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             //                    int damage = 25;
 
@@ -288,11 +288,11 @@ namespace FargowiltasSouls.Core.Globals
                     GrazeCD = 6;
 
                 NPC realLifeNPC = FargoSoulsUtil.NPCExists(npc.realLife);
-                FargoSoulsGlobalNPC npcForGrazeCD = realLifeNPC is not null ? realLifeNPC.GetGlobalNPC<FargoSoulsGlobalNPC>() : npc.GetGlobalNPC<FargoSoulsGlobalNPC>();
+                FargoSoulsGlobalNPC npcForGrazeCD = realLifeNPC is not null ? realLifeNPC.FargoSouls() : npc.FargoSouls();
 
                 if (npcForGrazeCD.GrazeCD == 0)
                 {
-                    FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
+                    FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.FargoSouls();
                     if (fargoPlayer.Graze && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                     {
                         Vector2 point = FargoSoulsUtil.ClosestPointInHitbox(npc.Hitbox, Main.LocalPlayer.Center);
@@ -604,7 +604,7 @@ namespace FargowiltasSouls.Core.Globals
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
             Player player = Main.player[Main.myPlayer];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (Rotting)
             {
@@ -847,7 +847,7 @@ namespace FargowiltasSouls.Core.Globals
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.Bloodthirsty)
             {
@@ -868,7 +868,7 @@ namespace FargowiltasSouls.Core.Globals
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.GetModPlayer<FargoSoulsPlayer>().PungentEyeball)
+            if (spawnInfo.Player.FargoSouls().PungentEyeball)
             {
                 foreach (var entry in pool)
                 {
@@ -883,7 +883,7 @@ namespace FargowiltasSouls.Core.Globals
         public override bool PreKill(NPC npc)
         {
             Player player = Main.player[npc.lastInteraction];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && !npc.boss)
             {
@@ -904,7 +904,7 @@ namespace FargowiltasSouls.Core.Globals
         public override void OnKill(NPC npc)
         {
             Player player = Main.player[npc.lastInteraction];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (!lootMultiplierCheck)
             {
@@ -1048,7 +1048,7 @@ namespace FargowiltasSouls.Core.Globals
             if (player == null)
                 return base.CheckDead(npc);
 
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             //            /*if (npc.boss && FargoSoulsUtil.BossIsAlive(ref mutantBoss, ModContent.NPCType<MutantBoss.MutantBoss>()) && npc.type != ModContent.NPCType<MutantBoss.MutantBoss>())
             //            {
@@ -1093,7 +1093,7 @@ namespace FargowiltasSouls.Core.Globals
                 }
             }
             
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (damageDone > 0 && modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && npc.boss)
             {
@@ -1125,7 +1125,7 @@ namespace FargowiltasSouls.Core.Globals
         public override void ModifyHitNPC(NPC npc, NPC target, ref NPC.HitModifiers modifiers)
         {
             Player player = Main.player[Main.myPlayer];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (target.type == ModContent.NPCType<CreeperGutted>())
                 modifiers.FinalDamage /= 20;
@@ -1148,7 +1148,7 @@ namespace FargowiltasSouls.Core.Globals
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             Player player = Main.player[Main.myPlayer];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (Corrupted)
             {
@@ -1202,7 +1202,7 @@ namespace FargowiltasSouls.Core.Globals
         public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
         {
             Player player = Main.player[Main.myPlayer];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.WoodEnchantDiscount)
             {

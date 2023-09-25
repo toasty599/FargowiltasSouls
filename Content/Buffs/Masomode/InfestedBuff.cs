@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoSoulsPlayer p = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer p = player.FargoSouls();
 
             //weak DOT that grows exponentially stronger
             if (p.FirstInfection)
@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Infested = true;
+            npc.FargoSouls().Infested = true;
         }
     }
 }

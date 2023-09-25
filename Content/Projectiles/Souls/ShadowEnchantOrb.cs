@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 	public class ShadowEnchantOrb : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_18";
-        readonly int invisTimer = 0;
+        //readonly int invisTimer = 0;
 
         public override void SetStaticDefaults()
         {
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             Projectile.netUpdate = true;
 
             if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.ShadowEnchantActive || modPlayer.TerrariaSoul) || !player.GetToggleValue("Shadow")))

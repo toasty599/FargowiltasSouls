@@ -50,7 +50,7 @@ Absorb Anticoagulation blood clots to gain 30% increased damage
             player.noKnockback = true;
 
             if (player.GetToggleValue("DreadShellParry"))
-                player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
+                player.FargoSouls().DreadShellItem = Item;
         }
     }
 }

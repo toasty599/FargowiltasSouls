@@ -49,9 +49,9 @@ Endurance recovers when you reach full life again
             player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomFangBuff>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomPresenceBuff>()] = true;
 
-            player.GetModPlayer<FargoSoulsPlayer>().AbomWandItem = Item;
-            if (player.GetModPlayer<FargoSoulsPlayer>().AbomWandCD > 0)
-                player.GetModPlayer<FargoSoulsPlayer>().AbomWandCD--;
+            player.FargoSouls().AbomWandItem = Item;
+            if (player.FargoSouls().AbomWandCD > 0)
+                player.FargoSouls().AbomWandCD--;
             /*if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<CuteFishronRitual>()] < 1 && player.whoAmI == Main.myPlayer)

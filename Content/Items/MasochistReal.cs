@@ -42,8 +42,8 @@ namespace FargowiltasSouls.Content.Items
             }
             else
             {
-                player.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso = !player.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso;
-                Main.NewText($"mod: {player.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso}");
+                player.FargoSouls().Toggler.CanPlayMaso = !player.FargoSouls().Toggler.CanPlayMaso;
+                Main.NewText($"mod: {player.FargoSouls().Toggler.CanPlayMaso}");
             }
             return true;
         }

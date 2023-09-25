@@ -29,20 +29,20 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.timeLeft = 1200;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
 
             Projectile.DamageType = DamageClass.Magic;
         }
 
         public override void AI()
         {
-            FargoSoulsPlayer modPlayer = Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = Main.player[Projectile.owner].FargoSouls();
 
             if (modPlayer.ForbiddenEnchantActive)
             {
                 foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && !p.hostile && p.owner == Projectile.owner && p.type != Projectile.type && p.Colliding(p.Hitbox, Projectile.Hitbox)))
                 {
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().stormTimer = 240;
+                    p.FargoSouls().stormTimer = 240;
                 }
             };
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)

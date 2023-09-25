@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void BorealEffect(Player player, Item item)
         {
             player.DisplayToggle("Boreal");
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.BorealEnchantItem = item;
 
             if (modPlayer.BorealCD > 0)

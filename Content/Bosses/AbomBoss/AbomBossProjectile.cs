@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override void AI()

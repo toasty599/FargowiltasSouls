@@ -68,9 +68,9 @@ Increases max number of minions and sentries by 10
         {
             player.AddBuff(ModContent.BuffType<MutantPowerBuff>(), 2);
 
-            player.GetModPlayer<FargoSoulsPlayer>().MutantSetBonusItem = item;
-            player.GetModPlayer<FargoSoulsPlayer>().GodEaterImbue = true;
-            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += .2f;
+            player.FargoSouls().MutantSetBonusItem = item;
+            player.FargoSouls().GodEaterImbue = true;
+            player.FargoSouls().AttackSpeed += .2f;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

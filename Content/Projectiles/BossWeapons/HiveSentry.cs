@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                         -Projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
                         Main.dust[dust].noGravity = true;
                         Main.dust[dust].velocity *= 2f;
-                        dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 59, -Projectile.velocity.X * 0.2f,
+                        dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, DustID.BlueTorch, -Projectile.velocity.X * 0.2f,
                         -Projectile.velocity.Y * 0.2f, 100);
                         Main.dust[dust].velocity *= 2f;
                     }

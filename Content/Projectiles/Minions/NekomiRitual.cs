@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.friendly = true;
             Projectile.netImportant = true;
             Projectile.alpha = 255;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         int oldHeartCount;
@@ -38,8 +38,8 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            if (player.active && !player.dead && !player.ghost && player.GetModPlayer<FargoSoulsPlayer>().NekomiSet)
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
+            if (player.active && !player.dead && !player.ghost && player.FargoSouls().NekomiSet)
             {
                 Projectile.alpha = 0;
             }

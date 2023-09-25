@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoSoulsPlayer p = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer p = player.FargoSouls();
 
             player.poisoned = true;
             player.venom = true;

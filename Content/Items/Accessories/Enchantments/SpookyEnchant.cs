@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().SpookyEffect(hideVisual);
+            player.FargoSouls().SpookyEffect(hideVisual);
         }
 
         public override void AddRecipes()

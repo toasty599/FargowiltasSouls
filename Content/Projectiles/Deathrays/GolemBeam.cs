@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
                 if (Projectile.localAI[0] == descendTime && !Main.dedServ && Main.LocalPlayer.active)
                 {
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 60;
                     for (int i = -1; i <= 1; i += 2)
                     {
                         for (int j = 0; j < 50; j++)

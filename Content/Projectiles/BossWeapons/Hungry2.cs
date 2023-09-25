@@ -36,8 +36,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             baseWidth = Projectile.width;
             baseHeight = Projectile.height;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? CanDamage()

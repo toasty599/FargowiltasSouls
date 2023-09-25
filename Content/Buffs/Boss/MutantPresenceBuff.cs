@@ -21,10 +21,10 @@ namespace FargowiltasSouls.Content.Buffs.Boss
         public override void Update(Player player, ref int buffIndex)
         {
             //also halves defense, DR, and cripples life regen
-            player.GetModPlayer<FargoSoulsPlayer>().noDodge = true;
-            player.GetModPlayer<FargoSoulsPlayer>().noSupersonic = true;
-            player.GetModPlayer<FargoSoulsPlayer>().MutantPresence = true;
-            player.GetModPlayer<FargoSoulsPlayer>().GrazeRadius *= 0.5f;
+            player.FargoSouls().noDodge = true;
+            player.FargoSouls().noSupersonic = true;
+            player.FargoSouls().MutantPresence = true;
+            player.FargoSouls().GrazeRadius *= 0.5f;
             player.moonLeech = true;
         }
     }

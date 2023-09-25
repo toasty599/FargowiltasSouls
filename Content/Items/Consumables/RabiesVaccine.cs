@@ -28,14 +28,14 @@ namespace FargowiltasSouls.Content.Items.Consumables
 
         public override bool CanUseItem(Player player)
         {
-            return !player.GetModPlayer<FargoSoulsPlayer>().RabiesVaccine;
+            return !player.FargoSouls().RabiesVaccine;
         }
 
         public override bool? UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().RabiesVaccine = true;
+                player.FargoSouls().RabiesVaccine = true;
             }
 
             return true;

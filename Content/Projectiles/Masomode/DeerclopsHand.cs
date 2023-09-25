@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             if (Projectile.ai[1] == 0)
             {
                 Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[0]);
-                if (player != null && player.GetModPlayer<FargoSoulsPlayer>().MashCounter < 20 && Projectile.timeLeft > 60)
+                if (player != null && player.FargoSouls().MashCounter < 20 && Projectile.timeLeft > 60)
                 {
                     if (player.active && !player.dead && !player.ghost && Projectile.Colliding(Projectile.Hitbox, player.Hitbox))
                     {
@@ -52,9 +52,9 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                         player.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 2);
                         player.AddBuff(ModContent.BuffType<GrabbedBuff>(), 2);
 
-                        if (oldMash < player.GetModPlayer<FargoSoulsPlayer>().MashCounter)
+                        if (oldMash < player.FargoSouls().MashCounter)
                         {
-                            oldMash = player.GetModPlayer<FargoSoulsPlayer>().MashCounter;
+                            oldMash = player.FargoSouls().MashCounter;
                             int handCount = Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type] / 2 + 1;
                             if (Main.rand.NextBool(handCount))
                             {

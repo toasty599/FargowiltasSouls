@@ -45,7 +45,7 @@ Slime inflicts Slimed and Oiled
                 player.maxFallSpeed *= 1.5f;
             }
 
-            player.GetModPlayer<FargoSoulsPlayer>().SlimyShieldItem = Item;
+            player.FargoSouls().SlimyShieldItem = Item;
         }
     }
 }

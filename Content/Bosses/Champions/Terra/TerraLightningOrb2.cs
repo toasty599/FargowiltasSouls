@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             Projectile.scale = 0.5f;
             CooldownSlot = 1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage()
@@ -201,7 +201,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             MakeDust();
 
             if (!Main.dedServ)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
             if (Projectile.alpha == 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {

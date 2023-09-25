@@ -52,8 +52,8 @@ Increases flight time by 100%
             if (player.GetToggleValue("MasoTrueEye"))
                 player.AddBuff(ModContent.BuffType<TrueEyesBuff>(), 2);
 
-            player.GetModPlayer<FargoSoulsPlayer>().GravityGlobeEXItem = Item;
-            player.GetModPlayer<FargoSoulsPlayer>().WingTimeModifier += 1f;
+            player.FargoSouls().GravityGlobeEXItem = Item;
+            player.FargoSouls().WingTimeModifier += 1f;
         }
     }
 }

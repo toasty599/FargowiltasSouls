@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.alpha = 255;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override void AI()
@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 center.Y += 2f;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), center.X, center.Y, Projectile.velocity.X, Projectile.velocity.Y, ModContent.ProjectileType<Whirlpool>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 10f,
                     Projectile.ai[1] - 1f);
-                int num605 = 2;
+                //int num605 = 2;
             }
 
             if (Projectile.ai[0] <= 0f)

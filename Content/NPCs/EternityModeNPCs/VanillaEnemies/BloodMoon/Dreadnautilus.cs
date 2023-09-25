@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
             switch ((int)npc.ai[0])
             {
                 case 0: //between attacks
-                    if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)
+                    if (npc.FargoSouls().BloodDrinker)
                     {
                         if (npc.HasValidTarget)
                         {
@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
                 case 1: //spinning around player, dashes at ai1=90, ends at ai1=270
                     if (npc.ai[1] <= 90)
                     {
-                        if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)
+                        if (npc.FargoSouls().BloodDrinker)
                             npc.ai[1]++; //less startup
                     }
                     else
@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
                     break;
 
                 case 2: //spit blood on you, shoot repeatedly after ai=90, ends at ai1=180
-                    if (npc.ai[1] < 90 && npc.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker)
+                    if (npc.ai[1] < 90 && npc.FargoSouls().BloodDrinker)
                         npc.ai[1]++;
 
                     npc.ai[1] += 0.5f;
@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
 
                         Checks();
 
-                        if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().BloodDrinker && npc.ai[1] % 10 != 0)
+                        if (npc.FargoSouls().BloodDrinker && npc.ai[1] % 10 != 0)
                         {
                             npc.ai[1]++;
                             Checks();

@@ -168,7 +168,7 @@ namespace FargowiltasSouls.Core.Globals
 
                 if (BeetleUtilAura)
                 {
-                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
+                    target.FargoSouls().AddBuffNoStack(BuffID.Frozen, 30);
                 }
             }
         }
@@ -240,7 +240,7 @@ namespace FargowiltasSouls.Core.Globals
             bool noInvasion = FargowiltasSouls.NoInvasion(spawnInfo);
             bool normalSpawn = !spawnInfo.PlayerInTown && noInvasion && !oldOnesArmy && noEvent;
 
-            bool bossCanSpawn = WorldSavingSystem.MasochistModeReal && !spawnInfo.Player.GetModPlayer<FargoSoulsPlayer>().SinisterIcon && !FargoSoulsUtil.AnyBossAlive();
+            bool bossCanSpawn = WorldSavingSystem.MasochistModeReal && !spawnInfo.Player.FargoSouls().SinisterIcon && !FargoSoulsUtil.AnyBossAlive();
 
             //MASOCHIST MODE
             if (WorldSavingSystem.EternityMode)
@@ -468,7 +468,7 @@ namespace FargowiltasSouls.Core.Globals
                                         pool[NPCID.SkeletronPrime] = .0001f;
                                     }
 
-                                    //if (!spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SkullCharm)
+                                    //if (!spawnInfo.player.FargoSouls().SkullCharm)
                                     pool[NPCID.SkeletonSniper] = .005f;
                                     pool[NPCID.SkeletonCommando] = .005f;
                                     pool[NPCID.TacticalSkeleton] = .005f;
@@ -662,7 +662,7 @@ namespace FargowiltasSouls.Core.Globals
                             pool[NPCID.BlazingWheel] = .05f;
                         }
 
-                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SkullCharm)
+                        if (NPC.downedPlantBoss)// && !spawnInfo.player.FargoSouls().SkullCharm)
                         {
                             pool[NPCID.DiabolistRed] = .001f;
                             pool[NPCID.DiabolistWhite] = .001f;
@@ -737,7 +737,7 @@ namespace FargowiltasSouls.Core.Globals
                         pool[NPCID.BlazingWheel] = .1f;
                         pool[NPCID.SpikeBall] = .1f;
 
-                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SkullCharm)
+                        if (NPC.downedPlantBoss)// && !spawnInfo.player.FargoSouls().SkullCharm)
                         {
                             const float rate = .05f;
                             pool[NPCID.BigMimicJungle] = rate;
@@ -1261,9 +1261,9 @@ namespace FargowiltasSouls.Core.Globals
 
         public static bool StealFromInventory(Player target, ref Item item)
         {
-            if (target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown <= 0 && !item.IsAir)
+            if (target.FargoSouls().StealingCooldown <= 0 && !item.IsAir)
             {
-                target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown = 900; //trust me, keep these separate
+                target.FargoSouls().StealingCooldown = 900; //trust me, keep these separate
                 target.AddBuff(ModContent.BuffType<ThiefCDBuff>(), 900);
 
 

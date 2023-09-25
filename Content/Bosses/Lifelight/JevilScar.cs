@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.scale = 1f;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) //circular hitbox

@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                 Projectile.Damage();
             }
 
-            //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+            //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 

@@ -51,13 +51,13 @@ Reduces damage taken by 5%
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.NanoInjectionBuff>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.LightningRodBuff>()] = true;
 
-            player.GetModPlayer<FargoSoulsPlayer>().FusedLens = true;
+            player.FargoSouls().FusedLens = true;
             if (player.onFire2)
-                player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 0.15f;
+                player.FargoSouls().AttackSpeed += 0.15f;
             if (player.ichor)
                 player.GetCritChance(DamageClass.Generic) += 15;
 
-            player.GetModPlayer<FargoSoulsPlayer>().GroundStick = true;
+            player.FargoSouls().GroundStick = true;
             if (player.GetToggleValue("MasoProbe"))
                 player.AddBuff(ModContent.BuffType<Buffs.Minions.ProbesBuff>(), 2);
 

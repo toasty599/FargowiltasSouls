@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             Projectile.timeLeft = 180;
             Projectile.hide = true;
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
             CooldownSlot = 1;
         }
 

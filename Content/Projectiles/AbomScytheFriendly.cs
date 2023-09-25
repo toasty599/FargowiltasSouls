@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.alpha = 100;
             Projectile.penetrate = -1;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override void AI()

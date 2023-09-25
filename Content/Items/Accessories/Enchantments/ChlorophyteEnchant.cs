@@ -43,7 +43,7 @@ Double tap a direction
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             //crystal
             modPlayer.ChloroEffect(Item, hideVisual);
             modPlayer.JungleEnchantActive = true;

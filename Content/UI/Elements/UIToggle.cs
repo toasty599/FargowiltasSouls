@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             if (IsMouseHovering && Main.mouseLeft && Main.mouseLeftRelease)
             {
                 Player player = Main.LocalPlayer;
-                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
                 modPlayer.Toggler.Toggles[Key].ToggleBool = !modPlayer.Toggler.Toggles[Key].ToggleBool;
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)

@@ -31,8 +31,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.penetrate = -1;
             Projectile.scale = 1f;
             Projectile.alpha = 0;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override void AI()

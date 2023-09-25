@@ -40,7 +40,7 @@ Effects of Sniper Scope
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             //reduce ammo consume
-            player.GetModPlayer<FargoSoulsPlayer>().RangedSoul = true;
+            player.FargoSouls().RangedSoul = true;
             player.GetDamage(DamageClass.Ranged) += 0.3f;
             player.GetCritChance(DamageClass.Ranged) += 15;
 

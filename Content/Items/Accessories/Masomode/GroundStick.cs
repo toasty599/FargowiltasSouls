@@ -39,7 +39,7 @@ Two friendly probes fight by your side and will supercharge with you
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[ModContent.BuffType<LightningRodBuff>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().GroundStick = true;
+            player.FargoSouls().GroundStick = true;
             if (player.GetToggleValue("MasoProbe"))
                 player.AddBuff(ModContent.BuffType<ProbesBuff>(), 2);
         }

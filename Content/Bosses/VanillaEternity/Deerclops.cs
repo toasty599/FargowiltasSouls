@@ -282,7 +282,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (EnteredPhase3)
                     {
                         if (!Main.dedServ)
-                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+                            Main.LocalPlayer.FargoSouls().Screenshake = 2;
 
                         if (npc.ai[1] > 30) //roaring
                         {

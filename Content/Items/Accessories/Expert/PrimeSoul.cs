@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
         {
             if (Item.favorited)
             {
-                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
                 modPlayer.PrimeSoulItem = Item;
             }
         }

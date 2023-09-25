@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             Projectile.scale = 1f;
             Projectile.alpha = 0;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage()
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                     return;
                 }
                 if (Projectile.frame == 3)
-                    Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 0;
+                    Projectile.FargoSouls().GrazeCD = 0;
             }
             //if (++Projectile.ai[0] > Main.projFrames[Projectile.type] * 3) Projectile.Kill();
 

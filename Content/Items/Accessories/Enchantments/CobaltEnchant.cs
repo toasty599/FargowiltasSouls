@@ -31,7 +31,7 @@ When you are hurt, you violently explode to damage nearby enemies
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CobaltEnchantItem = Item;
+            player.FargoSouls().CobaltEnchantItem = Item;
             AncientCobaltEnchant.AncientCobaltEffect(player, Item, 250);
         }
 
@@ -39,7 +39,7 @@ When you are hurt, you violently explode to damage nearby enemies
         {
             if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer)
             {
-                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
 
                 int baseDamage = 75;
                 int multiplier = 2;
@@ -65,7 +65,7 @@ When you are hurt, you violently explode to damage nearby enemies
 
                 Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_Accessory(modPlayer.CobaltEnchantItem), player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.ActualClassDamage(DamageClass.Melee)), 0f, Main.myPlayer);
                 if (p != null)
-                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                    p.FargoSouls().CanSplit = false;
             }
         }
 

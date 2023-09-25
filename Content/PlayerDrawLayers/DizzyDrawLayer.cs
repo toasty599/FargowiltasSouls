@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             && !drawInfo.drawPlayer.dead
             && !drawInfo.drawPlayer.ghost
             && drawInfo.shadow == 0
-            && (drawInfo.drawPlayer.dazed || drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().Stunned);
+            && (drawInfo.drawPlayer.dazed || drawInfo.drawPlayer.FargoSouls().Stunned);
 
         public override Position GetDefaultPosition() => new Between();
 

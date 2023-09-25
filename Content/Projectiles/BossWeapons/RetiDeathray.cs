@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.hostile = false;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
 
             Projectile.hide = true;
             Projectile.extraUpdates = 1;

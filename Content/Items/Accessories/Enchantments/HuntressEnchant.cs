@@ -41,7 +41,7 @@ Missing any attack will reset these bonuses
         public static void HuntressEffect(Player player)
         {
             player.DisplayToggle("Huntress");
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.HuntressEnchantActive = true;
 
             if (modPlayer.HuntressCD > 0)
@@ -52,7 +52,7 @@ Missing any attack will reset these bonuses
 
         public static void HuntressBonus(FargoSoulsPlayer modPlayer, Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().HuntressProj = 2;
+            proj.FargoSouls().HuntressProj = 2;
 
             if (modPlayer.HuntressCD == 0)
             {

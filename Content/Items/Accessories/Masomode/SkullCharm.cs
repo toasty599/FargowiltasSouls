@@ -42,7 +42,7 @@ The crystal skull charges energy to attack as you attack
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.endurance -= 0.1f;
             player.aggro -= 400;
-            player.GetModPlayer<FargoSoulsPlayer>().SkullCharm = true;
+            player.FargoSouls().SkullCharm = true;
             /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;

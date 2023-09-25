@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void SquireEffect(Player player, Item item)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.SquireEnchantItem = item;
 
             player.DisplayToggle("SquirePanic");
@@ -150,18 +150,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //horizontal
             if (!vertical)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().MonkDashing = 15;
+                player.FargoSouls().MonkDashing = 15;
                 player.velocity.X = 50 * (float)direction;
             }
             else
             {
-                player.GetModPlayer<FargoSoulsPlayer>().MonkDashing = -15;
+                player.FargoSouls().MonkDashing = -15;
                 player.velocity.Y = 30 * (float)direction;
             }
 
             player.dashDelay = 30;
-            if (player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer < 20)
-                player.GetModPlayer<FargoSoulsPlayer>().IsDashingTimer = 20;
+            if (player.FargoSouls().IsDashingTimer < 20)
+                player.FargoSouls().IsDashingTimer = 20;
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);

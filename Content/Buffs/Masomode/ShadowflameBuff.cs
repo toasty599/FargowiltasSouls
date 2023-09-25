@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().Shadowflame = true;
+            player.FargoSouls().Shadowflame = true;
         }
     }
 }

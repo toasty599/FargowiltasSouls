@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             return new Vector2(-27f, -12f);
         }
 
-        public override bool AltFunctionUse(Player player) => player.GetModPlayer<FargoSoulsPlayer>().LightslingerHitShots >= ReqShots;
+        public override bool AltFunctionUse(Player player) => player.FargoSouls().LightslingerHitShots >= ReqShots;
         public override bool CanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -80,11 +80,11 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         {
             if (player.altFunctionUse == 2)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().LightslingerHitShots = 0;
+                player.FargoSouls().LightslingerHitShots = 0;
             }
             else
             {
-                if (++player.GetModPlayer<FargoSoulsPlayer>().LightslingerHitShots >= ReqShots && player.whoAmI == Main.myPlayer)
+                if (++player.FargoSouls().LightslingerHitShots >= ReqShots && player.whoAmI == Main.myPlayer)
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ChargeSound"), player.Center);
             }
 

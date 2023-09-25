@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             modPlayer.MeteorEffect(Item);
 
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             if (source is EntitySource_ItemUse itemSource && itemSource.Item.type == ModContent.ItemType<MeteorEnchant>())
             {
                 fromEnch = true;
-                projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                projectile.FargoSouls().CanSplit = false;
 
                 //if (ModLoader.GetMod("Fargowiltas") != null)
                 //    ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", Main.projectile[p]);
@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             if (fromEnch)
             {
                 const int maxHits = 75;
-                Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().MeteorTimer -= MeteorEnchant.METEOR_ADDED_DURATION / maxHits;
+                Main.player[projectile.owner].FargoSouls().MeteorTimer -= MeteorEnchant.METEOR_ADDED_DURATION / maxHits;
             }
         }
     }

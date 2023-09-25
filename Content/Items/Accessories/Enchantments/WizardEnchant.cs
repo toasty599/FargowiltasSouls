@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))
                 itemNameLine.OverrideColor = nameColor;
 
-            FargoSoulsPlayer localSoulsPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer localSoulsPlayer = Main.LocalPlayer.FargoSouls();
             foreach (BaseEnchant enchant in localSoulsPlayer.EquippedEnchants)
             {
                 if (enchant.Type == Type)
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().WizardEnchantActive = true;
+            player.FargoSouls().WizardEnchantActive = true;
         }
 
         public override void AddRecipes()

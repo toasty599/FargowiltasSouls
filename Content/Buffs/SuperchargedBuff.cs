@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.moveSpeed += 0.20f;
-            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += 0.10f;
-            player.GetModPlayer<FargoSoulsPlayer>().Supercharged = true;
+            player.FargoSouls().AttackSpeed += 0.10f;
+            player.FargoSouls().Supercharged = true;
         }
     }
 }

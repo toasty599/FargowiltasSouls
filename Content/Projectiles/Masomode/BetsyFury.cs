@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.hostile = true;
             Projectile.scale = 1.2f;
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override void AI()

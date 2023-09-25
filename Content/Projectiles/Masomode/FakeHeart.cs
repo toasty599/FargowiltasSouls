@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             if (Projectile.Colliding(Projectile.Hitbox, target.Hitbox))
             {
-                if (target.GetModPlayer<FargoSoulsPlayer>().DevianttHeartItem == null)
+                if (target.FargoSouls().DevianttHeartItem == null)
                 {
                     target.hurtCooldowns[0] = 0;
                     var defense = target.statDefense;

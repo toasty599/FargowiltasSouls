@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 180;
             //Projectile.alpha = 100;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override void OnSpawn(IEntitySource source)

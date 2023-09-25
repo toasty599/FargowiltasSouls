@@ -41,7 +41,7 @@ If you crit, you might also get a healing orb
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().SpectreEffect(hideVisual);
+            player.FargoSouls().SpectreEffect(hideVisual);
         }
 
         public override void AddRecipes()

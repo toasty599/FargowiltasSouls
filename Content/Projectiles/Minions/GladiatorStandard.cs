@@ -40,8 +40,8 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            FargoSoulsPlayer localModPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            FargoSoulsPlayer localModPlayer = Main.LocalPlayer.FargoSouls();
 
             int AuraSize = modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 800 : 400;
 

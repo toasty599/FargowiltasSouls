@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override void GrabRange(Item item, Player player, ref int grabRange)
         {
-            FargoSoulsPlayer p = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer p = player.FargoSouls();
             //ignore money, hearts, mana stars
             if (player.whoAmI == Main.myPlayer && p.IronEnchantItem != null && player.GetToggleValue("IronM", false) && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
                 item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart)
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override bool OnPickup(Item item, Player player)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.GoldEnchantActive && player.whoAmI == Main.myPlayer && player.GetToggleValue("GoldToPiggy", false))
                 modPlayer.GoldEnchMoveCoins = true;
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {
-            if (weapon.CountsAsClass(DamageClass.Ranged) && player.GetModPlayer<FargoSoulsPlayer>().Jammed)
+            if (weapon.CountsAsClass(DamageClass.Ranged) && player.FargoSouls().Jammed)
                 type = ProjectileID.ConfettiGun;
 
             //coin gun is broken as fucking shit codingwise so i'm fixing it
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override void OnConsumeItem(Item item, Player player)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (item.healLife > 0)
             {
@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override bool ConsumeItem(Item item, Player player)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             //if (item.makeNPC > 0 && (p.WoodForce || p.WizardEnchant) && Main.rand.NextBool())
             //{
@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Content.Items
         };
         public override void ModifyItemScale(Item item, Player player, ref float scale)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.TungstenEnchantItem != null && player.GetToggleValue("Tungsten")
                 && !item.IsAir && item.damage > 0 && (!item.noMelee || TungstenAlwaysAffects.Contains(item.type)) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.UniverseSoul || modPlayer.Eternity)
                 knockback *= 2;
@@ -157,7 +157,7 @@ namespace FargowiltasSouls.Content.Items
                     return item.ModItem.CanAutoReuseItem(player);
             }
 
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.Berserked)
                 return true;
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override bool CanUseItem(Item item, Player player)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.NoUsingItems > 0)
                 return false;
@@ -192,7 +192,7 @@ namespace FargowiltasSouls.Content.Items
                     return false;
             }
 
-            if (item.CountsAsClass(DamageClass.Magic) && player.GetModPlayer<FargoSoulsPlayer>().ReverseManaFlow)
+            if (item.CountsAsClass(DamageClass.Magic) && player.FargoSouls().ReverseManaFlow)
             {
                 int damage = (int)(item.mana / (1f - player.endurance) + player.statDefense);
                 player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was destroyed by their own magic."), damage, 0);
@@ -270,7 +270,7 @@ namespace FargowiltasSouls.Content.Items
 
             if (item.type == ItemID.RodofDiscord && player.chaosState)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().WasHurtBySomething = true; //with abom rebirth, die to chaos state
+                player.FargoSouls().WasHurtBySomething = true; //with abom rebirth, die to chaos state
             }
             /*
             if (item.type == ItemID.PotionOfReturn && FargoSoulsUtil.AnyBossAlive() && WorldSavingSystem.EternityMode)
@@ -280,7 +280,7 @@ namespace FargowiltasSouls.Content.Items
             */
             if (item.damage > 0 && item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer = Math.Max(item.useTime, item.useAnimation) + item.reuseDelay + 6;
+                player.FargoSouls().WeaponUseTimer = Math.Max(item.useTime, item.useAnimation) + item.reuseDelay + 6;
             }
             return true;
         }
@@ -290,7 +290,7 @@ namespace FargowiltasSouls.Content.Items
             {
                 player.ClearBuff(ModContent.BuffType<GoldenStasisBuff>());
 
-                if (player.GetModPlayer<FargoSoulsPlayer>().CrystalEnchantActive)
+                if (player.FargoSouls().CrystalEnchantActive)
                     player.AddBuff(ModContent.BuffType<FirstStrikeBuff>(), 60);
             }
             return base.UseItem(item, player);
@@ -298,7 +298,7 @@ namespace FargowiltasSouls.Content.Items
 
         //        public override bool AltFunctionUse(Item item, Player player)
         //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        //            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
         //            if (modPlayer.WoodEnchant)
         //            {
@@ -320,7 +320,7 @@ namespace FargowiltasSouls.Content.Items
 
         //        public override bool NewPreReforge(Item item)
         //        {
-        //            /*if (Main.player[item.owner].GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
+        //            /*if (Main.player[item.owner].FargoSouls().SecurityWallet)
         //            {
         //                switch(item.prefix)
         //                {
@@ -377,7 +377,7 @@ namespace FargowiltasSouls.Content.Items
         }
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.Eternity)
                 velocity *= 2;
@@ -388,7 +388,7 @@ namespace FargowiltasSouls.Content.Items
 
         //        public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount)
         //        {
-        //            if (Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
+        //            if (Main.LocalPlayer.FargoSouls().SecurityWallet)
         //                reforgePrice /= 2;
         //            return true;
         //        }
@@ -428,7 +428,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override bool WingUpdate(int wings, Player player, bool inUse)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.ChloroEnchantActive && player.GetToggleValue("Jungle") && inUse)
             {
                 modPlayer.CanJungleJump = false;
@@ -487,7 +487,7 @@ namespace FargowiltasSouls.Content.Items
 
         public override bool AllowPrefix(Item item, int pre)
         {
-            if (!Main.gameMenu && Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
+            if (!Main.gameMenu && Main.LocalPlayer.active && Main.LocalPlayer.FargoSouls().SecurityWallet)
             {
                 switch (pre)
                 {

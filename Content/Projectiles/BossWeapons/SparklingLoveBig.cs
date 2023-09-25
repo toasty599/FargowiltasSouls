@@ -33,9 +33,9 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.aiStyle = -1;
             Projectile.scale = 4f;
             Projectile.penetrate = -1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override void AI()
@@ -145,7 +145,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override void Kill(int timeleft)
         {
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 60;
+                Main.LocalPlayer.FargoSouls().Screenshake = 60;
 
             MakeDust();
 

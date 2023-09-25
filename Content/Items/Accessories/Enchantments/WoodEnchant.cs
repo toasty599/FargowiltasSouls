@@ -51,18 +51,18 @@ Discount effect works in vanity slots"); */
 
         public override void UpdateVanity(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantDiscount = true;
+            player.FargoSouls().WoodEnchantDiscount = true;
         }
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantDiscount = true;
+            player.FargoSouls().WoodEnchantDiscount = true;
         }
 
         public static void WoodEffect(Player player, Item item)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantItem = item;
-            player.GetModPlayer<FargoSoulsPlayer>().WoodEnchantDiscount = true;
+            player.FargoSouls().WoodEnchantItem = item;
+            player.FargoSouls().WoodEnchantDiscount = true;
         }
 
         public static void WoodCheckDead(FargoSoulsPlayer modPlayer, NPC npc)

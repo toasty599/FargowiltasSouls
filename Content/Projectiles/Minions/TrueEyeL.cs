@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.whoAmI == Main.myPlayer && player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().TrueEyes)
+            if (player.whoAmI == Main.myPlayer && player.active && !player.dead && player.FargoSouls().TrueEyes)
             {
                 Projectile.timeLeft = 2;
                 Projectile.netUpdate = true;
@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     Projectile.localAI[1] = 0f;
                 }
 
-                Vector2 vector2_1 = player.GetModPlayer<FargoSoulsPlayer>().PungentEyeballMinion
+                Vector2 vector2_1 = player.FargoSouls().PungentEyeballMinion
                     ? new Vector2(0f, 75f) : new Vector2(0f, -75f); //vanilla movement code
                 Vector2 vector2_2 = player.MountedCenter + vector2_1;
                 float num1 = Vector2.Distance(Projectile.Center, vector2_2);

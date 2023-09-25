@@ -56,7 +56,7 @@ Attracts a legendary plant's offspring which flourishes in combat
                 player.lifeRegen += (int)(6 * ratio);
             }
 
-            player.GetModPlayer<FargoSoulsPlayer>().MagicalBulb = true;
+            player.FargoSouls().MagicalBulb = true;
             if (player.GetToggleValue("MasoPlant"))
                 player.AddBuff(ModContent.BuffType<PlanterasChildBuff>(), 2);
         }

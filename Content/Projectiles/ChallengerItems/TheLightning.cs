@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 
             Projectile.usesIDStaticNPCImmunity = false;
             Projectile.idStaticNPCHitCooldown = 0;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         float collideHeight;

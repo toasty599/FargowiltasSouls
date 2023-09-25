@@ -25,13 +25,13 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().OceanicMaul = true;
-            player.GetModPlayer<FargoSoulsPlayer>().TinEternityDamage = 0; //fuck it
+            player.FargoSouls().OceanicMaul = true;
+            player.FargoSouls().TinEternityDamage = 0; //fuck it
 
-            player.GetModPlayer<FargoSoulsPlayer>().MutantPresence = true; //LUL
+            player.FargoSouls().MutantPresence = true; //LUL
 
-            player.GetModPlayer<FargoSoulsPlayer>().noDodge = true;
-            player.GetModPlayer<FargoSoulsPlayer>().noSupersonic = true;
+            player.FargoSouls().noDodge = true;
+            player.FargoSouls().noSupersonic = true;
             player.moonLeech = true;
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron))

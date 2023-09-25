@@ -43,15 +43,15 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().SkeletronArms)
+            if (player.active && !player.dead && player.FargoSouls().SkeletronArms)
                 Projectile.timeLeft = 2;
 
             //if (Projectile.damage == 0)
             //{
             //    Projectile.damage = 18;
-            //    if (player.GetModPlayer<FargoSoulsPlayer>().SupremeDeathbringerFairy)
+            //    if (player.FargoSouls().SupremeDeathbringerFairy)
             //        Projectile.damage = 24;
-            //    if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
+            //    if (player.FargoSouls().MasochistSoul)
             //        Projectile.damage = 48;
             //    Projectile.damage = (int)(Projectile.damage * player.GetDamage(DamageClass.Summon));
             //}

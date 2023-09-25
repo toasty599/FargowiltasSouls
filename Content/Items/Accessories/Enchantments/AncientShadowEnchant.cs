@@ -36,7 +36,7 @@ Three Shadow Orbs will orbit around you
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.AncientShadowEffect();
             modPlayer.ShadowEffect(hideVisual);
         }

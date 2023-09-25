@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.buffImmune[BuffID.OgreSpit] = true;
             player.buffImmune[BuffID.WitheredWeapon] = true;
             player.buffImmune[BuffID.WitheredArmor] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().BetsysHeartItem = Item;
+            player.FargoSouls().BetsysHeartItem = Item;
         }
     }
 }

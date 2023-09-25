@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().LowGround = true;
+            player.FargoSouls().LowGround = true;
             if (player.grapCount > 0)
                 player.RemoveAllGrapplingHooks();
 

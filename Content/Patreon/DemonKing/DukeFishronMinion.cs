@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Patreon.DemonKing
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 10;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.FargoSouls().CanSplit = false;
             Projectile.scale *= 0.75f;
 
             Projectile.usesLocalNPCImmunity = true;
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Patreon.DemonKing
             }
 
             if (Main.player[Projectile.owner].active && !Main.player[Projectile.owner].dead
-                && Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().DukeFishron)
+                && Main.player[Projectile.owner].FargoSouls().DukeFishron)
             {
                 Projectile.timeLeft = 2;
             }

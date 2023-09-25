@@ -28,13 +28,13 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.alpha = 255;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override void AI()
         {
-            if (Main.player[Projectile.owner].active && !Main.player[Projectile.owner].dead && !Main.player[Projectile.owner].ghost && Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusSet
-                && (Projectile.owner != Main.myPlayer || Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusEmpower))
+            if (Main.player[Projectile.owner].active && !Main.player[Projectile.owner].dead && !Main.player[Projectile.owner].ghost && Main.player[Projectile.owner].FargoSouls().EridanusSet
+                && (Projectile.owner != Main.myPlayer || Main.player[Projectile.owner].FargoSouls().EridanusEmpower))
             {
                 Projectile.alpha = 0;
             }
@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             if (Projectile.rotation > PI)
                 Projectile.rotation -= 2f * PI;
 
-            Projectile.frame = (Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusTimer / (60 * 10)) switch
+            Projectile.frame = (Main.player[Projectile.owner].FargoSouls().EridanusTimer / (60 * 10)) switch
             {
                 0 => 1,
                 1 => 2,
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             };
 
             //handle countdown between phase changes
-            Projectile.localAI[0] = Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusTimer % (float)(60 * 10) / (60 * 10) * 12f - 1f;
+            Projectile.localAI[0] = Main.player[Projectile.owner].FargoSouls().EridanusTimer % (float)(60 * 10) / (60 * 10) * 12f - 1f;
         }
 
         public override bool? CanDamage()

@@ -50,7 +50,7 @@ Press the Bomb key to use your freeze bomb
 
         public static void Effects(Player player, Item item)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.IceQueensCrown = true;
             if (player.GetToggleValue("IceQueensCrown"))
             {

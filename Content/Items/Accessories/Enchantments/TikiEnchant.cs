@@ -34,7 +34,7 @@ Whip your summons to make them work harder
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().TikiEffect(hideVisual);
+            player.FargoSouls().TikiEffect(hideVisual);
         }
 
         public override void AddRecipes()

@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             if (Projectile.velocity == Vector2.Zero && player.Hitbox.Intersects(Projectile.Hitbox))
             {
-                player.GetModPlayer<FargoSoulsPlayer>().HealPlayer(20);
+                player.FargoSouls().HealPlayer(20);
                 Projectile.Kill();
             }
         }

@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 handlePos = Projectile.position + Vector2.UnitY * Projectile.height;
             }
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (player.whoAmI == Main.myPlayer && (player.dead || !modPlayer.AncientHallowEnchantActive || !player.GetToggleValue("Hallowed")))
             {
@@ -217,7 +217,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 return;
             }
-            int damageCap = player.GetModPlayer<FargoSoulsPlayer>().ForceEffect(ModContent.ItemType<AncientHallowEnchant>()) ? 200 : 150;
+            int damageCap = player.FargoSouls().ForceEffect(ModContent.ItemType<AncientHallowEnchant>()) ? 200 : 150;
 
             foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(p) && p.damage <= damageCap && sword.Colliding(sword.Hitbox, p.Hitbox)))
             {

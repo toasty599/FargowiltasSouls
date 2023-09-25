@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int MythrilHalberdTimer;
         public int CobaltHitCounter;
-        private int WeaponUseTimer => Player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer;
+        private int WeaponUseTimer => Player.FargoSouls().WeaponUseTimer;
 
         public override void ResetEffects()
         {
@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!WorldSavingSystem.EternityMode)
                 return;
 
-            FargoSoulsPlayer fargoSoulsPlayer = Player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoSoulsPlayer = Player.FargoSouls();
 
             if (Player.active && !Player.dead && !Player.ghost)
             {
@@ -475,7 +475,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //because NO MODIFY/ONHITPLAYER HOOK WORKS
             if (modifiers.DamageSource.SourceProjectileType is int && modifiers.DamageSource.SourceProjectileType == ProjectileID.Explosives)
-                Player.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
+                Player.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
 
             base.ModifyHurt(ref modifiers);
         }
@@ -521,8 +521,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public float AttackSpeed
         {
-            get { return Player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed; }
-            set { Player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed = value; }
+            get { return Player.FargoSouls().AttackSpeed; }
+            set { Player.FargoSouls().AttackSpeed = value; }
         }
 
         public override bool ModifyNurseHeal(NPC nurse, ref int health, ref bool removeDebuffs, ref string chatText)

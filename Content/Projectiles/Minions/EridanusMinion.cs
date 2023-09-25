@@ -40,13 +40,13 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override void AI()
         {
-            if (Main.player[Projectile.owner].active && !Main.player[Projectile.owner].dead && Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusSet
-                && (Projectile.owner != Main.myPlayer || Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusEmpower))
+            if (Main.player[Projectile.owner].active && !Main.player[Projectile.owner].dead && Main.player[Projectile.owner].FargoSouls().EridanusSet
+                && (Projectile.owner != Main.myPlayer || Main.player[Projectile.owner].FargoSouls().EridanusEmpower))
             {
                 Projectile.timeLeft = 2;
             }
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 {
                     Projectile.direction = Projectile.spriteDirection = Projectile.Center.X < npc.Center.X ? 1 : -1;
 
-                    switch (player.GetModPlayer<FargoSoulsPlayer>().EridanusTimer / (60 * 10)) //attack according to current class
+                    switch (player.FargoSouls().EridanusTimer / (60 * 10)) //attack according to current class
                     {
                         case 0: //melee
                             {

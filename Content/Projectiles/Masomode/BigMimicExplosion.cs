@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.friendly = false;
             Projectile.usesLocalNPCImmunity = false;
             Projectile.localNPCHitCooldown = 0;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage()

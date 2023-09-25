@@ -54,8 +54,8 @@ Enemies are less likely to target you
             player.buffImmune[BuffID.Dazed] = true;
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.aggro -= 400;
-            player.GetModPlayer<FargoSoulsPlayer>().SkullCharm = true;
-            player.GetModPlayer<FargoSoulsPlayer>().LumpOfFlesh = true;
+            player.FargoSouls().SkullCharm = true;
+            player.FargoSouls().LumpOfFlesh = true;
             /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;
@@ -68,7 +68,7 @@ Enemies are less likely to target you
                 player.npcTypeNoAggro[NPCID.RaggedCaster] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCasterOpenCoat] = true;
             }*/
-            player.GetModPlayer<FargoSoulsPlayer>().PungentEyeball = true;
+            player.FargoSouls().PungentEyeball = true;
             if (player.GetToggleValue("MasoPugent"))
             {
                 player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkullBuff>()] = true;
@@ -78,11 +78,11 @@ Enemies are less likely to target you
             player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;
             player.noKnockback = true;
             if (player.GetToggleValue("DreadShellParry"))
-                player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
+                player.FargoSouls().DreadShellItem = Item;
 
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().DeerclawpsItem = Item;
+            player.FargoSouls().DeerclawpsItem = Item;
         }
 
         public override void AddRecipes()

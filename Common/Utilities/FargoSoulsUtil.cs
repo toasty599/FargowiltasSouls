@@ -68,6 +68,18 @@ namespace FargowiltasSouls
             player.GetCritChance(DamageClass.Summon) = 0;
         }
 
+        public static FargoSoulsGlobalNPC FargoSouls(this NPC npc)
+            => npc.GetGlobalNPC<FargoSoulsGlobalNPC>();
+        public static EModeGlobalNPC Eternity(this NPC npc)
+            => npc.GetGlobalNPC<EModeGlobalNPC>();
+        public static FargoSoulsGlobalProjectile FargoSouls(this Projectile projectile)
+            => projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
+        public static EModeGlobalProjectile Eternity(this Projectile projectile)
+            => projectile.GetGlobalProjectile<EModeGlobalProjectile>();
+        public static FargoSoulsPlayer FargoSouls(this Player player)
+            => player.GetModPlayer<FargoSoulsPlayer>();
+        public static EModePlayer Eternity(this Player player)
+            => player.GetModPlayer<EModePlayer>();
         public static NPC GetSourceNPC(this Projectile projectile)
             => projectile.GetGlobalProjectile<A_SourceNPCGlobalProjectile>().sourceNPC;
 
@@ -87,7 +99,7 @@ namespace FargowiltasSouls
         /// <returns></returns>
         public static float ActualClassCrit(this Player player, DamageClass damageClass)
             => damageClass == DamageClass.Summon
-            && !(player.GetModPlayer<FargoSoulsPlayer>().SpiderEnchantActive && player.GetToggleValue("Spider", false))
+            && !(player.FargoSouls().SpiderEnchantActive && player.GetToggleValue("Spider", false))
             ? 0
             : player.GetTotalCritChance(damageClass);
 
@@ -172,7 +184,7 @@ namespace FargowiltasSouls
                 return false;
             if (projectile.damage <= 0)
                 return false;
-            if (projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank > deletionRank)
+            if (projectile.FargoSouls().DeletionImmuneRank > deletionRank)
                 return false;
             if (projectile.friendly)
             {

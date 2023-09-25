@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? CanDamage() => false;

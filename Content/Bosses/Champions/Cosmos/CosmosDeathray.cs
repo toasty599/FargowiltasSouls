@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     Main.dust[d].velocity *= 6f;
                 }*/
 
-                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 0;
+                Projectile.FargoSouls().GrazeCD = 0;
             }
         }
 

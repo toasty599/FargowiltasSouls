@@ -34,14 +34,14 @@ namespace FargowiltasSouls.Content.Items.Consumables
 
         public override bool CanUseItem(Player player)
         {
-            return !player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot;
+            return !player.FargoSouls().MutantsPactSlot;
         }
 
         public override bool? UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot = true;
+                player.FargoSouls().MutantsPactSlot = true;
 
                 SoundEngine.PlaySound(SoundID.Roar, player.Center);
                 if (!Main.dedServ)

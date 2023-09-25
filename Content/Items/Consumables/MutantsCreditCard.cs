@@ -23,12 +23,12 @@ namespace FargowiltasSouls.Content.Items.Consumables
 
         public override bool CanUseItem(Player player)
         {
-            return !player.GetModPlayer<FargoSoulsPlayer>().MutantsCreditCard;
+            return !player.FargoSouls().MutantsCreditCard;
         }
 
         public override bool? UseItem(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().MutantsCreditCard = true;
+            player.FargoSouls().MutantsCreditCard = true;
             return true;
         }
     }

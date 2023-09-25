@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().Probes)
+            if (player.active && !player.dead && player.FargoSouls().Probes)
                 Projectile.timeLeft = 2;
 
             Projectile.ai[0] -= (float)Math.PI / 60f;
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 if (++Projectile.localAI[1] > 20f)
                 {
-                    Projectile.localAI[1] = player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul ? 10f : 0f;
+                    Projectile.localAI[1] = player.FargoSouls().MasochistSoul ? 10f : 0f;
                     followMouse = true;
 
                     int n = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(Projectile, 1000f, true);

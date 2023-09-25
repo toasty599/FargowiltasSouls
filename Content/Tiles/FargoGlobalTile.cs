@@ -211,7 +211,7 @@ namespace FargowiltasSouls.Content.Tiles
         /*
         public override void NearbyEffects(int i, int j, int type, bool closer)
         {
-            if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().LowGround && Framing.GetTileSafely(i, j).IsActuated)
+            if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.FargoSouls().LowGround && Framing.GetTileSafely(i, j).IsActuated)
             {
                 float distance = Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8));
                 if (distance > 100 && distance < 1000)

@@ -240,7 +240,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             if (npc.HasPlayerTarget)
                             {
                                 if (!Main.dedServ)
-                                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 20;
+                                    Main.LocalPlayer.FargoSouls().Screenshake = 20;
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, 0, 0, Main.myPlayer);

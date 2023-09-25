@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.ai[0]++;
 
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             //falls to the ground
             if (!modPlayer.ForceEffect(ModContent.ItemType<PumpkinEnchant>()))
@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                         heal *= 2;
                     }
 
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().HealPlayer(heal);
+                    Main.LocalPlayer.FargoSouls().HealPlayer(heal);
                     SoundEngine.PlaySound(SoundID.Item2, Main.LocalPlayer.Center);
                     Projectile.Kill();
                 }
@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 return;
 
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             SpawnFire(modPlayer);
             const int max = 16;
             for (int i = 0; i < max; i++)

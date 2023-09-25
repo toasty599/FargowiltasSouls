@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.buffTime[buffIndex] > 2 && player.GetModPlayer<FargoSoulsPlayer>().WeaponUseTimer <= 0)
+            if (player.buffTime[buffIndex] > 2 && player.FargoSouls().WeaponUseTimer <= 0)
                 player.buffTime[buffIndex] -= 1;
         }
     }

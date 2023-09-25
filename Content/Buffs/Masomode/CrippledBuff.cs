@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             //disables running :v
-            player.GetModPlayer<FargoSoulsPlayer>().Kneecapped = true;
+            player.FargoSouls().Kneecapped = true;
             player.slow = true;
         }
     }

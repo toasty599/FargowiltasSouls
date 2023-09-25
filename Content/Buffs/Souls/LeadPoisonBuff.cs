@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().LeadPoison = true;
+            npc.FargoSouls().LeadPoison = true;
             if (npc.buffTime[buffIndex] == 2) //note: this totally also makes the npc reapply lead to themselves so its basically permanent debuff
             {
                 for (int i = 0; i < Main.maxNPCs; i++)

@@ -41,8 +41,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
                 dust.noGravity = true;
             }
 
-            player.GetModPlayer<FargoSoulsPlayer>().Rotting = true;
-            /*player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= .1f;
+            player.FargoSouls().Rotting = true;
+            /*player.FargoSouls().AttackSpeed -= .1f;
             player.statLifeMax2 -= player.statLifeMax / 5;
             player.statDefense -= 10;
             player.GetDamage(DamageClass.Melee) -= 0.1f;

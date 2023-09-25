@@ -48,7 +48,7 @@ Collect the bones to heal for 20 HP each
         {
             player.DisplayToggle("Fossil");
             //bone zone
-            player.GetModPlayer<FargoSoulsPlayer>().FossilEnchantItem = item;
+            player.FargoSouls().FossilEnchantItem = item;
         }
 
         public static void FossilHurt(FargoSoulsPlayer modPlayer, int damage)

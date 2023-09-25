@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.scale = 1;
 
             Player player = Main.player[Projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().AbomMinion)
+            if (player.active && !player.dead && player.FargoSouls().AbomMinion)
                 Projectile.timeLeft = 2;
 
             if (Projectile.ai[0] >= 0 && Projectile.ai[0] < Main.maxNPCs) //has target

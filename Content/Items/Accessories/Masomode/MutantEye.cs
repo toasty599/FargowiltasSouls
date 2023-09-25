@@ -49,7 +49,7 @@ Mutant Bomb has a 60 second cooldown
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
             player.buffImmune[ModContent.BuffType<Buffs.Boss.MutantFangBuff>()] = true;
             //player.buffImmune[ModContent.BuffType<Buffs.Boss.MutantPresence>()] = true;

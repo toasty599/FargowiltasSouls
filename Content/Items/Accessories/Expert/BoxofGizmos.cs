@@ -31,9 +31,9 @@ Slightly reduces use speed of affected items"); */
 
         void PassiveEffect(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().BoxofGizmos = true;
+            player.FargoSouls().BoxofGizmos = true;
 
-            if (player.whoAmI == Main.myPlayer && player.GetModPlayer<FargoSoulsPlayer>().IsStandingStill && player.itemAnimation == 0)
+            if (player.whoAmI == Main.myPlayer && player.FargoSouls().IsStandingStill && player.itemAnimation == 0)
             {
                 if (++counter > 60)
                 {

@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
 
             target.AddBuff(BuffID.Bleeding, 240);
 
-            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
+            target.FargoSouls().MaxLifeReduction += 50;
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 600);
         }
 

@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             Projectile.alpha = 150;
             Projectile.timeLeft = 90;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage()

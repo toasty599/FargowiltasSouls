@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             Projectile.timeLeft = 216;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
 
             Projectile.alpha = 255;
         }
@@ -236,7 +236,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(BuffID.Obstructed, 15);
-                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.FargoSouls().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 5400);
                 target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 120);
                 target.AddBuff(ModContent.BuffType<BerserkedBuff>(), 300);

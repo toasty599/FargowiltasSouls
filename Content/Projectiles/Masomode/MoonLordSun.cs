@@ -30,14 +30,14 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.extraUpdates = 0;
             CooldownSlot = 1;
 
-            //Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck = projectile => CanDamage() && Projectile.Distance(Main.LocalPlayer.Center) < Math.Min(Projectile.width, Projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius && Collision.CanHit(Projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            //Projectile.FargoSouls().GrazeCheck = projectile => CanDamage() && Projectile.Distance(Main.LocalPlayer.Center) < Math.Min(Projectile.width, Projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.FargoSouls().GrazeRadius && Collision.CanHit(Projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
             Projectile.penetrate = -1;
 
             Projectile.scale = 0.75f;
             Projectile.alpha = 255;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage() => Projectile.localAI[0] > 120;
@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             else
             {
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                    Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                 if (Main.netMode != NetmodeID.MultiplayerClient) //chain explosions
                 {

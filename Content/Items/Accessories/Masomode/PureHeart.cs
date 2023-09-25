@@ -43,7 +43,7 @@ Creeper respawn speed increases when not moving
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.PureHeart = true;
 
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.RottingBuff>()] = true;

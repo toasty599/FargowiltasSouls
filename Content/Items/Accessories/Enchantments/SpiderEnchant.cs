@@ -40,7 +40,7 @@ Summon crits do x1.5 damage instead of x2
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().SpiderEffect(hideVisual);
+            player.FargoSouls().SpiderEffect(hideVisual);
         }
 
         public override void AddRecipes()

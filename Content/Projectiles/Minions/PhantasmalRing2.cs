@@ -36,9 +36,9 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             if (Main.player[Projectile.owner].active && !Main.player[Projectile.owner].dead && !Main.player[Projectile.owner].ghost
-                && Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().MutantEyeItem != null
-                && Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().MutantEyeVisual
-                && Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().MutantEyeCD <= 0)
+                && Main.player[Projectile.owner].FargoSouls().MutantEyeItem != null
+                && Main.player[Projectile.owner].FargoSouls().MutantEyeVisual
+                && Main.player[Projectile.owner].FargoSouls().MutantEyeCD <= 0)
             {
                 Projectile.alpha = 0;
             }

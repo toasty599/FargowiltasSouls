@@ -29,19 +29,19 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
+            Projectile.FargoSouls().GrazeCheck =
                 projectile =>
                 {
                     float num6 = 0f;
                     if (CanDamage() == true && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(),
-                        new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Projectile.Center, 22f * Projectile.scale + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius * 2 + Player.defaultHeight, ref num6))
+                        new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Projectile.Center, 22f * Projectile.scale + Main.LocalPlayer.FargoSouls().GrazeRadius * 2 + Player.defaultHeight, ref num6))
                     {
                         return true;
                     }
                     return false;
                 };
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage() => canHurt;

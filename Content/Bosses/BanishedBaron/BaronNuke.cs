@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 return;
             }
-            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
+            target.FargoSouls().MaxLifeReduction += 50;
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 30);
             target.AddBuff(BuffID.OnFire3, 60 * 10);
             target.AddBuff(BuffID.BrokenArmor, 60 * 40);
@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void Kill(int timeLeft)
         {
-            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+            Main.LocalPlayer.FargoSouls().Screenshake = 30;
             
             for (int i = 0; i < 200; i++)
             {

@@ -27,8 +27,8 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.usesLocalNPCImmunity = false;
             Projectile.localNPCHitCooldown = 0;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = true;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = false;
+            Projectile.FargoSouls().CanSplit = true;
+            Projectile.FargoSouls().TimeFreezeImmune = false;
         }
 
         public override void AI()

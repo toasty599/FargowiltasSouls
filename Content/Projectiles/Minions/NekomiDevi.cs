@@ -35,15 +35,15 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.aiStyle = -1;
             Projectile.netImportant = true;
             Projectile.timeLeft = 115;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
 
         public override bool? CanDamage() => false;
 
         public override bool PreAI()
         {
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().NinjaSpeedup = 0;
+            Projectile.FargoSouls().NinjaSpeedup = 0;
             return base.PreAI();
         }
 

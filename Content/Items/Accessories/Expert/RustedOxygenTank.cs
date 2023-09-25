@@ -76,13 +76,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual) => player.GetModPlayer<FargoSoulsPlayer>().OxygenTank = true;
-        public override void UpdateVanity(Player player) => player.GetModPlayer<FargoSoulsPlayer>().OxygenTank = true;
+        public override void UpdateAccessory(Player player, bool hideVisual) => player.FargoSouls().OxygenTank = true;
+        public override void UpdateVanity(Player player) => player.FargoSouls().OxygenTank = true;
         public override void UpdateInventory(Player player)
         {
             if (Item.favorited)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().OxygenTank = true;
+                player.FargoSouls().OxygenTank = true;
             }
         }
     }

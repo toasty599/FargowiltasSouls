@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             //draw glow if wizard effect
             Player player = Main.LocalPlayer;
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.WizardedItem == Item)
             {
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public sealed override void UpdateEquip(Player player)
         {
             //todo, change this to sealed UpdateAccessory and refactor every single enchantment file to accommodate
-            player.GetModPlayer<FargoSoulsPlayer>().EquippedEnchants.Add(this);
+            player.FargoSouls().EquippedEnchants.Add(this);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             && !drawInfo.drawPlayer.dead
             && !drawInfo.drawPlayer.ghost
             && drawInfo.shadow == 0
-            && drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().PrecisionSealNoDashNoJump
-            && drawInfo.drawPlayer.GetModPlayer<FargoSoulsPlayer>().PrecisionSealHurtbox;
+            && drawInfo.drawPlayer.FargoSouls().PrecisionSealNoDashNoJump
+            && drawInfo.drawPlayer.FargoSouls().PrecisionSealHurtbox;
 
         public override Position GetDefaultPosition() => new Between();
 

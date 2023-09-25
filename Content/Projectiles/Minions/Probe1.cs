@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.whoAmI == Main.myPlayer && player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().Probes)
+            if (player.whoAmI == Main.myPlayer && player.active && !player.dead && player.FargoSouls().Probes)
                 Projectile.timeLeft = 2;
 
             Projectile.ai[0] -= (float)Math.PI / 60f;
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     {
                         if (player.controlUseItem && player.HeldItem.damage > 0 && player.HeldItem.pick == 0 && player.HeldItem.hammer == 0 && player.HeldItem.axe == 0)
                         {
-                            Projectile.localAI[0] = player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul ? 15f : 30f;
+                            Projectile.localAI[0] = player.FargoSouls().MasochistSoul ? 15f : 30f;
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(8f, 0f).RotatedBy(Projectile.rotation),
                                 ModContent.ProjectileType<ProbeLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             Projectile.netUpdate = true;

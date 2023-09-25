@@ -49,7 +49,7 @@ i forgor"); */
         {
             if (player.altFunctionUse == 2)
             {
-                FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
                 modPlayer.MutantsPactSlot = false;
                 modPlayer.MutantsDiscountCard = false;
                 modPlayer.MutantsCreditCard = false;

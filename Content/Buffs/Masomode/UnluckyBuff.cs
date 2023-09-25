@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().Unlucky = true;
+            player.FargoSouls().Unlucky = true;
         }
     }
 }

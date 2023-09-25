@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.npcTypeNoAggro[NPCID.HornetStingy] = true;
 
             // Stringer immune
-            player.GetModPlayer<FargoSoulsPlayer>().QueenStingerItem = Item;
+            player.FargoSouls().QueenStingerItem = Item;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (player.ownedProjectileCounts[ModContent.ProjectileType<EaterHead>()] > 0) modPlayer.EaterMinion = true;
             if (!modPlayer.EaterMinion)
             {

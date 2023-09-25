@@ -142,8 +142,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (IsEX) //fishron EX
             {
-                npc.GetGlobalNPC<FargoSoulsGlobalNPC>().MutantNibble = false;
-                npc.GetGlobalNPC<FargoSoulsGlobalNPC>().LifePrevious = int.MaxValue; //cant stop the healing
+                npc.FargoSouls().MutantNibble = false;
+                npc.FargoSouls().LifePrevious = int.MaxValue; //cant stop the healing
                 while (npc.buffType[0] != 0)
                     npc.DelBuff(0);
 
@@ -821,7 +821,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 600);
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
             target.AddBuff(BuffID.Rabies, 3600);
-            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
+            target.FargoSouls().MaxLifeReduction += 50;
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);
         }
 
@@ -954,7 +954,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             //alt behaviour cthulunado no spawn sharky
             if (source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj
-                && sourceProj.type == ProjectileID.Cthulunado && sourceProj.GetGlobalProjectile<EModeGlobalProjectile>().altBehaviour)
+                && sourceProj.type == ProjectileID.Cthulunado && sourceProj.Eternity().altBehaviour)
             {
                 npc.type = NPCID.None;
                 npc.active = false;
@@ -983,7 +983,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 300);
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);
-            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+            target.FargoSouls().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
         }
 
         public override void LoadSprites(NPC npc, bool recolor)
@@ -1020,7 +1020,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);
-            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+            target.FargoSouls().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
         }
     }
 }

@@ -16,14 +16,14 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.width = 275;
             Projectile.height = 275;
             Projectile.scale = 0.75f;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = false;
+            Projectile.FargoSouls().TimeFreezeImmune = false;
         }
 
         public override bool? CanDamage()
         {
             if (Projectile.frame > 2 && Projectile.frame <= 4)
             {
-                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 1;
+                Projectile.FargoSouls().GrazeCD = 1;
                 return false;
             }
             return true;

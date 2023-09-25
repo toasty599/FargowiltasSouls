@@ -61,19 +61,19 @@ Summons a friendly Mini Saucer and true eyes of Cthulhu
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CanAmmoCycle = true;
+            player.FargoSouls().CanAmmoCycle = true;
         }
 
         public override void UpdateVanity(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CanAmmoCycle = true;
+            player.FargoSouls().CanAmmoCycle = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CanAmmoCycle = true;
+            player.FargoSouls().CanAmmoCycle = true;
 
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             player.GetDamage(DamageClass.Generic) += 0.10f;
             player.GetCritChance(DamageClass.Generic) += 10;
             fargoPlayer.MasochistHeart = true;

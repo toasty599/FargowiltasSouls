@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 Player player = Main.player[i];
                 if (player.active)
                 {
-                    if (player.GetModPlayer<FargoSoulsPlayer>().EbonwoodEnchantItem != null)
+                    if (player.FargoSouls().EbonwoodEnchantItem != null)
                     {
                         check = true;
                     }
@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             {
                 npc.buffTime[buffIndex] = 60;
             }
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Corrupted = true;
+            npc.FargoSouls().Corrupted = true;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.scale = 1f;
             Projectile.alpha = 255;
             Projectile.timeLeft = 60 * 60 * 60;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
         const int MaxDistance = 1000;
         int WaterwallDistance = 0;
@@ -169,7 +169,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                                 player.mount.Dismount(player);
                             player.velocity.X = 0f;
                             player.velocity.Y = -0.4f;
-                            player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
+                            player.FargoSouls().NoUsingItems = 2;
                         }
 
                         Vector2 movement = new Vector2(location.X - player.Center.X, 0);

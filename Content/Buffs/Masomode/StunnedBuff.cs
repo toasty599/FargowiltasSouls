@@ -28,8 +28,8 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
             player.releaseHook = true;
             if (player.mount.Active)
                 player.mount.Dismount(player);
-            player.GetModPlayer<FargoSoulsPlayer>().Stunned = true;
-            player.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = 2;
+            player.FargoSouls().Stunned = true;
+            player.FargoSouls().NoUsingItems = 2;
 
             if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % 60 == 55)
                 SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/DizzyBird"));

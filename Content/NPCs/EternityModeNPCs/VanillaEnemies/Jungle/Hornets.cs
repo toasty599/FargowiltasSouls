@@ -59,14 +59,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
             if (npc.HasPlayerTarget)
             {
                 bool shouldNotTileCollide = npc.HasValidTarget
-                    && Main.player[npc.target].GetModPlayer<FargoSoulsPlayer>().Swarming
+                    && Main.player[npc.target].FargoSouls().Swarming
                     && !Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0);
                 if (shouldNotTileCollide)
                     npc.noTileCollide = true;
                 else if (npc.noTileCollide && !Collision.SolidCollision(npc.position, npc.width, npc.height)) //still intangible, but should stop, and isnt on tiles
                     npc.noTileCollide = false;
 
-                if (npc.noTileCollide || (npc.HasValidTarget && Main.player[npc.target].GetModPlayer<FargoSoulsPlayer>().Swarming))
+                if (npc.noTileCollide || (npc.HasValidTarget && Main.player[npc.target].FargoSouls().Swarming))
                 {
                     int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.JungleSpore, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;

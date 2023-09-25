@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.whoAmI == Main.myPlayer && player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().TrueEyes)
+            if (player.whoAmI == Main.myPlayer && player.active && !player.dead && player.FargoSouls().TrueEyes)
             {
                 Projectile.timeLeft = 2;
                 Projectile.netUpdate = true;

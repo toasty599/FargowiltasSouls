@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Buffs.Boss
 
         public override void Update(Player player, ref int buffIndex)
         {
-            //FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             player.ichor = true;
             player.onFire2 = true;
             player.electrified = true;

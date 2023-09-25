@@ -100,6 +100,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             //Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
 
+            /*
             for (int j = 0; j < 12; j++)
             {
                 Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f;
@@ -110,6 +111,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             Main.EntitySpriteDraw(texture2D13, drawPos, new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;
+            */
         }
     }
 }

@@ -33,9 +33,9 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            Projectile.FargoSouls().DeletionImmuneRank = 1;
+            Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             Player player = Main.player[Projectile.owner];
 
-            if (!Projectile.friendly || Projectile.hostile || !player.active || player.dead || player.ghost || !player.GetModPlayer<FargoSoulsPlayer>().StyxSet)
+            if (!Projectile.friendly || Projectile.hostile || !player.active || player.dead || player.ghost || !player.FargoSouls().StyxSet)
             {
                 Projectile.Kill();
                 return;

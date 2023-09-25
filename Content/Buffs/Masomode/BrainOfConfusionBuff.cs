@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().CerebralMindbreak = true;
+            player.FargoSouls().CerebralMindbreak = true;
         }
     }
 }

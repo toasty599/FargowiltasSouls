@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.GetModPlayer<FargoSoulsPlayer>().AbominableWandRevived)
+            if (player.FargoSouls().AbominableWandRevived)
                 player.buffTime[buffIndex] = 2;
         }
     }

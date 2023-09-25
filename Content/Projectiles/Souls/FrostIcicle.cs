@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             Projectile.timeLeft++;
             Projectile.netUpdate = true;
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override void Kill(int timeLeft)
         {
-            Main.player[Projectile.owner].GetModPlayer<FargoSoulsPlayer>().IcicleCount--;
+            Main.player[Projectile.owner].FargoSouls().IcicleCount--;
         }
     }
 }

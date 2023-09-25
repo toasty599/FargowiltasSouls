@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().PlanterasChild)
+            if (player.active && !player.dead && player.FargoSouls().PlanterasChild)
                 Projectile.timeLeft = 2;
 
             NPC minionAttackTargetNpc = Projectile.OwnerMinionAttackTargetNPC;

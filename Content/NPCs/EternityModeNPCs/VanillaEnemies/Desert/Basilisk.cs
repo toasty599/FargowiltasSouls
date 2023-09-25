@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Desert
             base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
-            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
+            target.FargoSouls().AddBuffNoStack(BuffID.Stoned, 60);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

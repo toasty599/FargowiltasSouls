@@ -43,7 +43,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
             if (player.GetToggleValue("Titanium"))
             {
-                player.GetModPlayer<FargoSoulsPlayer>().TitaniumEnchantItem = item;
+                player.FargoSouls().TitaniumEnchantItem = item;
             }
         }
 

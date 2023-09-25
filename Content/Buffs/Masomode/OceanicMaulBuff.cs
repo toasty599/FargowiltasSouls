@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().OceanicMaul = true;
+            player.FargoSouls().OceanicMaul = true;
             player.bleed = true;
             player.statDefense -= 10;
             player.endurance -= 0.1f;
@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().OceanicMaul = true;
+            npc.FargoSouls().OceanicMaul = true;
         }
     }
 }
