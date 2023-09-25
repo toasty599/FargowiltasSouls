@@ -190,8 +190,7 @@ namespace FargowiltasSouls
             AddToggle("FossilConfig", "FossilEnchant", "8c5c3b");
             AddToggle("ForbiddenConfig", "ForbiddenEnchant", "e7b21c");
             AddToggle("HallowDodgeConfig", "HallowEnchant", "968564");
-            AddToggle("HallowedConfig", "AncientHallowEnchant", "968564");
-            AddToggle("HallowSConfig", "AncientHallowEnchant", "968564");
+            AddToggle("AHallowedConfig", "AncientHallowEnchant", "968564");
             AddToggle("SpectreConfig", "SpectreEnchant", "accdfc");
             AddToggle("TikiConfig", "TikiEnchant", "56A52B");
 
