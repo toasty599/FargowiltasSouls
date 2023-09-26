@@ -82,9 +82,7 @@ namespace FargowiltasSouls.Core.Globals
             if (!WorldSavingSystem.EternityMode) return;
 
             npc.value = (int)(npc.value * 1.3);
-            //TODO: remove this after next fargo mutant mod version releases
-            ModContent.TryFind("Fargowiltas", "SuperDummy", out ModNPC superDummy);
-            if (!npc.boss && !npc.townNPC && !Main.masterMode && !FargoSoulsUtil.AnyBossAlive() && (superDummy == null || (superDummy != null && npc.type == superDummy.Type)))
+            if (!npc.boss && !npc.townNPC && !Main.masterMode && !FargoSoulsUtil.AnyBossAlive())
             {
                 npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.1f);
             }
