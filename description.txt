@@ -17,6 +17,9 @@ and Summons a Flameburst minion that will also fire while you attack
 
 -Added Eulogists Doomsday Scenario (Patreon)
 
+-Moved Gold Enchant to phm, removed the Greedy ring effect, updated recipe
+
+
 -Removed most of the extra loot Wall of Flesh dropped in emode
 
 -See the wiki for full details!

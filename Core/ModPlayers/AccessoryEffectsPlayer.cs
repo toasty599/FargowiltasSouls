@@ -494,13 +494,13 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.DisplayToggle("Gold");
             Player.DisplayToggle("GoldToPiggy");
 
-            //gold ring
-            Player.goldRing = true;
-            //lucky coin
-            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Gold"))
-                Player.hasLuckyCoin = true;
-            //discount card
-            Player.discountAvailable = true;
+            ////gold ring
+            //Player.goldRing = true;
+            ////lucky coin
+            //if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Gold"))
+            //    Player.hasLuckyCoin = true;
+            ////discount card
+            //Player.discountAvailable = true;
             //midas
             GoldEnchantActive = true;
 
