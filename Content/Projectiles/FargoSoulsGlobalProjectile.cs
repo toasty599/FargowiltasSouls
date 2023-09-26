@@ -23,6 +23,7 @@ using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
+using Terraria.GameContent;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -805,19 +806,28 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.Arkhalis:
                 case ProjectileID.Terragrim:
                     {
-                        Texture2D Texture = Terraria.GameContent.TextureAssets.Projectile[projectile.type].Value;
-                        int sizeY = Terraria.GameContent.TextureAssets.Projectile[projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+                        GenericProjectileDraw(projectile);
+                    }
+                    return false;
+                case ProjectileID.FlowerPetal:
+                    {
+                        GenericProjectileDraw(projectile);
+                    }
+                    return false;
+                default:
+                    break;
+
+                void GenericProjectileDraw(Projectile projectile)
+                {
+                        Texture2D Texture = TextureAssets.Projectile[projectile.type].Value;
+                        int sizeY = Texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
                         int frameY = projectile.frame * sizeY;
                         Rectangle rectangle = new(0, frameY, Texture.Width, sizeY);
                         Vector2 origin = rectangle.Size() / 2f;
                         SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                         Main.EntitySpriteDraw(Texture, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor),
                                 projectile.rotation, origin, projectile.scale, spriteEffects, 0);
-                        return false;
                     }
-                //no break, above return false makes it unreachable
-                default:
-                    break;
             }
             return base.PreDraw(projectile, ref lightColor);
         }
