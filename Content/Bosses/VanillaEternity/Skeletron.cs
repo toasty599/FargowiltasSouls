@@ -102,17 +102,20 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 npc.HitSound = SoundID.NPCHit2;
             }
-            if (NPC.AnyNPCs(NPCID.SkeletronHand) && npc.life < npc.lifeMax * .5) //if hands are alive, don't fall below 50% hp (no duplicate hands)
-            {
-                npc.life = (int)Math.Round(npc.lifeMax * 0.5f) + 10;
-            }
             if (!SpawnedArms && npc.life < npc.lifeMax * .5)
             {
-                SpawnedArms = true;
-                GrowHands(npc);
-                if (WorldSavingSystem.MasochistModeReal)
+                if (NPC.AnyNPCs(NPCID.SkeletronHand)) //don't go below half health if first arms are still alive
                 {
-                    GrowHands(npc, true);
+                    npc.life = (int)Math.Round(npc.lifeMax * 0.5f) + 10;
+                }
+                else
+                {
+                    SpawnedArms = true;
+                    GrowHands(npc);
+                    if (WorldSavingSystem.MasochistModeReal)
+                    {
+                        GrowHands(npc, true);
+                    }
                 }
             }
             if (npc.ai[1] == 0f)
