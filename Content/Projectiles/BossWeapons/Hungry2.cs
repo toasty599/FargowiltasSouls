@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
     public class Hungry2 : Hungry
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/Hungry";
+        //public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/Hungry";
 
         int baseWidth;
         int baseHeight;
@@ -34,8 +34,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
 
-            baseWidth = Projectile.width;
-            baseHeight = Projectile.height;
+            baseWidth = Projectile.width = 24;
+            baseHeight = Projectile.height = 24;
 
             Projectile.FargoSouls().CanSplit = false;
             Projectile.FargoSouls().DeletionImmuneRank = 2;

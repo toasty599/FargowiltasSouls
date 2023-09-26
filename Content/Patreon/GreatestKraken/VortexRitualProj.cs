@@ -40,6 +40,7 @@ namespace FargowiltasSouls.Content.Patreon.GreatestKraken
             Projectile.scale = 0.5f;
 
             Projectile.FargoSouls().CanSplit = false;
+            Projectile.FargoSouls().NinjaCanSpeedup = false;
             Projectile.FargoSouls().DeletionImmuneRank = 2;
             Projectile.FargoSouls().TimeFreezeImmune = true;
         }

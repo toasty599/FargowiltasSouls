@@ -457,7 +457,7 @@ Mods: {
 			FossilConfig: 化石 受击释放骨头
 			ForbiddenConfig: 禁戒 远古风暴
 			HallowDodgeConfig: 神圣 神圣防护
-			HallowedConfig: 远古神圣 泰拉棱镜
+			// AHallowedConfig: Ancient Hallowed Terraprisma familiar
 			NinjaSpeedConfig: 忍者 弹幕速度加成
 			SpectreConfig: 幽魂 幽魂珠
 			TikiConfig: 提基 额外仆从
@@ -5945,8 +5945,7 @@ Mods: {
 		// FossilConfig: "[i:FargowiltasSouls/FossilEnchant][c/8c5c3b:{$Mods.FargowiltasSouls.Toggler.FossilConfig}]"
 		// ForbiddenConfig: "[i:FargowiltasSouls/ForbiddenEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.ForbiddenConfig}]"
 		// HallowDodgeConfig: "[i:FargowiltasSouls/HallowEnchant][c/968564:{$Mods.FargowiltasSouls.Toggler.HallowDodgeConfig}]"
-		// HallowedConfig: "[i:FargowiltasSouls/HallowEnchant][c/968564:{$Mods.FargowiltasSouls.Toggler.HallowedConfig}]"
-		// HallowSConfig: "[i:FargowiltasSouls/HallowEnchant][c/968564:{$Mods.FargowiltasSouls.Toggler.HallowSConfig}]"
+		// AHallowedConfig: "[i:FargowiltasSouls/AncientHallowEnchant][c/968564:{$Mods.FargowiltasSouls.Toggler.AHallowedConfig}]"
 		// SpectreConfig: "[i:FargowiltasSouls/SpectreEnchant][c/accdfc:{$Mods.FargowiltasSouls.Toggler.SpectreConfig}]"
 		// TikiConfig: "[i:FargowiltasSouls/TikiEnchant][c/56A52B:{$Mods.FargowiltasSouls.Toggler.TikiConfig}]"
 		// CosmoHeader: "[i:FargowiltasSouls/CosmoForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.CosmoHeader}]"

@@ -149,10 +149,12 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 			{
 				// Copy over the XNB from the compiler, and delete the copy in the Compiler folder.
 				string shaderPath = compiledFiles[i];
+				string compiledFxPath = compilerDirectory + Path.GetFileNameWithoutExtension(shaderPath) + ".fx";
 				string compiledXnbPath = compilerDirectory + Path.GetFileNameWithoutExtension(shaderPath) + ".xnb";
 				string originalXnbPath = shaderPath.Replace(".fx", ".xnb");
 				File.Delete(originalXnbPath);
 				File.Copy(compiledXnbPath, originalXnbPath);
+				File.Delete(compiledFxPath);
 				File.Delete(compiledXnbPath);
 
 				// Finally, load the new XNB's shader data into the game's managed wrappers that reference it.

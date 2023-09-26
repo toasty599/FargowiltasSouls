@@ -63,6 +63,7 @@
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadBar.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadSlider.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadZone.png" />
+    <None Remove="Content\Projectiles\BossWeapons\Hungry2.png" />
     <None Remove="Content\Projectiles\Minions\GladiatorStandard.png" />
     <None Remove="Content\Tiles\MutantStatueGift.png" />
     <None Remove="Content\Tiles\Relics\BaronRelic.png" />

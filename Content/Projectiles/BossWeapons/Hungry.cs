@@ -127,7 +127,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Color color26 = lightColor;
             color26 = Projectile.GetAlpha(color26);
 
-            SpriteEffects effects = SpriteEffects.None;
+            SpriteEffects effects = Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
