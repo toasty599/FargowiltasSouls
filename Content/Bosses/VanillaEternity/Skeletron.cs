@@ -604,7 +604,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         }
         public override void SafePostAI(NPC npc)
         {
-            if (WorldSavingSystem.SwarmActive)
+            if (WorldSavingSystem.SwarmActive || Main.dayTime)
                 return;
 
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);
