@@ -225,7 +225,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             GladiatorEnchantActive = false;
             GoldEnchantActive = false;
             GoldShell = false;
-            CactusEnchantActive = false;
+            CactusEnchantItem = null;
             ForbiddenEnchantActive = false;
             NecroEnchantActive = false;
             ObsidianEnchantItem = null;
@@ -1410,7 +1410,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (Player.whoAmI != Main.myPlayer)
                 return;
-            if (CactusEnchantActive)
+            if (CactusEnchantItem != null)
             {
                 CactusEnchant.CactusSelfProc(this);
             }

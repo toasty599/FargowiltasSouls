@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -38,10 +39,10 @@ Enemies will explode into needles on death if they are struck with your needles
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            CactusEffect(player);
+            CactusEffect(player, Item);
         }
 
-        public static void CactusEffect(Player player)
+        public static void CactusEffect(Player player, Item item)
         {
             player.DisplayToggle("Cactus");
             //player.thorns = .25f;
@@ -49,7 +50,7 @@ Enemies will explode into needles on death if they are struck with your needles
             if (player.GetToggleValue("Cactus"))
             {
                 FargoSoulsPlayer modPlayer = player.FargoSouls();
-                modPlayer.CactusEnchantActive = true;
+                modPlayer.CactusEnchantItem = item;
 
                 if (modPlayer.CactusProcCD > 0)
                 {
@@ -60,28 +61,7 @@ Enemies will explode into needles on death if they are struck with your needles
 
         public static void CactusProc(NPC npc, Player player)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            int dmg = 20;
-            int numNeedles = 8;
-
-            if (modPlayer.ForceEffect(ModContent.ItemType<CactusEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<TurtleEnchant>()))
-            {
-                dmg = 75;
-                numNeedles = 16;
-            }
-
-            Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetSource_ItemUse(player.HeldItem), npc.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
-
-            double randomRotation = Main.rand.NextDouble() * MathHelper.Pi * 2;
-
-            for (int i = 0; i < projs.Length; i++)
-            {
-                if (projs[i] == null) continue;
-                Projectile p = projs[i];
-                p.FargoSouls().CanSplit = false;
-
-                p.velocity = p.velocity.RotatedBy(randomRotation);
-            }
+            CactusSpray(player, npc.Center);
         }
 
         public static void CactusSelfProc(FargoSoulsPlayer modPlayer)
@@ -89,33 +69,37 @@ Enemies will explode into needles on death if they are struck with your needles
             if (modPlayer.CactusProcCD == 0)
             {
                 Player player = modPlayer.Player;
-                int dmg = 20;
-                int numNeedles = 8;
-
-                if (modPlayer.ForceEffect(ModContent.ItemType<CactusEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<TurtleEnchant>()))
-                {
-                    dmg = 75;
-                    numNeedles = 16;
-                }
-
-                Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetSource_ItemUse(player.HeldItem), player.Center, ModContent.ProjectileType<CactusNeedle>(), 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
-
-                double randomRotation = Main.rand.NextDouble() * MathHelper.Pi * 2;
-
-                for (int i = 0; i < projs.Length; i++)
-                {
-                    if (projs[i] == null) continue;
-                    Projectile p = projs[i];
-                    p.FargoSouls().CanSplit = false;
-
-                    p.ai[0] = 1; //these needles can inflict enemies with needled
-                    p.velocity = p.velocity.RotatedBy(randomRotation);
-                }
-
+                CactusSpray(player, player.Center);
                 modPlayer.CactusProcCD = 15;
             }
         }
+        private static void CactusSpray(Player player, Vector2 position)
+        {
+            int dmg = 20;
+            int numNeedles = 8;
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.ForceEffect(modPlayer.CactusEnchantItem.type))
+            {
+                dmg = 75;
+                numNeedles = 16;
+            }
 
+            for (int i = 0; i < numNeedles; i++)
+            {
+                int p = Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.CactusEnchantItem), player.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 4, ModContent.ProjectileType<CactusNeedle>(), FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
+                if (p != Main.maxProjectiles)
+                {
+                    Projectile proj = Main.projectile[p];
+                    if (proj != null && proj.active)
+                    {
+                        proj.FargoSouls().CanSplit = false;
+
+                        proj.ai[0] = 1; //these needles can inflict enemies with needled
+                    }
+                    
+                }
+            }
+        }
         public override void AddRecipes()
         {
             CreateRecipe()

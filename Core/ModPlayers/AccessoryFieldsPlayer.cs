@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public Item BeeEnchantItem;
         public int BeeCD;
 
-        public bool CactusEnchantActive;
+        public Item CactusEnchantItem;
         public int CactusProcCD;
         public bool ChloroEnchantActive;
         public Item ChloroEnchantItem;
