@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             Texture2D visorTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/PlayerDrawLayers/RoseTintedVisorDrawLayer", AssetRequestMode.ImmediateLoad).Value;
             Rectangle visorRectangle = visorTexture.Bounds;
 
-            SpriteEffects flip = player.direction == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            SpriteEffects flip = player.direction == -player.gravDir ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             visorPos.Y += 7 * player.gravDir;
             DrawData visor = new(visorTexture, visorPos, visorRectangle, Color.White, player.gravDir < 0 ? MathHelper.Pi : 0f, visorRectangle.Size() / 2, 1f, flip, 0);
             drawInfo.DrawDataCache.Add(visor);

@@ -1827,6 +1827,11 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             Rectangle rectangle = NPC.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = NPC.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            Vector2 drawPos = NPC.Center - screenPos;
+            if (Main.LocalPlayer.gravDir < 0)
+            {
+                drawPos.Y = Main.screenHeight - drawPos.Y;
+            }
 
             Color glowColor = new(Main.DiscoR / 3 + 150, Main.DiscoG / 3 + 150, Main.DiscoB / 3 + 150);
             void lerpGlow(Color color, float modifier)
@@ -1892,9 +1897,13 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             {
                 for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
                 {
-                    Vector2 value4 = NPC.oldPos[i];
+                    Vector2 oldDrawPos = NPC.oldPos[i] - screenPos;
+                    if (Main.LocalPlayer.gravDir < 0)
+                    {
+                        oldDrawPos.Y = Main.screenHeight - oldDrawPos.Y;
+                    }
                     float num165 = NPC.rotation; //NPC.oldRot[i];
-                    Main.EntitySpriteDraw(npcGlow, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * 0.6f, num165, origin2, NPC.scale, effects, 0);
+                    Main.EntitySpriteDraw(npcGlow, oldDrawPos + NPC.Size / 2f + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * 0.6f, num165, origin2, NPC.scale, effects, 0);
                 }
             }
 
@@ -1902,7 +1911,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             {
                 float scale = 10f * NPC.scale * (float)Math.Cos(Math.PI / 2 * epicMe); //modifier starts at 1 and drops to 0, so using cos
                 float opacity = NPC.Opacity * (float)Math.Sqrt(epicMe);
-                Main.EntitySpriteDraw(npcGlow, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * opacity, NPC.rotation, origin2, scale, effects, 0);
+                Main.EntitySpriteDraw(npcGlow, drawPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * opacity, NPC.rotation, origin2, scale, effects, 0);
             }
 
             if (!NPC.IsABestiaryIconDummy)
@@ -1911,16 +1920,16 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             }
 
-            Main.EntitySpriteDraw(npcTex, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(npcTex, drawPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
 
             if (!NPC.IsABestiaryIconDummy)
             {
-                Main.EntitySpriteDraw(npcGlow2, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, NPC.rotation, origin2, NPC.scale, effects, 0);
+                Main.EntitySpriteDraw(npcGlow2, drawPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, NPC.rotation, origin2, NPC.scale, effects, 0);
 
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-                Main.EntitySpriteDraw(npcGlow2, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, NPC.rotation, origin2, NPC.scale, effects, 0);
+                Main.EntitySpriteDraw(npcGlow2, drawPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, NPC.rotation, origin2, NPC.scale, effects, 0);
 
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);

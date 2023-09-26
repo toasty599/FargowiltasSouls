@@ -2584,8 +2584,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         {
             const float ChunkRotationSpeed = MathHelper.TwoPi * (1f / 360);
 
-
-            
+            Vector2 drawCenter = NPC.Center - screenPos;
 
             for (int i = 0; i < chunklist.Count; i++)
             {
@@ -2612,7 +2611,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                         Texture2D RuneTexture = ModContent.Request<Texture2D>(PartsPath + $"Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         float drawRot = (float)(BodyRotation + Math.PI * 2 / RuneCount * i);
-                        Vector2 drawPos = NPC.Center + drawRot.ToRotationVector2() * RuneDistance - screenPos;
+                        Vector2 drawPos = drawCenter + drawRot.ToRotationVector2() * RuneDistance;
                         float RuneRotation = drawRot + MathHelper.PiOver2;
 
                         //rune glow
@@ -2633,7 +2632,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: Color.White, rotation: RuneRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
                     }
                 }
-
+                
                 //draw arena runes
                 if (DoAura)
                 {
@@ -2696,6 +2695,12 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         }
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //DRAW STAR
         {
+
+            Vector2 drawCenter = NPC.Center - screenPos;
+            if (Main.LocalPlayer.gravDir < 0)
+            {
+                drawCenter.Y = Main.screenHeight - drawCenter.Y;
+            }
             //if ((SpritePhase > 1 || !Draw) && !NPC.IsABestiaryIconDummy) //star
             if (ChunkDistance > 20)
             {
@@ -2708,7 +2713,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 float scale = 0.45f * Main.rand.NextFloat(1f, 2.5f);
                 Vector2 origin = new(star.Width / 2 + scale, star.Height / 2 + scale);
 
-                Vector2 pos = NPC.Center - screenPos;
+                Vector2 pos = drawCenter;
                 if (NPC.IsABestiaryIconDummy)
                 {
                     pos += Vector2.UnitX * 85 + Vector2.UnitY * 48;
@@ -2724,7 +2729,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             }
             foreach (Vector4 chunk in chunklist.Where(pos => pos.Z > 0))
             {
-                DrawChunk(chunk, spriteBatch, drawColor, screenPos);
+                DrawChunk(chunk, spriteBatch, drawColor, drawCenter);
             }
             if (PyramidPhase != 0) //draw pyramid
             {
@@ -2784,6 +2789,25 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 PyramidTimer++;
             }
 
+        }
+        private void DrawChunk(Vector4 chunk, SpriteBatch spriteBatch, Color drawColor, Vector2 drawCenter)
+        {
+            if (ChunkDistance <= 20)
+            {
+                return;
+            }
+            Vector3 pos = chunk.X * Vector3.UnitX + chunk.Y * Vector3.UnitY + chunk.Z * Vector3.UnitZ;
+            string textureString = $"ShardGold{chunk.W}";
+            float scale = 0.3f * pos.Z;
+
+            byte alpha = (byte)(150 + (100f * pos.Z));
+
+
+            Color color = drawColor;
+            color.A = alpha;
+            Vector2 drawPos = drawCenter + pos.X * Vector2.UnitX * ChunkDistance + pos.Y * Vector2.UnitY * ChunkDistance;
+            Texture2D ChunkTexture = ModContent.Request<Texture2D>(PartsPath + textureString, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            spriteBatch.Draw(origin: new Vector2(ChunkTexture.Width / 2, ChunkTexture.Height / 2), texture: ChunkTexture, position: drawPos, sourceRectangle: null, color: color, rotation: 0, scale: NPC.scale + scale, effects: SpriteEffects.None, layerDepth: 0f);
         }
 
         public override void FindFrame(int frameHeight)
@@ -2907,25 +2931,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             NPC.netUpdate = true;
         }
 
-        private void DrawChunk(Vector4 chunk, SpriteBatch spriteBatch, Color drawColor, Vector2 screenPos)
-        {
-            if (ChunkDistance <= 20)
-            {
-                return;
-            }
-            Vector3 pos = chunk.X * Vector3.UnitX + chunk.Y * Vector3.UnitY + chunk.Z * Vector3.UnitZ;
-            string textureString = $"ShardGold{chunk.W}";
-            float scale = 0.3f * pos.Z;
-
-            byte alpha = (byte)(150 + (100f * pos.Z));
-
-
-            Color color = drawColor;
-            color.A = alpha;
-            Vector2 drawPos = NPC.Center + pos.X * Vector2.UnitX * ChunkDistance + pos.Y * Vector2.UnitY * ChunkDistance - screenPos;
-            Texture2D ChunkTexture = ModContent.Request<Texture2D>(PartsPath + textureString, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            spriteBatch.Draw(origin: new Vector2(ChunkTexture.Width / 2, ChunkTexture.Height / 2), texture: ChunkTexture, position: drawPos, sourceRectangle: null, color: color, rotation: 0, scale: NPC.scale + scale, effects: SpriteEffects.None, layerDepth: 0f);
-        }
         private Vector4 RotateByMatrix(Vector4 obj, float radians, Vector3 axis)
         {
             Vector3 vector = obj.X * Vector3.UnitX + obj.Y * Vector3.UnitY + obj.Z * Vector3.UnitZ;

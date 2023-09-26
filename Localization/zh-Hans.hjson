@@ -5945,7 +5945,7 @@ Mods: {
 		// FossilConfig: "[i:FargowiltasSouls/FossilEnchant][c/8c5c3b:{$Mods.FargowiltasSouls.Toggler.FossilConfig}]"
 		// ForbiddenConfig: "[i:FargowiltasSouls/ForbiddenEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.ForbiddenConfig}]"
 		// HallowDodgeConfig: "[i:FargowiltasSouls/HallowEnchant][c/968564:{$Mods.FargowiltasSouls.Toggler.HallowDodgeConfig}]"
-		// AHallowedConfig: "[i:FargowiltasSouls/AncientHallowEnchant][c/968564:{$Mods.FargowiltasSouls.Toggler.HallowedConfig}]"
+		// AHallowedConfig: "[i:FargowiltasSouls/AncientHallowEnchant][c/968564:{$Mods.FargowiltasSouls.Toggler.AHallowedConfig}]"
 		// SpectreConfig: "[i:FargowiltasSouls/SpectreEnchant][c/accdfc:{$Mods.FargowiltasSouls.Toggler.SpectreConfig}]"
 		// TikiConfig: "[i:FargowiltasSouls/TikiEnchant][c/56A52B:{$Mods.FargowiltasSouls.Toggler.TikiConfig}]"
 		// CosmoHeader: "[i:FargowiltasSouls/CosmoForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.CosmoHeader}]"
