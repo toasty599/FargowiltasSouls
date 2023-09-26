@@ -1133,7 +1133,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 //below: instantly decelerate if dash is at large angle from player
                 Vector2 PV = NPC.DirectionTo(player.Center);
                 Vector2 LV = LockVector1;
-                float anglediff = (float)(Math.Atan2(PV.Y * LV.X - PV.X * LV.Y, LV.X * PV.X + LV.Y * PV.Y)); //real
+                float anglediff = FargoSoulsUtil.RotationDifference(LV, PV);
                 if (Math.Abs(anglediff) > MathHelper.PiOver2)
                 {
                     AI3 = 1;
@@ -1823,9 +1823,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         void RotateTowards(Vector2 target, float speed)
         {
-            Vector2 PV = NPC.DirectionTo(target);
             Vector2 LV = NPC.rotation.ToRotationVector2();
-            float anglediff = (float)(Math.Atan2(PV.Y * LV.X - PV.X * LV.Y, LV.X * PV.X + LV.Y * PV.Y)); //real
+            Vector2 PV = NPC.DirectionTo(target);
+            float anglediff = FargoSoulsUtil.RotationDifference(LV, PV);
             //change rotation towards target
             NPC.rotation = NPC.rotation.ToRotationVector2().RotatedBy(Math.Sign(anglediff) * Math.Min(Math.Abs(anglediff), speed * MathHelper.Pi / 180)).ToRotation();
         }

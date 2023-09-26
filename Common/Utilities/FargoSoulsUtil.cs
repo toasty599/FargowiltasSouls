@@ -483,6 +483,8 @@ namespace FargowiltasSouls
             return ClosestPointInHitbox(entity.Hitbox, desiredLocation);
         }
 
+        public static float RotationDifference(Vector2 from, Vector2 to) => (float)Math.Atan2(to.Y * from.X - to.X * from.Y, from.X * to.X + from.Y * to.Y);
+
         public static void HeartDust(Vector2 position, float rotationOffset = MathHelper.PiOver2, Vector2 addedVel = default, float spreadModifier = 1f, float scaleModifier = 1f)
         {
             for (float j = 0; j < MathHelper.TwoPi; j += MathHelper.ToRadians(360 / 60))

@@ -36,7 +36,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool SpawnedArms;
         public bool HasSaidEndure;
         public bool FirstCycle;
-
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(entity);
+            npc.damage = (int)(npc.damage * 1.2f);
+        }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             base.SendExtraAI(npc, bitWriter, binaryWriter);
@@ -462,7 +466,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
-            npc.damage = (int)(npc.damage * 1.6f); //deals slightly more damage than head
+            npc.damage = (int)(npc.damage * 1.8f); //deals slightly more damage than head
         }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -596,18 +600,18 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             npc.ai[3] = 0; //no vanilla attacking
 
-            ref float HandSide = ref npc.ai[0];
+            ref float handSide = ref npc.ai[0];
 
             int restDistance = (head.width / 2) + (npc.width / 2) + 30;
             int rotwaveTime = 60 * 5;
             const int extraDistMult = 50;
 
-            float restrot = (float)Math.Sin(HandSide * ((float)AI_Timer / rotwaveTime) * MathHelper.Pi) * MathHelper.Pi / 3;
+            float restrot = (float)Math.Sin(handSide * ((float)AI_Timer / rotwaveTime) * MathHelper.Pi) * MathHelper.Pi / 3;
             if (secondSet)
             {
-                restrot += HandSide * MathHelper.PiOver2;
+                restrot += handSide * MathHelper.PiOver2;
             }
-            Vector2 restPos = head.Center - (Vector2.UnitX * (restDistance + extraDistMult * Math.Abs(restrot)) * HandSide).RotatedBy(restrot);
+            Vector2 restPos = head.Center - (Vector2.UnitX * (restDistance + extraDistMult * Math.Abs(restrot)) * handSide).RotatedBy(restrot);
 
             if (HeadSpinning(npc)) //during spin
             {
@@ -615,18 +619,18 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
             else //outside of spin
             {
-                LungeAttack();
+                NonSpinAI();
             }
             void SpinAttack()
             {
                 ref float lockedRotation = ref npc.localAI[0];
                 ref float lockedDistance = ref npc.localAI[2];
                 ref float rotDir = ref npc.localAI[3];
-                ref float HandSide = ref npc.ai[0];
+                ref float handSide = ref npc.ai[0];
                 if (AttackTimer == GuardianTime + 30) //lock rotation to player
                 {
                     lockedRotation = (-head.DirectionTo(player.Center)).ToRotation();
-                    rotDir = -HandSide;
+                    rotDir = -handSide;
                     if (secondSet)
                     {
                         lockedRotation += rotDir * MathHelper.Pi * 18f / 16;
@@ -652,13 +656,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         if (collisionCooldown <= 0)
                         {
-                            if (Main.npc.Any(n =>
-                            n != null &&
-                            n.active &&
-                            n.type == NPCID.SkeletronHand &&
-                            npc.whoAmI != n.whoAmI &&
-                            n.ai[1] == npc.ai[1] &&
-                            npc.Hitbox.Intersects(n.Hitbox)))
+                            if (CollidingWithOtherHand(npc))
                             {
                                 
                                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, npc.Center);
@@ -675,10 +673,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 }
                                 rotDir = -rotDir;
                             }
-                        }
-                        else
-                        {
-                            collisionCooldown--;
                         }
                     }
                     int desiredDistance = restDistance * 3;
@@ -704,62 +698,140 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.velocity += head.velocity;
                 }
             }
-            void LungeAttack()
+            void NonSpinAI()
             {
-                const int Windup = 30;
-                ref float LungeTimer = ref npc.localAI[1];
-                ref float HandSide = ref npc.ai[0];
-                if (AI_Timer % rotwaveTime == 0 && AI_Timer >= rotwaveTime && head.ai[2] + Windup < 800) //don't do it instantly on first round, or if head is about to spin before can lunge
+                const int LungeWindup = 30;
+                const int ClapWindup = 60;
+                ref float Timer = ref npc.localAI[1];
+                ref float handSide = ref npc.ai[0];
+                if (AI_Timer % rotwaveTime == 0 && AI_Timer >= rotwaveTime && head.ai[2] + LungeWindup < 800) //don't do it instantly on first round, or if head is about to spin before can lunge
                 {
+                    //telegraph lunge
                     int sideToLunge = AI_Timer % (rotwaveTime * 2) == 0 ? 1 : -1;
-                    if (HandSide == sideToLunge || WorldSavingSystem.MasochistModeReal)
+                    if (handSide == sideToLunge || WorldSavingSystem.MasochistModeReal)
                     {
-                        SoundEngine.PlaySound(SoundID.Zombie82, head.Center);
-                        LungeTimer = 0;
-                        const int sparks = 10;
-                        for (int i = 0; i < sparks; i++)
-                        {
-                            Vector2 vel = Vector2.UnitX.RotatedBy(MathHelper.TwoPi * (float)i / sparks).RotatedByRandom(MathHelper.Pi / sparks);
-                            vel *= Main.rand.NextFloat(3, 8);
-                            Particle p = new SparkParticle(npc.Center, vel, Color.Red, 1, Windup);
-                            p.Spawn();
-                            LungeTimer = 1;
-                        }
-                        NetSync(npc);
+                        PrepareLunge();
                     }
                 }
-                if (LungeTimer <= 0)
+                if (head.life > head.lifeMax * 0.75f && AI_Timer % rotwaveTime == rotwaveTime / 2 && head.ai[2] + ClapWindup < 800) 
+                {
+                    int sideToLunge = AI_Timer % (rotwaveTime * 2) == rotwaveTime / 2 ? 1 : -1;
+                    if (handSide == sideToLunge)
+                    {
+                        PrepareLunge();
+                    }
+                    /*
+                    if (Main.npc.Any(n => OtherHandAlive(npc, n)))
+                    {
+                        //start clap
+                        Timer = -1;
+                        NetSync(npc);
+                    }
+                    */
+                }
+                void PrepareLunge()
+                {
+                    ref float Timer = ref npc.localAI[1];
+                    SoundEngine.PlaySound(SoundID.Zombie82, head.Center);
+                    Timer = 1;
+                    const int sparks = 10;
+                    for (int i = 0; i < sparks; i++)
+                    {
+                        Vector2 vel = Vector2.UnitX.RotatedBy(MathHelper.TwoPi * (float)i / sparks).RotatedByRandom(MathHelper.Pi / sparks);
+                        vel *= Main.rand.NextFloat(3, 8);
+                        Particle p = new SparkParticle(npc.Center, vel, Color.Red, 1, LungeWindup);
+                        p.Spawn();
+                        Timer = 1;
+                    }
+                    NetSync(npc);
+                }
+                if (Timer == 0)
                 {
                     Neutral();
                 }
-                else
+                if (Timer > 0) //lunge
                 {
-                    
-                    if (LungeTimer < Windup)
+
+                    if (Timer < LungeWindup)
                     {
-                        float modifier = 1 - (float)(LungeTimer / Windup);
+                        float modifier = 1 - (float)(Timer / LungeWindup);
                         storedVel = -npc.DirectionTo(player.Center) * modifier * 3;
                     }
-                    if (LungeTimer == Windup)
+                    if (Timer == LungeWindup)
                     {
                         storedVel = npc.DirectionTo(player.Center) * 30;
                     }
-                    if (LungeTimer > Windup + 10 && LungeTimer <= Windup + 45)
+                    if (Timer > LungeWindup + 10 && Timer <= LungeWindup + 30)
                     {
                         storedVel *= 0.95f;
                     }
-                    if (LungeTimer > Windup + 45)
+                    if (Timer > LungeWindup + 30)
                     {
-                        storedVel += npc.DirectionTo(restPos) * 0.1f;
-                        if (LungeTimer > Windup + 100 || npc.Distance(restPos) < npc.width)
+                        storedVel += npc.DirectionTo(restPos) * 0.3f;
+                        if (Timer > LungeWindup + 100 || npc.Distance(restPos) < npc.width)
                         {
-                            LungeTimer = -10;
+                            Timer = 0;
+                            storedVel = Vector2.Zero;
                             NetSync(npc);
                         }
                     }
-                    
+
+                }
+                //this didn't work properly and isn't really needed, might give it another go another time
+                //the idea is: position hands to each side of player, then clap them together towards the player
+                /*
+                float ClapTimer = -Timer; //to not confuse with minuses
+                if (ClapTimer > 0) //horizontal clap
+                {
+                    Vector2 sidePos = player.Center + Vector2.UnitX * 500 * -handSide;
+                    if (ClapTimer < ClapWindup)
+                    {
+                        storedVel.X += Math.Sign(sidePos.X - npc.Center.X) * 1;
+                        storedVel.Y += Math.Sign(sidePos.Y - npc.Center.Y) * 0.5f;
+                        if (npc.Distance(sidePos) < npc.width)
+                        {
+                            Timer = -ClapWindup;
+                        }
+                    }
+                    if (ClapTimer == ClapWindup)
+                    {
+                        storedVel = Vector2.UnitX * Math.Sign(player.Center.X - npc.Center.X) * 30;
+                    }
+                    if (ClapTimer > ClapWindup && ClapTimer < ClapWindup + 100)
+                    {
+                        if (CollidingWithOtherHand(npc))
+                        {
+                            Timer = -(ClapWindup + 100);
+                            SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, npc.Center);
+                            storedVel = -storedVel / 2;
+                        }
+                        if (ClapTimer > ClapWindup + 20) //hand missing or missed
+                        {
+                            Timer = -(ClapWindup + 100);
+                            storedVel /= 2;
+                        }
+                    }
+                    if (ClapTimer >= ClapWindup + 100)
+                    {
+                        if (npc.Distance(restPos) < npc.width || ClapTimer >= ClapWindup + 160)
+                        {
+                            Timer = 0;
+                            storedVel = Vector2.Zero;
+                            NetSync(npc);
+                        }
+                        else
+                        {
+                            float rotdif = FargoSoulsUtil.RotationDifference(storedVel, restPos - npc.Center);
+                            float rotSpeed = 2;
+                            storedVel = storedVel.RotatedBy(Math.Sign(rotdif) * Math.Min(Math.Abs(rotdif), rotSpeed * MathHelper.Pi / 180));
+                        }
+                    }
+                }
+                */
+                if (Timer != 0)
+                {
+                    Timer += Math.Sign(Timer);
                     npc.velocity = storedVel + head.velocity;
-                    LungeTimer++;
                 }
             }
             void Neutral()
@@ -767,8 +839,14 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 npc.velocity = (restPos - npc.Center) * 0.02f;
                 npc.velocity += head.velocity;
             }
+            if (collisionCooldown > 0)
+            {
+                collisionCooldown--;
+            }
             AI_Timer++;
         }
+        public static bool OtherHandAlive(NPC self, NPC other) => other != null && other.active && other.type == NPCID.SkeletronHand && other.ai[1] == self.ai[1] && other.whoAmI != self.whoAmI;
+        private bool CollidingWithOtherHand(NPC npc) => Main.npc.Any(n => OtherHandAlive(npc, n) && npc.Hitbox.Intersects(n.Hitbox));
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
         {
             return HitPlayer;
