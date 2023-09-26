@@ -109,6 +109,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+
             NPC.AddDebuffImmunities(new List<int>
             {
                 BuffID.Confused,
@@ -116,6 +117,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 BuffID.Suffocation,
                 ModContent.BuffType<LethargicBuff>(),
                 ModContent.BuffType<ClippedWingsBuff>()
+            });
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Rotation = MathHelper.Pi,
+                Position = Vector2.UnitX * 60
             });
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -148,7 +154,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPC.value = Item.buyPrice(0, 2);
 
         }
-
+        public override Color? GetAlpha(Color drawColor)
+        {
+            if (NPC.IsABestiaryIconDummy)
+            {
+                // This is required because we have NPC.alpha = 255, in the bestiary it would look transparent
+                return NPC.GetBestiaryEntryColor();
+            }
+            return base.GetAlpha(drawColor);
+        }
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * balance);

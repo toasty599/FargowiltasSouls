@@ -2679,7 +2679,6 @@ Mods: {
 					'''
 					Works in your inventory
 					Stand still to expose nearby treasure and enemies
-					Grants autofire to all items
 					''' */
 			}
 
@@ -3435,7 +3434,6 @@ Mods: {
 					'''
 					When attacking by manually clicking, increases non-summon damage by 30%
 					Grants immunity to Webbed and Purified
-					Grants autofire to all weapons (this effect also works in your inventory)
 					'An idol of the ancient jungle dwellers'
 					''' */
 			}

@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                     SoundEngine.PlaySound(Beep, Projectile.Center);
                     CombatText.NewText(Projectile.Hitbox, Color.Red, Projectile.timeLeft / 60, true);
                 }
-                if (Projectile.timeLeft == 30 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (Projectile.timeLeft == 30)
                 {
                     Vector2 offset = Vector2.UnitY * -700 + Vector2.UnitX * Main.rand.NextFloat(-300, 300);
                     int nukeDamage = Projectile.damage + (Projectile.damage / 2 * ((int)slotsConsumed - 1));

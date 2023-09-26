@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Linq;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -44,7 +45,7 @@ Increases pickup range for mana stars
         {
             player.buffImmune[BuffID.Suffocation] = true;
             player.manaMagnet = true;
-            if (player.GetToggleValue("ManaFlower", false))
+            if (!player.manaFlower && player.GetToggleValue("ManaFlower", false))
             {
                 player.GetDamage(DamageClass.Magic) -= 0.1f;
                 player.manaFlower = true;

@@ -59,6 +59,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
+                Hide = false,
                 Position = new Vector2(8, 16),
                 PortraitScale = 1f,
                 PortraitPositionXOverride = 0,
