@@ -357,9 +357,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         Vector2 baseOffset = npc.DirectionTo(Main.player[npc.target].Center);
                         for (int i = 0; i < max; i++)
                         {
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + 1000 * baseOffset.RotatedBy(2 * Math.PI / max * i),
+                            int p = Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center + 1000 * baseOffset.RotatedBy(2 * Math.PI / max * i),
                                 -8f * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<DeviGuardian>(),
                                 FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                            if (p != Main.maxProjectiles)
+                            {
+                                Main.projectile[p].light = 1;
+                            }
                         }
                     }
                     break;
