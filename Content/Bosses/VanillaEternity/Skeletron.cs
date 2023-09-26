@@ -38,8 +38,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool FirstCycle;
         public override void SetDefaults(NPC npc)
         {
-            base.SetDefaults(entity);
-            npc.damage = (int)(npc.damage * 1.2f);
+            base.SetDefaults(npc);
+            npc.damage = (int)(npc.damage * 1.15f);
         }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -511,7 +511,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);
             if (head == null)
                 return result;
-
+            
             if (npc.timeLeft < 60) //never despawn normally
                 npc.timeLeft = 60;
 
@@ -546,7 +546,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         else if (AttackTimer % 7 == 0 && Main.netMode != NetmodeID.MultiplayerClient) 
                         {
                             Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center);
-                            if (AttackTimer < GuardianTime / 2) //first half of projectiles are shot towards player, second half are shot straight out
+                            if (AttackTimer < GuardianTime * 3 / 4) //first quarter of projectiles are shot towards player, other three quarters are shot straight out
                             {
                                 vel = head.DirectionTo(npc.Center);
                             }
