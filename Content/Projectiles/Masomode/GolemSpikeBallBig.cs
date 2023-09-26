@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.rotation += 0.2f * Projectile.localAI[0];
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 

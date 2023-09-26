@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.timeLeft = 0;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int num321 = 0; num321 < 15; num321++)
             {

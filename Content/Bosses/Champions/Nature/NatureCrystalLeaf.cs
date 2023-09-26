@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             Projectile.rotation = Projectile.ai[1] + (float)Math.PI / 2f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int index1 = 0; index1 < 30; ++index1)
             {

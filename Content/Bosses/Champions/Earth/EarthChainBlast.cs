@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 2; ++i)
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, new Color(), 1.5f);

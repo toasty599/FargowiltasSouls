@@ -19,11 +19,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影珠");
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                ImmuneToAllBuffsThatAreNotWhips = true,
-                ImmuneToWhips = true
-            });
+
+            NPCID.Sets.ImmuneToAllBuffs[Type] = true;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

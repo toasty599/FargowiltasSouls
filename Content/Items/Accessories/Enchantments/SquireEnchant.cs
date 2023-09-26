@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -130,7 +131,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     }
                 }
 
-                player.hasJumpOption_Fart = true;
+                player.GetJumpState(ExtraJump.FartInAJar).Enable();
                 player.statDefense += defenseBoost;
                 
                 mount._data.acceleration = modPlayer.BaseSquireMountData.acceleration * accelBoost;

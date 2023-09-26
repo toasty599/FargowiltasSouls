@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 Projectile.Kill();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int dustMax = Projectile.ai[1] >= 0 ? 50 : 25;
             float speed = Projectile.ai[1] >= 0 ? 15 : 6;

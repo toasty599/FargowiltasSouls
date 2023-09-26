@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Content.Projectiles
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int shadertype = DrawColor == new Color(231, 174, 254) ? 100 : 0;
             float num2 = (float)(Projectile.rotation + (float)Math.PI / 2 + (Main.rand.NextBool(2)? -1.0 : 1.0) * (float)Math.PI / 2);

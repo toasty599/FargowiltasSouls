@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             const int dustMax = 25;
             const float speed = 6;

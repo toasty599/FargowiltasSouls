@@ -163,7 +163,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
             if (player.slotsMinions + Projectile.minionSlots > player.maxMinions && Projectile.owner == Main.myPlayer)

@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return true;
         }*/
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
             if (Projectile.owner == Main.myPlayer)

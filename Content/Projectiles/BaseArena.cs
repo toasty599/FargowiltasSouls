@@ -179,7 +179,7 @@ namespace FargowiltasSouls.Content.Projectiles
             target.velocity = target.DirectionTo(Projectile.Center) * 4f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             float modifier = (255f - Projectile.alpha) / 255f;
             float offset = threshold * modifier;

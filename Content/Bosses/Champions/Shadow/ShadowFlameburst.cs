@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             Main.dust[index].velocity = Main.dust[index].velocity - Projectile.velocity * 0.1f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 15; i++)
             {

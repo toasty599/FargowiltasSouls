@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             target.AddBuff(BuffID.OnFire3, 600);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 20; i++)
             {

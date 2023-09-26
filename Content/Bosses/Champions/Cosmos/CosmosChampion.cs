@@ -21,6 +21,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Shaders;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 {
@@ -42,20 +43,18 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.Chilled,
-                    BuffID.OnFire,
-                    BuffID.Suffocation,
-                    BuffID.Lovestruck,
-                    ModContent.BuffType<LethargicBuff>(),
-                    ModContent.BuffType<ClippedWingsBuff>(),
-                    ModContent.BuffType<TimeFrozenBuff>(),
-                    ModContent.BuffType<LightningRodBuff>()
-                }
+                BuffID.Confused,
+                BuffID.Chilled,
+                BuffID.OnFire,
+                BuffID.Suffocation,
+                BuffID.Lovestruck,
+                ModContent.BuffType<LethargicBuff>(),
+                ModContent.BuffType<ClippedWingsBuff>(),
+                ModContent.BuffType<TimeFrozenBuff>(),
+                ModContent.BuffType<LightningRodBuff>()
             });
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)

@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
-        public override void Kill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
+        public override void OnKill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
         {
             SoundEngine.PlaySound(SoundID.Item89, Projectile.position);
 

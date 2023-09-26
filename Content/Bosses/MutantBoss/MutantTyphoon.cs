@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             target.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(300, 600));
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int num1 = 36;
             for (int index1 = 0; index1 < num1; ++index1)

@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             return base.GetAlpha(lightColor);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             const int num226 = 12;
             for (int i = 0; i < num226; i++)

@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             const int num226 = 80;
             for (int num227 = 0; num227 < num226; num227++)

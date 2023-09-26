@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             target.AddBuff(BuffID.Oiled, 600);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             for (int i = 0; i < 50; i++)

@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 

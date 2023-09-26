@@ -56,9 +56,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             scaletimer++;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

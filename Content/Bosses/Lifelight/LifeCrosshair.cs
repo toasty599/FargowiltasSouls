@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.ai[1] == 1 || Projectile.ai[1] == 3) //sans crosshairs
             {

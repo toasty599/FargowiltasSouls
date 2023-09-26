@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int num11;
             for (int num420 = 0; num420 < 6; num420 = num11 + 1)

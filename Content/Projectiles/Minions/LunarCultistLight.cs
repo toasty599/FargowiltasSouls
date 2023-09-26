@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int index1 = 0; index1 < 13; ++index1)
             {

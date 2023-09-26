@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Main.LocalPlayer.FargoSouls().Screenshake = 30;
             void EchsplodeMinion(Projectile p, ref int hitsLeft)

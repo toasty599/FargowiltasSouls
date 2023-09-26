@@ -8,6 +8,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using FargowiltasSouls.Common.Utilities;
+using FargowiltasSouls.Content.Buffs.Masomode;
+using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust
 {
@@ -35,10 +37,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             // DisplayName.SetDefault("Crystal Slime");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = NPCID.Sets.DebuffImmunitySets[NPCID.LunarTowerStardust].SpecificallyImmuneTo
-            });
+            NPCID.Sets.SpecificDebuffImmunity[Type] = NPCID.Sets.SpecificDebuffImmunity[NPCID.LunarTowerStardust];
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 Hide = true

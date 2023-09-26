@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return Math.Sqrt(dX * dX + dY * dY) <= Projectile.width / 2;
         }
 
-        public override void Kill(int timeLeft) //self reuse so you dont need to hold up always while autofiring
+        public override void OnKill(int timeLeft) //self reuse so you dont need to hold up always while autofiring
         {
             Player player = Main.player[Projectile.owner];
 

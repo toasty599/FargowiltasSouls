@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             //Main.NewText(Projectile.Center);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int index1 = 0; index1 < 10; ++index1)
             {

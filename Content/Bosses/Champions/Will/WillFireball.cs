@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 

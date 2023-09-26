@@ -242,7 +242,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
 
-                if (Player.wet && !Player.lavaWet && !Player.honeyWet && !(Player.accFlipper || Player.gills || fargoSoulsPlayer.MutantAntibodies))
+                if (Player.wet && !Player.lavaWet && !Player.honeyWet && !(Player.GetJumpState(ExtraJump.Flipper).Enabled || Player.gills || fargoSoulsPlayer.MutantAntibodies))
                     Player.AddBuff(ModContent.BuffType<LethargicBuff>(), 2);
 
                 if (!fargoSoulsPlayer.PureHeart && !Player.buffImmune[BuffID.Suffocation] && Player.ZoneSkyHeight && Player.whoAmI == Main.myPlayer)

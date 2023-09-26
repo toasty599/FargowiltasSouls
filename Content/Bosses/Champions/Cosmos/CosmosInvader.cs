@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             Projectile.localAI[0]++;
         }
 
-        public override void Kill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
+        public override void OnKill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
         {
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 80;

@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             target.AddBuff(BuffID.BetsysCurse, 180, false);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<DragonFireballBoom>(), 0, 0, Main.myPlayer);

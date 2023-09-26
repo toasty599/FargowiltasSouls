@@ -620,9 +620,9 @@ namespace FargowiltasSouls.Content.Projectiles
             color.A = 0;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

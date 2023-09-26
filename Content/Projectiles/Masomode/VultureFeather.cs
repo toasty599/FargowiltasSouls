@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             CooldownSlot = 1; // do we need this?
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int num610 = 0; num610 < 10; num610++)
             {

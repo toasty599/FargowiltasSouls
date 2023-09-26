@@ -47,7 +47,7 @@ Increases jump height and negates fall damage
             //fart balloon
             if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoAeolus"))
             {
-                player.hasJumpOption_Fart = true;
+                player.GetJumpState(ExtraJump.FartInAJar).Enable();
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                     NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
             }

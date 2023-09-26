@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             target.AddBuff(BuffID.Frostburn, 300);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             /*int num1 = 36;
             for (int index1 = 0; index1 < num1; ++index1)

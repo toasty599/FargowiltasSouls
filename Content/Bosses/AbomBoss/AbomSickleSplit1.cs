@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             }*/
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

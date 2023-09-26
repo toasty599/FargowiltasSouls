@@ -2,6 +2,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
@@ -19,11 +20,10 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             NPCID.Sets.TrailingMode[NPC.type] = 1;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
+                BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
@@ -32,7 +32,6 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     ModContent.BuffType<MutantNibbleBuff>(),
                     ModContent.BuffType<OceanicMaulBuff>(),
                     ModContent.BuffType<LightningRodBuff>(),
-        }
             });
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)

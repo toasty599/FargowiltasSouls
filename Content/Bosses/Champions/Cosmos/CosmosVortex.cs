@@ -230,7 +230,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             //if (WorldSavingSystem.MasochistMode) target.AddBuff(ModContent.BuffType<Buffs.Masomode.LightningRod>(), 360);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
             int type = 229;

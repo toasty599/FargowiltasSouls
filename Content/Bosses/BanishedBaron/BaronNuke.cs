@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             target.AddBuff(BuffID.BrokenArmor, 60 * 40);
 
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Main.LocalPlayer.FargoSouls().Screenshake = 30;
             

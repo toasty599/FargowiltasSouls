@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.netUpdate = true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.ai[0] == 1)
                 Projectile.velocity = Vector2.Zero; //for the dust

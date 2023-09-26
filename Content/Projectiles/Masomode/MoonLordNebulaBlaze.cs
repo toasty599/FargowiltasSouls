@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void Kill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
+        public override void OnKill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
         {
             int num1 = Utils.SelectRandom(Main.rand, new int[5] { 242, 73, 72, 71, byte.MaxValue });
             int Type1 = byte.MaxValue;

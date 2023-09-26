@@ -67,6 +67,13 @@ namespace FargowiltasSouls
             player.GetCritChance(DamageClass.Magic) = 0;
             player.GetCritChance(DamageClass.Summon) = 0;
         }
+        public static void AddDebuffImmunities(this NPC npc, List<int> debuffs)
+        {
+            foreach (int buffType in debuffs)
+            {
+                NPCID.Sets.SpecificDebuffImmunity[npc.type][buffType] = true;
+            }
+        }
 
         public static FargoSoulsGlobalNPC FargoSouls(this NPC npc)
             => npc.GetGlobalNPC<FargoSoulsGlobalNPC>();

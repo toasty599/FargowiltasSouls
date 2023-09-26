@@ -37,9 +37,9 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             Projectile.timeLeft = 270;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
 
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int index1 = 0; index1 < 10; ++index1)

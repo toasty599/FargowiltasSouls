@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                 Projectile.Kill();
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             int amount = 32;

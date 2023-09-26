@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 20; i++)
             {

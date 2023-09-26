@@ -1909,7 +1909,7 @@ namespace FargowiltasSouls.Content.Projectiles
             return base.PreKill(projectile, timeLeft);
         }
 
-        public override void Kill(Projectile projectile, int timeLeft)
+        public override void OnKill(Projectile projectile, int timeLeft)
         {
             if (!WorldSavingSystem.EternityMode)
                 return;

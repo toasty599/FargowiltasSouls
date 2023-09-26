@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 80;

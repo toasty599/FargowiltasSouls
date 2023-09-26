@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.localNPCHitCooldown = -1;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             for (int i = 0; i < 15; i++)

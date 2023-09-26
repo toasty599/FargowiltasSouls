@@ -235,7 +235,7 @@ namespace FargowiltasSouls.Content.Patreon.GreatestKraken
                 Projectile.localAI[1] -= MathHelper.TwoPi;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             MakeDust();
         }

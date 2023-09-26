@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int num = Main.rand.Next(6, 8);
             for (int index1 = 0; index1 < num; ++index1)

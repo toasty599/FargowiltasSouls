@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             Projectile.timeLeft = 120;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Grass, Projectile.position);

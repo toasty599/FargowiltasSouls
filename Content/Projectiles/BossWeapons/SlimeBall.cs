@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Main.dust[dust].noGravity = true;
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             for (int i = 0; i < 20; i++)
             {

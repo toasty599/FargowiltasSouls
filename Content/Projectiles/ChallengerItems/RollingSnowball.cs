@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Projectile.timeLeft = 2;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             Dusts();

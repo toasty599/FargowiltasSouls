@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item8, Projectile.position);
             for (int index1 = 0; index1 < 30; ++index1)

@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.SmiteBuff>(), 600);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             int damage = Projectile.damage;

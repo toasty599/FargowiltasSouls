@@ -2,6 +2,7 @@
 using FargowiltasSouls.Content.Buffs.Souls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,23 +22,20 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.Chilled,
-                    BuffID.OnFire,
-                    BuffID.Suffocation,
-                    ModContent.BuffType<LethargicBuff>(),
-                    ModContent.BuffType<ClippedWingsBuff>(),
-                    ModContent.BuffType<MutantNibbleBuff>(),
-                    ModContent.BuffType<OceanicMaulBuff>(),
-                    ModContent.BuffType<LightningRodBuff>(),
-                    ModContent.BuffType<SadismBuff>(),
-                    ModContent.BuffType<GodEaterBuff>(),
-                    ModContent.BuffType<TimeFrozenBuff>()
-                }
+                BuffID.Confused,
+                BuffID.Chilled,
+                BuffID.OnFire,
+                BuffID.Suffocation,
+                ModContent.BuffType<LethargicBuff>(),
+                ModContent.BuffType<ClippedWingsBuff>(),
+                ModContent.BuffType<MutantNibbleBuff>(),
+                ModContent.BuffType<OceanicMaulBuff>(),
+                ModContent.BuffType<LightningRodBuff>(),
+                ModContent.BuffType<SadismBuff>(),
+                ModContent.BuffType<GodEaterBuff>(),
+                ModContent.BuffType<TimeFrozenBuff>()
             });
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)

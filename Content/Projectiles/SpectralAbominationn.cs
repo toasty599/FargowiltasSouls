@@ -213,7 +213,7 @@ namespace FargowiltasSouls.Content.Projectiles
             //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
             if (Projectile.owner == Main.myPlayer)

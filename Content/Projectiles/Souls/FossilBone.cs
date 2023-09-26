@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             return Color.SandyBrown;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             const int max = 16;
             for (int i = 0; i < max; i++)

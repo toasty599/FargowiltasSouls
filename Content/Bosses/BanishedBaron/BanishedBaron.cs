@@ -109,16 +109,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.Chilled,
-                    BuffID.Suffocation,
-                    ModContent.BuffType<LethargicBuff>(),
-                    ModContent.BuffType<ClippedWingsBuff>()
-                }
+                BuffID.Confused,
+                BuffID.Chilled,
+                BuffID.Suffocation,
+                ModContent.BuffType<LethargicBuff>(),
+                ModContent.BuffType<ClippedWingsBuff>()
             });
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

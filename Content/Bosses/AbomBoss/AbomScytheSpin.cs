@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Projectile.rotation += Projectile.spriteDirection * 0.5f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item71, Projectile.Center);
             for (int index1 = 0; index1 < 20; ++index1) //put some dust here ig

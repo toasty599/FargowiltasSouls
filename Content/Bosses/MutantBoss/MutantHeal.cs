@@ -164,7 +164,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             /*int ai0 = (int)Projectile.ai[0];
             if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<Bosses.MutantBoss.MutantBoss>())

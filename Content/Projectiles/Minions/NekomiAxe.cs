@@ -155,7 +155,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             }
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             if (!Main.dedServ && Main.LocalPlayer.active)
                 Main.LocalPlayer.FargoSouls().Screenshake = 60;

@@ -65,12 +65,21 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         void GrowHands(NPC npc, bool secondSet = false)
         {
-            int n1 = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
-            int n2 = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
-            if (secondSet && n1 != Main.maxNPCs && n2 != Main.maxNPCs)
+            for (int i = -1; i < 2; i += 2) //two hands: one -1 and one 1
             {
-                Main.npc[n1].GetGlobalNPC<SkeletronHand>().secondSet = true;
-                Main.npc[n2].GetGlobalNPC<SkeletronHand>().secondSet = true;
+                int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, i, npc.whoAmI, 0f, 0f, npc.target);
+                NPC hand = Main.npc[n];
+                if (secondSet && n != Main.maxNPCs)
+                {
+                    hand.GetGlobalNPC<SkeletronHand>().secondSet = true;
+                }
+                if (npc.ai[1] == 1f || npc.ai[1] == 2f) //spinning or DG mode
+                {
+
+                    //make them go to minimum clap distance
+                    hand.localAI[2] = hand.width + npc.width;
+                    hand.GetGlobalNPC<SkeletronHand>().AttackTimer = SkeletronHand.GuardianTime + SkeletronHand.GuardianDelay;
+                }
             }
 
             FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronRegrow", new Color(175, 75, 255));
@@ -92,6 +101,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             else
             {
                 npc.HitSound = SoundID.NPCHit2;
+            }
+            if (NPC.AnyNPCs(NPCID.SkeletronHand) && npc.life < npc.lifeMax * .5) //if hands are alive, don't fall below 50% hp (no duplicate hands)
+            {
+                npc.life = (int)Math.Round(npc.lifeMax * 0.5f) + 10;
             }
             if (!SpawnedArms && npc.life < npc.lifeMax * .5)
             {
@@ -397,7 +410,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     break;
             }
         }
-        bool ArmDR(NPC npc) => !WorldSavingSystem.SwarmActive && !SpawnedArms && Main.npc.Any(n => n.active && n.type == NPCID.SkeletronHand && n.ai[1] == npc.whoAmI);
+        bool ArmDR(NPC npc) => !WorldSavingSystem.SwarmActive && Main.npc.Any(n => n.active && n.type == NPCID.SkeletronHand && n.ai[1] == npc.whoAmI);
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
             if (ArmDR(npc))
@@ -498,8 +511,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             secondSet = binaryReader.ReadBoolean();
         }
         //arm ai notes: ai3 is attack timer, when 300 the arm attacks and it stays at 300
-        const int GuardianTime = 65;
-        const int GuardianDelay = 150;
+        public const int GuardianTime = 65;
+        public const int GuardianDelay = 150;
         public override bool SafePreAI(NPC npc)
         {
             bool result = base.SafePreAI(npc);
@@ -645,6 +658,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     collisionCooldown = 30 + 20;
                     NetSync(npc);
                 }
+
+
                 HitPlayer = (AttackTimer < GuardianTime - 15); //don't hit player until 15 ticks after attack starts
                 if (AttackTimer < -30 && !WorldSavingSystem.MasochistModeReal || AttackTimer > GuardianTime + 30)
                 {
@@ -652,6 +667,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
                 else
                 {
+                    if (WorldSavingSystem.MasochistModeReal && head.life < head.lifeMax * 0.75f && AttackTimer < 0) //in maso, a bit after first clap in p2
+                    {
+                        lockedDistance += 1;
+                    }
                     if (npc.Distance(head.Center) > (head.width + npc.width / 2)) //don't do collide thing if too close to head (means they just spam collide) (this happens if it's spinning when they spawn)
                     {
                         if (collisionCooldown <= 0)
@@ -732,7 +751,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 void PrepareLunge()
                 {
                     ref float Timer = ref npc.localAI[1];
-                    SoundEngine.PlaySound(SoundID.Zombie82, head.Center);
+                    SoundEngine.PlaySound(SoundID.Zombie82 with { Volume = 1.4f }, head.Center);
                     Timer = 1;
                     const int sparks = 10;
                     for (int i = 0; i < sparks; i++)

@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Main.dust[d].scale = 1.4f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 20; ++i)

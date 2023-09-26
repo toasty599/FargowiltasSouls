@@ -13,6 +13,8 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Content.Buffs.Souls;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 {
@@ -28,17 +30,15 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             NPCID.Sets.TrailingMode[NPC.type] = 1;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
+                BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
                     ModContent.BuffType<LethargicBuff>(),
                     ModContent.BuffType<ClippedWingsBuff>()
-                }
             });
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)

@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             Projectile.DamageType = DamageClass.Ranged;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.35f / 255f, (255 - Projectile.alpha) * 0.35f / 255f, (255 - Projectile.alpha) * 0f / 255f);
             for (int d = 0; d < 30; d++)

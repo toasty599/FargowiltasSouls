@@ -9,6 +9,7 @@ using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -31,14 +32,11 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
+                BuffID.Confused,
                     ModContent.BuffType<LethargicBuff>(),
                     ModContent.BuffType<ClippedWingsBuff>()
-                }
             });
         }
 

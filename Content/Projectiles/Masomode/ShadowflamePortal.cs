@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override Color? GetAlpha(Color lightColor) => new Color(200, 150, 255, 150) * Projectile.Opacity;
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

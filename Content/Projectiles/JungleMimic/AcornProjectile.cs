@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             else
                 Projectile.velocity.Y += 0.4f;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

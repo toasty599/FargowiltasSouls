@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             //Main.NewText(MathHelper.ToDegrees(Projectile.velocity.ToRotation()) + " " + MathHelper.ToDegrees(Projectile.ai[1]));
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Vector2 basePos = Projectile.Center - Projectile.velocity * 141 / 2 * Projectile.scale;
             for (int i = 0; i < 40; i++)

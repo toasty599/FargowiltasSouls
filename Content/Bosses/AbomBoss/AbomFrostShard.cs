@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
             for (int index1 = 0; index1 < 3; ++index1)

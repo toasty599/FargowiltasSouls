@@ -55,31 +55,26 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
 
-            ModBuff miracleBlight = null;
-            if (ModLoader.HasMod("CalamityMod"))
+            if (ModContent.TryFind("CalamityMod", "MiracleBlight", out ModBuff miracleBlight))
             {
-                miracleBlight = ModContent.Find<ModBuff>("CalamityMod", "MiracleBlight");
+                NPCID.Sets.SpecificDebuffImmunity[Type][miracleBlight.Type] = true;
             }
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
-
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.Chilled,
-                    BuffID.OnFire,
-                    BuffID.Suffocation,
-                    ModContent.BuffType<LethargicBuff>(),
-                    ModContent.BuffType<ClippedWingsBuff>(),
-                    ModContent.BuffType<MutantNibbleBuff>(),
-                    ModContent.BuffType<OceanicMaulBuff>(),
-                    ModContent.BuffType<LightningRodBuff>(),
-                    ModContent.BuffType<SadismBuff>(),
-                    ModContent.BuffType<GodEaterBuff>(),
-                    ModContent.BuffType<TimeFrozenBuff>(),
-                    ModContent.BuffType<LeadPoisonBuff>(),
-                    miracleBlight != null ? miracleBlight.Type : 0
-                }
+                BuffID.Confused,
+                BuffID.Chilled,
+                BuffID.OnFire,
+                BuffID.Suffocation,
+                ModContent.BuffType<LethargicBuff>(),
+                ModContent.BuffType<ClippedWingsBuff>(),
+                ModContent.BuffType<MutantNibbleBuff>(),
+                ModContent.BuffType<OceanicMaulBuff>(),
+                ModContent.BuffType<LightningRodBuff>(),
+                ModContent.BuffType<SadismBuff>(),
+                ModContent.BuffType<GodEaterBuff>(),
+                ModContent.BuffType<TimeFrozenBuff>(),
+                ModContent.BuffType<LeadPoisonBuff>(),
+                
             });
             
         }

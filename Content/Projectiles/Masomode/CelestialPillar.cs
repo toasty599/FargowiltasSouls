@@ -161,7 +161,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.timeLeft = 0;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
             var type = (int)Projectile.ai[0] switch

@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);*/
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

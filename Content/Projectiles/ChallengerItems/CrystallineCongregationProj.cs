@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             }
             Projectile.ai[0] += 1f;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
             for (int i = 0; i < 20; i++)
@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity.X *= 0.5f;
                 Main.dust[index2].velocity.Y *= 0.5f;
-                base.Kill(timeLeft);
+                base.OnKill(timeLeft);
             }
         }
         public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity;

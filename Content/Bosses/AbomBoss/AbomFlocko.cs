@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int index1 = 0; index1 < 20; ++index1)
             {

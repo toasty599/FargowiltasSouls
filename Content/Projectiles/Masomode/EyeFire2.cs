@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.rotation += 0.3f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int index1 = 0; index1 < 5; ++index1) //vanilla code
             {

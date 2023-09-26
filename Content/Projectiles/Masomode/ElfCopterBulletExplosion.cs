@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.ignoreWater = true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
             for (int index = 0; index < 7; ++index)

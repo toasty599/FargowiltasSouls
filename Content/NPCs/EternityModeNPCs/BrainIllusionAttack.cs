@@ -3,6 +3,7 @@ using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,17 +28,13 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             {
                 Hide = true
             });
-
-            NPCID.Sets.DebuffImmunitySets.Add(Type, new Terraria.DataStructures.NPCDebuffImmunityData 
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.OnFire,
-                    BuffID.Confused,
-                    BuffID.Suffocation,
-                    BuffID.CursedInferno,
-                    BuffID.Burning,
-                }
+                BuffID.OnFire,
+                BuffID.Confused,
+                BuffID.Suffocation,
+                BuffID.CursedInferno,
+                BuffID.Burning,
             });
         }
 
