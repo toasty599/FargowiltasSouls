@@ -662,7 +662,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 {
                                     for (int i = 0; i < 2; i++)
                                     {
-                                        Vector2 vel = head.DirectionTo(npc.Center) * 4;
+                                        Vector2 vel = head.DirectionTo(npc.Center) * 10;
                                         vel = vel.RotatedBy(i * rotDir * MathHelper.Pi / 22); //curve second slightly inward so you can't blindspot in center
                                         int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<SkeletronGuardian2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                     }
