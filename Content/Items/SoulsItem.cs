@@ -68,7 +68,6 @@ namespace FargowiltasSouls.Content.Items
             }
             SafePostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
         }
-
         public sealed override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))

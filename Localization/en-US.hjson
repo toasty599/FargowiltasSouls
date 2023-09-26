@@ -3645,7 +3645,7 @@ Mods: {
 					Attacks may spawn lightning, a storm cloud, flower petals, spectre orbs, a Dungeon Guardian, snowballs, spears, or buff boosters
 					Attacks cause increased life regen, shadow dodge, Flameburst shots, meteor showers, and reduced enemy immune frames
 					Critical chance is set to 25%, Crit to increase it by 5%, At 100% every 10th attack gains 4% life steal
-					Getting hit drops your crit back down, trigger a blood geyser, and reflects damage
+					Getting hit drops your crit back down, triggers a blood geyser, and reflects damage
 					Projectiles may split or shatter and spawn stars, item and projectile size increased, attract items from further away
 					Nearby enemies are ignited, You leave behind a trail of fire, jump to create a spore explosion
 					Grants Crimson regen, immunity to fire, fall damage, and lava, and doubled herb collection
