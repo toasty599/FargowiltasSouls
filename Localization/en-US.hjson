@@ -2832,6 +2832,7 @@ Mods: {
 					[i:FargowiltasSouls/GladiatorEnchant] Spears will rain down on struck enemies
 					[i:FargowiltasSouls/RedRidingEnchant] Successive attack gain bonus damage 
 					[i:FargowiltasSouls/ValhallaKnightEnchant] Increases the effectiveness of healing sources by 50%
+					[i:FargowiltasSouls/ValhallaKnightEnchant] Improves mounts and stats while mounted, mounts have a dash
 					'A mind of unbreakable determination'
 					'''
 			}
