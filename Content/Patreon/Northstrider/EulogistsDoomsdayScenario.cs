@@ -78,7 +78,6 @@ namespace FargowiltasSouls.Content.Patreon.Northstrider
                 {
                     float dist = Vector2.Distance(player.Center, npc.Center);
 
-                    Main.NewText(dist);
 
                     if (dist <= (radius * 14))
                     {

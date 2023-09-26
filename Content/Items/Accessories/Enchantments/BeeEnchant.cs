@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.CreativeWings];
             base.SetStaticDefaults();
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.CreativeWings];
         }
 
         protected override Color nameColor => new(254, 246, 37);
