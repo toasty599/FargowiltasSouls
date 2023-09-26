@@ -3055,7 +3055,7 @@ Mods: {
 				DisplayName: Gelic Wings
 				Tooltip:
 					'''
-					Acts as wings
+					Allows flight and slow fall
 					Grants immunity to Flipped caused by the Underground Hallow
 					Allows the wearer to double jump
 					When you land after a jump, slime spikes shoot out to your sides
