@@ -35,6 +35,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool DroppedSummon;
         public bool SpawnedArms;
         public bool HasSaidEndure;
+        public bool FirstCycle;
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -97,7 +98,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     GrowHands(npc, true);
                 }
             }
-
             if (npc.ai[1] == 0f)
             {
                 if (npc.ai[2] == 800 - 90) //telegraph spin
@@ -133,6 +133,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     if (npc.ai[1] == 1)
                     {
+                        FirstCycle = true;
                         CrossGuardianAttack(npc);
                     }
                 }
@@ -167,15 +168,15 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         SprayHomingBabies(npc);
 
-                        if (WorldSavingSystem.MasochistModeReal && !NPC.AnyNPCs(NPCID.SkeletronHand))
+                        if (WorldSavingSystem.MasochistModeReal && !NPC.AnyNPCs(NPCID.SkeletronHand) && !FirstCycle) //skip the first cycle so you never get fucked by Double Cross Guardian Attack
                             DungeonGuardianAttack(npc);
                     }
+                    FirstCycle = false;
                 }
             }
             else
             {
-               
-                
+
                 if (npc.ai[2] == 0)
                 {
                     //compensate for not changing targets when beginning spin
