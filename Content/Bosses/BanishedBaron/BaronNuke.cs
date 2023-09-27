@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.velocity *= 0.965f;
                 
             }
-            else if (player.active && !player.ghost) //homing
+            else if (player != null && player.active && !player.ghost) //homing
             {
                 Vector2 vectorToIdlePosition = player.Center - Projectile.Center;
                 float speed = WorldSavingSystem.MasochistModeReal ? 24f : 20f;

@@ -87,12 +87,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (Projectile.ai[0] == 1) //floating
             {
                 if (Collision.WetCollision(Projectile.position,  Projectile.width, Projectile.height) || Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
-                    Projectile.velocity.Y -= 0.30f;
+                    Projectile.velocity.Y -= 0.08f;
                 else
                 {
                     if (Projectile.velocity.Y < 0)
                         Projectile.velocity.Y /= 3;
-                    Projectile.velocity.Y += 1f;
+                    Projectile.velocity.Y += 0.3f;
                 }
                 Projectile.velocity.X *= 0.97f;
             }

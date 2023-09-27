@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.timeLeft = 60 * 60 * 60;
             Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
-        private static int BaseMaxDistance = WorldSavingSystem.MasochistModeReal ? 800 : 1000;
+        private static int BaseMaxDistance = WorldSavingSystem.MasochistModeReal ? 900 : 1000;
         private int WaterwallDistance = 0;
         public override void AI()
         {
@@ -50,32 +50,26 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Projectile.Kill();
             }
-
-            float MaxDistance = (float)BaseMaxDistance - ((float)BaseMaxDistance * 0.5f * (((float)baron.lifeMax - baron.life) / (float)baron.lifeMax));
+            float p2MaxLife = baron.lifeMax / 2;
+            float modifier = 1f - ((float)baron.life / p2MaxLife);
+            float distanceDecrease = 300 * modifier;
+            float MaxDistance = (float)BaseMaxDistance - distanceDecrease;
 
             Player player = Main.player[baron.target];
+            
             if (player != null && player.active && !player.dead && !player.ghost)
             {
                 if (Timer == 0) //done this way to work with world borders
                 {
-                    const int WorldEdgeExtraWidth = 300; //extra width for projectile attack to be visible all the way
-                    if (player.Center.X < MaxDistance + WorldEdgeExtraWidth)
-                    {
-                        Projectile.Center = new Vector2(MaxDistance + WorldEdgeExtraWidth, player.Center.Y);
-                    }
-                    else if (player.Center.X > Main.maxTilesX - (MaxDistance + WorldEdgeExtraWidth))
-                    {
-                        Projectile.Center = new Vector2(Main.maxTilesX - MaxDistance + WorldEdgeExtraWidth, player.Center.Y);
-                    }
-                    else
-                    {
-                        Projectile.Center = player.Center;
-                    }
-                    Projectile.Center = Main.screenPosition + new Vector2(Main.screenWidth / 2, Main.screenHeight / 2); //not player center to work with map borders
+
+                    const int WorldEdgeExtraWidth = 200; //extra width for projectile attack to be visible
+                    int worldSide = Math.Sign(Main.maxTilesX * 8 - Projectile.Center.X); //half world width minus pos of this
+                    Projectile.Center = Main.screenPosition + new Vector2(WorldEdgeExtraWidth * worldSide + Main.screenWidth / 2, Main.screenHeight / 2); //not player center to work with map borders
+                    
                 }
                 Projectile.Center = Projectile.Center.X * Vector2.UnitX + player.Center.Y * Vector2.UnitY;
 
-                int wallAttackTime = WorldSavingSystem.MasochistModeReal ? 50 : WorldSavingSystem.EternityMode ? 70 : 80;
+                int wallAttackTime = WorldSavingSystem.MasochistModeReal ? 55 : WorldSavingSystem.EternityMode ? 70 : 80;
                 if (State == 1 && Timer % wallAttackTime == 0)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -85,9 +79,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         {
                             side = 1;
                         }
-                        if (Timer % (wallAttackTime * 2) == 0 && WorldSavingSystem.MasochistModeReal) //every other, alternate side
+                        if (WorldSavingSystem.MasochistModeReal) //sides alternate in maso
                         {
-                            side = -1;
+                            side = Timer % (wallAttackTime * 2) == 0 ? 1 : -1;
                         }
                         FireBolts(player, side);
                     }
@@ -110,8 +104,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 Projectile.frameCounter = 0;
             }
-
-            WaterwallDistance += Math.Min(5, Math.Abs((int)MaxDistance - WaterwallDistance)) * Math.Sign((int)MaxDistance - WaterwallDistance);
+            if (WaterwallDistance < MaxDistance)
+            {
+                WaterwallDistance += 10;
+            }
+            if (WaterwallDistance > MaxDistance + 5)
+            {
+                WaterwallDistance -= 5;
+            }
+            //WaterwallDistance += Math.Min(5, Math.Abs((int)MaxDistance - WaterwallDistance)) * Math.Sign((int)MaxDistance - WaterwallDistance);
 
             WaterWalls(Projectile.Center, WaterwallDistance);
             Timer++;
@@ -181,7 +182,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                             if (player.mount.Active)
                                 player.mount.Dismount(player);
                             player.velocity.X = 0f;
-                            player.velocity.Y = -0.4f;
+                            //player.velocity.Y = -0.4f;
                             player.FargoSouls().NoUsingItems = 2;
                         }
 
