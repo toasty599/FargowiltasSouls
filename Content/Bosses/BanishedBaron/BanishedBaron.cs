@@ -696,7 +696,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     for (int i = 0; i < 30; i++) //max of 30 checks
                     {
                         LockVector1 = player.Center + Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Distance;
-                        if (!Collision.SolidCollision(LockVector1 - NPC.Size / 2, NPC.width, NPC.height)) //if found valid spot, stop searching
+                        if (!Collision.SolidCollision(LockVector1 - NPC.Size / 2, NPC.width, NPC.height) && Wet(LockVector1 - NPC.Size / 2)) //if found valid spot, stop searching
                         {
                             break;
                         }
@@ -720,7 +720,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 AI3 = (AI3 + 1) * 3; //stays negative if set to -2 by checking original collision, otherwise goes positive
                 NPC.velocity *= 0.935f;
                 RotateTowards(player.Center, 3);
-                if (NPC.velocity.Length() < 0.1f)
+                if (NPC.velocity.Length() < 0.1f && Timer > 45)
                 {
                     if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
                     {
@@ -1053,7 +1053,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 {
                     LockVector1 = player.Center - Vector2.UnitY * Height * (checks - i);
                     
-                    if (Wet(LockVector1 + Vector2.UnitY * 2 * Height / checks)) //check 2 checks down
+                    if (Wet(LockVector1 + Vector2.UnitY * 2f * Height / (float)checks)) //check 2 checks down
                     {
                         NPC.netUpdate = true;
                         break;
@@ -1091,7 +1091,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (Timer == 60 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 AnimationSpeed = 2f;
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Vector2.UnitY * ((NPC.height / 2) + 24), Vector2.Zero, ModContent.ProjectileType<BaronWhirlpool>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, MaxWhirlpools);
+                int variant = Main.rand.Next(2);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Vector2.UnitY * ((NPC.height / 2) + 24), Vector2.Zero, ModContent.ProjectileType<BaronWhirlpool>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, MaxWhirlpools, variant);
             }
             if (Timer >= 60 * 8)
             {

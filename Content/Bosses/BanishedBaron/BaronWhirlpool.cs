@@ -2,6 +2,7 @@
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -44,12 +45,26 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 20);
             target.AddBuff(BuffID.Rabies, 60 * 10);
         }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.localAI[0]);
+            writer.Write(Projectile.localAI[1]);
+            writer.Write(Projectile.localAI[2]);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Projectile.localAI[0] = reader.Read();
+            Projectile.localAI[1] = reader.Read();
+            Projectile.localAI[2] = reader.Read();
+        }
         public override void AI()
         {
             ref float ParentID = ref Projectile.ai[0];
             ref float Number = ref Projectile.ai[1];
+            ref float Variant = ref Projectile.ai[2];
             ref float Timer = ref Projectile.localAI[0];
-            ref float ChildID = ref Projectile.ai[2];
+            ref float ChildID = ref Projectile.localAI[1];
+            ref float attackRandom = ref Projectile.localAI[2];
 
             Projectile.netUpdate = true; //it's choppy if this isn't done always
 
@@ -87,17 +102,39 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
             }
             const int projTime = 50;
+            const int projTimeVar = 70;
             if (Projectile.alpha == 0)
             {
                 int everyThird = (int)(Number % 3);
-                if (Timer % projTime == 0 && Timer % (projTime * 3) == projTime * everyThird)
+                everyThird += (int)attackRandom;
+                if (Variant == 1)
                 {
-                    SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    int variantTime = projTimeVar; //+ (int)attackRandom;
+                    if (Timer % variantTime == 0 && Timer % (variantTime * 3) == variantTime * everyThird)
                     {
-                        for (int i = -1; i < 2; i += 2)
+                        attackRandom = Main.rand.NextBool() ? 1 : 0;
+                        //attackRandom = Main.rand.Next(-12, 0);
+                        SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Vector2.UnitX * i * Projectile.width * Main.rand.NextFloat(0.2f, 0.35f) + Vector2.UnitY * Main.rand.Next(-Projectile.height / 4, Projectile.height / 4), (Vector2.UnitX * i).RotatedBy(Main.rand.NextFloat(MathHelper.Pi / 24)), ModContent.ProjectileType<BaronWhirlpoolBolt>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner, 1);
+                            for (int i = -1; i < 2; i += 2)
+                            {
+                                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Vector2.UnitX * i * Projectile.width * Main.rand.NextFloat(0.2f, 0.35f) + Vector2.UnitY * Main.rand.Next(-Projectile.height / 4, Projectile.height / 4), (Vector2.UnitX * i).RotatedBy(Main.rand.NextFloat(MathHelper.Pi / 24)), ModContent.ProjectileType<BaronWhirlpoolBolt>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner, 1);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (Timer % projTime == 0 && Timer % (projTime * 3) == projTime * everyThird)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            for (int i = -1; i < 2; i += 2)
+                            {
+                                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Vector2.UnitX * i * Projectile.width * Main.rand.NextFloat(0.2f, 0.35f) + Vector2.UnitY * Main.rand.Next(-Projectile.height / 4, Projectile.height / 4), (Vector2.UnitX * i).RotatedBy(Main.rand.NextFloat(MathHelper.Pi / 24)), ModContent.ProjectileType<BaronWhirlpoolBolt>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner, 1);
+                            }
                         }
                     }
                 }
@@ -117,7 +154,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer == 8 && Number > 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                ChildID = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Vector2.UnitY * Projectile.height, Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI, Number - 1);
+                ChildID = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Vector2.UnitY * Projectile.height, Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI, Number - 1, Variant);
             }
             if (Fade)
             {
