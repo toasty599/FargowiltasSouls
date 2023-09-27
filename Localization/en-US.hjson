@@ -2545,7 +2545,7 @@ Mods: {
 				Tooltip:
 					'''
 					Sets your critical strike chance to 5%
-					Every crit will increase it by 5% up to double your critical strike chance or 15%
+					Every crit will increase it by 5% up to double your original critical strike chance or 15%
 					Getting hit resets your crit to 5%
 					'Return of the Crit'
 					'''
@@ -2795,7 +2795,7 @@ Mods: {
 				Tooltip:
 					'''
 					[i:FargowiltasSouls/CopperEnchant][i:FargowiltasSouls/ObsidianEnchant][i:FargowiltasSouls/LeadEnchant] Attacks spawn lightning, explosions, and inflict Lead Poisoning
-					[i:FargowiltasSouls/TinEnchant] Sets Tin crit chance to 10%, increasing up to double your current crit chance or 50%
+					[i:FargowiltasSouls/TinEnchant] Sets Tin crit chance to 10%, increasing up to double your original crit chance or 50%
 					[i:FargowiltasSouls/IronEnchant] You attract items from further away, 33% chance to not consume items at an Anvil
 					[i:FargowiltasSouls/LeadEnchant] You take 60% less from damage over time
 					[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield

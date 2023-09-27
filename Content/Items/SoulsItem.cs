@@ -2,7 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -68,6 +71,8 @@ namespace FargowiltasSouls.Content.Items
             }
             SafePostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
         }
+
+
         public sealed override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))

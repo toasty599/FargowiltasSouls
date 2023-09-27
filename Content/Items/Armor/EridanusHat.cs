@@ -64,14 +64,30 @@ Increases your max number of sentries by 4"); */
             string key = Language.GetTextValue(Main.ReversedUpDownArmorSetBonuses ? "Key.UP" : "Key.DOWN");
             return Language.GetTextValue($"Mods.FargowiltasSouls.SetBonus.Eridanus{(fargoPlayer.EridanusEmpower ? "On" : "Off")}", key);
         }
-
+        public override void Load()
+        {
+            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateSetBonus);
+        }
+        public void ActivateSetBonus(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            orig.Invoke(player, keyDir);
+            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
+            {
+                if (modPlayer.EridanusSet)
+                {
+                    modPlayer.EridanusEmpower = !modPlayer.EridanusEmpower;
+                }
+            }
+ 
+        }
         public static void EridanusSetBonus(Player player, Item item)
         {
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.EridanusSet = true;
 
-            if (player.whoAmI == Main.myPlayer && fargoPlayer.DoubleTap)
-                fargoPlayer.EridanusEmpower = !fargoPlayer.EridanusEmpower;
+            //if (player.whoAmI == Main.myPlayer && fargoPlayer.DoubleTap)
+                //fargoPlayer.EridanusEmpower = !fargoPlayer.EridanusEmpower;
 
             if (fargoPlayer.EridanusEmpower)
             {

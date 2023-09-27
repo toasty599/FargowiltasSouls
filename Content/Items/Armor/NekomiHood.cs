@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Materials;
+using System;
 
 namespace FargowiltasSouls.Content.Items.Armor
 {
@@ -57,6 +58,48 @@ Increases max number of minions by 2"); */
         public const int MAX_METER = 60 * 60;
         public const int MAX_HEARTS = 9;
 
+        public override void Load()
+        {
+            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateSetBonus);
+        }
+        public void ActivateSetBonus(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            orig.Invoke(player, keyDir);
+            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
+            {
+                if (modPlayer.NekomiSet && player.whoAmI == Main.myPlayer)
+                {
+                    bool superAttack = modPlayer.NekomiMeter >= MAX_METER;
+                    if (superAttack)
+                    {
+                        int baseDamage = 2222 / 3;
+                        if (!Main.hardMode)
+                            baseDamage /= 2;
+                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<NekomiDevi>(), baseDamage, 16f, player.whoAmI);
+                        SoundEngine.PlaySound(SoundID.Item43, player.Center);
+                        modPlayer.NekomiMeter = 0;
+                    }
+                    else
+                    {
+                        int hearts = (int)((double)modPlayer.NekomiMeter / MAX_METER * MAX_HEARTS);
+                        for (int i = 0; i < hearts; i++)
+                        {
+                            Vector2 offset = -150f * Vector2.UnitY.RotatedBy(MathHelper.TwoPi / hearts * i);
+                            Vector2 spawnPos = player.Center + offset;
+                            const float speed = 12;
+                            Vector2 vel = speed * player.DirectionFrom(spawnPos);
+                            int baseHeartDamage = 17;
+                            const float ai1 = 150 / speed;
+                            FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), spawnPos, vel, ModContent.ProjectileType<FriendHeart>(), baseHeartDamage, 3f, player.whoAmI, -1, ai1);
+                        }
+
+                        if (hearts > 0)
+                            modPlayer.NekomiMeter = 0;
+                    }
+                }
+            }
+        }
         public static void NekomiSetBonus(Player player, Item item)
         {
             player.GetDamage(DamageClass.Generic) += 0.07f;
@@ -93,41 +136,6 @@ Increases max number of minions by 2"); */
                 int ritualType = ModContent.ProjectileType<NekomiRitual>();
                 if (player.ownedProjectileCounts[ritualType] < 1)
                     Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ritualType, 0, 0f, player.whoAmI);
-
-                bool doubleTap = Main.ReversedUpDownArmorSetBonuses
-                    ? player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15
-                    : player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15;
-
-                if (doubleTap)
-                {
-                    bool superAttack = fargoPlayer.NekomiMeter >= MAX_METER;
-                    if (superAttack)
-                    {
-                        int baseDamage = 2222 / 3;
-                        if (!Main.hardMode)
-                            baseDamage /= 2;
-                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<NekomiDevi>(), baseDamage, 16f, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item43, player.Center);
-                        fargoPlayer.NekomiMeter = 0;
-                    }
-                    else
-                    {
-                        int hearts = (int)((double)fargoPlayer.NekomiMeter / MAX_METER * MAX_HEARTS);
-                        for (int i = 0; i < hearts; i++)
-                        {
-                            Vector2 offset = -150f * Vector2.UnitY.RotatedBy(MathHelper.TwoPi / hearts * i);
-                            Vector2 spawnPos = player.Center + offset;
-                            const float speed = 12;
-                            Vector2 vel = speed * player.DirectionFrom(spawnPos);
-                            int baseHeartDamage = 17;
-                            const float ai1 = 150 / speed;
-                            FargoSoulsUtil.NewSummonProjectile(player.GetSource_Accessory(item), spawnPos, vel, ModContent.ProjectileType<FriendHeart>(), baseHeartDamage, 3f, player.whoAmI, -1, ai1);
-                        }
-
-                        if (hearts > 0)
-                            fargoPlayer.NekomiMeter = 0;
-                    }
-                }
             }
         }
 

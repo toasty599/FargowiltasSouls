@@ -7,9 +7,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Common.Utilities
+namespace FargowiltasSouls //lets everything access it without using
 {
-	public static class FargoExtensionMethods
+	public static partial class FargoExtensionMethods
     {
         /// <summary>
         /// Adjusts a TooltipLine to account for prefixes. <br />

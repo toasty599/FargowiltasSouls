@@ -806,18 +806,18 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.Arkhalis:
                 case ProjectileID.Terragrim:
                     {
-                        GenericProjectileDraw(projectile);
+                        GenericProjectileDraw(projectile, lightColor);
                     }
                     return false;
                 case ProjectileID.FlowerPetal:
                     {
-                        GenericProjectileDraw(projectile);
+                        GenericProjectileDraw(projectile, lightColor);
                     }
                     return false;
                 default:
                     break;
 
-                void GenericProjectileDraw(Projectile projectile)
+                void GenericProjectileDraw(Projectile projectile, Color lightColor)
                 {
                         Texture2D Texture = TextureAssets.Projectile[projectile.type].Value;
                         int sizeY = Texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw

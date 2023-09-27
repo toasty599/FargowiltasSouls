@@ -18,7 +18,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Particles;
 
-namespace FargowiltasSouls
+namespace FargowiltasSouls //lets everything access it without using
 {
 	public static partial class FargoSoulsUtil
     {
@@ -93,6 +93,7 @@ namespace FargowiltasSouls
 
             return types.Max();
         }
+
 
         public static Projectile[] XWay(int num, IEntitySource spawnSource, Vector2 pos, int type, float speed, int damage, float knockback)
         {

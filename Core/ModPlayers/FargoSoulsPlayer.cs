@@ -53,15 +53,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
-        public bool DoubleTap
-        {
-            get
-            {
-                return Main.ReversedUpDownArmorSetBonuses ?
-                    Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[1] > 0 && Player.doubleTapCardinalTimer[1] != 15
-                    : Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[0] > 0 && Player.doubleTapCardinalTimer[0] != 15;
-            }
-        }
 
         public bool IsStillHoldingInSameDirectionAsMovement
             => (Player.velocity.X > 0 && Player.controlRight)

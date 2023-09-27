@@ -2545,7 +2545,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Sets your critical strike chance to 5%
-					Every crit will increase it by 5% up to double your critical strike chance or 15%
+					Every crit will increase it by 5% up to double your original critical strike chance or 15%
 					Getting hit resets your crit to 5%
 					'Return of the Crit'
 					''' */
@@ -2795,7 +2795,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					[i:FargowiltasSouls/CopperEnchant][i:FargowiltasSouls/ObsidianEnchant][i:FargowiltasSouls/LeadEnchant] Attacks spawn lightning, explosions, and inflict Lead Poisoning
-					[i:FargowiltasSouls/TinEnchant] Sets Tin crit chance to 10%, increasing up to double your current crit chance or 50%
+					[i:FargowiltasSouls/TinEnchant] Sets Tin crit chance to 10%, increasing up to double your original crit chance or 50%
 					[i:FargowiltasSouls/IronEnchant] You attract items from further away, 33% chance to not consume items at an Anvil
 					[i:FargowiltasSouls/LeadEnchant] You take 60% less from damage over time
 					[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
@@ -3055,7 +3055,7 @@ Mods: {
 				// DisplayName: Gelic Wings
 				/* Tooltip:
 					'''
-					Acts as wings
+					Allows flight and slow fall
 					Grants immunity to Flipped caused by the Underground Hallow
 					Allows the wearer to double jump
 					When you land after a jump, slime spikes shoot out to your sides
@@ -3665,7 +3665,7 @@ Mods: {
 					Attacks may spawn lightning, a storm cloud, flower petals, spectre orbs, a Dungeon Guardian, snowballs, spears, or buff boosters
 					Attacks cause increased life regen, shadow dodge, Flameburst shots, meteor showers, and reduced enemy immune frames
 					Critical chance is set to 25%, Crit to increase it by 5%, At 100% every 10th attack gains 4% life steal
-					Getting hit drops your crit back down, trigger a blood geyser, and reflects damage
+					Getting hit drops your crit back down, triggers a blood geyser, and reflects damage
 					Projectiles may split or shatter and spawn stars, item and projectile size increased, attract items from further away
 					Nearby enemies are ignited, You leave behind a trail of fire, jump to create a spore explosion
 					Grants Crimson regen, immunity to fire, fall damage, and lava, and doubled herb collection
