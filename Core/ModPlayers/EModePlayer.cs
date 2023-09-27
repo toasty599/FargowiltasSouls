@@ -337,7 +337,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             Player.moveSpeed += 0.25f;
 
-            Player.statManaMax2 += 100;
+            Player.statManaMax2 += 50;
             Player.manaRegenDelay = Math.Min(Player.manaRegenDelay, 30);
             Player.manaRegenBonus += 5;
 
