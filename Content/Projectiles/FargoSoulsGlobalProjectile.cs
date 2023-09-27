@@ -466,7 +466,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 shroomiteMushroomCD += maxCD / 4f;
                             }
 
-                            int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
+                            int p = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 4, projectile.knockBack / 2, projectile.owner);
                             if (p != Main.maxProjectiles)
                             {
                                 Main.projectile[p].FargoSouls().AdamModifier = AdamModifier;
