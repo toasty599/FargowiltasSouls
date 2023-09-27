@@ -1657,7 +1657,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 arena.ai[2] = 0; //deactivate projectile shooting AI of arena
             }
-            if (Timer > 500)
+            int endTime = WorldSavingSystem.MasochistModeReal ? 560 : 500; //maso alternation makes it kinda bullshit otherwise
+            if (Timer > endTime)
             {
                 NPC.velocity = Vector2.Zero;
                 StateReset();
