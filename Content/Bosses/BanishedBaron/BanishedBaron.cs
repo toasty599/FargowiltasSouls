@@ -839,11 +839,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 if (Main.rand.NextBool()) //bias towards diagonals
                 {
-                    LockVector1 = player.Center + (-Vector2.UnitY * 620).RotatedBy(MathHelper.PiOver2 * (Main.rand.NextBool() ? 1 : -1)).RotatedByRandom(MathHelper.Pi / 4); //approximately diagonal angle
+                    LockVector1 = (-Vector2.UnitY * 620).RotatedBy(MathHelper.PiOver2 * (Main.rand.NextBool() ? 1 : -1)).RotatedByRandom(MathHelper.Pi / 4); //approximately diagonal angle
                 }
                 else
                 {
-                    LockVector1 = player.Center + (-Vector2.UnitY * Main.rand.Next(500, 600)).RotatedByRandom(MathHelper.PiOver2);
+                    LockVector1 = (-Vector2.UnitY * Main.rand.Next(500, 600)).RotatedByRandom(MathHelper.PiOver2);
                 }
                 NPC.netUpdate = true;
             }
@@ -852,7 +852,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 bool collide = false;
                 for (float i = 0; i < 0.8f; i += 0.1f) //don't check the entire way, otherwise every spot is invalid if you're standing on ground
                 {
-                    if (Collision.SolidCollision(LockVector1 - NPC.Size / 2 + ((player.Center - LockVector1) * i), NPC.width, NPC.height)) //if can dash to player at arrival spot
+                    if (Collision.SolidCollision(player.Center + LockVector1 - NPC.Size / 2 + ((LockVector1) * i), NPC.width, NPC.height)) //if can dash to player at arrival spot
                     {
                         collide = true;
                         break;
@@ -861,7 +861,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 if (collide)
                 {
-                    LockVector1 = player.Center + (Vector2.UnitY * Main.rand.Next(500, 600)).RotatedByRandom(MathHelper.Pi);
+                    LockVector1 = (Vector2.UnitY * Main.rand.Next(500, 600)).RotatedByRandom(MathHelper.Pi);
                     NPC.netUpdate = true;
                 }
             }
@@ -888,7 +888,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 {
                     
                     NPC.netUpdate = true;
-                    NPC.rotation = NPC.DirectionTo(LockVector1).ToRotation();
+                    NPC.rotation = NPC.DirectionTo(player.Center + LockVector1).ToRotation();
                 }
             }
             if (Timer > 60 && Timer < 90) //gone
@@ -896,9 +896,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (NPC.buffType[0] != 0) //cleanse all buffs
                     NPC.DelBuff(0);
 
-                NPC.rotation = NPC.DirectionTo(LockVector1).ToRotation();
+                NPC.rotation = NPC.DirectionTo(player.Center + LockVector1).ToRotation();
                 NPC.noTileCollide = true;
-                NPC.Center = LockVector1;
+                NPC.Center = player.Center + LockVector1;
                 NPC.netUpdate = true;
                 NPC.dontTakeDamage = true;
             }
@@ -1759,9 +1759,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     }
                     //const float RotationFactor = 0.75f;
 
-                    AI4 = NPC.rotation; //cache rotation
-                    LockVector1 = (player.Center - NPC.Center);
-                    RotateTowards(NPC.Center + LockVector1, RotationSpeed);
+                    
+                    AI4 = FargoSoulsUtil.RotationDifference((player.Center - NPC.Center), NPC.rotation.ToRotationVector2()); //cache rotation direction towards player
 
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/LaserSound_Slow") with { Pitch = -0.2f }, NPC.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -1770,12 +1769,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     }
                     NPC.netUpdate = true;
                 }
-                else
-                {
-                    NPC.rotation += Math.Sign(NPC.rotation - AI4) * RotationSpeed * MathHelper.Pi / 180; //keep rotating in direction rotated first frame, no turning direction
-                }
-                
-                
+                NPC.rotation += Math.Sign(NPC.rotation - AI4) * RotationSpeed * MathHelper.Pi / 180; //keep rotating in direction rotated first frame, no turning direction
+
+
             }
             else if (WorldSavingSystem.EternityMode && Timer > PositioningTime + WindupTime + AttackTime) // in emode, go right into predictive dash without endlag
             {
