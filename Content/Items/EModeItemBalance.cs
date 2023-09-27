@@ -178,6 +178,11 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 0.70f;
                     return EModeChange.Nerf;
 
+                case ItemID.Uzi:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.88f;
+                    return EModeChange.Nerf;
+
                 //case ItemID.Tsunami:
                 //case ItemID.Flairon:
                 //case ItemID.ChlorophyteShotbow:
