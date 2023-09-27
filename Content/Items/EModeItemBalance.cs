@@ -343,19 +343,22 @@ namespace FargowiltasSouls.Content.Items
 
                 case ItemID.TitaniumSword:
                 case ItemID.AdamantiteSword:
-                    balanceNumber = 1.5f;
-                    balanceTextKeys = new string[] { "Speed" };
+                    balanceNumber = 1.4f;
+                    balanceTextKeys = new string[] { "Speed", "Damage" };
                     return EModeChange.Buff;
 
                 case ItemID.Spear:
-                case ItemID.AdamantiteGlaive:
-                case ItemID.TheRottedFork:
-                case ItemID.TitaniumTrident:
                 case ItemID.Trident:
                 case ItemID.Swordfish:
                 case ItemID.ChlorophytePartisan:
                     balanceNumber = 1;
                     balanceTextKeys = new string[] { "SpearRework" };
+                    return EModeChange.Buff;
+
+                case ItemID.AdamantiteGlaive:
+                case ItemID.TitaniumTrident:
+                    balanceNumber = 1.15f;
+                    balanceTextKeys = new string[] { "Damage", "SpearRework" };
                     return EModeChange.Buff;
 
                 case ItemID.ObsidianSwordfish:

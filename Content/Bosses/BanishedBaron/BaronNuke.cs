@@ -35,6 +35,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.ignoreWater = true;
             Projectile.scale = 2f;
             Projectile.light = 1;
+            Projectile.timeLeft = 60 * 60;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) //circular hitbox
@@ -54,12 +55,19 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         private int NextBeep = 1;
         private int beep = 1;
+        ref float Duration => ref Projectile.ai[0];
+        ref float Timer => ref Projectile.localAI[0];
+        public override bool CanHitPlayer(Player target) => Timer > 60;
         public override void AI()
         {
-            if (Projectile.localAI[0] == NextBeep)
+            if (Duration < 190) //make sure it doesn't bug out and explode early
+            {
+                Duration = 190;
+            }
+            if (Timer == NextBeep)
             {
                 SoundEngine.PlaySound(Beep, Projectile.Center);
-                NextBeep = (int)((int)Projectile.localAI[0] + Math.Floor(Projectile.ai[0] / (3 + 2 * beep)));
+                NextBeep = (int)((int)Timer + Math.Floor(Duration / (3 + 2 * beep)));
                 beep++;
             }
             Dust.NewDust(Projectile.Center - new Vector2(1, 1), 2, 2, DustID.Water, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
@@ -69,7 +77,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Projectile.tileCollide = true;
             }
-            if (++Projectile.localAI[0] >= Projectile.ai[0] - 2)
+            if (++Timer >= Duration - 2)
             {
                 Projectile.tileCollide = false;
                 Projectile.alpha = 0;
@@ -79,14 +87,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.Center = Projectile.position;
             }
 
-            if (Projectile.localAI[0] > Projectile.ai[0])
+            if (Timer > Duration)
             {
                 Projectile.Kill();
             }
             Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
-            if (Projectile.localAI[0] < 60)
+            if (Timer < 60)
             {
                 Projectile.velocity *= 0.965f;
+                
             }
             else if (player.active && !player.ghost) //homing
             {
@@ -182,12 +191,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         //(public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 610 - Main.mouseTextColor * 2) * Projectile.Opacity * 0.9f;
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Projectile.localAI[0] >= Projectile.ai[0] - 2) //if exploding
+            if (Timer >= Duration - 2) //if exploding
             {
                 return false;
             }
             //draw glow ring
-            float modifier = Projectile.localAI[0] / Projectile.ai[0];
+            float modifier = Timer / Duration;
             Color RingColor = Color.Lerp(Color.Orange, Color.Red, modifier);
             Texture2D ringTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/GlowRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int ringy = ringTexture.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw

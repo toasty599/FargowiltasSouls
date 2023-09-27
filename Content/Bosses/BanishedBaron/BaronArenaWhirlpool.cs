@@ -37,8 +37,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.timeLeft = 60 * 60 * 60;
             Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
-        const int MaxDistance = 1000;
-        int WaterwallDistance = 0;
+        private static int BaseMaxDistance = WorldSavingSystem.MasochistModeReal ? 800 : 1000;
+        private int WaterwallDistance = 0;
         public override void AI()
         {
             ref float ParentID = ref Projectile.ai[0];
@@ -50,6 +50,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Projectile.Kill();
             }
+
+            float MaxDistance = (float)BaseMaxDistance - ((float)BaseMaxDistance * 0.5f * (((float)baron.lifeMax - baron.life) / (float)baron.lifeMax));
+
             Player player = Main.player[baron.target];
             if (player != null && player.active && !player.dead && !player.ghost)
             {
@@ -72,12 +75,21 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 Projectile.Center = Projectile.Center.X * Vector2.UnitX + player.Center.Y * Vector2.UnitY;
 
-                int wallAttackTime = WorldSavingSystem.MasochistModeReal ? 60 : WorldSavingSystem.EternityMode ? 70 : 80;
+                int wallAttackTime = WorldSavingSystem.MasochistModeReal ? 50 : WorldSavingSystem.EternityMode ? 70 : 80;
                 if (State == 1 && Timer % wallAttackTime == 0)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        FireBolts(player);
+                        int side = Math.Sign(player.Center.X - Projectile.Center.X);
+                        if (side == 0)
+                        {
+                            side = 1;
+                        }
+                        if (Timer % (wallAttackTime * 2) == 0 && WorldSavingSystem.MasochistModeReal) //every other, alternate side
+                        {
+                            side = -1;
+                        }
+                        FireBolts(player, side);
                     }
                     
                 }
@@ -98,8 +110,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 Projectile.frameCounter = 0;
             }
-            if (WaterwallDistance < MaxDistance)
-                WaterwallDistance += 10;
+
+            WaterwallDistance += Math.Min(5, Math.Abs((int)MaxDistance - WaterwallDistance)) * Math.Sign((int)MaxDistance - WaterwallDistance);
+
             WaterWalls(Projectile.Center, WaterwallDistance);
             Timer++;
         }
@@ -177,6 +190,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         movement.Normalize();
                         movement *= difference < 17f ? difference : 17f;
                         player.position += movement;
+                        player.AddBuff(BuffID.Bleeding, 120);
 
                         //remove outwards velocity
                         int playerDir = Math.Sign(player.Center.X - location.X);
@@ -197,26 +211,22 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
         }
 
-        private void FireBolts(Player player)
+        private void FireBolts(Player player, int side)
         {
-            int Side = Math.Sign(player.Center.X - Projectile.Center.X);
-            if (Side == 0)
-            {
-                Side = 1;
-            }
+            
             for (int i = -10; i <= 10; i++)
             {
                 const int speed = 7;
                 const float distancePos = 3.2f;
                 const float randomPos = 9;
                 const float maxRot = MathHelper.Pi / 28;
-                float posX = Projectile.Center.X + (Side * (Projectile.width * 0.8f + WaterwallDistance));
+                float posX = Projectile.Center.X + (side * (Projectile.width * 0.8f + WaterwallDistance));
                 float posY = player.Center.Y + (i * Projectile.height * distancePos) + Main.rand.NextFloat(-randomPos, randomPos);
                 Vector2 pos = posX * Vector2.UnitX + posY * Vector2.UnitY;
-                Vector2 vel = (Vector2.UnitX * Side).RotatedBy(Main.rand.NextFloat(-maxRot, maxRot)) * speed;
-                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), pos, vel, ModContent.ProjectileType<BaronWhirlpoolBolt>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 2, -Side);
+                Vector2 vel = (Vector2.UnitX * side).RotatedBy(Main.rand.NextFloat(-maxRot, maxRot)) * speed;
+                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), pos, vel, ModContent.ProjectileType<BaronWhirlpoolBolt>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 2, -side);
             }
-            SoundEngine.PlaySound(SoundID.Item21, Projectile.Center + (Vector2.UnitX * Side * (Projectile.width * 0.8f + WaterwallDistance)));
+            SoundEngine.PlaySound(SoundID.Item21, Projectile.Center + (Vector2.UnitX * side * (Projectile.width * 0.8f + WaterwallDistance)));
         }
     }
 }
