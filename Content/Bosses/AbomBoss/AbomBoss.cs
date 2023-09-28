@@ -44,7 +44,10 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-
+            if (ModContent.TryFind("CalamityMod", "MiracleBlight", out ModBuff miracleBlight))
+            {
+                NPCID.Sets.SpecificDebuffImmunity[Type][miracleBlight.Type] = true;
+            }
             NPC.AddDebuffImmunities(new List<int>
             {
                 BuffID.Confused,
