@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             return base.PreKill(timeLeft);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (timeLeft == 1)
             {

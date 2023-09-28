@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
@@ -43,6 +44,5 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             }
             return false;
         }
-
     }
 }

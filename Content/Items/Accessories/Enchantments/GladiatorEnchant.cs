@@ -42,21 +42,32 @@ Grants knockback immunity when you are facing the attack
         {
             GladiatorEffect(player);
         }
+        public override void Load()
+        {
+            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateGladiatorBanner);
+        }
+        public void ActivateGladiatorBanner(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            orig.Invoke(player, keyDir);
+            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
+            {
+                if (player.whoAmI == Main.myPlayer && modPlayer.GladiatorEnchantActive)
+                {
+                    int GladiatorStandard = ModContent.ProjectileType<GladiatorStandard>();
+                    if (player.ownedProjectileCounts[GladiatorStandard] < 1)
+                    {
+                        Projectile.NewProjectile(player.GetSource_Misc(""), player.Top, Vector2.UnitY * 25, GladiatorStandard, modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 300 : 100, 3f, player.whoAmI);
+                    }
+                }
+            }
 
+        }
         public static void GladiatorEffect(Player player)
         {
             player.DisplayToggle("Gladiator");
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.GladiatorEnchantActive = true;
-            
-            if (player.whoAmI == Main.myPlayer && modPlayer.DoubleTap)
-            {
-                int GladiatorStandard = ModContent.ProjectileType<GladiatorStandard>();
-                if (player.ownedProjectileCounts[GladiatorStandard] < 1)
-                {
-                    Projectile.NewProjectile(player.GetSource_Misc(""), player.Top, Vector2.UnitY * 25, GladiatorStandard, modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 300 : 100, 3f, player.whoAmI);
-                }
-            }
 
             if (modPlayer.GladiatorCD > 0)
             {

@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
 

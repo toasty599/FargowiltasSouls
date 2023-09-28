@@ -178,7 +178,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return Color.White * Projectile.Opacity;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (dustTimer >= 15)
             {

@@ -53,15 +53,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
-        public bool DoubleTap
-        {
-            get
-            {
-                return Main.ReversedUpDownArmorSetBonuses ?
-                    Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[1] > 0 && Player.doubleTapCardinalTimer[1] != 15
-                    : Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[0] > 0 && Player.doubleTapCardinalTimer[0] != 15;
-            }
-        }
 
         public bool IsStillHoldingInSameDirectionAsMovement
             => (Player.velocity.X > 0 && Player.controlRight)
@@ -147,6 +138,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void ResetEffects()
         {
             HasDash = false;
+            MonkDashReady = false;
+            JungleDashReady = false;
 
             AttackSpeed = 1f;
             if (Screenshake > 0)
@@ -225,7 +218,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             GladiatorEnchantActive = false;
             GoldEnchantActive = false;
             GoldShell = false;
-            CactusEnchantActive = false;
+            CactusEnchantItem = null;
             ForbiddenEnchantActive = false;
             NecroEnchantActive = false;
             ObsidianEnchantItem = null;
@@ -1410,7 +1403,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (Player.whoAmI != Main.myPlayer)
                 return;
-            if (CactusEnchantActive)
+            if (CactusEnchantItem != null)
             {
                 CactusEnchant.CactusSelfProc(this);
             }

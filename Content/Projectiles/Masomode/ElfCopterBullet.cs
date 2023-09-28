@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.hostile = true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ElfCopterBulletExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

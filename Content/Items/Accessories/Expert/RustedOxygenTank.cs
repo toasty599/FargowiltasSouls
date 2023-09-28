@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Expert
 {
@@ -65,7 +66,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
             }
             //player.wingTime = player.wingTimeMax;
 
-            if (player.controlJump && player.accFlipper) //simulate flipper jump
+            if (player.controlJump && player.GetJumpState(ExtraJump.Flipper).Available) //simulate flipper jump
             {
                 player.swimTime = 30;
                 player.velocity.Y = (0f - Player.jumpSpeed) * player.gravDir;

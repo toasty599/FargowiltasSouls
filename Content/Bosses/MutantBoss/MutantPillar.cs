@@ -166,7 +166,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.timeLeft = 0;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.LocalPlayer.active && !Main.dedServ)
                 Main.LocalPlayer.FargoSouls().Screenshake = 30;

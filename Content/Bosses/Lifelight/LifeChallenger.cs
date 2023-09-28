@@ -160,16 +160,13 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
+                BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.Suffocation,
                     ModContent.BuffType<LethargicBuff>(),
                     ModContent.BuffType<ClippedWingsBuff>()
-                }
             });
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

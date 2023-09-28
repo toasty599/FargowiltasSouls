@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return base.GetAlpha(lightColor) * (0.5f + 0.5f * Projectile.localAI[0] / maxTime);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

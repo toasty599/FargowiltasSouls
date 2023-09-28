@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             Projectile.velocity = Vector2.Normalize(Projectile.velocity) * speed;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             FargoSoulsUtil.HeartDust(Projectile.Center, Projectile.rotation + MathHelper.PiOver2);
 

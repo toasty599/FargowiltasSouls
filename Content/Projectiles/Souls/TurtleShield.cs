@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27 with { Volume = 1.5f }, Projectile.Center);
         }

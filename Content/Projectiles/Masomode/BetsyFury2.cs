@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int num1 = 3;
             int num2 = 10;

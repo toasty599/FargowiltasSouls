@@ -68,7 +68,7 @@ Enemies take 25% increased damage while inside the inferno ring
                             {
                                 if (player.FindBuffIndex(BuffID.OnFire) == -1)
                                 {
-                                    player.AddBuff(BuffID.OnFire, 2);
+                                    player.AddBuff(BuffID.OnFire, 10);
                                 }
 
                                 int dmgRate = 30;//60;

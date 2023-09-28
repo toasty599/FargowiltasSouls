@@ -20,10 +20,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                ImmuneToAllBuffsThatAreNotWhips = true
-            });
+            NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {

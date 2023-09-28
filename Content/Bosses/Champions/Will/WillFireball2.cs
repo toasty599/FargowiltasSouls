@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.localAI[1] == 0)
             {

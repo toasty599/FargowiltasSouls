@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemAmethyst, Projectile.velocity.X, Projectile.velocity.Y);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.ai[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {

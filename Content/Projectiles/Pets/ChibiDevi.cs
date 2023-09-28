@@ -251,7 +251,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
             if (player.dead || player.ghost)

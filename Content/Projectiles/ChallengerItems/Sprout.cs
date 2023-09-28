@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             target.immune[Projectile.owner] = 30;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Dusts();
         }

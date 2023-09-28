@@ -22,10 +22,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = NPCID.Sets.DebuffImmunitySets[NPCID.QueenSlimeBoss].SpecificallyImmuneTo
-            });
+
+            NPCID.Sets.SpecificDebuffImmunity[Type] = NPCID.Sets.SpecificDebuffImmunity[NPCID.QueenSlimeBoss];
+
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
         }
 

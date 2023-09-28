@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Main.dust[index21].noGravity = true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
             int num1 = 36;

@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             Projectile.position = Projectile.Center;

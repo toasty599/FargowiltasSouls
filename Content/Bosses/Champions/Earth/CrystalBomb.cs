@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             target.AddBuff(BuffID.Frostburn, 180);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
 

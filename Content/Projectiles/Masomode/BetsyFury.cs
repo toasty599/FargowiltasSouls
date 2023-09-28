@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             target.AddBuff(BuffID.Electrified, 300);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int num1 = 3;
             int num2 = 10;

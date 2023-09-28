@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.Systems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-	public class JungleEnchant : BaseEnchant
+    public class JungleEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
@@ -58,6 +59,17 @@ Double tap a direction
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+        public static void JungleDash(Player player, int direction)
+        {
+            float dashSpeed = player.FargoSouls().ChloroEnchantActive ? 12f : 9f;
+            player.velocity.X = dashSpeed * direction;
+            if (player.FargoSouls().IsDashingTimer < 10)
+                player.FargoSouls().IsDashingTimer = 10;
+            player.dashDelay = 60;
+            player.GetModPlayer<DashPlayer>().modDashDelay = player.dashDelay;
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
         }
     }
 }

@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             target.AddBuff(BuffID.OnFire, 300);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.localAI[1] == 0)
             {

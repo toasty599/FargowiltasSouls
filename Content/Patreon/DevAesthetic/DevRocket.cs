@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Content.Patreon.DevAesthetic
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer && Projectile.localAI[1] == 1)
             {

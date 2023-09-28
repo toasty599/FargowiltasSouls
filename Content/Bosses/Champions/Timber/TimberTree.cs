@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (WorldSavingSystem.EternityMode)
                 FargoSoulsUtil.NewNPCEasy(Terraria.Entity.InheritSource(Projectile), Projectile.Top - 20 * Vector2.UnitY, ModContent.NPCType<LesserSquirrel>(), velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-20, -10)));

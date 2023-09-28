@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             target.AddBuff(BuffID.Chilled, 60);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             for (int index1 = 0; index1 < 5; ++index1)

@@ -16,6 +16,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Life
 {
@@ -32,15 +33,12 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Chilled,
+                BuffID.Chilled,
                     BuffID.Suffocation,
                     ModContent.BuffType<LethargicBuff>(),
                     ModContent.BuffType<ClippedWingsBuff>(),
-                }
             });
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)

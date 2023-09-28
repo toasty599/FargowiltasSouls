@@ -19,11 +19,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影珠");
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                ImmuneToAllBuffsThatAreNotWhips = true,
-                ImmuneToWhips = true
-            });
+
+            NPCID.Sets.ImmuneToAllBuffs[Type] = true;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -87,6 +84,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 NPC.netUpdate = true;
                 return;
             }
+            NPC.netAlways = true; //fuck you i'm just putting this here
 
             NPC.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
             NPC.life = NPC.lifeMax;
@@ -125,7 +123,11 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             NPC.dontTakeDamage = host.ai[0] == -1;
 
             if (NPC.localAI[3] == 1)
+            {
                 NPC.dontTakeDamage = true;
+                NPC.netUpdate = true;
+            }
+                
         }
 
         public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)

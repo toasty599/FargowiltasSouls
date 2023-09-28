@@ -16,11 +16,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爬行者");
             Main.npcFrameCount[NPC.type] = 3;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
-            {
-                ImmuneToAllBuffsThatAreNotWhips = true,
-                ImmuneToWhips = true
-            });
+            NPCID.Sets.ImmuneToAllBuffs[Type] = true;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

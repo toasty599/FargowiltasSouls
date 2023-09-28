@@ -252,8 +252,28 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        
 
+        public override void Load()
+        {
+            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateForbiddenStorm);
+            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateVortex);
+        }
+        public void ActivateForbiddenStorm(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            orig.Invoke(player, keyDir);
+            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
+            {
+                if (modPlayer.ForbiddenEnchantActive)
+                {
+                    if (modPlayer.CanSummonForbiddenStorm)
+                    {
+                        modPlayer.CommandForbiddenStorm();
+                        modPlayer.CanSummonForbiddenStorm = false;
+                    }
+                }
+            }
+        }
         public void ForbiddenEffect()
         {
             Player.DisplayToggle("Forbidden");
@@ -265,28 +285,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             //Player.setForbidden = true;
             //add cd
 
-            if (DoubleTap && CanSummonForbiddenStorm)
-            {
-                CommandForbiddenStorm();
-                CanSummonForbiddenStorm = false;
-
-                /*Vector2 mouse = Main.MouseWorld;
-
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<ForbiddenTornado>()] > 0)
-                {
-                    for (int i = 0; i < 1000; i++)
-                    {
-                        Projectile proj = Main.projectile[i];
-
-                        if (proj.type == ModContent.ProjectileType<ForbiddenTornado>())
-                        {
-                            proj.Kill();
-                        }
-                    }
-                }
-
-                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<ForbiddenTornado>(), (WoodForce) ? 45 : 15, 0f, Player.whoAmI);*/
-            }
 
 
             //Player.UpdateForbiddenSetLock();
@@ -571,6 +569,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             HasDash = true;
+            JungleDashReady = true;
+            /*
+            HasDash = true;
 
             if (dashCD <= 0)
             {
@@ -612,6 +613,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Main.dust[d].velocity *= 0.2f;
                 }
             }
+            */
         }
 
         public void JungleEffect()
@@ -631,7 +633,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
             else if (Player.controlJump && Player.GetToggleValue("Jungle"))
             {
-                if (Player.canJumpAgain_Blizzard || Player.canJumpAgain_Sandstorm || Player.canJumpAgain_Cloud || Player.canJumpAgain_Fart || Player.canJumpAgain_Sail || Player.canJumpAgain_Unicorn)
+                if (Player.GetJumpState(ExtraJump.BlizzardInABottle).Available || Player.GetJumpState(ExtraJump.SandstormInABottle).Available || Player.GetJumpState(ExtraJump.CloudInABottle).Available || Player.GetJumpState(ExtraJump.FartInAJar).Available || Player.GetJumpState(ExtraJump.TsunamiInABottle).Available || Player.GetJumpState(ExtraJump.UnicornMount).Available)
                 {
                 }
                 else
@@ -1061,7 +1063,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ShroomiteMeleeEffect(Item item, Rectangle hitbox)
         {
-            if (Player.stealth == 0 && !item.noMelee && (Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.1) || Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.3) || Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.5) || Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.7) || Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.9)))
+            if (!item.noMelee && (Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.1) || Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.3) || Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.5) || Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.7) || Player.itemAnimation == (int)((double)Player.itemAnimationMax * 0.9)))
             {
                 //hellish code from hammush
                 float num340 = 0f;
@@ -1119,7 +1121,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 num341 *= 1.5f;
                 num343 *= (float)Player.direction;
                 num342 *= Player.gravDir;
-                Projectile.NewProjectile(Player.GetSource_ItemUse(item), (float)(hitbox.X + hitbox.Width / 2) + num343, (float)(hitbox.Y + hitbox.Height / 2) + num342, (float)Player.direction * num341, num340 * Player.gravDir, ModContent.ProjectileType<ShroomiteShroom>(), item.damage / 5, 0f, Player.whoAmI, 0f, 0);
+                Projectile.NewProjectile(Player.GetSource_ItemUse(item), (float)(hitbox.X + hitbox.Width / 2) + num343, (float)(hitbox.Y + hitbox.Height / 2) + num342, (float)Player.direction * num341, num340 * Player.gravDir, ModContent.ProjectileType<ShroomiteShroom>(), item.damage / 4, 0f, Player.whoAmI, 0f, 0);
             }
         }
 
@@ -1458,7 +1460,37 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //Main.NewText($"shell HP: {TurtleShellHP}, counter: {TurtleCounter}, recovery: {turtleRecoverCD}");
         }
+        public void ActivateVortex(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            orig.Invoke(player, keyDir);
+            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
+            {
+                if (modPlayer.VortexEnchantActive)
+                {
+                    //stealth memes
+                    if (Player.whoAmI == Main.myPlayer)
+                    {
+                        VortexStealth = !VortexStealth;
 
+                        if (!Player.GetToggleValue("VortexS"))
+                            VortexStealth = false;
+
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                            NetMessage.SendData(MessageID.SyncPlayer, number: Player.whoAmI);
+
+                        if (VortexStealth && Player.GetToggleValue("VortexV") && !Player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
+                        {
+                            int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
+                            Main.projectile[p].FargoSouls().CanSplit = false;
+                            Main.projectile[p].netUpdate = true;
+
+                            Player.AddBuff(ModContent.BuffType<VortexCDBuff>(), 3600);
+                        }
+                    }
+                }
+            }
+        }
         public void VortexEffect(bool hideVisual)
         {
             Player.DisplayToggle("VortexS");
@@ -1466,26 +1498,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //portal spawn
             VortexEnchantActive = true;
-            //stealth memes
-            if (Player.whoAmI == Main.myPlayer && DoubleTap)
-            {
-                VortexStealth = !VortexStealth;
-
-                if (!Player.GetToggleValue("VortexS"))
-                    VortexStealth = false;
-
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    NetMessage.SendData(MessageID.SyncPlayer, number: Player.whoAmI);
-
-                if (VortexStealth && Player.GetToggleValue("VortexV") && !Player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
-                {
-                    int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
-                    Main.projectile[p].FargoSouls().CanSplit = false;
-                    Main.projectile[p].netUpdate = true;
-
-                    Player.AddBuff(ModContent.BuffType<VortexCDBuff>(), 3600);
-                }
-            }
+            
 
             if (Player.mount.Active)
                 VortexStealth = false;
@@ -1518,13 +1531,13 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.DisplayToggle("Monk");
             MonkEnchantActive = true;
 
-            if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuffBuff>()))
+            if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuff>()))
             {
                 monkTimer++;
 
                 if (monkTimer >= 120)
                 {
-                    Player.AddBuff(ModContent.BuffType<MonkBuffBuff>(), 2);
+                    Player.AddBuff(ModContent.BuffType<MonkBuff>(), 2);
                     monkTimer = 0;
 
                     //dust
@@ -1745,10 +1758,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             //bundle
             if (Player.GetToggleValue("SupersonicJumps") && Player.wingTime == 0)
             {
-                Player.hasJumpOption_Cloud = true;
-                Player.hasJumpOption_Sandstorm = true;
-                Player.hasJumpOption_Blizzard = true;
-                Player.hasJumpOption_Fart = true;
+                Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
+                Player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
+                Player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
+                Player.GetJumpState(ExtraJump.FartInAJar).Enable();
             }
 
             //magic carpet
@@ -1868,7 +1881,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //sharkron balloon
             if (Player.GetToggleValue("TrawlerJump") && Player.wingTime == 0)
-                Player.hasJumpOption_Sail = true;
+                Player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
 
             Player.jumpBoost = true;
             Player.noFallDmg = true;

@@ -39,11 +39,8 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
             .AddIngredient(ItemID.ShadowScalemail)
             .AddIngredient(ItemID.ShadowGreaves)
             .AddIngredient(ItemID.Musket)
-            .AddIngredient(ItemID.WarAxeoftheNight)
+            .AddIngredient(ItemID.TheBreaker)
             .AddIngredient(ItemID.ShadowOrb)
-
-            //ball o hurt
-            //demon bow
 
             .AddTile(TileID.DemonAltar)
             .Register();

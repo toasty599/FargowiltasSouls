@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             target.immune[Projectile.owner] = 1;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //for (int i = 0; i < 4; ++i)
             //    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, new Color(), 1.5f);

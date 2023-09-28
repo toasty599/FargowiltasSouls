@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             base.AI();
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             //prevents base dust from forming
         }

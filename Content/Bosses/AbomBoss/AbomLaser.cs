@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             CooldownSlot = 1;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 4; i++)
             {

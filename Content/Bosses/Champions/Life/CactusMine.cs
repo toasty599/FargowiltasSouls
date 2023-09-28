@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             Projectile.rotation += Projectile.velocity.Length() * 0.015f * System.Math.Sign(Projectile.velocity.X);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             FargoSoulsUtil.XWay(16, Terraria.Entity.InheritSource(Projectile), Projectile.Center, ProjectileID.PineNeedleHostile, 5, Projectile.damage, 0);
         }

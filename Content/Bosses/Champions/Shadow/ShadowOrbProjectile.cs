@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 target.AddBuff(BuffID.Blackout, 300);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

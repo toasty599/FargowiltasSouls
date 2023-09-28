@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             Timer++;
             Projectile.frame = 0;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
             var type = DustID.PinkTorch;

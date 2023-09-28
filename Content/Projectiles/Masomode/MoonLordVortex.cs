@@ -291,7 +291,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             target.AddBuff(BuffID.Electrified, 360);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
             int type = 229;

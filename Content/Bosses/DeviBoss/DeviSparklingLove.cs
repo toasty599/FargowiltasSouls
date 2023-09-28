@@ -156,7 +156,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                 Projectile.rotation -= (float)Math.PI / 2;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             MakeDust();
         }

@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             target.AddBuff(ModContent.BuffType<HellFireBuff>(), 300);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             for (int i = 0; i < 10; i++)

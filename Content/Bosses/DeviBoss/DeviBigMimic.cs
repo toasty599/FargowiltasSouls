@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                 Projectile.tileCollide = Projectile.position.Y + Projectile.height >= player.position.Y + player.height - 32;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             Projectile.width = Projectile.height = 200;
             Projectile.Center = Projectile.position;
 
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
     }
 }

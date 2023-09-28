@@ -144,7 +144,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             target.AddBuff(ModContent.BuffType<HellFireBuff>(), 300);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath52 with { Volume = 0.5f, Pitch = 0.2f }, Projectile.Center);
 

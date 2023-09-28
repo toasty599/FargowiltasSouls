@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             target.FargoSouls().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int num249 = 0; num249 < 150; num249++)
             {

@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int proj2 = ModContent.ProjectileType<BlenderSpray>(); //374;
 

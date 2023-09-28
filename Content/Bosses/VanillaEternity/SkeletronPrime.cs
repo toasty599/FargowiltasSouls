@@ -34,6 +34,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool DroppedSummon;
         public bool HasSaidEndure;
 
+        public int limbTimer = 0; //1.4.4 used npc.ai[3] for managing mechdusa whoAmI, so this has to be moved to own variable
+
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -41,6 +43,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             binaryWriter.Write7BitEncodedInt(DungeonGuardianStartup);
             binaryWriter.Write7BitEncodedInt(MemorizedTarget);
+            binaryWriter.Write7BitEncodedInt(limbTimer);
             bitWriter.WriteBit(FullySpawnedLimbs);
             bitWriter.WriteBit(HaveShotGuardians);
         }
@@ -51,6 +54,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             DungeonGuardianStartup = binaryReader.Read7BitEncodedInt();
             MemorizedTarget = binaryReader.Read7BitEncodedInt();
+            limbTimer = binaryReader.Read7BitEncodedInt();
             FullySpawnedLimbs = bitReader.ReadBit();
             HaveShotGuardians = bitReader.ReadBit();
         }
@@ -214,7 +218,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         npc.buffImmune[npc.buffType[0]] = true;
                         npc.DelBuff(0);
                     }
-
+                    if (!Main.dayTime)
+                    {
+                        npc.rotation += MathHelper.Pi / 12;
+                    }
+                    
                     if (!Main.dayTime && !WorldSavingSystem.MasochistModeReal)
                     {
                         npc.position -= npc.velocity * 0.1f;
@@ -232,12 +240,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 //spawn 4 more limbs
                 if (!FullySpawnedLimbs && (npc.life < npc.lifeMax * 0.6 || WorldSavingSystem.MasochistModeReal) && npc.ai[3] >= 0f)
                 {
-                    if (npc.ai[3] == 0)
+                    if (limbTimer == 0)
                     {
                         npc.ai[1] = 0f; //revert to nonspin mode
                         npc.ai[2] = 600f - 90f - 2f; //but only for telegraph and then go back into spin
 
-                        npc.ai[3] = 0f;
+                        limbTimer = 0;
                         npc.netUpdate = true;
 
                         SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center);
@@ -254,8 +262,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeRegrow", new Color(175, 75, 255));
                     }
 
-                    npc.ai[3]++;
-                    if (npc.ai[3] == 60f) //first set of limb management
+                    limbTimer++;
+                    if (limbTimer == 60f) //first set of limb management
                     {
                         int[] limbs = { NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice };
 
@@ -279,10 +287,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.PrimeCannon, npc.whoAmI, 1f, npc.whoAmI, 0f, 150f, npc.target);
                         FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.PrimeVice, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
                     }
-                    else if (npc.ai[3] >= 180f)
+                    else if (limbTimer >= 180)
                     {
                         FullySpawnedLimbs = true;
-                        npc.ai[3] = -1f;
+                        limbTimer = -1;
                         npc.netUpdate = true;
 
                         SoundEngine.PlaySound(SoundID.Roar, npc.Center);

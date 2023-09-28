@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             }*/
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.UnitY * -8, ProjectileID.GeyserTrap, Projectile.damage, 0f, Main.myPlayer);

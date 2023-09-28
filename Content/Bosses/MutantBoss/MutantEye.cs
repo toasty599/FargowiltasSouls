@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.timeLeft = 0;
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             SoundEngine.PlaySound(SoundID.Zombie103, Projectile.Center);
             Projectile.position = Projectile.Center;

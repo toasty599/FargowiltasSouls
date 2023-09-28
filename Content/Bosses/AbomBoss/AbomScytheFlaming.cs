@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Projectile.rotation += rotation * Projectile.localAI[0];
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int dustMax = 20;
             float speed = 12;

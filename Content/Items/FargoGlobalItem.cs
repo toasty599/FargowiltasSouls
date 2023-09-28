@@ -162,12 +162,6 @@ namespace FargowiltasSouls.Content.Items
             if (modPlayer.Berserked)
                 return true;
 
-            if (modPlayer.TribalCharm && item.type != ItemID.RodofDiscord && item.fishingPole == 0)
-                return true;
-
-            if (modPlayer.BoxofGizmos)
-                return true;
-
             return base.CanAutoReuseItem(item, player);
         }
 

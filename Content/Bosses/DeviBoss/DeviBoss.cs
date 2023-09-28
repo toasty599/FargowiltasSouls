@@ -27,6 +27,7 @@ using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Patreon.Phupperbat;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
@@ -79,19 +80,17 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
+
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
+                BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
                     BuffID.Lovestruck,
                     ModContent.BuffType<LethargicBuff>(),
                     ModContent.BuffType<ClippedWingsBuff>()
-                }
             });
         }
 

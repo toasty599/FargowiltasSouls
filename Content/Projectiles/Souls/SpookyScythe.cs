@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.rotation += 0.4f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             for (int num489 = 0; num489 < 5; num489++)

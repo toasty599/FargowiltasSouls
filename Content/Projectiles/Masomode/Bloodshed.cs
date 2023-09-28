@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Lighting.AddLight(Projectile.Center, TorchID.Crimson);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.ai[1] == 1)
                 SoundEngine.PlaySound(SoundID.NPCDeath11, Projectile.Center);

@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             float num2 = (float)(Projectile.rotation + (float)Math.PI / 2 + (Main.rand.NextBool(2) ? -1.0 : 1.0) * (float)Math.PI / 2);
             float num3 = (float)(Main.rand.NextDouble() * 2.0 + 2.0);

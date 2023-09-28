@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             Projectile.extraUpdates = 2;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int num = Main.rand.Next(3, 7);
             for (int index1 = 0; index1 < num; ++index1)

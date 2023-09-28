@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             for (int i = 0; i < 3; i++)
             {

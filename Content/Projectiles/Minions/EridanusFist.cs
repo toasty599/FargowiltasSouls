@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Main.dust[index].velocity = Main.dust[index].velocity - Projectile.velocity * 0.1f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 

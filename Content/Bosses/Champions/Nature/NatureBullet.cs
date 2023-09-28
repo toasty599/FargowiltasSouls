@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                 target.AddBuff(BuffID.Chilled, 180);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
 

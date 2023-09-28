@@ -500,7 +500,6 @@ Mods: {
 			MasoSqueakConfig: 击中发出吱吱声
 			MasoPouchConfig: 更强更慢的暗影焰攻击
 			MasoClippedConfig: 造成折翼减益
-			TribalCharmConfig: 武器自动攻击
 			TribalCharmClickBonusConfig: 部落挂坠点击加成
 			// DubiousHeader: "{$Mods.FargowiltasSouls.Items.DubiousCircuitry.DisplayName}"
 			FusedLensInstallConfig: 双子负载
@@ -1177,8 +1176,8 @@ Mods: {
 			LeadPoison.DisplayName: 铅中毒
 
 			MonkBuff: {
-				DisplayName: 冥想
-				Description: 你的武僧冲刺已就绪
+				// DisplayName: Meditation
+				// Description: Your Monk Dash is ready
 			}
 
 			ObsidianLavaWetBuff: {
@@ -1789,11 +1788,6 @@ Mods: {
 			MoltenAmplifyBuff: {
 				// DisplayName: Molten Amplify
 				// Description: Mods.FargowiltasSouls.BuffDescription.MoltenAmplifyBuff
-			}
-
-			MonkBuffBuff: {
-				// DisplayName: Meditation
-				// Description: Your Monk Dash is ready
 			}
 
 			OriPoisonBuff: {
@@ -5993,7 +5987,6 @@ Mods: {
 		// MasoPouchConfig: "[i:FargowiltasSouls/WretchedPouch][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPouchConfig}]"
 		// MasoClippedConfig: "[i:FargowiltasSouls/WyvernFeather][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoClippedConfig}]"
 		// MasoGrav2Config: "[i:FargowiltasSouls/WyvernFeather][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoGrav2Config}]"
-		// TribalCharmConfig: "[i:FargowiltasSouls/TribalCharm][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TribalCharmConfig}]"
 		// TribalCharmClickBonusConfig: "[i:FargowiltasSouls/TribalCharm][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TribalCharmClickBonusConfig}]"
 		// DubiousHeader: "[i:FargowiltasSouls/DubiousCircuitry][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DubiousHeader}]"
 		// FusedLensInstallConfig: "[i:FargowiltasSouls/FusedLens][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FusedLensInstallConfig}]"

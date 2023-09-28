@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Projectile.netUpdate = true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Main.player[Projectile.owner].FargoSouls().IcicleCount--;
         }

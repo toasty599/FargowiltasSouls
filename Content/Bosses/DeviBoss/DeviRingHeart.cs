@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.LovestruckBuff>(), 240);
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             FargoSoulsUtil.HeartDust(Projectile.Center);
         }

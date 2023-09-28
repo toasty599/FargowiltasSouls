@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //dont do fire explosion on death if it dies from scale thing or isnt full grown
             if (Projectile.scale <= 0 || Projectile.frame != 4)

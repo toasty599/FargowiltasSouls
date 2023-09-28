@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             return new Color(255, 255, 255, 100) * Projectile.Opacity * 0.6f;
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             for (int num468 = 0; num468 < 20; num468++)
             {

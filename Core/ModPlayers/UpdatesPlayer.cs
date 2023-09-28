@@ -364,12 +364,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (PrecisionSealNoDashNoJump)
             {
                 Player.dashType = 0;
-                Player.hasJumpOption_Cloud = false;
-                Player.hasJumpOption_Sandstorm = false;
-                Player.hasJumpOption_Blizzard = false;
-                Player.hasJumpOption_Fart = false;
-                Player.hasJumpOption_Sail = false;
-                Player.hasJumpOption_Unicorn = false;
+                Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
+                Player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
+                Player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
+                Player.GetJumpState(ExtraJump.FartInAJar).Enable();
+                Player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
+                Player.GetJumpState(ExtraJump.UnicornMount).Enable();
                 JungleJumping = false;
                 CanJungleJump = false;
                 dashCD = 2;

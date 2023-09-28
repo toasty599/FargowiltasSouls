@@ -24,6 +24,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Bosses.AbomBoss
 {
@@ -43,11 +44,9 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
+                BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
@@ -56,7 +55,6 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     ModContent.BuffType<MutantNibbleBuff>(),
                     ModContent.BuffType<OceanicMaulBuff>(),
                     ModContent.BuffType<LightningRodBuff>()
-                }
             });
         }
 

@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 target.immune[Projectile.owner] = 0;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.localAI[1] == 0)
             {

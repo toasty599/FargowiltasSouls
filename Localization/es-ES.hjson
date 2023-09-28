@@ -500,7 +500,6 @@ Mods: {
 			// MasoSqueakConfig: Squeaky Toy On Hit
 			// MasoPouchConfig: Stronger Slower Shadowflame Attacks
 			// MasoClippedConfig: Inflict Clipped Wings
-			// TribalCharmConfig: Tribal Charm Auto Swing
 			// TribalCharmClickBonusConfig: Tribal Charm Click Bonus
 			// DubiousHeader: "{$Mods.FargowiltasSouls.Items.DubiousCircuitry.DisplayName}"
 			// FusedLensInstallConfig: Twins Install
@@ -783,7 +782,6 @@ Mods: {
 					Increases spawn rates
 					Reduces skeletons hostility outside of the dungeon
 					Empowers Cute Fishron
-					Grants autofire
 					Grants modifier protection
 					Grants gravity control
 					Grants fast fall
@@ -1177,8 +1175,8 @@ Mods: {
 			// LeadPoison.DisplayName: Mods.FargowiltasSouls.BuffName.LeadPoison
 
 			MonkBuff: {
-				// DisplayName: Mods.FargowiltasSouls.BuffName.MonkBuff
-				// Description: Mods.FargowiltasSouls.BuffDescription.MonkBuff
+				// DisplayName: Meditation
+				// Description: Your Monk Dash is ready
 			}
 
 			ObsidianLavaWetBuff: {
@@ -1789,11 +1787,6 @@ Mods: {
 			MoltenAmplifyBuff: {
 				// DisplayName: Molten Amplify
 				// Description: Mods.FargowiltasSouls.BuffDescription.MoltenAmplifyBuff
-			}
-
-			MonkBuffBuff: {
-				// DisplayName: Meditation
-				// Description: Your Monk Dash is ready
 			}
 
 			OriPoisonBuff: {
@@ -2550,7 +2543,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Sets your critical strike chance to 5%
-					Every crit will increase it by 5% up to double your critical strike chance or 15%
+					Every crit will increase it by 5% up to double your original critical strike chance or 15%
 					Getting hit resets your crit to 5%
 					'Return of the Crit'
 					''' */
@@ -2684,7 +2677,6 @@ Mods: {
 					'''
 					Works in your inventory
 					Stand still to expose nearby treasure and enemies
-					Grants autofire to all items
 					''' */
 			}
 
@@ -2801,7 +2793,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					[i:FargowiltasSouls/CopperEnchant][i:FargowiltasSouls/ObsidianEnchant][i:FargowiltasSouls/LeadEnchant] Attacks spawn lightning, explosions, and inflict Lead Poisoning
-					[i:FargowiltasSouls/TinEnchant] Sets Tin crit chance to 10%, increasing up to double your current crit chance or 50%
+					[i:FargowiltasSouls/TinEnchant] Sets Tin crit chance to 10%, increasing up to double your original crit chance or 50%
 					[i:FargowiltasSouls/IronEnchant] You attract items from further away, 33% chance to not consume items at an Anvil
 					[i:FargowiltasSouls/LeadEnchant] You take 60% less from damage over time
 					[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
@@ -2837,6 +2829,7 @@ Mods: {
 					[i:FargowiltasSouls/GladiatorEnchant] Spears will rain down on struck enemies
 					[i:FargowiltasSouls/RedRidingEnchant] Successive attack gain bonus damage 
 					[i:FargowiltasSouls/ValhallaKnightEnchant] Increases the effectiveness of healing sources by 50%
+					[i:FargowiltasSouls/ValhallaKnightEnchant] Improves mounts and stats while mounted, mounts have a dash
 					'A mind of unbreakable determination'
 					''' */
 			}
@@ -2911,7 +2904,7 @@ Mods: {
 					When attacking by manually clicking, increases non-summon damage by 30%
 					[c/00FFFF:Following effects work passively from inventory or vanity slots:]
 					    Grants immunity to Mighty Wind, Suffocation, Chilled, and Guilty
-					    You have autofire and improved night vision
+					    You have improved night vision
 					    Automatically uses healing & mana potions when needed and increases pickup range for mana stars
 					    You respawn with more life and when no boss is alive, respawn faster
 					    Press the Frigid Spell key to cast Ice Rod
@@ -3060,7 +3053,7 @@ Mods: {
 				// DisplayName: Gelic Wings
 				/* Tooltip:
 					'''
-					Acts as wings
+					Allows flight and slow fall
 					Grants immunity to Flipped caused by the Underground Hallow
 					Allows the wearer to double jump
 					When you land after a jump, slime spikes shoot out to your sides
@@ -3439,7 +3432,6 @@ Mods: {
 					'''
 					When attacking by manually clicking, increases non-summon damage by 30%
 					Grants immunity to Webbed and Purified
-					Grants autofire to all weapons (this effect also works in your inventory)
 					'An idol of the ancient jungle dwellers'
 					''' */
 			}
@@ -3613,7 +3605,7 @@ Mods: {
 					Increases max life by 100%, damage for your current weapon class by 50%, and damage reduction by 10%
 					Increases life regen drastically, your cursor causes nearby enemies to take increased damage
 					Grants gravity control, fastfall, and immunity to knockback, almost all Eternity Mode debuffs, and more
-					Grants autofire to all weapons and you automatically use mana potions when needed
+					Uou automatically use mana potions when needed
 					Your attacks create additional attacks, hearts, and inflict a cocktail of Eternity Mode debuffs
 					Increased stats when inflicted with Cursed Inferno or Ichor
 					Press the Debuff Install key to debuff and buff yourself
@@ -3671,7 +3663,7 @@ Mods: {
 					Attacks may spawn lightning, a storm cloud, flower petals, spectre orbs, a Dungeon Guardian, snowballs, spears, or buff boosters
 					Attacks cause increased life regen, shadow dodge, Flameburst shots, meteor showers, and reduced enemy immune frames
 					Critical chance is set to 25%, Crit to increase it by 5%, At 100% every 10th attack gains 4% life steal
-					Getting hit drops your crit back down, trigger a blood geyser, and reflects damage
+					Getting hit drops your crit back down, triggers a blood geyser, and reflects damage
 					Projectiles may split or shatter and spawn stars, item and projectile size increased, attract items from further away
 					Nearby enemies are ignited, You leave behind a trail of fire, jump to create a spore explosion
 					Grants Crimson regen, immunity to fire, fall damage, and lava, and doubled herb collection
@@ -4047,11 +4039,7 @@ Mods: {
 
 			EternityAdvisor: {
 				// DisplayName: Eternity Advisor
-				/* Tooltip:
-					'''
-					Suggests loadouts for Eternity Mode based on progression
-					[c/ff0000: Note: These suggestions are currently outdated. Take them with a grain of salt.]
-					''' */
+				// Tooltip: Suggests loadouts for Eternity Mode based on progression
 			}
 
 			GalacticReformer: {
@@ -6061,7 +6049,6 @@ Mods: {
 		// MasoPouchConfig: "[i:FargowiltasSouls/WretchedPouch][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPouchConfig}]"
 		// MasoClippedConfig: "[i:FargowiltasSouls/WyvernFeather][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoClippedConfig}]"
 		// MasoGrav2Config: "[i:FargowiltasSouls/WyvernFeather][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoGrav2Config}]"
-		// TribalCharmConfig: "[i:FargowiltasSouls/TribalCharm][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TribalCharmConfig}]"
 		// TribalCharmClickBonusConfig: "[i:FargowiltasSouls/TribalCharm][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TribalCharmClickBonusConfig}]"
 		// DubiousHeader: "[i:FargowiltasSouls/DubiousCircuitry][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DubiousHeader}]"
 		// FusedLensInstallConfig: "[i:FargowiltasSouls/FusedLens][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FusedLensInstallConfig}]"

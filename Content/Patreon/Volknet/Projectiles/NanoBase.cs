@@ -33,6 +33,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             Projectile.damage = 1;
             Projectile.FargoSouls().DeletionImmuneRank = 2;
             Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)

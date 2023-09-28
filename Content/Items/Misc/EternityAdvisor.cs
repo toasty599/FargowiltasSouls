@@ -4,8 +4,10 @@ using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Core.Systems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -44,7 +46,13 @@ namespace FargowiltasSouls.Content.Items.Misc
         {
             string text = "";
             foreach (int itemType in args)
-                text += $"[i:{itemType}]";
+            {
+                if (itemType != -1)
+                {
+                    text += $"[i:{itemType}]";
+                }
+                
+            }
             return text;
         }
 
@@ -55,7 +63,7 @@ namespace FargowiltasSouls.Content.Items.Misc
             for (int i = 0; i < args[0]; i++)
             {
                 int attempt = Main.rand.Next(maxSize) + 1; //skip the first number
-                if (choices.Contains(args[attempt])) //if already chose this acc, try to choose the next in line
+                if (choices.Contains(args[attempt]) || args[attempt] == -1) //if already chose this acc or is -1, try to choose the next in line
                 {
                     for (int j = 0; j < maxSize; j++)
                     {
@@ -73,13 +81,19 @@ namespace FargowiltasSouls.Content.Items.Misc
         private int GetBossHelp(ref string build, Player player)
         {
             int summonType = -1;
+            bool playerMelee = HighestDamageClass(player) == DamageClass.Melee;
+            bool playerRanged = HighestDamageClass(player) == DamageClass.Melee;
+            bool playerMage = HighestDamageClass(player) == DamageClass.Melee;
+            bool playerSummoner = HighestDamageClass(player) == DamageClass.Melee;
 
             if (!WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel])
             {
                 summonType = ModContent.ItemType<SquirrelCoatofArms>();
                 build = GetBuildText(
                     ModContent.ItemType<EurusSock>(),
-                    ModContent.ItemType<PuffInABottle>()
+                    ModContent.ItemType<PuffInABottle>(),
+                    ModContent.ItemType<BorealWoodEnchant>(),
+                    ModContent.ItemType<CactusEnchant>()
                 );
             }
             else if (!NPC.downedSlimeKing)
@@ -90,63 +104,57 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<PuffInABottle>()
                 ) + GetBuildTextRandom(
                     3,
-                    ItemID.ShinyRedBalloon,
-                    ItemID.BandofRegeneration,
-                    ItemID.SharkToothNecklace,
                     ModContent.ItemType<EbonwoodEnchant>(),
-                    ModContent.ItemType<CactusEnchant>(),
-                    ModContent.ItemType<PalmWoodEnchant>(),
-                    ModContent.ItemType<JungleEnchant>()
+                    ModContent.ItemType<BorealWoodEnchant>(),
+                    ModContent.ItemType<CactusEnchant>()
                 );
             }
             else if (!NPC.downedBoss1)
             {
                 summonType = ItemID.SuspiciousLookingEye;
                 build = GetBuildText(
-                    Main.rand.Next(new int[] { ItemID.HermesBoots, ItemID.SailfishBoots, ItemID.FlurryBoots }),
-                    Main.rand.Next(new int[] { ItemID.CloudinaBottle, ItemID.TsunamiInABottle, ItemID.SandstorminaBottle, ItemID.BlizzardinaBottle })
+                    Main.rand.Next(new int[] { ItemID.HermesBoots, ItemID.SailfishBoots, ItemID.FlurryBoots, ItemID.RocketBoots, ItemID.SpectreBoots }),
+                    Main.rand.Next(new int[] { ItemID.CloudinaBalloon, ItemID.SharkronBalloon, ItemID.SandstorminaBalloon, ItemID.BlizzardinaBalloon })
                 ) + GetBuildTextRandom(
                     3,
                     ItemID.CharmofMyths,
-                    ItemID.CrossNecklace,
-                    ItemID.SharkToothNecklace,
-                    ModContent.ItemType<SlimyShield>(),
+                    ModContent.ItemType<NinjaEnchant>(),
+                    ModContent.ItemType<LeadEnchant>(),
                     ModContent.ItemType<BorealWoodEnchant>(),
-                    ModContent.ItemType<PalmWoodEnchant>(),
+                    ModContent.ItemType<ShadewoodEnchant>(),
                     ModContent.ItemType<CactusEnchant>(),
-                    ModContent.ItemType<JungleEnchant>()
+                    ModContent.ItemType<TungstenEnchant>()
                 );
             }
             else if (!NPC.downedBoss2)
             {
                 summonType = WorldGen.crimson ? ItemID.BloodySpine : ItemID.WormFood;
                 build = GetBuildText(
-                    Main.rand.NextBool() ? ItemID.EoCShield : ModContent.ItemType<JungleEnchant>(),
-                    ItemID.SpectreBoots,
-                    Main.rand.Next(new int[] { ItemID.BalloonHorseshoeFart, ItemID.BalloonHorseshoeSharkron, ItemID.WhiteHorseshoeBalloon })
+                    Main.rand.Next(new int[] { ItemID.SpectreBoots, ItemID.LightningBoots, ItemID.FrostsparkBoots }),
+                    Main.rand.Next(new int[] { ItemID.BalloonHorseshoeFart, ItemID.BalloonHorseshoeSharkron, ItemID.WhiteHorseshoeBalloon }),
+                    Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<MeteorEnchant>() })
                 ) + GetBuildTextRandom(
                     2,
-                    ItemID.CharmofMyths,
-                    ModContent.ItemType<AgitatingLens>(),
                     ModContent.ItemType<LeadEnchant>(),
-                    ModContent.ItemType<ShadewoodEnchant>(),
                     ModContent.ItemType<EbonwoodEnchant>(),
-                    ModContent.ItemType<TungstenEnchant>()
+                    ModContent.ItemType<CactusEnchant>(),
+                    ModContent.ItemType<TungstenEnchant>(),
+                    ModContent.ItemType<CopperEnchant>()
                 );
             }
             else if (!NPC.downedQueenBee)
             {
                 summonType = ItemID.Abeemination;
                 build = GetBuildText(
-                    ItemID.EoCShield,
-                    ItemID.SpectreBoots,
+                    Main.rand.NextBool() ? ItemID.FrostsparkBoots : ItemID.LightningBoots,
+                    Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<MeteorEnchant>() }),
                     ItemID.Bezoar,
                     Main.rand.Next(new int[] { ItemID.BalloonHorseshoeFart, ItemID.BalloonHorseshoeSharkron, ItemID.WhiteHorseshoeBalloon }),
                     Main.rand.Next(new int[] {
-                                ItemID.WormScarf,
-                                ModContent.ItemType<GuttedHeart>(),
-                                ModContent.ItemType<DarkenedHeart>(),
-                                ModContent.ItemType<TungstenEnchant>()
+                                ModContent.ItemType<RainEnchant>(),
+                                ModContent.ItemType<TungstenEnchant>(),
+                                ModContent.ItemType<ShadowEnchant>(),
+                                ModContent.ItemType<ShadewoodEnchant>()
                     })
                 );
                 build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "CityBuster").Type}]";
@@ -155,66 +163,48 @@ namespace FargowiltasSouls.Content.Items.Misc
             {
                 summonType = ModContent.TryFind("Fargowiltas", "SuspiciousSkull", out ModItem modItem) ? modItem.Type : ItemID.SkeletronMask;
                 build = GetBuildText(
-                    ItemID.EoCShield,
-                    ItemID.LightningBoots,
-                    ItemID.BalloonHorseshoeFart
-                ) + GetBuildTextRandom(
-                    2,
-                    ItemID.CharmofMyths,
-                    Main.rand.NextBool() ? ModContent.ItemType<GuttedHeart>() : ModContent.ItemType<DarkenedHeart>(),
-                    ModContent.ItemType<QueenStinger>(),
-                    ModContent.ItemType<ShadowEnchant>(),
-                    ModContent.ItemType<IronEnchant>(),
-                    ModContent.ItemType<TungstenEnchant>()
+                    Main.rand.Next(new int[] { ItemID.FrostsparkBoots, ItemID.TerrasparkBoots }),
+                    Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<QueenStinger>(), ModContent.ItemType<MeteorEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.BundleofBalloons, ItemID.HorseshoeBundle, ModContent.ItemType<BeeEnchant>() }),
+                    Main.rand.Next(new int[] { ModContent.ItemType<SkullCharm>(), ModContent.ItemType<ShadowEnchant>() }),
+                    Main.rand.Next(new int[] { ModContent.ItemType<TinEnchant>(), ModContent.ItemType<NinjaEnchant>(), ModContent.ItemType<TungstenEnchant>() })
                 );
             }
             else if (!NPC.downedDeerclops)
             {
                 summonType = ModContent.TryFind("Fargowiltas", "DeerThing2", out ModItem modItem) ? modItem.Type : ItemID.DeerThing;
                 build = GetBuildText(
-                    ModContent.ItemType<JungleEnchant>(),
-                    ItemID.LightningBoots,
-                    ItemID.BalloonHorseshoeFart
-                ) + GetBuildTextRandom(
-                    2,
-                    ItemID.HandWarmer,
-                    ItemID.CharmofMyths,
-                    ItemID.CrossNecklace,
-                    ModContent.ItemType<DarkenedHeart>()
-                );
+                    Main.rand.Next(new int[] { ItemID.FrostsparkBoots, ItemID.TerrasparkBoots,  }),
+                    Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<QueenStinger>(), ModContent.ItemType<MeteorEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.BundleofBalloons, ItemID.HorseshoeBundle, ModContent.ItemType<BeeEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.HandWarmer, ModContent.ItemType<ShadowEnchant>() }),
+                    Main.rand.Next(new int[] { ModContent.ItemType<TinEnchant>(), ModContent.ItemType<NinjaEnchant>(), ModContent.ItemType<TungstenEnchant>() })
+                    );
             }
             else if (!WorldSavingSystem.DownedDevi)
             {
                 summonType = ModContent.ItemType<DevisCurse>();
                 build = GetBuildText(
-                    ItemID.EoCShield,
-                    ItemID.LightningBoots,
-                    ItemID.BalloonHorseshoeFart,
-                    ModContent.ItemType<NymphsPerfume>()
-                ) + GetBuildTextRandom(
-                    1,
-                    ItemID.CharmofMyths,
-                    ModContent.ItemType<DarkenedHeart>(),
-                    ModContent.ItemType<QueenStinger>(),
-                    ModContent.ItemType<IronEnchant>(),
-                    ModContent.ItemType<TungstenEnchant>()
-                );
+                    Main.rand.Next(new int[] { ItemID.FrostsparkBoots, ItemID.TerrasparkBoots, }),
+                    Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<QueenStinger>(), ModContent.ItemType<MeteorEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.BundleofBalloons, ItemID.HorseshoeBundle, ModContent.ItemType<BeeEnchant>() }),
+                    Main.rand.Next(new int[] { ModContent.ItemType<NymphsPerfume>(), ModContent.ItemType<ShadowEnchant>() }),
+                    Main.rand.Next(new int[] { ModContent.ItemType<TinEnchant>(), ModContent.ItemType<NinjaEnchant>(), ModContent.ItemType<TungstenEnchant>() })
+                    );
             }
             else if (!Main.hardMode)
             {
                 summonType = ModContent.TryFind("Fargowiltas", "FleshyDoll", out ModItem modItem) ? modItem.Type : ItemID.GuideVoodooDoll;
                 build = GetBuildText(
-                    ItemID.EoCShield,
                     ModContent.ItemType<ZephyrBoots>(),
-                    ModContent.ItemType<SupremeDeathbringerFairy>()
+                    Main.rand.Next(new int[] { ModContent.ItemType<SupremeDeathbringerFairy>(), ModContent.ItemType<SparklingAdoration>() })
                 ) + GetBuildTextRandom(
-                    2,
-                    ItemID.CharmofMyths,
-                    ItemID.CrossNecklace,
-                    ModContent.ItemType<SparklingAdoration>(),
-                    ModContent.ItemType<DarkenedHeart>(),
-                    ModContent.ItemType<GuttedHeart>(),
-                    ModContent.ItemType<MoltenEnchant>()
+                    3,
+                    ModContent.ItemType<TinEnchant>(),
+                    playerMelee ? ModContent.ItemType<TungstenEnchant>() : -1,
+                    ModContent.ItemType<SkullCharm>(),
+                    ModContent.ItemType<CopperEnchant>(),
+                    ModContent.ItemType<NinjaEnchant>()
                 );
                 build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "DoubleObsidianInstabridge").Type}]";
             }
@@ -222,93 +212,128 @@ namespace FargowiltasSouls.Content.Items.Misc
             {
                 summonType = ModContent.TryFind("Fargowiltas", "JellyCrystal", out ModItem modItem) ? modItem.Type : ItemID.QueenSlimeCrystal;
                 build = GetBuildText(
-                    ItemID.EoCShield,
-                    ModContent.ItemType<ZephyrBoots>(),
-                    ItemID.FrozenWings
-                ) + GetBuildTextRandom(
+                    Main.rand.Next(new int[] { ModContent.ItemType<ZephyrBoots>(), ModContent.ItemType<MeteorEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.FrozenWings, ItemID.AngelWings, ModContent.ItemType<BeeEnchant>() }),
+                    Main.rand.Next(new int[] { ModContent.ItemType<SupremeDeathbringerFairy>(), ModContent.ItemType<SparklingAdoration>() })
+                    ) + GetBuildTextRandom(
                     3,
-                    Main.rand.NextBool() ? ItemID.AnkhShield : ModContent.ItemType<DreadShell>(),
-                    ModContent.ItemType<SparklingAdoration>(),
-                    ModContent.ItemType<SupremeDeathbringerFairy>(),
-                    ModContent.ItemType<TitaniumEnchant>(),
-                    ModContent.ItemType<MoltenEnchant>(),
+                    ModContent.ItemType<MythrilEnchant>(),
+                    ModContent.ItemType<OrichalcumEnchant>(),
+                    ModContent.ItemType<AdamantiteEnchant>(),
+                    playerMelee ? ModContent.ItemType<TungstenEnchant>() : -1,
+                    ModContent.ItemType<PalladiumEnchant>(),
                     Main.rand.Next(new int[] { ItemID.WarriorEmblem, ItemID.RangerEmblem, ItemID.SorcererEmblem, ItemID.SummonerEmblem })
-                );
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+            }
+            else if (!WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.BanishedBaron])
+            {
+                summonType = ModContent.ItemType<MechLure>();
+                build = GetBuildText(
+                    ModContent.ItemType<ZephyrBoots>(),
+                    Main.rand.Next(new int[] { ItemID.FrozenWings, ItemID.AngelWings, ModContent.ItemType<GelicWings>(), ModContent.ItemType<BeeEnchant>() }),
+                    Main.rand.Next(new int[] { ModContent.ItemType<CrystalAssassinEnchant>(), ModContent.ItemType<MeteorEnchant>() })
+                    ) + GetBuildTextRandom(
+                    3,
+                    ModContent.ItemType<SupremeDeathbringerFairy>(),
+                    ModContent.ItemType<SparklingAdoration>(),
+                    ModContent.ItemType<OrichalcumEnchant>(),
+                    HighestDamageClass(player) == DamageClass.Melee ? ModContent.ItemType<TungstenEnchant>() : -1,
+                    ModContent.ItemType<MythrilEnchant>(),
+                    ModContent.ItemType<PalladiumEnchant>(),
+                    ModContent.ItemType<PearlwoodEnchant>(),
+                    ModContent.ItemType<FrostEnchant>(),
+                    Main.rand.Next(new int[] { ItemID.WarriorEmblem, ItemID.RangerEmblem, ItemID.SorcererEmblem, ItemID.SummonerEmblem })
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
             }
             else if (!NPC.downedMechBoss1)
             {
                 summonType = ItemID.MechanicalWorm;
                 build = GetBuildText(
-                    ModContent.ItemType<ZephyrBoots>(),
-                    Main.rand.Next(new int[] { ItemID.LeafWings, ItemID.FrozenWings, ModContent.ItemType<GelicWings>() })
+                    Main.rand.Next(new int[] { ModContent.ItemType<ZephyrBoots>(), ModContent.ItemType<MeteorEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.FrozenWings, ModContent.ItemType<GelicWings>() })
                 ) + GetBuildTextRandom(
                     4,
-                    ItemID.EoCShield,
-                    ItemID.CharmofMyths,
                     ModContent.ItemType<SupremeDeathbringerFairy>(),
-                    ModContent.ItemType<FrostEnchant>(),
+                    ModContent.ItemType<OrichalcumEnchant>(),
+                    playerMelee ? ModContent.ItemType<TungstenEnchant>() : -1,
+                    ModContent.ItemType<MythrilEnchant>(),
                     ModContent.ItemType<PalladiumEnchant>(),
-                    ModContent.ItemType<DreadShell>(),
+                    ModContent.ItemType<PearlwoodEnchant>(),
+                    ModContent.ItemType<FrostEnchant>(),
                     Main.rand.Next(new int[] { ItemID.WarriorEmblem, ItemID.RangerEmblem, ItemID.SorcererEmblem, ItemID.SummonerEmblem })
-                );
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
             }
             else if (!NPC.downedMechBoss2)
             {
                 summonType = ItemID.MechanicalEye;
                 build = GetBuildText(
-                    ModContent.ItemType<ZephyrBoots>(),
-                    Main.rand.Next(new int[] { ItemID.LeafWings, ItemID.FrozenWings, ModContent.ItemType<GelicWings>() })
+                    Main.rand.Next(new int[] { ModContent.ItemType<ZephyrBoots>(), ModContent.ItemType<MeteorEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.FlameWings, ItemID.FrozenWings, ModContent.ItemType<GelicWings>() })
                 ) + GetBuildTextRandom(
                     4,
-                    ItemID.EoCShield,
-                    ItemID.CharmofMyths,
-                    ItemID.FrogLeg,
-                    ModContent.ItemType<DreadShell>(),
-                    ModContent.ItemType<BionomicCluster>(),
                     ModContent.ItemType<SupremeDeathbringerFairy>(),
-                    ModContent.ItemType<CobaltEnchant>(),
+                    ModContent.ItemType<OrichalcumEnchant>(),
+                    ModContent.ItemType<TungstenEnchant>(),
+                    playerSummoner ? ModContent.ItemType<AncientHallowEnchant>() : ModContent.ItemType<MythrilEnchant>(),
                     ModContent.ItemType<PalladiumEnchant>(),
+                    ModContent.ItemType<PearlwoodEnchant>(),
+                    ModContent.ItemType<FrostEnchant>(),
                     Main.rand.Next(new int[] { ItemID.WarriorEmblem, ItemID.RangerEmblem, ItemID.SorcererEmblem, ItemID.SummonerEmblem })
-                );
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
             }
             else if (!NPC.downedMechBoss3)
             {
                 summonType = ItemID.MechanicalSkull;
                 build = GetBuildText(
-                    ModContent.ItemType<ZephyrBoots>(),
-                    Main.rand.Next(new int[] { ItemID.LeafWings, ItemID.FrozenWings, ModContent.ItemType<GelicWings>() })
+                    Main.rand.Next(new int[] { ModContent.ItemType<ZephyrBoots>(), ModContent.ItemType<MeteorEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.FlameWings, ItemID.FrozenWings, ModContent.ItemType<GelicWings>() })
                 ) + GetBuildTextRandom(
                     4,
-                    ItemID.EoCShield,
-                    ItemID.CharmofMyths,
-                    ItemID.FrogLeg,
-                    ModContent.ItemType<DreadShell>(),
-                    ModContent.ItemType<GuttedHeart>(),
                     ModContent.ItemType<SupremeDeathbringerFairy>(),
-                    ModContent.ItemType<CobaltEnchant>(),
+                    ModContent.ItemType<OrichalcumEnchant>(),
+                    ModContent.ItemType<TungstenEnchant>(),
+                    playerSummoner ? ModContent.ItemType<AncientHallowEnchant>() : ModContent.ItemType<MythrilEnchant>(),
                     ModContent.ItemType<PalladiumEnchant>(),
-                    ModContent.ItemType<MythrilEnchant>(),
+                    ModContent.ItemType<PearlwoodEnchant>(),
+                    ModContent.ItemType<FrostEnchant>(),
                     Main.rand.Next(new int[] { ItemID.WarriorEmblem, ItemID.RangerEmblem, ItemID.SorcererEmblem, ItemID.SummonerEmblem })
-                );
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+            }
+            else if (!WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.Lifelight])
+            {
+                summonType = ModContent.ItemType<FragilePixieLamp>();
+                build = GetBuildText(
+                    Main.rand.Next(new int[] { ModContent.ItemType<AeolusBoots>(), ModContent.ItemType<MeteorEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.FlameWings, ItemID.FrozenWings, ItemID.BeeWings, ModContent.ItemType<GelicWings>() })
+                ) + GetBuildTextRandom(
+                    4,
+                    ModContent.ItemType<ChlorophyteEnchant>(),
+                    ModContent.ItemType<SquireEnchant>(),
+                    ModContent.ItemType<SupremeDeathbringerFairy>(),
+                    ModContent.ItemType<OrichalcumEnchant>(),
+                    ModContent.ItemType<HallowEnchant>(),
+                    playerSummoner ? ModContent.ItemType<AncientHallowEnchant>() : ModContent.ItemType<MythrilEnchant>(),
+                    ModContent.ItemType<DubiousCircuitry>(),
+                    Main.rand.Next(new int[] { ItemID.WarriorEmblem, ItemID.RangerEmblem, ItemID.SorcererEmblem, ItemID.SummonerEmblem })
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
             }
             else if (!NPC.downedPlantBoss)
             {
                 summonType = ModContent.TryFind("Fargowiltas", "PlanterasFruit", out ModItem modItem) ? modItem.Type : ItemID.PlanteraMask;
                 build = GetBuildText(
-                    ModContent.ItemType<AeolusBoots>(),
-                    Main.rand.Next(new int[] { ItemID.FlameWings, ModContent.ItemType<GelicWings>() })
+                    Main.rand.Next(new int[] { ModContent.ItemType<AeolusBoots>(), ModContent.ItemType<MeteorEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.FlameWings, ItemID.FrozenWings, ItemID.BeeWings, ModContent.ItemType<GelicWings>() })
                 ) + GetBuildTextRandom(
-                    4,
-                    Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<MonkEnchant>(), ModContent.ItemType<ChlorophyteEnchant>() }),
-                    Main.rand.Next(new int[] { ItemID.AnkhShield, ModContent.ItemType<SupremeDeathbringerFairy>(), ModContent.ItemType<DubiousCircuitry>() }),
-                    ItemID.CharmofMyths,
-                    ItemID.CrossNecklace,
-                    ModContent.ItemType<SparklingAdoration>(),
-                    ModContent.ItemType<PureHeart>(),
-                    ModContent.ItemType<MythrilEnchant>(),
+                    3,
+                    ModContent.ItemType<ForbiddenEnchant>(),
+                    ModContent.ItemType<ChlorophyteEnchant>(),
+                    ModContent.ItemType<DubiousCircuitry>(),
+                    ModContent.ItemType<AncientShadowEnchant>(),
+                    ModContent.ItemType<OrichalcumEnchant>(),
+                    ModContent.ItemType<ApprenticeEnchant>(),
                     ModContent.ItemType<HallowEnchant>(),
-                    ItemID.AvengerEmblem
-                );
+                    ModContent.ItemType<TitaniumEnchant>()
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
                 build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "CityBuster").Type}]";
             }
             else if (!NPC.downedGolemBoss)
@@ -316,18 +341,19 @@ namespace FargowiltasSouls.Content.Items.Misc
                 summonType = ItemID.LihzahrdPowerCell;
                 build = GetBuildText(
                     ModContent.ItemType<AeolusBoots>(),
-                    ModContent.ItemType<DubiousCircuitry>(),
-                    Main.rand.Next(new int[] { ItemID.SpookyWings, ItemID.FestiveWings, ItemID.Hoverboard })
+                    Main.rand.Next(new int[] { ItemID.SpookyWings })
                 ) + GetBuildTextRandom(
                     3,
-                    Main.rand.Next(new int[] { ItemID.Tabi, ModContent.ItemType<MonkEnchant>(), ModContent.ItemType<ChlorophyteEnchant>() }),
-                    ItemID.CharmofMyths,
-                    ItemID.WormScarf,
-                    ItemID.AvengerEmblem,
-                    ModContent.ItemType<PureHeart>(),
+                    Main.rand.Next(new int[] { ItemID.MasterNinjaGear, ModContent.ItemType<MonkEnchant>(), ModContent.ItemType<ChlorophyteEnchant>(), ModContent.ItemType<MeteorEnchant>() }),
+                    playerSummoner ? ModContent.ItemType<SpookyEnchant>() : -1,
+                    playerSummoner ? ModContent.ItemType<TikiEnchant>() : -1,
+                    ModContent.ItemType<DubiousCircuitry>(),
+                    ModContent.ItemType<CrimsonEnchant>(),
                     ModContent.ItemType<HallowEnchant>(),
+                    ModContent.ItemType<AncientHallowEnchant>(),
+                    ModContent.ItemType<ForbiddenEnchant>(),
                     ModContent.ItemType<LumpOfFlesh>()
-                );
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
                 build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "LihzahrdInstactuationBomb").Type}]";
             }
             else if (!WorldSavingSystem.DownedBetsy)
@@ -335,70 +361,72 @@ namespace FargowiltasSouls.Content.Items.Misc
                 summonType = ModContent.TryFind("Fargowiltas", "BetsyEgg", out ModItem modItem) ? modItem.Type : ItemID.BossMaskBetsy;
                 build = GetBuildText(
                     ModContent.ItemType<AeolusBoots>(),
-                    ModContent.ItemType<LihzahrdTreasureBox>(),
-                    Main.rand.NextBool() ? ItemID.SteampunkWings : ItemID.BeetleWings
+                    ItemID.BeetleWings,
+                    ModContent.ItemType<LihzahrdTreasureBox>()
                 ) + GetBuildTextRandom(
                     3,
-                    Main.rand.Next(new int[] { ItemID.Tabi, ModContent.ItemType<ShinobiEnchant>(), ModContent.ItemType<ChlorophyteEnchant>() }),
-                    ModContent.ItemType<PureHeart>(),
-                    ModContent.ItemType<BeetleEnchant>(),
-                    ModContent.ItemType<SpectreEnchant>(),
-                    ModContent.ItemType<SaucerControlConsole>(),
-                    ModContent.ItemType<LumpOfFlesh>()
-                );
+                    Main.rand.Next(new int[] { ItemID.MasterNinjaGear, ModContent.ItemType<MonkEnchant>(), ModContent.ItemType<ChlorophyteEnchant>(), ModContent.ItemType<MeteorEnchant>() }),
+                    playerSummoner ? ModContent.ItemType<SpookyEnchant>() : ModContent.ItemType<DubiousCircuitry>(),
+                    playerSummoner ? ModContent.ItemType<TikiEnchant>() : ModContent.ItemType<BeetleEnchant>(),
+                    ModContent.ItemType<LumpOfFlesh>(),
+                    ModContent.ItemType<CrimsonEnchant>(),
+                    ModContent.ItemType<HallowEnchant>()
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
             }
             else if (!NPC.downedFishron)
             {
                 summonType = ModContent.TryFind("Fargowiltas", "TruffleWorm2", out ModItem modItem) ? modItem.Type : ItemID.TruffleWorm;
                 build = GetBuildText(
-                    ModContent.ItemType<AeolusBoots>(),
-                    Main.rand.NextBool() ? ModContent.ItemType<DubiousCircuitry>() : ModContent.ItemType<LumpOfFlesh>(),
-                    Main.rand.Next(new int[] { ItemID.SteampunkWings, ItemID.BetsyWings, ItemID.Hoverboard })
+                    Main.rand.NextBool() ? ModContent.ItemType<AeolusBoots>() : ModContent.ItemType<ValhallaKnightEnchant>(),
+                    ItemID.BetsyWings,
+                    Main.rand.Next(new int[] { ModContent.ItemType<SupremeDeathbringerFairy>(), ModContent.ItemType<LihzahrdTreasureBox>(), ModContent.ItemType<BetsysHeart>(), ModContent.ItemType<MeteorEnchant>() })
                 ) + GetBuildTextRandom(
-                    3,
-                    Main.rand.Next(new int[] { ItemID.Tabi, ModContent.ItemType<ShinobiEnchant>(), ModContent.ItemType<ChlorophyteEnchant>() }),
-                    ItemID.DestroyerEmblem,
-                    ModContent.ItemType<PureHeart>(),
-                    ModContent.ItemType<LihzahrdTreasureBox>(),
-                    ModContent.ItemType<BetsysHeart>(),
+                    2,
+                    playerSummoner ? ModContent.ItemType<SpookyEnchant>() : ModContent.ItemType<ForbiddenEnchant>(),
+                    playerSummoner ? ModContent.ItemType<TikiEnchant>() : -1,
+                    ModContent.ItemType<DarkArtistEnchant>(),
+                    ModContent.ItemType<LumpOfFlesh>(),
+                    ModContent.ItemType<PumpkingsCape>(),
                     ModContent.ItemType<BeetleEnchant>()
-                );
+                ) 
+                + GetBuildText(ModContent.ItemType<WizardEnchant>())
+                + GetBuildText(ModContent.ItemType<RabiesVaccine>())
+                + GetBuildText(ModContent.ItemType<BionomicCluster>());
             }
             else if (!NPC.downedEmpressOfLight)
             {
                 summonType = ModContent.TryFind("Fargowiltas", "PrismaticPrimrose", out ModItem modItem) ? modItem.Type : ItemID.EmpressButterfly;
                 build = GetBuildText(
-                    ModContent.ItemType<AeolusBoots>(),
-                    Main.rand.Next(new int[] { ItemID.BetsyWings, ItemID.FishronWings })
+                    Main.rand.NextBool() ? ModContent.ItemType<AeolusBoots>() : ModContent.ItemType<ValhallaKnightEnchant>(),
+                    Main.rand.Next(new int[] { ItemID.BetsyWings, ItemID.FishronWings }),
+                    Main.rand.Next(new int[] { ModContent.ItemType<SupremeDeathbringerFairy>(), ModContent.ItemType<LihzahrdTreasureBox>(), ModContent.ItemType<BetsysHeart>(), ModContent.ItemType<MeteorEnchant>() })
                 ) + GetBuildTextRandom(
                     4,
-                    Main.rand.Next(new int[] { ItemID.Tabi, ModContent.ItemType<ShinobiEnchant>(), ModContent.ItemType<ChlorophyteEnchant>() }),
-                    Main.rand.Next(new int[] { ItemID.AnkhShield, ModContent.ItemType<DubiousCircuitry>(), ModContent.ItemType<LumpOfFlesh>() }),
-                    ItemID.CharmofMyths,
-                    ModContent.ItemType<BionomicCluster>(),
-                    ModContent.ItemType<PureHeart>(),
-                    ModContent.ItemType<MutantAntibodies>(),
-                    ModContent.ItemType<BetsysHeart>(),
-                    ModContent.ItemType<SparklingAdoration>()
-                );
+                    playerSummoner ? ModContent.ItemType<SpookyEnchant>() : ModContent.ItemType<ForbiddenEnchant>(),
+                    playerSummoner ? ModContent.ItemType<TikiEnchant>() : -1,
+                    ModContent.ItemType<DubiousCircuitry>(),
+                    ModContent.ItemType<DarkArtistEnchant>(),
+                    ModContent.ItemType<BeetleEnchant>(),
+                    ModContent.ItemType<SpectreEnchant>(),
+                    ModContent.ItemType<RainEnchant>()
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
             }
             else if (!NPC.downedAncientCultist)
             {
                 summonType = ModContent.TryFind("Fargowiltas", "CultistSummon", out ModItem modItem) ? modItem.Type : ItemID.BossMaskCultist;
                 build = GetBuildText(
-                    ModContent.ItemType<AeolusBoots>(),
-                    Main.rand.NextBool() ? ItemID.BetsyWings : ItemID.FishronWings
+                    Main.rand.NextBool() ? ModContent.ItemType<AeolusBoots>() : ModContent.ItemType<ValhallaKnightEnchant>(),
+                    Main.rand.NextBool() ? ItemID.BetsyWings : ItemID.FishronWings,
+                    ItemID.EmpressFlightBooster,
+                    Main.rand.Next(new int[] { ModContent.ItemType<SupremeDeathbringerFairy>(), ModContent.ItemType<LihzahrdTreasureBox>(), ModContent.ItemType<BetsysHeart>(), ModContent.ItemType<MeteorEnchant>() })
                 ) + GetBuildTextRandom(
-                    4,
-                    Main.rand.Next(new int[] { ItemID.Tabi, ModContent.ItemType<ShinobiEnchant>(), ModContent.ItemType<ChlorophyteEnchant>() }),
-                    ItemID.CharmofMyths,
-                    ItemID.DestroyerEmblem,
-                    ModContent.ItemType<PureHeart>(),
+                    3,
                     ModContent.ItemType<DubiousCircuitry>(),
-                    ModContent.ItemType<MutantAntibodies>(),
-                    ModContent.ItemType<LihzahrdTreasureBox>(),
-                    ModContent.ItemType<BetsysHeart>()
-                );
+                    ModContent.ItemType<DarkArtistEnchant>(),
+                    ModContent.ItemType<LumpOfFlesh>(),
+                    ModContent.ItemType<BeetleEnchant>(),
+                    ModContent.ItemType<SpectreEnchant>()
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
             }
             else if (!NPC.downedMoonlord)
             {
@@ -408,60 +436,55 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<GaiaPlate>(),
                     ModContent.ItemType<GaiaGreaves>()
                 ) + " " + GetBuildText(
-                    ModContent.ItemType<AeolusBoots>(),
-                    ModContent.ItemType<ChaliceoftheMoon>(),
-                    Main.rand.Next(new int[] { ItemID.BetsyWings, ItemID.FishronWings, ItemID.RainbowWings })
+
+                    Main.rand.NextBool() ? ItemID.BetsyWings : ItemID.FishronWings,
+                    ItemID.EmpressFlightBooster,
+                    ModContent.ItemType<ChaliceoftheMoon>()
                 ) + GetBuildTextRandom(
-                    4,
-                    Main.rand.Next(new int[] { ItemID.Tabi, ModContent.ItemType<ShinobiEnchant>(), ModContent.ItemType<ChlorophyteEnchant>() }),
-                    Main.rand.NextBool() ? ItemID.AnkhShield : ModContent.ItemType<DubiousCircuitry>(),
+                    3,
+                    Main.rand.NextBool() ? ModContent.ItemType<AeolusBoots>() : ModContent.ItemType<ValhallaKnightEnchant>(),
+                    playerMelee ? ModContent.ItemType<TungstenEnchant>() : -1,
+                    ModContent.ItemType<DubiousCircuitry>(),
                     ModContent.ItemType<PrecisionSeal>(),
                     ModContent.ItemType<MutantAntibodies>(),
-                    ModContent.ItemType<BetsysHeart>(),
-                    ModContent.ItemType<SparklingAdoration>()
-                );
+                    ModContent.ItemType<BeetleEnchant>()
+                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
             }
             else if (!WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.CosmosChampion])
             {
                 summonType = ModContent.ItemType<SigilOfChampions>();
                 build = GetBuildText(
-                    ModContent.ItemType<GaiaHelmet>(),
-                    ModContent.ItemType<GaiaPlate>(),
-                    ModContent.ItemType<GaiaGreaves>()
-                ) + " " + GetBuildText(
-                    ModContent.ItemType<SupersonicSoul>(),
                     ModContent.ItemType<FlightMasterySoul>(),
-                    ModContent.ItemType<ColossusSoul>(),
-                    Main.rand.Next(new int[] { ModContent.ItemType<BerserkerSoul>(), ModContent.ItemType<SnipersSoul>(), ModContent.ItemType<ArchWizardsSoul>(), ModContent.ItemType<ConjuristsSoul>() })
-                ) + GetBuildTextRandom(
-                    3,
+                    Main.rand.NextBool() ? ModContent.ItemType<SupersonicSoul>() : ModContent.ItemType<ColossusSoul>(),
+                    playerMelee ? ModContent.ItemType<BerserkerSoul>() : -1,
+                    playerRanged ? ModContent.ItemType<SnipersSoul>() : -1,
+                    playerMage ? ModContent.ItemType<ArchWizardsSoul>() : -1,
+                    playerSummoner ? ModContent.ItemType<ConjuristsSoul>() : -1
+                    ) + GetBuildTextRandom(
+                    4,
                     ModContent.ItemType<NebulaEnchant>(),
-                    ModContent.ItemType<PrecisionSeal>(),
-                    ModContent.ItemType<HeartoftheMasochist>(),
                     ModContent.ItemType<TerraForce>(),
-                    ModContent.ItemType<LifeForce>(),
-                    ModContent.ItemType<SpiritForce>(),
-                    ModContent.ItemType<EarthForce>()
+                    playerSummoner ? ModContent.ItemType<SpiritForce>() : ModContent.ItemType<EarthForce>(),
+                    ModContent.ItemType<ShadowForce>(),
+                    ModContent.ItemType<NatureForce>()
                 );
             }
             else if (!WorldSavingSystem.DownedAbom)
             {
                 summonType = ModContent.ItemType<AbomsCurse>();
                 build = GetBuildText(
-                    ModContent.ItemType<CosmoForce>(),
-                    ModContent.ItemType<SupersonicSoul>(),
                     ModContent.ItemType<FlightMasterySoul>(),
-                    ModContent.ItemType<ColossusSoul>(),
                     ModContent.ItemType<UniverseCore>(),
-                    Main.rand.Next(new int[] { ModContent.ItemType<BerserkerSoul>(), ModContent.ItemType<SnipersSoul>(), ModContent.ItemType<ArchWizardsSoul>(), ModContent.ItemType<ConjuristsSoul>() })
+                    playerMelee ? ModContent.ItemType<BerserkerSoul>() : -1,
+                    playerRanged ? ModContent.ItemType<SnipersSoul>() : -1,
+                    playerMage ? ModContent.ItemType<ArchWizardsSoul>() : -1,
+                    playerSummoner ? ModContent.ItemType<ConjuristsSoul>() : -1,
+                    ModContent.ItemType<UniverseCore>(),
+                    ModContent.ItemType<ColossusSoul>(),
+                    playerSummoner ? ModContent.ItemType<SpiritForce>() : ModContent.ItemType<EarthForce>()
                 ) + GetBuildTextRandom(
                     1,
-                    ModContent.ItemType<HeartoftheMasochist>(),
-                    ModContent.ItemType<PrecisionSeal>(),
-                    ModContent.ItemType<SparklingAdoration>(),
-                    ModContent.ItemType<TerraForce>(),
-                    ModContent.ItemType<LifeForce>(),
-                    ModContent.ItemType<EarthForce>(),
+                    ModContent.ItemType<SpiritForce>(),
                     ModContent.ItemType<NatureForce>()
                 );
             }
@@ -473,7 +496,10 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<MasochistSoul>(),
                     ModContent.ItemType<UniverseSoul>(),
                     ModContent.ItemType<DimensionSoul>(),
-                    Main.rand.Next(new int[] { ModContent.ItemType<BerserkerSoul>(), ModContent.ItemType<SnipersSoul>(), ModContent.ItemType<ArchWizardsSoul>(), ModContent.ItemType<ConjuristsSoul>() }),
+                    playerMelee ? ModContent.ItemType<BerserkerSoul>() : -1,
+                    playerRanged ? ModContent.ItemType<SnipersSoul>() : -1,
+                    playerMage ? ModContent.ItemType<ArchWizardsSoul>() : -1,
+                    playerSummoner ? ModContent.ItemType<ConjuristsSoul>() : -1,
                     ModContent.ItemType<SparklingAdoration>(),
                     ModContent.ItemType<AbominableWand>()
                 );
@@ -539,6 +565,26 @@ namespace FargowiltasSouls.Content.Items.Misc
                 SoundEngine.PlaySound(SoundID.Meowmere, player.Center);
             }
             return true;
+        }
+        public DamageClass HighestDamageClass(Player player)
+        {
+            float melee = player.GetDamage(DamageClass.Melee).ApplyTo(100); 
+            float ranged = player.GetDamage(DamageClass.Ranged).ApplyTo(100);
+            float mage = player.GetDamage(DamageClass.Magic).ApplyTo(100);
+            float summon = player.GetDamage(DamageClass.Summon).ApplyTo(100);
+            if (melee > Math.Max(ranged, Math.Max(mage, summon)))
+            {
+                return DamageClass.Melee;
+            }
+            else if (ranged > Math.Max(mage, summon))
+            {
+                return DamageClass.Ranged;
+            }
+            else if (mage > summon)
+            {
+                return DamageClass.Magic;
+            }
+            else return DamageClass.Summon;
         }
     }
 }

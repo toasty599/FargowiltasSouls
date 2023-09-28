@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             for (int num468 = 0; num468 < 20; num468++)
             {

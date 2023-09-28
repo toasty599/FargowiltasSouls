@@ -242,7 +242,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
 
-                if (Player.wet && !Player.lavaWet && !Player.honeyWet && !(Player.accFlipper || Player.gills || fargoSoulsPlayer.MutantAntibodies))
+                if (Player.wet && !Player.lavaWet && !Player.honeyWet && !(Player.GetJumpState(ExtraJump.Flipper).Enabled || Player.gills || fargoSoulsPlayer.MutantAntibodies))
                     Player.AddBuff(ModContent.BuffType<LethargicBuff>(), 2);
 
                 if (!fargoSoulsPlayer.PureHeart && !Player.buffImmune[BuffID.Suffocation] && Player.ZoneSkyHeight && Player.whoAmI == Main.myPlayer)
@@ -337,7 +337,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             Player.moveSpeed += 0.25f;
 
-            Player.statManaMax2 += 100;
+            Player.statManaMax2 += 50;
             Player.manaRegenDelay = Math.Min(Player.manaRegenDelay, 30);
             Player.manaRegenBonus += 5;
 

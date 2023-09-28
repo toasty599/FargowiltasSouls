@@ -31,9 +31,9 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center - Projectile.velocity - Vector2.UnitY * 160, Vector2.Zero,

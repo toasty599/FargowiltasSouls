@@ -62,7 +62,7 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defens
             modPlayer.BeetleEffect();
             PumpkinEnchant.PumpkinEffect(player, Item);
             modPlayer.TurtleEffect(hideVisual);
-            CactusEnchant.CactusEffect(player);
+            CactusEnchant.CactusEffect(player, Item);
         }
 
         public override void AddRecipes()

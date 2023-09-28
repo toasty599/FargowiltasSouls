@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             Projectile.rotation += Projectile.velocity.Length() * 0.015f * Math.Sign(Projectile.velocity.X);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

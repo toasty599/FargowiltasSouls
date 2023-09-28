@@ -228,7 +228,7 @@ namespace FargowiltasSouls.Content.Projectiles.Ammos
             }
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             OnHit();
 

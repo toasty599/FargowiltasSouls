@@ -3,6 +3,7 @@ using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -26,19 +27,17 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                 Hide = true
             });
 
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.Chilled,
-                    BuffID.OnFire,
-                    BuffID.Suffocation,
-                    ModContent.BuffType<LethargicBuff>(),
-                    ModContent.BuffType<ClippedWingsBuff>(),
-                    ModContent.BuffType<LightningRodBuff>()
-                }
+                BuffID.Confused,
+                BuffID.Chilled,
+                BuffID.OnFire,
+                BuffID.Suffocation,
+                ModContent.BuffType<LethargicBuff>(),
+                ModContent.BuffType<ClippedWingsBuff>(),
+                ModContent.BuffType<LightningRodBuff>()
             });
+
         }
 
         public override void SetDefaults()

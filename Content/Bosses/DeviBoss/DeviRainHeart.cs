@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             return base.TileCollideStyle(ref width, ref height, ref fallThrough);
         }*/
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 

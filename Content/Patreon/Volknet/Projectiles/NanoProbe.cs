@@ -31,6 +31,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
             Projectile.penetrate = -1;
             Projectile.FargoSouls().DeletionImmuneRank = 2;
             Projectile.FargoSouls().TimeFreezeImmune = true;
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override bool PreDraw(ref Color lightColor)

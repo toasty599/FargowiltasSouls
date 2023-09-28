@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 SHADOWMUTANTREAL = 0;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             /*Main.NewText("i die now");
             if (Main.netMode == NetmodeID.Server)

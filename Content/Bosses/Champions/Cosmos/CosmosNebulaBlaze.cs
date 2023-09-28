@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             }
         }
 
-        public override void Kill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
+        public override void OnKill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
 

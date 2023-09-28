@@ -12,9 +12,9 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/FakeHeart";
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
 
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<DeviBoss>());
             if (npc != null)

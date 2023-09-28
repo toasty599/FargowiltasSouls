@@ -165,7 +165,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             if (Projectile.scale >= 5f)
             {

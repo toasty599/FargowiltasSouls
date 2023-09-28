@@ -500,7 +500,6 @@ Mods: {
 			MasoSqueakConfig: Brinquedinho Barulhento no Acerto
 			MasoPouchConfig: Ataques Mais Fortes e Mais Lentos com Chamas das Sombras
 			MasoClippedConfig: Infligir Asas Cortadas
-			TribalCharmConfig: Ataque Automático do Amuleto Tribal
 			TribalCharmClickBonusConfig: Bônus de Clique do Amuleto Tribal
 			// DubiousHeader: "{$Mods.FargowiltasSouls.Items.DubiousCircuitry.DisplayName}"
 			FusedLensInstallConfig: Instalação dos Gêmeos
@@ -1177,8 +1176,8 @@ Mods: {
 			LeadPoison.DisplayName: Veneno de Chumbo
 
 			MonkBuff: {
-				DisplayName: Meditação
-				Description: Sua Corrida do Monge está pronta
+				// DisplayName: Meditation
+				// Description: Your Monk Dash is ready
 			}
 
 			ObsidianLavaWetBuff: {
@@ -1789,11 +1788,6 @@ Mods: {
 			MoltenAmplifyBuff: {
 				// DisplayName: Molten Amplify
 				// Description: Mods.FargowiltasSouls.BuffDescription.MoltenAmplifyBuff
-			}
-
-			MonkBuffBuff: {
-				// DisplayName: Meditation
-				// Description: Your Monk Dash is ready
 			}
 
 			OriPoisonBuff: {
@@ -6012,7 +6006,6 @@ Mods: {
 		// MasoPouchConfig: "[i:FargowiltasSouls/WretchedPouch][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPouchConfig}]"
 		// MasoClippedConfig: "[i:FargowiltasSouls/WyvernFeather][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoClippedConfig}]"
 		// MasoGrav2Config: "[i:FargowiltasSouls/WyvernFeather][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoGrav2Config}]"
-		// TribalCharmConfig: "[i:FargowiltasSouls/TribalCharm][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TribalCharmConfig}]"
 		// TribalCharmClickBonusConfig: "[i:FargowiltasSouls/TribalCharm][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TribalCharmClickBonusConfig}]"
 		// DubiousHeader: "[i:FargowiltasSouls/DubiousCircuitry][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DubiousHeader}]"
 		// FusedLensInstallConfig: "[i:FargowiltasSouls/FusedLens][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FusedLensInstallConfig}]"

@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             Projectile.position -= Projectile.velocity;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

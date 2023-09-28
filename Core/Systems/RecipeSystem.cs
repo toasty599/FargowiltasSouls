@@ -193,7 +193,7 @@ namespace FargowiltasSouls.Core.Systems
                 recipe.AddConsumeItemCallback(IronBonusBars);
             }
             //disable shimmer decraft for all enchants, forces and souls
-            foreach (Recipe recipe in Main.recipe.Where(recipe => recipe.createItem.ModItem is BaseEnchant || recipe.createItem.ModItem is BaseForce || recipe.createItem.ModItem is BaseSoul))
+            foreach (Recipe recipe in Main.recipe.Where(recipe => recipe.createItem.ModItem != null && (recipe.createItem.ModItem is BaseEnchant || recipe.createItem.ModItem is BaseForce || recipe.createItem.ModItem is BaseSoul)))
             {
                 recipe.DisableDecraft();
             }

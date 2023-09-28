@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.Projectiles
             return null;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (!die)
             {

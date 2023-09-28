@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             target.AddBuff(ModContent.BuffType<SwarmingBuff>(), 600);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath11, Projectile.Center);
             if (Main.netMode != NetmodeID.MultiplayerClient)

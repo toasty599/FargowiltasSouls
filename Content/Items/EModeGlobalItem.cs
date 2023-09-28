@@ -158,7 +158,15 @@ namespace FargowiltasSouls.Content.Items
                     {
                         for (int i = 0; i < 2; i++)
                         {
-                            Projectile.NewProjectile(item.GetSource_FromThis(), position, velocity.RotatedByRandom(MathHelper.Pi / 14), type, damage / 2, knockback / 2, Main.myPlayer);
+                            int p = Projectile.NewProjectile(item.GetSource_FromThis(), position, velocity.RotatedByRandom(MathHelper.Pi / 14), type, damage / 2, knockback / 2, Main.myPlayer);
+                            if (p != Main.maxProjectiles)
+                            {
+                                Projectile proj = Main.projectile[p];
+                                if (proj != null && proj.active)
+                                {
+                                    proj.scale = item.scale;
+                                }
+                            }
                         }
                         return false;
                     }

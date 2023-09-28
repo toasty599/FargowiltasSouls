@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             //Main.NewText(MathHelper.ToDegrees(Projectile.velocity.ToRotation()) + " " + MathHelper.ToDegrees(Projectile.ai[1]));
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int index1 = 0; index1 < 10; ++index1)
             {

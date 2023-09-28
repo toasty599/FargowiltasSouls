@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
         }
 
-        public override void Kill(int timeleft)
+        public override void OnKill(int timeleft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             Projectile.position = Projectile.Center;
