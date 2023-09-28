@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -9,7 +10,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
 	public class NinjaSpeedDrawLayer : PlayerDrawLayer
     {
         public override bool IsHeadLayer => false;
-
+        public int DrawTime = 0;
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
             Player player = drawInfo.drawPlayer;
@@ -31,8 +32,15 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
                 return false;
             }
             float maxSpeed = modPlayer.ForceEffect(modPlayer.NinjaEnchantItem.type) ? 7 : 4;
-
-            return player.velocity.Length() < maxSpeed;
+            if (player.velocity.Length() < maxSpeed && DrawTime < 15)
+            {
+                DrawTime++;
+            }
+            else if (DrawTime > 0)
+            {
+                DrawTime--;
+            }
+            return DrawTime > 0;
         }
 
         public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayerLoader.Layers[0]);
@@ -51,6 +59,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
 
             //float opacity = 0.4f + (-0.4f * drawInfo.drawPlayer.velocity.Length() / (drawPlayer.FargoSouls().ShadowForce ? 8f : 5f));
             float opacity = 0.4f;
+            opacity *= Math.Min((int)DrawTime / 15f, 1);
             DrawData data = new(texture, drawPos, rectangle, Color.Black * opacity, 0f, origin2, scale, SpriteEffects.None, 0);
             drawInfo.DrawDataCache.Add(data);
         }

@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.timeLeft = 60 * 60 * 60;
             Projectile.FargoSouls().DeletionImmuneRank = 2;
         }
-        private static int BaseMaxDistance = WorldSavingSystem.MasochistModeReal ? 900 : 1000;
+        private static int BaseMaxDistance = 1200;
         private int WaterwallDistance = 0;
         public override void AI()
         {
@@ -54,6 +54,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             float modifier = 1f - ((float)baron.life / p2MaxLife);
             float distanceDecrease = 300 * modifier;
             float MaxDistance = (float)BaseMaxDistance - distanceDecrease;
+            if (WorldSavingSystem.masochistModeReal)
+            {
+                MaxDistance -= 200;
+            }
 
             Player player = Main.player[baron.target];
             
