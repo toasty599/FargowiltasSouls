@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.Systems;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -6,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
-    public class MonkBuffBuff : ModBuff
+    public class MonkBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {
@@ -20,22 +21,26 @@ namespace FargowiltasSouls.Content.Buffs.Souls
         {
             if (!(player.whoAmI == Main.myPlayer && !player.GetToggleValue("Monk")))
                 player.buffTime[buffIndex] = 2;
-
+            player.FargoSouls().MonkDashReady = false;
             if (player.mount.Active)
             {
                 return;
             }
-
+            
             if (player.FargoSouls().HasDash)
                 return;
 
+            //TODO: dash rework vanilla invoke
             player.FargoSouls().HasDash = true;
+            //player.FargoSouls().MonkDashReady = true;
+            //player.dashType = 1;
 
-            int direction = 0;
-            bool vertical = false;
+            //int direction = 0;
+            //bool vertical = false;
 
+            /*
             //down
-            /*if ((player.controlDown && player.releaseDown))
+            if ((player.controlDown && player.releaseDown))
             {
                 if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
                 {
@@ -53,7 +58,9 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 }
             }
             //right
-            else */
+            else 
+            */
+            /*
             if (player.controlRight && player.releaseRight)
             {
                 if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
@@ -71,14 +78,14 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                     vertical = false;
                 }
             }
-
-            if (direction != 0)
+            */
+            CustomDashManager.DashHandleThatMimicsVanillaPlusMutantModKeyBecauseTheRealOneIsFuckingPrivate(player, out int dir, out bool dashing);
+            if (dashing && dir != 0)
             {
-                MonkDash(player, vertical, direction);
+                MonkDash(player, false, dir);
                 player.buffTime[buffIndex] = 0;
             }
         }
-
         public static void MonkDash(Player player, bool vertical, int direction)
         {
             //horizontal

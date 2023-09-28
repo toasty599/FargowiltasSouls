@@ -19,6 +19,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.BossBars;
 using FargowiltasSouls.Core.Globals;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 {
@@ -218,16 +219,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
             if (NPC.dontTakeDamage && NPC.ai[0] != -1)
             {
-                bool anyBallInvulnerable = false;
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<ShadowOrbNPC>() && Main.npc[i].ai[0] == NPC.whoAmI
-                        && !Main.npc[i].dontTakeDamage)
-                    {
-                        anyBallInvulnerable = true;
-                        break;
-                    }
-                }
+                bool anyBallInvulnerable = Main.npc.Any(n => n.active && n.type == ModContent.NPCType<ShadowOrbNPC>() && n.ai[0] == NPC.whoAmI && !n.dontTakeDamage);
 
                 if (!anyBallInvulnerable)
                 {

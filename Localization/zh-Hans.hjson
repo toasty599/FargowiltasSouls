@@ -1177,8 +1177,8 @@ Mods: {
 			LeadPoison.DisplayName: 铅中毒
 
 			MonkBuff: {
-				DisplayName: 冥想
-				Description: 你的武僧冲刺已就绪
+				// DisplayName: Meditation
+				// Description: Your Monk Dash is ready
 			}
 
 			ObsidianLavaWetBuff: {
@@ -1789,11 +1789,6 @@ Mods: {
 			MoltenAmplifyBuff: {
 				// DisplayName: Molten Amplify
 				// Description: Mods.FargowiltasSouls.BuffDescription.MoltenAmplifyBuff
-			}
-
-			MonkBuffBuff: {
-				// DisplayName: Meditation
-				// Description: Your Monk Dash is ready
 			}
 
 			OriPoisonBuff: {

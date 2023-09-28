@@ -569,6 +569,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             HasDash = true;
+            MonkDashReady = true;
+            Player.dashType = 1;
+            /*
+            HasDash = true;
 
             if (dashCD <= 0)
             {
@@ -610,6 +614,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Main.dust[d].velocity *= 0.2f;
                 }
             }
+            */
         }
 
         public void JungleEffect()
@@ -1527,13 +1532,13 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.DisplayToggle("Monk");
             MonkEnchantActive = true;
 
-            if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuffBuff>()))
+            if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuff>()))
             {
                 monkTimer++;
 
                 if (monkTimer >= 120)
                 {
-                    Player.AddBuff(ModContent.BuffType<MonkBuffBuff>(), 2);
+                    Player.AddBuff(ModContent.BuffType<MonkBuff>(), 2);
                     monkTimer = 0;
 
                     //dust

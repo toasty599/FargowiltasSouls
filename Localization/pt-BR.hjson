@@ -1177,8 +1177,8 @@ Mods: {
 			LeadPoison.DisplayName: Veneno de Chumbo
 
 			MonkBuff: {
-				DisplayName: Meditação
-				Description: Sua Corrida do Monge está pronta
+				// DisplayName: Meditation
+				// Description: Your Monk Dash is ready
 			}
 
 			ObsidianLavaWetBuff: {
@@ -1789,11 +1789,6 @@ Mods: {
 			MoltenAmplifyBuff: {
 				// DisplayName: Molten Amplify
 				// Description: Mods.FargowiltasSouls.BuffDescription.MoltenAmplifyBuff
-			}
-
-			MonkBuffBuff: {
-				// DisplayName: Meditation
-				// Description: Your Monk Dash is ready
 			}
 
 			OriPoisonBuff: {

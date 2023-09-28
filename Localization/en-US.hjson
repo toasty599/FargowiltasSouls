@@ -1177,8 +1177,8 @@ Mods: {
 			LeadPoison.DisplayName: Mods.FargowiltasSouls.BuffName.LeadPoison
 
 			MonkBuff: {
-				DisplayName: Mods.FargowiltasSouls.BuffName.MonkBuff
-				Description: Mods.FargowiltasSouls.BuffDescription.MonkBuff
+				DisplayName: Meditation
+				Description: Your Monk Dash is ready
 			}
 
 			ObsidianLavaWetBuff: {
@@ -1789,11 +1789,6 @@ Mods: {
 			MoltenAmplifyBuff: {
 				DisplayName: Molten Amplify
 				Description: Mods.FargowiltasSouls.BuffDescription.MoltenAmplifyBuff
-			}
-
-			MonkBuffBuff: {
-				DisplayName: Meditation
-				Description: Your Monk Dash is ready
 			}
 
 			OriPoisonBuff: {
@@ -4021,10 +4016,7 @@ Mods: {
 
 			EternityAdvisor: {
 				DisplayName: Eternity Advisor
-				Tooltip:
-					'''
-					Suggests loadouts for Eternity Mode based on progression
-					'''
+				Tooltip: Suggests loadouts for Eternity Mode based on progression
 			}
 
 			GalacticReformer: {

@@ -447,6 +447,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int NoUsingItems;
 
         public bool HasDash;
+        public bool MonkDashReady;
+        public bool JungleDashReady;
 
         public int WeaponUseTimer;
 
