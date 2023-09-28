@@ -438,7 +438,6 @@ Mods: {
 			JungleConfig: Jungle Spores
 			JungleDashConfig: Jungle Dash
 			MoltenConfig: Molten Inferno Buff
-			MoltenEConfig: Molten Explosion On Hit
 			ShroomiteConfig: Shroomite Stealth
 			ShroomiteShroomConfig: Shroomite Mushrooms
 			ShadowHeader: "{$Mods.FargowiltasSouls.Items.ShadowForce.DisplayName}"
@@ -2742,7 +2741,6 @@ Mods: {
 					'''
 					[i:FargowiltasSouls/CrimsonEnchant] After taking a hit, regen is greatly increased until the hit is healed off
 					[i:FargowiltasSouls/MoltenEnchant] Nearby enemies are ignited in a greater radius
-					[i:FargowiltasSouls/MoltenEnchant] When you are hurt, you violently explode to damage nearby enemies
 					[i:FargowiltasSouls/RainEnchant] Spawns an umbrella that blocks projectiles from above
 					[i:FargowiltasSouls/FrostEnchant] Icicles will start to appear around you
 					[i:FargowiltasSouls/SnowEnchant] Press the Freeze Key to temporarily chill everything
@@ -3272,7 +3270,7 @@ Mods: {
 				Tooltip:
 					'''
 					Grants immunity to Lovestruck, Stinky, and Hexed
-					You respawn with more life
+					You respawn with more life, works from inventory
 					Your attacks occasionally produce hearts
 					'The scent is somewhat overpowering'
 					'''
@@ -6031,7 +6029,6 @@ Mods: {
 		JungleConfig: "[i:FargowiltasSouls/JungleEnchant][c/71971f:{$Mods.FargowiltasSouls.Toggler.JungleConfig}]"
 		JungleDashConfig: "[i:FargowiltasSouls/JungleEnchant][c/71971f:{$Mods.FargowiltasSouls.Toggler.JungleDashConfig}]"
 		MoltenConfig: "[i:FargowiltasSouls/MoltenEnchant][c/c12b2b:{$Mods.FargowiltasSouls.Toggler.MoltenConfig}]"
-		MoltenEConfig: "[i:FargowiltasSouls/MoltenEnchant][c/c12b2b:{$Mods.FargowiltasSouls.Toggler.MoltenEConfig}]"
 		ShroomiteConfig: "[i:FargowiltasSouls/ShroomiteEnchant][c/008cf4:{$Mods.FargowiltasSouls.Toggler.ShroomiteConfig}]"
 		ShroomiteShroomConfig: "[i:FargowiltasSouls/ShroomiteEnchant][c/008cf4:{$Mods.FargowiltasSouls.Toggler.ShroomiteShroomConfig}]"
 		ShadowHeader: "[i:FargowiltasSouls/ShadowEnchant][c/ffffff:{$Mods.FargowiltasSouls.Toggler.ShadowHeader}]"

@@ -63,7 +63,6 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public string Jungle;
         public string JungleDash;
         public string Molten;
-        public string MoltenE;
         public string Rain;
         public string RainInnerTube;
         public string Shroomite;

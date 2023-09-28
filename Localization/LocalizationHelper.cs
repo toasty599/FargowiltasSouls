@@ -168,7 +168,6 @@ namespace FargowiltasSouls
             AddToggle("JungleConfig", "JungleEnchant", "71971f");
             AddToggle("JungleDashConfig", "JungleEnchant", "71971f");
             AddToggle("MoltenConfig", "MoltenEnchant", "c12b2b");
-            AddToggle("MoltenEConfig", "MoltenEnchant", "c12b2b");
             AddToggle("ShroomiteConfig", "ShroomiteEnchant", "008cf4");
             AddToggle("ShroomiteShroomConfig", "ShroomiteEnchant", "008cf4");
 

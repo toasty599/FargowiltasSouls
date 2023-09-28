@@ -40,6 +40,7 @@
     <None Remove="Content\Items\Accessories\Masomode\BionomicClusterInactive.png" />
     <None Remove="Content\Items\Accessories\Masomode\FrigidGemstoneInactive.png" />
     <None Remove="Content\Items\Accessories\Masomode\FusedLens.png" />
+    <None Remove="Content\Items\Accessories\Masomode\MysticSkullInactive.png" />
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
     <None Remove="Content\Items\BossBags\BanishedBaronBag.png" />
     <None Remove="Content\Items\Placables\Relics\BaronRelic.png" />

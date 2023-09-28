@@ -2742,7 +2742,6 @@ Mods: {
 					'''
 					[i:FargowiltasSouls/CrimsonEnchant] After taking a hit, regen is greatly increased until the hit is healed off
 					[i:FargowiltasSouls/MoltenEnchant] Nearby enemies are ignited in a greater radius
-					[i:FargowiltasSouls/MoltenEnchant] When you are hurt, you violently explode to damage nearby enemies
 					[i:FargowiltasSouls/RainEnchant] Spawns an umbrella that blocks projectiles from above
 					[i:FargowiltasSouls/FrostEnchant] Icicles will start to appear around you
 					[i:FargowiltasSouls/SnowEnchant] Press the Freeze Key to temporarily chill everything
