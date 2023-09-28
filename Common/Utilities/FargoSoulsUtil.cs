@@ -268,6 +268,21 @@ namespace FargowiltasSouls //lets everything access it without using
             }
         }
 
+        public static void ReplaceItem(this Player player, Item itemToReplace, int itemIDtoReplaceWith)
+        {
+            for (int i = 0; i < player.inventory.Length; i++)
+            {
+                if (player.inventory[i] == itemToReplace)
+                {
+                    Item newItem = new Item(itemIDtoReplaceWith, itemToReplace.stack, itemToReplace.prefix);
+                    newItem.active = true;
+                    newItem.favorited = itemToReplace.favorited;
+                    player.inventory[i] = newItem;
+                    itemToReplace.active = false;
+                    break;
+                }
+            }
+        }
         public static bool NPCInAnyTiles(NPC npc, bool platforms)
         {
             //WHERE'S TJHE FKC IJNGI METHOD FOR HTIS? ITS NOT COLLISION.SOLKIDCOLLIOSOM ITS NOPT COLLISON.SOLDITILES I HATE 1.4 IHATE TMODLAOREI I HATE THIS FUSPTID FUCKIGN GNAME SOFU KIGN MCUCH FUCK FUCK FUCK

@@ -1889,8 +1889,8 @@ Mods: {
 			}
 
 			RainCDBuff: {
-				// DisplayName: Rain C D Buff
-				// Description: Mods.FargowiltasSouls.Buffs.RainCDBuff.Description
+				// DisplayName: Rain Umbrella Cooldown
+				// Description: Your umbrella isn't ready yet
 			}
 		}
 
