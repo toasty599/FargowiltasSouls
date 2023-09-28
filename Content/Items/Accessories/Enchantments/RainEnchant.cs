@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.Souls;
+﻿using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -46,7 +47,7 @@ Effects of Inner Tube
             
             modPlayer.RainEnchantItem = item;
             //modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainCloud>(), 24, 0);
-            if (modPlayer.RainCD == 0)
+            if (!player.HasBuff(ModContent.BuffType<RainCDBuff>()))
             {
                 modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainUmbrella>(), 0, 0);
 
@@ -54,11 +55,6 @@ Effects of Inner Tube
                 {
                     player.slowFall = true;
                 }
-            }
-            
-            if (modPlayer.RainCD > 0)
-            {
-                modPlayer.RainCD--;
             }
 
             if (player.GetToggleValue("RainInnerTube"))

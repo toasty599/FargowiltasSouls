@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.Souls;
+﻿using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
@@ -41,7 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             if (modPlayer.ForceEffect(modPlayer.RainEnchantItem.type))
             {
-                hp = 500;
+                hp = 1000;
             }
 
             return hp;
@@ -95,19 +96,25 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             const int focusRadius = 40;
 
             //rain dripping off umbrella!!
+            //Main.NewText(Main.raining);
+
             if (Main.raining)
             {
-                for (int i = 0; i < 20; i++)
+                Tile currentTile = Framing.GetTileSafely(player.Center);
+                if (currentTile.WallType == WallID.None)
                 {
-                    Vector2 offset = new();
-                    double angle = Main.rand.NextDouble() * Math.PI + (Math.PI / 2);
-                    offset.X += (float)(Math.Sin(angle) * focusRadius);
-                    offset.Y += (float)(Math.Cos(angle) * focusRadius) + Projectile.height / 2;
-                    Dust dust = Main.dust[Dust.NewDust(
-                        Projectile.Center + offset - new Vector2(4, 4), 0, 0,
-                        DustID.Water, 0, 0, 100)];
-                    //dust.velocity = player.velocity;
-                    //dust.noGravity = true;
+                    for (int i = 0; i < 20; i++)
+                    {
+                        Vector2 offset = new();
+                        double angle = Main.rand.NextDouble() * Math.PI + (Math.PI / 2);
+                        offset.X += (float)(Math.Sin(angle) * focusRadius);
+                        offset.Y += (float)(Math.Cos(angle) * focusRadius) + Projectile.height / 2 - 4;
+                        Dust dust = Main.dust[Dust.NewDust(
+                            Projectile.Center + offset - new Vector2(4, 4), 0, 0,
+                            DustID.Water, 0, 0, 100, Scale: 0.75f)];
+                        //dust.velocity = player.velocity;
+                        //dust.noGravity = true;
+                    }
                 }
             }
 
@@ -152,9 +159,11 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
                     reflectHP -= x.damage;
 
+                    x.damage *= 2;
+
                     if (modPlayer.ForceEffect(modPlayer.RainEnchantItem.type))
                     {
-                        x.damage *= 2;
+                        x.damage *= 3;
                     }
 
                     if (reflectHP <= 0)
@@ -197,7 +206,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Main.dust[num228].velocity = vector7;
             }
 
-            Main.player[Projectile.owner].FargoSouls().RainCD = 900;
+            Main.player[Projectile.owner].AddBuff(ModContent.BuffType<RainCDBuff>(), 900);
         }
     }
 }

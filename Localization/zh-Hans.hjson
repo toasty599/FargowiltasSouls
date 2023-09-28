@@ -65,13 +65,13 @@ Mods: {
 			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
 			// Shadow: Number of Shadow Orbs increased
-			// Squire: Increases mount defense by 10, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
+			// Squire: Increases mount defense by 5, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
 			// Tiki: Increases whip range by 20%
 			Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
 			Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
 			Tungsten: 将武器大小提升到300%，伤害加成提升到20%，冷却时间减少
 			// Turtle: Occasionaly recover a projectile block point, number of needles and damage increased
-			// ValhallaKnight: Increases mount defense by 10, acceleration from 2x to 3x, and heal bonus from 33% to 50%
+			// ValhallaKnight: Increases mount defense by 5, acceleration from 2x to 3x, and heal bonus from 33% to 50%
 			// Vortex: No upgrade
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
 			// AshWood: Fires balls of fire more often
@@ -1892,6 +1892,11 @@ Mods: {
 			ROBBuff: {
 				// Description: ""
 				// DisplayName: R.O.B
+			}
+
+			RainCDBuff: {
+				// DisplayName: Rain C D Buff
+				// Description: Mods.FargowiltasSouls.Buffs.RainCDBuff.Description
 			}
 		}
 
@@ -4966,7 +4971,7 @@ Mods: {
 
 			EulogistsDoomsdayScenario: {
 				// DisplayName: Eulogist's Doomsday Scenario
-				// Tooltip: Blow up a small area around you killing all town npcs and yourself
+				// Tooltip: Blow up a small area around you, killing all town npcs and yourself
 			}
 		}
 
