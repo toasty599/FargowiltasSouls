@@ -36,6 +36,7 @@
     <None Remove="Content\Buffs\Souls\CorruptedBuff.png" />
     <None Remove="Content\Items\Accessories\Enchantments\AshWoodEnchant.png" />
     <None Remove="Content\Items\Accessories\Expert\RustedOxygenTank.png" />
+    <None Remove="Content\Items\Accessories\Expert\RustedOxygenTankInactive.png" />
     <None Remove="Content\Items\Accessories\Masomode\FusedLens.png" />
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
     <None Remove="Content\Items\BossBags\BanishedBaronBag.png" />

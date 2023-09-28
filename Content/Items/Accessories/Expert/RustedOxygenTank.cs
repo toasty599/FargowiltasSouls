@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,7 +18,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
         {
             Item.width = 20;
             Item.height = 20;
-            Item.accessory = true;
             Item.rare = ItemRarityID.Expert;
             Item.value = Item.sellPrice(0, 4);
 
@@ -27,9 +27,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
         public static void PassiveEffect(Player player)
         {
             player.ignoreWater = true;
-            if (Collision.WetCollision(player.position - 20 * Vector2.UnitX - 20 * Vector2.UnitY, player.width + 10, player.height + 10)) //need some extra otherwise you get stuck near water
+            
+            if (Collision.WetCollision(player.position, player.width, player.height))
             {
-                player.moveSpeed += 0.2f;
+                player.moveSpeed += 1.25f;
+                player.maxRunSpeed += 1.25f;
                 return;
             }
             
@@ -66,25 +68,49 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
             }
             //player.wingTime = player.wingTimeMax;
 
+            /*
             if (player.controlJump && player.GetJumpState(ExtraJump.Flipper).Available) //simulate flipper jump
             {
                 player.swimTime = 30;
                 player.velocity.Y = (0f - Player.jumpSpeed) * player.gravDir;
                 player.jump = Player.jumpHeight;
             }
-            player.position -= player.velocity * 0.5f; //water speed is half of normal speed
+            */
+            //player.position -= player.velocity * 0.5f; //water speed is half of normal speed
 
 
         }
-
-        public override void UpdateAccessory(Player player, bool hideVisual) => player.FargoSouls().OxygenTank = true;
-        public override void UpdateVanity(Player player) => player.FargoSouls().OxygenTank = true;
+        public override bool CanRightClick() => true;
+        public override void RightClick(Player player)
+        {
+            Item.NewItem(player.GetSource_ItemUse(Item), player.Center, ModContent.ItemType<RustedOxygenTankInactive>());
+        }
         public override void UpdateInventory(Player player)
         {
-            if (Item.favorited)
-            {
-                player.FargoSouls().OxygenTank = true;
-            }
+            player.FargoSouls().OxygenTank = true;
+        }
+    }
+    public class RustedOxygenTankInactive : SoulsItem
+    {
+        public override void SetStaticDefaults()
+        {
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 20;
+            Item.height = 20;
+            Item.rare = ItemRarityID.Expert;
+            Item.value = Item.sellPrice(0, 4);
+
+            Item.expert = true;
+        }
+        public override bool CanRightClick() => true;
+        public override void RightClick(Player player)
+        {
+            Item.NewItem(player.GetSource_ItemUse(Item), player.Center, ModContent.ItemType<RustedOxygenTank>());
         }
     }
 }

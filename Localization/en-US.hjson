@@ -4959,10 +4959,11 @@ Mods: {
 				DisplayName: Rusted Oxygen Tank
 				Tooltip:
 					'''
-					Works in vanity slots, and in your inventory while favorited
+					Works from your inventory
 					You count as wet outside water
 					Grants floaty water movement
 					Increased movement speed while in any liquid
+					Right click to deactivate effects
 					'Nobody knows how it works'
 					'''
 			}
@@ -5003,6 +5004,19 @@ Mods: {
 			EulogistsDoomsdayScenario: {
 				DisplayName: Eulogist's Doomsday Scenario
 				Tooltip: Blow up a small area around you killing all town npcs and yourself
+			}
+
+			RustedOxygenTankInactive: {
+				DisplayName: Rusted Oxygen Tank (Inactive)
+				Tooltip:
+					'''
+					Works from your inventory
+					You count as wet outside water
+					Grants floaty water movement
+					Increased movement speed while in any liquid
+					Effects are currently inactive, 
+					Right click to reactivate
+					'''
 			}
 		}
 
