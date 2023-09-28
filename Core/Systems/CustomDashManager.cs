@@ -57,9 +57,12 @@ namespace FargowiltasSouls.Core.Systems
             get;
             set;
         }
-        public static void HandleDash(out bool dashing, out int dir)
+        public override void Load()
         {
             DashHandleMethod = typeof(Player).GetMethod("DoCommonDashHandle", UniversalBindingFlags);
+        }
+        public static void HandleDash(out bool dashing, out int dir)
+        {
 
             dir = 1;
             dashing = true; //these two are overriden by the actual method anyway
