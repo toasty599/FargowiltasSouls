@@ -243,7 +243,6 @@ namespace FargowiltasSouls
             AddToggle("MasoPouchConfig", "WretchedPouch");
             AddToggle("MasoClippedConfig", "WyvernFeather");
 			AddToggle("MasoGrav2Config", "WyvernFeather");
-            AddToggle("TribalCharmConfig", "TribalCharm");
             AddToggle("TribalCharmClickBonusConfig", "TribalCharm");
             //AddToggle("WalletHeader", "SecurityWallet");
 

@@ -500,7 +500,6 @@ Mods: {
 			MasoSqueakConfig: Squeaky Toy On Hit
 			MasoPouchConfig: Stronger Slower Shadowflame Attacks
 			MasoClippedConfig: Inflict Clipped Wings
-			TribalCharmConfig: Tribal Charm Auto Swing
 			TribalCharmClickBonusConfig: Tribal Charm Click Bonus
 			DubiousHeader: "{$Mods.FargowiltasSouls.Items.DubiousCircuitry.DisplayName}"
 			FusedLensInstallConfig: Twins Install
@@ -783,7 +782,6 @@ Mods: {
 					Increases spawn rates
 					Reduces skeletons hostility outside of the dungeon
 					Empowers Cute Fishron
-					Grants autofire
 					Grants modifier protection
 					Grants gravity control
 					Grants fast fall
@@ -2901,7 +2899,7 @@ Mods: {
 					When attacking by manually clicking, increases non-summon damage by 30%
 					[c/00FFFF:Following effects work passively from inventory or vanity slots:]
 					    Grants immunity to Mighty Wind, Suffocation, Chilled, and Guilty
-					    You have autofire and improved night vision
+					    You have improved night vision
 					    Automatically uses healing & mana potions when needed and increases pickup range for mana stars
 					    You respawn with more life and when no boss is alive, respawn faster
 					    Press the Frigid Spell key to cast Ice Rod
@@ -3582,7 +3580,7 @@ Mods: {
 					Increases max life by 100%, damage for your current weapon class by 50%, and damage reduction by 10%
 					Increases life regen drastically, your cursor causes nearby enemies to take increased damage
 					Grants gravity control, fastfall, and immunity to knockback, almost all Eternity Mode debuffs, and more
-					Grants autofire to all weapons and you automatically use mana potions when needed
+					Uou automatically use mana potions when needed
 					Your attacks create additional attacks, hearts, and inflict a cocktail of Eternity Mode debuffs
 					Increased stats when inflicted with Cursed Inferno or Ichor
 					Press the Debuff Install key to debuff and buff yourself
@@ -6026,7 +6024,6 @@ Mods: {
 		MasoPouchConfig: "[i:FargowiltasSouls/WretchedPouch][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPouchConfig}]"
 		MasoClippedConfig: "[i:FargowiltasSouls/WyvernFeather][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoClippedConfig}]"
 		MasoGrav2Config: "[i:FargowiltasSouls/WyvernFeather][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoGrav2Config}]"
-		TribalCharmConfig: "[i:FargowiltasSouls/TribalCharm][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TribalCharmConfig}]"
 		TribalCharmClickBonusConfig: "[i:FargowiltasSouls/TribalCharm][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TribalCharmClickBonusConfig}]"
 		DubiousHeader: "[i:FargowiltasSouls/DubiousCircuitry][c/ffffff:{$Mods.FargowiltasSouls.Toggler.DubiousHeader}]"
 		FusedLensInstallConfig: "[i:FargowiltasSouls/FusedLens][c/ffffff:{$Mods.FargowiltasSouls.Toggler.FusedLensInstallConfig}]"
