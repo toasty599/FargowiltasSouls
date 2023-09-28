@@ -47,7 +47,7 @@ Effects of Inner Tube
             
             modPlayer.RainEnchantItem = item;
             //modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainCloud>(), 24, 0);
-            if (!player.HasBuff(ModContent.BuffType<RainCDBuff>()))
+            if (!player.HasBuff(ModContent.BuffType<RainCDBuff>()) && player.GetToggleValue("Rain"))
             {
                 modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainUmbrella>(), 0, 0);
 
