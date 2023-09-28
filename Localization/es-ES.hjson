@@ -51,7 +51,7 @@ Mods: {
 			// Pearlwood: Damage increased and cooldown reduced
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
-			// Rain: Umbrella can block up to 500 damage and reflected damage is doubled
+			// Rain: Umbrella can block up to 1000 damage and reflected damage is tripled
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
 			// Shadewood: Aura size and blood damage increased, additionally applies Ichor
@@ -4984,10 +4984,11 @@ Mods: {
 				// DisplayName: Rusted Oxygen Tank
 				/* Tooltip:
 					'''
-					Works in vanity slots, and in your inventory while favorited
+					Works from your inventory
 					You count as wet outside water
 					Grants floaty water movement
 					Increased movement speed while in any liquid
+					Right click to deactivate effects
 					'Nobody knows how it works'
 					''' */
 			}
@@ -5028,6 +5029,19 @@ Mods: {
 			EulogistsDoomsdayScenario: {
 				// DisplayName: Eulogist's Doomsday Scenario
 				// Tooltip: Blow up a small area around you, killing all town npcs and yourself
+			}
+
+			RustedOxygenTankInactive: {
+				// DisplayName: Rusted Oxygen Tank (Inactive)
+				/* Tooltip:
+					'''
+					Works from your inventory
+					You count as wet outside water
+					Grants floaty water movement
+					Increased movement speed while in any liquid
+					Effects are currently inactive, 
+					Right click to reactivate
+					''' */
 			}
 		}
 

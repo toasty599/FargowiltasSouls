@@ -1368,7 +1368,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             TogglesToSync.Clear();
         }
-
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             FargoSoulsPlayer modPlayer = clientPlayer as FargoSoulsPlayer;

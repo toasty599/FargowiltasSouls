@@ -1888,8 +1888,8 @@ Mods: {
 			}
 
 			RainCDBuff: {
-				DisplayName: Rain C D Buff
-				Description: Mods.FargowiltasSouls.Buffs.RainCDBuff.Description
+				DisplayName: Rain Umbrella Cooldown
+				Description: Your umbrella isn't ready yet
 			}
 		}
 
@@ -2491,7 +2491,7 @@ Mods: {
 				Tooltip:
 					'''
 					Your minions and sentries can crit
-					Summon crits do x1.5 damage instead of x2
+					Minion and sentry crits deal x1.5 damage, instead of 2x
 					'Arachnophobia is punishable by arachnid induced death'
 					'''
 			}
@@ -2728,7 +2728,8 @@ Mods: {
 					[i:FargowiltasSouls/CactusEnchant] Enemies may explode into needles on death
 					[i:FargowiltasSouls/BeeEnchant] Leave behind flowers while flying
 					[i:FargowiltasSouls/BeeEnchant] Effects of Hive Pack
-					[i:FargowiltasSouls/SpiderEnchant] 30% chance for minions and sentries to crit for x1.5 damage instead of x2
+					[i:FargowiltasSouls/SpiderEnchant] Your minions and sentries can crit
+					[i:FargowiltasSouls/SpiderEnchant] Minion and sentry crits deal 1.5x damage, instead of 2x
 					[i:FargowiltasSouls/TurtleEnchant] When standing still and not attacking, you will enter your shell
 					[i:FargowiltasSouls/BeetleEnchant] Beetles aid both offense and defense
 					'Rare is a living thing that dare disobey your will'
@@ -4964,10 +4965,11 @@ Mods: {
 				DisplayName: Rusted Oxygen Tank
 				Tooltip:
 					'''
-					Works in vanity slots, and in your inventory while favorited
+					Works from your inventory
 					You count as wet outside water
 					Grants floaty water movement
 					Increased movement speed while in any liquid
+					Right click to deactivate effects
 					'Nobody knows how it works'
 					'''
 			}
@@ -5008,6 +5010,19 @@ Mods: {
 			EulogistsDoomsdayScenario: {
 				DisplayName: Eulogist's Doomsday Scenario
 				Tooltip: Blow up a small area around you, killing all town npcs and yourself
+			}
+
+			RustedOxygenTankInactive: {
+				DisplayName: Rusted Oxygen Tank (Inactive)
+				Tooltip:
+					'''
+					Works from your inventory
+					You count as wet outside water
+					Grants floaty water movement
+					Increased movement speed while in any liquid
+					Effects are currently inactive, 
+					Right click to reactivate
+					'''
 			}
 		}
 
