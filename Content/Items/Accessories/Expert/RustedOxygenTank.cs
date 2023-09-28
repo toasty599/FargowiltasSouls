@@ -83,7 +83,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
         public override bool CanRightClick() => true;
         public override void RightClick(Player player)
         {
-            //Item.NewItem(player.GetSource_ItemUse(Item), player.Center, ModContent.ItemType<RustedOxygenTankInactive>());
             player.ReplaceItem(Item, ModContent.ItemType<RustedOxygenTankInactive>());
         }
         public override void UpdateInventory(Player player)
@@ -111,7 +110,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
         public override bool CanRightClick() => true;
         public override void RightClick(Player player)
         {
-            //Item.NewItem(player.GetSource_ItemUse(Item), player.Center, ModContent.ItemType<RustedOxygenTank>());
             player.ReplaceItem(Item, ModContent.ItemType<RustedOxygenTank>());
         }
     }

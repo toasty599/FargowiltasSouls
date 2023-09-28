@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
+using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
@@ -193,6 +194,124 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             .AddTile(TileID.MythrilAnvil)
 
             .Register();
+        }
+        public override bool CanRightClick() => true;
+        public override void RightClick(Player player)
+        {
+            player.ReplaceItem(Item, ModContent.ItemType<BionomicClusterInactive>());
+        }
+    }
+    public class BionomicClusterInactive : SoulsItem
+    {
+        public override bool Eternity => true;
+
+        public override void SetStaticDefaults()
+        {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(0, 6);
+            Item.defense = 6;
+            Item.useTime = 180;
+            Item.useAnimation = 180;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item6;
+        }
+
+        public static void PassiveEffect(Player player, Item item)
+        {
+        }
+
+        public override void UpdateInventory(Player player) => PassiveEffect(player, Item);
+        public override void UpdateVanity(Player player) => PassiveEffect(player, Item);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            PassiveEffect(player, Item);
+
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
+
+            // Concentrated rainbow matter
+            player.buffImmune[ModContent.BuffType<FlamesoftheUniverseBuff>()] = true;
+            if (player.GetToggleValue("MasoRainbow"))
+                player.AddBuff(ModContent.BuffType<RainbowSlimeBuff>(), 2);
+
+            // Dragon fang
+            player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;
+            if (player.GetToggleValue("MasoClipped"))
+                fargoPlayer.DragonFang = true;
+
+            // Frigid gemstone
+            player.buffImmune[BuffID.Frostburn] = true;
+
+            // Wretched pouch
+            player.buffImmune[BuffID.ShadowFlame] = true;
+            player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
+            player.FargoSouls().WretchedPouchItem = Item;
+
+            // Sands of time
+            player.buffImmune[BuffID.WindPushed] = true;
+            fargoPlayer.SandsofTime = true;
+
+            // Squeaky toy
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<GuiltyBuff>()] = true;
+            fargoPlayer.SqueakyAcc = true;
+
+            // Tribal charm
+            player.buffImmune[BuffID.Webbed] = true;
+            player.buffImmune[ModContent.BuffType<PurifiedBuff>()] = true;
+            fargoPlayer.TribalCharm = true;
+            fargoPlayer.TribalCharmEquipped = true;
+
+            // Mystic skull
+            player.buffImmune[BuffID.Suffocation] = true;
+            player.manaMagnet = true;
+            if (player.GetToggleValue("ManaFlower", false))
+                player.manaFlower = true;
+
+            // Security wallet
+            player.buffImmune[ModContent.BuffType<MidasBuff>()] = true;
+            fargoPlayer.SecurityWallet = true;
+
+            // Carrot
+            player.nightVision = true;
+            if (player.GetToggleValue("MasoCarrot", false))
+                player.scope = true;
+
+            // Nymph's perfume
+            player.buffImmune[BuffID.Lovestruck] = true;
+            player.buffImmune[ModContent.BuffType<LovestruckBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<HexedBuff>()] = true;
+            player.buffImmune[BuffID.Stinky] = true;
+            fargoPlayer.NymphsPerfumeRespawn = true;
+            if (player.GetToggleValue("MasoNymph"))
+            {
+                fargoPlayer.NymphsPerfume = true;
+                if (fargoPlayer.NymphsPerfumeCD > 0)
+                    fargoPlayer.NymphsPerfumeCD--;
+            }
+
+            // Tim's concoction
+            if (player.GetToggleValue("MasoConcoction"))
+                player.FargoSouls().TimsConcoction = true;
+        }
+
+        public override void UseItemFrame(Player player) => SandsofTime.Use(player);
+        public override bool? UseItem(Player player) => true;
+
+        public override bool CanRightClick() => true;
+        public override void RightClick(Player player)
+        {
+            player.ReplaceItem(Item, ModContent.ItemType<BionomicCluster>());
         }
     }
 }
