@@ -2939,6 +2939,7 @@ Mods: {
 					    Stabilizes gravity in space and in liquids
 					'The amalgamate born of a thousand common enemies'
 					'''
+			}
 
 			CelestialRune: {
 				DisplayName: Celestial Rune
