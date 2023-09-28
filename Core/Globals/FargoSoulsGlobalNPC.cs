@@ -127,6 +127,19 @@ namespace FargowiltasSouls.Core.Globals
             FlamesoftheUniverse = false;
             PungentGazeTime = 0;
         }
+        public override void SetStaticDefaults()
+        {
+            //blightus deletus
+            if (ModContent.TryFind("CalamityMod", "MiracleBlight", out ModBuff miracleBlight))
+            {
+                foreach (ModNPC npc in Mod.GetContent<ModNPC>())
+                {
+                    NPCID.Sets.SpecificDebuffImmunity[npc.Type][miracleBlight.Type] = true;
+                }
+            }
+            
+            
+        }
         public override void SetDefaults(NPC npc)
         {
             if (npc.rarity > 0 && !RareNPCs.Contains(npc.type))

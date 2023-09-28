@@ -80,10 +80,6 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
-            if (ModContent.TryFind("CalamityMod", "MiracleBlight", out ModBuff miracleBlight))
-            {
-                NPCID.Sets.SpecificDebuffImmunity[Type][miracleBlight.Type] = true;
-            }
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
             NPC.AddDebuffImmunities(new List<int>
