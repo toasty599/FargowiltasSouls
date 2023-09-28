@@ -348,7 +348,7 @@ namespace FargowiltasSouls.Core.Globals
                     npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ModContent.ItemType<TimsConcoction>(), 5));
                     break;
                 case NPCID.WalkingAntlion:
-                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FastClock, 50));
+                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.ByCondition(new DownedEvilBossDropCondition(), ItemID.FastClock, 50));
                     break;
                 case NPCID.DuneSplicerBody or NPCID.DuneSplicerHead or NPCID.DuneSplicerTail:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.OasisCrate));
