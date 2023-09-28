@@ -65,13 +65,13 @@ Mods: {
 			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
 			// Shadow: Number of Shadow Orbs increased
-			// Squire: Increases mount defense by 10, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
+			// Squire: Increases mount defense by 5, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
 			// Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
 			// Turtle: Occasionaly recover a projectile block point, number of needles and damage increased
-			// ValhallaKnight: Increases mount defense by 10, acceleration from 2x to 3x, and heal bonus from 33% to 50%
+			// ValhallaKnight: Increases mount defense by 5, acceleration from 2x to 3x, and heal bonus from 33% to 50%
 			// Vortex: No upgrade
 			// Wood: Bestiary and banner multiplier increased to 5
 			// AshWood: Fires balls of fire more often
@@ -1886,6 +1886,11 @@ Mods: {
 				// Description: ""
 				// DisplayName: R.O.B
 			}
+
+			RainCDBuff: {
+				// DisplayName: Rain C D Buff
+				// Description: Mods.FargowiltasSouls.Buffs.RainCDBuff.Description
+			}
 		}
 
 		Items: {
@@ -2585,7 +2590,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Increases mount acceleration, top speed, and jump height
-					While mounted, grants 25 defense, a fart jump, fall damage immunity, and dash
+					While mounted, grants 15 defense, a fart jump, fall damage immunity, and dash
 					Increases the effectiveness of healing sources by 33%
 					Greatly enhances Ballista effectiveness
 					'Valhalla calls'
@@ -5023,7 +5028,7 @@ Mods: {
 
 			EulogistsDoomsdayScenario: {
 				// DisplayName: Eulogist's Doomsday Scenario
-				// Tooltip: Blow up a small area around you killing all town npcs and yourself
+				// Tooltip: Blow up a small area around you, killing all town npcs and yourself
 			}
 
 			RustedOxygenTankInactive: {

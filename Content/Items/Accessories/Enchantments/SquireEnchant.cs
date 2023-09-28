@@ -70,13 +70,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                 if (modPlayer.ValhallaEnchantItem != null && modPlayer.ForceEffect(modPlayer.ValhallaEnchantItem.type))
                 {
-                    defenseBoost = 30;
+                    defenseBoost = 20;
                     accelBoost = 3f;
                     speedBoost = 2f;
                 }
                 else if (modPlayer.ValhallaEnchantItem != null || modPlayer.ForceEffect(modPlayer.SquireEnchantItem.type))
                 {
-                    defenseBoost = 20;
+                    defenseBoost = 15;
                     accelBoost = 2f;
                     speedBoost = 2f;
                 }
