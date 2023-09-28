@@ -138,6 +138,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void ResetEffects()
         {
             HasDash = false;
+            MonkDashReady = false;
+            JungleDashReady = false;
 
             AttackSpeed = 1f;
             if (Screenshake > 0)

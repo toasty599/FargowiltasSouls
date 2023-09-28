@@ -569,8 +569,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             HasDash = true;
-            MonkDashReady = true;
-            Player.dashType = 1;
+            JungleDashReady = true;
             /*
             HasDash = true;
 

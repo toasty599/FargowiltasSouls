@@ -10,175 +10,123 @@ using System.Threading.Tasks;
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.GameInput;
+using System.Reflection;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Core.Systems
 {
     public class DashPlayer : ModPlayer
     {
-        public int latestXDirPressed = 0;
-        public int latestXDirReleased = 0;
-        private bool LeftLastPressed = false;
-        private bool RightLastPressed = false;
-        public override void ProcessTriggers(TriggersSet triggersSet)
+        public int modDashDelay = 0;
+        public int modDashTime = 0;
+        public override void PostUpdateEquips()
         {
-            if (Main.LocalPlayer.controlLeft && !LeftLastPressed)
+            if (modDashDelay == 0)
             {
-                latestXDirPressed = -1;
-            }
-            if (Main.LocalPlayer.controlRight && !RightLastPressed)
-            {
-                latestXDirPressed = 1;
-            }
-            if (!Main.LocalPlayer.controlLeft && !Main.LocalPlayer.releaseLeft)
-            {
-                latestXDirReleased = -1;
-            }
-            if (!Main.LocalPlayer.controlRight && !Main.LocalPlayer.releaseRight)
-            {
-                latestXDirReleased = 1;
-            }
-            LeftLastPressed = Main.LocalPlayer.controlLeft;
-            RightLastPressed = Main.LocalPlayer.controlRight;
-        }
-    }
-    public class CustomDashManager : ModSystem
-    {
-        public static void DashHandleThatMimicsVanillaPlusMutantModKeyBecauseTheRealOneIsFuckingPrivate(Player player, out int dir, out bool dashing)
-        {
-            dir = 0;
-            dashing = false;
-            Mod fargo = ModLoader.GetMod("Fargowiltas");
-            if (player.whoAmI == Main.myPlayer && !(bool)fargo.Call("DoubleTapDashDisabled"))//!ModContent.GetInstance<FargoClientConfig>().DoubleTapDashDisabled)
-            {
-                //vanilla dash check here
-                if (player.dashTime > 0)
+                if (Player.FargoSouls().MonkDashReady)
                 {
-                    player.dashTime--;
-                }
-                if (player.dashTime < 0)
-                {
-                    player.dashTime++;
-                }
-                if (player.controlRight && player.releaseRight)
-                {
-                    if (player.dashTime > 0)
+                    CustomDashManager.HandleDash(out bool dashing, out int dir);
+                    if (dashing && dir != 0)
                     {
-                        dir = 1;
-                        dashing = true;
-                        player.dashTime = 0;
-                        player.timeSinceLastDashStarted = 0;
-                    }
-                    else
-                    {
-                        player.dashTime = 15;
+                        MonkBuff.MonkDash(Player, false, dir);
+                        Player.ClearBuff(ModContent.BuffType<MonkBuff>());
                     }
                 }
-                else if (player.controlLeft && player.releaseLeft)
+                else if (Player.FargoSouls().JungleDashReady)
                 {
-                    if (player.dashTime < 0)
+                    CustomDashManager.HandleDash(out bool dashing, out int dir);
+                    if (dashing && dir != 0)
                     {
-                        dir = -1;
-                        dashing = true;
-                        player.dashTime = 0;
-                        player.timeSinceLastDashStarted = 0;
+                        JungleEnchant.JungleDash(Player, dir);
                     }
-                    else
-                    {
-                        player.dashTime = -15;
-                    }
-                }
-                return;
-            }
-            if ((bool)fargo.Call("DashKeyJustPressed")) //(fargo.DashKey.JustPressed)
-            {
-                DashPlayer modPlayer = player.GetModPlayer<DashPlayer>();
-                if (player.controlRight && player.controlLeft)
-                {
-                    dir = modPlayer.latestXDirPressed;
-                }
-                else if (player.controlRight)
-                {
-                    dir = 1;
-                }
-                else if (player.controlLeft)
-                {
-                    dir = -1;
-                }
-                else if (modPlayer.latestXDirReleased != 0)
-                {
-                    dir = modPlayer.latestXDirReleased;
-                }
-                else
-                {
-                    dir = player.direction;
-                }
-                player.direction = dir;
-                dashing = true;
-                if (player.dashTime > 0)
-                {
-                    player.dashTime--;
-                }
-                if (player.dashTime < 0)
-                {
-                    player.dashTime++;
-                }
-                if ((player.dashTime <= 0 && player.direction == -1) || (player.dashTime >= 0 && player.direction == 1))
-                {
-                    player.dashTime = 15;
-                    return;
-                }
-                dashing = true;
-                player.dashTime = 0;
-                player.timeSinceLastDashStarted = 0;
-            }
-        }
-        /*
-        public override void PostSetupContent()
-        {
-            Terraria.On_Player.DoCommonDashHandle += CustomDashes;
-        }
-        public override void Unload()
-        {
-            Terraria.On_Player.DoCommonDashHandle -= CustomDashes;
-        }
-        private static void CustomDashes(Terraria.On_Player.orig_DoCommonDashHandle orig, Terraria.Player player, out int dir, out bool dashing, Player.DashStartAction dashStartAction)
-        {
-            
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            //add these in order of priority
-            if (dashing && modPlayer.HasDash)
-            {
-                if (modPlayer.MonkDashReady && player.HasBuff<MonkBuff>())
-                {
-                    player.ClearBuff(ModContent.BuffType<MonkBuff>());
-                    MonkBuff.MonkDash(player, false, dir);
-                    modPlayer.MonkDashReady = false; //making sure
-                                                     //ALWAYS DO THESE THREE:
-                    player.dashType = 0;
-                    player.dash = 0;
-                    dashing = false; //don't do vanilla effects
-                    dir = 0;
-                }
-                if (modPlayer.JungleDashReady && modPlayer.JungleEnchantActive)
-                {
-                    float dashSpeed = modPlayer.ChloroEnchantActive ? 12f : 9f;
-                    modPlayer.dashCD = 60;
-                    if (modPlayer.IsDashingTimer < 10)
-                        modPlayer.IsDashingTimer = 10;
-                    player.velocity.X = dashSpeed;
-                    modPlayer.JungleDashReady = false; //making sure
-                                                       //ALWAYS DO THESE THREE:
-                    player.dashType = 0;
-                    player.dash = 0;
-                    dashing = false; //don't do vanilla effects
-                    dir = 0;
                 }
             }
             else
             {
-
+                modDashDelay -= Math.Sign(modDashDelay);
             }
+            
         }
-        */
+
+    }
+    public class CustomDashManager : ModSystem
+    {
+        public static readonly BindingFlags UniversalBindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public;
+        public static MethodInfo DashHandleMethod
+        {
+            get;
+            set;
+        }
+        public static void HandleDash(out bool dashing, out int dir)
+        {
+            DashHandleMethod = typeof(Player).GetMethod("DoCommonDashHandle", UniversalBindingFlags);
+
+            dir = 1;
+            dashing = true; //these two are overriden by the actual method anyway
+            
+
+            Player player = Main.LocalPlayer;
+            Player.DashStartAction action = null;
+            object[] args = new object[] { dir, dashing, action };
+            DashHandleMethod.Invoke(player, args);
+            dir = (int)args[0];
+            dashing = (bool)args[1];
+
+            HackyDoubletapHandle(player, out bool dashing1, out int dir1);
+            if (dashing1)
+            {
+                dashing = true;
+            }
+            if (dir1 != 0)
+            {
+                dir = dir1;
+            }
+            //action = (Player.DashStartAction)args[2];
+        }
+        private static void HackyDoubletapHandle(Player player, out bool dashing, out int dir)
+        {
+            dashing = false;
+            dir = 0;
+            DashPlayer dashPlayer = player.GetModPlayer<DashPlayer>();
+            if (dashPlayer.modDashTime > 0)
+            {
+                dashPlayer.modDashTime--;
+            }
+            if (dashPlayer.modDashTime < 0)
+            {
+                dashPlayer.modDashTime++;
+            }
+            if (player.controlRight && player.releaseRight)
+            {
+                if (dashPlayer.modDashTime > 0)
+                {
+                    dir = 1;
+                    dashing = true;
+                    dashPlayer.modDashTime = 0;
+                    player.timeSinceLastDashStarted = 0;
+                    //dashStartAction?.Invoke(dir);
+                }
+                else
+                {
+                    dashPlayer.modDashTime = 15;
+                }
+            }
+            else if (player.controlLeft && player.releaseLeft)
+            {
+                if (dashPlayer.modDashTime < 0)
+                {
+                    dir = -1;
+                    dashing = true;
+                    dashPlayer.modDashTime = 0;
+                    player.timeSinceLastDashStarted = 0;
+                    //dashStartAction?.Invoke(dir);
+                }
+                else
+                {
+                    dashPlayer.modDashTime = -15;
+                }
+            }
+            Main.NewText(dashPlayer.modDashTime + " " + dir);
+        }
     }
 }

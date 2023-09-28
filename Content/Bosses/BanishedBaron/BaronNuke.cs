@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.height = 32;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.scale = 2f;

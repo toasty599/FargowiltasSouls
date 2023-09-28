@@ -21,70 +21,12 @@ namespace FargowiltasSouls.Content.Buffs.Souls
         {
             if (!(player.whoAmI == Main.myPlayer && !player.GetToggleValue("Monk")))
                 player.buffTime[buffIndex] = 2;
-            player.FargoSouls().MonkDashReady = false;
             if (player.mount.Active)
             {
                 return;
             }
-            
-            if (player.FargoSouls().HasDash)
-                return;
-
-            //TODO: dash rework vanilla invoke
             player.FargoSouls().HasDash = true;
-            //player.FargoSouls().MonkDashReady = true;
-            //player.dashType = 1;
-
-            //int direction = 0;
-            //bool vertical = false;
-
-            /*
-            //down
-            if ((player.controlDown && player.releaseDown))
-            {
-                if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
-                {
-                    direction = 1;
-                    vertical = true;
-                }
-            }
-            //up
-            else if ((player.controlUp && player.releaseUp))
-            {
-                if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
-                {
-                    direction = -1;
-                    vertical = true;
-                }
-            }
-            //right
-            else 
-            */
-            /*
-            if (player.controlRight && player.releaseRight)
-            {
-                if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
-                {
-                    direction = 1;
-                    vertical = false;
-                }
-            }
-            //left
-            else if (player.controlLeft && player.releaseLeft)
-            {
-                if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
-                {
-                    direction = -1;
-                    vertical = false;
-                }
-            }
-            */
-            CustomDashManager.DashHandleThatMimicsVanillaPlusMutantModKeyBecauseTheRealOneIsFuckingPrivate(player, out int dir, out bool dashing);
-            if (dashing && dir != 0)
-            {
-                MonkDash(player, false, dir);
-                player.buffTime[buffIndex] = 0;
-            }
+            player.FargoSouls().MonkDashReady = true;
         }
         public static void MonkDash(Player player, bool vertical, int direction)
         {
@@ -107,6 +49,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             }
 
             player.dashDelay = 20;
+            player.dashType = 0;
+            player.GetModPlayer<DashPlayer>().modDashDelay = player.dashDelay;
             if (player.FargoSouls().IsDashingTimer < 20)
                 player.FargoSouls().IsDashingTimer = 20;
 
