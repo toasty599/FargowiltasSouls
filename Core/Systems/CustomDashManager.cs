@@ -129,7 +129,6 @@ namespace FargowiltasSouls.Core.Systems
                     dashPlayer.modDashTime = -15;
                 }
             }
-            Main.NewText(dashPlayer.modDashTime + " " + dir);
         }
     }
 }
