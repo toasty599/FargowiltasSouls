@@ -931,90 +931,9 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        private void ShinobiDash(int direction)
-        {
-            dashCD = 90;
-
-            var teleportPos = Player.position;
-
-            const int length = 400; //make sure this is divisible by 16 btw
-
-            if (Player.GetToggleValue("Shinobi")) //go through walls
-            {
-                teleportPos.X += length * direction;
-
-                while (Collision.SolidCollision(teleportPos, Player.width, Player.height))
-                {
-                    if (direction == 1)
-                    {
-                        teleportPos.X++;
-                    }
-                    else
-                    {
-                        teleportPos.X--;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < length; i += 16)
-                {
-                    if (DeerclawpsItem != null)
-                    {
-                        if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Deerclawps"))
-                        {
-                            DeerclawpsAttack(new Vector2(teleportPos.X, Player.Bottom.Y));
-                        }
-                    }
-
-                    teleportPos.X += 16 * direction;
-
-                    if (Collision.SolidCollision(teleportPos, Player.width, Player.height))
-                    {
-                        teleportPos.X -= 16 * direction;
-                        break;
-                    }
-                }
-            }
-
-            if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
-            {
-                FargoSoulsUtil.GrossVanillaDodgeDust(Player);
-                Player.Teleport(teleportPos, 1);
-                FargoSoulsUtil.GrossVanillaDodgeDust(Player);
-                NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
-
-                Player.velocity.X = 12f * direction;
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
-            }
-        }
 
         private void ShinobiDashChecks()
         {
-            if (HasDash)
-                return;
-
-            HasDash = true;
-
-            if (Player.GetToggleValue("ShinobiDash") && Player.whoAmI == Main.myPlayer & dashCD <= 0 && !Player.mount.Active)
-            {
-                if (Player.controlRight && Player.releaseRight)
-                {
-                    if (Player.doubleTapCardinalTimer[2] > 0 && Player.doubleTapCardinalTimer[2] != 15)
-                    {
-                        ShinobiDash(1);
-                    }
-                }
-
-                if (Player.controlLeft && Player.releaseLeft)
-                {
-                    if (Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
-                    {
-                        ShinobiDash(-1);
-                    }
-                }
-            }
         }
 
         public void ShinobiEffect(bool hideVisual)

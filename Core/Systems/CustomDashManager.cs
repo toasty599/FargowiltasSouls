@@ -21,9 +21,15 @@ namespace FargowiltasSouls.Core.Systems
         public int modDashTime = 0;
         public override void PostUpdateEquips()
         {
+            if (Player.whoAmI != Main.myPlayer)
+            {
+                return;
+            }
+            FargoSoulsPlayer modPlayer = Player.FargoSouls();
+
             if (modDashDelay == 0)
             {
-                if (Player.FargoSouls().MonkDashReady)
+                if (modPlayer.MonkDashReady)
                 {
                     CustomDashManager.HandleDash(out bool dashing, out int dir);
                     if (dashing && dir != 0)
@@ -32,7 +38,15 @@ namespace FargowiltasSouls.Core.Systems
                         Player.ClearBuff(ModContent.BuffType<MonkBuff>());
                     }
                 }
-                else if (Player.FargoSouls().JungleDashReady)
+                else if (modPlayer.ShinobiEnchantActive && Player.GetToggleValue("ShinobiDash"))
+                {
+                    CustomDashManager.HandleDash(out bool dashing, out int dir);
+                    if (dashing && dir != 0)
+                    {
+                        ShinobiEnchant.ShinobiDash(Player, dir);
+                    }
+                }
+                else if (modPlayer.JungleDashReady)
                 {
                     CustomDashManager.HandleDash(out bool dashing, out int dir);
                     if (dashing && dir != 0)
