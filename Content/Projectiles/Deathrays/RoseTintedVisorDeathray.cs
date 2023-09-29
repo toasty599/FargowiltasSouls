@@ -8,6 +8,7 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Deathrays
 {
@@ -31,6 +32,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             Projectile.friendly = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
+            Projectile.DamageType = DamageClass.Magic;
         }
         const int MaxLength = 1000;
         int Length = 10;

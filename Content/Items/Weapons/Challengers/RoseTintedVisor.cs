@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            Item.damage = 325;
+            Item.damage = 280;
             Item.mana = 22;
             Item.DamageType = DamageClass.Magic;
             Item.width = 20;
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 for (int i = 0; i < Charges; i++)
                 {
                     Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.Pi / 32) * Item.shootSpeed;
-                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Top + Vector2.UnitY * 8, vel, Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Top + Vector2.UnitY * 8, vel, Item.shoot, (int)(player.ActualClassDamage(DamageClass.Magic) * Item.damage), Item.knockBack, player.whoAmI);
                     player.velocity -= vel;
                 }
                 if (Charges >= 6)
