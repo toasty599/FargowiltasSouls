@@ -14,18 +14,31 @@ namespace FargowiltasSouls.Core.Systems
     {
         public readonly static Recipe.ConsumeItemCallback IronBonusBars = (Recipe recipe, int type, ref int amount) =>
         {
-
             Player player = Main.LocalPlayer;
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (modPlayer.IronEnchantItem == null)
                 return;
 
-            if (recipe.requiredTile.Contains(TileID.MythrilAnvil) && !modPlayer.ForceEffect(modPlayer.IronEnchantItem.type))
-                return;
+            if (!modPlayer.IronUsedList.Contains(type))
+            {
+                int chance = 3;
 
-            
-            amount = 0;
+                if (modPlayer.ForceEffect(modPlayer.IronEnchantItem.type))
+                {
+                    chance = 2;
+                }
+
+                modPlayer.IronUsedList.Add(type);
+
+                int amountUsed = 0;
+                for (int i = 0; i < amount; i++)
+                {
+                    if (!Main.rand.NextBool(chance))
+                        amountUsed++;
+                }
+                amount = amountUsed;
+            }
         };
         public static string AnyItem(int id) => $"{Lang.misc[37]} {Lang.GetItemName(id)}";
 
@@ -179,7 +192,7 @@ namespace FargowiltasSouls.Core.Systems
         }
         public override void PostAddRecipes()
         {
-            foreach (Recipe recipe in Main.recipe.Where(recipe => recipe.requiredTile.Contains(TileID.Anvils) || recipe.requiredTile.Contains(TileID.MythrilAnvil)))
+            foreach (Recipe recipe in Main.recipe.Where(recipe => !recipe.requiredTile.Contains(ModContent.TileType<Fargowiltas.Items.Tiles.CrucibleCosmosSheet>())))
             {
                 recipe.AddConsumeItemCallback(IronBonusBars);
             }
