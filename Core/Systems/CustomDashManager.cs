@@ -25,6 +25,10 @@ namespace FargowiltasSouls.Core.Systems
             {
                 return;
             }
+            if (Player.mount.Active)
+            {
+                return;
+            }
             FargoSoulsPlayer modPlayer = Player.FargoSouls();
 
             if (modDashDelay == 0)
