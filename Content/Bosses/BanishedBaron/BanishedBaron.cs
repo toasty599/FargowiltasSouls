@@ -724,6 +724,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         {
             NPC.velocity *= 0.96f;
             Trail = 8;
+            Anim = 1;
             RotateTowards(NPC.Center + Vector2.UnitY, 1.2f);
             if (NPC.velocity.Y < 20)
             {
