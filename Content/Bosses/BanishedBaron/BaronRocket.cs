@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.Kill();
             }
             //a bit after spawning, become tangible when it finds an open space
-            if (!Projectile.tileCollide && Projectile.localAI[0] > 60 * Projectile.MaxUpdates)
+            if (!Projectile.tileCollide && Projectile.localAI[0] > 100 * Projectile.MaxUpdates)
             {
                 Tile tile = Framing.GetTileSafely(Projectile.Center);
                 if (!(tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]))
