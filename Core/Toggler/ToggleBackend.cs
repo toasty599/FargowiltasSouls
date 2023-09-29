@@ -217,6 +217,8 @@ namespace FargowiltasSouls.Core.Toggler
             player.SetToggleValue("JungleDash", true);
             player.SetToggleValue("SupersonicTabi", true);
             player.SetToggleValue("Valhalla", true);
+            player.SetToggleValue("SquireMountJump", true);
+            player.SetToggleValue("SquireMountSpeed", true);
             player.SetToggleValue("Nebula", true);
             player.SetToggleValue("Solar", true);
             player.SetToggleValue("Mythril", true);

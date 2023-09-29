@@ -71,22 +71,26 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 if (modPlayer.ValhallaEnchantItem != null && modPlayer.ForceEffect(modPlayer.ValhallaEnchantItem.type))
                 {
                     defenseBoost = 20;
-                    accelBoost = 3f;
-                    speedBoost = 2f;
+                    accelBoost = 2f;
+                    speedBoost = 1.5f;
                 }
                 else if (modPlayer.ValhallaEnchantItem != null || modPlayer.ForceEffect(modPlayer.SquireEnchantItem.type))
                 {
                     defenseBoost = 15;
-                    accelBoost = 2f;
-                    speedBoost = 2f;
+                    accelBoost = 1.5f;
+                    speedBoost = 1.5f;
                 }
                 else
                 {
                     defenseBoost = 10;
-                    accelBoost = 1.5f;
-                    speedBoost = 1.5f;
+                    accelBoost = 1.25f;
+                    speedBoost = 1.25f;
                 }
-
+                if (!player.GetToggleValue("SquireMountSpeed"))
+                {
+                    accelBoost = 1;
+                    speedBoost = 1;
+                }
                 if (modPlayer.ValhallaEnchantItem != null)
                 {
                     player.DisplayToggle("Valhalla");
@@ -130,13 +134,16 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                         }
                     }
                 }
+                if (player.GetToggleValue("SquireMountJump"))
+                {
+                    player.GetJumpState(ExtraJump.FartInAJar).Enable();
+                }
 
-                player.GetJumpState(ExtraJump.FartInAJar).Enable();
                 player.statDefense += defenseBoost;
                 
                 mount._data.acceleration = modPlayer.BaseSquireMountData.acceleration * accelBoost;
                 mount._data.dashSpeed = modPlayer.BaseSquireMountData.dashSpeed * speedBoost;
-                mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * speedBoost;
+                mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * (float)Math.Sqrt(speedBoost);
                 mount._data.fallDamage = 0;
 
                 if (modPlayer.IsDashingTimer == 0)

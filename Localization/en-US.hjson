@@ -421,6 +421,8 @@ Mods: {
 			HuntressConfig: Huntress Ability
 			RedRidingRainConfig: Red Riding Arrow Rain
 			ValhallaConfig: Valhalla Mount Dash
+			SquireMountJump: Squire Mount Jump
+			SquireMountSpeed: Squire Speed Bonus
 			SquirePanicConfig: Ballista Panic On Hit
 			LifeHeader: "{$Mods.FargowiltasSouls.Items.LifeForce.DisplayName}"
 			BeeConfig: Bee Flowers

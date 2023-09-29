@@ -46,6 +46,8 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public string Huntress;
         public string RedRidingRain;
         public string Valhalla;
+        public string SquireMountSpeed;
+        public string SquireMountJump;
         public string SquirePanic;
 
         public int LifeHeader = ModContent.ItemType<LifeForce>();
