@@ -251,17 +251,25 @@ namespace FargowiltasSouls.Core.ModPlayers
                     if (!inLiquid)
                     {
                         Player.breath -= 1;
-                        /*
-                        if (++MasomodeSpaceBreathTimer > 10)
+                        
+                        if (++MasomodeSpaceBreathTimer > 0) //player.breath is an int so have to do this
                         {
                             MasomodeSpaceBreathTimer = 0;
                             Player.breath--;
                         }
-                        */
+                        
                         if (Player.breath == 0)
                             SoundEngine.PlaySound(SoundID.Drown);
-                        if (Player.breath <= 0)
+                        if (Player.breath < 0)
+                        {
                             Player.AddBuff(BuffID.Suffocation, 2);
+                        }
+                        if (Player.breath < -10) //don't stack far into negatives
+                        {
+                            
+                            Player.breath = -10;
+                        }
+                            
                     }
                 }
 

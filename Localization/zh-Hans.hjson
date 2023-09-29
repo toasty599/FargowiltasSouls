@@ -65,13 +65,13 @@ Mods: {
 			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
 			// Shadow: Number of Shadow Orbs increased
-			// Squire: Increases mount defense by 5, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
+			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
 			// Tiki: Increases whip range by 20%
 			Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
 			Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
 			Tungsten: 将武器大小提升到300%，伤害加成提升到20%，冷却时间减少
 			// Turtle: Occasionaly recover a projectile block point, number of needles and damage increased
-			// ValhallaKnight: Increases mount defense by 5, acceleration from 2x to 3x, and heal bonus from 33% to 50%
+			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 2x to 3x, and heal bonus from 33% to 50%
 			// Vortex: No upgrade
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
 			// AshWood: Fires balls of fire more often
@@ -4895,7 +4895,7 @@ Mods: {
 
 			KamikazePixieStaff: {
 				// DisplayName: Expixive Staff
-				// Tooltip: Summons friendly pixies that fire shots for 3 seconds, then charge into enemies and explode
+				// Tooltip: Summons friendly pixies that fire shots for a while, then charge into enemies and explode
 			}
 
 			Lightslinger: {
@@ -4959,7 +4959,7 @@ Mods: {
 					Marks a location with a reticle, consuming all your sentry slots
 					In a few seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
 					All your minions hit by the explosion are blown up into homing splinters
-					Splinters are guaranteed to critically strike
+					Splinters can critically strike
 					''' */
 			}
 
