@@ -65,13 +65,13 @@ Mods: {
 			Stardust: Timestop cooldown decreased from 60 to 50
 			Snow: No upgrade
 			Shadow: Number of Shadow Orbs increased
-			Squire: Increases mount defense by 5, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
+			Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
 			Tiki: Increases whip range by 20%
 			Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
 			Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
 			Turtle: Occasionaly recover a projectile block point, number of needles and damage increased
-			ValhallaKnight: Increases mount defense by 5, acceleration from 2x to 3x, and heal bonus from 33% to 50%
+			ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 2x to 3x, and heal bonus from 33% to 50%
 			Vortex: No upgrade
 			Wood: Bestiary and banner multiplier increased to 5
 			AshWood: Fires balls of fire more often
@@ -2623,7 +2623,7 @@ Mods: {
 					'''
 					Bestiary and banner entries complete twice as fast
 					You gain a shop discount based on bestiary completion
-					Discount effect works in vanity slots
+					Discount effect works in vanity slots and inventory
 					'''
 			}
 
@@ -4940,7 +4940,7 @@ Mods: {
 
 			KamikazePixieStaff: {
 				DisplayName: Expixive Staff
-				Tooltip: Summons friendly pixies that fire shots for 3 seconds, then charge into enemies and explode
+				Tooltip: Summons friendly pixies that fire shots for a while, then charge into enemies and explode
 			}
 
 			Lightslinger: {

@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             p.active && 
             !p.hostile && 
             p.owner == Main.myPlayer && 
-            p.minion && FargoSoulsUtil.IsSummonDamage(p, true, false) && 
+            p.minion && FargoSoulsUtil.IsSummonDamage(p, false, false) && 
             Projectile.Colliding(Projectile.Hitbox, p.Hitbox)))
             {
                 EchsplodeMinion(p, ref hitsLeft);
@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             !p.hostile && 
             p.owner == Main.myPlayer && 
             p.minion && 
-            FargoSoulsUtil.IsSummonDamage(p, true, false) && 
+            FargoSoulsUtil.IsSummonDamage(p, false, false) && 
             Projectile.Colliding(Projectile.Hitbox, p.Hitbox)))
             {
                 EchsplodeMinion(p, ref hitsLeft);
