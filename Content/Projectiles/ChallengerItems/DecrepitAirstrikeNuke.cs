@@ -120,11 +120,25 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             int hitsLeft = Main.player[Projectile.owner].maxMinions;
 
             //prioritize squirrels first because funny
-            foreach (Projectile p in Main.projectile.Where(p => p.type == ModContent.ProjectileType<KamikazeSquirrel>() && p.active && !p.hostile && p.owner == Main.myPlayer && p.minion && Projectile.Colliding(Projectile.Hitbox, p.Hitbox)))
+            foreach (Projectile p in Main.projectile.Where(p => 
+            p.type == ModContent.ProjectileType<KamikazeSquirrel>() && 
+            p.active && 
+            !p.hostile && 
+            p.owner == Main.myPlayer && 
+            p.minion && FargoSoulsUtil.IsSummonDamage(p, true, false) && 
+            Projectile.Colliding(Projectile.Hitbox, p.Hitbox)))
             {
                 EchsplodeMinion(p, ref hitsLeft);
             }
-            foreach (Projectile p in Main.projectile.Where(p => p.type != ModContent.ProjectileType<KamikazeSquirrel>() && p.active && !p.hostile && p.owner == Main.myPlayer && p.minion && Projectile.Colliding(Projectile.Hitbox, p.Hitbox)))
+            //rest of minions
+            foreach (Projectile p in Main.projectile.Where(p => 
+            p.type != ModContent.ProjectileType<KamikazeSquirrel>() && 
+            p.active && 
+            !p.hostile && 
+            p.owner == Main.myPlayer && 
+            p.minion && 
+            FargoSoulsUtil.IsSummonDamage(p, true, false) && 
+            Projectile.Colliding(Projectile.Hitbox, p.Hitbox)))
             {
                 EchsplodeMinion(p, ref hitsLeft);
             }
