@@ -19,6 +19,8 @@ and Summons a Flameburst minion that will also fire while you attack
 
 -Moved Gold Enchant to phm, removed the Greedy ring effect, updated recipe
 
+-Iron obscene buff
+
 
 -Removed most of the extra loot Wall of Flesh dropped in emode
 

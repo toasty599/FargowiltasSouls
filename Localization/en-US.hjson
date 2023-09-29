@@ -33,7 +33,7 @@ Mods: {
 			Gold: No upgrade
 			Hallow: Potion heal bonus increased from 20 to 40%
 			Huntress: Armor penetration and flat damage increased to 10 and 5 respectively
-			Iron: Increases item range by 4x, crafting bonus now affects Mythril Anvil
+			Iron: Increases item range by 4x and chance not to consume to 50%
 			Jungle: Spore damage increased, cooldown decreased
 			Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
 			Meteor: A meteor shower initiates every few seconds while attacking
@@ -2178,7 +2178,8 @@ Mods: {
 				Tooltip:
 					'''
 					You attract items from a larger range
-					33% chance to not consume crafting ingredients at an Iron Anvil
+					The first time you craft an item, there is a 33% chance to not consume any of its materials
+					Does not work on Crucible of the Cosmos items
 					'Strike while the iron is hot'
 					'''
 			}
@@ -2793,7 +2794,7 @@ Mods: {
 					'''
 					[i:FargowiltasSouls/CopperEnchant][i:FargowiltasSouls/ObsidianEnchant][i:FargowiltasSouls/LeadEnchant] Attacks spawn lightning, explosions, and inflict Lead Poisoning
 					[i:FargowiltasSouls/TinEnchant] Sets Tin crit chance to 10%, increasing up to double your original crit chance or 50%
-					[i:FargowiltasSouls/IronEnchant] You attract items from further away, 33% chance to not consume items at an Anvil
+					[i:FargowiltasSouls/IronEnchant] You attract items from further away, 50% chance to not consume items on first craft
 					[i:FargowiltasSouls/LeadEnchant] You take 60% less from damage over time
 					[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
 					[i:FargowiltasSouls/TungstenEnchant] Weapon size increased to 300% and projectile size every quarter second
