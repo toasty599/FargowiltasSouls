@@ -434,6 +434,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             EquippedEnchants.Clear();
 
+            WizardTooltips = false;
+
             if (WizardEnchantActive)
             {
                 WizardEnchantActive = false;

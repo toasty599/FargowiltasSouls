@@ -222,6 +222,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool VortexEnchantActive;
         public bool VortexStealth;
         public bool WizardEnchantActive;
+        public bool WizardTooltips;
         public Item WizardedItem;
 
         public bool NebulaEnchantActive;

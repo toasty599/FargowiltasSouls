@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 itemNameLine.OverrideColor = nameColor;
 
             FargoSoulsPlayer localSoulsPlayer = Main.LocalPlayer.FargoSouls();
-            if (localSoulsPlayer.WizardEnchantActive || Main.LocalPlayer.inventory.Any(n => n != null && n.type == ModContent.ItemType<WizardEnchant>()))
+            if (localSoulsPlayer.WizardTooltips)
             {
                 if (Type == ModContent.ItemType<WizardEnchant>())
                 {
