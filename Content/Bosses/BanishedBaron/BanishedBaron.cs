@@ -723,6 +723,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         void DeathAnimation()
         {
             NPC.velocity *= 0.96f;
+            Trail = 8;
             RotateTowards(NPC.Center + Vector2.UnitY, 1.2f);
             NPC.velocity.Y += 0.75f;
             if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height) || Wet() || Timer > 240)
