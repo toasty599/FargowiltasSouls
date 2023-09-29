@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -63,6 +64,7 @@ Greatly enhances Lightning Aura effectiveness
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             modPlayer.dashCD = 90;
+            player.GetModPlayer<DashPlayer>().modDashDelay = player.dashDelay = modPlayer.dashCD;
 
             var teleportPos = player.position;
 

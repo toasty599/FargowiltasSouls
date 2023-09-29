@@ -54,6 +54,14 @@ namespace FargowiltasSouls.Core.Systems
                         JungleEnchant.JungleDash(Player, dir);
                     }
                 }
+                else if (modPlayer.DeerSinewNerf)
+                {
+                    CustomDashManager.HandleDash(out bool dashing, out int dir);
+                    if (dashing && dir != 0)
+                    {
+                        modPlayer.DeerSinewDash(dir);
+                    }
+                }
             }
             else
             {

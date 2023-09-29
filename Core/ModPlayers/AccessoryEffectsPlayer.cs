@@ -22,6 +22,7 @@ using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Common.Graphics.Shaders;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -2888,37 +2889,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             DeerSinewNerf = true;
 
-            if (dashCD <= 0)
-            {
-                float dashSpeed = 12f;
-
-                if (Player.controlRight && Player.releaseRight)
-                {
-                    if (Player.doubleTapCardinalTimer[2] > 0 && Player.doubleTapCardinalTimer[2] != 15)
-                    {
-                        dashCD = 60;
-                        if (IsDashingTimer < 15)
-                            IsDashingTimer = 15;
-                        Player.velocity.X = dashSpeed;
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
-                            NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
-                    }
-                }
-
-                if (Player.controlLeft && Player.releaseLeft)
-                {
-                    if (Player.doubleTapCardinalTimer[3] > 0 && Player.doubleTapCardinalTimer[3] != 15)
-                    {
-                        dashCD = 60;
-                        if (IsDashingTimer < 15)
-                            IsDashingTimer = 15;
-                        Player.velocity.X = -dashSpeed;
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
-                            NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
-                    }
-                }
-            }
-
             if (IsDashingTimer > 0)
             {
                 for (int i = 0; i < 3; i++)
@@ -2929,7 +2899,17 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
         }
-
+        public void DeerSinewDash(int dir)
+        {
+            float dashSpeed = 12f;
+            dashCD = 60;
+            Player.GetModPlayer<DashPlayer>().modDashDelay = Player.dashDelay = dashCD;
+            if (IsDashingTimer < 15)
+                IsDashingTimer = 15;
+            Player.velocity.X = dashSpeed;
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
+        }
         public float DeerSinewCritNerf()
         {
             float ratio = Math.Min(Player.velocity.Length() / 16f, 1f);
