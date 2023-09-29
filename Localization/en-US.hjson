@@ -432,7 +432,7 @@ Mods: {
 			NatureHeader: "{$Mods.FargowiltasSouls.Items.NatureForce.DisplayName}"
 			ChlorophyteConfig: Chlorophyte Leaf Crystal
 			CrimsonConfig: Crimson Regen
-			RainConfig: Rain Clouds
+			RainConfig: Rain Umbrella
 			RainInnerTubeConfig: Inner Tube
 			FrostConfig: Frost Icicles
 			JungleConfig: Jungle Spores
