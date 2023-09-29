@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Core.Systems
                     }
                 }
 
-                if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso && !FargoSoulsUtil.AnyBossAlive())
+                if (!MasochistModeReal && EternityMode && ((FargoSoulsUtil.WorldIsMaster() && CanPlayMaso) || Main.zenithWorld) && !FargoSoulsUtil.AnyBossAlive())
                 {
                     MasochistModeReal = true;
                     FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.MasochistOn", new Color(51, 255, 191, 0));
