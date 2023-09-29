@@ -115,9 +115,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                             if (shoot == 10) //purification powder
                             {
-                                float speed = 0;
-                                int damage = 0;
-                                float kb = 0;
+                                float speed;
+                                int damage;
+                                float kb;
                                 int usedAmmo;
                                 player.PickAmmo(item2, out shoot, out speed, out damage, out kb, out usedAmmo);
                                 ItemLoader.ModifyShootStats(item2, player, ref pos, ref velocity, ref shoot, ref damage, ref item2.knockBack);
