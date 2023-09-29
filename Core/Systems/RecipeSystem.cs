@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Core.Systems
                     chance = 2;
                 }
 
-                //modPlayer.IronUsedList.Add(type);
+                modPlayer.IronUsedList.Add(type);
 
                 int amountUsed = 0;
                 for (int i = 0; i < amount; i++)
