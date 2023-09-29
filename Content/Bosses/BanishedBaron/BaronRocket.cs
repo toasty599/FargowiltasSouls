@@ -68,9 +68,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Projectile.velocity *= 1.05f;
             }
-            if (Projectile.ai[0] == 4) //slower accelerating torpedo
+            if (Projectile.ai[0] == 4) //accelerating torpedo p1
             {
                 Projectile.velocity *= 1.05f;
+                Projectile.tileCollide = true;
             }
             if (Projectile.ai[0] == 3 || Projectile.ai[0] == 1) //homing rocket or torpedo
             {
