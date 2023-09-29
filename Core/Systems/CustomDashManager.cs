@@ -97,15 +97,27 @@ namespace FargowiltasSouls.Core.Systems
             dir = (int)args[0];
             dashing = (bool)args[1];
 
-            HackyDoubletapHandle(player, out bool dashing1, out int dir1);
-            if (dashing1)
+            bool dashDisabled = false;
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
             {
-                dashing = true;
+                if ((bool)fargos.Call("DoubleTapDashDisabled"))
+                {
+                    dashDisabled = true;
+                }
             }
-            if (dir1 != 0)
+            if (!dashDisabled)
             {
-                dir = dir1;
+                HackyDoubletapHandle(player, out bool dashing1, out int dir1);
+                if (dashing1)
+                {
+                    dashing = true;
+                }
+                if (dir1 != 0)
+                {
+                    dir = dir1;
+                }
             }
+            
             //action = (Player.DashStartAction)args[2];
         }
         private static void HackyDoubletapHandle(Player player, out bool dashing, out int dir)

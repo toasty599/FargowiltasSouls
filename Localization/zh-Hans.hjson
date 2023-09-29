@@ -438,7 +438,6 @@ Mods: {
 			JungleConfig: 丛林 跳跃孢子
 			JungleDashConfig: 丛林 冲刺
 			MoltenConfig: 熔岩 狱火增益
-			MoltenEConfig: 熔岩 受击爆炸（现效果被移动到钴蓝魔石）
 			ShroomiteConfig: 蘑菇 潜行
 			ShroomiteShroomConfig: 蘑菇 蘑菇尾迹
 			// ShadowHeader: "{$Mods.FargowiltasSouls.Items.ShadowForce.DisplayName}"
@@ -2889,6 +2888,32 @@ Mods: {
 					'''
 			}
 
+			BionomicClusterInactive: {
+				// DisplayName: Bionomic Cluster (Inactive)
+				/* Tooltip:
+					'''
+					Grants immunity to Frostburn, Shadowflame, and Squeaky Toy
+					Grants immunity to Flames of the Universe, Clipped Wings, Crippled, Webbed, and Purified
+					Grants immunity to Lovestruck, Stinky, Midas, and Hexed
+					Use to teleport to your last death point
+					Your attacks can inflict Clipped Wings and produce hearts
+					Attacks have a chance to squeak and deal 1 damage to you
+					While attacking, gain massively increased damage and shadowflame, but less move and defenses and attack speed bonuses
+					Summons a friendly rainbow slime
+					Certain enemies will drop potions when defeated
+					When attacking by manually clicking, increases non-summon damage by 30%
+					[c/00FFFF:Following effects work passively in vanity slots (right click to enable in inventory):]
+					    Grants immunity to Mighty Wind, Suffocation, Chilled, and Guilty
+					    You have improved night vision
+					    Automatically uses healing & mana potions when needed and increases pickup range for mana stars
+					    You respawn with more life and when no boss is alive, respawn faster
+					    Press the Frigid Spell key to cast Ice Rod
+					    Right click to zoom and drastically improves reforges
+					    Stabilizes gravity in space and in liquids
+					'The amalgamate born of a thousand common enemies'
+					''' */
+			}
+
 			CelestialRune: {
 				DisplayName: 天界符文
 				Tooltip:
@@ -2995,6 +3020,18 @@ Mods: {
 					按下“寒霜咒语”键放置冰雪魔杖之冰
 					“一块古老的魔法冰碎片”
 					'''
+			}
+
+			FrigidGemstoneInactive: {
+				// DisplayName: Frigid Gemstone (Inactive)
+				/* Tooltip:
+					'''
+					Currently inactive, Right click to activate
+					Grants immunity to Frostburn and Chilled
+					Press the Frigid Spell key to cast Ice Rod
+					Your ice blocks inflict Frostburn
+					'A shard of ancient magical ice'
+					''' */
 			}
 
 			FusedLens: {
@@ -3169,6 +3206,19 @@ Mods: {
 					扩大魔力星的拾取范围
 					“被打败敌人的喃喃自语的脑袋”
 					'''
+			}
+
+			MysticSkullInactive: {
+				// DisplayName: Mystic Skull (Inactive)
+				/* Tooltip:
+					'''
+					Currently inactive, Right click to activate
+					Grants immunity to Suffocation
+					10% reduced magic damage
+					Automatically use mana potions when needed
+					Increases pickup range for mana stars
+					'The quietly muttering head of a defeated foe'
+					''' */
 			}
 
 			NecromanticBrew: {
@@ -4923,10 +4973,10 @@ Mods: {
 				/* Tooltip:
 					'''
 					Works from your inventory
+					Right click to disable
 					You count as wet outside water
 					Grants floaty water movement
 					Increased movement speed while in any liquid
-					Right click to deactivate effects
 					'Nobody knows how it works'
 					''' */
 			}
@@ -4974,11 +5024,10 @@ Mods: {
 				/* Tooltip:
 					'''
 					Works from your inventory
+					Currently inactive, Right click to reactivate
 					You count as wet outside water
 					Grants floaty water movement
 					Increased movement speed while in any liquid
-					Effects are currently inactive, 
-					Right click to reactivate
 					''' */
 			}
 		}
@@ -5938,7 +5987,6 @@ Mods: {
 		// JungleConfig: "[i:FargowiltasSouls/JungleEnchant][c/71971f:{$Mods.FargowiltasSouls.Toggler.JungleConfig}]"
 		// JungleDashConfig: "[i:FargowiltasSouls/JungleEnchant][c/71971f:{$Mods.FargowiltasSouls.Toggler.JungleDashConfig}]"
 		// MoltenConfig: "[i:FargowiltasSouls/MoltenEnchant][c/c12b2b:{$Mods.FargowiltasSouls.Toggler.MoltenConfig}]"
-		// MoltenEConfig: "[i:FargowiltasSouls/MoltenEnchant][c/c12b2b:{$Mods.FargowiltasSouls.Toggler.MoltenEConfig}]"
 		// ShroomiteConfig: "[i:FargowiltasSouls/ShroomiteEnchant][c/008cf4:{$Mods.FargowiltasSouls.Toggler.ShroomiteConfig}]"
 		// ShroomiteShroomConfig: "[i:FargowiltasSouls/ShroomiteEnchant][c/008cf4:{$Mods.FargowiltasSouls.Toggler.ShroomiteShroomConfig}]"
 		// ShadowHeader: "[i:FargowiltasSouls/ShadowEnchant][c/ffffff:{$Mods.FargowiltasSouls.Toggler.ShadowHeader}]"

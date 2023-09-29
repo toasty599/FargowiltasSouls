@@ -3061,6 +3061,7 @@ Mods: {
 					'A shard of ancient magical ice'
 					'''
 			}
+
 			FusedLens: {
 				DisplayName: Fused Lens
 				Tooltip:
@@ -3240,6 +3241,7 @@ Mods: {
 					'The quietly muttering head of a defeated foe'
 					'''
 			}
+
 			MysticSkullInactive: {
 				DisplayName: Mystic Skull (Inactive)
 				Tooltip:
