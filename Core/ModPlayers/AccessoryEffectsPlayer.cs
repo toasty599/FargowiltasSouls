@@ -2906,7 +2906,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.GetModPlayer<DashPlayer>().modDashDelay = Player.dashDelay = dashCD;
             if (IsDashingTimer < 15)
                 IsDashingTimer = 15;
-            Player.velocity.X = dashSpeed;
+            Player.velocity.X = dir * dashSpeed;
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.PlayerControls, number: Player.whoAmI);
         }
