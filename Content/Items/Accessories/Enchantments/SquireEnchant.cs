@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 
                 mount._data.acceleration = modPlayer.BaseSquireMountData.acceleration * accelBoost;
                 mount._data.dashSpeed = modPlayer.BaseSquireMountData.dashSpeed * speedBoost;
-                mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * (float)Math.Sqrt(speedBoost);
+                mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * speedBoost;
                 mount._data.fallDamage = 0;
 
                 if (modPlayer.IsDashingTimer == 0)

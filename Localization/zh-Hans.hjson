@@ -421,6 +421,8 @@ Mods: {
 			HuntressConfig: 女猎人 相关效果
 			RedRidingRainConfig: 红色骑术 箭雨
 			ValhallaConfig: 侍卫/英灵殿骑士 治疗提升
+			// SquireMountJumpConfig: Squire Mount Jump
+			// SquireMountSpeedConfig: Squire Mount Speed
 			SquirePanicConfig: “弩车恐慌！”效果
 			// LifeHeader: "{$Mods.FargowiltasSouls.Items.LifeForce.DisplayName}"
 			BeeConfig: 蜜蜂 相关效果
@@ -5970,6 +5972,8 @@ Mods: {
 		// HuntressConfig: "[i:FargowiltasSouls/HuntressEnchant][c/7ac04c:{$Mods.FargowiltasSouls.Toggler.HuntressConfig}]"
 		// RedRidingRainConfig: "[i:FargowiltasSouls/RedRidingEnchant][c/c01b3c:{$Mods.FargowiltasSouls.Toggler.RedRidingRainConfig}]"
 		// ValhallaConfig: "[i:FargowiltasSouls/ValhallaKnightEnchant][c/93651e:{$Mods.FargowiltasSouls.Toggler.ValhallaConfig}]"
+		// SquireMountSpeedConfig: "[i:FargowiltasSouls/SquireEnchant][c/948f8c:{$Mods.FargowiltasSouls.Toggler.SquireMountSpeedConfig}]"
+		// SquireMountJumpConfig: "[i:FargowiltasSouls/SquireEnchant][c/948f8c:{$Mods.FargowiltasSouls.Toggler.SquireMountJumpConfig}]"
 		// SquirePanicConfig: "[i:FargowiltasSouls/SquireEnchant][c/948f8c:{$Mods.FargowiltasSouls.Toggler.SquirePanicConfig}]"
 		// LifeHeader: "[i:FargowiltasSouls/LifeForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.LifeHeader}]"
 		// BeeConfig: "[i:FargowiltasSouls/BeeEnchant][c/FEF625:{$Mods.FargowiltasSouls.Toggler.BeeConfig}]"

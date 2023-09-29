@@ -120,6 +120,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                                 float kb = 0;
                                 int usedAmmo;
                                 player.PickAmmo(item2, out shoot, out speed, out damage, out kb, out usedAmmo);
+                                ItemLoader.ModifyShootStats(item2, player, ref pos, ref velocity, ref shoot, ref damage, ref item2.knockBack);
                             }
 
                             if (item2.mana > 0)
