@@ -2745,7 +2745,7 @@ Mods: {
 					[i:FargowiltasSouls/FrostEnchant] Icicles will start to appear around you
 					[i:FargowiltasSouls/SnowEnchant] Press the Freeze Key to temporarily chill everything
 					[i:FargowiltasSouls/ChlorophyteEnchant] Summons a ring of leaf crystals to shoot at nearby enemies
-					[i:FargowiltasSouls/JungleEnchant] Grants a double spore jump
+					[i:FargowiltasSouls/JungleEnchant] Grants a double spore jump and a dash
 					[i:FargowiltasSouls/ShroomiteEnchant] Not moving puts you in stealth
 					[i:FargowiltasSouls/ShroomiteEnchant] All attacks gain trails of mushrooms
 					'Tapped into every secret of the wilds'
