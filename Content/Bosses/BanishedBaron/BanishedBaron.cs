@@ -725,7 +725,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPC.velocity *= 0.96f;
             Trail = 8;
             RotateTowards(NPC.Center + Vector2.UnitY, 1.2f);
-            NPC.velocity.Y += 0.75f;
+            if (NPC.velocity.Y < 20)
+            {
+                NPC.velocity.Y += 0.75f;
+            }
             if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height) || Wet() || Timer > 240)
             {
                 SoundEngine.PlaySound(SoundID.Item62, NPC.Center);
