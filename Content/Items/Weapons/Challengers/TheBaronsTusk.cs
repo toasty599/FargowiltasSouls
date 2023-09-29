@@ -60,7 +60,11 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 vel = (Item.shootSpeed + Main.rand.Next(-2, 2)) * Vector2.Normalize(Main.MouseWorld - player.itemLocation).RotatedByRandom(MathHelper.Pi / 14);
-                    Projectile.NewProjectile(Item.GetSource_FromThis(), player.itemLocation, vel, Item.shoot, Item.damage / 3, Item.knockBack, player.whoAmI);
+                    int p = Projectile.NewProjectile(Item.GetSource_FromThis(), player.itemLocation, vel, Item.shoot, Item.damage / 3, Item.knockBack, player.whoAmI);
+                    if (p != Main.maxProjectiles)
+                    {
+                        Main.projectile[p].scale = Item.scale;
+                    }
                 }
                 
             }
