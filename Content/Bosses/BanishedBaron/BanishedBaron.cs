@@ -55,6 +55,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             P2Whirlpool,
             P2LaserSweep,
             Swim,
+            DeathAnimation
         }
 
         private static List<int> P1Attacks = new List<int>() //these are randomly chosen attacks in p1
@@ -272,10 +273,6 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 modifiers.FinalDamage /= 4;
             }
         }
-        public override bool CheckDead()
-        {
-            return base.CheckDead();
-        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D bodytexture = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
@@ -367,6 +364,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
+            if (NPC.life - hit.Damage < 0 && !NPC.dontTakeDamage)
+            {
+                hit.Null();
+                NPC.life = 10;
+                NPC.dontTakeDamage = true;
+                State = (int)StateEnum.DeathAnimation;
+                Timer = 0;
+                NPC.velocity = Vector2.Zero;
+            }
             if (NPC.life <= 0)
             {
                 for (int i = 1; i <= 4; i++)
@@ -550,6 +556,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     case (float)StateEnum.P2LaserSweep:
                         P2LaserSweep();
                         break;
+                    case (float)StateEnum.DeathAnimation:
+                        DeathAnimation();
+                        break;
                     default:
                         StateReset();
                         break;
@@ -710,6 +719,17 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
             }
             
+        }
+        void DeathAnimation()
+        {
+            NPC.velocity *= 0.96f;
+            RotateTowards(NPC.Center + Vector2.UnitY, 0.5f);
+            NPC.velocity.Y += 0.75f;
+            if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height) || Wet() || Timer > 240)
+            {
+                SoundEngine.PlaySound(SoundID.Item62, NPC.Center);
+                NPC.StrikeInstantKill();
+            }
         }
         #region Phase 1 Attacks
         void Swim()
