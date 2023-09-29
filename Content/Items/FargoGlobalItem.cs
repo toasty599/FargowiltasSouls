@@ -34,7 +34,6 @@ namespace FargowiltasSouls.Content.Items
         public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
         {
         }
-
         public override void GrabRange(Item item, Player player, ref int grabRange)
         {
             FargoSoulsPlayer p = player.FargoSouls();

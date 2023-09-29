@@ -24,10 +24,9 @@ namespace FargowiltasSouls.Core.Systems
             if (recipe.requiredTile.Contains(TileID.MythrilAnvil) && !modPlayer.ForceEffect(modPlayer.IronEnchantItem.type))
                 return;
 
-
+            
             amount = 0;
         };
-
         public static string AnyItem(int id) => $"{Lang.misc[37]} {Lang.GetItemName(id)}";
 
         public static string AnyItem(string fargoSoulsLocalizationKey) => $"{Lang.misc[37]} {Language.GetTextValue($"Mods.FargowiltasSouls.RecipeGroups.{fargoSoulsLocalizationKey}")}";

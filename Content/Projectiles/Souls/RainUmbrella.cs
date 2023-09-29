@@ -34,7 +34,6 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         private bool firstTick = true;
         private int reflectHP = 200;
-
         private int getReflectHP(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
@@ -47,7 +46,6 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             return hp;
         }
-
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

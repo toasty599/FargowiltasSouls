@@ -1538,19 +1538,15 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
                 else //check force of enchant it crafts into
                 {
-                    foreach (Recipe recipe in Main.recipe.Where(r => r.ContainsIngredient(type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant && CheckForces(r.createItem.type)))
+                    if (Main.recipe.Any(r => r.ContainsIngredient(type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant && CheckForces(r.createItem.type)))
                     {
-                        if (CheckForces(recipe.createItem.type))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
                 
             }
             return false;
         }
-
         public override void PreSavePlayer()
         {
             SquireEnchant.ResetMountStats(this);
