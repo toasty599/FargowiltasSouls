@@ -21,19 +21,11 @@ namespace FargowiltasSouls.Core.Systems
             if (modPlayer.IronEnchantItem == null)
                 return;
 
-            if (recipe.requiredTile.Contains(TileID.MythrilAnvil) && !modPlayer.WizardEnchantActive)
+            if (recipe.requiredTile.Contains(TileID.MythrilAnvil) && !modPlayer.ForceEffect(modPlayer.IronEnchantItem.type))
                 return;
 
-            //calc the new amount consumed (each has 33% of not)
-            int amountUsed = 0;
 
-            for (int i = 0; i < amount; i++)
-            {
-                if (!Main.rand.NextBool(3))
-                    amountUsed++;
-            }
-
-            amount = amountUsed;
+            amount = 0;
         };
 
         public static string AnyItem(int id) => $"{Lang.misc[37]} {Lang.GetItemName(id)}";

@@ -48,9 +48,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     if (enchant.wizardEffect().Length != 0)
                         tooltips.Add(new TooltipLine(Mod, "wizard", $"[i:{enchant.Item.type}] " + enchant.wizardEffect()));
                 }
+                else
+                {
+                    if (enchant.wizardEffect().Length != 0)
+                    {
+                        tooltips.Add(new TooltipLine(Mod, "wizard", $"[i:{enchant.Item.type}] " + enchant.wizardEffect()));
+                        tooltips[tooltips.Count - 1].OverrideColor = Color.Gray;
+                    }
+                        
+                    
+                }
             }
         }
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.FargoSouls().WizardEnchantActive = true;

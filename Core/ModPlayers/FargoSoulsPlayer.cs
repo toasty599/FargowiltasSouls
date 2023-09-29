@@ -53,6 +53,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
+        public List<int> IronUsedList = new();
 
         public bool IsStillHoldingInSameDirectionAsMovement
             => (Player.velocity.X > 0 && Player.controlRight)
@@ -74,6 +75,17 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (RabiesVaccine) playerData.Add("RabiesVaccine");
             if (DeerSinew) playerData.Add("DeerSinew");
             if (HasClickedWrench) playerData.Add("HasClickedWrench");
+            
+            if (IronUsedList.Count > 0)
+            {
+                string ironData = "IronUsedList";
+                foreach (int type in IronUsedList)
+                {
+                    ironData += $"_{type}";
+                }
+                playerData.Add(ironData);
+            }
+
             tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
             var togglesOff = new List<string>();
@@ -86,7 +98,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
             tag.Add($"{Mod.Name}.{Player.name}.TogglesOff", togglesOff);
-
             Toggler.Save();
         }
 
@@ -100,6 +111,19 @@ namespace FargowiltasSouls.Core.ModPlayers
             RabiesVaccine = playerData.Contains("RabiesVaccine");
             DeerSinew = playerData.Contains("DeerSinew");
             HasClickedWrench = playerData.Contains("HasClickedWrench");
+
+            if (playerData.Contains("IronUsedList_"))
+            {
+                string ironData = playerData.First(i => i.Contains("IronUsedList"));
+                string[] ironEntries = ironData.Split("_");
+                foreach (string entry in ironEntries)
+                {
+                    if (entry != "IronUsedList")
+                    {
+                        IronUsedList.Add(int.Parse(entry));
+                    }
+                }
+            }
 
             disabledToggles = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
         }

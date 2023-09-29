@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -37,6 +38,30 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))
                 itemNameLine.OverrideColor = nameColor;
+
+            FargoSoulsPlayer localSoulsPlayer = Main.LocalPlayer.FargoSouls();
+            if (localSoulsPlayer.WizardEnchantActive || Main.LocalPlayer.inventory.Any(n => n != null && n.type == ModContent.ItemType<WizardEnchant>()))
+            {
+                if (Type == ModContent.ItemType<WizardEnchant>())
+                {
+                    return;
+                }
+
+                if (localSoulsPlayer.ForceEffect(Type))
+                {
+                    if (wizardEffect().Length != 0)
+                        tooltips.Add(new TooltipLine(Mod, "wizard", $"[i:{ModContent.ItemType<WizardEnchant>()}] " + wizardEffect()));
+                }
+                else
+                {
+                    if (wizardEffect().Length != 0)
+                    {
+                        tooltips.Add(new TooltipLine(Mod, "wizard", $"[i:{ModContent.ItemType<WizardEnchant>()}] " + wizardEffect()));
+                        tooltips[tooltips.Count - 1].OverrideColor = Color.Gray;
+                    }
+                }
+            }
+            
         }
 
         public override void SetDefaults()

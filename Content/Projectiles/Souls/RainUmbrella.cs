@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.friendly = true;
             Projectile.minion = true;
             Projectile.penetrate = -1;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
         }
 
