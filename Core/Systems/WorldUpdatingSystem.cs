@@ -96,7 +96,14 @@ namespace FargowiltasSouls.Core.Systems
                 if (!MasochistModeReal && EternityMode && ((FargoSoulsUtil.WorldIsMaster() && CanPlayMaso) || Main.zenithWorld) && !FargoSoulsUtil.AnyBossAlive())
                 {
                     MasochistModeReal = true;
-                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.MasochistOn", new Color(51, 255, 191, 0));
+                    if (!Main.zenithWorld)
+                    {
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.MasochistOn", new Color(51, 255, 191, 0));
+                    }
+                    else
+                    {
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.MasochistOnZenith", new Color(51, 255, 191, 0));
+                    }
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
                     if (!Main.dedServ)
@@ -104,7 +111,7 @@ namespace FargowiltasSouls.Core.Systems
                 }
             }
 
-            if (MasochistModeReal && !(EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso))
+            if (MasochistModeReal && !(EternityMode && ((FargoSoulsUtil.WorldIsMaster() && CanPlayMaso) || Main.zenithWorld)))
             {
                 MasochistModeReal = false;
                 FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.MasochistOff", new Color(51, 255, 191, 0));

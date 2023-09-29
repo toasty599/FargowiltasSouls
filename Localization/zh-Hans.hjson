@@ -242,6 +242,7 @@ Mods: {
 				// EternityOff: Eternity Mode deactivated.
 				// EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
 				// MasochistOn: Master and Eternity combined: Masochist Mode activated!!
+				// MasochistOnZenith: Master and Zenith seed combined: Masochist Mode activated!!
 				// MasochistOff: Masochist Mode deactivated.
 				// BloodMoonCancel: The Blood Moon changed its mind and left...
 			}

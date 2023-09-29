@@ -1143,9 +1143,17 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 HitPlayer = false;
                 NPC.velocity = (LockVector1 - NPC.Center) * (Timer / 60) * 0.04f;
                 RotateTowards(LockVector1, 2);
-                if (!Wet(NPC.position + Vector2.UnitY * NPC.height / 4))
+                if (!Wet(NPC.position + Vector2.UnitY * NPC.height / 4) && NPC.Center.Y < player.Center.Y)
                 {
-                    NPC.velocity.Y = 0;
+                    if (Collision.WetCollision(player.position, player.width, player.height))
+                    {
+                        NPC.velocity.Y = 0;
+                    }
+                    else if (NPC.Center.Y < player.Center.Y - 500)
+                    {
+                        NPC.velocity.Y = 0;
+                    }
+                    
                 }
                 else
                 {
