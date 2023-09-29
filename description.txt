@@ -2,29 +2,38 @@ Fargo's Souls Mod is a content mod that adds the powerful Enchantments and Souls
 Features the highly challenging Eternity Mode!
 
 NEW UPDATE - V 1.6
--Reworked Apprentice Enchantment: While attacking, fire your next closest weapon's projectile as support
--Reworked Dark Artist Enchantment: While attacking, fire your next 2 closest weapon's projectiles as support
-and Summons a Flameburst minion that will also fire while you attack
-
--Reworked Squire Enchantment: Increases mount acceleration and top speed. While mounted, grants 10 defense, a fart jump, and fall damage immunity
--Updated recipe
--Reworked Valhalla Knight Enchantment: Squire effect but mounts grant 15 more defense and have a dash
--Updated recipe
-
--Reworked Rain Enchantment: Spawns an umbrella that reflects projectiles from above and grants featherfall. It will break for awhile after taking so much damage. All attacks inflict Wet
-
--Resprited souls
-
--Added Eulogists Doomsday Scenario (Patreon)
-
--Moved Gold Enchant to phm, removed the Greedy ring effect, updated recipe
-
--Iron obscene buff
-
-
--Removed most of the extra loot Wall of Flesh dropped in emode
-
 -See the wiki for full details!
+Changes include:
+
+NEW BOSS:
+Banished Baron
+
+NEW ITEMS:
+The Baron's Tusk
+Naval Rustrifle
+Rose-Tinted Glasses
+Decrepit Airstrike Remote
+Rusted Oxygen Tank
+Prisma Regalia
+Re-added Hive Staff
+Patreon Item: Sentient Gyro
+Patreon Item: Eulogist's Doomsday Scenario
+
+New main menu theme with logo, background, and music (in Music Mod).
+New config that makes toggles hidden until you equip an accessory affected by the toggle
+Added "Reload Toggles" button to toggle menu
 
 
+Reworked Apprentice Enchantment and Dark Artist Enchantment
+Reworked Ninja Enchantment
+Reworked Wizard Enchantment
+Reworked Gladiator Enchantment
+Reworked Meteor Enchantment
+Reworked Bee Enchantment
+Reworked Hallowed Enchantment
+Reworked Ancient Hallowed Enchantment
+Reworked Rain Enchantment
+Reworked Squire Enchantment and Valhalla Knight Enchantment
+Reworked Iron Enchantment
 
+And more!

@@ -1,4 +1,4 @@
-author = Fargowilta and Terry N. Muse 
+author = Fargowilta, Terry N. Muse and Javyz
 version = 1.6
 displayName = Fargo's Souls Mod
 homepage = http://forums.terraria.org/index.php?threads/fargos-mutant-mod-summons-and-souls.42291/

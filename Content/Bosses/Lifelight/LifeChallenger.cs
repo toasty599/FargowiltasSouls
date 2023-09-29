@@ -2596,7 +2596,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             });
             foreach (Vector4 chunk in chunklist.Where(pos => pos.Z <= 0))
             {
-                DrawChunk(chunk, spriteBatch, drawColor, screenPos);
+                DrawChunk(chunk, spriteBatch, drawColor);
             }
             if (Draw || NPC.IsABestiaryIconDummy)
             {
@@ -2726,7 +2726,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             }
             foreach (Vector4 chunk in chunklist.Where(pos => pos.Z > 0))
             {
-                DrawChunk(chunk, spriteBatch, drawColor, drawCenter);
+                DrawChunk(chunk, spriteBatch, drawColor);
             }
             if (PyramidPhase != 0) //draw pyramid
             {
@@ -2787,7 +2787,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             }
 
         }
-        private void DrawChunk(Vector4 chunk, SpriteBatch spriteBatch, Color drawColor, Vector2 drawCenter)
+        private void DrawChunk(Vector4 chunk, SpriteBatch spriteBatch, Color drawColor)
         {
             if (ChunkDistance <= 20)
             {
@@ -2802,6 +2802,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             Color color = drawColor;
             color.A = alpha;
+            Vector2 drawCenter = NPC.Center - Main.screenPosition;
             Vector2 drawPos = drawCenter + pos.X * Vector2.UnitX * ChunkDistance + pos.Y * Vector2.UnitY * ChunkDistance;
             Texture2D ChunkTexture = ModContent.Request<Texture2D>(PartsPath + textureString, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             spriteBatch.Draw(origin: new Vector2(ChunkTexture.Width / 2, ChunkTexture.Height / 2), texture: ChunkTexture, position: drawPos, sourceRectangle: null, color: color, rotation: 0, scale: NPC.scale + scale, effects: SpriteEffects.None, layerDepth: 0f);

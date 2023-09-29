@@ -1,0 +1,197 @@
+NEW UPDATE - V {ModVersion}
+-See the wiki for full details!
+
+NEW BOSS:
+Banished Baron
+
+NEW ITEMS:
+The Baron's Tusk
+Naval Rustrifle
+Rose-Tinted Glasses
+Decrepit Airstrike Remote
+Rusted Oxygen Tank
+Prisma Regalia
+Re-added Hive Staff
+Patreon Item: Sentient Gyro
+Patreon Item: Eulogist's Doomsday Scenario
+
+New main menu theme with logo, background, and music (in Music Mod).
+New config that makes toggles hidden until you equip an accessory affected by the toggle
+Added "Reload Toggles" button to toggle menu
+
+
+Reworked Apprentice Enchantment and Dark Artist Enchantment
+Reworked Ninja Enchantment
+Reworked Wizard Enchantment
+Reworked Gladiator Enchantment
+Reworked Meteor Enchantment
+Reworked Bee Enchantment
+Reworked Hallowed Enchantment
+Reworked Ancient Hallowed Enchantment
+Reworked Rain Enchantment
+Reworked Squire Enchantment and Valhalla Knight Enchantment
+Reworked Iron Enchantment
+
+Tungsten Enchantment:
+Projectile cooldown increased
+Size increase 150% -> 100%
+Force size increase 300% -> 200%
+Force damage 20% -> 15%
+Terra Blade and its components, Horseman's Blade, Sky Dragon's Fury alt-fire and Ghastly Glaive now work correctly with size increase
+Fixed Vineslinger and Starlight drawing incorrectly when size increased (no functional change)
+
+Molten Enchantment:
+Increased damage over time
+Now applies [[On Fire!]] to player while enemies are close
+
+Ash Wood Enchantment:
+Grants immunity to [[Oiled]]
+Now bypasses items preventing hell from applying [[On Fire!]]
+Made NPC fire immunity a passive effect in your inventory and applied it to all Ash Wood Enchant upgrades
+
+Forbidden Enchantment:
+Touching tornado now gives wing time back
+Tornado cannot be resummoned before you've touched the ground
+
+Palm Wood Enchantment:
+Decreased the fire rate of Palm Wood Enchantment sentry with force effect from 30 to 35
+Max sentries with force effect 3 -> 2
+Chlorophyte Enchantment:
+Laser base damage 75 -> 35 
+Laser force damage 150 -> 65
+Minion spawns with cooldown at maximum, fixing re-equip abuse
+
+Huntress Enchantment:
+Armor penetration 10 -> 6, flat damage 5 -> 3, force effect or red riding enchant upgrade it to old numbers
+
+Red Riding Enchantment:
+Added force effect: arrow rain has less cooldown and deals more damage
+
+Pumpkin Enchantment:
+Pumpkins only hit enemies when fully grown
+
+Copper Enchantment:
+Wet enemies have a 25% chance to be shocked without a crit
+
+Shroomite Enchantment:
+Mushroom spawn speed scales off of distance traveled instead of set timer
+
+Gold Enchantment:
+Removed Greedy Ring from recipe and effect, added a Gold Bunny and Gold Goldfish instead
+
+Calamity's Desert Scourge takes reduced damage from Lead Poisoning
+
+Changed Supersonic Soul recipe to take Bundle of Horseshoe Balloons instead of normal Bundle of Balloons
+
+Decreased endlag of Wretched Pouch and slightly reduced slowdown
+You can now parry while mounted
+Custom dashes (Monk Enchantment,  Jungle Enchantment, Deer Sinew and Shinobi Enchantment) now have the exact same input system as vanilla dashes, and work with Mutant Mod’s new Dash Key and dash input config
+Added soul toggle for Aeolus Boots frog leg effect effect
+Terraspark Boots ingredient and effect moved to Zephyr Boots, no longer needs Lightning Boots
+Wand of Sparking in Apprentice's Essence recipe replaced with Wand of Frosting
+Autofire from [[Fargo's Mod/Box of Gizmos]] and Fargo's Mod/Tribal Charm removed
+Puff in a Bottle now uses a custom puff jump with reduced jump height 
+Devious Aestheticus, Destroyer Gun, and Overgrown Key now use static immunity frames instead of global
+Big Brain Buster damage 222 -> 170
+Gold value of all Lifelight weapon drops reduced from 25 to 10
+Enchanted Lifeblade damage buffed from 22 to 53, but benefits much less from melee speed
+Doubled the damage of Lightslinger’s lightbomb
+Crystalline Congregation maximum crystals per barrage 20 -> 30
+Raised the mana cost of Crystalline Congregation from 5 to 7 
+Expixive Staff minions explode, tripled damage of explosion, and slightly decreased damage of normal shots
+Expixive Staff base damage halved, but ratio of damage transferred to projectiles and explosion doubled
+Flesh Hand damage increased from 30 to 38
+The Small Sting damage increased from 39 to 45 
+Updated every single loadout recommendation for Eternity Advisor
+Changed [[Fargo's Mod/Deviantt|Deviantt’s Gift]]:
+Life and Mana Crystals removed.
+nsta Houses and Mini Instabridges reduced to 2 each.
+Half Instavator removed.
+Grappling Hook removed.
+Storage units reduced to 4.
+Added 1 Squirrel.
+Removed following items from being dropped on first Wall of Flesh kill:
+Adamantite Pickaxe
+Angel Wings
+Altar Exterminator
+Adamantite/Titanium Forge
+Mythril/Orichalcum Anvil
+3 Crystal Balls
+Low Ground now makes you unable to stand on platforms instead of actuating them
+Removed slot priority for Mutant's Pact slot
+Resprited many items and accessories
+Added  Wikithis support
+A massive amount of bugfixes. 
+Eternity Mode changes:
+Antlion Charger no longer drop Fast Clock before Brain of Cthulhu or Eater of Worlds have been defeated
+Reduced breath loss in Space
+While no boss is alive, non-boss enemies have 10% extra health (only outside of Master Mode)
+Frost Moon and Pumpkin Moon wave regress moved to Masochist Mode
+Zenith seeds always activate Masochist Mode.
+
+Buff to Hardmode ore swords:
+-Attack speed increased by 50%
+-Applied corresponding Eternity spear buff effects to them (Cobalt explosions, Palladium heal buff, etc)
+
+Spear rework damage increase (to compensate for less hits) now applies to projectile itself, instead of the item
+Limited Cobalt Naginata on-hit explosions to 2 per swing
+Buffed damage of Eternity Mode Orichalcum Halberd and sword petal projectile
+Buffed damage of Eternity Mode Adamantite Glaive, Adamantite Sword, Titanium Trident and Titanium Sword
+
+Made reworked spears animation run after normal AI, meaning normal effects still apply automatically, and removed manual re-additions of these effects
+
+
+Coin Gun:
+-Copper coin damage increased by 60%
+-Silver coin damage reduced by 10%
+-Gold coin damage reduced by 53%
+-Platinum coin damage reduced by 72.5%
+
+Flying Dragon damage reduced by 30%
+Blizzard Staff damage and speed reduced by 30%
+Rainbow Crystal Staff damage reduced by 40%
+Lunar Portal Staff damage reduced by 50%
+Star Cannon damage reduced by 45%
+Super Star Shooter pierce reduced
+Obsidian Swordfish damage reduced by 20%
+Starlight damage reduced by 40%
+Uzi damage reduced by 12%
+Trojan Squirrel now drops a Squirrel Hook
+
+Skeletron:
+Fully reworked AI of hands, two new attacks and new passive movement
+No longer has massive defense while second set of hands are alive, still halves damage taken
+Reworked rest of moveset to work well with new hand AI
+
+Lifelight:
+Large visual overhaul
+Renamed from Lieflight to Lifelight
+Base damage 55 -> 70
+Base health 47k -> 44k
+Splitting bomb damage in Masochist Mode 150% -> 100%
+Splitting bomb split damage 75% -> 100%
+Deathray damage 100% -> 120%
+Made homing swords attack slightly more forgiving
+Several tweaks to deathray spin attack
+Hitting a bouncy cage wall in the Masochist Mode desperation attack now removes your active hooks
+
+Betsy:
+Resprited
+Immune to damage while targeting the Eternita Crystal
+
+Lunar Pillars:
+Health decreased
+Increased required shield strength to break out to 70, post-Moon Lord this means they break out instantly
+Heal distance decreased to aura size, heal increased
+Fixed bug where stat changes applied outside of Eternity Mode after rejoining the world
+Health of Solar Pillar's Masochist Mode-exclusive Crawltipede sextupled
+
+Stardust Pillar minions' health reduced from 12k to 10k
+Stardust Pillar minions are immune while no players are within aura
+
+Moon Lord can be hit by Calamity's Rogue projectiles during Solar phase
+
+Resprited Eridanus
+
+Reduced maximum angle change on Abominationn's reposition during normal scythe attack
+Abominationn and Mutant Boss Checklist entry is further down if Calamity Mod is loaded
