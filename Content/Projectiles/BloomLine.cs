@@ -1,5 +1,6 @@
 ﻿//using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Content.Bosses.BanishedBaron;
+using FargowiltasSouls.Content.Bosses.Lifelight;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -72,6 +73,21 @@ namespace FargowiltasSouls.Content.Projectiles
 
             switch ((int)Projectile.ai[0])
             {
+                case -2: //lifelight line telegraphs, PINK TRACKING
+                    {
+                        color = Color.DeepPink;
+                        alphaModifier = 1;
+                        Projectile.scale = 0.6f;
+                        maxTime = 60;
+                        NPC lifelight = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<LifeChallenger>());
+                        Player target = Main.player[lifelight.target];
+                        if (lifelight != null && lifelight.active && target != null && target.active )
+                        {
+                            Projectile.rotation = lifelight.DirectionTo(target.Center).ToRotation();
+                            Projectile.Center = lifelight.Center;
+                        }
+                    }
+                    break;
                 case -1: //lifelight line telegraphs, YELLOW
                     {
                         color = Color.Goldenrod; 
