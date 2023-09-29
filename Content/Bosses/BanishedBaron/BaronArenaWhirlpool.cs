@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            
+            Color color = Projectile.GetAlpha(lightColor);
             for (int Side = -1; Side < 2; Side += 2)
             {
                 for (int i = -50; i <= 20; i++)
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         continue;
                     }
                     
-                    Main.EntitySpriteDraw(texture, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), lightColor, Projectile.rotation, origin2, Projectile.scale, effects, 0);
+                    Main.EntitySpriteDraw(texture, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), color, Projectile.rotation, origin2, Projectile.scale, effects, 0);
                 }
             }
             return false;
