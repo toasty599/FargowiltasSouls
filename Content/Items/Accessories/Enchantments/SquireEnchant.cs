@@ -96,7 +96,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                         modPlayer.ValhallaDashCD--;
                     }
 
-                    if (modPlayer.ValhallaDashCD == 0)
+                    if (modPlayer.ValhallaDashCD == 0 && player.GetToggleValue("Valhalla"))
                     {
                         //mount dash
                         if ((player.controlDown && player.releaseDown))

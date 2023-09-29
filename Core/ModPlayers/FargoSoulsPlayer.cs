@@ -1322,7 +1322,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             float bonus = 0f;
 
-            if ((SquireEnchantItem != null || ValhallaEnchantItem != null) && Player.GetToggleValue("Valhalla", false))
+            if ((SquireEnchantItem != null || ValhallaEnchantItem != null))
             {
                 bool forceEffect = ForceEffect(ModContent.ItemType<SquireEnchant>()) || ForceEffect(ModContent.ItemType<ValhallaKnightEnchant>());
                 if (Eternity)
