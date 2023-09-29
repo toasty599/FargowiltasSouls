@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -43,6 +44,17 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         }
         const int ShotType = ProjectileID.BulletHighVelocity;
         bool EmpoweredShot = false;
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (!modPlayer.RustRifleReloading)
+            {
+                player.itemRotation = (-Vector2.UnitY * player.direction).RotatedBy(player.direction * MathHelper.Pi / 4f).ToRotation();
+
+                player.itemLocation = (Vector2)player.HandPosition - (Item.Size / 2) - 
+                    player.itemRotation.ToRotationVector2() * player.direction * (float)Math.Sin(MathHelper.Pi * player.itemAnimation / (float)player.itemAnimationMax) * Item.Size.Length() / 2f;
+            }
+        }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (EmpoweredShot)
