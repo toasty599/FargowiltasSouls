@@ -25,13 +25,9 @@ namespace FargowiltasSouls.Core.Systems
             {
                 return;
             }
-            if (Player.mount.Active)
-            {
-                return;
-            }
             FargoSoulsPlayer modPlayer = Player.FargoSouls();
 
-            if (modDashDelay == 0)
+            if (modDashDelay == 0 && !Player.mount.Active)
             {
                 if (modPlayer.MonkDashReady)
                 {
