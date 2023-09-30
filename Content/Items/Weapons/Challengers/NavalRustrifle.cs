@@ -23,8 +23,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.DamageType = DamageClass.Ranged;
             Item.width = 82;
             Item.height = 24;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 15;
             Item.value = Item.sellPrice(0, 5);
