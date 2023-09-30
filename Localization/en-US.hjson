@@ -2786,7 +2786,7 @@ Mods: {
 					[i:FargowiltasSouls/ForbiddenEnchant] Any projectiles shot through your storm gain 60% damage
 					[i:FargowiltasSouls/AncientHallowEnchant] You gain a Terraprisma familiar that can reflect projectiles
 					[i:FargowiltasSouls/HallowEnchant] Healing potions take effect over time and create a projectile-repelling shockwave
-					[i:FargowiltasSouls/TikiEnchant] Whip your summons to make them work harder
+					[i:FargowiltasSouls/TikiEnchant] Whip your summons to make them work harder, whip range increased
 					[i:FargowiltasSouls/SpectreEnchant] Damage has a chance to spawn damaging and healing orbs
 					'Ascend from this mortal realm'
 					'''
