@@ -6401,8 +6401,8 @@ Mods: {
 				}
 
 				DisplayTogglesRegardless: {
-					Label: Display Toggles Always
-					Tooltip: Disable to only show toggles when you have the effect's accessory equipped. Enable to always show them.
+					Label: Display Soul Toggles Always
+					Tooltip: Disable to only show soul toggles when you have the effect's accessory equipped. Enable to always show them.
 				}
 			}
 		}
