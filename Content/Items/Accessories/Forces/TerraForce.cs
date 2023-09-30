@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.ModPlayers;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -62,6 +63,13 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}] Grants immunity to fire and lava\
         public override void UpdateInventory(Player player)
         {
             AshWoodEnchant.PassiveEffect(player);
+            player.FargoSouls().IronEnchantItem = Item;
+            player.DisplayToggle("IronM");
+        }
+        public override void UpdateVanity(Player player)
+        {
+            player.FargoSouls().IronEnchantItem = Item;
+            player.DisplayToggle("IronM");
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
