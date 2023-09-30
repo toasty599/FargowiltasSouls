@@ -73,7 +73,6 @@ namespace FargowiltasSouls.Core.Systems
     }
     public class CustomDashManager : ModSystem
     {
-        public static readonly BindingFlags UniversalBindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public;
         public static MethodInfo DashHandleMethod
         {
             get;
@@ -81,7 +80,7 @@ namespace FargowiltasSouls.Core.Systems
         }
         public override void Load()
         {
-            DashHandleMethod = typeof(Player).GetMethod("DoCommonDashHandle", UniversalBindingFlags);
+            DashHandleMethod = typeof(Player).GetMethod("DoCommonDashHandle", FargoSoulsUtil.UniversalBindingFlags);
         }
         public static void HandleDash(out bool dashing, out int dir)
         {

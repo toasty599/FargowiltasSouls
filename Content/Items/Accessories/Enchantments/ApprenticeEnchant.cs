@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -110,18 +111,17 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                             }
 
                             Vector2 pos = new Vector2(player.Center.X + Main.rand.Next(-50, 50), player.Center.Y + Main.rand.Next(-50, 50));
-                            Vector2 velocity = Vector2.Normalize(Main.MouseWorld - pos) * item2.shootSpeed;
+                            Vector2 velocity = Vector2.Normalize(Main.MouseWorld - pos);
 
-                            int shoot = item2.shoot;
-
-                            if (shoot == 10) //purification powder
+                            //ApprenticeShoot(player, player.whoAmI, item2, item2.damage / 2);
+                            int projToShoot = item2.shoot;
+                            float speed = item2.shootSpeed;
+                            int damage = item2.damage / 2;
+                            float KnockBack = item2.knockBack;
+                            int usedAmmoItemId;
+                            if (item2.useAmmo > 0)
                             {
-                                float speed;
-                                int damage;
-                                float kb;
-                                int usedAmmo;
-                                player.PickAmmo(item2, out shoot, out speed, out damage, out kb, out usedAmmo);
-                                ItemLoader.ModifyShootStats(item2, player, ref pos, ref velocity, ref shoot, ref damage, ref item2.knockBack);
+                                player.PickAmmo(item2, out projToShoot, out speed, out damage, out KnockBack, out usedAmmoItemId, ItemID.Sets.gunProj[item2.type]);
                             }
 
                             if (item2.mana > 0)
@@ -131,20 +131,32 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                                     player.manaRegenDelay = 300;
                                 }
                             }
-
-                            int p = Projectile.NewProjectile(player.GetSource_ItemUse(item), pos, velocity, shoot, item2.damage / 2, item2.knockBack, player.whoAmI);
-                            Projectile proj = Main.projectile[p];
-
                             if (item2.consumable)
                             {
                                 item2.stack--;
                             }
+                            modPlayer.ApprenticeItemCDs[j] = item2.useTime * 4;
+                            int p = Projectile.NewProjectile(player.GetSource_ItemUse(item), pos, Vector2.Normalize(velocity) * speed, projToShoot, damage, KnockBack, player.whoAmI);
+                            Projectile proj = Main.projectile[p];
 
-                            //proj.usesLocalNPCImmunity = true;
-                            //proj.localNPCHitCooldown = 5;
                             proj.noDropItem = true;
 
-                            modPlayer.ApprenticeItemCDs[j] = item2.useTime * 4;
+
+                            /*
+                            int shoot = item2.shoot;
+                            if (shoot == 10) //purification powder
+                            {
+                                float speed;
+                                int damage;
+                                float kb;
+                                int usedAmmo;
+                                
+                                ItemLoader.ModifyShootStats(item2, player, ref pos, ref velocity, ref shoot, ref damage, ref item2.knockBack);
+                            }
+                            */
+                            //proj.usesLocalNPCImmunity = true;
+                            //proj.localNPCHitCooldown = 5;
+
                         }
                     }
                 }
@@ -166,6 +178,22 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             .AddTile(TileID.CrystalBall)
             .Register();
+        }
+
+        public static MethodInfo ApprenticeShootMethod
+        {
+            get;
+            set;
+        }
+        public override void Load()
+        {
+            ApprenticeShootMethod = typeof(Player).GetMethod("ItemCheck_Shoot", FargoSoulsUtil.UniversalBindingFlags);
+        }
+        public static void ApprenticeShoot(Player player, int playerWhoAmI, Item item, int weaponDamage)
+        {
+            object[] args = new object[] { playerWhoAmI, item, weaponDamage };
+            ApprenticeShootMethod.Invoke(player, args);
+;
         }
     }
 }
