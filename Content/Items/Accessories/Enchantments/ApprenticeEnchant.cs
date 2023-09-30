@@ -180,6 +180,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .Register();
         }
 
+        /*
         public static MethodInfo ApprenticeShootMethod
         {
             get;
@@ -195,5 +196,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             ApprenticeShootMethod.Invoke(player, args);
 ;
         }
+        */
     }
 }
