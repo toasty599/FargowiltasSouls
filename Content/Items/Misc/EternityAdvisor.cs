@@ -93,6 +93,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<EurusSock>(),
                     ModContent.ItemType<PuffInABottle>(),
                     ModContent.ItemType<BorealWoodEnchant>(),
+                    //ModContent.ItemType<PumpkinEnchant>(),
+                    //ModContent.ItemType<PalmWoodEnchant>(),
                     ModContent.ItemType<CactusEnchant>()
                 );
             }
@@ -106,6 +108,9 @@ namespace FargowiltasSouls.Content.Items.Misc
                     3,
                     ModContent.ItemType<EbonwoodEnchant>(),
                     ModContent.ItemType<BorealWoodEnchant>(),
+                    ModContent.ItemType<PumpkinEnchant>(),
+                    ModContent.ItemType<ShadewoodEnchant>(),
+                    ModContent.ItemType<TungstenEnchant>(),
                     ModContent.ItemType<CactusEnchant>()
                 );
             }
@@ -123,6 +128,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<BorealWoodEnchant>(),
                     ModContent.ItemType<ShadewoodEnchant>(),
                     ModContent.ItemType<CactusEnchant>(),
+                    ModContent.ItemType<PalmWoodEnchant>(),
                     ModContent.ItemType<TungstenEnchant>()
                 );
             }
@@ -154,7 +160,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                                 ModContent.ItemType<RainEnchant>(),
                                 ModContent.ItemType<TungstenEnchant>(),
                                 ModContent.ItemType<ShadowEnchant>(),
-                                ModContent.ItemType<ShadewoodEnchant>()
+                                ModContent.ItemType<ShadewoodEnchant>(),
+                                ModContent.ItemType<NinjaEnchant>()
                     })
                 );
                 build += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "CityBuster").Type}]";
@@ -166,8 +173,14 @@ namespace FargowiltasSouls.Content.Items.Misc
                     Main.rand.Next(new int[] { ItemID.FrostsparkBoots, ItemID.TerrasparkBoots }),
                     Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<QueenStinger>(), ModContent.ItemType<MeteorEnchant>() }),
                     Main.rand.Next(new int[] { ItemID.BundleofBalloons, ItemID.HorseshoeBundle, ModContent.ItemType<BeeEnchant>() }),
-                    Main.rand.Next(new int[] { ModContent.ItemType<SkullCharm>(), ModContent.ItemType<ShadowEnchant>() }),
-                    Main.rand.Next(new int[] { ModContent.ItemType<TinEnchant>(), ModContent.ItemType<NinjaEnchant>(), ModContent.ItemType<TungstenEnchant>() })
+                    ) + GetBuildTextRandom(
+                    2,
+                    ModContent.ItemType<SkullCharm>(),
+                    ModContent.ItemType<ShadowEnchant>(),
+                    ModContent.ItemType<TinEnchant>(),
+                    ModContent.ItemType<TungstenEnchant>(),
+                    ModContent.ItemType<NinjaEnchant>(),
+                    ModContent.ItemType<CrimsonEnchant>()
                 );
             }
             else if (!NPC.downedDeerclops)
@@ -177,9 +190,15 @@ namespace FargowiltasSouls.Content.Items.Misc
                     Main.rand.Next(new int[] { ItemID.FrostsparkBoots, ItemID.TerrasparkBoots,  }),
                     Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<QueenStinger>(), ModContent.ItemType<MeteorEnchant>() }),
                     Main.rand.Next(new int[] { ItemID.BundleofBalloons, ItemID.HorseshoeBundle, ModContent.ItemType<BeeEnchant>() }),
-                    Main.rand.Next(new int[] { ItemID.HandWarmer, ModContent.ItemType<ShadowEnchant>() }),
-                    Main.rand.Next(new int[] { ModContent.ItemType<TinEnchant>(), ModContent.ItemType<NinjaEnchant>(), ModContent.ItemType<TungstenEnchant>() })
-                    );
+                    ) + GetBuildTextRandom(
+                    2,
+                    ItemID.HandWarmer,
+                    ModContent.ItemType<EbonwoodEnchant>(),
+                    ModContent.ItemType<ShadowEnchant>(),
+                    ModContent.ItemType<TungstenEnchant>(),
+                    ModContent.ItemType<TinEnchant>(),
+                    ModContent.ItemType<NinjaEnchant>()
+                );
             }
             else if (!WorldSavingSystem.DownedDevi)
             {
