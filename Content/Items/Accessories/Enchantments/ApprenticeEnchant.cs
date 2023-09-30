@@ -33,6 +33,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             bool forceEffect = modPlayer.ForceEffect(ModContent.ItemType<ApprenticeEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<DarkArtistEnchant>());
+
+            //update item cds
+            for (int i = 0; i < 10; i++)
+            {
+                int itemCD = modPlayer.ApprenticeItemCDs[i];
+
+                if (itemCD > 0)
+                {
+                    itemCD--;
+                    modPlayer.ApprenticeItemCDs[i] = itemCD;
+                }
+            }
             if (player.GetToggleValue("Apprentice") && player.controlUseItem)
             {
                 int numExtraSlotsToUse = 1;
@@ -45,18 +57,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 {
                     numExtraSlotsToUse = 2;
                 }
-
-                //update item cds
-                for (int i = 0; i < 10; i++)
-                {
-                    int itemCD = modPlayer.ApprenticeItemCDs[i];
-
-                    if (itemCD > 0)
-                    {
-                        itemCD--;
-                        modPlayer.ApprenticeItemCDs[i] = itemCD;
-                    }
-                }
+                
 
                 if (player.controlUseItem)
                 {
