@@ -2780,8 +2780,8 @@ Mods: {
 				DisplayName: Force of Spirit
 				Tooltip:
 					'''
-					[i:FargowiltasSouls/FossilEnchant] If you reach zero HP you will revive with 50 HP and spawn several bones
-					[i:FargowiltasSouls/FossilEnchant] Collect the bones once they stop moving to heal for 15 HP each
+					[i:FargowiltasSouls/FossilEnchant] If you reach zero HP you will revive with 200 HP and spawn several bones
+					[i:FargowiltasSouls/FossilEnchant] Collect the bones once they stop moving to heal for 20 HP each
 					[i:FargowiltasSouls/ForbiddenEnchant] Double tap down to call an ancient storm to the cursor location
 					[i:FargowiltasSouls/ForbiddenEnchant] Any projectiles shot through your storm gain 60% damage
 					[i:FargowiltasSouls/AncientHallowEnchant] You gain a Terraprisma familiar that can reflect projectiles

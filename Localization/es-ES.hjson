@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			// Adamantite: Projectiles now split into 3
+			// Adamantite: Projectiles now split into 3, further reduces damage accordingly
 			// Apprentice: The next 2 weapons are used instead of 1
 			// AncientHallow: Sword damage increased, projectile damage cap increased to 200
 			// AncientShadow: Number of Shadow Orbs increased
@@ -20,7 +20,7 @@ Mods: {
 			// BorealWood: Fires more snowballs more often
 			// Cactus: Number of needles and damage increased
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
-			// Cobalt: Explosion damage increased
+			// Cobalt: On-hit explosion damage increased
 			// Copper: Lightning damage increased, cooldown reduced
 			// Crimson: No upgrade
 			// CrystalAssassin: No upgrade
@@ -41,7 +41,7 @@ Mods: {
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
 			// Monk: No upgrade
 			// Mythril: Max attack speed bonus increased and lasts longer
-			// Nebula: No upgrade
+			// Nebula: Buff booster stack cap increased to 3
 			// Necro: Graves float
 			// Ninja: Maximum damage bonus increased to 30%, maximum player speed where effect activates increased
 			// Obsidian: You no longer need lava to spawn explosions or fireballs, cooldown reduced
@@ -65,13 +65,13 @@ Mods: {
 			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
 			// Shadow: Number of Shadow Orbs increased
-			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.5x to 2x, heal bonus from 25% to 33%
+			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 25% to 33%
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
 			// Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
-			// Turtle: Occasionaly recover a projectile block point, number of needles and damage increased
-			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 2x to 3x, and heal bonus from 33% to 50%
+			// Turtle: Occasionally recover a projectile block point, number of needles and damage increased
+			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 33% to 50%
 			// Vortex: No upgrade
 			// Wood: Bestiary and banner multiplier increased to 5
 			// AshWood: Fires balls of fire more often
@@ -2360,7 +2360,7 @@ Mods: {
 				// DisplayName: Pumpkin Enchantment
 				/* Tooltip:
 					'''
-					You will grow pumpkins while walking on the ground
+					You will grow pumpkins while moving
 					When fully grown, they will heal 25 HP and spawn damaging embers
 					Enemies that touch them will destroy them and take damage
 					'Your sudden pumpkin craving will never be satisfied'
@@ -2816,7 +2816,7 @@ Mods: {
 					[i:FargowiltasSouls/BorealWoodEnchant] Attacks will periodically be accompanied by several snowballs
 					[i:FargowiltasSouls/RichMahoganyEnchant] All grappling hooks shoot, pull, and retract 2.5x as fast
 					[i:FargowiltasSouls/EbonwoodEnchant][i:FargowiltasSouls/ShadewoodEnchant] You have an aura of Corruption and Bleeding
-					[i:FargowiltasSouls/PalmWoodEnchant] Double tap down to spawn up to 3 palm tree sentries
+					[i:FargowiltasSouls/PalmWoodEnchant] Double tap down to spawn up to 2 palm tree sentries
 					[i:FargowiltasSouls/PearlwoodEnchant] Projectiles may spawn a star when they hit something
 					'Extremely rigid'
 					''' */
@@ -5097,6 +5097,7 @@ Mods: {
 					You count as wet outside water
 					Grants floaty water movement
 					Increased movement speed while in any liquid
+					'Nobody knows how it works'
 					''' */
 			}
 		}
