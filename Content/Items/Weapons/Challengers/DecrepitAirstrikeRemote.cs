@@ -50,22 +50,19 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 mouse = Main.MouseWorld;
-            int CurrentSentries = 0;
+            //int CurrentSentries = 0;
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile proj = Main.projectile[i];
                 if (proj.active && proj.owner == player.whoAmI && proj.sentry)
                 {
-                    CurrentSentries++;
+                    proj.active = false;
+                    proj.Kill();
                 }
             }
-            if (CurrentSentries >= player.maxTurrets)
+            for (int i = 0; i < player.maxTurrets; i++)
             {
-                return false;
-            }
-            for (int i = 0; i < player.maxTurrets - CurrentSentries; i++)
-            {
-                Projectile.NewProjectile(source, mouse.X, mouse.Y, 0f, 0f, type, damage, knockback, player.whoAmI, i == 0 ? 0 : 1, ai2: player.maxTurrets - CurrentSentries); //ai0 sets the first spawned turret as the original
+                Projectile.NewProjectile(source, mouse.X, mouse.Y, 0f, 0f, type, damage, knockback, player.whoAmI, i == 0 ? 0 : 1, ai2: player.maxTurrets); //ai0 sets first turret as the real one
             }
             Projectile.NewProjectile(source, mouse.X, mouse.Y, 0f, 0f, ModContent.ProjectileType<GlowRingHollow>(), damage, knockback, player.whoAmI, 14, 60 * 2 + 30);
             player.UpdateMaxTurrets();

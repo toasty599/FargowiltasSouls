@@ -172,7 +172,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                 build = GetBuildText(
                     Main.rand.Next(new int[] { ItemID.FrostsparkBoots, ItemID.TerrasparkBoots }),
                     Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<QueenStinger>(), ModContent.ItemType<MeteorEnchant>() }),
-                    Main.rand.Next(new int[] { ItemID.BundleofBalloons, ItemID.HorseshoeBundle, ModContent.ItemType<BeeEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.BundleofBalloons, ItemID.HorseshoeBundle, ModContent.ItemType<BeeEnchant>() })
                     ) + GetBuildTextRandom(
                     2,
                     ModContent.ItemType<SkullCharm>(),
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                 build = GetBuildText(
                     Main.rand.Next(new int[] { ItemID.FrostsparkBoots, ItemID.TerrasparkBoots,  }),
                     Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<QueenStinger>(), ModContent.ItemType<MeteorEnchant>() }),
-                    Main.rand.Next(new int[] { ItemID.BundleofBalloons, ItemID.HorseshoeBundle, ModContent.ItemType<BeeEnchant>() }),
+                    Main.rand.Next(new int[] { ItemID.BundleofBalloons, ItemID.HorseshoeBundle, ModContent.ItemType<BeeEnchant>() })
                     ) + GetBuildTextRandom(
                     2,
                     ItemID.HandWarmer,
