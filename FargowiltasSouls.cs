@@ -548,7 +548,7 @@ namespace FargowiltasSouls
 
                 if (ModLoader.TryGetMod("Wikithis", out Mod wikithis) && !Main.dedServ)
                 {
-                    wikithis.Call("AddModURL", this, "https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod{}");
+                    wikithis.Call("AddModURL", this, "https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod/{}");
 
                     // You can also use call ID for some calls!
                     //wikithis.Call(0, this, "https://examplemod.wiki.gg/wiki/{}");

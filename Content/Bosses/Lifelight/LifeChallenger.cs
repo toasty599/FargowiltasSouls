@@ -2009,7 +2009,9 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                     for (int i = -1; i < 2; i += 2)
                     {
-                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(i * arcRotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 0, arcAngle * 1.1f, 1000);
+                        float arc1Rotation = arcRotation + MathHelper.ToRadians(17f);
+                        float arc1Angle = arcAngle + MathHelper.ToRadians(14f / 1.1f);
+                        int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Player.Center - NPC.Center).RotatedBy(i * arc1Rotation), ModContent.ProjectileType<ArcTelegraph>(), 0, 0f, Main.myPlayer, 0, arc1Angle * 1.1f, 1000);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = timeLeft;
                     }
