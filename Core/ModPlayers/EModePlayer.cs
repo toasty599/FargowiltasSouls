@@ -252,10 +252,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                     {
                         Player.breath -= 1;
                         
-                        if (++MasomodeSpaceBreathTimer > 4) //player.breath is an int so have to do this
+                        if (++MasomodeSpaceBreathTimer > 3) //player.breath is an int so have to do this
                         {
                             MasomodeSpaceBreathTimer = 0;
-                            Player.breath -= 5;
+                            Player.breath -= 2;
                         }
                         
                         if (Player.breath == 0)
