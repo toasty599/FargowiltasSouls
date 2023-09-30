@@ -304,6 +304,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                 if (NPC.velocity.Y < -4f)
                     NPC.velocity.Y = -4f;
+
             }
             else
             {
@@ -318,6 +319,13 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             if (NPC.velocity.Y > 10f)
                 NPC.velocity.Y = 10f;
+
+            Player target = Main.player[NPC.target];
+            //anti-leaving soon when terrain above you
+            if (onCollision && target != null && target.active && !target.dead && target.Center.Y > NPC.Center.Y + NPC.height * 1.5f && Math.Abs(target.Center.X - NPC.Center.X) < 400)
+            {
+                NPC.velocity.Y += 3f;
+            }
         }
 
         private void Movement(Vector2 target, bool goFast = false)

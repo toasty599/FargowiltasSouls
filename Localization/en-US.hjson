@@ -2705,7 +2705,7 @@ Mods: {
 					[i:FargowiltasSouls/VortexEnchant] Double tap down to toggle stealth and spawn a vortex
 					[i:FargowiltasSouls/NebulaEnchant] Hurting enemies has a chance to spawn buff boosters
 					[i:FargowiltasSouls/StardustEnchant] A stardust guardian will protect you from nearby enemies
-					[i:FargowiltasSouls/StardustEnchant] Press the Freeze Key to freeze time for 9 seconds, 60 second cooldown
+					[i:FargowiltasSouls/StardustEnchant] Press the Freeze Key to freeze time for 9 seconds, 50 second cooldown
 					'Been around since the Big Bang'
 					'''
 			}
@@ -5024,7 +5024,7 @@ Mods: {
 					Works from your inventory
 					Right click to disable
 					You count as wet outside water
-					Grants floaty water movement
+					Grants floaty water movement outside of liquid
 					Increased movement speed while in any liquid
 					'Nobody knows how it works'
 					'''
@@ -5075,7 +5075,7 @@ Mods: {
 					Works from your inventory
 					Currently inactive, Right click to reactivate
 					You count as wet outside water
-					Grants floaty water movement
+					Grants floaty water movement outside of liquid
 					Increased movement speed while in any liquid
 					'Nobody knows how it works'
 					'''

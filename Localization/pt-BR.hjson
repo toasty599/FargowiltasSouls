@@ -4997,7 +4997,7 @@ Mods: {
 					Works from your inventory
 					Right click to disable
 					You count as wet outside water
-					Grants floaty water movement
+					Grants floaty water movement outside of liquid
 					Increased movement speed while in any liquid
 					'Nobody knows how it works'
 					''' */
@@ -5048,7 +5048,7 @@ Mods: {
 					Works from your inventory
 					Currently inactive, Right click to reactivate
 					You count as wet outside water
-					Grants floaty water movement
+					Grants floaty water movement outside of liquid
 					Increased movement speed while in any liquid
 					'Nobody knows how it works'
 					''' */
