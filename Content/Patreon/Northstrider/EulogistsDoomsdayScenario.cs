@@ -54,6 +54,7 @@ namespace FargowiltasSouls.Content.Patreon.Northstrider
 
                         if (WorldGen.InWorld(xPosition, yPosition))
                         {
+                            WorldGen.KillTile(xPosition, yPosition, noItem: true);
                             tile.ClearEverything();
                             Main.Map.Update(xPosition, yPosition, 255);
                         }
