@@ -2,6 +2,7 @@
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Misc;
+using System;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
@@ -30,13 +31,14 @@ namespace FargowiltasSouls.Core.Systems
                 }
 
                 modPlayer.IronUsedList.Add(type);
-
+                
                 int amountUsed = 0;
                 for (int i = 0; i < amount; i++)
                 {
                     if (!Main.rand.NextBool(chance))
                         amountUsed++;
                 }
+
                 amount = amountUsed;
             }
         };
