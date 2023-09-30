@@ -272,6 +272,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             SquireEnchantItem = null;
             ApprenticeEnchantItem = null;
             HuntressEnchantActive = false;
+            if (!MonkEnchantActive)
+            {
+                Player.ClearBuff(ModContent.BuffType<MonkBuff>());
+            }
             MonkEnchantActive = false;
             SnowEnchantActive = false;
             SnowVisual = false;

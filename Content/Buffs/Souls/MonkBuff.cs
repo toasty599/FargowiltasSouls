@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (!(player.whoAmI == Main.myPlayer && (!player.GetToggleValue("Monk") || !player.FargoSouls().MonkEnchantActive)))
+            if (!(player.whoAmI == Main.myPlayer && (!player.GetToggleValue("Monk"))))
                 player.buffTime[buffIndex] = 2;
             if (player.mount.Active)
             {
