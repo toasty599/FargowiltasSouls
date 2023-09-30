@@ -21,13 +21,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Item.rare = ItemRarityID.Green;
             Item.value = 40000;
         }
-
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public void Effect(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.IronEnchantItem = Item;
             player.DisplayToggle("IronM");
         }
+        public override void UpdateInventory(Player player) => Effect(player);
+        public override void UpdateVanity(Player player) => Effect(player);
+        public override void UpdateAccessory(Player player, bool hideVisual) => Effect(player);
 
         public override void AddRecipes()
         {
