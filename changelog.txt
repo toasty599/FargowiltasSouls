@@ -170,6 +170,7 @@ Base damage 55 -> 70
 Base health 47k -> 44k
 Splitting bomb damage in Masochist Mode 150% -> 100%
 Splitting bomb split damage 75% -> 100%
+Periodic splitting bomb now happens throughout Phase 1, instead of once during the phase transition
 Deathray damage 100% -> 120%
 Made homing swords attack slightly more forgiving
 Several tweaks to deathray spin attack
