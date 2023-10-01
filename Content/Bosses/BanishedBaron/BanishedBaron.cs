@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         SoundStyle BaronYell = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronYell");
 
         #region Variables
-        private enum StateEnum //ALL states
+        public enum StateEnum //ALL states
         {
             Opening,
             Phase2Transition,
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             DeathAnimation
         }
 
-        private static List<int> P1Attacks = new List<int>() //these are randomly chosen attacks in p1
+        public static List<int> P1Attacks = new List<int>() //these are randomly chosen attacks in p1
         {
             (int)StateEnum.P1BigNuke,
             (int)StateEnum.P1RocketStorm,
@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             (int)StateEnum.P1SineSwim,
             (int)StateEnum.P1Whirlpool
         };
-        private static List<int> P2Attacks = new List<int>() //these are randomly chosen attacks in p2
+        public static List<int> P2Attacks = new List<int>() //these are randomly chosen attacks in p2
         {
             (int)StateEnum.P2PredictiveDash,
             (int)StateEnum.P2CarpetBomb,
@@ -78,22 +78,22 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             (int)StateEnum.P2LaserSweep
         };
 
-        private bool Attacking = true;
-        bool HitPlayer = true;
-        private int Trail = 0;
+        public bool Attacking = true;
+        public bool HitPlayer = true;
+        public int Trail = 0;
 
-        private int Frame = 0;
-        private int Phase = 1;
-        private int Anim = 0;
+        public int Frame = 0;
+        public int Phase = 1;
+        public int Anim = 0;
 
         public int ArenaProjID = -1;
 
         public const int MaxWhirlpools = 40;
 
-        private List<int> availablestates = new List<int>(0);
+        public List<int> availablestates = new List<int>(0);
 
-        private Vector2 LockVector1 = Vector2.Zero;
-        private Vector2 LockVector2 = Vector2.Zero;
+        public Vector2 LockVector1 = Vector2.Zero;
+        public Vector2 LockVector2 = Vector2.Zero;
 
         //NPC.ai[] overrides
         public ref float Timer => ref NPC.ai[0];
