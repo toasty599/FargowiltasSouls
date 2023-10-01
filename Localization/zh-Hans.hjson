@@ -417,6 +417,7 @@ Mods: {
 			// AshWoodConfig: Ash Fireballs
 			// WillHeader: "{$Mods.FargowiltasSouls.Items.WillForce.DisplayName}"
 			GladiatorConfig: 角斗士 长矛雨
+			// GladiatorBannerConfig: Gladiator Banner
 			GoldConfig: 金 幸运币
 			GoldToPiggyConfig: 金 自动将钱存进储蓄罐
 			HuntressConfig: 女猎人 相关效果
@@ -5969,6 +5970,7 @@ Mods: {
 		// AshWoodConfig: "[i:FargowiltasSouls/AshWoodEnchant][c/958083:{$Mods.FargowiltasSouls.Toggler.AshWoodConfig}]"
 		// WillHeader: "[i:FargowiltasSouls/WillForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WillHeader}]"
 		// GladiatorConfig: "[i:FargowiltasSouls/GladiatorEnchant][c/9c924e:{$Mods.FargowiltasSouls.Toggler.GladiatorConfig}]"
+		// GladiatorBannerConfig: "[i:FargowiltasSouls/GladiatorEnchant][c/9c924e:{$Mods.FargowiltasSouls.Toggler.GladiatorBannerConfig}]"
 		// GoldConfig: "[i:FargowiltasSouls/GoldEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.GoldConfig}]"
 		// GoldToPiggyConfig: "[i:FargowiltasSouls/GoldEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.GoldToPiggyConfig}]"
 		// HuntressConfig: "[i:FargowiltasSouls/HuntressEnchant][c/7ac04c:{$Mods.FargowiltasSouls.Toggler.HuntressConfig}]"

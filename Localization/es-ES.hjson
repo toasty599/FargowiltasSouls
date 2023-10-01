@@ -417,6 +417,7 @@ Mods: {
 			// AshWoodConfig: Ash Fireballs
 			// WillHeader: "{$Mods.FargowiltasSouls.Items.WillForce.DisplayName}"
 			// GladiatorConfig: Gladiator Rain
+			// GladiatorBannerConfig: Gladiator Banner
 			// GoldConfig: Gold Lucky Coin
 			// GoldToPiggyConfig: Gold To Piggy Bank
 			// HuntressConfig: Huntress Ability
@@ -6035,6 +6036,7 @@ Mods: {
 		// AshWoodConfig: "[i:FargowiltasSouls/AshWoodEnchant][c/958083:{$Mods.FargowiltasSouls.Toggler.AshWoodConfig}]"
 		// WillHeader: "[i:FargowiltasSouls/WillForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WillHeader}]"
 		// GladiatorConfig: "[i:FargowiltasSouls/GladiatorEnchant][c/9c924e:{$Mods.FargowiltasSouls.Toggler.GladiatorConfig}]"
+		// GladiatorBannerConfig: "[i:FargowiltasSouls/GladiatorEnchant][c/9c924e:{$Mods.FargowiltasSouls.Toggler.GladiatorBannerConfig}]"
 		// GoldConfig: "[i:FargowiltasSouls/GoldEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.GoldConfig}]"
 		// GoldToPiggyConfig: "[i:FargowiltasSouls/GoldEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.GoldToPiggyConfig}]"
 		// HuntressConfig: "[i:FargowiltasSouls/HuntressEnchant][c/7ac04c:{$Mods.FargowiltasSouls.Toggler.HuntressConfig}]"

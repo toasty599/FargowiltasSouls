@@ -140,7 +140,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPC.defense = 15;
             NPC.damage = 69;
             NPC.knockBackResist = 0f;
-            NPC.width = 194;
+            NPC.width = 132; //194
             NPC.height = 132;
             NPC.boss = true;
             NPC.lavaImmune = true;

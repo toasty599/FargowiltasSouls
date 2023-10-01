@@ -224,6 +224,7 @@ namespace FargowiltasSouls.Core.Toggler
             player.SetToggleValue("Mythril", true);
             player.SetToggleValue("Huntress", true);
             player.SetToggleValue("CrystalDash", true);
+            player.SetToggleValue("GladiatorBanner", true);
 
             player.SetToggleValue("Eternity", true);
 

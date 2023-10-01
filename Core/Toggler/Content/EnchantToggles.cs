@@ -41,6 +41,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
 
         public int WillHeader = ModContent.ItemType<WillForce>();
         public string Gladiator;
+        public string GladiatorBanner;
         public string Gold;
         public string GoldToPiggy;
         public string Huntress;
