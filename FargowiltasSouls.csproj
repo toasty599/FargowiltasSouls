@@ -44,6 +44,8 @@
     <None Remove="Content\Items\Accessories\Masomode\FusedLens.png" />
     <None Remove="Content\Items\Accessories\Masomode\MysticSkullInactive.png" />
     <None Remove="Content\Items\Accessories\Masomode\SlimyShield.png" />
+    <None Remove="Content\Items\Accessories\Souls\DimensionSoul_Wings.png" />
+    <None Remove="Content\Items\Accessories\Souls\FlightMasterySoul_Wings.png" />
     <None Remove="Content\Items\BossBags\BanishedBaronBag.png" />
     <None Remove="Content\Items\Placables\Relics\BaronRelic.png" />
     <None Remove="Content\Items\Placables\Trophies\BaronTrophy.png" />
