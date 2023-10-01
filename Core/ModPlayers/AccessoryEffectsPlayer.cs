@@ -1380,8 +1380,12 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //Main.NewText($"shell HP: {TurtleShellHP}, counter: {TurtleCounter}, recovery: {turtleRecoverCD}");
         }
-        public void ActivateVortex(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        public static void ActivateVortex(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
         {
+            if (player != Main.LocalPlayer)
+            {
+                return;
+            }
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             orig.Invoke(player, keyDir);
             if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
@@ -1389,24 +1393,21 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (modPlayer.VortexEnchantActive)
                 {
                     //stealth memes
-                    if (Player.whoAmI == Main.myPlayer)
+                    modPlayer.VortexStealth = !modPlayer.VortexStealth;
+
+                    if (!player.GetToggleValue("VortexS"))
+                        modPlayer.VortexStealth = false;
+
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                        NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
+
+                    if (modPlayer.VortexStealth && player.GetToggleValue("VortexV") && !player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
                     {
-                        VortexStealth = !VortexStealth;
+                        int p = Projectile.NewProjectile(player.GetSource_Misc(""), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(player, 60), 5f, player.whoAmI);
+                        Main.projectile[p].FargoSouls().CanSplit = false;
+                        Main.projectile[p].netUpdate = true;
 
-                        if (!Player.GetToggleValue("VortexS"))
-                            VortexStealth = false;
-
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
-                            NetMessage.SendData(MessageID.SyncPlayer, number: Player.whoAmI);
-
-                        if (VortexStealth && Player.GetToggleValue("VortexV") && !Player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
-                        {
-                            int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
-                            Main.projectile[p].FargoSouls().CanSplit = false;
-                            Main.projectile[p].netUpdate = true;
-
-                            Player.AddBuff(ModContent.BuffType<VortexCDBuff>(), 3600);
-                        }
+                        player.AddBuff(ModContent.BuffType<VortexCDBuff>(), 3600);
                     }
                 }
             }
