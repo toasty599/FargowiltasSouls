@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 {
                     NPC spread = Main.npc[i];
 
-                    if (i != npc.whoAmI && spread.active && !spread.townNPC && !spread.friendly && spread.lifeMax > 5 && Vector2.Distance(npc.Center, spread.Center) < 50)
+                    if (i != npc.whoAmI && spread != null && spread.active && !spread.townNPC && !spread.friendly && spread.lifeMax > 5 && Vector2.Distance(npc.Center, spread.Center) < 50)
                     {
                         spread.AddBuff(ModContent.BuffType<LeadPoisonBuff>(), 30);
                     }

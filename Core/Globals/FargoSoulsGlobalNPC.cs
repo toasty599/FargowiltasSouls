@@ -647,7 +647,7 @@ namespace FargowiltasSouls.Core.Globals
                         dot = 4;
                     }
                 }
-                if (modPlayer.ForceEffect(modPlayer.LeadEnchantItem.type))
+                if (player != null && player.active && !player.dead && modPlayer != null && modPlayer.ForceEffect(modPlayer.LeadEnchantItem.type))
                 {
                     dot *= 3;
                 }
