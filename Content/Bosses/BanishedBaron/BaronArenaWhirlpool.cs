@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             float MaxDistance = (float)BaseMaxDistance - distanceDecrease;
             if (WorldSavingSystem.masochistModeReal)
             {
-                MaxDistance -= 150;
+                MaxDistance -= 220;
             }
 
             Player player = Main.player[baron.target];
