@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool StyxSet;
         public int StyxMeter;
         public int StyxTimer;
+        public bool StyxAttackReady;
         public bool NekomiSet;
         public int NekomiMeter;
         public int NekomiTimer;

@@ -106,6 +106,7 @@ Increases max number of minions and sentries by 3"); */
 
                         player.controlUseItem = false; //this kills other heldprojs
                         player.releaseUseItem = true;
+                        modPlayer.StyxAttackReady = false;
                     }
                 }
             }
@@ -131,6 +132,7 @@ Increases max number of minions and sentries by 3"); */
             {
                 fargoPlayer.StyxMeter = 0;
                 fargoPlayer.StyxTimer = 0;
+                fargoPlayer.StyxAttackReady = true;
             }
         }
 

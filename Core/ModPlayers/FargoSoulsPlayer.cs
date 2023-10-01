@@ -504,6 +504,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             EridanusTimer = 0;
             StyxMeter = 0;
             StyxTimer = 0;
+            StyxAttackReady = false;
             NekomiMeter = 0;
             NekomiTimer = 0;
 

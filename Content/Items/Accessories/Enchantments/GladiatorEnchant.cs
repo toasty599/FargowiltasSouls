@@ -52,7 +52,7 @@ Grants knockback immunity when you are facing the attack
             orig.Invoke(player, keyDir);
             if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
             {
-                if (player.whoAmI == Main.myPlayer && modPlayer.GladiatorEnchantActive)
+                if (player.whoAmI == Main.myPlayer && modPlayer.GladiatorEnchantActive && player.GetToggleValue("GladiatorBanner"))
                 {
                     int GladiatorStandard = ModContent.ProjectileType<GladiatorStandard>();
                     if (player.ownedProjectileCounts[GladiatorStandard] < 1)
