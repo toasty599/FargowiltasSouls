@@ -53,21 +53,17 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             if (!Main.player[projectile.owner].buffImmune[ModContent.BuffType<NullificationCurseBuff>()] && !WorldSavingSystem.SwarmActive)
             {
-                bool RogueProjectile = false;
-                if (ModContent.TryFind("CalamityMod", "RogueDamageClass", out DamageClass rogueDamageClass))
-                {
-                    RogueProjectile = projectile.CountsAsClass(rogueDamageClass);
-                }
 
                 switch (GetVulnerabilityState(npc))
                 {
                     case 0: if (!projectile.CountsAsClass(DamageClass.Melee)) return false; break;
-                    case 1: if (!(projectile.CountsAsClass(DamageClass.Ranged) || RogueProjectile)) return false; break;
+                    case 1: if (!projectile.CountsAsClass(DamageClass.Ranged)) return false; break;
                     case 2: if (!projectile.CountsAsClass(DamageClass.Magic)) return false; break;
                     case 3: if (!FargoSoulsUtil.IsSummonDamage(projectile)) return false; break;
                     default: break;
                 }
             }
+            
 
             return base.CanBeHitByProjectile(npc, projectile);
         }
