@@ -19,7 +19,6 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "低地");
             //Description.AddTranslation((int)GameCulture.CultureName.Chinese, "不能站在平台或液体上");
         }
-
         public override void Update(Player player, ref int buffIndex)
         {
             player.FargoSouls().LowGround = true;
@@ -28,11 +27,27 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
 
             if (player.mount.Active)
                 player.mount.Dismount(player);
+            Tile thisTile = Framing.GetTileSafely(player.Bottom);
             Tile bottomTile = Framing.GetTileSafely(player.Bottom + Vector2.UnitY * 8);
-            if (player.velocity.Y >= 0 && bottomTile.TileType == TileID.Platforms || bottomTile.TileType == TileID.PlanterBox)
+            
+            if (!Collision.SolidCollision(player.BottomLeft, player.width, 16))
             {
-                player.position.Y += 2;
+                if (player.velocity.Y >= 0 && (IsPlatform(thisTile.TileType) || IsPlatform(bottomTile.TileType)))
+                {
+                    player.DryCollision
+                    player.position.Y += 2;
+                }
+                if (player.velocity.Y == 0)
+                {
+                    player.position.Y += 16;
+                }
+                
             }
+            bool IsPlatform(int tileType)
+            {
+                return tileType == TileID.Platforms || tileType == TileID.PlanterBox;
+            }
+
             /*
             for (int i = -2; i <= 2; i++)
             {
