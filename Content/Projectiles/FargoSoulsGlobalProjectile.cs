@@ -191,6 +191,10 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            if (WorldGen.generatingWorld)
+            {
+                return;
+            }
             //not doing this causes player array index error during worldgen in some cases maybe??
             if (projectile.owner < 0 || projectile.owner >= Main.maxPlayers)
                 return;
