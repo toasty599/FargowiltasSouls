@@ -82,6 +82,10 @@ This stacks up to 950 times until you get hit"); */
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
+            if (Item.vanity)
+            {
+                return;
+            }
             string text = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EternitySoul.Vanilla");
             string[] lines = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
