@@ -34,7 +34,6 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
             {
                 if (player.velocity.Y >= 0 && (IsPlatform(thisTile.TileType) || IsPlatform(bottomTile.TileType)))
                 {
-                    player.DryCollision
                     player.position.Y += 2;
                 }
                 if (player.velocity.Y == 0)
