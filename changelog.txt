@@ -4,3 +4,5 @@ NEW UPDATE - V {ModVersion}
 -Fixed Low Ground not disallowing standing on hammered platforms or furniture
 -Mod call that disables Eternity Vanilla enemy behaviour now works on non-bosses
 -Decrepit Airstrike Remote no longer consumes sentry slots, still scales with max sentries
+-Tungsten Enchant no longer reduces melee speed when toggled off
+-Soul of Eternity doesn't modify tooltip when in vanity
