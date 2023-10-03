@@ -330,11 +330,11 @@ namespace FargowiltasSouls
                         return WorldSavingSystem.EternityMode;
 
                     case "EternityVanillaBossBehaviour":
-                        bool BehaviourWasOn = WorldSavingSystem.EternityVanillaBossBehaviour;
+                        bool BehaviourWasOn = WorldSavingSystem.EternityVanillaBehaviour;
                         bool? arg = args[1] as bool?;
                         if (arg != null)
                         {
-                            WorldSavingSystem.EternityVanillaBossBehaviour = (bool)arg;
+                            WorldSavingSystem.EternityVanillaBehaviour = (bool)arg;
                         }
                         return BehaviourWasOn;
 

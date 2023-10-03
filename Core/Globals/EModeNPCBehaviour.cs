@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Core.Globals
         // is just a bandaid fix.
         public override GlobalNPC NewInstance(NPC target) {
             TryLoadSprites(target);
-            if (!WorldSavingSystem.EternityVanillaBossBehaviour && target.boss && target.ModNPC == null)
+            if (!WorldSavingSystem.EternityVanillaBehaviour && target.ModNPC == null)
             {
                 return target.GetGlobalNPC<SillyLittleQuestionMark>();
             }
