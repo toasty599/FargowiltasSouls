@@ -4,6 +4,8 @@ Features the highly challenging Eternity Mode!
 NEW UPDATE - V 1.6.0.2
 -Eternity enemy health buff no longer applies to critters
 -Fixed Low Ground not disallowing standing on hammered platforms or furniture
+-Mod call that disables Eternity Vanilla enemy behaviour now works on non-bosses
+-Decrepit Airstrike Remote no longer consumes sentry slots, still scales with max sentries
 
 NEW UPDATE - V 1.6.0.1
 -Added new Baron music
