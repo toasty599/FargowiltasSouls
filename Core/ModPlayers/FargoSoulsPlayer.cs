@@ -1517,6 +1517,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
                 return false;
             }
+            if (Main.gamePaused)
+            {
+                return false;
+            }
             if (enchType == null)
             {
                 Main.NewText("you shouldn't be seeing this. tall javyz");
