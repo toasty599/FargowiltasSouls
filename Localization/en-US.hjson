@@ -2728,7 +2728,7 @@ Mods: {
 				DisplayName: Force of Life
 				Tooltip:
 					'''
-					[i:FargowiltasSouls/PumpkinEnchant] You will grow pumpkins while walking on the ground
+					[i:FargowiltasSouls/PumpkinEnchant] You will grow pumpkins while moving
 					[i:FargowiltasSouls/CactusEnchant] Enemies may explode into needles on death
 					[i:FargowiltasSouls/BeeEnchant] Leave behind flowers while flying
 					[i:FargowiltasSouls/BeeEnchant] Effects of Hive Pack
@@ -2831,7 +2831,7 @@ Mods: {
 					[i:FargowiltasSouls/PlatinumEnchant] 20% chance for enemies to drop 5x loot
 					[i:FargowiltasSouls/GladiatorEnchant] Double tap down to place a banner that buffs you while close
 					[i:FargowiltasSouls/GladiatorEnchant] Spears will rain down on struck enemies
-					[i:FargowiltasSouls/RedRidingEnchant] Successive attack gain bonus damage 
+					[i:FargowiltasSouls/RedRidingEnchant] Successive attacks gain bonus damage 
 					[i:FargowiltasSouls/ValhallaKnightEnchant] Increases the effectiveness of healing sources by 50%
 					[i:FargowiltasSouls/ValhallaKnightEnchant] Improves mounts and stats while mounted, mounts have a dash
 					'A mind of unbreakable determination'
