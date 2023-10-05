@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                 build = GetBuildText(
                     Main.rand.Next(new int[] { ItemID.SpectreBoots, ItemID.LightningBoots, ItemID.FrostsparkBoots }),
                     Main.rand.Next(new int[] { ItemID.BalloonHorseshoeFart, ItemID.BalloonHorseshoeSharkron, ItemID.WhiteHorseshoeBalloon }),
-                    Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>(), ModContent.ItemType<MeteorEnchant>() })
+                    Main.rand.Next(new int[] { ItemID.EoCShield, ModContent.ItemType<JungleEnchant>() })
                 ) + GetBuildTextRandom(
                     2,
                     ModContent.ItemType<LeadEnchant>(),
