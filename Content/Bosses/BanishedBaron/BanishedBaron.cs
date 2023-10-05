@@ -24,6 +24,7 @@ using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Common.Graphics.Particles;
+using FargowiltasSouls.Content.Items.Placables.Relics;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
@@ -389,7 +390,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BanishedBaronBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BaronTrophy>(), 10));
 
-            //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<BanishedBaronRelic>()));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<BaronRelic>()));
 
             LeadingConditionRule rule = new LeadingConditionRule(new Conditions.NotExpert());
             rule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<TheBaronsTusk>(), ModContent.ItemType<RoseTintedVisor>(), ModContent.ItemType<NavalRustrifle>(), ModContent.ItemType<DecrepitAirstrikeRemote>()));
