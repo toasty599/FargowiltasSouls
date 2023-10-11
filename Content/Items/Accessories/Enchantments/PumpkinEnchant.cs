@@ -64,7 +64,7 @@ Enemies that touch them will destroy them and take damage
                         || modPlayer.ForceEffect(ModContent.ItemType<PumpkinEnchant>()))
                     {
                         Projectile.NewProjectile(player.GetSource_Accessory(accessorySource), player.Center, Vector2.Zero, ModContent.ProjectileType<GrowingPumpkin>(), 0, 0, player.whoAmI);
-                        modPlayer.PumpkinSpawnCD = 300;
+                        modPlayer.PumpkinSpawnCD = 450;
                     }
                 }
             }

@@ -33,7 +33,7 @@ Mods: {
 			// Gold: No upgrade
 			// Hallow: Potion heal bonus increased from 20 to 40%
 			// Huntress: Armor penetration and flat damage increased to 10 and 5 respectively
-			// Iron: Increases item range by 4x and chance not to consume to 50%
+			// Iron: Increases chance not to consume to 50%
 			// Jungle: Spore damage increased, cooldown decreased
 			// Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
 			// Meteor: A meteor shower initiates every few seconds while attacking
@@ -50,7 +50,7 @@ Mods: {
 			// PalmWood: Attack speed and damage increased, another tree can be spawned
 			// Pearlwood: Damage increased and cooldown reduced
 			// Platinum: No upgrade
-			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
+			// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
 			// Rain: Umbrella can block up to 1000 damage and reflected damage is tripled
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
@@ -2728,7 +2728,7 @@ Mods: {
 				// DisplayName: Force of Life
 				/* Tooltip:
 					'''
-					[i:FargowiltasSouls/PumpkinEnchant] You will grow pumpkins while walking on the ground
+					[i:FargowiltasSouls/PumpkinEnchant] You will grow pumpkins while moving
 					[i:FargowiltasSouls/CactusEnchant] Enemies may explode into needles on death
 					[i:FargowiltasSouls/BeeEnchant] Leave behind flowers while flying
 					[i:FargowiltasSouls/BeeEnchant] Effects of Hive Pack
@@ -2831,7 +2831,7 @@ Mods: {
 					[i:FargowiltasSouls/PlatinumEnchant] 20% chance for enemies to drop 5x loot
 					[i:FargowiltasSouls/GladiatorEnchant] Double tap down to place a banner that buffs you while close
 					[i:FargowiltasSouls/GladiatorEnchant] Spears will rain down on struck enemies
-					[i:FargowiltasSouls/RedRidingEnchant] Successive attack gain bonus damage 
+					[i:FargowiltasSouls/RedRidingEnchant] Successive attacks gain bonus damage 
 					[i:FargowiltasSouls/ValhallaKnightEnchant] Increases the effectiveness of healing sources by 50%
 					[i:FargowiltasSouls/ValhallaKnightEnchant] Improves mounts and stats while mounted, mounts have a dash
 					'A mind of unbreakable determination'
