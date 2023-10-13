@@ -1335,11 +1335,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (Eternity)
                     bonus = 4f;
                 else if (forceEffect && ValhallaEnchantItem != null)
-                    bonus = 1f / 2f;
+                    bonus = 1f / 5f;
                 else if (ValhallaEnchantItem != null || (forceEffect && SquireEnchantItem != null))
-                    bonus = 1f / 3f;
+                    bonus = 3f / 20f;
                 else if (SquireEnchantItem != null)
-                    bonus = 1f / 4f;
+                    bonus = 1f / 10f;
             }
 
             heal = (int)(heal * (1f + bonus));
