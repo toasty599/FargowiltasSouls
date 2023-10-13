@@ -45,6 +45,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public float endTimeVariance;
 
         public bool ShouldDrawAura;
+        public float AuraScale = 1f;
+
+        public ref float AttackChoice => ref NPC.ai[0];
 
         public override void SetStaticDefaults()
         {
@@ -54,8 +57,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+            NPCID.Sets.MustAlwaysDraw[Type] = true;
 
-            
             NPC.AddDebuffImmunities(new List<int>
             {
                 BuffID.Confused,
@@ -131,7 +134,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             CooldownSlot = 1;
             if (!WorldSavingSystem.MasochistModeReal)
                 return false;
-            return NPC.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, NPC.Center)) < Player.defaultHeight && NPC.ai[0] > -1;
+            return NPC.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, NPC.Center)) < Player.defaultHeight && AttackChoice > -1;
         }
 
         public override bool CanHitNPC(NPC target)
@@ -181,7 +184,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             EModeGlobalNPC.mutantBoss = NPC.whoAmI;
 
-            NPC.dontTakeDamage = NPC.ai[0] < 0; //invul in p3
+            NPC.dontTakeDamage = AttackChoice < 0; //invul in p3
 
             // Set this to false by default.
             ShouldDrawAura = false;
@@ -193,7 +196,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             bool drainLifeInP3 = true;
 
-            switch ((int)NPC.ai[0])
+            switch ((int)AttackChoice)
             {
                 #region phase 1
 
@@ -229,7 +232,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 case 16: goto case 11; //approach for bullet hell
                 case 17: BoundaryBulletHellP2(); break;
 
-                case 18: NPC.ai[0]++; break; //new attack can be put here
+                case 18: AttackChoice++; break; //new attack can be put here
 
                 case 19: PillarDunk(); break;
 
@@ -248,7 +251,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 case 26: PrepareMechRayFan(); break;
                 case 27: MechRayFan(); break;
 
-                case 28: NPC.ai[0]++; break; //free slot for new attack
+                case 28: AttackChoice++; break; //free slot for new attack
 
                 case 29: PrepareFishron1(); break;
                 case 30: SpawnFishrons(); break;
@@ -302,11 +305,19 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                 #endregion
 
-                default: NPC.ai[0] = 11; goto case 11; //return to first phase 2 attack
+                default: AttackChoice = 11; goto case 11; //return to first phase 2 attack
             }
-
+            //manage aura scale
+            if (AttackChoice == 1)
+            {
+                AuraScale = MathHelper.Lerp(AuraScale, 0.7f, 0.02f);
+            }
+            else
+            {
+                AuraScale = MathHelper.Lerp(AuraScale, 1f, 0.1f);
+            }
             //in emode p2
-            if (WorldSavingSystem.EternityMode && (NPC.ai[0] < 0 || NPC.ai[0] > 10 || NPC.ai[0] == 10 && NPC.ai[1] > 150))
+            if (WorldSavingSystem.EternityMode && (AttackChoice < 0 || AttackChoice > 10 || AttackChoice == 10 && NPC.ai[1] > 150))
             {
                 Main.dayTime = false;
                 Main.time = 16200; //midnight, for empress visuals
@@ -318,7 +329,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Main.bloodMoon = false; //disable blood moon
             }
 
-            if (NPC.ai[0] < 0 && NPC.life > 1 && drainLifeInP3) //in desperation
+            if (AttackChoice < 0 && NPC.life > 1 && drainLifeInP3) //in desperation
             {
                 int time = WorldSavingSystem.MasochistModeReal ? 4350 : 480 + 240 + 420 + 480 + 1020 - 60;
                 NPC.life -= NPC.lifeMax / time;
@@ -384,7 +395,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 ShouldDrawAura = true;
                 // -1 means no dust is drawn, as it looks ugly.
-                EModeGlobalNPC.Aura(NPC, 2000f, true, -1, default, ModContent.BuffType<GodEaterBuff>(), ModContent.BuffType<MutantFangBuff>());
+                EModeGlobalNPC.Aura(NPC, 2000f * AuraScale, true, -1, default, ModContent.BuffType<GodEaterBuff>(), ModContent.BuffType<MutantFangBuff>());
             }
             else
             {
@@ -395,7 +406,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresenceBuff>(), 2);
                     }
 
-                    if (WorldSavingSystem.EternityMode && NPC.ai[0] < 0 && NPC.ai[0] > -6)
+                    if (WorldSavingSystem.EternityMode && AttackChoice < 0 && AttackChoice > -6)
                     {
                         Main.LocalPlayer.AddBuff(ModContent.BuffType<GoldenStasisCDBuff>(), 2);
                         if (WorldSavingSystem.MasochistModeReal)
@@ -414,7 +425,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             if (Main.netMode != NetmodeID.MultiplayerClient) //checks for needed projs
             {
-                if (WorldSavingSystem.EternityMode && NPC.ai[0] != -7 && (NPC.ai[0] < 0 || NPC.ai[0] > 10) && FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null)
+                if (WorldSavingSystem.EternityMode && AttackChoice != -7 && (AttackChoice < 0 || AttackChoice > 10) && FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null)
                     ritualProj = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
 
                 if (FargoSoulsUtil.ProjectileExists(ringProj, ModContent.ProjectileType<MutantRitual5>()) == null)
@@ -469,8 +480,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         void ChooseNextAttack(params int[] args)
         {
-            float buffer = NPC.ai[0] + 1;
-            NPC.ai[0] = 48;
+            float buffer = AttackChoice + 1;
+            AttackChoice = 48;
             NPC.ai[1] = 0;
             NPC.ai[2] = buffer;
             NPC.ai[3] = 0;
@@ -561,40 +572,40 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (WorldSavingSystem.MasochistModeReal && Main.rand.NextBool(3))
             {
                 int[] options = new int[] { 0, 1, 2, 4, 7, 9, 9 };
-                NPC.ai[0] = Main.rand.Next(options);
-                if (NPC.ai[0] == sourceAI) //dont repeat attacks consecutively
-                    NPC.ai[0] = sourceAI == 9 ? 0 : 9;
+                AttackChoice = Main.rand.Next(options);
+                if (AttackChoice == sourceAI) //dont repeat attacks consecutively
+                    AttackChoice = sourceAI == 9 ? 0 : 9;
 
                 bool badCombo = false;
                 //dont go into boundary/sword from spheres, true eye dive, void rays
-                if (NPC.ai[0] == 9 && (sourceAI == 1 || sourceAI == 2 || sourceAI == 7))
+                if (AttackChoice == 9 && (sourceAI == 1 || sourceAI == 2 || sourceAI == 7))
                     badCombo = true;
                 //dont go into destroyer-toss or void rays from true eye dive
-                if ((NPC.ai[0] == 0 || NPC.ai[0] == 7) && sourceAI == 2)
+                if ((AttackChoice == 0 || AttackChoice == 7) && sourceAI == 2)
                     badCombo = true;
 
                 if (badCombo)
-                    NPC.ai[0] = 4; //default to dashes
-                else if (NPC.ai[0] == 9 && Main.rand.NextBool())
+                    AttackChoice = 4; //default to dashes
+                else if (AttackChoice == 9 && Main.rand.NextBool())
                     NPC.localAI[2] = 1f; //force sword attack instead of boundary
                 else
                     NPC.localAI[2] = 0f;
             }
             else
             {
-                if (NPC.ai[0] == 9 && NPC.localAI[2] == 0)
+                if (AttackChoice == 9 && NPC.localAI[2] == 0)
                 {
                     NPC.localAI[2] = 1;
                 }
                 else
                 {
-                    NPC.ai[0]++;
+                    AttackChoice++;
                     NPC.localAI[2] = 0f;
                 }
             }
 
-            if (NPC.ai[0] >= 10) //dont accidentally go into p2
-                NPC.ai[0] = 0;
+            if (AttackChoice >= 10) //dont accidentally go into p2
+                AttackChoice = 0;
 
             NPC.ai[1] = 0;
             NPC.ai[2] = 0;
@@ -670,7 +681,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.ai[0] = 10;
+                    AttackChoice = 10;
                     NPC.ai[1] = 0;
                     NPC.ai[2] = 0;
                     NPC.ai[3] = 0;
@@ -870,7 +881,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[1] = 60;
                 if (++NPC.ai[2] > NPC.ai[3])
                 {
-                    P1NextAttackOrMasoOptions(NPC.ai[0]);
+                    P1NextAttackOrMasoOptions(AttackChoice);
                     NPC.velocity = NPC.DirectionTo(player.Center) * 2f;
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -889,7 +900,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 if (WorldSavingSystem.EternityMode && WorldSavingSystem.SkipMutantP1 >= 10 && !WorldSavingSystem.MasochistModeReal)
                 {
-                    NPC.ai[0] = 10; //skip to phase 2
+                    AttackChoice = 10; //skip to phase 2
                     NPC.ai[1] = 0;
                     NPC.ai[2] = 0;
                     NPC.ai[3] = 0;
@@ -942,7 +953,6 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (WorldSavingSystem.MasochistModeReal)
                 NPC.velocity = Vector2.Zero;
-
             if (--NPC.ai[1] < 0)
             {
                 NPC.netUpdate = true;
@@ -950,12 +960,16 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[1] = 90 / modifier;
                 if (++NPC.ai[2] > 4 * modifier)
                 {
-                    P1NextAttackOrMasoOptions(NPC.ai[0]);
+                    if (!WorldSavingSystem.MasochistModeReal || NPC.ai[2] > 6 * modifier) //extra endtime in maso
+                    {
+                        P1NextAttackOrMasoOptions(AttackChoice);
+                    }
+
                 }
                 else
                 {
                     int max = WorldSavingSystem.MasochistModeReal ? 9 : 6;
-                    float speed = WorldSavingSystem.MasochistModeReal ? 12 : 9;
+                    float speed = WorldSavingSystem.MasochistModeReal ? 10 : 9;
                     int sign = WorldSavingSystem.MasochistModeReal ? NPC.ai[2] % 2 == 0 ? 1 : -1 : 1;
                     SpawnSphereRing(max, speed, (int)(0.8 * FargoSoulsUtil.ScaledProjectileDamage(NPC.damage)), 1f * sign);
                     SpawnSphereRing(max, speed, (int)(0.8 * FargoSoulsUtil.ScaledProjectileDamage(NPC.damage)), -0.5f * sign);
@@ -979,7 +993,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (NPC.velocity.Y < 0)
                     NPC.velocity.Y *= -1;
                 NPC.velocity.Y *= 0.3f;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.netUpdate = true;
                 SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
@@ -1010,7 +1024,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 int endlag = WorldSavingSystem.MasochistModeReal ? 3 : 5;
                 if (++NPC.ai[2] > maxEyeThreshold + endlag)
                 {
-                    if (NPC.ai[0] == 3)
+                    if (AttackChoice == 3)
                         P1NextAttackOrMasoOptions(2);
                     else
                         ChooseNextAttack(13, 19, 21, 24, 33, 33, 33, 39, 41, 44);
@@ -1064,7 +1078,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 if (!AliveCheck(player))
                     return;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[3] = 0;
                 NPC.netUpdate = true;
             }
@@ -1088,7 +1102,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (++NPC.ai[1] > NPC.ai[3])
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 if (++NPC.ai[2] > 5)
                 {
@@ -1120,7 +1134,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (!AliveCheck(player))
                     return;
                 NPC.netUpdate = true;
-                NPC.ai[0]--;
+                AttackChoice--;
                 NPC.ai[1] = 0;
             }
         }
@@ -1139,7 +1153,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             else
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = player.DirectionTo(NPC.Center).ToRotation();
                 NPC.ai[3] = (float)Math.PI / 10f;
@@ -1246,7 +1260,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                     if (++NPC.ai[3] > (WorldSavingSystem.MasochistModeReal ? 360 : 240))
                     {
-                        P1NextAttackOrMasoOptions(NPC.ai[0]);
+                        P1NextAttackOrMasoOptions(AttackChoice);
                     }
                     break;
 
@@ -1265,11 +1279,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         void PrepareMutantSword()
         {
-            if (NPC.ai[0] == 9 && Main.LocalPlayer.active && NPC.Distance(Main.LocalPlayer.Center) < 3000f && Main.expertMode)
+            if (AttackChoice == 9 && Main.LocalPlayer.active && NPC.Distance(Main.LocalPlayer.Center) < 3000f && Main.expertMode)
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<PurgedBuff>(), 2);
 
             //can alternate directions
-            int sign = NPC.ai[0] != 9 && NPC.localAI[2] % 2 == 1 ? -1 : 1;
+            int sign = AttackChoice != 9 && NPC.localAI[2] % 2 == 1 ? -1 : 1;
 
             if (NPC.ai[2] == 0) //move onscreen so player can see
             {
@@ -1324,8 +1338,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                 if (++NPC.ai[1] > 90)
                 {
-                    if (NPC.ai[0] != 9)
-                        NPC.ai[0]++;
+                    if (AttackChoice != 9)
+                        AttackChoice++;
 
                     NPC.localAI[2]++; //progresses state in p1, counts swings in p2
 
@@ -1342,7 +1356,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         void MutantSword()
         {
-            if (NPC.ai[0] == 9 && Main.LocalPlayer.active && NPC.Distance(Main.LocalPlayer.Center) < 3000f && Main.expertMode)
+            if (AttackChoice == 9 && Main.LocalPlayer.active && NPC.Distance(Main.LocalPlayer.Center) < 3000f && Main.expertMode)
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<PurgedBuff>(), 2);
 
             NPC.ai[3] += NPC.ai[2];
@@ -1354,7 +1368,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
                 //moon chain explosions
-                if (WorldSavingSystem.EternityMode && NPC.ai[0] != 9 || WorldSavingSystem.MasochistModeReal)
+                if (WorldSavingSystem.EternityMode && AttackChoice != 9 || WorldSavingSystem.MasochistModeReal)
                 {
                     if (!Main.dedServ)
                         SoundEngine.PlaySound(SoundID.Thunder with { Pitch = -0.5f }, NPC.Center);
@@ -1383,13 +1397,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[1] > 25)
             {
-                if (NPC.ai[0] == 9)
+                if (AttackChoice == 9)
                 {
-                    P1NextAttackOrMasoOptions(NPC.ai[0]);
+                    P1NextAttackOrMasoOptions(AttackChoice);
                 }
                 else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 5 * endTimeVariance)
                 {
-                    NPC.ai[0]--;
+                    AttackChoice--;
                     NPC.ai[1] = 0;
                     NPC.ai[2] = 0;
                     NPC.ai[3] = 0;
@@ -1496,18 +1510,18 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (WorldSavingSystem.EternityMode)
                 {
                     NPC.life = NPC.lifeMax;
-                    NPC.ai[0] = Main.rand.Next(new int[] { 11, 13, 16, 19, 20, 21, 24, 26, 29, 35, 37, 39, 42 }); //force a random choice
+                    AttackChoice = Main.rand.Next(new int[] { 11, 13, 16, 19, 20, 21, 24, 26, 29, 35, 37, 39, 42 }); //force a random choice
                 }
                 else
                 {
-                    NPC.ai[0]++;
+                    AttackChoice++;
                 }
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 //NPC.TargetClosest();
                 NPC.netUpdate = true;
 
-                attackHistory.Enqueue(NPC.ai[0]);
+                attackHistory.Enqueue(AttackChoice);
             }
         }
 
@@ -1523,7 +1537,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             else
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = player.DirectionTo(NPC.Center).ToRotation();
                 NPC.ai[3] = (float)Math.PI / 10f;
@@ -1577,7 +1591,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (!AliveCheck(player))
                     return;
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.ai[3] = 0;
                 //NPC.TargetClosest();
@@ -1646,7 +1660,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (++NPC.ai[1] > endTime)
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.ai[3] = 0;
                 if (++NPC.ai[2] > NPC.localAI[1])
@@ -1679,11 +1693,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (!AliveCheck(player))
                     return;
                 NPC.netUpdate = true;
-                NPC.ai[0]--;
+                AttackChoice--;
                 NPC.ai[1] = 0;
 
                 //quickly bounce back towards player
-                if (NPC.ai[0] == 14 && NPC.ai[2] == NPC.localAI[1] - 1 && NPC.Distance(player.Center) > 450)
+                if (AttackChoice == 14 && NPC.ai[2] == NPC.localAI[1] - 1 && NPC.Distance(player.Center) > 450)
                     NPC.velocity = NPC.DirectionTo(player.Center) * 16f;
             }
         }
@@ -1879,8 +1893,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[1] = 60;
                 if (++NPC.ai[2] > (WorldSavingSystem.MasochistMode ? 3 : 1))
                 {
-                    //float[] options = { 13, 19, 21, 24, 26, 31, 33, 40 }; NPC.ai[0] = options[Main.rand.Next(options.Length)];
-                    NPC.ai[0]++;
+                    //float[] options = { 13, 19, 21, 24, 26, 31, 33, 40 }; AttackChoice = options[Main.rand.Next(options.Length)];
+                    AttackChoice++;
                     NPC.ai[2] = 0;
                     NPC.TargetClosest();
                 }
@@ -1913,7 +1927,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (!AliveCheck(player))
                     return;
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.ai[3] = 0;
                 //NPC.TargetClosest();
@@ -1941,7 +1955,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (++NPC.ai[1] > (WorldSavingSystem.EternityMode ? 5 : 20))
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 if (++NPC.ai[2] > NPC.localAI[1])
                 {
@@ -2017,7 +2031,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (++NPC.ai[2] > cap)
                 {
                     //NPC.TargetClosest();
-                    NPC.ai[0]++;
+                    AttackChoice++;
                     NPC.ai[1] = 0;
                     NPC.ai[2] = 0;
                 }
@@ -2127,7 +2141,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (++NPC.ai[1] > 150 || WorldSavingSystem.MasochistModeReal && NPC.Distance(targetPos) < 64)
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.ai[3] = 0;
@@ -2231,7 +2245,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
                 else
                 {
-                    NPC.ai[0] = 11;
+                    AttackChoice = 11;
                     NPC.ai[1] = 0;
                     NPC.ai[2] = 0;
                     NPC.ai[3] = 0;
@@ -2254,7 +2268,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 NPC.velocity.X = 30f * NPC.ai[2];
                 NPC.velocity.Y = 0f;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.netUpdate = true;
             }
@@ -2317,7 +2331,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (NPC.velocity.Y > 0)
                     NPC.velocity.Y *= -1;
                 NPC.velocity.Y *= 0.3f;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.netUpdate = true;
             }
@@ -2344,7 +2358,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance, ModContent.ProjectileType<MutantNuke>(), WorldSavingSystem.MasochistModeReal ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3f) : 0, 0f, Main.myPlayer, gravity);
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantFishronRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3f), 0f, Main.myPlayer, NPC.whoAmI);
                 }
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
 
                 if (Math.Sign(player.Center.X - NPC.Center.X) == Math.Sign(NPC.velocity.X))
@@ -2432,7 +2446,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[2] > 30 || WorldSavingSystem.MasochistModeReal && NPC.Distance(targetPos) < 64)
             {
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.ai[3] = 0;
@@ -2586,7 +2600,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 NPC.velocity.X = 35f * (NPC.position.X < player.position.X ? 1 : -1);
                 NPC.velocity.Y = 10f;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.netUpdate = true;
                 //NPC.TargetClosest();
@@ -2605,7 +2619,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             else
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.ai[3] = 0;
@@ -2734,7 +2748,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (++NPC.ai[1] > 45)
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]++;
+                AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.ai[3] = 0;
@@ -2822,7 +2836,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (!WorldSavingSystem.EternityMode)
             {
-                NPC.ai[0]++; //dont do this attack in expert
+                AttackChoice++; //dont do this attack in expert
                 return;
             }
 
@@ -2983,7 +2997,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.velocity *= WorldSavingSystem.MasochistModeReal ? 0.25f : 0.75f;
 
                 //NPC.TargetClosest();
-                NPC.ai[0] = NPC.ai[2];
+                AttackChoice = NPC.ai[2];
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.netUpdate = true;
@@ -3035,7 +3049,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.netUpdate = true;
                     NPC.velocity = Vector2.Zero;
                     NPC.localAI[0] = 0;
-                    NPC.ai[0]--;
+                    AttackChoice--;
                     NPC.ai[1] = 0;
                     NPC.ai[2] = NPC.DirectionFrom(player.Center).ToRotation();
                     NPC.ai[3] = (float)Math.PI / 20f;
@@ -3106,7 +3120,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 else if (NPC.localAI[0] >= (WorldSavingSystem.MasochistModeReal ? 160 : 120))
                 {
                     NPC.netUpdate = true;
-                    NPC.ai[0]--;
+                    AttackChoice--;
                     NPC.ai[1] = 0;
                     NPC.ai[2] = 0;
                     NPC.ai[3] = 0;
@@ -3157,7 +3171,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (++NPC.ai[3] > endTime)
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]--;
+                AttackChoice--;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.ai[3] = 0;
@@ -3213,7 +3227,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (++NPC.ai[3] > endTime)
             {
                 //NPC.TargetClosest();
-                NPC.ai[0]--;
+                AttackChoice--;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.ai[3] = 0;
@@ -3350,7 +3364,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (++NPC.ai[2] > endTime)
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]--;
+                AttackChoice--;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 FargoSoulsUtil.ClearAllProjectiles(2, NPC.whoAmI);
@@ -3414,7 +3428,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (++NPC.ai[1] > 120)
             {
                 NPC.netUpdate = true;
-                NPC.ai[0]--;
+                AttackChoice--;
                 NPC.ai[1] = 0;
                 NPC.ai[3] = (float)-Math.PI / 2;
                 NPC.netUpdate = true;
@@ -3519,14 +3533,14 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override bool CheckDead()
         {
-            if (NPC.ai[0] == -7)
+            if (AttackChoice == -7)
                 return true;
 
             NPC.life = 1;
             NPC.active = true;
-            if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[0] > -1)
+            if (Main.netMode != NetmodeID.MultiplayerClient && AttackChoice > -1)
             {
-                NPC.ai[0] = WorldSavingSystem.EternityMode ? NPC.ai[0] >= 10 ? -1 : 10 : -6;
+                AttackChoice = WorldSavingSystem.EternityMode ? AttackChoice >= 10 ? -1 : 10 : -6;
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.ai[3] = 0;
@@ -3535,7 +3549,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.localAI[2] = 0;
                 NPC.dontTakeDamage = true;
                 NPC.netUpdate = true;
-                FargoSoulsUtil.ClearAllProjectiles(2, NPC.whoAmI, NPC.ai[0] < 0);
+                FargoSoulsUtil.ClearAllProjectiles(2, NPC.whoAmI, AttackChoice < 0);
                 EdgyBossText("You're pretty good...");
             }
             return false;
@@ -3614,17 +3628,17 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Main.EntitySpriteDraw(texture2D13, position, new Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
 
             if (ShouldDrawAura)
-                DrawAura(spriteBatch, position);
+                DrawAura(spriteBatch, position, AuraScale);
 
             return false;
         }
 
-        public static void DrawAura(SpriteBatch spriteBatch, Vector2 position)
+        public static void DrawAura(SpriteBatch spriteBatch, Vector2 position, float auraScale)
         {
             // Outer ring.
             Color outerColor = Color.CadetBlue;
             outerColor.A = 0;
-            spriteBatch.Draw(FargosTextureRegistry.SoftEdgeRing.Value, position, null, outerColor * 0.7f, 0f, FargosTextureRegistry.SoftEdgeRing.Value.Size() * 0.5f, 9.2f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(FargosTextureRegistry.SoftEdgeRing.Value, position, null, outerColor * 0.7f, 0f, FargosTextureRegistry.SoftEdgeRing.Value.Size() * 0.5f, 9.2f * auraScale, SpriteEffects.None, 0f);
         }
     }
 }
