@@ -50,7 +50,7 @@ Mods: {
 			PalmWood: 增加攻击速度和伤害，可以额外召唤两个棕榈树哨兵
 			Pearlwood: 增加伤害，冷却时间减少
 			// Platinum: No upgrade
-			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
+			// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
 			// Rain: Umbrella can block up to 1000 damage and reflected damage is tripled
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升

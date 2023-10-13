@@ -48,8 +48,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 }
             }
 
-            //bonus damage if fully grown
-            Projectile.damage = FargoSoulsUtil.HighestDamageTypeScaling(player, Projectile.frame == 4 ? 30 : 15);
+            Projectile.damage = FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.ForceEffect(ModContent.ItemType<PumpkinEnchant>()) ? 45 : 15);
 
             if (Projectile.frame != 4)
             {
