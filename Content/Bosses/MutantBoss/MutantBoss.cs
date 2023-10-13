@@ -314,6 +314,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 AuraScale = MathHelper.Lerp(AuraScale, 0.7f, 0.02f);
             }
+            else if (AttackChoice == 5 || AttackChoice == 6)
+            {
+                AuraScale = MathHelper.Lerp(AuraScale, 1.25f, 0.1f);
+            }
             else
             {
                 AuraScale = MathHelper.Lerp(AuraScale, 1f, 0.1f);
