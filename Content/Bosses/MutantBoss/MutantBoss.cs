@@ -48,6 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public float AuraScale = 1f;
 
         public ref float AttackChoice => ref NPC.ai[0];
+        public Vector2 AuraCenter = Vector2.Zero;
 
         public override void SetStaticDefaults()
         {
@@ -178,6 +179,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                 }
             }
+            AuraCenter = NPC.Center;
         }
 
         public override void AI()
@@ -308,13 +310,18 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 default: AttackChoice = 11; goto case 11; //return to first phase 2 attack
             }
             //manage aura scale
-            if (AttackChoice == 1)
+            if (AttackChoice == 1) //ooku spheres p1
             {
                 AuraScale = MathHelper.Lerp(AuraScale, 0.7f, 0.02f);
             }
             else
             {
                 AuraScale = MathHelper.Lerp(AuraScale, 1f, 0.1f);
+            }
+            //manage arena position
+            if (!WorldSavingSystem.MasochistModeReal || (AttackChoice != 5 && AttackChoice != 6)) //spear dash direct p1
+            {
+                AuraCenter = Vector2.Lerp(AuraCenter, NPC.Center, 0.3f);
             }
             //in emode p2
             if (WorldSavingSystem.EternityMode && (AttackChoice < 0 || AttackChoice > 10 || AttackChoice == 10 && NPC.ai[1] > 150))
@@ -395,7 +402,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 ShouldDrawAura = true;
                 // -1 means no dust is drawn, as it looks ugly.
-                EModeGlobalNPC.Aura(NPC, 2000f * AuraScale, true, -1, default, ModContent.BuffType<GodEaterBuff>(), ModContent.BuffType<MutantFangBuff>());
+                ArenaAura(AuraCenter, 2000f * AuraScale, true, -1, default, ModContent.BuffType<GodEaterBuff>(), ModContent.BuffType<MutantFangBuff>());
             }
             else
             {
@@ -3627,8 +3634,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             Main.EntitySpriteDraw(texture2D13, position, new Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
 
+            Vector2 auraPosition = AuraCenter - screenPos + new Vector2(0f, NPC.gfxOffY);
             if (ShouldDrawAura)
-                DrawAura(spriteBatch, position, AuraScale);
+                DrawAura(spriteBatch, auraPosition, AuraScale);
 
             return false;
         }
@@ -3639,6 +3647,24 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Color outerColor = Color.CadetBlue;
             outerColor.A = 0;
             spriteBatch.Draw(FargosTextureRegistry.SoftEdgeRing.Value, position, null, outerColor * 0.7f, 0f, FargosTextureRegistry.SoftEdgeRing.Value.Size() * 0.5f, 9.2f * auraScale, SpriteEffects.None, 0f);
+        }
+        public static void ArenaAura(Vector2 center, float distance, bool reverse = false, int dustid = -1, Color color = default, params int[] buffs)
+        {
+            Player p = Main.LocalPlayer;
+
+
+            if (buffs.Length == 0 || buffs[0] < 0)
+                return;
+
+            //works because buffs are client side anyway :ech:
+            float range = center.Distance(p.Center);
+            if (p.active && !p.dead && !p.ghost && (reverse ? range > distance && range < Math.Max(3000f, distance * 2) : range < distance))
+            {
+                foreach (int buff in buffs)
+                {
+                    FargoSoulsUtil.AddDebuffFixedDuration(p, buff, 2);
+                }
+            }
         }
     }
 }
