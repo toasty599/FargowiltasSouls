@@ -217,7 +217,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                     //Projectile.Center = closestNPC.Center; //help ensure it hits
                     //Projectile.netUpdate = true;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, velocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, ai0, spawnedDamage);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, velocity, Projectile.type, Projectile.damage * 17/20, Projectile.knockBack, Projectile.owner, ai0, spawnedDamage);
                     Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type]++;
 
                     //ensure it hits.. ?

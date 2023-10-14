@@ -53,11 +53,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                         int maxSpawn = 1;
 
-                        if (modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type))
-                        {
-                            maxSpawn = 2;
-                        }
-
                         if (player.ownedProjectileCounts[ModContent.ProjectileType<PalmTreeSentry>()] > maxSpawn - 1)
                         {
                             for (int i = 0; i < Main.maxProjectiles; i++)
