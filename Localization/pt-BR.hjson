@@ -65,13 +65,13 @@ Mods: {
 			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
 			// Shadow: Number of Shadow Orbs increased
-			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 25% to 33%
+			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 10% to 15%
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
-			// Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
+			// Tungsten: Weapon size tripled instead of doubled, bonus damage increased to 20%, melee speed penalty removed, and cooldown reduced
 			// Turtle: Occasionally recover a projectile block point, number of needles and damage increased
-			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 33% to 50%
+			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
 			// Vortex: No upgrade
 			// Wood: Bestiary and banner multiplier increased to 5
 			// AshWood: Fires balls of fire more often
@@ -1970,6 +1970,7 @@ Mods: {
 					While you're burning, attacks are accompanied by balls of fire
 					Grants immunity to Oiled
 					Reduces damage from touching lava
+					'You're telling me this isn't wood?'
 					''' */
 			}
 

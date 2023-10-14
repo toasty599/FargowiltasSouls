@@ -1333,16 +1333,16 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 bool forceEffect = ForceEffect(ModContent.ItemType<SquireEnchant>()) || ForceEffect(ModContent.ItemType<ValhallaKnightEnchant>());
                 if (Eternity)
-                    bonus = 4f;
+                    bonus = 5f;
                 else if (forceEffect && ValhallaEnchantItem != null)
-                    bonus = 1f / 5f;
+                    bonus = 1.2f;
                 else if (ValhallaEnchantItem != null || (forceEffect && SquireEnchantItem != null))
-                    bonus = 3f / 20f;
+                    bonus = 1.15f;
                 else if (SquireEnchantItem != null)
-                    bonus = 1f / 10f;
+                    bonus = 1.10f;
             }
 
-            heal = (int)(heal * (1f + bonus));
+            heal = (int)(heal * bonus);
 
             return heal;
         }
