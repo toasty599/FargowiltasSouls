@@ -352,6 +352,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 && projectile.aiStyle != ProjAIStyleID.Spear)
             {
                 if (projectile.owner == Main.myPlayer
+                    && !(AdamantiteEnchant.AdamIgnoreItems.Contains(modPlayer.Player.HeldItem.type) || modPlayer.Player.heldProj == projectile.whoAmI)
                     && (FargoSoulsUtil.IsProjSourceItemUseReal(projectile, source)
                     || source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.aiStyle == ProjAIStyleID.Spear || sourceProj.minion || sourceProj.sentry || ProjectileID.Sets.IsAWhip[sourceProj.type] && !ProjectileID.Sets.IsAWhip[projectile.type])))
                 {
@@ -359,10 +360,8 @@ namespace FargowiltasSouls.Content.Projectiles
                     projectile.ArmorPenetration += projectile.damage / 2;
 
                     AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer, 8);
+                    AdamModifier = modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2;
                 }
-
-                //AdamModifier = modPlayer.EarthForce ? 3 : 2;
-                AdamModifier = modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2;
             }
 
             if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)

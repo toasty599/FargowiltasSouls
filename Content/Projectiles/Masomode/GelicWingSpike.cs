@@ -18,6 +18,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             Projectile.CloneDefaults(ProjectileID.QueenSlimeMinionBlueSpike);
             AIType = ProjectileID.QueenSlimeMinionBlueSpike;
+            Projectile.tileCollide = true;
             Projectile.hostile = false;
             Projectile.friendly = true;
             Projectile.timeLeft = 300;

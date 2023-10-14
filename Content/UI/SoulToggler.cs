@@ -203,9 +203,6 @@ namespace FargowiltasSouls.Content.UI
                 (string.IsNullOrEmpty(SearchBar.Input) || words.Any(s => s.StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase)));
             });
 
-            
-            
-
             HashSet<string> usedHeaders = new();
             List<Toggle> togglesAsLists = ToggleLoader.LoadedToggles.Values.ToList();
 
@@ -239,7 +236,6 @@ namespace FargowiltasSouls.Content.UI
                         usedHeaders.Add(name);
                     }
                 }
-
                 ToggleList.Add(new UIToggle(toggle.InternalName));
             }
         }

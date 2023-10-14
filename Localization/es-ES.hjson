@@ -21,7 +21,7 @@ Mods: {
 			// Cactus: Number of needles and damage increased
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			// Cobalt: On-hit explosion damage increased
-			// Copper: Lightning damage increased, cooldown reduced
+			// Copper: Lightning damage increased to 200, cooldown reduced
 			// Crimson: No upgrade
 			// CrystalAssassin: No upgrade
 			// DarkArtist: The next 3 weapons are used instead of 2
@@ -47,7 +47,7 @@ Mods: {
 			// Obsidian: You no longer need lava to spawn explosions or fireballs, cooldown reduced
 			// Orichalcum: Increases multiplier to 4x
 			// Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
-			// PalmWood: Attack speed and damage increased, another tree can be spawned
+			// PalmWood: Attack speed, damage, and size increased
 			// Pearlwood: Damage increased and cooldown reduced
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45

@@ -2584,7 +2584,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     }
 
                     //move the safespot
-                    NPC.localAI[0] += 1000f / timeToMove * NPC.localAI[1];
+                    //NPC.localAI[0] += 1000f / timeToMove * NPC.localAI[1];
+
+                    NPC.Center += Vector2.UnitX * 1000f / timeToMove * NPC.localAI[1]; //move along with the movement
                 }
             }
 

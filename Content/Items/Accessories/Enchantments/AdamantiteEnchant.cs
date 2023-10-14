@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             FargoSoulsPlayer modplayer = player.FargoSouls();
             modplayer.AdamantiteEnchantItem = item;
         }
-        static int[] AdamIgnoreItems = new int[]
+        public static int[] AdamIgnoreItems = new int[]
         {
             ItemID.NightsEdge,
             ItemID.TrueNightsEdge,
@@ -55,10 +55,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void AdamantiteSplit(Projectile projectile, FargoSoulsPlayer modPlayer, int splitDegreeAngle)
         {
             
-            if (AdamIgnoreItems.Contains(modPlayer.Player.HeldItem.type))
-            {
-                return;
-            }
             foreach (Projectile p in FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(splitDegreeAngle), modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 1f / 3 : 1f / 2))
             {
                 if (p != null && p.active)
