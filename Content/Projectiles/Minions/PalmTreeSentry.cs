@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Martians;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,6 +37,11 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
+            bool forcePalm = modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type);
+
+            //BIG palm sentry!
+            Projectile.scale = forcePalm ? 2 : 1;
+
             if (!(player.active && !player.dead && modPlayer.PalmEnchantItem != null))
             {
                 Projectile.Kill();
@@ -49,12 +55,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             Projectile.ai[1] += 1f;
 
-            int attackRate = 45;
-
-            if (modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type))
-            {
-                attackRate = 35;
-            }
+            int attackRate = forcePalm ? 30 : 45;
 
             if (Projectile.ai[1] >= attackRate)
             {
