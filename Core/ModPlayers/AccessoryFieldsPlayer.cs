@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         //force of spirit
 
         //force of shadow
-
+        public Item MonkEnchantItem;
         //force of will
 
         //force of cosmos

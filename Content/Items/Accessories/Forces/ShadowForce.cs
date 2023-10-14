@@ -93,7 +93,7 @@ $"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion tha
             //tele thru walls
             modPlayer.ShinobiEffect(hideVisual);
             //monk dash mayhem
-            modPlayer.MonkEffect();
+            modPlayer.MonkEffect(Item);
             //smoke bomb nonsense
             CrystalAssassinEnchant.CrystalAssassinEffect(player, Item);
             //scythe doom

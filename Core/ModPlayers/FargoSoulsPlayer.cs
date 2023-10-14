@@ -1327,22 +1327,22 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int GetHealMultiplier(int heal)
         {
-            float bonus = 0f;
+            float multiplier = 1f;
 
             if ((SquireEnchantItem != null || ValhallaEnchantItem != null))
             {
                 bool forceEffect = ForceEffect(ModContent.ItemType<SquireEnchant>()) || ForceEffect(ModContent.ItemType<ValhallaKnightEnchant>());
                 if (Eternity)
-                    bonus = 5f;
+                    multiplier = 5f;
                 else if (forceEffect && ValhallaEnchantItem != null)
-                    bonus = 1.2f;
+                    multiplier = 1.2f;
                 else if (ValhallaEnchantItem != null || (forceEffect && SquireEnchantItem != null))
-                    bonus = 1.15f;
+                    multiplier = 1.15f;
                 else if (SquireEnchantItem != null)
-                    bonus = 1.10f;
+                    multiplier = 1.10f;
             }
 
-            heal = (int)(heal * bonus);
+            heal = (int)(heal * multiplier);
 
             return heal;
         }
