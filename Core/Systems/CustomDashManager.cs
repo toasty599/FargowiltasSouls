@@ -12,6 +12,8 @@ using Terraria;
 using Terraria.GameInput;
 using System.Reflection;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Projectiles.Souls;
+using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Core.Systems
 {
@@ -26,6 +28,7 @@ namespace FargowiltasSouls.Core.Systems
                 return;
             }
             FargoSoulsPlayer modPlayer = Player.FargoSouls();
+            
 
             if (modDashDelay == 0 && !Player.mount.Active)
             {

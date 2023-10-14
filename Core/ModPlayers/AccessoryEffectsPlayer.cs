@@ -1447,9 +1447,10 @@ namespace FargowiltasSouls.Core.ModPlayers
         //public int baseMountJumpHeight;
 
 
-        public void MonkEffect()
+        public void MonkEffect(Item item)
         {
             Player.DisplayToggle("Monk");
+            MonkEnchantItem = item;
             MonkEnchantActive = true;
 
             if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuff>()))

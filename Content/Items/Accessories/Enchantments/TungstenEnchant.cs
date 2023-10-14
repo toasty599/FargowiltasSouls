@@ -18,11 +18,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             // DisplayName.SetDefault("Tungsten Enchantment");
 
-            string tooltip =
+           /* string tooltip =
 @"150% increased weapon size but reduces melee speed
 Every half second a projectile will be doubled in size
 Enlarged projectiles and non-projectile swords deal 10% more damage and have an additional chance to crit
-'Bigger is always better'";
+'Bigger is always better'";*/
             // Tooltip.SetDefault(tooltip);
         }
 
@@ -52,7 +52,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
             if (player.GetToggleValue("Tungsten") 
                 && !modPlayer.TerrariaSoul 
-                && modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type)
+                && !modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type)
                 && player.HeldItem.damage > 0 
                 && player.HeldItem.CountsAsClass(DamageClass.Melee) 
                 && (!player.HeldItem.noMelee || FargoGlobalItem.TungstenAlwaysAffects.Contains(player.HeldItem.type)) 

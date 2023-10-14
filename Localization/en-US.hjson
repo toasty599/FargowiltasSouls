@@ -39,7 +39,7 @@ Mods: {
 			Meteor: A meteor shower initiates every few seconds while attacking
 			Miner: Increased mining speed
 			Molten: Inferno ring does more damage and can affect enemies in slightly larger range
-			Monk: No upgrade
+			Monk: Dash base damage doubled
 			Mythril: Max attack speed bonus increased and lasts longer
 			Nebula: Buff booster stack cap increased to 3
 			Necro: Graves float
@@ -2249,6 +2249,7 @@ Mods: {
 					Allows the ability to dash
 					Double tap a direction
 					You are immune to damage and debuffs for half a second after dashing
+					Dash through an enemy to deal massive damage
 					Dash cooldown is twice as long as normal dashes
 					Lightning Aura can now crit and strikes faster
 					'Return to Monk'
@@ -5986,6 +5987,7 @@ Mods: {
 			MeteorFlame.DisplayName: Meteor Flame
 			RainUmbrella.DisplayName: Rain Umbrella
 			BeeFlower.DisplayName: Bee Flower
+			MonkDashDamage.DisplayName: Monk Dash Damage
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
