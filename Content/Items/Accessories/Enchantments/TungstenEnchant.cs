@@ -50,9 +50,19 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
             modPlayer.TungstenEnchantItem = item;
 
-            if (player.GetToggleValue("Tungsten") && !modPlayer.TerrariaSoul && player.HeldItem.damage > 0 && player.HeldItem.CountsAsClass(DamageClass.Melee) && (!player.HeldItem.noMelee || FargoGlobalItem.TungstenAlwaysAffects.Contains(player.HeldItem.type)) && player.HeldItem.pick == 0 && player.HeldItem.axe == 0 && player.HeldItem.hammer == 0)
+            if (player.GetToggleValue("Tungsten") 
+                && !modPlayer.TerrariaSoul 
+                && modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type)
+                && player.HeldItem.damage > 0 
+                && player.HeldItem.CountsAsClass(DamageClass.Melee) 
+                && (!player.HeldItem.noMelee || FargoGlobalItem.TungstenAlwaysAffects.Contains(player.HeldItem.type)) 
+                && player.HeldItem.pick == 0 
+                && player.HeldItem.axe == 0 
+                && player.HeldItem.hammer == 0
+                )
             {
-                modPlayer.Player.GetAttackSpeed(DamageClass.Melee) -= 0.5f;
+                float penalty = 0.5f;
+                modPlayer.Player.GetAttackSpeed(DamageClass.Melee) -= penalty;
             }
         }
 
@@ -150,8 +160,9 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
             bool forceBuff = modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type);
 
-            modifiers.FinalDamage *= forceBuff ? 1.15f : 1.1f;
+            modifiers.FinalDamage *= 1.15f;
 
+            /* fuck you tungsten enchant
             int max = forceBuff ? 2 : 1;
             for (int i = 0; i < max; i++)
             {
@@ -163,7 +174,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                 {
                     modifiers.SetCrit();
                 }
-            }
+            } */
         }
 
         public override void AddRecipes()
@@ -174,7 +185,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                 .AddIngredient(ItemID.TungstenGreaves)
                 .AddIngredient(ItemID.TungstenBroadsword)
                 .AddIngredient(ItemID.Ruler)
-                .AddIngredient(ItemID.CandyCaneSword)
+                .AddIngredient(ItemID.Rockfish)
 
                 .AddTile(TileID.DemonAltar)
                 .Register();
