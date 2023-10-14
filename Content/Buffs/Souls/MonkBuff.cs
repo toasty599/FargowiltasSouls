@@ -1,7 +1,10 @@
-﻿using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,7 +36,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             //horizontal
             if (!vertical)
             {
-                player.FargoSouls().MonkDashing = 30;
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                modPlayer.MonkDashing = 30;
                 player.velocity.X = 14 * (float)direction;
 
                 player.immune = true;
@@ -41,6 +45,12 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 player.immuneTime = Math.Max(player.immuneTime, invul);
                 player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);
                 player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], invul);
+
+                bool monkForce = modPlayer.ForceEffect(modPlayer.MonkEnchantItem.type);
+
+                Vector2 pos = player.Center;
+                int damage = monkForce ? 1000 : 500;
+                Projectile.NewProjectile(player.GetSource_FromThis(), pos, Vector2.Zero, ModContent.ProjectileType<MonkDashDamage>(), damage, 0);
             }
             else
             {

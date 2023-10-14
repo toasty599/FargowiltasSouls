@@ -39,7 +39,7 @@ Greatly enhances Lightning Aura effectiveness
             //tele thru wall
             modPlayer.ShinobiEffect(hideVisual);
             //monk dash mayhem
-            modPlayer.MonkEffect();
+            modPlayer.MonkEffect(Item);
         }
 
         public override void AddRecipes()

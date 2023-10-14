@@ -14,13 +14,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "叶绿魔石");
 
-            string tooltip =
+            /*string tooltip =
 @"Summons a ring of leaf crystals to shoot at nearby enemies
 Grants a double spore jump
 While using wings, spores will continuously spawn
 Allows the ability to dash slightly
 Double tap a direction
-'The jungle's essence crystallizes around you'";
+'The jungle's essence crystallizes around you'"; */
             // Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
