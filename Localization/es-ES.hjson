@@ -39,7 +39,7 @@ Mods: {
 			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
-			// Monk: No upgrade
+			// Monk: Dash base damage doubled
 			// Mythril: Max attack speed bonus increased and lasts longer
 			// Nebula: Buff booster stack cap increased to 3
 			// Necro: Graves float
@@ -819,7 +819,6 @@ Mods: {
 					Effects of Cell Phone
 					Effects of Flower Boots
 					Effects of Master Ninja Gear
-					Effects of Greedy Ring
 					Effects of Celestial Shell
 					Effects of Shiny Stone
 					Effects of Spelunker potion
@@ -2249,6 +2248,7 @@ Mods: {
 					Allows the ability to dash
 					Double tap a direction
 					You are immune to damage and debuffs for half a second after dashing
+					Dash through an enemy to deal massive damage
 					Dash cooldown is twice as long as normal dashes
 					Lightning Aura can now crit and strikes faster
 					'Return to Monk'
@@ -3663,7 +3663,7 @@ Mods: {
 					Increases max life by 100%, damage for your current weapon class by 50%, and damage reduction by 10%
 					Increases life regen drastically, your cursor causes nearby enemies to take increased damage
 					Grants gravity control, fastfall, and immunity to knockback, almost all Eternity Mode debuffs, and more
-					Uou automatically use mana potions when needed
+					You automatically use mana potions when needed
 					Your attacks create additional attacks, hearts, and inflict a cocktail of Eternity Mode debuffs
 					Increased stats when inflicted with Cursed Inferno or Ichor
 					Press the Debuff Install key to debuff and buff yourself
@@ -3730,7 +3730,7 @@ Mods: {
 					All grappling hooks are more effective and fire homing shots, Greatly enhances all DD2 sentries
 					Your attacks inflict Midas, Enemies explode into needles
 					You violently explode to damage nearby enemies when hurt and revive with 200 HP when killed
-					Effects of Flower Boots and Greedy Ring
+					Effects of Flower Boots
 					'A true master of Terraria'
 					''' */
 			}
@@ -4793,7 +4793,7 @@ Mods: {
 				// DisplayName: Piranha Plant Voodoo Doll
 				/* Tooltip:
 					'''
-					Toggle that will grant all enemies the ability to inflict random debuffs
+					Toggle that will grant all enemies the ability to...
 					'In loving memory of Masochist mode EX. I always hated you.'
 					''' */
 			}
