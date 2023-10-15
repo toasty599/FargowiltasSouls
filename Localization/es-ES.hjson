@@ -39,7 +39,7 @@ Mods: {
 			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
-			// Monk: No upgrade
+			// Monk: Dash base damage doubled
 			// Mythril: Max attack speed bonus increased and lasts longer
 			// Nebula: Buff booster stack cap increased to 3
 			// Necro: Graves float
@@ -69,7 +69,7 @@ Mods: {
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
 			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
-			// Tungsten: Weapon size tripled instead of doubled, melee speed penalty removed, and cooldown reduced
+			// Tungsten: Weapon size tripled instead of doubled, damage bonus increased from 7% to 14%, and cooldown reduced
 			// Turtle: Occasionally recover a projectile block point, number of needles and damage increased
 			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
 			// Vortex: No upgrade
@@ -2249,6 +2249,7 @@ Mods: {
 					Allows the ability to dash
 					Double tap a direction
 					You are immune to damage and debuffs for half a second after dashing
+					Dash through an enemy to deal massive damage
 					Dash cooldown is twice as long as normal dashes
 					Lightning Aura can now crit and strikes faster
 					'Return to Monk'
@@ -2569,9 +2570,9 @@ Mods: {
 				// DisplayName: Tungsten Enchantment
 				/* Tooltip:
 					'''
-					Doubles weapon size but reduces melee speed
+					Doubles melee weapon size
 					Once every 2/3 of a second a projectile will be doubled in size
-					Enlarged projectiles and non-projectile swords deal 15% more damage
+					Enlarged projectiles and non-projectile swords deal 7% more damage
 					'Bigger is always better'
 					''' */
 			}

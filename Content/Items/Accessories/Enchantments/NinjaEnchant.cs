@@ -64,7 +64,7 @@ Increases armor pen by 15
                 .AddIngredient(ItemID.NinjaHood)
                 .AddIngredient(ItemID.NinjaShirt)
                 .AddIngredient(ItemID.NinjaPants)
-                .AddIngredient(ItemID.Rally)
+                .AddIngredient(ItemID.Gi)
                 .AddIngredient(ItemID.Shuriken, 100)
                 .AddIngredient(ItemID.ThrowingKnife, 100)
 

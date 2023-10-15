@@ -39,7 +39,7 @@ Mods: {
 			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			Molten: ""
-			// Monk: No upgrade
+			// Monk: Dash base damage doubled
 			Mythril: 增加最大攻速加成，持续时间更长
 			// Nebula: Buff booster stack cap increased to 3
 			// Necro: Graves float

@@ -50,7 +50,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
             modPlayer.TungstenEnchantItem = item;
 
-            if (player.GetToggleValue("Tungsten") 
+            /*if (player.GetToggleValue("Tungsten") 
                 && !modPlayer.TerrariaSoul 
                 && !modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type)
                 && player.HeldItem.damage > 0 
@@ -63,7 +63,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
             {
                 float penalty = 0.5f;
                 modPlayer.Player.GetAttackSpeed(DamageClass.Melee) -= penalty;
-            }
+            } */
         }
 
         public static float TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
@@ -160,7 +160,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
             bool forceBuff = modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type);
 
-            modifiers.FinalDamage *= 1.15f;
+            modifiers.FinalDamage *= forceBuff ? 1.14f : 1.07f;
 
             /* fuck you tungsten enchant
             int max = forceBuff ? 2 : 1;
