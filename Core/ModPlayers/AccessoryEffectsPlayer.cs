@@ -259,6 +259,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateForbiddenStorm);
             On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateVortex);
         }
+        public override void Unload()
+        {
+            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateForbiddenStorm);
+            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateVortex);
+        }
         public void ActivateForbiddenStorm(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

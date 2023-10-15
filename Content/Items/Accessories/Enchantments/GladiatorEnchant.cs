@@ -46,6 +46,10 @@ Grants knockback immunity when you are facing the attack
         {
             On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateGladiatorBanner);
         }
+        public override void Unload()
+        {
+            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateGladiatorBanner);
+        }
         public void ActivateGladiatorBanner(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
